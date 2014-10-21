@@ -1,0 +1,697 @@
+T 1409520151 18<22lbstr>	sorry
+T 1409520154 18<22forcer>	:-)
+T 1409520157 18<22forcer>	No worries
+T 1409520166 18<22lbstr>	so apparently hook dosen't work
+T 1409520184 18<22lbstr>	or it's run to earlity
+T 1409520190 22*	oleo is now known as Guest65099
+T 1409520191 18<22forcer>	lbstr: If you type M-: (vlad-cc-style) in that buffer, does indentation work correctly?
+T 1409520213 18<22lbstr>	no
+T 1409520217 18<22lbstr>	i tried that before
+T 1409520219 18<22lbstr>	and now
+T 1409520233 19*	19hellome (~lua@192.73.239.25) has joined #emacs
+T 1409520236 18<22lbstr>	I used to have this problem in the past
+T 1409520246 18<22forcer>	That's very strange.
+T 1409520297 19*	19oleo__ (~oleo@xdsl-84-44-178-169.netcologne.de) has joined #emacs
+T 1409520302 18<19taylanub>	tadni: IIRC it was somehow solved for GCC and IIRC rms approved of an Elisp FFI recently; don't quote me on either
+T 1409520316 22*	oleo__ is now known as oleo
+T 1409520322 18<27tadni>	I still find it strange that Emacs has a rss feed reader, but not a standardized library to deal with rss ...
+T 1409520341 18<27tadni>	taylanub: Interesting.
+T 1409520345 18<20aidalgol>	Help, I'm trapped in a two-day agile training course!
+T 1409520358 18<29ijp>	tadni: well, in theory, rss is just xml
+T 1409520368 23*	23Guest65099 has quit (23Ping timeout: 245 seconds23)
+T 1409520377 18<27tadni>	ijp: True, but still it's not /just/ it though.
+T 1409520379 18<22lbstr>	forcer: and code in hpp is syntax correct, so there's no unmatched { or } that messes things up
+T 1409520408 18<27tadni>	I guess I should stop being lazy and just look into it more in any accounts, if I want to write emms-podcast eventually anyways.
+T 1409520445 18<29ijp>	I thought emms already handled podcasts
+T 1409520459 18<22forcer>	aidalgol: I hope you value the individuals you get to interact there so you can learn how to write working software by collaborating with the customer while responding to change!
+T 1409520463 18<27tadni>	I should have set guile to compile with multiple cores ... this is taking forever.
+T 1409520475 18<27tadni>	ijp: That's news to me. Not that I'm aware.
+T 1409520485 18<29ijp>	tadni: I can't even get guile master to build on this computer
+T 1409520517 23*	23hiroakip has quit (23Ping timeout: 245 seconds23)
+T 1409520521 18<27tadni>	ijp: Emms handles internet radio and just added support for gnu.fm, maybe you're thinking of that?
+T 1409520527 18<29bipt>	tadni, don't worry, parallel builds also take forever
+T 1409520578 19*	19reim (~riQui@77-173-103-149.ip.telfort.nl) has joined #emacs
+T 1409520602 18<22forcer>	lbstr: I'm at a loss, sorry.
+T 1409520617 23*	23blivande has quit (23Ping timeout: 245 seconds23)
+T 1409520644 18<27tadni>	Podcasts and an audiomixer are the only two things I can think of that I think Emms needs, unless/until Emacs can support embedding video ... at that point, maybe a specific movie browser or something.
+T 1409520671 18<27tadni>	Emms is really more a music player, than a proper multimedia system, as advertised. :^P
+T 1409520676 18<20aidalgol>	forcer: we started with making a "working agreement", which was just usual politeness, bit the instructor waited for people to "suggest" the obvious. it's like primary school.
+T 1409520720 18<22lbstr>	forcer: :(
+T 1409520725 18<22forcer>	aidalgol: Sounds like someone following rules without understanding them.
+T 1409520733 19*	19jatt (~user@HSI-KBW-149-172-39-37.hsi13.kabel-badenwuerttemberg.de) has joined #emacs
+T 1409520738 23*	23jatt has quit (23Changing host23)
+T 1409520738 19*	19jatt (~user@unaffiliated/jatt) has joined #emacs
+T 1409520764 18<24t-ask>	I need a hint. If I C-x C-b the list opens in another window while the cursor stays in the current window. Is this the normal behavior or did I accidentally did something wrong?
+T 1409520769 18<29ijp>	forcer: we call them robots
+T 1409520775 18<27tadni>	bipt: I remember when I tried building Guile on my 10 y/o Compaq. You could hear it churning 2 rooms away, for like 10 hours.
+T 1409520781 18*	29ijp pats rudybot on the head avuncularly
+T 1409520784 19*	19hiroakip (~hiroaki@ip4d144dd7.dynamic.kabel-deutschland.de) has joined #emacs
+T 1409520824 18<22lbstr>	forcer: it only happens in that particular file
+T 1409520827 18<22forcer>	t-ask: Seems to be the normal behavior.
+T 1409520828 18<22lbstr>	in new file it works
+T 1409520833 18<22lbstr>	mabe i need to untabify
+T 1409520835 18<22lbstr>	or smth
+T 1409520867 18<29ijp>	lbstr: try M-x normal-mode in that buffer
+T 1409520895 19*	19blivande (~Chw@189.193.69.170) has joined #emacs
+T 1409520906 23*	23xhrl has quit (23Read error: Connection reset by peer23)
+T 1409520913 18<29ijp>	you say this was in your config, so this probably won't have any effect
+T 1409520920 19*	19xhrl (~ThomasW@d108-172-49-178.bchsia.telus.net) has joined #emacs
+T 1409520921 19*	19jchochli (~jchochli@c-71-234-80-196.hsd1.ct.comcast.net) has joined #emacs
+T 1409520922 23*	23Remaille has quit (23Remote host closed the connection23)
+T 1409520928 18<22lbstr>	ijp: yep
+T 1409520929 18<22lbstr>	no effect
+T 1409520939 18<29ijp>	weird that it only affects one file
+T 1409520953 18<24t-ask>	Mmm, then I always have to change the window with C-x o before I can select the buffer-list? I can't imagine that's the idea behind. Do I miss something here?
+T 1409520972 18<22lbstr>	ijp: all existing files
+T 1409520987 23*	23lukas123 has quit (23Ping timeout: 255 seconds23)
+T 1409520994 18<29ijp>	wat
+T 1409521017 18<22lbstr>	ijp: i jsut mark-whole buffer
+T 1409521018 18<22forcer>	t-ask: C-x C-b used to not allow interaction, I assume it just hasn't been updated accordingly. You might want to file a bug report about that.
+T 1409521024 18<22lbstr>	C-M\
+T 1409521026 18<22lbstr>	C-M-\
+T 1409521029 18<22lbstr>	for reindent
+T 1409521031 18<29ijp>	lbstr: are there directory locals that could affect this?
+T 1409521031 18<22lbstr>	and it werks ;)
+T 1409521045 18<29amitp>	t-ask: I find that a lot of the defaults aren't what I like, and I rebind things .. I used bs-show for a while instead of list-buffers but have since switched to helm
+T 1409521055 18<27tadni>	ijp: Yeah, looked into it and from what I can tell no emms-podcast. A bit of a bummer, you briefly got my hopes up. :^P
+T 1409521056 18<22lbstr>	ijp: actually i recreated my .emacs from scratch (it used to be to messy)
+T 1409521060 18<22forcer>	t-ask: In the meantime, either write your own function that does (pop-to-buffer (list-buffers-noselect)), or bind C-x C-b to ibuffer, which offers a lot of the same functionality.
+T 1409521069 18<22lbstr>	and praobably my old config had some different identation rules
+T 1409521080 18<22lbstr>	and those files didn't follow vlad-cc-style
+T 1409521092 18<22lbstr>	after reindenting it works :)
+T 1409521097 18<29ijp>	lbstr: directory locals are different from your .emacs
+T 1409521120 18<29ijp>	they are specific rules for a directory and subdirs that you might include in a particular project
+T 1409521137 18<22lbstr>	noo
+T 1409521143 18<22lbstr>	i have never redefined them
+T 1409521145 18<22lbstr>	in any direcotry
+T 1409521146 19*	19MrWoohoo (~MrWoohoo@pool-74-100-140-127.lsanca.fios.verizon.net) has joined #emacs
+T 1409521148 18<22lbstr>	*directory
+T 1409521170 18<22lbstr>	ijp: the problem was - in exisitng files tabwith was 2 spaces, i current rules it is 4 spaces
+T 1409521178 18<22lbstr>	it acutally always worked
+T 1409521186 23*	23punchagan has quit (23Quit: Leaving.23)
+T 1409521189 19*	19Frozenlo` (~user@96.127.226.45) has joined #emacs
+T 1409521192 18<22lbstr>	but since the spacewidth was different i thought it's a gnu-style-indent :)
+T 1409521199 18<22lbstr>	that's actually pretty funny
+T 1409521200 18<24t-ask>	amitp: I'm a bit confused, because I want to delete some buffers in one turn and therefore I thought the cursor is directly set into that window...
+T 1409521200 18<29ijp>	well, excellent
+T 1409521202 18<29ijp>	,next
+T 1409521202 18<22fsbot>	Another satisfied customer. NEXT!
+T 1409521203 23*	23jchochli has quit (23Ping timeout: 255 seconds23)
+T 1409521213 18<22lbstr>	thanks guys :D
+T 1409521228 19*	19punchagan (~punchagan@rrcs-72-45-207-98.nys.biz.rr.com) has joined #emacs
+T 1409521240 18<22lbstr>	*in current rules it is 4 spaces
+T 1409521267 18<24t-ask>	forcer: you think that's a bug? Not that I report something which is basic knowledge and I just set something wrong...
+T 1409521392 23*	23Frozenlock has quit (23Ping timeout: 245 seconds23)
+T 1409521399 18<22forcer>	t-ask: In my version of Emacs (recent trunk), M-x list-buffers uses `display-buffer', which does not move point there. As M-x list-buffers now provides interactive functions, that feels wrong, so yes, I'd call that a "bug" (or rather, an oversight or misfeature).
+T 1409521442 23*	23fold has quit (23Ping timeout: 245 seconds23)
+T 1409521498 19*	19raymondillo (~raythepro@cpc7-seve22-2-0-cust715.13-3.cable.virginm.net) has joined #emacs
+T 1409521519 19*	19kek (~kek@109.58.146.183.bredband.tre.se) has joined #emacs
+T 1409521530 19*	19fold (~JimmyRcom@66-169-184-128.dhcp.ftwo.tx.charter.com) has joined #emacs
+T 1409521548 23*	23blivande has quit (23Ping timeout: 260 seconds23)
+T 1409521564 23*	23kembrek has quit (23Quit: Lost terminal23)
+T 1409521579 18<20aidalgol>	dang it, I lost a response in the scroll back 
+T 1409521584 19*	19hifitim (~tim@cpe-173-172-1-11.tx.res.rr.com) has joined #emacs
+T 1409521645 23*	23rand000 has quit (23Quit: leaving23)
+T 1409521700 18<29ijp>	rudybot: seen anyone respond to aidalgol?
+T 1409521700 18<24rudybot>	ijp: anyone was seen changing their nick to yates in nc-71-54-137-147.dhcp.embarqhsd.net one year ago, and then anyone was seen changing their nick to abbe in badti.me five weeks ago
+T 1409521710 23*	23SamB has quit (23Ping timeout: 250 seconds23)
+T 1409521715 18<29ijp>	RIP birny
+T 1409521773 23*	23kek has quit (23Ping timeout: 240 seconds23)
+T 1409521817 23*	23pkkm has quit (23Ping timeout: 245 seconds23)
+T 1409521853 23*	23blueingr1ss has quit (23Ping timeout: 240 seconds23)
+T 1409521903 19*	19pkkm (~pkkm@dcs171.neoplus.adsl.tpnet.pl) has joined #emacs
+T 1409521909 19*	19blueingress (~master@113.90.201.137) has joined #emacs
+T 1409521948 19*	19uxfi (~uxfi@unaffiliated/uxfi) has joined #emacs
+T 1409522042 23*	23ijp has quit (23Ping timeout: 245 seconds23)
+T 1409522131 19*	19Code_Man` (~Code_Man@2a02:1205:5059:afc0:223:54ff:fe38:82c2) has joined #emacs
+T 1409522153 18<24t-ask>	forcer: Could you do me a favor and report this buffer-list issue? I tried to use the build-in bug report and found out I didn't setup my mail within EMacs. I'm fairly new to Emacs and I certainly want to setup my mail settings later without being in hurry.
+T 1409522204 19*	19amitp1 (~amitp@c-24-23-138-160.hsd1.ca.comcast.net) has joined #emacs
+T 1409522229 23*	23ndrei has quit (23Ping timeout: 240 seconds23)
+T 1409522253 23*	23amitp has quit (23Ping timeout: 240 seconds23)
+T 1409522358 23*	23Prathamesh has quit (23Quit: My MacBook Pro has gone to sleep. ZZZzzz…23)
+T 1409522364 19*	19epong (~epong@cpe-66-108-243-70.nyc.res.rr.com) has joined #emacs
+T 1409522383 23*	23aidalgol has quit (23Quit: Yaaic - Yet another Android IRC client - http://www.yaaic.org23)
+T 1409522426 31<chz>30	Any one use company-mode here??
+T 1409522427 18<22fsbot>	Definitely
+T 1409522437 18<24t-ask>	I have another question. often Emacs opens a new window/buffer for different things I M-x. Then I just press q to leave this buffer, while the buffer is still open. Is this the right workflow? Using q to leave the buffer and manually C-x k the buffer later on?
+T 1409522494 19*	19swgillespie (~textual@c-76-104-129-218.hsd1.wa.comcast.net) has joined #emacs
+T 1409522497 18<24t-ask>	or is there another shortcut to close and kill the buffer in one turn?
+T 1409522497 23*	23subopt has quit (23Remote host closed the connection23)
+T 1409522520 18<24t-ask>	sure C-x k ... but is this the recommended way?
+T 1409522532 18<24amitp1>	t-ask: I have that same annoyance and have not found a solution yet. There's electric-help: http://www.emacswiki.org/emacs/ElectricHelp and winner-mode you might try
+T 1409522537 22*	amitp1 is now known as amitp
+T 1409522542 19*	19subopt (~eholbroo@inet-hqmc07-o.oracle.com) has joined #emacs
+T 1409522636 19*	19pdcawley (~pdcawley@ip-217.146.110.1.merula.net) has joined #emacs
+T 1409522642 22*	kikkersoep is now known as kikkerbrood
+T 1409522643 23*	23kikkerbrood has quit (23Changing host23)
+T 1409522643 19*	19kikkerbrood (~kikkerbro@unaffiliated/kikkerbrood) has joined #emacs
+T 1409522652 23*	23epong has quit (23Ping timeout: 250 seconds23)
+T 1409522691 23*	23mgaare_ has quit (23Ping timeout: 246 seconds23)
+T 1409522735 23*	23reim has quit (23Quit: This computer has gone to sleep23)
+T 1409522739 19*	19mgaare (~quassel@75.127.15.55) has joined #emacs
+T 1409522779 18<24t-ask>	amitp: thanks good hints
+T 1409522812 23*	23mparlaktuna has quit (23Ping timeout: 245 seconds23)
+T 1409522822 18<24t-ask>	I want want to migrate my thunderbird Mails to Emacs. Is there an recommended package and way to do it?
+T 1409522944 18<19bremner>	,mail
+T 1409522945 18<22fsbot>	bremner, [->] mailreaders -- [0] gnus, mew, mh-e, rmail, vm, wanderlust and cmail
+T 1409522945 18<22fsbot>	[1] M-x term RET RET mutt RET,
+T 1409522945 18<22fsbot>	[2] mu4e and notmuch,
+T 1409522945 18<22fsbot>	[3] Harder than you think
+T 1409522984 23*	23halvorg has quit (23Quit: Lost terminal23)
+T 1409522991 18*	27tadni might port his gmail from GNUS to Mu4e.
+T 1409523014 19*	19coventry (~user@cpe-74-78-222-234.twcny.res.rr.com) has joined #emacs
+T 1409523085 23*	23seschwar has quit (23Quit: :qa23)
+T 1409523184 19*	19frozenlock (~user@96.127.226.45) has joined #emacs
+T 1409523393 18<29coventry>	On large enough screens, if I have two windows open side by side, as from C-x 3, and then I do C-x 4 b, emacs opens another window below the current one, as if I'd done C-x 2.  How can I persuade it to display the buffer in the other existing window?
+T 1409523396 23*	23aburgess has quit (23Ping timeout: 260 seconds23)
+T 1409523414 19*	19cluck (~nil@132.49.103.87.rev.vodafone.pt) has joined #emacs
+T 1409523441 19*	19fstd_ (~fstd@unaffiliated/fisted) has joined #emacs
+T 1409523444 18<29coventry>	Ah, split-height-threshold
+T 1409523464 23*	23borkdude has quit (23Quit: Computer has gone to sleep.23)
+T 1409523541 19*	19Prathamesh (~textual@201.6.227.112) has joined #emacs
+T 1409523547 19*	19SamB (SamB@64-121-19-108.c3-0.upd-ubr1.trpr-upd.pa.cable.rcn.com) has joined #emacs
+T 1409523561 23*	23thomasfuston has quit (23Read error: Connection reset by peer23)
+T 1409523587 23*	23pkkm has quit (23Ping timeout: 245 seconds23)
+T 1409523592 23*	23jatt has quit (23Remote host closed the connection23)
+T 1409523602 23*	23raph_ael has quit (23Remote host closed the connection23)
+T 1409523623 19*	19raph_ael (~raphael@noir.cyberie.be) has joined #emacs
+T 1409523676 23*	23fstd has quit (23Ping timeout: 260 seconds23)
+T 1409523676 22*	fstd_ is now known as fstd
+T 1409523816 23*	23SamB has quit (23Ping timeout: 260 seconds23)
+T 1409523839 23*	23bu^ has quit (23Quit: Leaving23)
+T 1409524008 18<25avshalom>	tadni: why would you want to do something like that?
+T 1409524034 23*	23veebers has quit (23Remote host closed the connection23)
+T 1409524057 18<27tadni>	avshalom: Seems less prone to lag on me.
+T 1409524086 18<25avshalom>	t-ask: my advice is to set up gnus. this is easier said than done, but if you have gmail, then there are some complete web page tutorials
+T 1409524092 23*	23hrehf has quit (23Ping timeout: 245 seconds23)
+T 1409524103 18<25avshalom>	t-ask: you can simply set up IMAP and gnus to do the transfer
+T 1409524123 19*	19Rptx (~user@190.204.110.132) has joined #emacs
+T 1409524152 18<25avshalom>	tadni: are you concerned about slow interaction with mail, or the fact that gnus locks your emacs session?  if the latter, then you can run gnus separately
+T 1409524154 19*	19aidalgol (~yaaic@pdpc/supporter/student/aidalgol) has joined #emacs
+T 1409524179 18<19bremner>	that seems to lose some important advantages of having mail in emacs
+T 1409524208 23*	23aidalgol has quit (23Client Quit23)
+T 1409524269 18<25avshalom>	bremner: i agree.  i did play with mu4e a bit, seems ok, but didn't seem to suit me.   
+T 1409524306 23*	23gtrak has quit (23Ping timeout: 264 seconds23)
+T 1409524324 18<29amitp>	mu4e broke for me at some point and I just never got around to fixing it :(
+T 1409524324 18<24t-ask>	avshalom: I have no gmail, just my own mail server and all Mails in tunderbird. I guess, I need to "migrate" the Thunderbird mail format to mu one's then. While it's difficult to find the HowTo for this task..
+T 1409524342 23*	23swgillespie has quit (23Quit: My MacBook Pro has gone to sleep. ZZZzzz…23)
+T 1409524353 18<24t-ask>	mu4e was what I had in mind. currently the authors website seams to be broken
+T 1409524357 23*	23yatish27 has quit (23Remote host closed the connection23)
+T 1409524358 19*	19epong (~epong@cpe-66-108-243-70.nyc.res.rr.com) has joined #emacs
+T 1409524377 18<19bremner>	I'm the wrong guy to ask about mu4e, since I work on a competitor.
+T 1409524382 18<24t-ask>	last mu4e git is 1 year old
+T 1409524389 19*	19yatish27 (~yatish27@ncsu-nat1-8.ncstate.net) has joined #emacs
+T 1409524390 18<25avshalom>	t-ask: i would go thru an imap server
+T 1409524396 18<19bremner>	not exactly a rival, but I don't know as much about mu4e as I should
+T 1409524412 18<25avshalom>	so, up-load all your emails from thunderbird to an imap, then download them with gnus
+T 1409524437 18<24t-ask>	bremner: there is no competition, while I still think Opera Mail was had the best keyboard interface
+T 1409524437 23*	23yrdz has quit (23Remote host closed the connection23)
+T 1409524455 18<25avshalom>	bremner:  which program?
+T 1409524464 18<19bremner>	t-ask: huh? are there is no competition to mu4e?
+T 1409524467 18<19bremner>	avshalom: notmuch
+T 1409524498 18<29cluck>	after all that brouhaha we got neither nicferrier's nor johnw's code upstream. i wanted non-blocking dired and gnus :(
+T 1409524515 18<29amitp>	notmuch is the one I was considering switching to after breaking my mu4e setup, but then I realized I get ~2 emails a day and it's just a low priority for me
+T 1409524525 18<19bremner>	t-ask: pretty sure there was a new upstream release of mu a few months ago. Maybe you have the wrong git?
+T 1409524531 19*	19yrdz (~user@unaffiliated/p-adams/x-7117614) has joined #emacs
+T 1409524534 18<24t-ask>	bremner: The best cleint would be like Opera Mail did it. tagging mails and no folders at all
+T 1409524551 18<29amitp>	e.g. "I haven't tried notmuch because I get not much email"
+T 1409524558 18<19bremner>	t-ask: *shrug* both mu4e and notmuch do that
+T 1409524590 18<24t-ask>	bremner: hehe, that's why I thought of mu/mu4e
+T 1409524603 18<25avshalom>	bremner: i should give notmuch a try. i was (finally, after moving to debian) able to install it.  but it coincided with realizing that it's easy enough to have an IMAP server on my laptop
+T 1409524619 18<25avshalom>	bremner: i'm sure your search is better
+T 1409524638 18<24t-ask>	I guess, my bigger problem is. How to get all my Thunderbird mails migrated to mu :)
+T 1409524652 18<25avshalom>	t-ask: imap, again
+T 1409524653 23*	23yatish27 has quit (23Ping timeout: 240 seconds23)
+T 1409524680 18<25avshalom>	t-ask: these programs all speak IMAP.  unless your mail is in Maildir, or perhaps mbox, i would go through IMAP.
+T 1409524690 18<27larrybolt>	day 1 of learning emacs, 5h have passed,  I've written tons of commands on sheets of paper, every 10 minutes had to look up how to do something, realised using a starters pack sucks and now trying to figure out if I can use emacs as my terminal
+T 1409524696 23*	23wizzo has quit (23Quit: My MacBook has gone to sleep. ZZZzzz…23)
+T 1409524720 18<25avshalom>	larrybolt: seems "typical"  ;-)
+T 1409524727 18<19bremner>	avshalom: yeah, but if you're happy with gnus, why switch?
+T 1409524734 23*	23dromi has quit (23Quit: Leaving.23)
+T 1409524739 18<25avshalom>	bremner: *gulp* because it's slow  :-)
+T 1409524741 19*	19Ethan- (~Ethan-@60-248-176-37.HINET-IP.hinet.net) has joined #emacs
+T 1409524743 18<19bremner>	well, yeah.
+T 1409524745 23*	23Code_Man` has quit (23Ping timeout: 260 seconds23)
+T 1409524746 18<24t-ask>	larrybolt: be prepared, It'll will take some hours more .)
+T 1409524748 19*	19SamB (~SamB@64-121-19-108.c3-0.upd-ubr1.trpr-upd.pa.cable.rcn.com) has joined #emacs
+T 1409524799 18<25avshalom>	bremner: i have changed my expectations for working with it.  i have pretty "normal" email, nothing huge, so it's ok.  I just try to keep my INBOX reasonable, and if I have to enter a large maildir, I simply prepare to wait.
+T 1409524806 18<24t-ask>	avshalom: so, You mean I need to transfer all my local mails via ??? to IMAP?
+T 1409524821 23*	23tils`` has quit (23Ping timeout: 255 seconds23)
+T 1409524824 18<24Denommus>	larrybolt: emacs -nw or start emacs with emacs --daemon and use emacsclient -t
+T 1409524825 18<19bremner>	t-ask: if you have mboxes, you can convert them to maildirs
+T 1409524829 18<24t-ask>	avshalom: for each mail and mail alias another IMAP server?
+T 1409524854 18<25avshalom>	t-ask:  unless they are in Maildir or mbox, then there are ways to read directly.   I am suggesting something that is going to work, while you sleep/drink beer, or whatever 
+T 1409524870 23*	23yrdz has quit (23Remote host closed the connection23)
+T 1409524925 18<25avshalom>	bremner: i still use USENET.  gnus becomes a no-brainer.  oh, i am a big fan of alpine (go huskies) and so i don't do everything in gnus
+T 1409524962 18<25avshalom>	sometimes is just so..... heavy.
+T 1409525001 18<24t-ask>	avshalom: It's just that I can't imagine how this practically works. I mean I have hundreds of email aliases and different pop3/smtp accounts everything mixed into this Thunderbird format... Searching the web for hours last year just led to frustration :(
+T 1409525003 Python interface unloaded
+T 1412760441 19*	19Now talking on #emacs
+T 1412760441 29*	29Topic for #emacs 29is: The price we pay for extensibility is madness. The evidence of this is the fact that we rarely perceive extensibility to have a price. | Emacs 24.3.94 (24.4 fifth pretest) | Don't use nicks for away status | No public logging! What happens in #emacs stays in #emacs | No racism, sexism, xenophobia, or asshattery.
+T 1412760441 29*	29Topic for #emacs 29set by wgreenhouse!~wgreenhou@fsf/member/wgreenhouse 29at Sun Oct  5 06:23:14 2014
+T 1412760441 22*	#emacs :http://www.emacswiki.org/EmacsChannel
+T 1412760447 19*	19sinopeus (~sinopeus@193.190.253.145) has joined #emacs
+T 1412760450 18<25cYmen>	Faulty: Yes, but people also learn C++ because they think it makes their chests feel hairer and their voices deeper. :p
+T 1412760454 18<28ashi>	I would like to disassociate Meta from [esc]. What is the best way of doing this? (sorry, I did try searching for this myself)
+T 1412760489 23*	23przl has quit (23Ping timeout: 258 seconds23)
+T 1412760581 18<25cYmen>	Faulty: yay, can't read the info file because there is no gzip on this windows. XD
+T 1412760598 18<29Faulty>	cYmen: haha :D
+T 1412760606 18<24deego>	,coding system
+T 1412760607 18<19taylanub>	ashi: if using GUI frames, like X11, you can bind "<escape>".  if that's bound, it won't be auto-translated to Meta anymore.
+T 1412760607 18<22fsbot>	Try:  CodingSystems erc-coding-system SelectingTheRightCodingSystem http://searchhealthit.techtarget.com/definition/computer-assisted-coding-system-CACS
+T 1412760622 18<24deego>	Kurvivor: ^^ explore that topic :)
+T 1412760626 18<19taylanub>	ashi: if using a terminal emulator, then the settings of the term emu would come into play... dunno
+T 1412760682 23*	23jaoja has quit (23Ping timeout: 246 seconds23)
+T 1412760699 23*	23drdanmaku has quit (23Quit: Connection closed for inactivity23)
+T 1412760709 19*	19h0bbit (~vedang@182.72.122.6) has joined #emacs
+T 1412760767 23*	23sinopeus has quit (23Ping timeout: 272 seconds23)
+T 1412760818 19*	19mkletzan (mkletzan@nat/redhat/x-djkunnlibkzjmkeh) has joined #emacs
+T 1412760821 23*	23popeye92 has quit (23Quit: Leaving.23)
+T 1412761020 19*	19dromi (~john@wireless-conference.science.ku.dk) has joined #emacs
+T 1412761050 19*	19przl (~przlrkt@80.82.202.196) has joined #emacs
+T 1412761057 23*	23punchagan has quit (23Quit: Leaving.23)
+T 1412761059 19*	19lavokad (~user@81.202.73.159.dyn.user.ono.com) has joined #emacs
+T 1412761118 23*	23julienXX has quit (23Quit: Textual IRC Client: www.textualapp.com23)
+T 1412761126 19*	19punchagan (~punchagan@117.195.153.67) has joined #emacs
+T 1412761129 18<29Faulty>	I'm beginning to develop a fondness for org-mode. If only it could cuddle me too.
+T 1412761156 18<19taylanub>	*org-mode blushes*
+T 1412761164 18<24deego>	Faulty: submit a patch!
+T 1412761204 18<28ashi>	Print out the org-mode source on a body length pillow. We won't judge you.
+T 1412761205 18<19wasamasa>	HisaoNakai: here's the thread in question btw: https://groups.google.com/forum/#!topic/qilang/HBBjtIxegFY
+T 1412761244 19*	19vijaykiran (~user@213.208.206.28) has joined #emacs
+T 1412761255 18<29Faulty>	ashi: I even know how to get that ordered online.
+T 1412761258 23*	23ndrei has quit (23Ping timeout: 272 seconds23)
+T 1412761449 19*	19julienXX (~textual@pha75-12-82-245-84-236.fbx.proxad.net) has joined #emacs
+T 1412761450 23*	23saimazoon (23~user@81.60.135.194.dyn.user.ono.com) has left #emacs (23"ERC Version 5.3 (IRC client for Emacs)"23)
+T 1412761474 19*	19fakedrake (~user@ppp046177082047.access.hol.gr) has joined #emacs
+T 1412761480 19*	19sinopeus (~sinopeus@193.190.253.145) has joined #emacs
+T 1412761589 23*	23ananthakumaran1 has quit (23Quit: Leaving.23)
+T 1412761605 19*	19etehtsea (~kes@5.18.134.46) has joined #emacs
+T 1412761614 19*	19pt1 (~pt1@62.209.164.18) has joined #emacs
+T 1412761644 19*	19cluricst (~cst@59.93.89.95) has joined #emacs
+T 1412761700 19*	19[6502] (58959a57@gateway/web/freenode/ip.88.149.154.87) has joined #emacs
+T 1412761714 19*	19popsch (~k@188.20.152.214) has joined #emacs
+T 1412761733 23*	23ivan-kanis has quit (23Ping timeout: 240 seconds23)
+T 1412761736 18<22[6502]>	hello... how can I access the current line number in regexp replace using \, for an elisp replacement?
+T 1412761740 23*	23tlync_ has quit (23Read error: Connection reset by peer23)
+T 1412761747 19*	19tlync (~tlync@101.110.31.120) has joined #emacs
+T 1412761773 18<26popsch>	emacs 24.3.1 hangs for no apparent reason on (x-get-selection-internal 'SECONDARY 'UTF8_STRING)
+T 1412761786 19*	19dafo (~dafo@141.58.61.15) has joined #emacs
+T 1412761793 18<22[6502]>	tried with \#. but tells me the symbol is not defined
+T 1412761840 23*	23odirus has quit (23Quit: Leaving23)
+T 1412761852 18<26popsch>	any ideas what I can do about this?
+T 1412761870 23*	23vijaykiran has quit (23Remote host closed the connection23)
+T 1412761876 23*	23psy_ has quit (23Ping timeout: 260 seconds23)
+T 1412761877 23*	23przl has quit (23Ping timeout: 244 seconds23)
+T 1412761916 22*	{cms}` is now known as {cms}
+T 1412761940 19*	19jaoja (31cee5ae@gateway/web/freenode/ip.49.206.229.174) has joined #emacs
+T 1412761941 23*	23dagda1 has quit (23Quit: Textual IRC Client: www.textualapp.com23)
+T 1412761964 18<22[6502]>	thanks anyway... worked around by not using elisp expression for substitution and making two substitutions instead
+T 1412761973 18<26popsch>	sometimes x-get-selection-internal throws this error: (error "Timed out waiting for reply from selection owner")
+T 1412761974 23*	23[6502] has quit (23Client Quit23)
+T 1412762008 19*	19ablepharus (~user@pD9E305AC.dip0.t-ipconnect.de) has joined #emacs
+T 1412762048 23*	23frigulus` has quit (23Remote host closed the connection23)
+T 1412762061 19*	19frigulus` (~user@ool-4351d976.dyn.optonline.net) has joined #emacs
+T 1412762079 18<29Kurvivor>	.CodingSystems
+T 1412762084 18<29Kurvivor>	,CodingSystems
+T 1412762085 18<22fsbot>	Kurvivor, I heard CodingSystems is (info "(emacs)Coding Systems")
+T 1412762093 23*	23jeffisabelle has quit (23Ping timeout: 240 seconds23)
+T 1412762154 19*	19przl (~przlrkt@80.82.202.196) has joined #emacs
+T 1412762171 23*	23aidalgol has quit (23Quit: zZzZzZzZzZzZzZzzzzzzzzzz23)
+T 1412762219 18<24HisaoNakai>	wasamasa: "CL vs. Clojusre vs. Lisp." [sic]
+T 1412762227 18<24HisaoNakai>	what is Lisp there o.O
+T 1412762263 18<19wasamasa>	I have absolutely no idea
+T 1412762276 18<19wasamasa>	the original LISP 1.5?
+T 1412762298 19*	19legoscia (~legoscia@carmen.lysator.liu.se) has joined #emacs
+T 1412762322 18<20ApellA>	or scheme?
+T 1412762342 18<24HisaoNakai>	Probably Scheme ^
+T 1412762356 18<19wasamasa>	because people rather associate CL when speaking of lisp
+T 1412762362 18<24HisaoNakai>	wasamasa: yeah lol
+T 1412762366 18<20ApellA>	yup.
+T 1412762369 18<19wasamasa>	see #lisp and .lisp as file extension
+T 1412762374 18<19wasamasa>	but he already mentioned it
+T 1412762388 18<24HisaoNakai>	precisely
+T 1412762392 18<20ApellA>	I guess the presenter doesn't actually knows much about lisps? :p
+T 1412762393 19*	19bcasiello (~Thunderbi@72.22.182.199) has joined #emacs
+T 1412762411 18<19wasamasa>	or he could of course refer to dialects like his own as lisp
+T 1412762422 18<19wasamasa>	such as shen, picolisp, newlisp, ...
+T 1412762426 18<24HisaoNakai>	lmfao
+T 1412762446 18<24HisaoNakai>	delusions of grandeur much.
+T 1412762447 18<19wasamasa>	this whole slew of lisp implementations feels like a flea zoo to me
+T 1412762467 18<24HisaoNakai>	wasamasa: nuke everything except Scheme, solved.
+T 1412762475 18<24HisaoNakai>	Wahaha~!@
+T 1412762482 18<19wasamasa>	HisaoNakai: then you still have the flea zoo of scheme implementations
+T 1412762484 18<20pjb>	HisaoNakai: the problem has been solved by Common Lisp, which is a common Lisp.
+T 1412762500 18<24HisaoNakai>	o.O
+T 1412762511 18<19wasamasa>	HisaoNakai: which is bad enough because of the effort spent in writing either mostly compatible libraries or exclusive libraries
+T 1412762512 18<19taylanub>	Clojure and Scheme seem just as common as Common Lisp, so not sure about that :P
+T 1412762513 18<24HisaoNakai>	and CL isn't affected by the implementation-jungle problem at all? O_o
+T 1412762518 18<19wasamasa>	HisaoNakai: I hope r7rs fixes that problem
+T 1412762531 18<19wasamasa>	HisaoNakai: it looks to me like the majority is using sbcl these days
+T 1412762546 18<20pjb>	HisaoNakai: See: http://www.lispworks.com/documentation/HyperSpec/Body/01_ab.htm
+T 1412762548 18<19wasamasa>	HisaoNakai: but yes, isn't pretty either to use the "implementation syntax" all over your code
+T 1412762564 18<24HisaoNakai>	wasamasa: implementation syntax? O_o
+T 1412762597 19*	19jatt (~user@HSI-KBW-37-49-6-84.hsi14.kabel-badenwuerttemberg.de) has joined #emacs
+T 1412762598 18<19wasamasa>	HisaoNakai: stuff like #+sbcl
+T 1412762605 18<20pjb>	taylanub: Clojure and Scheme are not common, they are excursions, gratuituously different from the common list decided in common by all involved parties, in the 90s.
+T 1412762607 23*	23wilder_ has quit (23Quit: No Ping reply in 180 seconds.23)
+T 1412762614 18<19wasamasa>	HisaoNakai: to make the delimited piece of code executed if you're using sbcl
+T 1412762617 23*	23jatt has quit (23Changing host23)
+T 1412762618 19*	19jatt (~user@unaffiliated/jatt) has joined #emacs
+T 1412762621 19*	19wilder_ (~quassel@160.80.10.178) has joined #emacs
+T 1412762621 23*	23wilder_ has quit (23Changing host23)
+T 1412762621 19*	19wilder_ (~quassel@kde/developer/wilder) has joined #emacs
+T 1412762626 18<24HisaoNakai>	wasamasa: *disapproval face*
+T 1412762655 18<19wasamasa>	HisaoNakai: so you can have one library and implementation-specific fixes if you can't rely on the standard for parts of it
+T 1412762656 18<20pjb>	HisaoNakai: CL is affected less than other languages.
+T 1412762663 18<29Kurvivor>	what is a good way to add startup configuration specific to either OS or individual machine?
+T 1412762665 23*	23bcasiello has quit (23Ping timeout: 260 seconds23)
+T 1412762667 18<20pjb>	HisaoNakai: you can write "conforming code" in CL.
+T 1412762683 18<20pjb>	Kurvivor: testing for OS or individual machines.
+T 1412762700 18<19taylanub>	pjb: it might have been most common back then because the place was still dominated with MacLisp derivatives, but if you look at the sizes of the Racket and Clojure communities, Common Lisp doesn't seem so common anymore.
+T 1412762717 23*	23popsch (23~k@188.20.152.214) has left #emacs (23"Leaving"23)
+T 1412762717 23*	23vurma has quit (23Quit: Im being sucked through a time vortex!23)
+T 1412762724 19*	19vurma (~kimchi@nl119-148-243.student.uu.se) has joined #emacs
+T 1412762752 18<24HisaoNakai>	is it possible to search for, and highlight, lines which are of the exact same length?
+T 1412762783 23*	23lxsameer has quit (23Ping timeout: 240 seconds23)
+T 1412762783 19*	19didi (~user@unaffiliated/didi/x-1022147) has joined #emacs
+T 1412762784 18<19wasamasa>	HisaoNakai: have an example: https://github.com/Inaimathi/cl-notebook/blob/master/cl-notebook.lisp#L124-L130
+T 1412762786 18<19taylanub>	and smaller Scheme communities added together aren't ignore-worthy either.  like if you put together Chicken, Guile, Gauche, Gambit, and Bigloo...  might've missed some
+T 1412762787 18<24rudybot>	http://tinyurl.com/qzeoadh
+T 1412762799 23*	23mkletzan has quit (23Quit: ERC Version 5.3 (IRC client for Emacs)23)
+T 1412762819 18<19wasamasa>	HisaoNakai: this snippet seems to use implementation-specific ways of accessing the list of arguments for a symbol
+T 1412762839 18<20pjb>	Kurvivor: http://paste.lisp.org/+3330
+T 1412762857 18<24HisaoNakai>	wasamasa: ... o_O
+T 1412762881 18<19wasamasa>	HisaoNakai: how would you solve that portably for all scheme's you want to support your library for?
+T 1412762893 18<19wasamasa>	*schemes
+T 1412762894 18<24HisaoNakai>	...don't principles of good design require implementation/platform-specific stuff to be in a separate file?
+T 1412762903 18<19wasamasa>	if they're large enough, yes
+T 1412762906 23*	23punchagan has quit (23Quit: Leaving.23)
+T 1412762907 18<19wasamasa>	see slime for an example
+T 1412762922 18<19wasamasa>	https://github.com/slime/slime/tree/master/swank
+T 1412762933 23*	23rand000 has quit (23Ping timeout: 272 seconds23)
+T 1412762956 18<24HisaoNakai>	wasamasa: why not choose one implementation which suits the requirements of the project? O.o
+T 1412762981 18<19wasamasa>	HisaoNakai: so you'd write a library for each scheme you want to support?
+T 1412762990 18<24HisaoNakai>	wut o_o
+T 1412763008 18<24HisaoNakai>	No, I'd want a library to be impl.-agnostic >.>
+T 1412763015 18<19wasamasa>	good luck with that
+T 1412763019 23*	23beier` has quit (23Ping timeout: 258 seconds23)
+T 1412763022 18<24HisaoNakai>	dammit lol
+T 1412763037 18<29Kurvivor>	pjb: i remeber seeing in emacs-starter-kit a curious bit, where it (in the end) used one of those variables to form a name of an .el file; i probably would go the same route
+T 1412763052 18<24HisaoNakai>	wasamasa: I'll use, like, R4RS Scheme and then pray everything supports that. xD
+T 1412763055 18<19wasamasa>	I guess that's what someone on ##lisp meant with "The appeal of Scheme is superficial at best"
+T 1412763061 18<19wasamasa>	HisaoNakai: eww, that's outdated
+T 1412763072 18<19wasamasa>	HisaoNakai: pretty much anything's in use is r5rs or higher
+T 1412763087 18<24HisaoNakai>	wasamasa: the RnRS es aren't backwards compatible?
+T 1412763088 23*	23zakame has quit (23Ping timeout: 258 seconds23)
+T 1412763113 19*	19lxsameer (~lxsameer@77.237.191.157) has joined #emacs
+T 1412763113 23*	23lxsameer has quit (23Changing host23)
+T 1412763113 19*	19lxsameer (~lxsameer@unaffiliated/lxsameer) has joined #emacs
+T 1412763124 18<19wasamasa>	HisaoNakai: well, someone slap me if I'm wrong, but r6rs looks like a major change from r5rs to me and r7rs tries fixing the mess
+T 1412763129 18*	19wasamasa glares at taylanub 
+T 1412763148 23*	23pcp135 has quit (23Ping timeout: 244 seconds23)
+T 1412763151 18<24HisaoNakai>	wasamasa: >R6RS ...ain't nobody got time for that.
+T 1412763157 18<19wasamasa>	except racket
+T 1412763159 23*	23przl has quit (23Ping timeout: 246 seconds23)
+T 1412763170 18<19wasamasa>	and racket is definitely not negligible
+T 1412763185 18<19wasamasa>	isn't it even the scheme with the largest community?
+T 1412763203 23*	23redblackbit has quit (23Ping timeout: 258 seconds23)
+T 1412763204 22*	jweiss is now known as monetas-jenkins
+T 1412763239 18<24HisaoNakai>	wasamasa: Racket seemed like an academic language (even more so than Scheme)...but it does have a surprising amount of work (the sort which looks like it could be used to make actual programs) being done for it :|
+T 1412763244 18<24HisaoNakai>	I don't know anymore. xD
+T 1412763254 18<19wasamasa>	HisaoNakai: racket is a scheme implementation
+T 1412763266 18<19wasamasa>	HisaoNakai: just because people like using it to teach scheme doesn't mean it's academical
+T 1412763272 18<19wasamasa>	rudybot: are you an academical bot?
+T 1412763272 18<24rudybot>	wasamasa: Question (probably just academical) : what syntax or format makes sense for docstrings if the goal is to remove embedded newlines in the string?
+T 1412763273 23*	23instilled has quit (23Quit: Leaving.23)
+T 1412763289 18<24HisaoNakai>	oh...I always perceived it like a fork.
+T 1412763299 18<26didi>	Racket is pretty close to Scheme, but it is not tied to it.
+T 1412763313 19*	19cofi (~user@pD9E226F3.dip0.t-ipconnect.de) has joined #emacs
+T 1412763331 18<29Kurvivor>	i have recently found iut that installing magit fromelpa does not install its documentation; how would one install its documentation in that case?
+T 1412763351 18<29Kurvivor>	(into emacs info)
+T 1412763367 18<26didi>	Also, "Scheme" is a loose term IMO.
+T 1412763378 18<24HisaoNakai>	Kurvivor: who needs it? Just ? and use the magit wiki ;)
+T 1412763381 18<19wasamasa>	Kurvivor: I dunno about you, but I can use the emacs info for magit
+T 1412763394 18<19wasamasa>	Kurvivor: just went to the top index and opened the magit manual
+T 1412763394 18<24HisaoNakai>	(I don't have it either, also from Melpa)
+T 1412763420 18<19wasamasa>	Kurvivor: `info` and `pinfo` can't find it however
+T 1412763433 18<19wasamasa>	Kurvivor: so I guess emacs looks up info manuals differently
+T 1412763502 19*	19bcasiello (~Thunderbi@72.22.182.199) has joined #emacs
+T 1412763541 19*	19RaceCondition (~RaceCondi@85.253.108.130.cable.starman.ee) has joined #emacs
+T 1412763622 18<29kzar>	Best way to list ELPA installed packages?
+T 1412763634 18<19wasamasa>	M-x list-packages
+T 1412763637 18<19wasamasa>	,next
+T 1412763637 18<22fsbot>	Another satisfied customer. NEXT!
+T 1412763665 23*	23RaceCondition has quit (23Client Quit23)
+T 1412763675 18<29kzar>	wasamasa: I think that lists available packages, not just the ones you've installed?
+T 1412763684 18<19wasamasa>	kzar: scroll to the bottom
+T 1412763708 19*	19RaceCondition (~RaceCondi@85.253.108.130.cable.starman.ee) has joined #emacs
+T 1412763726 23*	23HisaoNakai has quit (23Quit: ERC Version 5.3 (IRC client for Emacs)23)
+T 1412763729 18<29kzar>	wasamasa: Ah right, thanks
+T 1412763757 22*	monetas-jenkins is now known as jweiss
+T 1412763757 23*	23bcasiello has quit (23Ping timeout: 260 seconds23)
+T 1412763772 23*	23h0bbit has quit (23Remote host closed the connection23)
+T 1412763849 18<20Fuco>	fucking software these days, allocates 500 megs of ram and really uses 5...
+T 1412763856 18<20Fuco>	all I hear is the disk swapping like insane
+T 1412763865 18<20Fuco>	can I disable swap somehow? Will that crash my computer?
+T 1412763871 18<19wasamasa>	you can
+T 1412763877 18<19wasamasa>	but make sure you have like 8gb of ram
+T 1412763882 18<26didi>	Fuco: How will that make things better?
+T 1412763890 18<19wasamasa>	alternatively you can adjust swappiness on linux
+T 1412763897 18<20Fuco>	didi: I won't hear the fucking howling of the disc
+T 1412763920 18<20Fuco>	it's so loud it wakes me up when I get new email at night and it starts writing to DB...
+T 1412764358 19*	19Now talking on #emacs
+T 1412764358 29*	29Topic for #emacs 29is: The price we pay for extensibility is madness. The evidence of this is the fact that we rarely perceive extensibility to have a price. | Emacs 24.3.94 (24.4 fifth pretest) | Don't use nicks for away status | No public logging! What happens in #emacs stays in #emacs | No racism, sexism, xenophobia, or asshattery.
+T 1412764358 29*	29Topic for #emacs 29set by wgreenhouse!~wgreenhou@fsf/member/wgreenhouse 29at Sun Oct  5 06:23:14 2014
+T 1412764360 22*	#emacs :http://www.emacswiki.org/EmacsChannel
+T 1412764384 18<19taylanub>	wasamasa: would be pretty useless; you should join some other impl instead
+T 1412764393 18<19wasamasa>	taylanub: just for learning purposes
+T 1412764422 19*	19ixi (~user@62.81.205.50.static.user.ono.com) has joined #emacs
+T 1412764436 23*	23jeremyheiler has quit (23Ping timeout: 272 seconds23)
+T 1412764442 19*	19vijaykiran (~user@213.208.206.28) has joined #emacs
+T 1412764445 18<19taylanub>	so far, I'll be porting my bytestructures library to R7RS, probably same for my super-minimal reactive programming library, and otherwise have an "r7rs-extras" utility library to add minor missing stuff in R7RS like say push! and pop! and crap.  the former two might be considered "actually useful" libraries. :P
+T 1412764482 18<19wasamasa>	taylanub: I don't want to conquer the world with it :P
+T 1412764495 19*	19Aune (~arne@ronon.lysator.liu.se) has joined #emacs
+T 1412764505 18<26didi>	wasamasa: With Lisp? Don't worry.
+T 1412764516 18<19taylanub>	but all three are nevertheless "internal" stuff that just makes the language environment nicer instead of helping implement actual applications.  if only we had a networking API, I could write, say, an HTTP server in portable Scheme, that could impress some people.  but nope, no networking API :(
+T 1412764539 19*	19sheijk (~sheijk@e179076090.adsl.alicedsl.de) has joined #emacs
+T 1412764605 23*	23sahilsinha has quit (23Ping timeout: 244 seconds23)
+T 1412764608 18<19taylanub>	porting as many as possible SRFIs to R7RS-small would be very neat too
+T 1412764609 18<20Fuco>	no networking API? HAHHHA what a joke
+T 1412764630 18<19wasamasa>	taylanub: not even sockets?
+T 1412764634 18<19taylanub>	wasamasa: nope
+T 1412764641 18<19taylanub>	you can open files though!!
+T 1412764644 18<19wasamasa>	taylanub: guess I'll be using racket and chicken then if I actually want to accomplish something
+T 1412764645 18<20Fuco>	don't worry you can still write to files
+T 1412764647 18<20Fuco>	haha ^^ :)
+T 1412764648 23*	23cluricst has quit (23Ping timeout: 260 seconds23)
+T 1412764650 18<19taylanub>	wasamasa: Guile
+T 1412764680 18<19wasamasa>	taylanub: for hacking on guile emacs perhaps, but outside of that?
+T 1412764683 18<26didi>	taylanub: What about concurrency or parallelism?
+T 1412764688 18<19taylanub>	wasamasa: yeah, why not
+T 1412764700 18<19wasamasa>	taylanub: can't even figure out what exactly it is for by reading its manual
+T 1412764706 18<19taylanub>	didi: there's a somewhat widely adopted SRFI for "futures"
+T 1412764711 18<19taylanub>	but nothing in RnRS
+T 1412764713 18*	20Fuco actually never used Scheme, but likes to tell everyone how Emacs Lisp is better
+T 1412764718 18<26didi>	taylanub: Bummer.
+T 1412764723 18<19taylanub>	wasamasa: uh, it's a Scheme impl? :P
+T 1412764726 18<19wasamasa>	taylanub: at one place it's a language for extending existing C projects, at the other it's a standalone implementation, then it's some GNU project, ...
+T 1412764737 18<19taylanub>	wasamasa: yes, it's all those things
+T 1413527936 19*	19Now talking on #emacs
+T 1413527936 29*	29Topic for #emacs 29is: Premature configuration is the root of all evil. (Donald Knuth) | Emacs 24.4 on 2014-10-20 | Don't use nicks for away status | No public logging! What happens in #emacs stays in #emacs | No racism, sexism, xenophobia, or asshattery.
+T 1413527936 29*	29Topic for #emacs 29set by forcer!~forcer@loki.jorgenschaefer.de 29at Thu Oct 16 04:00:10 2014
+T 1413527937 22*	#emacs :http://www.emacswiki.org/EmacsChannel
+T 1413527989 23*	23hiroakip has quit (23Ping timeout: 260 seconds23)
+T 1413528094 19*	19Schnouki (~schnouki@fsf/member/Schnouki) has joined #emacs
+T 1413528157 18<20aidalgol>	nicferrier: Are you overworked?
+T 1413528205 19*	19nilg (~user@AAubervilliers-653-1-13-84.w90-35.abo.wanadoo.fr) has joined #emacs
+T 1413528229 23*	23shackra has quit (23Ping timeout: 258 seconds23)
+T 1413528233 18<20Ardonik>	nicferrier: There was a page on the Emacswiki about persisting the scratch buffer.  I was considering doing that once upon a time.
+T 1413528269 23*	23wjlroe has quit (23Ping timeout: 260 seconds23)
+T 1413528269 23*	23d0c0nnor has quit (23Ping timeout: 260 seconds23)
+T 1413528298 23*	23ype has quit (23Ping timeout: 260 seconds23)
+T 1413528306 19*	19d0c0nnor (d0c0nnor@2a01:7e00::f03c:91ff:fedb:faee) has joined #emacs
+T 1413528345 19*	19wjlroe (wjlroe@2a01:7e00::f03c:91ff:fe93:6483) has joined #emacs
+T 1413528382 23*	23tlync has quit (23Remote host closed the connection23)
+T 1413528460 19*	19ype (ype@2a01:7e00::f03c:91ff:fe73:803e) has joined #emacs
+T 1413528678 18<24nicferrier>	Ardonik: gonna have to do that since I've now lost work too many times to count.
+T 1413528698 23*	23chandan__ has quit (23Quit: WeeChat 1.0.123)
+T 1413528709 18<24nicferrier>	I haven't liked any of the persisting stores that I've seen so far... I'll have another look and if I don't like them... guess what??!?
+T 1413528723 18<24nicferrier>	aidalgol: I'm not working at all!
+T 1413528784 19*	19gabriel9|work (~bojan@89.111.237.28) has joined #emacs
+T 1413528825 23*	23LMNOP_ has quit (23Read error: Connection reset by peer23)
+T 1413528827 19*	19LMNOP (~LMNOP@unaffiliated/ea08ba8f51) has joined #emacs
+T 1413528833 19*	19mishok13 (~mishok13@092-111-145-057.static.chello.nl) has joined #emacs
+T 1413528840 18<24nicferrier>	shoot. what did I do with that certificate?
+T 1413528861 23*	23ivan-kanis has quit (23Quit: ERC Version 5.3 (IRC client for Emacs)23)
+T 1413528882 23*	23calp has quit (23Quit: ZNC - http://znc.in23)
+T 1413528903 18<24nicferrier>	and this code I lost was great. merge mv.
+T 1413528960 23*	23Bogdanp has quit (23Quit: Textual IRC Client: www.textualapp.com23)
+T 1413528996 18<24nicferrier>	apparently ubuntu can't suspend when battery is low
+T 1413529003 19*	19calp (~calp@calpaterson.com) has joined #emacs
+T 1413529008 18<24nicferrier>	I've got a greyed out option to hibernate or power off.
+T 1413529122 19*	19dhanush_ (~dhanush@122.170.79.119) has joined #emacs
+T 1413529200 19*	19dmi3y (~dmi3y@194.105.145.69) has joined #emacs
+T 1413529219 19*	19wizzo (~wizzo@unaffiliated/wizzomafizzo) has joined #emacs
+T 1413529249 23*	23codehero has quit (23Ping timeout: 260 seconds23)
+T 1413529288 23*	23dhanush has quit (23Ping timeout: 258 seconds23)
+T 1413529301 18<19bremner>	,convenience
+T 1413529302 18<22fsbot>	"the conveniences you demanded are now mandatory" -- Jello Biafra
+T 1413529339 19*	19tlync (~tlync@101.110.31.120) has joined #emacs
+T 1413529363 19*	19codehero (codehero@i.have.ipv6.on.coding4coffee.org) has joined #emacs
+T 1413529388 18<24nicferrier>	right.
+T 1413529413 18<24nicferrier>	I was going to pastebin this code for you lot but you're all so useless I didn't bother.
+T 1413529414 23*	23rnkn has quit (23Ping timeout: 255 seconds23)
+T 1413529427 18<24nicferrier>	sorry, I'm being insulting to cover up my own gross failures.
+T 1413529447 19*	19mrSpec (~Spec@unaffiliated/mrspec) has joined #emacs
+T 1413529499 23*	23codehero has quit (23Excess Flood23)
+T 1413529550 19*	19codehero (codehero@i.have.ipv6.on.coding4coffee.org) has joined #emacs
+T 1413529566 18<20Ardonik>	nicferrier: I had a wonderful snippet that implemented the most wished-for feature, but it was unfortunately too large to fit in the margins of this buffer.
+T 1413529594 18<24nicferrier>	,++Ardonik
+T 1413529595 18<22fsbot>	Richard Stallman's beard makes ads for Gillette and Braun appear.
+T 1413529607 18<24nicferrier>	,Ardonik++
+T 1413529607 18<22fsbot>	Noted, nicferrier.  One rudy-point for Ardonik!
+T 1413529610 18*	20Ardonik levels up!
+T 1413529613 23*	23pkkm has quit (23Ping timeout: 260 seconds23)
+T 1413529670 19*	19roadie (~user@14.99.191.99) has joined #emacs
+T 1413529678 19*	19pkkm (pkkm@gateway/shell/yourbnc/x-tpjrykhrnrpfwkrf) has joined #emacs
+T 1413529684 18<24nicferrier>	I am wondering if something to do with indirect buffers is a worthwhile route
+T 1413529749 18<24nicferrier>	of course the next thing is "oh damn, it wasn't version controlled."
+T 1413529792 23*	23chandan_ has quit (23Ping timeout: 245 seconds23)
+T 1413529804 19*	19kkvlk (~kkvlk@p5DDBE0AD.dip0.t-ipconnect.de) has joined #emacs
+T 1413529831 19*	19gabriel9 (~bojan@fasecuremail.com) has joined #emacs
+T 1413529837 23*	23wjlroe has quit (23Ping timeout: 260 seconds23)
+T 1413529843 19*	19grc (~user@176.84-234-136.customer.lyse.net) has joined #emacs
+T 1413529856 23*	23gabriel9|work has quit (23Ping timeout: 265 seconds23)
+T 1413529949 23*	23pkkm has quit (23Ping timeout: 260 seconds23)
+T 1413529999 19*	19wjlroe (wjlroe@2a01:7e00::f03c:91ff:fe93:6483) has joined #emacs
+T 1413530022 18<28JamesNZ>	rudybot: Who are you named for?
+T 1413530023 18<24rudybot>	JamesNZ: More FUD: Subversion marks certain checkpoints in history through copies, the copy is usually placed in a directory named tags. Git tags are much more powerful.
+T 1413530061 23*	23codehero has quit (23Ping timeout: 260 seconds23)
+T 1413530062 23*	23ype has quit (23Ping timeout: 260 seconds23)
+T 1413530068 19*	19xai_beha (~xai_beha@84-115-123-247.dynamic.surfer.at) has joined #emacs
+T 1413530077 19*	19himansurathi (~himansura@14.139.221.18) has joined #emacs
+T 1413530106 23*	23kkvlk has quit (23Ping timeout: 240 seconds23)
+T 1413530110 18<25ggole>	He was named after JordanB, iirc
+T 1413530116 23*	23twb has quit (23Remote host closed the connection23)
+T 1413530126 18<20Ardonik>	Can you tell which person RudyBot is quoting when it produces its pre-packaged non-sequiturs?
+T 1413530130 19*	19pkkm (pkkm@gateway/shell/yourbnc/x-nqcbqqupakfwxzqe) has joined #emacs
+T 1413530136 18<19bremner>	it's always me.
+T 1413530142 18<20Ardonik>	That would explain it.
+T 1413530144 18<28JamesNZ>	,quote
+T 1413530149 18<22fsbot>	do i look like rudybot to you??
+T 1413530165 18<25kodein>	rudybot: are you and fsbot long lost siblings?
+T 1413530166 18<24rudybot>	kodein: A nagy füzet (2013) - IMDb — Directed by János Szász. With László Gyémánt, András Gyémánt, Piroska Molnár, Ulrich Thomsen. Twin siblings enduring the harshness of WWII in a village on the Hungarian border hedge their survival on studying and learning from the evil surrounding them.
+T 1413530169 23*	23svetlyak40wt has quit (23Remote host closed the connection23)
+T 1413530169 18<28JamesNZ>	rudybot: quote
+T 1413530170 18<24rudybot>	JamesNZ: let's design stuff using the principles of dymaxion
+T 1413530173 19*	19ype (ype@2a01:7e00::f03c:91ff:fe73:803e) has joined #emacs
+T 1413530201 23*	23psacrifice has quit (23Ping timeout: 260 seconds23)
+T 1413530229 18<24nicferrier>	Ardonik: if you're here enough some of them eing a bell.
+T 1413530233 18<24nicferrier>	or even ring,
+T 1413530241 18<24nicferrier>	,channel-wisdom
+T 1413530241 18<22fsbot>	On the other hand, Perl 6 may be the first software that suffers from bitrot before it's launched, at this rate
+T 1413530279 19*	19codehero (codehero@i.have.ipv6.on.coding4coffee.org) has joined #emacs
+T 1413530296 18<20Ardonik>	nicferrier: 'Twould be passing nice indeed if offby1 added an attribution feature -- say, ,,quote-attrib or what-not.
+T 1413530297 18<22fsbot>	[google]    http://www.emacswiki.org/pics/static/MathiasDahlFileDotEmacs.txt
+T 1413530297 18<22fsbot>	http://www.emacswiki.org/emacs/JohnConnors
+T 1413530308 18<20Ardonik>	Shush, fsbot.  This isn't about you.
+T 1413530329 23*	23codehero has quit (23Excess Flood23)
+T 1413530337 23*	23xai_beha has quit (23Ping timeout: 260 seconds23)
+T 1413530354 19*	19codehero (codehero@i.have.ipv6.on.coding4coffee.org) has joined #emacs
+T 1413530355 19*	19psacrifice (psacrifice@Have.I.Gone.Mad.PanicBNC.org) has joined #emacs
+T 1413530357 18<24nicferrier>	Ardonik: I don't think that's the point.
+T 1413530384 18<20Ardonik>	What *is* the point of RudyBoy, anyway?
+T 1413530391 18<20Ardonik>	RudyBot, even.
+T 1413530396 18<24nicferrier>	what's the point of you?
+T 1413530402 18<24nicferrier>	answer that then ask again.
+T 1413530408 18<20Ardonik>	To dominate all that I survey, of course.
+T 1413530413 19*	19targzeta (~targzeta@46.37.9.73) has joined #emacs
+T 1413530420 19*	19svetlyak40wt (~art@37.140.175.199-red3.dhcp.yndx.net) has joined #emacs
+T 1413530438 23*	23codehero has quit (23Excess Flood23)
+T 1413530471 19*	19piecyk (~piecyk@host86-185-232-107.range86-185.btcentralplus.com) has joined #emacs
+T 1413530478 19*	19codehero (codehero@i.have.ipv6.on.coding4coffee.org) has joined #emacs
+T 1413530519 23*	23Sixmsj has quit (23Quit: Sixmsj23)
+T 1413530573 23*	23necronian has quit (23Ping timeout: 240 seconds23)
+T 1413530593 23*	23chaoflow has quit (23Ping timeout: 260 seconds23)
+T 1413530603 19*	19bbloom (~bbloom@cpe-68-175-72-82.nyc.res.rr.com) has joined #emacs
+T 1413530625 19*	19chaoflow (~cf1@0x2c.org) has joined #emacs
+T 1413530629 23*	23yokel has quit (23Ping timeout: 255 seconds23)
+T 1413530637 18<20aidalgol>	Who the fuck curated this list?  It's full of absolute garbage: http://store.steampowered.com/curator/6856130-Rely-on-Horror/
+T 1413530665 18<25kodein>	> implying steam lists are curated
+T 1413530679 18<19cYmen_>	I'm still surprised when people go OT in here. :)
+T 1413530683 19*	19przl (~przlrkt@p5DD154E7.dip0.t-ipconnect.de) has joined #emacs
+T 1413530701 18<19cYmen_>	Aliens vs Predator isn't horror but damn good. :)
+T 1413530727 23*	23User458764 has quit (23Quit: Textual IRC Client: www.textualapp.com23)
+T 1413530732 18<20aidalgol>	kodein: They actually that word, hilariously.
+T 1413530733 19*	19easye` (~user@common-lisp.net) has joined #emacs
+T 1413530757 23*	23AimHere has quit (23Quit: Leaving23)
+T 1413530764 23*	23cYmen_ has quit (23Quit: Page closed23)
+T 1413530874 23*	23madrik has quit (23Quit: rain23)
+T 1413530923 18<20aidalgol>	It's really just a fan pileon.
+T 1413530932 19*	19fossrox (~fossrox@unaffiliated/fossrox) has joined #emacs
+T 1413530954 18<20aidalgol>	I will never understand why people find most of the "horror" games out there scary.
+T 1413530977 19*	19msekleta (~msekleta@62.156.150.204) has joined #emacs
+T 1413531023 18<24nicferrier>	never ending nightmare at least looks interesting.
+T 1413531035 18<25kodein>	Outlast? Amnesia?
+T 1413531046 18<20aidalgol>	Oh, yeah, those are great.
+T 1413531062 18<20aidalgol>	nicferrier: See also The Cat Lady: http://thecatlady.co.uk/
+T 1413531072 18<24nicferrier>	aidalgol: I think you showed me that one before.
+T 1413531081 18<20aidalgol>	Oh, yes, I think I have.
+T 1413531085 19*	19mahmoudimus (~mahmoudim@199-188-192-223.PUBLIC.monkeybrains.net) has joined #emacs
+T 1413531085 18<25kodein>	wait, shadowgate is on that list?
+T 1413531087 19*	19xai_beha (~xai_beha@84-115-123-247.dynamic.surfer.at) has joined #emacs
+T 1413531093 19*	19seschwar (~seschwar@unaffiliated/seschwar) has joined #emacs
+T 1413531104 23*	23Schnouki has quit (23Quit: Paix, prospérité et chaussettes propres23)
+T 1413531105 18<25kodein>	if it's the same as the one from 20 years ago, how is it a horror game?
+T 1413531144 23*	23himansurathi has quit (23Quit: Leaving23)
+T 1413531150 23*	23grc has quit (23Ping timeout: 250 seconds23)
+T 1413531157 19*	19jcidaho (~textual@185.30.24.245) has joined #emacs
+T 1413531172 19*	19Schnouki (~Schnouki@fsf/member/Schnouki) has joined #emacs
+T 1413531200 18<24nicferrier>	oh wow. I like the idea of limbo too.
+T 1413531207 18<24nicferrier>	just a platform game with a lot of shadow.
+T 1413531232 22*	day- is now known as day
+T 1413531245 23*	23nonrecursive has quit (23Remote host closed the connection23)
+T 1413531281 19*	19vijaykiran (~user@188.88.82.175) has joined #emacs
+T 1413531293 19*	19mutbuerger (~user@84-112-193-251.dynamic.surfer.at) has joined #emacs
+T 1413531466 19*	19prokaktus (~prokaktus@89.249.163.131) has joined #emacs
+T 1413531483 19*	19Ethan- (~Ethan-@60-248-176-37.HINET-IP.hinet.net) has joined #emacs
+T 1413531510 19*	19rnkn (~user@202.0.190.43) has joined #emacs
+T 1413531517 19*	19pt1_ (~pt1@62.209.164.18) has joined #emacs
+T 1413531517 23*	23ype has quit (23Ping timeout: 260 seconds23)
+T 1413531517 23*	23d0c0nnor has quit (23Ping timeout: 260 seconds23)
+T 1413531517 23*	23kzar has quit (23Ping timeout: 260 seconds23)
+T 1413531517 23*	23sohum has quit (23Ping timeout: 260 seconds23)
+T 1413531530 19*	19ype (ype@2a01:7e00::f03c:91ff:fe73:803e) has joined #emacs
+T 1413531569 19*	19kzar (kzar@2a01:7e00::f03c:91ff:fe73:d12a) has joined #emacs
+T 1413531573 23*	23wjlroe has quit (23Ping timeout: 260 seconds23)
+T 1413531573 23*	23cpt_nemo has quit (23Ping timeout: 260 seconds23)
+T 1413531580 19*	19cpt_nemo (cpt_nemo@rfc1459.de) has joined #emacs
+T 1413531590 19*	19trunzo (~trunzo@192.210.214.197) has joined #emacs
+T 1413531592 23*	23msekleta has quit (23Quit: Leaving23)
+T 1413531607 19*	19msekleta (~msekleta@62.156.150.204) has joined #emacs
+T 1413531612 19*	19dhanush (~dhanush@122.170.79.119) has joined #emacs
+T 1413531696 19*	19zoso (~arvind@unaffiliated/arvind-khadri/x-2237230) has joined #emacs
+T 1413531697 19*	19d0c0nnor (d0c0nnor@2a01:7e00::f03c:91ff:fedb:faee) has joined #emacs
+T 1413531728 23*	23trunzo has quit (23Remote host closed the connection23)
+T 1413531740 19*	19wjlroe (wjlroe@2a01:7e00::f03c:91ff:fe93:6483) has joined #emacs
+T 1413531743 23*	23pt1 has quit (23Ping timeout: 245 seconds23)
+T 1413531792 23*	23dhanush_ has quit (23Ping timeout: 245 seconds23)
+T 1413531798 19*	19sohum (sohum@pdpc/supporter/active/sohum) has joined #emacs
+T 1413531838 18<24nicferrier>	if someone wanted to learn how to use fakir this would be a great opportunity - http://nic.ferrier.me.uk/pastes/OTU4MGNmYjY5MzNiMzFiN2NiODk2ZTI4ODcwZmU3ZmE1YjEyNzEzNA==
+T 1413531841 18<24rudybot>	http://tinyurl.com/l8brx9e
+T 1413531852 18<19taylanub>	aidalgol: pong
+T 1413531857 23*	23bbloom has quit (23Ping timeout: 265 seconds23)
+T 1413531889 19*	19eidt (~eidt@192.210.214.197) has joined #emacs
+T 1413531923 18<24nicferrier>	five nights at freddys looks stupid
+T 1413531971 19*	19instilled (~Adium@212.203.72.179) has joined #emacs
+T 1413531987 19*	19bbloom (~bbloom@cpe-68-175-72-82.nyc.res.rr.com) has joined #emacs
+T 1413531989 18<25ggole>	limbo is very nice, bit short though
+T 1413531998 23*	23vijaykiran has quit (23Ping timeout: 272 seconds23)
+T 1413532041 18<24nicferrier>	five nights at freddys has video of gamers being scared out of their wits by a suddenly appearing rabbit.
+T 1413532070 19*	19jcidaho_ (~textual@185.30.24.245) has joined #emacs
+T 1413532193 23*	23jcidaho has quit (23Ping timeout: 240 seconds23)
+T 1413532222 18<24nicferrier>	I think this might explain gamer gate.
+T 1413532289 23*	23jcidaho_ has quit (23Read error: Connection reset by peer23)
+T 1413532363 19*	19ivan-kanis (~user@46.218.71.241) has joined #emacs
+T 1413532367 19*	19fayek (~fayek@foresight/developer/fayek) has joined #emacs

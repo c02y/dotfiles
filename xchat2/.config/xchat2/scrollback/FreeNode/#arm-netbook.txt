@@ -1,0 +1,503 @@
+T 1345124063 18<25Mazon>	are allwinner posting all their required code ?
+T 1345124069 18<25Mazon>	is
+T 1345124101 18<29lkcl>	Mazon: freescale, samsung, TI, allwinner, ingenic to name just a few
+T 1345474549 19*	19Now talking on #arm-netbook
+T 1345474549 29*	29Topic for #arm-netbook 29is: EOMA: Embedded Open Modular Architecture - Don't ask to ask. Just ask! - http://elinux.org/Embedded_Open_Modular_Architecture/EOMA-68 - ML arm-netbook@lists.phcomp.co.uk - Logs http://ibot.rikers.org/%23arm-netbook or http://irclog.whitequark.org/arm-netbook/ - http://rhombus-tech.net/
+T 1345474549 29*	29Topic for #arm-netbook 29set by mnemoc!~amery@shell.opensde.net 29at Thu Jul  5 21:03:55 2012
+T 1345474991 19*	19xxiao (~xxiao@ec2-50-112-57-59.us-west-2.compute.amazonaws.com) has joined #arm-netbook
+T 1345475197 23*	23Byan has quit (23Read error: Connection reset by peer23)
+T 1345475694 19*	19tavish3 (~tavish@59.177.0.179) has joined #arm-netbook
+T 1345476007 23*	23Quarx has quit (2323)
+T 1345476457 18<29ccssnet>	L84Supper: lol
+T 1345476469 18<29ccssnet>	i do agree that the fans will be an issue
+T 1345476497 18<29ccssnet>	would much rather see a big alluminum or copper plate
+T 1345476502 18<29ccssnet>	with fins
+T 1345476508 18<29ccssnet>	and 1 or 2 fans on that
+T 1345476550 19*	19Quarx (~Quarx@46.233.248.191) has joined #arm-netbook
+T 1345476922 18<25Mazon>	does anyone know if the Geniatech ATV1200 or clones have come out yet ?
+T 1345477117 23*	23Quarx has quit (2323)
+T 1346164245 19*	19Now talking on #arm-netbook
+T 1346164245 29*	29Topic for #arm-netbook 29is: EOMA: Embedded Open Modular Architecture - Don't ask to ask. Just ask! - http://elinux.org/Embedded_Open_Modular_Architecture/EOMA-68 - ML arm-netbook@lists.phcomp.co.uk - Logs http://ibot.rikers.org/%23arm-netbook or http://irclog.whitequark.org/arm-netbook/ - http://rhombus-tech.net/
+T 1346164245 29*	29Topic for #arm-netbook 29set by mnemoc!~amery@shell.opensde.net 29at Thu Jul  5 21:03:55 2012
+T 1346165535 19*	19eflatun (~offensive@46.1.117.71) has joined #arm-netbook
+T 1346165672 18<25eflatun>	hi i asked yesterday but no one respond, when i can be able to buy an amd t40e sbc of rhombus-tech?
+T 1346248794 19*	19Now talking on #arm-netbook
+T 1346248794 29*	29Topic for #arm-netbook 29is: EOMA: Embedded Open Modular Architecture - Don't ask to ask. Just ask! - http://elinux.org/Embedded_Open_Modular_Architecture/EOMA-68 - ML arm-netbook@lists.phcomp.co.uk - Logs http://ibot.rikers.org/%23arm-netbook or http://irclog.whitequark.org/arm-netbook/ - http://rhombus-tech.net/
+T 1346248794 29*	29Topic for #arm-netbook 29set by mnemoc!~amery@shell.opensde.net 29at Thu Jul  5 21:03:55 2012
+T 1346249030 18<22CIA-16>	rhombus-tech: PEPE master * r46c5d682c177 /allwinner_a10/orders/CLBBEMP55G.mdwn: after seeing more specs, it isn't what I want
+T 1346249867 18<19Turl>	mnemoc: :O fbcon? :D
+T 1346249930 18<19mnemoc>	Turl: feedback welcomed ;-)
+T 1346249971 18<19mnemoc>	I'll make a tag after people confirm it works fine and then jump to the next 3.0.x and add your updated mali
+T 1346249980 18<19Turl>	:)
+T 1346250020 18<19Turl>	I don't have any use for fbcon tbh, but it's gonna come in handy for many people :)
+T 1346250048 18<19mnemoc>	you can still test it and take some pictures for PR purposes :p
+T 1346250088 18<19Turl>	$ ssh mele uptime
+T 1346250088 18<19Turl>	 11:21:23 up 14 days, 49 min,  2 users,  load average: 0.05, 0.11, 0.13
+T 1346250094 18<19The-Compiler>	hmm, I'm pretty certain it does not boot at all
+T 1346250100 18<19The-Compiler>	and I have no idea why
+T 1346250144 18<19Turl>	The-Compiler: what compiler are you using?
+T 1346250172 18<19Turl>	when I build with 4.6, the USB stack blows up and kpanics
+T 1346250193 18*	19mnemoc uses 4.6.3...
+T 1346250209 18<19Turl>	mnemoc: do you have OTG?
+T 1346250236 18<19mnemoc>	that only works on android iirc
+T 1346250267 18<19Turl>	... which casually is what I use :P
+T 1346250325 18<24RaYmAn>	it's kind of odd it only works with android :S
+T 1346250333 18<24RaYmAn>	but I guess the driver is just hacked up to work exactly with that
+T 1346250344 18<19mnemoc>	help fixing sunxi's usb gadget on 3.4 is very welcomed
+T 1346250349 18<24RaYmAn>	:P
+T 1346250355 18<19The-Compiler>	Turl: I used the prebuilt image from archlinuxarm.org
+T 1346250373 18<19mnemoc>	RaYmAn: they implemented the support directly in android.c
+T 1346250377 18<24RaYmAn>	erk
+T 1346250394 18<24RaYmAn>	so when you say OTG you actually mean gadget?
+T 1346250400 18<19mnemoc>	yes
+T 1346250407 18<19Turl>	Kconfig also mentions some "sunxi USB manager"
+T 1346250411 18<24RaYmAn>	does the port itself work? e.g. in host mode or similar?
+T 1346250428 18<19mnemoc>	host works, yes
+T 1346250444 18<19Turl>	RaYmAn: my tab has an "OTG" port and a "client" port
+T 1346250458 18<19Turl>	the OTG one is for all purposes I can see, a host port
+T 1346250461 18<19Turl>	with an OTG connector
+T 1346250486 18<24RaYmAn>	that's..funky
+T 1346250510 18<19Turl>	so my tablet has 2 mini/microUSB (I don't recall >.<)
+T 1346250517 18<24RaYmAn>	my mk802 has an "OTG" port that works in both host & device (which is kind of required for it to be OTG? ;)) plus a regular USB
+T 1346250524 18<19mnemoc>	the a10/a13 schematics call the FEL pin "u-boot"...
+T 1346250525 18<19Turl>	I often plug it to the OTG port then bitch when it doesn't work :)
+T 1346250543 18<24RaYmAn>	Turl: have you tried with an OTG adapter thing?
+T 1346250560 18<19Turl>	I have one, came with the tab
+T 1346250569 18<19Turl>	haven't tried plugging it on the 'client' one though
+T 1346250570 18<24RaYmAn>	two mini is funky anyways
+T 1346250578 18<19Turl>	the other is definitely host-ish
+T 1346250581 18<24RaYmAn>	but just having mini doesn't make it otg :)
+T 1346250652 18<19mnemoc>	any idea where is hipboi?
+T 1346250684 18<19The-Compiler>	so... any idea how I could get informations why my Mele doesn't boot without having my TTL to USB adapter yet?
+T 1346250729 18<24RaYmAn>	I have no idea if it works, but if you can force a reset that doesn't power off ram, you might be able to use ramconsole?
+T 1346250758 18<19mnemoc>	The-Compiler: you are probably doomed
+T 1346250782 18<19The-Compiler>	I wonder what I'm doing wrong anyways :D
+T 1346250792 18<19mnemoc>	The-Compiler: get a ttl/usb :p
+T 1346250819 18<19The-Compiler>	just phoned a local electronic shop, they don't have it (?!? they even have nixie tubes!)
+T 1346250890 18<19The-Compiler>	and I already ordered one, but singapore post says "information recieved (this is not an acknowledgment of the physical receipt of the stated Registered Article) since 5 days
+T 1346250940 18<19The-Compiler>	so either a good friend I meet tomorrow has one, or I need to wait... impatient me :D
+T 1346251007 18<19mnemoc>	advice: order a couple adapters more :p
+T 1346251008 18<19Turl>	The-Compiler: ebaylike site near you doesn't have them? :P
+T 1346251010 18<19mnemoc>	it always good to have the around, and others may arrive faster
+T 1346251071 18<19The-Compiler>	local electronics retailer has the FTDI cables for $30
+T 1346251150 18<19mnemoc>	o_O
+T 1346251166 18<19The-Compiler>	exactly my thought.
+T 1346251224 18<19Turl>	they're like 25$ here (+shipping)
+T 1346251226 18<19Turl>	mnemoc: http://listado.mercadolibre.com.ar/usb-ttl :P
+T 1346251271 19*	19RITRedbeard (~redbeard@c-68-37-165-37.hsd1.nj.comcast.net) has joined #arm-netbook
+T 1346251306 18<19The-Compiler>	"ebaylike site near you" was a great hint
+T 1346251315 18<19The-Compiler>	found one for $10 plus $5 shipping
+T 1346251431 18<19The-Compiler>	hah, and one on ebay for $7 and free shipping, even in the same country I am
+T 1346303830 19*	19Now talking on #arm-netbook
+T 1346303830 29*	29Topic for #arm-netbook 29is: EOMA: Embedded Open Modular Architecture - Don't ask to ask. Just ask! - http://elinux.org/Embedded_Open_Modular_Architecture/EOMA-68 - ML arm-netbook@lists.phcomp.co.uk - Logs http://ibot.rikers.org/%23arm-netbook or http://irclog.whitequark.org/arm-netbook/ - http://rhombus-tech.net/
+T 1346303830 29*	29Topic for #arm-netbook 29set by mnemoc!~amery@shell.opensde.net 29at Thu Jul  5 21:03:55 2012
+T 1346304375 19*	19RITRedbeard (~redbeard@c-68-37-165-37.hsd1.nj.comcast.net) has joined #arm-netbook
+T 1346304503 23*	23RITRedbeard_ has quit (23Ping timeout: 245 seconds23)
+T 1346304683 19*	19rsalveti (~rsalveti@linaro/rsalveti) has joined #arm-netbook
+T 1346307227 19*	19Now talking on #arm-netbook
+T 1346307227 29*	29Topic for #arm-netbook 29is: EOMA: Embedded Open Modular Architecture - Don't ask to ask. Just ask! - http://elinux.org/Embedded_Open_Modular_Architecture/EOMA-68 - ML arm-netbook@lists.phcomp.co.uk - Logs http://ibot.rikers.org/%23arm-netbook or http://irclog.whitequark.org/arm-netbook/ - http://rhombus-tech.net/
+T 1346307227 29*	29Topic for #arm-netbook 29set by mnemoc!~amery@shell.opensde.net 29at Thu Jul  5 21:03:55 2012
+T 1346307227 22*	[freenode-info] why register and identify? your IRC nick is how people know you. http://freenode.net/faq.shtml#nicksetup
+T 1346309156 23*	23ibot has quit (23Ping timeout: 246 seconds23)
+T 1346309250 19*	19ibot (~ibot@rikers.org) has joined #arm-netbook
+T 1346309422 23*	23ibot has quit (23Client Quit23)
+T 1346309463 19*	19ibot (~ibot@rikers.org) has joined #arm-netbook
+T 1346309480 19*	19rellla (~Thunderbi@p5B07887B.dip0.t-ipconnect.de) has joined #arm-netbook
+T 1346309659 23*	23hp_ has quit (23Quit: KVIrc 4.0.4 Insomnia http://www.kvirc.net/23)
+T 1346309693 23*	23ibot has quit (23Remote host closed the connection23)
+T 1346309714 19*	19ibot (~ibot@rikers.org) has joined #arm-netbook
+T 1346310061 23*	23ibot has quit (23Remote host closed the connection23)
+T 1346310097 19*	19ibot (~ibot@rikers.org) has joined #arm-netbook
+T 1346310295 23*	23ibot has quit (23Remote host closed the connection23)
+T 1346310315 19*	19ibot (~ibot@rikers.org) has joined #arm-netbook
+T 1346310328 23*	23tzafrir_laptop has quit (23Ping timeout: 245 seconds23)
+T 1346310470 23*	23ibot has quit (23Remote host closed the connection23)
+T 1346310515 19*	19ibot (~ibot@rikers.org) has joined #arm-netbook
+T 1346311702 19*	19popolon (~popolon@2a01:e35:2e1e:a6c0:c181:b06f:b9c:ee8d) has joined #arm-netbook
+T 1346312418 23*	23popolon has quit (23Quit: Quitte23)
+T 1346312492 19*	19popolon (~popolon@2a01:e35:2e1e:a6c0:f485:b3a7:8875:f911) has joined #arm-netbook
+T 1346313005 19*	19popolon_ (~popolon@2a01:e35:2e1e:a6c0:f485:b3a7:8875:f911) has joined #arm-netbook
+T 1346313162 19*	19Quarx (~Quarx@46.233.193.49) has joined #arm-netbook
+T 1346313286 23*	23popolon_ has quit (23Client Quit23)
+T 1346313541 19*	19arokux (~arokux@merkur178.inf.uni-konstanz.de) has joined #arm-netbook
+T 1346313817 23*	23Vayu_ has quit (23Ping timeout: 264 seconds23)
+T 1346314054 23*	23The-Compiler has quit (23Remote host closed the connection23)
+T 1346314107 19*	19The-Compiler (~compiler@ubuntuusers/supporter/the-compiler) has joined #arm-netbook
+T 1346314372 19*	19Gujs_ (~Gujs@cpe-92-37-24-205.dynamic.amis.net) has joined #arm-netbook
+T 1346314730 23*	23chz_ has quit (23Excess Flood23)
+T 1346314730 22*	Disconnected (Remote host closed socket).
+T 1346314763 19*	19Now talking on #arm-netbook
+T 1346314764 29*	29Topic for #arm-netbook 29is: EOMA: Embedded Open Modular Architecture - Don't ask to ask. Just ask! - http://elinux.org/Embedded_Open_Modular_Architecture/EOMA-68 - ML arm-netbook@lists.phcomp.co.uk - Logs http://ibot.rikers.org/%23arm-netbook or http://irclog.whitequark.org/arm-netbook/ - http://rhombus-tech.net/
+T 1346314764 29*	29Topic for #arm-netbook 29set by mnemoc!~amery@shell.opensde.net 29at Thu Jul  5 21:03:55 2012
+T 1346315423 23*	23Quarx has quit (23Ping timeout: 268 seconds23)
+T 1346315835 19*	19Vayu_ (~yundin@fw2.nbi.dk) has joined #arm-netbook
+T 1346316208 19*	19tzafrir_laptop (~tzafrir@local.xorcom.com) has joined #arm-netbook
+T 1346669927 19*	19Now talking on #arm-netbook
+T 1346669927 29*	29Topic for #arm-netbook 29is: EOMA: Embedded Open Modular Architecture - Don't ask to ask. Just ask! - http://elinux.org/Embedded_Open_Modular_Architecture/EOMA-68 - ML arm-netbook@lists.phcomp.co.uk - Logs http://ibot.rikers.org/%23arm-netbook or http://irclog.whitequark.org/arm-netbook/ - http://rhombus-tech.net/
+T 1346669927 29*	29Topic for #arm-netbook 29set by mnemoc!~amery@shell.opensde.net 29at Thu Jul  5 21:03:55 2012
+T 1346670092 19*	19cat1 (~cat@a91-152-66-200.elisa-laajakaista.fi) has joined #arm-netbook
+T 1346670484 19*	19Almamuetya (~almamuety@186.134.1.147) has joined #arm-netbook
+T 1346671394 19*	19Quarx (~Quarx@46.233.234.83) has joined #arm-netbook
+T 1346672206 19*	19calris (~graeme@d175-39-34-25.sbr801.nsw.optusnet.com.au) has joined #arm-netbook
+T 1346672227 18<29calris>	woot - my A2000 cleared Australian customs :)
+T 1346672236 18<29calris>	Now to make it from Sydney to Newcastle
+T 1346672269 18<19The-Compiler>	yay :)
+T 1346672286 18<19The-Compiler>	let's hope yours does boot anything else than Android, not like mine so far it seems
+T 1346672322 18<29calris>	I'll force it too ;)
+T 1346672368 18<29calris>	I have grand plans to grab the hno U-Boot branch and do some serious U-Boot hacking
+T 1346672395 18<29CIA-7>	rhombus-tech: Jeremiah master * r84753ee61331 /allwinner_a10/orders/jeremiahyong.mdwn:
+T 1346672475 18<20rzk>	sun5i doesnt have hdmi, right?
+T 1346672482 18<24RaYmAn>	correct
+T 1346672506 18<20rzk>	but why we have https://github.com/amery/linux-allwinner/tree/allwinner-v3.0-android-v2/drivers/video/sun5i/hdmi
+T 1346672529 18<24RaYmAn>	probably because the video driver is more or less a copy of the sun4i driver
+T 1346672532 18<24RaYmAn>	:)
+T 1346672552 18<24RaYmAn>	also, the Mali GPU probably still supports HDMI, it's just not hooked up to the stuff required to expose it
+T 1346672563 19*	19rellla1 (~Thunderbi@p4FE562BE.dip0.t-ipconnect.de) has joined #arm-netbook
+T 1346672602 18<19The-Compiler>	calris: let me know when you get it to work. Found a TTL to USB converter at work so I'll finally see what's going wrong today evening
+T 1346672618 18<19The-Compiler>	or at least see *some* output
+T 1346672666 23*	23avernos has quit (23Quit: Leaving23)
+T 1346672681 18<29calris>	Will do - I got Tom to send me a TTL to USB converter as well
+T 1346672689 23*	23rellla1 has quit (23Client Quit23)
+T 1346672736 18<29calris>	Any more news from gimli?
+T 1346672736 18<19The-Compiler>	I found some board at work with an USB B-Socket, an FTDI and a digital insulator on it
+T 1346672767 18<19The-Compiler>	so I soldered wires and a connector to the IC pins and I hope it works :P
+T 1346672836 18<29calris>	that's a bit hard core :)
+T 1346673167 18<27Triffid_Hunter>	heh http://triffid-hunter.no-ip.info/100_1698.JPG <-- arduino modded for 3v3 operation, have used as impromptu 3v3 serial cable many a time just by pulling the chip
+T 1347112127 19*	19Now talking on #arm-netbook
+T 1347112127 29*	29Topic for #arm-netbook 29is: EOMA: Embedded Open Modular Architecture - Don't ask to ask. Just ask! - http://elinux.org/Embedded_Open_Modular_Architecture/EOMA-68 - ML arm-netbook@lists.phcomp.co.uk - Logs http://ibot.rikers.org/%23arm-netbook or http://irclog.whitequark.org/arm-netbook/ - http://rhombus-tech.net/
+T 1347112127 29*	29Topic for #arm-netbook 29set by mnemoc!~amery@shell.opensde.net 29at Thu Jul  5 21:03:55 2012
+T 1347112688 23*	23mSquare (23~selvan@122.178.199.41) has left #arm-netbook
+T 1347195089 19*	19Now talking on #arm-netbook
+T 1347195089 29*	29Topic for #arm-netbook 29is: EOMA: Embedded Open Modular Architecture - Don't ask to ask. Just ask! - http://elinux.org/Embedded_Open_Modular_Architecture/EOMA-68 - ML arm-netbook@lists.phcomp.co.uk - Logs http://ibot.rikers.org/%23arm-netbook or http://irclog.whitequark.org/arm-netbook/ - http://rhombus-tech.net/
+T 1347195089 29*	29Topic for #arm-netbook 29set by mnemoc!~amery@shell.opensde.net 29at Thu Jul  5 21:03:55 2012
+T 1347195089 22*	[freenode-info] if you're at a conference and other people are having trouble connecting, please mention it to staff: http://freenode.net/faq.shtml#gettinghelp
+T 1347195237 19*	19Now talking on #arm-netbook
+T 1347195237 29*	29Topic for #arm-netbook 29is: EOMA: Embedded Open Modular Architecture - Don't ask to ask. Just ask! - http://elinux.org/Embedded_Open_Modular_Architecture/EOMA-68 - ML arm-netbook@lists.phcomp.co.uk - Logs http://ibot.rikers.org/%23arm-netbook or http://irclog.whitequark.org/arm-netbook/ - http://rhombus-tech.net/
+T 1347195237 29*	29Topic for #arm-netbook 29set by mnemoc!~amery@shell.opensde.net 29at Thu Jul  5 21:03:55 2012
+T 1347195237 19*	19chz__ (~chz@111.4.190.203) has joined #arm-netbook
+T 1347195248 23*	23chz__ has quit (23Read error: Connection reset by peer23)
+T 1347196146 23*	23eFfeM has quit (23Quit: Leaving.23)
+T 1347196681 19*	19xxiao (~xxiao@ec2-50-112-57-59.us-west-2.compute.amazonaws.com) has joined #arm-netbook
+T 1347196790 18<25xxiao>	openjdk 7u6 is added to armv6/v7, i though we had java on armv6/v7 already?
+T 1347196829 23*	23lundman has quit (23Ping timeout: 255 seconds23)
+T 1347196861 18<25xxiao>	ic this is for desktop and server
+T 1347197121 19*	19lundman (~Accident@194.109.206.190) has joined #arm-netbook
+T 1347197516 18<27blahee>	at least openjdk is compiled for armv7hl, but don't know the optimization leves there
+T 1347198080 19*	19cheng (~cheng@118.101.201.108) has joined #arm-netbook
+T 1347198355 18<25xxiao>	the news here is that java is for desktop-server ARM apps
+T 1347198369 18<25xxiao>	we had Java SE on ARM for a long while indeed
+T 1347198373 18<27blahee>	i saw the news few days ago
+T 1347198443 18<25xxiao>	not sure how much you need pay to orcale when you ship java SE jre on the device
+T 1347198645 18<27blahee>	as it's oracle, it's likely "all you got + two goats and you first born" :)
+T 1347198668 18<25xxiao>	right, damn oracle
+T 1347198853 18<26penguin42>	openblocks ships JavaSE I think
+T 1347198995 18<26penguin42>	pity they're so pricey
+T 1347199039 18<25xxiao>	penguin42: which openblocks you're talking about, the mit one?
+T 1347199050 18<26penguin42>	xxiao: No, http://online.plathome.co.jp/public/show/arm%E3%82%92%E6%8E%A1%E7%94%A8%E3%81%97%E3%81%9F%E3%83%9E%E3%82%A4%E3%82%AF%E3%83%AD%E3%82%B5%E3%83%BC%E3%83%90-openblocks-a%E3%83%95%E3%82%A1%E3%83%9F%E3%83%AA
+T 1347199069 18<26penguin42>	(translates usefully with chrome's translator plugin)
+T 1347199079 18<25xxiao>	broken url...any short cut url?
+T 1347199086 18<26penguin42>	it's full of japanese
+T 1347199093 18<25xxiao>	http://openblocks.plathome.com/products/600/ ?
+T 1347199096 18<26penguin42>	xxiao: http://openblocks.plathome.co.jp/products/ax3/
+T 1347199108 18<26penguin42>	oh that's easier :-)
+T 1347199140 18<26penguin42>	xxiao: See the .jp one - the ax3 family is nice
+T 1347199159 18<25xxiao>	right somehow the non-jp site only has one product
+T 1347199165 18<26penguin42>	yeh
+T 1347199166 18<25xxiao>	and it's based on powerpc
+T 1347199182 18<27blahee>	that openblocks 600 seems to be powerpc ... too late
+T 1347199194 18<26penguin42>	xxiao: The ax3 is marvell armada xp, quad gig E, upto 3GB RAM, esata
+T 1347199201 18<27blahee>	OpenBlocks A is arm
+T 1347199226 18<26penguin42>	pity it's ~550 GBP at cheapest
+T 1347199255 18<25xxiao>	close to 980 USD, plus tax/shipping
+T 1347199274 18<25xxiao>	who says japan's econoly was in a slump
+T 1347199278 18<25xxiao>	economy
+T 1347199291 18<25xxiao>	this is way high
+T 1347199316 18<26penguin42>	yeh - although I don't know anyone else who does a quad ether ARM board
+T 1347351217 19*	19Now talking on #arm-netbook
+T 1347351217 29*	29Topic for #arm-netbook 29is: EOMA: Embedded Open Modular Architecture - Don't ask to ask. Just ask! - http://elinux.org/Embedded_Open_Modular_Architecture/EOMA-68 - ML arm-netbook@lists.phcomp.co.uk - Logs http://ibot.rikers.org/%23arm-netbook or http://irclog.whitequark.org/arm-netbook/ - http://rhombus-tech.net/
+T 1347351217 29*	29Topic for #arm-netbook 29set by mnemoc!~amery@shell.opensde.net 29at Thu Jul  5 21:03:55 2012
+T 1347351611 19*	19jlj (~jlj@109-104-24-9.customers.ownit.se) has joined #arm-netbook
+T 1347352304 23*	23sspiff has quit (23Remote host closed the connection23)
+T 1347352666 19*	19mysteryname (~mysteryna@14-202-9-167.tpgi.com.au) has joined #arm-netbook
+T 1347352696 19*	19sspiff (~quassel@103.4-78-194.adsl-static.isp.belgacom.be) has joined #arm-netbook
+T 1347352697 23*	23sspiff has quit (23Changing host23)
+T 1347352697 19*	19sspiff (~quassel@unaffiliated/yukito) has joined #arm-netbook
+T 1347353805 23*	23mysteryname has quit (23Ping timeout: 276 seconds23)
+T 1347353838 18<19mnemoc>	git st
+T 1347353840 18<19mnemoc>	err
+T 1347354068 18<19cat_x301>	mnemoc: tried to compile linux-sunxi-3.4 branch, got this error:
+T 1347354068 18<19cat_x301>	<skip>
+T 1347354068 18<19cat_x301>	drivers/net/wireless/rtl8192cu/os_dep/osdep_service.c:1057:67: error: 'struct wake_lock' has no member named 'link'
+T 1347354068 18<19cat_x301>	make[4]: *** [drivers/net/wireless/rtl8192cu/os_dep/osdep_service.o] Error 1
+T 1347354068 18<19cat_x301>	make[4]: *** Waiting for unfinished jobs....
+T 1347354068 18<19cat_x301>	make[4]: *** wait: No child processes.  Stop.
+T 1347354068 18<19cat_x301>	make[3]: *** [drivers/net/wireless/rtl8192cu] Error 2
+T 1347354069 18<19cat_x301>	make[2]: *** [drivers/net/wireless] Error 2
+T 1347354069 18<19cat_x301>	make[1]: *** [drivers/net] Error 2
+T 1347354070 18<19cat_x301>	make: *** [drivers] Error 2
+T 1347354070 18<19cat_x301>	Is this already known?
+T 1347354237 18<19cat_x301>	oh, that's android crap..
+T 1347354274 18<19mnemoc>	cat_x301: yes :( please disable that driver
+T 1347354314 18<19mnemoc>	cat_x301: if you have ethernet (mele or cubie) change the initial state of the usbc to enabled in script.bin
+T 1347354341 18<19cat_x301>	mnemoc: unf. nope, i only have mk802.
+T 1347354353 18<19cat_x301>	so perhaps i need this one
+T 1347354354 18<19mnemoc>	cool. then just disable that broken driver
+T 1347354376 18<19cat_x301>	mnemoc: but i wont have connectivity then
+T 1347354387 18<19mnemoc>	cat_x301: you have wifi
+T 1347354391 18<19mnemoc>	err
+T 1347354402 18<19mnemoc>	i got confused sorry
+T 1347354413 18<19mnemoc>	forget what I sad about ethernet
+T 1347354420 18<19mnemoc>	disable that driver and enable rtlwifi's
+T 1347354423 18<19cat_x301>	mnemoc: forgotten :)
+T 1347354431 18<19cat_x301>	mnemoc: ah, ok
+T 1347354456 18<19mnemoc>	then edit your script.bin to power that usbc since the begining
+T 1347354507 18<19mnemoc>	the allwinnerized driver adds poor-man power management by powering the usb controller on driver load and shut it down on unload
+T 1347354518 19*	19tender86 (d570ee06@gateway/web/freenode/ip.213.112.238.6) has joined #arm-netbook
+T 1347354546 18<19mnemoc>	but if you just set the usbc to powered in script.bin the mainline driver will deal with the wifi chip without troubles
+T 1347354575 18<19cat_x301>	mnemoc: thanks, will try
+T 1347354644 18<19mnemoc>	now time to brew some more coffee to wake up my brain...
+T 1347354652 18*	19cat_x301 thinks of making dedicated defconfig for mk802.. now two things should be handled there..
+T 1347354671 18<19mnemoc>	this driver thing is generic, not mk802 specific
+T 1347354680 18<19cat_x301>	mnemoc: i had mine already: but brain is still kinda alseep..
+T 1347354686 18<19mnemoc>	:)
+T 1347354692 18<25lundman>	hmm
+T 1347354697 18<19cat_x301>	mnemoc: but i mean it was enabled by default in sun4i_defconfig
+T 1347354709 18<19cat_x301>	which does not work for mk802
+T 1347354720 18<19cat_x301>	another thing is that DVFS part.
+T 1347354832 18<19mnemoc>	ihmo the dvfs issue must be fixed in code, not adding a mostly redundant defconfig...
+T 1347354874 18<19cat_x301>	mnemoc: right. what about wifi stuff?
+T 1347354968 18<19mnemoc>	I think rtl8192cu should be removed... and plat-sunxi and usb-sunxi improved to deal with this config option behind the scene
+T 1347354976 18<19mnemoc>	scenes*
+T 1347355067 18<19cat_x301>	mnemoc: fair. anyway, will workaround by now. btw, what is the policy for sending patches should i come up with anything?
+T 1347355132 18*	19cat_x301 apologizes for distracting mnemoc from coffee..
+T 1347355137 18<19mnemoc>	cat_x301: currently we use github's issue tracker... but it might be a good idea to create a real mailing list if the rest of the community approves
+T 1347355191 18<19cat_x301>	mnemoc: would be brilliant to have one.
+T 1347355331 23*	23arete74 has quit (23Ping timeout: 244 seconds23)
+T 1347355457 19*	19arete74 (~arete74@host160-66-static.225-95-b.business.telecomitalia.it) has joined #arm-netbook
+T 1347355468 18<19mnemoc>	sad groups.google.com doesn't let you create lists with custom domains in the free version :<
+T 1347355695 18<19mnemoc>	but I suppose we can just install mailman in the same server that is hosting the wiki
+T 1347355912 18<19mnemoc>	does vger.kernel.org accept not-mainlined projects?
+T 1347355949 18<19cat_x301>	mnemoc: no idea
+T 1347356179 18<19mnemoc>	cat_x301: as it was your idea, can you file a ticket requesting a mailing list and maybe a patch review thingy like gerrit? :)
+T 1347356227 18<19cat_x301>	mnemoc: need to learn something before doing this :)
+T 1347356244 18<19mnemoc>	how to register on github? :p
+T 1347356251 18*	19cat_x301 is afraid of screwing things up publicly :)
+T 1347356269 18<19cat_x301>	ah, i was thinking you ask about vger.
+T 1347356345 18*	19cat_x301 is looking for that ticket creator option on github..
+T 1347356470 18<19cat_x301>	mnemoc: any hints how do i create a ticket, pls :)
+T 1347356518 18<19mnemoc>	https://github.com/amery/linux-allwinner/issues/new ?
+T 1347356519 18<19mnemoc>	:)
+T 1347356525 18<19mnemoc>	need to go, back in 30m
+T 1347356568 23*	23sspiff has quit (23Remote host closed the connection23)
+T 1347356662 18<19cat_x301>	mnemoc: ah, i thought of some github specific ticket system :) -- working for corporates eroded my brains..
+T 1347356721 18<27rz2k>	<hno> and how to make a Linux livesuit image is explained in the SDK documentation. -- what SDK you are talking about? where I can found it? I thought about using those windows unpack/pack and imgpacker tools for livesuit images. There is another way?
+T 1347356931 23*	23madmalkav has quit (23Quit: Leaving23)
+T 1347357014 19*	19sspiff (~quassel@103.4-78-194.adsl-static.isp.belgacom.be) has joined #arm-netbook
+T 1347357014 23*	23sspiff has quit (23Changing host23)
+T 1347357014 19*	19sspiff (~quassel@unaffiliated/yukito) has joined #arm-netbook
+T 1347357653 19*	19Fremen2001 (~Fremen200@37-76.62-188.cust.bluewin.ch) has joined #arm-netbook
+T 1347357847 19*	19tzafrir (~tzafrir@local.xorcom.com) has joined #arm-netbook
+T 1347358148 18<19mnemoc>	rz2k: hno pushed a copy of the a10 sdk to his github long ago
+T 1347358209 18<19mnemoc>	rz2k: and olimex pushed the a13 sdk somewhere too
+T 1347358280 23*	23sspiff has quit (23Ping timeout: 260 seconds23)
+T 1347359559 18<19cat_x301>	mnemoc: stupid question i know, but how to reply to particular comment in github?
+T 1347359652 18<19mnemoc>	cat_x301: by mail... but they end up at the tail of the forum-ish list of comments anyway
+T 1347359680 18<19mnemoc>	yes, github's issue tracker is poor
+T 1347359816 18<19mnemoc>	big ouch at https://github.com/amery/linux-allwinner/issues/73#issuecomment-8455410
+T 1347359943 19*	19mysteryname (~daniel@14-202-9-167.tpgi.com.au) has joined #arm-netbook
+T 1347360005 18<24RaYmAn>	aww
+T 1347360011 18<24RaYmAn>	that's too bad :/
+T 1347360241 23*	23kaspter has quit (23Ping timeout: 276 seconds23)
+T 1347361243 19*	19Now talking on #arm-netbook
+T 1347361243 29*	29Topic for #arm-netbook 29is: EOMA: Embedded Open Modular Architecture - Don't ask to ask. Just ask! - http://elinux.org/Embedded_Open_Modular_Architecture/EOMA-68 - ML arm-netbook@lists.phcomp.co.uk - Logs http://ibot.rikers.org/%23arm-netbook or http://irclog.whitequark.org/arm-netbook/ - http://rhombus-tech.net/
+T 1347361243 29*	29Topic for #arm-netbook 29set by mnemoc!~amery@shell.opensde.net 29at Thu Jul  5 21:03:55 2012
+T 1347361243 22*	[freenode-info] why register and identify? your IRC nick is how people know you. http://freenode.net/faq.shtml#nicksetup
+T 1347361604 23*	23sspiff has quit (23Ping timeout: 276 seconds23)
+T 1347361824 18*	27rz2k wikificated http://linux-sunxi.org/Fex_Guide
+T 1347361838 18<24RaYmAn>	woo!
+T 1347361953 18<27rz2k>	RaYmAn: could you please kill this? http://linux-sunxi.org/Very_good_Tips_To_Assist_Your_Video_Game_Taking_part_in
+T 1347362038 18<24RaYmAn>	done
+T 1347362114 18<27rz2k>	https://github.com/amery/linux-allwinner/issues/74 - guy has same issue as I had when I was running builds on archlinux with latest grep/sed/awk.
+T 1347362128 18<27rz2k>	I thought we had that fixed
+T 1347362185 18<27rz2k>	RaYmAn: thanks
+T 1347362928 19*	19yaayaa (~yaayaa@dispo-82-250-26-30.adsl.proxad.net) has joined #arm-netbook
+T 1347363014 18<19cat_x301>	linux-sunxi-3.4:
+T 1347363015 18<19cat_x301>	  CC [M]  drivers/gpu/mali/ump/../mali/linux/mali_osk_atomics.o
+T 1347363015 18<19cat_x301>	mv: cannot stat `drivers/gpu/mali/ump/../mali/linux/.tmp_mali_osk_atomics.o': No such file or directory
+T 1347363015 18<19cat_x301>	make[4]: *** [drivers/gpu/mali/ump/../mali/linux/mali_osk_atomics.o] Error 1
+T 1347363015 18<19cat_x301>	make[4]: *** Waiting for unfinished jobs....
+T 1347363015 18<19cat_x301>	  CC [M]  drivers/gpu/mali/mali/linux/mali_osk_irq.o
+T 1347363015 18<19cat_x301>	  CC [M]  drivers/gpu/drm/drm_stub.o
+T 1347363016 18<19cat_x301>	  CC [M]  drivers/gpu/drm/drm_vm.o
+T 1347363017 18<19cat_x301>	make[3]: *** [drivers/gpu/mali/ump] Error 2
+T 1347363017 18<19cat_x301>	wonder if this is known problem?
+T 1347602629 19*	19Now talking on #arm-netbook
+T 1347602629 29*	29Topic for #arm-netbook 29is: EOMA: Embedded Open Modular Architecture - Don't ask to ask. Just ask! - http://elinux.org/Embedded_Open_Modular_Architecture/EOMA-68 - ML arm-netbook@lists.phcomp.co.uk - Logs http://ibot.rikers.org/%23arm-netbook or http://irclog.whitequark.org/arm-netbook/ - http://rhombus-tech.net/
+T 1347602629 29*	29Topic for #arm-netbook 29set by mnemoc!~amery@shell.opensde.net 29at Thu Jul  5 21:03:55 2012
+T 1347602705 19*	19Now talking on #arm-netbook
+T 1347602705 29*	29Topic for #arm-netbook 29is: EOMA: Embedded Open Modular Architecture - Don't ask to ask. Just ask! - http://elinux.org/Embedded_Open_Modular_Architecture/EOMA-68 - ML arm-netbook@lists.phcomp.co.uk - Logs http://ibot.rikers.org/%23arm-netbook or http://irclog.whitequark.org/arm-netbook/ - http://rhombus-tech.net/
+T 1347602705 29*	29Topic for #arm-netbook 29set by mnemoc!~amery@shell.opensde.net 29at Thu Jul  5 21:03:55 2012
+T 1347611860 19*	19Now talking on #arm-netbook
+T 1347611860 29*	29Topic for #arm-netbook 29is: EOMA: Embedded Open Modular Architecture - Don't ask to ask. Just ask! - http://elinux.org/Embedded_Open_Modular_Architecture/EOMA-68 - ML arm-netbook@lists.phcomp.co.uk - Logs http://ibot.rikers.org/%23arm-netbook or http://irclog.whitequark.org/arm-netbook/ - http://rhombus-tech.net/
+T 1347611860 29*	29Topic for #arm-netbook 29set by mnemoc!~amery@shell.opensde.net 29at Thu Jul  5 21:03:55 2012
+T 1347612829 22*	Disconnected (Connection timed out).
+T 1347612885 19*	19Now talking on #arm-netbook
+T 1347612886 29*	29Topic for #arm-netbook 29is: EOMA: Embedded Open Modular Architecture - Don't ask to ask. Just ask! - http://elinux.org/Embedded_Open_Modular_Architecture/EOMA-68 - ML arm-netbook@lists.phcomp.co.uk - Logs http://ibot.rikers.org/%23arm-netbook or http://irclog.whitequark.org/arm-netbook/ - http://rhombus-tech.net/
+T 1347612886 29*	29Topic for #arm-netbook 29set by mnemoc!~amery@shell.opensde.net 29at Thu Jul  5 21:03:55 2012
+T 1347613618 23*	23ajmitch has quit (23Ping timeout: 240 seconds23)
+T 1347613629 19*	19ajmitch (ajmitch@vps.ajmitch.net.nz) has joined #arm-netbook
+T 1347613629 23*	23ajmitch has quit (23Changing host23)
+T 1347613629 19*	19ajmitch (ajmitch@ubuntu/member/ajmitch) has joined #arm-netbook
+T 1347614695 19*	19pawel58701 (~pkarpins@pc.193147149.ip.amg.net.pl) has joined #arm-netbook
+T 1347614864 23*	23pawel5870 has quit (23Ping timeout: 248 seconds23)
+T 1347616072 23*	23HoLo has quit (23Remote host closed the connection23)
+T 1347616072 23*	23Hexxeh has quit (23Remote host closed the connection23)
+T 1347616072 23*	23steev has quit (23Remote host closed the connection23)
+T 1347616416 19*	19lerc_ (~quassel@121-74-253-76.telstraclear.net) has joined #arm-netbook
+T 1347616417 23*	23lerc_ has quit (23Read error: Connection reset by peer23)
+T 1347616494 19*	19Hexxeh (u1532@gateway/web/irccloud.com/x-nvrirgzqkakskaas) has joined #arm-netbook
+T 1347617763 19*	19steev (u1383@gentoo/developer/steev) has joined #arm-netbook
+T 1347618870 19*	19jinzo_ (~jinzo@oxy.p2p.si) has joined #arm-netbook
+T 1347800138 19*	19Now talking on #arm-netbook
+T 1347800138 29*	29Topic for #arm-netbook 29is: EOMA: Embedded Open Modular Architecture - Don't ask to ask. Just ask! - http://elinux.org/Embedded_Open_Modular_Architecture/EOMA-68 - ML arm-netbook@lists.phcomp.co.uk - Logs http://ibot.rikers.org/%23arm-netbook or http://irclog.whitequark.org/arm-netbook/ - http://rhombus-tech.net/
+T 1347800138 29*	29Topic for #arm-netbook 29set by mnemoc!~amery@shell.opensde.net 29at Thu Jul  5 21:03:55 2012
+T 1347800175 18<25lundman>	cool
+T 1347800297 19*	19cat_n9 (~communi@84-231-37-87.elisa-mobile.fi) has joined #arm-netbook
+T 1348670931 19*	19Now talking on #arm-netbook
+T 1348670931 29*	29Topic for #arm-netbook 29is: EOMA: Embedded Open Modular Architecture - Don't ask to ask. Just ask! - http://elinux.org/Embedded_Open_Modular_Architecture/EOMA-68 - ML arm-netbook@lists.phcomp.co.uk - Logs http://ibot.rikers.org/%23arm-netbook or http://irclog.whitequark.org/arm-netbook/ - http://rhombus-tech.net/
+T 1348670931 29*	29Topic for #arm-netbook 29set by mnemoc!~amery@shell.opensde.net 29at Thu Jul  5 21:03:55 2012
+T 1348671045 23*	23Holo_ has quit (23Remote host closed the connection23)
+T 1348671046 23*	23steev has quit (23Remote host closed the connection23)
+T 1348671049 23*	23Hexxeh has quit (23Remote host closed the connection23)
+T 1348671142 19*	19Holo_ (u6962@gateway/web/irccloud.com/x-gyrmkvtyybwypoih) has joined #arm-netbook
+T 1348671207 19*	19Hexxeh (u1532@gateway/web/irccloud.com/x-sckauspfxijpwtxq) has joined #arm-netbook
+T 1348671232 18<24Yakuzzi>	did anyone yet try a gigabit to usb 2 adapter and knows how much is possible on his device of the theoretical 480mbit
+T 1348671264 18<24Yakuzzi>	talking of a10 devices
+T 1348671390 19*	19mSquare (~selvan@122.172.23.196) has joined #arm-netbook
+T 1348671955 19*	19steev (u1383@gentoo/developer/steev) has joined #arm-netbook
+T 1348671981 23*	23steev has quit (23Remote host closed the connection23)
+T 1348671981 23*	23Hexxeh has quit (23Remote host closed the connection23)
+T 1348671981 23*	23Holo_ has quit (23Remote host closed the connection23)
+T 1348922769 19*	19Now talking on #arm-netbook
+T 1348922769 29*	29Topic for #arm-netbook 29is: EOMA: Embedded Open Modular Architecture - Don't ask to ask. Just ask! - http://elinux.org/Embedded_Open_Modular_Architecture/EOMA-68 - ML arm-netbook@lists.phcomp.co.uk - Logs http://ibot.rikers.org/%23arm-netbook or http://irclog.whitequark.org/arm-netbook/ - http://rhombus-tech.net/
+T 1348922769 29*	29Topic for #arm-netbook 29set by mnemoc!~amery@shell.opensde.net 29at Thu Jul  5 21:03:55 2012
+T 1351426204 19*	19Now talking on #arm-netbook
+T 1351426204 29*	29Topic for #arm-netbook 29is: EOMA: Embedded Open Modular Architecture - Don't ask to ask. Just ask! - http://elinux.org/Embedded_Open_Modular_Architecture/EOMA-68 - ML arm-netbook@lists.phcomp.co.uk - Logs http://ibot.rikers.org/%23arm-netbook or http://irclog.whitequark.org/arm-netbook/ - http://rhombus-tech.net/
+T 1351426204 29*	29Topic for #arm-netbook 29set by mnemoc!~amery@shell.opensde.net 29at Thu Jul  5 21:03:55 2012
+T 1351426205 28-29ChanServ28-	[#arm-netbook] Welcome to #arm-netbook. You can find public logs of this channel at http://irclog.whitequark.org/arm-netbook/ and http://ibot.rikers.org/%23arm-netbook/
+T 1351426205 23*	23arnd has quit (23Read error: No route to host23)
+T 1351426262 23*	23toxicpsion has quit (23Ping timeout: 244 seconds23)
+T 1351426984 19*	19toxicpsion (~toxicpsio@h216-45-98-25.dynamic.platinum.ca) has joined #arm-netbook
+T 1353407795 19*	19Now talking on #arm-netbook
+T 1353407795 29*	29Topic for #arm-netbook 29is: EOMA: Embedded Open Modular Architecture - Don't ask to ask. Just ask! - http://elinux.org/Embedded_Open_Modular_Architecture/EOMA-68 - ML arm-netbook@lists.phcomp.co.uk - Logs http://ibot.rikers.org/%23arm-netbook or http://irclog.whitequark.org/arm-netbook/ - http://rhombus-tech.net/
+T 1353407795 29*	29Topic for #arm-netbook 29set by mnemoc!~amery@shell.opensde.net 29at Thu Jul  5 21:03:55 2012
+T 1353407796 28-29ChanServ28-	[#arm-netbook] Welcome to #arm-netbook. You can find public logs of this channel at http://irclog.whitequark.org/arm-netbook/ and http://ibot.rikers.org/%23arm-netbook/
+T 1353408719 19*	19jquip (~johnny@27.97.43.226) has joined #arm-netbook
+T 1353409308 23*	23jquip has quit (23Ping timeout: 252 seconds23)
+T 1353409535 19*	19tuliom (~tuliom@177.133.170.176) has joined #arm-netbook
+T 1353409747 19*	19tinti (~tinti@189.3.225.5) has joined #arm-netbook
+T 1353411561 23*	23Sv has quit (23Read error: Connection reset by peer23)
+T 1353411576 18<19mnemoc>	stefanro1: should I delete the wip/sunxi-next branch?
+T 1353411627 18<27stefanro1>	mnemoc: thats perhaps better - otherwise it might confuse some users/developers not aware of the upstream version
+T 1353411770 19*	19Sv (~Sv@modemcable190.180-203-24.mc.videotron.ca) has joined #arm-netbook
+T 1353411771 23*	23Sv has quit (23Changing host23)
+T 1353411771 19*	19Sv (~Sv@unaffiliated/sv) has joined #arm-netbook
+T 1353412094 23*	23Sv has quit (23Quit: Sv23)
+T 1353412151 18<27libv>	Mehhh_: if you follow firststeps, _and_ build the kernel with this info in mind: http://linux-sunxi.org/Framebuffer
+T 1353412157 18<27libv>	you should get a console on hdmi
+T 1353412250 18<27libv>	Mehhh_: with a usb keyboard, you should then be able to do the rest
+T 1353412340 18<19Mehhh_>	:)
+T 1353412353 18<19Mehhh_>	So framebuffer will output on hdmi to cli
+T 1353412528 19*	19Sv (~Sv@unaffiliated/sv) has joined #arm-netbook
+T 1353412577 23*	23hipboi (23~hipboi@jpds04.digitalswift.net) has left #arm-netbook (23"Leaving"23)
+T 1353412622 18<29slapin>	damn meetings :(
+T 1353412659 18<29slapin>	hno: how it is going?
+T 1353412810 19*	19ssspiff (~quassel@unaffiliated/yukito) has joined #arm-netbook
+T 1353412848 19*	19tzafrir (~tzafrir@local.xorcom.com) has joined #arm-netbook
+T 1353412856 23*	23Mehhh_ has quit (23Ping timeout: 245 seconds23)
+T 1353412860 23*	23sspiff has quit (23Ping timeout: 244 seconds23)
+T 1353416771 22*	Disconnected (Connection timed out).
+T 1353416802 19*	19Now talking on #arm-netbook
+T 1353416802 29*	29Topic for #arm-netbook 29is: EOMA: Embedded Open Modular Architecture - Don't ask to ask. Just ask! - http://elinux.org/Embedded_Open_Modular_Architecture/EOMA-68 - ML arm-netbook@lists.phcomp.co.uk - Logs http://ibot.rikers.org/%23arm-netbook or http://irclog.whitequark.org/arm-netbook/ - http://rhombus-tech.net/
+T 1353416802 29*	29Topic for #arm-netbook 29set by mnemoc!~amery@shell.opensde.net 29at Thu Jul  5 21:03:55 2012
+T 1353416802 22*	[freenode-info] if you're at a conference and other people are having trouble connecting, please mention it to staff: http://freenode.net/faq.shtml#gettinghelp
+T 1353416802 28-29ChanServ28-	[#arm-netbook] Welcome to #arm-netbook. You can find public logs of this channel at http://irclog.whitequark.org/arm-netbook/ and http://ibot.rikers.org/%23arm-netbook/
+T 1353416917 18<20hno>	slapin, at work. Not touching sunxi stuff at the moment.
+T 1353416922 18<29slapin>	do you people know if skbs are patented or not?
+T 1353416948 18<29slapin>	if I can use them in my own software which is not Linux kernel?
+T 1355050813 19*	19Now talking on #arm-netbook
+T 1355050813 29*	29Topic for #arm-netbook 29is: EOMA: Embedded Open Modular Architecture - Don't ask to ask. Just ask! - http://elinux.org/Embedded_Open_Modular_Architecture/EOMA-68 - ML arm-netbook@lists.phcomp.co.uk - Logs http://ibot.rikers.org/%23arm-netbook or http://irclog.whitequark.org/arm-netbook/ - http://rhombus-tech.net/
+T 1355050813 29*	29Topic for #arm-netbook 29set by mnemoc!~amery@shell.opensde.net 29at Thu Jul  5 21:03:55 2012
+T 1355050816 28-29ChanServ28-	[#arm-netbook] Welcome to #arm-netbook. You can find public logs of this channel at http://irclog.whitequark.org/arm-netbook/ and http://ibot.rikers.org/%23arm-netbook/
+T 1355051380 23*	23lkcl_ has quit (23Ping timeout: 250 seconds23)
+T 1355051575 19*	19lkcl_ (~lkcl@host-92-26-23-92.as13285.net) has joined #arm-netbook
+T 1355051803 19*	19rellla (~Thunderbi@p4FE5615A.dip0.t-ipconnect.de) has joined #arm-netbook
+T 1355052724 18<20hno>	Turl, MALI apparently have a static region it's allowed to DMA to, other regions apparently gets copied by the CPU.. Saw some post in developer.arm.com forum about performance issues and ARM pointed to possible kernel/userspace mismatch in allowed direct access memory region.
+T 1355053269 23*	23Sv has quit (23Ping timeout: 276 seconds23)
+T 1355053920 23*	23rsalveti has quit (23Ping timeout: 240 seconds23)
+T 1355054130 19*	19rsalveti (~rsalveti@linaro/rsalveti) has joined #arm-netbook
+T 1355054784 23*	23rellla has quit (23Quit: rellla23)
+T 1355055966 19*	19penguin42 (~dg@tu006.demon.co.uk) has joined #arm-netbook
+T 1355057127 23*	23orly_owl has quit (23Quit: leaving23)
+T 1355058670 19*	19orly_owl (~david@unaffiliated/orly-owl/x-3167833) has joined #arm-netbook
+T 1355058983 23*	23MMlosh has quit (23Quit: Bye...23)
+T 1355059083 23*	23RITRedbeard_ has quit (23Quit: Leaving23)
+T 1355059096 19*	19RITRedbeard (~redbeard@c-68-37-165-37.hsd1.nj.comcast.net) has joined #arm-netbook
+T 1355059225 Python interface unloaded
+T 1355059225 Tcl interface unloaded
+T 1355828401 19*	19Now talking on #arm-netbook
+T 1355828401 29*	29Topic for #arm-netbook 29is: EOMA: Embedded Open Modular Architecture - Don't ask to ask. Just ask! - http://elinux.org/Embedded_Open_Modular_Architecture/EOMA-68 - ML arm-netbook@lists.phcomp.co.uk - Logs http://ibot.rikers.org/%23arm-netbook or http://irclog.whitequark.org/arm-netbook/ - http://rhombus-tech.net/
+T 1355828401 29*	29Topic for #arm-netbook 29set by mnemoc!~amery@shell.opensde.net 29at Thu Jul  5 21:03:55 2012
+T 1355828407 28-29ChanServ28-	[#arm-netbook] Welcome to #arm-netbook. You can find public logs of this channel at http://irclog.whitequark.org/arm-netbook/ and http://ibot.rikers.org/%23arm-netbook/
+T 1355828509 23*	23gsilvis has quit (23Read error: Connection reset by peer23)
+T 1355828531 19*	19gsilvis (~almostsix@50.12.163.241) has joined #arm-netbook
+T 1355829236 19*	19eebrah (~chatzilla@212.49.88.99) has joined #arm-netbook
+T 1359532454 19*	19Now talking on #arm-netbook
+T 1359532454 29*	29Topic for #arm-netbook 29is: EOMA: Embedded Open Modular Architecture - Don't ask to ask. Just ask! - http://elinux.org/Embedded_Open_Modular_Architecture/EOMA-68 - ML arm-netbook@lists.phcomp.co.uk - Logs http://ibot.rikers.org/%23arm-netbook or http://irclog.whitequark.org/arm-netbook/ - http://rhombus-tech.net/
+T 1359532454 29*	29Topic for #arm-netbook 29set by mnemoc!~amery@shell.opensde.net 29at Thu Jul  5 21:03:55 2012
+T 1359532455 28-29ChanServ28-	[#arm-netbook] Welcome to #arm-netbook. You can find public logs of this channel at http://irclog.whitequark.org/arm-netbook/ and http://ibot.rikers.org/%23arm-netbook/
+T 1368199313 19*	19Now talking on #arm-netbook
+T 1368199313 29*	29Topic for #arm-netbook 29is: arm-netbook: Don't ask to ask. Just ask! - EOMA68 spec http://bit.ly/ZHqfxA - ML arm-netbook@lists.phcomp.co.uk - Logs http://bit.ly/XELKJq or http://bit.ly/15OCYPD - For Allwinner/sunxi discussions prefer #linux-sunxi - iMX6 Card http://bit.ly/XAUGCD - Flying Squirrel http://bit.ly/WgOYaR - Allwinner A10/A20 Card http://bit.ly/zBLAbY - http://rhombus-tech.net
+T 1368199313 29*	29Topic for #arm-netbook 29set by lkcl!~lkcl@cpc4-fare6-2-0-cust31.6-1.cable.virginmedia.com 29at Wed Feb 27 09:11:02 2013
+T 1368199317 28-29ChanServ28-	[#arm-netbook] Welcome to #arm-netbook. You can find public logs of this channel at http://irclog.whitequark.org/arm-netbook/ and http://ibot.rikers.org/%23arm-netbook/
+T 1368199352 19*	19KoH__ (~kane@trir-5d8058ac.pool.mediaWays.net) has joined #arm-netbook
+T 1368199467 23*	23hipboi|cubie has quit (23Ping timeout: 264 seconds23)
+T 1368199498 19*	19hipboi|cubie (~hipboi@119.132.99.116) has joined #arm-netbook
+T 1368199543 19*	19pcat (~cat@gprs-internet-bcee14-226.dhcp.inet.fi) has joined #arm-netbook
+T 1368199546 23*	23Dessimat0r has quit (23Quit: ["Textual IRC Client: www.textualapp.com"]23)
+T 1368199664 19*	19Dessimat0r (~Dessimat0@cpc1-birk8-2-0-cust884.1-3.cable.virginmedia.com) has joined #arm-netbook
+T 1368199683 19*	19ganbold___ (~Ganbold@173.244.215.173) has joined #arm-netbook
+T 1368199740 23*	23KoH__ has quit (23Ping timeout: 256 seconds23)
+T 1368268025 19*	19Now talking on #arm-netbook
+T 1368268025 29*	29Topic for #arm-netbook 29is: arm-netbook: Don't ask to ask. Just ask! - EOMA68 spec http://bit.ly/ZHqfxA - ML arm-netbook@lists.phcomp.co.uk - Logs http://bit.ly/XELKJq or http://bit.ly/15OCYPD - For Allwinner/sunxi discussions prefer #linux-sunxi - iMX6 Card http://bit.ly/XAUGCD - Flying Squirrel http://bit.ly/WgOYaR - Allwinner A10/A20 Card http://bit.ly/zBLAbY - http://rhombus-tech.net
+T 1368268025 29*	29Topic for #arm-netbook 29set by lkcl!~lkcl@cpc4-fare6-2-0-cust31.6-1.cable.virginmedia.com 29at Wed Feb 27 09:11:02 2013
+T 1368268027 28-29ChanServ28-	[#arm-netbook] Welcome to #arm-netbook. You can find public logs of this channel at http://irclog.whitequark.org/arm-netbook/ and http://ibot.rikers.org/%23arm-netbook/
+T 1368272261 19*	19Now talking on #arm-netbook
+T 1368272261 29*	29Topic for #arm-netbook 29is: arm-netbook: Don't ask to ask. Just ask! - EOMA68 spec http://bit.ly/ZHqfxA - ML arm-netbook@lists.phcomp.co.uk - Logs http://bit.ly/XELKJq or http://bit.ly/15OCYPD - For Allwinner/sunxi discussions prefer #linux-sunxi - iMX6 Card http://bit.ly/XAUGCD - Flying Squirrel http://bit.ly/WgOYaR - Allwinner A10/A20 Card http://bit.ly/zBLAbY - http://rhombus-tech.net
+T 1368272261 29*	29Topic for #arm-netbook 29set by lkcl!~lkcl@cpc4-fare6-2-0-cust31.6-1.cable.virginmedia.com 29at Wed Feb 27 09:11:02 2013
+T 1368272262 28-29ChanServ28-	[#arm-netbook] Welcome to #arm-netbook. You can find public logs of this channel at http://irclog.whitequark.org/arm-netbook/ and http://ibot.rikers.org/%23arm-netbook/
+T 1368272604 22*	Disconnected ().
+T 1368272610 22*	Disconnected ().
+T 1368272645 19*	19Now talking on #arm-netbook
+T 1368272645 29*	29Topic for #arm-netbook 29is: arm-netbook: Don't ask to ask. Just ask! - EOMA68 spec http://bit.ly/ZHqfxA - ML arm-netbook@lists.phcomp.co.uk - Logs http://bit.ly/XELKJq or http://bit.ly/15OCYPD - For Allwinner/sunxi discussions prefer #linux-sunxi - iMX6 Card http://bit.ly/XAUGCD - Flying Squirrel http://bit.ly/WgOYaR - Allwinner A10/A20 Card http://bit.ly/zBLAbY - http://rhombus-tech.net
+T 1368272645 29*	29Topic for #arm-netbook 29set by lkcl!~lkcl@cpc4-fare6-2-0-cust31.6-1.cable.virginmedia.com 29at Wed Feb 27 09:11:02 2013
+T 1368272646 28-29ChanServ28-	[#arm-netbook] Welcome to #arm-netbook. You can find public logs of this channel at http://irclog.whitequark.org/arm-netbook/ and http://ibot.rikers.org/%23arm-netbook/
+T 1368272693 22*	Disconnected ().
+T 1368272744 19*	19Now talking on #arm-netbook
+T 1368272744 29*	29Topic for #arm-netbook 29is: arm-netbook: Don't ask to ask. Just ask! - EOMA68 spec http://bit.ly/ZHqfxA - ML arm-netbook@lists.phcomp.co.uk - Logs http://bit.ly/XELKJq or http://bit.ly/15OCYPD - For Allwinner/sunxi discussions prefer #linux-sunxi - iMX6 Card http://bit.ly/XAUGCD - Flying Squirrel http://bit.ly/WgOYaR - Allwinner A10/A20 Card http://bit.ly/zBLAbY - http://rhombus-tech.net
+T 1368272744 29*	29Topic for #arm-netbook 29set by lkcl!~lkcl@cpc4-fare6-2-0-cust31.6-1.cable.virginmedia.com 29at Wed Feb 27 09:11:02 2013
+T 1368272744 28-29ChanServ28-	[#arm-netbook] Welcome to #arm-netbook. You can find public logs of this channel at http://irclog.whitequark.org/arm-netbook/ and http://ibot.rikers.org/%23arm-netbook/
+T 1368272829 19*	19_chz (~chz@111.4.197.86) has joined #arm-netbook
+T 1368272848 18<27_chz>	??
+T 1368273273 22*	_chz is now known as chz__
+T 1368273280 22*	chz__ is now known as chz--
+T 1368356606 19*	19Now talking on #arm-netbook
+T 1368356606 29*	29Topic for #arm-netbook 29is: arm-netbook: Don't ask to ask. Just ask! - EOMA68 spec http://bit.ly/ZHqfxA - ML arm-netbook@lists.phcomp.co.uk - Logs http://bit.ly/XELKJq or http://bit.ly/15OCYPD - For Allwinner/sunxi discussions prefer #linux-sunxi - iMX6 Card http://bit.ly/XAUGCD - Flying Squirrel http://bit.ly/WgOYaR - Allwinner A10/A20 Card http://bit.ly/zBLAbY - http://rhombus-tech.net
+T 1368356606 29*	29Topic for #arm-netbook 29set by lkcl!~lkcl@cpc4-fare6-2-0-cust31.6-1.cable.virginmedia.com 29at Wed Feb 27 09:11:02 2013
+T 1368356609 28-29ChanServ28-	[#arm-netbook] Welcome to #arm-netbook. You can find public logs of this channel at http://irclog.whitequark.org/arm-netbook/ and http://ibot.rikers.org/%23arm-netbook/
+T 1368356943 19*	19penguin42 (~dg@tu006.demon.co.uk) has joined #arm-netbook
+T 1368357017 22*	Disconnected ().
+T 1368357492 19*	19Now talking on #arm-netbook
+T 1368357492 29*	29Topic for #arm-netbook 29is: arm-netbook: Don't ask to ask. Just ask! - EOMA68 spec http://bit.ly/ZHqfxA - ML arm-netbook@lists.phcomp.co.uk - Logs http://bit.ly/XELKJq or http://bit.ly/15OCYPD - For Allwinner/sunxi discussions prefer #linux-sunxi - iMX6 Card http://bit.ly/XAUGCD - Flying Squirrel http://bit.ly/WgOYaR - Allwinner A10/A20 Card http://bit.ly/zBLAbY - http://rhombus-tech.net
+T 1368357492 29*	29Topic for #arm-netbook 29set by lkcl!~lkcl@cpc4-fare6-2-0-cust31.6-1.cable.virginmedia.com 29at Wed Feb 27 09:11:02 2013
+T 1368357493 28-29ChanServ28-	[#arm-netbook] Welcome to #arm-netbook. You can find public logs of this channel at http://irclog.whitequark.org/arm-netbook/ and http://ibot.rikers.org/%23arm-netbook/

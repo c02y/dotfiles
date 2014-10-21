@@ -1,0 +1,9 @@
+#!/usr/bin/perl
+# Convert list of binary into decimal and hexadecimal
+
+printf("the binary numbers must start with '0b'\n\n");
+
+for ($i = 0; $i < @ARGV; $i++) {
+  $val = oct($ARGV[$i]);
+  printf("0b%b\t= %d\t= 0x%x\n", $val, $val, $val);
+}

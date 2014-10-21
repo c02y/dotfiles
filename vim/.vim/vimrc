@@ -1,0 +1,222 @@
+" set shell=/bin/fish
+
+" encoding support, default utf-8
+set encoding=utf8
+set fileencodings=utf8,gb2312,gb18030,ucs-bom,latin1
+
+" map : to Space
+nmap <space> :
+let mapleader = ","
+
+" C-z to go into shell, use exit(int shell) to go back to vim
+nmap <C-Z> :shell<CR>
+nnoremap <Leader>. :e<Space>
+nnoremap <Leader>v :e<Space>~/.vimrc<CR>
+" use right click for menu
+set mousemodel=popup
+" Toggle spell checking on and off with `,s`
+nmap <silent> <leader>s :set spell!<CR>
+
+" short
+iab idate <c-r>=strftime("%H:%M:%S %Y-%m-%d")<CR>
+iab itime <c-r>=strftime("%H:%M")<CR>
+iab imail Cody Chan <cody.chan.cz@gmail.com>
+iab iname Cody Chan
+
+
+" no beep or slash
+set vb t_vb=
+
+" normal mode in GUI
+nnoremap <C-DOWN> <C-W><C-J> "Ctrl-j to move down a split
+nnoremap <C-UP> <C-W><C-K> "Ctrl-k to move up a split
+nnoremap <C-RIGHT> <C-W><C-L> "Ctrl-l to move right a split
+nnoremap <C-LEFT> <C-W><C-H> "Ctrl-h to move left a split
+
+" GUI client setting
+if has("gui_running")
+    " winpos 0 0
+    set guifont=PragmataPro\ 13
+    set lines=50 columns=80
+    set guioptions-=T	 " toolabr
+    set guioptions-=m	 " menubar
+    " remove the scrollbar on left/rignt/bottom
+	" cannot `set guioptions-=rlb`
+    set guioptions-=r
+    set guioptions-=l
+    set guioptions-=b
+endif
+syntax on " syntax highlight
+set smartindent
+set autoindent
+
+set nocompatible " be iMproved, required
+set number		 " line munber
+set showcmd		 " show command
+autocmd BufEnter * :syntax sync fromstart
+set backspace=eol,start,indent
+set incsearch
+set ignorecase	 " ignore case when searching
+set magic		 " :h magic
+set showmatch	 " paren
+set nobackup
+set nowb		 " backup before overwriting
+set swapfile	 " use .swap file to recover
+set linebreak
+set wildmenu	 " Tab to show command completion list
+set wildmode=list:longest,list:full
+set wildignore=.git,*.swp,*/tmp/*
+set pastetoggle=<F9>	 " paste from out-program under insert mode
+set history=400	 " remember the history of commands
+set autoread	 " auto reload when file is modified from outside
+set omnifunc=syntaxcomplete#Complete
+
+"""""""""""""""""""" statueline""""""""""""""""""""""""""""""
+set laststatus=2 " always show status line
+highlight StatusLine cterm=bold ctermfg=yellow ctermbg=blue
+function! CurDir()
+    let curdir = substitute(getcwd(), $HOME, "~", "g")
+    return curdir
+endfunction
+set statusline=[%n]\ %f%m%r%h\ \|pwd:\ %{CurDir()}\|%=\|%l,%c(%p%%)%{FileSize()}\|ascii=%b,hex=%b%{((&fenc==\"\")?\"\":\"\|\".&fenc)}\|
+function! FileSize()
+    let bytes = getfsize(expand("%:p"))
+    if bytes <= 0
+        return ""
+    endif
+    if bytes < 1024
+        return bytes
+    else
+        return (bytes / 1024) . "K"
+    endif
+endfunction
+""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" searches forward/backward using */#
+vnoremap <silent> * :call VisualSearch('f')<CR>
+vnoremap <silent> # :call VisualSearch('b')<CR>
+
+" C-J/K to switch buffers
+nn <C-J> :bn<cr>
+nn <C-K> :bp<cr>
+
+" C-e/a in inset mode
+imap <C-e> <END>
+imap <C-a> <HOME>
+"imap <C-b> <Left>
+"imap <C-f> <Right>
+"imap <M-b> bi
+"imap <M-f> Wi
+
+" restore the position when opening again
+set viminfo='10,\"100,:20,%,n~/.viminfo
+au BufReadPost * if line("'\"") > 0|if line("'\"") <= line("$")|exe("norm '\"")|else|exe "norm $"|endif|endif
+
+" bash indent "case"
+let g:sh_indent_case_labels=1
+
+" turn pyton syntax on
+"syntax on
+"autocmd BufRead,BufNewFile *.sh,*.py syntax on
+autocmd BufRead,BufNewFile *.py set ts=4 sw=4 autoindent smartindent expandtab cinwords=if,elif,else,for,while,with,try,except,finally,def,class
+autocmd BufRead,BufNewFile *.sh set expandtab tabstop=2 shiftwidth=2
+
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""" Vundle
+""""""""""""""https://github.com/gmarik/Vundle.vim
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set nocompatible              " be iMproved, required
+filetype on                   " required
+
+" set the runtime path to include Vundle and initialize
+" `:set runtimepath` to check the value
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+" alternatively, pass a path where Vundle should install plugins
+"call vundle#begin('~/some/path/here')
+
+" let Vundle manage Vundle, required
+Plugin 'gmarik/Vundle.vim'
+
+" nerdcommenter
+Plugin 'scrooloose/nerdcommenter'
+filetype plugin on
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"" The following are examples of different formats supported.
+"" Keep Plugin commands between vundle#begin/end.
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+"""""""""""""""""""""plugin on GitHub repo""""""""""""""""""""""""""
+" Plugin 'tpope/vim-fugitive'
+
+" ctrlp
+Plugin 'kien/ctrlp.vim'
+" `,,` bind to `CtrlP<CR>`
+nnoremap <Leader>, :CtrlP<CR>
+
+" ultisnips
+Plugin 'SirVer/ultisnips'
+Plugin 'honza/vim-snippets'
+" Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
+let g:UltiSnipsExpandTrigger="<c-space>"
+
+" YCM
+Plugin 'Valloric/YouCompleteMe'
+" then in YouCompleteme dir: `./install.sh --clang-completer`
+let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/YouCompleteMe/.ycm_extra_conf.py'
+set completeopt=menu,menuone
+
+" jedi -- auto completion for Python
+Plugin 'davidhalter/jedi-vim'
+let g:jedi#use_splits_not_buffers = "bottom"
+
+" auto-pairs
+Plugin 'jiangmiao/auto-pairs'
+
+" AutoComplPop
+Plugin 'vim-scripts/AutoComplPop'
+
+" vim-multiple-cursors
+Plugin 'terryma/vim-multiple-cursors'
+
+" vim-expand-region
+Plugin 'terryma/vim-expand-region'
+
+" python-mode 
+Plugin 'klen/python-mode'
+
+"""""""""""""""""""""plugin from http://vim-scripts.org/vim/scripts.html
+" Plugin 'L9'
+
+"""""""""""""""""""""Git plugin not hosted on GitHub"""""""""""""""""
+" Plugin 'git://git.wincent.com/command-t.git'
+
+"""""""""""""""""""""git repos on your local machine (i.e. when working on your own plugin)
+" Plugin 'file:///home/gmarik/path/to/plugin'
+
+" The sparkup vim script is in a subdirectory of this repo called vim.
+" Pass the path to set the runtimepath properly.
+" Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
+
+"""""""""""""""""""""Avoid a name conflict with L9
+" Plugin 'user/L9', {'name': 'newL9'}
+
+
+"" All of your Plugins must be added before the following line
+call vundle#end()            " required
+filetype plugin indent on    " required
+"" To ignore plugin indent changes, instead use:
+""filetype plugin on
+""
+"" Brief help
+"" :PluginList       - lists configured plugins
+"" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
+"" :PluginSearch foo - searches for foo; append `!` to refresh local cache
+"" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
+""
+"" see :h vundle for more details or wiki for FAQ
+"" Put your non-Plugin stuff after this line

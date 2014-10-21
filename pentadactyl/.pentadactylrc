@@ -1,0 +1,102 @@
+"hg7110
+
+loadplugins '\.(js|penta)$'
+group user
+command! -description='Reload .pentadactyl rc file' fr source $HOME/.pentadactylrc
+
+" M-x enters command mode
+map -builtin , :
+
+" scrool more
+nmap -builtin j 40j
+nmap -builtin k 40k
+
+" swap d/D
+nmap -builtin d D
+nmap -builtin D d
+"nmap -builtin gd :js config.tabbrowser.removeTab(tabs.getTab())<CR>
+
+" swap y/Y
+" DONNOT use the following line, it will slow starting ex a lot
+" map -count -modes=n,v Y -builtin <count>y
+nmap -builtin y Y
+nmap -builtin Y y
+
+" swap p/P
+nmap -builtin p P
+nmap -builtin P p
+
+" w/e switch next/previouw tabs, C-^ to toggle last viewd tab
+nmap -builtin w <C-p>
+nmap -builtin e <C-n>
+
+" back/forward
+nmap -builtin h <C-o>
+nmap -builtin l <C-i>
+
+" prev selected tab
+nmap -builtin x <C-^>
+
+" U list closed tabs
+nmap -builtin U :undo<Space>
+
+" viewsource in new tab
+nmap -builtin gf :tab viewsource<CR>
+
+" C-g to show :pageinfo
+nmap <C-g> :pa<CR>
+
+" show jump list
+nmap J :jumps<CR>
+
+" C-c should be :stop by default, but it doesn't work, so
+"nmap -builtin <C-c> :stop<CR>
+
+" help system
+map -builtin H :tab :help<Space>
+map -builtin <F1> :tabopen<Return><Esc>:help<CR>
+
+" F2 show toolbar/nagivator
+map -builtin <F2> :set<Space>go!=T<Space>showtabline=always<CR>
+
+" bmarks m-open, M-list
+map -builtin m :bmarks!<Space>
+map -builtin M :bmarks<CR>
+
+" zoom in/out using just -/+
+map -builtin \- zi
+map -builtin \= zo
+
+" C-v only once to paste
+cmap -builtin <C-v> <C-v><C-v>
+imap -builtin <C-v> <C-v><C-v>
+nmap -builtin <C-v> <C-v><C-v>
+
+" Focus the address bar with C-l
+cmap -builtin <C-l> <C-v><C-l>
+imap -builtin <C-l> <C-v><C-l>
+nmap -builtin <C-l> <C-v><C-l>
+
+" Use C-t to open a new Tab
+cmap -builtin <C-t> <C-v><C-t>
+imap -builtin <C-t> <C-v><C-t>
+nmap -builtin <C-t> <C-v><C-t>
+
+""""""""""""""""""""""""""""""""""""""""""
+map -count -modes=c,i,n,t,v <C-a> <Pass>
+map -count -modes=c,i,n,v <C-c> -builtin <C-v><C-c>
+map -count -modes=c <Down> <Tab>
+map -count -modes=c <Up> <S-Tab>
+set complete=search,location,history,bookmark,file
+set defsearch=search
+set editor=leafpad
+set guioptions=CTs
+set history=20
+"set showtabline=always
+
+" Hilight previous search pattern matches
+set hlfind
+" Ignore case in search unless pattern has uppercase chars
+set findcase=smart
+
+" vim: set ft=pentadactyl:

@@ -1,0 +1,22 @@
+# Set the split point between source and GDB window. 
+set winsplit=top_big
+
+# If this is on, CGDB will show all of the commands that it sends to GDB. 
+# If it is off, CGDB will not show the commands that it gives to GDB. The default is off. 
+:set showtgdbcommands
+
+# Changes the style of the arrow that is used to indicate the currently executing
+# line in the source viewer. The default value is short. 
+:set arrowstyle=long
+
+# Set the color and attributes for a highlighting group
+# format 
+# `:highlight group cterm=attributes ctermfg=color ctermbg=color term=attributes`
+# Arrow: This represents the arrow that CGDB draws to point to the currently viewed line. 
+:highlight Arrow cterm=bold ctermfg=Red
+# Breakpoint: This represents the group that is used when CGDB displays a line that has a breakpoint set. 
+:highlight Breakpoint ctermbg=Grey ctermfg=Red
+# SelectedLineNr: This represents the group that is used when CGDB is displaying the currently selected line. This is the line that the cursor is on. 
+:highlight SelectedLineNr cterm=bold,underline ctermfg=White
+# This represents the group used when the user has the arrowstyle option set to highlight.
+:highlight LineHighlight

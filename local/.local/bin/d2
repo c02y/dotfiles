@@ -1,0 +1,10 @@
+#!/usr/bin/perl
+# Convert list of decimal numbers into hexadecimal and binary
+
+if (@ARGV < 1) {
+	  printf("Usage: s2 dec_num dec_num2 ...\n");
+}
+
+for ($i = 0; $i < @ARGV; $i++) {
+  printf("%d\t= 0x%x = 0b%b\n", $ARGV[$i], $ARGV[$i], $ARGV[$i]);
+}

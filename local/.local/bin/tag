@@ -1,0 +1,21 @@
+#!/bin/bash 
+# this file is for projects which are not kernel source code
+
+## in the project dir:
+
+# delete existed tags files
+rm -rf GPATH GTAGS GSYMS GRTAGS
+rm -rf cscope.files cscope.in.out cscope.out cscope.po.out
+rm -rf include_sys
+echo Old files deleted!!
+
+# gtags > GPATH, GTAGS, GSYMS, GRTAGS
+ln -s /usr/include include_sys
+gtags -v
+echo gtags done!!
+
+# cscope > cscope.files, cscope.in.out cscope.out, cscope.po.out
+find . -name "*.[ch]" -print > cscope.files
+find /usr/include/* -name "*.[ch]" >> cscope.files
+cscope -b -R -q
+echo cscope done!!

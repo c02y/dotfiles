@@ -1,0 +1,169 @@
+
+#1.1.8
+
+#[gtk-about]
+
+[Icon]
+
+#F[Icon]
+frame_maininfo=
+
+#d Name of the dock it belongs to:
+dock name=_MainDock_
+
+#s[Default] Name of the icon as it will appear in its caption in the dock:
+name=
+#v
+sep_display=
+
+#S+[Default] Image filename:
+icon=
+
+#j+[0;128] Desired icon size for this applet
+#{Set to 0 to use the default applet size}
+icon size=0;0;
+
+order=3.75
+
+#A
+handbook=Clipper
+
+
+#[gtk-convert]
+
+[Desklet]
+
+#X[Position]
+frame_pos=
+
+#b Lock position?
+#{If locked, the desklet cannot be moved by simply dragging it with the left mouse button. It can still be moved with ALT + left-click.}
+locked=false
+
+#j[24;512] Desklet dimensions (width x height):
+#{Depending on your WindowManager, you may be able to resize this with ALT + middle-click or ALT + left-click.}
+size=96;96;
+
+#i[-2048;2048] Desklet position (x, y):
+#{Depending on your WindowManager, you may be able to move this with ALT + left-click.}
+x position=-655
+#i[-2048;2048] ...
+y position=-391
+
+#I[-180;180] Rotation:
+#{You can quickly rotate the desklet with the mouse, by dragging the little buttons on its left and top sides.}
+rotation=0
+
+#X[Visibility]
+frame_visi=
+
+#b Is detached from the dock
+initially detached=false
+#l[Normal;Keep above;Keep below;Keep on widget layer;Reserve space] Visibility:
+accessibility=0
+#b Should be visible on all desktops?
+sticky=true
+
+#F[Decorations;gtk-orientation-portrait]
+frame_deco=
+
+#o+ Choose a decoration theme for this desklet:
+#{Choose 'Custom decorations' to define your own decorations below.}
+decorations=default
+
+#v
+sep_deco=
+
+#S+ Background image:
+#{Image to be displayed below drawings, e.g. a frame. Leave empty for no image.}
+bg desklet=
+#e+[0;1] Background transparency:
+bg alpha=1
+#i+[0;256] Left offset:
+#{in pixels. Use this to adjust the left position of drawings.}
+left offset=0
+#i+[0;256] Top offset:
+#{in pixels. Use this to adjust the top position of drawings.}
+top offset=0
+#i+[0;256] Right offset:
+#{in pixels. Use this to adjust the right position of drawings.}
+right offset=0
+#i+[0;256] Bottom offset:
+#{in pixels. Use this to adjust the bottom position of drawings.}
+bottom offset=0
+#S+ Foreground image:
+#{Image to be displayed above the drawings, e.g. a reflection. Leave empty for no image.}
+fg desklet=
+#e+[0;1] Foreground tansparency:
+fg alpha=1
+
+use size=
+no input=0
+depth rotation y=0
+depth rotation x=0
+
+width=92
+height=92
+
+num desktop=-1
+
+[Configuration]
+
+#F[Items;gtk-convert]
+frame_item=
+
+#l[None;Clipboard;Selection;Both] Which items should be remembered?
+#{Clipboard items are those you get with CTRL+c. Selection items are those you get by selecting some text with the mouse.}
+item type=1
+
+#I[1;50] Number of items:
+nb items=50
+
+#b Remember items between 2 sessions ?
+remember=true
+
+last items=5f5f5f"=-+-= ;; black-5 in moe-theme=-+-=RoyalBlue3=-+-=make-=-+-=make-buffer-sticky=-+-=set-window-dedicated-p=-+-=ftp://alpha.gnu.org/gnu/emacs/pretest/emacs-24.4-rc1.tar.xz=-+-=function =-+-=asasas =-+-=font-lock-comment-face=-+-=emacs %f=-+-=nnoremap <C-J> <C-W><C-J> "Ctrl-j to move down a split \nnnoremap <C-K> <C-W><C-K> "Ctrl-k to move up a split \nnnoremap <C-L> <C-W><C-L> "Ctrl-l to move    right a split \nnnoremap <C-H> <C-W><C-H> "Ctrl-h to move left a split=-+-=LEFT=-+-=RIGHT=-+-=int =-+-=https://lwn.net/Articles/616241/=-+-=global-=-+-=projectile-project-name=-+-=" Projectile[=-+-=2014100322186648=-+-=http://www.tmd123.com/?i=1b0c7ea90107ceaa433364360efd8ebc=-+-=largish=-+-=configuration=-+-=(defun set-frame-size-according-to-resolution ()\n  (interactive)\n  (if window-system\n	  (progn\n		;; use 120 char wide window for largish displays\n		;; and smaller 80 column windows for smaller displays\n		;; pick whatever numbers make sense for you\n		(if (> (x-display-pixel-width) 1500)\n			;; (add-to-list 'default-frame-alist (cons 'width 85))\n			;; (add-to-list 'default-frame-alist (cons 'width 85)))\n			(setq default-frame-alist\n				  '((top . 0)(left . 0)\n					(width . 85)(height . 48)\n					(font . "PragmataPro-13")\n					;; (:family "Menlo-Italic");; Monaco, Consolas\n					))\n		  (setq default-frame-alist\n				'((top . 0)(left . 0)\n				  (width . 85)(height . 35)\n				  (font . "PragmataPro-13")\n				  ;; (:family "Menlo-Italic")\n				  )))\n		))\n  ;; the following two settings are specifically for afternoon-theme\n  ;; the combination colors of highlighted line and comments\n  ;; (custom-set-faces\n  ;;  '(font-lock-comment-face\n  ;;	((t (:foreground "gray60" :slant italic :weight normal :family "Menlo")))\n  ;;	))\n  ;; (set-face-background 'highlight "gray30")\n)\n;;\n(set-frame-size-according-to-resolution)\n=-+-=(add-to-list 'default-frame-alist (cons 'width 85))\n(add-to-list 'default-frame-alist (cons 'width 85)))\n=-+-=(:family "Menlo-Italic");; Monaco, Consolas\n=-+-=(:family "Menlo-Italic")\n=-+-=the following two settings are specifically for afternoon-theme\nthe combination colors of highlighted line and comments\n(custom-set-faces\n '(font-lock-comment-face\n   ((t (:foreground "gray60" :slant italic :weight normal :family "Menlo")))\n   ))\n(set-face-background 'highlight "gray30")\n=-+-=    (defun set-frame-size-according-to-resolution ()\n      (interactive)\n      (if window-system\n    	  (progn\n			;; use 120 char wide window for largish displays\n			;; and smaller 80 column windows for smaller displays\n			;; pick whatever numbers make sense for you\n    		(if (> (x-display-pixel-width) 1500)\n    			(setq default-frame-alist\n    				  '((top . 0)(left . 0)\n    					(width . 85)(height . 48)\n    					(font . "PragmataPro-13")\n    					))\n    		  (setq default-frame-alist\n    				'((top . 0)(left . 0)\n    				  (width . 85)(height . 35)\n    				  (font . "PragmataPro-13")\n    				  )))\n    		))\n    )\n    (set-frame-size-according-to-resolution)=-+-=x-display-pixel-width=-+-=http://lists.gnu.org/archive/html/info-gnu-emacs/2014-10/msg00001.html=-+-=Emacs 24.4 release candidate 1 is ready=-+-=What's new in Emacs 24.4?=-+-=[Emacs 24.4 release candidate 1 was released]=-+-=[What's new in Emacs 24.4?]=-+-=http://www.masteringemacs.org/articles/2013/12/29/whats-new-in-emacs-24-4/=-+-=avatar=-+-=https://play.google.com/store/apps/details?id=jp.ddo.pigsty.HabitBrowser=-+-=habit browser not password=-+-=Habit browser is prefect except that it cannot save the password, everytime I restart the app and login a website's account, it will ask me to input the username and password, Habit Browser even won't autofill. It has the saving passwords option in the Setting, but it totally useless. Habit Browser is my main browser, I love it, saving passwrods is a very simple and basic feature for a browser. Please get it done. =-+-=就会搜索=-+-=overkill=-+-=http://search.tmd123.com=-+-=你是下一个=-+-=http://movie.douban.com/subject_search?search_text==-+-=http://book.douban.com/subject_search?search_text==-+-=超级8=-+-=http://search.tmd123.com/?gws_rd=ssl#newwindow=1&q=emacs=-+-=密码=-+-=无人生还
+
+#B Separate clipboard and selection?
+#{It is especially useful if you often select text with the mouse and don't want to loose your clipboard items due to too many items in the selection.}
+separate=false
+
+#I[1;50] If so, number of selection items:
+nb items2=10
+
+#b Paste into Clipboard?
+#{When you click on an item, its content will become accessible with CTRL+v}
+paste clipboard=true
+
+#b Paste into Selection?
+#{When you click on an item, its content will become accessible with the middle-click}
+paste selection=false
+
+#k Shortkey to pop-up the items menu:
+shortkey=<Control>F8
+
+#b Pop-up menus at mouse position?
+menu on mouse=true
+
+
+#F[Actions;gtk-execute]
+frame_act=
+
+#B[2] Enable actions?
+#{If some actions are associated with an item, they will be proposed when the item is created.}
+enable actions=false
+
+#b Replay actions?
+#{Display actions when selecting an item in the history.}
+replay action=true
+
+#I[1;12] Duration of the action menu:
+#{in seconds.}
+action duration=4
+
+
+#F[Persistent items;gtk-dnd-multiple]
+frame_per=
+
+#U A list of persistent items which can be accessed with middle-click:/
+persistent=
