@@ -14,11 +14,11 @@ set -gx fish_color_host yellow
 
 # modified version of prompt_pwd, full path, not short
 function prompt_pwd --description 'Print the current working directory, NOT shortened to fit the prompt'
-    if test "$PWD" != "$HOME"
-        printf " %s " (echo $PWD|sed -e 's|/private||' -e "s|^$HOME|~|")
-    else
-        echo ' ~'
-    end
+	if test "$PWD" != "$HOME"
+	   printf " %s " (echo $PWD|sed -e 's|/private||' -e "s|^$HOME|~|")
+	else
+		echo ' ~'
+	end
 end
 
 # prompt text showing at the beginning of the line
@@ -221,15 +221,15 @@ alias cdp 'cd ~/Public; lsh'
 # cd then list
 function cdls
 	cd $argv
-        ls
+	   ls
 end
 function cdll
 	cd $argv
-        ll
+	   ll
 end
 function cdla
 	cd
-        la
+		la
 end
 
 
@@ -239,7 +239,7 @@ alias diff-y 'diff -y '
 
 function mkcd --description 'mkdir dir then cd dir'
 	mkdir -p $argv
-        cd $argv
+		  cd $argv
 end
 
 # goagent
@@ -323,3 +323,37 @@ alias cl 'cloc '
 alias cll 'cloc --by-file-by-lang'
 
 alias st 'stow --verbose'
+
+# percol
+# percol_cd_history not work
+set CD_HISTORY_FILE $HOME/.cd_history_file
+function percol_cd_history
+	sort $CD_HISTORY_FILE | uniq -c | sort -r | sed -e 's/^[ ]*[0-9]*[ ]*//' | percol | read -l percolCDhistory
+	if [ $percolCDhistory ]
+	  # commandline 'cd '
+	  # commandline -i $percolCDhistory
+	  echo 'cd' $percolCDhistory
+	  cd $percolCDhistory
+	  echo $percolCDhistory
+	  commandline -f repaint
+	else
+		commandline ''
+	end
+end
+# C-s goto the dir history
+function fish_user_key_bindings
+	bind \cs percol_cd_history
+end
+
+function percol_command_history
+	history | percol | read foo
+	if [ $foo ]
+	   commandline $foo
+	else
+		commandline ''
+	end
+end
+# C-r to search the history
+function fish_user_key_bindings
+	bind \cr percol_command_history
+end
