@@ -1,14 +1,15 @@
 # .bashrc
+# https://gist.github.com/redguardtoo/01868d7a13817c9845e8 for more
 
 # disable Ctrl-d to EXIT
-set -o ignoreeof # 10 times until exiting 
+set -o ignoreeof # 10 times until exiting
 
 # z -- https://github.com/rupa/z
 #. `brew --prefix`/opt/z/etc/profile.d/z.sh
 
 # Source global definitions
 if [ -f /etc/bashrc ]; then
-    . /etc/bashrc
+	. /etc/bashrc
 fi
 
 # Python complete
@@ -63,7 +64,7 @@ alias fgrep='fgrep --color=auto'
 alias findt='find ./* -name "*~"; find ./* -name "\#*"'
 alias ftr='find ./* -name "*~" | xargs rm -rfv; find ./* -name "\#*" | xargs rm -rfv'
 
-# ps 
+# ps
 alias psg='ps -ef | g '
 
 alias du='du -h'
@@ -95,18 +96,17 @@ alias m-c='minicom --color=on'
 
 # j for .bz2, z for .gz, J for xz, a for auto determine
 alias t-tbz2='tar tvfj'
-alias t-tgz='tar tvfz' 
+alias t-tgz='tar tvfz'
 alias t-txz='tar tvfJ' # show the contents
-alias t-ta='tar tvfa' # the above three can just use this one to auto choose the right one 
+alias t-ta='tar tvfa' # the above three can just use this one to auto choose the right one
 alias t-xbz2='tar xvfj'
-alias t-xgz='tar xvfz' 
+alias t-xgz='tar xvfz'
 alias t-xxz='tar xvfJ' # extract
-alias t-xa='tar xvfa' # the above three can jsut use this one to auto choose the right one 
+alias t-xa='tar xvfa' # the above three can jsut use this one to auto choose the right one
 alias t-cbz2='tar cvfj'
-alias t-cgz='tar cvfz' 
+alias t-cgz='tar cvfz'
 alias t-cxz='tar cvfJ' # compress
 alias t-ca='tar cvfa' # the above three can just use this one to auto choose the right one
-
 
 alias wgets='wget --mirror -p --html-extension --convert-links'
 alias wt='wget -P /tmp/  http://softdownload.hao123.com/hao123-soft-online-bcs/soft/Q/2013-11-01_QQ2013SP4.exe'
@@ -123,10 +123,10 @@ alias uk='sudo yum --exclude=kernel\* upgrade' # this line will be '=kernel*' in
 # donnot show the other info on startup
 alias gdb='gdb -q'
 
-# systemd-analyze 
+# systemd-analyze
 alias sab='systemd-analyze blame; systemd-analyze time'
 
-# cd 
+# cd
 alias b='cd'
 alias ..='cd ..'
 alias ..2='cd ../..'
@@ -161,70 +161,70 @@ export HISTCONTROL=ignoredups
 # this code need ~/.local/bin/acd_func.sh and a_loghistory_func.sh
 # created ~/.history-localhost and .history_log.localhost
 # USAGE: in a_loghistory_func.sh and acd_func.sh
-# 1. cd -- to list the dirs visited 
-# 2. cd -N to go to the dir, the N is the number signed to the specific dir 
+# 1. cd -- to list the dirs visited
+# 2. cd -N to go to the dir, the N is the number signed to the specific dir
 # 3. # dump regular history log
 # alias h='history'
 # 4. # dump enhanced history log
 # alias hh="cat ${HOME}/.history_log.${HOSTNAME}"
 # 5. # dump history of directories visited
 # alias hd="cat ${HOME}/.history_log.${HOSTNAME} | awk -F ' ~~~ ' '{print \$2}' | uniq"
-# 
+#
 # are we an interactive shell?
 if [ "$PS1" ]; then
 
-    HOSTNAME=`hostname -s || echo unknown`
+	HOSTNAME=`hostname -s || echo unknown`
 
-    # add cd history function
-    [[ -f ${HOME}/.local/bin/acd_func.sh ]] && . ${HOME}/.local/bin/acd_func.sh
-    # make bash autocomplete with up arrow
-    bind '"\e[A":history-search-backward'
-    bind '"\e[B":history-search-forward'
-    ##################################
-    # BEG History manipulation section
+	# add cd history function
+	[[ -f ${HOME}/.local/bin/acd_func.sh ]] && . ${HOME}/.local/bin/acd_func.sh
+	# make bash autocomplete with up arrow
+	bind '"\e[A":history-search-backward'
+	bind '"\e[B":history-search-forward'
+	##################################
+	# BEG History manipulation section
 
-    # Don't save commands leading with a whitespace, or duplicated commands
-    export HISTCONTROL=ignoredups
+	# Don't save commands leading with a whitespace, or duplicated commands
+	export HISTCONTROL=ignoredups
 
-    # Enable huge history
-    export HISTFILESIZE=9999999999
-    export HISTSIZE=9999999999
+	# Enable huge history
+	export HISTFILESIZE=9999999999
+	export HISTSIZE=9999999999
 
-    # Ignore basic "ls" and history commands
-    export HISTIGNORE="ls:ls -al:ll:history:h:h[dh]:h [0-9]*:h[dh] [0-9]*"
+	# Ignore basic "ls" and history commands
+	export HISTIGNORE="ls:ls -al:ll:history:h:h[dh]:h [0-9]*:h[dh] [0-9]*"
 
-    # Save timestamp info for every command
-    export HISTTIMEFORMAT="[%F %T] ~~~ "
+	# Save timestamp info for every command
+	export HISTTIMEFORMAT="[%F %T] ~~~ "
 
-    # Dump the history file after every command
-    shopt -s histappend
-    export PROMPT_COMMAND="history -a;"
-    [[ -f ${HOME}/.local/bin/a_loghistory_func.sh ]] && . ${HOME}/.local/bin/a_loghistory_func.sh
+	# Dump the history file after every command
+	shopt -s histappend
+	export PROMPT_COMMAND="history -a;"
+	[[ -f ${HOME}/.local/bin/a_loghistory_func.sh ]] && . ${HOME}/.local/bin/a_loghistory_func.sh
 
-    # Specific history file per host
-    export HISTFILE=$HOME/.history-$HOSTNAME
+	# Specific history file per host
+	export HISTFILE=$HOME/.history-$HOSTNAME
 
-    save_last_command () {
-        # Only want to do this once per process
-        if [ -z "$SAVE_LAST" ]; then
-            EOS=" # end session $USER@${HOSTNAME}:`tty`"
-            export SAVE_LAST="done"
-            if type _loghistory >/dev/null 2>&1; then
-                _loghistory
-                _loghistory -c "$EOS"
-            else
-                history -a
-            fi
-            /bin/echo -e "#`date +%s`\n$EOS" >> ${HISTFILE}
-        fi
-    }
-    trap 'save_last_command' EXIT
+	save_last_command () {
+		# Only want to do this once per process
+		if [ -z "$SAVE_LAST" ]; then
+			EOS=" # end session $USER@${HOSTNAME}:`tty`"
+			export SAVE_LAST="done"
+			if type _loghistory >/dev/null 2>&1; then
+				_loghistory
+				_loghistory -c "$EOS"
+			else
+				history -a
+			fi
+			/bin/echo -e "#`date +%s`\n$EOS" >> ${HISTFILE}
+		fi
+	}
+	trap 'save_last_command' EXIT
 
-    # END History manipulation section
-    ##################################
+	# END History manipulation section
+	##################################
 
-    # Preload the working directory history list from the directory history
-    if type -t hd >/dev/null && type -t cd_func >/dev/null; then
-        for x in `hd 20` `pwd`; do cd_func $x ; done
-    fi
+	# Preload the working directory history list from the directory history
+	if type -t hd >/dev/null && type -t cd_func >/dev/null; then
+		for x in `hd 20` `pwd`; do cd_func $x ; done
+	fi
 fi

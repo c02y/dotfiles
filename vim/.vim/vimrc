@@ -27,6 +27,9 @@ iab iname Cody Chan
 " no beep or slash
 set vb t_vb=
 
+" show all whitespaces, use `:set list` to show
+set listchars=eol:$,tab:>-,trail:~,extends:>,precedes:<
+
 " normal mode in GUI
 nnoremap <C-DOWN> <C-W><C-J> "Ctrl-j to move down a split
 nnoremap <C-UP> <C-W><C-K> "Ctrl-k to move up a split
@@ -144,6 +147,8 @@ Plugin 'gmarik/Vundle.vim'
 Plugin 'scrooloose/nerdcommenter'
 filetype plugin on
 
+" unite, like Emacs's helm
+Plugin 'Shougo/unite.vim'
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "" The following are examples of different formats supported.
@@ -186,7 +191,7 @@ Plugin 'terryma/vim-multiple-cursors'
 " vim-expand-region
 Plugin 'terryma/vim-expand-region'
 
-" python-mode 
+" python-mode
 Plugin 'klen/python-mode'
 
 """""""""""""""""""""plugin from http://vim-scripts.org/vim/scripts.html
