@@ -1,6 +1,9 @@
 # ~/.fishrc linked to ~/.config/fish/config.fish
 ### you can use `fish_config` to config a lot of things in WYSIWYG way in browser
 
+# don't know when `xfce4-terminal` starts with root directory, this make it fixed
+cd ~/
+
 set -gx PATH $PATH ~/.local/share/arm-linux/bin ~/.local/bin ~/.linuxbrew/bin /sbin
 
 # for ~/.linuxbrew/ (brew for linux to install programs)
@@ -16,6 +19,11 @@ set fish_greeting
 
 set -gx fish_color_user magenta
 set -gx fish_color_host yellow
+
+# fix the `^[]0;fish  /home/chz^G` message in shell of Emacs
+if test "$TERM" = "dumb"
+    function fish_title; end
+end
 
 # modified version of prompt_pwd, full path, not short
 function prompt_pwd --description 'Print the current working directory, NOT shortened to fit the prompt'
@@ -81,7 +89,7 @@ alias la 'ls -d .??*'			# only list the hidden dirs
 alias lla 'ls -lhA'             # list all but not . ..
 alias ls. 'ls -A'
 function lst
-	ls --color=yes --sort=time -lh | less -R
+	ls --color=yes $argv[1] --sort=time -lh | less -R
 end
 function lsh
 	ls --color=yes $argv[1] --sort=time -lh | head
@@ -105,7 +113,7 @@ alias vad 'valgrind --tool=callgrind --dump-instr=yes --simulate-cache=yes --col
 
 alias ima 'gwenview'
 alias ka 'killall'
-alias his 'history | ag '
+
 # alias bw 'ssh -qTfnN -D 7070 -p 443 hei1000@216.194.70.6'
 alias bw 'bash; ssh -qTfnN -D 7070 hei1000@216.194.70.6'
 
@@ -147,8 +155,9 @@ function fing --description 'find all the git projects, if no argv is passed, us
 	find $argv[1] -type d -name .git | sort
 end
 
-# ps
 alias psg 'ps -ef | ag '
+alias fcg 'fc-list | ag '
+alias his 'history | ag '
 
 # du
 alias du 'du -h'
@@ -156,33 +165,20 @@ alias dus 'du --summarize -c'
 function duS
 	du --summarize -c $argv | sort -h
 end
+alias dul 'sudo du --summarize -h -c /var/log/* | sort -h'
 
 alias watd 'watch -d du --summarize'
 alias df 'df -h'
 # stop less save search history into ~/.lesshst
 # or LESSHISTFILE=-
 # set -gx LESSHISTFILE /dev/null $LESSHISTFILE
-alias m 'less -RM'
-alias less 'less -RM'
+alias m 'less -RM -s -Gg'
+alias less 'less -RM -s -Gg'
 
 # gcc
 alias gcc-w 'gcc -g -Wall -W -Wsign-conversion'
 alias gcc-a 'gcc -g -ansi -pedantic -Wall -W -Wconversion -Wshadow -Wcast-qual -Wwrite-strings'
 # gcc -Wall -W -Wextra -Wconversion -Wshadow -Wcast-qual -Wwrite-strings -Werror
-
-
-# mpg321 random play
-alias mpg321 'mpg321 -Z -@mp3'
-alias mp3 'mpg123 --loop -1 -Z '
-
-# -Q = -q --no-site-file --no-splash, which will not load something like emacs-googies
-alias emq 'emacs -q --no-splash'
-alias emx 'emacs -nw -q --no-splash'
-alias emn 'emacs --no-desktop'
-function emd --description 'remove .emacs.d/init.elc then $ emacs --debug-init'
-	rm -rf ~/.emacs.d/init.elc
-	emacs --debug-init
-end
 
 alias ifw 'ifconfig wlp5s0'
 #alias nl 'nload -u H p4p1'
@@ -244,6 +240,7 @@ alias cde 'cd ~/.emacs.d/elpa; lsh'
 alias cdb 'cd ~/.vim/bundle'
 alias cdp 'cd ~/Public; lsh'
 alias cdc 'cd ~/Projects/CWork; lsh'
+alias cds 'cd ~/Projects/CWork/snippets; lsh'
 alias cdP 'cd ~/Projects'
 # cd then list
 function cdls
@@ -307,31 +304,43 @@ alias np 'netease-player '
 alias db 'douban.fm '
 
 #vim
-alias v 'vim '
+alias v 'vim --noplugin'
 alias vc 'vim ~/.cgdb/cgdbrc'
 alias vf 'vim ~/.fishrc'
 alias vv 'vim ~/.vimrc'
 alias vb 'vim ~/.bashrc'
-alias ve 'vim ~/.emacs'
+alias ve 'vim ~/.emacs.d/init.el'
 alias vt 'vim ~/.tmux.conf'
 alias v2 'vim ~/Recentchange/TODO'
 # emacs
+# -Q = -q --no-site-file --no-splash, which will not load something like emacs-googies
+alias emq 'emacs -q --no-splash'
+alias emx 'emacs -nw -q --no-splash --eval "(setq find-file-visit-truename t)"'
+alias emn 'emacs --no-desktop'
+function emd --description 'remove .emacs.d/init.elc then $ emacs --debug-init'
+	rm -rf ~/.emacs.d/init.elc
+	emacs --debug-init
+end
 alias e  'emx '
+alias ei 'emx ~/.emacs.d/init.el'
 alias ec 'emx ~/.cgdb/cgdbrc'
 alias ef 'emx ~/.fishrc'
 alias ev 'emx ~/.vimrc'
 alias eb 'emx ~/.bashrc'
-alias ee 'emx ~/.emacs'
-alias et 'emx ~/.tmux.conf'
+alias ee 'emx ~/.emacs.d/init.el'
+# alias et 'emx ~/.tmux.conf'
 alias e2 'emx ~/Recentchange/TODO'
 
 #more
-alias me 'less ~/.emacs'
+alias me 'less ~/.emacs.d/init.el'
 alias mh 'less /etc/hosts'
 alias m2 'less ~/Recentchange/TODO'
+alias mf 'less ~/.fishrc'
 
 function fsr --description 'Reload your Fish config after configuration'
+	set i $PWD
 	source ~/.config/fish/config.fish
+	cd $i
 end
 
 # the gpl.txt can be gpl-2.0.txt or gpl-3.0.txt
@@ -359,16 +368,17 @@ function gpa --description 'git pull all in dir using `fing dir`'
 end
 
 # HostsTool
-alias hs 'cd ~/Public/HostsTool-x11-gpl-1.9.8-SE/; sudo python ./hoststool.py;'
-alias hsc 'sudo cp -v ~/Public/HostsTool-x11-gpl-1.9.8-SE/hosts_2014-09-30-234541.bak /etc/hosts'
-alias hss 'sudo cp -v ~/Public/HostsTool-x11-gpl-1.9.8-SE/hosts /etc/hosts'
-alias hss1 'sudo cp -v ~/Public/hosts1 /etc/hosts'
+#alias hs 'cd ~/Public/HostsTool-x11-gpl-1.9.8-SE/; sudo python ./hoststool.py;'
+#alias hsc 'sudo cp -v ~/Public/HostsTool-x11-gpl-1.9.8-SE/hosts_2014-09-30-234541.bak /etc/hosts'
+#alias hss 'sudo cp -v ~/Public/HostsTool-x11-gpl-1.9.8-SE/hosts /etc/hosts'
+alias hs 'sudo cp -v ~/Public/hosts /etc/hosts'
+alias get-hosts 'wget https://raw.githubusercontent.com/vokins/simpleu/master/hosts -O ~/Public/hosts-github'
 
 # okular
 alias ok 'okular '
 
-function age --description 'ag sth. in ~/.emacs'
-	ag $argv[1] ~/.emacs
+function age --description 'ag sth. in ~/.emacs.d/init.el'
+	ag $argv[1] ~/.emacs.d/init.el
 end
 function agf --description 'ag sth. in ~/.fishrc'
 	ag $argv[1] ~/.fishrc
@@ -378,7 +388,7 @@ function ag2 --description 'ag sth. in ~/Recentchange/TODO'
 end
 
 alias cl 'cloc '
-alias cll 'cloc --by-file-by-lang'
+alias cll 'cloc --by-file-by-lang '
 
 alias st 'stow --verbose'
 
@@ -425,3 +435,5 @@ alias ptp 'ptpython'
 function rea
 	sudo ~/.local/bin/reaver -i mon0 -b $argv
 end
+
+alias epub 'ebook-viewer --detach'

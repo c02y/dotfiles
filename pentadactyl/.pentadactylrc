@@ -68,9 +68,13 @@ map -builtin \- ZO
 map -builtin \= ZI
 
 " C-v only once to paste
-cmap -builtin <C-v> <C-v><C-v>
-imap -builtin <C-v> <C-v><C-v>
-nmap -builtin <C-v> <C-v><C-v>
+"cmap -builtin <C-v> <C-v><C-v>
+"imap -builtin <C-v> <C-v><C-v>
+"nmap -builtin <C-v> <C-v><C-v>
+imap -builtin <C-c> <pass>
+imap -builtin <C-x> <pass>
+imap -builtin <C-a> <pass>
+imap -builtin <C-v> <pass>
 
 " Focus the address bar with C-l
 cmap -builtin <C-l> <C-v><C-l>
@@ -79,7 +83,7 @@ nmap -builtin <C-l> <C-v><C-l>
 
 " Use C-t to open a new Tab
 cmap -builtin <C-t> <C-v><C-t>
-imap -builtin <C-t> <C-v><C-t>
+"imap -builtin <C-t> <C-v><C-t>
 nmap -builtin <C-t> <C-v><C-t>
 
 """"""""""""""""""""""""""""""""""""""""""
@@ -88,8 +92,8 @@ map -count -modes=c,i,n,v <C-c> -builtin <C-v><C-c>
 map -count -modes=c <Down> <Tab>
 map -count -modes=c <Up> <S-Tab>
 set complete=search,location,history,bookmark,file
-set defsearch=search
-set editor=leafpad
+"set defsearch=search
+set editor=emacsclient
 set guioptions=CTs
 set history=20
 "set showtabline=always
