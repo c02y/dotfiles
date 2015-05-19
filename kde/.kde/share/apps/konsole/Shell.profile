@@ -17,6 +17,10 @@ StartInCurrentSessionDir=true
 [Interaction Options]
 AutoCopySelectedText=true
 MouseWheelZoomEnabled=false
+TripleClickMode=0
+
+[Keyboard]
+KeyBindings=default
 
 [Scrolling]
 HistoryMode=2

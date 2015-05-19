@@ -1,9 +1,6 @@
 # ~/.fishrc linked to ~/.config/fish/config.fish
 ### you can use `fish_config` to config a lot of things in WYSIWYG way in browser
 
-# don't know when `xfce4-terminal` starts with root directory, this make it fixed
-cd ~/
-
 set -gx PATH $PATH ~/.local/share/arm-linux/bin ~/.local/bin ~/.linuxbrew/bin /sbin
 
 # for ~/.linuxbrew/ (brew for linux to install programs)
@@ -12,7 +9,6 @@ set -gx LD_LIBRARY_PATH $LD_LIBRARY_PATH ~/.linuxbrew/Library
 # do not use the format above
 # http://vivafan.com/2013/03/%E3%80%8Cfish%E3%80%8D%E3%82%B7%E3%82%A7%E3%83%AB%E3%82%92%E5%AE%9F%E9%9A%9B%E3%81%AB%E4%BD%BF%E3%81%86%E3%81%9F%E3%82%81%E3%81%AB/
 # for more formats
-set -gx MANPAGER "less -s -M +Gg"
 
 # remove the greeting message
 set fish_greeting
@@ -68,10 +64,10 @@ function fish_prompt --description 'Write out the prompt'
 end
 
 function fish_right_prompt -d "Write out the right prompt"
-#	set_color -o black
+	#	set_color -o black
 	__informative_git_prompt
 
-#	set_color $fish_color_normal
+	#	set_color $fish_color_normal
 end
 ###################################################################
 
@@ -81,7 +77,7 @@ set fish_new_pager 1
 # User specific aliases and functions
 alias sl 'ls'
 alias l 'ls'
-# alias ls 'ls --color=auto'
+alias ls 'ls --color=always'
 alias lsp 'readlink -f'         # print the full path of a file
 alias lsd 'ls -d */'            # only list unhidden directories
 alias ll 'ls -lh'
@@ -114,9 +110,6 @@ alias vad 'valgrind --tool=callgrind --dump-instr=yes --simulate-cache=yes --col
 alias ima 'gwenview'
 alias ka 'killall'
 
-# alias bw 'ssh -qTfnN -D 7070 -p 443 hei1000@216.194.70.6'
-alias bw 'bash; ssh -qTfnN -D 7070 hei1000@216.194.70.6'
-
 alias rm 'rm -vi'
 alias cp 'cp -vi'
 alias mv 'mv -vi'
@@ -129,27 +122,25 @@ alias egrep 'egrep --color=auto'
 alias fgrep 'fgrep --color=auto'
 
 alias fu 'functions '
-
+# touch temporary files
+alias tout 'touch ab~ .ab~ .\#ab .\#ab\# \#ab\# .ab.swp ab.swp'
 # find
 function f --description 'find the files by name, if no argv is passed, use the current dir'
-#	find . -name $argv
 	find $argv[1] -name $argv[2]
 end
 function ft --description 'find the temporary files such as a~ or #a or .a~, if no argv is passed, use the current dir'
-	find $argv[1] -name "*~"
-	find $argv[1] -name "#?*#"
+	find $argv[1] \( -name "*~" -o -name "#?*#" -o -name "#?*#" -o -name ".#?*" -o -name "*.swp" \)
+
 end
 function ftr --description 'delete the files found by ft'
-	find $argv[1] -name "*~" | xargs rm -rfv
-	find $argv[1] -name "#?*#" | xargs rm -rfv
+	find $argv[1] \( -name "*~" -o -name "#?*#" -o -name "#?*#" -o -name ".#?*" -o -name "*.swp" \) | xargs rm -rfv
+
 end
 function ftc --description 'find the temporary files such as a~ or #a or .a~, if no argv is passed, use the current dir, not recursively'
-	find $argv[1] -maxdepth 1 -name "*~"
-	find $argv[1] -maxdepth 1 -name "#?*#"
+	find $argv[1] -maxdepth 1 \( -name "*~" -o -name "#?*#" -o -name "#?*#" -o -name ".#?*" -o -name "*.swp" \)
 end
 function ftcr --description 'delete the files found by ftc'
-	find $argv[1] -maxdepth 1 -name "*~" | xargs rm -rfv
-	find $argv[1] -maxdepth 1 -name "#?*#" | xargs rm -rfv
+	find $argv[1] -maxdepth 1 \( -name "*~" -o -name "#?*#" -o -name "#?*#" -o -name ".#?*" -o -name "*.swp" \) | xargs rm -rfv
 end
 function fing --description 'find all the git projects, if no argv is passed, use the current dir'
 	find $argv[1] -type d -name .git | sort
@@ -172,8 +163,54 @@ alias df 'df -h'
 # stop less save search history into ~/.lesshst
 # or LESSHISTFILE=-
 # set -gx LESSHISTFILE /dev/null $LESSHISTFILE
-alias m 'less -RM -s -Gg'
-alias less 'less -RM -s -Gg'
+function m
+	# check if argv[1] is a number
+	# `m 100 filename` (not +100)
+	# BUG: after viewing the right line, any navigation will make point back to the beginning of the file
+	if echo $argv[1] | awk '$0 != $0 + 0 { exit 1 }'
+		less -RM -s +G$argv[1]g $argv[2]
+	else
+		less -RM -s +Gg $argv
+	end
+end
+#more
+alias me 'm $argv[1] ~/.emacs.d/init.el'
+alias mh 'm $argv[1] /etc/hosts'
+alias m2 'm $argv[1] ~/Recentchange/TODO'
+alias mf 'm $argv[1] ~/.fishrc'
+#
+alias less 'less -RM -s +Gg'
+# color in less a code file
+# set -gx LESSOPEN '|pygmentize -g %s'
+# if pygmentize not working, use source-highlight instead
+set -gx LESSOPEN "| /usr/bin/src-hilite-lesspipe.sh %s"
+# another way to do it
+alias vm 'vim -u ~/.vimrc.more'
+# color in man page
+set -gx MANPAGER 'less -s -M +Gg'
+# color in man page and less
+# without this line, the LESS_TERMCAP_xxx won't work in Fedora
+set -gx GROFF_NO_SGR yes
+# nums are explained at
+# http://www.tuxarena.com/2012/04/tutorial-colored-man-pages-how-it-works/
+set -gx LESS_TERMCAP_me \e'[0m' 	# turn off all appearance modes (mb, md, so, us)
+set -gx LESS_TERMCAP_se \e'[0m' 	# leave standout mode
+set -gx LESS_TERMCAP_ue \e'[0m' 	# leave underline mode
+set -gx LESS_TERMCAP_so \e'[01;44m' # begin standout-mode – info
+set -gx LESS_TERMCAP_mb \e'[01;31m' # enter blinking mode
+set -gx LESS_TERMCAP_md \e'[01;38;5;75m' # enter double-bright mode
+set -gx LESS_TERMCAP_us \e'[04;38;5;200m' # enter underline mode
+#########################################
+# Colorcodes:
+# Black       0;30     Dark Gray     1;30
+# Red         0;31     Light Red     1;31
+# Green       0;32     Light Green   1;32
+# Brown       0;33     Yellow        1;33
+# Blue        0;34     Light Blue    1;34
+# Purple      0;35     Light Purple  1;35
+# Cyan        0;36     Light Cyan    1;36
+# Light Gray  0;37     White         1;37
+#########################################
 
 # gcc
 alias gcc-w 'gcc -g -Wall -W -Wsign-conversion'
@@ -205,7 +242,7 @@ alias dt 'dtrx -v '
 
 alias wget 'wget -c '
 alias wgets 'wget -c --mirror -p --html-extension --convert-links'
-alias wt 'wget -c -P /tmp/ http://dlsw.baidu.com/sw-search-sp/soft/3a/12350/QQ5.2.10432.0.1395280771.exe'
+alias wt 'rm -rf /tmp/QQ*; wget -c -P /tmp/ http://dlsw.baidu.com/sw-search-sp/soft/3a/12350/QQ5.2.10432.0.1395280771.exe; rm -rf /tmp/QQ*'
 alias rpm 'sudo rpm'
 
 # yum
@@ -245,17 +282,16 @@ alias cdP 'cd ~/Projects'
 # cd then list
 function cdls
 	cd $argv
-	   ls
+	ls
 end
 function cdll
 	cd $argv
-	   ll
+	ll
 end
 function cdla
 	cd
-		la
+	la
 end
-
 
 # diff
 alias diff-s 'diff -y --suppress-common-line'
@@ -264,11 +300,8 @@ alias dif 'icdiff'
 
 function mkcd --description 'mkdir dir then cd dir'
 	mkdir -p $argv
-		  cd $argv
+	cd $argv
 end
-
-# goagent
-alias ga 'python /home/chz/Downloads/goagent/local/proxy.py'
 
 # xclip, get content into clipboard, echo file | xclip
 alias xp 'xclip'
@@ -331,15 +364,9 @@ alias ee 'emx ~/.emacs.d/init.el'
 # alias et 'emx ~/.tmux.conf'
 alias e2 'emx ~/Recentchange/TODO'
 
-#more
-alias me 'less ~/.emacs.d/init.el'
-alias mh 'less /etc/hosts'
-alias m2 'less ~/Recentchange/TODO'
-alias mf 'less ~/.fishrc'
-
 function fsr --description 'Reload your Fish config after configuration'
 	set i $PWD
-	source ~/.config/fish/config.fish
+	source ~/.config/fish/config.fish # fsr
 	cd $i
 end
 
@@ -367,16 +394,12 @@ function gpa --description 'git pull all in dir using `fing dir`'
 	end
 end
 
-# HostsTool
-#alias hs 'cd ~/Public/HostsTool-x11-gpl-1.9.8-SE/; sudo python ./hoststool.py;'
-#alias hsc 'sudo cp -v ~/Public/HostsTool-x11-gpl-1.9.8-SE/hosts_2014-09-30-234541.bak /etc/hosts'
-#alias hss 'sudo cp -v ~/Public/HostsTool-x11-gpl-1.9.8-SE/hosts /etc/hosts'
 alias hs 'sudo cp -v ~/Public/hosts /etc/hosts'
-alias get-hosts 'wget https://raw.githubusercontent.com/vokins/simpleu/master/hosts -O ~/Public/hosts-github'
 
 # okular
 alias ok 'okular '
 
+alias ag "ag --pager='less -RM -FX -s'"
 function age --description 'ag sth. in ~/.emacs.d/init.el'
 	ag $argv[1] ~/.emacs.d/init.el
 end
@@ -419,7 +442,7 @@ echo $PWD >> $CD_HISTORY_FILE
 function percol_command_history
 	history | percol | read foo
 	if [ $foo ]
-	   commandline $foo
+		commandline $foo
 	else
 		commandline ''
 	end
@@ -432,8 +455,10 @@ end
 alias ptp 'ptpython'
 
 #alias rea 'sudo ~/.local/bin/reaver -i mon0 -b $argv[1] -vv'
-function rea
-	sudo ~/.local/bin/reaver -i mon0 -b $argv
-end
+# function rea
+# sudo ~/.local/bin/reaver -i mon0 -b $argv
+# end
 
 alias epub 'ebook-viewer --detach'
+alias time 'time -p'
+alias bc 'bc -lq'
