@@ -15,9 +15,10 @@ printf "usage: rw [time] [file]\n"
 if [ $# -gt 0 ]; then
     D="--duration=$@"
 else
-    echo Default recording duration 10s to /$HOME/recorded.gif
+    echo Default recording duration 10s to $HOME/recorded.gif
     D="--duration=10 $HOME/recorded.gif"
 fi
+
 XWININFO=$(xwininfo)
 read X < <(awk -F: '/Absolute upper-left X/{print $2}' <<< "$XWININFO")
 read Y < <(awk -F: '/Absolute upper-left Y/{print $2}' <<< "$XWININFO")

@@ -135,6 +135,8 @@ alias ..4='cd ../../../../'
 alias ..5='cd ../../../../../'
 alias cdi='cd /usr/include/'
 
+alias ex='exit'
+
 # Recursive directory listing
 alias lr='ls -R | grep ":$" | sed -e '\''s/:$//'\'' -e '\''s/[^-][^\/]*\//--/g'\'' -e '\''s/^/   /'\'' -e '\''s/-/|/'\'''
 

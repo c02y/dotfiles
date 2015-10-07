@@ -53,13 +53,26 @@ syntax on " syntax highlight
 set smartindent
 set autoindent
 
+" highlight search results
+set hlsearch
+" no loop search
+set nowrapscan
+" highlight current line
+set cursorline
+highlight CursorLine guibg=gray
+highlight Cursor guibg=NONE guifg=blue
+
+" q to exit if no change
+nmap q :q<CR>
+
 set nocompatible " be iMproved, required
 set number		 " line munber
 set showcmd		 " show command
 autocmd BufEnter * :syntax sync fromstart
 set backspace=eol,start,indent
 set incsearch
-set ignorecase	 " ignore case when searching
+"set ignorecase	 " ignore case when searching
+set smartcase
 set magic		 " :h magic
 set showmatch	 " paren
 set nobackup
@@ -73,6 +86,8 @@ set pastetoggle=<F9>	 " paste from out-program under insert mode
 set history=400	 " remember the history of commands
 set autoread	 " auto reload when file is modified from outside
 set omnifunc=syntaxcomplete#Complete
+set shiftwidth=4
+set tabstop=4
 
 """""""""""""""""""" statueline""""""""""""""""""""""""""""""
 set laststatus=2 " always show status line
@@ -106,10 +121,23 @@ nn <C-K> :bp<cr>
 " C-e/a in inset mode
 imap <C-e> <END>
 imap <C-a> <HOME>
-"imap <C-b> <Left>
-"imap <C-f> <Right>
-"imap <M-b> bi
-"imap <M-f> Wi
+" emacs commands in insert mode
+" ctrl-b/f
+imap <C-b> <Left>
+imap <C-f> <Right>
+" alt-b/f
+" note the alt-b is generate by ctr-v then press alt-b ...
+imap ^[b   <S-Left>
+imap ^[f   <S-Right>
+imap <C-d> <Del>
+imap <C-h> <BS>
+imap ^[d   <c-o>de
+imap <C-w> <c-o>db
+imap <C-u> <c-o>d^
+imap <C-k> <c-o>d$
+
+" M-Backspace to delete word in insert-mode
+imap <A-BS> <C-W>
 
 " restore the position when opening again
 set viminfo='10,\"100,:20,%,n~/.viminfo
@@ -170,10 +198,24 @@ Plugin 'honza/vim-snippets'
 let g:UltiSnipsExpandTrigger="<c-space>"
 
 " YCM
-Plugin 'Valloric/YouCompleteMe'
+"Plugin 'Valloric/YouCompleteMe'
 " then in YouCompleteme dir: `./install.sh --clang-completer`
-let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/YouCompleteMe/.ycm_extra_conf.py'
-set completeopt=menu,menuone
+"let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/YouCompleteMe/.ycm_extra_conf.py'
+"set completeopt=menu,menuone
+
+" vim-swoop
+Plugin 'pelodelfuego/vim-swoop'
+" Swoop current buffer
+" use the better default bindings <Leader>l, ml
+"nmap <C-s> :call Swoop()<CR>
+"vmap <C-s> :call SwoopSelection()<CR>
+" Swoop multi buffers
+"nmap <C-S-s> :call SwoopMulti()<CR>
+"vmap <C-S-s> :call SwoopMultiSelection()<CR>
+let g:defaultWinSwoopWidth = 60
+let g:defaultWinSwoopHeight = 12
+nmap <Leader>m :let g:swoopWindowsVerticalLayout = 1<CR>
+nmap <Leader>n :let g:swoopWindowsVerticalLayout = 0<CR>
 
 " jedi -- auto completion for Python
 Plugin 'davidhalter/jedi-vim'

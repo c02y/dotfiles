@@ -1,0 +1,32 @@
+#!/bin/bash
+# http://askubuntu.com/questions/57339/connect-disconnect-from-vpn-from-the-command-line
+#
+# : nmcli con
+# : nmcli con up id ConnectionName
+# : nmcli con up down ConnectionName
+# No sudo needed.
+#
+# password problem:
+#
+# edit /etc/NetworkManager/system-connections/ConnectionName and under [vpn], change the password flags line to:
+#
+# : password-flags=0
+#
+# And add the following:
+# : [vpn-secrets]
+# : password=YourPassword
+#
+
+VPN_FILE="/tmp/vpn"
+if [[ ! -f "$VPN_FILE" ]]; then
+	echo "Connecting vpn..."
+	nmcli con up id "ytvpn"
+	touch $VPN_FILE
+	echo
+else if [[ -f "$VPN_FILE" ]]; then
+		 echo "Disconnecting vpn..."
+		 nmcli con down id "ytvpn"
+		 rm -rf $VPN_FILE
+		 echo
+	 fi
+fi
