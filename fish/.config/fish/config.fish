@@ -79,7 +79,7 @@ alias la 'ls -d .??*' # only list the hidden dirs
 alias lla 'ls -lhA' # list all but not . ..
 alias ls. 'ls -A'
 function lsx --description 'cp the full path of a file to sytem clipboard'
-	readlink -f $argv | x
+	readlink -nf $argv | x
 end
 function lst
 	ls --color=yes $argv[1] --sort=time -lh
@@ -357,12 +357,12 @@ alias db 'douban.fm '
 alias v 'vim'
 alias V 'vim -u NONE'
 alias vc 'vim ~/.cgdb/cgdbrc'
-alias vf 'vim ~/.fishrc'
 alias vv 'vim ~/.vimrc'
 alias vb 'vim ~/.bashrc'
 alias ve 'vim ~/.emacs.d/init.el'
-alias vt 'vim ~/.tmux.conf'
 alias v2 'vim ~/Recentchange/TODO'
+alias vf 'vim ~/.fishrc; source ~/.fishrc; echo ~/.fishrc reloaded!'
+alias vt 'vim ~/.tmux.conf; tmux source-file ~/.tmux.conf; echo ~/.tmux.conf reloaded!'
 # emacs
 # -Q = -q --no-site-file --no-splash, which will not load something like emacs-googies
 # FIXME:
@@ -446,6 +446,7 @@ alias ok 'okular '
 alias ag "ag --pager='less -RM -FX -s'"
 # ag work with less with color and scrolling
 function ag
+	sed -i "s/.shell/\"$argv[1]\n.shell/g" ~/.lesshst
 	if test -f /usr/bin/ag
 		/usr/bin/ag -s --pager='less -RM -FX -s' $argv
 	else
@@ -532,14 +533,46 @@ alias ping 'ping -c 5'
 function cat
 	# if [ $argc != 2]
 	for i in $argv
-		echo \<$i\>
-		echo -------------------
+		echo -e "\\033[0;31m"\<$i\>
+		echo -e ------------------------------------------------- "\\033[0;39m"
 		/bin/cat $i
 		echo
 	end
 end
 
+function deff
+	sdcv $argv | less
+end
+function defc
+	sdcv -u "牛津现代英汉双解词典" -u "朗道英汉字典5.0" $argv
+end
+
+# count chars of lines of a file
+# awk '{ print length }' | sort -n | uniq -c
+
+# note that there is no $argv[0], the $argv[1] is the first argv after the command name, so the argc of `command argument` is 1, not 2
+function man
+	if test (count $argv) -eq 2
+        	sed -i "s/.shell/\"$argv[2]\n.shell/g" ~/.lesshst
+	else
+        	sed -i "s/.shell/\"$argv[1]\n.shell/g" ~/.lesshst
+	end
+	command man $argv
+end
 alias ma 'man'
+
+function wtp --description 'show the real definition of a type or struct in C code, you can find which file it is defined in around the result'
+	gcc -E ~/.local/bin/type.c -I$argv[1] > /tmp/result
+	if test (count $argv) -eq 2
+		if test (echo $argv[1] | grep struct)
+			ag -A $argv[2] "^$argv[1]" /tmp/result
+		else
+			ag -B $argv[2] $argv[1] /tmp/result
+		end
+	else
+		ag $argv[1] /tmp/result
+	end
+end
 
 alias tl 'tmux ls'
 # kill the specific session like: tk 1
@@ -547,6 +580,6 @@ alias tk 'tmux kill-session -t '
 # kill all the sessions
 alias tka 'tmux kill-server'
 # or just use 'M-c r', it is defiend in ~/.tmux.conf
-alias tsr 'tmux source-file ~/.tmux.conf'
+alias tsr 'tmux source-file ~/.tmux.conf; echo ~/.tmux.conf reloaded!'
 # this line will make the indentation of lines below it wrong, TODO: weird
-alias tt 'tmux switch-client -t'
+# alias tt 'tmux switch-client -t'

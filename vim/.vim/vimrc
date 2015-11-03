@@ -82,21 +82,27 @@ set linebreak
 set wildmenu	 " Tab to show command completion list
 set wildmode=list:longest,list:full
 set wildignore=.git,*.swp,*/tmp/*
-set pastetoggle=<F9>	 " paste from out-program under insert mode
 set history=400	 " remember the history of commands
 set autoread	 " auto reload when file is modified from outside
 set omnifunc=syntaxcomplete#Complete
 set shiftwidth=4
 set tabstop=4
 
+set pastetoggle=<F9>	 " paste from out-program under insert mode
+" donnot have to type F9 before pasting from outside of Vim
+let &t_SI .= "\<Esc>[?2004h"
+let &t_EI .= "\<Esc>[?2004l"
+inoremap <special> <expr> <Esc>[200~ XTermPasteBegin()
+function! XTermPasteBegin()
+  set pastetoggle=<Esc>[201~
+  set paste
+  return ""
+endfunction
+
 """""""""""""""""""" statueline""""""""""""""""""""""""""""""
 set laststatus=2 " always show status line
 highlight StatusLine cterm=bold ctermfg=yellow ctermbg=blue
-function! CurDir()
-    let curdir = substitute(getcwd(), $HOME, "~", "g")
-    return curdir
-endfunction
-set statusline=[%n]\ %f%m%r%h\ \|pwd:\ %{CurDir()}\|%=\|%l,%c(%p%%)%{FileSize()}\|ascii=%b,hex=%b%{((&fenc==\"\")?\"\":\"\|\".&fenc)}\|
+set statusline=[%n]\ %<%t\ %h%m%r%=%-14.(%l,%c(%p%%\/%{FileSize()})%)\|%{(&fenc)}
 function! FileSize()
     let bytes = getfsize(expand("%:p"))
     if bytes <= 0
