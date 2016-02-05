@@ -1,3 +1,6 @@
+"" tips
+" :bn :bp or C-^ to switch buffes
+
 " set shell=/bin/fish
 
 " encoding support, default utf-8
@@ -127,20 +130,49 @@ nn <C-K> :bp<cr>
 " C-e/a in inset mode
 imap <C-e> <END>
 imap <C-a> <HOME>
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " emacs commands in insert mode
 " ctrl-b/f
 imap <C-b> <Left>
 imap <C-f> <Right>
+
 " alt-b/f
 " note the alt-b is generate by ctr-v then press alt-b ...
 imap ^[b   <S-Left>
 imap ^[f   <S-Right>
+
+imap <C-a> <Home>
+imap <C-e> <End>
+
 imap <C-d> <Del>
 imap <C-h> <BS>
 imap ^[d   <c-o>de
 imap <C-w> <c-o>db
 imap <C-u> <c-o>d^
 imap <C-k> <c-o>d$
+
+" C-e/a in insert mode
+imap <C-e> <END>
+imap <C-a> <HOME>
+imap <C-b> <Left>
+imap <C-f> <Right>
+imap ^[b <S-Left>
+imap ^[f <S-Right>
+imap <C-d> <Del>
+imap <C-h> <BS>
+imap ^[d <c-i>de
+imap <C-w> <c-o>db
+imap <C-u> <c-o>d^
+imap <C-k> <c-o>d$
+"imap <M-b> bi
+"imap <M-f> wi
+
+" normal mode, C-w c to close a window, :sp to split, :vsp ...
+nnoremap <C-DOWN> <C-W><C-J> "Ctrl-j to move down a split
+nnoremap <C-UP> <C-W><C-K> "Ctrl-k to move up a split
+nnoremap <C-RIGHT> <C-W><C-L> "Ctrl-l to move right a split
+nnoremap <C-LEFT> <C-W><C-H> "Ctrl-h to move left a split
 
 " M-Backspace to delete word in insert-mode
 imap <A-BS> <C-W>
@@ -183,6 +215,12 @@ filetype plugin on
 
 " unite, like Emacs's helm
 Plugin 'Shougo/unite.vim'
+nnoremap <leader>f :<C-u>Unite -start-insert file_rec<CR>
+
+" rainbow parentheses
+Plugin 'luochen1990/rainbow'
+let g:rainbow_active = 1
+"0 if you want to enable it later via :RainbowToggle
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "" The following are examples of different formats supported.
@@ -240,7 +278,7 @@ Plugin 'terryma/vim-multiple-cursors'
 Plugin 'terryma/vim-expand-region'
 
 " python-mode
-Plugin 'klen/python-mode'
+" Plugin 'klen/python-mode'
 
 """""""""""""""""""""plugin from http://vim-scripts.org/vim/scripts.html
 " Plugin 'L9'
