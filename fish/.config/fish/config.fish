@@ -1,7 +1,9 @@
 # ~/.fishrc linked to ~/.config/fish/config.fish
 ### you can use `fish_config` to config a lot of things in WYSIWYG way in browser
 
-set -gx PATH $PATH ~/.local/share/arm-linux/bin ~/.local/bin ~/.linuxbrew/bin /sbin /usr/local/go/bin
+set -gx PATH $PATH ~/.local/share/arm-linux/bin ~/.local/bin ~/.linuxbrew/bin /sbin $GOPATH/bin ~/bin
+
+set -gx GOPATH $GOPATH ~/GoPro
 
 # for ~/.linuxbrew/ (brew for linux to install programs)
 set -gx LD_LIBRARY_PATH $LD_LIBRARY_PATH ~/.linuxbrew/Library
@@ -82,7 +84,7 @@ function lsx --description 'cp the full path of a file to sytem clipboard'
 	readlink -nf $argv | x
 end
 function lst
-	ls --color=yes $argv[1] --sort=time -lh
+	ls --color=yes $argv[1] --sort=time -lh | less
 end
 function lsh
 	ls --color=yes $argv[1] --sort=time -lh | head
@@ -111,6 +113,20 @@ alias im 'ristretto'
 alias d 'display'
 alias ima 'gwenview'
 alias ka 'killall'
+alias psg 'ps -ef | ag -v -i ag | ag -i'
+# pkill will not kill processes matching pattern, you have to kill the PID
+function pk --description 'kill processes containg a pattern'
+	ps -ef | grep -v grep | grep -i $argv[1]
+	and begin
+		echo "Kill or Not? [Y/n]"
+		read arg
+		if test "$arg" = "" -o "$arg" = "y"
+			ps -ef | grep -v grep | grep -i $argv[1] | awk '{print $2}' | xargs kill -9
+		end
+	end
+	or echo No process matched!
+end
+
 
 alias rm 'rm -vi'
 alias cp 'cp -vi'
@@ -219,13 +235,13 @@ alias gcc-a 'gcc -g -pedantic -Wall -W -Wconversion -Wshadow -Wcast-qual -Wwrite
 
 alias ifw 'ifconfig wlp5s0'
 #alias nl 'nload -u H p4p1'
-alias nl 'nload -u H wlp5s0'
+alias nl 'nload -u H wlp8s0'
 alias nh 'sudo nethogs wlp5s0'
 # =ifconfig= is obsolete! For replacement check =ip addr= and =ip link=. For statistics use =ip -s link=.
 alias ipp 'ip -4 -o address'
 alias tf 'traff wlan0'
 alias m-c 'minicom --color=on'
-alias tree 'tree -Csh'
+alias tree 'tree -Cshf'
 
 # j for .bz2, z for .gz, J for xz, a for auto determine
 alias t-tbz2 'tar tvfj'
@@ -241,11 +257,24 @@ alias t-cgz 'tar cvfz'
 alias t-cxz 'tar cvfJ' # compress
 alias t-ca 'tar cvfa' # the above three can just use this one to auto choose the right one
 alias dt 'dtrx -v '
+function debx --description 'extract the deb package'
+	set pkgname (basename $argv[1] .deb)
+	mkdir -v $pkgname
+	set dataname (ar t $argv[1] | ag data)
+	ar p $argv[1] $dataname| tar zxv -C $pkgname
+	if not test (echo $status) -eq 0
+		ar p $argv[1] $dataname | tar Jxv -C $pkgname
+		if not test (echo $status) -eq 0
+			rm -rfv $pkgname
+		end
+	end
+	echo ----in $pkgname ----
+end
 
 alias wget 'wget -c '
 alias wgets 'wget -c --mirror -p --html-extension --convert-links'
-alias wt 'rm -rf /tmp/ThunderMini*; wget -c -P /tmp/ http://dl1sw.baidu.com/soft/9e/12351/ThunderMini_1.5.3.288.exe; rm -rf /tmp/ThunderMini*'
-alias wtt 'rm -rf /tmp/Thunder*; wget --connect-timeout=5 -c -P /tmp/ http://dlsw.baidu.com/sw-search-sp/soft/ca/13442/Thunder_dl_V7.9.39.4994_setup.1438932968.exe; rm -rf /tmp/Thunder*'
+alias wt 'rm -rfv /tmp/Thunder*; wget -c -P /tmp/ http://dl1sw.baidu.com/soft/9e/12351/ThunderMini_1.5.3.288.exe'
+alias wtt 'rm -rfv /tmp/Thunder*; wget --connect-timeout=5 -c -P /tmp/ http://dlsw.baidu.com/sw-search-sp/soft/ca/13442/Thunder_dl_V7.9.39.4994_setup.1438932968.exe'
 
 # rpm
 alias rpmi 'sudo rpm -Uvh'
@@ -256,7 +285,7 @@ function rpml --description 'list the content of the pack.rpm file'
 		rpm -qlpv $i | less
 	end
 end
-function erpm --description 'extract the pack.rpm file'
+function rpmx --description 'extract the pack.rpm file'
 	for i in $argv
 		echo \<$i\>
 		echo -------------------
@@ -277,16 +306,30 @@ alias yl 'sudo yum history list'
 alias yu 'sudo yum history undo'
 
 # dnf
-alias dnfu 'sudo dnf update --setopt exclude=kernel\* -v'
+alias dnfu 'sudo dnf update -v'
+alias dnfU 'sudo dnf update --setopt exclude=kernel\* -v'
+alias dnfu2 'sudo dnf update -y --disablerepo="*" --enablerepo="updates" '
+alias dnfc 'sudo dnf clean all'
 alias dnfi 'sudo dnf install -v'
 alias dnfr 'sudo dnf remove -v'
+alias dnfl 'dnf list installed| less'
+function dnfs
+	sudo dnf search $argv[1] | less
+end
+
+# apt
+alias api 'sudo apt-get install -V'
+alias apu 'sudo apt-get update'
+alias apU 'sudo apt-get upgrade -V'
+alias apr 'sudo apt-get remove -V'
+alias apar 'sudo apt-get autoremove -V'
 
 # donnot show the other info on startup
 alias gdb 'gdb -q '
 
 # systemd-analyze
 function sab --description 'systemd-analyze blame->time'
-	systemd-analyze blame
+	systemd-analyze blame | head -40
 	systemd-analyze time
 end
 
@@ -297,13 +340,13 @@ end
 #alias ..4 'cd ../../../../'
 #alias ..5 'cd ../../../../../'
 alias cdi 'cd /usr/include/'
-alias cde 'cd ~/.emacs.d/elpa; lsh'
+alias cde 'cd ~/.emacs.d/elpa; and lsh'
 alias cdb 'cd ~/.vim/bundle'
-alias cdp 'cd ~/Public; lsh'
-alias cdc 'cd ~/Projects/CWork; lsh'
-alias cds 'cd ~/Projects/CWork/snippets; lsh'
+alias cdp 'cd ~/Public; and lsh'
+alias cdc 'cd ~/Projects/CWork; and lsh'
+alias cds 'cd ~/Projects/CWork/snippets; and lsh'
 alias cdP 'cd ~/Projects'
-alias cdu 'cd /run/media/chz/UDISK/; lsh'
+alias cdu 'cd /run/media/chz/UDISK/; and lsh'
 # cd then list
 function cdls
 	cd $argv
@@ -420,7 +463,7 @@ function gpa --description 'git pull all in dir using `fing dir`'
 end
 
 # svn
-alias sp 'svn update'
+alias sp 'svn update; and echo "----status----"; svn status'
 alias ss 'svn status'
 alias sd 'svn diff'
 alias sc 'svn commit -m'
@@ -428,11 +471,23 @@ alias sll 'alias svn log -v -l 10 | less'
 function sl --description 'view the svn log with less, if arg not passed, using current dir'
 	svn log -v $argv[1] | /usr/bin/less
 end
-function sdd
-	svn diff -c $argv[1] | less
+function sdp --description 'show the diff detail of a commit, default to the last one'
+	set Revision (svn info | awk '/Revision/ {print $2}')
+	# or `svn info | grep Revision | cut -d ' ' -f 2 | read Revision`
+	# or `svn info | grep Revision | egrep -o '[0-9]+'| read Revision`
+	if test (count $argv) -eq 1
+		set Rev (echo $Revision-$argv[1] | bc)
+		svn diff -c $Rev | less
+	else
+		svn diff -r PREV | less
+	end
 end
-function sdp
-	svn diff -r PREV | less
+function sdd --description 'show the diff detail of a commit or a range of two revisions'
+	if test (echo $argv[1] | grep ':' -c) -eq 1
+		svn diff -r $argv[1] | less
+	else
+		svn diff -c $argv[1] | less
+	end
 end
 function slh
 	svn log -v $argv[1] | head -$argv[2]
@@ -443,31 +498,6 @@ alias hs 'sudo cp -v ~/Public/hosts /etc/hosts'
 # okular
 alias ok 'okular '
 
-alias ag "ag --pager='less -RM -FX -s'"
-# ag work with less with color and scrolling
-function ag
-	sed -i "s/.shell/\"$argv[1]\n.shell/g" ~/.lesshst
-	if test -f /usr/bin/ag
-		/usr/bin/ag -s --pager='less -RM -FX -s' $argv
-	else
-		grep -n --color=always $argv | more
-		echo -e "\n...ag is not installed, use grep instead..."
-	end
-end
-function age --description 'ag sth. in ~/.emacs.d/init.el'
-	ag $argv[1] ~/.emacs.d/init.el
-end
-function agf --description 'ag sth. in ~/.fishrc'
-	ag $argv[1] ~/.fishrc
-end
-function agt --description 'ag sth. in ~/.tmux.conf'
-	ag $argv[1] ~/.tmux.conf
-end
-function ag2 --description 'ag sth. in ~/Recentchange/TODO'
-	ag $argv[1] ~/Recentchange/TODO
-end
-
-alias psg 'ps -ef | ag -v -i ag | ag -i'
 alias fcg 'fc-list | ag '
 
 # do `h` in the new one after switching terminal session
@@ -524,11 +554,34 @@ alias ptp 'ptpython'
 
 alias epub 'ebook-viewer --detach'
 alias time 'time -p'
-alias bc 'bc -lq'
 alias ex 'exit'
-alias lo 'locate -e'
 alias p 'ping -c 5'
 alias ping 'ping -c 5'
+# lo -b "\time.h" or lo -r '/time.h$' list exact files time.h
+alias lo 'locate -e'
+
+# bc -- calculator
+function bc --description 'calculate in command line using bc non-interactive mode if needed, even convert binary/octual/hex'
+        if test (count $argv) -eq 1
+                echo $argv[1] | /usr/bin/bc -l
+        else
+                /usr/bin/bc -ql
+        end
+end
+# more examples using bc
+# http://www.basicallytech.com/blog/archive/23/command-line-calculations-using-bc/
+#1 convert 255 from base 10 to base 16
+# echo 'obase=16; 255' | bc
+# use `bcc 'obase=16; 255'` directly
+#2 convert hex FF (not ff) from base 16 to binary
+# echo 'obase=2; FF' | bc
+#3 convert binary 110 from binary to hex
+# echo 'ibase=2;obase=A;110' | bc
+# not 16 or a but A means hex
+#4 convert from hexadecimal to decimal ; 3 and 4 are weird
+# echo 'ibase=16;obase=A;FF' | bc
+#5 convert hex to octual
+# echo 'F' | bc
 
 function cat
 	# if [ $argc != 2]
@@ -543,8 +596,25 @@ end
 function deff
 	sdcv $argv | less
 end
-function defc
-	sdcv -u "牛津现代英汉双解词典" -u "朗道英汉字典5.0" $argv
+alias SDCV 'sdcv -u "WordNet" -u "牛津现代英汉双解词典" -u "朗道英汉字典5.0"'
+function defc --description 'search the defnition of a word and save it into personal dict if it is the first time you search'
+	ag -w $argv ~/.sdcv_history >> /dev/null
+	or begin # new, not searched the dict before, save
+		SDCV $argv | ag "Nothing similar" >> /dev/null
+		or begin # the word found
+			if not test -e ~/.sdcv_rem
+				touch ~/.sdcv_rem
+			end
+			echo ---------------------------------------------- >> ~/.sdcv_rem
+			echo -e \< $argv \> >> ~/.sdcv_rem
+			echo ---------------------------------------------- >> ~/.sdcv_rem
+			SDCV $argv >> ~/.sdcv_rem
+			echo ---------------------------------------------- >> ~/.sdcv_rem
+			echo >> ~/.sdcv_rem
+		end
+	end
+	SDCV $argv
+	sort -u -o ~/.sdcv_history ~/.sdcv_history
 end
 
 # count chars of lines of a file
@@ -574,6 +644,8 @@ function wtp --description 'show the real definition of a type or struct in C co
 	end
 end
 
+alias ytd 'youtube-dl -citw '
+
 alias tl 'tmux ls'
 # kill the specific session like: tk 1
 alias tk 'tmux kill-session -t '
@@ -583,3 +655,41 @@ alias tka 'tmux kill-server'
 alias tsr 'tmux source-file ~/.tmux.conf; echo ~/.tmux.conf reloaded!'
 # this line will make the indentation of lines below it wrong, TODO: weird
 # alias tt 'tmux switch-client -t'
+
+alias ag "ag --pager='less -RM -FX -s'"
+# ag work with less with color and scrolling
+function ag
+	sed -i "s/.shell/\"$argv[1]\n.shell/g" ~/.lesshst
+	if test -f /usr/bin/ag
+		/usr/bin/ag -s --pager='less -RM -FX -s' $argv
+	else
+		grep -n --color=always $argv | more
+		echo -e "\n...ag is not installed, use grep instead..."
+	end
+end
+function age --description 'ag sth. in ~/.emacs.d/init.el'
+	ag $argv[1] ~/.emacs.d/init.el
+end
+function agf --description 'ag sth. in ~/.fishrc'
+	ag $argv[1] ~/.fishrc
+end
+function agt --description 'ag sth. in ~/.tmux.conf'
+	ag $argv[1] ~/.tmux.conf
+end
+function ag2 --description 'ag sth. in ~/Recentchange/TODO'
+	ag $argv[1] ~/Recentchange/TODO
+end
+
+# ls; and ll -- if ls succeed then ll, if failed then don't ll
+# ls; or ll -- if ls succeed then don't ll, if failed then ll
+
+# such as:
+# alias sp 'svn update; and echo "---status---"; svn status'
+
+# if test $status -eq 0; ... else ... # success
+# to
+# and begin ... end; or ...
+
+# if test $status -eq 1; ... else ... # failure
+# to
+# or begin ... end; or ...
