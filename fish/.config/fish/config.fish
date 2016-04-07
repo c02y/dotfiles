@@ -8,6 +8,8 @@ set -gx GOPATH $GOPATH ~/GoPro
 # for ~/.linuxbrew/ (brew for linux to install programs)
 set -gx LD_LIBRARY_PATH $LD_LIBRARY_PATH ~/.linuxbrew/Library
 
+source ~/.config/fish/functions/fastdir.fish
+
 # do not use the format above
 # http://vivafan.com/2013/03/%E3%80%8Cfish%E3%80%8D%E3%82%B7%E3%82%A7%E3%83%AB%E3%82%92%E5%AE%9F%E9%9A%9B%E3%81%AB%E4%BD%BF%E3%81%86%E3%81%9F%E3%82%81%E3%81%AB/
 # for more formats
@@ -24,12 +26,13 @@ if test "$TERM" = "dumb"
 	end
 end
 
-# prompt text showing at the beginning of the line
-function fish_prompt --description 'Write out the prompt'
-	set -l last_status $status
+function dirp --on-event fish_preexec
+	set -g OLDPWD $PWD
+end
+function path_prompt
 	# User
 	set_color $fish_color_user
-	echo -n (whoami)
+	echo -n $USER
 	set_color normal
 
 	echo -n '@'
@@ -46,14 +49,29 @@ function fish_prompt --description 'Write out the prompt'
 	echo -n (prompt_pwd)
 	set_color normal
 	echo
+end
+# all bindings should be put inside the single one fish_user_key_bindings
+function fish_user_key_bindings
+	# without this line, C-l will not print the path at top of the screen
+	bind \cl 'clear; commandline -f repaint; path_prompt'
+end
 
-	if not test $last_status -eq 0
+function fish_prompt --description 'Write out the prompt'
+	h
+	set -l last_status $status
+
+	# if the PWD is not the same as the PWD of previous prompt, print path part
+	if test "$OLDPWD" != "$PWD"
+		path_prompt
+	end
+
+	if test $last_status != 0
 		set_color $fish_color_error
 	end
 	# http://unicode-table.com/en/sets/arrows-symbols/
 	# http://en.wikipedia.org/wiki/Arrow_(symbol)
-	set_color -o blue
-	echo -n '➤➤ ' # ➢ ➣, ↩ ↪ ➥ ➦, ▶ ▷ ◀ ◁, ❥
+	set_color -o yellow
+	echo -n '➤➤ '  # ➢ ➣, ↩ ↪ ➥ ➦, ▶ ▷ ◀ ◁, ❥
 end
 
 function fish_right_prompt -d "Write out the right prompt"
@@ -82,6 +100,8 @@ alias lla 'ls -lhA' # list all but not . ..
 alias ls. 'ls -A'
 function lsx --description 'cp the full path of a file to sytem clipboard'
 	readlink -nf $argv | x
+	x -o
+	echo \n---- Path Copied to Clipboard! ----
 end
 function lst
 	ls --color=yes $argv[1] --sort=time -lh | less
@@ -110,7 +130,7 @@ alias va 'valgrind --track-origins=yes --leak-check=full '
 alias vad 'valgrind --tool=callgrind --dump-instr=yes --simulate-cache=yes --collect-jumps=yes '
 
 alias im 'ristretto'
-alias d 'display'
+alias ds 'display'
 alias ima 'gwenview'
 alias ka 'killall'
 alias psg 'ps -ef | ag -v -i ag | ag -i'
@@ -118,6 +138,7 @@ alias psg 'ps -ef | ag -v -i ag | ag -i'
 function pk --description 'kill processes containg a pattern'
 	ps -ef | grep -v grep | grep -i $argv[1]
 	and begin
+		# prompt for input
 		echo "Kill or Not? [Y/n]"
 		read arg
 		if test "$arg" = "" -o "$arg" = "y"
@@ -127,6 +148,26 @@ function pk --description 'kill processes containg a pattern'
 	or echo No process matched!
 end
 
+function varclear --description 'Remove duplicates from environment varieble'
+	if test (count $argv) = 1
+		set -l newvar
+		set -l count 0
+		for v in $$argv
+			if contains -- $v $newvar
+				inc count
+			else
+				set newvar $newvar $v
+			end
+		end
+		set $argv $newvar
+		test $count -gt 0
+		and echo Removed $count duplicates from $argv
+	else
+		for a in $argv
+			varclear $a
+		end
+	end
+end
 
 alias rm 'rm -vi'
 alias cp 'cp -vi'
@@ -254,7 +295,7 @@ alias t-xxz 'tar xvfJ' # extract
 alias t-xa 'tar xvfa' # the above three can jsut use this one to auto choose the right one
 alias t-cbz2 'tar cvfj'
 alias t-cgz 'tar cvfz'
-alias t-cxz 'tar cvfJ' # compress
+alias t-cxz 'tar cvfJ $argv[1].tar.xz $argv[1]'
 alias t-ca 'tar cvfa' # the above three can just use this one to auto choose the right one
 alias dt 'dtrx -v '
 function debx --description 'extract the deb package'
@@ -319,8 +360,7 @@ end
 
 # apt
 alias api 'sudo apt-get install -V'
-alias apu 'sudo apt-get update'
-alias apU 'sudo apt-get upgrade -V'
+alias apu 'sudo apt-get update; sudo apt-get upgrade -V'
 alias apr 'sudo apt-get remove -V'
 alias apar 'sudo apt-get autoremove -V'
 
@@ -379,11 +419,6 @@ alias x 'xclip -selection c'
 # return tmux
 alias t 'tmux a'
 
-# use C-t to go back/in tumx/normal when using non-tmux
-function fish_user_key_bindings
-	bind \ct 'tmux a'
-end
-
 alias km 'sudo kermit'
 
 alias dusc 'dus -c ~/.config/google-chrome ~/.cache/google-chrome ~/.mozilla ~/.cache/mozilla '
@@ -428,10 +463,9 @@ alias ee 'emx ~/.emacs.d/init.el'
 alias e2 'emx ~/Recentchange/TODO'
 
 function fsr --description 'Reload your Fish config after configuration'
-	set i $PWD
 	source ~/.config/fish/config.fish # fsr
-	cd $i
 	echo .fishrc is reloaded!
+	path_prompt
 end
 # C-w to reload ~/.fishrc
 bind \cs fsr
@@ -501,49 +535,14 @@ alias ok 'okular '
 alias fcg 'fc-list | ag '
 
 # do `h` in the new one after switching terminal session
-alias h 'history --merge'
+function h --on-process-exit %self
+	history --merge
+end
 
 alias cl 'cloc '
 alias cll 'cloc --by-file-by-lang '
 
 alias st 'stow --verbose'
-
-# percol
-set -gx CD_HISTORY_FILE $HOME/.cd_history_file
-function cdd --description 'percol_cd_history'
-	sort $CD_HISTORY_FILE | uniq -c | sort -r | sed -e 's/^[ ]*[0-9]*[ ]*//' | percol | read -l percolCDhistory
-	if [ $percolCDhistory ]
-		# commandline 'cd '
-		# commandline -i $percolCDhistory
-		echo 'cd' $percolCDhistory
-		cd $percolCDhistory
-		echo $percolCDhistory
-		commandline -f repaint
-	else
-		commandline ''
-	end
-end
-# C-s goto the dir history, this doesn't work
-# percol_cd_history cannot be binded into a key
-function fish_user_key_bindings
-	bind \cs percol_cd_history
-end
-
-echo $PWD >> $CD_HISTORY_FILE
-
-#function percol_command_history
-function percol_command_history
-	history | percol | read foo
-	if [ $foo ]
-		commandline $foo
-	else
-		commandline ''
-	end
-end
-# C-r to search the history
-function fish_user_key_bindings
-	bind \cr percol_command_history
-end
 
 alias ptp 'ptpython'
 
