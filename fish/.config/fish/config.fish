@@ -50,11 +50,15 @@ function path_prompt
 	set_color normal
 	echo
 end
+
 # all bindings should be put inside the single one fish_user_key_bindings
 function fish_user_key_bindings
 	# without this line, C-l will not print the path at top of the screen
-	bind \cl 'clear; commandline -f repaint; path_prompt'
+	#bind \cl 'clear; commandline -f repaint; path_prompt'
+	#bind \cl ""
+	bind \cl "tput reset; commandline -f repaint; path_prompt"
 end
+alias clr="echo -e '\033c\c'; path_prompt"
 
 function fish_prompt --description 'Write out the prompt'
 	h
@@ -71,7 +75,8 @@ function fish_prompt --description 'Write out the prompt'
 	# http://unicode-table.com/en/sets/arrows-symbols/
 	# http://en.wikipedia.org/wiki/Arrow_(symbol)
 	set_color -o yellow
-	echo -n '➤➤ '  # ➢ ➣, ↩ ↪ ➥ ➦, ▶ ▷ ◀ ◁, ❥
+	echo -n '>> ' # '➤➤ '  # ➢ ➣, ↩ ↪ ➥ ➦, ▶ ▷ ◀ ◁, ❥
+	#echo -n '➤➤ '  # ➢ ➣, ↩ ↪ ➥ ➦, ▶ ▷ ◀ ◁, ❥
 end
 
 function fish_right_prompt -d "Write out the right prompt"
@@ -113,10 +118,10 @@ function lsh2
 	ls --color=yes $argv[1] --sort=time -lh | head -20
 end
 function lls
-	ll --color=yes $argv[1] --sort=size -lh | less -R
+	ll --color=yes $argv --sort=size -lh | less -R
 end
 function llh
-	ll --color=yes $argv[1] --sort=time -lh | head
+	ll --color=yes $argv --sort=time -lh | head
 end
 alias llt 'll --color=yes --sort=time -lh | less -R'
 alias lat 'la --color=yes --sort=time -lh | less -R'
@@ -180,7 +185,7 @@ alias g 'grep -F -n --color=auto'
 alias egrep 'egrep --color=auto'
 alias fgrep 'fgrep --color=auto'
 
-alias fu 'functions '
+alias fu 'type'
 # touch temporary files
 alias tout 'touch ab~ .ab~ .\#ab .\#ab\# \#ab\# .ab.swp ab.swp'
 # find
@@ -212,6 +217,9 @@ function duS
 	du --summarize -c $argv | sort -h
 end
 alias dul 'sudo du --summarize -h -c /var/log/* | sort -h'
+function duss --description 'list and sort all the files recursively by size'
+	du -ah $argv | grep -v "/\$" | sort -rh
+end
 
 alias watd 'watch -d du --summarize'
 alias df 'df -h'
@@ -448,6 +456,7 @@ alias eit "time emacs --debug-init -eval '(kill-emacs)'"
 alias emq 'emacs -q --no-splash'
 alias emx 'emacs -nw -q --no-splash --eval "(setq find-file-visit-truename t)"'
 alias emn 'emacs --no-desktop'
+alias emi 'emacs -q --no-splash --load $argv'
 function emd --description 'remove .emacs.d/init.elc then $ emacs --debug-init'
 	rm -rf ~/.emacs.d/init.elc
 	emacs --debug-init
@@ -468,7 +477,7 @@ function fsr --description 'Reload your Fish config after configuration'
 	path_prompt
 end
 # C-w to reload ~/.fishrc
-bind \cs fsr
+#bind \cs fsr
 
 # the gpl.txt can be gpl-2.0.txt or gpl-3.0.txt
 alias lic 'wget -q http://www.gnu.org/licenses/gpl.txt -O LICENSE'
@@ -505,22 +514,27 @@ alias sll 'alias svn log -v -l 10 | less'
 function sl --description 'view the svn log with less, if arg not passed, using current dir'
 	svn log -v $argv[1] | /usr/bin/less
 end
-function sdp --description 'show the diff detail of a commit, default to the last one'
+function sdd --description 'show the svn diff detail'
 	set Revision (svn info | awk '/Revision/ {print $2}')
 	# or `svn info | grep Revision | cut -d ' ' -f 2 | read Revision`
 	# or `svn info | grep Revision | egrep -o '[0-9]+'| read Revision`
-	if test (count $argv) -eq 1
-		set Rev (echo $Revision-$argv[1] | bc)
-		svn diff -c $Rev | less
-	else
-		svn diff -r PREV | less
-	end
-end
-function sdd --description 'show the diff detail of a commit or a range of two revisions'
 	if test (echo $argv[1] | grep ':' -c) -eq 1
+		# if argv is like 1000:1010, then svn diff the two revisions
 		svn diff -r $argv[1] | less
+	else if test (count $argv) -eq 1
+		if test $argv[1] -gt 10
+			# if the argv is like 1000, then svn diff revision
+			svn diff -c $argv[1] | less
+		else
+			# if the argv is like 3, the svn diff the 3th commit to the last
+			# the PREV is 1
+			set Rev (echo $Revision-$argv[1]+1 | bc)
+			svn diff -c $Rev | less
+		end
 	else
-		svn diff -c $argv[1] | less
+		# if no argv like 'sdd', then svn diff the last commit
+		# equals to `sdd` == `sdd 1`
+		svn diff -r PREV | less
 	end
 end
 function slh
@@ -556,8 +570,9 @@ alias time 'time -p'
 alias ex 'exit'
 alias p 'ping -c 5'
 alias ping 'ping -c 5'
-# lo -b "\time.h" or lo -r '/time.h$' list exact files time.h
-alias lo 'locate -e'
+function lo --description 'locate the exact file'
+	locate -e -r "/$argv[1]\$"
+end
 
 # bc -- calculator
 function bc --description 'calculate in command line using bc non-interactive mode if needed, even convert binary/octual/hex'
