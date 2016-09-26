@@ -154,12 +154,12 @@ def divider(label='', primary=False, active=True):
             divider_label_style = divider_label_style_on
         else:
             divider_label_style = divider_label_style_off
-            skip = R.divider_label_skip
-            margin = R.divider_label_margin
-            before = ansi(divider_fill_char * skip, divider_fill_style)
-            middle = ansi(label, divider_label_style)
-            after_length = width - len(label) - skip - 2 * margin
-            after = ansi(divider_fill_char * after_length, divider_fill_style)
+        skip = R.divider_label_skip
+        margin = R.divider_label_margin
+        before = ansi(divider_fill_char * skip, divider_fill_style)
+        middle = ansi(label, divider_label_style)
+        after_length = width - len(label) - skip - 2 * margin
+        after = ansi(divider_fill_char * after_length, divider_fill_style)
         if R.divider_label_align_right:
             before, after = after, before
         return ''.join([before, ' ' * margin, middle, ' ' * margin, after])
@@ -1277,6 +1277,9 @@ set python print-stack full
 
 set history filename ~/.gdb_history
 set history save
+define dod
+dashboard -output /dev/pts/$arg0
+end
 
 # Start ------------------------------------------------------------------------
 

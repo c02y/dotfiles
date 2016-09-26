@@ -109,23 +109,23 @@ function lsx --description 'cp the full path of a file to sytem clipboard'
 	echo \n---- Path Copied to Clipboard! ----
 end
 function lst
-	ls --color=yes $argv[1] --sort=time -lh | less
+	ls --color=yes $argv[1] --sort=time -lh | /usr/bin/nl | less
 end
 function lsh
-	ls --color=yes $argv[1] --sort=time -lh | head
+	ls --color=yes $argv[1] --sort=time -lh | head | /usr/bin/nl
 end
 function lsh2
-	ls --color=yes $argv[1] --sort=time -lh | head -20
+	ls --color=yes $argv[1] --sort=time -lh | head -20 | /usr/bin/nl1
 end
 function lls
-	ll --color=yes $argv --sort=size -lh | less -R
+	ll --color=yes $argv --sort=size -lh | less -R | /usr/bin/nl
 end
 function llh
-	ll --color=yes $argv --sort=time -lh | head
+	ll --color=yes $argv --sort=time -lh | head | /usr/bin/nl
 end
-alias llt 'll --color=yes --sort=time -lh | less -R'
-alias lat 'la --color=yes --sort=time -lh | less -R'
-alias lah 'la --color=yes --sort=time -lh | head'
+alias llt 'll --color=yes --sort=time -lh | less -R | /usr/bin/nl'
+alias lat 'la --color=yes --sort=time -lh | less -R | /usr/bin/nl'
+alias lah 'la --color=yes --sort=time -lh | head | /usr/bin/nl'
 # count the number of the files in the dir(not sub.), use tree | wc -l for subdirs
 alias lsc 'ls -all | wc -l'
 # valgrind
@@ -208,6 +208,22 @@ function ftcr --description 'delete the files found by ftc'
 end
 function fing --description 'find all the git projects, if no argv is passed, use the current dir'
 	find $argv[1] -type d -name .git | sort
+end
+function findn --description 'find the new files in the whole system, argv[1] is the last mins, argv[2] is the file name to search'
+	sudo find / -type f -mmin -$argv[1] | sudo ag $argv[2]
+end
+
+function lcl --description 'clean latex temporary files such as .log, .aux'
+	# # one way, but this may delete some file like file.png if tex file is file.tex
+	# for FILE in (find . -name "*.tex")
+	# 	for NO_EXT in (expr "//$FILE" : '.*/\([^.]*\)\..*$')
+	# 		find . -type f -name "$NO_EXT*" | ag -v ".pdf|.tex" | xargs -r /bin/rm -rv
+	# 	end
+	# end
+	# another way, more safe
+	for EXT in aux log out toc faq blg bbl brf nlo dvi ps lof fls fdb_latexmk pdfsync synctex.gz ind ilg idx
+		find . -name "*.$EXT" | xargs -r rm -rv
+	end
 end
 
 # du
@@ -322,8 +338,8 @@ end
 
 alias wget 'wget -c '
 alias wgets 'wget -c --mirror -p --html-extension --convert-links'
-alias wt 'rm -rfv /tmp/Thunder*; wget -c -P /tmp/ http://dl1sw.baidu.com/soft/9e/12351/ThunderMini_1.5.3.288.exe'
-alias wtt 'rm -rfv /tmp/Thunder*; wget --connect-timeout=5 -c -P /tmp/ http://dlsw.baidu.com/sw-search-sp/soft/ca/13442/Thunder_dl_V7.9.39.4994_setup.1438932968.exe'
+alias wt 'rm -rf /tmp/Thunder*; wget -c -P /tmp/ http://dl1sw.baidu.com/soft/9e/12351/ThunderMini_1.5.3.288.exe'
+alias wtt 'rm -rf /tmp/Thunder*; wget --connect-timeout=5 -c -P /tmp/ http://dlsw.baidu.com/sw-search-sp/soft/ca/13442/Thunder_dl_V7.9.39.4994_setup.1438932968.exe'
 
 # rpm
 alias rpmi 'sudo rpm -Uvh'
@@ -362,9 +378,7 @@ alias dnfc 'sudo dnf clean all'
 alias dnfi 'sudo dnf install -v'
 alias dnfr 'sudo dnf remove -v'
 alias dnfl 'dnf list installed| less'
-function dnfs
-	sudo dnf search $argv[1] | less
-end
+alias dnfs 'sudo dnf search'
 
 # apt
 alias api 'sudo apt-get install -V'
@@ -493,6 +507,7 @@ alias gb 'git branch'
 alias gco 'git checkout'
 alias gcl 'git config -l'
 alias gt 'git tag'
+alias gdc 'git show' # show the changes/diff of a commit
 function gpa --description 'git pull all in dir using `fing dir`'
 	for i in (find $argv[1] -type d -name .git | sort | xargs realpath)
 		cd $i
@@ -552,6 +567,9 @@ alias fcg 'fc-list | ag '
 function h --on-process-exit %self
 	history --merge
 end
+function his
+	history | ag $argv[1]
+end
 
 alias cl 'cloc '
 alias cll 'cloc --by-file-by-lang '
@@ -570,17 +588,21 @@ alias time 'time -p'
 alias ex 'exit'
 alias p 'ping -c 5'
 alias ping 'ping -c 5'
-function lo --description 'locate the exact file'
+alias lo 'locate -e'
+function lop --description 'locate the full/exact file'
 	locate -e -r "/$argv[1]\$"
+end
+function findn --description 'find the new files in the whole system, argv[1] is the last mins, argv[2] is the file name to search'
+	sudo find / -type f -mmin -$argv[1] | sudo ag $argv[2]
 end
 
 # bc -- calculator
 function bc --description 'calculate in command line using bc non-interactive mode if needed, even convert binary/octual/hex'
-        if test (count $argv) -eq 1
-                echo $argv[1] | /usr/bin/bc -l
-        else
-                /usr/bin/bc -ql
-        end
+	if test (count $argv) -eq 1
+		echo $argv[1] | /usr/bin/bc -l
+	else
+		/usr/bin/bc -ql
+	end
 end
 # more examples using bc
 # http://www.basicallytech.com/blog/archive/23/command-line-calculations-using-bc/
@@ -637,9 +659,9 @@ end
 # note that there is no $argv[0], the $argv[1] is the first argv after the command name, so the argc of `command argument` is 1, not 2
 function man
 	if test (count $argv) -eq 2
-        	sed -i "s/.shell/\"$argv[2]\n.shell/g" ~/.lesshst
+		sed -i "s/.shell/\"$argv[2]\n.shell/g" ~/.lesshst
 	else
-        	sed -i "s/.shell/\"$argv[1]\n.shell/g" ~/.lesshst
+		sed -i "s/.shell/\"$argv[1]\n.shell/g" ~/.lesshst
 	end
 	command man $argv
 end
