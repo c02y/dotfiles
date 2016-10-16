@@ -1,6 +1,9 @@
-# In gdb session you can view the multiple info parts with the prompt part side by side using
+# In gdb, view the info of multiple parts side by side using
 # : >>> dashboard -output /dev/ptsN
 # N is the number which is the result of `tty` command in the side-by-side pane.
+#
+# Since defining dashboard, just using 
+# dod N
 
 python
 
@@ -191,25 +194,31 @@ def format_address(address):
     pointer_size = gdb.parse_and_eval('$pc').type.sizeof
     return ('0x{{:0{}x}}').format(pointer_size * 2).format(address)
 
-def highlight(source, filename):
+class Highlighter():
+    def __init__(self, filename):
+        self.active = False
     if not R.ansi:
-        highlighted = False
-    else:
+            return
+        # attempt to set up Pygments
         try:
             import pygments.lexers
             import pygments.formatters
             formatter_class = pygments.formatters.Terminal256Formatter
-            formatter = formatter_class(style=R.syntax_highlighting)
-            lexer = pygments.lexers.get_lexer_for_filename(filename)
-            source = pygments.highlight(source, lexer, formatter)
-            highlighted = True
+            self.formatter = formatter_class(style=R.syntax_highlighting)
+            self.lexer = pygments.lexers.get_lexer_for_filename(filename)
+            self.active = True
         except ImportError:
             # Pygments not available
-            highlighted = False
+            pass
         except pygments.util.ClassNotFound:
             # no lexer for this file or invalid style
-            highlighted = False
-    return highlighted, source.rstrip('\n')
+            pass
+
+    def process(self, source):
+        if self.active:
+            import pygments
+            source = pygments.highlight(source, self.lexer, self.formatter)
+        return source.rstrip('\n')
 
 # Dashboard --------------------------------------------------------------------
 
@@ -394,11 +403,7 @@ class Dashboard(gdb.Command):
 
     @staticmethod
     def complete(word, candidates):
-        matching = []
-        for candidate in candidates:
-            if candidate.startswith(word):
-                matching.append(candidate)
-        return matching
+        return filter(lambda candidate: candidate.startswith(word), candidates)
 
     @staticmethod
     def parse_arg(arg):
@@ -707,9 +712,10 @@ class Source(Dashboard.Module):
             self.file_name = file_name
             self.ts = ts
             try:
+                highlighter = Highlighter(self.file_name)
+                self.highlighted = highlighter.active
                 with open(self.file_name) as source_file:
-                    self.highlighted, source = highlight(source_file.read(),
-                                                         self.file_name)
+                    source = highlighter.process(source_file.read())
                     self.source_lines = source.split('\n')
             except Exception as e:
                 msg = 'Cannot display "{}" ({})'.format(self.file_name, e)
@@ -721,6 +727,8 @@ class Source(Dashboard.Module):
         out = []
         number_format = '{{:>{}}}'.format(len(str(end)))
         for number, line in enumerate(self.source_lines[start:end], start + 1):
+            # properly handle UTF-8 source files
+            line = to_string(line)
             if int(number) == current_line:
                 # the current line has a different style without ANSI
                 if R.ansi:
@@ -789,7 +797,6 @@ instructions constituting the current statement are marked, if available."""
             except gdb.error:
                 pass  # e.g., @plt
         # fetch the assembly flavor and the extension used by Pygments
-        # TODO save the lexer and reuse it if performance becomes a problem
         try:
             flavor = gdb.parameter('disassembly-flavor')
         except:
@@ -798,6 +805,8 @@ instructions constituting the current statement are marked, if available."""
             'att': '.s',
             'intel': '.asm'
         }.get(flavor, '.s')
+        # prepare the highlighter
+        highlighter = Highlighter(filename)
         # return the machine code
         max_length = max(instr['length'] for instr in asm)
         inferior = gdb.selected_inferior()
@@ -827,14 +836,14 @@ instructions constituting the current statement are marked, if available."""
                 func_info = ''
             format_string = '{}{}{}{}{}'
             indicator = ' '
-            highlighted, text = highlight(text, filename)
+            text = highlighter.process(text)
             if addr == frame.pc():
                 if not R.ansi:
                     indicator = '>'
                 addr_str = ansi(addr_str, R.style_selected_1)
                 opcodes = ansi(opcodes, R.style_selected_1)
                 func_info = ansi(func_info, R.style_selected_1)
-                if not highlighted:
+                if not highlighter.active:
                     text = ansi(text, R.style_selected_1)
             elif line_info and line_info.pc <= addr < line_info.last:
                 if not R.ansi:
@@ -842,7 +851,7 @@ instructions constituting the current statement are marked, if available."""
                 addr_str = ansi(addr_str, R.style_selected_2)
                 opcodes = ansi(opcodes, R.style_selected_2)
                 func_info = ansi(func_info, R.style_selected_2)
-                if not highlighted:
+                if not highlighter.active:
                     text = ansi(text, R.style_selected_2)
             else:
                 addr_str = ansi(addr_str, R.style_low)
@@ -1263,6 +1272,7 @@ class Expressions(Dashboard.Module):
             }
         }
 
+# XXX traceback line numbers in this Python block must be increased by 1
 end
 
 # Better GDB defaults ----------------------------------------------------------
@@ -1278,7 +1288,7 @@ set python print-stack full
 set history filename ~/.gdb_history
 set history save
 define dod
-dashboard -output /dev/pts/$arg0
+    dashboard -output /dev/pts/$arg0
 end
 
 # Start ------------------------------------------------------------------------

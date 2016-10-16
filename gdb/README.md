@@ -19,7 +19,7 @@ Just place [`.gdbinit`][raw] in your home directory, for example:
 Screenshot
 ----------
 
-![Screenshot](http://i.imgur.com/IsXp0RK.png)
+![Screenshot](http://i.imgur.com/g8I3suo.png)
 
 Features
 --------
@@ -40,6 +40,9 @@ Features
    from `~/.gdbinit.d/`.
 
  * Fully stylable user interface and dynamic command prompt.
+
+ * Optional syntax highlighting using the [Pygments][pygments] Python
+   library.
 
  * No GDB command has been redefined, instead all the
    features are available as subcommands of the main `dashboard` command.
@@ -86,7 +89,7 @@ the full syntax.
 
  * `registers` shows the CPU registers and their values.
 
- * `source` shows the program source code, if available.
+ * `source` show the program source code, if available.
 
  * `stack` shows the current stack trace including the function name and the
    file location, if available. Optionally list the frame arguments and locals
@@ -118,7 +121,7 @@ Without argument reset this setting to the default.
 
 #### Display the dashboard in another terminal
 
-![Dashboard in another terminal](http://i.imgur.com/ZTc4Wjq.png)
+![Dashboard in another terminal](http://i.imgur.com/6TIKXh0.png)
 
  1. start GDB in one terminal;
 
@@ -136,7 +139,7 @@ Without argument reset this setting to the default.
 Pushing this even further, one could use a web browser as an auxiliary terminal
 using [gotty][gotty].
 
-![Dashboard in a web browser](http://i.imgur.com/qIco9e0.png)
+![Dashboard in a web browser](http://i.imgur.com/5uncF7e.png)
 
  1. start GDB in one terminal;
 
@@ -222,13 +225,23 @@ is given to Python files. If there are subdirectories, they are walked
 recursively. The idea is to keep separated the custom modules definition from
 the configuration itself.
 
-The main configuration file can be placed in `~/.gdbinit.d/` (say
-`~/.gdbinit.d/init`) and should be used to tune the dashboard styles and modules
-configuration but also the usual GDB parameters.
+By convention, the *main* configuration file should be placed in `~/.gdbinit.d/`
+(say `~/.gdbinit.d/init`) and can be used to tune the dashboard styles and
+modules configuration but also the usual GDB parameters.
 
 The alternative is to hard code changes in the provided [`.gdbinit`][raw], to do
 so just add new modules and GDB settings under `# Default modules` and `# Better
 GDB defaults` respectively.
+
+### Per-project configuration
+
+GDB natively support the auto-loading of `.gdbinit` files, this can come in
+handy to set up a different dashboard style according to the current project
+type (e.g., C++ development, reverse engineering, etc.). This feature is
+disabled by default for security reasons. To enable the auto-loading everywhere
+in the file system add this line to the main configuration file:
+
+    set auto-load safe-path /
 
 Stylable attributes
 -------------------
@@ -248,8 +261,22 @@ Whereas for modules:
 Colors and text styles are specified using [ANSI][ansi] escape codes. For
 example setting a style to `1;31` will produce `^[[1;31m`, which will result in
 displaying the text red (`31`) and bright (`1`). The ANSI output can be disabled
-by setting the `ansi` attribute (note that this will not affect the command
-prompt).
+by setting the `ansi` attribute to `False` (note that this will not affect the
+command prompt).
+
+### Syntax highlighting
+
+When the `ansi` attribute is set to `True` the [Pygments][pygments] Python
+library may be used by modules to provide syntax highlighting of the source
+code.
+
+The `syntax_highlighting` stylable attribute is a string which defines the
+Pygments [style][pygments-styles] to use.
+
+The list of all the available styles can be obtained with (from GDB itself):
+
+    python from pygments.styles import get_all_styles as styles
+    python for s in styles(): print(s)
 
 ### Dividers
 
@@ -353,7 +380,7 @@ class Notes(Dashboard.Module):
     def label(self):
         return 'Notes'
 
-    def lines(self):
+    def lines(self, style_changed):
         out = []
         for note in self.notes:
             out.append(note)
@@ -409,7 +436,7 @@ Resources
 License
 -------
 
-Copyright (c) 2015 Andrea Cardaci <cyrus.and@gmail.com>
+Copyright (c) 2015-2016 Andrea Cardaci <cyrus.and@gmail.com>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -431,6 +458,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 [raw]: https://raw.githubusercontent.com/cyrus-and/gdb-dashboard/master/.gdbinit
 [api]: https://sourceware.org/gdb/onlinedocs/gdb/Python-API.html
 [commands]: https://sourceware.org/gdb/onlinedocs/gdb/Command-Files.html
+[pygments]: http://pygments.org/
+[pygments-styles]: http://pygments.org/docs/styles
 [ansi]: https://en.wikipedia.org/wiki/ANSI_escape_code
 [format]: https://docs.python.org/2/library/string.html#format-string-syntax
 [prompt]: https://sourceware.org/gdb/onlinedocs/gdb/gdb_002eprompt.html
