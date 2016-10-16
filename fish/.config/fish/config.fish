@@ -8,8 +8,6 @@ set -gx GOPATH $GOPATH ~/GoPro
 # for ~/.linuxbrew/ (brew for linux to install programs)
 set -gx LD_LIBRARY_PATH $LD_LIBRARY_PATH ~/.linuxbrew/Library
 
-source ~/.config/fish/functions/fastdir.fish
-
 # do not use the format above
 # http://vivafan.com/2013/03/%E3%80%8Cfish%E3%80%8D%E3%82%B7%E3%82%A7%E3%83%AB%E3%82%92%E5%AE%9F%E9%9A%9B%E3%81%AB%E4%BD%BF%E3%81%86%E3%81%9F%E3%82%81%E3%81%AB/
 # for more formats
@@ -59,6 +57,8 @@ function fish_user_key_bindings
 	bind \cl "tput reset; commandline -f repaint; path_prompt"
 end
 alias clr="echo -e '\033c\c'; path_prompt"
+
+alias rg 'ranger'
 
 function fish_prompt --description 'Write out the prompt'
 	h
@@ -224,13 +224,15 @@ function lcl --description 'clean latex temporary files such as .log, .aux'
 	for EXT in aux log out toc faq blg bbl brf nlo dvi ps lof fls fdb_latexmk pdfsync synctex.gz ind ilg idx
 		find . -name "*.$EXT" | xargs -r rm -rv
 	end
+	rm -rfv auto
+	ftr
 end
 
 # du
 alias du 'du -h --apparent-size'
 alias dus 'du -c -s'
 function duS
-	du --summarize -c $argv | sort -h
+	du -s -c $argv | sort -h
 end
 alias dul 'sudo du --summarize -h -c /var/log/* | sort -h'
 function duss --description 'list and sort all the files recursively by size'
@@ -396,11 +398,11 @@ function sab --description 'systemd-analyze blame->time'
 end
 
 # cd
-#alias .. 'cd ..'
-#alias ..2 'cd ../..'
-#alias ..3 'cd ../../../'
-#alias ..4 'cd ../../../../'
-#alias ..5 'cd ../../../../../'
+function -; cd -; end
+function ..; cd ..; end
+function ...; cd ../..; end
+function ....; cd ../../..; end
+function .....; cd ../../../..; end
 alias cdi 'cd /usr/include/'
 alias cde 'cd ~/.emacs.d/elpa; and lsh'
 alias cdb 'cd ~/.vim/bundle'
@@ -421,6 +423,88 @@ end
 function cdla
 	cd
 	la
+end
+
+function d --description "Choose one from the list of recently visited dirs"
+    set -l letters - b c d e f h i j k l m n o p q r s t u v w x y z
+    set -l all_dirs $dirprev $dirnext
+    if not set -q all_dirs[1]
+        echo 'No previous directories to select. You have to cd at least once.'
+        return 0
+    end
+
+    # Reverse the directories so the most recently visited is first in the list.
+    # Also, eliminate duplicates; i.e., we only want the most recent visit to a
+    # given directory in the selection list.
+    set -l uniq_dirs
+    for dir in $all_dirs[-1..1]
+        if not contains $dir $uniq_dirs
+            set uniq_dirs $uniq_dirs $dir
+        end
+    end
+
+    set -l dirc (count $uniq_dirs)
+    if test $dirc -gt (count $letters)
+        set -l msg 'This should not happen. Have you changed the cd function?'
+        printf (_ "$msg\n")
+        set -l msg 'There are %s unique dirs in your history' \
+            'but I can only handle %s'
+        printf (_ "$msg\n") $dirc (count $letters)
+        return 1
+    end
+
+    set -l pwd_existed 0
+    # already_pwd avoid always print the bottom line *pwd:...
+    for i in (seq $dirc -1 1)
+        set dir $uniq_dirs[$i]
+
+	if test $pwd_existed != 1
+		if test "$dir" = "$PWD"
+			set pwd_existed 1
+		end
+	end
+	
+        set -l home_dir (string match -r "$HOME(/.*|\$)" "$dir")
+        if set -q home_dir[2]
+		set dir "~$home_dir[2]"
+		# change dir from /home/user/path to ~/path
+		# dir is not PWD anymore
+        end
+	
+	if test $pwd_existed = 1
+		printf '%s* %2d)  %s%s\n' (set_color red) $i $dir (set_color normal)
+		set pwd_existed 2 # to make the rest of current the dirprev not red
+	else if test $i = 1
+		printf '%s- %2d)  %s%s\n' (set_color cyan) $i $dir (set_color normal)
+	else if test $i != 1 -a $pwd_existed != 1
+		printf '%s %2d)  %s\n' $letters[$i] $i $dir
+		
+	end
+    end
+    if test $pwd_existed = 0 # means the current dir is not in the $uniq_dirs
+	    printf '%s* %2d) %s%s\n' (set_color red) "0" $PWD (set_color normal)
+    end
+
+    echo '---------------------------'
+    read -l -p 'echo "Goto: "' choice
+    if test "$choice" = ""
+        return 0
+    else if string match -q -r '^[\-|b-z]$' $choice
+        set choice (contains -i $choice $letters)
+    end
+
+    if string match -q -r '^\d+$' $choice
+        if test $choice -ge 1 -a $choice -le $dirc
+            cd $uniq_dirs[$choice]
+            return
+        else
+	    echo Error: expected a number between 1 and $dirc, got \"$choice\"
+            return 1
+        end
+    else
+        echo Error: expected a number between 1 and $dirc or letter in that range, got \"$choice\"
+        return 1
+    end
 end
 
 # diff
@@ -463,6 +547,7 @@ alias ve 'vim ~/.emacs.d/init.el'
 alias v2 'vim ~/Recentchange/TODO'
 alias vf 'vim ~/.fishrc; source ~/.fishrc; echo ~/.fishrc reloaded!'
 alias vt 'vim ~/.tmux.conf; tmux source-file ~/.tmux.conf; echo ~/.tmux.conf reloaded!'
+
 # emacs
 # -Q = -q --no-site-file --no-splash, which will not load something like emacs-googies
 # FIXME:
@@ -556,7 +641,7 @@ function slh
 	svn log -v $argv[1] | head -$argv[2]
 end
 
-alias hs 'sudo cp -v ~/Public/hosts /etc/hosts'
+alias hs 'sudo cp -v ~/Public/hosts/hosts /etc/hosts'
 
 # okular
 alias ok 'okular '
@@ -586,8 +671,26 @@ alias ptp 'ptpython'
 alias epub 'ebook-viewer --detach'
 alias time 'time -p'
 alias ex 'exit'
+
 alias p 'ping -c 5'
 alias ping 'ping -c 5'
+function pv --description "ping vpn servers"
+	p p1.jp1.seejump.com | tail -n3
+	echo --------------------------------------------------------------
+	p p1.jp2.seejump.com | tail -n3
+	echo --------------------------------------------------------------
+	p p1.jp3.seejump.com | tail -n3
+	echo --------------------------------------------------------------
+	p p1.jp4.seejump.com | tail -n3
+	echo --------------------------------------------------------------
+	p p1.hk1.seejump.com | tail -n3
+	echo --------------------------------------------------------------
+	p p1.hk2.seejump.com | tail -n3
+	echo --------------------------------------------------------------
+	p p1.hk3.seejump.com | tail -n3
+	echo --------------------------------------------------------------
+end
+
 alias lo 'locate -e'
 function lop --description 'locate the full/exact file'
 	locate -e -r "/$argv[1]\$"
