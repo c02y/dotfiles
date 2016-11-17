@@ -74,7 +74,7 @@ set showcmd		 " show command
 autocmd BufEnter * :syntax sync fromstart
 set backspace=eol,start,indent
 set incsearch
-"set ignorecase	 " ignore case when searching
+set ignorecase	 " ignore case when searching
 set smartcase
 set magic		 " :h magic
 set showmatch	 " paren
@@ -102,10 +102,13 @@ function! XTermPasteBegin()
   return ""
 endfunction
 
-"""""""""""""""""""" statueline""""""""""""""""""""""""""""""
+"""""""""""""""""""" statusline""""""""""""""""""""""""""""""
 set laststatus=2 " always show status line
 highlight StatusLine cterm=bold ctermfg=yellow ctermbg=blue
-set statusline=[%n]\ %<%t\ %h%m%r%=%-14.(%l,%c(%p%%\/%{FileSize()})%)\|%{(&fenc)}
+function! CurDir()
+    let curdir = substitute(getcwd(), $HOME, "~", "g")
+    return curdir
+endfunction
 function! FileSize()
     let bytes = getfsize(expand("%:p"))
     if bytes <= 0
@@ -114,10 +117,20 @@ function! FileSize()
     if bytes < 1024
         return bytes
     else
-        return (bytes / 1024) . "K"
+        return (bytes / 1024) . "KB"
     endif
 endfunction
-""""""""""""""""""""""""""""""""""""""""""""""""""""
+function ShowFileFormatFlag(var)
+  if ( a:var == 'dos' )
+    return '[dos]'
+  elseif ( a:var == 'mac' )
+    return '[mac]'
+  else
+    return ''
+  endif
+endfunction
+set statusline=[%n]%1*%{ShowFileFormatFlag(&fileformat)}%*\ %f%m%r%h\ \|\ %{CurDir()}\ \|\ \|\ (%l,%v)(%p%%)%{FileSize()}\ \|\ %{&fileencoding?&fileencoding:&encoding}\ \|
+"""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " searches forward/backward using */#
 vnoremap <silent> * :call VisualSearch('f')<CR>

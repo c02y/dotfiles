@@ -1,0 +1,36 @@
+#!/bin/bash
+
+RXB=0
+TXB=0
+
+for rxbytes in /sys/class/net/*/statistics/rx_bytes ; do
+  let RXB+=$(<$rxbytes)
+done
+
+for txbytes in /sys/class/net/*/statistics/tx_bytes ; do
+  let TXB+=$(<$txbytes)
+done
+
+sleep 1
+
+RXBN=0
+TXBN=0
+
+for rxbytes in /sys/class/net/*/statistics/rx_bytes ; do
+  let RXBN+=$(<$rxbytes)
+done
+
+for txbytes in /sys/class/net/*/statistics/tx_bytes ; do
+  let TXBN+=$(<$txbytes)
+done
+
+RXDIF=$(echo $((RXBN - RXB)) )
+TXDIF=$(echo $((TXBN - TXB)) )
+
+if [ "$RXDIF" -lt 10240 ]; then
+	echo
+elif [ "$RXDIF" -gt 1048576 ]; then
+	echo -e "<⬇:$(bash -c "bc <<< 'scale=2; $RXDIF/1048576'")M/s ⬆:$((TXDIF / 1024))K/s>"
+else
+	echo -e "<⬇:$(($RXDIF/1024))K/s ⬆:$((TXDIF / 1024))K/s>"
+fi

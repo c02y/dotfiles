@@ -43,22 +43,35 @@ function path_prompt
 	echo -n ':'
 
 	# PWD
-	set_color $fish_color_cwd
+	set_color -o yellow
 	echo -n (prompt_pwd)
 	set_color normal
 	echo
 end
 
+function delete-or-ranger -d 'modified from delete-or-exit, delete one char if in command, execute ranger instead exiting the current terminal otherwise'
+	set -l cmd (commandline)
+
+	switch "$cmd"
+		case ''
+		ranger
+
+		case '*'
+		commandline -f delete-char
+	end
+end
 # all bindings should be put inside the single one fish_user_key_bindings
 function fish_user_key_bindings
 	# without this line, C-l will not print the path at top of the screen
 	#bind \cl 'clear; commandline -f repaint; path_prompt'
 	#bind \cl ""
 	bind \cl "tput reset; commandline -f repaint; path_prompt"
+	bind \cd delete-or-ranger
 end
 alias clr="echo -e '\033c\c'; path_prompt"
 
 alias rg 'ranger'
+alias fpp '~/Public/PathPicker/fpp'
 
 function fish_prompt --description 'Write out the prompt'
 	h
@@ -100,7 +113,7 @@ alias l 'ls'
 alias ls 'ls --color=always'
 alias lsd 'ls -d */' # only list unhidden directories
 alias ll 'ls -lh'
-alias la 'ls -d .??*' # only list the hidden dirs
+alias la 'ls -d .*' # only list the hidden dirs
 alias lla 'ls -lhA' # list all but not . ..
 alias ls. 'ls -A'
 function lsx --description 'cp the full path of a file to sytem clipboard'
@@ -109,23 +122,23 @@ function lsx --description 'cp the full path of a file to sytem clipboard'
 	echo \n---- Path Copied to Clipboard! ----
 end
 function lst
-	ls --color=yes $argv[1] --sort=time -lh | /usr/bin/nl | less
+	ls --color=yes $argv[1] --sort=time -lh | nl | less
 end
 function lsh
-	ls --color=yes $argv[1] --sort=time -lh | head | /usr/bin/nl
+	ls --color=yes $argv[1] --sort=time -lh | head | nl
 end
 function lsh2
-	ls --color=yes $argv[1] --sort=time -lh | head -20 | /usr/bin/nl1
+	ls --color=yes $argv[1] --sort=time -lh | head -20 | nl1
 end
 function lls
-	ll --color=yes $argv --sort=size -lh | less -R | /usr/bin/nl
+	ll --color=yes $argv --sort=size -lh | less -R | nl
 end
 function llh
-	ll --color=yes $argv --sort=time -lh | head | /usr/bin/nl
+	ll --color=yes $argv --sort=time -lh | head | nl
 end
-alias llt 'll --color=yes --sort=time -lh | less -R | /usr/bin/nl'
-alias lat 'la --color=yes --sort=time -lh | less -R | /usr/bin/nl'
-alias lah 'la --color=yes --sort=time -lh | head | /usr/bin/nl'
+alias llt 'lla --color=yes --sort=time -lh | less -R | nl'
+alias lat 'lla --color=yes --sort=time -lh | less -R | nl'
+alias lah 'lla --color=yes --sort=time -lh | head | nl'
 # count the number of the files in the dir(not sub.), use tree | wc -l for subdirs
 alias lsc 'ls -all | wc -l'
 # valgrind
@@ -193,7 +206,7 @@ function f --description 'find the files by name, if no argv is passed, use the 
 	find $argv[1] -name $argv[2]
 end
 function ft --description 'find the temporary files such as a~ or #a or .a~, if no argv is passed, use the current dir'
-	find $argv[1] \( -name "*~" -o -name "#?*#" -o -name "#?*#" -o -name ".#?*" -o -name "*.swp" \)
+	find $argv[1] \( -name "*~" -o -name "#?*#" -o -name "#?*#" -o -name ".#?*" -o -name "*.swp" \) | xargs -r ls -lhd
 
 end
 function ftr --description 'delete the files found by ft'
@@ -201,7 +214,7 @@ function ftr --description 'delete the files found by ft'
 
 end
 function ftc --description 'find the temporary files such as a~ or #a or .a~, if no argv is passed, use the current dir, not recursively'
-	find $argv[1] -maxdepth 1 \( -name "*~" -o -name "#?*#" -o -name "#?*#" -o -name ".#?*" -o -name "*.swp" \)
+	find $argv[1] -maxdepth 1 \( -name "*~" -o -name "#?*#" -o -name "#?*#" -o -name ".#?*" -o -name "*.swp" \) | xargs -r ls -lhd
 end
 function ftcr --description 'delete the files found by ftc'
 	find $argv[1] -maxdepth 1 \( -name "*~" -o -name "#?*#" -o -name "#?*#" -o -name ".#?*" -o -name "*.swp" \) | xargs rm -rfv
@@ -289,7 +302,7 @@ set -gx LESS_TERMCAP_us \e'[04;38;5;200m' # enter underline mode
 # another way to do it
 alias vm 'vim -u ~/.vimrc.more'
 # color in man page
-set -gx MANPAGER 'less -s -M +Gg'
+set -gx MANPAGER 'less -s -M +Gg -i'
 # color in man page and less
 # without this line, the LESS_TERMCAP_xxx won't work in Fedora
 set -gx GROFF_NO_SGR yes
@@ -302,7 +315,7 @@ alias gcc-a 'gcc -g -pedantic -Wall -W -Wconversion -Wshadow -Wcast-qual -Wwrite
 
 alias ifw 'ifconfig wlp5s0'
 #alias nl 'nload -u H p4p1'
-alias nl 'nload -u H wlp8s0'
+alias nll 'nload -u H wlp8s0'
 alias nh 'sudo nethogs wlp5s0'
 # =ifconfig= is obsolete! For replacement check =ip addr= and =ip link=. For statistics use =ip -s link=.
 alias ipp 'ip -4 -o address'
@@ -381,6 +394,7 @@ alias dnfi 'sudo dnf install -v'
 alias dnfr 'sudo dnf remove -v'
 alias dnfl 'dnf list installed| less'
 alias dnfs 'sudo dnf search'
+alias dnful 'sudo dnf history undo last'
 
 # apt
 alias api 'sudo apt-get install -V'
@@ -404,13 +418,13 @@ function ...; cd ../..; end
 function ....; cd ../../..; end
 function .....; cd ../../../..; end
 alias cdi 'cd /usr/include/'
-alias cde 'cd ~/.emacs.d/elpa; and lsh'
+alias cde 'cd ~/.emacs.d/elpa; and lah'
 alias cdb 'cd ~/.vim/bundle'
-alias cdp 'cd ~/Public; and lsh'
-alias cdc 'cd ~/Projects/CWork; and lsh'
-alias cds 'cd ~/Projects/CWork/snippets; and lsh'
+alias cdp 'cd ~/Public; and lah'
+alias cdc 'cd ~/Projects/CWork; and lah'
+alias cds 'cd ~/Projects/CWork/snippets; and lah'
 alias cdP 'cd ~/Projects'
-alias cdu 'cd /run/media/chz/UDISK/; and lsh'
+alias cdu 'cd /run/media/chz/UDISK/; and lah'
 # cd then list
 function cdls
 	cd $argv
@@ -482,7 +496,7 @@ function d --description "Choose one from the list of recently visited dirs"
 	end
     end
     if test $pwd_existed = 0 # means the current dir is not in the $uniq_dirs
-	    printf '%s* %2d) %s%s\n' (set_color red) "0" $PWD (set_color normal)
+	    printf '%s* %2d)  %s%s\n' (set_color red) "0" $PWD (set_color normal)
     end
 
     echo '---------------------------'
