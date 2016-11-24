@@ -1,9 +1,3 @@
-search Public
-search png
-cd /home/chz/Public/
-search_inc mp4
-search_inc pdf
-cd /home/chz/Org/
 rename latex.org_1
 rename latex.org
 cd /home/chz/.config/fish/
@@ -37,14 +31,20 @@ cd /home/chz/Public/RAW/
 search_inc 2211
 open_with feh
 open_with eog
-rename 
 rename DSC02372.png
 open_with ebook-viewer
 open_with 
-delete
 open_with darktable
 shell du -hd0 --total %s | tail -n1 | cut -f1
 search_inc Pu
 search_inc RA
 search_inc 
+search_inc pdf
+search_inc peda
+rename 
+echo %s
+shell -d echo -n %f | xsel -i
+shell echo -n %f | xclip -selection c
+open_with mpv
+delete
 move to=0

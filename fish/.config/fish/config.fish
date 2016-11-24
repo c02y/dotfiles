@@ -54,10 +54,10 @@ function delete-or-ranger -d 'modified from delete-or-exit, delete one char if i
 
 	switch "$cmd"
 		case ''
-		ranger
+			ranger
 
 		case '*'
-		commandline -f delete-char
+			commandline -f delete-char
 	end
 end
 # all bindings should be put inside the single one fish_user_key_bindings
@@ -439,88 +439,6 @@ function cdla
 	la
 end
 
-function d --description "Choose one from the list of recently visited dirs"
-    set -l letters - b c d e f h i j k l m n o p q r s t u v w x y z
-    set -l all_dirs $dirprev $dirnext
-    if not set -q all_dirs[1]
-        echo 'No previous directories to select. You have to cd at least once.'
-        return 0
-    end
-
-    # Reverse the directories so the most recently visited is first in the list.
-    # Also, eliminate duplicates; i.e., we only want the most recent visit to a
-    # given directory in the selection list.
-    set -l uniq_dirs
-    for dir in $all_dirs[-1..1]
-        if not contains $dir $uniq_dirs
-            set uniq_dirs $uniq_dirs $dir
-        end
-    end
-
-    set -l dirc (count $uniq_dirs)
-    if test $dirc -gt (count $letters)
-        set -l msg 'This should not happen. Have you changed the cd function?'
-        printf (_ "$msg\n")
-        set -l msg 'There are %s unique dirs in your history' \
-            'but I can only handle %s'
-        printf (_ "$msg\n") $dirc (count $letters)
-        return 1
-    end
-
-    set -l pwd_existed 0
-    # already_pwd avoid always print the bottom line *pwd:...
-    for i in (seq $dirc -1 1)
-        set dir $uniq_dirs[$i]
-
-	if test $pwd_existed != 1
-		if test "$dir" = "$PWD"
-			set pwd_existed 1
-		end
-	end
-	
-        set -l home_dir (string match -r "$HOME(/.*|\$)" "$dir")
-        if set -q home_dir[2]
-		set dir "~$home_dir[2]"
-		# change dir from /home/user/path to ~/path
-		# dir is not PWD anymore
-        end
-	
-	if test $pwd_existed = 1
-		printf '%s* %2d)  %s%s\n' (set_color red) $i $dir (set_color normal)
-		set pwd_existed 2 # to make the rest of current the dirprev not red
-	else if test $i = 1
-		printf '%s- %2d)  %s%s\n' (set_color cyan) $i $dir (set_color normal)
-	else if test $i != 1 -a $pwd_existed != 1
-		printf '%s %2d)  %s\n' $letters[$i] $i $dir
-		
-	end
-    end
-    if test $pwd_existed = 0 # means the current dir is not in the $uniq_dirs
-	    printf '%s* %2d)  %s%s\n' (set_color red) "0" $PWD (set_color normal)
-    end
-
-    echo '---------------------------'
-    read -l -p 'echo "Goto: "' choice
-    if test "$choice" = ""
-        return 0
-    else if string match -q -r '^[\-|b-z]$' $choice
-        set choice (contains -i $choice $letters)
-    end
-
-    if string match -q -r '^\d+$' $choice
-        if test $choice -ge 1 -a $choice -le $dirc
-            cd $uniq_dirs[$choice]
-            return
-        else
-	    echo Error: expected a number between 1 and $dirc, got \"$choice\"
-            return 1
-        end
-    else
-        echo Error: expected a number between 1 and $dirc or letter in that range, got \"$choice\"
-        return 1
-    end
-end
-
 # diff
 alias diff-s 'diff -y -s --suppress-common-line -W $COLUMNS'
 alias diff-sw 'diff-s -w'
@@ -797,6 +715,9 @@ function wtp --description 'show the real definition of a type or struct in C co
 	end
 end
 
+alias um 'pumount /run/media/chz/UDISK'
+alias mo 'pmount /dev/sdb4 /run/media/chz/UDISK'
+
 alias ytd 'youtube-dl -citw '
 
 alias tl 'tmux ls'
@@ -846,3 +767,86 @@ end
 # if test $status -eq 1; ... else ... # failure
 # to
 # or begin ... end; or ...
+
+
+function d --description "Choose one from the list of recently visited dirs"
+	set -l letters - b c d e f h i j k l m n o p q r s t u v w x y z
+	set -l all_dirs $dirprev $dirnext
+	if not set -q all_dirs[1]
+		echo 'No previous directories to select. You have to cd at least once.'
+		return 0
+	end
+
+	# Reverse the directories so the most recently visited is first in the list.
+	# Also, eliminate duplicates; i.e., we only want the most recent visit to a
+	# given directory in the selection list.
+	set -l uniq_dirs
+	for dir in $all_dirs[-1..1]
+		if not contains $dir $uniq_dirs
+			set uniq_dirs $uniq_dirs $dir
+		end
+	end
+
+	set -l dirc (count $uniq_dirs)
+	if test $dirc -gt (count $letters)
+		set -l msg 'This should not happen. Have you changed the cd function?'
+			printf (_ "$msg\n")
+			set -l msg 'There are %s unique dirs in your history' \
+			'but I can only handle %s'
+			printf (_ "$msg\n") $dirc (count $letters)
+			return 1
+		end
+
+		set -l pwd_existed 0
+		# already_pwd avoid always print the bottom line *pwd:...
+		for i in (seq $dirc -1 1)
+			set dir $uniq_dirs[$i]
+
+			if test $pwd_existed != 1
+				if test "$dir" = "$PWD"
+					set pwd_existed 1
+				end
+			end
+
+			set -l home_dir (string match -r "$HOME(/.*|\$)" "$dir")
+			if set -q home_dir[2]
+				set dir "~$home_dir[2]"
+				# change dir from /home/user/path to ~/path
+				# dir is not PWD anymore
+			end
+
+			if test $pwd_existed = 1
+				printf '%s* %2d)  %s%s\n' (set_color red) $i $dir (set_color normal)
+				set pwd_existed 2 # to make the rest of current the dirprev not red
+			else if test $i = 1
+				printf '%s- %2d)  %s%s\n' (set_color cyan) $i $dir (set_color normal)
+			else if test $i != 1 -a $pwd_existed != 1
+				printf '%s %2d)  %s\n' $letters[$i] $i $dir
+
+			end
+		end
+		if test $pwd_existed = 0 # means the current dir is not in the $uniq_dirs
+			printf '%s* %2d)  %s%s\n' (set_color red) "0" $PWD (set_color normal)
+		end
+
+		echo '---------------------------'
+		read -l -p 'echo "Goto: "' choice
+		if test "$choice" = ""
+			return 0
+		else if string match -q -r '^[\-|b-z]$' $choice
+			set choice (contains -i $choice $letters)
+		end
+
+		if string match -q -r '^\d+$' $choice
+			if test $choice -ge 1 -a $choice -le $dirc
+				cd $uniq_dirs[$choice]
+				return
+			else
+				echo Error: expected a number between 1 and $dirc, got \"$choice\"
+				return 1
+			end
+		else
+			echo Error: expected a number between 1 and $dirc or letter in that range, got \"$choice\"
+			return 1
+		end
+	end
