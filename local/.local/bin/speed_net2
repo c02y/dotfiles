@@ -1,0 +1,13 @@
+#!/bin/bash
+# the status in tmux status bar will disappear for 0.xs sometimes, use speed_net instead 
+
+read net_recv net_send <<< $(dstat -n --noheaders --nocolor 2 1 | tail -1 | awk '{ print $1,$2 }')
+
+net_recv_num=$(echo -n $net_recv | head -c -1)
+net_send_num=$(echo -n $net_send | head -c -1)
+
+if [[ ${net_recv: -1} == "k" && $net_recv_num -gt 10 && $net_send_num -gt 10 ]] || [[ ${net_recv: -1} == "m" ]]; then
+	echo -e "<⬇:$net_recv/s ⬆:$net_send/s>"
+else
+	echo
+fi

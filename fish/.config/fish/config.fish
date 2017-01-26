@@ -72,6 +72,22 @@ alias clr="echo -e '\033c\c'; path_prompt"
 
 alias rg 'ranger'
 alias fpp '~/Public/PathPicker/fpp'
+alias ga 'glances -t 1 --hide-kernel-threads -b --disable-irq --enable-process-extended'
+alias dst 'dstat -d -n'
+function meld --description 'lanuch meld from terminal without block it'
+	bash -c "(nohup /usr/bin/meld $argv 2>/dev/null &)"
+end
+
+# make the make and gcc/g++ color
+function make
+	/usr/bin/make -B $argv 2>&1 | grep --color -iP "\^|warning:|error:|undefined|"
+end
+function gcc
+	/usr/bin/gcc $argv 2>&1 | grep --color -iP "\^|warning:|error:|undefined|"
+end
+function g++
+	/usr/bin/g++ $argv 2>&1 | grep --color -iP "\^|warning:|error:|undefined|"
+end
 
 function fish_prompt --description 'Write out the prompt'
 	h
@@ -116,6 +132,9 @@ alias ll 'ls -lh'
 alias la 'ls -d .*' # only list the hidden dirs
 alias lla 'ls -lhA' # list all but not . ..
 alias ls. 'ls -A'
+alias lsf 'ls -A1' # list only filenames, same as `ls -A | sort
+alias lsl 'ls -1' # list the names of content line by line without attributes
+alias lsL 'ls -A1' # like lsl but including hiddens ones (no . or ..)
 function lsx --description 'cp the full path of a file to sytem clipboard'
 	readlink -nf $argv | x
 	x -o
@@ -150,8 +169,8 @@ alias vad 'valgrind --tool=callgrind --dump-instr=yes --simulate-cache=yes --col
 alias im 'ristretto'
 alias ds 'display'
 alias ima 'gwenview'
-alias ka 'killall'
-alias psg 'ps -ef | ag -v -i ag | ag -i'
+alias ka 'killall -9'
+alias psg 'ps -ef | grep -v -i grep | grep -i'
 # pkill will not kill processes matching pattern, you have to kill the PID
 function pk --description 'kill processes containg a pattern'
 	ps -ef | grep -v grep | grep -i $argv[1]
@@ -227,14 +246,15 @@ function findn --description 'find the new files in the whole system, argv[1] is
 end
 
 function lcl --description 'clean latex temporary files such as .log, .aux'
-	# # one way, but this may delete some file like file.png if tex file is file.tex
+	# one way, but this may delete some file like file.png if tex file is file.tex
 	# for FILE in (find . -name "*.tex")
 	# 	for NO_EXT in (expr "//$FILE" : '.*/\([^.]*\)\..*$')
 	# 		find . -type f -name "$NO_EXT*" | ag -v ".pdf|.tex" | xargs -r /bin/rm -rv
 	# 	end
 	# end
 	# another way, more safe
-	for EXT in aux log out toc faq blg bbl brf nlo dvi ps lof fls fdb_latexmk pdfsync synctex.gz ind ilg idx
+	for EXT in ind ilg toc out idx aux fls log fdb_latexmk
+		# ind ilg toc out idx aux fls log fdb_latexmk faq blg bbl brf nlo dvi ps lof pdfsync synctex.gz
 		find . -name "*.$EXT" | xargs -r rm -rv
 	end
 	rm -rfv auto
@@ -335,7 +355,15 @@ alias t-xa 'tar xvfa' # the above three can jsut use this one to auto choose the
 alias t-cbz2 'tar cvfj'
 alias t-cgz 'tar cvfz'
 alias t-cxz 'tar cvfJ $argv[1].tar.xz $argv[1]'
-alias t-ca 'tar cvfa' # the above three can just use this one to auto choose the right one
+function t-ca --description '`t-ca dir vcs` to include .svn/.git, or `t-ca dir` to exclude'
+	# remove the end slash in argv
+	set ARGV (echo $argv[1] | sed 's:/*$::')
+	if test (count $argv) = 1
+		tar cvfa $ARGV.tar.xz $ARGV --exclude-vcs
+	else
+		tar cvfa $ARGV.tar.xz $ARGV
+	end
+end
 alias dt 'dtrx -v '
 function debx --description 'extract the deb package'
 	set pkgname (basename $argv[1] .deb)
@@ -353,8 +381,8 @@ end
 
 alias wget 'wget -c '
 alias wgets 'wget -c --mirror -p --html-extension --convert-links'
-alias wt 'rm -rf /tmp/Thunder*; wget -c -P /tmp/ http://dl1sw.baidu.com/soft/9e/12351/ThunderMini_1.5.3.288.exe'
-alias wtt 'rm -rf /tmp/Thunder*; wget --connect-timeout=5 -c -P /tmp/ http://dlsw.baidu.com/sw-search-sp/soft/ca/13442/Thunder_dl_V7.9.39.4994_setup.1438932968.exe'
+alias wt 'bash -c \'rm -rfv /tmp/Thun* 2>/dev/null\'; wget -c -P /tmp/ http://dl1sw.baidu.com/soft/9e/12351/ThunderMini_1.5.3.288.exe'
+alias wtt 'bash -c \'rm -rfv /tmp/Thun* 2>/dev/null\'; wget --connect-timeout=5 -c -P /tmp/ http://dlsw.baidu.com/sw-search-sp/soft/ca/13442/Thunder_dl_V7.9.39.4994_setup.1438932968.exe'
 
 # rpm
 alias rpmi 'sudo rpm -Uvh'
@@ -374,17 +402,20 @@ function rpmx --description 'extract the pack.rpm file'
 end
 
 # yum
-alias yum 'sudo yum -C --noplugins ' # not update cache
-alias yin 'sudo yum install '
-alias yr 'sudo yum remove '
-alias yud 'sudo yum update --exclude=kernel\* '
-alias yca 'sudo yum clean all -v'
-alias yug 'sudo yum --exclude=kernel\* upgrade ' # this line will be '=kernel*' in bash
-alias yuk 'sudo yum upgrade kernel\*'
-alias yul 'sudo yum history undo last'
-alias yl 'sudo yum history list'
-alias yu 'sudo yum history undo'
-
+alias yum	'sudo yum -C --noplugins ' # not update cache
+alias yumi	'sudo yum install '
+alias yumiy 'sudo yum install -y'
+alias yumr	'sudo yum remove '
+alias yumri 'sudo yum reinstall -y'
+alias yumca 'sudo yum clean all -v'
+alias yumu	'sudo yum --exclude=kernel\* upgrade ' # this line will be '=kernel*' in bash
+alias yumuk 'sudo yum upgrade kernel\*'
+alias yumue 'sudo yum update --exclude=kernel\* '
+alias yumul 'sudo yum history undo last'
+alias yumhl 'sudo yum history list'
+alias yumun 'sudo yum history undo'
+alias yums	'sudo yum search'
+alias yumsa 'sudo yum search all'
 # dnf
 alias dnfu 'sudo dnf update -v'
 alias dnfU 'sudo dnf update --setopt exclude=kernel\* -v'
@@ -394,6 +425,7 @@ alias dnfi 'sudo dnf install -v'
 alias dnfr 'sudo dnf remove -v'
 alias dnfl 'dnf list installed| less'
 alias dnfs 'sudo dnf search'
+alias dnfsa 'sudo dnf search all'
 alias dnful 'sudo dnf history undo last'
 
 # apt
@@ -514,24 +546,23 @@ end
 alias lic 'wget -q http://www.gnu.org/licenses/gpl.txt -O LICENSE'
 
 # git
-alias gs 'git status ' # gs is original Ghostscript app
-alias gp 'git pull -v'
-alias gc 'git clone -v'
-alias gl 'git log '
-alias glp 'git log -p -- ' # how entire file(even renamed) in history
-alias glo 'git log --oneline'
-alias gb 'git branch'
-alias gco 'git checkout'
-alias gcl 'git config -l'
-alias gt 'git tag'
-alias gdc 'git show' # show the changes/diff of a commit
-function gpa --description 'git pull all in dir using `fing dir`'
+alias gits 'git status ' # gs is original Ghostscript app
+alias gitp 'git pull -v'
+alias gitc 'git clone -v'
+alias gitl 'git log --stat'
+alias gitlp 'git log -p -- ' # + file to how entire file(even renamed) history
+# without file to show all modification in all COMMITs
+alias gitlo 'git log --oneline'
+alias gitsh 'git show ' # + COMMIT to show the modifications in a commit
+alias gitb 'git branch'
+alias gitco 'git checkout'
+alias gitcl 'git config -l'
+alias gitt 'git tag'
+function gitpa --description 'git pull all in dir using `fing dir`'
 	for i in (find $argv[1] -type d -name .git | sort | xargs realpath)
-		cd $i
-		cd ../
+		cd $i; cd ../
 		pwd
-		git pull -v
-
+		git pull -v;
 		echo -----------------------------
 		echo
 	end
@@ -593,7 +624,7 @@ alias cll 'cloc --by-file-by-lang '
 
 alias st 'stow --verbose'
 
-alias ptp 'ptpython'
+alias ptp 'ptipython'
 
 #alias rea 'sudo ~/.local/bin/reaver -i mon0 -b $argv[1] -vv'
 # function rea

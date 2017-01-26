@@ -1,0 +1,19 @@
+#!/bin/bash
+
+read io_read io_write <<< $(dstat -d --noheaders --nocolor 1 2 | tail -2 | awk '{ print $1,$2 }')
+
+echo ${io_read: -1}
+echo ${io_write: -1}
+
+if [[ (${io_read: -1} == "m") || (${io_write: -1} == "m") ]]; then
+	let io_read_num=$(echo -n $io_read | head -c -1)
+	let io_write_num=$(echo -n $io_write | head -c -1)
+	echo debug
+	echo $io_read_num $io_write_num
+fi
+
+if [[ ($io_read_num > 10) || ($io_write_num > 10)]]; then
+	echo -e "<R:$io_read/s W:$io_write/s>"
+else
+	echo
+fi
