@@ -4,8 +4,16 @@
 # documentation.  Do NOT add them all here, or you may end up with defunct
 # commands when upgrading ranger.
 
+# A simple command for demonstration purposes follows.
+# -----------------------------------------------------------------------------
+
+from __future__ import (absolute_import, division, print_function)
+
+# You can import any python module as needed.
+import os
+
 # You always need to import ranger.api.commands here to get the Command class:
-from ranger.api.commands import *
+from ranger.api.commands import Command
 
 # ----------Put your own config here-------------------------------------------
 import os
@@ -151,16 +159,8 @@ class empty(Command):
 
 # ----------End of your own config---------------------------------------------
 
-# A simple command for demonstration purposes follows.
-# -----------------------------------------------------------------------------
-
-# You can import any python module as needed.
-import os
-
 # Any class that is a subclass of "Command" will be integrated into ranger as a
 # command.  Try typing ":my_edit<ENTER>" in ranger!
-
-
 class my_edit(Command):
     # The so-called doc-string of the class will be visible in the built-in
     # help that is accessible by typing "?c" inside ranger.

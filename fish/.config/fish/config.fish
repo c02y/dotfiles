@@ -74,9 +74,6 @@ alias rg 'ranger'
 alias fpp '~/Public/PathPicker/fpp'
 alias ga 'glances -t 1 --hide-kernel-threads -b --disable-irq --enable-process-extended'
 alias dst 'dstat -d -n'
-function meld --description 'lanuch meld from terminal without block it'
-	bash -c "(nohup /usr/bin/meld $argv 2>/dev/null &)"
-end
 
 # make the make and gcc/g++ color
 function make
@@ -225,18 +222,18 @@ function f --description 'find the files by name, if no argv is passed, use the 
 	find $argv[1] -name $argv[2]
 end
 function ft --description 'find the temporary files such as a~ or #a or .a~, if no argv is passed, use the current dir'
-	find $argv[1] \( -name "*~" -o -name "#?*#" -o -name "#?*#" -o -name ".#?*" -o -name "*.swp" \) | xargs -r ls -lhd
+	find $argv[1] \( -name "*~" -o -name "#?*#" -o -name ".#?*" -o -name "*.swp" \) | xargs -r ls -lhd
 
 end
 function ftr --description 'delete the files found by ft'
-	find $argv[1] \( -name "*~" -o -name "#?*#" -o -name "#?*#" -o -name ".#?*" -o -name "*.swp" \) | xargs rm -rfv
+	find $argv[1] \( -name "*~" -o -name "#?*#" -o -name ".#?*" -o -name "*.swp" \) | xargs rm -rfv
 
 end
 function ftc --description 'find the temporary files such as a~ or #a or .a~, if no argv is passed, use the current dir, not recursively'
-	find $argv[1] -maxdepth 1 \( -name "*~" -o -name "#?*#" -o -name "#?*#" -o -name ".#?*" -o -name "*.swp" \) | xargs -r ls -lhd
+	find $argv[1] -maxdepth 1 \( -name "*~" -o -name "#?*#" -o -name ".#?*" -o -name "*.swp" \) | xargs -r ls -lhd
 end
 function ftcr --description 'delete the files found by ftc'
-	find $argv[1] -maxdepth 1 \( -name "*~" -o -name "#?*#" -o -name "#?*#" -o -name ".#?*" -o -name "*.swp" \) | xargs rm -rfv
+	find $argv[1] -maxdepth 1 \( -name "*~" -o -name "#?*#" -o -name ".#?*" -o -name "*.swp" \) | xargs rm -rfv
 end
 function fing --description 'find all the git projects, if no argv is passed, use the current dir'
 	find $argv[1] -type d -name .git | sort
@@ -444,7 +441,7 @@ function sab --description 'systemd-analyze blame->time'
 end
 
 # cd
-function -; cd -; end
+function .-; cd -; end
 function ..; cd ..; end
 function ...; cd ../..; end
 function ....; cd ../../..; end
@@ -469,6 +466,17 @@ end
 function cdla
 	cd
 	la
+end
+# path replacement like zsh
+# https://www.slideshare.net/jaguardesignstudio/why-zsh-is-cooler-than-your-shell-16194692
+function cs -d 'change dir1 to dir2 in the $PWD and cd into it'
+	if test (count $argv) -eq 2
+		set new_path (echo $PWD|sed -e "s/$argv[1]/$argv[2]/")
+		cd $new_path
+	else
+		printf "%s\n" (_ "Wrong argument!!!")
+		return 1
+	end
 end
 
 # diff
@@ -606,8 +614,12 @@ end
 
 alias hs 'sudo cp -v ~/Public/hosts/hosts /etc/hosts'
 
+# https://stackoverflow.com/questions/10408816/how-do-i-use-the-nohup-command-without-getting-nohup-out
+function meld --description 'lanuch meld from terminal without block it'
+	bash -c "(nohup /usr/bin/meld $argv </dev/null >/dev/null 2>&1 &)"
+end
 # okular
-alias ok 'okular '
+alias ok 'bash -c "(nohup okular $argv </dev/null >/dev/null 2>&1 &)"'
 
 alias fcg 'fc-list | ag '
 
@@ -766,7 +778,7 @@ alias ag "ag --pager='less -RM -FX -s'"
 function ag
 	sed -i "s/.shell/\"$argv[1]\n.shell/g" ~/.lesshst
 	if test -f /usr/bin/ag
-		/usr/bin/ag -s --pager='less -RM -FX -s' $argv
+		/usr/bin/ag --ignore '*~' --ignore '#?*#' --ignore '.#?*' --ignore '*.swp' --ignore -s --pager='less -RM -FX -s' $argv
 	else
 		grep -n --color=always $argv | more
 		echo -e "\n...ag is not installed, use grep instead..."

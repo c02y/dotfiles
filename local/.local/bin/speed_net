@@ -3,11 +3,13 @@
 RXB=0
 TXB=0
 
-for rxbytes in /sys/class/net/*/statistics/rx_bytes ; do
+RX_T=/sys/class/net/wlp8s0/statistics/rx_bytes
+TX_T=/sys/class/net/wlp8s0/statistics/tx_bytes
+for rxbytes in $RX_T ; do
   let RXB+=$(<$rxbytes)
 done
 
-for txbytes in /sys/class/net/*/statistics/tx_bytes ; do
+for txbytes in $TX_T; do
   let TXB+=$(<$txbytes)
 done
 
@@ -16,11 +18,11 @@ sleep 1
 RXBN=0
 TXBN=0
 
-for rxbytes in /sys/class/net/*/statistics/rx_bytes ; do
+for rxbytes in $RX_T; do
   let RXBN+=$(<$rxbytes)
 done
 
-for txbytes in /sys/class/net/*/statistics/tx_bytes ; do
+for txbytes in $TX_T; do
   let TXBN+=$(<$txbytes)
 done
 
