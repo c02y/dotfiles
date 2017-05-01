@@ -468,6 +468,7 @@ class Dashboard(gdb.Command):
     def clear_screen():
         # ANSI: move the cursor to top-left corner and clear the screen
         return '\x1b[H\x1b[J'
+
     @staticmethod
     def hide_cursor():
         # ANSI: hide cursor
@@ -515,6 +516,7 @@ class Dashboard(gdb.Command):
 
         def add_output_command(self, dashboard):
             Dashboard.OutputCommand(dashboard, self.prefix, self)
+
         def add_style_command(self, dashboard):
             if 'attributes' in dir(self.instance):
                 Dashboard.StyleCommand(dashboard, self.prefix, self.instance,
@@ -973,34 +975,56 @@ location, if available. Optionally list the frame arguments and locals too."""
         return 'Stack'
 
     def lines(self, term_width, style_changed):
-        frames = []
-        number = 0
+        # find the selected frame (i.e., the first to display)
         selected_index = 0
         frame = gdb.newest_frame()
         while frame:
-            frame_lines = []
+            if frame == gdb.selected_frame():
+                break
+            frame = frame.older()
+            selected_index += 1
+        # format up to "limit" frames
+        frames = []
+        number = selected_index
+        more = False
+        while frame:
+            # the first is the selected one
+            selected = (len(frames) == 0)
             # fetch frame info
-            selected = (frame == gdb.selected_frame())
-            if selected:
-                selected_index = number
             style = R.style_selected_1 if selected else R.style_selected_2
             frame_id = ansi(str(number), style)
             info = Stack.get_pc_line(frame, style)
+            frame_lines = []
             frame_lines.append('[{}] {}'.format(frame_id, info))
             # fetch frame arguments and locals
             decorator = gdb.FrameDecorator.FrameDecorator(frame)
+            separator = ansi(', ', R.style_low)
             if self.show_arguments:
+                def prefix(line):
+                    return Stack.format_line('arg', line)
                 frame_args = decorator.frame_args()
-                args_lines = self.fetch_frame_info(frame, frame_args, 'arg')
+                args_lines = Stack.fetch_frame_info(frame, frame_args)
                 if args_lines:
-                    frame_lines.extend(args_lines)
+                    if self.compact:
+                        args_line = separator.join(args_lines)
+                        single_line = prefix(args_line)
+                        frame_lines.append(single_line)
+                    else:
+                        frame_lines.extend(map(prefix, args_lines))
                 else:
                     frame_lines.append(ansi('(no arguments)', R.style_low))
             if self.show_locals:
+                def prefix(line):
+                    return Stack.format_line('loc', line)
                 frame_locals = decorator.frame_locals()
-                locals_lines = self.fetch_frame_info(frame, frame_locals, 'loc')
+                locals_lines = Stack.fetch_frame_info(frame, frame_locals)
                 if locals_lines:
-                    frame_lines.extend(locals_lines)
+                    if self.compact:
+                        locals_line = separator.join(locals_lines)
+                        single_line = prefix(locals_line)
+                        frame_lines.append(single_line)
+                    else:
+                        frame_lines.extend(map(prefix, locals_lines))
                 else:
                     frame_lines.append(ansi('(no locals)', R.style_low))
             # add frame
@@ -1008,30 +1032,34 @@ location, if available. Optionally list the frame arguments and locals too."""
             # next
             frame = frame.older()
             number += 1
+            # check finished according to the limit
+            if self.limit and len(frames) == self.limit:
+                # more frames to show but limited
+                if frame:
+                    more = True
+                break
         # format the output
-        if not self.limit or self.limit >= len(frames):
-            start = 0
-            end = len(frames)
-            more = False
-        else:
-            start = selected_index
-            end = min(len(frames), start + self.limit)
-            more = (len(frames) - start > self.limit)
         lines = []
-        for frame_lines in frames[start:end]:
+        for frame_lines in frames:
             lines.extend(frame_lines)
         # add the placeholder
         if more:
             lines.append('[{}]'.format(ansi('+', R.style_selected_2)))
         return lines
 
-    def fetch_frame_info(self, frame, data, prefix):
+    @staticmethod
+    def format_line(prefix, line):
         prefix = ansi(prefix, R.style_low)
+        return '{} {}'.format(prefix, line)
+
+    @staticmethod
+    def fetch_frame_info(frame, data):
         lines = []
         for elem in data or []:
             name = elem.sym
+            equal = ansi('=', R.style_low)
             value = to_string(elem.sym.value(frame))
-            lines.append('{} {} = {}'.format(prefix, name, value))
+            lines.append('{} {} {}'.format(name, equal, value))
         return lines
 
     @staticmethod
@@ -1076,6 +1104,11 @@ location, if available. Optionally list the frame arguments and locals too."""
                 'doc': 'Frame locals visibility flag.',
                 'default': False,
                 'name': 'show_locals',
+                'type': bool
+            },
+            'compact': {
+                'doc': 'Single-line display flag.',
+                'default': False,
                 'type': bool
             }
         }
@@ -1228,7 +1261,7 @@ class Registers(Dashboard.Module):
             if '.' in name:
                 continue
             value = gdb.parse_and_eval('${}'.format(name))
-            string_value = self.format_value(value)
+            string_value = Registers.format_value(value)
             changed = self.table and (self.table.get(name, '') != string_value)
             self.table[name] = string_value
             registers.append((name, string_value, changed))
@@ -1259,7 +1292,8 @@ class Registers(Dashboard.Module):
             out.append(' '.join(partial[i:i + per_line]).rstrip())
         return out
 
-    def format_value(self, value):
+    @staticmethod
+    def format_value(value):
         try:
             if value.type.code in [gdb.TYPE_CODE_INT, gdb.TYPE_CODE_PTR]:
                 int_value = to_unsigned(value, value.type.sizeof)
@@ -1413,7 +1447,7 @@ end
 python Dashboard.start()
 
 # ------------------------------------------------------------------------------
-# Copyright (c) 2015-2016 Andrea Cardaci <cyrus.and@gmail.com>
+# Copyright (c) 2015-2017 Andrea Cardaci <cyrus.and@gmail.com>
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal

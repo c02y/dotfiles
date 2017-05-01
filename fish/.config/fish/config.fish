@@ -18,6 +18,11 @@ set fish_greeting
 set -gx fish_color_user magenta
 set -gx fish_color_host yellow
 
+# LS_COLORS, color for ls command
+# http://linux-sxs.org/housekeeping/lscolors.html
+# http://www.bigsoft.co.uk/blog/index.php/2008/04/11/configuring-ls_colors
+set -gx LS_COLORS 'ex=01;33:ln=96:*~=90:*.swp=90:*.bak=90:*.o=90'
+
 # fix the `^[]0;fish  /home/chz^G` message in shell of Emacs
 if test "$TERM" = "dumb"
 	function fish_title
@@ -833,63 +838,63 @@ function d --description "Choose one from the list of recently visited dirs"
 	set -l dirc (count $uniq_dirs)
 	if test $dirc -gt (count $letters)
 		set -l msg 'This should not happen. Have you changed the cd function?'
-			printf (_ "$msg\n")
-			set -l msg 'There are %s unique dirs in your history' \
-			'but I can only handle %s'
-			printf (_ "$msg\n") $dirc (count $letters)
-			return 1
-		end
+		printf (_ "$msg\n")
+		set -l msg 'There are %s unique dirs in your history' \
+		'but I can only handle %s'
+		printf (_ "$msg\n") $dirc (count $letters)
+		return 1
+	end
 
-		set -l pwd_existed 0
-		# already_pwd avoid always print the bottom line *pwd:...
-		for i in (seq $dirc -1 1)
-			set dir $uniq_dirs[$i]
+	set -l pwd_existed 0
+	# already_pwd avoid always print the bottom line *pwd:...
+	for i in (seq $dirc -1 1)
+		set dir $uniq_dirs[$i]
 
-			if test $pwd_existed != 1
-				if test "$dir" = "$PWD"
-					set pwd_existed 1
-				end
-			end
-
-			set -l home_dir (string match -r "$HOME(/.*|\$)" "$dir")
-			if set -q home_dir[2]
-				set dir "~$home_dir[2]"
-				# change dir from /home/user/path to ~/path
-				# dir is not PWD anymore
-			end
-
-			if test $pwd_existed = 1
-				printf '%s* %2d)  %s%s\n' (set_color red) $i $dir (set_color normal)
-				set pwd_existed 2 # to make the rest of current the dirprev not red
-			else if test $i = 1
-				printf '%s- %2d)  %s%s\n' (set_color cyan) $i $dir (set_color normal)
-			else if test $i != 1 -a $pwd_existed != 1
-				printf '%s %2d)  %s\n' $letters[$i] $i $dir
-
+		if test $pwd_existed != 1
+			if test "$dir" = "$PWD"
+				set pwd_existed 1
 			end
 		end
-		if test $pwd_existed = 0 # means the current dir is not in the $uniq_dirs
-			printf '%s* %2d)  %s%s\n' (set_color red) "0" $PWD (set_color normal)
+
+		set -l home_dir (string match -r "$HOME(/.*|\$)" "$dir")
+		if set -q home_dir[2]
+			set dir "~$home_dir[2]"
+			# change dir from /home/user/path to ~/path
+			# dir is not PWD anymore
 		end
 
-		echo '---------------------------'
-		read -l -p 'echo "Goto: "' choice
-		if test "$choice" = ""
-			return 0
-		else if string match -q -r '^[\-|b-z]$' $choice
-			set choice (contains -i $choice $letters)
-		end
+		if test $pwd_existed = 1
+			printf '%s* %2d)  %s%s\n' (set_color red) $i $dir (set_color normal)
+			set pwd_existed 2 # to make the rest of current the dirprev not red
+		else if test $i = 1
+			printf '%s- %2d)  %s%s\n' (set_color cyan) $i $dir (set_color normal)
+		else if test $i != 1 -a $pwd_existed != 1
+			printf '%s %2d)  %s\n' $letters[$i] $i $dir
 
-		if string match -q -r '^\d+$' $choice
-			if test $choice -ge 1 -a $choice -le $dirc
-				cd $uniq_dirs[$choice]
-				return
-			else
-				echo Error: expected a number between 1 and $dirc, got \"$choice\"
-				return 1
-			end
-		else
-			echo Error: expected a number between 1 and $dirc or letter in that range, got \"$choice\"
-			return 1
 		end
 	end
+	if test $pwd_existed = 0 # means the current dir is not in the $uniq_dirs
+		printf '%s* %2d)  %s%s\n' (set_color red) "0" $PWD (set_color normal)
+	end
+
+	echo '---------------------------'
+	read -l -p 'echo "Goto: "' choice
+	if test "$choice" = ""
+		return 0
+	else if string match -q -r '^[\-|b-z]$' $choice
+		set choice (contains -i $choice $letters)
+	end
+
+	if string match -q -r '^\d+$' $choice
+		if test $choice -ge 1 -a $choice -le $dirc
+			cd $uniq_dirs[$choice]
+			return
+		else
+			echo Error: expected a number between 1 and $dirc, got \"$choice\"
+			return 1
+		end
+	else
+		echo Error: expected a number between 1 and $dirc or letter in that range, got \"$choice\"
+		return 1
+	end
+end
