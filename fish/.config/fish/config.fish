@@ -177,11 +177,13 @@ alias psg 'ps -ef | grep -v -i grep | grep -i'
 function pk --description 'kill processes containg a pattern'
 	ps -ef | grep -v grep | grep -i $argv[1]
 	and begin
-		# prompt for input
-		echo "Kill or Not? [Y/n]"
+		# prompt
+		echo "Kill all of them or specific PID? [Y/n/Num]"
 		read arg
-		if test "$arg" = "" -o "$arg" = "y"
+		if test "$arg" = "y"
 			ps -ef | grep -v grep | grep -i $argv[1] | awk '{print $2}' | xargs kill -9
+		else if test "$arg" != "y" -a "$arg" != "n"
+			kill -9 $arg
 		end
 	end
 	or echo No process matched!
