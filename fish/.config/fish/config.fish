@@ -175,18 +175,32 @@ alias ka 'killall -9'
 alias psg 'ps -ef | grep -v -i grep | grep -i'
 # pkill will not kill processes matching pattern, you have to kill the PID
 function pk --description 'kill processes containg a pattern'
+	set p_id 1
 	ps -ef | grep -v grep | grep -i $argv[1]
 	and begin
-		# prompt
-		echo "Kill all of them or specific PID? [Y/n/Num]"
-		read arg
-		if test "$arg" = "y"
-			ps -ef | grep -v grep | grep -i $argv[1] | awk '{print $2}' | xargs kill -9
-		else if test "$arg" != "y" -a "$arg" != "n"
-			kill -9 $arg
+		while test $p_id = 1
+			# prompt
+			read -p 'echo "Kill all of them or specific PID? [Y/n/Num]: "' -l arg
+			if test "$arg" = "y"
+				ps -ef | grep -v grep | grep -i $argv[1] | awk '{print $2}' | xargs kill -9
+				set p_id 0
+			else if test "$arg" != "y" -a "$arg" != "n"
+				if test (ps -ef | grep -v grep | grep -i $argv[1] | awk '{print $2}' | grep -i $arg)
+					kill -9 $arg
+					set p_id 0
+				else
+					echo "PID '$arg[1]' is not in the list!"
+					set p_id 1
+					echo
+				end
+			else
+				set p_id 0
+			end
 		end
 	end
-	or echo No process matched!
+	or if test $p_id -eq 1
+		echo "No '$argv[1]' process is running!"
+	end
 end
 
 function varclear --description 'Remove duplicates from environment varieble'
@@ -818,6 +832,19 @@ end
 # to
 # or begin ... end; or ...
 
+function bak -d 'backup a file from abc to abc.bak'
+	#if test if $argv[1].bak
+	#	echo "$argv[1].bak is already existed"
+	#else
+	cp -rfv $argv[1]{,.bak}
+	#end
+end
+function bakc -d 'copy backup file from abc.bak to abc'
+	cp -v $argv[1] (basename $argv[1] .bak)
+end
+function bakm -d 'move backup file from abc.bak to abc'
+	mv -v $argv[1] (basename $argv[1] .bak)
+end
 
 function d --description "Choose one from the list of recently visited dirs"
 	set -l letters - b c d e f h i j k l m n o p q r s t u v w x y z
