@@ -1,10 +1,3 @@
-# In gdb, view the info of multiple parts side by side using
-# : >>> dashboard -output /dev/ptsN
-# N is the number which is the result of `tty` command in the side-by-side pane.
-#
-# Since defining dashboard, just using
-# dod N
-
 python
 
 # GDB dashboard - Modular visual interface for GDB in Python.
@@ -835,7 +828,7 @@ class Source(Dashboard.Module):
         return {
             'context': {
                 'doc': 'Number of context lines.',
-                'default': 15,
+                'default': 5,
                 'type': int,
                 'check': check_ge_zero
             }
@@ -1136,7 +1129,7 @@ class History(Dashboard.Module):
         return {
             'limit': {
                 'doc': 'Maximum number of values to show.',
-                'default': 5,
+                'default': 3,
                 'type': int,
                 'check': check_gt_zero
             }
@@ -1397,51 +1390,78 @@ end
 # Better GDB defaults ----------------------------------------------------------
 
 set history save
+set history expansion on
 set confirm off
 set verbose off
+# about print-setting 
+# ftp://ftp.gnu.org/old-gnu/Manuals/gdb/html_node/gdb_57.html
 set print pretty on
-set print array off
+set print array on
 set print array-indexes on
+set print symbol-filename on
+set print demangle on
+set print object on
+set print static-members on
+set print union on
+set print vtbl on
 set print thread-events on
-set python print-stack full
 
-set history filename ~/.gdb_history
+set python print-stack full
+set history file ~/.gdb_history
 set history save
 define dod
-dashboard -output /dev/pts/$arg0
+	dashboard -output /dev/pts/$arg0
+end
+define dos
+	dashboard source -output /dev/pts/$arg0
+end
+
+define btf
+	backtrace full
+end
+
+# source and assembly use context
+define dcl
+	dashboard $arg0 -style context $arg1
+end
+# stack and history use limit
+define dll
+	dashboard $arg0 -style limit $arg1
+end
+
+dashboard source -style context 15
+define dsl
+	dashboard source -style context $arg0
+end
+
+
+# TODO:Find a better way to disable the default q for quit
+define q
+	print "Use quit to quit!!!"
+end
+
+define ib
+	info breakpoints
 end
 
 define pv
     if $argc == 2
-    set $elem = $arg0.size()
+        set $elem = $arg0.size()
         if $arg1 >= $arg0.size()
-        printf "Error, %s.size() = %d, printing last element:\n", "$arg0", $arg0.size()
-        set $elem = $arg1 -1
+            printf "Error, %s.size() = %d, printing last element:\n", "$arg0", $arg0.size()
+            set $elem = $arg1 -1
         end
         print *($arg0._M_impl._M_start + $elem)@1
     else
-    print *($arg0._M_impl._M_start)@$arg0.size()
+        print *($arg0._M_impl._M_start)@$arg0.size()
     end
 end
 document pv
-    Display vector contents
-    Usage: pv VECTOR_NAME INDEX
-    VECTOR_NAME is the name of the vector
-    INDEX is an optional argument specifying the element to display
+Display vector contents
+Usage: pv VECTOR_NAME INDEX
+VECTOR_NAME is the name of the vector
+INDEX is an optional argument specifying the element to display
 end
-
-define btf
-    backtrace full
-end
-
-# TODO:Find a better way to disable the default q for quit
-define q
-    print "Use quit to quit!!!"
-end
-define ib
-    i b
-end
-
 # Start ------------------------------------------------------------------------
 
 python Dashboard.start()

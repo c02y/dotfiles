@@ -175,31 +175,50 @@ alias ka 'killall -9'
 alias psg 'ps -ef | grep -v -i grep | grep -i'
 # pkill will not kill processes matching pattern, you have to kill the PID
 function pk --description 'kill processes containg a pattern'
-	set p_id 1
-	ps -ef | grep -v grep | grep -i $argv[1]
-	and begin
-		while test $p_id = 1
-			# prompt
-			read -p 'echo "Kill all of them or specific PID? [Y/n/Num]: "' -l arg
+	set done 1
+	set result (psg $argv[1] | wc -l)
+	if test $result = 0
+		echo "No '$argv[1]' process is running!"
+	else if test $result = 1
+		psg $argv[1] | awk '{print $2}' | xargs kill -9
+		if test $status = 123 # Operation not permitted
+			read -p 'echo "Use sudo to kill it? [Y/n]: "' -l arg
 			if test "$arg" = "y"
-				ps -ef | grep -v grep | grep -i $argv[1] | awk '{print $2}' | xargs kill -9
-				set p_id 0
-			else if test "$arg" != "y" -a "$arg" != "n"
-				if test (ps -ef | grep -v grep | grep -i $argv[1] | awk '{print $2}' | grep -i $arg)
-					kill -9 $arg
-					set p_id 0
-				else
-					echo "PID '$arg[1]' is not in the list!"
-					set p_id 1
-					echo
-				end
-			else
-				set p_id 0
+				psg $argv[1] | awk '{print $2}' | xargs sudo kill -9
 			end
 		end
-	end
-	or if test $p_id -eq 1
-		echo "No '$argv[1]' process is running!"
+	else
+		psg $argv[1]
+		while test $done = 1
+			read -p 'echo "Kill all of them or specific PID? [Y/n/PID]: "' -l arg
+			if test $arg -a "$arg" = "y" # first condition $arg means RET
+				psg $argv[1] | awk '{print $2}' | xargs kill -9
+				if test $status -eq 123 # Operation not permitted
+					read -p 'echo "Use sudo to kill them all? [Y/n]: "' -l arg2
+					if test "$arg2" = "y"
+						psg $argv[1] | awk '{print $2}' | xargs sudo kill -9
+					end
+					set done 0
+				end
+			else if test $arg -a "$arg" != "y" -a "$arg" != "n"
+				if test (psg $argv[1] | awk '{print $2}' | grep -i $arg)
+					kill -9 $arg 2>/dev/null
+					if test $status -eq 1 # kill failed
+						read -p 'echo "Use sudo to kill it? [Y/n]: "' -l arg2
+						if test "$arg2" = "y"
+							sudo kill -9 $arg
+						end
+						set done 0
+					end
+				else
+					echo "PID '$arg[1]' is not in the list!"
+					echo
+					set done 1
+				end
+			else
+				set done 0
+			end
+		end
 	end
 end
 
@@ -832,18 +851,37 @@ end
 # to
 # or begin ... end; or ...
 
-function bak -d 'backup a file from abc to abc.bak'
-	#if test if $argv[1].bak
-	#	echo "$argv[1].bak is already existed"
-	#else
-	cp -rfv $argv[1]{,.bak}
-	#end
+function bak -d 'backup(copy) a file from abc to abc.bak'
+	set ori $argv[1]
+	if test "/" = (echo (string sub --start=-1 $argv[1])) # for dir ending with "/"
+		set ori (echo (string split -r -m1 / $argv[1])[1])
+	end
+	cp -v $ori{,.bak}
 end
-function bakc -d 'copy backup file from abc.bak to abc'
-	cp -v $argv[1] (basename $argv[1] .bak)
+function bakm -d 'backup(move) a file from abc to abc.bak'
+	set ori $argv[1]
+	if test "/" = (echo (string sub --start=-1 $argv[1])) # for dir ending with "/"
+		set ori (echo (string split -r -m1 / $argv[1])[1])
+	end
+	if test -d $ori.bak
+		echo The destination is alread existed.
+	else
+		mv -v $ori{,.bak}
+	end
 end
-function bakm -d 'move backup file from abc.bak to abc'
-	mv -v $argv[1] (basename $argv[1] .bak)
+function bak2c -d 'copy backup file from abc.bak to abc'
+	if test -d (echo (string split -r -m1 . $argv[1])[1])
+		echo The destination is alread existed.
+	else
+		cp -v $argv[1] (echo (string split -r -m1 . $argv[1])[1])
+	end
+end
+function bak2m -d 'move backup file from abc.bak to abc'
+	if test -d (echo (string split -r -m1 . $argv[1])[1])
+		echo The destination is alread existed.
+	else
+		mv -v $argv[1] (echo (string split -r -m1 . $argv[1])[1])
+	end
 end
 
 function d --description "Choose one from the list of recently visited dirs"
