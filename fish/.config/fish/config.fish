@@ -1,7 +1,7 @@
 # ~/.fishrc linked to ~/.config/fish/config.fish
 ### you can use `fish_config` to config a lot of things in WYSIWYG way in browser
 
-set -gx PATH $PATH ~/.local/share/arm-linux/bin ~/.local/bin ~/.linuxbrew/bin /sbin $GOPATH/bin ~/bin
+set -gx PATH $PATH $HOME/anaconda3/bin ~/.local/share/arm-linux/bin ~/.local/bin ~/.linuxbrew/bin /sbin $GOPATH/bin ~/bin
 
 set -gx GOPATH $GOPATH ~/GoPro
 
@@ -18,10 +18,15 @@ set fish_greeting
 set -gx fish_color_user magenta
 set -gx fish_color_host yellow
 
+if test -f $HOME/.autojump/share/autojump/autojump.fish;
+	. $HOME/.autojump/share/autojump/autojump.fish;
+	alias js 'j --purge; j -s'
+end
+
 # LS_COLORS, color for ls command
 # http://linux-sxs.org/housekeeping/lscolors.html
 # http://www.bigsoft.co.uk/blog/index.php/2008/04/11/configuring-ls_colors
-set -gx LS_COLORS 'ex=01;33:ln=96:*~=90:*.swp=90:*.bak=90:*.o=90'
+set -gx LS_COLORS 'ex=01;33:ln=96:*~=90:*.swp=90:*.bak=90:*.o=90:*#=90'
 
 # fix the `^[]0;fish  /home/chz^G` message in shell of Emacs
 if test "$TERM" = "dumb"
@@ -107,7 +112,7 @@ function fish_prompt --description 'Write out the prompt'
 	# http://en.wikipedia.org/wiki/Arrow_(symbol)
 	set_color -o yellow
 	echo -n '>> ' # '➤➤ '  # ➢ ➣, ↩ ↪ ➥ ➦, ▶ ▷ ◀ ◁, ❥
-	#echo -n '➤➤ '  # ➢ ➣, ↩ ↪ ➥ ➦, ▶ ▷ ◀ ◁, ❥
+	#echo -n '➤➤ '	# ➢ ➣, ↩ ↪ ➥ ➦, ▶ ▷ ◀ ◁, ❥
 end
 
 function fish_right_prompt -d "Write out the right prompt"
@@ -170,7 +175,6 @@ alias vad 'valgrind --tool=callgrind --dump-instr=yes --simulate-cache=yes --col
 
 alias im 'ristretto'
 alias ds 'display'
-alias ima 'gwenview'
 alias ka 'killall -9'
 alias psg 'ps -ef | grep -v -i grep | grep -i'
 # pkill will not kill processes matching pattern, you have to kill the PID
@@ -182,7 +186,7 @@ function pk --description 'kill processes containg a pattern'
 	else if test $result = 1
 		psg $argv[1] | awk '{print $2}' | xargs kill -9
 		if test $status = 123 # Operation not permitted
-			read -p 'echo "Use sudo to kill it? [Y/n]: "' -l arg
+			read -p 'echo "Use sudo to kill it? [y/N]: "' -l arg
 			if test "$arg" = "y"
 				psg $argv[1] | awk '{print $2}' | xargs sudo kill -9
 			end
@@ -190,11 +194,11 @@ function pk --description 'kill processes containg a pattern'
 	else
 		psg $argv[1]
 		while test $done = 1
-			read -p 'echo "Kill all of them or specific PID? [Y/n/PID]: "' -l arg
+			read -p 'echo "Kill all of them or specific PID? [y/N/pid]: "' -l arg
 			if test $arg -a "$arg" = "y" # first condition $arg means RET
 				psg $argv[1] | awk '{print $2}' | xargs kill -9
 				if test $status -eq 123 # Operation not permitted
-					read -p 'echo "Use sudo to kill them all? [Y/n]: "' -l arg2
+					read -p 'echo "Use sudo to kill them all? [y/N]: "' -l arg2
 					if test "$arg2" = "y"
 						psg $argv[1] | awk '{print $2}' | xargs sudo kill -9
 					end
@@ -204,7 +208,7 @@ function pk --description 'kill processes containg a pattern'
 				if test (psg $argv[1] | awk '{print $2}' | grep -i $arg)
 					kill -9 $arg 2>/dev/null
 					if test $status -eq 1 # kill failed
-						read -p 'echo "Use sudo to kill it? [Y/n]: "' -l arg2
+						read -p 'echo "Use sudo to kill it? [y/N]: "' -l arg2
 						if test "$arg2" = "y"
 							sudo kill -9 $arg
 						end
@@ -222,13 +226,14 @@ function pk --description 'kill processes containg a pattern'
 	end
 end
 
+alias epath 'varclear PATH; echo $PATH | tr " " "\n"' # | sort | nl'
 function varclear --description 'Remove duplicates from environment varieble'
 	if test (count $argv) = 1
 		set -l newvar
 		set -l count 0
 		for v in $$argv
 			if contains -- $v $newvar
-				inc count
+				set count (math $count+1)
 			else
 				set newvar $newvar $v
 			end
@@ -285,9 +290,9 @@ end
 function lcl --description 'clean latex temporary files such as .log, .aux'
 	# one way, but this may delete some file like file.png if tex file is file.tex
 	# for FILE in (find . -name "*.tex")
-	# 	for NO_EXT in (expr "//$FILE" : '.*/\([^.]*\)\..*$')
-	# 		find . -type f -name "$NO_EXT*" | ag -v ".pdf|.tex" | xargs -r /bin/rm -rv
-	# 	end
+	#	for NO_EXT in (expr "//$FILE" : '.*/\([^.]*\)\..*$')
+	#		find . -type f -name "$NO_EXT*" | ag -v ".pdf|.tex" | xargs -r /bin/rm -rv
+	#	end
 	# end
 	# another way, more safe
 	for EXT in ind ilg toc out idx aux fls log fdb_latexmk
@@ -346,14 +351,14 @@ set -gx LESS_TERMCAP_md \e'[01;38;5;75m' # enter double-bright mode
 set -gx LESS_TERMCAP_us \e'[04;38;5;200m' # enter underline mode
 #########################################
 # Colorcodes:
-# Black       0;30     Dark Gray     1;30
-# Red         0;31     Light Red     1;31
-# Green       0;32     Light Green   1;32
-# Brown       0;33     Yellow        1;33
-# Blue        0;34     Light Blue    1;34
-# Purple      0;35     Light Purple  1;35
-# Cyan        0;36     Light Cyan    1;36
-# Light Gray  0;37     White         1;37
+# Black		  0;30	   Dark Gray	 1;30
+# Red		  0;31	   Light Red	 1;31
+# Green		  0;32	   Light Green	 1;32
+# Brown		  0;33	   Yellow		 1;33
+# Blue		  0;34	   Light Blue	 1;34
+# Purple	  0;35	   Light Purple	 1;35
+# Cyan		  0;36	   Light Cyan	 1;36
+# Light Gray  0;37	   White		 1;37
 #########################################
 
 # another way to do it
@@ -598,13 +603,15 @@ alias gits 'git status ' # gs is original Ghostscript app
 alias gitp 'git pull -v'
 alias gitc 'git clone -v'
 alias gitl 'git log --stat'
-alias gitlp 'git log -p -- ' # + file to how entire file(even renamed) history
-# without file to show all modification in all COMMITs
+alias gitlp 'git log -p -- ' # [+ file] to how entire all/[file(even renamed)] history
+alias gitsh 'git show ' # [+ COMMIT] to show the modifications in a last/[specific] commit
 alias gitlo 'git log --oneline'
 alias gitsh 'git show ' # + COMMIT to show the modifications in a commit
 alias gitb 'git branch'
 alias gitco 'git checkout'
 alias gitcl 'git config -l'
+alias gitcp 'git checkout HEAD^1' # git checkout previous/old commit
+alias gitcn 'git log --reverse --pretty=%H master | grep -A 1 (git rev-parse HEAD) | tail -n1 | xargs git checkout' # git checkout next/new commit
 alias gitt 'git tag'
 function gitpa --description 'git pull all in dir using `fing dir`'
 	for i in (find $argv[1] -type d -name .git | sort | xargs realpath)
@@ -660,6 +667,8 @@ function meld --description 'lanuch meld from terminal without block it'
 end
 # okular
 alias ok 'bash -c "(nohup okular $argv </dev/null >/dev/null 2>&1 &)"'
+alias ima 'bash -c "(nohup gwenview $argv </dev/null >/dev/null 2>&1 &)"'
+alias op 'bash -c "(nohup xdg-open $argv </dev/null >/dev/null 2>&1 &)"'
 
 alias fcg 'fc-list | ag '
 
@@ -936,7 +945,7 @@ function d --description "Choose one from the list of recently visited dirs"
 		else if test $i = 1
 			printf '%s- %2d)  %s%s\n' (set_color cyan) $i $dir (set_color normal)
 		else if test $i != 1 -a $pwd_existed != 1
-			printf '%s %2d)  %s\n' $letters[$i] $i $dir
+			printf '%s %2d)	 %s\n' $letters[$i] $i $dir
 
 		end
 	end
@@ -965,3 +974,136 @@ function d --description "Choose one from the list of recently visited dirs"
 		return 1
 	end
 end
+
+#### ---------------- anaconda starts -----------------------
+# anaconda
+function condalist -d 'List conda environments.'
+	for dir in (ls $HOME/anaconda3/envs)
+		echo $dir
+	end
+end
+
+function condactivate -d 'Activate a conda environment' -a cenv
+	if test -z $cenv
+		echo 'Usage: condactivate <env name>'
+		return 1
+	end
+
+	# condabin will be the path to the bin directory
+	# in the specified conda environment
+	set condabin $HOME/anaconda3/envs/$cenv/bin
+
+	# check whether the condabin directory actually exists and
+	# exit the function with an error status if it does not
+	if not test -d $condabin
+		echo 'Environment not found.'
+		return 1
+	end
+
+	# deactivate an existing conda environment if there is one
+	if set -q __CONDA_ENV_ACTIVE
+		deactivate
+	end
+
+	# save the current path
+	set -xg DEFAULT_PATH $PATH
+
+	# put the condabin directory at the front of the PATH
+	set -xg PATH $condabin $PATH
+
+	# this is an undocumented environmental variable that influences
+	# how conda behaves when you don't specify an environment for it.
+	# https://github.com/conda/conda/issues/473
+	set -xg CONDA_DEFAULT_ENV $cenv
+
+	# set up the prompt so it has the env name in it
+	functions -e __original_fish_prompt
+	functions -c fish_prompt __original_fish_prompt
+	function fish_prompt
+		set_color blue
+		echo -n '('$CONDA_DEFAULT_ENV') '
+		set_color normal
+		__original_fish_prompt
+	end
+
+	# flag for whether a conda environment has been set
+	set -xg __CONDA_ENV_ACTIVE 'true'
+end
+
+function deactivate -d 'Deactivate a conda environment'
+	if set -q __CONDA_ENV_ACTIVE
+		# set PATH back to its default before activating the conda env
+		set -xg PATH $DEFAULT_PATH
+		set -e DEFAULT_PATH
+
+		# unset this so that conda behaves according to its default behavior
+		set -e CONDA_DEFAULT_ENV
+
+		# reset to the original prompt
+		functions -e fish_prompt
+		functions -c __original_fish_prompt fish_prompt
+		functions -e __original_fish_prompt
+		set -e __CONDA_ENV_ACTIVE
+	end
+end
+
+# aliases so condactivate and deactivate can have shorter names
+function ca -d 'Activate a conda environment'
+	condactivate $argv
+end
+
+function cda -d 'Deactivate a conda environment'
+	deactivate $argv
+end
+
+# complete conda environment names when activating
+complete -c condactivate -xA -a "(condalist)"
+complete -c ca -xA -a "(condalist)"
+
+function con --description 'Activate a conda environment.'
+	if test (count $argv) -eq 0
+		conda info -e
+		return 0
+	end
+
+	if test (count $argv) -ne 1
+		echo 'Too many args -- expected at most one conda environment name.'
+		return 1
+	end
+
+	set -l conda_env $argv[1]
+
+	if not command conda '..checkenv' fish $conda_env
+		return 1
+	end
+
+	# Deactivate the currently active environment if set.
+	if set -q CONDA_DEFAULT_ENV
+		coff
+	end
+
+	# Try to activate the environment.
+	set -l new_path (command conda '..activate' fish $conda_env)
+	or return $status
+
+	set -g CONDA_PATH_BACKUP $PATH
+	set -gx PATH $new_path $PATH
+	set -gx CONDA_DEFAULT_ENV $conda_env
+end
+function coff --description 'Deactivate a conda environment.'
+	if set -q argv[1]
+		echo "Too many args -- expected no args, got: $argv" >&2
+		return 1
+	end
+
+	if not set -q CONDA_DEFAULT_ENV
+		echo "There doesn't appear to be any conda env in effect." >&2
+		return 1
+	end
+
+	# Deactivate the environment.
+	set -gx PATH $CONDA_PATH_BACKUP
+	set -e CONDA_PATH_BACKUP
+	set -e CONDA_DEFAULT_ENV
+end
+#### ---------------- anaconda ends -----------------------

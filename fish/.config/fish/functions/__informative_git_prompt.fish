@@ -60,8 +60,8 @@ function ___fish_git_print_branch_info
     set -l remote_info
 
     if test -z $branch
-        set -l hash (git rev-parse --short HEAD | cut -c 2-)
-        set branch ":"$hash
+		set -l hash (git rev-parse --short HEAD | cut -c -7)
+        set branch $hash
     else
         set remote_info (___fish_git_print_remote_info $branch)
     end
@@ -160,7 +160,7 @@ function ____fish_git_remote_info
 
     for i in $rev_git
         if echo $i | grep '>' >/dev/null
-           set isAhead $isAhead ">"
+			set isAhead $isAhead ">"
         end
     end
 

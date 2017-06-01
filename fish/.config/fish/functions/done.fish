@@ -65,8 +65,9 @@ function __done_ended --on-event fish_prompt
 				osascript -e "display notification \"$message\" with title \"$title\""
 
 			else if type -q notify-send # Linux notify-send
-				# notify-send --icon=terminal --app-name=terminal "$title" "$message"
-				notify-send $title $message --icon=dialog-information
+				#notify-send --icon=yakuake --app-name=terminal "$title" "$message"
+				notify-send --icon=yakuake "$title" "$message"
+				#notify-send $title $message --icon=dialog-information
 
 			else  # anything else
       	echo -e "\a" # bell sound

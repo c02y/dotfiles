@@ -3,8 +3,8 @@
 RXB=0
 TXB=0
 
-RX_T=/sys/class/net/wlp8s0/statistics/rx_bytes
-TX_T=/sys/class/net/wlp8s0/statistics/tx_bytes
+RX_T=/sys/class/net/*/statistics/rx_bytes
+TX_T=/sys/class/net/*/statistics/tx_bytes
 for rxbytes in $RX_T ; do
   let RXB+=$(<$rxbytes)
 done

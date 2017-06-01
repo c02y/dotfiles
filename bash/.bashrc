@@ -230,3 +230,6 @@ if [ "$PS1" ]; then
 		for x in `hd 20` `pwd`; do cd_func $x ; done
 	fi
 fi
+
+# added by Anaconda3 4.3.1 installer
+export PATH="/home/chz/anaconda3/bin:$PATH"
