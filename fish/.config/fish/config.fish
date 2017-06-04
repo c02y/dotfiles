@@ -1,9 +1,9 @@
 # ~/.fishrc linked to ~/.config/fish/config.fish
 ### you can use `fish_config` to config a lot of things in WYSIWYG way in browser
 
-set -gx PATH $PATH $HOME/anaconda3/bin ~/.local/share/arm-linux/bin ~/.local/bin ~/.linuxbrew/bin /sbin $GOPATH/bin ~/bin
-
 set -gx GOPATH $GOPATH ~/GoPro
+set -gx PATH $HOME/anaconda3/bin ~/.local/share/arm-linux/bin ~/.local/bin ~/.linuxbrew/bin $GOPATH/bin ~/bin $PATH
+
 
 # for ~/.linuxbrew/ (brew for linux to install programs)
 set -gx LD_LIBRARY_PATH $LD_LIBRARY_PATH ~/.linuxbrew/Library
@@ -19,8 +19,8 @@ set -gx fish_color_user magenta
 set -gx fish_color_host yellow
 
 if test -f $HOME/.autojump/share/autojump/autojump.fish;
-	. $HOME/.autojump/share/autojump/autojump.fish;
-	alias js 'j --purge; j -s'
+    . $HOME/.autojump/share/autojump/autojump.fish;
+    alias js 'j --purge; j -s'
 end
 
 # LS_COLORS, color for ls command
@@ -30,53 +30,53 @@ set -gx LS_COLORS 'ex=01;33:ln=96:*~=90:*.swp=90:*.bak=90:*.o=90:*#=90'
 
 # fix the `^[]0;fish  /home/chz^G` message in shell of Emacs
 if test "$TERM" = "dumb"
-	function fish_title
-	end
+    function fish_title
+    end
 end
 
 function dirp --on-event fish_preexec
-	set -g OLDPWD $PWD
+    set -g OLDPWD $PWD
 end
 function path_prompt
-	# User
-	set_color $fish_color_user
-	echo -n $USER
-	set_color normal
+    # User
+    set_color $fish_color_user
+    echo -n $USER
+    set_color normal
 
-	echo -n '@'
+    echo -n '@'
 
-	# Host
-	set_color $fish_color_host
-	echo -n (hostname -s)
-	set_color normal
+    # Host
+    set_color $fish_color_host
+    echo -n (hostname -s)
+    set_color normal
 
-	echo -n ':'
+    echo -n ':'
 
-	# PWD
-	set_color -o yellow
-	echo -n (prompt_pwd)
-	set_color normal
-	echo
+    # PWD
+    set_color -o yellow
+    echo -n (prompt_pwd)
+    set_color normal
+    echo
 end
 
 function delete-or-ranger -d 'modified from delete-or-exit, delete one char if in command, execute ranger instead exiting the current terminal otherwise'
-	set -l cmd (commandline)
+    set -l cmd (commandline)
 
-	switch "$cmd"
-		case ''
-			ranger
+    switch "$cmd"
+        case ''
+            ranger
 
-		case '*'
-			commandline -f delete-char
-	end
+        case '*'
+            commandline -f delete-char
+    end
 end
 # all bindings should be put inside the single one fish_user_key_bindings
 function fish_user_key_bindings
-	# without this line, C-l will not print the path at top of the screen
-	#bind \cl 'clear; commandline -f repaint; path_prompt'
-	#bind \cl ""
-	bind \cl "tput reset; commandline -f repaint; path_prompt"
-	bind \cd delete-or-ranger
+    # without this line, C-l will not print the path at top of the screen
+    #bind \cl 'clear; commandline -f repaint; path_prompt'
+    #bind \cl ""
+    bind \cl "tput reset; commandline -f repaint; path_prompt"
+    bind \cd delete-or-ranger
 end
 alias clr="echo -e '\033c\c'; path_prompt"
 
@@ -87,43 +87,43 @@ alias dst 'dstat -d -n'
 
 # make the make and gcc/g++ color
 function make
-	/usr/bin/make -B $argv 2>&1 | grep --color -iP "\^|warning:|error:|undefined|"
+    /usr/bin/make -B $argv 2>&1 | grep --color -iP "\^|warning:|error:|undefined|"
 end
 function gcc
-	/usr/bin/gcc $argv 2>&1 | grep --color -iP "\^|warning:|error:|undefined|"
+    /usr/bin/gcc $argv 2>&1 | grep --color -iP "\^|warning:|error:|undefined|"
 end
 function g++
-	/usr/bin/g++ $argv 2>&1 | grep --color -iP "\^|warning:|error:|undefined|"
+    /usr/bin/g++ $argv 2>&1 | grep --color -iP "\^|warning:|error:|undefined|"
 end
 
 function fish_prompt --description 'Write out the prompt'
-	h
-	set -l last_status $status
+    h
+    set -l last_status $status
 
-	# if the PWD is not the same as the PWD of previous prompt, print path part
-	if test "$OLDPWD" != "$PWD"
-		path_prompt
-	end
+    # if the PWD is not the same as the PWD of previous prompt, print path part
+    if test "$OLDPWD" != "$PWD"
+        path_prompt
+    end
 
-	if test $last_status != 0
-		set_color $fish_color_error
-	end
-	# http://unicode-table.com/en/sets/arrows-symbols/
-	# http://en.wikipedia.org/wiki/Arrow_(symbol)
-	set_color -o yellow
-	echo -n '>> ' # '➤➤ '  # ➢ ➣, ↩ ↪ ➥ ➦, ▶ ▷ ◀ ◁, ❥
-	#echo -n '➤➤ '	# ➢ ➣, ↩ ↪ ➥ ➦, ▶ ▷ ◀ ◁, ❥
+    if test $last_status != 0
+        set_color $fish_color_error
+    end
+    # http://unicode-table.com/en/sets/arrows-symbols/
+    # http://en.wikipedia.org/wiki/Arrow_(symbol)
+    set_color -o yellow
+    echo -n '>> ' # '➤➤ '  # ➢ ➣, ↩ ↪ ➥ ➦, ▶ ▷ ◀ ◁, ❥
+    #echo -n '➤➤ '  # ➢ ➣, ↩ ↪ ➥ ➦, ▶ ▷ ◀ ◁, ❥
 end
 
 function fish_right_prompt -d "Write out the right prompt"
-	# set_color -o black
-	set_color normal
-	echo -n '['
-	echo -n (date +%T)
-	echo -n ']'
+    # set_color -o black
+    set_color normal
+    echo -n '['
+    echo -n (date +%T)
+    echo -n ']'
 
-	__informative_git_prompt
-	# set_color $fish_color_normal
+    __informative_git_prompt
+    # set_color $fish_color_normal
 end
 ###################################################################
 
@@ -143,24 +143,24 @@ alias lsf 'ls -A1' # list only filenames, same as `ls -A | sort
 alias lsl 'ls -1' # list the names of content line by line without attributes
 alias lsL 'ls -A1' # like lsl but including hiddens ones (no . or ..)
 function lsx --description 'cp the full path of a file to sytem clipboard'
-	readlink -nf $argv | x
-	x -o
-	echo \n---- Path Copied to Clipboard! ----
+    readlink -nf $argv | x
+    x -o
+    echo \n---- Path Copied to Clipboard! ----
 end
 function lst
-	ls --color=yes $argv[1] --sort=time -lh | nl | less
+    ls --color=yes $argv[1] --sort=time -lh | nl | less
 end
 function lsh
-	ls --color=yes $argv[1] --sort=time -lh | head | nl
+    ls --color=yes $argv[1] --sort=time -lh | head | nl
 end
 function lsh2
-	ls --color=yes $argv[1] --sort=time -lh | head -20 | nl1
+    ls --color=yes $argv[1] --sort=time -lh | head -20 | nl1
 end
 function lls
-	ll --color=yes $argv --sort=size -lh | less -R | nl
+    ll --color=yes $argv --sort=size -lh | less -R | nl
 end
 function llh
-	ll --color=yes $argv --sort=time -lh | head | nl
+    ll --color=yes $argv --sort=time -lh | head | nl
 end
 alias llt 'lla --color=yes --sort=time -lh | less -R | nl'
 alias lat 'lla --color=yes --sort=time -lh | less -R | nl'
@@ -179,73 +179,73 @@ alias ka 'killall -9'
 alias psg 'ps -ef | grep -v -i grep | grep -i'
 # pkill will not kill processes matching pattern, you have to kill the PID
 function pk --description 'kill processes containg a pattern'
-	set done 1
-	set result (psg $argv[1] | wc -l)
-	if test $result = 0
-		echo "No '$argv[1]' process is running!"
-	else if test $result = 1
-		psg $argv[1] | awk '{print $2}' | xargs kill -9
-		if test $status = 123 # Operation not permitted
-			read -p 'echo "Use sudo to kill it? [y/N]: "' -l arg
-			if test "$arg" = "y"
-				psg $argv[1] | awk '{print $2}' | xargs sudo kill -9
-			end
-		end
-	else
-		psg $argv[1]
-		while test $done = 1
-			read -p 'echo "Kill all of them or specific PID? [y/N/pid]: "' -l arg
-			if test $arg -a "$arg" = "y" # first condition $arg means RET
-				psg $argv[1] | awk '{print $2}' | xargs kill -9
-				if test $status -eq 123 # Operation not permitted
-					read -p 'echo "Use sudo to kill them all? [y/N]: "' -l arg2
-					if test "$arg2" = "y"
-						psg $argv[1] | awk '{print $2}' | xargs sudo kill -9
-					end
-					set done 0
-				end
-			else if test $arg -a "$arg" != "y" -a "$arg" != "n"
-				if test (psg $argv[1] | awk '{print $2}' | grep -i $arg)
-					kill -9 $arg 2>/dev/null
-					if test $status -eq 1 # kill failed
-						read -p 'echo "Use sudo to kill it? [y/N]: "' -l arg2
-						if test "$arg2" = "y"
-							sudo kill -9 $arg
-						end
-						set done 0
-					end
-				else
-					echo "PID '$arg[1]' is not in the list!"
-					echo
-					set done 1
-				end
-			else
-				set done 0
-			end
-		end
-	end
+    set done 1
+    set result (psg $argv[1] | wc -l)
+    if test $result = 0
+        echo "No '$argv[1]' process is running!"
+    else if test $result = 1
+        psg $argv[1] | awk '{print $2}' | xargs kill -9
+        if test $status = 123 # Operation not permitted
+            read -p 'echo "Use sudo to kill it? [y/N]: "' -l arg
+            if test "$arg" = "y"
+                psg $argv[1] | awk '{print $2}' | xargs sudo kill -9
+            end
+        end
+    else
+        psg $argv[1]
+        while test $done = 1
+            read -p 'echo "Kill all of them or specific PID? [y/N/pid]: "' -l arg
+            if test $arg -a "$arg" = "y" # first condition $arg means RET
+                psg $argv[1] | awk '{print $2}' | xargs kill -9
+                if test $status -eq 123 # Operation not permitted
+                    read -p 'echo "Use sudo to kill them all? [y/N]: "' -l arg2
+                    if test "$arg2" = "y"
+                        psg $argv[1] | awk '{print $2}' | xargs sudo kill -9
+                    end
+                    set done 0
+                end
+            else if test $arg -a "$arg" != "y" -a "$arg" != "n"
+                if test (psg $argv[1] | awk '{print $2}' | grep -i $arg)
+                    kill -9 $arg 2>/dev/null
+                    if test $status -eq 1 # kill failed
+                        read -p 'echo "Use sudo to kill it? [y/N]: "' -l arg2
+                        if test "$arg2" = "y"
+                            sudo kill -9 $arg
+                        end
+                        set done 0
+                    end
+                else
+                    echo "PID '$arg[1]' is not in the list!"
+                    echo
+                    set done 1
+                end
+            else
+                set done 0
+            end
+        end
+    end
 end
 
-alias epath 'varclear PATH; echo $PATH | tr " " "\n"' # | sort | nl'
+alias epath 'varclear PATH; echo $PATH | tr " " "\n" | sort | nl'
 function varclear --description 'Remove duplicates from environment varieble'
-	if test (count $argv) = 1
-		set -l newvar
-		set -l count 0
-		for v in $$argv
-			if contains -- $v $newvar
-				set count (math $count+1)
-			else
-				set newvar $newvar $v
-			end
-		end
-		set $argv $newvar
-		test $count -gt 0
-		and echo Removed $count duplicates from $argv
-	else
-		for a in $argv
-			varclear $a
-		end
-	end
+    if test (count $argv) = 1
+        set -l newvar
+        set -l count 0
+        for v in $$argv
+            if contains -- $v $newvar
+                set count (math $count+1)
+            else
+                set newvar $newvar $v
+            end
+        end
+        set $argv $newvar
+        test $count -gt 0
+        and echo Removed $count duplicates from $argv
+    else
+        for a in $argv
+            varclear $a
+        end
+    end
 end
 
 alias rm 'rm -vi'
@@ -263,55 +263,55 @@ alias fu 'type'
 # touch temporary files
 alias tout 'touch ab~ .ab~ .\#ab .\#ab\# \#ab\# .ab.swp ab.swp'
 # find
-function f --description 'find the files by name, if no argv is passed, use the current dir'
-	find $argv[1] -name $argv[2]
+function fd --description 'find the files by name, if no argv is passed, use the current dir'
+    find $argv[1] -name $argv[2]
 end
 function ft --description 'find the temporary files such as a~ or #a or .a~, if no argv is passed, use the current dir'
-	find $argv[1] \( -name "*~" -o -name "#?*#" -o -name ".#?*" -o -name "*.swp" \) | xargs -r ls -lhd
+    find $argv[1] \( -name "*~" -o -name "#?*#" -o -name ".#?*" -o -name "*.swp" \) | xargs -r ls -lhd
 
 end
 function ftr --description 'delete the files found by ft'
-	find $argv[1] \( -name "*~" -o -name "#?*#" -o -name ".#?*" -o -name "*.swp" \) | xargs rm -rfv
+    find $argv[1] \( -name "*~" -o -name "#?*#" -o -name ".#?*" -o -name "*.swp" \) | xargs rm -rfv
 
 end
 function ftc --description 'find the temporary files such as a~ or #a or .a~, if no argv is passed, use the current dir, not recursively'
-	find $argv[1] -maxdepth 1 \( -name "*~" -o -name "#?*#" -o -name ".#?*" -o -name "*.swp" \) | xargs -r ls -lhd
+    find $argv[1] -maxdepth 1 \( -name "*~" -o -name "#?*#" -o -name ".#?*" -o -name "*.swp" \) | xargs -r ls -lhd
 end
 function ftcr --description 'delete the files found by ftc'
-	find $argv[1] -maxdepth 1 \( -name "*~" -o -name "#?*#" -o -name ".#?*" -o -name "*.swp" \) | xargs rm -rfv
+    find $argv[1] -maxdepth 1 \( -name "*~" -o -name "#?*#" -o -name ".#?*" -o -name "*.swp" \) | xargs rm -rfv
 end
 function fing --description 'find all the git projects, if no argv is passed, use the current dir'
-	find $argv[1] -type d -name .git | sort
+    find $argv[1] -type d -name .git | sort
 end
 function findn --description 'find the new files in the whole system, argv[1] is the last mins, argv[2] is the file name to search'
-	sudo find / -type f -mmin -$argv[1] | sudo ag $argv[2]
+    sudo find / -type f -mmin -$argv[1] | sudo ag $argv[2]
 end
 
 function lcl --description 'clean latex temporary files such as .log, .aux'
-	# one way, but this may delete some file like file.png if tex file is file.tex
-	# for FILE in (find . -name "*.tex")
-	#	for NO_EXT in (expr "//$FILE" : '.*/\([^.]*\)\..*$')
-	#		find . -type f -name "$NO_EXT*" | ag -v ".pdf|.tex" | xargs -r /bin/rm -rv
-	#	end
-	# end
-	# another way, more safe
-	for EXT in ind ilg toc out idx aux fls log fdb_latexmk
-		# ind ilg toc out idx aux fls log fdb_latexmk faq blg bbl brf nlo dvi ps lof pdfsync synctex.gz
-		find . -name "*.$EXT" | xargs -r rm -rv
-	end
-	rm -rfv auto
-	ftr
+    # one way, but this may delete some file like file.png if tex file is file.tex
+    # for FILE in (find . -name "*.tex")
+    #   for NO_EXT in (expr "//$FILE" : '.*/\([^.]*\)\..*$')
+    #       find . -type f -name "$NO_EXT*" | ag -v ".pdf|.tex" | xargs -r /bin/rm -rv
+    #   end
+    # end
+    # another way, more safe
+    for EXT in ind ilg toc out idx aux fls log fdb_latexmk
+        # ind ilg toc out idx aux fls log fdb_latexmk faq blg bbl brf nlo dvi ps lof pdfsync synctex.gz
+        find . -name "*.$EXT" | xargs -r rm -rv
+    end
+    rm -rfv auto
+    ftr
 end
 
 # du
 alias du 'du -h --apparent-size'
 alias dus 'du -c -s'
 function duS
-	du -s -c $argv | sort -h
+    du -s -c $argv | sort -h
 end
 alias dul 'sudo du --summarize -h -c /var/log/* | sort -h'
 function duss --description 'list and sort all the files recursively by size'
-	du -ah $argv | grep -v "/\$" | sort -rh
+    du -ah $argv | grep -v "/\$" | sort -rh
 end
 
 alias watd 'watch -d du --summarize'
@@ -320,14 +320,14 @@ alias df 'df -h'
 # or LESSHISTFILE=-
 # set -gx LESSHISTFILE /dev/null $LESSHISTFILE
 function m
-	# check if argv[1] is a number
-	# `m 100 filename` (not +100)
-	# BUG: after viewing the right line, any navigation will make point back to the beginning of the file
-	if echo $argv[1] | awk '$0 != $0 + 0 { exit 1 }'
-		less -RM -s +G$argv[1]g $argv[2]
-	else
-		less -RM -s +Gg $argv
-	end
+    # check if argv[1] is a number
+    # `m 100 filename` (not +100)
+    # BUG: after viewing the right line, any navigation will make point back to the beginning of the file
+    if echo $argv[1] | awk '$0 != $0 + 0 { exit 1 }'
+        less -RM -s +G$argv[1]g $argv[2]
+    else
+        less -RM -s +Gg $argv
+    end
 end
 #more
 alias me 'm $argv[1] ~/.emacs.d/init.el'
@@ -351,14 +351,14 @@ set -gx LESS_TERMCAP_md \e'[01;38;5;75m' # enter double-bright mode
 set -gx LESS_TERMCAP_us \e'[04;38;5;200m' # enter underline mode
 #########################################
 # Colorcodes:
-# Black		  0;30	   Dark Gray	 1;30
-# Red		  0;31	   Light Red	 1;31
-# Green		  0;32	   Light Green	 1;32
-# Brown		  0;33	   Yellow		 1;33
-# Blue		  0;34	   Light Blue	 1;34
-# Purple	  0;35	   Light Purple	 1;35
-# Cyan		  0;36	   Light Cyan	 1;36
-# Light Gray  0;37	   White		 1;37
+# Black           0;30     Dark Gray     1;30
+# Red         0;31     Light Red     1;31
+# Green           0;32     Light Green   1;32
+# Brown           0;33     Yellow        1;33
+# Blue        0;34     Light Blue    1;34
+# Purple      0;35     Light Purple      1;35
+# Cyan        0;36     Light Cyan    1;36
+# Light Gray  0;37     White         1;37
 #########################################
 
 # another way to do it
@@ -398,27 +398,27 @@ alias t-cbz2 'tar cvfj'
 alias t-cgz 'tar cvfz'
 alias t-cxz 'tar cvfJ $argv[1].tar.xz $argv[1]'
 function t-ca --description '`t-ca dir vcs` to include .svn/.git, or `t-ca dir` to exclude'
-	# remove the end slash in argv
-	set ARGV (echo $argv[1] | sed 's:/*$::')
-	if test (count $argv) = 1
-		tar cvfa $ARGV.tar.xz $ARGV --exclude-vcs
-	else
-		tar cvfa $ARGV.tar.xz $ARGV
-	end
+    # remove the end slash in argv
+    set ARGV (echo $argv[1] | sed 's:/*$::')
+    if test (count $argv) = 1
+        tar cvfa $ARGV.tar.xz $ARGV --exclude-vcs
+    else
+        tar cvfa $ARGV.tar.xz $ARGV
+    end
 end
 alias dt 'dtrx -v '
 function debx --description 'extract the deb package'
-	set pkgname (basename $argv[1] .deb)
-	mkdir -v $pkgname
-	set dataname (ar t $argv[1] | ag data)
-	ar p $argv[1] $dataname| tar zxv -C $pkgname
-	if not test (echo $status) -eq 0
-		ar p $argv[1] $dataname | tar Jxv -C $pkgname
-		if not test (echo $status) -eq 0
-			rm -rfv $pkgname
-		end
-	end
-	echo ----in $pkgname ----
+    set pkgname (basename $argv[1] .deb)
+    mkdir -v $pkgname
+    set dataname (ar t $argv[1] | ag data)
+    ar p $argv[1] $dataname| tar zxv -C $pkgname
+    if not test (echo $status) -eq 0
+        ar p $argv[1] $dataname | tar Jxv -C $pkgname
+        if not test (echo $status) -eq 0
+            rm -rfv $pkgname
+        end
+    end
+    echo ----in $pkgname ----
 end
 
 alias wget 'wget -c '
@@ -429,34 +429,34 @@ alias wtt 'bash -c \'rm -rfv /tmp/Thun* 2>/dev/null\'; wget --connect-timeout=5 
 # rpm
 alias rpmi 'sudo rpm -Uvh'
 function rpml --description 'list the content of the pack.rpm file'
-	for i in $argv
-		echo \<$i\>
-		echo -------------------
-		rpm -qlpv $i | less
-	end
+    for i in $argv
+        echo \<$i\>
+        echo -------------------
+        rpm -qlpv $i | less
+    end
 end
 function rpmx --description 'extract the pack.rpm file'
-	for i in $argv
-		echo \<$i\>
-		echo -------------------
-		rpm2cpio $i | cpio -idmv
-	end
+    for i in $argv
+        echo \<$i\>
+        echo -------------------
+        rpm2cpio $i | cpio -idmv
+    end
 end
 
 # yum
-alias yum	'sudo yum -C --noplugins ' # not update cache
-alias yumi	'sudo yum install '
+alias yum   'sudo yum -C --noplugins ' # not update cache
+alias yumi  'sudo yum install '
 alias yumiy 'sudo yum install -y'
-alias yumr	'sudo yum remove '
+alias yumr  'sudo yum remove '
 alias yumri 'sudo yum reinstall -y'
 alias yumca 'sudo yum clean all -v'
-alias yumu	'sudo yum --exclude=kernel\* upgrade ' # this line will be '=kernel*' in bash
+alias yumu  'sudo yum --exclude=kernel\* upgrade ' # this line will be '=kernel*' in bash
 alias yumuk 'sudo yum upgrade kernel\*'
 alias yumue 'sudo yum update --exclude=kernel\* '
 alias yumul 'sudo yum history undo last'
 alias yumhl 'sudo yum history list'
 alias yumun 'sudo yum history undo'
-alias yums	'sudo yum search'
+alias yums  'sudo yum search'
 alias yumsa 'sudo yum search all'
 # dnf
 alias dnfu 'sudo dnf update -v'
@@ -481,8 +481,8 @@ alias gdb 'gdb -q '
 
 # systemd-analyze
 function sab --description 'systemd-analyze blame->time'
-	systemd-analyze blame | head -40
-	systemd-analyze time
+    systemd-analyze blame | head -40
+    systemd-analyze time
 end
 
 # cd
@@ -501,27 +501,27 @@ alias cdP 'cd ~/Projects'
 alias cdu 'cd /run/media/chz/UDISK/; and lah'
 # cd then list
 function cdls
-	cd $argv
-	ls
+    cd $argv
+    ls
 end
 function cdll
-	cd $argv
-	ll
+    cd $argv
+    ll
 end
 function cdla
-	cd
-	la
+    cd
+    la
 end
 # path replacement like zsh
 # https://www.slideshare.net/jaguardesignstudio/why-zsh-is-cooler-than-your-shell-16194692
 function cs -d 'change dir1 to dir2 in the $PWD and cd into it'
-	if test (count $argv) -eq 2
-		set new_path (echo $PWD|sed -e "s/$argv[1]/$argv[2]/")
-		cd $new_path
-	else
-		printf "%s\n" (_ "Wrong argument!!!")
-		return 1
-	end
+    if test (count $argv) -eq 2
+        set new_path (echo $PWD|sed -e "s/$argv[1]/$argv[2]/")
+        cd $new_path
+    else
+        printf "%s\n" (_ "Wrong argument!!!")
+        return 1
+    end
 end
 
 # diff
@@ -531,8 +531,8 @@ alias diff-y 'diff -y -s -W $COLUMNS '
 alias diff-yw 'diff-y -w'
 
 function mkcd --description 'mkdir dir then cd dir'
-	mkdir -p $argv
-	cd $argv
+    mkdir -p $argv
+    cd $argv
 end
 
 # xclip, get content into clipboard, echo file | xclip
@@ -574,8 +574,8 @@ alias emx 'emacs -nw -q --no-splash --eval "(setq find-file-visit-truename t)"'
 alias emn 'emacs --no-desktop'
 alias emi 'emacs -q --no-splash --load $argv'
 function emd --description 'remove .emacs.d/init.elc then $ emacs --debug-init'
-	rm -rf ~/.emacs.d/init.elc
-	emacs --debug-init
+    rm -rf ~/.emacs.d/init.elc
+    emacs --debug-init
 end
 alias e 'emx '
 alias ei 'emx ~/.emacs.d/init.el'
@@ -588,9 +588,9 @@ alias ee 'emx ~/.emacs.d/init.el'
 alias e2 'emx ~/Recentchange/TODO'
 
 function fsr --description 'Reload your Fish config after configuration'
-	source ~/.config/fish/config.fish # fsr
-	echo .fishrc is reloaded!
-	path_prompt
+    source ~/.config/fish/config.fish # fsr
+    echo .fishrc is reloaded!
+    path_prompt
 end
 # C-w to reload ~/.fishrc
 #bind \cs fsr
@@ -614,13 +614,13 @@ alias gitcp 'git checkout HEAD^1' # git checkout previous/old commit
 alias gitcn 'git log --reverse --pretty=%H master | grep -A 1 (git rev-parse HEAD) | tail -n1 | xargs git checkout' # git checkout next/new commit
 alias gitt 'git tag'
 function gitpa --description 'git pull all in dir using `fing dir`'
-	for i in (find $argv[1] -type d -name .git | sort | xargs realpath)
-		cd $i; cd ../
-		pwd
-		git pull -v;
-		echo -----------------------------
-		echo
-	end
+    for i in (find $argv[1] -type d -name .git | sort | xargs realpath)
+        cd $i; cd ../
+        pwd
+        git pull -v;
+        echo -----------------------------
+        echo
+    end
 end
 
 # svn
@@ -630,40 +630,40 @@ alias sd 'svn diff'
 alias sc 'svn commit -m'
 alias sll 'alias svn log -v -l 10 | less'
 function sl --description 'view the svn log with less, if arg not passed, using current dir'
-	svn log -v $argv[1] | /usr/bin/less
+    svn log -v $argv[1] | /usr/bin/less
 end
 function sdd --description 'show the svn diff detail'
-	set Revision (svn info | awk '/Revision/ {print $2}')
-	# or `svn info | grep Revision | cut -d ' ' -f 2 | read Revision`
-	# or `svn info | grep Revision | egrep -o '[0-9]+'| read Revision`
-	if test (echo $argv[1] | grep ':' -c) -eq 1
-		# if argv is like 1000:1010, then svn diff the two revisions
-		svn diff -r $argv[1] | less
-	else if test (count $argv) -eq 1
-		if test $argv[1] -gt 10
-			# if the argv is like 1000, then svn diff revision
-			svn diff -c $argv[1] | less
-		else
-			# if the argv is like 3, the svn diff the 3th commit to the last
-			# the PREV is 1
-			set Rev (echo $Revision-$argv[1]+1 | bc)
-			svn diff -c $Rev | less
-		end
-	else
-		# if no argv like 'sdd', then svn diff the last commit
-		# equals to `sdd` == `sdd 1`
-		svn diff -r PREV | less
-	end
+    set Revision (svn info | awk '/Revision/ {print $2}')
+    # or `svn info | grep Revision | cut -d ' ' -f 2 | read Revision`
+    # or `svn info | grep Revision | egrep -o '[0-9]+'| read Revision`
+    if test (echo $argv[1] | grep ':' -c) -eq 1
+        # if argv is like 1000:1010, then svn diff the two revisions
+        svn diff -r $argv[1] | less
+    else if test (count $argv) -eq 1
+        if test $argv[1] -gt 10
+            # if the argv is like 1000, then svn diff revision
+            svn diff -c $argv[1] | less
+        else
+            # if the argv is like 3, the svn diff the 3th commit to the last
+            # the PREV is 1
+            set Rev (echo $Revision-$argv[1]+1 | bc)
+            svn diff -c $Rev | less
+        end
+    else
+        # if no argv like 'sdd', then svn diff the last commit
+        # equals to `sdd` == `sdd 1`
+        svn diff -r PREV | less
+    end
 end
 function slh
-	svn log -v $argv[1] | head -$argv[2]
+    svn log -v $argv[1] | head -$argv[2]
 end
 
 alias hs 'sudo cp -v ~/Public/hosts/hosts /etc/hosts'
 
 # https://stackoverflow.com/questions/10408816/how-do-i-use-the-nohup-command-without-getting-nohup-out
 function meld --description 'lanuch meld from terminal without block it'
-	bash -c "(nohup /usr/bin/meld $argv </dev/null >/dev/null 2>&1 &)"
+    bash -c "(nohup /usr/bin/meld $argv </dev/null >/dev/null 2>&1 &)"
 end
 # okular
 alias ok 'bash -c "(nohup okular $argv </dev/null >/dev/null 2>&1 &)"'
@@ -674,10 +674,10 @@ alias fcg 'fc-list | ag '
 
 # do `h` in the new one after switching terminal session
 function h --on-process-exit %self
-	history --merge
+    history --merge
 end
 function his
-	history | ag $argv[1]
+    history | ag $argv[1]
 end
 
 alias cl 'cloc '
@@ -699,37 +699,37 @@ alias ex 'exit'
 alias p 'ping -c 5'
 alias ping 'ping -c 5'
 function pv --description "ping vpn servers"
-	p p1.jp1.seejump.com | tail -n3
-	echo --------------------------------------------------------------
-	p p1.jp2.seejump.com | tail -n3
-	echo --------------------------------------------------------------
-	p p1.jp3.seejump.com | tail -n3
-	echo --------------------------------------------------------------
-	p p1.jp4.seejump.com | tail -n3
-	echo --------------------------------------------------------------
-	p p1.hk1.seejump.com | tail -n3
-	echo --------------------------------------------------------------
-	p p1.hk2.seejump.com | tail -n3
-	echo --------------------------------------------------------------
-	p p1.hk3.seejump.com | tail -n3
-	echo --------------------------------------------------------------
+    p p1.jp1.seejump.com | tail -n3
+    echo --------------------------------------------------------------
+    p p1.jp2.seejump.com | tail -n3
+    echo --------------------------------------------------------------
+    p p1.jp3.seejump.com | tail -n3
+    echo --------------------------------------------------------------
+    p p1.jp4.seejump.com | tail -n3
+    echo --------------------------------------------------------------
+    p p1.hk1.seejump.com | tail -n3
+    echo --------------------------------------------------------------
+    p p1.hk2.seejump.com | tail -n3
+    echo --------------------------------------------------------------
+    p p1.hk3.seejump.com | tail -n3
+    echo --------------------------------------------------------------
 end
 
 alias lo 'locate -e'
 function lop --description 'locate the full/exact file'
-	locate -e -r "/$argv[1]\$"
+    locate -e -r "/$argv[1]\$"
 end
 function findn --description 'find the new files in the whole system, argv[1] is the last mins, argv[2] is the file name to search'
-	sudo find / -type f -mmin -$argv[1] | sudo ag $argv[2]
+    sudo find / -type f -mmin -$argv[1] | sudo ag $argv[2]
 end
 
 # bc -- calculator
 function bc --description 'calculate in command line using bc non-interactive mode if needed, even convert binary/octual/hex'
-	if test (count $argv) -eq 1
-		echo $argv[1] | /usr/bin/bc -l
-	else
-		/usr/bin/bc -ql
-	end
+    if test (count $argv) -eq 1
+        echo $argv[1] | /usr/bin/bc -l
+    else
+        /usr/bin/bc -ql
+    end
 end
 # more examples using bc
 # http://www.basicallytech.com/blog/archive/23/command-line-calculations-using-bc/
@@ -747,37 +747,37 @@ end
 # echo 'F' | bc
 
 function cat
-	# if [ $argc != 2]
-	for i in $argv
-		echo -e "\\033[0;31m"\<$i\>
-		echo -e ------------------------------------------------- "\\033[0;39m"
-		/bin/cat $i
-		echo
-	end
+    # if [ $argc != 2]
+    for i in $argv
+        echo -e "\\033[0;31m"\<$i\>
+        echo -e ------------------------------------------------- "\\033[0;39m"
+        /bin/cat $i
+        echo
+    end
 end
 
 function deff
-	sdcv $argv | less
+    sdcv $argv | less
 end
 alias SDCV 'sdcv -u "WordNet" -u "牛津现代英汉双解词典" -u "朗道英汉字典5.0"'
 function defc --description 'search the defnition of a word and save it into personal dict if it is the first time you search'
-	ag -w $argv ~/.sdcv_history >> /dev/null
-	or begin # new, not searched the dict before, save
-		SDCV $argv | ag "Nothing similar" >> /dev/null
-		or begin # the word found
-			if not test -e ~/.sdcv_rem
-				touch ~/.sdcv_rem
-			end
-			echo ---------------------------------------------- >> ~/.sdcv_rem
-			echo -e \< $argv \> >> ~/.sdcv_rem
-			echo ---------------------------------------------- >> ~/.sdcv_rem
-			SDCV $argv >> ~/.sdcv_rem
-			echo ---------------------------------------------- >> ~/.sdcv_rem
-			echo >> ~/.sdcv_rem
-		end
-	end
-	SDCV $argv
-	sort -u -o ~/.sdcv_history ~/.sdcv_history
+    ag -w $argv ~/.sdcv_history >> /dev/null
+    or begin # new, not searched the dict before, save
+        SDCV $argv | ag "Nothing similar" >> /dev/null
+        or begin # the word found
+            if not test -e ~/.sdcv_rem
+                touch ~/.sdcv_rem
+            end
+            echo ---------------------------------------------- >> ~/.sdcv_rem
+            echo -e \< $argv \> >> ~/.sdcv_rem
+            echo ---------------------------------------------- >> ~/.sdcv_rem
+            SDCV $argv >> ~/.sdcv_rem
+            echo ---------------------------------------------- >> ~/.sdcv_rem
+            echo >> ~/.sdcv_rem
+        end
+    end
+    SDCV $argv
+    sort -u -o ~/.sdcv_history ~/.sdcv_history
 end
 
 # count chars of lines of a file
@@ -785,26 +785,26 @@ end
 
 # note that there is no $argv[0], the $argv[1] is the first argv after the command name, so the argc of `command argument` is 1, not 2
 function man
-	if test (count $argv) -eq 2
-		sed -i "s/.shell/\"$argv[2]\n.shell/g" ~/.lesshst
-	else
-		sed -i "s/.shell/\"$argv[1]\n.shell/g" ~/.lesshst
-	end
-	command man $argv
+    if test (count $argv) -eq 2
+        sed -i "s/.shell/\"$argv[2]\n.shell/g" ~/.lesshst
+    else
+        sed -i "s/.shell/\"$argv[1]\n.shell/g" ~/.lesshst
+    end
+    command man $argv
 end
 alias ma 'man'
 
 function wtp --description 'show the real definition of a type or struct in C code, you can find which file it is defined in around the result'
-	gcc -E ~/.local/bin/type.c -I$argv[1] > /tmp/result
-	if test (count $argv) -eq 2
-		if test (echo $argv[1] | grep struct)
-			ag -A $argv[2] "^$argv[1]" /tmp/result
-		else
-			ag -B $argv[2] $argv[1] /tmp/result
-		end
-	else
-		ag $argv[1] /tmp/result
-	end
+    gcc -E ~/.local/bin/type.c -I$argv[1] > /tmp/result
+    if test (count $argv) -eq 2
+        if test (echo $argv[1] | grep struct)
+            ag -A $argv[2] "^$argv[1]" /tmp/result
+        else
+            ag -B $argv[2] $argv[1] /tmp/result
+        end
+    else
+        ag $argv[1] /tmp/result
+    end
 end
 
 alias um 'pumount /run/media/chz/UDISK'
@@ -825,25 +825,25 @@ alias tsr 'tmux source-file ~/.tmux.conf; echo ~/.tmux.conf reloaded!'
 alias ag "ag --pager='less -RM -FX -s'"
 # ag work with less with color and scrolling
 function ag
-	sed -i "s/.shell/\"$argv[1]\n.shell/g" ~/.lesshst
-	if test -f /usr/bin/ag
-		/usr/bin/ag --ignore '*~' --ignore '#?*#' --ignore '.#?*' --ignore '*.swp' --ignore -s --pager='less -RM -FX -s' $argv
-	else
-		grep -n --color=always $argv | more
-		echo -e "\n...ag is not installed, use grep instead..."
-	end
+    sed -i "s/.shell/\"$argv[1]\n.shell/g" ~/.lesshst
+    if test -f /usr/bin/ag
+        /usr/bin/ag --ignore '*~' --ignore '#?*#' --ignore '.#?*' --ignore '*.swp' --ignore -s --pager='less -RM -FX -s' $argv
+    else
+        grep -n --color=always $argv | more
+        echo -e "\n...ag is not installed, use grep instead..."
+    end
 end
 function age --description 'ag sth. in ~/.emacs.d/init.el'
-	ag $argv[1] ~/.emacs.d/init.el
+    ag $argv[1] ~/.emacs.d/init.el
 end
 function agf --description 'ag sth. in ~/.fishrc'
-	ag $argv[1] ~/.fishrc
+    ag $argv[1] ~/.fishrc
 end
 function agt --description 'ag sth. in ~/.tmux.conf'
-	ag $argv[1] ~/.tmux.conf
+    ag $argv[1] ~/.tmux.conf
 end
 function ag2 --description 'ag sth. in ~/Recentchange/TODO'
-	ag $argv[1] ~/Recentchange/TODO
+    ag $argv[1] ~/Recentchange/TODO
 end
 
 # ls; and ll -- if ls succeed then ll, if failed then don't ll
@@ -861,199 +861,199 @@ end
 # or begin ... end; or ...
 
 function bak -d 'backup(copy) a file from abc to abc.bak'
-	set ori $argv[1]
-	if test "/" = (echo (string sub --start=-1 $argv[1])) # for dir ending with "/"
-		set ori (echo (string split -r -m1 / $argv[1])[1])
-	end
-	cp -v $ori{,.bak}
+    set ori $argv[1]
+    if test "/" = (echo (string sub --start=-1 $argv[1])) # for dir ending with "/"
+        set ori (echo (string split -r -m1 / $argv[1])[1])
+    end
+    cp -v $ori{,.bak}
 end
 function bakm -d 'backup(move) a file from abc to abc.bak'
-	set ori $argv[1]
-	if test "/" = (echo (string sub --start=-1 $argv[1])) # for dir ending with "/"
-		set ori (echo (string split -r -m1 / $argv[1])[1])
-	end
-	if test -d $ori.bak
-		echo The destination is alread existed.
-	else
-		mv -v $ori{,.bak}
-	end
+    set ori $argv[1]
+    if test "/" = (echo (string sub --start=-1 $argv[1])) # for dir ending with "/"
+        set ori (echo (string split -r -m1 / $argv[1])[1])
+    end
+    if test -d $ori.bak
+        echo The destination is alread existed.
+    else
+        mv -v $ori{,.bak}
+    end
 end
 function bak2c -d 'copy backup file from abc.bak to abc'
-	if test -d (echo (string split -r -m1 . $argv[1])[1])
-		echo The destination is alread existed.
-	else
-		cp -v $argv[1] (echo (string split -r -m1 . $argv[1])[1])
-	end
+    if test -d (echo (string split -r -m1 . $argv[1])[1])
+        echo The destination is alread existed.
+    else
+        cp -v $argv[1] (echo (string split -r -m1 . $argv[1])[1])
+    end
 end
 function bak2m -d 'move backup file from abc.bak to abc'
-	if test -d (echo (string split -r -m1 . $argv[1])[1])
-		echo The destination is alread existed.
-	else
-		mv -v $argv[1] (echo (string split -r -m1 . $argv[1])[1])
-	end
+    if test -d (echo (string split -r -m1 . $argv[1])[1])
+        echo The destination is alread existed.
+    else
+        mv -v $argv[1] (echo (string split -r -m1 . $argv[1])[1])
+    end
 end
 
 function d --description "Choose one from the list of recently visited dirs"
-	set -l letters - b c d e f h i j k l m n o p q r s t u v w x y z
-	set -l all_dirs $dirprev $dirnext
-	if not set -q all_dirs[1]
-		echo 'No previous directories to select. You have to cd at least once.'
-		return 0
-	end
+    set -l letters - b c d e f h i j k l m n o p q r s t u v w x y z
+    set -l all_dirs $dirprev $dirnext
+    if not set -q all_dirs[1]
+        echo 'No previous directories to select. You have to cd at least once.'
+        return 0
+    end
 
-	# Reverse the directories so the most recently visited is first in the list.
-	# Also, eliminate duplicates; i.e., we only want the most recent visit to a
-	# given directory in the selection list.
-	set -l uniq_dirs
-	for dir in $all_dirs[-1..1]
-		if not contains $dir $uniq_dirs
-			set uniq_dirs $uniq_dirs $dir
-		end
-	end
+    # Reverse the directories so the most recently visited is first in the list.
+    # Also, eliminate duplicates; i.e., we only want the most recent visit to a
+    # given directory in the selection list.
+    set -l uniq_dirs
+    for dir in $all_dirs[-1..1]
+        if not contains $dir $uniq_dirs
+            set uniq_dirs $uniq_dirs $dir
+        end
+    end
 
-	set -l dirc (count $uniq_dirs)
-	if test $dirc -gt (count $letters)
-		set -l msg 'This should not happen. Have you changed the cd function?'
-		printf (_ "$msg\n")
-		set -l msg 'There are %s unique dirs in your history' \
-		'but I can only handle %s'
-		printf (_ "$msg\n") $dirc (count $letters)
-		return 1
-	end
+    set -l dirc (count $uniq_dirs)
+    if test $dirc -gt (count $letters)
+        set -l msg 'This should not happen. Have you changed the cd function?'
+        printf (_ "$msg\n")
+        set -l msg 'There are %s unique dirs in your history' \
+        'but I can only handle %s'
+        printf (_ "$msg\n") $dirc (count $letters)
+        return 1
+    end
 
-	set -l pwd_existed 0
-	# already_pwd avoid always print the bottom line *pwd:...
-	for i in (seq $dirc -1 1)
-		set dir $uniq_dirs[$i]
+    set -l pwd_existed 0
+    # already_pwd avoid always print the bottom line *pwd:...
+    for i in (seq $dirc -1 1)
+        set dir $uniq_dirs[$i]
 
-		if test $pwd_existed != 1
-			if test "$dir" = "$PWD"
-				set pwd_existed 1
-			end
-		end
+        if test $pwd_existed != 1
+            if test "$dir" = "$PWD"
+                set pwd_existed 1
+            end
+        end
 
-		set -l home_dir (string match -r "$HOME(/.*|\$)" "$dir")
-		if set -q home_dir[2]
-			set dir "~$home_dir[2]"
-			# change dir from /home/user/path to ~/path
-			# dir is not PWD anymore
-		end
+        set -l home_dir (string match -r "$HOME(/.*|\$)" "$dir")
+        if set -q home_dir[2]
+            set dir "~$home_dir[2]"
+            # change dir from /home/user/path to ~/path
+            # dir is not PWD anymore
+        end
 
-		if test $pwd_existed = 1
-			printf '%s* %2d)  %s%s\n' (set_color red) $i $dir (set_color normal)
-			set pwd_existed 2 # to make the rest of current the dirprev not red
-		else if test $i = 1
-			printf '%s- %2d)  %s%s\n' (set_color cyan) $i $dir (set_color normal)
-		else if test $i != 1 -a $pwd_existed != 1
-			printf '%s %2d)	 %s\n' $letters[$i] $i $dir
+        if test $pwd_existed = 1
+            printf '%s* %2d)  %s%s\n' (set_color red) $i $dir (set_color normal)
+            set pwd_existed 2 # to make the rest of current the dirprev not red
+        else if test $i = 1
+            printf '%s- %2d)  %s%s\n' (set_color cyan) $i $dir (set_color normal)
+        else if test $i != 1 -a $pwd_existed != 1
+            printf '%s %2d)  %s\n' $letters[$i] $i $dir
 
-		end
-	end
-	if test $pwd_existed = 0 # means the current dir is not in the $uniq_dirs
-		printf '%s* %2d)  %s%s\n' (set_color red) "0" $PWD (set_color normal)
-	end
+        end
+    end
+    if test $pwd_existed = 0 # means the current dir is not in the $uniq_dirs
+        printf '%s* %2d)  %s%s\n' (set_color red) "0" $PWD (set_color normal)
+    end
 
-	echo '---------------------------'
-	read -l -p 'echo "Goto: "' choice
-	if test "$choice" = ""
-		return 0
-	else if string match -q -r '^[\-|b-z]$' $choice
-		set choice (contains -i $choice $letters)
-	end
+    echo '---------------------------'
+    read -l -p 'echo "Goto: "' choice
+    if test "$choice" = ""
+        return 0
+    else if string match -q -r '^[\-|b-z]$' $choice
+        set choice (contains -i $choice $letters)
+    end
 
-	if string match -q -r '^\d+$' $choice
-		if test $choice -ge 1 -a $choice -le $dirc
-			cd $uniq_dirs[$choice]
-			return
-		else
-			echo Error: expected a number between 1 and $dirc, got \"$choice\"
-			return 1
-		end
-	else
-		echo Error: expected a number between 1 and $dirc or letter in that range, got \"$choice\"
-		return 1
-	end
+    if string match -q -r '^\d+$' $choice
+        if test $choice -ge 1 -a $choice -le $dirc
+            cd $uniq_dirs[$choice]
+            return
+        else
+            echo Error: expected a number between 1 and $dirc, got \"$choice\"
+            return 1
+        end
+    else
+        echo Error: expected a number between 1 and $dirc or letter in that range, got \"$choice\"
+        return 1
+    end
 end
 
 #### ---------------- anaconda starts -----------------------
 # anaconda
 function condalist -d 'List conda environments.'
-	for dir in (ls $HOME/anaconda3/envs)
-		echo $dir
-	end
+    for dir in (ls $HOME/anaconda3/envs)
+        echo $dir
+    end
 end
 
 function condactivate -d 'Activate a conda environment' -a cenv
-	if test -z $cenv
-		echo 'Usage: condactivate <env name>'
-		return 1
-	end
+    if test -z $cenv
+        echo 'Usage: condactivate <env name>'
+        return 1
+    end
 
-	# condabin will be the path to the bin directory
-	# in the specified conda environment
-	set condabin $HOME/anaconda3/envs/$cenv/bin
+    # condabin will be the path to the bin directory
+    # in the specified conda environment
+    set condabin $HOME/anaconda3/envs/$cenv/bin
 
-	# check whether the condabin directory actually exists and
-	# exit the function with an error status if it does not
-	if not test -d $condabin
-		echo 'Environment not found.'
-		return 1
-	end
+    # check whether the condabin directory actually exists and
+    # exit the function with an error status if it does not
+    if not test -d $condabin
+        echo 'Environment not found.'
+        return 1
+    end
 
-	# deactivate an existing conda environment if there is one
-	if set -q __CONDA_ENV_ACTIVE
-		deactivate
-	end
+    # deactivate an existing conda environment if there is one
+    if set -q __CONDA_ENV_ACTIVE
+        deactivate
+    end
 
-	# save the current path
-	set -xg DEFAULT_PATH $PATH
+    # save the current path
+    set -xg DEFAULT_PATH $PATH
 
-	# put the condabin directory at the front of the PATH
-	set -xg PATH $condabin $PATH
+    # put the condabin directory at the front of the PATH
+    set -xg PATH $condabin $PATH
 
-	# this is an undocumented environmental variable that influences
-	# how conda behaves when you don't specify an environment for it.
-	# https://github.com/conda/conda/issues/473
-	set -xg CONDA_DEFAULT_ENV $cenv
+    # this is an undocumented environmental variable that influences
+    # how conda behaves when you don't specify an environment for it.
+    # https://github.com/conda/conda/issues/473
+    set -xg CONDA_DEFAULT_ENV $cenv
 
-	# set up the prompt so it has the env name in it
-	functions -e __original_fish_prompt
-	functions -c fish_prompt __original_fish_prompt
-	function fish_prompt
-		set_color blue
-		echo -n '('$CONDA_DEFAULT_ENV') '
-		set_color normal
-		__original_fish_prompt
-	end
+    # set up the prompt so it has the env name in it
+    functions -e __original_fish_prompt
+    functions -c fish_prompt __original_fish_prompt
+    function fish_prompt
+        set_color blue
+        echo -n '('$CONDA_DEFAULT_ENV') '
+        set_color normal
+        __original_fish_prompt
+    end
 
-	# flag for whether a conda environment has been set
-	set -xg __CONDA_ENV_ACTIVE 'true'
+    # flag for whether a conda environment has been set
+    set -xg __CONDA_ENV_ACTIVE 'true'
 end
 
 function deactivate -d 'Deactivate a conda environment'
-	if set -q __CONDA_ENV_ACTIVE
-		# set PATH back to its default before activating the conda env
-		set -xg PATH $DEFAULT_PATH
-		set -e DEFAULT_PATH
+    if set -q __CONDA_ENV_ACTIVE
+        # set PATH back to its default before activating the conda env
+        set -xg PATH $DEFAULT_PATH
+        set -e DEFAULT_PATH
 
-		# unset this so that conda behaves according to its default behavior
-		set -e CONDA_DEFAULT_ENV
+        # unset this so that conda behaves according to its default behavior
+        set -e CONDA_DEFAULT_ENV
 
-		# reset to the original prompt
-		functions -e fish_prompt
-		functions -c __original_fish_prompt fish_prompt
-		functions -e __original_fish_prompt
-		set -e __CONDA_ENV_ACTIVE
-	end
+        # reset to the original prompt
+        functions -e fish_prompt
+        functions -c __original_fish_prompt fish_prompt
+        functions -e __original_fish_prompt
+        set -e __CONDA_ENV_ACTIVE
+    end
 end
 
 # aliases so condactivate and deactivate can have shorter names
 function ca -d 'Activate a conda environment'
-	condactivate $argv
+    condactivate $argv
 end
 
 function cda -d 'Deactivate a conda environment'
-	deactivate $argv
+    deactivate $argv
 end
 
 # complete conda environment names when activating
@@ -1061,49 +1061,49 @@ complete -c condactivate -xA -a "(condalist)"
 complete -c ca -xA -a "(condalist)"
 
 function con --description 'Activate a conda environment.'
-	if test (count $argv) -eq 0
-		conda info -e
-		return 0
-	end
+    if test (count $argv) -eq 0
+        conda info -e
+        return 0
+    end
 
-	if test (count $argv) -ne 1
-		echo 'Too many args -- expected at most one conda environment name.'
-		return 1
-	end
+    if test (count $argv) -ne 1
+        echo 'Too many args -- expected at most one conda environment name.'
+        return 1
+    end
 
-	set -l conda_env $argv[1]
+    set -l conda_env $argv[1]
 
-	if not command conda '..checkenv' fish $conda_env
-		return 1
-	end
+    if not command conda '..checkenv' fish $conda_env
+        return 1
+    end
 
-	# Deactivate the currently active environment if set.
-	if set -q CONDA_DEFAULT_ENV
-		coff
-	end
+    # Deactivate the currently active environment if set.
+    if set -q CONDA_DEFAULT_ENV
+        coff
+    end
 
-	# Try to activate the environment.
-	set -l new_path (command conda '..activate' fish $conda_env)
-	or return $status
+    # Try to activate the environment.
+    set -l new_path (command conda '..activate' fish $conda_env)
+    or return $status
 
-	set -g CONDA_PATH_BACKUP $PATH
-	set -gx PATH $new_path $PATH
-	set -gx CONDA_DEFAULT_ENV $conda_env
+    set -g CONDA_PATH_BACKUP $PATH
+    set -gx PATH $new_path $PATH
+    set -gx CONDA_DEFAULT_ENV $conda_env
 end
 function coff --description 'Deactivate a conda environment.'
-	if set -q argv[1]
-		echo "Too many args -- expected no args, got: $argv" >&2
-		return 1
-	end
+    if set -q argv[1]
+        echo "Too many args -- expected no args, got: $argv" >&2
+        return 1
+    end
 
-	if not set -q CONDA_DEFAULT_ENV
-		echo "There doesn't appear to be any conda env in effect." >&2
-		return 1
-	end
+    if not set -q CONDA_DEFAULT_ENV
+        echo "There doesn't appear to be any conda env in effect." >&2
+        return 1
+    end
 
-	# Deactivate the environment.
-	set -gx PATH $CONDA_PATH_BACKUP
-	set -e CONDA_PATH_BACKUP
-	set -e CONDA_DEFAULT_ENV
+    # Deactivate the environment.
+    set -gx PATH $CONDA_PATH_BACKUP
+    set -e CONDA_PATH_BACKUP
+    set -e CONDA_DEFAULT_ENV
 end
 #### ---------------- anaconda ends -----------------------
