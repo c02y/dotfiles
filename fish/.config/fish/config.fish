@@ -2,7 +2,8 @@
 ### you can use `fish_config` to config a lot of things in WYSIWYG way in browser
 
 set -gx GOPATH $GOPATH ~/GoPro
-set -gx PATH $HOME/anaconda3/bin ~/.local/share/arm-linux/bin ~/.local/bin ~/.linuxbrew/bin $GOPATH/bin ~/bin $PATH
+# set -gx PATH $HOME/anaconda3/bin ~/.local/share/arm-linux/bin ~/.local/bin ~/.linuxbrew/bin $GOPATH/bin ~/bin $PATH
+set -gx PATH $HOME/anaconda3/bin $HOME/.local/bin $GOPATH/bin /usr/local/bin /usr/local/liteide/bin /bin /sbin /usr/bin /usr/sbin $PATH
 
 
 # for ~/.linuxbrew/ (brew for linux to install programs)
@@ -23,6 +24,8 @@ if test -f $HOME/.autojump/share/autojump/autojump.fish;
     alias js 'j --purge; j -s'
 end
 
+. $HOME/.config/fish/functions/done.fish
+
 # LS_COLORS, color for ls command
 # http://linux-sxs.org/housekeeping/lscolors.html
 # http://www.bigsoft.co.uk/blog/index.php/2008/04/11/configuring-ls_colors
@@ -36,27 +39,6 @@ end
 
 function dirp --on-event fish_preexec
     set -g OLDPWD $PWD
-end
-function path_prompt
-    # User
-    set_color $fish_color_user
-    echo -n $USER
-    set_color normal
-
-    echo -n '@'
-
-    # Host
-    set_color $fish_color_host
-    echo -n (hostname -s)
-    set_color normal
-
-    echo -n ':'
-
-    # PWD
-    set_color -o yellow
-    echo -n (prompt_pwd)
-    set_color normal
-    echo
 end
 
 function delete-or-ranger -d 'modified from delete-or-exit, delete one char if in command, execute ranger instead exiting the current terminal otherwise'
@@ -93,9 +75,31 @@ function gcc
     /usr/bin/gcc $argv 2>&1 | grep --color -iP "\^|warning:|error:|undefined|"
 end
 function g++
-    /usr/bin/g++ $argv 2>&1 | grep --color -iP "\^|warning:|error:|undefined|"
+    /usr/bin/g++ $argv 2>&1 | grep --color -iP "\^|warning:|error:|Undefined|"
 end
 
+function path_prompt
+    set_color -ru
+    # User
+    set_color $fish_color_user
+    echo -n $USER
+    # set_color normal
+
+    echo -n '@'
+
+    # Host
+    set_color $fish_color_host
+    echo -n (hostname -s)
+    # set_color normal
+
+    echo -n ':'
+
+    # PWD
+    set_color -o yellow
+    echo -n (prompt_pwd)
+    set_color normal
+    echo
+end
 function fish_prompt --description 'Write out the prompt'
     h
     set -l last_status $status
@@ -111,10 +115,12 @@ function fish_prompt --description 'Write out the prompt'
     # http://unicode-table.com/en/sets/arrows-symbols/
     # http://en.wikipedia.org/wiki/Arrow_(symbol)
     set_color -o yellow
-    echo -n '>> ' # '➤➤ '  # ➢ ➣, ↩ ↪ ➥ ➦, ▶ ▷ ◀ ◁, ❥
+    set_color -u
+    echo -n '>>' # '➤➤ '  # ➢ ➣, ↩ ↪ ➥ ➦, ▶ ▷ ◀ ◁, ❥
     #echo -n '➤➤ '  # ➢ ➣, ↩ ↪ ➥ ➦, ▶ ▷ ◀ ◁, ❥
+    set_color normal
+    echo ' '
 end
-
 function fish_right_prompt -d "Write out the right prompt"
     # set_color -o black
     set_color normal
@@ -123,7 +129,7 @@ function fish_right_prompt -d "Write out the right prompt"
     echo -n ']'
 
     __informative_git_prompt
-    # set_color $fish_color_normal
+    set_color $fish_color_normal
 end
 ###################################################################
 
@@ -154,7 +160,7 @@ function lsh
     ls --color=yes $argv[1] --sort=time -lh | head | nl
 end
 function lsh2
-    ls --color=yes $argv[1] --sort=time -lh | head -20 | nl1
+    ls --color=yes $argv[1] --sort=time -lh | head -20 | nl
 end
 function lls
     ll --color=yes $argv --sort=size -lh | less -R | nl
@@ -175,8 +181,15 @@ alias vad 'valgrind --tool=callgrind --dump-instr=yes --simulate-cache=yes --col
 
 alias im 'ristretto'
 alias ds 'display'
+
 alias ka 'killall -9'
-alias psg 'ps -ef | grep -v -i grep | grep -i'
+# If Emacs hangs and won't response to C-g, use this to force it to stop whatever it's doing
+# Note that do not use this if you got more than one instances of Emacs running
+# Use `pkill -SIGUSR2 PID` to kill the PID, send SIGUSR2 to emacs will turn on `toggle-debug-on-quit`, turn it off once emacs is alive again
+alias ke 'pkill -SIGUSR2 emacs'
+# get the pid of a gui program using mouse
+alias pid 'xprop | grep -i pid | grep -Po "[0-9]+"'
+alias psg 'ps -ef | grep -v grep | grep -i'
 # pkill will not kill processes matching pattern, you have to kill the PID
 function pk --description 'kill processes containg a pattern'
     set done 1
@@ -195,38 +208,49 @@ function pk --description 'kill processes containg a pattern'
         psg $argv[1]
         while test $done = 1
             read -p 'echo "Kill all of them or specific PID? [y/N/pid]: "' -l arg
-            if test $arg -a "$arg" = "y" # first condition $arg means RET
+            if test "$arg" = "y"
                 psg $argv[1] | awk '{print $2}' | xargs kill -9
                 if test $status -eq 123 # Operation not permitted
                     read -p 'echo "Use sudo to kill them all? [y/N]: "' -l arg2
                     if test "$arg2" = "y"
                         psg $argv[1] | awk '{print $2}' | xargs sudo kill -9
                     end
-                    set done 0
                 end
+                set done 0
             else if test $arg -a "$arg" != "y" -a "$arg" != "n"
+                # the fist cond in test means you typed something, RET will not pass
                 if test (psg $argv[1] | awk '{print $2}' | grep -i $arg)
-                    kill -9 $arg 2>/dev/null
+                    kill -9 $arg #2>/dev/null
                     if test $status -eq 1 # kill failed
                         read -p 'echo "Use sudo to kill it? [y/N]: "' -l arg2
                         if test "$arg2" = "y"
                             sudo kill -9 $arg
                         end
-                        set done 0
                     end
+                    echo -e "Continue...\n"
+                    usleep 100000
+                    psg $argv[1]
+                else if test "$arg" = "p"
+                    # This may be used for frozen emacs specifically, -usr2 or -SIGUSR2
+                    # will turn on `toggle-debug-on-quit`, turn it off once emacs is alive again
+                    # Test on next frozen Emacs
+                    kill -SIGUSR2 (xprop | grep -i pid | grep -Po "[0-9]+")
+                    # kill -usr2 (xprop | grep -i pid | grep -Po "[0-9]+")
+                    return
                 else
                     echo "PID '$arg[1]' is not in the list!"
                     echo
-                    set done 1
                 end
+                set done 1
             else
+                # RET goes here, means `quit` like C-c
                 set done 0
             end
         end
     end
 end
 
-alias epath 'varclear PATH; echo $PATH | tr " " "\n" | sort | nl'
+alias epath 'varclear PATH; echo $PATH | tr " " "\n" | nl'
 function varclear --description 'Remove duplicates from environment varieble'
     if test (count $argv) = 1
         set -l newvar
@@ -259,7 +283,43 @@ alias g 'grep -F -n --color=auto'
 alias egrep 'egrep --color=auto'
 alias fgrep 'fgrep --color=auto'
 
-alias fu 'type'
+# alias fu 'type'
+function fu -d 'fu command and prompt to ask to open it or not'
+    type $argv
+    echo
+    set -l result (type $argv)
+    echo (printf '%s\n' $result | head -1) | grep -i "is a function with definition" ^/dev/null >/dev/null
+    if test $status = 0
+        read -p 'echo "Open the file containing the definition? [y/N]: "' -l answer
+        if test "$answer" = "y"
+            set -l num_line (printf '%s\n' $result | sed -n "2p" | awk 'NF>1{print $NF}')
+            if test $num_line = 0
+                set -l argv_line (printf "alias %s " $argv)
+                set num_line (grep -n "$argv_line" ~/.fishrc | cut -d: -f1)
+            end
+            vim ~/.fishrc +$num_line
+        end
+    else
+        printf '%s\n' $result | head -1 | grep -i "/home/chz/.local/bin" ^/dev/null >/dev/null
+        if test $status = 0
+            read -p 'echo "Open the file?[y/N]: "' -l answer
+            if test "$answer" = "y"
+                vim ~/.local/bin/$argv
+            end
+        else
+            set -l file_path (printf '%s\n' $result | awk 'NF>1{print $NF}')
+            file $file_path | grep script
+            echo
+            if test $status = 0
+                read -p 'echo "Open the file?[y/N]: "' -l answer
+                if test "$answer" = "y"
+                    vim $file_path
+                end
+            end
+        end
+    end
+end
+
 # touch temporary files
 alias tout 'touch ab~ .ab~ .\#ab .\#ab\# \#ab\# .ab.swp ab.swp'
 # find
@@ -698,6 +758,31 @@ alias ex 'exit'
 
 alias p 'ping -c 5'
 alias ping 'ping -c 5'
+function po -d 'Test the connection of outside internet'
+    timeout 1 ping -c 1 www.baidu.com ^/dev/null >/dev/null
+    if test $status != 0
+        echo Offline!
+    else
+        echo Online!
+    end
+end
+function pl -d 'Test the connection of inside internet'
+    if test (count $argv) -eq 1
+        timeout 1 ping -c 1 10.8.2.$argv ^/dev/null >/dev/null
+        if test $status != 0
+            echo Offline!
+        else
+            echo Online!
+        end
+    else
+        timeout 1 ping -c 1 10.0.4.4 ^/dev/null >/dev/null
+        if test $status != 0
+            echo Offline!
+        else
+            echo Online!
+        end
+    end
+end
 function pv --description "ping vpn servers"
     p p1.jp1.seejump.com | tail -n3
     echo --------------------------------------------------------------
@@ -713,6 +798,13 @@ function pv --description "ping vpn servers"
     echo --------------------------------------------------------------
     p p1.hk3.seejump.com | tail -n3
     echo --------------------------------------------------------------
+end
+function ipl -d 'check the location of your public IP address'
+    # https://www.cyberciti.biz/faq/how-to-find-my-public-ip-address-from-command-line-on-a-linux/
+    # set -l publicIP (dig +short myip.opendns.com @resolver1.opendns.com)
+    # set -l publicIP (dig TXT +short o-o.myaddr.l.google.com @ns1.google.com | sed s/\"//g)
+    set -l publicIP (curl ifconfig.co ^ /dev/null)
+    curl ipinfo.io/$publicIP
 end
 
 alias lo 'locate -e'
@@ -807,8 +899,44 @@ function wtp --description 'show the real definition of a type or struct in C co
     end
 end
 
+function ut -d 'toggle -- use data network sharing through Android device throught USB'
+    if not test (ip link | grep usb0) # ()=1, not plugged or enabled in Android device
+        echo Android device is not plugged or data network sharing is not enabled!
+    else          # ()=0
+        timeout 1 ping -c 1 www.baidu.com ^ /dev/null > /dev/null # NOTE: stdout and stderr redirect
+        if test $status != 0
+            echo Network is off!
+            if test (pgrep dhclient | wc -l) != 0 # This will be useless since the latter kill
+                echo dhclient is already running, Kill it!
+                sudo pkill dhclient
+            end
+            echo Starting `dhclient usb0`
+            sudo dhclient usb0
+            # something it will fail, output error message like
+            # dhclient(26477) is already running - exiting....
+            if test $status != 0
+                sudo dhclient -r
+                sudo dhclient
+                sudo pkill dhclient
+            end
+            timeout 1 ping -c 1 www.baidu.com ^ /dev/null > /dev/null # NOTE: stdout and stderr redirect
+            if test $status != 0
+                echo Network is still off.
+            else
+                echo Network is on!
+            end
+        else
+            echo Network is already on!
+        end
+    end
+    if test (pgrep dhclient | wc -l) != 0
+        sudo pkill dhclient  # this has no effect on the network, just make next usbt quicker
+    end
+end
+
 alias um 'pumount /run/media/chz/UDISK'
 alias mo 'pmount /dev/sdb4 /run/media/chz/UDISK'
+
 
 alias ytd 'youtube-dl -citw '
 

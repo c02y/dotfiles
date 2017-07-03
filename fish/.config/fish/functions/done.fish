@@ -44,7 +44,7 @@ function __done_ended --on-event fish_prompt
 	if test $CMD_DURATION
 		# Store duration of last command
 		set duration (echo "$CMD_DURATION" | humanize_duration)
-		set notify_duration 10000
+		set notify_duration 5000
 
 		if begin
 				test $CMD_DURATION -gt $notify_duration  # longer than notify_duration

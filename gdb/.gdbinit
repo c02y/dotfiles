@@ -387,7 +387,6 @@ class Dashboard(gdb.Command):
         Dashboard.parse_inits(False)
         # GDB overrides
         run('set pagination off')
-        run('alias -a db = dashboard')
 
     @staticmethod
     def get_term_width(fd=1):  # defaults to the main terminal
@@ -992,6 +991,7 @@ location, if available. Optionally list the frame arguments and locals too."""
             # fetch frame arguments and locals
             decorator = gdb.FrameDecorator.FrameDecorator(frame)
             separator = ansi(', ', R.style_low)
+            strip_newlines = re.compile(r'$\s*', re.MULTILINE)
             if self.show_arguments:
                 def prefix(line):
                     return Stack.format_line('arg', line)
@@ -1000,6 +1000,7 @@ location, if available. Optionally list the frame arguments and locals too."""
                 if args_lines:
                     if self.compact:
                         args_line = separator.join(args_lines)
+                        args_line = strip_newlines.sub('', args_line)
                         single_line = prefix(args_line)
                         frame_lines.append(single_line)
                     else:
@@ -1014,6 +1015,7 @@ location, if available. Optionally list the frame arguments and locals too."""
                 if locals_lines:
                     if self.compact:
                         locals_line = separator.join(locals_lines)
+                        locals_line = strip_newlines.sub('', locals_line)
                         single_line = prefix(locals_line)
                         frame_lines.append(single_line)
                     else:
@@ -1393,7 +1395,7 @@ set history save
 set history expansion on
 set confirm off
 set verbose off
-# about print-setting 
+# about print-setting
 # ftp://ftp.gnu.org/old-gnu/Manuals/gdb/html_node/gdb_57.html
 set print pretty on
 set print array on
@@ -1413,7 +1415,12 @@ define dod
 	dashboard -output /dev/pts/$arg0
 end
 define dos
+	dashboard source -style context 15
 	dashboard source -output /dev/pts/$arg0
+end
+
+define dsl
+	dashboard source -style context $arg0
 end
 
 define btf
@@ -1429,19 +1436,16 @@ define dll
 	dashboard $arg0 -style limit $arg1
 end
 
-dashboard source -style context 15
-define dsl
-	dashboard source -style context $arg0
-end
-
-
 # TODO:Find a better way to disable the default q for quit
 define q
 	print "Use quit to quit!!!"
 end
 
-define ib
-	info breakpoints
+define its
+	info threads
+end
+define it
+	info thread $arg0
 end
 
 define pv
@@ -1462,6 +1466,75 @@ Usage: pv VECTOR_NAME INDEX
 VECTOR_NAME is the name of the vector
 INDEX is an optional argument specifying the element to display
 end
+
+# check https://gist.github.com/CocoaBeans/1879270 for how to use gdb
+define pa
+    x/100w $arg0
+end
+document pa
+Print array
+Usage: pa array
+NOTE: the output contains a lot of extra info
+end
+
+define pl
+    if $argc == 1
+        print $arg0
+    end
+    if $argc == 2
+        print $arg0
+        print $arg1
+    end
+    if $argc == 3
+        print $arg0
+        print $arg1
+        print $arg2
+    end
+    if $argc == 4
+        print $arg0
+        print $arg1
+        print $arg2
+        print $arg3
+    end
+end
+document pl
+Print values of arg list
+Usage: pl a1 a2 a3...
+Check `info locals` for info
+end
+
+define bl
+    info breakpoints
+end
+define ib
+    info breakpoints
+end
+define bm
+    if $argc == 1
+        break $arg0
+    end
+    if $argc == 2
+        break $arg0
+        break $arg1
+    end
+    if $argc == 3
+        break $arg0
+        break $arg1
+        break $arg2
+    end
+    if $argc == 4
+        break $arg0
+        break $arg1
+        break $arg2
+        break $arg3
+    end
+end
+document bm
+Set multiple breakpoints in one line
+Delete multiple breakpoints in one line can use builtin `del N1 N2...`
+Usage: bm a1 a2 a3...
+end
+
 # Start ------------------------------------------------------------------------
 
 python Dashboard.start()
