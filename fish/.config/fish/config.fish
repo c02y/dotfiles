@@ -154,23 +154,23 @@ function lsx --description 'cp the full path of a file to sytem clipboard'
     echo \n---- Path Copied to Clipboard! ----
 end
 function lst
-    ls --color=yes $argv[1] --sort=time -lh | nl | less
+    ls --color=yes $argv[1] --sort=time -lh | nl -v 0| less
 end
 function lsh
-    ls --color=yes $argv[1] --sort=time -lh | head | nl
+    ls --color=yes $argv[1] --sort=time -lh | head | nl -v 0
 end
 function lsh2
-    ls --color=yes $argv[1] --sort=time -lh | head -20 | nl
+    ls --color=yes $argv[1] --sort=time -lh | head -20 | nl -v 0
 end
 function lls
-    ll --color=yes $argv --sort=size -lh | less -R | nl
+    ll --color=yes $argv --sort=size -lh | less -R | nl -v 0
 end
 function llh
-    ll --color=yes $argv --sort=time -lh | head | nl
+    ll --color=yes $argv --sort=time -lh | head | nl -v 0
 end
-alias llt 'lla --color=yes --sort=time -lh | less -R | nl'
-alias lat 'lla --color=yes --sort=time -lh | less -R | nl'
-alias lah 'lla --color=yes --sort=time -lh | head | nl'
+alias llt 'lla --color=yes --sort=time -lh | less -R | nl -v 0'
+alias lat 'lla --color=yes --sort=time -lh | less -R | nl -v 0'
+alias lah 'lla --color=yes --sort=time -lh | head | nl -v 0'
 # count the number of the files in the dir(not sub.), use tree | wc -l for subdirs
 alias lsc 'ls -all | wc -l'
 # valgrind
@@ -508,6 +508,10 @@ function t-ca --description '`t-ca dir vcs` to include .svn/.git, or `t-ca dir` 
     end
 end
 alias dt 'dtrx -v '
+# using unar-- https://unarchiver.c3.cx/unarchiver is available
+# if the code is not working, try GBK or GB18030
+# unzip zip if it is archived in Windows and messed up characters with normal unzip
+alias unzipc 'unzip -O CP936' 
 function debx --description 'extract the deb package'
     set pkgname (basename $argv[1] .deb)
     mkdir -v $pkgname
@@ -701,6 +705,7 @@ alias gits 'git status ' # gs is original Ghostscript app
 alias gitp 'git pull -v'
 alias gitc 'git clone -v'
 alias gitl 'git log --stat'
+alias gitd 'git diff' # show unpushed local modification
 alias gitlp 'git log -p -- ' # [+ file] to how entire all/[file(even renamed)] history
 alias gitsh 'git show ' # [+ COMMIT] to show the modifications in a last/[specific] commit
 alias gitlo 'git log --oneline'
