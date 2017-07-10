@@ -189,63 +189,90 @@ alias ka 'killall -9'
 alias ke 'pkill -SIGUSR2 emacs'
 # get the pid of a gui program using mouse
 alias pid 'xprop | grep -i pid | grep -Po "[0-9]+"'
-alias psg 'ps -ef | grep -v grep | grep -i'
+function psg -d 'pgrep process'
+    ps -ef | grep -v grep | grep -i $argv[1] | nl
+end
 # pkill will not kill processes matching pattern, you have to kill the PID
 function pk --description 'kill processes containg a pattern'
-    set done 1
     set result (psg $argv[1] | wc -l)
     if test $result = 0
         echo "No '$argv[1]' process is running!"
     else if test $result = 1
-        psg $argv[1] | awk '{print $2}' | xargs kill -9
-        if test $status = 123 # Operation not permitted
-            read -p 'echo "Use sudo to kill it? [y/N]: "' -l arg
-            if test "$arg" = "y"
-                psg $argv[1] | awk '{print $2}' | xargs sudo kill -9
+        set -l pid (psg $argv[1] | awk '{print $3}')
+        kill -9 $pid
+        if test $status != 0 # Operation not permitted
+            psg $pid | ag $argv[1] # list the details of the process need to be sudo kill
+            read -p 'echo "Use sudo to kill it? [Y/n]: "' -l arg
+            if test "$arg" = "" -o "$arg" = "y" -o "$arg" = " "
+                sudo kill -9 $pid
             end
         end
     else
-        psg $argv[1]
-        while test $done = 1
-            read -p 'echo "Kill all of them or specific PID? [y/N/pid]: "' -l arg
-            if test "$arg" = "y"
-                psg $argv[1] | awk '{print $2}' | xargs kill -9
-                if test $status -eq 123 # Operation not permitted
-                    read -p 'echo "Use sudo to kill them all? [y/N]: "' -l arg2
-                    if test "$arg2" = "y"
-                        psg $argv[1] | awk '{print $2}' | xargs sudo kill -9
-                    end
-                end
-                set done 0
-            else if test $arg -a "$arg" != "y" -a "$arg" != "n"
-                # the fist cond in test means you typed something, RET will not pass
-                if test (psg $argv[1] | awk '{print $2}' | grep -i $arg)
-                    kill -9 $arg #2>/dev/null
-                    if test $status -eq 1 # kill failed
-                        read -p 'echo "Use sudo to kill it? [y/N]: "' -l arg2
-                        if test "$arg2" = "y"
-                            sudo kill -9 $arg
+        while test 1
+            psg $argv[1]
+            if test (psg $argv[1] | wc -l) = 0
+                return
+            end
+            read -p 'echo "Kill all of them or specific PID? [y/N/index/pid/m_ouse]: "' -l arg2
+            if test "$arg2" = "y" -o "$arg2" = " "
+                set -l pids (psg $argv[1] | awk '{print $3}')
+                for i in $pids
+                    kill -9 $i
+                    if test $status != 0 # Operation not permitted
+                        psg $i | ag $argv[1]
+                        read -p 'echo "Use sudo to kill it? [Y/n]: "' -l arg3
+                        if test "$arg3" = "" -o "$arg3" = "y" -o "$arg3" = " "
+                            sudo kill -9 $i
                         end
                     end
-                    echo -e "Continue...\n"
-                    usleep 100000
-                    psg $argv[1]
-                else if test "$arg" = "p"
-                    # This may be used for frozen emacs specifically, -usr2 or -SIGUSR2
-                    # will turn on `toggle-debug-on-quit`, turn it off once emacs is alive again
-                    # Test on next frozen Emacs
-                    kill -SIGUSR2 (xprop | grep -i pid | grep -Po "[0-9]+")
-                    # kill -usr2 (xprop | grep -i pid | grep -Po "[0-9]+")
-                    return
+                end
+                return
+            else if test "$arg2" = "m" # Use mouse the click the opened window
+                # This may be used for frozen emacs specifically, -usr2 or -SIGUSR2
+                # will turn on `toggle-debug-on-quit`, turn it off once emacs is alive again
+                # Test on next frozen Emacs
+                # kill -usr2 (xprop | grep -i pid | grep -Po "[0-9]+")
+                # kill -SIGUSR2 (xprop | grep -i pid | grep -Po "[0-9]+")
+                set -l pid_m (xprop | grep -i pid | grep -Po "[0-9]+")
+                if test (psg $pid_m | grep -i emacs)
+                    kill -SIGUSR2 $pid_m
                 else
-                    echo "PID '$arg[1]' is not in the list!"
+                    kill -9 $pid_m
+                end
+                echo Pid is: $pid_m
+                return
+            else if test "$arg2" -a "$arg2" -lt 20 # index
+                # the fist cond in test means you typed something, RET will not pass
+                set -l pid_of_index (psg $argv[1] | awk 'NR == n' n=$arg2 | awk '{print $3}')
+                kill -9 $pid_of_index
+                if test $status != 0 # kill failed
+                    psg $pid_of_index | ag $argv[1] # list the details of the process need to be sudo kill
+                    read -p 'echo "Use sudo to kill it? [Y/n]: "' -l arg4
+                    if test $arg4 = "" -o "$arg4" = "y" -o "$arg4" = " "
+                        # the first condition is to check RET key
+                        sudo kill -9 $pid_of_index
+                    end
+                end
+            else if test $arg2 -a "$arg2" != "y" -a "$arg2" != "n" # pid
+                # the fist cond in test means you typed something, RET will not pass
+                if test (psg $argv[1] | awk '{print $3}' | grep -i $arg2)
+                    kill -9 $arg2
+                    if test $status -eq 1 # kill failed
+                        psg $arg2 | ag $argv[1] # list the details of the process need to be sudo kill
+                        read -p 'echo "Use sudo to kill it? [Y/n]: "' -l arg5
+                        if test $arg5 = "" -o "$arg5" = "y" -o "$arg5" = " "
+                            sudo kill -9 $arg2
+                        end
+                    end
+                else
+                    echo "PID or index '$arg2' is not in the list!"
                     echo
                 end
-                set done 1
             else
                 # RET goes here, means `quit` like C-c
-                set done 0
+                return
             end
+            sleep 1
         end
     end
 end
@@ -286,36 +313,50 @@ alias fgrep 'fgrep --color=auto'
 # alias fu 'type'
 function fu -d 'fu command and prompt to ask to open it or not'
     type $argv
+    if test $status != 0
+        return
+    end
     echo
     set -l result (type $argv)
-    echo (printf '%s\n' $result | head -1) | grep -i "is a function with definition" ^/dev/null >/dev/null
+    # check if the argv is a definition in config.fish
+    printf '%s\n' $result | head -1 | grep -i "is a function with definition" ^/dev/null >/dev/null
     if test $status = 0
-        read -p 'echo "Open the file containing the definition? [y/N]: "' -l answer
-        if test "$answer" = "y"
-            set -l num_line (printf '%s\n' $result | sed -n "2p" | awk 'NF>1{print $NF}')
-            if test $num_line = 0
+        read -n 1 -p 'echo "Open the file containing the definition? [y/N]: "' -l answer
+        if test "$answer" = "y" -o "$answer" = " "
+            # check if the definition is an alias or a function
+            # alias    -- second line of output of fu ends with "- @ line 0"
+            # function -- second line of output of fu ends with "$path @ line $num_line"
+            set -l num_line (printf '%s\n' $result | sed -n "2p" | awk -v x=7 '{print $x}')
+            # or
+            # set -l num_line (printf '%s\n' $result | sed -n "2p" | awk 'NF>1{print $NF}')
+            set -l def_file (printf '%s\n' $result | sed -n "2p" | awk -v x=4 '{print $x}')
+            if test $def_file = "-"
+                set def_file ~/.config/fish/config.fish
                 set -l argv_line (printf "alias %s " $argv)
-                set num_line (grep -n "$argv_line" ~/.fishrc | cut -d: -f1)
+                set num_line (grep -n $argv_line $def_file | cut -d: -f1)
             end
-            vim ~/.fishrc +$num_line
+            vim $def_file +$num_line
         end
-    else
-        printf '%s\n' $result | head -1 | grep -i "/home/chz/.local/bin" ^/dev/null >/dev/null
+    else if test (printf '%s\n' $result | head -1 | grep -i "is a builtin")
+        return                  # is a builtin like if
+    else # argv is a file
+        set -l file_path (printf '%s\n' $result | awk 'NF>1{print $NF}')
+        # symbolic
+        file $file_path | grep "symbolic"
         if test $status = 0
-            read -p 'echo "Open the file?[y/N]: "' -l answer
-            if test "$answer" = "y"
-                vim ~/.local/bin/$argv
+            # the file_path may only contains the file name if target is in the same dir
+            set file_path (readlink -f $file_path)
+        end
+        # script
+        file $file_path | grep "script"
+        if test $status = 0
+            echo
+            read -n 1 -p 'echo "Open the file?[y/N]: "' -l answer
+            if test "$answer" = "y" -o "$answer" = " "
+                vim $file_path
             end
         else
-            set -l file_path (printf '%s\n' $result | awk 'NF>1{print $NF}')
-            file $file_path | grep script
-            echo
-            if test $status = 0
-                read -p 'echo "Open the file?[y/N]: "' -l answer
-                if test "$answer" = "y"
-                    vim $file_path
-                end
-            end
+            file $file_path
         end
     end
 end
@@ -599,9 +640,6 @@ end
 alias xp 'xclip'
 alias x 'xclip -selection c'
 
-# return tmux
-alias t 'tmux a'
-
 alias km 'sudo kermit'
 
 alias dusc 'dus -c ~/.config/google-chrome ~/.cache/google-chrome ~/.mozilla ~/.cache/mozilla '
@@ -806,6 +844,13 @@ function ipl -d 'check the location of your public IP address'
     set -l publicIP (curl ifconfig.co ^ /dev/null)
     curl ipinfo.io/$publicIP
 end
+function port -d 'list all the ports are used or check the process which are using the port'
+    if test (count $argv) = 1
+        netstat -tulpn | grep $argv
+    else
+        netstat -tulpn
+    end
+end
 
 alias lo 'locate -e'
 function lop --description 'locate the full/exact file'
@@ -940,15 +985,48 @@ alias mo 'pmount /dev/sdb4 /run/media/chz/UDISK'
 
 alias ytd 'youtube-dl -citw '
 
+# return tmux
+alias t 'tmux a'
 alias tl 'tmux ls'
-# kill the specific session like: tk 1
-alias tk 'tmux kill-session -t '
-# kill all the sessions
-alias tka 'tmux kill-server'
+alias tl 'tmux ls'
+alias tls 'tmux list-panes -s'
+function tk -d 'tmux kill-session single/multiple sessions'
+    if test (count $argv) -gt 0
+        for i in $argv
+            tmux kill-session -t $i
+        end
+    else
+        echo "Need target sessions"
+    end
+end
+function tka -d 'tmux kill-session except given session[s]'
+    if test (count $argv) -gt 0
+        set -l sid (tl | nl | awk '{print $2}' | sed 's/://g')
+        for i in $sid
+            if not contains $i $argv
+                tmux kill-session -t $i
+                echo Tmux session $i is killed
+            end
+        end
+        echo \n--------------\n
+        echo Left sessions:
+        tmux ls
+    else
+        read -l -p 'echo "Kill all tmux sessions including this one? [y/N]"' anwser
+        if test "$answer" = "y"
+            tmux kill-server        # kill all sessions (including current one)
+        end
+    end
+end
 # or just use 'M-c r', it is defiend in ~/.tmux.conf
 alias tsr 'tmux source-file ~/.tmux.conf; echo ~/.tmux.conf reloaded!'
 # this line will make the indentation of lines below it wrong, TODO: weird
 # alias tt 'tmux switch-client -t'
+function twp -d 'tmux swap-pane to current pane to the target pane'
+    tmux display-panes "'%%'"
+    read -n 1 -p 'echo "Target pane number? "' -l num
+    tmux swap-pane -s $num
+end
 
 alias ag "ag --pager='less -RM -FX -s'"
 # ag work with less with color and scrolling

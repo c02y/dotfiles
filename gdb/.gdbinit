@@ -1535,6 +1535,23 @@ Delete multiple breakpoints in one line can use builtin `del N1 N2...`
 Usage: bm a1 a2 a3...
 end
 
+define wai
+    frame
+end
+document wai
+    Show the current line
+end
+define timeme
+    python import time
+    python starttime=time.time()
+	n
+    python print("Previous takes: " + (str)(time.time()-starttime) + "s")
+end
+document timeme
+    Measure executing time of next function
+    Usage: timeme or ti
+end
+
 # Start ------------------------------------------------------------------------
 
 python Dashboard.start()
