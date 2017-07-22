@@ -121,8 +121,17 @@ function fish_prompt --description 'Write out the prompt'
     set_color normal
     echo ' '
 end
+function measure_time
+    # from joker plugin https://github.com/fisherman/joker
+    if test "$CMD_DURATION" -gt 1000 # 1s
+        set -l duration_copy $CMD_DURATION
+        set -l duration (echo $CMD_DURATION | humanize_duration)
+        printf (set_color red)"($duration)"(set_color normal)
+    end
+end
 function fish_right_prompt -d "Write out the right prompt"
     # set_color -o black
+    measure_time
     set_color normal
     echo -n '['
     echo -n (date +%T)
@@ -368,7 +377,7 @@ function fd --description 'find the files by name, if no argv is passed, use the
     find $argv[1] -name $argv[2]
 end
 function ft --description 'find the temporary files such as a~ or #a or .a~, if no argv is passed, use the current dir'
-    find $argv[1] \( -name "*~" -o -name "#?*#" -o -name ".#?*" -o -name "*.swp" \) | xargs -r ls -lhd
+    find $argv[1] \( -name "*~" -o -name "#?*#" -o -name ".#?*" -o -name "*.swp" \) | xargs -r ls -lhd | nl
 
 end
 function ftr --description 'delete the files found by ft'
@@ -376,7 +385,7 @@ function ftr --description 'delete the files found by ft'
 
 end
 function ftc --description 'find the temporary files such as a~ or #a or .a~, if no argv is passed, use the current dir, not recursively'
-    find $argv[1] -maxdepth 1 \( -name "*~" -o -name "#?*#" -o -name ".#?*" -o -name "*.swp" \) | xargs -r ls -lhd
+    find $argv[1] -maxdepth 1 \( -name "*~" -o -name "#?*#" -o -name ".#?*" -o -name "*.swp" \) | xargs -r ls -lhd | nl
 end
 function ftcr --description 'delete the files found by ftc'
     find $argv[1] -maxdepth 1 \( -name "*~" -o -name "#?*#" -o -name ".#?*" -o -name "*.swp" \) | xargs rm -rfv
@@ -508,10 +517,10 @@ function t-ca --description '`t-ca dir vcs` to include .svn/.git, or `t-ca dir` 
     end
 end
 alias dt 'dtrx -v '
-# using unar-- https://unarchiver.c3.cx/unarchiver is available
+# using unar -- https://unarchiver.c3.cx/unarchiver is available
 # if the code is not working, try GBK or GB18030
 # unzip zip if it is archived in Windows and messed up characters with normal unzip
-alias unzipc 'unzip -O CP936' 
+alias unzipc 'unzip -O CP936'
 function debx --description 'extract the deb package'
     set pkgname (basename $argv[1] .deb)
     mkdir -v $pkgname
@@ -727,18 +736,23 @@ function gitpa --description 'git pull all in dir using `fing dir`'
 end
 
 # svn
-alias sp 'svn update; and echo "----status----"; svn status'
-alias ss 'svn status'
-alias sd 'svn diff'
-alias sc 'svn commit -m'
-alias sll 'alias svn log -v -l 10 | less'
-function sl --description 'view the svn log with less, if arg not passed, using current dir'
+alias svnp 'svn update; and echo "---status---"; svn status'
+alias svnpn 'svn update ~/NVR.ori/Code'
+alias svns 'svn status'
+alias svnc 'svn commit -m'
+alias svnd 'svn diff | less'
+alias svnll 'svn log -v -l 10 | less'
+function svncf -d 'view old version of a file'
+    svn cat -r $argv[1] $argv[2] | less
+end
+function svnl --description 'view the svn log with less, if arg not passed, using current dir'
     svn log -v $argv[1] | /usr/bin/less
 end
-function sdd --description 'show the svn diff detail'
+function svnlh
+    svn log -v $argv[1] | head -$argv[2]
+end
+function svndd --description 'show the svn diff detail'
     set Revision (svn info | awk '/Revision/ {print $2}')
-    # or `svn info | grep Revision | cut -d ' ' -f 2 | read Revision`
-    # or `svn info | grep Revision | egrep -o '[0-9]+'| read Revision`
     if test (echo $argv[1] | grep ':' -c) -eq 1
         # if argv is like 1000:1010, then svn diff the two revisions
         svn diff -r $argv[1] | less
@@ -752,14 +766,14 @@ function sdd --description 'show the svn diff detail'
             set Rev (echo $Revision-$argv[1]+1 | bc)
             svn diff -c $Rev | less
         end
-    else
-        # if no argv like 'sdd', then svn diff the last commit
+    else if test (svn status | wc -l) != 0
+        # show the diff if local differs from server
+        svn diff
+    else if test (count $argv) = 0
+        # if no argv is given, then svn diff the last commit
         # equals to `sdd` == `sdd 1`
         svn diff -r PREV | less
     end
-end
-function slh
-    svn log -v $argv[1] | head -$argv[2]
 end
 
 alias hs 'sudo cp -v ~/Public/hosts/hosts /etc/hosts'
@@ -958,10 +972,10 @@ function ut -d 'toggle -- use data network sharing through Android device throug
             echo Network is off!
             if test (pgrep dhclient | wc -l) != 0 # This will be useless since the latter kill
                 echo dhclient is already running, Kill it!
-                sudo pkill dhclient
+                echo "      " | sudo -p "" -S pkill dhclient
             end
             echo Starting `dhclient usb0`
-            sudo dhclient usb0
+            echo "      " | sudo -p "" -S dhclient usb0
             # something it will fail, output error message like
             # dhclient(26477) is already running - exiting....
             if test $status != 0
@@ -969,18 +983,18 @@ function ut -d 'toggle -- use data network sharing through Android device throug
                 sudo dhclient
                 sudo pkill dhclient
             end
-            timeout 1 ping -c 1 www.baidu.com ^ /dev/null > /dev/null # NOTE: stdout and stderr redirect
-            if test $status != 0
-                echo Network is still off.
-            else
-                echo Network is on!
-            end
+            # timeout 2 ping -c 2 www.baidu.com ^ /dev/null > /dev/null # NOTE: stdout and stderr redirect
+            # if test $status != 0
+            #     echo Network is still off.
+            # else
+            #     echo Network is on!
+            # end
         else
             echo Network is already on!
         end
-    end
-    if test (pgrep dhclient | wc -l) != 0
-        sudo pkill dhclient  # this has no effect on the network, just make next usbt quicker
+        if test (pgrep dhclient | wc -l) != 0
+            sudo pkill dhclient  # this has no effect on the network, just make next usbt quicker
+        end
     end
 end
 
