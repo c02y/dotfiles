@@ -15,8 +15,24 @@ map <S-Right> :tabmove! +1<CR>
 map <S-Left>  :tabmove! -1<CR>
 nmap h <C-o>
 nmap l <C-i>
-nmap <C-c> :st<CR>
+" default C-c is not working
+nmap <C-c> :stop<cr>
+" `Q` to close current tab and focus on the previous one instead the left like `d`
+nmap Q :q<cr>
+" C-v to paste, redefine C-c here to copy is not working since C-c to stop loading
 noremap <C-v> <C-v><C-v>
+"
+" open new tab next to the current tab
+js<<EOF
+	function tabnextto(args) {
+		let n = gBrowser.tabContainer.selectedIndex;
+		liberator.execute(':tabopen ' + args);
+		liberator.execute(':tabmove ' + (n + 1));
+	}
+EOF
+command! tabnextto -nargs=* -complete=url :js tabnextto('<args>')
+nnoremap t :tabnextto<Space>
+"
 
 set gui=none,navigation,tabs
 set animations='true'

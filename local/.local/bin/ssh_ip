@@ -1,0 +1,21 @@
+#!/bin/bash
+# this file is for tmux config to show pane_tty<-->IP address
+
+# tmux: pane_tty: pts/5
+pane_tty=$(tmux display-message -p '#{pane_tty}' | cut -c 6-)
+# echo pane_tty:$pane_tty
+# get all ssh tty and command: pts/5 sudo ssh IP_addr
+# psg " ssh " | awk '{$1=$2=$3=$4=$5=$6=$8=""}1'
+
+# get IP address according to pane_tty
+#ip_addr=$(ps -ef | grep -v grep | grep "sudo ssh " | grep $pane_tty | awk '{$1=$2=$3=$4=$5=$6=$7=""}1' | awk 'NF>1{print $NF}')
+#ip_addr=$(ps -eo tty,command| grep -v grep | grep "sudo ssh " | grep $pane_tty | awk 'NF>1{print $NF}')
+#ip_addr=$(ps -o command -t $pane_tty | grep "sudo ssh " | awk 'NF>1{print $NF}')
+ip_addr=$(pgrep -t $pane_tty -l -f "sudo ssh " | awk 'NF>1{print $NF}')
+
+if [[ "$ip_addr" != "" ]]; then
+    echo "<$ip_addr>"
+else
+    echo # localhost
+fi
+

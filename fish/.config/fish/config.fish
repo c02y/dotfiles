@@ -57,10 +57,12 @@ function fish_user_key_bindings
     # without this line, C-l will not print the path at top of the screen
     #bind \cl 'clear; commandline -f repaint; path_prompt'
     #bind \cl ""
-    bind \cl "tput reset; commandline -f repaint; path_prompt"
+    # bind \cl "tput reset; commandline -f repaint; path_prompt"
+    bind \cl "tput reset; commandline -f repaint"
     bind \cd delete-or-ranger
 end
-alias clr="echo -e '\033c\c'; path_prompt"
+# alias clr="echo -e '\033c\c'; path_prompt"
+alias clr="echo -e '\033c\c'"
 
 alias rg 'ranger'
 alias fpp '~/Public/PathPicker/fpp'
@@ -106,7 +108,7 @@ function fish_prompt --description 'Write out the prompt'
 
     # if the PWD is not the same as the PWD of previous prompt, print path part
     if test "$OLDPWD" != "$PWD"
-        path_prompt
+        # path_prompt
     end
 
     if test $last_status != 0
@@ -157,10 +159,12 @@ alias ls. 'ls -A'
 alias lsf 'ls -A1' # list only filenames, same as `ls -A | sort
 alias lsl 'ls -1' # list the names of content line by line without attributes
 alias lsL 'ls -A1' # like lsl but including hiddens ones (no . or ..)
-function lsx --description 'cp the full path of a file to sytem clipboard'
-    readlink -nf $argv | x
-    x -o
-    echo \n---- Path Copied to Clipboard! ----
+function lsx --description 'cp the full path of a file/dir to sytem clipboard'
+    if test -f $argv -o -d $argv
+        readlink -fn $argv | xc
+        xc -o
+        echo \n---- Path Copied to Clipboard! ----
+    end
 end
 function lst
     ls --color=yes $argv[1] --sort=time -lh | nl -v 0| less
@@ -651,7 +655,7 @@ end
 
 # xclip, get content into clipboard, echo file | xclip
 alias xp 'xclip'
-alias x 'xclip -selection c'
+alias xc 'xclip -selection c'
 
 alias km 'sudo kermit'
 
@@ -701,7 +705,7 @@ alias e2 'emx ~/Recentchange/TODO'
 function fsr --description 'Reload your Fish config after configuration'
     source ~/.config/fish/config.fish # fsr
     echo .fishrc is reloaded!
-    path_prompt
+    # path_prompt
 end
 # C-w to reload ~/.fishrc
 #bind \cs fsr
@@ -780,12 +784,12 @@ alias hs 'sudo cp -v ~/Public/hosts/hosts /etc/hosts'
 
 # https://stackoverflow.com/questions/10408816/how-do-i-use-the-nohup-command-without-getting-nohup-out
 function meld --description 'lanuch meld from terminal without block it'
-    bash -c "(nohup /usr/bin/meld $argv </dev/null >/dev/null 2>&1 &)"
+    bash -c "(nohup /usr/bin/meld \"$argv\" </dev/null >/dev/null 2>&1 &)"
 end
 # okular
-alias ok 'bash -c "(nohup okular $argv </dev/null >/dev/null 2>&1 &)"'
-alias ima 'bash -c "(nohup gwenview $argv </dev/null >/dev/null 2>&1 &)"'
-alias op 'bash -c "(nohup xdg-open $argv </dev/null >/dev/null 2>&1 &)"'
+alias ok 'bash -c "(nohup okular \"$argv\" </dev/null >/dev/null 2>&1 &)"'
+alias ima 'bash -c "(nohup gwenview \"$argv\" </dev/null >/dev/null 2>&1 &)"'
+alias op 'bash -c "(nohup xdg-open \"$argv\" </dev/null >/dev/null 2>&1 &)"'
 
 alias fcg 'fc-list | ag '
 
@@ -812,6 +816,7 @@ alias ptp 'ptipython'
 alias epub 'ebook-viewer --detach'
 alias time 'time -p'
 alias ex 'exit'
+alias x 'exit'
 
 alias p 'ping -c 5'
 alias ping 'ping -c 5'
@@ -913,27 +918,59 @@ function cat
 end
 
 function deff
-    sdcv $argv | less
-end
-alias SDCV 'sdcv -u "WordNet" -u "牛津现代英汉双解词典" -u "朗道英汉字典5.0"'
-function defc --description 'search the defnition of a word and save it into personal dict if it is the first time you search'
-    ag -w $argv ~/.sdcv_history >> /dev/null
-    or begin # new, not searched the dict before, save
-        SDCV $argv | ag "Nothing similar" >> /dev/null
-        or begin # the word found
-            if not test -e ~/.sdcv_rem
-                touch ~/.sdcv_rem
-            end
-            echo ---------------------------------------------- >> ~/.sdcv_rem
-            echo -e \< $argv \> >> ~/.sdcv_rem
-            echo ---------------------------------------------- >> ~/.sdcv_rem
-            SDCV $argv >> ~/.sdcv_rem
-            echo ---------------------------------------------- >> ~/.sdcv_rem
-            echo >> ~/.sdcv_rem
+    echo "-1\n" | sdcv $argv | head -n 1 | grep ", similar to " ^/dev/null >/dev/null
+    if test $status = 0         # Found exact words or similar
+        echo "-1\n" | sdcv $argv | head -n 2 | tail -n 1 | grep "^-->" ^/dev/null >/dev/null
+        if test $status = 0     # Exact definition
+            sdcv $argv
+        else                    # similar
+            echo "-1\n" | sdcv $argv | head -n 1 | grep $argv
+            # 1th, send -1 to prompt; 3th, delete last line; 4th, delete first line;
+            # 5th, get last part after ">"; 5th & 6th, delete duplicates;
+            # 7th, combine and separate multiple lines (words) with ", "
+            # 8th, delete last ", "
+            echo "-1\n" | sdcv $argv | head -n -1 | tail -n +2 | cut -d ">" -f 2 | sort | uniq | awk 'ORS=", "' | sed 's/, $/\n/'
         end
+    else                        # Nothing similar
+        sdcv $argv
     end
-    SDCV $argv
-    sort -u -o ~/.sdcv_history ~/.sdcv_history
+    # NOTE: double quotes in sed, single quotes does not work
+    sed -i "/\<$argv\>/d" ~/.sdcv_history # delete the word in ~/.sdcv_history
+end
+function SDCV
+    sdcv -u "WordNet" -u "牛津现代英汉双解词典" -u "朗道英汉字典5.0" $argv
+    sort -u -o ~/.sdcv_history ~/.sdcv_history # sort and unique them
+end
+function defc_new -d 'Check if the word is new in ~/.sdcv_history, if new add it'
+    grep -w $argv ~/.sdcv_history >> /dev/null
+    or begin # new, not searched the dict before, save
+        if not test -e ~/.sdcv_rem
+            touch ~/.sdcv_rem
+        end
+        echo ---------------------------------------------- >> ~/.sdcv_rem
+        echo -e \< $argv \> >> ~/.sdcv_rem
+        echo ---------------------------------------------- >> ~/.sdcv_rem
+        SDCV $argv >> ~/.sdcv_rem
+        echo ---------------------------------------------- >> ~/.sdcv_rem
+        echo >> ~/.sdcv_rem
+    end
+end
+function defc --description 'search the defnition of a word and save it into personal dict if it is the first time you search'
+    echo "-1\n" | SDCV $argv | head -n 1 | grep ", similar to " ^/dev/null >/dev/null
+    if test $status = 0         # Found exact words or similar
+        echo "-1\n" | SDCV $argv | head -n 2 | tail -n 1 | grep "^-->" ^/dev/null >/dev/null
+        if test $status = 0     # Exact definition
+            SDCV $argv
+            defc_new $argv
+        else                    # similar
+            echo "-1\n" | SDCV $argv | head -n 1 | grep $argv
+            echo "-1\n" | SDCV $argv | head -n -1 | tail -n +2 | cut -d ">" -f 2 | sort | uniq | awk 'ORS=", "' | sed 's/, $/\n/'
+            sed -i "/\<$argv\>/d" ~/.sdcv_history # delete the wrong word in ~/.sdcv_history
+        end
+    else                        # Nothing similar
+        SDCV $argv
+        sed -i "/\<$argv\>/d" ~/.sdcv_history # delete the wrong word in ~/.sdcv_history
+    end
 end
 
 # count chars of lines of a file
@@ -1000,7 +1037,39 @@ end
 
 alias um 'pumount /run/media/chz/UDISK'
 alias mo 'pmount /dev/sdb4 /run/media/chz/UDISK'
-
+function mo-bak
+    set -l done 1
+    while test $done = 1
+        command df | grep -v grep | grep -i UDISK  ^/dev/null >/dev/null
+        if test $status = 1         # no UDISK in df, new or unplug
+            set -l device
+            if test -b /dev/sdb4
+                set device /dev/sdb4
+            else if test -b /dev/sdc4
+                set device /dev/sdc4
+            else
+                echo Please plug your USB drive!!!
+                return
+            end
+            pmount $device /media/UDISK
+            df
+            return
+        else                        # UDISK is in df, right or not-umount old
+            set -l device (command df | grep -v grep | grep -i UDISK | awk '{print $1}')
+            if not test -b $device
+                pumount /media/UDISK ^/dev/null >/dev/null
+                if test $status != 0
+                    echo $device -- /media/UDISK is busy.
+                    lsof | ag UDISK
+                    return
+                end
+            else                    # right
+                echo Device /dev/sdb4 is already mounted to /media/UDISK
+                return
+            end
+        end
+    end
+end
 
 alias ytd 'youtube-dl -citw '
 
@@ -1031,8 +1100,9 @@ function tka -d 'tmux kill-session except given session[s]'
         echo Left sessions:
         tmux ls
     else
-        read -l -p 'echo "Kill all tmux sessions including this one? [y/N]"' anwser
-        if test "$answer" = "y"
+        read -n 1 -p 'echo "Kill all tmux sessions including this one? [y/N]" ' -l answer
+        echo answer: "$answer",
+        if test "$answer" = "y" -o "$answer" = " "
             tmux kill-server        # kill all sessions (including current one)
         end
     end

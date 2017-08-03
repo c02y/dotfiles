@@ -1,0 +1,53 @@
+#!/bin/bash
+
+# date1=`date +%s`; while true; do
+#    echo -ne "$(date -u --date @$((`date +%s` - $date1)) +%H:%M:%S)\r";
+# done
+
+# seconds=300; date1=$((`date +%s` + $seconds));
+# while [ "$date1" -ge `date +%s` ]; do
+#   echo -ne "$(date -u --date @$(($date1 - `date +%s` )) +%H:%M:%S)\r";
+# done
+
+countdown() {
+	date1=$((`date +%s` + $1));
+	while [ "$date1" -ge `date +%s` ]; do
+		echo -ne "[$(date -u --date @$(($date1 - `date +%s`)) +%H:%M:%S)] \r";
+		sleep 1
+	done
+}
+
+stopwatch() {
+	date1=`date +%s`;
+	while true; do
+		echo -ne "[$(date -u --date @$((`date +%s` - $date1)) +%H:%M:%S)] \r";
+		sleep 1
+	done
+}
+
+# echo -ne "$(date -u --date @$((`date +%s` - $date1)) +%H:%M:%S)\r";
+
+if [ "$#" -gt 0 ]; then
+	if [ "$1" = "-c" ]; then
+		if [ "$#" -eq 2 ]; then
+			case $2 in
+				''|*[!0-9]*	) echo "[Not a number] ";;
+				*			) countdown $2;;
+			esac
+		else
+			read -p "Seconds to countdown? [60s] " seconds
+			case "$seconds" in
+				""			) countdown 60;;
+				''|*[!0-9]*	) echo "[Not a number] ";;
+				*			) countdown $seconds;;
+			esac
+		fi
+	elif [ "$1" = "-h" ] || [ "$1" = "--help" ]; then
+		echo "Usage: 1. timer -- stopwatch starts from 0"
+		echo "       2. timer -c num -- countdown starts from num seconds, default 60s if num is not given"
+	else
+		timer -h
+	fi
+else
+	stopwatch
+fi
