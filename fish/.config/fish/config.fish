@@ -5,6 +5,7 @@ set -gx GOPATH $GOPATH ~/GoPro
 # set -gx PATH $HOME/anaconda3/bin ~/.local/share/arm-linux/bin ~/.local/bin ~/.linuxbrew/bin $GOPATH/bin ~/bin $PATH
 set -gx PATH $HOME/anaconda3/bin $HOME/.local/bin $GOPATH/bin /usr/local/bin /usr/local/liteide/bin /bin /sbin /usr/bin /usr/sbin $PATH
 
+set -gx MANPATH "$MANPATH:$HOME/anaconda3/share/man"
 
 # for ~/.linuxbrew/ (brew for linux to install programs)
 set -gx LD_LIBRARY_PATH $LD_LIBRARY_PATH ~/.linuxbrew/Library
@@ -57,12 +58,10 @@ function fish_user_key_bindings
     # without this line, C-l will not print the path at top of the screen
     #bind \cl 'clear; commandline -f repaint; path_prompt'
     #bind \cl ""
-    # bind \cl "tput reset; commandline -f repaint; path_prompt"
-    bind \cl "tput reset; commandline -f repaint"
+    bind \cl "tput reset; commandline -f repaint; path_prompt"
     bind \cd delete-or-ranger
 end
-# alias clr="echo -e '\033c\c'; path_prompt"
-alias clr="echo -e '\033c\c'"
+alias clr="echo -e '\033c\c'; path_prompt"
 
 alias rg 'ranger'
 alias fpp '~/Public/PathPicker/fpp'
@@ -81,26 +80,33 @@ function g++
 end
 
 function path_prompt
-    set_color -ru
-    # User
-    set_color $fish_color_user
-    echo -n $USER
-    # set_color normal
+    # check if tmux is running in current terminal/tty
+    if test $TMUX
+        return
+    else
+        set_color -ru
+        # User
+        set_color $fish_color_user
+        echo -n $USER
+        # set_color normal
 
-    echo -n '@'
+        echo -n '@'
 
-    # Host
-    set_color $fish_color_host
-    echo -n (hostname -s)
-    # set_color normal
+        # Host
+        set_color $fish_color_host
+        echo -n (hostname -s)
+        # set_color normal
 
-    echo -n ':'
+        echo -n ':'
 
-    # PWD
-    set_color -o yellow
-    echo -n (prompt_pwd)
-    set_color normal
-    echo
+        # PWD
+        #set_color $fish_color_cwd
+        set_color -o yellow
+        echo -n (prompt_pwd)
+        set_color normal
+
+        echo
+    end
 end
 function fish_prompt --description 'Write out the prompt'
     h
@@ -108,7 +114,7 @@ function fish_prompt --description 'Write out the prompt'
 
     # if the PWD is not the same as the PWD of previous prompt, print path part
     if test "$OLDPWD" != "$PWD"
-        # path_prompt
+        path_prompt
     end
 
     if test $last_status != 0
@@ -507,7 +513,10 @@ alias t-ta 'tar tvfa' # the above three can just use this one to auto choose the
 alias t-xbz2 'tar xvfj'
 alias t-xgz 'tar xvfz'
 alias t-xxz 'tar xvfJ' # extract
-alias t-xa 'tar xvfa' # the above three can jsut use this one to auto choose the right one
+function t-xa -d 'tar xvfa archive and cd into the directory'
+    set -l dir (tar xvfa $argv | tail -n 1 | xargs dirname)
+    cd $dir
+end
 alias t-cbz2 'tar cvfj'
 alias t-cgz 'tar cvfz'
 alias t-cxz 'tar cvfJ $argv[1].tar.xz $argv[1]'
@@ -705,7 +714,7 @@ alias e2 'emx ~/Recentchange/TODO'
 function fsr --description 'Reload your Fish config after configuration'
     source ~/.config/fish/config.fish # fsr
     echo .fishrc is reloaded!
-    # path_prompt
+    path_prompt
 end
 # C-w to reload ~/.fishrc
 #bind \cs fsr
@@ -784,7 +793,24 @@ alias hs 'sudo cp -v ~/Public/hosts/hosts /etc/hosts'
 
 # https://stackoverflow.com/questions/10408816/how-do-i-use-the-nohup-command-without-getting-nohup-out
 function meld --description 'lanuch meld from terminal without block it'
-    bash -c "(nohup /usr/bin/meld \"$argv\" </dev/null >/dev/null 2>&1 &)"
+    # You could just use
+    # bash -c "(nohup /usr/bin/meld $argv </dev/null >/dev/null 2>&1 &)"
+    # But it will not work if the name of arguments contains space
+    # \"$argv\" like in `ok` does not work for multiple arguments even no space
+    set -l argc (count $argv)
+    switch $argc
+        case 0
+            /usr/bin/meld
+        case 1
+            echo "This is version control comparison, use `command meld file/dir`"
+        case 2
+            bash -c "(nohup /usr/bin/meld \"$argv[1]\" \"$argv[2]\" </dev/null >/dev/null 2>&1 &)"
+        case 3
+            bash -c "(nohup /usr/bin/meld \"$argv[1]\" \"$argv[2]\" \"$argv[3]\" </dev/null >/dev/null 2>&1 &)"
+        case '*'
+            echo Wrong arguments!!!
+    end
+    return
 end
 # okular
 alias ok 'bash -c "(nohup okular \"$argv\" </dev/null >/dev/null 2>&1 &)"'
@@ -818,6 +844,7 @@ alias time 'time -p'
 alias ex 'exit'
 alias x 'exit'
 
+alias sss 'ps -eo tty,command | grep -v grep | grep "sudo ssh "'
 alias p 'ping -c 5'
 alias ping 'ping -c 5'
 function po -d 'Test the connection of outside internet'
@@ -1088,6 +1115,10 @@ function tk -d 'tmux kill-session single/multiple sessions'
     end
 end
 function tka -d 'tmux kill-session except given session[s]'
+    if test (psg tmux | wc -l ) = 0
+        echo "No tmux server is running!!!"
+        return
+    end
     if test (count $argv) -gt 0
         set -l sid (tl | nl | awk '{print $2}' | sed 's/://g')
         for i in $sid
@@ -1100,8 +1131,7 @@ function tka -d 'tmux kill-session except given session[s]'
         echo Left sessions:
         tmux ls
     else
-        read -n 1 -p 'echo "Kill all tmux sessions including this one? [y/N]" ' -l answer
-        echo answer: "$answer",
+        read -n 1 -l -p 'echo "Kill all tmux sessions including this one? [y/N]"' answer
         if test "$answer" = "y" -o "$answer" = " "
             tmux kill-server        # kill all sessions (including current one)
         end

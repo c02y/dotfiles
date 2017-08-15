@@ -7,7 +7,7 @@
 # http://www.tuicool.com/articles/Una6RjJ
 # sudo yum install ppp pptp pptp-setup
 
-sudo pptpsetup --create ytvpn --server p1.hk2.seejump.com --username codychan --password ch19661002z -encrypt --start
+sudo pptpsetup --create ytvpn --server p1.hk2.seejump.com --username codychan --password your_pswd -encrypt --start
 
 # if error:
 # sudo vim /etc/ppp/chap-secrets
