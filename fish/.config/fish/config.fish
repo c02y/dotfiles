@@ -1,14 +1,16 @@
 # ~/.fishrc linked to ~/.config/fish/config.fish
 ### you can use `fish_config` to config a lot of things in WYSIWYG way in browser
 
-set -gx GOPATH $GOPATH ~/GoPro
+#set -gx GOPATH $GOPATH ~/GoPro
 # set -gx PATH $HOME/anaconda3/bin ~/.local/share/arm-linux/bin ~/.local/bin ~/.linuxbrew/bin $GOPATH/bin ~/bin $PATH
-set -gx PATH $HOME/anaconda3/bin $HOME/.local/bin $GOPATH/bin /usr/local/bin /usr/local/liteide/bin /bin /sbin /usr/bin /usr/sbin $PATH
+#set -gx PATH $HOME/anaconda3/bin $HOME/.local/bin $GOPATH/bin /usr/local/bin /usr/local/liteide/bin /bin /sbin /usr/bin /usr/sbin $PATH
+set -gx PATH $HOME/anaconda3/bin $HOME/.local/bin /usr/local/bin /bin /sbin /usr/bin /usr/sbin $PATH
 
-set -gx MANPATH "$MANPATH:$HOME/anaconda3/share/man"
+# set -gx MANPATH "$MANPATH:$HOME/anaconda3/share/man"
+#set -gx MANPATH $MANPATH "$HOME/anaconda3/share/man"
 
 # for ~/.linuxbrew/ (brew for linux to install programs)
-set -gx LD_LIBRARY_PATH $LD_LIBRARY_PATH ~/.linuxbrew/Library
+#set -gx LD_LIBRARY_PATH $LD_LIBRARY_PATH ~/.linuxbrew/Library
 
 # do not use the format above
 # http://vivafan.com/2013/03/%E3%80%8Cfish%E3%80%8D%E3%82%B7%E3%82%A7%E3%83%AB%E3%82%92%E5%AE%9F%E9%9A%9B%E3%81%AB%E4%BD%BF%E3%81%86%E3%81%9F%E3%82%81%E3%81%AB/
@@ -16,67 +18,20 @@ set -gx LD_LIBRARY_PATH $LD_LIBRARY_PATH ~/.linuxbrew/Library
 
 # remove the greeting message
 set fish_greeting
-
+set fish_new_pager 1
 set -gx fish_color_user magenta
 set -gx fish_color_host yellow
 
-if test -f $HOME/.autojump/share/autojump/autojump.fish;
-    . $HOME/.autojump/share/autojump/autojump.fish;
-    alias js 'j --purge; j -s'
+# start fish without configuration
+alias fi "sh -c 'env HOME=\$(mktemp -d) fish'"
+
+
+# do `h` in the new one after switching terminal session
+function h --on-process-exit %self
+    history --merge
 end
-
-. $HOME/.config/fish/functions/done.fish
-
-# LS_COLORS, color for ls command
-# http://linux-sxs.org/housekeeping/lscolors.html
-# http://www.bigsoft.co.uk/blog/index.php/2008/04/11/configuring-ls_colors
-set -gx LS_COLORS 'ex=01;33:ln=96:*~=90:*.swp=90:*.bak=90:*.o=90:*#=90'
-
-# fix the `^[]0;fish  /home/chz^G` message in shell of Emacs
-if test "$TERM" = "dumb"
-    function fish_title
-    end
-end
-
-function dirp --on-event fish_preexec
-    set -g OLDPWD $PWD
-end
-
-function delete-or-ranger -d 'modified from delete-or-exit, delete one char if in command, execute ranger instead exiting the current terminal otherwise'
-    set -l cmd (commandline)
-
-    switch "$cmd"
-        case ''
-            ranger
-
-        case '*'
-            commandline -f delete-char
-    end
-end
-# all bindings should be put inside the single one fish_user_key_bindings
-function fish_user_key_bindings
-    # without this line, C-l will not print the path at top of the screen
-    #bind \cl 'clear; commandline -f repaint; path_prompt'
-    #bind \cl ""
-    bind \cl "tput reset; commandline -f repaint; path_prompt"
-    bind \cd delete-or-ranger
-end
-alias clr="echo -e '\033c\c'; path_prompt"
-
-alias rg 'ranger'
-alias fpp '~/Public/PathPicker/fpp'
-alias ga 'glances -t 1 --hide-kernel-threads -b --disable-irq --enable-process-extended'
-alias dst 'dstat -d -n'
-
-# make the make and gcc/g++ color
-function make
-    /usr/bin/make -B $argv 2>&1 | grep --color -iP "\^|warning:|error:|undefined|"
-end
-function gcc
-    /usr/bin/gcc $argv 2>&1 | grep --color -iP "\^|warning:|error:|undefined|"
-end
-function g++
-    /usr/bin/g++ $argv 2>&1 | grep --color -iP "\^|warning:|error:|Undefined|"
+function his
+    history | ag $argv[1]
 end
 
 function path_prompt
@@ -137,21 +92,142 @@ function measure_time
         printf (set_color red)"($duration)"(set_color normal)
     end
 end
+set -g __fish_git_prompt_show_informative_status yes
+set -g __fish_git_prompt_showcolorhints true
+set -g enable_fish_vcs_prompt 1
+function fdv -d 'Once prompt is slow, disable __fish_vcs_prompt using this function'
+    set -g enable_fish_vcs_prompt 0
+end
 function fish_right_prompt -d "Write out the right prompt"
     # set_color -o black
     measure_time
-    set_color normal
+    set_color -o normal
     echo -n '['
     echo -n (date +%T)
     echo -n ']'
 
-    __informative_git_prompt
+    # builtin support for git/svn/hg
+    if test $enable_fish_vcs_prompt -eq 1
+        __fish_vcs_prompt
+    end
+
     set_color $fish_color_normal
 end
-###################################################################
 
-set fish_new_pager 1
+function fsr --description 'Reload your Fish config after configuration'
+    . ~/.config/fish/config.fish # fsr
+    echo .fishrc is reloaded!
+    path_prompt
+end
 
+# tmux related
+alias t 'tmux a'
+alias tl 'tmux ls'
+alias tl 'tmux ls'
+alias tls 'tmux list-panes -s'
+function tk -d 'tmux kill-session single/multiple sessions'
+    if test (count $argv) -gt 0
+        for i in $argv
+            tmux kill-session -t $i
+        end
+    else
+        echo "Need target sessions"
+    end
+end
+function tka -d 'tmux kill-session except given session[s]'
+    if test (ps -ef | grep -v grep | grep -i tmux | wc -l ) = 0
+        echo "No tmux server is running!!!"
+        return
+    end
+    if test (count $argv) -gt 0
+        set -l sid (tl | nl | awk '{print $2}' | sed 's/://g')
+        for i in $sid
+            if not contains $i $argv
+                tmux kill-session -t $i
+                echo Tmux session $i is killed
+            end
+        end
+        echo \n--------------\n
+        echo Left sessions:
+        tmux ls
+    else
+        read -n 1 -l -p 'echo "Kill all tmux sessions including this one? [y/N]"' answer
+        if test "$answer" = "y" -o "$answer" = " "
+            tmux kill-server        # kill all sessions (including current one)
+        end
+    end
+end
+# or just use 'M-c r', it is defiend in ~/.tmux.conf
+alias tsr 'tmux source-file ~/.tmux.conf; echo ~/.tmux.conf reloaded!'
+# this line will make the indentation of lines below it wrong, TODO: weird
+# alias tt 'tmux switch-client -t'
+function twp -d 'tmux swap-pane to current pane to the target pane'
+    tmux display-panes "'%%'"
+    read -n 1 -p 'echo "Target pane number? "' -l num
+    tmux swap-pane -s $num
+end
+
+if test -f $HOME/.autojump/share/autojump/autojump.fish;
+    source $HOME/.autojump/share/autojump/autojump.fish;
+    alias js 'j --purge; j -s'
+end
+# TODO: the following part will make fish print "No protocol specified" error line
+# source $HOME/.config/fish/functions/done.fish
+
+# LS_COLORS, color for ls command
+# http://linux-sxs.org/housekeeping/lscolors.html
+# http://www.bigsoft.co.uk/blog/index.php/2008/04/11/configuring-ls_colors
+set -gx LS_COLORS 'ex=01;33:ln=96:*~=90:*.swp=90:*.bak=90:*.o=90:*#=90'
+
+# fix the `^[]0;fish  /home/chz^G` message in shell of Emacs
+if test "$TERM" = "dumb"
+    function fish_title
+    end
+end
+
+function dirp --on-event fish_preexec
+    set -g OLDPWD $PWD
+end
+
+function delete-or-ranger -d 'modified from delete-or-exit, delete one char if in command, execute ranger instead exiting the current terminal otherwise'
+    set -l cmd (commandline)
+
+    switch "$cmd"
+        case ''
+            ranger
+
+        case '*'
+            commandline -f delete-char
+    end
+end
+# all bindings should be put inside the single one fish_user_key_bindings
+function fish_user_key_bindings
+    # without this line, C-l will not print the path at top of the screen
+    #bind \cl 'clear; commandline -f repaint; path_prompt'
+    #bind \cl ""
+    bind \cl "tput reset; commandline -f repaint; path_prompt"
+    bind \cd delete-or-ranger
+end
+alias clr="echo -e '\033c\c'; path_prompt"
+
+alias pm-sl 'sudo pm-suspend'   # 'Suspend to ram' in GUI buttom, power button to wake up
+alias pm-hb 'sudo pm-hibernate' # not work in old CentOS6
+
+alias rg 'ranger'
+alias fpp '~/Public/PathPicker/fpp'
+alias ga 'glances -t 1 --hide-kernel-threads -b --disable-irq --enable-process-extended'
+alias dst 'dstat -d -n'
+
+# make the make and gcc/g++ color
+function make
+    /usr/bin/make -B $argv 2>&1 | grep --color -iP "\^|warning:|error:|undefined|"
+end
+function gcc
+    /usr/bin/gcc $argv 2>&1 | grep --color -iP "\^|warning:|error:|undefined|"
+end
+function g++
+    /usr/bin/g++ $argv 2>&1 | grep --color -iP "\^|warning:|error:|Undefined|"
+end
 
 # User specific aliases and functions
 alias sl 'ls'
@@ -172,6 +248,19 @@ function lsx --description 'cp the full path of a file/dir to sytem clipboard'
         echo \n---- Path Copied to Clipboard! ----
     end
 end
+function xcp -d 'paste the echo string into system clipper board'
+    echo -n $argv | xc
+    echo "'$argv'"
+    echo Copied to system clipped board!!!
+end
+# pastebin service in command line
+function bxp -d 'pastebin service in command line'
+    eval $argv
+    eval $argv | curl -F 'f:1=<-' ix.io
+    # slow
+    # eval $argv | curl -F 'sprunge=<-' http://sprunge.us
+end
+#
 function lst
     ls --color=yes $argv[1] --sort=time -lh | nl -v 0| less
 end
@@ -212,7 +301,7 @@ function psg -d 'pgrep process'
     ps -ef | grep -v grep | grep -i $argv[1] | nl
 end
 # pkill will not kill processes matching pattern, you have to kill the PID
-function pk --description 'kill processes containg a pattern'
+function pk --description 'kill processes containing a pattern or PID'
     set result (psg $argv[1] | wc -l)
     if test $result = 0
         echo "No '$argv[1]' process is running!"
@@ -221,7 +310,7 @@ function pk --description 'kill processes containg a pattern'
         kill -9 $pid
         if test $status != 0 # Operation not permitted
             psg $pid | ag $argv[1] # list the details of the process need to be sudo kill
-            read -p 'echo "Use sudo to kill it? [Y/n]: "' -l arg
+            read -n 1 -p 'echo "Use sudo to kill it? [Y/n]: "' -l arg
             if test "$arg" = "" -o "$arg" = "y" -o "$arg" = " "
                 sudo kill -9 $pid
             end
@@ -233,62 +322,77 @@ function pk --description 'kill processes containg a pattern'
                 return
             end
             read -p 'echo "Kill all of them or specific PID? [y/N/index/pid/m_ouse]: "' -l arg2
-            if test "$arg2" = "y" -o "$arg2" = " "
-                set -l pids (psg $argv[1] | awk '{print $3}')
-                for i in $pids
-                    kill -9 $i
-                    if test $status != 0 # Operation not permitted
-                        psg $i | ag $argv[1]
-                        read -p 'echo "Use sudo to kill it? [Y/n]: "' -l arg3
-                        if test "$arg3" = "" -o "$arg3" = "y" -o "$arg3" = " "
-                            sudo kill -9 $i
+            if test $arg2       # it is not Enter directly
+                if not string match -q -r '^\d+$' $arg2 # if it is not integer
+                    if test "$arg2" = "y" -o "$arg2" = " "
+                        set -l pids (psg $argv[1] | awk '{print $3}')
+                        for i in $pids
+                            kill -9 $i
+                            if test $status != 0 # Operation not permitted
+                                psg $i | ag $argv[1]
+                                read -n 1 -p 'echo "Use sudo to kill it? [Y/n]: "' -l arg3
+                                if test "$arg3" = "" -o "$arg3" = "y" -o "$arg3" = " "
+                                    sudo kill -9 $i
+                                end
+                            end
+                        end
+                        return
+                    else if test "$arg2" = "m" # Use mouse the click the opened window
+                        # This may be used for frozen emacs specifically, -usr2 or -SIGUSR2
+                        # will turn on `toggle-debug-on-quit`, turn it off once emacs is alive again
+                        # Test on next frozen Emacs
+                        # kill -usr2 (xprop | grep -i pid | grep -Po "[0-9]+")
+                        # kill -SIGUSR2 (xprop | grep -i pid | grep -Po "[0-9]+")
+                        set -l pid_m (xprop | grep -i pid | grep -Po "[0-9]+")
+                        echo Pid is: $pid_m
+                        if test (psg $pid_m | grep -i emacs)
+                            kill -SIGUSR2 $pid_m
+                        else
+                            kill -9 $pid_m
+                        end
+                        return
+                    else if test "$arg2" = "n"
+                        return
+                    else
+                        echo Wrong Argument!
+                    end
+                else  # if it is digital/integer
+                    if test $arg2 -lt 20 # index number, means lines of searching result
+                        # The "" around $arg2 is in case of situations like 10 in 1002
+                        set -l pid_of_index (psg $argv[1] | awk 'NR == n' n=" $arg2 " | awk '{print $3}')
+                        if not test $pid_of_index
+                            echo $arg2 is not in the index of the list.
+                        else
+                            # return
+                            kill -9 $pid_of_index
+                            if test $status != 0 # kill failed
+                                psg $pid_of_index | ag $argv[1] # list the details of the process need to be sudo kill
+                                read -n 1 -p 'echo "Use sudo to kill it? [Y/n]: "' -l arg4
+                                if test $arg4 = "" -o "$arg4" = "y" -o "$arg4" = " "
+                                    # the first condition is to check Return key
+                                    sudo kill -9 $pid_of_index
+                                end
+                            end
+                        end
+                    else        # pid
+                        # The $arg2 here can be part of the real pid, such as typing only 26 means 126
+                        if test (psg $argv[1] | awk '{print $3}' | grep -i $arg2)
+                            set -l pid_part (psg $argv[1] | awk '{print $3}' | grep -i $arg2)
+                            kill -9 $pid_part
+                            if test $status -eq 1 # kill failed
+                                psg $pid_part | ag $argv[1] # list the details of the process need to be sudo kill
+                                read -n 1 -p 'echo "Use sudo to kill it? [Y/n]: "' -l arg5
+                                if test $arg5 = "" -o "$arg5" = "y" -o "$arg5" = " "
+                                    sudo kill -9 $pid_part
+                                end
+                            end
+                        else
+                            echo "PID '$arg2' is not in the pid of the list!"
+                            echo
                         end
                     end
                 end
-                return
-            else if test "$arg2" = "m" # Use mouse the click the opened window
-                # This may be used for frozen emacs specifically, -usr2 or -SIGUSR2
-                # will turn on `toggle-debug-on-quit`, turn it off once emacs is alive again
-                # Test on next frozen Emacs
-                # kill -usr2 (xprop | grep -i pid | grep -Po "[0-9]+")
-                # kill -SIGUSR2 (xprop | grep -i pid | grep -Po "[0-9]+")
-                set -l pid_m (xprop | grep -i pid | grep -Po "[0-9]+")
-                if test (psg $pid_m | grep -i emacs)
-                    kill -SIGUSR2 $pid_m
-                else
-                    kill -9 $pid_m
-                end
-                echo Pid is: $pid_m
-                return
-            else if test "$arg2" -a "$arg2" -lt 20 # index
-                # the fist cond in test means you typed something, RET will not pass
-                set -l pid_of_index (psg $argv[1] | awk 'NR == n' n=$arg2 | awk '{print $3}')
-                kill -9 $pid_of_index
-                if test $status != 0 # kill failed
-                    psg $pid_of_index | ag $argv[1] # list the details of the process need to be sudo kill
-                    read -p 'echo "Use sudo to kill it? [Y/n]: "' -l arg4
-                    if test $arg4 = "" -o "$arg4" = "y" -o "$arg4" = " "
-                        # the first condition is to check RET key
-                        sudo kill -9 $pid_of_index
-                    end
-                end
-            else if test $arg2 -a "$arg2" != "y" -a "$arg2" != "n" # pid
-                # the fist cond in test means you typed something, RET will not pass
-                if test (psg $argv[1] | awk '{print $3}' | grep -i $arg2)
-                    kill -9 $arg2
-                    if test $status -eq 1 # kill failed
-                        psg $arg2 | ag $argv[1] # list the details of the process need to be sudo kill
-                        read -p 'echo "Use sudo to kill it? [Y/n]: "' -l arg5
-                        if test $arg5 = "" -o "$arg5" = "y" -o "$arg5" = " "
-                            sudo kill -9 $arg2
-                        end
-                    end
-                else
-                    echo "PID or index '$arg2' is not in the list!"
-                    echo
-                end
-            else
-                # RET goes here, means `quit` like C-c
+            else # Return goes here, means `quit` like C-c or no nothing
                 return
             end
             sleep 1
@@ -415,7 +519,7 @@ function lcl --description 'clean latex temporary files such as .log, .aux'
     #   end
     # end
     # another way, more safe
-    for EXT in ind ilg toc out idx aux fls log fdb_latexmk
+    for EXT in ind ilg toc out idx aux fls log fdb_latexmk nav snm
         # ind ilg toc out idx aux fls log fdb_latexmk faq blg bbl brf nlo dvi ps lof pdfsync synctex.gz
         find . -name "*.$EXT" | xargs -r rm -rv
     end
@@ -435,7 +539,8 @@ function duss --description 'list and sort all the files recursively by size'
 end
 
 alias watd 'watch -d du --summarize'
-alias df 'df -h'
+# alias df '/bin/df -hT -x tmpfs -x devtmpfs '
+alias df 'df -Th | grep -v grep | grep -v tmpfs | grep -v boot | grep -v var | grep -v snapshots | grep -v opt | grep -v tmp | grep -v srv | grep -v usr | grep -v user'
 # stop less save search history into ~/.lesshst
 # or LESSHISTFILE=-
 # set -gx LESSHISTFILE /dev/null $LESSHISTFILE
@@ -500,7 +605,8 @@ alias ifw 'ifconfig wlp5s0'
 alias nll 'nload -u H wlp8s0'
 alias nh 'sudo nethogs wlp5s0'
 # =ifconfig= is obsolete! For replacement check =ip addr= and =ip link=. For statistics use =ip -s link=.
-alias ipp 'ip -4 -o address'
+# alias ipp 'ip -4 -o address'
+alias ipp 'ip addr'
 alias tf 'traff wlan0'
 alias m-c 'minicom --color=on'
 alias tree 'tree -Cshf'
@@ -514,8 +620,10 @@ alias t-xbz2 'tar xvfj'
 alias t-xgz 'tar xvfz'
 alias t-xxz 'tar xvfJ' # extract
 function t-xa -d 'tar xvfa archive and cd into the directory'
-    set -l dir (tar xvfa $argv | tail -n 1 | xargs dirname)
-    cd $dir
+    # set -l dir (tar xvfa $argv | tail -n 1 | xargs dirname)
+    tar xvfa $argv
+    # cd $dir
+    # echo cd $dir
 end
 alias t-cbz2 'tar cvfj'
 alias t-cgz 'tar cvfz'
@@ -548,10 +656,12 @@ function debx --description 'extract the deb package'
     echo ----in $pkgname ----
 end
 
-alias wget 'wget -c '
+alias wget 'wget -c --no-check-certificate'
 alias wgets 'wget -c --mirror -p --html-extension --convert-links'
 alias wt 'bash -c \'rm -rfv /tmp/Thun* 2>/dev/null\'; wget -c -P /tmp/ http://dl1sw.baidu.com/soft/9e/12351/ThunderMini_1.5.3.288.exe'
 alias wtt 'bash -c \'rm -rfv /tmp/Thun* 2>/dev/null\'; wget --connect-timeout=5 -c -P /tmp/ http://dlsw.baidu.com/sw-search-sp/soft/ca/13442/Thunder_dl_V7.9.39.4994_setup.1438932968.exe'
+
+alias a2 'aria2c -c -x 5 --check-certificate=false --file-allocation=none '
 
 # rpm
 alias rpmi 'sudo rpm -Uvh'
@@ -597,6 +707,23 @@ alias dnfs 'sudo dnf search'
 alias dnfsa 'sudo dnf search all'
 alias dnful 'sudo dnf history undo last'
 
+# zypper for openSUSE
+alias zppi 'sudo zypper install --details'
+alias zppiy 'sudo zypper install -y -v --details'
+alias zppif 'sudo zypper info'
+alias zppwf 'sudo zypper search --provides --match-exact' # dependencies
+alias zppr 'sudo zypper remove --details'
+alias zppld 'zypper lr -d' # list repo
+alias zpprr 'sudo zypper rr' # +repo_num in zppld to remove a repo
+alias zpplr 'sudo zypper lr -u --details'
+alias zpps 'sudo zypper search -v'
+alias zppsi 'sudo zypper search -i -v'
+alias zppsd 'sudo zypper search -d -C -i -v' # also search description and summaries
+alias zppu 'sudo zypper update --details'
+alias zppud 'sudo zypper dist-upgrade -l --details'
+alias zppdup 'sudo zypper dist-upgrade -l --details --no-recommends'
+alias zppca 'sudo zypper clean --all'
+
 # apt
 alias api 'sudo apt-get install -V'
 alias apu 'sudo apt-get update; sudo apt-get upgrade -V'
@@ -605,6 +732,7 @@ alias apar 'sudo apt-get autoremove -V'
 
 # donnot show the other info on startup
 alias gdb 'gdb -q '
+alias gdbx 'gdb -q -n '         # with loading any .gdbinit file
 
 # systemd-analyze
 function sab --description 'systemd-analyze blame->time'
@@ -652,9 +780,9 @@ function cs -d 'change dir1 to dir2 in the $PWD and cd into it'
 end
 
 # diff
-alias diff-s 'diff -y -s --suppress-common-line -W $COLUMNS'
+alias diff-s 'diff -r -y -s --suppress-common-line -W $COLUMNS'
 alias diff-sw 'diff-s -w'
-alias diff-y 'diff -y -s -W $COLUMNS '
+alias diff-y 'diff -r -y -s -W $COLUMNS '
 alias diff-yw 'diff-y -w'
 
 function mkcd --description 'mkdir dir then cd dir'
@@ -711,11 +839,6 @@ alias ee 'emx ~/.emacs.d/init.el'
 # alias et 'emx ~/.tmux.conf'
 alias e2 'emx ~/Recentchange/TODO'
 
-function fsr --description 'Reload your Fish config after configuration'
-    source ~/.config/fish/config.fish # fsr
-    echo .fishrc is reloaded!
-    path_prompt
-end
 # C-w to reload ~/.fishrc
 #bind \cs fsr
 
@@ -725,7 +848,17 @@ alias lic 'wget -q http://www.gnu.org/licenses/gpl.txt -O LICENSE'
 # git
 alias gits 'git status ' # gs is original Ghostscript app
 alias gitp 'git pull -v'
-alias gitc 'git clone -v'
+function gitc -d 'git clone and cd into it'
+    git clone -v $argv
+    echo ---------------------------
+    if test (count $argv) -eq 2
+        set project $argv[2]
+    else
+        set project (basename $argv .git) # this works when $argv contains or not contains .git
+    end
+    cd $project
+    echo cd ./$project
+end
 alias gitl 'git log --stat'
 alias gitd 'git diff' # show unpushed local modification
 alias gitlp 'git log -p -- ' # [+ file] to how entire all/[file(even renamed)] history
@@ -765,7 +898,11 @@ function svnlh
     svn log -v $argv[1] | head -$argv[2]
 end
 function svndd --description 'show the svn diff detail'
-    set Revision (svn info | awk '/Revision/ {print $2}')
+    # the revision of whole svn project
+    # set Revision (svn info | awk '/Revision/ {print $2}')
+    # the revision of current directory
+    set Revision (svn log | grep "^r[0-9]\+ | " | cut -d' ' -f1 | cut -c2- | sed -n "1p")
+    # TODO: check if argv is 1)integer, 2)number between $Revision and 1 if given
     if test (echo $argv[1] | grep ':' -c) -eq 1
         # if argv is like 1000:1010, then svn diff the two revisions
         svn diff -r $argv[1] | less
@@ -776,16 +913,24 @@ function svndd --description 'show the svn diff detail'
         else
             # if the argv is like 3, the svn diff the 3th commit to the last
             # the PREV is 1
-            set Rev (echo $Revision-$argv[1]+1 | bc)
+            # if the list of revision is continuous
+            # set Rev (echo $Revision-$argv[1]+1 | bc)
+            # whether the list is continuous or not
+            set Rev (svn log | grep "^r[0-9]\+ | " | cut -d' ' -f1 | cut -c2- | sed -n "$argv[1]p")
             svn diff -c $Rev | less
         end
-    else if test (svn status | wc -l) != 0
-        # show the diff if local differs from server
-        svn diff
     else if test (count $argv) = 0
-        # if no argv is given, then svn diff the last commit
-        # equals to `sdd` == `sdd 1`
-        svn diff -r PREV | less
+        if test (svn status | wc -l) != 0
+            # show the diff if local differs from server
+            svn status # in case there are new files
+            svn diff
+        else
+            # if no argv is given, and status is clean then svn diff the last commit
+            # equals to `svndd` == `svndd 1`
+            svn diff -r PREV | less
+        end
+    else
+        echo Arguments are wrong!!!
     end
 end
 
@@ -816,16 +961,12 @@ end
 alias ok 'bash -c "(nohup okular \"$argv\" </dev/null >/dev/null 2>&1 &)"'
 alias ima 'bash -c "(nohup gwenview \"$argv\" </dev/null >/dev/null 2>&1 &)"'
 alias op 'bash -c "(nohup xdg-open \"$argv\" </dev/null >/dev/null 2>&1 &)"'
+# You can also convert gif to multiple png images
+# convert input.gif output%05d.png
+# Pause/Continue using SPACE key, Next frame using `.`
+alias gif 'mplayer -loop 0  -speed 0.2'
 
 alias fcg 'fc-list | ag '
-
-# do `h` in the new one after switching terminal session
-function h --on-process-exit %self
-    history --merge
-end
-function his
-    history | ag $argv[1]
-end
 
 alias cl 'cloc '
 alias cll 'cloc --by-file-by-lang '
@@ -833,6 +974,8 @@ alias cll 'cloc --by-file-by-lang '
 alias st 'stow --verbose'
 
 alias ptp 'ptipython'
+# install pytest and pytest-pep8 first, to check if the code is following pep8 guidelines
+alias pyp8 'py.test --pep8 '
 
 #alias rea 'sudo ~/.local/bin/reaver -i mon0 -b $argv[1] -vv'
 # function rea
@@ -913,10 +1056,15 @@ end
 
 # bc -- calculator
 function bc --description 'calculate in command line using bc non-interactive mode if needed, even convert binary/octual/hex'
-    if test (count $argv) -eq 1
-        echo $argv[1] | /usr/bin/bc -l
-    else
+    if test (count $argv) -eq 0
         /usr/bin/bc -ql
+    else
+        # TODO: fish won't recognize command like `bc 2*3`, you have to quote it or use `bc 2\*3`
+        for i in $argv
+            echo $i:
+            echo -ne "\t"
+            echo -e $i | /usr/bin/bc -l
+        end
     end
 end
 # more examples using bc
@@ -935,12 +1083,15 @@ end
 # echo 'F' | bc
 
 function cat
-    # if [ $argc != 2]
-    for i in $argv
-        echo -e "\\033[0;31m"\<$i\>
-        echo -e ------------------------------------------------- "\\033[0;39m"
-        /bin/cat $i
-        echo
+    if test (count $argv) -gt 1
+        for i in $argv
+            echo -e "\\033[0;31m"\<$i\>
+            echo -e ------------------------------------------------- "\\033[0;39m"
+            /bin/cat $i
+            echo
+        end
+    else
+        /bin/cat $argv
     end
 end
 
@@ -1027,13 +1178,21 @@ function wtp --description 'show the real definition of a type or struct in C co
     end
 end
 
+# if usb0 is not connected or data sharing is not enabled:
+# `ip link ls dev usb0` returns 255, else returns 0
+# if usb0 is not connected to network:
+# `ip link ls dev usb | grep UP` returns 1, else returns 0
+# if returns 1, then kill dhclient and enabled dhclient again:
+# sudo dhclient usb0
 function ut -d 'toggle -- use data network sharing through Android device throught USB'
-    if not test (ip link | grep usb0) # ()=1, not plugged or enabled in Android device
+    ip link ls dev usb0 ^/dev/null >/dev/null
+    if test $status != 0 # ()=255, not plugged or enabled in Android device
         echo Android device is not plugged or data network sharing is not enabled!
     else          # ()=0
-        timeout 1 ping -c 1 www.baidu.com ^ /dev/null > /dev/null # NOTE: stdout and stderr redirect
-        if test $status != 0
-            echo Network is off!
+        # ip link ls dev usb0 | grep UP ^/dev/null >/dev/null
+        # if test $status != 0
+        if test 1 != 0
+            # echo Network on usb0 is off!
             if test (pgrep dhclient | wc -l) != 0 # This will be useless since the latter kill
                 echo dhclient is already running, Kill it!
                 echo "      " | sudo -p "" -S pkill dhclient
@@ -1047,14 +1206,8 @@ function ut -d 'toggle -- use data network sharing through Android device throug
                 sudo dhclient
                 sudo pkill dhclient
             end
-            # timeout 2 ping -c 2 www.baidu.com ^ /dev/null > /dev/null # NOTE: stdout and stderr redirect
-            # if test $status != 0
-            #     echo Network is still off.
-            # else
-            #     echo Network is on!
-            # end
         else
-            echo Network is already on!
+            # echo Network on usb0 is already on!
         end
         if test (pgrep dhclient | wc -l) != 0
             sudo pkill dhclient  # this has no effect on the network, just make next usbt quicker
@@ -1100,54 +1253,12 @@ end
 
 alias ytd 'youtube-dl -citw '
 
-# return tmux
-alias t 'tmux a'
-alias tl 'tmux ls'
-alias tl 'tmux ls'
-alias tls 'tmux list-panes -s'
-function tk -d 'tmux kill-session single/multiple sessions'
-    if test (count $argv) -gt 0
-        for i in $argv
-            tmux kill-session -t $i
-        end
-    else
-        echo "Need target sessions"
-    end
-end
-function tka -d 'tmux kill-session except given session[s]'
-    if test (psg tmux | wc -l ) = 0
-        echo "No tmux server is running!!!"
-        return
-    end
-    if test (count $argv) -gt 0
-        set -l sid (tl | nl | awk '{print $2}' | sed 's/://g')
-        for i in $sid
-            if not contains $i $argv
-                tmux kill-session -t $i
-                echo Tmux session $i is killed
-            end
-        end
-        echo \n--------------\n
-        echo Left sessions:
-        tmux ls
-    else
-        read -n 1 -l -p 'echo "Kill all tmux sessions including this one? [y/N]"' answer
-        if test "$answer" = "y" -o "$answer" = " "
-            tmux kill-server        # kill all sessions (including current one)
-        end
-    end
-end
-# or just use 'M-c r', it is defiend in ~/.tmux.conf
-alias tsr 'tmux source-file ~/.tmux.conf; echo ~/.tmux.conf reloaded!'
-# this line will make the indentation of lines below it wrong, TODO: weird
-# alias tt 'tmux switch-client -t'
-function twp -d 'tmux swap-pane to current pane to the target pane'
-    tmux display-panes "'%%'"
-    read -n 1 -p 'echo "Target pane number? "' -l num
-    tmux swap-pane -s $num
-end
-
 alias ag "ag --pager='less -RM -FX -s'"
+function agr -d 'ag errno '
+    for file in /usr/include/asm-generic/errno-base.h /usr/include/asm-generic/errno.h
+        command ag -w $argv[1] $file
+    end
+end
 # ag work with less with color and scrolling
 function ag
     sed -i "s/.shell/\"$argv[1]\n.shell/g" ~/.lesshst
@@ -1219,10 +1330,23 @@ function bak2m -d 'move backup file from abc.bak to abc'
 end
 
 function d --description "Choose one from the list of recently visited dirs"
-    set -l letters - b c d e f h i j k l m n o p q r s t u v w x y z
+    # this function is introduced into fish-shell release since v2.7b1, called `cdh` (mostly similar)
+    # See if we've been invoked with an argument. Presumably from the `cdh` completion script.
+    # If we have just treat it as `cd` to the specified directory.
+    if set -q argv[1]
+        cd $argv
+        return
+    end
+
+    if set -q argv[2]
+        echo (_ "d: Expected zero or one arguments") >&2
+        return 1
+    end
+
+
     set -l all_dirs $dirprev $dirnext
     if not set -q all_dirs[1]
-        echo 'No previous directories to select. You have to cd at least once.'
+        echo (_ 'No previous directories to select. You have to cd at least once.') >&2
         return 0
     end
 
@@ -1236,9 +1360,10 @@ function d --description "Choose one from the list of recently visited dirs"
         end
     end
 
+    set -l letters - b c d e f h i j k l m n o p q r s t u v w x y z
     set -l dirc (count $uniq_dirs)
     if test $dirc -gt (count $letters)
-        set -l msg 'This should not happen. Have you changed the cd function?'
+        set -l msg 'This should not happen. Have you changed the cd command?'
         printf (_ "$msg\n")
         set -l msg 'There are %s unique dirs in your history' \
         'but I can only handle %s'
@@ -1246,8 +1371,11 @@ function d --description "Choose one from the list of recently visited dirs"
         return 1
     end
 
-    set -l pwd_existed 0
+    # Print the recent directories, oldest to newest. Since we previously
+    # reversed the list, making the newest entry the first item in the array,
+    # we count down rather than up.
     # already_pwd avoid always print the bottom line *pwd:...
+    set -l pwd_existed 0
     for i in (seq $dirc -1 1)
         set dir $uniq_dirs[$i]
 
@@ -1289,9 +1417,12 @@ function d --description "Choose one from the list of recently visited dirs"
     if string match -q -r '^\d+$' $choice
         if test $choice -ge 1 -a $choice -le $dirc
             cd $uniq_dirs[$choice]
+            echo cd $uniq_dirs[$choice]
             return
-        else
-            echo Error: expected a number between 1 and $dirc, got \"$choice\"
+        else if test $choice -eq 0
+		    echo You are already in directory `(pwd)`
+	    else
+            echo Error: expected a number between 0 and $dirc, got \"$choice\"
             return 1
         end
     else

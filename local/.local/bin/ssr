@@ -1,0 +1,174 @@
+#!/bin/bash
+# http://dcamero.azurewebsites.net/shadowsocksr.html#linux
+# Full command:
+# sudo python $HOME/Public/shadowsocksr/shadowsocks/local.py -c /etc/ssr.d/ssr-sg.json -d stop
+
+SSR_PATH=$HOME/Public/shadowsocksr/shadowsocks/local.py
+
+if [ ! -e $SSR_PATH ]; then
+    echo "ssr is not existed, please put the ssr directory in ${SSR_PATH%/*/*/*}"
+    exit 1
+fi
+
+
+SSR_CONFIG_PATH=/etc/ssr.d
+if [ ! -e $SSR_PATH ]; then
+    echo -e "ssr config files are not existed, please put the them into $SSR_CONFIG_PATH.
+    And they must be like '*-us1.json', 'us1' is the server region/country."
+    exit 1
+fi
+
+# get the files, locations and servers, an array
+SSR_CONFIG_FILES=($SSR_CONFIG_PATH/*)
+SSR_CONFIG_LOCATIONS=()         # a b c, three element
+SSR_CONFIG_LOCATIONS_LIST=""    # a|b|c, one element
+# dictionary/map/hash-table: hk1: server_of_hk1
+declare -A SSR_CONFIG_LOCATIONS_SERVER_DICT
+for i in "${SSR_CONFIG_FILES[@]}"; do
+    LOCATION=$(echo $i | awk -F '-' '{sub(/\..*$/, "", $3); print $3}')
+    LOCATION2="$LOCATION "      # separate LOCATION with one space
+    LOCATION2_LIST="$LOCATION|"
+    SSR_CONFIG_LOCATIONS+=($LOCATION2)
+    SSR_CONFIG_LOCATIONS_LIST+=$LOCATION2_LIST
+
+    SERVER=$(sed -n '2p' $i | awk '{ print $NF}' | sed 's/.$//' | tr -d '"')
+    SSR_CONFIG_LOCATIONS_SERVER_DICT[$LOCATION]=$SERVER
+done
+# delete the last symbol |
+SSR_CONFIG_LOCATIONS_LIST=$(echo $SSR_CONFIG_LOCATIONS_LIST | sed 's/.$//')
+ # you have to change this depending on your situation
+SSR_CONFIG_FILE_FAST=$SSR_CONFIG_PATH/ssr-vip-hk2.json
+
+# # print the array
+# for i in ${!SSR_CONFIG_LOCATIONS[@]}; do
+#     echo ${SSR_CONFIG_LOCATIONS[$i]}
+# done
+# exit 0
+
+# # print the value of the dictionary/map/hash-table
+# for key in ${!SSR_CONFIG_LOCATIONS_SERVER_DICT[@]}; do
+#     echo ${key} ${SSR_CONFIG_LOCATIONS_SERVER_DICT[${key}]}
+# done
+
+
+SSR_RUNNING_CONFIG=$(ps -ef | grep -v grep | grep -i shadow | awk '{ print $(NF-2) }')
+
+usage()
+{
+    echo -e "Usage: 'ssr' --> restart currently running service or run on the default server"
+    echo -e "       'ssr $SSR_CONFIG_LOCATIONS_LIST' --> stop the currently running service
+                                    and run service on the specific server"
+    echo -e "       'ssr off|stop' --> stop the currently running service"
+    echo -e "       'ssr status' --> get the ssr status"
+    echo -e "       'ssr ping' --> ping all the servers"
+    echo -e "       'ssr ping $SSR_CONFIG_LOCATIONS_LIST' --> ping the specific server"
+    echo -e "       'ssr list|servers --> list the info of all servers located in disks"
+}
+
+ping_servers()
+{
+    if [ $# -eq 0 ]; then       # ping all servers
+        for key in ${SSR_CONFIG_LOCATIONS[@]}; do
+            # print the first and last line
+            /bin/ping -c 5 ${SSR_CONFIG_LOCATIONS_SERVER_DICT[${key}]} | sed -e 1b -e '$!d'
+            # highlight text red
+            echo -e "\t\t\t    ----\e[1;31m$key\e[0m----"
+            echo -e "\n"
+        done
+    else                        # ping the specific server $1
+        # print the first and last line
+        /bin/ping -c 5 ${SSR_CONFIG_LOCATIONS_SERVER_DICT[$1]} | sed -e 1b -e '$!d'
+        # highlight text red
+        echo -e "\t\t\t    ----\e[1;31m$1\e[0m----"
+        echo -e "\n"
+    fi
+}
+
+# `array_contains_item array item` to check if array contains item
+array_contains_item ()
+{
+    for i in "${SSR_CONFIG_LOCATIONS[@]}"
+    do
+        if [ $i == $2 ] ; then
+            echo 1
+            return
+        fi
+    done
+    echo 0
+}
+
+if [[ ( $1 == "--help") ||  $1 == "-h" ]]; then
+    usage
+    exit 0
+fi
+
+if [ $# -eq 0 ]; then
+    if [[ $SSR_RUNNING_CONFIG != "" ]]; then # ssr is running
+        echo -e "----Restarting the currenting running server: $SSR_RUNNING_CONFIG----\n"
+        sudo python $SSR_PATH -c $SSR_RUNNING_CONFIG -d restart
+    else                        # ssr is not running
+        echo -e "----ssr not running, start the default(fastest) server: $SSR_CONFIG_FILE_FAST----\n"
+        sudo python $SSR_PATH -c $SSR_CONFIG_FILE_FAST -d start
+    fi
+elif [ $# -eq 1 ]; then
+    if [[ $SSR_RUNNING_CONFIG != "" ]]; then # ssr is running
+        if [[ `array_contains_item $SSR_CONFIG_LOCATIONS $1` -eq 1 ]]; then
+            echo -e "----Stop the running service: $SSR_RUNNING_CONFIG----\n"
+            sudo python $SSR_PATH -c $SSR_RUNNING_CONFIG -d stop
+            echo -e "----Start the service: $SSR_CONFIG_PATH/*$1*.json----\n"
+            sudo python $SSR_PATH -c $SSR_CONFIG_PATH/*$1*.json -d start
+        elif [[ "$1" == "off" || "$1" == "stop" ]]; then
+            echo -e "----Stop the running service: $SSR_RUNNING_CONFIG----\n"
+            sudo python $SSR_PATH -c $SSR_RUNNING_CONFIG -d stop
+        elif [[ "$1" == "ping" ]]; then # ping all servers
+            ping_servers
+        elif [[ "$1" == "status" ]]; then
+            ps -ef | grep -v grep | grep -i shadow
+        elif [[ "$1" == "servers" || "$1" == "list" ]]; then
+            for key in ${SSR_CONFIG_LOCATIONS[@]}; do
+                printf "\r%3s: %s -- %s\n" $key ${SSR_CONFIG_LOCATIONS_SERVER_DICT[$key]} $SSR_CONFIG_PATH/*$key*.json
+            done
+        else
+            usage
+            exit 1
+        fi
+    else                        # ssr is not running
+        if [[ `array_contains_item $SSR_CONFIG_LOCATIONS $1` -eq 1 ]]; then
+            echo -e "----Start the service: $SSR_CONFIG_PATH/*$1*.json----\n"
+            sudo python $SSR_PATH -c $SSR_CONFIG_PATH/*$1*.json -d start
+        elif [[ "$1" == "off" || "$1" == "stop" || "$1" == "status" ]]; then
+            echo -e "----ssr is not running----"
+        elif [[ "$1" == "ping" ]]; then # ping all servers
+            ping_servers
+        elif [[ "$1" == "servers" || "$1" == "list" ]]; then
+            for key in ${SSR_CONFIG_LOCATIONS[@]}; do
+                printf "\r%3s: %s -- %s\n" $key ${SSR_CONFIG_LOCATIONS_SERVER_DICT[$key]} $SSR_CONFIG_PATH/*$key*.json
+            done
+        else
+            usage
+            exit 1
+        fi
+    fi
+elif [ $# -eq 2 ]; then
+    if [[ `array_contains_item $SSR_CONFIG_LOCATIONS $1` -eq 1 ]]; then
+        if [[ $2 == "ping" ]]; then
+            ping_servers $1
+        else
+            usage
+            exit 1
+        fi
+    elif [[ (`array_contains_item $SSR_CONFIG_LOCATIONS $1` -eq 0) && ("$1" == "ping") ]]; then
+        if [[ `array_contains_item $SSR_CONFIG_LOCATIONS $2` -eq 1 ]]; then
+            ping_servers $2
+        else
+            usage
+            exit 1
+        fi
+    else
+        usage
+        exit 1
+    fi
+else
+    usage
+    exit 1
+fi

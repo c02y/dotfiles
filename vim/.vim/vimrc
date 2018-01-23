@@ -65,6 +65,9 @@ set cursorline
 highlight CursorLine guibg=gray
 highlight Cursor guibg=NONE guifg=blue
 
+" highlight Visual mode
+highlight Visual cterm=reverse ctermbg=NONE
+
 " q to exit if no change
 nmap q :q<CR>
 
@@ -130,6 +133,7 @@ function ShowFileFormatFlag(var)
   endif
 endfunction
 set statusline=[%n]%1*%{ShowFileFormatFlag(&fileformat)}%*\ %f%m%r%h\ \|\ %{CurDir()}\ \|\ \|\ (%l,%v)(%p%%)%{FileSize()}\ \|\ %{&fileencoding?&fileencoding:&encoding}\ \|
+"set statusline=[%n]\ %f%m%r%h\ \|\ %{CurDir()}\ \|\ \|(%l,%c)(%p%%)%{FileSize()}\|\ %{((&fenc==\"\")?\"\":\"\".&fenc)}\ \|
 """""""""""""""""""""""""""""""""""""""""""""""""""
 
 " searches forward/backward using */#
