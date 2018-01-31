@@ -70,6 +70,7 @@ function fish_prompt --description 'Write out the prompt'
     # if the PWD is not the same as the PWD of previous prompt, print path part
     if test "$OLDPWD" != "$PWD"
         path_prompt
+        set -g enable_fish_vcs_prompt 1
     end
 
     if test $last_status != 0
@@ -94,9 +95,9 @@ function measure_time
 end
 set -g __fish_git_prompt_show_informative_status yes
 set -g __fish_git_prompt_showcolorhints true
-set -g enable_fish_vcs_prompt 1
-function fdv -d 'Once prompt is slow, disable __fish_vcs_prompt using this function'
-    set -g enable_fish_vcs_prompt 0
+function fvp -d '__fish_vcs_prompt'
+    __fish_vcs_prompt
+    set -g enable_fish_vcs_prompt 1
 end
 function fish_right_prompt -d "Write out the right prompt"
     # set_color -o black
@@ -106,12 +107,22 @@ function fish_right_prompt -d "Write out the right prompt"
     echo -n (date +%T)
     echo -n ']'
 
-    # builtin support for git/svn/hg
+    # __fish_vcs_prompt builtin support for git/svn/hg
+    # https://github.com/fish-shell/fish-shell/issues/4679
     if test $enable_fish_vcs_prompt -eq 1
-        __fish_vcs_prompt
+        set -l start (date +%s%N)
+        set -l prompt_string (fish -c __fish_vcs_prompt)
+        set -l end (date +%s%N)
+    set prompt_time (math (math $end - $start)/1000000)
+    if test $prompt_time -gt 300
+        echo $prompt_string
+        set -g enable_fish_vcs_prompt 0
+    else
+        echo $prompt_string
     end
+end
 
-    set_color $fish_color_normal
+set_color $fish_color_normal
 end
 
 function fsr --description 'Reload your Fish config after configuration'
@@ -923,7 +934,7 @@ function svndd --description 'show the svn diff detail'
         if test (svn status | wc -l) != 0
             # show the diff if local differs from server
             svn status # in case there are new files
-            svn diff
+            svn diff | less
         else
             # if no argv is given, and status is clean then svn diff the last commit
             # equals to `svndd` == `svndd 1`

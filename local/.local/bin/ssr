@@ -1,7 +1,7 @@
 #!/bin/bash
 # http://dcamero.azurewebsites.net/shadowsocksr.html#linux
 # Full command:
-# sudo python $HOME/Public/shadowsocksr/shadowsocks/local.py -c /etc/ssr.d/ssr-sg.json -d stop
+# sudo python $HOME/Public/shadowsocksr/shadowsocks/local.py -c /etc/ssr.d/crolax-hk02.json -d start
 
 SSR_PATH=$HOME/Public/shadowsocksr/shadowsocks/local.py
 
@@ -21,23 +21,28 @@ fi
 # get the files, locations and servers, an array
 SSR_CONFIG_FILES=($SSR_CONFIG_PATH/*)
 SSR_CONFIG_LOCATIONS=()         # a b c, three element
-SSR_CONFIG_LOCATIONS_LIST=""    # a|b|c, one element
 # dictionary/map/hash-table: hk1: server_of_hk1
+declare -A SSR_CONFIG_FILES_DICT
 declare -A SSR_CONFIG_LOCATIONS_SERVER_DICT
 for i in "${SSR_CONFIG_FILES[@]}"; do
-    LOCATION=$(echo $i | awk -F '-' '{sub(/\..*$/, "", $3); print $3}')
+    # get the hk02 part from file /etc/ssr.d/*-hk02.json
+    LOCATION=$(echo $i | sed -nr 's/.*\-(.*)\..*/\1/p')
     LOCATION2="$LOCATION "      # separate LOCATION with one space
     LOCATION2_LIST="$LOCATION|"
     SSR_CONFIG_LOCATIONS+=($LOCATION2)
-    SSR_CONFIG_LOCATIONS_LIST+=$LOCATION2_LIST
+
+    SSR_CONFIG_FILES_DICT[$LOCATION]=$i
 
     SERVER=$(sed -n '2p' $i | awk '{ print $NF}' | sed 's/.$//' | tr -d '"')
+    # for json config line like "server":["1.1.1.1"], only get the 1.1.1.1
+    if [[ $SERVER ==  *[{}\(\)\[\]]* ]]; then
+		SERVER=$(echo $SERVER | grep -oP '\[\K[^\]]+')
+    fi
+
     SSR_CONFIG_LOCATIONS_SERVER_DICT[$LOCATION]=$SERVER
 done
-# delete the last symbol |
-SSR_CONFIG_LOCATIONS_LIST=$(echo $SSR_CONFIG_LOCATIONS_LIST | sed 's/.$//')
- # you have to change this depending on your situation
-SSR_CONFIG_FILE_FAST=$SSR_CONFIG_PATH/ssr-vip-hk2.json
+# you have to change this depending on your situation
+SSR_CONFIG_FILE_DEFAULT=$SSR_CONFIG_PATH/crolax-hk02.json
 
 # # print the array
 # for i in ${!SSR_CONFIG_LOCATIONS[@]}; do
@@ -50,19 +55,19 @@ SSR_CONFIG_FILE_FAST=$SSR_CONFIG_PATH/ssr-vip-hk2.json
 #     echo ${key} ${SSR_CONFIG_LOCATIONS_SERVER_DICT[${key}]}
 # done
 
-
 SSR_RUNNING_CONFIG=$(ps -ef | grep -v grep | grep -i shadow | awk '{ print $(NF-2) }')
 
 usage()
 {
     echo -e "Usage: 'ssr' --> restart currently running service or run on the default server"
-    echo -e "       'ssr $SSR_CONFIG_LOCATIONS_LIST' --> stop the currently running service
-                                    and run service on the specific server"
+    echo -e "       'ssr -h|--help|* --> show this usage"
+    echo -e "       'ssr location' --> stop the currently running service
+                          and run service on the specific server of location, get the location using 'ssr ls'"
     echo -e "       'ssr off|stop' --> stop the currently running service"
-    echo -e "       'ssr status' --> get the ssr status"
-    echo -e "       'ssr ping' --> ping all the servers"
-    echo -e "       'ssr ping $SSR_CONFIG_LOCATIONS_LIST' --> ping the specific server"
-    echo -e "       'ssr list|servers --> list the info of all servers located in disks"
+    echo -e "       'ssr st|status' --> get the ssr status"
+    echo -e "       'ssr ls|list|sr|servers --> list the info of all servers"
+    echo -e "       'ssr p|ping' --> ping all the servers"
+    echo -e "       'ssr p|ping location' --> ping the specific server, get the location using 'ssr ls'"
 }
 
 ping_servers()
@@ -70,16 +75,16 @@ ping_servers()
     if [ $# -eq 0 ]; then       # ping all servers
         for key in ${SSR_CONFIG_LOCATIONS[@]}; do
             # print the first and last line
-            /bin/ping -c 5 ${SSR_CONFIG_LOCATIONS_SERVER_DICT[${key}]} | sed -e 1b -e '$!d'
+            /bin/ping -c 5 ${SSR_CONFIG_LOCATIONS_SERVER_DICT[${key}]} | tail -3
             # highlight text red
-            echo -e "\t\t\t    ----\e[1;31m$key\e[0m----"
+            echo -e "\t\t\t    ----\e[1;31m$key\e[0m -- ${SSR_CONFIG_FILES_DICT[$key]}----"
             echo -e "\n"
         done
     else                        # ping the specific server $1
         # print the first and last line
-        /bin/ping -c 5 ${SSR_CONFIG_LOCATIONS_SERVER_DICT[$1]} | sed -e 1b -e '$!d'
+        /bin/ping -c 5 ${SSR_CONFIG_LOCATIONS_SERVER_DICT[$1]} | tail -3
         # highlight text red
-        echo -e "\t\t\t    ----\e[1;31m$1\e[0m----"
+        echo -e "\t\t\t    ----\e[1;31m$1\e[0m -- ${SSR_CONFIG_FILES_DICT[$1]}----"
         echo -e "\n"
     fi
 }
@@ -107,8 +112,8 @@ if [ $# -eq 0 ]; then
         echo -e "----Restarting the currenting running server: $SSR_RUNNING_CONFIG----\n"
         sudo python $SSR_PATH -c $SSR_RUNNING_CONFIG -d restart
     else                        # ssr is not running
-        echo -e "----ssr not running, start the default(fastest) server: $SSR_CONFIG_FILE_FAST----\n"
-        sudo python $SSR_PATH -c $SSR_CONFIG_FILE_FAST -d start
+        echo -e "----ssr not running, start the default(fastest) server: $SSR_CONFIG_FILE_DEFAULT----\n"
+        sudo python $SSR_PATH -c $SSR_CONFIG_FILE_DEFAULT -d start
     fi
 elif [ $# -eq 1 ]; then
     if [[ $SSR_RUNNING_CONFIG != "" ]]; then # ssr is running
@@ -120,13 +125,13 @@ elif [ $# -eq 1 ]; then
         elif [[ "$1" == "off" || "$1" == "stop" ]]; then
             echo -e "----Stop the running service: $SSR_RUNNING_CONFIG----\n"
             sudo python $SSR_PATH -c $SSR_RUNNING_CONFIG -d stop
-        elif [[ "$1" == "ping" ]]; then # ping all servers
+        elif [[ "$1" == "ping" || "$1" == "p" ]]; then # ping all servers
             ping_servers
-        elif [[ "$1" == "status" ]]; then
+        elif [[ "$1" == "status" || "$1" == "st" ]]; then
             ps -ef | grep -v grep | grep -i shadow
-        elif [[ "$1" == "servers" || "$1" == "list" ]]; then
+        elif [[ "$1" == "servers" || "$1" == "list" || "$1" == "ls" || "$1" == "sr" ]]; then
             for key in ${SSR_CONFIG_LOCATIONS[@]}; do
-                printf "\r%3s: %s -- %s\n" $key ${SSR_CONFIG_LOCATIONS_SERVER_DICT[$key]} $SSR_CONFIG_PATH/*$key*.json
+                printf "\r%5s: %15s -- %s\n" $key ${SSR_CONFIG_LOCATIONS_SERVER_DICT[$key]} $SSR_CONFIG_PATH/*$key*.json
             done
         else
             usage
@@ -136,13 +141,13 @@ elif [ $# -eq 1 ]; then
         if [[ `array_contains_item $SSR_CONFIG_LOCATIONS $1` -eq 1 ]]; then
             echo -e "----Start the service: $SSR_CONFIG_PATH/*$1*.json----\n"
             sudo python $SSR_PATH -c $SSR_CONFIG_PATH/*$1*.json -d start
-        elif [[ "$1" == "off" || "$1" == "stop" || "$1" == "status" ]]; then
+        elif [[ "$1" == "off" || "$1" == "stop" || "$1" == "status" || "$1" == "st" ]]; then
             echo -e "----ssr is not running----"
-        elif [[ "$1" == "ping" ]]; then # ping all servers
+        elif [[ "$1" == "ping" || "$1" == "p" ]]; then # ping all servers
             ping_servers
-        elif [[ "$1" == "servers" || "$1" == "list" ]]; then
+        elif [[ "$1" == "servers" || "$1" == "list" || "$1" == "ls" || "$1" == "sr" ]]; then
             for key in ${SSR_CONFIG_LOCATIONS[@]}; do
-                printf "\r%3s: %s -- %s\n" $key ${SSR_CONFIG_LOCATIONS_SERVER_DICT[$key]} $SSR_CONFIG_PATH/*$key*.json
+                printf "\r%5s: %15s -- %s\n" $key ${SSR_CONFIG_LOCATIONS_SERVER_DICT[$key]} $SSR_CONFIG_PATH/*$key*.json
             done
         else
             usage
@@ -151,13 +156,13 @@ elif [ $# -eq 1 ]; then
     fi
 elif [ $# -eq 2 ]; then
     if [[ `array_contains_item $SSR_CONFIG_LOCATIONS $1` -eq 1 ]]; then
-        if [[ $2 == "ping" ]]; then
+        if [[ $2 == "ping" || "$2" == "p" ]]; then
             ping_servers $1
         else
             usage
             exit 1
         fi
-    elif [[ (`array_contains_item $SSR_CONFIG_LOCATIONS $1` -eq 0) && ("$1" == "ping") ]]; then
+    elif [[ (`array_contains_item $SSR_CONFIG_LOCATIONS $1` -eq 0) && (("$1" == "ping") || ("$1" == "p")) ]]; then
         if [[ `array_contains_item $SSR_CONFIG_LOCATIONS $2` -eq 1 ]]; then
             ping_servers $2
         else
