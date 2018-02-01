@@ -6,8 +6,12 @@
 #set -gx PATH $HOME/anaconda3/bin $HOME/.local/bin $GOPATH/bin /usr/local/bin /usr/local/liteide/bin /bin /sbin /usr/bin /usr/sbin $PATH
 set -gx PATH $HOME/anaconda3/bin $HOME/.local/bin /usr/local/bin /bin /sbin /usr/bin /usr/sbin $PATH
 
-# set -gx MANPATH "$MANPATH:$HOME/anaconda3/share/man"
-#set -gx MANPATH $MANPATH "$HOME/anaconda3/share/man"
+# By default, MANPATH variable is unset, so set MANPATH to the result of `manpath` according to
+# /etc/man.config and add the customized man path to MANPATH
+if test "$MANPATH" = ""
+    set -gx MANPATH (manpath | string split ":")
+end
+set -gx MANPATH $HOME/anaconda3/share/man $MANPATH
 
 # for ~/.linuxbrew/ (brew for linux to install programs)
 #set -gx LD_LIBRARY_PATH $LD_LIBRARY_PATH ~/.linuxbrew/Library
@@ -33,6 +37,9 @@ end
 function his
     history | ag $argv[1]
 end
+
+# set the color of the selected on in the drop list of TAB #4695
+set -g fish_color_search_match --background=blue
 
 function path_prompt
     # check if tmux is running in current terminal/tty
@@ -178,10 +185,6 @@ function twp -d 'tmux swap-pane to current pane to the target pane'
     tmux swap-pane -s $num
 end
 
-if test -f $HOME/.autojump/share/autojump/autojump.fish;
-    source $HOME/.autojump/share/autojump/autojump.fish;
-    alias js 'j --purge; j -s'
-end
 # TODO: the following part will make fish print "No protocol specified" error line
 # source $HOME/.config/fish/functions/done.fish
 
