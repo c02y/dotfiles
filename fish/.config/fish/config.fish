@@ -623,7 +623,14 @@ alias nh 'sudo nethogs wlp5s0'
 alias ipp 'ip addr'
 alias tf 'traff wlan0'
 alias m-c 'minicom --color=on'
-alias tree 'tree -Cshf'
+function tree
+    if test -f /usr/bin/tree
+        command tree -Cshf
+    else
+		find $argv
+		echo -e "\n...tree is not installed, use find instead..."
+    end
+end
 
 # j for .bz2, z for .gz, J for xz, a for auto determine
 alias t-tbz2 'tar tvfj'
