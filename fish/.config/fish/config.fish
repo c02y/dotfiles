@@ -139,7 +139,8 @@ function fsr --description 'Reload your Fish config after configuration'
 end
 
 # tmux related
-alias t 'tmux a'
+# If tmux is running in background. attach it, else create new session
+alias t 'tmux attach ;or tmux'
 alias tl 'tmux ls'
 alias tl 'tmux ls'
 alias tls 'tmux list-panes -s'
@@ -227,7 +228,8 @@ alias clr="echo -e '\033c\c'; path_prompt"
 alias pm-sl 'sudo pm-suspend'   # 'Suspend to ram' in GUI buttom, power button to wake up
 alias pm-hb 'sudo pm-hibernate' # not work in old CentOS6
 
-alias rg 'ranger'
+alias rg '/usr/bin/rg -p'
+alias rgr 'ranger'
 alias fpp '~/Public/PathPicker/fpp'
 alias ga 'glances -t 1 --hide-kernel-threads -b --disable-irq --enable-process-extended'
 alias dst 'dstat -d -n'
@@ -750,6 +752,7 @@ alias api 'sudo apt-get install -V'
 alias apu 'sudo apt-get update; sudo apt-get upgrade -V'
 alias apr 'sudo apt-get remove -V'
 alias apar 'sudo apt-get autoremove -V'
+alias aps 'apt-cache search'
 
 # donnot show the other info on startup
 alias gdb 'gdb -q '
@@ -1052,12 +1055,12 @@ function pv --description "ping vpn servers"
     p p1.hk3.seejump.com | tail -n3
     echo --------------------------------------------------------------
 end
-function ipl -d 'check the location of your public IP address'
-    # https://www.cyberciti.biz/faq/how-to-find-my-public-ip-address-from-command-line-on-a-linux/
-    # set -l publicIP (dig +short myip.opendns.com @resolver1.opendns.com)
-    # set -l publicIP (dig TXT +short o-o.myaddr.l.google.com @ns1.google.com | sed s/\"//g)
-    set -l publicIP (curl ifconfig.co ^ /dev/null)
-    curl ipinfo.io/$publicIP
+function ipl -d 'get the location of your public IP address'
+    if test (ps -ef | grep -v grep | grep -i shadow | awk '{ print $(NF-2)     }') # ssr is running
+        proxychains curl myip.ipip.net
+    else
+        curl myip.ipip.net
+    end
 end
 function port -d 'list all the ports are used or check the process which are using the port'
     if test (count $argv) = 1
@@ -1178,9 +1181,11 @@ end
 # note that there is no $argv[0], the $argv[1] is the first argv after the command name, so the argc of `command argument` is 1, not 2
 function man
     if test (count $argv) -eq 2
-        sed -i "s/.shell/\"$argv[2]\n.shell/g" ~/.lesshst
+        #sed -i "s/.shell/\"$argv[2]\n.shell/g" ~/.lesshst
+        echo "\"$argv[2]" >> ~/.lesshst
     else
-        sed -i "s/.shell/\"$argv[1]\n.shell/g" ~/.lesshst
+        #sed -i "s/.shell/\"$argv[1]\n.shell/g" ~/.lesshst
+        echo "\"$argv[1]" >> ~/.lesshst
     end
     command man $argv
 end
@@ -1282,7 +1287,8 @@ function agr -d 'ag errno '
 end
 # ag work with less with color and scrolling
 function ag
-    sed -i "s/.shell/\"$argv[1]\n.shell/g" ~/.lesshst
+    #sed -i "s/.shell/\"$argv[1]\n.shell/g" ~/.lesshst
+    echo "\"$argv[1]" >> ~/.lesshst
     if test -f /usr/bin/ag
         /usr/bin/ag --ignore '*~' --ignore '#?*#' --ignore '.#?*' --ignore '*.swp' --ignore -s --pager='less -RM -FX -s' $argv
     else
