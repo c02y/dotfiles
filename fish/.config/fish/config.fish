@@ -77,7 +77,6 @@ function fish_prompt --description 'Write out the prompt'
     # if the PWD is not the same as the PWD of previous prompt, print path part
     if test "$OLDPWD" != "$PWD"
         path_prompt
-        set -g enable_fish_vcs_prompt 1
     end
 
     if test $last_status != 0
@@ -100,12 +99,6 @@ function measure_time
         printf (set_color red)"($duration)"(set_color normal)
     end
 end
-set -g __fish_git_prompt_show_informative_status yes
-set -g __fish_git_prompt_showcolorhints true
-function fvp -d '__fish_vcs_prompt'
-    __fish_vcs_prompt
-    set -g enable_fish_vcs_prompt 1
-end
 function fish_right_prompt -d "Write out the right prompt"
     # set_color -o black
     measure_time
@@ -114,22 +107,8 @@ function fish_right_prompt -d "Write out the right prompt"
     echo -n (date +%T)
     echo -n ']'
 
-    # __fish_vcs_prompt builtin support for git/svn/hg
-    # https://github.com/fish-shell/fish-shell/issues/4679
-    if test $enable_fish_vcs_prompt -eq 1
-        set -l start (date +%s%N)
-        set -l prompt_string (fish -c __fish_vcs_prompt)
-        set -l end (date +%s%N)
-    set prompt_time (math (math $end - $start)/1000000)
-    if test $prompt_time -gt 300
-        echo $prompt_string
-        set -g enable_fish_vcs_prompt 0
-    else
-        echo $prompt_string
-    end
-end
-
-set_color $fish_color_normal
+    __informative_git_prompt
+    set_color $fish_color_normal
 end
 
 function fsr --description 'Reload your Fish config after configuration'
