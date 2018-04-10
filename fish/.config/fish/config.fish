@@ -482,7 +482,7 @@ end
 # touch temporary files
 alias tout 'touch ab~ .ab~ .\#ab .\#ab\# \#ab\# .ab.swp ab.swp'
 # find
-function fd --description 'find the files by name, if no argv is passed, use the current dir'
+function f --description 'find the files by name, if no argv is passed, use the current dir'
     find $argv[1] -name $argv[2]
 end
 function ft --description 'find the temporary files such as a~ or #a or .a~, if no argv is passed, use the current dir'
