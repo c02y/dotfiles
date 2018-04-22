@@ -189,6 +189,18 @@ def format_address(address):
     pointer_size = gdb.parse_and_eval('$pc').type.sizeof
     return ('0x{{:0{}x}}').format(pointer_size * 2).format(address)
 
+def format_value(value):
+    # format references as referenced values
+    # (TYPE_CODE_RVALUE_REF is not supported by old GDB)
+    if value.type.code in (getattr(gdb, 'TYPE_CODE_REF', None),
+                           getattr(gdb, 'TYPE_CODE_RVALUE_REF', None)):
+        try:
+            return to_string(value.referenced_value())
+        except gdb.MemoryError:
+            return to_string(value)
+    else:
+        return to_string(value)
+
 class Beautifier():
     def __init__(self, filename, tab_size=4):
         self.tab_spaces = ' ' * tab_size
@@ -427,7 +439,7 @@ class Dashboard(gdb.Command):
                 path = os.path.join(root, init)
                 _, ext = os.path.splitext(path)
                 # either load Python files or GDB
-                if python ^ (ext != '.py'):
+                if python == (ext == '.py'):
                     gdb.execute('source ' + path)
 
     @staticmethod
@@ -1138,7 +1150,7 @@ location, if available. Optionally list the frame arguments and locals too."""
         for elem in data or []:
             name = elem.sym
             equal = ansi('=', R.style_low)
-            value = to_string(elem.sym.value(frame))
+            value = format_value(elem.sym.value(frame))
             lines.append('{} {} {}'.format(name, equal, value))
         return lines
 
@@ -1208,7 +1220,7 @@ class History(Dashboard.Module):
         # fetch last entries
         for i in range(-self.limit + 1, 1):
             try:
-                value = to_string(gdb.history(i))
+                value = format_value(gdb.history(i))
                 value_id = ansi('$${}', R.style_low).format(abs(i))
                 line = '{} = {}'.format(value_id, value)
                 out.append(line)
@@ -1433,7 +1445,7 @@ class Threads(Dashboard.Module):
             info = '[{}] id {}'.format(number, tid)
             if thread.name:
                 info += ' name {}'.format(ansi(thread.name, style))
-            # switch thread to fetch frame info (unless is running in non-stop mode)
+            # switch thread to fetch info (unless is running in non-stop mode)
             try:
                 thread.switch()
                 frame = gdb.newest_frame()
@@ -1471,7 +1483,7 @@ class Expressions(Dashboard.Module):
         out = []
         for number, expression in sorted(self.table.items()):
             try:
-                value = to_string(gdb.parse_and_eval(expression))
+                value = format_value(gdb.parse_and_eval(expression))
             except gdb.error as e:
                 value = ansi(e, R.style_error)
             number = ansi(number, R.style_selected_2)
@@ -1525,7 +1537,7 @@ set history save
 set history expansion on
 set confirm off
 set verbose off
-# about print-setting 
+# about print-setting
 # ftp://ftp.gnu.org/old-gnu/Manuals/gdb/html_node/gdb_57.html
 set print pretty on
 set print array on
@@ -1569,6 +1581,9 @@ end
 # TODO:Find a better way to disable the default q for quit
 define q
     print "Use quit to quit!!!"
+end
+defin exit
+    exit
 end
 
 define its

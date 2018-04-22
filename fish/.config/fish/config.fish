@@ -201,6 +201,11 @@ function fish_user_key_bindings
     #bind \cl ""
     bind \cl "tput reset; commandline -f repaint; path_prompt"
     bind \cd delete-or-ranger
+    # Ctrl-c/v is bound to fish_clipboard_copy/paste which is not working in non-X
+    if not test $DISPLAY
+        bind --erase \cx # or bind \cx ""
+        bind --erase \cv # or bind \cv ""
+    end
 end
 alias clr="echo -e '\033c\c'; path_prompt"
 
@@ -219,6 +224,10 @@ function make
 end
 function gcc
     /usr/bin/gcc $argv 2>&1 | grep --color -iP "\^|warning:|error:|undefined|"
+end
+function gcc-a
+    set BIN (echo (string split .c $argv) | awk '{print $1;}')
+    /usr/bin/gcc -Wall -W -g -o $BIN $argv 2>&1 | grep --color -iP "\^|warning:|error:|undefined|"
 end
 function g++
     /usr/bin/g++ $argv 2>&1 | grep --color -iP "\^|warning:|error:|Undefined|"
@@ -606,10 +615,10 @@ alias tf 'traff wlan0'
 alias m-c 'minicom --color=on'
 function tree
     if test -f /usr/bin/tree
-        command tree -Cshf
+        command tree -Cshf $argv
     else
-		find $argv
-		echo -e "\n...tree is not installed, use find instead..."
+        find $argv
+        echo -e "\n...tree is not installed, use find instead..."
     end
 end
 
@@ -1426,8 +1435,8 @@ function d --description "Choose one from the list of recently visited dirs"
             echo cd $uniq_dirs[$choice]
             return
         else if test $choice -eq 0
-		    echo You are already in directory `(pwd)`
-	    else
+            echo You are already in directory `(pwd)`
+        else
             echo Error: expected a number between 0 and $dirc, got \"$choice\"
             return 1
         end
