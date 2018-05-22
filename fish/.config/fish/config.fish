@@ -165,6 +165,8 @@ function twp -d 'tmux swap-pane to current pane to the target pane'
     tmux swap-pane -s $num
 end
 
+alias check 'checkpatch.pl --ignore SPDX_LICENSE_TAG,CONST_STRUCT,AVOID_EXTERNS,ASSIGN_IN_IF,ASSIGNMENT_CONTINUATIONS,NEW_TYPEDEFS --no-tree -f '
+
 # TODO: the following part will make fish print "No protocol specified" error line
 # source $HOME/.config/fish/functions/done.fish
 
@@ -201,6 +203,10 @@ function fish_user_key_bindings
     #bind \cl ""
     bind \cl "tput reset; commandline -f repaint; path_prompt"
     bind \cd delete-or-ranger
+    # if Alt-backword doesn't work, use this
+    # TODO: delete it if fish-shell itself fix it
+    bind \e\b backward-kill-word
+    # TODO: delete it if fish-shell itself fix it
     # Ctrl-c/v is bound to fish_clipboard_copy/paste which is not working in non-X
     if not test $DISPLAY
         bind --erase \cx # or bind \cx ""
@@ -232,6 +238,9 @@ end
 function g++
     /usr/bin/g++ $argv 2>&1 | grep --color -iP "\^|warning:|error:|Undefined|"
 end
+alias gcc-w 'gcc -g -Wall -W -Wsign-conversion'
+alias gcca 'gcc -g -pedantic -Wall -W -Wconversion -Wshadow -Wcast-qual -Wwrite-strings -Wmissing-prototypes  -Wno-sign-compare -Wno-unused-parameter'
+# gcc -Wall -W -Wextra -Wconversion -Wshadow -Wcast-qual -Wwrite-strings -Werror
 
 # User specific aliases and functions
 alias sl 'ls'
@@ -533,11 +542,14 @@ end
 
 # du
 alias du 'du -h --apparent-size'
-alias dus 'du -c -s'
-function duS
-    du -s -c $argv | sort -h
-end
 alias dul 'sudo du --summarize -h -c /var/log/* | sort -h'
+function dus
+    if test (count $argv) -gt 1 # $argv contains /* at the end of path
+        du -cs $argv | sort -h
+    else
+        du -cs $argv
+    end
+end
 function duss --description 'list and sort all the files recursively by size'
     du -ah $argv | grep -v "/\$" | sort -rh
 end
@@ -598,11 +610,6 @@ set -gx MANPAGER 'less -s -M +Gg -i'
 # without this line, the LESS_TERMCAP_xxx won't work in Fedora
 set -gx GROFF_NO_SGR yes
 # other major details goto the end of the this file
-
-# gcc
-alias gcc-w 'gcc -g -Wall -W -Wsign-conversion'
-alias gcc-a 'gcc -g -pedantic -Wall -W -Wconversion -Wshadow -Wcast-qual -Wwrite-strings -Wmissing-prototypes  -Wno-sign-compare -Wno-unused-parameter'
-# gcc -Wall -W -Wextra -Wconversion -Wshadow -Wcast-qual -Wwrite-strings -Werror
 
 alias ifw 'ifconfig wlp5s0'
 #alias nl 'nload -u H p4p1'
@@ -722,7 +729,7 @@ alias dnful 'sudo dnf history undo last'
 alias zppi 'sudo zypper install --details'
 alias zppiy 'sudo zypper install -y -v --details'
 alias zppif 'sudo zypper info'
-alias zppwf 'sudo zypper search --provides --match-exact' # dependencies
+alias zppwp 'sudo zypper search --provides --match-exact' # dependencies
 alias zppr 'sudo zypper remove --details'
 alias zppld 'zypper lr -d' # list repo
 alias zpprr 'sudo zypper rr' # +repo_num in zppld to remove a repo
@@ -878,7 +885,7 @@ alias gitsh 'git show ' # [+ COMMIT] to show the modifications in a last/[specif
 alias gitlo 'git log --oneline'
 alias gitsh 'git show ' # + COMMIT to show the modifications in a commit
 alias gitb 'git branch'
-alias gitco 'git checkout'
+alias gitco 'git checkout --'
 alias gitcl 'git config -l'
 alias gitcp 'git checkout HEAD^1' # git checkout previous/old commit
 alias gitcn 'git log --reverse --pretty=%H master | grep -A 1 (git rev-parse HEAD) | tail -n1 | xargs git checkout' # git checkout next/new commit
