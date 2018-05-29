@@ -29,10 +29,19 @@ done
 RXDIF=$(echo $((RXBN - RXB)) )
 TXDIF=$(echo $((TXBN - TXB)) )
 
+# when in ssh-remote mode, some characters are not correctly displayed
+if [[ -z $DISPLAY ]]; then
+	DOWN='Rx'
+	UP='Tx'
+else
+	DOWN='⬇'
+	UP='⬆'
+fi
+
 if [ "$RXDIF" -lt 10240 ]; then
 	echo
 elif [ "$RXDIF" -gt 1048576 ]; then
-	echo -e " <⬇:$(bash -c "bc <<< 'scale=2; $RXDIF/1048576'")M/s ⬆:$((TXDIF / 1024))K/s> "
+	echo -e " <$DOWN:$(bash -c "bc <<< 'scale=2; $RXDIF/1048576'")M/s $UP:$((TXDIF / 1024))K/s> "
 else
-	echo -e " <⬇:$(($RXDIF/1024))K/s ⬆:$((TXDIF / 1024))K/s> "
+	echo -e " <$DOWN:$(($RXDIF/1024))K/s $UP:$((TXDIF / 1024))K/s> "
 fi

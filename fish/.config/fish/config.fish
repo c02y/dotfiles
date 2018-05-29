@@ -890,6 +890,7 @@ alias gitcl 'git config -l'
 alias gitcp 'git checkout HEAD^1' # git checkout previous/old commit
 alias gitcn 'git log --reverse --pretty=%H master | grep -A 1 (git rev-parse HEAD) | tail -n1 | xargs git checkout' # git checkout next/new commit
 alias gitt 'git tag'
+alias gitft 'git ls-files --error-unmatch' # Check if file/dir is git-tracked
 function gitpa --description 'git pull all in dir using `fing dir`'
     for i in (find $argv[1] -type d -name .git | sort | xargs realpath)
         cd $i; cd ../
@@ -990,7 +991,7 @@ alias fcg 'fc-list | ag '
 alias cl 'cloc '
 alias cll 'cloc --by-file-by-lang '
 
-alias st 'stow --verbose'
+alias st 'stow -DRv'
 
 alias ptp 'ptipython'
 # install pytest and pytest-pep8 first, to check if the code is following pep8 guidelines
