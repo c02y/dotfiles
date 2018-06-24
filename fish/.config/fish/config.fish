@@ -165,10 +165,12 @@ function twp -d 'tmux swap-pane to current pane to the target pane'
     tmux swap-pane -s $num
 end
 
-alias check 'checkpatch.pl --ignore SPDX_LICENSE_TAG,CONST_STRUCT,AVOID_EXTERNS,ASSIGN_IN_IF,ASSIGNMENT_CONTINUATIONS,NEW_TYPEDEFS --no-tree -f '
+alias check 'checkpatch.pl --ignore SPDX_LICENSE_TAG,CONST_STRUCT,AVOID_EXTERNS,NEW_TYPEDEFS --no-tree -f '
 
 # TODO: the following part will make fish print "No protocol specified" error line
 # source $HOME/.config/fish/functions/done.fish
+source $HOME/.config/fish/functions/__async_fish_prompt.fish
+
 
 # LS_COLORS, color for ls command
 # http://linux-sxs.org/housekeeping/lscolors.html
@@ -581,6 +583,7 @@ alias less 'less -RM -s +Gg'
 # set -gx LESSOPEN '|pygmentize -g %s'
 # if pygmentize not working, use source-highlight instead
 set -gx LESSOPEN '| /usr/bin/src-hilite-lesspipe.sh %s'
+# set -gx LESSOPEN '| /usr/share/source-highlight/src-hilite-lesspipe.sh %s'
 # nums are explained at
 # http://www.tuxarena.com/2012/04/tutorial-colored-man-pages-how-it-works/
 set -gx LESS_TERMCAP_me \e'[0m' # turn off all appearance modes (mb, md, so, us)
@@ -678,7 +681,7 @@ alias wget 'wget -c --no-check-certificate'
 alias wgets 'wget -c --mirror -p --html-extension --convert-links'
 alias wt 'bash -c \'rm -rfv /tmp/Thun* 2>/dev/null\'; wget -c -P /tmp/ http://dl1sw.baidu.com/soft/9e/12351/ThunderMini_1.5.3.288.exe'
 alias wtt 'bash -c \'rm -rfv /tmp/Thun* 2>/dev/null\'; wget --connect-timeout=5 -c -P /tmp/ http://dlsw.baidu.com/sw-search-sp/soft/ca/13442/Thunder_dl_V7.9.39.4994_setup.1438932968.exe'
-
+# curl -L -O -C - https://site.com/file.iso
 alias a2 'aria2c -c -x 5 --check-certificate=false --file-allocation=none '
 
 # rpm
