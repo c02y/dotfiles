@@ -203,7 +203,7 @@ function fish_user_key_bindings
     # without this line, C-l will not print the path at top of the screen
     #bind \cl 'clear; commandline -f repaint; path_prompt'
     #bind \cl ""
-    bind \cl "tput reset; commandline -f repaint; path_prompt"
+    #bind \cl "tput reset; commandline -f repaint; path_prompt"
     bind \cd delete-or-ranger
     # if Alt-backword doesn't work, use this
     # TODO: delete it if fish-shell itself fix it
@@ -557,6 +557,12 @@ function duss --description 'list and sort all the files recursively by size'
 end
 
 alias watd 'watch -d du --summarize'
+function watch -d 'wrap default watch to support aliases and functions'
+    while test 1
+        date; eval $argv
+        sleep 1; echo
+    end
+end
 # alias df '/bin/df -hT -x tmpfs -x devtmpfs '
 alias df 'df -Th | grep -v grep | grep -v tmpfs | grep -v boot | grep -v var | grep -v snapshots | grep -v opt | grep -v tmp | grep -v srv | grep -v usr | grep -v user'
 # stop less save search history into ~/.lesshst

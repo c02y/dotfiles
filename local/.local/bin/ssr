@@ -45,7 +45,7 @@ for i in "${SSR_CONFIG_FILES[@]}"; do
     SERVER=$(sed -n '2p' $i | awk '{ print $NF}' | sed 's/.$//' | tr -d '"')
     # for json config line like "server":["1.1.1.1"], only get the 1.1.1.1
     if [[ $SERVER ==  *[{}\(\)\[\]]* ]]; then
-       SERVER=$(echo $SERVER | grep -oP '\[\K[^\]]+')
+		SERVER=$(echo $SERVER | grep -oP '\[\K[^\]]+')
     fi
 
     # Warn that server address is not found in $i json file
@@ -92,14 +92,14 @@ ping_servers()
             /bin/ping -c 5 ${SSR_CONFIG_LOCATIONS_SERVER_DICT[${key}]} | tail -3
             # highlight text red
             echo -e "\t\t\t    ----\e[1;31m$key\e[0m -- ${SSR_CONFIG_FILES_DICT[$key]}----"
-            echo -e "\n"
+			#            echo -e "\n"
         done
     else                        # ping the specific server $1
         # print the first and last line
         /bin/ping -c 5 ${SSR_CONFIG_LOCATIONS_SERVER_DICT[$1]} | tail -3
         # highlight text red
         echo -e "\t\t\t    ----\e[1;31m$1\e[0m -- ${SSR_CONFIG_FILES_DICT[$1]}----"
-        echo -e "\n"
+		#        echo -e "\n"
     fi
 }
 
