@@ -277,13 +277,13 @@ function bxp -d 'pastebin service in command line'
 end
 #
 function lst
-    ls --color=yes $argv[1] --sort=time -lh | nl -v 0| less
+    ls --color=yes $argv --sort=time -lh | nl -v 0 | less
 end
 function lsh
-    ls --color=yes $argv[1] --sort=time -lh | head | nl -v 0
+    ls --color=yes $argv --sort=time -lh | head | nl -v 0
 end
 function lsh2
-    ls --color=yes $argv[1] --sort=time -lh | head -20 | nl -v 0
+    ls --color=yes $argv --sort=time -lh | head -20 | nl -v 0
 end
 function lls
     ll --color=yes $argv --sort=size -lh | less -R | nl -v 0
@@ -621,6 +621,8 @@ set -gx GROFF_NO_SGR yes
 # other major details goto the end of the this file
 
 alias ifw 'ifconfig wlp5s0'
+alias mpp "ip route get 1.2.3.4 | cut -d' ' -f8 | head -1"
+alias mppa "ifconfig | sed -En 's/127.0.0.1//;s/.inet (addr:)?(([0-9].){3}[0-9])./\2/p'"
 #alias nl 'nload -u H p4p1'
 alias nll 'nload -u H wlp8s0'
 alias nh 'sudo nethogs wlp5s0'
@@ -894,7 +896,6 @@ alias gitsh 'git show ' # [+ COMMIT] to show the modifications in a last/[specif
 alias gitlo 'git log --oneline'
 alias gitsh 'git show ' # + COMMIT to show the modifications in a commit
 alias gitb 'git branch'
-alias gitco 'git checkout --'
 alias gitcl 'git config -l'
 alias gitcp 'git checkout HEAD^1' # git checkout previous/old commit
 alias gitcn 'git log --reverse --pretty=%H master | grep -A 1 (git rev-parse HEAD) | tail -n1 | xargs git checkout' # git checkout next/new commit
@@ -908,6 +909,29 @@ function gitpa --description 'git pull all in dir using `fing dir`'
         echo -----------------------------
         echo
     end
+end
+function gitco -d 'git checkout -- for multiple files at once'
+    # when you copy/paste using mouse, the strings you pasted are not seprated by space ACTUALLY, using ','
+    set -l files (echo $argv | tr ',' '\n')
+    for i in $files
+        echo 'git checkout -- for file' $i
+        git checkout -- $i
+    end
+end
+function gita -d 'git add for multiple files at once'
+    set -l files (echo $argv | tr ',' '\n')
+    for i in $files
+        echo 'git add for file:' $i
+        git add $i
+    end
+end
+function gtirh -d 'git reset HEAD for multiple files'
+    set -l files (echo $argv | tr ',' '\n')
+    for i in $files
+        echo 'git reset HEAD for file:' $i
+        git reset HEAD $i
+    end
+
 end
 
 # svn
@@ -1062,7 +1086,7 @@ function pv --description "ping vpn servers"
 end
 function ipl -d 'get the location of your public IP address'
     if test (ps -ef | grep -v grep | grep -i shadow | awk '{ print $(NF-2)     }') # ssr is running
-        proxychains curl myip.ipip.net
+        proxychains4 curl myip.ipip.net
     else
         curl myip.ipip.net
     end
@@ -1111,7 +1135,7 @@ end
 #5 convert hex to octual
 # echo 'F' | bc
 
-function cat
+function catt
     if test (count $argv) -gt 1
         for i in $argv
             echo -e "\\033[0;31m"\<$i\>
