@@ -1,9 +1,23 @@
 #!/usr/bin/perl
-# Convert list of binary into decimal and hexadecimal
 
-printf("the binary numbers must start with '0b'\n\n");
+if (@ARGV < 2) {
+  printf("Convert numbers among bin/oct/dec/hex\n");
+  printf("\nUsage: b2 2/8/10/16 num num2 ... \n");
+  exit;
+}
 
-for ($i = 0; $i < @ARGV; $i++) {
-  $val = oct($ARGV[$i]);
-  printf("0b%b\t= %d\t= 0x%x\n", $val, $val, $val);
+for ($i=1; $i<@ARGV; $i++) {
+  if ($ARGV[0] == 2) {
+	$num = oct("0b$ARGV[$i]");
+  } elsif ($ARGV[0] == 8) {
+	$num = oct($ARGV[$i]);
+  } elsif ($ARGV[0] == 10) {
+	$num = $ARGV[$i];
+  } elsif ($ARGV[0] == 16) {
+	$num = hex($ARGV[$i]);
+  } else {
+	printf("Usage: b2 2/8/10/16 num num2 ... \n");
+	exit;
+  }
+  printf("0x%x\t = 0d%d\t = 0%o = 0b%b\n", $num, $num, $num, $num);
 }

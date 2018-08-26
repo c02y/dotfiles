@@ -1463,7 +1463,7 @@ function d --description "Choose one from the list of recently visited dirs"
     end
 
     echo '---------------------------'
-    read -l -p 'echo "Goto: "' choice
+    read -n 1 -l -p 'echo "Goto: "' choice
     if test "$choice" = ""
         return 0
     else if string match -q -r '^[\-|b-z]$' $choice
@@ -1473,7 +1473,9 @@ function d --description "Choose one from the list of recently visited dirs"
     if string match -q -r '^\d+$' $choice
         if test $choice -ge 1 -a $choice -le $dirc
             cd $uniq_dirs[$choice]
-            echo cd $uniq_dirs[$choice]
+            set -l dir_short (string match -r "$HOME(/.*|\$)" "$uniq_dirs[$choice]")
+            set -l cd_dir "~$dir_short[2]"
+            echo cd $cd_dir
             return
         else if test $choice -eq 0
             echo You are already in directory `(pwd)`
