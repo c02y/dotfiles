@@ -169,7 +169,7 @@ alias check 'checkpatch.pl --ignore SPDX_LICENSE_TAG,CONST_STRUCT,AVOID_EXTERNS,
 
 # TODO: the following part will make fish print "No protocol specified" error line
 # source $HOME/.config/fish/functions/done.fish
-source $HOME/.config/fish/functions/__async_fish_prompt.fish
+source $HOME/.config/fish/functions/__async_prompt.fish
 
 
 # LS_COLORS, color for ls command
@@ -671,6 +671,7 @@ alias dt 'dtrx -v '
 # if the code is not working, try GBK or GB18030
 # unzip zip if it is archived in Windows and messed up characters with normal unzip
 alias unzipc 'unzip -O CP936'
+alias debl 'dpkg --contents' # list contents of deb package
 function debx --description 'extract the deb package'
     set pkgname (basename $argv[1] .deb)
     mkdir -v $pkgname
@@ -810,10 +811,14 @@ function cs -d 'change dir1 to dir2 in the $PWD and cd into it'
 end
 
 # diff
-alias diff-s 'diff -r -y -s --suppress-common-line -W $COLUMNS'
-alias diff-sw 'diff-s -w'
-alias diff-y 'diff -r -y -s -W $COLUMNS '
-alias diff-yw 'diff-y -w'
+# side-by-side
+alias diff-s 'diff -r -y -s --suppress-common-line -W $COLUMNS' # side-by-side, only diffs
+alias diff-sf 'diff -r -y -s -W $COLUMNS' # like diff-s, but print whole files
+alias diff-sw 'diff-s -w' # like diff-s, but ignore all white space
+# line by line
+alias diff-l 'diff -r -s --suppress-common-line -W $COLUMNS' # line-by-line, only diffs
+alias diff-lf 'diff -r -s -W $COLUMNS' # like diff-l, but print whole files
+alias diff-lw 'diff-l -w' # like diff-l, but ignore all white space
 
 function mkcd --description 'mkdir dir then cd dir'
     mkdir -p $argv

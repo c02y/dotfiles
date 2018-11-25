@@ -7,6 +7,13 @@ and begin
     end
 
     function __async_prompt_setup
+        set -l fish_pids (pgrep -f fish)
+        set -U -n | sed -rn 's/__async_prompt_.*_([0-9]+)/\0 \1/p' | while read -l varname pid
+            if not contains "$pid" fish_pids
+                set -e $varname
+            end
+        end
+
         set -q async_prompt_functions
         and set -g __async_prompt_functions_internal $async_prompt_functions
 
@@ -40,15 +47,15 @@ and begin
 
     function __async_prompt_sync_val --on-signal WINCH
         for func in (__async_prompt_config_functions)
-            __async_prompt_var_move '__async_prompt_'$func'_text' '__async_prompt_'$func'_text_'(echo %self)
+            __async_prompt_var_move '__async_prompt_'$func'_text' '__async_prompt_'$func'_text_'(__async_prompt_pid)
         end
     end
 
     function __async_prompt_var_move
-        set dst $argv[1]
-        set orig $argv[2]
+        set -l dst $argv[1]
+        set -l orig $argv[2]
 
-        set -q $orig; and begin
+        if set -q $orig
             set -g $dst $$orig
             set -e $orig
         end
@@ -58,9 +65,11 @@ and begin
         set st $status
 
         for func in (__async_prompt_config_functions)
-            __async_prompt_config_inherit_variables |__async_prompt_spawn $st 'set -U __async_prompt_'$func'_text_'(echo %self)' ('$func')'
-            function '__async_prompt_'$func'_handler' --on-process-exit (jobs -lp |tail -n1)
-                kill -WINCH %self
+            __async_prompt_config_inherit_variables | __async_prompt_spawn $st 'set -U __async_prompt_'$func'_text_'(__async_prompt_pid)' ('$func')'
+            function '__async_prompt_'$func'_handler' --on-process-exit (jobs -lp | tail -n1)
+                kill -WINCH (__async_prompt_pid)
+                sleep 0.1
+                kill -WINCH (__async_prompt_pid)
             end
         end
     end
@@ -72,51 +81,65 @@ and begin
                 contains $line FISH_VERSION PWD SHLVL _ history
                 and continue
 
-                test "$line" = status
-                and echo status $st
-                or echo $line (string escape -- $$line)
+                if test "$line" = status
+                    echo status $st
+                else
+                    or echo $line (string escape -- $$line)
+                end
             end
-        end |fish -c 'function __async_prompt_ses
-        return $argv
-    end
-    while read -a line
-    test -z "$line"
-    and continue
+        end | fish -c 'function __async_prompt_ses
+            return $argv
+        end
+        while read -a line
+            test -z "$line"
+            and continue
 
-    test "$line[1]" = status
-    and set st $line[2]
-    or eval set "$line"
-    end
+            if test "$line[1]" = status
+                set st $line[2]
+            else
+                eval set "$line"
+            end
+        end
 
-    not set -q st
-    and true
-    or __async_prompt_ses $st
-    '$argv[2] &
+        not set -q st
+        and true
+        or __async_prompt_ses $st
+        '$argv[2] &
     end
 
     function __async_prompt_config_inherit_variables
-        set -q async_prompt_inherit_variables
-        and begin
-            test "$async_prompt_inherit_variables" = all
-            and set -ng
-            or for item in $async_prompt_inherit_variables
-                echo $item
+        if set -q async_prompt_inherit_variables
+            if test "$async_prompt_inherit_variables" = all
+                set -ng
+            else
+                for item in $async_prompt_inherit_variables
+                    echo $item
+                end
             end
+        else
+            echo status
         end
-        or echo status
     end
 
     function __async_prompt_config_functions
-        set -q __async_prompt_functions_internal
-        and for func in $__async_prompt_functions_internal
+        if set -q __async_prompt_functions_internal
+            string join \n $__async_prompt_functions_internal
+        else
+            echo fish_prompt
+            echo fish_right_prompt
+        end | while read -l func
             functions -q "$func"
             or continue
 
             echo $func
         end
-        or begin
-            echo fish_prompt
-            echo fish_right_prompt
+    end
+
+    function __async_prompt_pid
+        if test -n "$pid"
+            echo $pid
+        else
+            cat /proc/self/stat | awk '{ print $4 }'
         end
     end
 end
