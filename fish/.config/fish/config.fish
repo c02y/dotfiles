@@ -286,14 +286,14 @@ function lsh2
     ls --color=yes $argv --sort=time -lh --time=ctime | head -20 | nl -v 0
 end
 function lls
-    ll --color=yes $argv --sort=size -lh --time=ctime | less -R | nl -v 0
+    ll --color=yes $argv --sort=size -lh | less -R | nl -v 0
 end
 function llh
-    ll --color=yes $argv --sort=ctime -lh | head | nl -v 0
+    ll --color=yes $argv --sort=time -lh  --time=ctime | head | nl -v 0
 end
-alias llt 'lla --color=yes --sort=ctime -lh | less -R | nl -v 0'
-alias lat 'lla --color=yes --sort=ctime -lh | less -R | nl -v 0'
-alias lah 'lla --color=yes --sort=ctime -lh | head | nl -v 0'
+alias llt 'lla --color=yes --sort=time -lh --time=ctime | less -R | nl -v 0'
+alias lat 'lla --color=yes --sort=time -lh --time=ctime | less -R | nl -v 0'
+alias lah 'lla --color=yes --sort=time -lh --time=ctime | head | nl -v 0'
 # count the number of the files in the dir(not sub.), use tree | wc -l for subdirs
 alias lsc 'ls -all | wc -l'
 # valgrind
