@@ -1,4 +1,4 @@
-# ~/.fishrc linked to ~/.config/fish/config.fish
+# ~/.config/fish/config.fish linked to ~/.config/fish/config.fish
 ### you can use `fish_config` to config a lot of things in WYSIWYG way in browser
 
 #set -gx GOPATH $GOPATH ~/GoPro
@@ -113,7 +113,7 @@ end
 
 function fsr --description 'Reload your Fish config after configuration'
     . ~/.config/fish/config.fish # fsr
-    echo .fishrc is reloaded!
+    echo .config/fish/config.fish is reloaded!
     path_prompt
 end
 
@@ -277,23 +277,23 @@ function bxp -d 'pastebin service in command line'
 end
 #
 function lst
-    ls --color=yes $argv --sort=time -lh | nl -v 0 | less
+    ls --color=yes $argv --sort=time -lh --time=ctime | nl -v 0 | less
 end
 function lsh
-    ls --color=yes $argv --sort=time -lh | head | nl -v 0
+    ls --color=yes $argv --sort=time -lh --time=ctime | head | nl -v 0
 end
 function lsh2
-    ls --color=yes $argv --sort=time -lh | head -20 | nl -v 0
+    ls --color=yes $argv --sort=time -lh --time=ctime | head -20 | nl -v 0
 end
 function lls
-    ll --color=yes $argv --sort=size -lh | less -R | nl -v 0
+    ll --color=yes $argv --sort=size -lh --time=ctime | less -R | nl -v 0
 end
 function llh
-    ll --color=yes $argv --sort=time -lh | head | nl -v 0
+    ll --color=yes $argv --sort=ctime -lh | head | nl -v 0
 end
-alias llt 'lla --color=yes --sort=time -lh | less -R | nl -v 0'
-alias lat 'lla --color=yes --sort=time -lh | less -R | nl -v 0'
-alias lah 'lla --color=yes --sort=time -lh | head | nl -v 0'
+alias llt 'lla --color=yes --sort=ctime -lh | less -R | nl -v 0'
+alias lat 'lla --color=yes --sort=ctime -lh | less -R | nl -v 0'
+alias lah 'lla --color=yes --sort=ctime -lh | head | nl -v 0'
 # count the number of the files in the dir(not sub.), use tree | wc -l for subdirs
 alias lsc 'ls -all | wc -l'
 # valgrind
@@ -582,7 +582,7 @@ end
 alias me 'm $argv[1] ~/.emacs.d/init.el'
 alias mh 'm $argv[1] /etc/hosts'
 alias m2 'm $argv[1] ~/Recentchange/TODO'
-alias mf 'm $argv[1] ~/.fishrc'
+alias mf 'm $argv[1] ~/.config/fish/config.fish'
 #
 alias less 'less -RM -s +Gg'
 # color in less a code file
@@ -590,6 +590,7 @@ alias less 'less -RM -s +Gg'
 # if pygmentize not working, use source-highlight instead
 set -gx LESSOPEN '| /usr/bin/src-hilite-lesspipe.sh %s'
 # set -gx LESSOPEN '| /usr/share/source-highlight/src-hilite-lesspipe.sh %s'
+# set -gx LESSOPEN '| eval $HOME/anaconda3/bin/src-hilite-lesspipe.sh %s'
 # nums are explained at
 # http://www.tuxarena.com/2012/04/tutorial-colored-man-pages-how-it-works/
 set -gx LESS_TERMCAP_me \e'[0m' # turn off all appearance modes (mb, md, so, us)
@@ -611,8 +612,6 @@ set -gx LESS_TERMCAP_us \e'[04;38;5;200m' # enter underline mode
 # Light Gray  0;37     White         1;37
 #########################################
 
-# another way to do it
-alias vm 'vim -u ~/.vimrc.more'
 # color in man page
 set -gx MANPAGER 'less -s -M +Gg -i'
 # color in man page and less
@@ -842,15 +841,15 @@ alias np 'netease-player '
 alias db 'douban.fm '
 
 #vim
-alias v 'vim'
 alias V 'vim -u NONE'
-alias vc 'vim ~/.cgdb/cgdbrc'
-alias vv 'vim ~/.vimrc'
-alias vb 'vim ~/.bashrc'
-alias ve 'vim ~/.emacs.d/init.el'
-alias v2 'vim ~/Recentchange/TODO'
-alias vf 'vim ~/.fishrc; source ~/.fishrc; echo ~/.fishrc reloaded!'
-alias vt 'vim ~/.tmux.conf; tmux source-file ~/.tmux.conf; echo ~/.tmux.conf reloaded!'
+alias vimc 'vim ~/.cgdb/cgdbrc'
+alias vimm 'vim -u ~/.vim/vimrc.more'
+alias vimv 'vim ~/.vim/vimrc'
+alias vimb 'vim ~/.bashrc'
+alias vime 'vim ~/.emacs.d/init.el'
+alias vim2 'vim ~/Recentchange/TODO'
+alias vimf 'vim ~/.config/fish/config.fish; source ~/.config/fish/config.fish; echo config.fish reloaded!'
+alias vimt 'vim ~/.tmux.conf; tmux source-file ~/.tmux.conf; echo ~/.tmux.conf reloaded!'
 
 # emacs
 # -Q = -q --no-site-file --no-splash, which will not load something like emacs-googies
@@ -867,14 +866,14 @@ end
 alias e 'emx '
 alias ei 'emx ~/.emacs.d/init.el'
 alias ec 'emx ~/.cgdb/cgdbrc'
-alias ef 'emx ~/.fishrc'
+alias ef 'emx ~/.config/fish/config.fish'
 alias ev 'emx ~/.vimrc'
 alias eb 'emx ~/.bashrc'
 alias ee 'emx ~/.emacs.d/init.el'
 # alias et 'emx ~/.tmux.conf'
 alias e2 'emx ~/Recentchange/TODO'
 
-# C-w to reload ~/.fishrc
+# C-w to reload ~/.config/fish/config.fish
 #bind \cs fsr
 
 # the gpl.txt can be gpl-2.0.txt or gpl-3.0.txt
@@ -930,7 +929,7 @@ function gita -d 'git add for multiple files at once'
         git add $i
     end
 end
-function gtirh -d 'git reset HEAD for multiple files'
+function gitrh -d 'git reset HEAD for multiple files'
     set -l files (echo $argv | tr ',' '\n')
     for i in $files
         echo 'git reset HEAD for file:' $i
@@ -1323,8 +1322,8 @@ end
 function ag
     #sed -i "s/.shell/\"$argv[1]\n.shell/g" ~/.lesshst
     echo "\"$argv[1]" >> ~/.lesshst
-    if test -f /usr/bin/ag
-        /usr/bin/ag --ignore '*~' --ignore '#?*#' --ignore '.#?*' --ignore '*.swp' --ignore -s --pager='less -RM -FX -s' $argv
+    if type -q ag # check if ag command existed, it may be in ~/.local/bin or ~/anaconda3/bin or /usr/bin
+        command ag --ignore '*~' --ignore '#?*#' --ignore '.#?*' --ignore '*.swp' --ignore -s --pager='less -RM -FX -s' $argv
     else
         grep -n --color=always $argv | more
         echo -e "\n...ag is not installed, use grep instead..."
@@ -1333,8 +1332,8 @@ end
 function age --description 'ag sth. in ~/.emacs.d/init.el'
     ag $argv[1] ~/.emacs.d/init.el
 end
-function agf --description 'ag sth. in ~/.fishrc'
-    ag $argv[1] ~/.fishrc
+function agf --description 'ag sth. in ~/.config/fish/config.fish'
+    ag $argv[1] ~/.config/fish/config.fish
 end
 function agt --description 'ag sth. in ~/.tmux.conf'
     ag $argv[1] ~/.tmux.conf
@@ -1493,6 +1492,20 @@ function d --description "Choose one from the list of recently visited dirs"
         return 1
     end
 end
+
+# conda install -c conda-forge ncurses emacs w3m fish the_silver_searcher source-highlight
+# conda install -c ripl-org tmux
+# conda install -c freckles stow
+# pip install ranger-fm
+#
+# to know what channel(conda-forge) provides the latest version of a package:
+# conda install -c binstar binstar # renamed to anaconda-client, so `conda install anaconda-client`
+# binstar search -t conda packgename # get the channel(user) name
+# conda install -c channel packagename
+alias condas 'binstar search -p linux-64 -t conda' # [packagename]
+alias condai 'conda install -c ' # [channel] [packagename]
+alias condau 'conda upgrade --all -vy'
+alias condac 'conda clean -avy'
 
 #### ---------------- anaconda starts -----------------------
 # anaconda
