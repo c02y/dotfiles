@@ -11,12 +11,21 @@ set fileencodings=utf8,gb2312,gb18030,ucs-bom,latin1
 nmap <space> :
 let mapleader = ","
 
+" Reload vimrc without restarting vim
+" Source vim configuration upon save
+if has ('autocmd') " Remain compatible with earlier versions
+ augroup vimrc
+    autocmd! BufWritePost $MYVIMRC source % | echom "Reloaded " . $MYVIMRC | redraw
+    autocmd! BufWritePost $MYGVIMRC if has('gui_running') | so % | echom "Reloaded " . $MYGVIMRC | endif | redraw
+  augroup END
+endif " has autocmd
+
 " C-z to go into shell, use exit(int shell) to go back to vim
 nmap <C-Z> :shell<CR>
-nnoremap <Leader>. :e<Space>
-nnoremap <Leader>v :e<Space>~/.vimrc<CR>
+nnoremap <Leader>v :e<Space>~/.vim/vimrc<CR>
 " use right click for menu
 set mousemodel=popup
+set mouse=a
 " Toggle spell checking on and off with `,s`
 nmap <silent> <leader>s :set spell!<CR>
 
@@ -123,7 +132,7 @@ function! FileSize()
         return (bytes / 1024) . "KB"
     endif
 endfunction
-function ShowFileFormatFlag(var)
+function! ShowFileFormatFlag(var)
   if ( a:var == 'dos' )
     return '[dos]'
   elseif ( a:var == 'mac' )
@@ -218,6 +227,9 @@ autocmd BufRead,BufNewFile *.c,*.cpp set noexpandtab tabstop=8 shiftwidth=8
 set nocompatible              " be iMproved, required
 filetype on                   " required
 
+" this fix the errors(like Error detected while processing function) when using VundleInstall/Update
+set shell=/bin/bash
+
 " set the runtime path to include Vundle and initialize
 " `:set runtimepath` to check the value
 set rtp+=~/.vim/bundle/Vundle.vim
@@ -225,8 +237,13 @@ call vundle#begin()
 " alternatively, pass a path where Vundle should install plugins
 "call vundle#begin('~/some/path/here')
 
+Plugin 'liuchengxu/vim-which-key'
+nnoremap <silent> <leader> :WhichKey '<leader>'<CR>
+" By default timeoutlen is 1000 ms
+set timeoutlen=500
+
 " let Vundle manage Vundle, required
-Plugin 'gmarik/Vundle.vim'
+Plugin 'VundleVim/Vundle.vim'
 
 " nerdcommenter
 Plugin 'scrooloose/nerdcommenter'
