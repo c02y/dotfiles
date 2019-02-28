@@ -1,3 +1,1 @@
-function z -d "cd, same functionality as j in autojump"
-    fasd_cd -d $argv
-end
+source (lua ~/.config/fish/functions/z.lua --init fish once | psub)

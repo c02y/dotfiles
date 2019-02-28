@@ -1,4 +1,3 @@
-# ~/.config/fish/config.fish linked to ~/.config/fish/config.fish
 ### you can use `fish_config` to config a lot of things in WYSIWYG way in browser
 
 #set -gx GOPATH $GOPATH ~/GoPro
@@ -12,6 +11,8 @@ if test "$MANPATH" = ""
     set -gx MANPATH (manpath | string split ":")
 end
 set -gx MANPATH $HOME/anaconda3/share/man $MANPATH
+
+set -gx FISH_CONFIG_PATH ~/.config/fish/config.fish
 
 # for ~/.linuxbrew/ (brew for linux to install programs)
 #set -gx LD_LIBRARY_PATH $LD_LIBRARY_PATH ~/.linuxbrew/Library
@@ -27,7 +28,7 @@ set -gx fish_color_user magenta
 set -gx fish_color_host yellow
 
 # start fish without configuration
-alias fi "sh -c 'env HOME=\$(mktemp -d) fish'"
+abbr fi "sh -c 'env HOME=\$(mktemp -d) fish'"
 
 
 # do `h` in the new one after switching terminal session
@@ -36,6 +37,18 @@ function h --on-process-exit %self
 end
 function his
     history | ag $argv[1]
+end
+
+function auto-source --on-event fish_preexec -d 'auto source config.fish if gets modified!'
+    if not set -q FISH_CONFIG_TIME # if FISH_CONFIG_TIME not set, status != 0
+        set -g FISH_CONFIG_TIME (date +%s -r $FISH_CONFIG_PATH)
+    else
+        set FISH_CONFIG_TIME_NEW (date +%s -r $FISH_CONFIG_PATH)
+        if test "$FISH_CONFIG_TIME" != "$FISH_CONFIG_TIME_NEW"
+            fsr
+            set FISH_CONFIG_TIME (date +%s -r $FISH_CONFIG_PATH)
+        end
+    end
 end
 
 # set the color of the selected on in the drop list of TAB #4695
@@ -112,17 +125,18 @@ function fish_right_prompt -d "Write out the right prompt"
 end
 
 function fsr --description 'Reload your Fish config after configuration'
-    . ~/.config/fish/config.fish # fsr
-    echo .config/fish/config.fish is reloaded!
+    source $FISH_CONFIG_PATH # fsr
+    varclear PATH
+    echo $FISH_CONFIG_PATH is reloaded!
     path_prompt
 end
 
 # tmux related
 # If tmux is running in background. attach it, else create new session
-alias t 'tmux attach ;or tmux'
-alias tl 'tmux ls'
-alias tl 'tmux ls'
-alias tls 'tmux list-panes -s'
+abbr t 'tmux attach ;or tmux'
+abbr tl 'tmux ls'
+abbr tl 'tmux ls'
+abbr tls 'tmux list-panes -s'
 function tk -d 'tmux kill-session single/multiple sessions'
     if test (count $argv) -gt 0
         for i in $argv
@@ -156,9 +170,9 @@ function tka -d 'tmux kill-session except given session[s]'
     end
 end
 # or just use 'M-c r', it is defiend in ~/.tmux.conf
-alias tsr 'tmux source-file ~/.tmux.conf; echo ~/.tmux.conf reloaded!'
+abbr tsr 'tmux source-file ~/.tmux.conf; echo ~/.tmux.conf reloaded!'
 # this line will make the indentation of lines below it wrong, TODO: weird
-# alias tt 'tmux switch-client -t'
+# abbr tt 'tmux switch-client -t'
 function twp -d 'tmux swap-pane to current pane to the target pane'
     tmux display-panes "'%%'"
     read -n 1 -p 'echo "Target pane number? "' -l num
@@ -169,8 +183,8 @@ alias check 'checkpatch.pl --ignore SPDX_LICENSE_TAG,CONST_STRUCT,AVOID_EXTERNS,
 
 # TODO: the following part will make fish print "No protocol specified" error line
 # source $HOME/.config/fish/functions/done.fish
-source $HOME/.config/fish/functions/__async_prompt.fish
-
+# the following script will make fish v3.0.0 prompt hang
+# source $HOME/.config/fish/functions/__async_prompt.fish
 
 # LS_COLORS, color for ls command
 # http://linux-sxs.org/housekeeping/lscolors.html
@@ -215,16 +229,23 @@ function fish_user_key_bindings
         bind --erase \cv # or bind \cv ""
     end
 end
-alias clr="echo -e '\033c\c'; path_prompt"
+abbr clr="echo -e '\033c\c'; path_prompt"
 
-alias pm-sl 'sudo pm-suspend'   # 'Suspend to ram' in GUI buttom, power button to wake up
-alias pm-hb 'sudo pm-hibernate' # not work in old CentOS6
+function sudo -d 'make sudo accpet the defined alias/functions'
+    if functions -q $argv[1]
+        set argv fish -c "$argv"
+    end
+    command sudo $argv
+end
 
-alias rg '/usr/bin/rg -p'
-alias rgr 'ranger'
-alias fpp '~/Public/PathPicker/fpp'
-alias ga 'glances -t 1 --hide-kernel-threads -b --disable-irq --enable-process-extended'
-alias dst 'dstat -d -n'
+abbr pm-sl 'sudo pm-suspend'   # 'Suspend to ram' in GUI buttom, power button to wake up
+abbr pm-hb 'sudo pm-hibernate' # not work in old CentOS6
+
+abbr rg 'rg -p'
+abbr rgr 'ranger'
+abbr fpp '~/Public/PathPicker/fpp'
+abbr ga 'glances -t 1 --hide-kernel-threads -b --disable-irq --enable-process-extended'
+abbr dst 'dstat -d -n'
 
 # make the make and gcc/g++ color
 function make
@@ -240,27 +261,31 @@ end
 function g++
     /usr/bin/g++ $argv 2>&1 | grep --color -iP "\^|warning:|error:|Undefined|"
 end
-alias gcc-w 'gcc -g -Wall -W -Wsign-conversion'
-alias gcca 'gcc -g -pedantic -Wall -W -Wconversion -Wshadow -Wcast-qual -Wwrite-strings -Wmissing-prototypes  -Wno-sign-compare -Wno-unused-parameter'
+abbr gcc-w 'gcc -g -Wall -W -Wsign-conversion'
+abbr gcca 'gcc -g -pedantic -Wall -W -Wconversion -Wshadow -Wcast-qual -Wwrite-strings -Wmissing-prototypes  -Wno-sign-compare -Wno-unused-parameter'
 # gcc -Wall -W -Wextra -Wconversion -Wshadow -Wcast-qual -Wwrite-strings -Werror
 
 # User specific aliases and functions
-alias sl 'ls'
-alias l 'ls'
+abbr sl 'ls'
+abbr l 'ls'
 alias ls 'ls --color=always'
-alias lsd 'ls -d */' # only list unhidden directories
+abbr lsd 'ls -d */' # only list unhidden directories
 alias ll 'ls -lh'
-alias la 'ls -d .*' # only list the hidden dirs
+abbr la 'ls -d .*' # only list the hidden dirs
 alias lla 'ls -lhA' # list all but not . ..
-alias ls. 'ls -A'
-alias lsf 'ls -A1' # list only filenames, same as `ls -A | sort
-alias lsl 'ls -1' # list the names of content line by line without attributes
-alias lsL 'ls -A1' # like lsl but including hiddens ones (no . or ..)
-function lsx --description 'cp the full path of a file/dir to sytem clipboard'
-    if test -f $argv -o -d $argv
-        readlink -fn $argv | xc
-        xc -o
-        echo \n---- Path Copied to Clipboard! ----
+abbr lsa 'ls -A'
+abbr lsf 'ls -A1' # list only filenames, same as `ls -A | sort
+abbr lsl 'ls -1' # list the names of content line by line without attributes
+abbr lsL 'ls -A1' # like lsl but including hiddens ones (no . or ..)
+function lsx -d 'cp the full path of a file/dir to sytem clipboard'
+    if test $DISPLAY
+        if test -f $argv -o -d $argv
+            readlink -fn $argv | xc
+            xc -o
+            echo \n---- Path Copied to Clipboard! ----
+        end
+    else
+        echo DISPLAY is not available!
     end
 end
 function xcp -d 'paste the echo string into system clipper board'
@@ -291,27 +316,27 @@ end
 function llh
     ll --color=yes $argv --sort=time -lh  --time=ctime | head | nl -v 0
 end
-alias llt 'lla --color=yes --sort=time -lh --time=ctime | less -R | nl -v 0'
-alias lat 'lla --color=yes --sort=time -lh --time=ctime | less -R | nl -v 0'
+abbr llt 'lla --color=yes --sort=time -lh --time=ctime | less -R | nl -v 0'
+abbr lat 'lla --color=yes --sort=time -lh --time=ctime | less -R | nl -v 0'
 alias lah 'lla --color=yes --sort=time -lh --time=ctime | head | nl -v 0'
 # count the number of the files in the dir(not sub.), use tree | wc -l for subdirs
-alias lsc 'ls -all | wc -l'
+abbr lsc 'ls -all | wc -l'
 # valgrind
-# alias va='valgrind -v --track-origins=yes'
-alias va 'valgrind --track-origins=yes --leak-check=full '
+# abbr va='valgrind -v --track-origins=yes'
+abbr va 'valgrind --track-origins=yes --leak-check=full '
 # more detail about time
-alias vad 'valgrind --tool=callgrind --dump-instr=yes --simulate-cache=yes --collect-jumps=yes '
+abbr vad 'valgrind --tool=callgrind --dump-instr=yes --simulate-cache=yes --collect-jumps=yes '
 
-alias im 'ristretto'
-alias ds 'display'
+abbr im 'ristretto'
+abbr ds 'display'
 
-alias ka 'killall -9'
+abbr ka 'killall -9'
 # If Emacs hangs and won't response to C-g, use this to force it to stop whatever it's doing
 # Note that do not use this if you got more than one instances of Emacs running
 # Use `pkill -SIGUSR2 PID` to kill the PID, send SIGUSR2 to emacs will turn on `toggle-debug-on-quit`, turn it off once emacs is alive again
-alias ke 'pkill -SIGUSR2 emacs'
+abbr ke 'pkill -SIGUSR2 emacs'
 # get the pid of a gui program using mouse
-alias pid 'xprop | grep -i pid | grep -Po "[0-9]+"'
+abbr pid 'xprop | grep -i pid | grep -Po "[0-9]+"'
 function psg -d 'pgrep process'
     ps -ef | grep -v grep | grep -i $argv[1] | nl
 end
@@ -322,8 +347,7 @@ function pk --description 'kill processes containing a pattern or PID'
         echo "No '$argv[1]' process is running!"
     else if test $result = 1
         set -l pid (psg $argv[1] | awk '{print $3}')
-        kill -9 $pid
-        if test $status != 0 # Operation not permitted
+        if not kill -9 $pid # failed to kill, $status != 0
             psg $pid | ag $argv[1] # list the details of the process need to be sudo kill
             read -n 1 -p 'echo "Use sudo to kill it? [Y/n]: "' -l arg
             if test "$arg" = "" -o "$arg" = "y" -o "$arg" = " "
@@ -342,8 +366,7 @@ function pk --description 'kill processes containing a pattern or PID'
                     if test "$arg2" = "y" -o "$arg2" = " "
                         set -l pids (psg $argv[1] | awk '{print $3}')
                         for i in $pids
-                            kill -9 $i
-                            if test $status != 0 # Operation not permitted
+                            if not kill -9 $i # failed to kill, $status != 0
                                 psg $i | ag $argv[1]
                                 read -n 1 -p 'echo "Use sudo to kill it? [Y/n]: "' -l arg3
                                 if test "$arg3" = "" -o "$arg3" = "y" -o "$arg3" = " "
@@ -379,8 +402,7 @@ function pk --description 'kill processes containing a pattern or PID'
                             echo $arg2 is not in the index of the list.
                         else
                             # return
-                            kill -9 $pid_of_index
-                            if test $status != 0 # kill failed
+                            if not kill -9 $pid_index # kill failed, $status != 0
                                 psg $pid_of_index | ag $argv[1] # list the details of the process need to be sudo kill
                                 read -n 1 -p 'echo "Use sudo to kill it? [Y/n]: "' -l arg4
                                 if test $arg4 = "" -o "$arg4" = "y" -o "$arg4" = " "
@@ -393,8 +415,7 @@ function pk --description 'kill processes containing a pattern or PID'
                         # The $arg2 here can be part of the real pid, such as typing only 26 means 126
                         if test (psg $argv[1] | awk '{print $3}' | grep -i $arg2)
                             set -l pid_part (psg $argv[1] | awk '{print $3}' | grep -i $arg2)
-                            kill -9 $pid_part
-                            if test $status -eq 1 # kill failed
+                            if not kill -9 $pid_part # kill failed, $status != 0
                                 psg $pid_part | ag $argv[1] # list the details of the process need to be sudo kill
                                 read -n 1 -p 'echo "Use sudo to kill it? [Y/n]: "' -l arg5
                                 if test $arg5 = "" -o "$arg5" = "y" -o "$arg5" = " "
@@ -415,7 +436,7 @@ function pk --description 'kill processes containing a pattern or PID'
     end
 end
 
-alias epath 'varclear PATH; echo $PATH | tr " " "\n" | nl'
+abbr epath 'varclear PATH; echo $PATH | tr " " "\n" | nl'
 function varclear --description 'Remove duplicates from environment varieble'
     if test (count $argv) = 1
         set -l newvar
@@ -429,7 +450,6 @@ function varclear --description 'Remove duplicates from environment varieble'
         end
         set $argv $newvar
         test $count -gt 0
-        and echo Removed $count duplicates from $argv
     else
         for a in $argv
             varclear $a
@@ -440,74 +460,214 @@ end
 alias rm 'rm -vi'
 alias cp 'cp -vi'
 alias mv 'mv -vi'
-alias rcp 'rsync --stats --progress -rhv '
-alias rmc 'rsync --stats --progress -rhv --remove-source-files ' # this will not delte the src dir, only the contents
+abbr rcp 'rsync --stats --progress -rhv '
+abbr rmc 'rsync --stats --progress -rhv --remove-source-files ' # this will not delte the src dir, only the contents
 
-#alias grep='grep -nr --color=auto'
-alias g 'grep -F -n --color=auto'
-alias egrep 'egrep --color=auto'
-alias fgrep 'fgrep --color=auto'
+#abbr grep='grep -nr --color=auto'
+abbr g 'grep -F -n --color=auto'
 
-# alias fu 'type'
 function fu -d 'fu command and prompt to ask to open it or not'
-    type $argv
-    if test $status != 0
+    # $argv could be builtin keyword, function, alias, file(bin/script) in $PATH, abbr
+    # And they all could be defined in script or temporally (could be found in any file)
+
+    set found 0
+    # Check `type` output, NOTE: `type` doesn't support abbr
+    if type $argv ^/dev/null # omit the result once error(abbr or not-a-thing) returned, $status = 0
+        set found 1 # for not-a-thing
+        set result (type $argv)
+    end
+
+    # NOTE: $argv may also be defined as an abbr like rm command
+    abbr --show | grep -w "abbr $argv" # Space to avoid the extra abbr starting with $ARGV
+    if test $status = 0
+        # in case $argv existes in both `type` and `abbr --show`
+        if test $found = 1 -a (echo (grep -w -E "^alias $argv|^function $argv" $FISH_CONFIG_PATH))
+            echo "$argv is in both `type` and `abbr --list`, found definition in $FISH_CONFIG_PATH"
+            abbrc
+            # continue, use the result of `type`
+        else # only exists in `abbr --show`
+            set found 1
+            set result (abbr --show | grep -w "abbr $argv")
+        end
+    else if test $status != 0 -a $found != 1
+        echo "$argv is not a thing!"
         return
     end
-    echo
-    set -l result (type $argv)
-    # check if the argv is a definition in config.fish
-    printf '%s\n' $result | head -1 | grep -i "is a function with definition" ^/dev/null >/dev/null
-    if test $status = 0
+
+    set result_1 (printf '%s\n' $result | head -1)
+    if test (echo $result_1 | grep -w -E "abbr $argv|is a function with definition") # defined in fish script
+        if test (echo $result_1 | grep -E "is a function with definition")
+            # 1. function or alias -- second line of output of fu ends with "$path @ line $num_line"
+            set -l result_2 (printf '%s\n' $result | sed -n "2p")
+            set def_file (echo $result_2 | awk -v x=4 '{print $x}')
+            if test "$def_file" = "-" # alias, no definition file is printed
+                set def_file $FISH_CONFIG_PATH
+            end
+
+            set num_line (grep -w -n -E "^alias $argv|^function $argv" $def_file | cut -d: -f1)
+            if not test $num_line # empty
+                echo "$argv is an alias/functions in `alias/functions` but not defined in $def_file, may be defined temporally or in other file!"
+                if test $def_file = $FISH_CONFIG_PATH
+                    functions -e $argv
+                    echo "$argv is erased!"
+                end
+                return
+            end
+        else # 2. abbr
+            set def_file $FISH_CONFIG_PATH
+            set num_line (grep -w -n "^abbr $argv" $def_file | cut -d: -f1)
+            if not test $num_line # empty
+                echo "$argv is an abbr in `abbr --show` but not defined in $FISH_CONFIG_PATH, may be defined temporally or in other file!"
+                if test $def_file = $FISH_CONFIG_PATH
+                    abbr -e $argv
+                    echo "$argv is erased!"
+                end
+                return
+            end
+        end
+
+        echo
         read -n 1 -p 'echo "Open the file containing the definition? [y/N]: "' -l answer
         if test "$answer" = "y" -o "$answer" = " "
-            # check if the definition is an alias or a function
-            # alias    -- second line of output of fu ends with "- @ line 0"
-            # function -- second line of output of fu ends with "$path @ line $num_line"
-            set -l num_line (printf '%s\n' $result | sed -n "2p" | awk -v x=7 '{print $x}')
-            # or
-            # set -l num_line (printf '%s\n' $result | sed -n "2p" | awk 'NF>1{print $NF}')
-            set -l def_file (printf '%s\n' $result | sed -n "2p" | awk -v x=4 '{print $x}')
-            if test $def_file = "-"
-                set def_file ~/.config/fish/config.fish
-                set -l argv_line (printf "alias %s " $argv)
-                set num_line (grep -n $argv_line $def_file | cut -d: -f1)
-            end
             vim $def_file +$num_line
         end
-    else if test (printf '%s\n' $result | head -1 | grep -i "is a builtin")
-        return                  # is a builtin like if
-    else # argv is a file
-        set -l file_path (printf '%s\n' $result | awk 'NF>1{print $NF}')
-        # symbolic
-        file $file_path | grep "symbolic"
-        if test $status = 0
-            # the file_path may only contains the file name if target is in the same dir
-            set file_path (readlink -f $file_path)
-        end
-        # script
-        file $file_path | grep "script"
-        if test $status = 0
+    else if test (echo $result_1 | grep -i "is a builtin")
+        # 3. $argv in builtin like if
+        return
+    else # 4. $argv is a file in $PATH
+        set -l file_path (echo $result_1 | awk 'NF>1{print $NF}')
+        file $file_path | grep "symbolic link" # print only $argv is symbolic link
+        file (readlink -f $file_path) | grep -E "ELF|script|executable" # highlight
+        if test (file (readlink -f $file_path) | grep "script") # script can be open
             echo
-            read -n 1 -p 'echo "Open the file?[y/N]: "' -l answer
+            read -n 1 -p 'echo "Open the file for editing?[y/N]: "' -l answer
             if test "$answer" = "y" -o "$answer" = " "
                 vim $file_path
             end
-        else
-            file $file_path
         end
     end
 end
 
-# touch temporary files
-alias tout 'touch ab~ .ab~ .\#ab .\#ab\# \#ab\# .ab.swp ab.swp'
-# find
-function f --description 'find the files by name, if no argv is passed, use the current dir'
-    find $argv[1] -name $argv[2]
+function fzfp -d 'check if fzf is existed, with any argument, fzf binary file will be upgraded'
+    if command -sq fzf; and set -q $argv[1] # check if fzf is in $PATH, and no any argv is given, two conditions
+        return 0
+    else
+        # check internet connection
+        if not wget -q --spider http://www.baidu.com # failed, $status != 0
+            echo "fzf doesn't exist and error occurs when downloading it!"
+            return 1
+        end
+
+        set tag_name (curl -s "https://api.github.com/repos/junegunn/fzf-bin/releases/latest" | grep "tag_name" | cut -d : -f 2 | awk -F[\"\"] '{print $2}')
+        set file_name (echo fzf-$tag_name-linux_amd64.tgz)
+        set file_link (echo https://github.com/junegunn/fzf-bin/releases/download/$tag_name/$file_name)
+        wget $file_link -O /tmp/$file_name
+        if test -f /tmp/$file_name
+            tar -xvzf /tmp/$file_name -C ~/.local/bin
+            return 0
+        else
+            echo "fzf doesn't exist and error occurs when downloading it!"
+            return 1
+        end
+    end
 end
+source (lua ~/.config/fish/functions/z.lua --init fish once echo | psub)
+#set -gx _ZL_FZF_FLAG '-e'
+# z.lua using built-in cd which won't affect the cd stack of fish shell, change it to fish's cd so you can use cd -
+set -gx _ZL_CD cd
+set -gx _ZL_INT_SORT 1
+set -gx _ZL_FZF_HEIGHT 0 # 0 means fullscreen
+set -gx FZF_DEFAULT_OPTS '-1 -0' # auto select the only match, auto exit if no match
+abbr zb 'z -b' # Bonus: zb .. equals to cd .., zb ... equals to cd ../.. and
+# zb .... equals to cd ../../.., and so on. Finally, zb ..20 equals to cd (..)x20.
+function zz -d 'z\'s interactive selection mode'
+    if fzfp # fzf exists, $status = 0
+        set z_cmd z -I
+    else
+        set z_cmd z -i
+    end
+    if test (count $argv) = 0
+        eval $z_cmd .
+    else
+        eval $z_cmd  $argv
+    end
+end
+function zh -d 'z\'s cd into the cd history'
+    if fzfp # fzf exists, $status = 0
+        set z_cmd z -I -t
+    else
+        set z_cmd z -i -t
+    end
+    if test (count $argv) -eq 0
+        eval $z_cmd .
+    else
+        eval $z_cmd $argv
+    end
+end
+function zu -d 'update z.lua'
+    set z_path ~/.config/fish/functions/z.lua
+    if test -e $z_path # test if file existed
+        rm -rfv $z_path
+    end
+    curl https://raw.githubusercontent.com/skywind3000/z.lua/master/z.lua -o $z_path
+end
+
+# touch temporary files
+abbr tout 'touch ab~ .ab~ .\#ab .\#ab\# \#ab\# .ab.swp ab.swp'
+# find
+alias find 'find -L' # make find follow symlink dir/file by default
+function f -d 'find the files by name, if no argv is passed, use the current dir'
+    find $argv[1] -name "*$argv[2]*"
+end
+function fl -d 'find a file using fzf and view it using less'
+    if fzfp # fzf exists, $status = 0
+        less (find $argv[1] -name "*$argv[2]*" | fzf)
+    else
+        find $argv[1] -name "*$argv[2]*"
+    end
+end
+function fv -d 'find a file using fzf and edit it using vim'
+    if fzfp # fzf exists, $status = 0
+        vim (find $argv[1] -name "*$argv[2]*" | fzf)
+    else
+        find $argv[1] -name "*$argv[2]*"
+    end
+end
+function fe -d 'find a file using fzf and edit it using emacs'
+    if fzfp # fzf exists, $status = 0
+        emacs (find $argv[1] -name "*$argv[2]*" | fzf)
+    else
+        find $argv[1] -name "*$argv[2]*"
+    end
+end
+function fex -d 'find a file using fzf and edit it using emx'
+    if fzfp # fzf exists, $status = 0
+        emx (find $argv[1] -name "*$argv[2]*" | fzf)
+    else
+        find $argv[1] -name "*$argv[2]*"
+    end
+end
+function ff -d 'find a folder and cd into it using fzf'
+    if fzfp # fzf exists, $status = 0
+        cd (find $argv[1] -type d -name "*$argv[2]*" | fzf)
+    else
+        find $argv[1] -name "*$argv[2]*"
+    end
+end
+function ffc -d 'find a fold and copy its path'
+    if fzfp # fzf exists, $status = 0
+        if not test $DISPLAY
+            echo (find $argv[1] -type d -name "*$argv[2]*" | fzf)
+        else
+            find $argv[1] -type d -name "*$argv[2]*" | fzf | xc
+        end
+    else
+        find $argv[1] -name "*$argv[2]*"
+    end
+end
+
 function ft --description 'find the temporary files such as a~ or #a or .a~, if no argv is passed, use the current dir'
     find $argv[1] \( -name "*~" -o -name "#?*#" -o -name ".#?*" -o -name "*.swp" \) | xargs -r ls -lhd | nl
-
 end
 function ftr --description 'delete the files found by ft'
     find $argv[1] \( -name "*~" -o -name "#?*#" -o -name ".#?*" -o -name "*.swp" \) | xargs rm -rfv
@@ -543,8 +703,8 @@ function lcl --description 'clean latex temporary files such as .log, .aux'
 end
 
 # du
-alias du 'du -h --apparent-size'
-alias dul 'sudo du --summarize -h -c /var/log/* | sort -h'
+abbr du 'du -h --apparent-size'
+abbr dul 'sudo du --summarize -h -c /var/log/* | sort -h'
 function dus
     if test (count $argv) -gt 1 # $argv contains /* at the end of path
         du -cs $argv | sort -h
@@ -556,14 +716,14 @@ function duss --description 'list and sort all the files recursively by size'
     du -ah $argv | grep -v "/\$" | sort -rh
 end
 
-alias watd 'watch -d du --summarize'
+abbr watd 'watch -d du --summarize'
 function watch -d 'wrap default watch to support aliases and functions'
     while test 1
         date; eval $argv
         sleep 1; echo
     end
 end
-# alias df '/bin/df -hT -x tmpfs -x devtmpfs '
+# abbr df '/bin/df -hT -x tmpfs -x devtmpfs '
 alias df 'df -Th | grep -v grep | grep -v tmpfs | grep -v boot | grep -v var | grep -v snapshots | grep -v opt | grep -v tmp | grep -v srv | grep -v usr | grep -v user'
 # stop less save search history into ~/.lesshst
 # or LESSHISTFILE=-
@@ -579,12 +739,16 @@ function m
     end
 end
 #more
-alias me 'm $argv[1] ~/.emacs.d/init.el'
-alias mh 'm $argv[1] /etc/hosts'
-alias m2 'm $argv[1] ~/Recentchange/TODO'
-alias mf 'm $argv[1] ~/.config/fish/config.fish'
+abbr me 'm ~/.emacs.d/init.el'
+abbr mh 'm /etc/hosts'
+abbr m2 'm ~/Recentchange/TODO'
+abbr mf 'm $FISH_CONFIG_PATH'
 #
 alias less 'less -RM -s +Gg'
+abbr lesst 'less ~/.tmux.conf'
+abbr lessf 'less $FISH_CONFIG_PATH'
+abbr lesse 'less ~/.emacs.d/init.el'
+abbr lessv 'less ~/.vim/vimrc'
 # color in less a code file
 # set -gx LESSOPEN '|pygmentize -g %s'
 # if pygmentize not working, use source-highlight instead
@@ -619,17 +783,17 @@ set -gx MANPAGER 'less -s -M +Gg -i'
 set -gx GROFF_NO_SGR yes
 # other major details goto the end of the this file
 
-alias ifw 'ifconfig wlp5s0'
-alias mpp "ip route get 1.2.3.4 | cut -d' ' -f8 | head -1"
-alias mppa "ifconfig | sed -En 's/127.0.0.1//;s/.inet (addr:)?(([0-9].){3}[0-9])./\2/p'"
-#alias nl 'nload -u H p4p1'
-alias nll 'nload -u H wlp8s0'
-alias nh 'sudo nethogs wlp5s0'
+abbr ifw 'ifconfig wlp5s0'
+abbr mpp "ip route get 1.2.3.4 | cut -d' ' -f8 | head -1"
+abbr mppa "ifconfig | sed -En 's/127.0.0.1//;s/.inet (addr:)?(([0-9].){3}[0-9])./\2/p'"
+#abbr nl 'nload -u H p4p1'
+abbr nll 'nload -u H wlp8s0'
+abbr nh 'sudo nethogs wlp5s0'
 # =ifconfig= is obsolete! For replacement check =ip addr= and =ip link=. For statistics use =ip -s link=.
-# alias ipp 'ip -4 -o address'
-alias ipp 'ip addr'
-alias tf 'traff wlan0'
-alias m-c 'minicom --color=on'
+# abbr ipp 'ip -4 -o address'
+abbr ipp 'ip addr'
+abbr tf 'traff wlan0'
+abbr m-c 'minicom --color=on'
 function tree
     if test -f /usr/bin/tree
         command tree -Cshf $argv
@@ -640,22 +804,19 @@ function tree
 end
 
 # j for .bz2, z for .gz, J for xz, a for auto determine
-alias t-tbz2 'tar tvfj'
-alias t-tgz 'tar tvfz'
-alias t-txz 'tar tvfJ' # show the contents
-alias t-ta 'tar tvfa' # the above three can just use this one to auto choose the right one
-alias t-xbz2 'tar xvfj'
-alias t-xgz 'tar xvfz'
-alias t-xxz 'tar xvfJ' # extract
+abbr t-tbz2 'tar tvfj'
+abbr t-tgz 'tar tvfz'
+abbr t-txz 'tar tvfJ' # show the contents
+abbr t-ta 'tar tvfa' # the above three can just use this one to auto choose the right one
+abbr t-xbz2 'tar xvfj'
+abbr t-xgz 'tar xvfz'
+abbr t-xxz 'tar xvfJ' # extract
 function t-xa -d 'tar xvfa archive and cd into the directory'
     # set -l dir (tar xvfa $argv | tail -n 1 | xargs dirname)
     tar xvfa $argv
     # cd $dir
     # echo cd $dir
 end
-alias t-cbz2 'tar cvfj'
-alias t-cgz 'tar cvfz'
-alias t-cxz 'tar cvfJ $argv[1].tar.xz $argv[1]'
 function t-ca --description '`t-ca dir vcs` to include .svn/.git, or `t-ca dir` to exclude'
     # remove the end slash in argv
     set ARGV (echo $argv[1] | sed 's:/*$::')
@@ -665,35 +826,38 @@ function t-ca --description '`t-ca dir vcs` to include .svn/.git, or `t-ca dir` 
         tar cvfa $ARGV.tar.xz $ARGV
     end
 end
-alias dt 'dtrx -v '
+abbr dt 'dtrx -v '
 # using unar -- https://unarchiver.c3.cx/unarchiver is available
 # if the code is not working, try GBK or GB18030
 # unzip zip if it is archived in Windows and messed up characters with normal unzip
-alias unzipc 'unzip -O CP936'
-alias debl 'dpkg --contents' # list contents of deb package
-function debx --description 'extract the deb package'
+abbr unzipc 'unzip -O CP936'
+abbr debl 'dpkg --contents' # list contents of deb package
+function debx -d 'extract the deb package'
     set pkgname (basename $argv[1] .deb)
     mkdir -v $pkgname
-    set dataname (ar t $argv[1] | ag data)
-    ar p $argv[1] $dataname| tar zxv -C $pkgname
-    if not test (echo $status) -eq 0
-        ar p $argv[1] $dataname | tar Jxv -C $pkgname
-        if not test (echo $status) -eq 0
-            rm -rfv $pkgname
+    if command -sq dpkg # check if dpkg command exists, replace which
+        dpkg -x $argv[1] $pkgname
+    else
+        set dataname (ar t $argv[1] | ag data)
+        if not ar p $argv[1] $dataname | tar Jxv -C $pkgname ^/dev/null # failed, $status != 0
+            if not ar p $argv[1] $dataname | tar zxv -C $pkgname ^/dev/null # failed, $status != 0
+                rm -rfv $pkgname
+                return
+            end
         end
     end
     echo ----in $pkgname ----
 end
 
 alias wget 'wget -c --no-check-certificate'
-alias wgets 'wget -c --mirror -p --html-extension --convert-links'
-alias wt 'bash -c \'rm -rfv /tmp/Thun* 2>/dev/null\'; wget -c -P /tmp/ http://dl1sw.baidu.com/soft/9e/12351/ThunderMini_1.5.3.288.exe'
-alias wtt 'bash -c \'rm -rfv /tmp/Thun* 2>/dev/null\'; wget --connect-timeout=5 -c -P /tmp/ http://dlsw.baidu.com/sw-search-sp/soft/ca/13442/Thunder_dl_V7.9.39.4994_setup.1438932968.exe'
+abbr wgets 'wget -c --mirror -p --html-extension --convert-links'
+abbr wt 'bash -c \'rm -rfv /tmp/Thun* 2>/dev/null\'; wget -c -P /tmp/ http://dl1sw.baidu.com/soft/9e/12351/ThunderMini_1.5.3.288.exe'
+abbr wtt 'bash -c \'rm -rfv /tmp/Thun* 2>/dev/null\'; wget --connect-timeout=5 -c -P /tmp/ http://dlsw.baidu.com/sw-search-sp/soft/ca/13442/Thunder_dl_V7.9.39.4994_setup.1438932968.exe'
 # curl -L -O -C - https://site.com/file.iso
-alias a2 'aria2c -c -x 5 --check-certificate=false --file-allocation=none '
+abbr a2 'aria2c -c -x 5 --check-certificate=false --file-allocation=none '
 
 # rpm
-alias rpmi 'sudo rpm -Uvh'
+abbr rpmi 'sudo rpm -Uvh'
 function rpml --description 'list the content of the pack.rpm file'
     for i in $argv
         echo \<$i\>
@@ -710,59 +874,59 @@ function rpmx --description 'extract the pack.rpm file'
 end
 
 # yum
-alias yum   'sudo yum -C --noplugins ' # not update cache
-alias yumi  'sudo yum install '
-alias yumiy 'sudo yum install -y'
-alias yumr  'sudo yum remove '
-alias yumri 'sudo yum reinstall -y'
-alias yumca 'sudo yum clean all -v'
-alias yumu  'sudo yum --exclude=kernel\* upgrade ' # this line will be '=kernel*' in bash
-alias yumuk 'sudo yum upgrade kernel\*'
-alias yumue 'sudo yum update --exclude=kernel\* '
-alias yumul 'sudo yum history undo last'
-alias yumhl 'sudo yum history list'
-alias yumun 'sudo yum history undo'
-alias yums  'sudo yum search'
-alias yumsa 'sudo yum search all'
+abbr yum   'sudo yum -C --noplugins ' # not update cache
+abbr yumi  'sudo yum install '
+abbr yumiy 'sudo yum install -y'
+abbr yumr  'sudo yum remove '
+abbr yumri 'sudo yum reinstall -y'
+abbr yumca 'sudo yum clean all -v'
+abbr yumu  'sudo yum --exclude=kernel\* upgrade ' # this line will be '=kernel*' in bash
+abbr yumuk 'sudo yum upgrade kernel\*'
+abbr yumue 'sudo yum update --exclude=kernel\* '
+abbr yumul 'sudo yum history undo last'
+abbr yumhl 'sudo yum history list'
+abbr yumun 'sudo yum history undo'
+abbr yums  'sudo yum search'
+abbr yumsa 'sudo yum search all'
 # dnf
-alias dnfu 'sudo dnf update -v'
-alias dnfU 'sudo dnf update --setopt exclude=kernel\* -v'
-alias dnfu2 'sudo dnf update -y --disablerepo="*" --enablerepo="updates" '
-alias dnfc 'sudo dnf clean all'
-alias dnfi 'sudo dnf install -v'
-alias dnfr 'sudo dnf remove -v'
-alias dnfl 'dnf list installed| less'
-alias dnfs 'sudo dnf search'
-alias dnfsa 'sudo dnf search all'
-alias dnful 'sudo dnf history undo last'
+abbr dnfu 'sudo dnf update -v'
+abbr dnfU 'sudo dnf update --setopt exclude=kernel\* -v'
+abbr dnfu2 'sudo dnf update -y --disablerepo="*" --enablerepo="updates" '
+abbr dnfc 'sudo dnf clean all'
+abbr dnfi 'sudo dnf install -v'
+abbr dnfr 'sudo dnf remove -v'
+abbr dnfl 'dnf list installed| less'
+abbr dnfs 'sudo dnf search'
+abbr dnfsa 'sudo dnf search all'
+abbr dnful 'sudo dnf history undo last'
 
 # zypper for openSUSE
-alias zppi 'sudo zypper install --details'
-alias zppiy 'sudo zypper install -y -v --details'
-alias zppif 'sudo zypper info'
-alias zppwp 'sudo zypper search --provides --match-exact' # dependencies
-alias zppr 'sudo zypper remove --details'
-alias zppld 'zypper lr -d' # list repo
-alias zpprr 'sudo zypper rr' # +repo_num in zppld to remove a repo
-alias zpplr 'sudo zypper lr -u --details'
-alias zpps 'sudo zypper search -v'
-alias zppsi 'sudo zypper search -i -v'
-alias zppsd 'sudo zypper search -d -C -i -v' # also search description and summaries
-alias zppu 'sudo zypper update --details'
-alias zppud 'sudo zypper dist-upgrade -l --details'
-alias zppdup 'sudo zypper dist-upgrade -l --details --no-recommends'
-alias zppca 'sudo zypper clean --all'
+abbr zppi 'sudo zypper install --details'
+abbr zppiy 'sudo zypper install -y -v --details'
+abbr zppif 'sudo zypper info'
+abbr zppwp 'sudo zypper search --provides --match-exact' # dependencies
+abbr zppr 'sudo zypper remove --details'
+abbr zppld 'zypper lr -d' # list repo
+abbr zpprr 'sudo zypper rr' # +repo_num in zppld to remove a repo
+abbr zpplr 'sudo zypper lr -u --details'
+abbr zpps 'sudo zypper search -v'
+abbr zppsi 'sudo zypper search -i -v'
+abbr zppsd 'sudo zypper search -d -C -i -v' # also search description and summaries
+abbr zppu 'sudo zypper update --details'
+abbr zppud 'sudo zypper dist-upgrade -l --details'
+abbr zppdup 'sudo zypper dist-upgrade -l --details --no-recommends'
+abbr zppca 'sudo zypper clean --all'
 
 # apt
-alias api 'sudo apt-get install -V'
-alias apu 'sudo apt-get update; sudo apt-get upgrade -V'
-alias apr 'sudo apt-get remove -V'
-alias apar 'sudo apt-get autoremove -V'
-alias aps 'apt-cache search'
+abbr api 'sudo apt-get install -V'
+abbr apu 'sudo apt-get update; sudo apt-get upgrade -V'
+abbr apr 'sudo apt-get remove -V'
+abbr apar 'sudo apt-get autoremove -V'
+abbr aps 'apt-cache search'
 
 # donnot show the other info on startup
-alias gdb 'gdb -q '
-alias gdbx 'gdb -q -n '         # with loading any .gdbinit file
+abbr gdb 'gdb -q '
+abbr gdbx 'gdb -q -n '         # with loading any .gdbinit file
 
 # systemd-analyze
 function sab --description 'systemd-analyze blame->time'
@@ -771,19 +935,18 @@ function sab --description 'systemd-analyze blame->time'
 end
 
 # cd
-function .-; cd -; end
 function ..; cd ..; end
 function ...; cd ../..; end
 function ....; cd ../../..; end
 function .....; cd ../../../..; end
-alias cdi 'cd /usr/include/'
-alias cde 'cd ~/.emacs.d/elpa; and lah'
-alias cdb 'cd ~/.vim/bundle'
-alias cdp 'cd ~/Public; and lah'
-alias cdc 'cd ~/Projects/CWork; and lah'
-alias cds 'cd ~/Projects/CWork/snippets; and lah'
-alias cdP 'cd ~/Projects'
-alias cdu 'cd /run/media/chz/UDISK/; and lah'
+abbr cdi 'cd /usr/include/'
+abbr cde 'cd ~/.emacs.d/elpa; and lah'
+abbr cdb 'cd ~/.vim/bundle'
+abbr cdp 'cd ~/Public; and lah'
+abbr cdc 'cd ~/Projects/CWork; and lah'
+abbr cds 'cd ~/Projects/CWork/snippets; and lah'
+abbr cdP 'cd ~/Projects'
+abbr cdu 'cd /run/media/chz/UDISK/; and lah'
 # cd then list
 function cdls
     cd $argv
@@ -809,15 +972,52 @@ function cs -d 'change dir1 to dir2 in the $PWD and cd into it'
     end
 end
 
+function elpac -d 'print old packages in .emacs.d/elpa/, with any command, it will clean old ones'
+    set -l elpa_path ~/.emacs.d/elpa
+    # ls contains color which will affect the $pkg string, * part means only directories
+    for pkg in (command ls $elpa_path)
+        if echo $pkg | grep -q '[0-9]' # check if pkg $contains version number, $status = 0
+            set -l pkg_ver (echo $pkg | sed 's!.*-!!')
+            set -l pkg_name (echo $pkg | sed 's/[0-9.]*$//g')
+
+            set pkg_com (echo $pkg_name(echo $pkg_ver | cut -c1))
+            if test (command ls $elpa_path | grep "^$pkg_com" | wc -l) -gt 1
+                set first (command ls $elpa_path | grep "^$pkg_com" | head -1 | sed "s/$pkg_com//g")
+                set second (command ls $elpa_path | grep "^$pkg_com" | sed -n "2p" | sed "s/$pkg_com//g")
+                if echo $first$second | grep -q '[a-zA-Z]'
+                    continue # files/dirs like let-alias-1.0.5 and let-alias-1.0.5.signed
+                end
+                # echo pkg: $pkg, first: $first, second:$second
+                set first_num (echo $first | sed -e 's/\.//g') # get rid of . in version number
+                set second_num (echo $second | sed -e 's/\.//g')
+                if test $firstnum -le $secondnum
+                    echo $pkg_com$first is le
+                    echo $pkg_com$second
+                    set old $first
+                else
+                    echo $pkg_com$first is gt
+                    echo $pkg_com$second
+                    set old $second
+                end
+                if not set -q $argv[1]
+                    command rm -rf $elpa_path/$pkg_com$old
+                    echo $elpa_path/$pkg_com$old is deleted!
+                end
+                echo
+            end
+        end
+    end
+end
+
 # diff
 # side-by-side
-alias diff-s 'diff -r -y -s --suppress-common-line -W $COLUMNS' # side-by-side, only diffs
-alias diff-sf 'diff -r -y -s -W $COLUMNS' # like diff-s, but print whole files
-alias diff-sw 'diff-s -w' # like diff-s, but ignore all white space
+abbr diff-s 'diff -r -y -s --suppress-common-line -W $COLUMNS' # side-by-side, only diffs
+abbr diff-sf 'diff -r -y -s -W $COLUMNS' # like diff-s, but print whole files
+abbr diff-sw 'diff-s -w' # like diff-s, but ignore all white space
 # line by line
-alias diff-l 'diff -r -s --suppress-common-line -W $COLUMNS' # line-by-line, only diffs
-alias diff-lf 'diff -r -s -W $COLUMNS' # like diff-l, but print whole files
-alias diff-lw 'diff-l -w' # like diff-l, but ignore all white space
+abbr diff-l 'diff -r -s --suppress-common-line -W $COLUMNS' # line-by-line, only diffs
+abbr diff-lf 'diff -r -s -W $COLUMNS' # like diff-l, but print whole files
+abbr diff-lw 'diff-l -w' # like diff-l, but ignore all white space
 
 function mkcd --description 'mkdir dir then cd dir'
     mkdir -p $argv
@@ -825,63 +1025,63 @@ function mkcd --description 'mkdir dir then cd dir'
 end
 
 # xclip, get content into clipboard, echo file | xclip
-alias xp 'xclip'
-alias xc 'xclip -selection c'
+abbr xp 'xclip'
+abbr xc 'xclip -selection c'
 
-alias km 'sudo kermit'
+abbr km 'sudo kermit'
 
-alias dusc 'dus -c ~/.config/google-chrome ~/.cache/google-chrome ~/.mozilla ~/.cache/mozilla '
-alias gcp 'google-chrome --incognito'
-alias ffp 'firefox -private-window'
+abbr dusc 'dus -c ~/.config/google-chrome ~/.cache/google-chrome ~/.mozilla ~/.cache/mozilla '
+abbr gcp 'google-chrome --incognito'
+abbr ffp 'firefox -private-window'
 
-alias cx 'chmod +x '
+abbr cx 'chmod +x '
 
 # netease-play, douban.fm
-alias np 'netease-player '
-alias db 'douban.fm '
+abbr np 'netease-player '
+abbr db 'douban.fm '
 
 #vim
-alias V 'vim -u NONE'
-alias vimc 'vim ~/.cgdb/cgdbrc'
-alias vimm 'vim -u ~/.vim/vimrc.more'
-alias vimv 'vim ~/.vim/vimrc'
-alias vimb 'vim ~/.bashrc'
-alias vime 'vim ~/.emacs.d/init.el'
-alias vim2 'vim ~/Recentchange/TODO'
-alias vimf 'vim ~/.config/fish/config.fish; source ~/.config/fish/config.fish; echo config.fish reloaded!'
-alias vimt 'vim ~/.tmux.conf; tmux source-file ~/.tmux.conf; echo ~/.tmux.conf reloaded!'
+abbr V 'vim -u NONE'
+abbr vimc 'vim ~/.cgdb/cgdbrc'
+abbr vimm 'vim -u ~/.vim/vimrc.more'
+abbr vimv 'vim ~/.vim/vimrc'
+abbr vimb 'vim ~/.bashrc'
+abbr vime 'vim ~/.emacs.d/init.el'
+abbr vim2 'vim ~/Recentchange/TODO'
+abbr vimf 'vim $FISH_CONFIG_PATH'
+abbr vimt 'vim ~/.tmux.conf; tmux source-file ~/.tmux.conf; echo ~/.tmux.conf reloaded!'
 
 # emacs
 # -Q = -q --no-site-file --no-splash, which will not load something like emacs-googies
 # FIXME:
-alias eit "time emacs --debug-init -eval '(kill-emacs)'"
-alias emq 'emacs -q --no-splash'
+abbr eit "time emacs --debug-init -eval '(kill-emacs)'"
+abbr emq 'emacs -q --no-splash'
 alias emx 'emacs -nw -q --no-splash --eval "(setq find-file-visit-truename t)"'
-alias emn 'emacs --no-desktop'
-alias emi 'emacs -q --no-splash --load $argv'
+abbr emn 'emacs --no-desktop'
+abbr emi 'emacs -q --no-splash --load $argv'
 function emd --description 'remove .emacs.d/init.elc then $ emacs --debug-init'
     rm -rf ~/.emacs.d/init.elc
     emacs --debug-init
 end
-alias e 'emx '
-alias ei 'emx ~/.emacs.d/init.el'
-alias ec 'emx ~/.cgdb/cgdbrc'
-alias ef 'emx ~/.config/fish/config.fish'
-alias ev 'emx ~/.vimrc'
-alias eb 'emx ~/.bashrc'
-alias ee 'emx ~/.emacs.d/init.el'
-# alias et 'emx ~/.tmux.conf'
-alias e2 'emx ~/Recentchange/TODO'
+abbr e 'emx '
+abbr ei 'emx ~/.emacs.d/init.el'
+abbr ec 'emx ~/.cgdb/cgdbrc'
+abbr ef 'emx $FISH_CONFIG_PATH'
+abbr ev 'emx ~/.vimrc'
+abbr eb 'emx ~/.bashrc'
+abbr ee 'emx ~/.emacs.d/init.el'
+# abbr et 'emx ~/.tmux.conf'
+abbr e2 'emx ~/Recentchange/TODO'
 
-# C-w to reload ~/.config/fish/config.fish
+# C-w to reload $FISH_CONFIG_PATH
 #bind \cs fsr
 
 # the gpl.txt can be gpl-2.0.txt or gpl-3.0.txt
-alias lic 'wget -q http://www.gnu.org/licenses/gpl.txt -O LICENSE'
+abbr lic 'wget -q http://www.gnu.org/licenses/gpl.txt -O LICENSE'
 
 # git
-alias gits 'git status ' # gs is original Ghostscript app
-alias gitp 'git pull -v'
+abbr gits 'git status ' # gs is original Ghostscript app
+abbr gitp 'git pull -v'
 function gitc -d 'git clone and cd into it'
     git clone -v $argv
     echo ---------------------------
@@ -893,18 +1093,18 @@ function gitc -d 'git clone and cd into it'
     cd $project
     echo cd ./$project
 end
-alias gitl 'git log --stat'
-alias gitd 'git diff' # show unpushed local modification
-alias gitlp 'git log -p -- ' # [+ file] to how entire all/[file(even renamed)] history
-alias gitsh 'git show ' # [+ COMMIT] to show the modifications in a last/[specific] commit
-alias gitlo 'git log --oneline'
-alias gitsh 'git show ' # + COMMIT to show the modifications in a commit
-alias gitb 'git branch'
-alias gitcl 'git config -l'
-alias gitcp 'git checkout HEAD^1' # git checkout previous/old commit
-alias gitcn 'git log --reverse --pretty=%H master | grep -A 1 (git rev-parse HEAD) | tail -n1 | xargs git checkout' # git checkout next/new commit
-alias gitt 'git tag'
-alias gitft 'git ls-files --error-unmatch' # Check if file/dir is git-tracked
+abbr gitl 'git log --stat'
+abbr gitd 'git diff' # show unpushed local modification
+abbr gitlp 'git log -p -- ' # [+ file] to how entire all/[file(even renamed)] history
+abbr gitsh 'git show ' # [+ COMMIT] to show the modifications in a last/[specific] commit
+abbr gitlo 'git log --oneline'
+abbr gitsh 'git show ' # + COMMIT to show the modifications in a commit
+abbr gitb 'git branch'
+abbr gitcl 'git config -l'
+abbr gitcp 'git checkout HEAD^1' # git checkout previous/old commit
+abbr gitcn 'git log --reverse --pretty=%H master | grep -A 1 (git rev-parse HEAD) | tail -n1 | xargs git checkout' # git checkout next/new commit
+abbr gitt 'git tag'
+abbr gitft 'git ls-files --error-unmatch' # Check if file/dir is git-tracked
 function gitpa --description 'git pull all in dir using `fing dir`'
     for i in (find $argv[1] -type d -name .git | sort | xargs realpath)
         cd $i; cd ../
@@ -939,12 +1139,12 @@ function gitrh -d 'git reset HEAD for multiple files'
 end
 
 # svn
-alias svnp 'svn update; and echo "---status---"; svn status'
-alias svnpn 'svn update ~/NVR.ori/Code'
-alias svns 'svn status'
-alias svnc 'svn commit -m'
-alias svnd 'svn diff | less'
-alias svnll 'svn log -v -l 10 | less'
+abbr svnp 'svn update; and echo "---status---"; svn status'
+abbr svnpn 'svn update ~/NVR.ori/Code'
+abbr svns 'svn status'
+abbr svnc 'svn commit -m'
+abbr svnd 'svn diff | less'
+abbr svnll 'svn log -v -l 10 | less'
 function svncf -d 'view old version of a file'
     svn cat -r $argv[1] $argv[2] | less
 end
@@ -991,7 +1191,7 @@ function svndd --description 'show the svn diff detail'
     end
 end
 
-alias hs 'sudo cp -v ~/Public/hosts/hosts /etc/hosts'
+abbr hs 'sudo cp -v ~/Public/hosts/hosts /etc/hosts'
 
 # https://stackoverflow.com/questions/10408816/how-do-i-use-the-nohup-command-without-getting-nohup-out
 function meld --description 'lanuch meld from terminal without block it'
@@ -1015,41 +1215,47 @@ function meld --description 'lanuch meld from terminal without block it'
     return
 end
 # okular
-alias ok 'bash -c "(nohup okular \"$argv\" </dev/null >/dev/null 2>&1 &)"'
-alias ima 'bash -c "(nohup gwenview \"$argv\" </dev/null >/dev/null 2>&1 &)"'
-alias op 'bash -c "(nohup xdg-open \"$argv\" </dev/null >/dev/null 2>&1 &)"'
+abbr ok 'bash -c "(nohup okular \"$argv\" </dev/null >/dev/null 2>&1 &)"'
+abbr ima 'bash -c "(nohup gwenview \"$argv\" </dev/null >/dev/null 2>&1 &)"'
+abbr op 'bash -c "(nohup xdg-open \"$argv\" </dev/null >/dev/null 2>&1 &)"'
 # You can also convert gif to multiple png images
 # convert input.gif output%05d.png
 # Pause/Continue using SPACE key, Next frame using `.`
-alias gif 'mplayer -loop 0  -speed 0.2'
+abbr gif 'mplayer -loop 0  -speed 0.2'
 
-alias fcg 'fc-list | ag '
+abbr fcg 'fc-list | ag '
 
-alias cl 'cloc '
-alias cll 'cloc --by-file-by-lang '
+abbr cl 'cloc '
+abbr cll 'cloc --by-file-by-lang '
+function wc
+    if test (count $argv) -gt 1
+        command wc $argv | sort -n
+    else
+        command wc $argv
+    end
+end
 
-alias st 'stow -DRv'
+abbr st 'stow -DRv'
 
-alias ptp 'ptipython'
+abbr ptp 'ptipython'
 # install pytest and pytest-pep8 first, to check if the code is following pep8 guidelines
-alias pyp8 'py.test --pep8 '
+abbr pyp8 'py.test --pep8 '
 
-#alias rea 'sudo ~/.local/bin/reaver -i mon0 -b $argv[1] -vv'
+#abbr rea 'sudo ~/.local/bin/reaver -i mon0 -b $argv[1] -vv'
 # function rea
 # sudo ~/.local/bin/reaver -i mon0 -b $argv
 # end
 
-alias epub 'ebook-viewer --detach'
+abbr epub 'ebook-viewer --detach'
 alias time 'time -p'
-alias ex 'exit'
-alias x 'exit'
+abbr ex 'exit'
+abbr x 'exit'
 
-alias sss 'ps -eo tty,command | grep -v grep | grep "sudo ssh "'
-alias p 'ping -c 5'
+abbr sss 'ps -eo tty,command | grep -v grep | grep "sudo ssh "'
+abbr p 'ping -c 5'
 alias ping 'ping -c 5'
 function po -d 'Test the connection of outside internet'
-    timeout 1 ping -c 1 www.baidu.com ^/dev/null >/dev/null
-    if test $status != 0
+    if not timeout 1 ping... # failed, $status != 0
         echo Offline!
     else
         echo Online!
@@ -1057,15 +1263,13 @@ function po -d 'Test the connection of outside internet'
 end
 function pl -d 'Test the connection of inside internet'
     if test (count $argv) -eq 1
-        timeout 1 ping -c 1 10.8.2.$argv ^/dev/null >/dev/null
-        if test $status != 0
+        if not timeout 1 ping -c 1 10.8.2.$argv ^/dev/null >/dev/null
             echo Offline!
         else
             echo Online!
         end
     else
-        timeout 1 ping -c 1 10.0.4.4 ^/dev/null >/dev/null
-        if test $status != 0
+        if not timeout 1 ping -c 1 10.0.4.4 ^/dev/null >/dev/null
             echo Offline!
         else
             echo Online!
@@ -1103,7 +1307,7 @@ function port -d 'list all the ports are used or check the process which are usi
     end
 end
 
-alias lo 'locate -e'
+abbr lo 'locate -e'
 function lop --description 'locate the full/exact file'
     locate -e -r "/$argv[1]\$"
 end
@@ -1222,7 +1426,7 @@ function man
     end
     command man $argv
 end
-alias ma 'man'
+abbr ma 'man'
 
 function wtp --description 'show the real definition of a type or struct in C code, you can find which file it is defined in around the result'
     gcc -E ~/.local/bin/type.c -I$argv[1] > /tmp/result
@@ -1245,7 +1449,7 @@ end
 # sudo dhclient usb0
 function ut -d 'toggle -- use data network sharing through Android device throught USB'
     ip link ls dev usb0 ^/dev/null >/dev/null
-    if test $status != 0 # ()=255, not plugged or enabled in Android device
+    if not ip link ls dev usb0 ^/dev/null >/dev/null0 # ()=255, not plugged or enabled in Android device
         echo Android device is not plugged or data network sharing is not enabled!
     else          # ()=0
         # ip link ls dev usb0 | grep UP ^/dev/null >/dev/null
@@ -1274,13 +1478,12 @@ function ut -d 'toggle -- use data network sharing through Android device throug
     end
 end
 
-alias um 'pumount /run/media/chz/UDISK'
-alias mo 'pmount /dev/sdb4 /run/media/chz/UDISK'
+abbr um 'pumount /run/media/chz/UDISK'
+abbr mo 'pmount /dev/sdb4 /run/media/chz/UDISK'
 function mo-bak
     set -l done 1
     while test $done = 1
-        command df | grep -v grep | grep -i UDISK  ^/dev/null >/dev/null
-        if test $status = 1         # no UDISK in df, new or unplug
+        if not command df | grep -v grep | grep -i UDISK  ^/dev/null >/dev/null # no UDISK in df, new or unplug
             set -l device
             if test -b /dev/sdb4
                 set device /dev/sdb4
@@ -1296,8 +1499,7 @@ function mo-bak
         else                        # UDISK is in df, right or not-umount old
             set -l device (command df | grep -v grep | grep -i UDISK | awk '{print $1}')
             if not test -b $device
-                pumount /media/UDISK ^/dev/null >/dev/null
-                if test $status != 0
+                if not pumount /media/UDISK ^/dev/null >/dev/null
                     echo $device -- /media/UDISK is busy.
                     lsof | ag UDISK
                     return
@@ -1310,9 +1512,9 @@ function mo-bak
     end
 end
 
-alias ytd 'youtube-dl -citw '
+abbr ytd 'youtube-dl -citw '
 
-alias ag "ag --pager='less -RM -FX -s'"
+abbr ag "ag --pager='less -RM -FX -s'"
 function agr -d 'ag errno '
     for file in /usr/include/asm-generic/errno-base.h /usr/include/asm-generic/errno.h
         command ag -w $argv[1] $file
@@ -1322,7 +1524,7 @@ end
 function ag
     #sed -i "s/.shell/\"$argv[1]\n.shell/g" ~/.lesshst
     echo "\"$argv[1]" >> ~/.lesshst
-    if type -q ag # check if ag command existed, it may be in ~/.local/bin or ~/anaconda3/bin or /usr/bin
+    if command -sq ag # check if ag command exists
         command ag --ignore '*~' --ignore '#?*#' --ignore '.#?*' --ignore '*.swp' --ignore -s --pager='less -RM -FX -s' $argv
     else
         grep -n --color=always $argv | more
@@ -1332,8 +1534,8 @@ end
 function age --description 'ag sth. in ~/.emacs.d/init.el'
     ag $argv[1] ~/.emacs.d/init.el
 end
-function agf --description 'ag sth. in ~/.config/fish/config.fish'
-    ag $argv[1] ~/.config/fish/config.fish
+function agf --description 'ag sth. in $FISH_CONFIG_PATH'
+    ag $argv[1] $FISH_CONFIG_PATH
 end
 function agt --description 'ag sth. in ~/.tmux.conf'
     ag $argv[1] ~/.tmux.conf
@@ -1341,12 +1543,15 @@ end
 function ag2 --description 'ag sth. in ~/Recentchange/TODO'
     ag $argv[1] ~/Recentchange/TODO
 end
+function agv -d 'ag sth. in ~/.vim/vimrc'
+    ag $argv[1] ~/.vim/vimrc
+end
 
 # ls; and ll -- if ls succeed then ll, if failed then don't ll
 # ls; or ll -- if ls succeed then don't ll, if failed then ll
 
 # such as:
-# alias sp 'svn update; and echo "---status---"; svn status'
+# abbr sp 'svn update; and echo "---status---"; svn status'
 
 # if test $status -eq 0; ... else ... # success
 # to
@@ -1502,10 +1707,10 @@ end
 # conda install -c binstar binstar # renamed to anaconda-client, so `conda install anaconda-client`
 # binstar search -t conda packgename # get the channel(user) name
 # conda install -c channel packagename
-alias condas 'binstar search -p linux-64 -t conda' # [packagename]
-alias condai 'conda install -c ' # [channel] [packagename]
-alias condau 'conda upgrade --all -vy'
-alias condac 'conda clean -avy'
+abbr condas 'binstar search -t conda' # [packagename]
+abbr condai 'conda install -c ' # [channel] [packagename]
+abbr condau 'conda upgrade --all -vy'
+abbr condac 'conda clean -avy'
 
 #### ---------------- anaconda starts -----------------------
 # anaconda
