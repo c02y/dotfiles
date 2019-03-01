@@ -1707,6 +1707,8 @@ end
 # conda install -c binstar binstar # renamed to anaconda-client, so `conda install anaconda-client`
 # binstar search -t conda packgename # get the channel(user) name
 # conda install -c channel packagename
+# After install package using `conda install -c CHANNEL PKG`, you have to manually
+# conda config --add channels your_new_channel(in ~/.condarc), or these packages won't be updateed when `condau`
 abbr condas 'binstar search -t conda' # [packagename]
 abbr condai 'conda install -c ' # [channel] [packagename]
 abbr condau 'conda upgrade --all -vy'
