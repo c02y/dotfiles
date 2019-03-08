@@ -26,6 +26,8 @@ set fish_greeting
 set fish_new_pager 1
 set -gx fish_color_user magenta
 set -gx fish_color_host yellow
+# set the color of the selected on in the drop list of TAB #4695
+set -g fish_color_search_match --background=blue
 
 # start fish without configuration
 abbr fi "sh -c 'env HOME=\$(mktemp -d) fish'"
@@ -50,9 +52,6 @@ function auto-source --on-event fish_preexec -d 'auto source config.fish if gets
         end
     end
 end
-
-# set the color of the selected on in the drop list of TAB #4695
-set -g fish_color_search_match --background=blue
 
 function path_prompt
     # check if tmux is running in current terminal/tty
@@ -132,8 +131,29 @@ function fsr --description 'Reload your Fish config after configuration'
 end
 
 # tmux related
-# If tmux is running in background. attach it, else create new session
-abbr t 'tmux attach ;or tmux'
+function t -d 'if tmux is running, attach it, if not, create a new tmux session, and check $SHELL'
+    if not command -sq tmux
+        echo tmux is not installed, please install it!
+    end
+
+    if test (basename $SHELL) = "bash"
+        if test -f ~/anaconda3/bin/fish
+            set -gx SHELL ~/anaconda3/bin/fish
+        else if command -sq fish
+            set -gx SHELL (which fish)
+        end
+    end
+
+    if test "$TERM" != "screen-256color"; and test $TMUX
+        # not already inside a tmux session, and a tmux session is running
+        tmux attach
+    else if test "$TERM" != "screen-256color"; and not test $TMUX
+        # not already inside a tmux session, and no tmux session is running
+        tmux
+    else
+        echo Already inside a tmux session!
+    end
+end
 abbr tl 'tmux ls'
 abbr tl 'tmux ls'
 abbr tls 'tmux list-panes -s'
@@ -463,7 +483,7 @@ alias mv 'mv -vi'
 abbr rcp 'rsync --stats --progress -rhv '
 abbr rmc 'rsync --stats --progress -rhv --remove-source-files ' # this will not delte the src dir, only the contents
 
-#abbr grep='grep -nr --color=auto'
+# abbr grep='grep -nr --color=auto'
 abbr g 'grep -F -n --color=auto'
 
 function fu -d 'fu command and prompt to ask to open it or not'
@@ -478,16 +498,16 @@ function fu -d 'fu command and prompt to ask to open it or not'
     end
 
     # NOTE: $argv may also be defined as an abbr like rm command
-    abbr --show | grep -w "abbr $argv" # Space to avoid the extra abbr starting with $ARGV
+    abbr --show | grep "abbr $argv " # Space to avoid the extra abbr starting with $ARGV
     if test $status = 0
         # in case $argv existes in both `type` and `abbr --show`
-        if test $found = 1 -a (echo (grep -w -E "^alias $argv|^function $argv" $FISH_CONFIG_PATH))
+        if test $found = 1 -a (echo (grep -E "^alias $argv |^function $argv " $FISH_CONFIG_PATH))
             echo "$argv is in both `type` and `abbr --list`, found definition in $FISH_CONFIG_PATH"
             abbrc
             # continue, use the result of `type`
         else # only exists in `abbr --show`
             set found 1
-            set result (abbr --show | grep -w "abbr $argv")
+            set result (abbr --show | grep "abbr $argv ")
         end
     else if test $status != 0 -a $found != 1
         echo "$argv is not a thing!"
@@ -495,7 +515,7 @@ function fu -d 'fu command and prompt to ask to open it or not'
     end
 
     set result_1 (printf '%s\n' $result | head -1)
-    if test (echo $result_1 | grep -w -E "abbr $argv|is a function with definition") # defined in fish script
+    if test (echo $result_1 | grep -E "abbr $argv |is a function with definition") # defined in fish script
         if test (echo $result_1 | grep -E "is a function with definition")
             # 1. function or alias -- second line of output of fu ends with "$path @ line $num_line"
             set -l result_2 (printf '%s\n' $result | sed -n "2p")
@@ -504,7 +524,7 @@ function fu -d 'fu command and prompt to ask to open it or not'
                 set def_file $FISH_CONFIG_PATH
             end
 
-            set num_line (grep -w -n -E "^alias $argv|^function $argv" $def_file | cut -d: -f1)
+            set num_line (grep -n -E "^alias $argv |^function $argv " $def_file | cut -d: -f1)
             if not test $num_line # empty
                 echo "$argv is an alias/functions in `alias/functions` but not defined in $def_file, may be defined temporally or in other file!"
                 if test $def_file = $FISH_CONFIG_PATH
@@ -515,7 +535,7 @@ function fu -d 'fu command and prompt to ask to open it or not'
             end
         else # 2. abbr
             set def_file $FISH_CONFIG_PATH
-            set num_line (grep -w -n "^abbr $argv" $def_file | cut -d: -f1)
+            set num_line (grep -n "^abbr $argv" $def_file | cut -d: -f1)
             if not test $num_line # empty
                 echo "$argv is an abbr in `abbr --show` but not defined in $FISH_CONFIG_PATH, may be defined temporally or in other file!"
                 if test $def_file = $FISH_CONFIG_PATH
@@ -571,16 +591,36 @@ function fzfp -d 'check if fzf is existed, with any argument, fzf binary file wi
         end
     end
 end
-source (lua ~/.config/fish/functions/z.lua --init fish once echo | psub)
-#set -gx _ZL_FZF_FLAG '-e'
-# z.lua using built-in cd which won't affect the cd stack of fish shell, change it to fish's cd so you can use cd -
-set -gx _ZL_CD cd
-set -gx _ZL_INT_SORT 1
-set -gx _ZL_FZF_HEIGHT 0 # 0 means fullscreen
-set -gx FZF_DEFAULT_OPTS '-1 -0' # auto select the only match, auto exit if no match
+
+set -gx Z_PATH ~/.config/fish/functions/
+if test -e $Z_PATH/z.lua
+    source (lua $Z_PATH/z.lua --init fish once echo | psub)
+    # z.lua using built-in cd which won't affect the cd stack of fish shell, use fish's cd so you can use `cd -`
+    set -gx _ZL_CD cd
+    set -gx _ZL_INT_SORT 1
+    set -gx _ZL_FZF_HEIGHT 0 # 0 means fullscreen
+    set -gx FZF_DEFAULT_OPTS '-1 -0' # auto select the only match, auto exit if no match
+end
+function zp -d 'check exists of z.lua, with any given argument, update z.lua'
+    if test -e $Z_PATH/z.lua; and set -q $argv[1] # z.lua file exists and no any argv is given, two conditions
+        return 0
+    else
+        if not curl https://raw.githubusercontent.com/skywind3000/z.lua/master/z.lua -o /tmp/z.lua
+            echo "Failed to install/update z.lua due to Internet issue!"
+            return 1
+        else
+            mv /tmp/z.lua $Z_PATH/z.lua
+            return 0
+        end
+    end
+end
 abbr zb 'z -b' # Bonus: zb .. equals to cd .., zb ... equals to cd ../.. and
 # zb .... equals to cd ../../.., and so on. Finally, zb ..20 equals to cd (..)x20.
 function zz -d 'z\'s interactive selection mode'
+    if not zp
+        echo "Failed to install z.lua!"
+        return
+    end
     if fzfp # fzf exists, $status = 0
         set z_cmd z -I
     else
@@ -593,6 +633,10 @@ function zz -d 'z\'s interactive selection mode'
     end
 end
 function zh -d 'z\'s cd into the cd history'
+    if not zp
+        echo "Failed to install z.lua!"
+        return
+    end
     if fzfp # fzf exists, $status = 0
         set z_cmd z -I -t
     else
@@ -603,13 +647,6 @@ function zh -d 'z\'s cd into the cd history'
     else
         eval $z_cmd $argv
     end
-end
-function zu -d 'update z.lua'
-    set z_path ~/.config/fish/functions/z.lua
-    if test -e $z_path # test if file existed
-        rm -rfv $z_path
-    end
-    curl https://raw.githubusercontent.com/skywind3000/z.lua/master/z.lua -o $z_path
 end
 
 # touch temporary files
@@ -786,7 +823,7 @@ set -gx GROFF_NO_SGR yes
 abbr ifw 'ifconfig wlp5s0'
 abbr mpp "ip route get 1.2.3.4 | cut -d' ' -f8 | head -1"
 abbr mppa "ifconfig | sed -En 's/127.0.0.1//;s/.inet (addr:)?(([0-9].){3}[0-9])./\2/p'"
-#abbr nl 'nload -u H p4p1'
+# abbr nl 'nload -u H p4p1'
 abbr nll 'nload -u H wlp8s0'
 abbr nh 'sudo nethogs wlp5s0'
 # =ifconfig= is obsolete! For replacement check =ip addr= and =ip link=. For statistics use =ip -s link=.
@@ -1053,25 +1090,21 @@ abbr vimt 'vim ~/.tmux.conf; tmux source-file ~/.tmux.conf; echo ~/.tmux.conf re
 
 # emacs
 # -Q = -q --no-site-file --no-splash, which will not load something like emacs-googies
-# FIXME:
-abbr eit "time emacs --debug-init -eval '(kill-emacs)'"
-abbr emq 'emacs -q --no-splash'
+# emacs
+# -Q = -q --no-site-file --no-splash, which will not load something like emacs-googies
 alias emx 'emacs -nw -q --no-splash --eval "(setq find-file-visit-truename t)"'
+abbr emq 'emacs -q --no-splash'
+abbr emd 'rm -rfv ~/.emacs.d/init.elc; emacs --debug-init'
+abbr eml 'emacs -q --no-splash --load' # load specific init.el
 abbr emn 'emacs --no-desktop'
-abbr emi 'emacs -q --no-splash --load $argv'
-function emd --description 'remove .emacs.d/init.elc then $ emacs --debug-init'
-    rm -rf ~/.emacs.d/init.elc
-    emacs --debug-init
-end
-abbr e 'emx '
-abbr ei 'emx ~/.emacs.d/init.el'
-abbr ec 'emx ~/.cgdb/cgdbrc'
-abbr ef 'emx $FISH_CONFIG_PATH'
-abbr ev 'emx ~/.vimrc'
-abbr eb 'emx ~/.bashrc'
-abbr ee 'emx ~/.emacs.d/init.el'
-# abbr et 'emx ~/.tmux.conf'
-abbr e2 'emx ~/Recentchange/TODO'
+abbr emi 'emacs ~/.emacs.d/init.el'
+abbr emc 'emacs ~/.cgdb/cgdbrc'
+abbr emf 'emacs $FISH_CONFIG_PATH'
+abbr emt 'emacs ~/.tmux.conf'
+abbr emv 'emacs ~/.vimrc'
+abbr emb 'emacs ~/.bashrc'
+abbr em2 'emacs ~/Recentchange/TODO'
+abbr emtime "time emacs --debug-init -eval '(kill-emacs)'" # time emacs startup time
 
 # C-w to reload $FISH_CONFIG_PATH
 #bind \cs fsr
@@ -1081,7 +1114,19 @@ abbr lic 'wget -q http://www.gnu.org/licenses/gpl.txt -O LICENSE'
 
 # git
 abbr gits 'git status ' # gs is original Ghostscript app
-abbr gitp 'git pull -v'
+abbr gitpl 'git pull -v'
+abbr gitpu 'git push -v'
+abbr gitl 'git log --stat'
+abbr gitd 'git diff' # show unpushed local modification
+abbr gitlp 'git log -p -- ' # [+ file] to how entire all/[file(even renamed)] history
+abbr gitsh 'git show ' # [+ COMMIT] to show the modifications in a last/[specific] commit
+abbr gitlo 'git log --oneline'
+abbr gitb 'git branch'
+abbr gitcl 'git config -l'
+abbr gitcp 'git checkout HEAD^1' # git checkout previous/old commit
+abbr gitcn 'git log --reverse --pretty=%H master | grep -A 1 (git rev-parse HEAD) | tail -n1 | xargs git checkout' # git checkout next/new commit
+abbr gitt 'git tag'
+abbr gitft 'git ls-files --error-unmatch' # Check if file/dir is git-tracked
 function gitc -d 'git clone and cd into it'
     git clone -v $argv
     echo ---------------------------
@@ -1093,18 +1138,6 @@ function gitc -d 'git clone and cd into it'
     cd $project
     echo cd ./$project
 end
-abbr gitl 'git log --stat'
-abbr gitd 'git diff' # show unpushed local modification
-abbr gitlp 'git log -p -- ' # [+ file] to how entire all/[file(even renamed)] history
-abbr gitsh 'git show ' # [+ COMMIT] to show the modifications in a last/[specific] commit
-abbr gitlo 'git log --oneline'
-abbr gitsh 'git show ' # + COMMIT to show the modifications in a commit
-abbr gitb 'git branch'
-abbr gitcl 'git config -l'
-abbr gitcp 'git checkout HEAD^1' # git checkout previous/old commit
-abbr gitcn 'git log --reverse --pretty=%H master | grep -A 1 (git rev-parse HEAD) | tail -n1 | xargs git checkout' # git checkout next/new commit
-abbr gitt 'git tag'
-abbr gitft 'git ls-files --error-unmatch' # Check if file/dir is git-tracked
 function gitpa --description 'git pull all in dir using `fing dir`'
     for i in (find $argv[1] -type d -name .git | sort | xargs realpath)
         cd $i; cd ../
@@ -1241,7 +1274,7 @@ abbr ptp 'ptipython'
 # install pytest and pytest-pep8 first, to check if the code is following pep8 guidelines
 abbr pyp8 'py.test --pep8 '
 
-#abbr rea 'sudo ~/.local/bin/reaver -i mon0 -b $argv[1] -vv'
+# abbr rea 'sudo ~/.local/bin/reaver -i mon0 -b $argv[1] -vv'
 # function rea
 # sudo ~/.local/bin/reaver -i mon0 -b $argv
 # end
@@ -1561,36 +1594,45 @@ end
 # to
 # or begin ... end; or ...
 
-function bak -d 'backup(copy) a file from abc to abc.bak'
-    set ori $argv[1]
-    if test "/" = (echo (string sub --start=-1 $argv[1])) # for dir ending with "/"
-        set ori (echo (string split -r -m1 / $argv[1])[1])
+function bkm -d 'backups manager: rename files/dirs from name to name.bak or backwards(-b) using cp/mv(-m)'
+    # set optional options
+    set -l options 'b' 'm'
+    argparse -n bkm -N 1 $options -- $argv
+    or return
+
+    set -l backward 0 # 0(name->name.bak), 1(backward, name.bak->name)
+    set -l CMD cp -vr # 0(cp), 1(mv)
+    if set -q _flag_b
+        set backward 1
     end
-    cp -v $ori{,.bak}
-end
-function bakm -d 'backup(move) a file from abc to abc.bak'
-    set ori $argv[1]
-    if test "/" = (echo (string sub --start=-1 $argv[1])) # for dir ending with "/"
-        set ori (echo (string split -r -m1 / $argv[1])[1])
+    if set -q _flag_m
+        set CMD mv -v
     end
-    if test -d $ori.bak
-        echo The destination is alread existed.
-    else
-        mv -v $ori{,.bak}
-    end
-end
-function bak2c -d 'copy backup file from abc.bak to abc'
-    if test -d (echo (string split -r -m1 . $argv[1])[1])
-        echo The destination is alread existed.
-    else
-        cp -v $argv[1] (echo (string split -r -m1 . $argv[1])[1])
-    end
-end
-function bak2m -d 'move backup file from abc.bak to abc'
-    if test -d (echo (string split -r -m1 . $argv[1])[1])
-        echo The destination is alread existed.
-    else
-        mv -v $argv[1] (echo (string split -r -m1 . $argv[1])[1])
+
+    for name in $argv # support multiple arguments
+        if test $backward = 1
+            set -l result (echo (string split -r -m1 .bak $name)[1])
+            if test -e $result
+                echo $result alread exists.
+            else
+                eval $CMD $name $result
+            end
+        else
+            set old $name
+            if test "/" = (echo (string sub --start=-1 $name)) # for dir ending with "/"
+                set old (echo (string split -r -m1 / $name)[1])
+            end
+            if test -e $old.bak
+                echo $old.bak already exists.
+                read -n 1 -l -p 'echo "Remove $old.bak first? [y/N]"' answer
+                if test "$answer" = "y" -o "$answer" = " "
+                    rm -rfv $old.bak
+                else
+                    continue
+                end
+            end
+            eval $CMD $old{,.bak}
+        end
     end
 end
 
