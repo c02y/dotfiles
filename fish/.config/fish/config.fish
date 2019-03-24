@@ -738,7 +738,7 @@ function lcl --description 'clean latex temporary files such as .log, .aux'
 end
 
 # du
-abbr du 'du -h --apparent-size'
+alias du 'du -h --apparent-size'
 abbr dul 'sudo du --summarize -h -c /var/log/* | sort -h'
 function dus
     if test (count $argv) -gt 1 # $argv contains /* at the end of path
