@@ -134,6 +134,7 @@ end
 function t -d 'if tmux is running, attach it, if not, create a new tmux session, and check $SHELL'
     if not command -sq tmux
         echo tmux is not installed, please install it!
+        return 1
     end
 
     if test (basename $SHELL) = "bash"
@@ -141,18 +142,13 @@ function t -d 'if tmux is running, attach it, if not, create a new tmux session,
             set -gx SHELL ~/anaconda3/bin/fish
         else if command -sq fish
             set -gx SHELL (which fish)
+        else
+            echo "No fish is installed, using old $SHELL as SHELL!"
         end
     end
 
-    if test "$TERM" != "screen-256color"; and test $TMUX
-        # not already inside a tmux session, and a tmux session is running
-        tmux attach
-    else if test "$TERM" != "screen-256color"; and not test $TMUX
-        # not already inside a tmux session, and no tmux session is running
-        tmux
-    else
-        echo Already inside a tmux session!
-    end
+    # attach a session if it exists, it failed, tmux a new one, if failed, echo message
+    tmux attach ^/dev/null; or tmux ^/dev/null; or echo "Already inside a tmux session, $SHELL!"
 end
 abbr tl 'tmux ls'
 abbr tl 'tmux ls'
@@ -498,16 +494,17 @@ function fu -d 'fu command and prompt to ask to open it or not'
     end
 
     # NOTE: $argv may also be defined as an abbr like rm command
-    abbr --show | grep "abbr $argv " # Space to avoid the extra abbr starting with $ARGV
+    abbr --show | grep "abbr -a -U -- $argv " # Space to avoid the extra abbr starting with $ARGV
     if test $status = 0
         # in case $argv existes in both `type` and `abbr --show`
-        if test $found = 1 -a (echo (grep -E "^alias $argv |^function $argv " $FISH_CONFIG_PATH))
+        # function may be `function func` and `function func -d ...`
+        if test $found = 1 -a (echo (grep -w -E "^alias $argv |^function $argv |^function $argv\$" $FISH_CONFIG_PATH))
             echo "$argv is in both `type` and `abbr --list`, found definition in $FISH_CONFIG_PATH"
             abbrc
             # continue, use the result of `type`
         else # only exists in `abbr --show`
             set found 1
-            set result (abbr --show | grep "abbr $argv ")
+            set result (abbr --show | grep "abbr -a -U -- $argv ")
         end
     else if test $status != 0 -a $found != 1
         echo "$argv is not a thing!"
@@ -515,7 +512,7 @@ function fu -d 'fu command and prompt to ask to open it or not'
     end
 
     set result_1 (printf '%s\n' $result | head -1)
-    if test (echo $result_1 | grep -E "abbr $argv |is a function with definition") # defined in fish script
+    if test (echo $result_1 | grep -E "abbr -a -U -- $argv |is a function with definition") # defined in fish script
         if test (echo $result_1 | grep -E "is a function with definition")
             # 1. function or alias -- second line of output of fu ends with "$path @ line $num_line"
             set -l result_2 (printf '%s\n' $result | sed -n "2p")
@@ -524,7 +521,8 @@ function fu -d 'fu command and prompt to ask to open it or not'
                 set def_file $FISH_CONFIG_PATH
             end
 
-            set num_line (grep -n -E "^alias $argv |^function $argv " $def_file | cut -d: -f1)
+            set num_line (grep -n -w -E "^alias $argv |^function $argv |^function $argv\$" $def_file | cut -d: -f1)
+            echo $num_line
             if not test $num_line # empty
                 echo "$argv is an alias/functions in `alias/functions` but not defined in $def_file, may be defined temporally or in other file!"
                 if test $def_file = $FISH_CONFIG_PATH
@@ -535,7 +533,7 @@ function fu -d 'fu command and prompt to ask to open it or not'
             end
         else # 2. abbr
             set def_file $FISH_CONFIG_PATH
-            set num_line (grep -n "^abbr $argv" $def_file | cut -d: -f1)
+            set num_line (grep -n "^abbr $argv " $def_file | cut -d: -f1)
             if not test $num_line # empty
                 echo "$argv is an abbr in `abbr --show` but not defined in $FISH_CONFIG_PATH, may be defined temporally or in other file!"
                 if test $def_file = $FISH_CONFIG_PATH
@@ -789,6 +787,7 @@ abbr lessv 'less ~/.vim/vimrc'
 # color in less a code file
 # set -gx LESSOPEN '|pygmentize -g %s'
 # if pygmentize not working, use source-highlight instead
+# if less gets stuck when opening a file, comment out this LESSOPEN line
 set -gx LESSOPEN '| /usr/bin/src-hilite-lesspipe.sh %s'
 # set -gx LESSOPEN '| /usr/share/source-highlight/src-hilite-lesspipe.sh %s'
 # set -gx LESSOPEN '| eval $HOME/anaconda3/bin/src-hilite-lesspipe.sh %s'
@@ -1097,7 +1096,7 @@ abbr emq 'emacs -q --no-splash'
 abbr emd 'rm -rfv ~/.emacs.d/init.elc; emacs --debug-init'
 abbr eml 'emacs -q --no-splash --load' # load specific init.el
 abbr emn 'emacs --no-desktop'
-abbr emi 'emacs ~/.emacs.d/init.el'
+abbr eme 'emacs ~/.emacs.d/init.el'
 abbr emc 'emacs ~/.cgdb/cgdbrc'
 abbr emf 'emacs $FISH_CONFIG_PATH'
 abbr emt 'emacs ~/.tmux.conf'
@@ -1258,8 +1257,7 @@ abbr gif 'mplayer -loop 0  -speed 0.2'
 
 abbr fcg 'fc-list | ag '
 
-abbr cl 'cloc '
-abbr cll 'cloc --by-file-by-lang '
+abbr cl 'tokei --sort code' # install tokei using `conda install -c conda-forge tokei`
 function wc
     if test (count $argv) -gt 1
         command wc $argv | sort -n
@@ -1740,8 +1738,10 @@ function d --description "Choose one from the list of recently visited dirs"
     end
 end
 
-# conda install -c conda-forge ncurses emacs w3m fish the_silver_searcher source-highlight
+# The packages needed to be installed using conda are(only if you have no sudo permission or the offcial is old)
+# conda install -c conda-forge ncurses emacs w3m fish the_silver_searcher source-highlight tokei
 # conda install -c ripl-org tmux
+# conda install -c lebedov tig
 # conda install -c freckles stow
 # pip install ranger-fm
 #
@@ -1752,7 +1752,7 @@ end
 # After install package using `conda install -c CHANNEL PKG`, you have to manually
 # conda config --add channels your_new_channel(in ~/.condarc), or these packages won't be updateed when `condau`
 abbr condas 'binstar search -t conda' # [packagename]
-abbr condai 'conda install -c ' # [channel] [packagename]
+abbr condai 'conda install -c' # [channel] [packagename]
 abbr condau 'conda upgrade --all -vy'
 abbr condac 'conda clean -avy'
 
