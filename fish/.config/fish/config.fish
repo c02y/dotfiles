@@ -1257,7 +1257,6 @@ abbr gif 'mplayer -loop 0  -speed 0.2'
 
 abbr fcg 'fc-list | ag '
 
-abbr cl 'tokei --sort code' # install tokei using `conda install -c conda-forge tokei`
 function wc
     if test (count $argv) -gt 1
         command wc $argv | sort -n
@@ -1739,7 +1738,7 @@ function d --description "Choose one from the list of recently visited dirs"
 end
 
 # The packages needed to be installed using conda are(only if you have no sudo permission or the offcial is old)
-# conda install -c conda-forge ncurses emacs w3m fish the_silver_searcher source-highlight tokei
+# conda install -c conda-forge ncurses emacs w3m fish the_silver_searcher source-highlight
 # conda install -c ripl-org tmux
 # conda install -c lebedov tig
 # conda install -c freckles stow
