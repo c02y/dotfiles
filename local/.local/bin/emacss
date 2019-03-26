@@ -1,0 +1,29 @@
+#!/bin/bash
+
+while getopts "rk" args; do
+	case "$args" in
+		r)
+			emacsclient -e "(kill-emacs)" >/dev/null 2>/dev/null
+			;;
+		k)
+			emacsclient -e "(kill-emacs)" >/dev/null 2>/dev/null
+			exit 0
+			;;
+	esac
+done
+
+# emacsclient, new daemon if not exists, -r to kill the daemon
+emacsclient -n -a "" -c >/dev/null 2>/dev/null
+
+# If you want to add this file to system shortcut in KDE, then
+# put the following lines into ~/.local/share/applications/emacsclient.desktop
+# then config your shortcut in System Settings
+#
+# [Desktop Entry]
+# Encoding=UTF-8
+# Name=emacsclient
+# Comment=Emacs daemon/client
+# Type=Application
+# Exec=~/.local/bin/emacss
+# Terminal=false
+# Categories=
