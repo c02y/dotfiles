@@ -485,7 +485,6 @@ abbr g 'grep -F -n --color=auto'
 function fu -d 'fu command and prompt to ask to open it or not'
     # $argv could be builtin keyword, function, alias, file(bin/script) in $PATH, abbr
     # And they all could be defined in script or temporally (could be found in any file)
-
     set found 0
     # Check `type` output, NOTE: `type` doesn't support abbr
     if type $argv ^/dev/null # omit the result once error(abbr or not-a-thing) returned, $status = 0
@@ -493,8 +492,13 @@ function fu -d 'fu command and prompt to ask to open it or not'
         set result (type $argv)
     end
 
+    if abbr --show | head -n1 | grep "abbr -a -U" ^/dev/null >/dev/null
+        set abbr_show "abbr -a -U --"
+    else
+        set abbr_show "abbr"
+    end
     # NOTE: $argv may also be defined as an abbr like rm command
-    abbr --show | grep "abbr -a -U -- $argv " # Space to avoid the extra abbr starting with $ARGV
+    abbr --show | grep "$abbr_show $argv " # Space to avoid the extra abbr starting with $ARGV
     if test $status = 0
         # in case $argv existes in both `type` and `abbr --show`
         # function may be `function func` and `function func -d ...`
@@ -504,7 +508,7 @@ function fu -d 'fu command and prompt to ask to open it or not'
             # continue, use the result of `type`
         else # only exists in `abbr --show`
             set found 1
-            set result (abbr --show | grep "abbr -a -U -- $argv ")
+            set result (abbr --show | grep "$abbr_show $argv ")
         end
     else if test $status != 0 -a $found != 1
         echo "$argv is not a thing!"
@@ -512,7 +516,7 @@ function fu -d 'fu command and prompt to ask to open it or not'
     end
 
     set result_1 (printf '%s\n' $result | head -1)
-    if test (echo $result_1 | grep -E "abbr -a -U -- $argv |is a function with definition") # defined in fish script
+    if test (echo $result_1 | grep -E "$abbr_show $argv |is a function with definition") # defined in fish script
         if test (echo $result_1 | grep -E "is a function with definition")
             # 1. function or alias -- second line of output of fu ends with "$path @ line $num_line"
             set -l result_2 (printf '%s\n' $result | sed -n "2p")
@@ -522,7 +526,6 @@ function fu -d 'fu command and prompt to ask to open it or not'
             end
 
             set num_line (grep -n -w -E "^alias $argv |^function $argv |^function $argv\$" $def_file | cut -d: -f1)
-            echo $num_line
             if not test $num_line # empty
                 echo "$argv is an alias/functions in `alias/functions` but not defined in $def_file, may be defined temporally or in other file!"
                 if test $def_file = $FISH_CONFIG_PATH
@@ -670,7 +673,7 @@ function fv -d 'find a file using fzf and edit it using vim'
 end
 function fe -d 'find a file using fzf and edit it using emacs'
     if fzfp # fzf exists, $status = 0
-        emacs (find $argv[1] -name "*$argv[2]*" | fzf)
+        emm (find $argv[1] -name "*$argv[2]*" | fzf)
     else
         find $argv[1] -name "*$argv[2]*"
     end
@@ -1089,20 +1092,39 @@ abbr vimt 'vim ~/.tmux.conf; tmux source-file ~/.tmux.conf; echo ~/.tmux.conf re
 
 # emacs
 # -Q = -q --no-site-file --no-splash, which will not load something like emacs-googies
-# emacs
-# -Q = -q --no-site-file --no-splash, which will not load something like emacs-googies
+function emm -d 'emacsclient, new daemon if not exists, -r to kill the daemon and start a new client, -k to just kill'
+    set -l options 'r' 'k'
+    argparse -n emm $options -- $argv
+    or return
+    if set -q _flag_r
+        emacsclient -e "(kill-emacs)"  ^/dev/null
+        and echo "emacs --daemon killed!"
+    end
+    if set -q _flag_k
+        emacsclient -e "(kill-emacs)" ^/dev/null
+        and echo "emacs --daemon killed!"
+        return
+    end
+    echo "Starting emacsclient..."
+    # if the daemon is not running, run it, otherwise run client
+    if test $DISPLAY
+        emacsclient -n -a "" -c $argv ^/dev/null
+    else
+        emacsclient -a "" -t $argv ^/dev/null
+    end
+end
 alias emx 'emacs -nw -q --no-splash --eval "(setq find-file-visit-truename t)"'
 abbr emq 'emacs -q --no-splash'
 abbr emd 'rm -rfv ~/.emacs.d/init.elc; emacs --debug-init'
 abbr eml 'emacs -q --no-splash --load' # load specific init.el
 abbr emn 'emacs --no-desktop'
-abbr eme 'emacs ~/.emacs.d/init.el'
-abbr emc 'emacs ~/.cgdb/cgdbrc'
-abbr emf 'emacs $FISH_CONFIG_PATH'
-abbr emt 'emacs ~/.tmux.conf'
-abbr emv 'emacs ~/.vimrc'
-abbr emb 'emacs ~/.bashrc'
-abbr em2 'emacs ~/Recentchange/TODO'
+abbr eme 'emm ~/.emacs.d/init.el'
+abbr emc 'emm ~/.cgdb/cgdbrc'
+abbr emf 'emm $FISH_CONFIG_PATH'
+abbr emt 'emm ~/.tmux.conf'
+abbr emv 'emm ~/.vimrc'
+abbr emb 'emm ~/.bashrc'
+abbr em2 'emm ~/Recentchange/TODO'
 abbr emtime "time emacs --debug-init -eval '(kill-emacs)'" # time emacs startup time
 
 # C-w to reload $FISH_CONFIG_PATH
