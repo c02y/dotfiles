@@ -1192,6 +1192,64 @@ function gitrh -d 'git reset HEAD for multiple files'
 
 end
 
+function gitdl -d 'download several files from github'
+    set -l options 'f' 'z' 's' 'h'
+    argparse -n gitdl $options -- $argv
+    or return
+
+    if set -q _flag_h
+        echo "gitdl [-f/-z/-s/-h]"
+        echo "      no argument -- once for all"
+        echo "      -f --> fzf"
+        echo "      -z --> z.lua"
+        echo "      -s --> scc"
+        echo "      -h --> usage"
+        return
+    else if set -q _flag_f
+        echo "Update/Download fzfp..."
+        fzfp u
+    else if set -q _flag_z
+        echo "Update/Download z.lua..."
+        zp u
+    else if set -q _flag_s
+        echo "Update/Download scc..."
+        sccp u
+    else                        # no option
+        read -n 1 -p 'echo "Update/Download all of fzf, z.lua and scc from github? [Y/n]: "' -l arg
+        if test "$arg" = "" -o "$arg" = "y" -o "$arg" = " "
+            echo "Update/Download fzfp..."
+            fzfp u
+
+            echo "Update/Download z.lua..."
+            zp u
+
+            echo "Update/Download scc..."
+            sccp u
+        else
+            echo "Quit to update/download all of fzf, z.lua and scc from github!!!"
+        end
+    end
+end
+
+function sccp -d 'check if scc exists, or without any argument, download the latest version'
+    if command -sq scc; and set -q $argv[1] # scc is in $PATH, and no any argv is given, two conditions
+        return 0
+    else
+        # https://github.com/boyter/scc/releases/download/v2.2.0/scc-2.2.0-x86_64-unknown-linux.zip
+        set tag_name (curl -s "https://api.github.com/repos/boyter/scc/releases/latest" | grep "tag_name" | cut -d : -f 2 | awk -F[\"\"] '{print $2}')
+        set file_name (echo scc-(echo $tag_name | sed 's/^v//')-x86_64-unknown-linux.zip)
+        set file_link (echo https://github.com/boyter/scc/releases/download/$tag_name/$file_name)
+        wget $file_link -O /tmp/$file_name
+        if test -f /tmp/$file_name
+            unzip -e /tmp/$file_name -d ~/.local/bin/
+            return 0
+        else
+            echo "scc doesn't exist and error occurs when downloading it!"
+            return 1
+        end
+    end
+end
+
 # svn
 abbr svnp 'svn update; and echo "---status---"; svn status'
 abbr svnpn 'svn update ~/NVR.ori/Code'
