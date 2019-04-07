@@ -1,0 +1,172 @@
+#!/usr/bin/env bash
+
+_runcommands() {
+	if [[ $DRYRUN == 1 ]] || [[ $VERBOSE -gt 1 ]]; then
+		echo "$@"
+	fi
+	if [[ $DRYRUN != 1 ]]; then
+		eval "$@"
+	fi
+}
+
+echoerr() {
+	printf "%s\n" "$*" >&2;
+}
+
+deperr() {
+	echoerr "stowsh requires $1"
+}
+
+isgnu() {
+	if $1 --version >/dev/null 2>&1 ; then
+		return 1
+	else
+		return 0
+	fi
+}
+
+stowsh_setpaths() {
+	if command -v grealpath >/dev/null 2>&1; then
+		rpcmd="grealpath"
+	elif command -v realpath >/dev/null 2>&1; then
+		rpcmd="realpath"
+	else
+		deperr "GNU coreutils"
+		return 1
+	fi
+	if isgnu $rpcmd; then
+		deperr "GNU coreutils"
+		return 1
+	fi
+	if command -v gfind >/dev/null 2>&1; then
+		findcmd="gfind"
+	elif command -v find >/dev/null 2>&1; then
+		findcmd="find"
+	else
+		deperr "GNU findutils"
+		return 1
+	fi
+	if isgnu $findcmd; then
+		deperr "GNU findutils"
+		return 1
+	fi
+}
+
+stowsh_install() {
+	stowsh_setpaths || return 1
+	local pkg=$("$rpcmd" "$1")
+	local target=$HOME
+
+	while IFS= read -r -d '' d; do
+		target=$(echo "$target/$(basename $d)")
+		if test -L "${target}"; then
+			echo $target is already a symbolic link...
+			echo
+			break
+		fi
+		if test -f "${target}" || test -d "${target}"; then
+			d=$($findcmd $d -mindepth 1 -maxdepth 1 -print0)
+			target=$(echo "$target/$(basename $d)")
+			if test -L "${target}"; then
+				echo $target is already a symbolic link...
+				echo
+				break
+			fi
+			_runcommands "ln -v -s $d $target"
+			echo
+			break
+		else
+			_runcommands "ln -v -s $d $target"
+			echo
+			break
+		fi
+	done < <($findcmd $pkg -mindepth 1 -iname ".*" -print0)
+}
+
+stowsh_uninstall() {
+	stowsh_setpaths || return 1
+	local pkg=$1
+	local target=$HOME
+
+	while IFS= read -r -d '' d; do
+		target=$(echo "$target/$(basename $d)")
+		if ! test -L "${target}"; then
+			d=$($findcmd $d -mindepth 1 -maxdepth 1 -print0)
+			target=$(echo "$target/$(basename $d)")
+			if ! test -L "${target}"; then
+				echo $target is not a symbolic link...
+			else
+				_runcommands "rm -rfv $target"
+			fi
+			echo
+			break
+		else
+			_runcommands "rm -rfv $target"
+			echo
+			break
+		fi
+	done < <($findcmd $pkg -mindepth 1 -iname ".*" -print0)
+}
+
+stowsh_help() {
+	cat <<EOF
+$(basename $0) -- One single bash script to replace the GNU stow
+
+Usage: $(basename $0) [-r] [-n] [-s] [-v[v]] PACKAGES...
+              -r uninstall a package
+              -n dry-run (print what would happen, but don't do anything)
+              -v verbose (-vv is even more verbose)
+              -s skip (skip errors rather than abort)
+EOF
+}
+
+if [ "$0" = "$BASH_SOURCE" ]; then
+	UNINSTALL=0
+	DRYRUN=0
+	SKIP=0
+	PACKAGES=()
+	while [[ "$@" ]]; do
+		if [[ $1 =~ ^- ]]; then
+			OPTIND=1
+			while getopts ":vhrsnt:" opt; do
+				case $opt in
+					h)
+						stowsh_help
+						exit 0
+						;;
+					r)  UNINSTALL=1
+						;;
+					n)  DRYRUN=1
+						;;
+					s)  SKIP=1
+						;;
+					v)  VERBOSE=$((VERBOSE + 1))
+						;;
+					*)  echo "'$OPTARG' is an invalid option/flag"
+						exit 1
+						;;
+				esac
+			done
+			shift $((OPTIND-1))
+		else
+			PACKAGES+=("$1")
+			shift
+		fi
+	done
+
+	if [[ ${#PACKAGES[@]} -eq 0 ]] ; then
+		stowsh_help
+		exit 1
+	fi
+
+	for i in ${!PACKAGES[*]}; do
+		pkg=${PACKAGES[$i]}
+		if [[ $UNINSTALL -eq 1 ]]; then
+			if [[ $VERBOSE -gt 0 ]] ; then echoerr "Uninstalling $pkg" ; fi
+			stowsh_uninstall "$pkg"
+		else
+			if [[ $VERBOSE -gt 0 ]] ; then echoerr "Installing $pkg" ; fi
+			stowsh_install "$pkg"
+		fi
+	done
+fi
