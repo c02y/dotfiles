@@ -578,8 +578,7 @@ function fzfp -d 'check if fzf is existed, with any argument, fzf binary file wi
             echo "fzf doesn't exist and error occurs when downloading it!"
             return 1
         end
-        set tag_name (curl -s "https://api.github.com/repos/junegunn/fzf-bin/releases/latest" | grep "tag_name" | cu
-        t -d : -f 2 | awk -F[\"\"] '{print $2}')
+        set tag_name (curl -s "https://api.github.com/repos/junegunn/fzf-bin/releases/latest" | grep "tag_name" | cut -d : -f 2 | awk -F[\"\"] '{print $2}')
         if not test $tag_name
             echo "API rate limit exceeded, please input your password for your username!"
             set tag_name (curl -u c02y -s "https://api.github.com/repos/junegunn/fzf-bin/releases/latest" | grep "tag_name" | cut -d : -f 2 | awk -F[\"\"] '{print $2}')

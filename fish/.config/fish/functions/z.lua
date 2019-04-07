@@ -4,7 +4,7 @@
 -- z.lua - a cd command that learns, by skywind 2018, 2019
 -- Licensed under MIT license.
 --
--- Version 1.4.2, Last Modified: 2019/02/06 20:23
+-- Version 1.7.0, Last Modified: 2019/03/09 16:51
 --
 -- * 10x faster than fasd and autojump, 3x faster than z.sh
 -- * available for posix shells: bash, zsh, sh, ash, dash, busybox
@@ -67,7 +67,7 @@
 --   set $_ZL_CMD in .bashrc/.zshrc to change the command (default z).
 --   set $_ZL_DATA in .bashrc/.zshrc to change the datafile (default ~/.zlua).
 --   set $_ZL_NO_PROMPT_COMMAND if you're handling PROMPT_COMMAND yourself.
---   set $_ZL_EXCLUDE_DIRS to an array of directories to exclude.
+--   set $_ZL_EXCLUDE_DIRS to a comma separated list of dirs to exclude.
 --   set $_ZL_ADD_ONCE to 1 to update database only if $PWD changed.
 --   set $_ZL_CD to specify your own cd command
 --   set $_ZL_ECHO to 1 to display new directory name after cd.
@@ -124,7 +124,6 @@ Z_SKIPPWD = false
 os.LOG_NAME = os.getenv('_ZL_LOG_NAME')
 
 
-
 -----------------------------------------------------------------------
 -- string lib
 -----------------------------------------------------------------------
@@ -159,6 +158,10 @@ function string:startswith(text)
 	return false
 end
 
+function string:endswith(text)
+	return text == "" or self:sub(-#text) == text
+end
+
 function string:lstrip()
 	if self == nil then return nil end
 	local s = self:gsub('^%s+', '')
@@ -180,7 +183,7 @@ function string:rfind(key)
 		return self:len(), 0
 	end
 	local length = self:len()
-	local start, ends = self:reverse():find(key:reverse())
+	local start, ends = self:reverse():find(key:reverse(), 1, true)
 	if start == nil then
 		return nil
 	end
@@ -300,9 +303,106 @@ end
 
 
 -----------------------------------------------------------------------
+-- ffi optimize (luajit has builtin ffi module)
+-----------------------------------------------------------------------
+os.native = {}
+os.native.status, os.native.ffi =  pcall(require, "ffi")
+if os.native.status then
+	local ffi = os.native.ffi
+	if windows then
+		ffi.cdef[[
+		int GetFullPathNameA(const char *name, uint32_t size, char *out, char **name);
+		int ReplaceFileA(const char *dstname, const char *srcname, void *, uint32_t, void *, void *);
+		uint32_t GetTickCount(void);
+		uint32_t GetFileAttributesA(const char *name);
+		uint32_t GetCurrentDirectoryA(uint32_t size, char *ptr);
+		]]
+		local kernel32 = ffi.load('kernel32.dll')
+		local buffer = ffi.new('char[?]', 300)
+		local INVALID_FILE_ATTRIBUTES = 0xffffffff
+		local FILE_ATTRIBUTE_DIRECTORY = 0x10
+		os.native.kernel32 = kernel32
+		function os.native.GetFullPathName(name)
+			local hr = kernel32.GetFullPathNameA(name, 290, buffer, nil)
+			return (hr > 0) and ffi.string(buffer, hr) or nil
+		end
+		function os.native.ReplaceFile(replaced, replacement)
+			local hr = kernel32.ReplaceFileA(replaced, replacement, nil, 2, nil, nil)
+			return (hr ~= 0) and true or false
+		end
+		function os.native.GetTickCount()
+			return kernel32.GetTickCount()
+		end
+		function os.native.GetFileAttributes(name)
+			return kernel32.GetFileAttributesA(name)
+		end
+		function os.native.exists(name)
+			local attr = os.native.GetFileAttributes(name)
+			return attr ~= INVALID_FILE_ATTRIBUTES
+		end
+		function os.native.isdir(name)
+			local attr = os.native.GetFileAttributes(name)
+			local isdir = FILE_ATTRIBUTE_DIRECTORY
+			if attr == INVALID_FILE_ATTRIBUTES then
+				return false
+			end
+			return (attr % (2 * isdir)) >= isdir
+		end
+		function os.native.getcwd()
+			local hr = kernel32.GetCurrentDirectoryA(299, buffer)
+			if hr <= 0 then return nil end
+			return ffi.string(buffer, hr)
+		end
+	else
+		ffi.cdef[[
+		typedef struct { long tv_sec; long tv_usec; } timeval;
+		int gettimeofday(timeval *tv, void *tz);
+		int access(const char *name, int mode);
+		char *realpath(const char *path, char *resolve);
+		char *getcwd(char *buf, size_t size);
+		]]
+		local timeval = ffi.new('timeval[?]', 1)
+		local buffer = ffi.new('char[?]', 4100)
+		function os.native.gettimeofday()
+			local hr = ffi.C.gettimeofday(timeval, nil)
+			local sec = tonumber(timeval[0].tv_sec)
+			local usec = tonumber(timeval[0].tv_usec)
+			return sec + (usec * 0.000001)
+		end
+		function os.native.access(name, mode)
+			return ffi.C.access(name, mode)
+		end
+		function os.native.realpath(name)
+			local path = ffi.C.realpath(name, buffer)
+			return (path ~= nil) and ffi.string(buffer) or nil
+		end
+		function os.native.getcwd()
+			local hr = ffi.C.getcwd(buffer, 4099)
+			return hr ~= nil and ffi.string(buffer) or nil
+		end
+	end
+	function os.native.tickcount() 
+		if windows then
+			return os.native.GetTickCount()
+		else
+			return math.floor(os.native.gettimeofday() * 1000)
+		end
+	end
+	os.native.init = true
+end
+
+
+-----------------------------------------------------------------------
 -- get current path
 -----------------------------------------------------------------------
 function os.pwd()
+	if os.native and os.native.getcwd then
+		local hr = os.native.getcwd()
+		if hr then return hr end
+	end
+	if os.getcwd then
+		return os.getcwd()
+	end
 	if windows then
 		local fp = io.popen('cd')
 		if fp == nil then
@@ -369,6 +469,10 @@ end
 -----------------------------------------------------------------------
 function os.path.abspath(path)
 	if path == '' then path = '.' end
+	if os.native and os.native.GetFullPathName then
+		local test = os.native.GetFullPathName(path)
+		if test then return test end
+	end
 	if windows then
 		local script = 'FOR /f "delims=" %%i IN ("%s") DO @echo %%~fi'
 		local script = string.format(script, path)
@@ -385,14 +489,9 @@ function os.path.abspath(path)
 			if test ~= nil and test ~= '' then
 				return test
 			end
-		end
-		if os.path.isdir(path) then
-			if os.path.exists('/bin/sh') and os.path.exists('/bin/pwd') then
-				local cmd = "/bin/sh -c 'cd \"" ..path .."\"; /bin/pwd'"
-				test = os.call(cmd)
-				if test ~= nil and test ~= '' then
-					return test
-				end
+			test = os.call('realpath \'' .. path .. '\' 2> /dev/null')
+			if test ~= nil and test ~= '' then
+				return test
 			end
 		end
 		local test = os.path.which('perl')
@@ -422,15 +521,26 @@ end
 -- dir exists
 -----------------------------------------------------------------------
 function os.path.isdir(pathname)
-	local name = pathname .. '/'
-	local ok, err, code = os.rename(name, name)
-	if not ok then
-		if code == 13 then
+	if pathname == '/' then
+		return true
+	elseif pathname == '' then
+		return false
+	elseif windows then
+		if pathname == '\\' then
 			return true
 		end
-		return false
 	end
-	return true
+	if os.native and os.native.isdir then
+		return os.native.isdir(pathname)
+	end
+	if clink and os.isdir then
+		return os.isdir(pathname)
+	end
+	local name = pathname
+	if (not name:endswith('/')) and (not name:endswith('\\')) then
+		name = name .. os.path.sep
+	end
+	return os.path.exists(name)
 end
 
 
@@ -442,6 +552,18 @@ function os.path.exists(name)
 	if not ok then
 		if code == 13 then
 			return true
+		elseif code == 30 then
+			local f = io.open(name,"r")
+			if f ~= nil then
+				io.close(f)
+				return true
+			end
+		elseif name:sub(-1) == '/' and code == 20 and (not windows) then
+			local test = name .. '.'
+			ok, err, code = os.rename(test, test)
+			if code == 16 or code == 13 or code == 22 then
+				return true
+			end
 		end
 		return false
 	end
@@ -621,7 +743,7 @@ function os.path.split(path)
 		return path:sub(1, 1), path:sub(2)
 	elseif windows then
 		local drive = path:match('^%a:') and path:sub(1, 2) or ''
-		if pos == 3 then
+		if pos == 3 and drive ~= '' then
 			return path:sub(1, 3), path:sub(4)
 		end
 	end
@@ -755,6 +877,41 @@ end
 
 
 -----------------------------------------------------------------------
+-- get environ
+-----------------------------------------------------------------------
+function os.environ(name, default)
+	local value = os.getenv(name)
+	if os.envmap ~= nil and type(os.envmap) == 'table' then
+		local t = os.envmap[name]
+		value = (t ~= nil and type(t) == 'string') and t or value
+	end
+	if value == nil then
+		return default
+	elseif type(default) == 'boolean' then
+		value = value:lower()
+		if value == '0' or value == '' or value == 'no' then
+			return false
+		elseif value == 'false' or value == 'n' or value == 'f' then
+			return false
+		else
+			return true
+		end
+	elseif type(default) == 'number' then
+		value = tonumber(value)
+		if value == nil then 
+			return default 
+		else
+			return value
+		end
+	elseif type(default) == 'string' then
+		return value
+	elseif type(default) == 'table' then
+		return value:sep(',')
+	end
+end
+
+
+-----------------------------------------------------------------------
 -- parse option
 -----------------------------------------------------------------------
 function os.getopt(argv)
@@ -775,8 +932,16 @@ function os.getopt(argv)
 			if head ~= '-' then
 				break
 			end
-			local part = arg:split('=')
-			options[part[1]] = part[2] ~= nil and part[2] or ''
+			if arg == '-' then
+				options['-'] = ''
+			elseif arg == '--' then
+				options['-'] = '-'
+			elseif arg:match('^-%d+$') then
+				options['-'] = arg:sub(2)
+			else
+				local part = arg:split('=')
+				options[part[1]] = part[2] ~= nil and part[2] or ''
+			end
 		end
 		index = index + 1
 	end
@@ -813,6 +978,9 @@ function math.random_init()
 		seed = seed .. rnd
 	end
 	seed = seed .. tostring(os.clock() * 10000000)
+	if os.native and os.native.tickcount then
+		seed = seed .. tostring(os.native.tickcount())
+	end
 	local number = 0
 	for i = 1, seed:len() do
 		local k = string.byte(seed:sub(i, i))
@@ -902,15 +1070,29 @@ function data_save(filename, M)
 	local tmpname = nil
 	local i
 	filename = os.path.expand(filename)
-	if windows then
-		fp = io.open(filename, 'w')
-	else
-		math.random_init()
+	math.random_init()
+	while true do
 		tmpname = filename .. '.' .. tostring(os.time())
-		tmpname = tmpname .. math.random_string(8)
-		local rnd = os.getenv('_ZL_RANDOM')
-		tmpname = tmpname .. '' .. (rnd and rnd or '')
-		-- print('tmpname: '..tmpname)
+		if os.native and os.native.tickcount then
+			local key = os.native.tickcount() % 1000
+			tmpname = tmpname .. string.format('%03d', key)
+			tmpname = tmpname .. math.random_string(5)
+		else
+			tmpname = tmpname .. math.random_string(8)
+		end
+		if not os.path.exists(tmpname) then
+			-- print('tmpname: '..tmpname)
+			break
+		end
+	end
+	if windows then
+		if os.native and os.native.ReplaceFile then
+			fp = io.open(tmpname, 'w')
+		else
+			fp = io.open(filename, 'w')
+			tmpname = nil
+		end
+	else
 		fp = io.open(tmpname, 'w')
 	end
 	if fp == nil then
@@ -923,7 +1105,14 @@ function data_save(filename, M)
 	end
 	fp:close()
 	if tmpname ~= nil then
-		os.rename(tmpname, filename)
+		if windows then
+			local ok, err, code = os.rename(tmpname, filename)
+			if not ok then
+				os.native.ReplaceFile(filename, tmpname)
+			end
+		else
+			os.rename(tmpname, filename)
+		end
 		os.remove(tmpname)
 	end
 	return true
@@ -1125,7 +1314,8 @@ function z_add(path)
 	end
 	local H = os.getenv('HOME')
 	local M = data_load(DATA_FILE)
-	if not os.getenv('_ZL_NO_CHECK') then
+	local nc = os.getenv('_ZL_NO_CHECK')
+	if nc == nil or nc == '' or nc == '0' then
 		M = data_filter(M)
 	end
 	-- insert paths
@@ -1223,13 +1413,14 @@ function z_match(patterns, method, subdir)
 	subdir = subdir ~= nil and subdir or false
 	local M = data_load(DATA_FILE)
 	M = data_select(M, patterns, false)
+	M = data_filter(M)
 	if Z_MATCHNAME then
 		local N = data_select(M, patterns, true)
+		N = data_filter(N)
 		if #N > 0 then
 			M = N
 		end
 	end
-	M = data_filter(M)
 	M = data_update_frecent(M)
 	if method == 'time' then
 		current = os.time()
@@ -1282,7 +1473,7 @@ end
 -----------------------------------------------------------------------
 function z_print(M, weight, number)
 	local N = {}
-	local maxsize = 10
+	local maxsize = 9
 	local numsize = string.len(tostring(#M))
 	for _, item in pairs(M) do
 		local record = {}
@@ -1357,7 +1548,12 @@ function z_cd(patterns)
 		return os.path.expand('~')
 	end
 	if os.path.isabs(last) and os.path.isdir(last) then
-		return os.path.norm(last)
+		local size = #patterns
+		if size <= 1 then
+			return os.path.norm(last)
+		elseif last ~= '/' and last ~= '\\' then
+			return os.path.norm(last)
+		end
 	end
 	local M = z_match(patterns, Z_METHOD, Z_SUBDIR)
 	if M == nil then
@@ -1369,6 +1565,9 @@ function z_cd(patterns)
 		return M[1].name
 	elseif Z_INTERACTIVE == 0 then
 		return M[1].name
+	end
+	if os.environ('_ZL_INT_SORT', false) then
+		table.sort(M, function (a, b) return a.name < b.name end)
 	end
 	local retval = nil
 	if Z_INTERACTIVE == 1 then
@@ -1389,19 +1588,22 @@ function z_cd(patterns)
 		end
 		retval = M[index].name
 	elseif Z_INTERACTIVE == 2 then
-		local fzf = os.getenv('_ZL_FZF')
+		local fzf = os.environ('_ZL_FZF', 'fzf')
 		local tmpname = '/tmp/zlua.txt'
-		local cmd = '--nth 2.. --reverse --inline-info +s --tac'
-		local cmd = ((not fzf) and 'fzf' or fzf)  .. ' ' .. cmd
+		local cmd = '--nth 2.. --reverse --inline-info --tac '
+		local flag = os.environ('_ZL_FZF_FLAG', '')
+		flag = (flag == '' or flag == nil) and '+s -e' or flag
+		cmd = ((fzf == '') and 'fzf' or fzf)  .. ' ' .. cmd .. ' ' .. flag
 		if not windows then
 			tmpname = os.tmpname()
-			if not os.getenv('_ZL_FZF_FULLSCR') then
-				cmd = cmd .. ' --height 35%'
+			local height = os.environ('_ZL_FZF_HEIGHT', '35%')
+			if height ~= nil and height ~= '' and height ~= '0' then
+				cmd = cmd .. ' --height ' .. height
 			end
 			cmd = cmd .. ' < "' .. tmpname .. '"'
 		else
 			tmpname = os.tmpname():gsub('\\', ''):gsub('%.', '')
-			tmpname = os.getenv('TMP') .. '\\zlua_' .. tmpname .. '.txt'
+			tmpname = os.environ('TMP', '') .. '\\zlua_' .. tmpname .. '.txt'
 			cmd = 'type "' .. tmpname .. '" | ' .. cmd
 		end
 		PRINT_MODE = tmpname
@@ -1488,21 +1690,29 @@ function cd_backward(args, options, pwd)
 			end
 			return os.path.normpath(path)
 		else
+			pwd = os.path.split(pwd)
 			local test = windows and pwd:gsub('\\', '/') or pwd
-			local key = '/' .. args[1]
+			local key = windows and args[1]:lower() or args[1]
 			if not key:match('%u') then
 				test = test:lower()
 			end
-			local pos, _ = test:rfind(key)
-			if not pos then
-				return nil
+			local pos, ends = test:rfind('/' .. key)
+			if pos then
+				ends = test:find('/', pos + key:len() + 1, true)
+				ends = ends and ends or test:len()
+				return os.path.normpath(pwd:sub(1, ends))
+			elseif windows and test:startswith(key) then
+				ends = test:find('/', key:len(), true)
+				ends = ends and ends or test:len()
+				return os.path.normpath(pwd:sub(1, ends))
 			end
-			local ends = test:find('/', pos + key:len())
-			if not ends then
-				ends = test:len()
+			pos = test:rfind(key)
+			if pos then
+				ends = test:find('/', pos + key:len(), true)
+				ends = ends and ends or test:len()
+				return os.path.normpath(pwd:sub(1, ends))
 			end
-			local path = pwd:sub(1, (not ends) and test:len() or ends)
-			return os.path.normpath(path)
+			return nil
 		end
 	else
 		local test = windows and pwd:gsub('\\', '/') or pwd
@@ -1523,16 +1733,28 @@ end
 
 
 -----------------------------------------------------------------------
--- cd forward
+-- cd minus: "z -", "z --", "z -2"
 -----------------------------------------------------------------------
-function cd_forward(args, options)
-end
-
-
------------------------------------------------------------------------
--- cd detour
------------------------------------------------------------------------
-function cd_forward(args, options)
+function cd_minus(args, options)
+	Z_SKIPPWD = true
+	local M = z_match({}, 'time', Z_SUBDIR)
+	local size = #M
+	if options['-'] == '-' then
+		for i, item in ipairs(M) do
+			if i > 10 then break end
+			io.stderr:write(' ' .. tostring(i - 1) .. '  ' .. item.name .. '\n')
+		end
+	else
+		local level = 0
+		local num = options['-']
+		if num and num ~= '' then
+			level = tonumber(num)
+		end
+		if level >= 0 and level < size then
+			return M[level + 1].name
+		end
+	end
+	return nil
 end
 
 
@@ -1571,10 +1793,8 @@ function main(argv)
 		local path = ''
 		if options['-b'] then
 			path = cd_backward(args, options)
-		elseif options['-f'] then
-			path = cd_forward(args, options)
-		elseif options['-d'] then
-			path = cd_detour(args, options)
+		elseif options['-'] then
+			path = cd_minus(args, options)
 		elseif #args == 0 then
 			path = nil
 		else
@@ -1639,7 +1859,7 @@ end
 function z_init()
 	local _zl_data = os.getenv('_ZL_DATA')
 	local _zl_maxage = os.getenv('_ZL_MAXAGE')
-	local _zl_exclude = os.getenv('_ZL_EXCLUDE')
+	local _zl_exclude = os.getenv('_ZL_EXCLUDE_DIRS')
 	local _zl_cmd = os.getenv('_ZL_CMD')
 	local _zl_matchname = os.getenv('_ZL_MATCH_NAME')
 	local _zl_skippwd = os.getenv('_ZL_SKIP_PWD')
@@ -1664,7 +1884,7 @@ function z_init()
 		end
 	end
 	if _zl_exclude ~= nil and _zl_exclude ~= "" then
-		local part = _zl_exclude:split(windows and ';' or ':')
+		local part = _zl_exclude:split(',')
 		local insensitive = path_case_insensitive()
 		for _, name in ipairs(part) do
 			if insensitive then
@@ -1673,10 +1893,10 @@ function z_init()
 			if windows then
 				name = os.path.norm(name)
 			end
-			Z_EXCLUDE[name] = 1
+			table.insert(Z_EXCLUDE, name)
 		end
 	end
-	if _zl_cmd ~= nil then
+	if _zl_cmd ~= nil and _zl_cmd ~= '' then
 		Z_CMD = _zl_cmd
 	end
 	if _zl_matchname ~= nil then
@@ -1706,7 +1926,7 @@ end
 -- initialize clink hooks
 -----------------------------------------------------------------------
 function z_clink_init()
-	local once = os.getenv("_ZL_ADD_ONCE")
+	local once = os.environ("_ZL_ADD_ONCE", false)
 	local previous = ''
 	function z_add_to_database()
 		pwd = clink.get_cwd()
@@ -1775,12 +1995,12 @@ _zlua() {
 	elif [ -n "$arg_mode" ]; then
 		"$ZLUA_LUAEXE" "$ZLUA_SCRIPT" $arg_mode $arg_subdir $arg_type $arg_inter "$@"
 	else
-		local dest=$("$ZLUA_LUAEXE" "$ZLUA_SCRIPT" --cd $arg_type $arg_subdir $arg_inter "$@")
-		if [ -n "$dest" ] && [ -d "$dest" ]; then
+		local zdest=$("$ZLUA_LUAEXE" "$ZLUA_SCRIPT" --cd $arg_type $arg_subdir $arg_inter "$@")
+		if [ -n "$zdest" ] && [ -d "$zdest" ]; then
 			if [ -z "$_ZL_CD" ]; then
-				builtin cd "$dest"
+				builtin cd "$zdest"
 			else
-				$_ZL_CD "$dest"
+				$_ZL_CD "$zdest"
 			fi
 			if [ -n "$_ZL_ECHO" ]; then pwd; fi
 		fi
@@ -1862,23 +2082,17 @@ fi
 ]]
 
 local script_fzf_complete_bash = [[
-if command -v fzf >/dev/null 2>&1; then
+if [ "$TERM" != "dumb" ] && command -v fzf >/dev/null 2>&1; then
 	# To redraw line after fzf closes (printf '\e[5n')
 	bind '"\e[0n": redraw-current-line'
-
 	_zlua_fzf_complete() {
-		local query="${COMP_WORDS[COMP_CWORD]}"
-		local selected=$(_zlua --complete | $zlua_fzf --query "$query")
-
-		printf '\e[5n'
-
+		local selected=$(_zlua -l "${COMP_WORDS[@]:1}" | sed "s|$HOME|\~|" | $zlua_fzf | sed 's/^[0-9,.]* *//')
 		if [ -n "$selected" ]; then
-			COMPREPLY=("$selected")
-			return 0
+			COMPREPLY=( "$selected" )
 		fi
+		printf '\e[5n'
 	}
-
-	complete -o bashdefault -F _zlua_fzf_complete ${_ZL_CMD:-z}
+	complete -o bashdefault -o nospace -F _zlua_fzf_complete ${_ZL_CMD:-z}
 fi
 ]]
 
@@ -1894,6 +2108,7 @@ compctl -U -K _zlua_zsh_tab_completion _zlua
 ]]
 
 
+
 -----------------------------------------------------------------------
 -- initialize bash/zsh
 ----------------------------------------------------------------------
@@ -1901,14 +2116,22 @@ function z_shell_init(opts)
 	print('ZLUA_SCRIPT="' .. os.scriptname() .. '"')
 	print('ZLUA_LUAEXE="' .. os.interpreter() .. '"')
 	print('')
-	print(script_zlua)
+	if not opts.posix then
+		print(script_zlua)
+	elseif not opts.legacy then
+		local script = script_zlua:gsub('builtin ', '')
+		print(script)
+	else
+		local script = script_zlua:gsub('local ', ''):gsub('builtin ', '')
+		print(script)
+	end
 
-	local prompt_hook = (os.getenv("_ZL_NO_PROMPT_COMMAND") == nil)
-	local once = (os.getenv("_ZL_ADD_ONCE") ~= nil) or opts.once ~= nil
+	local prompt_hook = (not os.environ("_ZL_NO_PROMPT_COMMAND", false))
+	local once = os.environ("_ZL_ADD_ONCE", false) or opts.once ~= nil
 
 	if opts.bash ~= nil then
 		if prompt_hook then
-			if opts.once then
+			if once then
 				print(script_init_bash_once)
 			elseif opts.fast then
 				print(script_init_bash_fast)
@@ -1918,10 +2141,14 @@ function z_shell_init(opts)
 		end
 		print(script_complete_bash)
 		if opts.fzf ~= nil then
-			fzf_cmd = "fzf --reverse --inline-info +s"
-			if not os.getenv('_ZL_FZF_FULLSCR') then
-				fzf_cmd = fzf_cmd .. ' --height 35%'
+			fzf_cmd = "fzf --nth 2.. --reverse --inline-info --tac "
+			local height = os.environ('_ZL_FZF_HEIGHT', '35%')
+			if height ~= nil and height ~= '' and height ~= '0' then
+				fzf_cmd = fzf_cmd .. ' --height ' .. height .. ' '
 			end
+			local flag = os.environ('_ZL_FZF_FLAG', '')
+			flag = (flag == '' or flag == nil) and '+s -e' or flag
+			fzf_cmd = fzf_cmd .. ' ' .. flag .. ' '
 			print('zlua_fzf="' .. fzf_cmd .. '"')
 			print(script_fzf_complete_bash)
 		end
@@ -1932,9 +2159,13 @@ function z_shell_init(opts)
 		print(script_complete_zsh)
 	elseif opts.posix ~= nil then
 		if prompt_hook then
-			print(once and script_init_posix_once or script_init_posix)
+			local script = script_init_posix
+			if once then script = script_init_posix_once end
+			if opts.legacy then
+				script = script:gsub('%&%)', ')')
+			end
+			print(script)
 		end
-		print('_ZL_NO_BUILTIN_CD=1')
 	else
 		if prompt_hook then
 			print('if [ -n "$BASH_VERSION" ]; then')
@@ -1951,7 +2182,7 @@ function z_shell_init(opts)
 			-- print(script_complete_zsh)
 			print('else')
 			print(once and script_init_posix_once or script_init_posix)
-			print('_ZL_NO_BUILTIN_CD=1')
+			print('builtin() { cd "$2"; }')
 			print('fi')
 		end
 	end
@@ -2024,8 +2255,8 @@ function _zlua
 			else
 				_zlua_call "$_ZL_CD" "$dest"
 			end
+			if test -n "$_ZL_ECHO"; pwd; end
 		end
-		if test -n "$_ZL_ECHO"; pwd; end
 	end
 end
 
@@ -2078,7 +2309,7 @@ function z_fish_init(opts)
 		print('set -x _ZL_MATCH_MODE 1')
 	end
 	if opts.echo then
-		print('set -x _ZL_ECHO 1')
+		print('set _ZL_ECHO 1')
 	end
 	if opts.nc then
 		print('set -x _ZL_NO_CHECK 1')
