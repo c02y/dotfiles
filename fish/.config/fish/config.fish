@@ -570,7 +570,7 @@ function fu -d 'fu command and prompt to ask to open it or not'
 end
 
 function fzfp -d 'check if fzf is existed, with any argument, fzf binary file will be upgraded'
-    if command -sq fzf; and set -q $argv[1] # check if fzf is in $PATH, and no any argv is given, two conditions
+    if command -sq fzf; and set -q $argv[1] # fzf is in $PATH, and no any argv is given, two conditions
         return 0
     else
         # check internet connection
@@ -578,8 +578,12 @@ function fzfp -d 'check if fzf is existed, with any argument, fzf binary file wi
             echo "fzf doesn't exist and error occurs when downloading it!"
             return 1
         end
-
-        set tag_name (curl -s "https://api.github.com/repos/junegunn/fzf-bin/releases/latest" | grep "tag_name" | cut -d : -f 2 | awk -F[\"\"] '{print $2}')
+        set tag_name (curl -s "https://api.github.com/repos/junegunn/fzf-bin/releases/latest" | grep "tag_name" | cu
+        t -d : -f 2 | awk -F[\"\"] '{print $2}')
+        if not test $tag_name
+            echo "API rate limit exceeded, please input your password for your username!"
+            set tag_name (curl -u c02y -s "https://api.github.com/repos/junegunn/fzf-bin/releases/latest" | grep "tag_name" | cut -d : -f 2 | awk -F[\"\"] '{print $2}')
+        end
         set file_name (echo fzf-$tag_name-linux_amd64.tgz)
         set file_link (echo https://github.com/junegunn/fzf-bin/releases/download/$tag_name/$file_name)
         wget $file_link -O /tmp/$file_name
@@ -1193,7 +1197,7 @@ function gitrh -d 'git reset HEAD for multiple files'
 end
 
 function gitdl -d 'download several files from github'
-    set -l options 'f' 'z' 's' 'h'
+    set -l options 'f' 's' 'z' 'h'
     argparse -n gitdl $options -- $argv
     or return
 
@@ -1201,32 +1205,32 @@ function gitdl -d 'download several files from github'
         echo "gitdl [-f/-z/-s/-h]"
         echo "      no argument -- once for all"
         echo "      -f --> fzf"
-        echo "      -z --> z.lua"
         echo "      -s --> scc"
+        echo "      -z --> z.lua"
         echo "      -h --> usage"
         return
     else if set -q _flag_f
         echo "Update/Download fzfp..."
         fzfp u
-    else if set -q _flag_z
-        echo "Update/Download z.lua..."
-        zp u
     else if set -q _flag_s
         echo "Update/Download scc..."
         sccp u
+    else if set -q _flag_z
+        echo "Update/Download z.lua..."
+        zp u
     else                        # no option
-        read -n 1 -p 'echo "Update/Download all of fzf, z.lua and scc from github? [Y/n]: "' -l arg
+        read -n 1 -p 'echo "Update/Download all of fzf, scc, and z.lua from github? [Y/n]: "' -l arg
         if test "$arg" = "" -o "$arg" = "y" -o "$arg" = " "
             echo "Update/Download fzfp..."
             fzfp u
 
-            echo "Update/Download z.lua..."
-            zp u
-
             echo "Update/Download scc..."
             sccp u
+
+            echo "Update/Download z.lua..."
+            zp u
         else
-            echo "Quit to update/download all of fzf, z.lua and scc from github!!!"
+            echo "Quit to update/download all of fzf, scc and z.lua from github!!!"
         end
     end
 end
@@ -1237,6 +1241,10 @@ function sccp -d 'check if scc exists, or without any argument, download the lat
     else
         # https://github.com/boyter/scc/releases/download/v2.2.0/scc-2.2.0-x86_64-unknown-linux.zip
         set tag_name (curl -s "https://api.github.com/repos/boyter/scc/releases/latest" | grep "tag_name" | cut -d : -f 2 | awk -F[\"\"] '{print $2}')
+        if not test $tag_name
+            echo "API rate limit exceeded, please input your password for your username!"
+            set tag_name (curl -u c02y -s "https://api.github.com/repos/boyter/scc/releases/latest" | grep "tag_name" | cut -d : -f 2 | awk -F[\"\"] '{print $2}')
+        end
         set file_name (echo scc-(echo $tag_name | sed 's/^v//')-x86_64-unknown-linux.zip)
         set file_link (echo https://github.com/boyter/scc/releases/download/$tag_name/$file_name)
         wget $file_link -O /tmp/$file_name
