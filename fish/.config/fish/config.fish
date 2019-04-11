@@ -131,25 +131,6 @@ function fsr --description 'Reload your Fish config after configuration'
 end
 
 # tmux related
-function t -d 'if tmux is running, attach it, if not, create a new tmux session, and check $SHELL'
-    if not command -sq tmux
-        echo tmux is not installed, please install it!
-        return 1
-    end
-
-    if test (basename $SHELL) = "bash"
-        if test -f ~/anaconda3/bin/fish
-            set -gx SHELL ~/anaconda3/bin/fish
-        else if command -sq fish
-            set -gx SHELL (which fish)
-        else
-            echo "No fish is installed, using old $SHELL as SHELL!"
-        end
-    end
-
-    # attach a session if it exists, it failed, tmux a new one, if failed, echo message
-    tmux attach ^/dev/null; or tmux ^/dev/null; or echo "Already inside a tmux session, $SHELL!"
-end
 abbr tl 'tmux ls'
 abbr tl 'tmux ls'
 abbr tls 'tmux list-panes -s'
@@ -785,7 +766,7 @@ abbr mh 'm /etc/hosts'
 abbr m2 'm ~/Recentchange/TODO'
 abbr mf 'm $FISH_CONFIG_PATH'
 #
-alias less 'less -RM -s +Gg'
+alias less 'less -x4 -RM -s +Gg' # -x4 to set the tabwidth to 4 instead default 8
 abbr lesst 'less ~/.tmux.conf'
 abbr lessf 'less $FISH_CONFIG_PATH'
 abbr lesse 'less ~/.emacs.d/init.el'
@@ -1095,27 +1076,6 @@ abbr vimt 'vim ~/.tmux.conf; tmux source-file ~/.tmux.conf; echo ~/.tmux.conf re
 
 # emacs
 # -Q = -q --no-site-file --no-splash, which will not load something like emacs-googies
-function emm -d 'emacsclient, new daemon if not exists, -r to kill the daemon and start a new client, -k to just kill'
-    set -l options 'r' 'k'
-    argparse -n emm $options -- $argv
-    or return
-    if set -q _flag_r
-        emacsclient -e "(kill-emacs)"  ^/dev/null
-        and echo "emacs --daemon killed!"
-    end
-    if set -q _flag_k
-        emacsclient -e "(kill-emacs)" ^/dev/null
-        and echo "emacs --daemon killed!"
-        return
-    end
-    echo "Starting emacsclient..."
-    # if the daemon is not running, run it, otherwise run client
-    if test $DISPLAY
-        emacsclient -n -a "" -c $argv ^/dev/null
-    else
-        emacsclient -a "" -t $argv ^/dev/null
-    end
-end
 alias emx 'emacs -nw -q --no-splash --eval "(setq find-file-visit-truename t)"'
 abbr emq 'emacs -q --no-splash'
 abbr emd 'rm -rfv ~/.emacs.d/init.elc; emacs --debug-init'
