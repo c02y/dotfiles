@@ -1,0 +1,190 @@
+#!/bin/bash
+
+# 0. put this script into ~/.local/bin/
+# 1. Create a emacsclient.desktop in ~/.local/share/applications/emacsclient.desktop
+# 1.1 if you installed Emacs using pkg manager instead of anaconda3, omit this step
+# 1.2 if you are using non-GUI or launcher is unnecessary, omit this step including the next
+#
+# emacsclient.desktop:
+#
+# [Desktop Entry]
+# Type=Application
+# Encoding=UTF-8
+# Icon=/home/chz/anaconda3/share/icons/hicolor/scalable/apps/emacs.svg
+# Name=emacsclient
+# Comment=Emacs daemon/client
+# Type=Application
+# Exec=/home/chz/.local/bin/emm
+# Terminal=false
+# StartupNofity=true
+# Categories=
+#
+# 2. config your shortcut to this file in System Settings
+
+print_usage()
+{
+	cat <<EOF
+$(basename $0) -- emacs server and emacsclient manager script
+
+Usage: $(basename $0) [-r] [-k] [-m [repo]] [-h] ...
+            -r to restart emacs daemon and start a emacsclient
+            -k to kill emacs daemon
+            -m to start magit in a repo, default is ./
+            -h to print this usage
+EOF
+	exit 0
+}
+
+check_exists_emacsclient()
+{
+	if ps -ef | grep -v grep | grep 'emacs --fg-daemon' >/dev/null; then
+		# using emacsclient process won't work for GUI since no emacsclient process exists
+		emacsclient -n -e "(if (> (length (frame-list)) 1) 't)" | grep -q t >/dev/null
+		if [ "$?" -eq 0 ]; then
+			read -n 1 -p 'Running emacsclient exists, kill(switch to emacs frame if gets stuck)? [Y/n]: '
+			if [ "$REPLY" == "y" ]; then
+				# Note that if modified buffers unsaved, you have to switch to the emacsclient to save manually
+				emacsclient -n -e "(save-some-buffers)" >/dev/null
+			else
+				echo "Cancel and exit!"
+				exit
+			fi
+			echo
+		fi
+	fi
+}
+
+copy_service()
+{
+	if [ ! -f ~/.config/systemd/user/emacs.service ] && [ -f ~/anaconda3/lib/systemd/user/emacs.service ]; then
+		mkdir -p ~/.config/systemd/user
+		cp -rfv ~/anaconda3/lib/systemd/user/emacs.service ~/.config/systemd/user/
+	fi
+}
+
+kill_emacs_server()
+{
+	if ps -ef | grep -v grep | grep 'emacs' | grep 'daemon' >/dev/null; then # for both --daemon and --fg-daemon
+		# once you kill the process, it will restart automatically
+		ps -ef | grep -v grep | grep 'emacs' | grep 'daemon' | awk '{print $2}' | xargs kill -9
+		systemctl --user stop emacs.service
+		echo "emacs server is killed!"
+	else
+		echo "No emacs daemon is running!"
+	fi
+}
+
+restart_emacs_server()
+{
+	if ps -ef | grep -v grep | grep 'emacs' | grep 'daemon' >/dev/null; then # for both --daemon and --fg-daemon
+		# systemctl --user restart emacs.service # systemctl takes too much time
+		# once you kill the process, it will restart automatically
+		ps -ef | grep -v grep | grep 'emacs' | grep 'daemon' | awk '{print $2}' | xargs kill -9
+		echo "emacs server is restarted!"
+	fi
+}
+
+start_magit()
+{
+	pwd_old=$PWD
+	if [ -d $1 ]; then
+		if [ "$1" != "." ]; then
+			cd $1
+		fi
+		# check if $1 is under git control
+		git rev-parse --is-inside-work-tree >/dev/null 2>&1
+		if [ "$?" -ne 0 ]; then
+			echo "$1 is not a git repo!"
+			cd --
+			exit 1
+		fi
+
+		# To get rid of prompt: "repo A is a repository. Create another in B"
+		# This works well even if A/B is a submodule
+		sub=0
+		if [[ "$PWD" =~ ^$pwd_old ]] || [[ "$pwd_old" =~ ^$PWD ]]; then
+			sub=1
+		fi
+		if [ "$1" == "." ] || [ "$sub" == "1" ]; then
+			magit_cmd="-e '(progn (magit-status) (delete-other-windows))'"
+		elif [ "$1" != "." ] && [ "$sub" != "1" ]; then
+			repo=$PWD
+			magit_cmd="-e '(progn (magit-status \"$repo\") (delete-other-windows))'"
+			cd --
+		fi
+	else
+		echo "$1 is not even a directory!"
+		exit 1
+	fi
+}
+
+repo="."
+magit_cmd=
+flag_restart=0
+flag_kill=0
+flag_magit=0
+while getopts ":rhkm" args; do # prefix-: no warning for illegal option
+	case "$args" in
+		r)
+			flag_restart=1
+			;;
+		k)
+			flag_kill=1
+			;;
+		m)                      # -m may or may not contain argument
+			flag_magit=1
+			if [ ! -z ${@:$OPTIND} ]; then # if no argv is given, using default
+				repo=${@:$OPTIND}
+				OPTIND=$((OPTIND+1))
+			fi
+			;;
+		h|\?)                   # \? for illegal option
+			print_usage
+			;;
+	esac
+done
+shift $((OPTIND -1))            # remove options that have already been handled from $@
+
+if [ "$flag_restart" -eq 1 ]; then
+	check_exists_emacsclient
+	restart_emacs_server
+fi
+
+if [ "$flag_kill" -eq 1 ]; then
+	check_exists_emacsclient
+	kill_emacs_server
+	exit 0
+fi
+
+if [ "$flag_magit" -eq 1 ]; then
+	start_magit $repo
+fi
+
+if ! ps -ef | grep -v grep | grep 'emacs --fg-daemon' >/dev/null; then
+	copy_service
+	echo "Start emacs service..."
+	systemctl --user enable emacs.service
+	systemctl --user start emacs.service
+fi
+if ps -ef | grep -v grep | grep 'emacs --fg-daemon' >/dev/null; then
+	# after several seconds, the socket file will be created, then emacsclient will use the server
+	# so keeping checking the exists of the socket
+	while [ -z "$(lsof -w -c emacs | grep 'server type' | tr -s " " | cut -d' ' -f8)" ] ; do # empty
+		sleep 0.5
+	done
+	echo "Start emacsclient..."
+	if [ -z "$DISPLAY" ]; then      # empty, non-GUI
+		if [ ! -z "$magit_cmd" ]; then
+			# add eval since $magit_cmd is string(command) in variable
+			eval emacsclient -a "" -n -c $magit_cmd
+		else
+			emacsclient -a "" -t $@
+		fi
+	else
+		if [ ! -z "$magit_cmd" ]; then
+			eval "emacsclient -a \"\" -n -c $magit_cmd"
+		else
+			emacsclient -a "" -n -c $@
+		fi
+	fi
+fi
