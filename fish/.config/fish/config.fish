@@ -13,6 +13,7 @@ end
 set -gx MANPATH $HOME/anaconda3/share/man $MANPATH
 
 set -gx FISH_CONFIG_PATH ~/.config/fish/config.fish
+set -gx EMACS_EL ~/.emacs.d/init.el
 
 # fix the Display :0 can’t be opened problem
 if not xhost | grep (whoami) ^/dev/null >/dev/null
@@ -766,7 +767,7 @@ function m
     end
 end
 #more
-abbr me 'm ~/.emacs.d/init.el'
+abbr me 'm $EMACS_EL'
 abbr mh 'm /etc/hosts'
 abbr m2 'm ~/Recentchange/TODO'
 abbr mf 'm $FISH_CONFIG_PATH'
@@ -774,7 +775,7 @@ abbr mf 'm $FISH_CONFIG_PATH'
 alias less 'less -x4 -RM -s +Gg' # -x4 to set the tabwidth to 4 instead default 8
 abbr lesst 'less ~/.tmux.conf'
 abbr lessf 'less $FISH_CONFIG_PATH'
-abbr lesse 'less ~/.emacs.d/init.el'
+abbr lesse 'less $EMACS_EL'
 abbr lessv 'less ~/.vim/vimrc'
 # color in less a code file
 # set -gx LESSOPEN '|pygmentize -g %s'
@@ -1074,7 +1075,7 @@ abbr vimc 'vim ~/.cgdb/cgdbrc'
 abbr vimm 'vim -u ~/.vim/vimrc.more'
 abbr vimv 'vim ~/.vim/vimrc'
 abbr vimb 'vim ~/.bashrc'
-abbr vime 'vim ~/.emacs.d/init.el'
+abbr vime 'vim $EMACS_EL'
 abbr vim2 'vim ~/Recentchange/TODO'
 abbr vimf 'vim $FISH_CONFIG_PATH'
 abbr vimt 'vim ~/.tmux.conf; tmux source-file ~/.tmux.conf; echo ~/.tmux.conf reloaded!'
@@ -1086,7 +1087,7 @@ abbr emq 'emacs -q --no-splash'
 abbr emd 'rm -rfv ~/.emacs.d/init.elc; emacs --debug-init'
 abbr eml 'emacs -q --no-splash --load' # load specific init.el
 abbr emn 'emacs --no-desktop'
-abbr eme 'emm ~/.emacs.d/init.el'
+abbr eme 'emm $EMACS_EL'
 abbr emc 'emm ~/.cgdb/cgdbrc'
 abbr emf 'emm $FISH_CONFIG_PATH'
 abbr emt 'emm ~/.tmux.conf'
@@ -1613,8 +1614,8 @@ function ag
         echo -e "\n...ag is not installed, use grep instead..."
     end
 end
-function age --description 'ag sth. in ~/.emacs.d/init.el'
-    ag $argv[1] ~/.emacs.d/init.el
+function age --description 'ag sth. in $EMACS_EL'
+    ag $argv[1] $EMACS_EL
 end
 function agf --description 'ag sth. in $FISH_CONFIG_PATH'
     ag $argv[1] $FISH_CONFIG_PATH
