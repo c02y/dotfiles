@@ -14,6 +14,11 @@ set -gx MANPATH $HOME/anaconda3/share/man $MANPATH
 
 set -gx FISH_CONFIG_PATH ~/.config/fish/config.fish
 
+# fix the Display :0 can’t be opened problem
+if not xhost | grep (whoami) ^/dev/null >/dev/null
+    xhost +si:localuser:(whoami) ^/dev/null>/dev/null
+end
+
 # for ~/.linuxbrew/ (brew for linux to install programs)
 #set -gx LD_LIBRARY_PATH $LD_LIBRARY_PATH ~/.linuxbrew/Library
 
