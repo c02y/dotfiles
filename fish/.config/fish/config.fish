@@ -1038,15 +1038,35 @@ function elpac -d 'print old packages in .emacs.d/elpa/, with any command, it wi
     end
 end
 
-# diff
-# side-by-side
-abbr diff-s 'diff -r -y -s --suppress-common-line -W $COLUMNS' # side-by-side, only diffs
-abbr diff-sf 'diff -r -y -s -W $COLUMNS' # like diff-s, but print whole files
-abbr diff-sw 'diff-s -w' # like diff-s, but ignore all white space
-# line by line
-abbr diff-l 'diff -r -s --suppress-common-line -W $COLUMNS' # line-by-line, only diffs
-abbr diff-lf 'diff -r -s -W $COLUMNS' # like diff-l, but print whole files
-abbr diff-lw 'diff-l -w' # like diff-l, but ignore all white space
+function diffs -d "all kinds of diff features"
+    set -l options 'f' 'w' 'l' 'L' 'W' 'h'
+    argparse -n diffs $options -- $argv
+    or return
+
+    if set -q _flag_h
+        echo "diffs [-f/-w/-l/-L/-W/-h]"
+        echo "      no option --> side by side, only diffs"
+        echo "      -f --> like no argument, but print whole files"
+        echo "      -w --> like no argument, but ignore all white spaces"
+        echo "      -l --> line by line, only diffs"
+        echo "      -L --> like -l, but print whole files"
+        echo "      -W --> like -l, but ignore all white spaces"
+        echo "      -h --> usage"
+        return
+    else if set -q _flag_f
+        diff -r -y -s -W $COLUMNS $argv | less
+    else if set -q _flag_w
+        diff -r -y -s --suppress-common-line -W $COLUMNS -w $argv | less
+    else if set -q _flag_l
+        diff -r -s --suppress-common-line -W $COLUMNS $argv | less
+    else if set -q _flag_L
+        diff -r -s -W $COLUMNS $argv | less
+    else if set -q _flag_W
+        diff -r -s --suppress-common-line -W $COLUMNS -w $argv | less
+    else                        # no option
+        diff -r -y -s --suppress-common-line -W $COLUMNS $argv | less
+    end
+end
 
 function mkcd --description 'mkdir dir then cd dir'
     mkdir -p $argv
@@ -1168,7 +1188,7 @@ function gitdl -d 'download several files from github'
 
     if set -q _flag_h
         echo "gitdl [-f/-z/-s/-h]"
-        echo "      no argument -- once for all"
+        echo "      no option --> once for all"
         echo "      -f --> fzf"
         echo "      -s --> scc"
         echo "      -z --> z.lua"
