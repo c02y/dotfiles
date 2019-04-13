@@ -24,13 +24,18 @@
 print_usage()
 {
 	cat <<EOF
-$(basename $0) -- emacs server and emacsclient manager script
+$(basename $0) -- emacs server and emacsclient manage script
 
-Usage: $(basename $0) [-r] [-k] [-m [repo]] [-h] ...
-            -r to restart emacs daemon and start a emacsclient
-            -k to kill emacs daemon
-            -m to start magit in a repo, default is ./
+Usage: $(basename $0) [-h] [-k] [-r] [-d] [-e [file]] [-E] [-f] [-m [repo]] [-o [file]] ...
             -h to print this usage
+            -k to kill emacs daemon
+            -r to restart emacs daemon and start a emacsclient
+            -d to start emacs -debug-init
+            -e to edit using emacs, default is init.el
+            -E to edit init.el using emacsclient
+            -f to edit config.fish using emacsclient
+            -m to start magit in a repo, default is ./
+            -o to start orgmode for a file, default is ~/todo
 EOF
 	exit 0
 }
@@ -39,17 +44,28 @@ check_exists_emacsclient()
 {
 	if ps -ef | grep -v grep | grep 'emacs --fg-daemon' >/dev/null; then
 		# using emacsclient process won't work for GUI since no emacsclient process exists
+		timeout 1 emacsclient -n -e "(if (> (length (frame-list)) 1) 't)" >/dev/null
+		if [ "$?" -ne 0 ]; then
+			# emacsclient gets stuck #
+			read -n 1 -p 'Running emacsclient gets stuck, kill it? [Y/n]: '
+			if [ "$REPLY" == "y" ]; then
+				echo
+				return 1
+			else
+				exit
+			fi
+		fi
 		emacsclient -n -e "(if (> (length (frame-list)) 1) 't)" | grep -q t >/dev/null
-		if [ "$?" -eq 0 ]; then
+		if [ "$?" -eq 0 ]; then	# has emacsclient opened
 			read -n 1 -p 'Running emacsclient exists, kill(switch to emacs frame if gets stuck)? [Y/n]: '
 			if [ "$REPLY" == "y" ]; then
 				# Note that if modified buffers unsaved, you have to switch to the emacsclient to save manually
 				emacsclient -n -e "(save-some-buffers)" >/dev/null
+				echo
 			else
 				echo "Cancel and exit!"
 				exit
 			fi
-			echo
 		fi
 	fi
 }
@@ -118,37 +134,72 @@ start_magit()
 	fi
 }
 
+start_orgmode()
+{
+	orgmode_cmd="$1"
+}
+
 repo="."
+file="~/.emacs.d/init.el"
 magit_cmd=
-flag_restart=0
+emacsclient_cmd=
+orgmode_cmd=
 flag_kill=0
+flag_restart=0
+flag_debug=0
+flag_emacs_init=0
+flag_emacsclient_init=0
+flag_emacsclient_fish=0
+flag_fish=0
 flag_magit=0
-while getopts ":rhkm" args; do # prefix-: no warning for illegal option
+flag_orgmode=0
+while getopts ":hkrdeEfmo" args; do # prefix-: no warning for illegal option
 	case "$args" in
-		r)
-			flag_restart=1
+		h|\?)                   # \? for illegal option
+			print_usage
 			;;
 		k)
 			flag_kill=1
 			;;
-		m)                      # -m may or may not contain argument
+		r)
+			flag_restart=1
+			;;
+		d)
+			flag_debug=1
+			;;
+		e)
+			flag_emacs_init=1
+			if [ ! -z ${@:$OPTIND} ]; then # if no argv is given, using default
+				file=${@:$OPTIND}
+				OPTIND=$((OPTIND+1))
+			fi
+			;;
+		E)
+			flag_emacsclient_init=1
+			;;
+		f)
+			flag_emacsclient_fish=1
+			file="~/.config/fish/config.fish"
+			;;
+		m)
 			flag_magit=1
 			if [ ! -z ${@:$OPTIND} ]; then # if no argv is given, using default
 				repo=${@:$OPTIND}
 				OPTIND=$((OPTIND+1))
 			fi
 			;;
-		h|\?)                   # \? for illegal option
-			print_usage
+		o)
+			flag_orgmode=1
+			if [ ! -z ${@:$OPTIND} ]; then # if no argv is given, using default
+				file=${@:$OPTIND}
+				OPTIND=$((OPTIND+1))
+			else
+				file="~/todo"
+			fi
 			;;
 	esac
 done
 shift $((OPTIND -1))            # remove options that have already been handled from $@
-
-if [ "$flag_restart" -eq 1 ]; then
-	check_exists_emacsclient
-	restart_emacs_server
-fi
 
 if [ "$flag_kill" -eq 1 ]; then
 	check_exists_emacsclient
@@ -156,8 +207,34 @@ if [ "$flag_kill" -eq 1 ]; then
 	exit 0
 fi
 
+if [ "$flag_restart" -eq 1 ]; then
+	check_exists_emacsclient
+	restart_emacs_server
+fi
+
+if [ "$flag_debug" -eq 1 ]; then
+	echo "Start 'emacs --debug-init'"
+	rm ~/.emacs.d/init.elc >/dev/null 2>&1
+	emacs --no-splash --debug-init >/dev/null 2>&1
+	exit 0
+fi
+
+if [ "$flag_emacs_init" -eq 1 ]; then
+	echo "Edit $file using emacs..."
+	emacs --no-splash $file >/dev/null 2>&1
+	exit 0
+fi
+
+if [ "$flag_emacsclient_init" -eq 1 ] || [ "$flag_emacsclient_fish" -eq 1 ]; then
+	emacsclient_cmd="$file"
+fi
+
 if [ "$flag_magit" -eq 1 ]; then
 	start_magit $repo
+fi
+
+if [ "$flag_orgmode" -eq 1 ]; then
+	start_orgmode $file
 fi
 
 if ! ps -ef | grep -v grep | grep 'emacs --fg-daemon' >/dev/null; then
@@ -176,15 +253,15 @@ if ps -ef | grep -v grep | grep 'emacs --fg-daemon' >/dev/null; then
 	if [ -z "$DISPLAY" ]; then      # empty, non-GUI
 		if [ ! -z "$magit_cmd" ]; then
 			# add eval since $magit_cmd is string(command) in variable
-			eval emacsclient -a "" -n -c $magit_cmd
+			eval emacsclient -a "" -n -c $magit_cmd >/dev/null
 		else
-			emacsclient -a "" -t $@
+			emacsclient -a "" -t $orgmode_cmd $emacsclient_cmd $@
 		fi
 	else
 		if [ ! -z "$magit_cmd" ]; then
-			eval "emacsclient -a \"\" -n -c $magit_cmd"
+			eval "emacsclient -a \"\" -n -c $magit_cmd" >/dev/null
 		else
-			emacsclient -a "" -n -c $@
+			emacsclient -a "" -n -c $orgmode_cmd $emacsclient_cmd $@
 		fi
 	fi
 fi
