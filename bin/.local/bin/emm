@@ -26,29 +26,42 @@ print_usage()
 	cat <<EOF
 $(basename $0) -- emacs server and emacsclient manage script
 
-Usage: $(basename $0) [-h] [-k] [-r] [-d] [-e [file]] [-E] [-f] [-m [repo]] [-o [file]] [-a] [-q] [-t]...
-
-	-h to print this usage
-	-k to kill emacs daemon
-	-r to restart emacs daemon and start a emacsclient
-	-d to start emacs --debug-init
-	-e to edit using emacs, default is init.el
-	-E to edit init.el using emacsclient
-	-f to edit config.fish using emacsclient
-	-m to start magit in a repo, default is ./
-	-o to start orgmode for a file, default is ~/Org/todo.org
-	-a to start emacs org-agenda-list
-	-q to start emacs -q --no-splash
-	-t to time the startup of emacs
+Usage: $(basename $0) [-h] [-k] [-r] [-C] [-d] [-e [file]] [-E] [-f] [-s] [-m [repo]] [-c] [-a] [-o [file]] [-q] [-t]...
+	   -h to print this usage
+	   -k to kill emacs daemon
+	   -r to restart emacs daemon and start a emacsclient
+	   -C to check the count of emacsclients
+	   -d to start emacs --debug-init
+	   -e to edit using emacs, default is init.el
+	   -E to edit init.el using emacsclient
+	   -f to edit config.fish using emacsclient
+	   -s to edit this script using emacsclient
+	   -m to start magit in a repo, default is ./
+	   -c to quickly add todo using org-capture
+	   -a to start org-agenda-list
+	   -o to start orgmode for a file, default is ~/Org/todo.org
+	   -q to start emacs -q --no-splash
+	   -t to time the startup of emacs
 EOF
 	exit 0
 }
 
+check_socket_file()
+{
+	# After emacs.service is started, it takes several seconds for the socket file to be created
+	# after that, emacsclient can be usable, or it will print "emacsclient: connect: Connection refused"
+	# so keep checking the exists of the socket
+	while [ -z "$(lsof -w -c emacs | grep 'server type' | tr -s " " | cut -d' ' -f8)" ] ; do # empty
+		sleep 0.5
+	done
+}
 check_exists_emacsclient()
 {
 	if ps -ef | grep -v grep | grep 'emacs --fg-daemon' >/dev/null; then
+		check_socket_file
+
 		# using emacsclient process won't work for GUI since no emacsclient process exists
-		timeout 1 emacsclient -n -e "(if (> (length (frame-list)) 1) 't)" >/dev/null
+		timeout 1 emacsclient -n -e "(length (frame-list))" >/dev/null
 		if [ "$?" -ne 0 ]; then
 			# emacsclient gets stuck #
 			read -n 1 -p 'Running emacsclient gets stuck, kill it? [Y/n]: '
@@ -61,7 +74,7 @@ check_exists_emacsclient()
 		fi
 		emacsclient -n -e "(if (> (length (frame-list)) 1) 't)" | grep -q t >/dev/null
 		if [ "$?" -eq 0 ]; then # has emacsclient opened
-			read -n 1 -p 'Running emacsclient exists, kill(switch to emacs frame if gets stuck)? [Y/n]: '
+			read -n 1 -p 'Running emacsclient exists, kill(switch to emacs frame if unsaved)? [Y/n]: '
 			if [ "$REPLY" == "y" ]; then
 				# Note that if modified buffers unsaved, you have to switch to the emacsclient to save manually
 				emacsclient -n -e "(save-some-buffers)" >/dev/null
@@ -126,10 +139,10 @@ start_magit()
 			sub=1
 		fi
 		if [ "$1" == "." ] || [ "$sub" == "1" ]; then
-			magit_cmd="-e '(progn (magit-status) (delete-other-windows))'"
+			cmd="-e '(progn (magit-status) (delete-other-windows))'"
 		elif [ "$1" != "." ] && [ "$sub" != "1" ]; then
 			repo=$PWD
-			magit_cmd="-e '(progn (magit-status \"$repo\") (delete-other-windows))'"
+			cmd="-e '(progn (magit-status \"$repo\") (delete-other-windows))'"
 			cd --
 		fi
 	else
@@ -140,57 +153,71 @@ start_magit()
 
 repo="."
 file="~/.emacs.d/init.el"
-magit_cmd=
-emacsclient_cmd=
-flag_kill=0
-flag_restart=0
-flag_debug=0
-flag_emacs_init=0
-flag_emacsclient_init=0
-flag_emacsclient_fish=0
-flag_fish=0
-flag_magit=0
-flag_orgmode=0
-flag_org_agenda=0
-flag_emacs_q=0
-flag_emacs_t=0
-while getopts ":hkrdeEfmoaqt" args; do # prefix-: no warning for illegal option
+cmd=
+flag_k=0 # kill emacs daemon
+flag_r=0 # restart emacs daemon and start a emacsclient
+flag_C=0 # check the count of emacsclients
+flag_d=0 # start emacs --debug-init
+flag_e=0 # edit using emacs, default is init.el
+flag_E=0 # edit init.el using emacsclient
+flag_f=0 # edit config.fish using emacsclient
+flag_s=0 # edit this script using emacsclient
+flag_m=0 # start magit in repo, default is ./
+flag_c=0 # quickly add todo using org-capture
+flag_a=0 # start org-agenda-list
+flag_o=0 # start org-mode for a file, default is ~/Org/todo.org
+flag_q=0 # start emacs -q --no-splash
+flag_t=0 # time the startup of emacs
+while getopts ":hkrCdeEfsmcaoqt" args; do # prefix-: no warning for illegal option
 	case "$args" in
 		h|\?)                   # \? for illegal option
 			print_usage
 			;;
 		k)
-			flag_kill=1
+			flag_k=1
 			;;
 		r)
-			flag_restart=1
+			flag_r=1
+			;;
+		C)
+			flag_C=1
 			;;
 		d)
-			flag_debug=1
+			flag_d=1
 			;;
 		e)
-			flag_emacs_init=1
+			flag_e=1
 			if [ ! -z ${@:$OPTIND} ]; then # if no argv is given, using default
 				file=${@:$OPTIND}
 				OPTIND=$((OPTIND+1))
 			fi
 			;;
 		E)
-			flag_emacsclient_init=1
+			flag_E=1
 			;;
 		f)
-			flag_emacsclient_fish=1
+			flag_f=1
 			file="~/.config/fish/config.fish"
 			;;
+		s)
+			flag_s=1
+			file="~/.local/bin/emm"
+			;;
 		m)
-			flag_magit=1
+			flag_m=1
 			if [ ! -z ${@:$OPTIND} ]; then # if no argv is given, using default
 				repo=${@:$OPTIND}
 				OPTIND=$((OPTIND+1))
 			fi
 			;;
+		c)
+			flag_c=1
+			;;
+		a)
+			flag_a=1
+			;;
 		o)
-			flag_orgmode=1
+			flag_o=1
 			if [ ! -z ${@:$OPTIND} ]; then # if no argv is given, using default
 				file=${@:$OPTIND}
 				OPTIND=$((OPTIND+1))
@@ -198,66 +225,93 @@ while getopts ":hkrdeEfmoaqt" args; do # prefix-: no warning for illegal option
 				file="~/Org/todo.org"
 			fi
 			;;
-		a)
-			flag_org_agenda=1
-			;;
 		q)
-			flag_emacs_q=1
+			flag_q=1
 			;;
 		t)
-			flag_emacs_t=1
+			flag_t=1
 			;;
 	esac
 done
 shift $((OPTIND -1))            # remove options that have already been handled from $@
 
-if [ "$flag_kill" -eq 1 ]; then
+if [ "$flag_k" -eq 1 ]; then
 	check_exists_emacsclient
 	kill_emacs_server
 	exit 0
 fi
 
-if [ "$flag_restart" -eq 1 ]; then
+if [ "$flag_r" -eq 1 ]; then
 	check_exists_emacsclient
 	restart_emacs_server
 fi
 
-if [ "$flag_debug" -eq 1 ]; then
+if [ "$flag_C" -eq 1 ]; then
+	if ps -ef | grep -v grep | grep 'emacs --fg-daemon' >/dev/null; then
+		check_socket_file
+
+		timeout 1 emacsclient -n -e "(if (> (length (frame-list)) 1) 't)" >/dev/null
+		if [ "$?" -ne 0 ]; then
+			# emacsclient gets stuck #
+			read -n 1 -p 'Running emacsclient gets stuck, kill it? [Y/n]: '
+			if [ "$REPLY" == "y" ]; then
+				echo
+				kill_emacs_server
+				exit 1
+			else
+				exit 0
+			fi
+		fi
+		echo Count of emacsclients:
+		emacsclient -n -e "(- (length (frame-list)) 1) "
+		exit 0
+	else
+		echo "No emacs daemon is running!"
+		exit 0
+	fi
+fi
+
+if [ "$flag_d" -eq 1 ]; then
 	echo "Start 'emacs --debug-init'"
 	rm ~/.emacs.d/init.elc >/dev/null 2>&1
 	emacs --no-splash --debug-init >/dev/null 2>&1
 	exit 0
 fi
 
-if [ "$flag_emacs_init" -eq 1 ]; then
+if [ "$flag_e" -eq 1 ]; then
 	echo "Edit $file using emacs..."
 	emacs --no-splash $file >/dev/null 2>&1
 	exit 0
 fi
 
-if [ "$flag_emacsclient_init" -eq 1 ] || [ "$flag_emacsclient_fish" -eq 1 ]; then
-	emacsclient_cmd="$file"
+if [ "$flag_E" -eq 1 ] || [ "$flag_f" -eq 1 ] || [ "$flag_s" -eq 1 ]; then
+	cmd="$file"
 fi
 
-if [ "$flag_magit" -eq 1 ]; then
+if [ "$flag_m" -eq 1 ]; then
 	start_magit $repo
 fi
 
-if [ "$flag_orgmode" -eq 1 ]; then
-	emacsclient_cmd="$file"
+if [ "$flag_c" -eq 1 ]; then
+	cmd="-e '(org-capture)'"
 fi
 
-if [ "$flag_org_agenda" -eq 1 ]; then
-	emacsclient_cmd="-e '(org-agenda-list)'"
+if [ "$flag_a" -eq 1 ]; then
+	# cmd="-e '(org-agenda-list)'"
+	cmd="-e '(execute-kbd-macro (kbd \"C-c a c\"))'"
 fi
 
-if [ "$flag_emacs_q" -eq 1 ]; then
+if [ "$flag_o" -eq 1 ]; then
+	cmd="$file"
+fi
+
+if [ "$flag_q" -eq 1 ]; then
 	echo "Start emacs -q --no-splash..."
 	emacs -q --no-splash >/dev/null 2>&1
 	exit 0
 fi
 
-if [ "$flag_emacs_t" -eq 1 ]; then
+if [ "$flag_t" -eq 1 ]; then
 	echo "Time the startup of emacs..."
 	time emacs --debug-init -eval '(kill-emacs)'
 	exit 0
@@ -270,24 +324,13 @@ if ! ps -ef | grep -v grep | grep 'emacs --fg-daemon' >/dev/null; then
 	systemctl --user start emacs.service
 fi
 if ps -ef | grep -v grep | grep 'emacs --fg-daemon' >/dev/null; then
-	# after several seconds, the socket file will be created, then emacsclient will use the server
-	# so keeping checking the exists of the socket
-	while [ -z "$(lsof -w -c emacs | grep 'server type' | tr -s " " | cut -d' ' -f8)" ] ; do # empty
-		sleep 0.5
-	done
+	check_socket_file
 	echo "Start emacsclient..."
 	if [ -z "$DISPLAY" ]; then      # empty, non-GUI
-		if [ ! -z "$magit_cmd" ]; then
-			# add eval since $magit_cmd is string(command) in variable
-			eval emacsclient -a "" -n -c $magit_cmd
-		else
-			eval emacsclient -a "" -t $emacsclient_cmd $@
-		fi
+		# use eval since $cmd is string(command) in variable
+		eval emacsclient -a "" -n -c $cmd $@
 	else
-		if [ ! -z "$magit_cmd" ]; then
-			eval "emacsclient -a \"\" -n -c $magit_cmd" >/dev/null
-		else
-			eval emacsclient -a "" -n -c $emacsclient_cmd $@
-		fi
+		# "" here forces the GUI running without holding the terminal, like &
+		eval "emacsclient -a \"\" -n -c $cmd" $@ >/dev/null
 	fi
 fi
