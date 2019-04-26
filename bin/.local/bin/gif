@@ -1,0 +1,107 @@
+#!/bin/bash
+
+print_usage()
+{
+	cat <<EOF
+$(basename $0) -- gif recorder and converter
+
+Usage: $(basename $0) [-h] [-r] [-w] [-c] [time] [file]
+	   -h to print this usage
+	   -r to record a region
+	   -w to record a window
+	   -c to convert gif into png file
+
+recorder: by default, if time and file argumetns are not given, time=10s and outout to ~/recorded.gif
+EOF
+	exit 0
+}
+
+# Sound notification to let one know when recording is about to start (and ends)
+beep() {
+	if [ -f /usr/share/sounds/KDE-Im-Irc-Event.ogg ]; then
+		paplay /usr/share/sounds/KDE-Im-Irc-Event.ogg &
+	fi
+}
+
+if [ -z "$DISPLAY" ]; then
+	echo "Unable to use this tool in non-GUI environment!"
+	exit
+fi
+DELAY=5 # Delay before starting
+flag_r=0
+flag_w=0
+flag_c=0
+while getopts ":hrwc" args; do # prefix-: no warning for illegal option
+	case "$args" in
+		h|\?)
+			print_usage;;
+		r)
+			flag_r=1
+			;;
+		w)
+			flag_w=1
+			;;
+		c)
+			flag_c=1
+			;;
+	esac
+done
+shift $((OPTIND -1))            # remove options that have already been handled from $@
+
+if [ "$flag_c" -eq 1 ]; then
+	if ! hash mplayer 2>/dev/null; then
+		echo "mplayer program is not installed!"
+		exit 1
+	fi
+	# You can also convert gif to multiple png images
+	# convert input.gif output%05d.png
+	# Pause/Continue using SPACE key, Next frame using `.`
+	gif 'mplayer -loop 0  -speed 0.2' $1
+	exit 0
+fi
+
+if ! hash byzanz-record 2>/dev/null; then
+	echo "byzanz-record program is not installed!"
+	exit 1
+fi
+
+# Duration and output file
+if [ $# -gt 0 ]; then
+	D="--duration=$@"
+else
+	echo Default recording duration 10s to $HOME/recorded.gif
+	D="--duration=10 $HOME/recorded.gif"
+fi
+
+if [ "$flag_r" -eq 1 ]; then
+	# xrectsel from https://github.com/lolilolicon/xrectsel
+	ARGUMENTS=$(xrectsel "--x=%x --y=%y --width=%w --height=%h") || exit -1
+
+	echo Delaying $DELAY seconds. After that, byzanz will start
+	for (( i=$DELAY; i>0; --i )) ; do
+		echo $i
+		sleep 1
+	done
+	beep
+	byzanz-record --verbose --delay=0 ${ARGUMENTS} $D
+	beep
+	exit 0
+fi
+
+if [ "$flag_w" -eq 1 ]; then
+	XWININFO=$(xwininfo)
+	read X < <(awk -F: '/Absolute upper-left X/{print $2}' <<< "$XWININFO")
+	read Y < <(awk -F: '/Absolute upper-left Y/{print $2}' <<< "$XWININFO")
+	read W < <(awk -F: '/Width/{print $2}' <<< "$XWININFO")
+	read H < <(awk -F: '/Height/{print $2}' <<< "$XWININFO")
+
+	echo Delaying $DELAY seconds. After that, byzanz will start
+	for (( i=$DELAY; i>0; --i )) ; do
+		echo $i
+		sleep 1
+	done
+
+	beep
+	byzanz-record --verbose --delay=0 --x=$X --y=$Y --width=$W --height=$H $D
+	beep
+fi
