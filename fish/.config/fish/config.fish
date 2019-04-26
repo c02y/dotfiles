@@ -138,40 +138,56 @@ end
 
 # tmux related
 abbr tl 'tmux ls'
-abbr tl 'tmux ls'
 abbr tls 'tmux list-panes -s'
-function tk -d 'tmux kill-session single/multiple sessions'
-    if test (count $argv) -gt 0
-        for i in $argv
-            tmux kill-session -t $i
-        end
-    else
-        echo "Need target sessions"
-    end
-end
-function tka -d 'tmux kill-session except given session[s]'
+function tk -d 'tmux kill-session all(default)/single(id)/multiple(id1 id2)/except(-e)/list(-l) sessions'
     if test (ps -ef | grep -v grep | grep -i tmux | wc -l ) = 0
         echo "No tmux server is running!!!"
         return
     end
+    set -l options 'e' 'l'
+    argparse -n tk $options -- $argv
+    or return
+
+    if set -q _flag_l
+        tmux ls
+        if set -q TMUX_PANE # check if running inside a tmux session
+            echo
+            echo Already inside tmux session: (tmux display-message -p '#S')
+        end
+        return
+    end
+    if set -q $argv[1] # no arguments
+        if set -q TMUX_PANE # check if running inside a tmux session
+            echo Inside a tmux session!
+            read -n 1 -l -p 'echo "Kill all sessions include current running one? [y/N]"' answer
+            if test "$answer" = "y"
+                echo tmux kill-server        # kill all sessions include current one
+            end
+        end
+        return
+    end
+
     if test (count $argv) -gt 0
-        set -l sid (tl | nl | awk '{print $2}' | sed 's/://g')
+        set -l sid (tmux ls | nl | awk '{print $2}' | sed 's/://g')
         for i in $sid
-            if not contains $i $argv
-                tmux kill-session -t $i
-                echo Tmux session $i is killed
+            if set -q _flag_e
+                if not contains $i $argv
+                    tmux kill-session -t $i
+                    echo Tmux session $i is killed
+                end
+            else
+                if contains $i $argv
+                    tmux kill-session -t $i
+                    echo Tmux session $i is killed
+                end
             end
         end
         echo \n--------------\n
         echo Left sessions:
         tmux ls
-    else
-        read -n 1 -l -p 'echo "Kill all tmux sessions including this one? [y/N]"' answer
-        if test "$answer" = "y" -o "$answer" = " "
-            tmux kill-server        # kill all sessions (including current one)
-        end
     end
 end
+
 # or just use 'M-c r', it is defiend in ~/.tmux.conf
 abbr tsr 'tmux source-file ~/.tmux.conf; echo ~/.tmux.conf reloaded!'
 # this line will make the indentation of lines below it wrong, TODO: weird
@@ -232,7 +248,7 @@ function fish_user_key_bindings
         bind --erase \cv # or bind \cv ""
     end
 end
-abbr clr="echo -e '\033c\c'; path_prompt"
+abbr clr "echo -e '\033c\c'; path_prompt"
 
 function sudo -d 'make sudo accpet the defined alias/functions'
     if functions -q $argv[1]
@@ -644,90 +660,78 @@ end
 abbr tout 'touch ab~ .ab~ .\#ab .\#ab\# \#ab\# .ab.swp ab.swp'
 # find
 alias find 'find -L' # make find follow symlink dir/file by default
-function f -d 'find the files by name, if no argv is passed, use the current dir'
-    find $argv[1] -name "*$argv[2]*"
-end
-function fl -d 'find a file using fzf and view it using less'
-    if fzfp # fzf exists, $status = 0
+function finds -d 'find a file/folder and view/edit using less/vim/emacs/emx/cd/readlink with fzf'
+    set -l options 'l' 'v' 'e' 'x' 'c' 'p' 'g'
+    argparse -n finds $options -- $argv
+    or return
+
+    if not fzfp # fzf doesn't exist, $status != 0
+        find $argv[1] -name "*$argv[2]*"
+        return
+    end
+
+    if set -q _flag_l           # find a file and view it using less
         less (find $argv[1] -name "*$argv[2]*" | fzf)
-    else
-        find $argv[1] -name "*$argv[2]*"
-    end
-end
-function fv -d 'find a file using fzf and edit it using vim'
-    if fzfp # fzf exists, $status = 0
+    else if set -q _flag_v      # find a file and view it using vim
         vim (find $argv[1] -name "*$argv[2]*" | fzf)
-    else
-        find $argv[1] -name "*$argv[2]*"
-    end
-end
-function fe -d 'find a file using fzf and edit it using emacs'
-    if fzfp # fzf exists, $status = 0
+    else if set -q _flag_e      # find a file and view it using emm
         emm (find $argv[1] -name "*$argv[2]*" | fzf)
-    else
-        find $argv[1] -name "*$argv[2]*"
-    end
-end
-function fex -d 'find a file using fzf and edit it using emx'
-    if fzfp # fzf exists, $status = 0
+    else if set -q _flag_x      # find a file and view it using emx
         emx (find $argv[1] -name "*$argv[2]*" | fzf)
-    else
-        find $argv[1] -name "*$argv[2]*"
-    end
-end
-function ff -d 'find a folder and cd into it using fzf'
-    if fzfp # fzf exists, $status = 0
+    else if set -q _flag_c      # find a folder and try cd into it
         cd (find $argv[1] -type d -name "*$argv[2]*" | fzf)
-    else
-        find $argv[1] -name "*$argv[2]*"
-    end
-end
-function ffc -d 'find a fold and copy its path'
-    if fzfp # fzf exists, $status = 0
+    else if set -q _flag_p      # find a file/folder and copy/echo its path
         if not test $DISPLAY
-            echo (find $argv[1] -type d -name "*$argv[2]*" | fzf)
+            readlink -f (find $argv[1] -name "*$argv[2]*" | fzf)
         else
-            find $argv[1] -type d -name "*$argv[2]*" | fzf | xc
+            find $argv[1] -name "*$argv[2]*" | fzf | xc
+        end
+    else if set -q _flag_g      # find all the .git directory
+        if set -q $argv[1]      # no argument
+            find . -type d -name .git | sort
+        else
+            find $argv[1] -type d -name .git | sort
         end
     else
-        find $argv[1] -name "*$argv[2]*"
+        if set -q $argv[2]      # no argv[2]
+            find . -name "*$argv[1]*"
+        else
+            find $argv[1] -name "*$argv[2]*"
+        end
     end
 end
+function fts -d 'find the temporary files such as a~ or #a or .a~, and files for latex, if no argv is passed, use the current dir'
+    set -l options 'c' 'C' 'r' 'R' 'l'
+    argparse -n fts $options -- $argv
+    or return
 
-function ft --description 'find the temporary files such as a~ or #a or .a~, if no argv is passed, use the current dir'
-    find $argv[1] \( -name "*~" -o -name "#?*#" -o -name ".#?*" -o -name "*.swp" \) | xargs -r ls -lhd | nl
-end
-function ftr --description 'delete the files found by ft'
-    find $argv[1] \( -name "*~" -o -name "#?*#" -o -name ".#?*" -o -name "*.swp" \) | xargs rm -rfv
-
-end
-function ftc --description 'find the temporary files such as a~ or #a or .a~, if no argv is passed, use the current dir, not recursively'
-    find $argv[1] -maxdepth 1 \( -name "*~" -o -name "#?*#" -o -name ".#?*" -o -name "*.swp" \) | xargs -r ls -lhd | nl
-end
-function ftcr --description 'delete the files found by ftc'
-    find $argv[1] -maxdepth 1 \( -name "*~" -o -name "#?*#" -o -name ".#?*" -o -name "*.swp" \) | xargs rm -rfv
-end
-function fing --description 'find all the git projects, if no argv is passed, use the current dir'
-    find $argv[1] -type d -name .git | sort
+    if set -q $argv[1]          # no ARGV
+        set ARGV "."
+    else
+        set ARGV $argv
+    end
+    if set -q _flag_c           # one level, not recursive, print
+        find $ARGV -maxdepth 1 \( -name "*~" -o -name "#?*#" -o -name ".#?*" -o -name "*.swp" \) | xargs -r ls -lhd | nl
+    else if set -q _flag_C      # one level, not recursive, remove
+        find $ARGV -maxdepth 1 \( -name "*~" -o -name "#?*#" -o -name ".#?*" -o -name "*.swp" \) | xargs rm -rfv
+    else if set -q _flag_r      # recursive, print
+        find $ARGV \( -name "*~" -o -name "#?*#" -o -name ".#?*" -o -name "*.swp" \) | xargs -r ls -lhd | nl
+    else if set -q _flag_R      # recursive, remove
+        find $ARGV \( -name "*~" -o -name "#?*#" -o -name ".#?*" -o -name "*.swp" \) | xargs rm -rfv
+    else if set -q _flag_l      # remove temporary files for latex
+        if not find $ARGV -maxdepth 1 -name "*.tex" | egrep '.*' # normal find returns 0 no matter what
+            echo "$ARGV is not a LaTeX directory!"
+            return
+        end
+        for EXT in ind ilg toc out idx aux fls log fdb_latexmk nav snm
+            # ind ilg toc out idx aux fls log fdb_latexmk faq blg bbl brf nlo dvi ps lof pdfsync synctex.gz
+            find $ARGV -maxdepth 1 \( -name "*.$EXT"  -o -name "auto" \) | xargs -r rm -rv
+        end
+        fts -C
+    end
 end
 function findn --description 'find the new files in the whole system, argv[1] is the last mins, argv[2] is the file name to search'
     sudo find / -type f -mmin -$argv[1] | sudo ag $argv[2]
-end
-
-function lcl --description 'clean latex temporary files such as .log, .aux'
-    # one way, but this may delete some file like file.png if tex file is file.tex
-    # for FILE in (find . -name "*.tex")
-    #   for NO_EXT in (expr "//$FILE" : '.*/\([^.]*\)\..*$')
-    #       find . -type f -name "$NO_EXT*" | ag -v ".pdf|.tex" | xargs -r /bin/rm -rv
-    #   end
-    # end
-    # another way, more safe
-    for EXT in ind ilg toc out idx aux fls log fdb_latexmk nav snm
-        # ind ilg toc out idx aux fls log fdb_latexmk faq blg bbl brf nlo dvi ps lof pdfsync synctex.gz
-        find . -name "*.$EXT" | xargs -r rm -rv
-    end
-    rm -rfv auto
-    ftr
 end
 
 # du
@@ -777,6 +781,8 @@ abbr lesst 'less ~/.tmux.conf'
 abbr lessf 'less $FISH_CONFIG_PATH'
 abbr lesse 'less $EMACS_EL'
 abbr lessv 'less ~/.vim/vimrc'
+abbr lessem 'less ~/.local/bin/emm'
+
 # color in less a code file
 # set -gx LESSOPEN '|pygmentize -g %s'
 # if pygmentize not working, use source-highlight instead
@@ -833,49 +839,58 @@ function tree
 end
 
 # j for .bz2, z for .gz, J for xz, a for auto determine
-abbr t-tbz2 'tar tvfj'
-abbr t-tgz 'tar tvfz'
-abbr t-txz 'tar tvfJ' # show the contents
-abbr t-ta 'tar tvfa' # the above three can just use this one to auto choose the right one
-abbr t-xbz2 'tar xvfj'
-abbr t-xgz 'tar xvfz'
-abbr t-xxz 'tar xvfJ' # extract
-function t-xa -d 'tar xvfa archive and cd into the directory'
-    # set -l dir (tar xvfa $argv | tail -n 1 | xargs dirname)
-    tar xvfa $argv
-    # cd $dir
-    # echo cd $dir
-end
-function t-ca --description '`t-ca dir vcs` to include .svn/.git, or `t-ca dir` to exclude'
-    # remove the end slash in argv
-    set ARGV (echo $argv[1] | sed 's:/*$::')
-    if test (count $argv) = 1
-        tar cvfa $ARGV.tar.xz $ARGV --exclude-vcs
-    else
-        tar cvfa $ARGV.tar.xz $ARGV
+function tars -d 'tar extract(x)/list(l)/create(l, add extra arg to include .git dir), or others using dtrx(d)'
+    set -l options 'x' 'l' 'c' 'd'
+    argparse -n tars $options -- $argv
+    or return
+
+    if set -q _flag_x           # extract
+        tar xvfa $argv
+    else if set -q _flag_l      # list contents
+        tar tvfa $argv
+    else if set -q _flag_c      # create archive
+        # remove the end slash in argv
+        set ARGV (echo $argv[1] | sed 's:/*$::')
+        if test (count $argv) = 1
+            tar cvfa $ARGV.tar.xz $ARGV --exclude-vcs
+        else
+            tar cvfa $ARGV.tar.xz $ARGV
+        end
+    else if set -q _flag_d
+        if command -sq dtrx
+            dtrx -v $argv
+        else
+            echo "dtrx command is not installed!"
+        end
     end
 end
-abbr dt 'dtrx -v '
 # using unar -- https://unarchiver.c3.cx/unarchiver is available
 # if the code is not working, try GBK or GB18030
 # unzip zip if it is archived in Windows and messed up characters with normal unzip
 abbr unzipc 'unzip -O CP936'
-abbr debl 'dpkg --contents' # list contents of deb package
-function debx -d 'extract the deb package'
-    set pkgname (basename $argv[1] .deb)
-    mkdir -v $pkgname
-    if command -sq dpkg # check if dpkg command exists, replace which
-        dpkg -x $argv[1] $pkgname
-    else
-        set dataname (ar t $argv[1] | ag data)
-        if not ar p $argv[1] $dataname | tar Jxv -C $pkgname ^/dev/null # failed, $status != 0
-            if not ar p $argv[1] $dataname | tar zxv -C $pkgname ^/dev/null # failed, $status != 0
-                rm -rfv $pkgname
-                return
+function deb -d 'deb package, list(default)/extract(x)'
+    set -l options 'x'
+    argparse -n deb $options -- $argv
+    or return
+
+    if set -q _flag_x           # extract
+        set pkgname (basename $argv[1] .deb)
+        mkdir -v $pkgname
+        if command -sq dpkg # check if dpkg command exists, replace which
+            dpkg -x $argv[1] $pkgname
+        else
+            set dataname (ar t $argv[1] | ag data)
+            if not ar p $argv[1] $dataname | tar Jxv -C $pkgname ^/dev/null # failed, $status != 0
+                if not ar p $argv[1] $dataname | tar zxv -C $pkgname ^/dev/null # failed, $status != 0
+                    rm -rfv $pkgname
+                    return
+                end
             end
         end
+        echo ----in $pkgname ----
+    else                        # default, list
+        dpkg -c $argv
     end
-    echo ----in $pkgname ----
 end
 
 alias wget 'wget -c --no-check-certificate'
@@ -886,19 +901,25 @@ abbr wtt 'bash -c \'rm -rfv /tmp/Thun* 2>/dev/null\'; wget --connect-timeout=5 -
 abbr a2 'aria2c -c -x 5 --check-certificate=false --file-allocation=none '
 
 # rpm
-abbr rpmi 'sudo rpm -Uvh'
-function rpml --description 'list the content of the pack.rpm file'
-    for i in $argv
-        echo \<$i\>
-        echo -------------------
-        rpm -qlpv $i | less
-    end
-end
-function rpmx --description 'extract the pack.rpm file'
-    for i in $argv
-        echo \<$i\>
-        echo -------------------
-        rpm2cpio $i | cpio -idmv
+function rpm -d 'rpm file, install(i)/extract(x)/list(default)'
+    set -l options 'i' 'l' 'x'
+    argparse -n rpm $options -- $argv
+    or return
+
+    if set -q _flag_i           # install
+        sudo rpm -Uvh $argv
+    else if set -q _flag_x      # extract
+        for i in $argv
+            echo \<$i\>
+            echo -------------------
+            rpm2cpio $i | cpio -idmv
+        end
+    else                        # default list
+        for i in $argv
+            echo \<$i\>
+            echo -------------------
+            rpm -qlpv $i | less
+        end
     end
 end
 
@@ -976,30 +997,6 @@ abbr cdc 'cd ~/Projects/CWork; and lah'
 abbr cds 'cd ~/Projects/CWork/snippets; and lah'
 abbr cdP 'cd ~/Projects'
 abbr cdu 'cd /run/media/chz/UDISK/; and lah'
-# cd then list
-function cdls
-    cd $argv
-    ls
-end
-function cdll
-    cd $argv
-    ll
-end
-function cdla
-    cd
-    la
-end
-# path replacement like zsh
-# https://www.slideshare.net/jaguardesignstudio/why-zsh-is-cooler-than-your-shell-16194692
-function cs -d 'change dir1 to dir2 in the $PWD and cd into it'
-    if test (count $argv) -eq 2
-        set new_path (echo $PWD|sed -e "s/$argv[1]/$argv[2]/")
-        cd $new_path
-    else
-        printf "%s\n" (_ "Wrong argument!!!")
-        return 1
-    end
-end
 
 function elpac -d 'print old packages in .emacs.d/elpa/, with any command, it will clean old ones'
     set -l elpa_path ~/.emacs.d/elpa
@@ -1076,6 +1073,7 @@ end
 # xclip, get content into clipboard, echo file | xclip
 abbr xp 'xclip'
 abbr xc 'xclip -selection c'
+abbr rl 'readlink -f'
 
 abbr km 'sudo kermit'
 
@@ -1323,11 +1321,6 @@ end
 abbr ok 'bash -c "(nohup okular \"$argv\" </dev/null >/dev/null 2>&1 &)"'
 abbr ima 'bash -c "(nohup gwenview \"$argv\" </dev/null >/dev/null 2>&1 &)"'
 abbr op 'bash -c "(nohup xdg-open \"$argv\" </dev/null >/dev/null 2>&1 &)"'
-# You can also convert gif to multiple png images
-# convert input.gif output%05d.png
-# Pause/Continue using SPACE key, Next frame using `.`
-abbr gif 'mplayer -loop 0  -speed 0.2'
-
 abbr fcg 'fc-list | ag '
 
 function wc
@@ -1810,23 +1803,24 @@ function d --description "Choose one from the list of recently visited dirs"
     end
 end
 
+# Download anaconda from https://mirrors.cloud.tencent.com/anaconda/archive/
+# Check ~/.condarc for configuration
+# https://www.piqizhu.com/tools/anaconda
+#conda install -c binstar binstar # renamed to anaconda-client, so `conda install anaconda-client`
+#binstar search -t conda packgename # get the channel(user) name
+#conda install -c channel packagename
+# After install package using `conda install -c CHANNEL PKG`, you have to manually
+# conda config --add channels your_new_channel, or these packages won't be updateed when `condau`
+#
 # The packages needed to be installed using conda are(only if you have no sudo permission or the offcial is old)
 # conda install -c conda-forge ncurses emacs w3m fish the_silver_searcher source-highlight
 # conda install -c ripl-org tmux
 # conda install -c lebedov tig
-# conda install -c freckles stow
-# pip install ranger-fm
-#
-# to know what channel(conda-forge) provides the latest version of a package:
-# conda install -c binstar binstar # renamed to anaconda-client, so `conda install anaconda-client`
-# binstar search -t conda packgename # get the channel(user) name
-# conda install -c channel packagename
-# After install package using `conda install -c CHANNEL PKG`, you have to manually
-# conda config --add channels your_new_channel(in ~/.condarc), or these packages won't be updateed when `condau`
 abbr condas 'binstar search -t conda' # [packagename]
 abbr condai 'conda install -c' # [channel] [packagename]
-abbr condau 'conda upgrade --all -vy'
+abbr condau 'conda upgrade --all -vy; conda clean -avy'
 abbr condac 'conda clean -avy'
+abbr condaS 'anaconda show' # [channel/packagename]
 
 #### ---------------- anaconda starts -----------------------
 # anaconda
