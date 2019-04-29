@@ -868,6 +868,27 @@ end
 # if the code is not working, try GBK or GB18030
 # unzip zip if it is archived in Windows and messed up characters with normal unzip
 abbr unzipc 'unzip -O CP936'
+function zips -d 'zip to list(l)/extract(x)/create(c)'
+    set -l options 'l' 'L' 'c' 'x' 'X'
+    argparse -n zips $options -- $argv
+    or return
+
+    for a in $argv
+        if set -q _flag_l           # list
+            unzip -l $a
+        else if set -q _flag_L      # list Chinese characters
+            zips.py -l $a
+        else if set -q _flag_x
+            unzip -e $a
+        else if set -q _flag_X      # extract Chinese characters
+            zips.py -x $a
+        else if set -q _flag_c
+            # remove the end slash in argv
+            set ARGV (echo $a | sed 's:/*$::')
+            zip -r $ARGV.zip $ARGV
+        end
+    end
+end
 function deb -d 'deb package, list(default)/extract(x)'
     set -l options 'x'
     argparse -n deb $options -- $argv
@@ -1071,8 +1092,8 @@ function mkcd --description 'mkdir dir then cd dir'
 end
 
 # xclip, get content into clipboard, echo file | xclip
+alias xc 'xclip -selection c'
 abbr xp 'xclip'
-abbr xc 'xclip -selection c'
 abbr rl 'readlink -f'
 
 abbr km 'sudo kermit'
