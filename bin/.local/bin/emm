@@ -27,7 +27,7 @@ print_usage()
 	cat <<EOF
 $(basename $0) -- emacs server and emacsclient manage script
 
-Usage: $(basename $0) [-h] [-k] [-r] [-C] [-d] [-e [file]] [-E] [-f] [-s] [-m [repo]] [-c] [-a] [-o [file]] [-q] [-t]...
+Usage: $(basename $0) [-h] [-k] [-r] [-C] [-d] [-e [file]] [-E] [-f] [-s] [-m [repo]] [-c] [-a] [-o [file]] [-q] [-x] [-t]...
 	   -h to print this usage
 	   -k to kill emacs daemon
 	   -r to restart emacs daemon and start a emacsclient
@@ -42,6 +42,7 @@ Usage: $(basename $0) [-h] [-k] [-r] [-C] [-d] [-e [file]] [-E] [-f] [-s] [-m [r
 	   -a to start org-agenda-list
 	   -o to start orgmode for a file, default is ~/Org/todo.org
 	   -q to start emacs -q --no-splash
+	   -x to start emacs -nw --no-splash
 	   -t to time the startup of emacs
 EOF
 	exit 0
@@ -176,8 +177,9 @@ flag_c=0 # quickly add todo using org-capture
 flag_a=0 # start org-agenda-list
 flag_o=0 # start org-mode for a file, default is ~/Org/todo.org
 flag_q=0 # start emacs -q --no-splash
+flag_x=0 # start emacs -nw --no-splash
 flag_t=0 # time the startup of emacs
-while getopts ":hkrCdeEfsmcaoqt" args; do # prefix-: no warning for illegal option
+while getopts ":hkrCdeEfsmcaoqxt" args; do # prefix-: no warning for illegal option
 	case "$args" in
 		h|\?)                   # \? for illegal option
 			print_usage
@@ -236,6 +238,9 @@ while getopts ":hkrCdeEfsmcaoqt" args; do # prefix-: no warning for illegal opti
 			;;
 		q)
 			flag_q=1
+			;;
+		x)
+			flag_x=1
 			;;
 		t)
 			flag_t=1
@@ -323,6 +328,12 @@ fi
 if [ "$flag_q" -eq 1 ]; then
 	echo "Start emacs -q --no-splash..."
 	emacs -q --no-splash >/dev/null 2>&1
+	exit 0
+fi
+
+if [ "$flag_x" -eq 1 ]; then
+	echo "Start emacs -nw --no-splash..."
+	emacs -nw --no-splash >/dev/null 2>&1
 	exit 0
 fi
 
