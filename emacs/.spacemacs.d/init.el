@@ -207,7 +207,7 @@ It should only modify the values of Spacemacs settings."
    ;; Default font, or prioritized list of fonts. `powerline-scale' allows to
    ;; quickly tweak the mode-line size to make separators look not too crappy.
    dotspacemacs-default-font '("PragmataPro"
-                               :size 15
+                               :size 19
                                :weight normal
                                :width normal)
 
