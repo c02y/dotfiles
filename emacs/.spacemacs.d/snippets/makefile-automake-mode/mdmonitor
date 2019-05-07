@@ -1,0 +1,349 @@
+;; Object file_management/
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "file_management/"
+  :tables
+  (list
+    (semanticdb-table "fs_util.cpp"
+      :major-mode 'c++-mode
+      :tags 
+        '( ("file_management/fs_util.h" include nil nil [1 37])
+            ("_log" variable
+               (:pointer 1
+                :typemodifiers ("extern")
+                :type ("cLog" type (:type "class") nil nil))
+                nil [39 57])
+            ("AttrVector" function
+               (:constructor-flag t
+                :parent "AttrVector"
+                :type ("AttrVector" type (:type "class") nil nil))
+                nil [59 161])
+            ("getVector" function
+               (:parent "AttrVector"
+                :type ("vector" type
+                     (:template-specifier 
+                        ( ("fileAttrs" type nil nil nil))                        
+                      :type "class")
+                      nil nil))
+                nil [163 229])
+            ("cMountInfo" function
+               (:constructor-flag t
+                :parent "cMountInfo"
+                :type ("cMountInfo" type (:type "class") nil nil))
+                nil [298 336])
+            ("cMountInfo" function
+               (:destructor-flag t
+                :parent "cMountInfo"
+                :type "void")
+                nil [338 432])
+            ("getAttrs" function
+               (:parent "cMountInfo"
+                :type ("vector" type
+                     (:template-specifier 
+                        ( ("fileAttrs" type nil nil nil))                        
+                      :type "class")
+                      nil nil))
+                nil [434 516])
+            ("setPath" function
+               (:parent "cMountInfo"
+                :arguments 
+                  ( ("infoObj" variable
+                       (:reference 1
+                        :type ("cMountInfo" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [543 563])
+                    ("path" variable (:type ("string" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [564 576]))                  
+                :type "void")
+                nil [518 637])
+            ("setPath" function
+               (:parent "cMountInfo"
+                :arguments 
+                  ( ("infoObj" variable
+                       (:reference 1
+                        :type ("cMountInfo" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [664 684])
+                    ("path" variable (:type ("filesystem::path" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [685 707]))                  
+                :type "void")
+                nil [639 748])
+            ("setType" function
+               (:parent "cMountInfo"
+                :arguments 
+                  ( ("infoObj" variable
+                       (:reference 1
+                        :type ("cMountInfo" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [775 795])
+                    ("type" variable (:type ("eFileType" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [796 811]))                  
+                :type "void")
+                nil [750 852])
+            ("setSize" function
+               (:parent "cMountInfo"
+                :arguments 
+                  ( ("infoObj" variable
+                       (:reference 1
+                        :type ("cMountInfo" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [879 899])
+                    ("size" variable (:type ("ssize_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [900 913]))                  
+                :type "void")
+                nil [854 954])
+            ("setSubFiles" function
+               (:parent "cMountInfo"
+                :arguments 
+                  ( ("infoObj" variable
+                       (:reference 1
+                        :type ("cMountInfo" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [985 1005])
+                    ("dirs" variable (:type "int") (reparse-symbol arg-sub-list) [1006 1015]))                  
+                :type "void")
+                nil [956 1055])
+            ("setSubDirs" function
+               (:parent "cMountInfo"
+                :arguments 
+                  ( ("infoObj" variable
+                       (:reference 1
+                        :type ("cMountInfo" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [1085 1105])
+                    ("files" variable (:type "int") (reparse-symbol arg-sub-list) [1106 1116]))                  
+                :type "void")
+                nil [1057 1156])
+            ("setSubSize" function
+               (:parent "cMountInfo"
+                :arguments 
+                  ( ("infoObj" variable
+                       (:reference 1
+                        :type ("cMountInfo" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [1186 1206])
+                    ("size" variable (:type ("uint64_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [1207 1221]))                  
+                :type "void")
+                nil [1158 1260])
+            ("getSubFiles" function
+               (:parent "cMountInfo"
+                :arguments 
+                  ( ("infoObj" variable
+                       (:reference 1
+                        :type ("cMountInfo" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [1290 1310]))                  
+                :type "int")
+                nil [1262 1340])
+            ("getSubDirs" function
+               (:parent "cMountInfo"
+                :arguments 
+                  ( ("infoObj" variable
+                       (:reference 1
+                        :type ("cMountInfo" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [1369 1389]))                  
+                :type "int")
+                nil [1342 1418])
+            ("getSubSize" function
+               (:parent "cMountInfo"
+                :arguments 
+                  ( ("infoObj" variable
+                       (:reference 1
+                        :type ("cMountInfo" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [1452 1472]))                  
+                :type ("uint64_t" type (:type "class") nil nil))
+                nil [1420 1501])
+            ("addFile" function
+               (:pointer 1
+                :parent "cMountInfo"
+                :arguments 
+                  ( ("infoObj" variable
+                       (:reference 1
+                        :type ("cMountInfo" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [1535 1555])
+                    ("type" variable (:type ("eFileType" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [1556 1571]))                  
+                :type ("cMountInfo" type (:type "class") nil nil))
+                nil [1503 1978])
+            ("addRegular" function
+               (:parent "cMountInfo"
+                :arguments 
+                  ( ("newInfo" variable
+                       (:pointer 1
+                        :type ("cMountInfo" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [2008 2028]))                  
+                :type "void")
+                nil [1980 2066])
+            ("addDir" function
+               (:parent "cMountInfo"
+                :arguments 
+                  ( ("newInfo" variable
+                       (:pointer 1
+                        :type ("cMountInfo" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [2092 2112]))                  
+                :type "void")
+                nil [2068 2149])
+            ("printIndent" function
+               (:parent "cMountInfo"
+                :typemodifiers ("inline")
+                :arguments 
+                  ( ("level" variable (:type "int") (reparse-symbol arg-sub-list) [2187 2197]))                  
+                :type "void")
+                nil [2151 2266])
+            ("printContent" function
+               (:parent "cMountInfo"
+                :arguments 
+                  ( ("indentLvl" variable (:type "int") (reparse-symbol arg-sub-list) [2298 2312]))                  
+                :type "void")
+                nil [2268 3291])
+            ("numberFiles" function
+               (:parent "cMountInfo"
+                :arguments 
+                  ( ("ftype" variable (:type ("eFileType" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [3321 3337]))                  
+                :type "int")
+                nil [3293 3848])
+            ("sortMounts" function
+               (:parent "cMountInfo"
+                :arguments 
+                  ( ("mount" variable
+                       (:reference 1
+                        :type ("cMountInfo" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [3878 3896]))                  
+                :type "void")
+                nil [3850 4138])
+            ("getPath" function
+               (:parent "cMountInfo"
+                :type ("filesystem::path" type (:type "class") nil nil))
+                nil [4141 4203])
+            ("iterator" function
+               (:parent "cMountInfo::iterator"
+                :type "int")
+                nil [4205 4294])
+            ("iterator" function
+               (:parent "cMountInfo::iterator"
+                :arguments 
+                  ( ("info" variable
+                       (:pointer 1
+                        :type ("cMountInfo" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [4327 4344])
+                    ("start" variable (:type "int") (reparse-symbol arg-sub-list) [4345 4355]))                  
+                :type "int")
+                nil [4296 4415])
+            ("begin" function
+               (:parent "cMountInfo"
+                :type ("cMountInfo::iterator" type (:type "class") nil nil))
+                nil [4417 4488])
+            ("end" function
+               (:parent "cMountInfo"
+                :type ("cMountInfo::iterator" type (:type "class") nil nil))
+                nil [4490 4576])
+            ("fillFfileInfo" function
+               (:arguments 
+                  ( ("infoObj" variable
+                       (:reference 1
+                        :type ("cMountInfo" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [4664 4684])
+                    ("startPath" variable (:type ("string" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [4685 4702]))                  
+                :type "void")
+                nil [4645 4825])
+            ("fillFileInfo" function
+               (:arguments 
+                  ( ("infoObj" variable
+                       (:reference 1
+                        :type ("cMountInfo" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [4845 4865])
+                    ("startPath" variable
+                       (:reference 1
+                        :type ("filesystem::path" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [4866 4894])
+                    ("recursive" variable (:type "bool") (reparse-symbol arg-sub-list) [4895 4910]))                  
+                :type "void")
+                nil [4827 6843])
+            ("callFileSetters" function
+               (:arguments 
+                  ( ("infoObj" variable
+                       (:reference 1
+                        :type ("cMountInfo" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [6866 6886])
+                    ("currPath" variable
+                       (:reference 1
+                        :type ("filesystem::path" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [6887 6914])
+                    ("type" variable (:type ("eFileType" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [6915 6930])
+                    ("size" variable
+                       (:reference 1
+                        :type ("uint64_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [6931 6946]))                  
+                :type "void")
+                nil [6845 7711])
+            ("sortPathForward" function
+               (:arguments 
+                  ( ("path1" variable
+                       (:pointer 1
+                        :type ("cMountInfo" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [7789 7807])
+                    ("path2" variable
+                       (:pointer 1
+                        :type ("cMountInfo" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [7808 7826]))                  
+                :type "int")
+                nil [7768 8708]))          
+      :file "fs_util.cpp"
+      :pointmax 8710
+      :fsize 8709
+      :lastmodtime '(22544 3306 0 0)
+      :unmatched-syntax nil)
+    (semanticdb-table "mounts.cpp"
+      :major-mode 'c++-mode
+      :tags 
+        '( ("file_management/mounts.h" include nil nil [1 36])
+            ("_log" variable
+               (:pointer 1
+                :typemodifiers ("extern")
+                :type ("cLog" type (:type "class") nil nil))
+                nil [38 56])
+            ("cMountSys" function
+               (:constructor-flag t
+                :parent "cMountSys"
+                :type ("cMountSys" type (:type "class") nil nil))
+                nil [58 266])
+            ("cMountSys" function
+               (:destructor-flag t
+                :parent "cMountSys"
+                :type "void")
+                nil [268 305])
+            ("setRoot" function
+               (:parent "cMountSys"
+                :arguments 
+                  ( ("rootDir" variable
+                       (:reference 1
+                        :type ("string" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [331 347]))                  
+                :type "void")
+                nil [307 665])
+            ("newMount" function
+               (:parent "cMountSys"
+                :arguments 
+                  ( ("location" variable (:type ("string" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [692 708]))                  
+                :type "bool")
+                nil [667 1909])
+            ("newMount" function
+               (:parent "cMountSys"
+                :arguments 
+                  ( ("location" variable
+                       (:reference 1
+                        :type ("filesystem::path" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [1936 1963]))                  
+                :type "bool")
+                nil [1911 2021])
+            ("printMounts" function
+               (:parent "cMountSys"
+                :type "void")
+                nil [2023 2327])
+            ("status" function
+               (:parent "cMountSys"
+                :arguments 
+                  ( ("stream" variable
+                       (:reference 1
+                        :type ("stringstream" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [2352 2373]))                  
+                :type "void")
+                nil [2329 2631])
+            ("cleanup" function
+               (:parent "cMountSys"
+                :type "void")
+                nil [2633 2672]))          
+      :file "mounts.cpp"
+      :pointmax 2673
+      :fsize 2672
+      :lastmodtime '(22544 3306 0 0)
+      :unmatched-syntax nil))
+  :file "!home!chz!Public!2三代平台集中存储!FDMN!src!file_management!semantic.cache"
+  :semantic-tag-version "2.0"
+  :semanticdb-version "2.2")

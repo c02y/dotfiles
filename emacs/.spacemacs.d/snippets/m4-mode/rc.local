@@ -1,0 +1,307 @@
+;; Object sml-mode-6.7/
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "sml-mode-6.7/"
+  :tables
+  (list
+    (semanticdb-table "sml-mode.el"
+      :major-mode 'emacs-lisp-mode
+      :tags 
+        '( ("cl" include nil nil [4479 4492])
+            ("smie" include nil nil [4494 4522])
+            ("electric" include nil nil [4523 4542])
+            ("sml" customgroup (:user-visible-flag t) nil [4544 4603])
+            ("sml-indent-level" variable (:default-value 4) nil [4605 4693])
+            ("sml-indent-args" variable (:default-value sml-indent-level) nil [4695 4807])
+            ("sml-rightalign-and" variable (:default-value t) nil [4809 4990])
+            ("sml-electric-pipe-mode" variable (:default-value t) nil [4992 5119])
+            ("sml-mode-hook" variable nil nil [5121 5238])
+            ("sml-outline-regexp" variable (:default-value "\\|s[ti]\\|[ 	]*\\(let[ 	]+\\)?\\(fun\\|and\\)\\_>") nil [5260 5549])
+            ("sml-mode-map" variable (:default-value (let ((map (make-sparse-keymap))) (define-key map "" (quote sml-insert-form)) (define-key map "\374" (quote sml-electric-pipe)) (define-key map "\240" (quote sml-electric-space)) (define-key map [backtab] (quote sml-back-to-outer-indent)) (define-key map "" (quote sml-prog-proc-switch-to)) map)) nil [5578 6050])
+            ("sml-mode-syntax-table" variable (:default-value (let ((st (make-syntax-table))) (modify-syntax-entry 42 ". 23n" st) (modify-syntax-entry 40 "()1" st) (modify-syntax-entry 41 ")(4" st) (mapc (lambda (c) (modify-syntax-entry c "_" st)) "._'") (mapc (lambda (c) (modify-syntax-entry c "." st)) ",;") (mapc (lambda (c) (modify-syntax-entry c "'" st)) "~#!") (mapc (lambda (c) (modify-syntax-entry c "." st)) "%&$+-/:<=>?@`^|") st)) nil [6052 6590])
+            ("easy-menu-define" code nil nil [6593 7390])
+            ("sml-syms-re" function (:arguments ("syms")) nil [7410 7481])
+            ("sml-module-head-syms" variable
+               (:constant-flag t
+                :default-value (quote ("signature" "structure" "functor" "abstraction")))
+                nil [7487 7571])
+            ("sml-=-starter-syms" variable
+               (:constant-flag t
+                :default-value (list* "|" "val" "fun" "and" "datatype" "type" "abstype" "eqtype" sml-module-head-syms))
+                nil [7574 7738])
+            ("sml-=-starter-re" variable
+               (:constant-flag t
+                :default-value (concat "\\S.|\\S.\\|" (sml-syms-re (cdr sml-=-starter-syms))))
+                nil [7739 7874])
+            ("sml-non-nested-of-starter-re" variable
+               (:constant-flag t
+                :default-value (sml-syms-re (quote ("datatype" "abstype" "exception"))))
+                nil [7876 8042])
+            ("sml-starters-syms" variable
+               (:constant-flag t
+                :default-value (append sml-module-head-syms (quote ("abstype" "datatype" "exception" "fun" "local" "infix" "infixr" "sharing" "nonfix" "open" "type" "val" "and" "withtype" "with"))))
+                nil [8044 8289])
+            ("sml-pipeheads" variable
+               (:constant-flag t
+                :default-value (quote ("|" "of" "fun" "fn" "and" "handle" "datatype" "abstype" "(" "{" "[")))
+                nil [8291 8432])
+            ("sml-keywords-regexp" variable
+               (:constant-flag t
+                :default-value (sml-syms-re (quote ("abstraction" "abstype" "and" "andalso" "as" "before" "case" "datatype" "else" "end" "eqtype" "exception" "do" "fn" "fun" "functor" "handle" "if" "in" "include" "infix" "infixr" "let" "local" "nonfix" "o" "of" "op" "open" "orelse" "overload" "raise" "rec" "sharing" "sig" "signature" "struct" "structure" "then" "type" "val" "where" "while" "with" "withtype"))))
+                nil [8434 8999])
+            ("sml-id-re" variable
+               (:constant-flag t
+                :default-value "\\sw\\(?:\\sw\\|\\s_\\)*")
+                nil [9021 9068])
+            ("sml-tyvarseq-re" variable
+               (:constant-flag t
+                :default-value (concat "\\(?:\\(?:'+" sml-id-re "\\|(\\(?:[,']\\|" sml-id-re "\\|\\s-\\)+)\\)\\s-+\\)?"))
+                nil [9071 9199])
+            ("sml-font-lock-symbols" variable nil nil [9266 9507])
+            ("if" code nil nil [9508 9655])
+            ("sml-font-lock-symbols-alist" variable
+               (:constant-flag t
+                :default-value (quote (("fn" . 955) ("andalso" . 8743) ("orelse" . 8744) ("not" . 172) ("div" . 247) ("*" . 215) ("o" . 9675) ("->" . 8594) ("=>" . 8658) ("<-" . 8592) ("<>" . 8800) (">=" . 8805) ("<=" . 8804) ("..." . 8943) ("'a" . 945) ("'b" . 946) ("'c" . 947) ("'d" . 948))))
+                nil [9657 10107])
+            ("sml-font-lock-compose-symbol" function nil nil [10109 11156])
+            ("sml-font-lock-symbols-keywords" function nil nil [11158 11339])
+            ("sml-font-lock-keywords" variable
+               (:constant-flag t
+                :default-value (\` (((\, (concat "\\_<\\(fun\\|and\\)\\s-+" sml-tyvarseq-re "\\(" sml-id-re "\\)\\s-+[^ 	
+=]")) (1 font-lock-keyword-face) (2 font-lock-function-name-face)) ((\, (concat "\\_<\\(\\(?:data\\|abs\\|with\\|eq\\)?type\\)\\s-+" sml-tyvarseq-re "\\(" sml-id-re "\\)")) (1 font-lock-keyword-face) (2 font-lock-type-def-face)) ((\, (concat "\\_<\\(val\\)\\s-+\\(?:" sml-id-re "\\_>\\s-*\\)?\\(" sml-id-re "\\)\\s-*[=:]")) (1 font-lock-keyword-face) (2 font-lock-variable-name-face)) ((\, (concat "\\_<\\(structure\\|functor\\|abstraction\\)\\s-+\\(" sml-id-re "\\)")) (1 font-lock-keyword-face) (2 font-lock-module-def-face)) ((\, (concat "\\_<\\(signature\\)\\s-+\\(" sml-id-re "\\)")) (1 font-lock-keyword-face) (2 font-lock-interface-def-face)) ((\, sml-keywords-regexp) . font-lock-keyword-face) (\,@ (sml-font-lock-symbols-keywords)))))
+                nil [11380 12436])
+            ("font-lock-type-def-face" variable
+               (:default-value (quote ((t (:bold t))))
+                :type "face")
+                nil [12438 12589])
+            ("font-lock-type-def-face" variable (:default-value (quote font-lock-type-def-face)) nil [12590 12690])
+            ("font-lock-module-def-face" variable
+               (:default-value (quote ((t (:bold t))))
+                :type "face")
+                nil [12692 12847])
+            ("font-lock-module-def-face" variable (:default-value (quote font-lock-module-def-face)) nil [12848 12954])
+            ("font-lock-interface-def-face" variable
+               (:default-value (quote ((t (:bold t))))
+                :type "face")
+                nil [12956 13117])
+            ("font-lock-interface-def-face" variable (:default-value (quote font-lock-interface-def-face)) nil [13118 13233])
+            ("sml-syntax-prop-table" variable (:default-value (let ((st (make-syntax-table))) (modify-syntax-entry 92 "." st) (modify-syntax-entry 42 "." st) st)) nil [13312 13495])
+            ("sml-font-lock-syntactic-keywords" variable
+               (:constant-flag t
+                :default-value (\` (("^\\s-*\\(\\\\\\)" (1 (quote (\, sml-syntax-prop-table)))))))
+                nil [13497 13594])
+            ("sml-font-lock-defaults" variable
+               (:constant-flag t
+                :default-value (quote (sml-font-lock-keywords nil nil nil nil (font-lock-syntactic-keywords . sml-font-lock-syntactic-keywords))))
+                nil [13596 13743])
+            ("sml-smie-grammar" variable
+               (:constant-flag t
+                :default-value (smie-prec2->grammar (smie-merge-prec2s (smie-bnf->prec2 (quote ((exp ("if" exp "then" exp "else" exp) ("case" exp "of" branches) ("let" decls "in" cmds "end") ("struct" decls "end") ("sig" decls "end") (sexp) (sexp "handle" branches) ("fn" sexp "=>" exp)) (sexp (sexp ":" type) ("(" exps ")") (sexp "orelse" sexp) (marg ":>" type) (sexp "andalso" sexp)) (cmds (cmds ";" cmds) (exp)) (exps (exps "," exps) (exp)) (branches (sexp "=>" exp) (branches "|" branches)) (decls (sexp "d=" exp) (sexp "d=" databranches) (funbranches "|" funbranches) (sexp "=of" type) ("local" decls "in" decls "end") (decls "functor" decls) (decls "signature" decls) (decls "structure" decls) (decls "type" decls) (decls "open" decls) (decls "and" decls) (decls "withtype" decls) (decls "infix" decls) (decls "infixr" decls) (decls "nonfix" decls) (decls "abstype" decls) (decls "datatype" decls) (decls "include" decls) (decls "sharing" decls) (decls "exception" decls) (decls "fun" decls) (decls "val" decls)) (type (type "->" type) (type "*" type)) (funbranches (sexp "d=" exp)) (databranches (sexp "=of" type) (databranches "d|" databranches)) (marg (marg ":" type) (marg ":>" type)) (toplevel (decls) (exp) (toplevel ";" toplevel)))) (quote ((nonassoc "of") (assoc "|"))) (quote ((nonassoc "handle") (assoc "|"))) (quote ((assoc "->") (assoc "*"))) (quote ((assoc "val" "fun" "type" "datatype" "abstype" "open" "infix" "infixr" "nonfix" "functor" "signature" "structure" "exception" "include" "sharing" "local") (assoc "withtype") (assoc "and"))) (quote ((assoc "orelse") (assoc "andalso") (nonassoc ":"))) (quote ((assoc ";"))) (quote ((assoc ","))) (quote ((assoc "d|")))) (smie-precs->prec2 (quote ((nonassoc "andalso") (assoc "before") (assoc ":=" "o") (nonassoc ">" ">=" "<>" "<" "<=" "=") (assoc "::" "@") (assoc "+" "-" "^") (assoc "/" "*" "quot" "rem" "div" "mod") (nonassoc " -dummy- ")))))))
+                nil [13773 18310])
+            ("sml-indent-separator-outdent" variable (:default-value 2) nil [18312 18351])
+            ("sml--rightalign-and-p" function nil nil [18353 19210])
+            ("sml-smie-rules" function (:arguments ("kind" "token")) nil [19212 22159])
+            ("sml-smie-definitional-equal-p" function nil nil [22161 23053])
+            ("sml-smie-non-nested-of-p" function nil nil [23055 23761])
+            ("sml-smie-datatype-|-p" function nil nil [23763 24295])
+            ("sml-smie-forward-token-1" function nil nil [24297 24515])
+            ("sml-smie-forward-token" function nil nil [24517 24923])
+            ("sml-smie-backward-token-1" function nil nil [24925 25146])
+            ("sml-smie-backward-token" function nil nil [25148 25663])
+            ("sml-imenu-regexp" variable
+               (:constant-flag t
+                :default-value (concat "^[ 	]*\\(let[ 	]+\\)?" (regexp-opt (append sml-module-head-syms (quote ("and" "fun" "datatype" "abstype" "type"))) t) "\\_>"))
+                nil [25695 25869])
+            ("sml-imenu-create-index" function nil nil [25871 26691])
+            ("comint" include nil nil [26729 26746])
+            ("compile" include nil nil [26747 26765])
+            ("sml-prog-proc-mode-map" variable (:default-value (let ((map (make-sparse-keymap))) (define-key map [3 12] (quote sml-prog-proc-load-file)) (define-key map [3 3] (quote sml-prog-proc-compile)) (define-key map [3 26] (quote sml-prog-proc-switch-to)) (define-key map [3 18] (quote sml-prog-proc-send-region)) (define-key map [3 2] (quote sml-prog-proc-send-buffer)) map)) nil [26767 27440])
+            ("sml-prog-proc--buffer" variable nil nil [27442 27531])
+            ("make-variable-buffer-local" code nil nil [27532 27583])
+            ("sml-prog-proc-descriptor" type
+               (:members ("name" "run" "load-cmd" "chdir-cmd" "command-eol" "compile-commands-alist")
+                :type "struct")
+                nil [27585 27914])
+            ("sml-prog-proc-descriptor" variable nil nil [27916 28026])
+            ("sml-prog-proc--prop" function (:arguments ("prop")) nil [28028 28261])
+            ("sml-prog-proc--call" function (:arguments ("method" "args")) nil [28262 28362])
+            ("sml-prog-proc-proc" function nil nil [28607 29331])
+            ("sml-prog-proc-buffer" function nil nil [29333 29451])
+            ("sml-prog-proc-switch-to" function (:user-visible-flag t) nil [29453 29606])
+            ("sml-prog-proc-send-string" function (:arguments ("proc" "str")) nil [29608 30285])
+            ("sml-prog-proc-load-file" function
+               (:user-visible-flag t
+                :arguments ("file" "and-go"))
+                nil [30287 30874])
+            ("sml-prog-proc--tmp-file" variable nil nil [30876 30912])
+            ("sml-prog-proc-send-region" function
+               (:user-visible-flag t
+                :arguments ("start" "end" "and-go"))
+                nil [30914 31794])
+            ("sml-prog-proc-send-buffer" function
+               (:user-visible-flag t
+                :arguments ("and-go"))
+                nil [31796 32079])
+            ("define-derived-mode" code nil nil [32081 32228])
+            ("sml-prog-proc-chdir" function
+               (:user-visible-flag t
+                :arguments ("dir"))
+                nil [32275 32672])
+            ("sml-prog-proc-comint-input-filter-function" function (:arguments ("str")) nil [32674 33167])
+            ("sml-prog-proc-comint-mode-map" variable (:default-value (let ((map (make-sparse-keymap))) (define-key map "" (quote sml-prog-proc-load-file)) map)) nil [33169 33309])
+            ("define-derived-mode" code nil nil [33311 34220])
+            ("sml-prog-proc--compile-command" variable nil nil [34222 34325])
+            ("sml-prog-proc-compile" function
+               (:user-visible-flag t
+                :arguments ("command" "and-go"))
+                nil [34327 37463])
+            ("sml-program-name" variable (:default-value "sml") nil [37498 37605])
+            ("sml-default-arg" variable nil nil [37607 37724])
+            ("sml-host-name" variable nil nil [37726 37815])
+            ("sml-config-file" variable (:default-value "~/.smlproc.sml") nil [37817 37938])
+            ("sml-prompt-regexp" variable (:default-value "^[-=>#] *") nil [37941 38064])
+            ("sml-compile-commands-alist" variable (:default-value (quote (("CMB.make()" . "all-files.cm") ("CMB.make()" . "pathconfig") ("CM.make()" . "sources.cm") ("use \"load-all\"" . "load-all")))) nil [38066 38459])
+            ("sml-use-command" variable (:default-value "use \"%s\"") nil [38535 38741])
+            ("sml-cd-command" variable (:default-value "OS.FileSys.chDir \"%s\"") nil [38743 39034])
+            ("sml-error-regexp-alist" variable (:default-value (\` (("^\\(?:> \\)?\\(?:Error\\|W\\(arning\\)\\)[-:] in '\\(.+\\)', line \\([0-9]+\\)" 2 3 nil (1)) ("^File \"\\([^\"]+\\)\", line \\([0-9]+\\)\\(-\\([0-9]+\\)\\)?, characters \\([0-9]+\\)-\\([0-9]+\\):" 1 2 5) ("^[-= ]*\\(.*[^
+)]\\)\\( (.*)\\)?:\\([0-9]+\\)\\.\\([0-9]+\\)\\(-\\([0-9]+\\)\\.\\([0-9]+\\)\\)? \\(Error\\|Warnin\\(g\\)\\): .*" 1 (3 . 6) (4 . 7) (9)) ("^ +\\(raised at: \\)?\\(.+\\):\\([0-9]+\\)\\.\\([0-9]+\\)\\(-\\([0-9]+\\)\\.\\([0-9]+\\)\\)" 2 (3 . 6) (4 . 7))))) nil [39036 40462])
+            ("sml-pp-functions" variable
+               (:constant-flag t
+                :default-value (sml-prog-proc-make :name "SML" :run (lambda nil (call-interactively (function sml-run))) :load-cmd (lambda (file) (format sml-use-command file)) :chdir-cmd (lambda (dir) (format sml-cd-command dir)) :compile-commands-alist sml-compile-commands-alist :command-eol ";
+"))
+                nil [40464 40863])
+            ("inferior-sml-font-lock-keywords" variable
+               (:constant-flag t
+                :default-value (\` (((\, (concat "\\(" sml-prompt-regexp "\\)\\(.*\\)")) (1 font-lock-prompt-face) (2 font-lock-command-face keep)) ("^\\[\\(.*GC #.*
+\\)*.*\\]" . font-lock-comment-face) ("^GC #.*" . font-lock-comment-face))))
+                nil [40886 41386])
+            ("font-lock-prompt-face" variable
+               (:default-value (quote ((t (:bold t))))
+                :type "face")
+                nil [41388 41528])
+            ("font-lock-prompt-face" variable (:default-value (quote font-lock-prompt-face)) nil [41529 41616])
+            ("font-lock-command-face" variable
+               (:default-value (quote ((t (:bold t))))
+                :type "face")
+                nil [41618 41772])
+            ("font-lock-command-face" variable (:default-value (quote font-lock-command-face)) nil [41773 41875])
+            ("inferior-sml-font-lock-defaults" variable
+               (:constant-flag t
+                :default-value (quote (inferior-sml-font-lock-keywords nil nil nil nil)))
+                nil [41877 41972])
+            ("sml--read-run-cmd" function nil nil [41974 42322])
+            ("defalias" code nil nil [42339 42367])
+            ("sml-run" function
+               (:user-visible-flag t
+                :arguments ("cmd" "arg" "host"))
+                nil [42384 44012])
+            ("sml-send-function" function
+               (:user-visible-flag t
+                :arguments ("and-go"))
+                nil [44014 44330])
+            ("inferior-sml-mode-map" variable (:default-value (let ((map (make-sparse-keymap))) (set-keymap-parent map comint-mode-map) (define-key map "" (quote sml-run)) (define-key map "	" (quote completion-at-point)) map)) nil [44332 44573])
+            ("declare-function" code nil nil [44576 44676])
+            ("inferior-sml-next-error-hook" function nil nil [44678 46789])
+            ("define-derived-mode" code nil nil [46791 49251])
+            ("add-to-list" code nil nil [49296 49363])
+            ("comment-quote-nested" variable nil nil [49365 49394])
+            ("define-derived-mode" code nil nil [49411 50921])
+            ("sml-mode-variables" function nil nil [50923 51708])
+            ("sml-funname-of-and" function nil nil [51710 52143])
+            ("sml-find-forward" function (:arguments ("re")) nil [52145 52321])
+            ("sml-electric-pipe" function (:user-visible-flag t) nil [52323 52631])
+            ("sml-post-self-insert-pipe" function (:arguments ("acp")) nil [52633 54903])
+            ("sml-mark-function" function (:user-visible-flag t) nil [54916 55386])
+            ("sml-back-to-outer-indent" function (:user-visible-flag t) nil [55388 56185])
+            ("sml-find-matching-starter" function (:arguments ("syms")) nil [56187 56624])
+            ("sml-skip-siblings" function nil nil [56626 56976])
+            ("sml-beginning-of-defun" function nil nil [56978 57560])
+            ("sml-max-name-components" variable (:default-value 3) nil [57562 57687])
+            ("sml-current-fun-name" function nil nil [57689 58070])
+            ("sml-forms-alist" variable nil nil [58117 58691])
+            ("sml-def-skeleton" function (:arguments ("name" "interactor" "elements")) nil [58693 59335])
+            ("put" code nil nil [59336 59383])
+            ("sml-def-skeleton" code nil nil [59385 59439])
+            ("sml-def-skeleton" code nil nil [59441 59499])
+            ("sml-def-skeleton" code nil nil [59501 59556])
+            ("sml-def-skeleton" code nil nil [59558 59622])
+            ("sml-def-skeleton" code nil nil [59624 59710])
+            ("sml-def-skeleton" code nil nil [59712 59801])
+            ("sml-def-skeleton" code nil nil [59803 59893])
+            ("sml-def-skeleton" code nil nil [59895 59972])
+            ("sml-def-skeleton" code nil nil [59974 60072])
+            ("sml-def-skeleton" code nil nil [60078 60123])
+            ("sml-def-skeleton" code nil nil [60125 60167])
+            ("sml-def-skeleton" code nil nil [60169 60211])
+            ("sml-def-skeleton" code nil nil [60213 60254])
+            ("sml-def-skeleton" code nil nil [60256 60297])
+            ("sml-forms-menu" function (:arguments ("_menu")) nil [60303 60403])
+            ("sml-last-form" variable (:default-value "let") nil [60405 60433])
+            ("sml-electric-space" function (:user-visible-flag t) nil [60435 60867])
+            ("sml-insert-form" function
+               (:user-visible-flag t
+                :arguments ("name" "newline"))
+                nil [60869 61888])
+            ("sml-mlton-command" variable (:default-value "mlton") nil [61917 62002])
+            ("sml-mlton-mainfile" variable nil nil [62004 62035])
+            ("sml-mlton-error-regexp-alist" variable
+               (:constant-flag t
+                :default-value (\` (("^\\(?:Error\\|\\(Warning\\)\\): \\(.+\\) \\([0-9]+\\)\\.\\([0-9]+\\)\\.$" 2 3 4 (1)))))
+                nil [62037 62338])
+            ("compilation-error-regexp-alist" variable nil nil [62340 62379])
+            ("eval-after-load" code nil nil [62380 62505])
+            ("sml-mlton-typecheck" function
+               (:user-visible-flag t
+                :arguments ("mainfile"))
+                nil [62507 63222])
+            ("sml-defuse-file" variable nil nil [63259 63287])
+            ("sml-defuse-file" function nil nil [63289 63360])
+            ("sml-defuse-set-file" function (:user-visible-flag t) nil [63362 63504])
+            ("sml-defuse-symdata-at-point" function nil nil [63506 64289])
+            ("sml-defuse-def-regexp" variable
+               (:constant-flag t
+                :default-value "^[[:alpha:]]+ \\([^ 
+]+\\) \\(.+\\) \\([0-9]+\\)\\.\\([0-9]+\\)$")
+                nil [64291 64393])
+            ("sml-defuse-use-regexp-format" variable
+               (:constant-flag t
+                :default-value "^    %s %d\\.%d $")
+                nil [64394 64453])
+            ("sml-defuse-jump-to-def" function (:user-visible-flag t) nil [64455 66254])
+            ("sml-cm-mode-syntax-table" variable (:default-value sml-mode-syntax-table) nil [66306 66361])
+            ("sml-cm-font-lock-keywords" variable (:default-value (\` ((\, (concat "\\_<" (regexp-opt (quote ("library" "group" "is" "structure" "functor" "signature" "funsig")) t) "\\_>"))))) nil [66362 66517])
+            ("add-to-list" code nil nil [66533 66584])
+            ("add-to-list" code nil nil [66636 66686])
+            ("add-to-list" code nil nil [66702 66760])
+            ("define-derived-mode" code nil nil [66776 67077])
+            ("sml-lex-font-lock-keywords" variable (:default-value (append (\` (((\, (concat "^%" sml-id-re)) . font-lock-builtin-face) ("^%%" . font-lock-module-def-face))) sml-font-lock-keywords)) nil [67107 67278])
+            ("sml-lex-font-lock-defaults" variable
+               (:constant-flag t
+                :default-value (cons (quote sml-lex-font-lock-keywords) (cdr sml-font-lock-defaults)))
+                nil [67279 67382])
+            ("define-derived-mode" code nil nil [67399 67570])
+            ("sml-yacc-bnf-face" variable
+               (:default-value (quote ((t (:foreground "darkgreen"))))
+                :type "face")
+                nil [67601 67725])
+            ("sml-yacc-bnf-face" variable (:default-value (quote sml-yacc-bnf-face)) nil [67726 67771])
+            ("sml-yacc-indent-action" variable (:default-value 16) nil [67773 67883])
+            ("sml-yacc-indent-pipe" variable nil nil [67885 68040])
+            ("sml-yacc-indent-term" variable nil nil [68042 68179])
+            ("sml-yacc-font-lock-keywords" variable (:default-value (cons (\` ((concat "^\\(" sml-id-re "\\s-*:\\|\\s-*|\\)\\(\\s-*" sml-id-re "\\)*\\s-*\\(\\(%" sml-id-re "\\)\\s-+" sml-id-re "\\|\\)") (0 (save-excursion (save-match-data (goto-char (match-beginning 0)) (unless (or (re-search-forward "\\_<of\\_>" (match-end 0) (quote move)) (progn (forward-comment (point-max)) (not (looking-at "(")))) sml-yacc-bnf-face)))) (4 font-lock-builtin-face t t))) sml-lex-font-lock-keywords)) nil [68181 68855])
+            ("sml-yacc-font-lock-defaults" variable
+               (:constant-flag t
+                :default-value (cons (quote sml-yacc-font-lock-keywords) (cdr sml-font-lock-defaults)))
+                nil [68856 68961])
+            ("sml-yacc-indent-line" function nil nil [68963 69247])
+            ("sml-yacc-indentation" function nil nil [69249 70473])
+            ("add-to-list" code nil nil [70490 70551])
+            ("define-derived-mode" code nil nil [70567 70816])
+            ("sml-mode" package nil nil [73785 73804]))          
+      :file "sml-mode.el"
+      :pointmax 73832
+      :fsize 73869
+      :lastmodtime '(22009 13262 0 0)
+      :unmatched-syntax '((close-paren 9068 . 9069) (symbol 9002 . 9018) (open-paren 9001 . 9002) (close-paren 4492 . 4493) (symbol 4461 . 4478) (open-paren 4460 . 4461))))
+  :file "!home!chz!.emacs.d!elpa!sml-mode-6.7!semantic.cache"
+  :semantic-tag-version "2.0"
+  :semanticdb-version "2.2")

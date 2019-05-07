@@ -1,0 +1,76 @@
+;; Object kernel/
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "kernel/"
+  :tables (list 
+   (semanticdb-table "time.c"
+    :major-mode 'c-mode
+    :tags 
+        '( ("linux/clockchips.h" include (:system-flag t) nil [954 983])
+            ("linux/interrupt.h" include (:system-flag t) nil [984 1012])
+            ("asm/scoreregs.h" include (:system-flag t) nil [1014 1040])
+            ("timer_interrupt" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("irq" variable (:type "int") (reparse-symbol arg-sub-list) [1077 1085])
+                    ("dev_id" variable
+                       (:pointer 1
+                        :type "void")
+                        (reparse-symbol arg-sub-list) [1086 1099]))                  
+                :type ("irqreturn_t" type (:type "class") nil nil))
+                nil [1042 1262])
+            ("timer_irq" variable
+               (:typemodifiers ("static")
+                :type ("irqaction" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [1264 1389])
+            ("score_timer_set_next_event" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("delta" variable (:type "unsigned long") (reparse-symbol arg-sub-list) [1429 1449])
+                    ("evdev" variable
+                       (:pointer 1
+                        :type ("clock_event_device" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [1452 1485]))                  
+                :type "int")
+                nil [1391 1644])
+            ("score_timer_set_mode" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("mode" variable (:type ("clock_event_mode" type (:type "enum") nil nil)) (reparse-symbol arg-sub-list) [1679 1706])
+                    ("evdev" variable
+                       (:pointer 1
+                        :type ("clock_event_device" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [1709 1742]))                  
+                :type "void")
+                nil [1646 2109])
+            ("score_clockevent" variable
+               (:typemodifiers ("static")
+                :type ("clock_event_device" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [2111 2332])
+            ("time_init" function
+               (:arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [2356 2361]))                  
+                :type ("__init" type (:type "class") nil nil))
+                nil [2339 2829]))          
+    :file "time.c"
+    :pointmax 2830
+    :fsize 2829
+    :lastmodtime '(21468 8979 550742 703000)
+    :unmatched-syntax '((VOID 2334 . 2338))
+    )
+   )
+  :file "!home!chz!linux-3.0.8!arch!score!kernel!semantic.cache"
+  :semantic-tag-version "2.0"
+  :semanticdb-version "2.2"
+  )

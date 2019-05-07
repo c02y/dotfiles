@@ -1,0 +1,697 @@
+;; Object lispy-20150911.225/
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "lispy-20150911.225/"
+  :tables
+  (list
+    (semanticdb-table "lispy.el"
+      :major-mode 'emacs-lisp-mode
+      :tags 
+        '( ("org" include nil nil [6205 6219])
+            ("cl" include nil nil [6189 6202])
+            ("lispy-tags" include nil nil [6221 6242])
+            ("help-fns" include nil nil [6243 6262])
+            ("edebug" include nil nil [6263 6280])
+            ("ediff" include nil nil [6281 6297])
+            ("ediff-util" include nil nil [6298 6319])
+            ("eldoc" include nil nil [6320 6336])
+            ("etags" include nil nil [6337 6353])
+            ("outline" include nil nil [6354 6372])
+            ("semantic" include nil nil [6373 6392])
+            ("semantic/db" include nil nil [6393 6415])
+            ("semantic/bovine/el" include nil nil [6416 6445])
+            ("avy" include nil nil [6446 6460])
+            ("newcomment" include nil nil [6461 6482])
+            ("lispy-inline" include nil nil [6483 6506])
+            ("iedit" include nil nil [6507 6523])
+            ("delsel" include nil nil [6524 6541])
+            ("swiper" include nil nil [6542 6559])
+            ("lispy" customgroup (:user-visible-flag t) nil [6579 6690])
+            ("lispy-left" variable (:default-value "[([{]") nil [6692 6742])
+            ("lispy-right" variable (:default-value "[])}]") nil [6744 6795])
+            ("lispy-outline" variable (:default-value "^;;\\(?:;[^#]\\|\\*+\\)") nil [6797 6868])
+            ("lispy-no-space" variable nil nil [6870 7010])
+            ("make-variable-buffer-local" code nil nil [7011 7055])
+            ("lispy-lax-eval" variable (:default-value t) nil [7057 7379])
+            ("lispy-verbose" variable (:default-value t) nil [7381 7607])
+            ("lispy-verbose-verbs" variable (:default-value t) nil [7609 7822])
+            ("lispy-helm-columns" variable (:default-value (quote (70 80))) nil [7824 7948])
+            ("lispy-no-permanent-semantic" variable nil nil [7950 8102])
+            ("lispy-completion-method" variable (:default-value (quote ivy)) nil [8104 8526])
+            ("lispy-visit-method" variable (:default-value (quote ffip)) nil [8528 8735])
+            ("lispy-avy-style-char" variable (:default-value (quote pre)) nil [8737 9006])
+            ("lispy-avy-style-paren" variable (:default-value (quote at)) nil [9008 9278])
+            ("lispy-avy-style-symbol" variable (:default-value (quote pre)) nil [9280 9553])
+            ("lispy-avy-keys" variable (:default-value (number-sequence 97 122)) nil [9555 9627])
+            ("lispy-command-name-face" variable
+               (:default-value (quote ((((class color) (background light)) :background "#d8d8f7" :inherit font-lock-function-name-face) (((class color) (background dark)) :background "#333333" :inherit font-lock-function-name-face)))
+                :type "face")
+                nil [9629 9925])
+            ("lispy-cursor-face" variable
+               (:default-value (quote ((((class color) (background light)) :background "#000000" :foreground "#ffffff") (((class color) (background dark)) :background "#ffffff" :foreground "#000000")))
+                :type "face")
+                nil [9927 10188])
+            ("lispy-test-face" variable
+               (:default-value (quote ((t (:inherit lispy-face-hint))))
+                :type "face")
+                nil [10190 10305])
+            ("lispy-mode-map" variable (:default-value (make-sparse-keymap)) nil [10307 10351])
+            ("lispy-known-verbs" variable nil nil [10354 10414])
+            ("lispy-ignore-whitespace" variable nil nil [10416 10524])
+            ("lispy-compat" variable (:default-value (quote (edebug))) nil [10526 10894])
+            ("define-minor-mode" code nil nil [10911 11998])
+            ("lispy-raise-minor-mode" function (:arguments ("mode")) nil [12000 12236])
+            ("lispy-dotimes" function (:arguments ("n" "bodyform")) nil [12249 12848])
+            ("lispy-save-excursion" function (:arguments ("body")) nil [12850 13075])
+            ("lispy-from-left" function (:arguments ("body")) nil [13077 13463])
+            ("lispy-flet" function (:arguments ("binding" "body")) nil [13465 13850])
+            ("lispy-multipop" function (:arguments ("lst" "n")) nil [13852 14124])
+            ("lispy-site-directory" variable (:default-value (file-name-directory load-file-name)) nil [14126 14282])
+            ("lispy-disable-verbs-except" function (:arguments ("verb")) nil [14301 14450])
+            ("lispy-quit" function (:user-visible-flag t) nil [14452 14546])
+            ("lispy-defverb" function (:arguments ("name" "grammar")) nil [14548 16600])
+            ("lispy-right-p" function nil nil [16626 16770])
+            ("lispy-left-p" function nil nil [16772 16870])
+            ("lispy-forward" function
+               (:user-visible-flag t
+                :arguments ("arg"))
+                nil [16872 17715])
+            ("lispy-backward" function
+               (:user-visible-flag t
+                :arguments ("arg"))
+                nil [17717 18747])
+            ("lispy-right" function
+               (:user-visible-flag t
+                :arguments ("arg"))
+                nil [18749 19192])
+            ("lispy-right-nostring" function
+               (:user-visible-flag t
+                :arguments ("arg"))
+                nil [19194 19527])
+            ("lispy-left" function
+               (:user-visible-flag t
+                :arguments ("arg"))
+                nil [19529 19956])
+            ("lispy-out-forward-newline" function
+               (:user-visible-flag t
+                :arguments ("arg"))
+                nil [19958 20157])
+            ("lispy-meol-point" variable (:default-value 1) nil [20159 20258])
+            ("lispy-move-end-of-line" function (:user-visible-flag t) nil [20260 20942])
+            ("lispy-move-beginning-of-line" function (:user-visible-flag t) nil [20944 21156])
+            ("lispy-flow" function
+               (:user-visible-flag t
+                :arguments ("arg"))
+                nil [21181 22329])
+            ("lispy-down" function
+               (:user-visible-flag t
+                :arguments ("arg"))
+                nil [22331 24619])
+            ("lispy-up" function
+               (:user-visible-flag t
+                :arguments ("arg"))
+                nil [24621 27124])
+            ("lispy-pos-ring" variable (:default-value (make-ring 100)) nil [27126 27211])
+            ("lispy--remember" function nil nil [27213 27879])
+            ("lispy-back" function
+               (:user-visible-flag t
+                :arguments ("arg"))
+                nil [27881 28590])
+            ("lispy-knight-down" function (:user-visible-flag t) nil [28592 29217])
+            ("lispy-knight-up" function (:user-visible-flag t) nil [29219 29846])
+            ("lispy-different" function (:user-visible-flag t) nil [29848 30213])
+            ("lispy-kill" function (:user-visible-flag t) nil [30259 32586])
+            ("lispy-kill-word" function
+               (:user-visible-flag t
+                :arguments ("arg"))
+                nil [32588 33191])
+            ("lispy-backward-kill-word" function
+               (:user-visible-flag t
+                :arguments ("arg"))
+                nil [33193 35085])
+            ("lispy-kill-sentence" function (:user-visible-flag t) nil [35087 35438])
+            ("lispy-yank" function (:user-visible-flag t) nil [35440 35831])
+            ("lispy-delete" function
+               (:user-visible-flag t
+                :arguments ("arg"))
+                nil [35833 38080])
+            ("lispy--delete-quote-garbage" function nil nil [38082 38260])
+            ("lispy--delete-whitespace-backward" function nil nil [38262 38418])
+            ("lispy-delete-backward" function
+               (:user-visible-flag t
+                :arguments ("arg"))
+                nil [38420 43368])
+            ("lispy-mark" function (:user-visible-flag t) nil [43370 43688])
+            ("lispy-mark-list" function
+               (:user-visible-flag t
+                :arguments ("arg"))
+                nil [43690 44708])
+            ("defvar-local" code nil nil [44710 44806])
+            ("lispy-mark-symbol" function (:user-visible-flag t) nil [44808 46868])
+            ("lispy-kill-at-point" function (:user-visible-flag t) nil [46870 47388])
+            ("lispy-new-copy" function (:user-visible-flag t) nil [47390 47617])
+            ("lispy-pair" function (:arguments ("left" "right" "space-unless")) nil [47638 49429])
+            ("defalias" code nil nil [49431 49550])
+            ("defalias" code nil nil [49552 49653])
+            ("defalias" code nil nil [49655 49757])
+            ("lispy-quotes" function
+               (:user-visible-flag t
+                :arguments ("arg"))
+                nil [49759 50711])
+            ("lispy-parens-down" function (:user-visible-flag t) nil [50713 51207])
+            ("lispy-space" function
+               (:user-visible-flag t
+                :arguments ("arg"))
+                nil [51232 52237])
+            ("lispy-colon-no-space-regex" variable (:default-value (quote ((lisp-mode . "\\s-\\|[:^?#]\\|\\(?:\\s([[:word:]-]+\\)")))) nil [52239 52511])
+            ("lispy-colon" function (:user-visible-flag t) nil [52513 52694])
+            ("lispy-hat" function (:user-visible-flag t) nil [52696 52813])
+            ("lispy-tick" function (:user-visible-flag t) nil [52815 52998])
+            ("lispy-backtick" function (:user-visible-flag t) nil [53000 53192])
+            ("lispy-tilde" function
+               (:user-visible-flag t
+                :arguments ("arg"))
+                nil [53194 53597])
+            ("lispy-hash" function (:user-visible-flag t) nil [53599 54005])
+            ("declare-function" code nil nil [54007 54076])
+            ("lispy-newline-and-indent" function (:user-visible-flag t) nil [54077 54637])
+            ("declare-function" code nil nil [54639 54692])
+            ("declare-function" code nil nil [54693 54746])
+            ("lispy-newline-and-indent-plain" function (:user-visible-flag t) nil [54747 55535])
+            ("lispy-open-line" function
+               (:user-visible-flag t
+                :arguments ("arg"))
+                nil [55537 55948])
+            ("lispy-meta-return" function (:user-visible-flag t) nil [55950 56709])
+            ("lispy-alt-line" function
+               (:user-visible-flag t
+                :arguments ("N"))
+                nil [56711 58226])
+            ("lispy-string-oneline" function (:user-visible-flag t) nil [58253 58579])
+            ("lispy-iedit" function (:user-visible-flag t) nil [58581 58753])
+            ("lispy-occur-backend" variable (:default-value (quote ivy)) nil [58789 58964])
+            ("lispy--occur-beg" variable (:default-value 1) nil [58966 59056])
+            ("lispy--occur-end" variable (:default-value 1) nil [59058 59146])
+            ("lispy--occur-candidates" function nil nil [59148 59920])
+            ("lispy--occur-preselect" function nil nil [59922 60122])
+            ("helm-input" variable nil nil [60124 60143])
+            ("declare-function" code nil nil [60144 60178])
+            ("lispy--occur-action" function (:arguments ("x")) nil [60180 61215])
+            ("lispy-occur" function (:user-visible-flag t) nil [61217 63125])
+            ("lispy--occur-update-input-helm" function nil nil [63127 63364])
+            ("lispy--occur-update-input" function (:arguments ("input" "str")) nil [63366 64253])
+            ("lispy--sub-slurp-forward" function (:arguments ("arg")) nil [64291 64721])
+            ("lispy--sub-slurp-backward" function (:arguments ("arg")) nil [64723 65158])
+            ("lispy-slurp" function
+               (:user-visible-flag t
+                :arguments ("arg"))
+                nil [65160 66498])
+            ("lispy-down-slurp" function (:user-visible-flag t) nil [66500 67013])
+            ("lispy-up-slurp" function (:user-visible-flag t) nil [67015 68444])
+            ("lispy--backward-sexp-or-comment" function nil nil [68446 68617])
+            ("lispy--forward-sexp-or-comment" function nil nil [68619 68869])
+            ("lispy-barf" function
+               (:user-visible-flag t
+                :arguments ("arg"))
+                nil [68871 71214])
+            ("lispy-splice" function
+               (:user-visible-flag t
+                :arguments ("arg"))
+                nil [71216 72609])
+            ("lispy-reverse" function (:user-visible-flag t) nil [72611 73091])
+            ("lispy-raise" function
+               (:user-visible-flag t
+                :arguments ("arg"))
+                nil [73093 73959])
+            ("lispy-raise-some" function (:user-visible-flag t) nil [73961 74586])
+            ("lispy-convolute" function
+               (:user-visible-flag t
+                :arguments ("arg"))
+                nil [74588 75684])
+            ("lispy-repeat--command" variable nil nil [75686 75760])
+            ("lispy-repeat--prefix-arg" variable nil nil [75762 75842])
+            ("lispy-repeat" function (:user-visible-flag t) nil [75844 76215])
+            ("lispy-join" function (:user-visible-flag t) nil [76217 77572])
+            ("lispy-split" function (:user-visible-flag t) nil [77574 78221])
+            ("lispy-move-up" function
+               (:user-visible-flag t
+                :arguments ("arg"))
+                nil [78256 80391])
+            ("lispy-move-down" function
+               (:user-visible-flag t
+                :arguments ("arg"))
+                nil [80393 82577])
+            ("lispy-move-left" function
+               (:user-visible-flag t
+                :arguments ("arg"))
+                nil [82579 83755])
+            ("lispy-move-right" function
+               (:user-visible-flag t
+                :arguments ("arg"))
+                nil [83757 84925])
+            ("lispy-clone" function
+               (:user-visible-flag t
+                :arguments ("arg"))
+                nil [84927 86428])
+            ("lispy--oneline-comments" variable nil nil [86430 86509])
+            ("lispy-mapcan-tree" function (:arguments ("func" "expr")) nil [86511 87137])
+            ("lispy--oneline" function (:arguments ("expr" "ignore-comments")) nil [87139 87965])
+            ("lispy-oneline" function (:user-visible-flag t) nil [87967 89245])
+            ("lispy-multiline" function
+               (:user-visible-flag t
+                :arguments ("arg"))
+                nil [89247 90710])
+            ("defvar-local" code nil nil [90712 90973])
+            ("setq-mode-local" code nil nil [90975 91035])
+            ("lispy--multiline-take-3-arg" variable (:default-value (quote (defun defmacro declare-function define-error defadvice defhydra defsubst))) nil [91037 91296])
+            ("defvar-local" code nil nil [91298 91914])
+            ("setq-mode-local" code nil nil [91916 92168])
+            ("lispy--multiline-take-2-arg" variable (:default-value (quote (declare lambda make-variable-buffer-local bound-and-true-p called-interactively-p lispy-dotimes dotimes))) nil [92170 92578])
+            ("lispy-interleave" function (:arguments ("x" "lst" "step")) nil [92580 93108])
+            ("lispy-multiline-threshold" variable (:default-value 32) nil [93110 93227])
+            ("lispy--multiline-1" function (:arguments ("expr" "quoted")) nil [93229 98665])
+            ("lispy-alt-multiline" function
+               (:user-visible-flag t
+                :arguments ("silent"))
+                nil [98667 99835])
+            ("lispy-do-fill" variable nil nil [99837 99908])
+            ("lispy-fill" function (:user-visible-flag t) nil [99910 100111])
+            ("lispy-comment" function
+               (:user-visible-flag t
+                :arguments ("arg"))
+                nil [100113 102914])
+            ("lispy--quote-string" function (:arguments ("str" "quote-newlines")) nil [102916 103262])
+            ("lispy-stringify" function
+               (:user-visible-flag t
+                :arguments ("arg"))
+                nil [103264 104547])
+            ("lispy-unstringify" function (:user-visible-flag t) nil [104549 105326])
+            ("lispy-teleport-global" variable nil nil [105328 105581])
+            ("lispy-quit-and-run" function (:arguments ("body")) nil [105583 105890])
+            ("lispy-teleport" function
+               (:user-visible-flag t
+                :arguments ("arg"))
+                nil [105892 107410])
+            ("lispy-goto" function
+               (:user-visible-flag t
+                :arguments ("arg"))
+                nil [107429 107941])
+            ("lispy-goto-recursive" function (:user-visible-flag t) nil [107943 108307])
+            ("lispy-goto-local" function
+               (:user-visible-flag t
+                :arguments ("arg"))
+                nil [108309 108657])
+            ("lispy-goto-elisp-commands" function
+               (:user-visible-flag t
+                :arguments ("arg"))
+                nil [108659 109411])
+            ("lispy-goto-projectile" function (:user-visible-flag t) nil [109413 109591])
+            ("lispy-goto-def-down" function
+               (:user-visible-flag t
+                :arguments ("arg"))
+                nil [109593 110098])
+            ("lispy-goto-def-ace" function
+               (:user-visible-flag t
+                :arguments ("arg"))
+                nil [110100 110323])
+            ("when" code nil nil [110325 110463])
+            ("declare-function" code nil nil [110465 110517])
+            ("declare-function" code nil nil [110518 110572])
+            ("declare-function" code nil nil [110573 110624])
+            ("declare-function" code nil nil [110625 110685])
+            ("declare-function" code nil nil [110686 110737])
+            ("lispy-goto-symbol" function
+               (:user-visible-flag t
+                :arguments ("symbol"))
+                nil [110738 113387])
+            ("lispy-eval-display-style" variable (:default-value (quote message)) nil [113417 113612])
+            ("cider-eval-result-duration" variable nil nil [113614 113649])
+            ("lispy-eval" function
+               (:user-visible-flag t
+                :arguments ("arg"))
+                nil [113651 114312])
+            ("lispy-do-pprint" variable nil nil [114314 114386])
+            ("lispy-eval-and-insert" function
+               (:user-visible-flag t
+                :arguments ("arg"))
+                nil [114388 114986])
+            ("lispy-eval-and-comment" function (:user-visible-flag t) nil [114988 115775])
+            ("lispy-eval-and-replace" function (:user-visible-flag t) nil [115777 116238])
+            ("lispy--eval-cond-msg" variable
+               (:constant-flag t
+                :default-value (format "%s: nil" (propertize "cond" (quote face) (quote font-lock-keyword-face))))
+                nil [116240 116401])
+            ("lispy-eval-other--window" variable nil nil [116403 116489])
+            ("lispy-eval-other--buffer" variable nil nil [116491 116577])
+            ("lispy-eval-other--cfg" variable nil nil [116579 116674])
+            ("lispy-eval--last-live-p" function nil nil [116676 117036])
+            ("lispy--eval-sym" variable nil nil [117038 117093])
+            ("lispy--eval-data" variable nil nil [117095 117158])
+            ("declare-function" code nil nil [117160 117205])
+            ("aw-dispatch-always" variable nil nil [117206 117233])
+            ("lispy--dolist-item-expr" function (:arguments ("expr")) nil [117235 117928])
+            ("lispy--mapcar-item-expr" function (:arguments ("lmda" "lst")) nil [117930 118584])
+            ("lispy-eval-other-window" function
+               (:user-visible-flag t
+                :arguments ("arg"))
+                nil [118586 119782])
+            ("lispy-follow" function (:user-visible-flag t) nil [119784 119912])
+            ("declare-function" code nil nil [119914 119973])
+            ("lispy-describe" function (:user-visible-flag t) nil [119975 120550])
+            ("lispy-arglist" function (:user-visible-flag t) nil [120552 120837])
+            ("lispy-bof-last-point" variable (:default-value 1) nil [120839 120870])
+            ("lispy-beginning-of-defun" function
+               (:user-visible-flag t
+                :arguments ("arg"))
+                nil [120872 121783])
+            ("declare-function" code nil nil [121806 121852])
+            ("declare-function" code nil nil [121853 121890])
+            ("declare-function" code nil nil [121891 121933])
+            ("lispy-ace-char" function (:user-visible-flag t) nil [121935 122361])
+            ("lispy-ace-paren" function
+               (:user-visible-flag t
+                :arguments ("arg"))
+                nil [122363 123019])
+            ("lispy-ace-symbol" function
+               (:user-visible-flag t
+                :arguments ("arg"))
+                nil [123021 123814])
+            ("lispy-ace-subword" function
+               (:user-visible-flag t
+                :arguments ("arg"))
+                nil [123816 124730])
+            ("lispy--avy-do" function (:arguments ("regex" "bnd" "filter" "style")) nil [124732 125354])
+            ("lispy-ace-symbol-replace" function
+               (:user-visible-flag t
+                :arguments ("arg"))
+                nil [125356 125567])
+            ("lispy-outline-level" function nil nil [125589 125846])
+            ("lispy-outline-next" function
+               (:user-visible-flag t
+                :arguments ("arg"))
+                nil [125848 126139])
+            ("lispy-pre-outline-pos" variable (:default-value 1) nil [126141 126244])
+            ("lispy-outline-prev" function
+               (:user-visible-flag t
+                :arguments ("arg"))
+                nil [126246 126625])
+            ("lispy-outline-right" function (:user-visible-flag t) nil [126627 126847])
+            ("lispy-outline-left" function (:user-visible-flag t) nil [126849 127292])
+            ("lispy-outline-goto-child" function (:user-visible-flag t) nil [127294 127714])
+            ("declare-function" code nil nil [127716 127765])
+            ("declare-function" code nil nil [127766 127802])
+            ("declare-function" code nil nil [127803 127853])
+            ("declare-function" code nil nil [127854 127900])
+            ("lispy-tab" function (:user-visible-flag t) nil [127902 128596])
+            ("lispy-shifttab" function
+               (:user-visible-flag t
+                :arguments ("arg"))
+                nil [128598 129053])
+            ("lispy-to-lambda" function (:user-visible-flag t) nil [129079 129477])
+            ("lispy-to-defun" function (:user-visible-flag t) nil [129479 130757])
+            ("declare-function" code nil nil [130759 130813])
+            ("lispy-flatten" function
+               (:user-visible-flag t
+                :arguments ("arg"))
+                nil [130814 131348])
+            ("lispy-flatten--elisp" function (:arguments ("arg")) nil [131350 133043])
+            ("lispy-to-ifs" function (:user-visible-flag t) nil [133045 133536])
+            ("lispy-to-cond" function (:user-visible-flag t) nil [133538 134134])
+            ("lispy-unbind-variable" function (:user-visible-flag t) nil [134136 134481])
+            ("lispy-bind-variable" function (:user-visible-flag t) nil [134483 134934])
+            ("declare-function" code nil nil [134965 135042])
+            ("declare-function" code nil nil [135043 135109])
+            ("declare-function" code nil nil [135110 135187])
+            ("declare-function" code nil nil [135188 135239])
+            ("declare-function" code nil nil [135240 135309])
+            ("lispy-cursor-down" function
+               (:user-visible-flag t
+                :arguments ("arg"))
+                nil [135311 135879])
+            ("eval-after-load" code nil nil [135881 136201])
+            ("lispy-cursor-ace" function (:user-visible-flag t) nil [136203 136641])
+            ("lispy-store-region-and-buffer" function (:user-visible-flag t) nil [136661 136878])
+            ("lispy--vertical-splitp" function nil nil [136880 137351])
+            ("lispy-ediff-regions" function (:user-visible-flag t) nil [137353 138444])
+            ("lispy-mark-right" function
+               (:user-visible-flag t
+                :arguments ("arg"))
+                nil [138466 139097])
+            ("lispy-mark-left" function
+               (:user-visible-flag t
+                :arguments ("arg"))
+                nil [139099 139302])
+            ("lispy-mark-car" function (:user-visible-flag t) nil [139304 140520])
+            ("lispy-edebug-stop" function (:user-visible-flag t) nil [140541 141768])
+            ("lispy-edebug" function
+               (:user-visible-flag t
+                :arguments ("arg"))
+                nil [141770 143009])
+            ("lispy-debug-step-in" function (:user-visible-flag t) nil [143011 145004])
+            ("cl--bind-lets" variable nil nil [145006 145028])
+            ("cl--bind-forms" variable nil nil [145029 145052])
+            ("cl--bind-defs" variable nil nil [145053 145075])
+            ("cl--bind-block" variable nil nil [145076 145099])
+            ("cl--bind-enquote" variable nil nil [145100 145125])
+            ("lispy-destructuring-setq" function (:arguments ("args" "expr")) nil [145127 145655])
+            ("lispy-describe-bindings-C-4" function (:user-visible-flag t) nil [145681 145816])
+            ("lispy-mode-map-x" variable (:default-value (let ((map (make-sparse-keymap))) (define-key map "d" (quote lispy-to-defun)) (define-key map "l" (quote lispy-to-lambda)) (define-key map "e" (quote lispy-edebug)) (define-key map "m" (quote lispy-cursor-ace)) (define-key map "i" (quote lispy-to-ifs)) (define-key map "c" (quote lispy-to-cond)) (define-key map "f" (quote lispy-flatten)) (define-key map "r" (quote lispy-eval-and-replace)) (define-key map "s" (quote save-buffer)) (define-key map "j" (quote lispy-debug-step-in)) (define-key map "h" (quote lispy-describe)) (define-key map "u" (quote lispy-unbind-variable)) (define-key map "b" (quote lispy-bind-variable)) (define-key map "v" (quote lispy-view-test)) (define-key map "B" (quote lispy-store-region-and-buffer)) (define-key map "R" (quote lispy-reverse)) (define-key map (char-to-string help-char) (quote lispy-describe-bindings-C-4)) map)) nil [145818 146655])
+            ("lispy-x" function (:user-visible-flag t) nil [146657 146897])
+            ("lispy-ert" function (:user-visible-flag t) nil [146899 146965])
+            ("lispy-undo" function (:user-visible-flag t) nil [146967 147098])
+            ("lispy-view" function (:user-visible-flag t) nil [147100 147522])
+            ("lispy--setq-doconst" function (:arguments ("x")) nil [147524 147776])
+            ("lispy-setq" function (:user-visible-flag t) nil [147778 148598])
+            ("unless" code nil nil [148600 148869])
+            ("defalias" code nil nil [148871 148999])
+            ("declare-function" code nil nil [149001 149057])
+            ("declare-function" code nil nil [149058 149127])
+            ("declare-function" code nil nil [149128 149187])
+            ("projectile-mode" variable nil nil [149188 149212])
+            ("declare-function" code nil nil [149213 149279])
+            ("lispy-visit" function
+               (:user-visible-flag t
+                :arguments ("arg"))
+                nil [149281 149690])
+            ("lispy-narrow" function
+               (:user-visible-flag t
+                :arguments ("arg"))
+                nil [149692 150435])
+            ("lispy-widen" function (:user-visible-flag t) nil [150437 150509])
+            ("lispy-other-space" function (:user-visible-flag t) nil [150511 150739])
+            ("lispy-paste" function
+               (:user-visible-flag t
+                :arguments ("arg"))
+                nil [150741 151710])
+            ("defalias" code nil nil [151712 151841])
+            ("lispy--fontify" function (:arguments ("str")) nil [151843 154438])
+            ("lispy-view-test" function (:user-visible-flag t) nil [154440 155437])
+            ("lispy--in-string-p" function nil nil [155454 155732])
+            ("lispy--in-comment-p" function nil nil [155734 155891])
+            ("lispy--in-string-or-comment-p" function nil nil [155893 156117])
+            ("lispy--buffer-narrowed-p" function nil nil [156119 156270])
+            ("lispy--raw-comment-p" function (:arguments ("expr")) nil [156272 156457])
+            ("lispy--raw-string-p" function (:arguments ("expr")) nil [156459 156642])
+            ("lispy--leftp" function nil nil [156644 156850])
+            ("lispy--symbolp" function (:arguments ("str")) nil [156852 156963])
+            ("lispy--string-markedp" function nil nil [156965 157169])
+            ("lispy-looking-back" function (:arguments ("regexp")) nil [157171 157299])
+            ("lispy-bolp" function nil nil [157301 157454])
+            ("lispy-after-string-p" function (:arguments ("str")) nil [157456 157638])
+            ("lispy--bounds-dwim" function nil nil [157649 159244])
+            ("lispy--bounds-list" function nil nil [159246 159631])
+            ("lispy--bounds-string" function nil nil [159633 160149])
+            ("lispy--bounds-comment" function nil nil [160151 161491])
+            ("lispy--string-dwim" function (:arguments ("bounds")) nil [161493 161745])
+            ("lispy--current-function" function nil nil [161747 162130])
+            ("lispy--prin1-fancy" function (:arguments ("x")) nil [162132 162291])
+            ("lispy--out-forward" function (:arguments ("arg")) nil [162317 162811])
+            ("lispy--out-backward" function (:arguments ("arg")) nil [162813 163108])
+            ("lispy--back-to-paren" function nil nil [163110 163295])
+            ("lispy--exit-string" function nil nil [163297 163444])
+            ("lispy--beginning-of-comment" function nil nil [163446 163652])
+            ("lispy--comment-search-forward" function (:arguments ("dir")) nil [163654 163850])
+            ("declare-function" code nil nil [163878 163929])
+            ("lispy--eval" function (:arguments ("e-str" "add-output")) nil [163930 164738])
+            ("lispy-eval-match-data" variable nil nil [164740 164774])
+            ("lispy--eval-elisp-form" function (:arguments ("lispy-form" "lexical")) nil [164776 165289])
+            ("defalias" code nil nil [165291 165403])
+            ("lispy--eval-elisp" function (:arguments ("e-str")) nil [165405 166514])
+            ("lispy-tag-arity" variable (:default-value (quote ((lisp-mode (defclass . 1) (defconstant . 1) (defgeneric . 1) (define-condition . 1) (define-symbol-macro . 1) (defmethod . 2) (defpackage . 1) (defparameter . 1) (defsetf . 1) (defstruct . 1) (deftype . 1) (in-package . 1) (load . 1) (setq . 2) (definterface . 1) (defimplementation . 1) (define-caller-pattern . 1) (define-variable-pattern . 1) (define-pattern-substitution . 1) (defslimefun . 1)) (emacs-lisp-mode (setq . 2) (csetq . 2) (setq-default . 2) (add-to-list . 2) (add-hook . 2) (load . 1) (load-file . 1) (define-key . 3) (ert-deftest . 1) (declare-function . 1) (defalias . 2) (defvaralias . 2) (defvar-local . 1) (make-variable-buffer-local . 1) (define-minor-mode . 1) (make-obsolete . 2) (put . 3) (overlay-put . 3) (make-obsolete-variable . 1) (define-obsolete-function-alias . 1) (define-obsolete-variable-alias . 1) (eval-after-load . 1) (global-set-key . 2) (if . 1) (when . 1) (unless . 1) (advice-add . 1) (cl-defun . 1) (defstruct . 1) (cl-defstruct . 1) (org-defkey . 3) (use-package . 1) (lispy-defverb . 1) (defhydra . 1))))) nil [166536 168049])
+            ("lispy--fetch-this-file-tags" function (:arguments ("file")) nil [168051 168537])
+            ("lispy--tag-regexp" function (:arguments ("mode")) nil [168539 169314])
+            ("lispy--propertize-tag" function (:arguments ("kind" "x" "face")) nil [169316 169982])
+            ("lispy--modify-tag" function (:arguments ("x" "regex" "arity-alist" "file")) nil [169984 171293])
+            ("lispy--tag-name-lisp" function (:arguments ("x")) nil [171295 171821])
+            ("lispy--tag-sexp-elisp" function (:arguments ("x" "file")) nil [171823 172392])
+            ("lispy--tag-name-elisp" function (:arguments ("x" "file")) nil [172394 173640])
+            ("lispy--tag-name-clojure" function (:arguments ("x")) nil [173642 174001])
+            ("lispy--tag-name" function (:arguments ("x" "file")) nil [174003 174934])
+            ("lispy--fetch-tags-recursive" function nil nil [174936 175288])
+            ("lispy--fetch-tags-projectile" function nil nil [175290 175503])
+            ("lispy--goto" function (:arguments ("fun")) nil [175505 175903])
+            ("lispy--slurp-forward" function nil nil [175941 176310])
+            ("lispy--slurp-backward" function nil nil [176312 176528])
+            ("lispy--barf-forward" function nil nil [176530 176897])
+            ("lispy--barf-backward" function nil nil [176899 177354])
+            ("lispy--replace-regexp-in-code" function (:arguments ("regexp" "to-string")) nil [177356 177667])
+            ("lispy--braces-table" variable (:default-value (let ((table (make-char-table (quote syntax-table) nil))) (modify-syntax-entry 123 "(}  " table) (modify-syntax-entry 125 "){  " table) (modify-syntax-entry 91 "(]  " table) (modify-syntax-entry 93 ")[  " table) (modify-syntax-entry 40 "()  " table) (modify-syntax-entry 41 ")(  " table) table)) nil [177706 178092])
+            ("lispy--read" function (:arguments ("str")) nil [178094 186345])
+            ("lispy--insert-alist" variable (:default-value (quote ((\` . "`") (\, . ",") (\,@ . ",@")))) nil [186347 186423])
+            ("lispy-expr-canonical-p" function
+               (:user-visible-flag t
+                :arguments ("str"))
+                nil [186425 186992])
+            ("lispy--whitespacep" function (:arguments ("x")) nil [186994 187175])
+            ("unless" code nil nil [187177 188147])
+            ("define-error" code nil nil [188149 188206])
+            ("lispy--function-str" function (:arguments ("fun")) nil [188207 189077])
+            ("lispy--function-parse" function (:arguments ("str")) nil [189079 190713])
+            ("lispy--flatten-function" function (:arguments ("fstr" "e-args")) nil [190715 191564])
+            ("lispy--fast-insert" function (:arguments ("f-expr")) nil [191566 191780])
+            ("lispy--case->if" function (:arguments ("case" "else")) nil [191782 192428])
+            ("lispy--cases->ifs" function (:arguments ("cases")) nil [192430 193025])
+            ("lispy--whitespace-trim" function (:arguments ("x")) nil [193027 193158])
+            ("lispy--if->case" function (:arguments ("cnd" "then")) nil [193160 193498])
+            ("lispy--ifs->cases" function (:arguments ("ifs")) nil [193500 194751])
+            ("lispy--raw-quote-maybe" function (:arguments ("x")) nil [194753 194923])
+            ("lispy--case->cond" function (:arguments ("expr")) nil [194925 195423])
+            ("lispy--replace" function (:arguments ("lst" "from" "to")) nil [195425 195714])
+            ("lispy-complain" function (:arguments ("msg")) nil [195747 196017])
+            ("lispy--indent-region" function (:arguments ("beg" "end")) nil [196039 196348])
+            ("lispy--indent-for-tab" function nil nil [196350 196616])
+            ("lispy--remove-gaps" function nil nil [196618 197287])
+            ("lispy--surround-region" function (:arguments ("alpha" "omega")) nil [197289 197592])
+            ("lispy--mark" function (:arguments ("bnd")) nil [197594 197756])
+            ("lispy--space-unless" function (:arguments ("context")) nil [197758 198136])
+            ("lispy--reindent" function (:arguments ("arg")) nil [198138 198759])
+            ("lispy--delete" function nil nil [198761 199416])
+            ("lispy--current-tag" function nil nil [199418 199996])
+            ("lispy--fancy-tag" function nil nil [199998 200929])
+            ("helm-update-blacklist-regexps" variable nil nil [200931 200969])
+            ("helm-candidate-number-limit" variable nil nil [200970 201006])
+            ("lispy-tag-history" variable nil nil [201008 201060])
+            ("lispy--select-candidate" function (:arguments ("candidates" "action")) nil [201062 202491])
+            ("ivy-last" variable nil nil [202493 202510])
+            ("declare-function" code nil nil [202511 202556])
+            ("lispy--action-jump" function (:arguments ("tag")) nil [202558 203197])
+            ("lispy--recenter-bounds" function (:arguments ("bnd")) nil [203199 203634])
+            ("lispy--prin1-to-string" function (:arguments ("expr" "offset" "mode")) nil [203636 204060])
+            ("lispy--splice-to-str" function (:arguments ("sexp")) nil [204062 204251])
+            ("lispy--insert" function (:arguments ("expr")) nil [204253 208459])
+            ("lispy--normalize-1" function nil nil [208461 209359])
+            ("lispy--sexp-trim-leading-newlines" function (:arguments ("expr" "comment")) nil [209361 209742])
+            ("lispy--sexp-trim-newlines" function (:arguments ("expr")) nil [209744 210050])
+            ("lispy--sexp-trim-trailing-newlines" function (:arguments ("foo" "comment")) nil [210052 210571])
+            ("lispy--sexp-normalize" function (:arguments ("foo")) nil [210573 210984])
+            ("lispy--do-replace" function (:arguments ("from" "to")) nil [210986 211551])
+            ("lispy--teleport" function (:arguments ("beg" "end" "endp" "regionp")) nil [211553 212970])
+            ("lispy--swap-regions" function (:arguments ("bnd1" "bnd2")) nil [212972 213763])
+            ("lispy--ensure-visible" function nil nil [213765 214088])
+            ("lispy--delete-pair-in-string" function (:arguments ("left" "right")) nil [214090 215419])
+            ("ediff-temp-indirect-buffer" variable nil nil [215421 215456])
+            ("lispy--make-ediff-buffer" function (:arguments ("buffer" "ext" "bnd")) nil [215457 215987])
+            ("lispy--edebug-command" variable nil nil [215989 216078])
+            ("lispy--cider-debug-command" variable nil nil [216080 216174])
+            ("lispy--edebug-commandp" function nil nil [216176 216560])
+            ("cider--debug-mode-map" variable nil nil [216562 216592])
+            ("lispy--cider-debug-commandp" function nil nil [216594 216947])
+            ("macrostep-keymap" variable nil nil [216949 216974])
+            ("lispy--compat-cmd" variable nil nil [216975 217045])
+            ("lispy--insert-or-call" function (:arguments ("def" "plist")) nil [217047 219456])
+            ("lispy--setq-expression" function nil nil [219458 222576])
+            ("ac-trigger-commands" variable (:default-value (quote (self-insert-command))) nil [222598 222649])
+            ("company-begin-commands" variable (:default-value (quote (self-insert-command))) nil [222650 222704])
+            ("company-no-begin-commands" variable (:default-value (quote (special-lispy-space))) nil [222705 222762])
+            ("mc/cmds-to-run-for-all" variable nil nil [222763 222798])
+            ("mc/cmds-to-run-once" variable nil nil [222799 222831])
+            ("mapc" code nil nil [222832 222915])
+            ("mapc" code nil nil [222916 223070])
+            ("ac-handle-post-command" function (:arguments ("around" "ac-post-command-advice" "activate")) nil [223072 223238])
+            ("lispy-define-key" function (:arguments ("keymap" "key" "def" "plist")) nil [223240 223855])
+            ("lispy-defverb" code nil nil [223857 224134])
+            ("lispy-defverb" code nil nil [224136 224310])
+            ("unless" code nil nil [224312 224841])
+            ("defhydra" code nil nil [224843 224939])
+            ("lispy-mode-map-special" variable (:default-value (let ((map (make-sparse-keymap))) (lispy-define-key map "l" (quote lispy-right)) (lispy-define-key map "h" (quote lispy-left)) (lispy-define-key map "f" (quote lispy-flow)) (lispy-define-key map "j" (quote lispy-down)) (lispy-define-key map "k" (quote lispy-up)) (lispy-define-key map "d" (quote lispy-different)) (lispy-define-key map "o" (quote lispy-other-mode)) (lispy-define-key map "p" (quote lispy-eval-other-window)) (lispy-define-key map "P" (quote lispy-paste)) (lispy-define-key map "y" (quote lispy-occur)) (lispy-define-key map "z" (quote lh-knight/body)) (lispy-define-key map "J" (quote lispy-outline-next)) (lispy-define-key map "K" (quote lispy-outline-prev)) (lispy-define-key map "L" (quote lispy-outline-goto-child)) (lispy-define-key map ">" (quote lispy-slurp)) (lispy-define-key map "<" (quote lispy-barf)) (lispy-define-key map "/" (quote lispy-splice)) (lispy-define-key map "r" (quote lispy-raise)) (lispy-define-key map "R" (quote lispy-raise-some)) (lispy-define-key map "+" (quote lispy-join)) (lispy-define-key map "C" (quote lispy-convolute)) (lispy-define-key map "w" (quote lispy-move-up)) (lispy-define-key map "s" (quote lispy-move-down)) (lispy-define-key map "O" (quote lispy-oneline)) (lispy-define-key map "M" (quote lispy-alt-multiline)) (lispy-define-key map "S" (quote lispy-stringify)) (lispy-define-key map "a" (quote lispy-ace-symbol) :override (quote (cond ((looking-at lispy-outline) (lispy-meta-return))))) (lispy-define-key map "H" (quote lispy-ace-symbol-replace)) (lispy-define-key map "m" (quote lispy-mark-list)) (lispy-define-key map "e" (quote lispy-eval)) (lispy-define-key map "E" (quote lispy-eval-and-insert)) (lispy-define-key map "G" (quote lispy-goto-local)) (lispy-define-key map "g" (quote lispy-goto)) (lispy-define-key map "F" (quote lispy-follow) t) (lispy-define-key map "D" (quote pop-tag-mark)) (lispy-define-key map "A" (quote lispy-beginning-of-defun)) (lispy-define-key map "SPC" (quote lispy-space)) (lispy-define-key map "i" (quote lispy-tab)) (lispy-define-key map "I" (quote lispy-shifttab)) (lispy-define-key map "N" (quote lispy-narrow)) (lispy-define-key map "W" (quote lispy-widen)) (lispy-define-key map "c" (quote lispy-clone)) (lispy-define-key map "u" (quote lispy-undo)) (lispy-define-key map "q" (quote lispy-ace-paren) :override (quote (cond ((bound-and-true-p view-mode) (View-quit))))) (lispy-define-key map "Q" (quote lispy-ace-char)) (lispy-define-key map "v" (quote lispy-view)) (lispy-define-key map "t" (quote lispy-teleport) :override (quote (cond ((looking-at lispy-outline) (end-of-line))))) (lispy-define-key map "n" (quote lispy-new-copy)) (lispy-define-key map "b" (quote lispy-back)) (lispy-define-key map "B" (quote lispy-ediff-regions)) (lispy-define-key map "x" (quote lispy-x)) (lispy-define-key map "Z" (quote lispy-edebug-stop)) (lispy-define-key map "V" (quote lispy-visit)) (lispy-define-key map "-" (quote lispy-ace-subword)) (lispy-define-key map "." (quote lispy-repeat)) (lispy-define-key map "~" (quote lispy-tilde)) (mapc (lambda (x) (lispy-define-key map (format "%d" x) (quote digit-argument))) (number-sequence 0 9)) map)) nil [224941 228199])
+            ("eldoc-remove-command" code nil nil [228200 228242])
+            ("lispy-close-round-and-newline" function
+               (:user-visible-flag t
+                :arguments ("arg"))
+                nil [228263 228552])
+            ("lispy-open-square" function
+               (:user-visible-flag t
+                :arguments ("arg"))
+                nil [228554 228765])
+            ("lispy-open-curly" function
+               (:user-visible-flag t
+                :arguments ("arg"))
+                nil [228767 228973])
+            ("lispy-close-square" function
+               (:user-visible-flag t
+                :arguments ("arg"))
+                nil [228975 229193])
+            ("lispy-close-curly" function
+               (:user-visible-flag t
+                :arguments ("arg"))
+                nil [229195 229412])
+            ("lispy-doublequote" function
+               (:user-visible-flag t
+                :arguments ("arg"))
+                nil [229414 230379])
+            ("lispy-meta-doublequote" function
+               (:user-visible-flag t
+                :arguments ("arg"))
+                nil [230381 230684])
+            ("lispy-forward-delete" function
+               (:user-visible-flag t
+                :arguments ("arg"))
+                nil [230686 231150])
+            ("lispy-backward-delete" function
+               (:user-visible-flag t
+                :arguments ("arg"))
+                nil [231152 231570])
+            ("lispy-wrap-round" function (:user-visible-flag t) nil [231572 231665])
+            ("lispy-splice-sexp-killing-backward" function (:user-visible-flag t) nil [231667 231947])
+            ("lispy-raise-sexp" function (:user-visible-flag t) nil [231949 232154])
+            ("lispy-convolute-sexp" function (:user-visible-flag t) nil [232156 232339])
+            ("lispy-forward-slurp-sexp" function
+               (:user-visible-flag t
+                :arguments ("arg"))
+                nil [232341 232534])
+            ("lispy-forward-barf-sexp" function
+               (:user-visible-flag t
+                :arguments ("arg"))
+                nil [232536 232725])
+            ("lispy-backward-slurp-sexp" function
+               (:user-visible-flag t
+                :arguments ("arg"))
+                nil [232727 232921])
+            ("lispy-backward-barf-sexp" function
+               (:user-visible-flag t
+                :arguments ("arg"))
+                nil [232923 233114])
+            ("lispy-mode-map-base" variable (:default-value (let ((map (make-sparse-keymap))) (define-key map (kbd "C-a") (quote lispy-move-beginning-of-line)) (define-key map (kbd "C-e") (quote lispy-move-end-of-line)) (define-key map (kbd "C-k") (quote lispy-kill)) (define-key map (kbd "M-d") (quote lispy-kill-word)) (define-key map (kbd "M-DEL") (quote lispy-backward-kill-word)) (define-key map (kbd "(") (quote lispy-parens)) (define-key map (kbd ";") (quote lispy-comment)) (define-key map (kbd "M-q") (quote lispy-fill)) (define-key map (kbd "C-j") (quote lispy-newline-and-indent)) (define-key map (kbd "RET") (quote lispy-newline-and-indent-plain)) (define-key map (kbd "M-.") (quote lispy-goto-symbol)) (define-key map (kbd "M-,") (quote pop-tag-mark)) map)) nil [233116 233881])
+            ("lispy-mode-map-paredit" variable (:default-value (let ((map (copy-keymap lispy-mode-map-base))) (define-key map (kbd "M-)") (quote lispy-close-round-and-newline)) (define-key map (kbd "C-M-n") (quote lispy-forward)) (define-key map (kbd "C-M-p") (quote lispy-backward)) (define-key map (kbd "[") (quote lispy-open-square)) (define-key map (kbd "]") (quote lispy-close-square)) (define-key map (kbd "{") (quote lispy-open-curly)) (define-key map (kbd "}") (quote lispy-close-curly)) (define-key map (kbd ")") (quote lispy-right-nostring)) (define-key map (kbd "\"") (quote lispy-doublequote)) (define-key map (kbd "M-\"") (quote lispy-meta-doublequote)) (define-key map (kbd "C-d") (quote lispy-forward-delete)) (define-key map (kbd "DEL") (quote lispy-backward-delete)) (define-key map (kbd "C-M-f") (quote lispy-forward)) (define-key map (kbd "C-M-b") (quote lispy-backward)) (define-key map (kbd "M-(") (quote lispy-wrap-round)) (define-key map (kbd "M-s") (quote lispy-splice)) (define-key map (kbd "M-<up>") (quote lispy-splice-sexp-killing-backward)) (define-key map (kbd "M-<down>") (quote lispy-splice-sexp-killing-backward)) (define-key map (kbd "M-r") (quote lispy-raise-sexp)) (define-key map (kbd "M-?") (quote lispy-convolute-sexp)) (define-key map (kbd "C-)") (quote lispy-forward-slurp-sexp)) (define-key map (kbd "C-<right>") (quote lispy-forward-slurp-sexp)) (define-key map (kbd "C-}") (quote lispy-forward-barf-sexp)) (define-key map (kbd "C-<left>") (quote lispy-forward-barf-sexp)) (define-key map (kbd "C-(") (quote lispy-backward-slurp-sexp)) (define-key map (kbd "C-M-<left>") (quote lispy-backward-slurp-sexp)) (define-key map (kbd "C-M-<right>") (quote lispy-backward-barf-sexp)) (define-key map (kbd "C-{") (quote lispy-backward-barf-sexp)) (define-key map (kbd "M-S") (quote lispy-split)) (define-key map (kbd "M-J") (quote lispy-join)) (define-key map (kbd "C-M-u") (quote lispy-left)) (define-key map (kbd "C-M-n") (quote lispy-right)) map)) nil [233883 235745])
+            ("lispy-mode-map-c-digits" variable (:default-value (let ((map (make-sparse-keymap))) (define-key map (kbd "C-1") (quote lispy-describe-inline)) (define-key map (kbd "C-2") (quote lispy-arglist-inline)) (define-key map (kbd "C-3") (quote lispy-right)) (define-key map (kbd "C-4") lispy-mode-map-x) (define-key map (kbd "C-7") (quote lispy-cursor-down)) (define-key map (kbd "C-8") (quote lispy-parens-down)) (define-key map (kbd "C-9") (quote lispy-out-forward-newline)) map)) nil [235747 236195])
+            ("declare-function" code nil nil [236197 236232])
+            ("lispy-mode-map-lispy" variable (:default-value (let ((map (copy-keymap lispy-mode-map-base))) (define-key map (kbd "]") (quote lispy-forward)) (define-key map (kbd "[") (quote lispy-backward)) (define-key map (kbd ")") (quote lispy-right-nostring)) (define-key map (kbd "C-y") (quote lispy-yank)) (define-key map (kbd "C-d") (quote lispy-delete)) (define-key map (kbd "DEL") (quote lispy-delete-backward)) (define-key map (kbd "M-k") (quote lispy-kill-sentence)) (define-key map (kbd "M-m") (quote lispy-mark-symbol)) (define-key map (kbd "C-,") (quote lispy-kill-at-point)) (define-key map (kbd "C-M-,") (quote lispy-mark)) (define-key map (kbd "{") (quote lispy-braces)) (define-key map (kbd "}") (quote lispy-brackets)) (define-key map (kbd "\"") (quote lispy-quotes)) (define-key map (kbd ":") (quote lispy-colon)) (define-key map (kbd "^") (quote lispy-hat)) (define-key map (kbd "'") (quote lispy-tick)) (define-key map (kbd "`") (quote lispy-backtick)) (define-key map (kbd "#") (quote lispy-hash)) (define-key map (kbd "M-j") (quote lispy-split)) (define-key map (kbd "M-J") (quote lispy-join)) (define-key map (kbd "<C-return>") (quote lispy-open-line)) (define-key map (kbd "<M-return>") (quote lispy-meta-return)) (define-key map (kbd "M-o") (quote lispy-string-oneline)) (define-key map (kbd "M-i") (quote lispy-iedit)) (define-key map (kbd "<backtab>") (quote lispy-shifttab)) (define-key map (kbd "M-<left>") (quote lispy-outline-left)) (define-key map (kbd "M-<right>") (quote lispy-outline-right)) map)) nil [236233 237751])
+            ("lispy-mode-map-oleh" variable (:default-value (let ((map (make-sparse-keymap))) (define-key map (kbd "φ") (quote lispy-parens)) (define-key map (kbd "σ") (quote lispy-braces)) (define-key map (kbd "ρ") (quote lispy-brackets)) (define-key map (kbd "θ") (quote lispy-quotes)) (define-key map (kbd "C-φ") (quote lispy-parens-down)) (define-key map (kbd "χ") (quote lispy-right)) (define-key map (kbd "C-M-a") (quote lispy-beginning-of-defun)) (define-key map (kbd "C-x C-j") (quote lispy-debug-step-in)) (define-key map (kbd "<return>") (quote lispy-alt-line)) (define-key map (kbd "RET") (quote lispy-newline-and-indent-plain)) (lispy-define-key map "Y" (quote swiper)) map)) nil [237753 238381])
+            ("lispy-set-key-theme" function (:arguments ("theme")) nil [238383 239035])
+            ("if" code nil nil [239037 239196])
+            ("lispy" package nil nil [239198 239214]))          
+      :file "lispy.el"
+      :pointmax 239239
+      :fsize 239884
+      :lastmodtime '(22009 13226 0 0)
+      :unmatched-syntax nil)
+    (semanticdb-table "lispy-tags.el"
+      :file "lispy-tags.el"
+      :fsize 5955
+      :lastmodtime '(22009 13226 0 0))
+    (semanticdb-table "lispy-inline.el"
+      :file "lispy-inline.el"
+      :fsize 12076
+      :lastmodtime '(22009 13226 0 0)))
+  :file "!home!chz!.emacs.d!elpa!lispy-20150911.225!semantic.cache"
+  :semantic-tag-version "2.0"
+  :semanticdb-version "2.2")

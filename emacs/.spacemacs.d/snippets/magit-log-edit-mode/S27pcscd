@@ -1,0 +1,3624 @@
+;; Object md/
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "md/"
+  :tables (list 
+   (semanticdb-table "md.c"
+    :major-mode 'c-mode
+    :tags 
+        '( ("linux/kthread.h" include (:system-flag t) nil [1325 1351])
+            ("linux/blkdev.h" include (:system-flag t) nil [1352 1377])
+            ("linux/sysctl.h" include (:system-flag t) nil [1378 1403])
+            ("linux/seq_file.h" include (:system-flag t) nil [1404 1431])
+            ("linux/mutex.h" include (:system-flag t) nil [1432 1456])
+            ("linux/buffer_head.h" include (:system-flag t) nil [1457 1487])
+            ("linux/poll.h" include (:system-flag t) nil [1514 1537])
+            ("linux/ctype.h" include (:system-flag t) nil [1538 1562])
+            ("linux/string.h" include (:system-flag t) nil [1563 1588])
+            ("linux/hdreg.h" include (:system-flag t) nil [1589 1613])
+            ("linux/proc_fs.h" include (:system-flag t) nil [1614 1640])
+            ("linux/random.h" include (:system-flag t) nil [1641 1666])
+            ("linux/reboot.h" include (:system-flag t) nil [1667 1692])
+            ("linux/file.h" include (:system-flag t) nil [1693 1716])
+            ("linux/compat.h" include (:system-flag t) nil [1717 1742])
+            ("linux/delay.h" include (:system-flag t) nil [1743 1767])
+            ("linux/raid/md_p.h" include (:system-flag t) nil [1768 1796])
+            ("linux/raid/md_u.h" include (:system-flag t) nil [1797 1825])
+            ("linux/slab.h" include (:system-flag t) nil [1826 1849])
+            ("md.h" include nil nil [1850 1865])
+            ("bitmap.h" include nil nil [1866 1885])
+            ("DEBUG" variable (:constant-flag t) nil [1895 1900])
+            ("dprintk" variable (:constant-flag t) nil [1911 1918])
+            ("autostart_arrays" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("part" variable (:type "int") (reparse-symbol arg-sub-list) [1999 2008]))                  
+                :type "void")
+                nil [1970 2009])
+            ("LIST_HEAD" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("" variable (:type ("pers_list" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [2220 2230]))                  
+                :type "int")
+                nil [2203 2231])
+            ("DEFINE_SPINLOCK" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("" variable (:type ("pers_lock" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [2255 2265]))                  
+                :type "int")
+                nil [2232 2266])
+            ("md_print_devices" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [2297 2302]))                  
+                :type "void")
+                nil [2268 2303])
+            ("DECLARE_WAIT_QUEUE_HEAD" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("" variable (:type ("resync_wait" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [2336 2348]))                  
+                :type "int")
+                nil [2305 2349])
+            ("md_wq" variable
+               (:pointer 1
+                :typemodifiers ("static")
+                :type ("workqueue_struct" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [2350 2388])
+            ("md_misc_wq" variable
+               (:pointer 1
+                :typemodifiers ("static")
+                :type ("workqueue_struct" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [2389 2432])
+            ("MD_BUG" variable (:constant-flag t) nil [2442 2448])
+            ("MD_DEFAULT_MAX_CORRECTED_READ_ERRORS" variable (:constant-flag t) nil [2740 2776])
+            ("sysctl_speed_limit_min" variable
+               (:typemodifiers ("static")
+                :type "int")
+                nil [3355 3396])
+            ("sysctl_speed_limit_max" variable
+               (:typemodifiers ("static")
+                :type "int")
+                nil [3397 3440])
+            ("speed_min" function
+               (:typemodifiers ("static" "inline")
+                :arguments 
+                  ( ("mddev" variable
+                       (:pointer 1
+                        :type ("mddev_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [3469 3484]))                  
+                :type "int")
+                nil [3441 3570])
+            ("speed_max" function
+               (:typemodifiers ("static" "inline")
+                :arguments 
+                  ( ("mddev" variable
+                       (:pointer 1
+                        :type ("mddev_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [3600 3615]))                  
+                :type "int")
+                nil [3572 3701])
+            ("raid_table_header" variable
+               (:pointer 1
+                :typemodifiers ("static")
+                :type ("ctl_table_header" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [3703 3753])
+            ("raid_table" variable
+               (:dereference 1
+                :typemodifiers ("static")
+                :type ("ctl_table" type (:type "class") nil nil))
+                nil [3755 4122])
+            ("raid_dir_table" variable
+               (:dereference 1
+                :typemodifiers ("static")
+                :type ("ctl_table" type (:type "class") nil nil))
+                nil [4124 4266])
+            ("raid_root_table" variable
+               (:dereference 1
+                :typemodifiers ("static")
+                :type ("ctl_table" type (:type "class") nil nil))
+                nil [4268 4404])
+            ("md_fops" variable
+               (:typemodifiers ("static")
+                :constant-flag t
+                :type ("block_device_operations" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [4406 4458])
+            ("start_readonly" variable
+               (:typemodifiers ("static")
+                :type "int")
+                nil [4460 4486])
+            ("mddev_bio_destructor" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("bio" variable
+                       (:pointer 1
+                        :type ("bio" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [4589 4605]))                  
+                :type "void")
+                nil [4556 4713])
+            ("bio_alloc_mddev" function
+               (:pointer 1
+                :arguments 
+                  ( ("gfp_mask" variable (:type ("gfp_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [4743 4758])
+                    ("nr_iovecs" variable (:type "int") (reparse-symbol arg-sub-list) [4759 4773])
+                    ("mddev" variable
+                       (:pointer 1
+                        :type ("mddev_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [4781 4796]))                  
+                :type ("bio" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [4715 5096])
+            ("EXPORT_SYMBOL_GPL" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("bio_alloc_mddev" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [5115 5131]))                  
+                :type "int")
+                nil [5097 5132])
+            ("bio_clone_mddev" function
+               (:pointer 1
+                :arguments 
+                  ( ("bio" variable
+                       (:pointer 1
+                        :type ("bio" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [5162 5178])
+                    ("gfp_mask" variable (:type ("gfp_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [5179 5194])
+                    ("mddev" variable
+                       (:pointer 1
+                        :type ("mddev_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [5202 5217]))                  
+                :type ("bio" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [5134 5699])
+            ("EXPORT_SYMBOL_GPL" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("bio_clone_mddev" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [5718 5734]))                  
+                :type "int")
+                nil [5700 5735])
+            ("DECLARE_WAIT_QUEUE_HEAD" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("" variable (:type ("md_event_waiters" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [6083 6100]))                  
+                :type "int")
+                nil [6052 6101])
+            ("md_event_count" variable
+               (:typemodifiers ("static")
+                :type ("atomic_t" type (:type "class") nil nil))
+                nil [6102 6133])
+            ("md_new_event" function
+               (:arguments 
+                  ( ("mddev" variable
+                       (:pointer 1
+                        :type ("mddev_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [6152 6167]))                  
+                :type "void")
+                nil [6134 6230])
+            ("EXPORT_SYMBOL_GPL" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("md_new_event" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [6249 6262]))                  
+                :type "int")
+                nil [6231 6263])
+            ("md_new_event_inintr" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("mddev" variable
+                       (:pointer 1
+                        :type ("mddev_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [6400 6415]))                  
+                :type "void")
+                nil [6368 6478])
+            ("LIST_HEAD" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("" variable (:type ("all_mddevs" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [6593 6604]))                  
+                :type "int")
+                nil [6576 6605])
+            ("DEFINE_SPINLOCK" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("" variable (:type ("all_mddevs_lock" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [6629 6645]))                  
+                :type "int")
+                nil [6606 6646])
+            ("for_each_mddev" variable (:constant-flag t) nil [6948 6962])
+            ("md_make_request" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("q" variable
+                       (:pointer 1
+                        :type ("request_queue" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [7862 7886])
+                    ("bio" variable
+                       (:pointer 1
+                        :type ("bio" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [7887 7903]))                  
+                :type "int")
+                nil [7835 8963])
+            ("mddev_suspend" function
+               (:arguments 
+                  ( ("mddev" variable
+                       (:pointer 1
+                        :type ("mddev_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [9219 9234]))                  
+                :type "void")
+                nil [9200 9407])
+            ("EXPORT_SYMBOL_GPL" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("mddev_suspend" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [9426 9440]))                  
+                :type "int")
+                nil [9408 9441])
+            ("mddev_resume" function
+               (:arguments 
+                  ( ("mddev" variable
+                       (:pointer 1
+                        :type ("mddev_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [9461 9476]))                  
+                :type "void")
+                nil [9443 9671])
+            ("EXPORT_SYMBOL_GPL" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("mddev_resume" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [9690 9703]))                  
+                :type "int")
+                nil [9672 9704])
+            ("mddev_congested" function
+               (:arguments 
+                  ( ("mddev" variable
+                       (:pointer 1
+                        :type ("mddev_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [9726 9741])
+                    ("bits" variable (:type "int") (reparse-symbol arg-sub-list) [9742 9751]))                  
+                :type "int")
+                nil [9706 9781])
+            ("EXPORT_SYMBOL" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("mddev_congested" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [9796 9812]))                  
+                :type "int")
+                nil [9782 9813])
+            ("md_end_flush" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("bio" variable
+                       (:pointer 1
+                        :type ("bio" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [9881 9897])
+                    ("err" variable (:type "int") (reparse-symbol arg-sub-list) [9898 9906]))                  
+                :type "void")
+                nil [9856 10165])
+            ("md_submit_flush_data" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("ws" variable
+                       (:pointer 1
+                        :type ("work_struct" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [10200 10223]))                  
+                :type "void")
+                nil [10167 10224])
+            ("submit_flushes" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("ws" variable
+                       (:pointer 1
+                        :type ("work_struct" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [10253 10276]))                  
+                :type "void")
+                nil [10226 11196])
+            ("md_submit_flush_data" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("ws" variable
+                       (:pointer 1
+                        :type ("work_struct" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [11231 11254]))                  
+                :type "void")
+                nil [11198 11602])
+            ("md_flush_request" function
+               (:arguments 
+                  ( ("mddev" variable
+                       (:pointer 1
+                        :type ("mddev_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [11626 11641])
+                    ("bio" variable
+                       (:pointer 1
+                        :type ("bio" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [11642 11658]))                  
+                :type "void")
+                nil [11604 11953])
+            ("EXPORT_SYMBOL" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("md_flush_request" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [11968 11985]))                  
+                :type "int")
+                nil [11954 11986])
+            ("md_plug_cb" type
+               (:members 
+                  ( ("cb" variable (:type ("blk_plug_cb" type
+                         (:prototype t
+                          :type "struct")
+                          nil nil)) (reparse-symbol classsubparts) [12428 12450])
+                    ("mddev" variable
+                       (:pointer 1
+                        :type ("mddev_t" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [12452 12467]))                  
+                :type "struct")
+                nil [12407 12470])
+            ("plugger_unplug" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("cb" variable
+                       (:pointer 1
+                        :type ("blk_plug_cb" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [12499 12522]))                  
+                :type "void")
+                nil [12472 12699])
+            ("mddev_check_plugged" function
+               (:arguments 
+                  ( ("mddev" variable
+                       (:pointer 1
+                        :type ("mddev_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [12823 12838]))                  
+                :type "int")
+                nil [12799 13524])
+            ("EXPORT_SYMBOL_GPL" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("mddev_check_plugged" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [13543 13563]))                  
+                :type "int")
+                nil [13525 13564])
+            ("mddev_get" function
+               (:pointer 1
+                :typemodifiers ("static" "inline")
+                :arguments 
+                  ( ("mddev" variable
+                       (:pointer 1
+                        :type ("mddev_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [13599 13614]))                  
+                :type ("mddev_t" type (:type "class") nil nil))
+                nil [13566 13662])
+            ("mddev_delayed_delete" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("ws" variable
+                       (:pointer 1
+                        :type ("work_struct" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [13697 13720]))                  
+                :type "void")
+                nil [13664 13721])
+            ("mddev_put" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("mddev" variable
+                       (:pointer 1
+                        :type ("mddev_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [13745 13760]))                  
+                :type "void")
+                nil [13723 14537])
+            ("mddev_init" function
+               (:arguments 
+                  ( ("mddev" variable
+                       (:pointer 1
+                        :type ("mddev_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [14555 14570]))                  
+                :type "void")
+                nil [14539 15206])
+            ("EXPORT_SYMBOL_GPL" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("mddev_init" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [15225 15236]))                  
+                :type "int")
+                nil [15207 15237])
+            ("mddev_find" function
+               (:pointer 1
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("unit" variable (:type ("dev_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [15267 15278]))                  
+                :type ("mddev_t" type (:type "class") nil nil))
+                nil [15239 16761])
+            ("mddev_lock" function
+               (:typemodifiers ("static" "inline")
+                :arguments 
+                  ( ("mddev" variable
+                       (:pointer 1
+                        :type ("mddev_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [16792 16808]))                  
+                :type "int")
+                nil [16763 16870])
+            ("mddev_is_locked" function
+               (:typemodifiers ("static" "inline")
+                :arguments 
+                  ( ("mddev" variable
+                       (:pointer 1
+                        :type ("mddev_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [16906 16921]))                  
+                :type "int")
+                nil [16872 16974])
+            ("mddev_trylock" function
+               (:typemodifiers ("static" "inline")
+                :arguments 
+                  ( ("mddev" variable
+                       (:pointer 1
+                        :type ("mddev_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [17008 17024]))                  
+                :type "int")
+                nil [16976 17075])
+            ("md_redundancy_group" variable
+               (:typemodifiers ("static")
+                :type ("attribute_group" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [17077 17127])
+            ("mddev_unlock" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("mddev" variable
+                       (:pointer 1
+                        :type ("mddev_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [17154 17170]))                  
+                :type "void")
+                nil [17129 18511])
+            ("find_rdev_nr" function
+               (:pointer 1
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("mddev" variable
+                       (:pointer 1
+                        :type ("mddev_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [18546 18561])
+                    ("nr" variable (:type "int") (reparse-symbol arg-sub-list) [18562 18569]))                  
+                :type ("mdk_rdev_t" type (:type "class") nil nil))
+                nil [18513 18703])
+            ("find_rdev" function
+               (:pointer 1
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("mddev" variable
+                       (:pointer 1
+                        :type ("mddev_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [18735 18751])
+                    ("dev" variable (:type ("dev_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [18752 18762]))                  
+                :type ("mdk_rdev_t" type (:type "class") nil nil))
+                nil [18705 18902])
+            ("find_pers" function
+               (:pointer 1
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("level" variable (:type "int") (reparse-symbol arg-sub-list) [18945 18955])
+                    ("clevel" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [18956 18969]))                  
+                :type ("mdk_personality" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [18904 19188])
+            ("calc_dev_sboffset" function
+               (:typemodifiers ("static" "inline")
+                :arguments 
+                  ( ("rdev" variable
+                       (:pointer 1
+                        :type ("mdk_rdev_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [19293 19310]))                  
+                :type ("sector_t" type (:type "class") nil nil))
+                nil [19252 19421])
+            ("alloc_disk_sb" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("rdev" variable
+                       (:pointer 1
+                        :type ("mdk_rdev_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [19448 19466]))                  
+                :type "int")
+                nil [19423 19645])
+            ("free_disk_sb" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("rdev" variable
+                       (:pointer 1
+                        :type ("mdk_rdev_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [19672 19690]))                  
+                :type "void")
+                nil [19647 19836])
+            ("super_written" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("bio" variable
+                       (:pointer 1
+                        :type ("bio" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [19865 19881])
+                    ("error" variable (:type "int") (reparse-symbol arg-sub-list) [19882 19892]))                  
+                :type "void")
+                nil [19839 20311])
+            ("md_super_write" function
+               (:arguments 
+                  ( ("mddev" variable
+                       (:pointer 1
+                        :type ("mddev_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [20333 20348])
+                    ("rdev" variable
+                       (:pointer 1
+                        :type ("mdk_rdev_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [20349 20366])
+                    ("sector" variable (:type ("sector_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [20372 20388])
+                    ("size" variable (:type "int") (reparse-symbol arg-sub-list) [20389 20398])
+                    ("page" variable
+                       (:pointer 1
+                        :type ("page" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [20399 20417]))                  
+                :type "void")
+                nil [20313 20990])
+            ("md_super_wait" function
+               (:arguments 
+                  ( ("mddev" variable
+                       (:pointer 1
+                        :type ("mddev_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [21011 21026]))                  
+                :type "void")
+                nil [20992 21301])
+            ("bi_complete" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("bio" variable
+                       (:pointer 1
+                        :type ("bio" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [21327 21343])
+                    ("error" variable (:type "int") (reparse-symbol arg-sub-list) [21344 21354]))                  
+                :type "void")
+                nil [21303 21406])
+            ("sync_page_io" function
+               (:arguments 
+                  ( ("rdev" variable
+                       (:pointer 1
+                        :type ("mdk_rdev_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [21425 21442])
+                    ("sector" variable (:type ("sector_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [21443 21459])
+                    ("size" variable (:type "int") (reparse-symbol arg-sub-list) [21460 21469])
+                    ("page" variable
+                       (:pointer 1
+                        :type ("page" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [21473 21491])
+                    ("rw" variable (:type "int") (reparse-symbol arg-sub-list) [21492 21499])
+                    ("metadata_op" variable (:type "bool") (reparse-symbol arg-sub-list) [21500 21517]))                  
+                :type "int")
+                nil [21408 22083])
+            ("EXPORT_SYMBOL_GPL" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("sync_page_io" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [22102 22115]))                  
+                :type "int")
+                nil [22084 22116])
+            ("read_disk_sb" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("rdev" variable
+                       (:pointer 1
+                        :type ("mdk_rdev_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [22142 22160])
+                    ("size" variable (:type "int") (reparse-symbol arg-sub-list) [22161 22170]))                  
+                :type "int")
+                nil [22118 22526])
+            ("uuid_equal" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("sb1" variable
+                       (:pointer 1
+                        :type ("mdp_super_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [22550 22567])
+                    ("sb2" variable
+                       (:pointer 1
+                        :type ("mdp_super_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [22568 22585]))                  
+                :type "int")
+                nil [22528 22746])
+            ("sb_equal" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("sb1" variable
+                       (:pointer 1
+                        :type ("mdp_super_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [22768 22785])
+                    ("sb2" variable
+                       (:pointer 1
+                        :type ("mdp_super_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [22786 22803]))                  
+                :type "int")
+                nil [22748 23281])
+            ("md_csum_fold" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("csum" variable (:type ("u32" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [23308 23317]))                  
+                :type ("u32" type (:type "class") nil nil))
+                nil [23284 23401])
+            ("calc_sb_csum" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("sb" variable
+                       (:pointer 1
+                        :type ("mdp_super_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [23436 23453]))                  
+                :type "unsigned int")
+                nil [23403 24258])
+            ("super_type" type
+               (:members 
+                  ( ("name" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol classsubparts) [25522 25538])
+                    ("owner" variable
+                       (:pointer 1
+                        :type ("module" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol classsubparts) [25540 25565])
+                    ("load_super" variable
+                       (:functionpointer-flag t
+                        :type "int")
+                        (reparse-symbol classsubparts) [25567 25654])
+                    ("validate_super" variable
+                       (:functionpointer-flag t
+                        :type "int")
+                        (reparse-symbol classsubparts) [25656 25717])
+                    ("sync_super" variable
+                       (:functionpointer-flag t
+                        :type "void")
+                        (reparse-symbol classsubparts) [25719 25777])
+                    ("rdev_size_change" variable
+                       (:functionpointer-flag t
+                        :type "unsigned long long")
+                        (reparse-symbol classsubparts) [25779 25865]))                  
+                :type "struct")
+                nil [25500 25868])
+            ("md_check_no_bitmap" function
+               (:arguments 
+                  ( ("mddev" variable
+                       (:pointer 1
+                        :type ("mddev_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [26150 26165]))                  
+                :type "int")
+                nil [26127 26349])
+            ("EXPORT_SYMBOL" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("md_check_no_bitmap" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [26364 26383]))                  
+                :type "int")
+                nil [26350 26384])
+            ("super_90_load" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("rdev" variable
+                       (:pointer 1
+                        :type ("mdk_rdev_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [26444 26461])
+                    ("refdev" variable
+                       (:pointer 1
+                        :type ("mdk_rdev_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [26462 26481])
+                    ("minor_version" variable (:type "int") (reparse-symbol arg-sub-list) [26482 26500]))                  
+                :type "int")
+                nil [26419 28540])
+            ("super_90_validate" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("mddev" variable
+                       (:pointer 1
+                        :type ("mddev_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [28607 28622])
+                    ("rdev" variable
+                       (:pointer 1
+                        :type ("mdk_rdev_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [28623 28640]))                  
+                :type "int")
+                nil [28578 31935])
+            ("super_90_sync" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("mddev" variable
+                       (:pointer 1
+                        :type ("mddev_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [31995 32010])
+                    ("rdev" variable
+                       (:pointer 1
+                        :type ("mdk_rdev_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [32011 32028]))                  
+                :type "void")
+                nil [31969 35822])
+            ("super_90_rdev_size_change" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("rdev" variable
+                       (:pointer 1
+                        :type ("mdk_rdev_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [35914 35931])
+                    ("num_sectors" variable (:type ("sector_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [35932 35953]))                  
+                :type "unsigned long long")
+                nil [35862 36573])
+            ("calc_sb_1_csum" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("sb" variable
+                       (:pointer 1
+                        :type ("mdp_superblock_1" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [36637 36666]))                  
+                :type ("__le32" type (:type "class") nil nil))
+                nil [36608 37108])
+            ("super_1_load" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("rdev" variable
+                       (:pointer 1
+                        :type ("mdk_rdev_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [37134 37151])
+                    ("refdev" variable
+                       (:pointer 1
+                        :type ("mdk_rdev_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [37152 37171])
+                    ("minor_version" variable (:type "int") (reparse-symbol arg-sub-list) [37172 37190]))                  
+                :type "int")
+                nil [37110 40180])
+            ("super_1_validate" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("mddev" variable
+                       (:pointer 1
+                        :type ("mddev_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [40210 40225])
+                    ("rdev" variable
+                       (:pointer 1
+                        :type ("mdk_rdev_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [40226 40243]))                  
+                :type "int")
+                nil [40182 43370])
+            ("super_1_sync" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("mddev" variable
+                       (:pointer 1
+                        :type ("mddev_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [43397 43412])
+                    ("rdev" variable
+                       (:pointer 1
+                        :type ("mdk_rdev_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [43413 43430]))                  
+                :type "void")
+                nil [43372 46058])
+            ("super_1_rdev_size_change" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("rdev" variable
+                       (:pointer 1
+                        :type ("mdk_rdev_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [46111 46128])
+                    ("num_sectors" variable (:type ("sector_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [46129 46150]))                  
+                :type "unsigned long long")
+                nil [46060 47352])
+            ("super_types" variable
+               (:dereference 1
+                :typemodifiers ("static")
+                :type ("super_type" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [47354 47835])
+            ("sync_super" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("mddev" variable
+                       (:pointer 1
+                        :type ("mddev_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [47860 47875])
+                    ("rdev" variable
+                       (:pointer 1
+                        :type ("mdk_rdev_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [47876 47893]))                  
+                :type "void")
+                nil [47837 48090])
+            ("match_mddev_units" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("mddev1" variable
+                       (:pointer 1
+                        :type ("mddev_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [48121 48137])
+                    ("mddev2" variable
+                       (:pointer 1
+                        :type ("mddev_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [48138 48154]))                  
+                :type "int")
+                nil [48092 48414])
+            ("LIST_HEAD" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("" variable (:type ("pending_raid_disks" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [48433 48452]))                  
+                :type "int")
+                nil [48416 48453])
+            ("md_integrity_register" function
+               (:arguments 
+                  ( ("mddev" variable
+                       (:pointer 1
+                        :type ("mddev_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [48751 48766]))                  
+                :type "int")
+                nil [48725 50105])
+            ("EXPORT_SYMBOL" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("md_integrity_register" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [50120 50142]))                  
+                :type "int")
+                nil [50106 50143])
+            ("md_integrity_add_rdev" function
+               (:arguments 
+                  ( ("rdev" variable
+                       (:pointer 1
+                        :type ("mdk_rdev_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [50249 50266])
+                    ("mddev" variable
+                       (:pointer 1
+                        :type ("mddev_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [50267 50282]))                  
+                :type "void")
+                nil [50222 50737])
+            ("EXPORT_SYMBOL" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("md_integrity_add_rdev" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [50752 50774]))                  
+                :type "int")
+                nil [50738 50775])
+            ("bind_rdev_to_array" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("rdev" variable
+                       (:pointer 1
+                        :type ("mdk_rdev_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [50807 50825])
+                    ("mddev" variable
+                       (:pointer 1
+                        :type ("mddev_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [50826 50842]))                  
+                :type "int")
+                nil [50777 52716])
+            ("md_delayed_delete" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("ws" variable
+                       (:pointer 1
+                        :type ("work_struct" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [52748 52771]))                  
+                :type "void")
+                nil [52718 52889])
+            ("unbind_rdev_from_array" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("rdev" variable
+                       (:pointer 1
+                        :type ("mdk_rdev_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [52926 52944]))                  
+                :type "void")
+                nil [52891 53580])
+            ("lock_rdev" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("rdev" variable
+                       (:pointer 1
+                        :type ("mdk_rdev_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [53768 53785])
+                    ("dev" variable (:type ("dev_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [53786 53796])
+                    ("shared" variable (:type "int") (reparse-symbol arg-sub-list) [53797 53808]))                  
+                :type "int")
+                nil [53747 54143])
+            ("unlock_rdev" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("rdev" variable
+                       (:pointer 1
+                        :type ("mdk_rdev_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [54169 54186]))                  
+                :type "void")
+                nil [54145 54329])
+            ("md_autodetect_dev" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("dev" variable (:type ("dev_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [54354 54364]))                  
+                :type "void")
+                nil [54331 54365])
+            ("export_rdev" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("rdev" variable
+                       (:pointer 1
+                        :type ("mdk_rdev_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [54391 54409]))                  
+                :type "void")
+                nil [54367 54711])
+            ("kick_rdev_from_array" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("rdev" variable
+                       (:pointer 1
+                        :type ("mdk_rdev_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [54746 54764]))                  
+                :type "void")
+                nil [54713 54819])
+            ("export_array" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("mddev" variable
+                       (:pointer 1
+                        :type ("mddev_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [54846 54861]))                  
+                :type "void")
+                nil [54821 55107])
+            ("print_desc" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("desc" variable
+                       (:pointer 1
+                        :type ("mdp_disk_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [55132 55149]))                  
+                :type "void")
+                nil [55109 55266])
+            ("print_sb_90" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("sb" variable
+                       (:pointer 1
+                        :type ("mdp_super_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [55292 55308]))                  
+                :type "void")
+                nil [55268 56284])
+            ("print_sb_1" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("sb" variable
+                       (:pointer 1
+                        :type ("mdp_superblock_1" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [56309 56337]))                  
+                :type "void")
+                nil [56286 57625])
+            ("print_rdev" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("rdev" variable
+                       (:pointer 1
+                        :type ("mdk_rdev_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [57650 57667])
+                    ("major_version" variable (:type "int") (reparse-symbol arg-sub-list) [57668 57686]))                  
+                :type "void")
+                nil [57627 58290])
+            ("md_print_devices" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [58321 58326]))                  
+                :type "void")
+                nil [58292 58997])
+            ("sync_sbs" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("mddev" variable
+                       (:pointer 1
+                        :type ("mddev_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [59021 59037])
+                    ("nospares" variable (:type "int") (reparse-symbol arg-sub-list) [59038 59051]))                  
+                :type "void")
+                nil [59000 59646])
+            ("md_update_sb" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("mddev" variable
+                       (:pointer 1
+                        :type ("mddev_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [59673 59689])
+                    ("force_change" variable (:type "int") (reparse-symbol arg-sub-list) [59690 59707]))                  
+                :type "void")
+                nil [59648 63434])
+            ("cmd_match" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("cmd" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [63587 63603])
+                    ("str" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [63604 63620]))                  
+                :type "int")
+                nil [63566 63890])
+            ("rdev_sysfs_entry" type
+               (:members 
+                  ( ("attr" variable (:type ("attribute" type
+                         (:prototype t
+                          :type "struct")
+                          nil nil)) (reparse-symbol classsubparts) [63919 63941])
+                    ("show" variable
+                       (:functionpointer-flag t
+                        :type ("ssize_t" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [63943 63981])
+                    ("store" variable
+                       (:functionpointer-flag t
+                        :type ("ssize_t" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [63983 64036]))                  
+                :type "struct")
+                nil [63892 64039])
+            ("state_show" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("rdev" variable
+                       (:pointer 1
+                        :type ("mdk_rdev_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [64067 64084])
+                    ("page" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [64085 64096]))                  
+                :type ("ssize_t" type (:type "class") nil nil))
+                nil [64041 64724])
+            ("state_store" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("rdev" variable
+                       (:pointer 1
+                        :type ("mdk_rdev_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [64753 64770])
+                    ("buf" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [64771 64787])
+                    ("len" variable (:type ("size_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [64788 64799]))                  
+                :type ("ssize_t" type (:type "class") nil nil))
+                nil [64726 66158])
+            ("rdev_state" variable
+               (:typemodifiers ("static")
+                :type ("rdev_sysfs_entry" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [66159 66259])
+            ("errors_show" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("rdev" variable
+                       (:pointer 1
+                        :type ("mdk_rdev_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [66288 66305])
+                    ("page" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [66306 66317]))                  
+                :type ("ssize_t" type (:type "class") nil nil))
+                nil [66261 66390])
+            ("errors_store" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("rdev" variable
+                       (:pointer 1
+                        :type ("mdk_rdev_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [66420 66437])
+                    ("buf" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [66438 66454])
+                    ("len" variable (:type ("size_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [66455 66466]))                  
+                :type ("ssize_t" type (:type "class") nil nil))
+                nil [66392 66644])
+            ("rdev_errors" variable
+               (:typemodifiers ("static")
+                :type ("rdev_sysfs_entry" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [66645 66749])
+            ("slot_show" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("rdev" variable
+                       (:pointer 1
+                        :type ("mdk_rdev_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [66776 66793])
+                    ("page" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [66794 66805]))                  
+                :type ("ssize_t" type (:type "class") nil nil))
+                nil [66751 66924])
+            ("slot_store" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("rdev" variable
+                       (:pointer 1
+                        :type ("mdk_rdev_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [66952 66969])
+                    ("buf" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [66970 66986])
+                    ("len" variable (:type ("size_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [66987 66998]))                  
+                :type ("ssize_t" type (:type "class") nil nil))
+                nil [66926 69448])
+            ("rdev_slot" variable
+               (:typemodifiers ("static")
+                :type ("rdev_sysfs_entry" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [69451 69547])
+            ("offset_show" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("rdev" variable
+                       (:pointer 1
+                        :type ("mdk_rdev_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [69576 69593])
+                    ("page" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [69594 69605]))                  
+                :type ("ssize_t" type (:type "class") nil nil))
+                nil [69549 69681])
+            ("offset_store" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("rdev" variable
+                       (:pointer 1
+                        :type ("mdk_rdev_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [69711 69728])
+                    ("buf" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [69729 69745])
+                    ("len" variable (:type ("size_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [69746 69757]))                  
+                :type ("ssize_t" type (:type "class") nil nil))
+                nil [69683 70124])
+            ("rdev_offset" variable
+               (:typemodifiers ("static")
+                :type ("rdev_sysfs_entry" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [70126 70230])
+            ("rdev_size_show" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("rdev" variable
+                       (:pointer 1
+                        :type ("mdk_rdev_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [70262 70279])
+                    ("page" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [70280 70291]))                  
+                :type ("ssize_t" type (:type "class") nil nil))
+                nil [70232 70367])
+            ("overlaps" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("s1" variable (:type ("sector_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [70389 70401])
+                    ("l1" variable (:type ("sector_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [70402 70414])
+                    ("s2" variable (:type ("sector_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [70415 70427])
+                    ("l2" variable (:type ("sector_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [70428 70440]))                  
+                :type "int")
+                nil [70369 70562])
+            ("strict_blocks_to_sectors" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("buf" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [70600 70616])
+                    ("sectors" variable
+                       (:pointer 1
+                        :type ("sector_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [70617 70635]))                  
+                :type "int")
+                nil [70564 70982])
+            ("rdev_size_store" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("rdev" variable
+                       (:pointer 1
+                        :type ("mdk_rdev_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [71015 71032])
+                    ("buf" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [71033 71049])
+                    ("len" variable (:type ("size_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [71050 71061]))                  
+                :type ("ssize_t" type (:type "class") nil nil))
+                nil [70984 72787])
+            ("rdev_size" variable
+               (:typemodifiers ("static")
+                :type ("rdev_sysfs_entry" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [72789 72895])
+            ("recovery_start_show" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("rdev" variable
+                       (:pointer 1
+                        :type ("mdk_rdev_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [72933 72950])
+                    ("page" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [72951 72962]))                  
+                :type ("ssize_t" type (:type "class") nil nil))
+                nil [72898 73185])
+            ("recovery_start_store" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("rdev" variable
+                       (:pointer 1
+                        :type ("mdk_rdev_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [73223 73240])
+                    ("buf" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [73241 73257])
+                    ("len" variable (:type ("size_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [73258 73269]))                  
+                :type ("ssize_t" type (:type "class") nil nil))
+                nil [73187 73676])
+            ("rdev_recovery_start" variable
+               (:typemodifiers ("static")
+                :type ("rdev_sysfs_entry" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [73678 73814])
+            ("rdev_default_attrs" variable
+               (:pointer 1
+                :dereference 1
+                :typemodifiers ("static")
+                :type ("attribute" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [73816 73998])
+            ("rdev_attr_show" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("kobj" variable
+                       (:pointer 1
+                        :type ("kobject" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [74029 74050])
+                    ("attr" variable
+                       (:pointer 1
+                        :type ("attribute" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [74051 74074])
+                    ("page" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [74075 74086]))                  
+                :type ("ssize_t" type (:type "class") nil nil))
+                nil [73999 74488])
+            ("rdev_attr_store" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("kobj" variable
+                       (:pointer 1
+                        :type ("kobject" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [74521 74542])
+                    ("attr" variable
+                       (:pointer 1
+                        :type ("attribute" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [74543 74566])
+                    ("page" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [74574 74591])
+                    ("length" variable (:type ("size_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [74592 74606]))                  
+                :type ("ssize_t" type (:type "class") nil nil))
+                nil [74490 75064])
+            ("rdev_free" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("ko" variable
+                       (:pointer 1
+                        :type ("kobject" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [75088 75107]))                  
+                :type "void")
+                nil [75066 75181])
+            ("rdev_sysfs_ops" variable
+               (:typemodifiers ("static")
+                :constant-flag t
+                :type ("sysfs_ops" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [75182 75287])
+            ("rdev_ktype" variable
+               (:typemodifiers ("static")
+                :type ("kobj_type" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [75288 75421])
+            ("md_rdev_init" function
+               (:arguments 
+                  ( ("rdev" variable
+                       (:pointer 1
+                        :type ("mdk_rdev_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [75441 75458]))                  
+                :type "void")
+                nil [75423 75861])
+            ("EXPORT_SYMBOL_GPL" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("md_rdev_init" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [75880 75893]))                  
+                :type "int")
+                nil [75862 75894])
+            ("md_import_device" function
+               (:pointer 1
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("newdev" variable (:type ("dev_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [76184 76197])
+                    ("super_format" variable (:type "int") (reparse-symbol arg-sub-list) [76198 76215])
+                    ("super_minor" variable (:type "int") (reparse-symbol arg-sub-list) [76216 76232]))                  
+                :type ("mdk_rdev_t" type (:type "class") nil nil))
+                nil [76148 77505])
+            ("analyze_sbs" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("mddev" variable
+                       (:pointer 1
+                        :type ("mddev_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [77584 77600]))                  
+                :type "void")
+                nil [77560 79032])
+            ("strict_strtoul_scaled" function
+               (:arguments 
+                  ( ("cp" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [79508 79523])
+                    ("res" variable
+                       (:pointer 1
+                        :type "unsigned long")
+                        (reparse-symbol arg-sub-list) [79524 79543])
+                    ("scale" variable (:type "int") (reparse-symbol arg-sub-list) [79544 79554]))                  
+                :type "int")
+                nil [79482 80037])
+            ("md_safemode_timeout" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("data" variable (:type "unsigned long") (reparse-symbol arg-sub-list) [80072 80091]))                  
+                :type "void")
+                nil [80040 80092])
+            ("safe_delay_show" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("mddev" variable
+                       (:pointer 1
+                        :type ("mddev_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [80125 80140])
+                    ("page" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [80141 80152]))                  
+                :type ("ssize_t" type (:type "class") nil nil))
+                nil [80094 80259])
+            ("safe_delay_store" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("mddev" variable
+                       (:pointer 1
+                        :type ("mddev_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [80292 80307])
+                    ("cbuf" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [80308 80325])
+                    ("len" variable (:type ("size_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [80326 80337]))                  
+                :type ("ssize_t" type (:type "class") nil nil))
+                nil [80260 80742])
+            ("md_safe_delay" variable
+               (:typemodifiers ("static")
+                :type ("md_sysfs_entry" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [80743 80863])
+            ("level_show" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("mddev" variable
+                       (:pointer 1
+                        :type ("mddev_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [80891 80906])
+                    ("page" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [80907 80918]))                  
+                :type ("ssize_t" type (:type "class") nil nil))
+                nil [80865 81190])
+            ("level_store" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("mddev" variable
+                       (:pointer 1
+                        :type ("mddev_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [81219 81234])
+                    ("buf" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [81235 81251])
+                    ("len" variable (:type ("size_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [81252 81263]))                  
+                :type ("ssize_t" type (:type "class") nil nil))
+                nil [81192 86214])
+            ("md_level" variable
+               (:typemodifiers ("static")
+                :type ("md_sysfs_entry" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [86216 86312])
+            ("layout_show" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("mddev" variable
+                       (:pointer 1
+                        :type ("mddev_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [86342 86357])
+                    ("page" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [86358 86369]))                  
+                :type ("ssize_t" type (:type "class") nil nil))
+                nil [86315 86638])
+            ("layout_store" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("mddev" variable
+                       (:pointer 1
+                        :type ("mddev_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [86668 86683])
+                    ("buf" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [86684 86700])
+                    ("len" variable (:type ("size_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [86701 86712]))                  
+                :type ("ssize_t" type (:type "class") nil nil))
+                nil [86640 87174])
+            ("md_layout" variable
+               (:typemodifiers ("static")
+                :type ("md_sysfs_entry" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [87175 87275])
+            ("raid_disks_show" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("mddev" variable
+                       (:pointer 1
+                        :type ("mddev_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [87309 87324])
+                    ("page" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [87325 87336]))                  
+                :type ("ssize_t" type (:type "class") nil nil))
+                nil [87278 87612])
+            ("update_raid_disks" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("mddev" variable
+                       (:pointer 1
+                        :type ("mddev_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [87643 87658])
+                    ("raid_disks" variable (:type "int") (reparse-symbol arg-sub-list) [87659 87674]))                  
+                :type "int")
+                nil [87614 87675])
+            ("raid_disks_store" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("mddev" variable
+                       (:pointer 1
+                        :type ("mddev_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [87709 87724])
+                    ("buf" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [87725 87741])
+                    ("len" variable (:type ("size_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [87742 87753]))                  
+                :type ("ssize_t" type (:type "class") nil nil))
+                nil [87677 88161])
+            ("md_raid_disks" variable
+               (:typemodifiers ("static")
+                :type ("md_sysfs_entry" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [88162 88278])
+            ("chunk_size_show" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("mddev" variable
+                       (:pointer 1
+                        :type ("mddev_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [88311 88326])
+                    ("page" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [88327 88338]))                  
+                :type ("ssize_t" type (:type "class") nil nil))
+                nil [88280 88615])
+            ("chunk_size_store" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("mddev" variable
+                       (:pointer 1
+                        :type ("mddev_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [88649 88664])
+                    ("buf" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [88665 88681])
+                    ("len" variable (:type ("size_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [88682 88693]))                  
+                :type ("ssize_t" type (:type "class") nil nil))
+                nil [88617 89205])
+            ("md_chunk_size" variable
+               (:typemodifiers ("static")
+                :type ("md_sysfs_entry" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [89206 89322])
+            ("resync_start_show" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("mddev" variable
+                       (:pointer 1
+                        :type ("mddev_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [89357 89372])
+                    ("page" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [89373 89384]))                  
+                :type ("ssize_t" type (:type "class") nil nil))
+                nil [89324 89533])
+            ("resync_start_store" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("mddev" variable
+                       (:pointer 1
+                        :type ("mddev_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [89569 89584])
+                    ("buf" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [89585 89601])
+                    ("len" variable (:type ("size_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [89602 89613]))                  
+                :type ("ssize_t" type (:type "class") nil nil))
+                nil [89535 89910])
+            ("md_resync_start" variable
+               (:typemodifiers ("static")
+                :type ("md_sysfs_entry" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [89911 90035])
+            ("array_state" type
+               (:members 
+                  ( ("clear" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [91349 91355])
+                    ("inactive" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [91356 91365])
+                    ("suspended" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [91366 91376])
+                    ("readonly" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [91377 91386])
+                    ("read_auto" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [91387 91397])
+                    ("clean" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [91398 91404])
+                    ("active" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [91405 91412])
+                    ("write_pending" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [91418 91432])
+                    ("active_idle" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [91433 91445])
+                    ("bad_word" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [91446 91455]))                  
+                :type "enum")
+                nil [91330 91456])
+            ("array_states" variable
+               (:pointer 1
+                :dereference 1
+                :typemodifiers ("static")
+                :type "char")
+                nil [91457 91608])
+            ("match_word" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("word" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [91632 91649])
+                    ("list" variable
+                       (:pointer 2
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [91650 91662]))                  
+                :type "int")
+                nil [91610 91752])
+            ("array_state_show" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("mddev" variable
+                       (:pointer 1
+                        :type ("mddev_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [91786 91801])
+                    ("page" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [91802 91813]))                  
+                :type ("ssize_t" type (:type "class") nil nil))
+                nil [91754 92375])
+            ("do_md_stop" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("mddev" variable
+                       (:pointer 1
+                        :type ("mddev_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [92399 92415])
+                    ("ro" variable (:type "int") (reparse-symbol arg-sub-list) [92416 92423])
+                    ("is_open" variable (:type "int") (reparse-symbol arg-sub-list) [92424 92436]))                  
+                :type "int")
+                nil [92377 92437])
+            ("md_set_readonly" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("mddev" variable
+                       (:pointer 1
+                        :type ("mddev_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [92465 92481])
+                    ("is_open" variable (:type "int") (reparse-symbol arg-sub-list) [92482 92494]))                  
+                :type "int")
+                nil [92438 92495])
+            ("do_md_run" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("mddev" variable
+                       (:pointer 1
+                        :type ("mddev_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [92517 92533]))                  
+                :type "int")
+                nil [92496 92534])
+            ("restart_array" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("mddev" variable
+                       (:pointer 1
+                        :type ("mddev_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [92560 92575]))                  
+                :type "int")
+                nil [92535 92576])
+            ("array_state_store" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("mddev" variable
+                       (:pointer 1
+                        :type ("mddev_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [92611 92626])
+                    ("buf" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [92627 92643])
+                    ("len" variable (:type ("size_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [92644 92655]))                  
+                :type ("ssize_t" type (:type "class") nil nil))
+                nil [92578 94525])
+            ("md_array_state" variable
+               (:typemodifiers ("static")
+                :type ("md_sysfs_entry" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [94526 94646])
+            ("max_corrected_read_errors_show" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("mddev" variable
+                       (:pointer 1
+                        :type ("mddev_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [94694 94709])
+                    ("page" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [94710 94721]))                  
+                :type ("ssize_t" type (:type "class") nil nil))
+                nil [94648 94808])
+            ("max_corrected_read_errors_store" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("mddev" variable
+                       (:pointer 1
+                        :type ("mddev_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [94857 94872])
+                    ("buf" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [94873 94889])
+                    ("len" variable (:type ("size_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [94890 94901]))                  
+                :type ("ssize_t" type (:type "class") nil nil))
+                nil [94810 95085])
+            ("max_corr_read_errors" variable
+               (:typemodifiers ("static")
+                :type ("md_sysfs_entry" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [95087 95246])
+            ("null_show" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("mddev" variable
+                       (:pointer 1
+                        :type ("mddev_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [95273 95288])
+                    ("page" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [95289 95300]))                  
+                :type ("ssize_t" type (:type "class") nil nil))
+                nil [95248 95321])
+            ("new_dev_store" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("mddev" variable
+                       (:pointer 1
+                        :type ("mddev_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [95352 95367])
+                    ("buf" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [95368 95384])
+                    ("len" variable (:type ("size_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [95385 95396]))                  
+                :type ("ssize_t" type (:type "class") nil nil))
+                nil [95323 96710])
+            ("md_new_device" variable
+               (:typemodifiers ("static")
+                :type ("md_sysfs_entry" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [96712 96808])
+            ("bitmap_store" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("mddev" variable
+                       (:pointer 1
+                        :type ("mddev_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [96838 96853])
+                    ("buf" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [96854 96870])
+                    ("len" variable (:type ("size_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [96871 96882]))                  
+                :type ("ssize_t" type (:type "class") nil nil))
+                nil [96810 97454])
+            ("md_bitmap" variable
+               (:typemodifiers ("static")
+                :type ("md_sysfs_entry" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [97456 97555])
+            ("size_show" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("mddev" variable
+                       (:pointer 1
+                        :type ("mddev_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [97582 97597])
+                    ("page" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [97598 97609]))                  
+                :type ("ssize_t" type (:type "class") nil nil))
+                nil [97557 97692])
+            ("update_size" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("mddev" variable
+                       (:pointer 1
+                        :type ("mddev_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [97717 97732])
+                    ("num_sectors" variable (:type ("sector_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [97733 97754]))                  
+                :type "int")
+                nil [97694 97755])
+            ("size_store" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("mddev" variable
+                       (:pointer 1
+                        :type ("mddev_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [97783 97798])
+                    ("buf" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [97799 97815])
+                    ("len" variable (:type ("size_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [97816 97827]))                  
+                :type ("ssize_t" type (:type "class") nil nil))
+                nil [97757 98338])
+            ("md_size" variable
+               (:typemodifiers ("static")
+                :type ("md_sysfs_entry" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [98340 98442])
+            ("metadata_show" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("mddev" variable
+                       (:pointer 1
+                        :type ("mddev_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [98671 98686])
+                    ("page" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [98687 98698]))                  
+                :type ("ssize_t" type (:type "class") nil nil))
+                nil [98642 98945])
+            ("metadata_store" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("mddev" variable
+                       (:pointer 1
+                        :type ("mddev_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [98977 98992])
+                    ("buf" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [98993 99009])
+                    ("len" variable (:type ("size_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [99010 99021]))                  
+                :type ("ssize_t" type (:type "class") nil nil))
+                nil [98947 100332])
+            ("md_metadata" variable
+               (:typemodifiers ("static")
+                :type ("md_sysfs_entry" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [100334 100450])
+            ("action_show" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("mddev" variable
+                       (:pointer 1
+                        :type ("mddev_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [100479 100494])
+                    ("page" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [100495 100506]))                  
+                :type ("ssize_t" type (:type "class") nil nil))
+                nil [100452 101182])
+            ("reap_sync_thread" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("mddev" variable
+                       (:pointer 1
+                        :type ("mddev_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [101213 101228]))                  
+                :type "void")
+                nil [101184 101229])
+            ("action_store" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("mddev" variable
+                       (:pointer 1
+                        :type ("mddev_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [101259 101274])
+                    ("page" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [101275 101292])
+                    ("len" variable (:type ("size_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [101293 101304]))                  
+                :type ("ssize_t" type (:type "class") nil nil))
+                nil [101231 102667])
+            ("mismatch_cnt_show" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("mddev" variable
+                       (:pointer 1
+                        :type ("mddev_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [102702 102717])
+                    ("page" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [102718 102729]))                  
+                :type ("ssize_t" type (:type "class") nil nil))
+                nil [102669 102822])
+            ("md_scan_mode" variable
+               (:typemodifiers ("static")
+                :type ("md_sysfs_entry" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [102824 102932])
+            ("md_mismatches" variable
+               (:typemodifiers ("static")
+                :type ("md_sysfs_entry" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [102935 103004])
+            ("sync_min_show" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("mddev" variable
+                       (:pointer 1
+                        :type ("mddev_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [103035 103050])
+                    ("page" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [103051 103062]))                  
+                :type ("ssize_t" type (:type "class") nil nil))
+                nil [103006 103172])
+            ("sync_min_store" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("mddev" variable
+                       (:pointer 1
+                        :type ("mddev_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [103204 103219])
+                    ("buf" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [103220 103236])
+                    ("len" variable (:type ("size_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [103237 103248]))                  
+                :type ("ssize_t" type (:type "class") nil nil))
+                nil [103174 103501])
+            ("md_sync_min" variable
+               (:typemodifiers ("static")
+                :type ("md_sysfs_entry" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [103503 103617])
+            ("sync_max_show" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("mddev" variable
+                       (:pointer 1
+                        :type ("mddev_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [103648 103663])
+                    ("page" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [103664 103675]))                  
+                :type ("ssize_t" type (:type "class") nil nil))
+                nil [103619 103785])
+            ("sync_max_store" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("mddev" variable
+                       (:pointer 1
+                        :type ("mddev_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [103817 103832])
+                    ("buf" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [103833 103849])
+                    ("len" variable (:type ("size_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [103850 103861]))                  
+                :type ("ssize_t" type (:type "class") nil nil))
+                nil [103787 104114])
+            ("md_sync_max" variable
+               (:typemodifiers ("static")
+                :type ("md_sysfs_entry" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [104116 104230])
+            ("degraded_show" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("mddev" variable
+                       (:pointer 1
+                        :type ("mddev_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [104261 104276])
+                    ("page" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [104277 104288]))                  
+                :type ("ssize_t" type (:type "class") nil nil))
+                nil [104232 104340])
+            ("md_degraded" variable
+               (:typemodifiers ("static")
+                :type ("md_sysfs_entry" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [104341 104404])
+            ("sync_force_parallel_show" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("mddev" variable
+                       (:pointer 1
+                        :type ("mddev_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [104446 104461])
+                    ("page" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [104462 104473]))                  
+                :type ("ssize_t" type (:type "class") nil nil))
+                nil [104406 104532])
+            ("sync_force_parallel_store" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("mddev" variable
+                       (:pointer 1
+                        :type ("mddev_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [104575 104590])
+                    ("buf" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [104591 104607])
+                    ("len" variable (:type ("size_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [104608 104619]))                  
+                :type ("ssize_t" type (:type "class") nil nil))
+                nil [104534 104821])
+            ("md_sync_force_parallel" variable
+               (:typemodifiers ("static")
+                :type ("md_sysfs_entry" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [104883 105042])
+            ("sync_speed_show" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("mddev" variable
+                       (:pointer 1
+                        :type ("mddev_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [105075 105090])
+                    ("page" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [105091 105102]))                  
+                :type ("ssize_t" type (:type "class") nil nil))
+                nil [105044 105423])
+            ("md_sync_speed" variable
+               (:typemodifiers ("static")
+                :type ("md_sysfs_entry" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [105425 105492])
+            ("sync_completed_show" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("mddev" variable
+                       (:pointer 1
+                        :type ("mddev_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [105529 105544])
+                    ("page" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [105545 105556]))                  
+                :type ("ssize_t" type (:type "class") nil nil))
+                nil [105494 105930])
+            ("md_sync_completed" variable
+               (:typemodifiers ("static")
+                :type ("md_sysfs_entry" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [105932 106007])
+            ("min_sync_show" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("mddev" variable
+                       (:pointer 1
+                        :type ("mddev_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [106038 106053])
+                    ("page" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [106054 106065]))                  
+                :type ("ssize_t" type (:type "class") nil nil))
+                nil [106009 106150])
+            ("min_sync_store" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("mddev" variable
+                       (:pointer 1
+                        :type ("mddev_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [106181 106196])
+                    ("buf" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [106197 106213])
+                    ("len" variable (:type ("size_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [106214 106225]))                  
+                :type ("ssize_t" type (:type "class") nil nil))
+                nil [106151 106629])
+            ("md_min_sync" variable
+               (:typemodifiers ("static")
+                :type ("md_sysfs_entry" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [106631 106739])
+            ("max_sync_show" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("mddev" variable
+                       (:pointer 1
+                        :type ("mddev_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [106770 106785])
+                    ("page" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [106786 106797]))                  
+                :type ("ssize_t" type (:type "class") nil nil))
+                nil [106741 106960])
+            ("max_sync_store" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("mddev" variable
+                       (:pointer 1
+                        :type ("mddev_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [106991 107006])
+                    ("buf" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [107007 107023])
+                    ("len" variable (:type ("size_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [107024 107035]))                  
+                :type ("ssize_t" type (:type "class") nil nil))
+                nil [106961 107620])
+            ("md_max_sync" variable
+               (:typemodifiers ("static")
+                :type ("md_sysfs_entry" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [107622 107730])
+            ("suspend_lo_show" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("mddev" variable
+                       (:pointer 1
+                        :type ("mddev_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [107763 107778])
+                    ("page" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [107779 107790]))                  
+                :type ("ssize_t" type (:type "class") nil nil))
+                nil [107732 107866])
+            ("suspend_lo_store" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("mddev" variable
+                       (:pointer 1
+                        :type ("mddev_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [107900 107915])
+                    ("buf" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [107916 107932])
+                    ("len" variable (:type ("size_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [107933 107944]))                  
+                :type ("ssize_t" type (:type "class") nil nil))
+                nil [107868 108452])
+            ("md_suspend_lo" variable
+               (:typemodifiers ("static")
+                :type ("md_sysfs_entry" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [108453 108569])
+            ("suspend_hi_show" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("mddev" variable
+                       (:pointer 1
+                        :type ("mddev_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [108603 108618])
+                    ("page" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [108619 108630]))                  
+                :type ("ssize_t" type (:type "class") nil nil))
+                nil [108572 108706])
+            ("suspend_hi_store" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("mddev" variable
+                       (:pointer 1
+                        :type ("mddev_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [108740 108755])
+                    ("buf" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [108756 108772])
+                    ("len" variable (:type ("size_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [108773 108784]))                  
+                :type ("ssize_t" type (:type "class") nil nil))
+                nil [108708 109291])
+            ("md_suspend_hi" variable
+               (:typemodifiers ("static")
+                :type ("md_sysfs_entry" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [109292 109408])
+            ("reshape_position_show" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("mddev" variable
+                       (:pointer 1
+                        :type ("mddev_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [109447 109462])
+                    ("page" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [109463 109474]))                  
+                :type ("ssize_t" type (:type "class") nil nil))
+                nil [109410 109646])
+            ("reshape_position_store" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("mddev" variable
+                       (:pointer 1
+                        :type ("mddev_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [109686 109701])
+                    ("buf" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [109702 109718])
+                    ("len" variable (:type ("size_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [109719 109730]))                  
+                :type ("ssize_t" type (:type "class") nil nil))
+                nil [109648 110080])
+            ("md_reshape_position" variable
+               (:typemodifiers ("static")
+                :type ("md_sysfs_entry" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [110082 110229])
+            ("array_size_show" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("mddev" variable
+                       (:pointer 1
+                        :type ("mddev_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [110262 110277])
+                    ("page" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [110278 110289]))                  
+                :type ("ssize_t" type (:type "class") nil nil))
+                nil [110231 110451])
+            ("array_size_store" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("mddev" variable
+                       (:pointer 1
+                        :type ("mddev_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [110485 110500])
+                    ("buf" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [110501 110517])
+                    ("len" variable (:type ("size_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [110518 110529]))                  
+                :type ("ssize_t" type (:type "class") nil nil))
+                nil [110453 111080])
+            ("md_array_size" variable
+               (:typemodifiers ("static")
+                :type ("md_sysfs_entry" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [111082 111205])
+            ("md_default_attrs" variable
+               (:pointer 1
+                :dereference 1
+                :typemodifiers ("static")
+                :type ("attribute" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [111207 111549])
+            ("md_redundancy_attrs" variable
+               (:pointer 1
+                :dereference 1
+                :typemodifiers ("static")
+                :type ("attribute" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [111551 111895])
+            ("md_redundancy_group" variable
+               (:typemodifiers ("static")
+                :type ("attribute_group" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [111896 111998])
+            ("md_attr_show" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("kobj" variable
+                       (:pointer 1
+                        :type ("kobject" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [112029 112050])
+                    ("attr" variable
+                       (:pointer 1
+                        :type ("attribute" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [112051 112074])
+                    ("page" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [112075 112086]))                  
+                :type ("ssize_t" type (:type "class") nil nil))
+                nil [112001 112387])
+            ("md_attr_store" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("kobj" variable
+                       (:pointer 1
+                        :type ("kobject" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [112418 112439])
+                    ("attr" variable
+                       (:pointer 1
+                        :type ("attribute" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [112440 112463])
+                    ("page" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [112471 112488])
+                    ("length" variable (:type ("size_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [112489 112503]))                  
+                :type ("ssize_t" type (:type "class") nil nil))
+                nil [112389 112928])
+            ("md_free" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("ko" variable
+                       (:pointer 1
+                        :type ("kobject" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [112950 112969]))                  
+                :type "void")
+                nil [112930 113239])
+            ("md_sysfs_ops" variable
+               (:typemodifiers ("static")
+                :constant-flag t
+                :type ("sysfs_ops" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [113241 113338])
+            ("md_ktype" variable
+               (:typemodifiers ("static")
+                :type ("kobj_type" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [113339 113464])
+            ("mdp_major" variable (:type "int") nil [113466 113484])
+            ("mddev_delayed_delete" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("ws" variable
+                       (:pointer 1
+                        :type ("work_struct" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [113519 113542]))                  
+                :type "void")
+                nil [113486 113711])
+            ("md_alloc" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("dev" variable (:type ("dev_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [113733 113743])
+                    ("name" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [113744 113755]))                  
+                :type "int")
+                nil [113713 116406])
+            ("md_probe" function
+               (:pointer 1
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("dev" variable (:type ("dev_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [116440 116450])
+                    ("part" variable
+                       (:pointer 1
+                        :type "int")
+                        (reparse-symbol arg-sub-list) [116451 116461])
+                    ("data" variable
+                       (:pointer 1
+                        :type "void")
+                        (reparse-symbol arg-sub-list) [116462 116473]))                  
+                :type ("kobject" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [116408 116513])
+            ("add_named_array" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("val" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [116542 116558])
+                    ("kp" variable
+                       (:pointer 1
+                        :type ("kernel_param" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [116559 116583]))                  
+                :type "int")
+                nil [116515 117013])
+            ("md_safemode_timeout" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("data" variable (:type "unsigned long") (reparse-symbol arg-sub-list) [117047 117066]))                  
+                :type "void")
+                nil [117015 117284])
+            ("start_dirty_degraded" variable
+               (:typemodifiers ("static")
+                :type "int")
+                nil [117286 117318])
+            ("md_run" function
+               (:arguments 
+                  ( ("mddev" variable
+                       (:pointer 1
+                        :type ("mddev_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [117331 117346]))                  
+                :type "int")
+                nil [117320 123017])
+            ("EXPORT_SYMBOL_GPL" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("md_run" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [123036 123043]))                  
+                :type "int")
+                nil [123018 123044])
+            ("do_md_run" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("mddev" variable
+                       (:pointer 1
+                        :type ("mddev_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [123067 123082]))                  
+                :type "int")
+                nil [123046 123521])
+            ("restart_array" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("mddev" variable
+                       (:pointer 1
+                        :type ("mddev_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [123548 123563]))                  
+                :type "int")
+                nil [123523 124126])
+            ("deny_bitmap_write_access" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("file" variable
+                       (:pointer 1
+                        :type ("file" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [124266 124285]))                  
+                :type "int")
+                nil [124230 124544])
+            ("restore_bitmap_write_access" function
+               (:arguments 
+                  ( ("file" variable
+                       (:pointer 1
+                        :type ("file" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [124579 124597]))                  
+                :type "void")
+                nil [124546 124744])
+            ("md_clean" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("mddev" variable
+                       (:pointer 1
+                        :type ("mddev_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [124767 124782]))                  
+                :type "void")
+                nil [124746 125886])
+            ("__md_stop_writes" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("mddev" variable
+                       (:pointer 1
+                        :type ("mddev_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [125917 125932]))                  
+                :type "void")
+                nil [125888 126308])
+            ("md_stop_writes" function
+               (:arguments 
+                  ( ("mddev" variable
+                       (:pointer 1
+                        :type ("mddev_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [126330 126345]))                  
+                :type "void")
+                nil [126310 126417])
+            ("EXPORT_SYMBOL_GPL" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("md_stop_writes" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [126436 126451]))                  
+                :type "int")
+                nil [126418 126452])
+            ("md_stop" function
+               (:arguments 
+                  ( ("mddev" variable
+                       (:pointer 1
+                        :type ("mddev_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [126467 126482]))                  
+                :type "void")
+                nil [126454 126739])
+            ("EXPORT_SYMBOL_GPL" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("md_stop" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [126758 126766]))                  
+                :type "int")
+                nil [126740 126767])
+            ("md_set_readonly" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("mddev" variable
+                       (:pointer 1
+                        :type ("mddev_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [126796 126811])
+                    ("is_open" variable (:type "int") (reparse-symbol arg-sub-list) [126812 126824]))                  
+                :type "int")
+                nil [126769 127319])
+            ("do_md_stop" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("mddev" variable
+                       (:pointer 1
+                        :type ("mddev_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [127447 127463])
+                    ("mode" variable (:type "int") (reparse-symbol arg-sub-list) [127464 127473])
+                    ("is_open" variable (:type "int") (reparse-symbol arg-sub-list) [127474 127486]))                  
+                :type "int")
+                nil [127425 129069])
+            ("autorun_array" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("mddev" variable
+                       (:pointer 1
+                        :type ("mddev_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [129112 129127]))                  
+                :type "void")
+                nil [129086 129509])
+            ("autorun_devices" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("part" variable (:type "int") (reparse-symbol arg-sub-list) [130045 130054]))                  
+                :type "void")
+                nil [130017 132300])
+            ("get_version" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("__user" variable (:type "void") (reparse-symbol arg-sub-list) [132346 132359])
+                    ("" variable (:type ("arg" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [132360 132364]))                  
+                :type "int")
+                nil [132323 132566])
+            ("get_array_info" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("mddev" variable
+                       (:pointer 1
+                        :type ("mddev_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [132594 132610])
+                    ("__user" variable (:type "void") (reparse-symbol arg-sub-list) [132611 132624])
+                    ("" variable (:type ("arg" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [132625 132629]))                  
+                :type "int")
+                nil [132568 133933])
+            ("get_bitmap_file" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("mddev" variable
+                       (:pointer 1
+                        :type ("mddev_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [133962 133978])
+                    ("__user" variable (:type "void") (reparse-symbol arg-sub-list) [133979 133992])
+                    ("" variable (:type ("arg" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [133993 133997]))                  
+                :type "int")
+                nil [133935 134755])
+            ("get_disk_info" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("mddev" variable
+                       (:pointer 1
+                        :type ("mddev_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [134782 134798])
+                    ("__user" variable (:type "void") (reparse-symbol arg-sub-list) [134799 134812])
+                    ("" variable (:type ("arg" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [134813 134817]))                  
+                :type "int")
+                nil [134757 135589])
+            ("add_new_disk" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("mddev" variable
+                       (:pointer 1
+                        :type ("mddev_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [135615 135631])
+                    ("info" variable
+                       (:pointer 1
+                        :type ("mdu_disk_info_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [135632 135654]))                  
+                :type "int")
+                nil [135591 140131])
+            ("hot_remove_disk" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("mddev" variable
+                       (:pointer 1
+                        :type ("mddev_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [140160 140176])
+                    ("dev" variable (:type ("dev_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [140177 140187]))                  
+                :type "int")
+                nil [140133 140560])
+            ("hot_add_disk" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("mddev" variable
+                       (:pointer 1
+                        :type ("mddev_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [140586 140602])
+                    ("dev" variable (:type ("dev_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [140603 140613]))                  
+                :type "int")
+                nil [140562 142134])
+            ("set_bitmap_file" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("mddev" variable
+                       (:pointer 1
+                        :type ("mddev_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [142163 142178])
+                    ("fd" variable (:type "int") (reparse-symbol arg-sub-list) [142179 142186]))                  
+                :type "int")
+                nil [142136 143560])
+            ("set_array_info" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("mddev" variable
+                       (:pointer 1
+                        :type ("mddev_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [144216 144232])
+                    ("info" variable
+                       (:pointer 1
+                        :type ("mdu_array_info_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [144233 144256]))                  
+                :type "int")
+                nil [144190 146150])
+            ("md_set_array_sectors" function
+               (:arguments 
+                  ( ("mddev" variable
+                       (:pointer 1
+                        :type ("mddev_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [146178 146193])
+                    ("array_sectors" variable (:type ("sector_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [146194 146217]))                  
+                :type "void")
+                nil [146152 146366])
+            ("EXPORT_SYMBOL" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("md_set_array_sectors" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [146381 146402]))                  
+                :type "int")
+                nil [146367 146403])
+            ("update_size" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("mddev" variable
+                       (:pointer 1
+                        :type ("mddev_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [146428 146443])
+                    ("num_sectors" variable (:type ("sector_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [146444 146465]))                  
+                :type "int")
+                nil [146405 147573])
+            ("update_raid_disks" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("mddev" variable
+                       (:pointer 1
+                        :type ("mddev_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [147604 147619])
+                    ("raid_disks" variable (:type "int") (reparse-symbol arg-sub-list) [147620 147635]))                  
+                :type "int")
+                nil [147575 148076])
+            ("update_array_info" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("mddev" variable
+                       (:pointer 1
+                        :type ("mddev_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [148445 148460])
+                    ("info" variable
+                       (:pointer 1
+                        :type ("mdu_array_info_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [148461 148484]))                  
+                :type "int")
+                nil [148416 151080])
+            ("set_disk_faulty" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("mddev" variable
+                       (:pointer 1
+                        :type ("mddev_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [151109 151124])
+                    ("dev" variable (:type ("dev_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [151125 151135]))                  
+                :type "int")
+                nil [151082 151301])
+            ("md_getgeo" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("bdev" variable
+                       (:pointer 1
+                        :type ("block_device" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [151546 151572])
+                    ("geo" variable
+                       (:pointer 1
+                        :type ("hd_geometry" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [151573 151597]))                  
+                :type "int")
+                nil [151525 151740])
+            ("md_ioctl" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("bdev" variable
+                       (:pointer 1
+                        :type ("block_device" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [151762 151788])
+                    ("mode" variable (:type ("fmode_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [151789 151802])
+                    ("cmd" variable (:type "unsigned int") (reparse-symbol arg-sub-list) [151806 151823])
+                    ("arg" variable (:type "unsigned long") (reparse-symbol arg-sub-list) [151824 151842]))                  
+                :type "int")
+                nil [151742 156778])
+            ("md_open" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("bdev" variable
+                       (:pointer 1
+                        :type ("block_device" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [157229 157255])
+                    ("mode" variable (:type ("fmode_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [157256 157269]))                  
+                :type "int")
+                nil [157210 157963])
+            ("md_release" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("disk" variable
+                       (:pointer 1
+                        :type ("gendisk" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [157987 158008])
+                    ("mode" variable (:type ("fmode_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [158009 158022]))                  
+                :type "int")
+                nil [157965 158144])
+            ("md_media_changed" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("disk" variable
+                       (:pointer 1
+                        :type ("gendisk" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [158174 158195]))                  
+                :type "int")
+                nil [158146 158262])
+            ("md_revalidate" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("disk" variable
+                       (:pointer 1
+                        :type ("gendisk" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [158289 158310]))                  
+                :type "int")
+                nil [158264 158385])
+            ("md_fops" variable
+               (:typemodifiers ("static")
+                :constant-flag t
+                :type ("block_device_operations" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [158386 158688])
+            ("md_thread" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("arg" variable
+                       (:pointer 1
+                        :type "void")
+                        (reparse-symbol arg-sub-list) [158711 158722]))                  
+                :type "int")
+                nil [158690 159759])
+            ("md_wakeup_thread" function
+               (:arguments 
+                  ( ("thread" variable
+                       (:pointer 1
+                        :type ("mdk_thread_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [159783 159804]))                  
+                :type "void")
+                nil [159761 159959])
+            ("md_register_thread" function
+               (:pointer 1
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [159994 160005])
+                    ("mddev" variable
+                       (:pointer 1
+                        :type ("mddev_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [160019 160034])
+                    ("name" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [160040 160057]))                  
+                :type ("mdk_thread_t" type (:type "class") nil nil))
+                nil [159961 160496])
+            ("md_unregister_thread" function
+               (:arguments 
+                  ( ("threadp" variable
+                       (:pointer 2
+                        :type ("mdk_thread_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [160524 160547]))                  
+                :type "void")
+                nil [160498 160879])
+            ("md_error" function
+               (:arguments 
+                  ( ("mddev" variable
+                       (:pointer 1
+                        :type ("mddev_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [160895 160910])
+                    ("rdev" variable
+                       (:pointer 1
+                        :type ("mdk_rdev_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [160911 160928]))                  
+                :type "void")
+                nil [160881 161816])
+            ("status_unused" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("seq" variable
+                       (:pointer 1
+                        :type ("seq_file" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [161888 161909]))                  
+                :type "void")
+                nil [161862 162201])
+            ("status_resync" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("seq" variable
+                       (:pointer 1
+                        :type ("seq_file" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [162230 162251])
+                    ("mddev" variable
+                       (:pointer 1
+                        :type ("mddev_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [162252 162268]))                  
+                :type "void")
+                nil [162204 164643])
+            ("md_seq_start" function
+               (:pointer 1
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("seq" variable
+                       (:pointer 1
+                        :type ("seq_file" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [164671 164692])
+                    ("pos" variable
+                       (:pointer 1
+                        :type ("loff_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [164693 164705]))                  
+                :type "void")
+                nil [164645 165136])
+            ("md_seq_next" function
+               (:pointer 1
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("seq" variable
+                       (:pointer 1
+                        :type ("seq_file" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [165163 165184])
+                    ("v" variable
+                       (:pointer 1
+                        :type "void")
+                        (reparse-symbol arg-sub-list) [165185 165193])
+                    ("pos" variable
+                       (:pointer 1
+                        :type ("loff_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [165194 165206]))                  
+                :type "void")
+                nil [165138 165665])
+            ("md_seq_stop" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("seq" variable
+                       (:pointer 1
+                        :type ("seq_file" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [165691 165712])
+                    ("v" variable
+                       (:pointer 1
+                        :type "void")
+                        (reparse-symbol arg-sub-list) [165713 165721]))                  
+                :type "void")
+                nil [165667 165813])
+            ("mdstat_info" type
+               (:members 
+                  ( ("event" variable (:type "int") (reparse-symbol classsubparts) [165837 165847]))                  
+                :type "struct")
+                nil [165815 165850])
+            ("md_seq_show" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("seq" variable
+                       (:pointer 1
+                        :type ("seq_file" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [165875 165896])
+                    ("v" variable
+                       (:pointer 1
+                        :type "void")
+                        (reparse-symbol arg-sub-list) [165897 165905]))                  
+                :type "int")
+                nil [165852 169061])
+            ("md_seq_ops" variable
+               (:typemodifiers ("static")
+                :constant-flag t
+                :type ("seq_operations" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [169063 169212])
+            ("md_seq_open" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("inode" variable
+                       (:pointer 1
+                        :type ("inode" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [169237 169257])
+                    ("file" variable
+                       (:pointer 1
+                        :type ("file" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [169258 169276]))                  
+                :type "int")
+                nil [169214 169583])
+            ("mdstat_poll" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("filp" variable
+                       (:pointer 1
+                        :type ("file" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [169617 169635])
+                    ("wait" variable
+                       (:pointer 1
+                        :type ("poll_table" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [169636 169653]))                  
+                :type "unsigned int")
+                nil [169585 169939])
+            ("md_seq_fops" variable
+               (:typemodifiers ("static")
+                :constant-flag t
+                :type ("file_operations" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [169941 170166])
+            ("register_md_personality" function
+               (:arguments 
+                  ( ("p" variable
+                       (:pointer 1
+                        :type ("mdk_personality" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [170196 170222]))                  
+                :type "int")
+                nil [170168 170411])
+            ("unregister_md_personality" function
+               (:arguments 
+                  ( ("p" variable
+                       (:pointer 1
+                        :type ("mdk_personality" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [170443 170469]))                  
+                :type "int")
+                nil [170413 170625])
+            ("is_mddev_idle" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("mddev" variable
+                       (:pointer 1
+                        :type ("mddev_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [170652 170667])
+                    ("init" variable (:type "int") (reparse-symbol arg-sub-list) [170668 170677]))                  
+                :type "int")
+                nil [170627 172238])
+            ("md_done_sync" function
+               (:arguments 
+                  ( ("mddev" variable
+                       (:pointer 1
+                        :type ("mddev_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [172258 172273])
+                    ("blocks" variable (:type "int") (reparse-symbol arg-sub-list) [172274 172285])
+                    ("ok" variable (:type "int") (reparse-symbol arg-sub-list) [172286 172293]))                  
+                :type "void")
+                nil [172240 172571])
+            ("md_write_start" function
+               (:arguments 
+                  ( ("mddev" variable
+                       (:pointer 1
+                        :type ("mddev_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [172786 172801])
+                    ("bi" variable
+                       (:pointer 1
+                        :type ("bio" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [172802 172817]))                  
+                :type "void")
+                nil [172766 173661])
+            ("md_write_end" function
+               (:arguments 
+                  ( ("mddev" variable
+                       (:pointer 1
+                        :type ("mddev_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [173681 173696]))                  
+                :type "void")
+                nil [173663 173924])
+            ("md_allow_write" function
+               (:arguments 
+                  ( ("mddev" variable
+                       (:pointer 1
+                        :type ("mddev_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [174367 174382]))                  
+                :type "int")
+                nil [174348 174989])
+            ("EXPORT_SYMBOL_GPL" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("md_allow_write" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [175008 175023]))                  
+                :type "int")
+                nil [174990 175024])
+            ("SYNC_MARKS" variable (:constant-flag t) nil [175034 175044])
+            ("SYNC_MARK_STEP" variable (:constant-flag t) nil [175056 175070])
+            ("md_do_sync" function
+               (:arguments 
+                  ( ("mddev" variable
+                       (:pointer 1
+                        :type ("mddev_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [175094 175109]))                  
+                :type "void")
+                nil [175078 184749])
+            ("EXPORT_SYMBOL_GPL" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("md_do_sync" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [184768 184779]))                  
+                :type "int")
+                nil [184750 184780])
+            ("remove_and_add_spares" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("mddev" variable
+                       (:pointer 1
+                        :type ("mddev_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [184815 184830]))                  
+                :type "int")
+                nil [184782 186118])
+            ("reap_sync_thread" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("mddev" variable
+                       (:pointer 1
+                        :type ("mddev_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [186149 186164]))                  
+                :type "void")
+                nil [186120 187315])
+            ("md_check_recovery" function
+               (:arguments 
+                  ( ("mddev" variable
+                       (:pointer 1
+                        :type ("mddev_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [188447 188462]))                  
+                :type "void")
+                nil [188424 193447])
+            ("md_wait_for_blocked_rdev" function
+               (:arguments 
+                  ( ("rdev" variable
+                       (:pointer 1
+                        :type ("mdk_rdev_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [193479 193496])
+                    ("mddev" variable
+                       (:pointer 1
+                        :type ("mddev_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [193497 193512]))                  
+                :type "void")
+                nil [193449 193705])
+            ("EXPORT_SYMBOL" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("md_wait_for_blocked_rdev" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [193720 193745]))                  
+                :type "int")
+                nil [193706 193746])
+            ("md_notify_reboot" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("this" variable
+                       (:pointer 1
+                        :type ("notifier_block" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [193776 193804])
+                    ("code" variable (:type "unsigned long") (reparse-symbol arg-sub-list) [193812 193831])
+                    ("x" variable
+                       (:pointer 1
+                        :type "void")
+                        (reparse-symbol arg-sub-list) [193832 193840]))                  
+                :type "int")
+                nil [193748 194521])
+            ("md_notifier" variable
+               (:typemodifiers ("static")
+                :type ("notifier_block" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [194523 194674])
+            ("md_geninit" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [194699 194704]))                  
+                :type "void")
+                nil [194676 194832])
+            ("md_init" function
+               (:arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [194860 194865]))                  
+                :type ("__init" type (:type "class") nil nil))
+                nil [194845 195680])
+            ("LIST_HEAD" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("" variable (:type ("all_detected_devices" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [195802 195823]))                  
+                :type "int")
+                nil [195785 195824])
+            ("detected_devices_node" type
+               (:members 
+                  ( ("list" variable (:type ("list_head" type
+                         (:prototype t
+                          :type "struct")
+                          nil nil)) (reparse-symbol classsubparts) [195857 195879])
+                    ("dev" variable (:type ("dev_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [195881 195891]))                  
+                :type "struct")
+                nil [195825 195894])
+            ("md_autodetect_dev" function
+               (:arguments 
+                  ( ("dev" variable (:type ("dev_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [195919 195929]))                  
+                :type "void")
+                nil [195896 196305])
+            ("autostart_arrays" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("part" variable (:type "int") (reparse-symbol arg-sub-list) [196337 196346]))                  
+                :type "void")
+                nil [196308 197192])
+            ("md_exit" function
+               (:arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [197243 197248]))                  
+                :type "void")
+                nil [197230 197754])
+            ("subsys_initcall" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("md_init" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [197772 197780]))                  
+                :type "int")
+                nil [197756 197781])
+            ("get_ro" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("buffer" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [197822 197835])
+                    ("kp" variable
+                       (:pointer 1
+                        :type ("kernel_param" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [197836 197860]))                  
+                :type "int")
+                nil [197804 197911])
+            ("set_ro" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("val" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [197930 197946])
+                    ("kp" variable
+                       (:pointer 1
+                        :type ("kernel_param" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [197947 197971]))                  
+                :type "int")
+                nil [197912 198124])
+            ("module_param_call" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("start_ro" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [198144 198153])
+                    ("" variable (:type ("set_ro" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [198154 198161])
+                    ("" variable (:type ("get_ro" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [198162 198169])
+                    ("" variable (:type ("NULL" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [198170 198175])
+                    ("" variable (:type ("S_IRUSR" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [198176 198184])
+                    ("" variable (:type ("S_IWUSR" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [198184 198192]))                  
+                :type "int")
+                nil [198126 198193])
+            ("module_param" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("start_dirty_degraded" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [198207 198228])
+                    ("" variable (:type "int") (reparse-symbol arg-sub-list) [198229 198233])
+                    ("" variable (:type ("S_IRUGO" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [198234 198242])
+                    ("" variable (:type ("S_IWUSR" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [198242 198250]))                  
+                :type "int")
+                nil [198194 198251])
+            ("module_param_call" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("new_array" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [198271 198281])
+                    ("" variable (:type ("add_named_array" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [198282 198298])
+                    ("" variable (:type ("NULL" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [198299 198304])
+                    ("" variable (:type ("NULL" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [198305 198310])
+                    ("" variable (:type ("S_IWUSR" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [198311 198319]))                  
+                :type "int")
+                nil [198253 198320])
+            ("EXPORT_SYMBOL" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("register_md_personality" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [198336 198360]))                  
+                :type "int")
+                nil [198322 198361])
+            ("EXPORT_SYMBOL" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("unregister_md_personality" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [198376 198402]))                  
+                :type "int")
+                nil [198362 198403])
+            ("EXPORT_SYMBOL" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("md_error" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [198418 198427]))                  
+                :type "int")
+                nil [198404 198428])
+            ("EXPORT_SYMBOL" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("md_done_sync" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [198443 198456]))                  
+                :type "int")
+                nil [198429 198457])
+            ("EXPORT_SYMBOL" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("md_write_start" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [198472 198487]))                  
+                :type "int")
+                nil [198458 198488])
+            ("EXPORT_SYMBOL" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("md_write_end" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [198503 198516]))                  
+                :type "int")
+                nil [198489 198517])
+            ("EXPORT_SYMBOL" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("md_register_thread" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [198532 198551]))                  
+                :type "int")
+                nil [198518 198552])
+            ("EXPORT_SYMBOL" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("md_unregister_thread" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [198567 198588]))                  
+                :type "int")
+                nil [198553 198589])
+            ("EXPORT_SYMBOL" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("md_wakeup_thread" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [198604 198621]))                  
+                :type "int")
+                nil [198590 198622])
+            ("EXPORT_SYMBOL" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("md_check_recovery" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [198637 198655]))                  
+                :type "int")
+                nil [198623 198656])
+            ("MODULE_LICENSE" function
+               (:prototype-flag t
+                :type "int")
+                nil [198657 198679])
+            ("MODULE_DESCRIPTION" function
+               (:prototype-flag t
+                :type "int")
+                nil [198680 198720])
+            ("MODULE_ALIAS" function
+               (:prototype-flag t
+                :type "int")
+                nil [198721 198740])
+            ("MODULE_ALIAS_BLOCKDEV_MAJOR" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("MD_MAJOR" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [198769 198778]))                  
+                :type "int")
+                nil [198741 198779]))          
+    :file "md.c"
+    :pointmax 198780
+    :fsize 198779
+    :lastmodtime '(21468 9141 903898 786000)
+    :unmatched-syntax '((string 198734 . 198738) (string 198699 . 198718) (string 198672 . 198677) (punctuation 198241 . 198242) (punctuation 198183 . 198184) (semantic-list 197793 . 197802) (symbol 197782 . 197793) (symbol 197223 . 197229) (STATIC 197216 . 197222) (INT 194841 . 194844) (STATIC 194834 . 194840) (semantic-list 160006 . 160017) (semantic-list 159999 . 160005) (punctuation 134811 . 134812) (punctuation 133991 . 133992) (punctuation 132623 . 132624) (punctuation 132358 . 132359))
+    :lexical-table 
+        '(("MD_BUG" (spp-arg-list ("x...") 2448 . 2454) . ((semantic-list "{ printk(\"md: bug in file %s, line %d\\n\", __FILE__, __LINE__); md_print_devices(); }" 2455 . 2539)))
+          ("SYNC_MARKS" . ((number "10" 175045 . 175047)))
+          ("MD_DEFAULT_MAX_CORRECTED_READ_ERRORS" . ((number "20" 2777 . 2779)))
+          ("SYNC_MARK_STEP" . ((semantic-list "(3*HZ)" 175071 . 175077)))
+          ("DEBUG" . ((number "0" 1901 . 1902)))
+          ("dprintk" (spp-arg-list ("x...") 1918 . 1924) . ((semantic-list "((void)(DEBUG && printk(x)))" 1925 . 1953)))
+          ("for_each_mddev" (spp-arg-list ("mddev" "tmp") 6962 . 6973) . ((FOR "for" 6992 . 6995) (semantic-list "(({ spin_lock(&all_mddevs_lock); 				\\
+		tmp = all_mddevs.next;					\\
+		mddev = NULL;});					\\
+	     ({ if (tmp != &all_mddevs)					\\
+			mddev_get(list_entry(tmp, mddev_t, all_mddevs));\\
+		spin_unlock(&all_mddevs_lock);				\\
+		if (mddev) mddev_put(mddev);				\\
+		mddev = list_entry(tmp, mddev_t, all_mddevs);		\\
+		tmp != &all_mddevs;});					\\
+	     ({ spin_lock(&all_mddevs_lock);				\\
+		tmp = tmp->next;})					\\
+		)" 6996 . 7412)))
+          )
+
+    )
+   (semanticdb-table "md.h"
+    :file "md.h"
+    :fsize 17264
+    :lastmodtime '(21468 9141 915898 502000)
+    )
+   (semanticdb-table "bitmap.h"
+    :file "bitmap.h"
+    :fsize 9941
+    :lastmodtime '(21468 9141 413910 388000)
+    )
+   )
+  :file "!home!chz!linux-3.0.8!drivers!md!semantic.cache"
+  :semantic-tag-version "2.0"
+  :semanticdb-version "2.2"
+  )

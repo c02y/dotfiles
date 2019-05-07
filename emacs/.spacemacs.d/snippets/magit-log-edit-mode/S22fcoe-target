@@ -1,0 +1,535 @@
+;; Object src/
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "src/"
+  :tables
+  (list
+    (semanticdb-table "SAN_Proxy.c"
+      :major-mode 'c-mode
+      :tags 
+        '( ("SAN_Proxy.h" include nil nil [1 23])
+            ("SAN_GetSoftwareInfo" function (:type "int") nil [25 68])
+            ("SAN__GetStorageDeviceInfo" function
+               (:arguments 
+                  ( ("info" variable
+                       (:reference 1
+                        :type ("std::vector" type
+                             (:template-specifier 
+                                ( ("sStorageDeviceINFO" type nil nil nil))                                
+                              :type "class")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [100 138]))                  
+                :type "int")
+                nil [70 435])
+            ("SAN__GetDiskInfo" function (:type "int") nil [437 477])
+            ("SAN__AddStorageDevice" function
+               (:arguments 
+                  ( ("StorageDeviceName" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [505 529])
+                    ("iStorageDeviceType" variable (:type "int") (reparse-symbol arg-sub-list) [530 553])
+                    ("StorageDeviceIP" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [554 576]))                  
+                :type "int")
+                nil [479 594])
+            ("SAN__ChangeStorageDevice" function
+               (:arguments 
+                  ( ("StorageDeviceName" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [625 649])
+                    ("StorageDeviceIP" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [650 672]))                  
+                :type "int")
+                nil [596 690])
+            ("SAN__DisconnectStorageDivice" function
+               (:arguments 
+                  ( ("iStorageDeviceID" variable (:type "int") (reparse-symbol arg-sub-list) [725 746]))                  
+                :type "int")
+                nil [692 764])
+            ("SAN__DisconnectStorageDivice" function
+               (:arguments 
+                  ( ("iStorageDeviceID" variable (:type "int") (reparse-symbol arg-sub-list) [799 820]))                  
+                :type "int")
+                nil [766 838])
+            ("SAN__CreateSpaceDB" function (:type "int") nil [840 891])
+            ("SAN__GetRootSpaceID" function
+               (:arguments 
+                  ( ("id" variable
+                       (:reference 1
+                        :type "int")
+                        (reparse-symbol arg-sub-list) [917 925]))                  
+                :type "int")
+                nil [893 998])
+            ("SAN__GetSpaceInfo" function
+               (:arguments 
+                  ( ("id" variable (:type "int") (reparse-symbol arg-sub-list) [1022 1029])
+                    ("info" variable
+                       (:reference 1
+                        :type ("sStorageSpaceINFO" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [1030 1054]))                  
+                :type "int")
+                nil [1000 1095])
+            ("SAN__GetFileInfo" function
+               (:arguments 
+                  ( ("id" variable (:type "int") (reparse-symbol arg-sub-list) [1118 1125])
+                    ("info" variable
+                       (:reference 1
+                        :type ("sFileINFO" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [1126 1142]))                  
+                :type "int")
+                nil [1097 1180])
+            ("SAN__GetSubSpaceID" function
+               (:arguments 
+                  ( ("id" variable (:type "int") (reparse-symbol arg-sub-list) [1205 1212])
+                    ("subSpaceID" variable
+                       (:reference 1
+                        :type ("std::vector" type
+                             (:template-specifier 
+                                ( ("int" type nil nil nil))                                
+                              :type "class")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [1213 1242]))                  
+                :type "int")
+                nil [1182 1283])
+            ("SAN__GetSpaceFileID" function
+               (:arguments 
+                  ( ("id" variable (:type "int") (reparse-symbol arg-sub-list) [1309 1316])
+                    ("fileID" variable
+                       (:reference 1
+                        :type ("std::vector" type
+                             (:template-specifier 
+                                ( ("int" type nil nil nil))                                
+                              :type "class")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [1317 1342]))                  
+                :type "int")
+                nil [1285 1385])
+            ("SAN__AddStorageSpace" function
+               (:arguments 
+                  ( ("iStorageSpaceID" variable (:type "int") (reparse-symbol arg-sub-list) [1412 1432])
+                    ("SpaceName" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [1433 1449]))                  
+                :type "int")
+                nil [1387 1497])
+            ("SAN__ChangeStorageSpaceName" function
+               (:arguments 
+                  ( ("iStorageSpaceID" variable (:type "int") (reparse-symbol arg-sub-list) [1531 1551])
+                    ("SpaceName" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [1552 1568]))                  
+                :type "int")
+                nil [1499 1628])
+            ("SAN__DeleteStorageSpace" function
+               (:arguments 
+                  ( ("iStorageSpaceID" variable (:type "int") (reparse-symbol arg-sub-list) [1658 1678]))                  
+                :type "int")
+                nil [1630 1723])
+            ("SAN__UploadOpen" function
+               (:arguments 
+                  ( ("sFileInfo" variable
+                       (:pointer 1
+                        :type ("sFileINFO" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [1745 1766]))                  
+                :type "int")
+                nil [1725 1784])
+            ("SAN__QueryFile" function
+               (:arguments 
+                  ( ("pFileName" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [1805 1821])
+                    ("iSize" variable (:type "long") (reparse-symbol arg-sub-list) [1822 1833])
+                    ("tModifiedTime" variable (:type ("time_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [1834 1855])
+                    ("tExpiredTime" variable (:type ("time_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [1856 1876]))                  
+                :type "int")
+                nil [1786 1894])
+            ("SAN__DeleteFile" function
+               (:arguments 
+                  ( ("iFileID" variable (:type "int") (reparse-symbol arg-sub-list) [1916 1928]))                  
+                :type "int")
+                nil [1896 1964])
+            ("SAN__InitLog" function (:type "int") nil [1966 2010]))          
+      :file "SAN_Proxy.c"
+      :pointmax 2011
+      :fsize 2010
+      :lastmodtime '(22581 34843 450976 335000)
+      :unmatched-syntax nil)
+    (semanticdb-table "SAN_Software.c"
+      :major-mode 'c-mode
+      :tags 
+        '( ("SAN_Proxy.h" include nil nil [1 23]))          
+      :file "SAN_Software.c"
+      :pointmax 25
+      :fsize 24
+      :lastmodtime '(22565 38542 651980 973000)
+      :unmatched-syntax nil)
+    (semanticdb-table "SAN_Proxy.cpp"
+      :major-mode 'c++-mode
+      :tags 
+        '( ("SAN_Proxy.h" include nil nil [1 23])
+            ("SAN_DataBase.h" include nil nil [24 49])
+            ("SAN_GetSoftwareInfo" function (:type "int") nil [51 94])
+            ("SAN__GetStorageDeviceInfo" function
+               (:arguments 
+                  ( ("info" variable
+                       (:reference 1
+                        :type ("std::vector" type
+                             (:template-specifier 
+                                ( ("sStorageDeviceINFO" type nil nil nil))                                
+                              :type "class")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [126 164]))                  
+                :type "int")
+                nil [96 462])
+            ("SAN__GetDiskInfo" function (:type "int") nil [464 504])
+            ("SAN__AddStorageDevice" function
+               (:arguments 
+                  ( ("StorageDeviceName" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [532 556])
+                    ("iStorageDeviceType" variable (:type "int") (reparse-symbol arg-sub-list) [557 580])
+                    ("StorageDeviceIP" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [581 603]))                  
+                :type "int")
+                nil [506 621])
+            ("SAN__ChangeStorageDevice" function
+               (:arguments 
+                  ( ("StorageDeviceName" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [652 676])
+                    ("StorageDeviceIP" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [677 699]))                  
+                :type "int")
+                nil [623 717])
+            ("SAN__DisconnectStorageDivice" function
+               (:arguments 
+                  ( ("iStorageDeviceID" variable (:type "int") (reparse-symbol arg-sub-list) [752 773]))                  
+                :type "int")
+                nil [719 791])
+            ("SAN__CreateSpaceDB" function (:type "int") nil [793 842])
+            ("SAN__GetRootSpaceID" function
+               (:arguments 
+                  ( ("id" variable
+                       (:reference 1
+                        :type "int")
+                        (reparse-symbol arg-sub-list) [868 876]))                  
+                :type "int")
+                nil [844 949])
+            ("SAN__GetSpaceInfo" function
+               (:arguments 
+                  ( ("id" variable (:type "int") (reparse-symbol arg-sub-list) [973 980])
+                    ("info" variable
+                       (:reference 1
+                        :type ("sStorageSpaceINFO" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [981 1005]))                  
+                :type "int")
+                nil [951 1046])
+            ("SAN__GetFileInfo" function
+               (:arguments 
+                  ( ("id" variable (:type "int") (reparse-symbol arg-sub-list) [1069 1076])
+                    ("info" variable
+                       (:reference 1
+                        :type ("sFileINFO" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [1077 1093]))                  
+                :type "int")
+                nil [1048 1131])
+            ("SAN__GetSubSpaceID" function
+               (:arguments 
+                  ( ("id" variable (:type "int") (reparse-symbol arg-sub-list) [1156 1163])
+                    ("subSpaceID" variable
+                       (:reference 1
+                        :type ("std::vector" type
+                             (:template-specifier 
+                                ( ("int" type nil nil nil))                                
+                              :type "class")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [1164 1193]))                  
+                :type "int")
+                nil [1133 1234])
+            ("SAN__GetSpaceFileID" function
+               (:arguments 
+                  ( ("id" variable (:type "int") (reparse-symbol arg-sub-list) [1260 1267])
+                    ("fileID" variable
+                       (:reference 1
+                        :type ("std::vector" type
+                             (:template-specifier 
+                                ( ("int" type nil nil nil))                                
+                              :type "class")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [1268 1293]))                  
+                :type "int")
+                nil [1236 1336])
+            ("SAN__AddStorageSpace" function
+               (:arguments 
+                  ( ("iStorageSpaceID" variable (:type "int") (reparse-symbol arg-sub-list) [1363 1383])
+                    ("SpaceName" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [1384 1400]))                  
+                :type "int")
+                nil [1338 1454])
+            ("SAN__ChangeStorageSpaceName" function
+               (:arguments 
+                  ( ("iStorageSpaceID" variable (:type "int") (reparse-symbol arg-sub-list) [1488 1508])
+                    ("SpaceName" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [1509 1525]))                  
+                :type "int")
+                nil [1456 1585])
+            ("SAN__DeleteStorageSpace" function
+               (:arguments 
+                  ( ("iStorageSpaceID" variable (:type "int") (reparse-symbol arg-sub-list) [1615 1635]))                  
+                :type "int")
+                nil [1587 1680])
+            ("SAN__UploadOpen" function
+               (:arguments 
+                  ( ("sFileInfo" variable
+                       (:pointer 1
+                        :type ("sFileINFO" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [1702 1723]))                  
+                :type "int")
+                nil [1682 1741])
+            ("SAN__QueryFile" function
+               (:arguments 
+                  ( ("pFileName" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [1762 1778])
+                    ("iSize" variable (:type "long") (reparse-symbol arg-sub-list) [1779 1790])
+                    ("tModifiedTime" variable (:type ("time_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [1791 1812])
+                    ("tExpiredTime" variable (:type ("time_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [1813 1833]))                  
+                :type "int")
+                nil [1743 1851])
+            ("SAN__DeleteFile" function
+               (:arguments 
+                  ( ("iFileID" variable (:type "int") (reparse-symbol arg-sub-list) [1873 1885]))                  
+                :type "int")
+                nil [1853 1921])
+            ("SAN__InitLog" function (:type "int") nil [1923 1967]))          
+      :file "SAN_Proxy.cpp"
+      :pointmax 1968
+      :fsize 1967
+      :lastmodtime '(22583 45616 613994 262000)
+      :unmatched-syntax nil)
+    (semanticdb-table "SAN_DataBase.cpp"
+      :major-mode 'c++-mode
+      :tags 
+        '( ("stdlib.h" include (:system-flag t) nil [1 20])
+            ("stdio.h" include (:system-flag t) nil [21 39])
+            ("string.h" include (:system-flag t) nil [40 59])
+            ("vector" include (:system-flag t) nil [61 78])
+            ("my_global.h" include (:system-flag t) nil [79 101])
+            ("mysql.h" include (:system-flag t) nil [102 120])
+            ("SAN_DataBase.h" include nil nil [122 147])
+            ("SAN_MainDef.h" include nil nil [148 172])
+            ("SpaceDB" variable
+               (:pointer 1
+                :default-value "\"Disk1\""
+                :type "char")
+                nil [174 204])
+            ("MYSQL_error" function
+               (:arguments 
+                  ( ("con" variable
+                       (:pointer 1
+                        :type ("MYSQL" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [223 234]))                  
+                :type "void")
+                nil [206 311])
+            ("create_DataBase" function
+               (:arguments 
+                  ( ("con" variable
+                       (:pointer 1
+                        :type ("MYSQL" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [333 344])
+                    ("dbname" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [345 364]))                  
+                :type "int")
+                nil [313 643])
+            ("create_spaces_table" function
+               (:arguments 
+                  ( ("con" variable
+                       (:pointer 1
+                        :type ("MYSQL" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [669 680]))                  
+                :type "int")
+                nil [645 992])
+            ("create_files_table" function
+               (:arguments 
+                  ( ("con" variable
+                       (:pointer 1
+                        :type ("MYSQL" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [1017 1028]))                  
+                :type "int")
+                nil [994 1340])
+            ("create" function (:type "int") nil [1342 1902])
+            ("add_space" function
+               (:arguments 
+                  ( ("parID" variable (:type "int") (reparse-symbol arg-sub-list) [1918 1928])
+                    ("SpaceName" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [1929 1945]))                  
+                :type "int")
+                nil [1904 2395])
+            ("add_file" function
+               (:arguments 
+                  ( ("parId" variable (:type "int") (reparse-symbol arg-sub-list) [2419 2429])
+                    ("info" variable
+                       (:reference 1
+                        :type ("sFileINFO" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [2430 2446]))                  
+                :type "int")
+                nil [2406 2956])
+            ("get_space_info" function
+               (:arguments 
+                  ( ("id" variable (:type "int") (reparse-symbol arg-sub-list) [2978 2985])
+                    ("info" variable
+                       (:reference 1
+                        :type ("sStorageSpaceINFO" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [2986 3010]))                  
+                :type "int")
+                nil [2959 4120])
+            ("getFileInfo" function
+               (:arguments 
+                  ( ("id" variable (:type "int") (reparse-symbol arg-sub-list) [4139 4146])
+                    ("info" variable
+                       (:reference 1
+                        :type ("sFileINFO" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [4147 4163]))                  
+                :type "int")
+                nil [4123 5457])
+            ("getSubID" function
+               (:arguments 
+                  ( ("id" variable (:type "int") (reparse-symbol arg-sub-list) [5472 5479])
+                    ("SubID" variable
+                       (:reference 1
+                        :type ("std::vector" type
+                             (:template-specifier 
+                                ( ("int" type nil nil nil))                                
+                              :type "class")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [5480 5504]))                  
+                :type "int")
+                nil [5459 6229])
+            ("getSpaceFileID" function
+               (:arguments 
+                  ( ("id" variable (:type "int") (reparse-symbol arg-sub-list) [6250 6257])
+                    ("fileID" variable
+                       (:reference 1
+                        :type ("std::vector" type
+                             (:template-specifier 
+                                ( ("int" type nil nil nil))                                
+                              :type "class")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [6258 6283]))                  
+                :type "int")
+                nil [6231 7007])
+            ("changeSpaceName" function
+               (:arguments 
+                  ( ("id" variable (:type "int") (reparse-symbol arg-sub-list) [7029 7036])
+                    ("SpaceName" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [7037 7053]))                  
+                :type "int")
+                nil [7009 7566])
+            ("deleteSpace" function
+               (:arguments 
+                  ( ("id" variable (:type "int") (reparse-symbol arg-sub-list) [7584 7591]))                  
+                :type "int")
+                nil [7568 7968])
+            ("deleteFile" function
+               (:arguments 
+                  ( ("id" variable (:type "int") (reparse-symbol arg-sub-list) [7985 7992]))                  
+                :type "int")
+                nil [7970 8368])
+            ("initLog" function (:type "int") nil [8370 8856])
+            ("cleanLog" function (:type "int") nil [8867 9259]))          
+      :file "SAN_DataBase.cpp"
+      :pointmax 9260
+      :fsize 9259
+      :lastmodtime '(22583 55365 776988 645000)
+      :unmatched-syntax nil)
+    (semanticdb-table "SAN_FileManager.cpp"
+      :major-mode 'c++-mode
+      :tags 
+        '( ("SAN_FileManager.h" include nil nil [1 29])
+            ("stdlib.h" include (:system-flag t) nil [30 49])
+            ("sys/stat.h" include (:system-flag t) nil [50 71])
+            ("stdio.h" include (:system-flag t) nil [72 90])
+            ("FM_init" function (:type "int") nil [92 268])
+            ("FM_add_space" function
+               (:arguments 
+                  ( ("sPath" variable (:type ("std::string" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [287 305])
+                    ("SpaceName" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [306 322]))                  
+                :type "int")
+                nil [270 448])
+            ("FM_change_space_name" function
+               (:arguments 
+                  ( ("sPath" variable (:type ("std::string" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [475 493])
+                    ("sOldName" variable (:type ("std::string" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [494 515])
+                    ("SpaceName" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [516 532]))                  
+                :type "int")
+                nil [450 704])
+            ("FM_delete_space" function
+               (:arguments 
+                  ( ("sPath" variable (:type ("std::string" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [726 744]))                  
+                :type "int")
+                nil [706 858])
+            ("FM_add_file" function
+               (:arguments 
+                  ( ("sFileFullPath" variable (:type ("std::string" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [876 902])
+                    ("sPath" variable (:type ("std::string" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [903 921]))                  
+                :type "int")
+                nil [860 1056])
+            ("FM_delete_file" function
+               (:arguments 
+                  ( ("sPath" variable (:type ("std::string" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [1077 1095]))                  
+                :type "int")
+                nil [1058 1209]))          
+      :file "SAN_FileManager.cpp"
+      :pointmax 1210
+      :fsize 1121
+      :lastmodtime '(22593 5655 92988 125000)
+      :unmatched-syntax nil
+      :lexical-table 
+        '(("TMP_DIR" . ((string "\"/media/tmp\"" 108 . 120)))
+          )
+)
+    (semanticdb-table "SAN_Disk.cpp"
+      :major-mode 'c++-mode
+      :tags 
+        '( ("SAN_Disk.h" include nil nil [1 22])
+            ("Disk_iInit" function (:type "int") nil [24 49]))          
+      :file "SAN_Disk.cpp"
+      :pointmax 50
+      :fsize 49
+      :lastmodtime '(22591 53351 867986 419000)
+      :unmatched-syntax '((semantic-list 38 . 40) (symbol 28 . 38) (INT 24 . 27) (symbol 28 . 33) (INT 24 . 27) (INT 24 . 27))))
+  :file "!home!chz!SAN!src!semantic.cache"
+  :semantic-tag-version "2.0"
+  :semanticdb-version "2.2")

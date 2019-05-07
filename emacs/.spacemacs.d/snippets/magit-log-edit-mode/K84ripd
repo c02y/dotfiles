@@ -1,0 +1,788 @@
+;; Object command-line-chess/
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "command-line-chess/"
+  :tables
+  (list
+    (semanticdb-table "main.py"
+      :major-mode 'python-mode
+      :tags 
+        '( ("Board" include nil nil [1 24])
+            ("Pawn" include nil nil [25 46])
+            ("Rook" include nil nil [47 68])
+            ("King" include nil nil [69 90])
+            ("Queen" include nil nil [91 114])
+            ("Bishop" include nil nil [115 140])
+            ("Knight" include nil nil [141 166])
+            ("Coordinate" include nil nil [167 205])
+            ("Move" include nil nil [206 227])
+            ("Piece" include nil nil [228 251])
+            ("AI" include nil nil [252 269])
+            ("InputParser" include nil nil [270 305])
+            ("time" include nil nil [306 317])
+            ("random" include nil nil [318 331])
+            ("sys" include nil nil [332 342])
+            ("WHITE" variable nil nil [344 356])
+            ("BLACK" variable nil nil [357 370])
+            ("askForPlayerSide" function nil nil [372 644])
+            ("askForDepthOfAI" function nil nil [645 901])
+            ("printCommandOptions" function nil nil [902 1256])
+            ("printAllLegalMoves" function (:arguments 
+              ( ("board" variable nil (reparse-symbol function_parameters) [1281 1286])
+                ("parser" variable nil (reparse-symbol function_parameters) [1288 1294]))              ) nil [1257 1402])
+            ("getRandomMove" function (:arguments 
+              ( ("board" variable nil (reparse-symbol function_parameters) [1422 1427])
+                ("parser" variable nil (reparse-symbol function_parameters) [1429 1435]))              ) nil [1403 1624])
+            ("makeMove" function (:arguments 
+              ( ("move" variable nil (reparse-symbol function_parameters) [1639 1643])
+                ("board" variable nil (reparse-symbol function_parameters) [1645 1650]))              ) nil [1625 1735])
+            ("printPointAdvantage" function (:arguments 
+              ( ("board" variable nil (reparse-symbol function_parameters) [1761 1766]))              ) nil [1736 1877])
+            ("undoLastTwoMoves" function (:arguments 
+              ( ("board" variable nil (reparse-symbol function_parameters) [1899 1904]))              ) nil [1878 1999])
+            ("startGame" function (:arguments 
+              ( ("board" variable nil (reparse-symbol function_parameters) [2015 2020])
+                ("playerSide" variable nil (reparse-symbol function_parameters) [2022 2032])
+                ("ai" variable nil (reparse-symbol function_parameters) [2034 2036]))              ) nil [2001 3581])
+            ("board" variable nil nil [3582 3597])
+            ("playerSide" variable nil nil [3598 3629])
+            ("print" code nil nil [3630 3637])
+            ("aiDepth" variable nil nil [3638 3665])
+            ("opponentAI" variable nil nil [3666 3713])
+            ("startGame" code nil nil [3714 3754]))          
+      :file "main.py"
+      :pointmax 3763
+      :fsize 3762
+      :lastmodtime '(21624 22569 151464 937000)
+      :unmatched-syntax nil)
+    (semanticdb-table "Board.py"
+      :major-mode 'python-mode
+      :tags 
+        '( ("Pawn" include nil nil [1 22])
+            ("Rook" include nil nil [23 44])
+            ("King" include nil nil [45 66])
+            ("Bishop" include nil nil [67 92])
+            ("Knight" include nil nil [93 118])
+            ("Queen" include nil nil [119 142])
+            ("Piece" include nil nil [143 166])
+            ("Coordinate" include nil nil [167 205])
+            ("termcolor" include nil nil [206 235])
+            ("copy" include nil nil [236 247])
+            ("Move" include nil nil [249 270])
+            ("WHITE" variable nil nil [273 285])
+            ("BLACK" variable nil nil [286 299])
+            ("Board" type
+               (:members 
+                  ( ("__init__" function
+                       (:suite 
+                          ( ("self" variable nil (reparse-symbol indented_block_body) [425 441])
+                            ("self" variable nil (reparse-symbol indented_block_body) [450 467])
+                            ("self" variable nil (reparse-symbol indented_block_body) [476 491])
+                            ("self" variable nil (reparse-symbol indented_block_body) [500 524])
+                            ("self" variable nil (reparse-symbol indented_block_body) [533 551])
+                            ("self" variable nil (reparse-symbol indented_block_body) [560 582])
+                            ("if" code nil (reparse-symbol indented_block_body) [592 2243]))                          
+                        :parent "dummy"
+                        :arguments 
+                          ( ("self" variable nil (reparse-symbol function_parameters) [333 337])
+                            ("mateInOne" variable nil (reparse-symbol function_parameters) [339 348])
+                            ("castleBoard" variable nil (reparse-symbol function_parameters) [358 369])
+                            ("pessant" variable nil (reparse-symbol function_parameters) [379 386])
+                            ("promotion" variable nil (reparse-symbol function_parameters) [396 405]))                          
+                        :constructor-flag t)
+                        (reparse-symbol indented_block_body) [320 2243])
+                    ("__str__" function
+                       (:parent "dummy"
+                        :arguments 
+                          ( ("self" variable nil (reparse-symbol function_parameters) [2272 2276]))                          )
+                        (reparse-symbol indented_block_body) [2260 2327])
+                    ("undoLastMove" function
+                       (:parent "dummy"
+                        :arguments 
+                          ( ("self" variable nil (reparse-symbol function_parameters) [2349 2353]))                          )
+                        (reparse-symbol indented_block_body) [2332 4196])
+                    ("isCheckmate" function
+                       (:parent "dummy"
+                        :arguments 
+                          ( ("self" variable nil (reparse-symbol function_parameters) [4219 4223]))                          )
+                        (reparse-symbol indented_block_body) [4203 4534])
+                    ("isStalemate" function
+                       (:parent "dummy"
+                        :arguments 
+                          ( ("self" variable nil (reparse-symbol function_parameters) [4555 4559]))                          )
+                        (reparse-symbol indented_block_body) [4539 4895])
+                    ("getLastMove" function
+                       (:parent "dummy"
+                        :arguments 
+                          ( ("self" variable nil (reparse-symbol function_parameters) [4920 4924]))                          )
+                        (reparse-symbol indented_block_body) [4904 4993])
+                    ("getLastPieceMoved" function
+                       (:parent "dummy"
+                        :arguments 
+                          ( ("self" variable nil (reparse-symbol function_parameters) [5020 5024]))                          )
+                        (reparse-symbol indented_block_body) [4998 5099])
+                    ("addMoveToHistory" function
+                       (:parent "dummy"
+                        :arguments 
+                          ( ("self" variable nil (reparse-symbol function_parameters) [5129 5133])
+                            ("move" variable nil (reparse-symbol function_parameters) [5135 5139]))                          )
+                        (reparse-symbol indented_block_body) [5108 5492])
+                    ("getCurrentSide" function
+                       (:parent "dummy"
+                        :arguments 
+                          ( ("self" variable nil (reparse-symbol function_parameters) [5516 5520]))                          )
+                        (reparse-symbol indented_block_body) [5497 5556])
+                    ("makeStringRep" function
+                       (:parent "dummy"
+                        :arguments 
+                          ( ("self" variable nil (reparse-symbol function_parameters) [5591 5595])
+                            ("pieces" variable nil (reparse-symbol function_parameters) [5597 5603]))                          )
+                        (reparse-symbol indented_block_body) [5573 6288])
+                    ("rankOfPiece" function
+                       (:parent "dummy"
+                        :arguments 
+                          ( ("self" variable nil (reparse-symbol function_parameters) [6309 6313])
+                            ("piece" variable nil (reparse-symbol function_parameters) [6315 6320]))                          )
+                        (reparse-symbol indented_block_body) [6293 6366])
+                    ("fileOfPiece" function
+                       (:parent "dummy"
+                        :arguments 
+                          ( ("self" variable nil (reparse-symbol function_parameters) [6388 6392])
+                            ("piece" variable nil (reparse-symbol function_parameters) [6394 6399]))                          )
+                        (reparse-symbol indented_block_body) [6372 6522])
+                    ("getShortNotationOfMove" function
+                       (:parent "dummy"
+                        :arguments 
+                          ( ("self" variable nil (reparse-symbol function_parameters) [6555 6559])
+                            ("move" variable nil (reparse-symbol function_parameters) [6561 6565]))                          )
+                        (reparse-symbol indented_block_body) [6528 7235])
+                    ("getShortNotationOfMoveWithFile" function
+                       (:parent "dummy"
+                        :arguments 
+                          ( ("self" variable nil (reparse-symbol function_parameters) [7279 7283])
+                            ("move" variable nil (reparse-symbol function_parameters) [7285 7289]))                          )
+                        (reparse-symbol indented_block_body) [7244 7793])
+                    ("getShortNotationOfMoveWithRank" function
+                       (:parent "dummy"
+                        :arguments 
+                          ( ("self" variable nil (reparse-symbol function_parameters) [7837 7841])
+                            ("move" variable nil (reparse-symbol function_parameters) [7843 7847]))                          )
+                        (reparse-symbol indented_block_body) [7802 8351])
+                    ("getShortNotationOfMoveWithFileAndRank" function
+                       (:parent "dummy"
+                        :arguments 
+                          ( ("self" variable nil (reparse-symbol function_parameters) [8398 8402])
+                            ("move" variable nil (reparse-symbol function_parameters) [8404 8408]))                          )
+                        (reparse-symbol indented_block_body) [8356 8995])
+                    ("humanCoordToPosition" function
+                       (:parent "dummy"
+                        :arguments 
+                          ( ("self" variable nil (reparse-symbol function_parameters) [9025 9029])
+                            ("coord" variable nil (reparse-symbol function_parameters) [9031 9036]))                          )
+                        (reparse-symbol indented_block_body) [9000 9240])
+                    ("positionToHumanCoord" function
+                       (:parent "dummy"
+                        :arguments 
+                          ( ("self" variable nil (reparse-symbol function_parameters) [9278 9282])
+                            ("pos" variable nil (reparse-symbol function_parameters) [9284 9287]))                          )
+                        (reparse-symbol indented_block_body) [9253 9444])
+                    ("isValidPos" function
+                       (:parent "dummy"
+                        :arguments 
+                          ( ("self" variable nil (reparse-symbol function_parameters) [9464 9468])
+                            ("pos" variable nil (reparse-symbol function_parameters) [9470 9473]))                          )
+                        (reparse-symbol indented_block_body) [9449 9592])
+                    ("getSideOfMove" function
+                       (:parent "dummy"
+                        :arguments 
+                          ( ("self" variable nil (reparse-symbol function_parameters) [9615 9619])
+                            ("move" variable nil (reparse-symbol function_parameters) [9621 9625]))                          )
+                        (reparse-symbol indented_block_body) [9597 9660])
+                    ("getPositionOfPiece" function
+                       (:parent "dummy"
+                        :arguments 
+                          ( ("self" variable nil (reparse-symbol function_parameters) [9688 9692])
+                            ("piece" variable nil (reparse-symbol function_parameters) [9694 9699]))                          )
+                        (reparse-symbol indented_block_body) [9665 9852])
+                    ("pieceAtPosition" function
+                       (:parent "dummy"
+                        :arguments 
+                          ( ("self" variable nil (reparse-symbol function_parameters) [9877 9881])
+                            ("pos" variable nil (reparse-symbol function_parameters) [9883 9886]))                          )
+                        (reparse-symbol indented_block_body) [9857 9993])
+                    ("movePieceToPosition" function
+                       (:parent "dummy"
+                        :arguments 
+                          ( ("self" variable nil (reparse-symbol function_parameters) [10022 10026])
+                            ("piece" variable nil (reparse-symbol function_parameters) [10028 10033])
+                            ("pos" variable nil (reparse-symbol function_parameters) [10035 10038]))                          )
+                        (reparse-symbol indented_block_body) [9998 10071])
+                    ("addPieceToPosition" function
+                       (:parent "dummy"
+                        :arguments 
+                          ( ("self" variable nil (reparse-symbol function_parameters) [10099 10103])
+                            ("piece" variable nil (reparse-symbol function_parameters) [10105 10110])
+                            ("pos" variable nil (reparse-symbol function_parameters) [10112 10115]))                          )
+                        (reparse-symbol indented_block_body) [10076 10148])
+                    ("clearPosition" function
+                       (:parent "dummy"
+                        :arguments 
+                          ( ("self" variable nil (reparse-symbol function_parameters) [10171 10175])
+                            ("pos" variable nil (reparse-symbol function_parameters) [10177 10180]))                          )
+                        (reparse-symbol indented_block_body) [10153 10269])
+                    ("coordToLocationInArray" function
+                       (:parent "dummy"
+                        :arguments 
+                          ( ("self" variable nil (reparse-symbol function_parameters) [10310 10314])
+                            ("pos" variable nil (reparse-symbol function_parameters) [10316 10319]))                          )
+                        (reparse-symbol indented_block_body) [10283 10357])
+                    ("locationInArrayToCoord" function
+                       (:parent "dummy"
+                        :arguments 
+                          ( ("self" variable nil (reparse-symbol function_parameters) [10389 10393])
+                            ("loc" variable nil (reparse-symbol function_parameters) [10395 10398]))                          )
+                        (reparse-symbol indented_block_body) [10362 10436])
+                    ("makeMove" function
+                       (:parent "dummy"
+                        :arguments 
+                          ( ("self" variable nil (reparse-symbol function_parameters) [10454 10458])
+                            ("move" variable nil (reparse-symbol function_parameters) [10460 10464]))                          )
+                        (reparse-symbol indented_block_body) [10441 11998])
+                    ("getPointValueOfSide" function
+                       (:parent "dummy"
+                        :arguments 
+                          ( ("self" variable nil (reparse-symbol function_parameters) [12027 12031])
+                            ("side" variable nil (reparse-symbol function_parameters) [12033 12037]))                          )
+                        (reparse-symbol indented_block_body) [12003 12191])
+                    ("getPointAdvantageOfSide" function
+                       (:parent "dummy"
+                        :arguments 
+                          ( ("self" variable nil (reparse-symbol function_parameters) [12224 12228])
+                            ("side" variable nil (reparse-symbol function_parameters) [12230 12234]))                          )
+                        (reparse-symbol indented_block_body) [12196 12479])
+                    ("getAllMovesUnfiltered" function
+                       (:parent "dummy"
+                        :arguments 
+                          ( ("self" variable nil (reparse-symbol function_parameters) [12520 12524])
+                            ("side" variable nil (reparse-symbol function_parameters) [12526 12530])
+                            ("includeKing" variable nil (reparse-symbol function_parameters) [12532 12543]))                          )
+                        (reparse-symbol indented_block_body) [12493 12854])
+                    ("testIfLegalBoard" function
+                       (:parent "dummy"
+                        :arguments 
+                          ( ("self" variable nil (reparse-symbol function_parameters) [12880 12884])
+                            ("side" variable nil (reparse-symbol function_parameters) [12886 12890]))                          )
+                        (reparse-symbol indented_block_body) [12859 13106])
+                    ("moveIsLegal" function
+                       (:parent "dummy"
+                        :arguments 
+                          ( ("self" variable nil (reparse-symbol function_parameters) [13128 13132])
+                            ("move" variable nil (reparse-symbol function_parameters) [13134 13138]))                          )
+                        (reparse-symbol indented_block_body) [13112 13305])
+                    ("getAllMovesLegal" function
+                       (:parent "dummy"
+                        :arguments 
+                          ( ("self" variable nil (reparse-symbol function_parameters) [13379 13383])
+                            ("side" variable nil (reparse-symbol function_parameters) [13385 13389]))                          )
+                        (reparse-symbol indented_block_body) [13357 13626]))                  
+                :type "class")
+                nil [301 13626]))          
+      :file "Board.py"
+      :pointmax 13628
+      :fsize 13627
+      :lastmodtime '(21585 10599 846031 746000)
+      :unmatched-syntax '((NAME 5987 . 5992) (IF 6002 . 6004) (ELSE 6019 . 6023)))
+    (semanticdb-table "Pawn.py"
+      :major-mode 'python-mode
+      :tags 
+        '( ("Rook" include nil nil [1 22])
+            ("Bishop" include nil nil [23 48])
+            ("Knight" include nil nil [49 74])
+            ("Queen" include nil nil [75 98])
+            ("Piece" include nil nil [100 123])
+            ("Coordinate" include nil nil [124 162])
+            ("Move" include nil nil [163 184])
+            ("WHITE" variable nil nil [186 198])
+            ("BLACK" variable nil nil [199 212])
+            ("Pawn" type
+               (:superclasses ("Piece")
+                :members 
+                  ( ("stringRep" variable nil (reparse-symbol indented_block_body) [240 255])
+                    ("value" variable nil (reparse-symbol indented_block_body) [260 269])
+                    ("__init__" function
+                       (:suite 
+                          ( ("super" code nil (reparse-symbol indented_block_body) [341 390])
+                            ("self" variable nil (reparse-symbol indented_block_body) [399 425]))                          
+                        :parent "dummy"
+                        :arguments 
+                          ( ("self" variable nil (reparse-symbol function_parameters) [288 292])
+                            ("board" variable nil (reparse-symbol function_parameters) [294 299])
+                            ("side" variable nil (reparse-symbol function_parameters) [301 305])
+                            ("position" variable nil (reparse-symbol function_parameters) [307 315])
+                            ("movesMade" variable nil (reparse-symbol function_parameters) [318 327]))                          
+                        :constructor-flag t)
+                        (reparse-symbol indented_block_body) [275 426])
+                    ("getPossibleMoves" function
+                       (:parent "dummy"
+                        :arguments 
+                          ( ("self" variable nil (reparse-symbol function_parameters) [452 456]))                          )
+                        (reparse-symbol indented_block_body) [431 4106]))                  
+                :type "class")
+                nil [214 4106]))          
+      :file "Pawn.py"
+      :pointmax 4121
+      :fsize 4120
+      :lastmodtime '(21585 10599 847031 722000)
+      :unmatched-syntax '((NAME 3032 . 3041) (IF 3062 . 3064) (ELSE 3084 . 3088) (NAME 1930 . 1939) (IF 1960 . 1962) (ELSE 1982 . 1986) (NAME 1536 . 1544) (IF 1555 . 1557) (ELSE 1577 . 1581) (NAME 537 . 545) (IF 556 . 558) (ELSE 578 . 582)))
+    (semanticdb-table "Rook.py"
+      :major-mode 'python-mode
+      :tags 
+        '( ("Piece" include nil nil [1 24])
+            ("Coordinate" include nil nil [25 63])
+            ("WHITE" variable nil nil [65 77])
+            ("BLACK" variable nil nil [78 91])
+            ("Rook" type
+               (:superclasses ("Piece")
+                :members 
+                  ( ("stringRep" variable nil (reparse-symbol indented_block_body) [119 134])
+                    ("value" variable nil (reparse-symbol indented_block_body) [139 148])
+                    ("__init__" function
+                       (:suite 
+                          ( ("super" code nil (reparse-symbol indented_block_body) [220 269])
+                            ("self" variable nil (reparse-symbol indented_block_body) [278 304]))                          
+                        :parent "dummy"
+                        :arguments 
+                          ( ("self" variable nil (reparse-symbol function_parameters) [167 171])
+                            ("board" variable nil (reparse-symbol function_parameters) [173 178])
+                            ("side" variable nil (reparse-symbol function_parameters) [180 184])
+                            ("position" variable nil (reparse-symbol function_parameters) [186 194])
+                            ("movesMade" variable nil (reparse-symbol function_parameters) [197 206]))                          
+                        :constructor-flag t)
+                        (reparse-symbol indented_block_body) [154 305])
+                    ("getPossibleMoves" function
+                       (:parent "dummy"
+                        :arguments 
+                          ( ("self" variable nil (reparse-symbol function_parameters) [331 335]))                          )
+                        (reparse-symbol indented_block_body) [310 626]))                  
+                :type "class")
+                nil [93 626]))          
+      :file "Rook.py"
+      :pointmax 652
+      :fsize 651
+      :lastmodtime '(21585 10599 848031 699000)
+      :unmatched-syntax nil)
+    (semanticdb-table "King.py"
+      :major-mode 'python-mode
+      :tags nil
+      :file "King.py"
+      :pointmax 3980
+      :fsize 3979
+      :lastmodtime '(21585 10599 847031 722000)
+      :unmatched-syntax nil)
+    (semanticdb-table "Bishop.py"
+      :major-mode 'python-mode
+      :tags 
+        '( ("Piece" include nil nil [2 25])
+            ("Coordinate" include nil nil [26 64])
+            ("WHITE" variable nil nil [66 78])
+            ("BLACK" variable nil nil [79 92])
+            ("Bishop" type
+               (:superclasses ("Piece")
+                :members 
+                  ( ("stringRep" variable nil (reparse-symbol indented_block_body) [122 137])
+                    ("value" variable nil (reparse-symbol indented_block_body) [142 151])
+                    ("__init__" function
+                       (:suite 
+                          ( ("super" code nil (reparse-symbol indented_block_body) [222 273])
+                            ("self" variable nil (reparse-symbol indented_block_body) [282 308]))                          
+                        :parent "dummy"
+                        :arguments 
+                          ( ("self" variable nil (reparse-symbol function_parameters) [170 174])
+                            ("board" variable nil (reparse-symbol function_parameters) [176 181])
+                            ("side" variable nil (reparse-symbol function_parameters) [183 187])
+                            ("position" variable nil (reparse-symbol function_parameters) [189 197])
+                            ("movesMade" variable nil (reparse-symbol function_parameters) [199 208]))                          
+                        :constructor-flag t)
+                        (reparse-symbol indented_block_body) [157 310])
+                    ("getPossibleMoves" function
+                       (:parent "dummy"
+                        :arguments 
+                          ( ("self" variable nil (reparse-symbol function_parameters) [337 341]))                          )
+                        (reparse-symbol indented_block_body) [316 634]))                  
+                :type "class")
+                nil [94 634]))          
+      :file "Bishop.py"
+      :pointmax 659
+      :fsize 658
+      :lastmodtime '(21585 10599 846031 746000)
+      :unmatched-syntax nil)
+    (semanticdb-table "Knight.py"
+      :major-mode 'python-mode
+      :tags 
+        '( ("Piece" include nil nil [1 24])
+            ("Coordinate" include nil nil [25 63])
+            ("Move" include nil nil [64 85])
+            ("WHITE" variable nil nil [87 99])
+            ("BLACK" variable nil nil [100 113])
+            ("Knight" type
+               (:superclasses ("Piece")
+                :members 
+                  ( ("stringRep" variable nil (reparse-symbol indented_block_body) [143 158])
+                    ("value" variable nil (reparse-symbol indented_block_body) [163 172])
+                    ("__init__" function
+                       (:suite 
+                          ( ("super" code nil (reparse-symbol indented_block_body) [244 295])
+                            ("self" variable nil (reparse-symbol indented_block_body) [304 330]))                          
+                        :parent "dummy"
+                        :arguments 
+                          ( ("self" variable nil (reparse-symbol function_parameters) [191 195])
+                            ("board" variable nil (reparse-symbol function_parameters) [197 202])
+                            ("side" variable nil (reparse-symbol function_parameters) [204 208])
+                            ("position" variable nil (reparse-symbol function_parameters) [210 218])
+                            ("movesMade" variable nil (reparse-symbol function_parameters) [221 230]))                          
+                        :constructor-flag t)
+                        (reparse-symbol indented_block_body) [178 332])
+                    ("getPossibleMoves" function
+                       (:parent "dummy"
+                        :arguments 
+                          ( ("self" variable nil (reparse-symbol function_parameters) [359 363]))                          )
+                        (reparse-symbol indented_block_body) [338 933]))                  
+                :type "class")
+                nil [115 933]))          
+      :file "Knight.py"
+      :pointmax 933
+      :fsize 932
+      :lastmodtime '(21585 10599 847031 722000)
+      :unmatched-syntax nil)
+    (semanticdb-table "Queen.py"
+      :major-mode 'python-mode
+      :tags 
+        '( ("Piece" include nil nil [1 24])
+            ("Coordinate" include nil nil [25 63])
+            ("WHITE" variable nil nil [65 77])
+            ("BLACK" variable nil nil [78 91])
+            ("Queen" type
+               (:superclasses ("Piece")
+                :members 
+                  ( ("stringRep" variable nil (reparse-symbol indented_block_body) [120 135])
+                    ("value" variable nil (reparse-symbol indented_block_body) [140 149])
+                    ("__init__" function
+                       (:suite 
+                          ( ("super" code nil (reparse-symbol indented_block_body) [220 270])
+                            ("self" variable nil (reparse-symbol indented_block_body) [279 305]))                          
+                        :parent "dummy"
+                        :arguments 
+                          ( ("self" variable nil (reparse-symbol function_parameters) [168 172])
+                            ("board" variable nil (reparse-symbol function_parameters) [174 179])
+                            ("side" variable nil (reparse-symbol function_parameters) [181 185])
+                            ("position" variable nil (reparse-symbol function_parameters) [187 195])
+                            ("movesMade" variable nil (reparse-symbol function_parameters) [197 206]))                          
+                        :constructor-flag t)
+                        (reparse-symbol indented_block_body) [155 306])
+                    ("getPossibleMoves" function
+                       (:parent "dummy"
+                        :arguments 
+                          ( ("self" variable nil (reparse-symbol function_parameters) [332 336]))                          )
+                        (reparse-symbol indented_block_body) [311 667]))                  
+                :type "class")
+                nil [93 667]))          
+      :file "Queen.py"
+      :pointmax 692
+      :fsize 691
+      :lastmodtime '(21585 10599 848031 699000)
+      :unmatched-syntax nil)
+    (semanticdb-table "Piece.py"
+      :major-mode 'python-mode
+      :tags 
+        '( ("Coordinate" include nil nil [1 39])
+            ("Move" include nil nil [40 61])
+            ("WHITE" variable nil nil [63 75])
+            ("BLACK" variable nil nil [76 89])
+            ("X" variable nil nil [90 95])
+            ("Y" variable nil nil [96 101])
+            ("Piece" type
+               (:members 
+                  ( ("__init__" function
+                       (:suite 
+                          ( ("self" variable nil (reparse-symbol indented_block_body) [189 207])
+                            ("self" variable nil (reparse-symbol indented_block_body) [216 232])
+                            ("self" variable nil (reparse-symbol indented_block_body) [241 265])
+                            ("movesMade" variable nil (reparse-symbol indented_block_body) [274 287]))                          
+                        :parent "dummy"
+                        :arguments 
+                          ( ("self" variable nil (reparse-symbol function_parameters) [137 141])
+                            ("board" variable nil (reparse-symbol function_parameters) [143 148])
+                            ("side" variable nil (reparse-symbol function_parameters) [150 154])
+                            ("position" variable nil (reparse-symbol function_parameters) [156 164])
+                            ("movesMade" variable nil (reparse-symbol function_parameters) [166 175]))                          
+                        :constructor-flag t)
+                        (reparse-symbol indented_block_body) [123 288])
+                    ("__str__" function
+                       (:parent "dummy"
+                        :arguments 
+                          ( ("self" variable nil (reparse-symbol function_parameters) [305 309]))                          )
+                        (reparse-symbol indented_block_body) [293 527])
+                    ("movesInDirectionFromPos" function
+                       (:parent "dummy"
+                        :arguments 
+                          ( ("self" variable nil (reparse-symbol function_parameters) [560 564])
+                            ("pos" variable nil (reparse-symbol function_parameters) [566 569])
+                            ("direction" variable nil (reparse-symbol function_parameters) [571 580])
+                            ("side" variable nil (reparse-symbol function_parameters) [582 586]))                          )
+                        (reparse-symbol indented_block_body) [532 1152])
+                    ("__eq__" function
+                       (:parent "dummy"
+                        :arguments 
+                          ( ("self" variable nil (reparse-symbol function_parameters) [1168 1172])
+                            ("other" variable nil (reparse-symbol function_parameters) [1174 1179]))                          )
+                        (reparse-symbol indented_block_body) [1157 1368])
+                    ("copy" function
+                       (:parent "dummy"
+                        :arguments 
+                          ( ("self" variable nil (reparse-symbol function_parameters) [1386 1390]))                          )
+                        (reparse-symbol indented_block_body) [1377 1509]))                  
+                :type "class")
+                nil [103 1509]))          
+      :file "Piece.py"
+      :pointmax 1520
+      :fsize 1519
+      :lastmodtime '(21585 10599 847031 722000)
+      :unmatched-syntax '((NAME 321 . 331) (IF 342 . 344) (ELSE 364 . 368)))
+    (semanticdb-table "Coordinate.py"
+      :major-mode 'python-mode
+      :tags 
+        '( ("Coordinate" type
+               (:superclasses ("tuple")
+                :members 
+                  ( ("__new__" function (:arguments 
+                      ( ("cls" variable nil (reparse-symbol function_parameters) [44 47])
+                        ("args" variable nil (reparse-symbol function_parameters) [49 54]))                      ) (reparse-symbol indented_block_body) [32 97])
+                    ("__reduce__" function
+                       (:parent "dummy"
+                        :arguments 
+                          ( ("self" variable nil (reparse-symbol function_parameters) [117 121]))                          )
+                        (reparse-symbol indented_block_body) [102 170])
+                    ("__add__" function
+                       (:parent "dummy"
+                        :arguments 
+                          ( ("self" variable nil (reparse-symbol function_parameters) [187 191])
+                            ("other" variable nil (reparse-symbol function_parameters) [193 198]))                          )
+                        (reparse-symbol indented_block_body) [175 267])
+                    ("__sub__" function
+                       (:parent "dummy"
+                        :arguments 
+                          ( ("self" variable nil (reparse-symbol function_parameters) [284 288])
+                            ("other" variable nil (reparse-symbol function_parameters) [290 295]))                          )
+                        (reparse-symbol indented_block_body) [272 364]))                  
+                :type "class")
+                nil [1 364]))          
+      :file "Coordinate.py"
+      :pointmax 365
+      :fsize 364
+      :lastmodtime '(21585 10599 846031 746000)
+      :unmatched-syntax nil)
+    (semanticdb-table "termcolor.py"
+      :file "termcolor.py"
+      :fsize 5044
+      :lastmodtime '(21585 10599 848031 699000))
+    (semanticdb-table "Move.py"
+      :major-mode 'python-mode
+      :tags nil
+      :file "Move.py"
+      :pointmax 1723
+      :fsize 1722
+      :lastmodtime '(21585 10599 847031 722000)
+      :unmatched-syntax nil)
+    (semanticdb-table "AI.py"
+      :major-mode 'python-mode
+      :tags 
+        '( ("sys" include nil nil [1 11])
+            ("Coordinate" include nil nil [12 50])
+            ("Move" include nil nil [51 72])
+            ("Piece" include nil nil [73 96])
+            ("Board" include nil nil [97 120])
+            ("MoveNode" include nil nil [121 150])
+            ("InputParser" include nil nil [151 186])
+            ("copy" include nil nil [187 198])
+            ("random" include nil nil [199 212])
+            ("multiprocessing" include nil nil [213 261])
+            ("WHITE" variable nil nil [264 276])
+            ("BLACK" variable nil nil [277 290])
+            ("AI" type
+               (:members 
+                  ( ("depth" variable nil (reparse-symbol indented_block_body) [308 317])
+                    ("board" variable nil (reparse-symbol indented_block_body) [322 334])
+                    ("side" variable nil (reparse-symbol indented_block_body) [339 350])
+                    ("movesAnalyzed" variable nil (reparse-symbol indented_block_body) [355 372])
+                    ("__init__" function
+                       (:suite 
+                          ( ("self" variable nil (reparse-symbol indented_block_body) [432 450])
+                            ("self" variable nil (reparse-symbol indented_block_body) [459 475])
+                            ("self" variable nil (reparse-symbol indented_block_body) [484 502])
+                            ("self" variable nil (reparse-symbol indented_block_body) [511 559]))                          
+                        :parent "dummy"
+                        :arguments 
+                          ( ("self" variable nil (reparse-symbol function_parameters) [396 400])
+                            ("board" variable nil (reparse-symbol function_parameters) [402 407])
+                            ("side" variable nil (reparse-symbol function_parameters) [409 413])
+                            ("depth" variable nil (reparse-symbol function_parameters) [415 420]))                          
+                        :constructor-flag t)
+                        (reparse-symbol indented_block_body) [383 560])
+                    ("getFirstMove" function
+                       (:parent "dummy"
+                        :arguments 
+                          ( ("self" variable nil (reparse-symbol function_parameters) [582 586])
+                            ("side" variable nil (reparse-symbol function_parameters) [588 592]))                          )
+                        (reparse-symbol indented_block_body) [565 674])
+                    ("getAllMovesLegalConcurrent" function
+                       (:parent "dummy"
+                        :arguments 
+                          ( ("self" variable nil (reparse-symbol function_parameters) [711 715])
+                            ("side" variable nil (reparse-symbol function_parameters) [717 721]))                          )
+                        (reparse-symbol indented_block_body) [679 1029])
+                    ("minChildrenOfNode" function
+                       (:parent "dummy"
+                        :arguments 
+                          ( ("self" variable nil (reparse-symbol function_parameters) [1056 1060])
+                            ("node" variable nil (reparse-symbol function_parameters) [1062 1066]))                          )
+                        (reparse-symbol indented_block_body) [1034 1436])
+                    ("maxChildrenOfNode" function
+                       (:parent "dummy"
+                        :arguments 
+                          ( ("self" variable nil (reparse-symbol function_parameters) [1463 1467])
+                            ("node" variable nil (reparse-symbol function_parameters) [1469 1473]))                          )
+                        (reparse-symbol indented_block_body) [1441 1852])
+                    ("getRandomMove" function
+                       (:parent "dummy"
+                        :arguments 
+                          ( ("self" variable nil (reparse-symbol function_parameters) [1875 1879]))                          )
+                        (reparse-symbol indented_block_body) [1857 2022])
+                    ("generateMoveTree" function
+                       (:parent "dummy"
+                        :arguments 
+                          ( ("self" variable nil (reparse-symbol function_parameters) [2048 2052]))                          )
+                        (reparse-symbol indented_block_body) [2027 2374])
+                    ("populateNodeChildren" function
+                       (:parent "dummy"
+                        :arguments 
+                          ( ("self" variable nil (reparse-symbol function_parameters) [2405 2409])
+                            ("node" variable nil (reparse-symbol function_parameters) [2411 2415]))                          )
+                        (reparse-symbol indented_block_body) [2380 3270])
+                    ("getOptimalPointAdvantageForNode" function
+                       (:parent "dummy"
+                        :arguments 
+                          ( ("self" variable nil (reparse-symbol function_parameters) [3311 3315])
+                            ("node" variable nil (reparse-symbol function_parameters) [3317 3321]))                          )
+                        (reparse-symbol indented_block_body) [3275 3804])
+                    ("getBestMove" function
+                       (:parent "dummy"
+                        :arguments 
+                          ( ("self" variable nil (reparse-symbol function_parameters) [3825 3829]))                          )
+                        (reparse-symbol indented_block_body) [3809 4091])
+                    ("makeBestMove" function
+                       (:parent "dummy"
+                        :arguments 
+                          ( ("self" variable nil (reparse-symbol function_parameters) [4113 4117]))                          )
+                        (reparse-symbol indented_block_body) [4096 4169])
+                    ("bestMovesWithMoveTree" function
+                       (:parent "dummy"
+                        :arguments 
+                          ( ("self" variable nil (reparse-symbol function_parameters) [4208 4212])
+                            ("moveTree" variable nil (reparse-symbol function_parameters) [4214 4222]))                          )
+                        (reparse-symbol indented_block_body) [4182 4741])
+                    ("traverseTreeForBestMove" function
+                       (:parent "dummy"
+                        :arguments 
+                          ( ("self" variable nil (reparse-symbol function_parameters) [4774 4778])
+                            ("side" variable nil (reparse-symbol function_parameters) [4780 4784])
+                            ("moveTree" variable nil (reparse-symbol function_parameters) [4786 4794])
+                            ("layersTraversed" variable nil (reparse-symbol function_parameters) [4796 4811])
+                            ("bestMovesFound" variable nil (reparse-symbol function_parameters) [4813 4827]))                          )
+                        (reparse-symbol indented_block_body) [4746 5281])
+                    ("isValidMove" function
+                       (:parent "dummy"
+                        :arguments 
+                          ( ("self" variable nil (reparse-symbol function_parameters) [5318 5322])
+                            ("move" variable nil (reparse-symbol function_parameters) [5324 5328])
+                            ("side" variable nil (reparse-symbol function_parameters) [5330 5334]))                          )
+                        (reparse-symbol indented_block_body) [5302 5483])
+                    ("makeRandomMove" function
+                       (:parent "dummy"
+                        :arguments 
+                          ( ("self" variable nil (reparse-symbol function_parameters) [5507 5511]))                          )
+                        (reparse-symbol indented_block_body) [5488 5597]))                  
+                :type "class")
+                nil [292 5597])
+            ("if" code nil nil [5599 5806]))          
+      :file "AI.py"
+      :pointmax 5807
+      :fsize 5806
+      :lastmodtime '(21585 10599 846031 746000)
+      :unmatched-syntax nil)
+    (semanticdb-table "MoveNode.py"
+      :file "MoveNode.py"
+      :fsize 1928
+      :lastmodtime '(21585 10599 847031 722000))
+    (semanticdb-table "InputParser.py"
+      :major-mode 'python-mode
+      :tags 
+        '( ("Move" include nil nil [1 22])
+            ("Coordinate" include nil nil [23 61])
+            ("InputParser" type
+               (:members 
+                  ( ("__init__" function
+                       (:suite 
+                          ( ("self" variable nil (reparse-symbol indented_block_body) [134 152])
+                            ("self" variable nil (reparse-symbol indented_block_body) [161 177]))                          
+                        :parent "dummy"
+                        :arguments 
+                          ( ("self" variable nil (reparse-symbol function_parameters) [105 109])
+                            ("board" variable nil (reparse-symbol function_parameters) [111 116])
+                            ("side" variable nil (reparse-symbol function_parameters) [118 122]))                          
+                        :constructor-flag t)
+                        (reparse-symbol indented_block_body) [92 178])
+                    ("parse" function
+                       (:parent "dummy"
+                        :arguments 
+                          ( ("self" variable nil (reparse-symbol function_parameters) [193 197])
+                            ("humanInput" variable nil (reparse-symbol function_parameters) [199 209]))                          )
+                        (reparse-symbol indented_block_body) [183 600])
+                    ("moveForLongNotation" function
+                       (:parent "dummy"
+                        :arguments 
+                          ( ("self" variable nil (reparse-symbol function_parameters) [629 633])
+                            ("notation" variable nil (reparse-symbol function_parameters) [635 643]))                          )
+                        (reparse-symbol indented_block_body) [605 944])
+                    ("moveForShortNotation" function
+                       (:parent "dummy"
+                        :arguments 
+                          ( ("self" variable nil (reparse-symbol function_parameters) [974 978])
+                            ("notation" variable nil (reparse-symbol function_parameters) [980 988]))                          )
+                        (reparse-symbol indented_block_body) [949 1170])
+                    ("notationForMove" function
+                       (:parent "dummy"
+                        :arguments 
+                          ( ("self" variable nil (reparse-symbol function_parameters) [1195 1199])
+                            ("move" variable nil (reparse-symbol function_parameters) [1201 1205]))                          )
+                        (reparse-symbol indented_block_body) [1175 1399])
+                    ("getLegalMovesWithShortNotation" function
+                       (:parent "dummy"
+                        :arguments 
+                          ( ("self" variable nil (reparse-symbol function_parameters) [1440 1444])
+                            ("side" variable nil (reparse-symbol function_parameters) [1446 1450]))                          )
+                        (reparse-symbol indented_block_body) [1405 2331])
+                    ("duplicateMovesFromMoves" function
+                       (:parent "dummy"
+                        :arguments 
+                          ( ("self" variable nil (reparse-symbol function_parameters) [2364 2368])
+                            ("moves" variable nil (reparse-symbol function_parameters) [2370 2375]))                          )
+                        (reparse-symbol indented_block_body) [2336 2488]))                  
+                :type "class")
+                nil [63 2488]))          
+      :file "InputParser.py"
+      :pointmax 2497
+      :fsize 2496
+      :lastmodtime '(21585 10599 846031 746000)
+      :unmatched-syntax nil))
+  :file "!home!chz!Projects!Python!command-line-chess!semantic.cache"
+  :semantic-tag-version "2.0"
+  :semanticdb-version "2.2")

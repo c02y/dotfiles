@@ -1,0 +1,714 @@
+;; Object include/
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "include/"
+  :tables
+  (list
+    (semanticdb-table "SAN_StorageManage.h"
+      :major-mode 'c-mode
+      :tags 
+        '( ("_SAN_STORAGEMANAGE_H_" variable (:constant-flag t) nil [39 60])
+            ("CHECK_ALL_GROUP" variable (:constant-flag t) nil [93 108])
+            ("SAN_Disk.h" include nil nil [62 83])
+            ("CHECK_ALL_GROUP" variable (:constant-flag t) nil [93 108])
+            ("sHDD_TYPE_INFO" type
+               (:typedef ("" type
+                     (:members 
+                        ( ("eHddType" variable (:type ("xeHDD_TYPE" type (:type "class") nil nil)) (reparse-symbol classsubparts) [130 149])
+                          ("strHddDev" variable (:type ("std::string" type (:type "class") nil nil)) (reparse-symbol classsubparts) [151 173]))                        
+                      :type "struct")
+                      nil nil)
+                :type "typedef")
+                nil [112 190])
+            ("sDISK_GROUP" type
+               (:typedef ("" type
+                     (:members 
+                        ( ("iRecordDisk" variable (:type "int") (reparse-symbol classsubparts) [210 226])
+                          ("vecChannel" variable (:type ("std::vector" type
+                               (:template-specifier 
+                                  ( ("int" type nil nil nil))                                  
+                                :type "class")
+                                nil nil)) (reparse-symbol classsubparts) [250 278]))                        
+                      :type "struct")
+                      nil nil)
+                :type "typedef")
+                nil [192 292])
+            ("" type
+               (:members 
+                  ( ("CHECK_DEV_IPSAN" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [302 318])
+                    ("CHECK_DEV_USB" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [320 335]))                  
+                :type "enum")
+                nil [294 336])
+            ("IntMap" type
+               (:typedef ("std::map" type
+                     (:template-specifier 
+                        ( ("int" type nil nil nil)
+                          ("int" type nil nil nil))                        
+                      :type "class")
+                      nil nil)
+                :type "typedef")
+                nil [394 428])
+            ("IntMapIt" type
+               (:typedef ("IntMap::iterator" type (:type "class") nil nil)
+                :type "typedef")
+                nil [429 463])
+            ("IntMapValType" type
+               (:typedef ("IntMap::value_type" type (:type "class") nil nil)
+                :type "typedef")
+                nil [464 505]))          
+      :file "SAN_StorageManage.h"
+      :pointmax 543
+      :fsize 542
+      :lastmodtime '(22561 30570 45987 457000)
+      :unmatched-syntax nil
+      :lexical-table 
+        '(("CHECK_ALL_GROUP" . ((number "0" 101 . 102)))
+          ("_SAN_STORAGEMANAGE_H_")
+          )
+)
+    (semanticdb-table "SAN_Disk.h"
+      :major-mode 'c-mode
+      :tags 
+        '( ("_SAN_DISK_H_" variable (:constant-flag t) nil [30 42])
+            ("eHDD_TYPE" type
+               (:typedef ("" type
+                     (:members 
+                        ( ("HDD_TYPE_INVALID" variable
+                             (:constant-flag t
+                              :default-value (92 94)
+                              :type "int")
+                              (reparse-symbol enumsubparts) [71 92])
+                          ("HDD_TYPE_IPSAN" variable
+                             (:constant-flag t
+                              :type "int")
+                              (reparse-symbol enumsubparts) [103 118])
+                          ("HDD_TYPE_LOCAL" variable
+                             (:constant-flag t
+                              :type "int")
+                              (reparse-symbol enumsubparts) [135 162]))                        
+                      :type "enum")
+                      nil nil)
+                :type "typedef")
+                nil [55 172]))          
+      :file "SAN_Disk.h"
+      :pointmax 200
+      :fsize 225
+      :lastmodtime '(22561 35080 636984 816000)
+      :unmatched-syntax nil
+      :lexical-table 
+        '(("_SAN_DISK_H_")
+          )
+)
+    (semanticdb-table "SAN_Proxy.h"
+      :major-mode 'c-mode
+      :tags 
+        '( ("_SAN_PROXY_H_" variable (:constant-flag t) nil [31 44])
+            ("vector" include (:system-flag t) nil [46 63])
+            ("SAN_MainDef.h" include nil nil [65 89])
+            ("sUploadFileINFO" type
+               (:typedef ("" type
+                     (:members 
+                        ( ("iFileSize" variable (:type "int") (reparse-symbol classsubparts) [112 126])
+                          ("pFileName" variable
+                             (:pointer 1
+                              :type "char")
+                              (reparse-symbol classsubparts) [131 147])
+                          ("pModifiedTime" variable
+                             (:pointer 1
+                              :type "char")
+                              (reparse-symbol classsubparts) [152 172])
+                          ("pExpiredTime" variable
+                             (:pointer 1
+                              :type "char")
+                              (reparse-symbol classsubparts) [177 196]))                        
+                      :type "struct")
+                      nil nil)
+                :type "typedef")
+                nil [91 214])
+            ("SAN__GetSoftwareInfo" function
+               (:prototype-flag t
+                :type "int")
+                nil [233 260])
+            ("SAN__GetStorageDeviceInfo" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("info" variable
+                       (:reference 1
+                        :type ("std::vector" type
+                             (:template-specifier 
+                                ( ("sStorageDeviceINFO" type nil nil nil))                                
+                              :type "class")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [320 358]))                  
+                :type "int")
+                nil [290 359])
+            ("SAN__GetDiskInfo" function
+               (:prototype-flag t
+                :type "int")
+                nil [360 383])
+            ("SAN__AddStorageDevice" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("StorageDeviceName" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [411 435])
+                    ("iStorageDeviceType" variable (:type "int") (reparse-symbol arg-sub-list) [436 459])
+                    ("StorageDeviceIP" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [460 482]))                  
+                :type "int")
+                nil [385 483])
+            ("SAN__ChangeStorageDevice" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("StorageDeviceName" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [513 537])
+                    ("StorageDeviceIP" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [538 560]))                  
+                :type "int")
+                nil [484 561])
+            ("SAN__DisconnectStorageDivice" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("iStorageDeviceID" variable (:type "int") (reparse-symbol arg-sub-list) [595 616]))                  
+                :type "int")
+                nil [562 617])
+            ("SAN__CreateSpaceDB" function
+               (:prototype-flag t
+                :type "int")
+                nil [646 671])
+            ("SAN__GetRootSpaceID" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("id" variable
+                       (:reference 1
+                        :type "int")
+                        (reparse-symbol arg-sub-list) [696 704]))                  
+                :type "int")
+                nil [672 705])
+            ("SAN__GetSpaceInfo" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("id" variable (:type "int") (reparse-symbol arg-sub-list) [728 735])
+                    ("info" variable
+                       (:reference 1
+                        :type ("sStorageSpaceINFO" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [736 760]))                  
+                :type "int")
+                nil [706 761])
+            ("SAN__GetFileInfo" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("id" variable (:type "int") (reparse-symbol arg-sub-list) [783 790])
+                    ("info" variable
+                       (:reference 1
+                        :type ("sFileINFO" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [791 807]))                  
+                :type "int")
+                nil [762 808])
+            ("SAN__GetSubSpaceID" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("id" variable (:type "int") (reparse-symbol arg-sub-list) [832 839])
+                    ("subSpaceID" variable
+                       (:reference 1
+                        :type ("std::vector" type
+                             (:template-specifier 
+                                ( ("int" type nil nil nil))                                
+                              :type "class")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [840 869]))                  
+                :type "int")
+                nil [809 870])
+            ("SAN__GetSpaceFileID" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("id" variable (:type "int") (reparse-symbol arg-sub-list) [895 902])
+                    ("fileID" variable
+                       (:reference 1
+                        :type ("std::vector" type
+                             (:template-specifier 
+                                ( ("int" type nil nil nil))                                
+                              :type "class")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [903 928]))                  
+                :type "int")
+                nil [871 929])
+            ("SAN__AddStorageSpace" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("iStorageSpaceID" variable (:type "int") (reparse-symbol arg-sub-list) [956 976])
+                    ("SpaceName" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [977 993]))                  
+                :type "int")
+                nil [931 994])
+            ("SAN__ChangeStorageSpaceName" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("iStorageSpaceID" variable (:type "int") (reparse-symbol arg-sub-list) [1027 1047])
+                    ("SpaceName" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [1048 1064]))                  
+                :type "int")
+                nil [995 1065])
+            ("SAN__DeleteStorageSpace" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("iStorageSpaceID" variable (:type "int") (reparse-symbol arg-sub-list) [1094 1114]))                  
+                :type "int")
+                nil [1066 1115])
+            ("SAN__UploadOpen" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("sUploadFileInfo" variable
+                       (:pointer 1
+                        :type ("sUploadFileINFO" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [1155 1188]))                  
+                :type "int")
+                nil [1135 1189])
+            ("SAN__UploadClose" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("fd" variable (:type "int") (reparse-symbol arg-sub-list) [1308 1315]))                  
+                :type "int")
+                nil [1287 1316])
+            ("SAN__DownloadOpen" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("iFileID" variable (:type "int") (reparse-symbol arg-sub-list) [1339 1351]))                  
+                :type "int")
+                nil [1317 1352])
+            ("SAN__DownloadClose" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("fd" variable (:type "int") (reparse-symbol arg-sub-list) [1376 1383]))                  
+                :type "int")
+                nil [1353 1384])
+            ("SAN__DownloadSeek" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("sFileInfo" variable
+                       (:pointer 1
+                        :type ("sFileINFO" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [1409 1430]))                  
+                :type ("off_t" type (:type "class") nil nil))
+                nil [1385 1431])
+            ("SAN__QueryFile" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("pFileName" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [1452 1468])
+                    ("iSize" variable (:type "long") (reparse-symbol arg-sub-list) [1469 1480])
+                    ("tModifiedTime" variable (:type ("time_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [1481 1502])
+                    ("tExpiredTime" variable (:type ("time_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [1503 1523]))                  
+                :type "int")
+                nil [1433 1524])
+            ("SAN__DeleteFile" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("iFileID" variable (:type "int") (reparse-symbol arg-sub-list) [1545 1557]))                  
+                :type "int")
+                nil [1525 1558])
+            ("SAN__InitLog" function
+               (:prototype-flag t
+                :type "int")
+                nil [1577 1596])
+            ("SAN__LogView" function
+               (:prototype-flag t
+                :type "int")
+                nil [1597 1616]))          
+      :file "SAN_Proxy.h"
+      :pointmax 1646
+      :fsize 1645
+      :lastmodtime '(22583 39701 643997 715000)
+      :unmatched-syntax nil
+      :lexical-table 
+        '(("_SAN_PROXY_H_")
+          )
+)
+    (semanticdb-table "SAN_Interface.h"
+      :major-mode 'c-mode
+      :tags 
+        '( ("_SAN_INTERFACE_H_" variable (:constant-flag t) nil [35 52]))          
+      :file "SAN_Interface.h"
+      :pointmax 86
+      :fsize 85
+      :lastmodtime '(22562 34885 940997 45000)
+      :unmatched-syntax nil
+      :lexical-table 
+        '(("_SAN_INTERFACE_H_")
+          )
+)
+    (semanticdb-table "SAN_MainDef.h"
+      :major-mode 'c-mode
+      :tags 
+        '( ("_SAN_MAINDEF_H_" variable (:constant-flag t) nil [33 48])
+            ("string" include (:system-flag t) nil [61 78])
+            ("time.h" include (:system-flag t) nil [79 96])
+            ("eHDD_TYPE" type
+               (:typedef ("" type
+                     (:members 
+                        ( ("HDD_TYPE_INVALID" variable
+                             (:constant-flag t
+                              :default-value (144 146)
+                              :type "int")
+                              (reparse-symbol enumsubparts) [125 146])
+                          ("HDD_TYPE_IPSAN" variable
+                             (:constant-flag t
+                              :type "int")
+                              (reparse-symbol enumsubparts) [157 172])
+                          ("HDD_TYPE_LOCAL" variable
+                             (:constant-flag t
+                              :type "int")
+                              (reparse-symbol enumsubparts) [189 216]))                        
+                      :type "enum")
+                      nil nil)
+                :type "typedef")
+                nil [109 226])
+            ("eHDD_STATUS" type
+               (:typedef ("" type
+                     (:members 
+                        ( ("HDD_STATUS_INVALID" variable
+                             (:constant-flag t
+                              :default-value (276 278)
+                              :type "int")
+                              (reparse-symbol enumsubparts) [255 278])
+                          ("HDD_STATUS_NORMAL" variable
+                             (:constant-flag t
+                              :type "int")
+                              (reparse-symbol enumsubparts) [288 306])
+                          ("HDD_STATUS_FORMATTING" variable
+                             (:constant-flag t
+                              :type "int")
+                              (reparse-symbol enumsubparts) [316 338])
+                          ("HDD_STATUS_NOT_FORMAT" variable
+                             (:constant-flag t
+                              :type "int")
+                              (reparse-symbol enumsubparts) [350 372])
+                          ("HDD_STATUS_MOUNT_FAIL" variable
+                             (:constant-flag t
+                              :type "int")
+                              (reparse-symbol enumsubparts) [383 405])
+                          ("HDD_STATUS_DISCONNECT" variable
+                             (:constant-flag t
+                              :type "int")
+                              (reparse-symbol enumsubparts) [416 438])
+                          ("HDD_STATUS_ERROR" variable
+                             (:constant-flag t
+                              :type "int")
+                              (reparse-symbol enumsubparts) [461 501]))                        
+                      :type "enum")
+                      nil nil)
+                :type "typedef")
+                nil [239 513])
+            ("eRESTRUCT_STATUS" type
+               (:typedef ("" type
+                     (:members 
+                        ( ("RESTRUCT_STATUS_NORMAL" variable
+                             (:constant-flag t
+                              :default-value (570 571)
+                              :type "int")
+                              (reparse-symbol enumsubparts) [545 571])
+                          ("RESTRUCT_STATUS_DOING" variable
+                             (:constant-flag t
+                              :type "int")
+                              (reparse-symbol enumsubparts) [586 608])
+                          ("RESTRUCT_STATUS_ERROR" variable
+                             (:constant-flag t
+                              :type "int")
+                              (reparse-symbol enumsubparts) [619 651]))                        
+                      :type "enum")
+                      nil nil)
+                :type "typedef")
+                nil [529 668])
+            ("sDiskINFO" type
+               (:typedef ("" type
+                     (:members 
+                        ( ("iDiskId" variable (:type "int") (reparse-symbol classsubparts) [691 703])
+                          ("iGroupId" variable (:type "int") (reparse-symbol classsubparts) [753 766])
+                          ("eType" variable (:type ("eHDD_TYPE" type (:type "class") nil nil)) (reparse-symbol classsubparts) [804 820])
+                          ("eStatus" variable (:type ("eHDD_STATUS" type (:type "class") nil nil)) (reparse-symbol classsubparts) [837 857])
+                          ("eRestructStatus" variable (:type ("eRESTRUCT_STATUS" type (:type "class") nil nil)) (reparse-symbol classsubparts) [873 906])
+                          ("ulUsedRecordSize" variable (:type "unsigned long") (reparse-symbol classsubparts) [953 985])
+                          ("ulUsedSnapSize" variable (:type "unsigned long") (reparse-symbol classsubparts) [1009 1040])
+                          ("ulDiskSize" variable (:type "unsigned long") (reparse-symbol classsubparts) [1065 1091]))                        
+                      :type "struct")
+                      nil nil)
+                :type "typedef")
+                nil [670 1129])
+            ("eStorageDeviceType" type
+               (:typedef ("" type
+                     (:members 
+                        ( ("SAN_TYPE_INVALID" variable
+                             (:constant-flag t
+                              :default-value (1169 1171)
+                              :type "int")
+                              (reparse-symbol enumsubparts) [1150 1171])
+                          ("SAN_TYPE_LOCAL" variable
+                             (:constant-flag t
+                              :type "int")
+                              (reparse-symbol enumsubparts) [1177 1192])
+                          ("SAN_TYPE_REMOTE" variable
+                             (:constant-flag t
+                              :type "int")
+                              (reparse-symbol enumsubparts) [1197 1213]))                        
+                      :type "enum")
+                      nil nil)
+                :type "typedef")
+                nil [1131 1235])
+            ("sStorageDeviceINFO" type
+               (:typedef ("" type
+                     (:members 
+                        ( ("iStorageDeviceID" variable (:type "int") (reparse-symbol classsubparts) [1262 1283])
+                          ("eType" variable (:type ("eStorageDeviceType" type (:type "class") nil nil)) (reparse-symbol classsubparts) [1288 1313])
+                          ("iConnectStatus" variable (:type "int") (reparse-symbol classsubparts) [1318 1337])
+                          ("StorageDeviceName" variable (:type ("std::string" type (:type "class") nil nil)) (reparse-symbol classsubparts) [1342 1372])
+                          ("StorageDeviceIP" variable (:type ("std::string" type (:type "class") nil nil)) (reparse-symbol classsubparts) [1377 1405]))                        
+                      :type "struct")
+                      nil nil)
+                :type "typedef")
+                nil [1241 1426])
+            ("eFileType" type
+               (:members 
+                  ( ("FILE_VIDEO" variable
+                       (:constant-flag t
+                        :default-value (1463 1464)
+                        :type "int")
+                        (reparse-symbol enumsubparts) [1450 1464])
+                    ("FILE_AUDIO" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [1470 1481])
+                    ("FILE_IMAGE" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [1486 1497])
+                    ("FILE_TEXT" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [1502 1512])
+                    ("FILE_OTHER" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [1517 1528])
+                    ("FILE_ALL" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [1533 1543]))                  
+                :type "enum")
+                nil [1429 1544])
+            ("sFileINFO" type
+               (:typedef ("" type
+                     (:members 
+                        ( ("iID" variable (:type "int") (reparse-symbol classsubparts) [1564 1572])
+                          ("iparID" variable (:type "int") (reparse-symbol classsubparts) [1577 1588])
+                          ("sName" variable (:type ("std::string" type (:type "class") nil nil)) (reparse-symbol classsubparts) [1593 1611])
+                          ("eType" variable (:type ("eFileType" type (:type "class") nil nil)) (reparse-symbol classsubparts) [1616 1632])
+                          ("iSize" variable (:type "long") (reparse-symbol classsubparts) [1637 1648])
+                          ("tModifiedTime" variable (:type ("time_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [1653 1674])
+                          ("tExpiredTime" variable (:type ("time_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [1679 1699]))                        
+                      :type "struct")
+                      nil nil)
+                :type "typedef")
+                nil [1546 1711])
+            ("sStorageSpaceINFO" type
+               (:typedef ("" type
+                     (:members 
+                        ( ("iID" variable (:type "int") (reparse-symbol classsubparts) [1734 1742])
+                          ("iparID" variable (:type "int") (reparse-symbol classsubparts) [1747 1758])
+                          ("sName" variable (:type ("std::string" type (:type "class") nil nil)) (reparse-symbol classsubparts) [1763 1781])
+                          ("iSubSpaceCount" variable (:type "int") (reparse-symbol classsubparts) [1833 1852])
+                          ("iFilesCount" variable (:type "int") (reparse-symbol classsubparts) [1857 1873])
+                          ("ulSize" variable (:type "unsigned long") (reparse-symbol classsubparts) [2038 2059])
+                          ("ulTotalSize" variable (:type "unsigned long") (reparse-symbol classsubparts) [2064 2090]))                        
+                      :type "struct")
+                      nil nil)
+                :type "typedef")
+                nil [1713 2110]))          
+      :file "SAN_MainDef.h"
+      :pointmax 2141
+      :fsize 2400
+      :lastmodtime '(22583 39762 595997 684000)
+      :unmatched-syntax nil
+      :lexical-table 
+        '(("_SAN_MAINDEF_H_")
+          )
+)
+    (semanticdb-table "SAN_DataBase.h"
+      :major-mode 'c-mode
+      :tags 
+        '( ("SAN_MainDef.h" include nil nil [1 25])
+            ("my_global.h" include (:system-flag t) nil [52 74])
+            ("mysql.h" include (:system-flag t) nil [75 93])
+            ("MYSQL_error" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("con" variable
+                       (:pointer 1
+                        :type ("MYSQL" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [113 124]))                  
+                :type "void")
+                nil [96 125])
+            ("createDataBase" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("con" variable
+                       (:pointer 1
+                        :type ("MYSQL" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [146 157])
+                    ("dbname" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [158 171]))                  
+                :type "int")
+                nil [127 172])
+            ("create_spaces_table" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("con" variable
+                       (:pointer 1
+                        :type ("MYSQL" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [198 209]))                  
+                :type "int")
+                nil [174 210])
+            ("create_files_table" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("con" variable
+                       (:pointer 1
+                        :type ("MYSQL" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [235 246]))                  
+                :type "int")
+                nil [212 247])
+            ("create" function
+               (:prototype-flag t
+                :type "int")
+                nil [249 262])
+            ("add_space" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("parID" variable (:type "int") (reparse-symbol arg-sub-list) [278 288])
+                    ("SpaceName" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [289 305]))                  
+                :type "int")
+                nil [264 306])
+            ("get_space_info" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("id" variable (:type "int") (reparse-symbol arg-sub-list) [327 334])
+                    ("info" variable
+                       (:reference 1
+                        :type ("sStorageSpaceINFO" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [335 359]))                  
+                :type "int")
+                nil [308 360])
+            ("getFileInfo" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("id" variable (:type "int") (reparse-symbol arg-sub-list) [378 385])
+                    ("info" variable
+                       (:reference 1
+                        :type ("sFileINFO" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [386 402]))                  
+                :type "int")
+                nil [362 403])
+            ("getSubID" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("id" variable (:type "int") (reparse-symbol arg-sub-list) [418 425])
+                    ("SubID" variable
+                       (:pointer 1
+                        :type ("std::vector" type
+                             (:template-specifier 
+                                ( ("int" type nil nil nil))                                
+                              :type "class")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [426 450]))                  
+                :type "int")
+                nil [405 451])
+            ("getSpaceFileID" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("id" variable (:type "int") (reparse-symbol arg-sub-list) [472 479])
+                    ("fileID" variable (:type ("std::vector" type
+                         (:template-specifier 
+                            ( ("int" type nil nil nil))                            
+                          :type "class")
+                          nil nil)) (reparse-symbol arg-sub-list) [480 504]))                  
+                :type "int")
+                nil [453 505])
+            ("changeSpaceName" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("id" variable (:type "int") (reparse-symbol arg-sub-list) [527 534])
+                    ("SpaceName" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [535 551]))                  
+                :type "int")
+                nil [507 552])
+            ("deleteSpace" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("id" variable (:type "int") (reparse-symbol arg-sub-list) [570 577]))                  
+                :type "int")
+                nil [554 578])
+            ("deleteFile" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("id" variable (:type "int") (reparse-symbol arg-sub-list) [595 602]))                  
+                :type "int")
+                nil [580 603])
+            ("initLog" function
+               (:prototype-flag t
+                :type "int")
+                nil [605 619])
+            ("cleanLog" function
+               (:prototype-flag t
+                :type "int")
+                nil [621 636]))          
+      :file "SAN_DataBase.h"
+      :pointmax 638
+      :fsize 637
+      :lastmodtime '(22583 39604 581997 746000)
+      :unmatched-syntax nil)
+    (semanticdb-table "SAN_FileManager.h"
+      :major-mode 'c-mode
+      :tags 
+        '( ("_SAN_FILEMANAGER_H_" variable (:constant-flag t) nil nil)
+            ("SAN_MainDef.h" include nil nil nil)
+            ("WebSAN_Error.h" include nil nil nil)
+            ("FM_iInit" function
+               (:prototype-flag t
+                :type "int")
+                nil nil))          
+      :file "SAN_FileManager.h"
+      :pointmax 255
+      :fsize 160
+      :lastmodtime '(22591 60813 356982 108000)
+      :unmatched-syntax '((symbol 131 . 134) (INT 127 . 130))
+      :lexical-table 
+        '(("_SAN_FILEMANAGER_H_")
+          )
+))
+  :file "!home!chz!SAN!include!semantic.cache"
+  :semantic-tag-version "2.0"
+  :semanticdb-version "2.2")

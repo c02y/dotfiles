@@ -1,0 +1,263 @@
+;; Object wincred/
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "wincred/"
+  :tables (list 
+   (semanticdb-table "git-credential-wincred.c"
+    :major-mode 'c-mode
+    :tags 
+        '( ("windows.h" include (:system-flag t) nil [86 106])
+            ("stdio.h" include (:system-flag t) nil [107 125])
+            ("io.h" include (:system-flag t) nil [126 141])
+            ("fcntl.h" include (:system-flag t) nil [142 160])
+            ("ARRAY_SIZE" variable (:constant-flag t) nil [192 202])
+            ("die" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("err" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [248 264])
+                    ("..." variable (:type "vararg") (reparse-symbol arg-sub-list) [265 269]))                  
+                :type "void")
+                nil [232 432])
+            ("xmalloc" function
+               (:pointer 1
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("size" variable (:type ("size_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [455 467]))                  
+                :type "void")
+                nil [434 586])
+            ("CREDENTIAL_ATTRIBUTEW" type
+               (:typedef ("_CREDENTIAL_ATTRIBUTEW" type (:type "struct") nil nil)
+                :superclasses "_CREDENTIAL_ATTRIBUTEW"
+                :type "typedef")
+                nil [652 807])
+            ("PCREDENTIAL_ATTRIBUTEW" type
+               (:typedef ("_CREDENTIAL_ATTRIBUTEW" type (:type "struct") nil nil)
+                :pointer 1
+                :superclasses "_CREDENTIAL_ATTRIBUTEW"
+                :type "typedef")
+                nil [652 807])
+            ("_CREDENTIAL_ATTRIBUTEW" type
+               (:members 
+                  ( ("Keyword" variable (:type ("LPWSTR" type (:type "class") nil nil)) (reparse-symbol classsubparts) [693 708])
+                    ("Flags" variable (:type ("DWORD" type (:type "class") nil nil)) (reparse-symbol classsubparts) [710 723])
+                    ("ValueSize" variable (:type ("DWORD" type (:type "class") nil nil)) (reparse-symbol classsubparts) [725 742])
+                    ("Value" variable (:type ("LPBYTE" type (:type "class") nil nil)) (reparse-symbol classsubparts) [744 757]))                  
+                :type "struct")
+                nil [652 807])
+            ("CREDENTIALW" type
+               (:typedef ("_CREDENTIALW" type (:type "struct") nil nil)
+                :superclasses "_CREDENTIALW"
+                :type "typedef")
+                nil [809 1299])
+            ("PCREDENTIALW" type
+               (:typedef ("_CREDENTIALW" type (:type "struct") nil nil)
+                :pointer 1
+                :superclasses "_CREDENTIALW"
+                :type "typedef")
+                nil [809 1299])
+            ("_CREDENTIALW" type
+               (:members 
+                  ( ("Flags" variable (:type ("DWORD" type (:type "class") nil nil)) (reparse-symbol classsubparts) [840 869])
+                    ("Type" variable (:type ("DWORD" type (:type "class") nil nil)) (reparse-symbol classsubparts) [871 899])
+                    ("TargetName" variable (:type ("LPWSTR" type (:type "class") nil nil)) (reparse-symbol classsubparts) [901 935])
+                    ("Comment" variable (:type ("LPWSTR" type (:type "class") nil nil)) (reparse-symbol classsubparts) [937 968])
+                    ("LastWritten" variable (:type ("FILETIME" type (:type "class") nil nil)) (reparse-symbol classsubparts) [970 1005])
+                    ("CredentialBlobSize" variable (:type ("DWORD" type (:type "class") nil nil)) (reparse-symbol classsubparts) [1007 1049])
+                    ("CredentialBlob" variable (:type ("LPBYTE" type (:type "class") nil nil)) (reparse-symbol classsubparts) [1051 1089])
+                    ("Persist" variable (:type ("DWORD" type (:type "class") nil nil)) (reparse-symbol classsubparts) [1091 1122])
+                    ("AttributeCount" variable (:type ("DWORD" type (:type "class") nil nil)) (reparse-symbol classsubparts) [1124 1162])
+                    ("Attributes" variable (:type ("PCREDENTIAL_ATTRIBUTEW" type (:type "class") nil nil)) (reparse-symbol classsubparts) [1164 1198])
+                    ("TargetAlias" variable (:type ("LPWSTR" type (:type "class") nil nil)) (reparse-symbol classsubparts) [1200 1235])
+                    ("UserName" variable (:type ("LPWSTR" type (:type "class") nil nil)) (reparse-symbol classsubparts) [1237 1269]))                  
+                :type "struct")
+                nil [809 1299])
+            ("CRED_TYPE_GENERIC" variable (:constant-flag t) nil [1309 1326])
+            ("CRED_PERSIST_LOCAL_MACHINE" variable (:constant-flag t) nil [1337 1363])
+            ("CRED_MAX_ATTRIBUTES" variable (:constant-flag t) nil [1374 1393])
+            ("BOOL" function
+               (:arguments 
+                  ( ("CredWriteWT" variable
+                       (:pointer 1
+                        :type ("WINAPI" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [1412 1432]))                  
+                :type "int")
+                nil [1406 1453])
+            ("BOOL" function
+               (:arguments 
+                  ( ("CredEnumerateWT" variable
+                       (:pointer 1
+                        :type ("WINAPI" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [1469 1493]))                  
+                :type "int")
+                nil [1463 1539])
+            ("VOID" function
+               (:arguments 
+                  ( ("CredFreeT" variable
+                       (:pointer 1
+                        :type ("WINAPI" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [1555 1573]))                  
+                :type "int")
+                nil [1549 1580])
+            ("BOOL" function
+               (:arguments 
+                  ( ("CredDeleteWT" variable
+                       (:pointer 1
+                        :type ("WINAPI" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [1596 1617]))                  
+                :type "int")
+                nil [1590 1640])
+            ("advapi" variable
+               (:typemodifiers ("static")
+                :type ("HMODULE" type (:type "class") nil nil))
+                nil [1643 1665])
+            ("CredWriteW" variable
+               (:typemodifiers ("static")
+                :type ("CredWriteWT" type (:type "class") nil nil))
+                nil [1666 1696])
+            ("CredEnumerateW" variable
+               (:typemodifiers ("static")
+                :type ("CredEnumerateWT" type (:type "class") nil nil))
+                nil [1697 1735])
+            ("CredFree" variable
+               (:typemodifiers ("static")
+                :type ("CredFreeT" type (:type "class") nil nil))
+                nil [1736 1762])
+            ("CredDeleteW" variable
+               (:typemodifiers ("static")
+                :type ("CredDeleteWT" type (:type "class") nil nil))
+                nil [1763 1795])
+            ("load_cred_funcs" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [1825 1830]))                  
+                :type "void")
+                nil [1797 2347])
+            ("target" variable
+               (:dereference 1
+                :typemodifiers ("static")
+                :type ("WCHAR" type (:type "class") nil nil))
+                nil [2349 2423])
+            ("path" variable
+               (:pointer 1
+                :typemodifiers ("static")
+                :type ("WCHAR" type (:type "class") nil nil))
+                nil [2349 2423])
+            ("host" variable
+               (:pointer 1
+                :typemodifiers ("static")
+                :type ("WCHAR" type (:type "class") nil nil))
+                nil [2349 2423])
+            ("protocol" variable
+               (:pointer 1
+                :typemodifiers ("static")
+                :type ("WCHAR" type (:type "class") nil nil))
+                nil [2349 2423])
+            ("password" variable
+               (:pointer 1
+                :typemodifiers ("static")
+                :type ("WCHAR" type (:type "class") nil nil))
+                nil [2349 2423])
+            ("wusername" variable
+               (:pointer 1
+                :typemodifiers ("static")
+                :type ("WCHAR" type (:type "class") nil nil))
+                nil [2349 2423])
+            ("write_item" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("what" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [2448 2465])
+                    ("wbuf" variable (:type ("LPCWSTR" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [2466 2479])
+                    ("wlen" variable (:type "int") (reparse-symbol arg-sub-list) [2480 2489]))                  
+                :type "void")
+                nil [2425 2803])
+            ("match_part" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("ptarget" variable
+                       (:pointer 1
+                        :type ("LPCWSTR" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [2973 2990])
+                    ("want" variable (:type ("LPCWSTR" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [2991 3004])
+                    ("delim" variable (:type ("LPCWSTR" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [3005 3019]))                  
+                :type "int")
+                nil [2951 3653])
+            ("match_cred" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("cred" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("CREDENTIALW" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [3677 3701]))                  
+                :type "int")
+                nil [3655 4008])
+            ("get_credential" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [4037 4042]))                  
+                :type "void")
+                nil [4010 4513])
+            ("store_credential" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [4544 4549]))                  
+                :type "void")
+                nil [4515 5051])
+            ("erase_credential" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [5082 5087]))                  
+                :type "void")
+                nil [5053 5348])
+            ("utf8_to_utf16_dup" function
+               (:pointer 1
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("str" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [5382 5398]))                  
+                :type ("WCHAR" type (:type "class") nil nil))
+                nil [5350 5580])
+            ("read_credential" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [5610 5615]))                  
+                :type "void")
+                nil [5582 6305])
+            ("main" function
+               (:arguments 
+                  ( ("argc" variable (:type "int") (reparse-symbol arg-sub-list) [6316 6325])
+                    ("argv" variable
+                       (:pointer 1
+                        :dereference 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [6326 6339]))                  
+                :type "int")
+                nil [6307 7347]))          
+    :file "git-credential-wincred.c"
+    :pointmax 7348
+    :fsize 7347
+    :lastmodtime '(21563 28275 576380 76000)
+    :unmatched-syntax '((punctuation 1640 . 1641) (TYPEDEF 1582 . 1589) (punctuation 1580 . 1581) (TYPEDEF 1541 . 1548) (punctuation 1539 . 1540) (TYPEDEF 1455 . 1462) (punctuation 1453 . 1454) (TYPEDEF 1398 . 1405))
+    :lexical-table 
+        '(("CRED_PERSIST_LOCAL_MACHINE" . ((number "2" 1364 . 1365)))
+          ("CRED_MAX_ATTRIBUTES" . ((number "64" 1394 . 1396)))
+          ("ARRAY_SIZE" (spp-arg-list ("x") 202 . 205) . ((semantic-list "(sizeof(x)/sizeof(x[0]))" 206 . 230)))
+          ("CRED_TYPE_GENERIC" . ((number "1" 1327 . 1328)))
+          )
+
+    )
+   )
+  :file "!home!chz!Projects!CWork!git!git-github!contrib!credential!wincred!semantic.cache"
+  :semantic-tag-version "2.0"
+  :semanticdb-version "2.2"
+  )

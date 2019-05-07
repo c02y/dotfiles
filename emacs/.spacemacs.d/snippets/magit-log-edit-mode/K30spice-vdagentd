@@ -1,0 +1,1534 @@
+;; Object helm-20150915.2234/
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "helm-20150915.2234/"
+  :tables
+  (list
+    (semanticdb-table "helm-imenu.el"
+      :major-mode 'emacs-lisp-mode
+      :tags 
+        '( ("cl-lib" include nil nil [808 825])
+            ("helm" include nil nil [826 841])
+            ("imenu" include nil nil [842 858])
+            ("helm-utils" include nil nil [859 880])
+            ("helm-help" include nil nil [881 901])
+            ("helm-imenu" customgroup (:user-visible-flag t) nil [905 1000])
+            ("helm-imenu-delimiter" variable (:default-value " / ") nil [1002 1141])
+            ("helm-imenu-execute-action-at-once-if-one" variable (:default-value (function helm-imenu--execute-action-at-once-p)) nil [1143 1326])
+            ("helm-imenu-lynx-style-map" variable (:default-value t) nil [1328 1448])
+            ("helm-imenu-map" variable (:default-value (let ((map (make-sparse-keymap))) (set-keymap-parent map helm-map) (define-key map (kbd "M-<down>") (quote helm-imenu-next-section)) (define-key map (kbd "M-<up>") (quote helm-imenu-previous-section)) (when helm-imenu-lynx-style-map (define-key map (kbd "<left>") (quote helm-maybe-exit-minibuffer)) (define-key map (kbd "<right>") (quote helm-execute-persistent-action))) (delq nil map))) nil [1463 1884])
+            ("helm-imenu-next-or-previous-section" function (:arguments ("n")) nil [1886 2516])
+            ("helm-imenu-next-section" function nil nil [2518 2610])
+            ("helm-imenu-previous-section" function nil nil [2612 2709])
+            ("helm-cached-imenu-alist" variable nil nil [2727 2763])
+            ("make-variable-buffer-local" code nil nil [2764 2817])
+            ("helm-cached-imenu-candidates" variable nil nil [2819 2860])
+            ("make-variable-buffer-local" code nil nil [2861 2919])
+            ("helm-cached-imenu-tick" variable nil nil [2921 2956])
+            ("make-variable-buffer-local" code nil nil [2957 3009])
+            ("helm-source-imenu" variable nil nil [3013 3073])
+            ("helm-source-imenu-all" variable nil nil [3074 3108])
+            ("helm-imenu-source" type
+               (:superclasses "helm-source-sync"
+                :members 
+                  ( ("candidates" variable (:default-value "(quote helm-imenu-candidates)") nil nil)
+                    ("candidate-transformer" variable (:default-value "(quote helm-imenu-transformer)") nil nil)
+                    ("persistent-action" variable (:default-value "(quote helm-imenu-persistent-action)") nil nil)
+                    ("persistent-help" variable (:default-value "Show this entry") nil nil)
+                    ("keymap" variable (:default-value "helm-imenu-map") nil nil)
+                    ("help-message" variable (:default-value "(quote helm-imenu-help-message)") nil nil)
+                    ("action" variable (:default-value "(quote helm-imenu-action)") nil nil))                  
+                :type "class")
+                nil [3110 3511])
+            ("helm-imenu-fuzzy-match" variable nil nil [3513 3837])
+            ("helm-imenu--maybe-switch-to-buffer" function (:arguments ("candidate")) nil [3840 3967])
+            ("helm-imenu--execute-action-at-once-p" function nil nil [3969 4321])
+            ("helm-imenu-action" function (:arguments ("candidate")) nil [4323 4834])
+            ("helm-imenu-persistent-action" function (:arguments ("candidate")) nil [4836 5040])
+            ("helm-imenu-candidates" function (:arguments ("buffer")) nil [5042 5586])
+            ("helm-imenu-candidates-in-all-buffers" function nil nil [5588 6437])
+            ("helm-imenu--candidates-1" function (:arguments ("alist")) nil [6439 7349])
+            ("helm-imenu--get-prop" function (:arguments ("item")) nil [7351 7813])
+            ("helm-imenu-transformer" function (:arguments ("candidates")) nil [7815 8684])
+            ("helm-imenu" function (:user-visible-flag t) nil [8702 9202])
+            ("helm-imenu-in-all-buffers" function (:user-visible-flag t) nil [9219 10045])
+            ("helm-imenu" package nil nil [10047 10068]))          
+      :file "helm-imenu.el"
+      :pointmax 10223
+      :fsize 10222
+      :lastmodtime '(22009 13228 0 0)
+      :unmatched-syntax nil)
+    (semanticdb-table "helm-utils.el"
+      :file "helm-utils.el"
+      :fsize 24667
+      :lastmodtime '(22009 13230 0 0))
+    (semanticdb-table "helm-help.el"
+      :major-mode 'emacs-lisp-mode
+      :tags 
+        '( ("helm" include nil nil [805 820])
+            ("helm-org-headings--nofilename" variable nil nil [822 860])
+            ("declare-function" code nil nil [861 928])
+            ("helm-help" customgroup (:user-visible-flag t) nil [932 1001])
+            ("helm-helper" variable
+               (:default-value (quote ((t :inherit helm-header)))
+                :type "face")
+                nil [1003 1121])
+            ("helm-documentation-file" variable (:default-value "~/.emacs.d/helm-doc.org") nil [1123 1276])
+            ("helm-help--string-list" variable (:default-value (quote (helm-help-message helm-buffer-help-message helm-ff-help-message helm-read-file-name-help-message helm-generic-file-help-message helm-grep-help-message helm-pdfgrep-help-message helm-etags-help-message helm-ucs-help-message helm-bookmark-help-message helm-esh-help-message helm-buffers-ido-virtual-help-message helm-moccur-help-message helm-top-help-message helm-apt-help-message helm-el-package-help-message helm-M-x-help-message helm-imenu-help-message helm-colors-help-message helm-semantic-help-message helm-kmacro-help-message))) nil [1279 2504])
+            ("helm-documentation" function
+               (:user-visible-flag t
+                :arguments ("arg"))
+                nil [2523 3491])
+            ("helm-buffer-help-message" variable (:default-value "* Helm Buffer
+
+** Tips
+
+*** Completion
+
+**** Major-mode
+
+You can enter a partial name of major-mode (e.g. lisp, sh) to narrow down buffers.
+To specify the major-mode, prefix it with \"*\" e.g. \"*lisp\".
+If you want to match all buffers but the ones with a specific major-mode (negation),
+prefix the major-mode with \"!\" e.g. \"*!lisp\".
+If you want to specify more than one major-mode, separate them with \",\",
+e.g. \"*!lisp,!sh,!fun\" will list all buffers but the ones in lisp-mode, sh-mode and
+fundamental-mode.
+
+Enter then a space and a pattern to narrow down to buffers matching this pattern.
+
+**** Search inside buffers
+
+If you enter a space and a pattern prefixed by \"@\" helm will search for text matching
+this pattern INSIDE the buffer (i.e not in the name of buffer).
+NOTE that if you enter your pattern prefixed with \"@\" but escaped, helm will search a buffer
+matching \"@pattern\" but will not search inside.
+
+**** Search by directory name
+
+If you prefix the beginning of pattern with \"/\" the match will occur on directory name
+of buffer, it is interesting to narrow down to one directory for example, subsequent string
+entered after a space will match on buffer-name only.
+Note that negation is not supported for matching on buffer-file-name.
+You can specify more than one directory starting from helm v1.6.8
+ 
+**** Fuzzy matching
+
+Note that if `helm-buffers-fuzzy-matching' is non--nil you will have
+fuzzy matching on buffer names (not on directory name matching and major-mode though).
+A pattern starting with \"^\" will disable fuzzy matching and will match by exact regexp.
+
+**** Examples
+
+if I enter in pattern prompt:
+
+    \"*lisp ^helm @moc\"
+
+helm will narrow down the list by selecting only buffers that are in lisp mode, start by helm
+and match \"moc\" in their contents.
+
+if I enter in pattern prompt:
+
+    \"*lisp ^helm moc\"
+
+Notice there is no \"@\" this time
+helm will look for lisp mode buffers starting by \"helm\" and have \"moc\" in their name.
+
+if I enter in pattern prompt:
+
+    \"*!lisp !helm\"
+
+helm will narrow down to buffers that are not in \"lisp\" mode and that do not match \"helm\"
+
+if I enter in pattern prompt:
+
+    /helm/ w3
+
+helm will narrow down to buffers that are in any \"helm\" subdirectory and matching w3.
+
+*** Creating buffers
+
+When creating a new buffer use \\[universal-argument] to choose a mode for your buffer in a list.
+This list is customizable, see `helm-buffers-favorite-modes'.
+
+*** Killing buffers
+
+You have a command to kill buffer(s) and quit emacs and a command to kill buffers one by one
+(no marked) without quitting helm.
+
+You can run this persistent kill buffer command either with the regular
+`helm-execute-persistent-action' called with a prefix arg (C-u C-j) or with its specific command
+`helm-buffer-run-kill-persistent' see binding below.
+
+*** Meaning of colors and prefixes for buffers
+
+Remote buffers are prefixed with '@'.
+Red        => Buffer have its file modified on disk by an external process.
+Indianred2 => Buffer exists but its file have been deleted.
+Orange     => Buffer is modified and its file not saved to disk.
+Italic     => A non--file buffer.
+
+** Commands
+\\<helm-buffer-map>
+\\[helm-buffer-run-zgrep]		Grep Buffer(s) works as zgrep too (C-u grep all buffers but non--file buffers).
+\\[helm-buffers-run-multi-occur]		Multi Occur buffer or marked buffers. (C-u toggle force searching current-buffer).
+\\[helm-buffer-switch-other-window]		Switch other window.
+\\[helm-buffer-switch-other-frame]		Switch other frame.
+\\[helm-buffer-run-query-replace-regexp]		Query replace regexp in marked buffers.
+\\[helm-buffer-run-query-replace]		Query replace in marked buffers.
+\\[helm-buffer-run-ediff]		Ediff current buffer with candidate.  If two marked buffers ediff those buffers.
+\\[helm-buffer-run-ediff-merge]		Ediff merge current buffer with candidate.  If two marked buffers ediff merge those buffers.
+\\[helm-buffer-diff-persistent]		Toggle Diff buffer with saved file without quitting.
+\\[helm-buffer-revert-persistent]		Revert buffer without quitting.
+\\[helm-buffer-save-persistent]		Save buffer without quitting.
+\\[helm-buffer-run-kill-buffers]		Delete marked buffers and quit.
+\\[helm-buffer-run-kill-persistent]		Delete buffer without quitting helm.
+\\[helm-toggle-all-marks]		Toggle all marks.
+\\[helm-mark-all]		Mark all.
+\\[helm-toggle-buffers-details]		Toggle details.
+\\[helm-buffers-toggle-show-hidden-buffers]		Show hidden buffers.
+\\[helm-buffers-mark-similar-buffers]		Mark all buffers with same type (color) than current.") nil [3554 8168])
+            ("helm-ff-help-message" variable (:default-value "* Helm Find Files
+
+** Tips
+
+*** Navigation summary
+
+For a better experience you can enable auto completion by setting
+`helm-ff-auto-update-initial-value' to non-nil in your init file.
+It is not enabled by default to not confuse new users.
+
+**** Use `C-j' (persistent action) on a directory to go down one level
+
+On a symlinked directory a prefix arg will allow expanding to its true name.
+
+**** Use `C-l' on a directory to go up one level
+
+**** Use `C-r' to walk back the resulting tree of all the `C-l' you did
+
+Note: The tree is reinitialized each time you enter a new tree with `C-j'
+or by entering some pattern in prompt.
+ 
+*** Quick pattern expansion
+
+**** Enter `~/' at end of pattern to quickly reach home directory
+
+**** Enter `/' at end of pattern to quickly reach root of your file system
+
+**** Enter `./' at end of pattern to quickly reach `default-directory' (initial start of session)
+
+If you are already in `default-directory' this will move cursor on top.
+
+**** Enter `../' at end of pattern will reach upper directory, moving cursor on top
+
+NOTE: This is different to using `C-l' in that `C-l' don't move cursor on top but stay on previous
+subdir name.
+
+**** Enter any environment var (e.g. `$HOME') at end of pattern, it will be expanded
+
+**** You can yank any valid filename after pattern, it will be expanded
+
+*** Helm find files is fuzzy matching (start on third char entered)
+
+e.g. \"fob\" or \"fbr\" will complete \"foobar\"
+but \"fb\" will wait for a third char for completing.
+
+*** Use `C-u C-j' to watch an image or `C-<down>'
+
+*** `C-j' on a filename will expand in helm-buffer to this filename
+
+Second hit on `C-j' will display buffer filename.
+Third hit on `C-j' will kill buffer filename.
+NOTE: `C-u C-j' will display buffer directly.
+
+*** To browse images directories turn on `helm-follow-mode' and navigate with arrow keys
+
+You can also use `helm-follow-action-forward' and `helm-follow-action-backward'
+(`C-<down' and `C-<left>').
+
+*** You can turn off/on (toggle) autoupdate completion at any moment with `C-DEL'
+
+It is useful when auto completion is enabled and when trying to create a new file
+or directory you want to prevent helm trying to complete what you are writing.
+NOTE: On a terminal C-<backspace> may not work, use in this case C-c <backspace>.
+
+*** You can create a new directory and a new file at the same time
+
+Just write the path in prompt and press `<RET>'.
+e.g. You can create \"~/new/newnew/newnewnew/my_newfile.txt\".
+
+*** To create a new directory, add a \"/\" at end of new name and press <RET>
+
+*** To create a new file just write the filename not ending with \"/\"
+
+*** Recursive search from helm find files
+
+**** You can use helm browse project (see binding below)
+
+- With no prefix arg
+  If your current directory is under version control
+  with one of git or hg and you have installed helm-ls-git and/or helm-ls-hg
+  https://github.com/emacs-helm/helm-ls-git.git
+  https://github.com/emacs-helm/helm-ls-hg
+  you will see all your files under version control, otherwise
+  you will be back to helm-find-files.
+- With one prefix arg
+  You will see all the files under this directory
+  and other subdirectories (recursion) and this list of files will be cached.
+- With two prefix args
+  same but the cache will be refreshed.
+
+**** You can start a recursive search with Locate of Find (See commands below)
+
+With Locate you can use a local db with a prefix arg. If the localdb doesn't already
+exists, you will be prompted for its creation, if it exists and you want to refresh it,
+give two prefix args.
+
+*** Insert filename at point or complete filename at point
+
+On insertion (no completion, i.e nothing at point):
+
+- `C-c i'         => insert absolute file name.
+- `C-u C-c i'     => insert abbreviate file name.
+- `C-u C-u C-c i' => insert relative file name.
+
+On completion:
+
+- target starts by ~/           => insert abbreviate file name.
+- target starts by / or [a-z]:/ => insert full path.
+- otherwise                     => insert relative file name.
+
+*** Using wildcard to select multiple files
+
+Use of wilcard is supported to give a set of files to an action:
+
+e.g. You can copy all the files with \".el\" extension by using \"*.el\"
+and then run your copy action.
+
+You can do the same but with \"**.el\" (note the two stars),
+this will select recursively all \".el\" files under current directory.
+
+NOTE: When using an action that involve an external backend (e.g. grep), using \"**\"
+is not advised (even if it works fine) because it will be slower to select all your files,
+you have better time letting the backend doing it, it will be faster.
+However, if you know you have not many files it is reasonable to use this,
+also using not recursive wilcard (e.g. \"*.el\") is perfectly fine for this.
+
+This feature (\"**\") is activated by default with the option `helm-file-globstar'.
+The directory selection with \"**foo/\" like bash shopt globstar option is not supported yet.
+
+*** Copying renaming asynchronously
+
+If you use async library (if you have installed helm from MELPA you do) you can enable
+async for copying/renaming etc... your files by enabling `dired-async-mode'.
+
+Note that even when async is enabled, running a copy/rename action with a prefix arg
+will execute action synchronously, it will follow also the first file of the marked files
+in its destination directory.
+
+*** Bookmark your `helm-find-files' session
+
+You can bookmark your `helm-find-files' session with `C-x r m'.
+You can retrieve later these bookmarks easily by using M-x helm-filtered-bookmarks
+or from the current `helm-find-files' session just hitting `C-x r b'.
+
+*** Run Gid from `helm-find-files'
+
+You can navigate to a project containing an ID file created with the `mkid'
+command from id-utils, and run the `gid' command which will use the symbol at point
+in `helm-current-buffer' as default.
+
+** Commands
+\\<helm-find-files-map>
+\\[helm-ff-run-locate]		Run Locate (C-u to specify locate db, M-n insert basename of candidate)
+\\[helm-ff-run-browse-project]		Browse project (`C-u' recurse, `C-u C-u' recurse and refresh db)
+\\[helm-ff-run-find-sh-command]		Run Find shell command from this directory.
+\\[helm-ff-run-grep]		Run Grep (C-u Recursive).
+\\[helm-ff-run-pdfgrep]		Run Pdfgrep on marked files.
+\\[helm-ff-run-zgrep]		Run zgrep (C-u Recursive).
+\\[helm-ff-run-gid]		Run gid (id-utils).
+\\[helm-ff-run-etags]		Run Etags (C-u use thing-at-point `C-u C-u' reload cache)
+\\[helm-ff-run-rename-file]		Rename File (C-u Follow).
+\\[helm-ff-run-query-replace-on-marked]		Query replace on marked files.
+\\[helm-ff-run-copy-file]		Copy File (C-u Follow).
+\\[helm-ff-run-byte-compile-file]		Byte Compile File (C-u Load).
+\\[helm-ff-run-load-file]		Load File.
+\\[helm-ff-run-symlink-file]		Symlink File.
+\\[helm-ff-run-hardlink-file]		Hardlink file.
+\\[helm-ff-run-delete-file]		Delete File.
+\\[helm-ff-run-kill-buffer-persistent]		Kill buffer candidate without quitting.
+\\[helm-ff-persistent-delete]		Delete file without quitting.
+\\[helm-ff-run-switch-to-eshell]		Switch to Eshell.
+\\[helm-ff-run-eshell-command-on-file]		Eshell command on file (C-u Apply on marked files, otherwise treat them sequentially).
+\\[helm-ff-run-ediff-file]		Ediff file.
+\\[helm-ff-run-ediff-merge-file]		Ediff merge file.
+\\[helm-ff-run-complete-fn-at-point]		Complete file name at point.
+\\[helm-ff-run-switch-other-window]		Switch other window.
+\\[helm-ff-run-switch-other-frame]		Switch other frame.
+\\[helm-ff-run-open-file-externally]		Open file with external program (C-u to choose).
+\\[helm-ff-run-open-file-with-default-tool]		Open file externally with default tool.
+\\[helm-ff-rotate-left-persistent]		Rotate Image Left.
+\\[helm-ff-rotate-right-persistent]		Rotate Image Right.
+\\[helm-find-files-up-one-level]		Go down precedent directory.
+\\[helm-ff-run-switch-to-history]		Switch to last visited directories history.
+\\[helm-ff-file-name-history]		Switch to file name history.
+\\[helm-ff-properties-persistent]		Show file properties in a tooltip.
+\\[helm-mark-all]		Mark all visibles candidates.
+\\[helm-ff-run-toggle-auto-update]		Toggle auto expansion of directories.
+\\[helm-unmark-all]		Unmark all candidates, visibles and invisibles.
+\\[helm-ff-run-gnus-attach-files]		Gnus attach files to message buffer.
+\\[helm-ff-run-print-file]		Print file, (C-u to refresh printers list).
+\\[helm-enlarge-window]		Enlarge helm window.
+\\[helm-narrow-window]		Narrow helm window.
+\\[helm-ff-run-toggle-basename]		Toggle basename/fullpath.
+\\[helm-ff-run-find-file-as-root]		Find file as root.
+\\[helm-ff-run-insert-org-link]		Insert org link.") nil [8216 16914])
+            ("helm-read-file-name-help-message" variable (:default-value "* Helm read file name
+
+** Tips
+
+*** Enter `~/' at end of pattern to quickly reach home directory
+
+*** Enter `/' at end of pattern to quickly reach root of your file system
+
+*** Enter `./' at end of pattern to quickly reach `default-directory' (initial start of session)
+
+If you are in `default-directory' move cursor on top.
+
+*** Enter `../' at end of pattern will reach upper directory, moving cursor on top
+
+NOTE: This different to using `C-l' in that `C-l' don't move cursor on top but stay on previous
+subdir name.
+
+*** You can complete with partial basename (start on third char entered)
+
+E.g. \"fob\" or \"fbr\" will complete \"foobar\"
+but \"fb\" will wait for a third char for completing.
+
+*** Persistent actions
+
+By default `helm-read-file-name' use the persistent actions of `helm-find-files'
+
+**** Use `C-u C-j' to watch an image
+
+**** `C-j' on a filename will expand in helm-buffer to this filename
+
+Second hit on `C-j' will display buffer filename.
+Third hit on `C-j' will kill buffer filename.
+NOTE: `C-u C-j' will display buffer directly.
+
+**** To browse images directories turn on `helm-follow-mode' and navigate with arrow keys
+
+**** Delete characters
+
+When you want to delete backward characters, e.g. to create a new file or directory,
+autoupdate may keep updating to an existent directory preventing you from doing so.
+In this case, type C-<backspace> and then <backspace>.
+This should not be needed when copying/renaming files because autoupdate is disabled
+by default in that case.
+NOTE: On a terminal C-<backspace> may not work, use in this case C-c <backspace>.
+
+**** Create a new directory and a new file at the same time
+
+You can create a new directory and a new file at the same time, 
+just write the path in prompt and press <RET>.
+E.g. You can create \"~/new/newnew/newnewnew/my_newfile.txt\".
+
+**** To create a new directory, add a \"/\" at end of new name and press <RET>
+
+**** To create a new file just write the filename not ending with \"/\"
+
+** Commands
+\\<helm-read-file-map>
+\\[helm-find-files-up-one-level]		Go down precedent directory.
+\\[helm-ff-run-toggle-auto-update]		Toggle auto expansion of directories.
+\\[helm-ff-run-toggle-basename]		Toggle basename.
+\\[helm-ff-file-name-history]		File name history.
+C/\\[helm-cr-empty-string]		Maybe return empty string (unless `must-match').
+\\[helm-next-source]		Goto next source.
+\\[helm-previous-source]		Goto previous source.") nil [16957 19430])
+            ("helm-generic-file-help-message" variable (:default-value "* Helm Generic files
+
+** Tips
+
+*** Locate
+
+You can add after writing search pattern any of the locate command line options.
+e.g. -b, -e, -n <number>...etc.
+See Man locate for more infos.
+
+Some other sources (at the moment recentf and file in current directory sources)
+support the -b flag for compatibility with locate when they are used with it.
+
+*** Browse project
+
+When your directory is not under version control,
+don't forget to refresh your cache when files have been added/removed in your directory.
+
+*** Find command
+
+Recursively search files using \"find\" shell command.
+
+Candidates are all filenames that match all given globbing patterns.
+This respects the options `helm-case-fold-search' and
+`helm-findutils-search-full-path'.
+
+You can pass arbitrary options directly to find after a \"*\" separator.
+For example, this would find all files matching \"book\" that are larger
+than 1 megabyte:
+
+    book * -size +1M
+
+** Commands
+\\<helm-generic-files-map>
+\\[helm-ff-run-toggle-basename]		Toggle basename.
+\\[helm-ff-run-grep]		Run grep (C-u recurse).
+\\[helm-ff-run-zgrep]		Run zgrep.
+\\[helm-ff-run-gid]		Run gid (id-utils).
+\\[helm-ff-run-pdfgrep]		Run Pdfgrep on marked files.
+\\[helm-ff-run-copy-file]		Copy file(s)
+\\[helm-ff-run-rename-file]		Rename file(s).
+\\[helm-ff-run-symlink-file]		Symlink file(s).
+\\[helm-ff-run-hardlink-file]		Hardlink file(s).
+\\[helm-ff-run-delete-file]		Delete file(s).
+\\[helm-ff-run-byte-compile-file]		Byte compile file(s) (C-u load) (elisp).
+\\[helm-ff-run-load-file]		Load file(s) (elisp).
+\\[helm-ff-run-ediff-file]		Ediff file.
+\\[helm-ff-run-ediff-merge-file]		Ediff merge file.
+\\[helm-ff-run-switch-other-window]		Switch other window.
+\\[helm-ff-properties-persistent]		Show file properties.
+\\[helm-ff-run-etags]		Run etags (C-u use tap, C-u C-u reload DB).
+\\[helm-yank-text-at-point]		Yank text at point.
+\\[helm-ff-run-open-file-externally]		Open file with external program (C-u to choose).
+\\[helm-ff-run-open-file-with-default-tool]		Open file externally with default tool.
+\\[helm-ff-run-insert-org-link]		Insert org link.") nil [19478 21650])
+            ("helm-grep-help-message" variable (:default-value "* Helm Grep
+
+** Tips
+
+*** You can start grep with a prefix arg to recurse in subdirectories
+
+*** You can use wild card when selecting files (e.g. *.el)
+
+*** You can grep in many differents directories by marking files or wild cards
+
+*** You can save your results in a `helm-grep-mode' buffer, see commands below
+
+Once in this buffer you can use emacs-wgrep to edit your changes.
+
+*** Important
+
+Grepping on remote file will work only with grep, not ack-grep, but it is
+anyway bad supported as tramp doesn't support multiple process running in a
+short delay (less than 5s actually) among other things,
+so I strongly advice hitting `C-!' (i.e suspend process)
+before entering anything in pattern, and hit again `C-!' when
+your regexp is ready to send to remote process, even if helm is handling
+this by delaying each process at 5s. 
+Or even better don't use tramp at all and mount your remote file system on SSHFS.
+
+* Helm Gid
+
+** Tips
+
+Helm gid read the database created with the `mkid' command from id-utils.
+The name of the database file can be customized with `helm-gid-db-file-name', it
+is usually \"ID\".
+Helm Gid use the symbol at point as default-input.
+You have access to this command also from `helm-find-files' which allow you to
+navigate to another directory to consult its database.
+
+* Helm AG
+
+** Tips
+
+Helm AG is different from grep or ack-grep in that it works on a directory and not
+a list of files.
+You can ignore files and directories by using a \".agignore\" file, local to directory
+or global when placed in home directory (See AG man page for more infos).
+This file supports same entries as what you will find in `helm-grep-ignored-files' and
+`helm-grep-ignored-directories'.
+As always you can access helm AG from `helm-find-files'.
+
+** Commands
+\\<helm-grep-map>
+\\[helm-goto-next-file]		Next File.
+\\[helm-goto-precedent-file]		Precedent File.
+\\[helm-yank-text-at-point]		Yank Text at point in minibuffer.
+\\[helm-grep-run-other-window-action]		Jump other window.
+\\[helm-grep-run-other-frame-action]		Jump other frame.
+\\[helm-grep-run-default-action]		Run default action (Same as RET).
+\\[helm-grep-run-save-buffer]		Save to a `helm-grep-mode' enabled buffer.") nil [21672 23906])
+            ("helm-pdfgrep-help-message" variable (:default-value "* Helm PdfGrep Map
+
+** Commands
+\\<helm-pdfgrep-map>
+\\[helm-goto-next-file]		Next File.
+\\[helm-goto-precedent-file]		Precedent File.
+\\[helm-yank-text-at-point]		Yank Text at point in minibuffer.") nil [23932 24174])
+            ("helm-etags-help-message" variable (:default-value "* Helm Etags Map
+
+** Commands
+\\<helm-etags-map>
+\\[helm-goto-next-file]		Next File.
+\\[helm-goto-precedent-file]		Precedent File.
+\\[helm-yank-text-at-point]		Yank Text at point in minibuffer.") nil [24197 24433])
+            ("helm-ucs-help-message" variable (:default-value "* Helm Ucs
+
+** Tips
+
+Use commands below to insert unicode characters
+in current-buffer without quitting helm.
+
+** Commands
+\\<helm-ucs-map>
+\\[helm-ucs-persistent-insert]		Insert char.
+\\[helm-ucs-persistent-forward]		Forward char.
+\\[helm-ucs-persistent-backward]		Backward char.
+\\[helm-ucs-persistent-delete]		Delete char backward.") nil [24454 24831])
+            ("helm-bookmark-help-message" variable (:default-value "* Helm bookmark name
+
+** Commands
+\\<helm-bookmark-map>
+\\[helm-bookmark-run-jump-other-window]		Jump other window.
+\\[helm-bookmark-run-delete]		Delete bookmark.
+\\[helm-bookmark-run-edit]		Edit bookmark.
+\\[helm-bookmark-toggle-filename]		Toggle bookmark location visibility.") nil [24857 25182])
+            ("helm-esh-help-message" variable (:default-value "* Helm eshell on file
+
+** Tips
+
+*** Passing extra args after filename
+
+Normally your command or alias will be called with file as argument. E.g.,
+
+    <command> 'candidate_file'
+
+But you can also pass an argument or more after 'candidate_file' like this:
+
+    <command> %s [extra_args]
+
+'candidate_file' will be added at '%s' and your command will look at this:
+
+    <command> 'candidate_file' [extra_args]
+
+*** Specify many files as args (marked files)
+
+E.g. <command> file1 file2 ...
+
+Call `helm-find-files-eshell-command-on-file' with one prefix-arg
+Otherwise you can pass one prefix-arg from the command selection buffer.
+NOTE: This is not working on remote files.
+
+With two prefix-arg before starting or from the command selection buffer
+the output is printed to your `current-buffer'.
+
+Note that with no prefix-arg or a prefix-arg value of '(16) (C-u C-u)
+the command is called once for each file like this:
+
+    <command> file1 <command> file2 etc...
+
+** Commands
+\\<helm-esh-on-file-map>") nil [25222 26252])
+            ("helm-buffers-ido-virtual-help-message" variable (:default-value "* Helm ido virtual buffers
+
+** Commands
+\\<helm-buffers-ido-virtual-map>
+\\[helm-ff-run-switch-other-window]		Switch other window.
+\\[helm-ff-run-switch-other-frame]		Switch other frame.
+\\[helm-ff-run-grep]		Grep file.
+\\[helm-ff-run-zgrep]		Zgrep file.
+\\[helm-ff-run-delete-file]		Delete file.
+\\[helm-ff-run-open-file-externally]		Open file externally.") nil [26288 26707])
+            ("helm-moccur-help-message" variable (:default-value "* Helm Moccur
+
+** Tips
+
+*** Matching
+
+Multiple regexp matching is allowed, just enter a space to separate your regexps.
+
+Matching empty lines is supported with the regexp \"^$\", you will get the results
+with only the buffer-name and the line number, you can of course save and edit these
+results (i.e add text to the empty line) .
+
+*** Automatically matching symbol at point
+
+You can match automatically the symbol at point, but keeping
+the minibuffer empty ready to write into.
+This is disabled by default, to enable this you have to add `helm-source-occur'
+and `helm-source-moccur' to `helm-sources-using-default-as-input'.
+
+*** Jump to the corresponding line in the searched buffer
+
+You can do this with `C-j' (persistent-action), to do it repetitively
+you can use `C-<up>' and `C-<down>' or enable `helm-follow-mode' with `C-c C-f'.
+
+*** Saving results
+
+Same as with helm-grep, you can save the results with `C-x C-s'.
+Of course if you don't save your results, you can get back your session
+with `helm-resume'.
+
+*** Refreshing the resumed session.
+
+When the buffer(s) where you ran helm-(m)occur have been modified, you will be
+warned of this with the buffer flashing to red, you can refresh the buffer by running
+`C-c C-u'.
+This can be done automatically by customizing `helm-moccur-auto-update-on-resume'.
+
+*** Refreshing a saved buffer
+
+Type `g' to update your buffer.
+
+*** Edit a saved buffer
+
+First, install wgrep https://github.com/mhayashi1120/Emacs-wgrep
+and then:
+
+1) C-c C-p to edit the buffer(s).
+2) C-x C-s to save your changes.
+
+Tip: Use the excellent iedit https://github.com/tsdh/iedit
+to modify occurences in your buffer.
+
+** Commands
+\\<helm-moccur-map>
+\\[helm-goto-next-file]		Next Buffer.
+\\[helm-goto-precedent-file]		Precedent Buffer.
+\\[helm-yank-text-at-point]		Yank Text at point in minibuffer.
+\\[helm-moccur-run-goto-line-ow]		Goto line in other window.
+\\[helm-moccur-run-goto-line-of]		Goto line in new frame.") nil [26731 28722])
+            ("helm-top-help-message" variable (:default-value "* Helm Top
+
+** Tips
+
+** Commands
+\\<helm-top-map>
+\\[helm-top-run-sort-by-com]		Sort by commands.
+\\[helm-top-run-sort-by-cpu]		Sort by cpu usage.
+\\[helm-top-run-sort-by-user]		Sort alphabetically by user.
+\\[helm-top-run-sort-by-mem]		Sort by memory.") nil [28743 29038])
+            ("helm-apt-help-message" variable (:default-value "* Helm Apt
+
+** Tips
+
+** Commands
+\\<helm-apt-map>
+\\[helm-apt-show-all]		Show all packages.
+\\[helm-apt-show-only-installed]		Show installed packages only.
+\\[helm-apt-show-only-not-installed]		Show not installed packages only.
+\\[helm-apt-show-only-deinstalled]		Show deinstalled (not purged yet) packages only.>") nil [29059 29415])
+            ("helm-el-package-help-message" variable (:default-value "* Helm elisp package
+
+** Tips
+
+*** Compile all your packages asynchronously
+
+When using async (if you have installed from MELPA you do), only helm, helm-core,
+and magit are compiled asynchronously, if you want all your packages compiled async,
+add to your init file:
+    
+     (setq async-bytecomp-allowed-packages '(all))
+    
+*** Upgrade elisp packages
+
+On initial start (when emacs is fetching packages on remote), if helm find
+package to upgrade it will start in the upgradables packages view showing the packages
+availables to upgrade.
+On further starts, you will have to refresh the list with `C-c C-u', if helm find upgrades
+you will have a message telling you some packages are available for upgrade, you can switch to
+upgrade view (see below) to see what packages are available for upgrade or just hit `C-c U'.
+to upgrade all.
+
+To see upgradables packages hit <M-U>.
+
+Then you can install all upgradables packages with the upgrade all action (`C-c C-u'),
+or upgrade only the specific packages by marking them (the new ones) and running
+the upgrade action (visible only when there is upgradables packages).
+Of course you can upgrade a single package by just running the upgrade action
+without marking it (`C-c u' or RET) .
+
+*WARNING* You are strongly advised to RESTART emacs after UPGRADING packages.
+
+*** Meaning of flags prefixing packages (Emacs-25)
+
+- The flag \"S\" that prefix package names mean that this package is one of `package-selected-packages'.
+This feature is only available with emacs-25.
+
+- The flag \"U\" that prefix package names mean that this package is no more needed.
+This feature is only available with emacs-25.
+
+** Commands
+\\<helm-el-package-map>
+\\[helm-el-package-show-all]		Show all packages.
+\\[helm-el-package-show-installed]		Show installed packages only.
+\\[helm-el-package-show-uninstalled]		Show not installed packages only.
+\\[helm-el-package-show-upgrade]		Show upgradable packages only.
+\\[helm-el-run-package-install]		Install package(s).
+\\[helm-el-run-package-reinstall]		Reinstall package(s).
+\\[helm-el-run-package-uninstall]		Uninstall package(s).
+\\[helm-el-run-package-upgrade]		Upgrade package(s).
+\\[helm-el-run-package-upgrade-all]		Upgrade all packages upgradables.
+\\[helm-el-run-visit-homepage]		Visit package homepage.") nil [29446 31790])
+            ("helm-M-x-help-message" variable (:default-value "* Helm M-x
+
+** Tips
+
+*** You can get help on any command with persistent action (C-j)
+
+*** Prefix Args
+
+All the prefix args passed BEFORE running `helm-M-x' are ignored,
+you should get an error message if you do so.
+When you want to pass prefix args, pass them AFTER starting `helm-M-x',
+you will see a prefix arg counter appearing in mode-line notifying you
+the number of prefix args entered.") nil [31811 32239])
+            ("helm-imenu-help-message" variable (:default-value "* Helm imenu
+
+** Tips
+
+** Commands
+\\<helm-imenu-map>
+\\[helm-imenu-next-section]		Go to next section.
+\\[helm-imenu-previous-section]		Go to previous section.") nil [32262 32462])
+            ("helm-colors-help-message" variable (:default-value "* Helm colors
+
+** Commands
+\\<helm-color-map>
+\\[helm-color-run-insert-name]		Insert the entry'name.
+\\[helm-color-run-kill-name]		Kill the entry's name.
+\\[helm-color-run-insert-rgb]		Insert entry in RGB format.
+\\[helm-color-run-kill-rgb]		Kill entry in RGB format.") nil [32486 32799])
+            ("helm-semantic-help-message" variable (:default-value "* Helm semantic
+
+** Tips
+
+** Commands
+\\<helm-semantic-map>") nil [32825 32924])
+            ("helm-kmacro-help-message" variable (:default-value "* Helm kmacro
+
+** Tips
+
+- Start recording some keys with `f3'
+- Record new kmacro with `f4'
+- Start `helm-execute-kmacro' to list all your macros.
+
+Use persistent action to run your kmacro as many time as needed,
+you can change of kmacro with `helm-next-line' `helm-previous-line'.
+
+NOTE: You can't record keys running helm commands except `helm-M-x' unless
+you don't choose from there a command using helm completion.
+
+** Commands
+\\<helm-kmacro-map>") nil [32948 33437])
+            ("helm-comp-read-mode-line" variable (:default-value "\\<helm-comp-read-map>C/\\[helm-cr-empty-string]:Empty \\<helm-map>\\[helm-help]:Help \\[helm-select-action]:Act \\[helm-maybe-exit-minibuffer]/f1/f2/f-n:NthAct \\[helm-toggle-suspend-update]:Tog.suspend") nil [33484 33739])
+            ("helm-read-file-name-mode-line-string" variable (:default-value "\\<helm-read-file-map>\\[helm-help]:Help C/\\[helm-cr-empty-string]:Empty \\<helm-map>\\[helm-select-action]:Act \\[helm-maybe-exit-minibuffer]/f1/f2/f-n:NthAct \\[helm-toggle-suspend-update]:Tog.suspend") nil [33756 34086])
+            ("helm-top-mode-line" variable (:default-value "\\<helm-top-map>\\[helm-help]:Help \\<helm-map>\\[helm-select-action]:Act \\[helm-maybe-exit-minibuffer]/f1/f2/f-n:NthAct \\[helm-toggle-suspend-update]:Tog.suspend") nil [34103 34311])
+            ("helm-describe-helm-attribute" function
+               (:user-visible-flag t
+                :arguments ("helm-attribute"))
+                nil [34364 34806])
+            ("helm-document-attribute" code nil nil [34808 34979])
+            ("helm-document-attribute" code nil nil [34981 35215])
+            ("helm-document-attribute" code nil nil [35217 36860])
+            ("helm-document-attribute" code nil nil [36862 37083])
+            ("helm-document-attribute" code nil nil [37085 37590])
+            ("helm-document-attribute" code nil nil [37592 37981])
+            ("helm-document-attribute" code nil nil [37983 38246])
+            ("helm-document-attribute" code nil nil [38248 38705])
+            ("helm-document-attribute" code nil nil [38707 39837])
+            ("helm-document-attribute" code nil nil [39839 40500])
+            ("helm-document-attribute" code nil nil [40502 41709])
+            ("helm-document-attribute" code nil nil [41711 42200])
+            ("helm-document-attribute" code nil nil [42202 42503])
+            ("helm-document-attribute" code nil nil [42505 42774])
+            ("helm-document-attribute" code nil nil [42776 43047])
+            ("helm-document-attribute" code nil nil [43049 43339])
+            ("helm-document-attribute" code nil nil [43341 43695])
+            ("helm-document-attribute" code nil nil [43697 44311])
+            ("helm-document-attribute" code nil nil [44313 44680])
+            ("helm-document-attribute" code nil nil [44682 45033])
+            ("helm-document-attribute" code nil nil [45035 45623])
+            ("helm-document-attribute" code nil nil [45625 46381])
+            ("helm-document-attribute" code nil nil [46383 46618])
+            ("helm-document-attribute" code nil nil [46620 46747])
+            ("helm-document-attribute" code nil nil [46749 46848])
+            ("helm-document-attribute" code nil nil [46850 47048])
+            ("helm-document-attribute" code nil nil [47050 47145])
+            ("helm-document-attribute" code nil nil [47147 47342])
+            ("helm-document-attribute" code nil nil [47344 47510])
+            ("helm-document-attribute" code nil nil [47512 47645])
+            ("helm-document-attribute" code nil nil [47647 47968])
+            ("helm-document-attribute" code nil nil [47970 48330])
+            ("helm-document-attribute" code nil nil [48332 48476])
+            ("helm-document-attribute" code nil nil [48478 49406])
+            ("helm-document-attribute" code nil nil [49408 49896])
+            ("helm-document-attribute" code nil nil [49898 49993])
+            ("helm-document-attribute" code nil nil [49995 50090])
+            ("helm-document-attribute" code nil nil [50092 50282])
+            ("helm-document-attribute" code nil nil [50284 50536])
+            ("helm-document-attribute" code nil nil [50538 50801])
+            ("helm-document-attribute" code nil nil [50803 50902])
+            ("helm-document-attribute" code nil nil [50904 51555])
+            ("helm-document-attribute" code nil nil [51557 51670])
+            ("helm-help" package nil nil [51672 51692]))          
+      :file "helm-help.el"
+      :pointmax 51846
+      :fsize 51845
+      :lastmodtime '(22009 13228 0 0)
+      :unmatched-syntax nil)
+    (semanticdb-table "helm-semantic.el"
+      :major-mode 'emacs-lisp-mode
+      :tags 
+        '( ("cl-lib" include nil nil [901 918])
+            ("semantic" include nil nil [919 938])
+            ("helm-help" include nil nil [939 959])
+            ("helm-imenu" include nil nil [960 981])
+            ("declare-function" code nil nil [983 1070])
+            ("helm-semantic" customgroup (:user-visible-flag t) nil [1072 1178])
+            ("helm-semantic-lynx-style-map" variable (:default-value t) nil [1180 1306])
+            ("helm-semantic-display-style" variable (:default-value (quote ((python-mode . semantic-format-tag-summarize) (c-mode . semantic-format-tag-concise-prototype-c-mode) (emacs-lisp-mode . semantic-format-tag-abbreviate-emacs-lisp-mode)))) nil [1308 2157])
+            ("helm-semantic-map" variable (:default-value (let ((map (make-sparse-keymap))) (set-keymap-parent map helm-map) (when helm-semantic-lynx-style-map (define-key map (kbd "<left>") (quote helm-maybe-exit-minibuffer)) (define-key map (kbd "<right>") (quote helm-execute-persistent-action))) (delq nil map))) nil [2170 2467])
+            ("helm-semantic--tags-cache" variable nil nil [2487 2525])
+            ("helm-semantic--fetch-candidates" function (:arguments ("tags" "depth" "class")) nil [2527 4070])
+            ("helm-semantic-default-action" function (:arguments ("_candidate" "persistent")) nil [4072 4632])
+            ("helm-semantic--maybe-set-needs-update" function nil nil [4634 4804])
+            ("helm-source-semantic" variable nil nil [4806 4839])
+            ("helm-semantic-source" type
+               (:superclasses "helm-source-in-buffer"
+                :members 
+                  ( ("init" variable (:default-value "(lambda nil (helm-semantic--maybe-set-needs-update) (setq helm-semantic--tags-cache (semantic-fetch-tags)) (with-current-buffer (helm-candidate-buffer (quote global)) (let ((major-mode (with-helm-current-buffer major-mode))) (helm-semantic--fetch-candidates helm-semantic--tags-cache 0))))") nil nil)
+                    ("get-line" variable (:default-value "(quote buffer-substring)") nil nil)
+                    ("persistent-help" variable (:default-value "Show this entry") nil nil)
+                    ("keymap" variable (:default-value "(quote helm-semantic-map)") nil nil)
+                    ("help-message" variable (:default-value "(quote helm-semantic-help-message)") nil nil)
+                    ("persistent-action" variable (:default-value "(lambda (elm) (helm-semantic-default-action elm t) (helm-highlight-current-line))") nil nil)
+                    ("action" variable (:default-value "(quote helm-semantic-default-action)") nil nil))                  
+                :type "class")
+                nil [4841 5733])
+            ("helm-semantic-fuzzy-match" variable nil nil [5735 6085])
+            ("helm-semantic" function
+               (:user-visible-flag t
+                :arguments ("arg"))
+                nil [6102 6925])
+            ("helm-semantic-or-imenu" function
+               (:user-visible-flag t
+                :arguments ("arg"))
+                nil [6942 8470])
+            ("helm-semantic" package nil nil [8472 8496]))          
+      :file "helm-semantic.el"
+      :pointmax 8654
+      :fsize 8657
+      :lastmodtime '(22009 13230 0 0)
+      :unmatched-syntax nil)
+    (semanticdb-table "helm-files.el"
+      :major-mode 'emacs-lisp-mode
+      :tags 
+        '( ("cl-lib" include nil nil [815 832])
+            ("helm" include nil nil [833 848])
+            ("helm-types" include nil nil [849 870])
+            ("helm-utils" include nil nil [871 892])
+            ("helm-external" include nil nil [893 917])
+            ("helm-grep" include nil nil [918 938])
+            ("helm-help" include nil nil [939 959])
+            ("helm-locate" include nil nil [960 982])
+            ("helm-bookmark" include nil nil [983 1007])
+            ("helm-tags" include nil nil [1008 1028])
+            ("helm-buffers" include nil nil [1029 1052])
+            ("thingatpt" include nil nil [1053 1073])
+            ("ffap" include nil nil [1074 1089])
+            ("dired-aux" include nil nil [1090 1110])
+            ("dired-x" include nil nil [1111 1129])
+            ("tramp" include nil nil [1130 1146])
+            ("image-dired" include nil nil [1147 1169])
+            ("declare-function" code nil nil [1171 1232])
+            ("declare-function" code nil nil [1233 1336])
+            ("declare-function" code nil nil [1337 1411])
+            ("declare-function" code nil nil [1412 1504])
+            ("declare-function" code nil nil [1505 1581])
+            ("declare-function" code nil nil [1582 1636])
+            ("declare-function" code nil nil [1637 1726])
+            ("declare-function" code nil nil [1727 1774])
+            ("declare-function" code nil nil [1775 1815])
+            ("declare-function" code nil nil [1816 1869])
+            ("declare-function" code nil nil [1870 1921])
+            ("declare-function" code nil nil [1922 1987])
+            ("declare-function" code nil nil [1988 2034])
+            ("declare-function" code nil nil [2035 2086])
+            ("recentf-list" variable nil nil [2088 2109])
+            ("helm-mm-matching-method" variable nil nil [2110 2142])
+            ("define-helm-type-attribute" code nil nil [2172 2248])
+            ("helm-files" customgroup (:user-visible-flag t) nil [2253 2340])
+            ("helm-boring-file-regexp-list" variable (:default-value (mapcar (lambda (f) (concat (rx-to-string (replace-regexp-in-string "/$" "" f) t) "$")) completion-ignored-extensions)) nil [2342 2666])
+            ("helm-for-files-preferred-list" variable (:default-value (quote (helm-source-buffers-list helm-source-recentf helm-source-bookmarks helm-source-file-cache helm-source-files-in-current-dir helm-source-locate))) nil [2668 2973])
+            ("helm-tramp-verbose" variable nil nil [2975 3206])
+            ("helm-ff-auto-update-initial-value" variable nil nil [3208 3610])
+            ("helm-ff-lynx-style-map" variable (:default-value t) nil [3612 3851])
+            ("helm-ff-history-max-length" variable (:default-value 100) nil [3853 3992])
+            ("helm-ff-smart-completion" variable (:default-value t) nil [3994 4186])
+            ("helm-ff-tramp-not-fancy" variable (:default-value t) nil [4188 4385])
+            ("helm-ff-exif-data-program" variable (:default-value "exiftran") nil [4387 4528])
+            ("helm-ff-exif-data-program-args" variable (:default-value "-d") nil [4530 4666])
+            ("helm-ff-newfile-prompt-p" variable (:default-value t) nil [4668 4827])
+            ("helm-ff-avfs-directory" variable (:default-value "~/.avfs") nil [4829 5128])
+            ("helm-ff-file-compressed-list" variable (:default-value (quote ("gz" "bz2" "zip" "7z"))) nil [5130 5299])
+            ("helm-ff-printer-list" variable nil nil [5301 5702])
+            ("helm-ff-transformer-show-only-basename" variable (:default-value t) nil [5704 5970])
+            ("helm-ff-signal-error-on-dot-files" variable (:default-value t) nil [5972 6232])
+            ("helm-ff-search-library-in-sexp" variable nil nil [6234 6384])
+            ("helm-tooltip-hide-delay" variable (:default-value 25) nil [6386 6519])
+            ("helm-ff-file-name-history-use-recentf" variable nil nil [6521 6688])
+            ("helm-ff-skip-boring-files" variable nil nil [6690 6954])
+            ("helm-ff-candidate-number-limit" variable (:default-value 5000) nil [6956 7132])
+            ("helm-findutils-skip-boring-files" variable (:default-value t) nil [7134 7289])
+            ("helm-findutils-search-full-path" variable nil nil [7291 7505])
+            ("helm-files-save-history-extra-sources" variable (:default-value (quote ("Find" "Locate" "Recentf" "Files from Current Directory" "File Cache"))) nil [7507 7752])
+            ("helm-find-files-before-init-hook" variable nil nil [7754 7899])
+            ("helm-find-files-after-init-hook" variable nil nil [7901 8044])
+            ("helm-multi-files-toggle-locate-binding" variable (:default-value "C-c p") nil [8046 8216])
+            ("helm-find-files-bookmark-prefix" variable (:default-value "Helm-find-files: ") nil [8218 8374])
+            ("helm-files-faces" customgroup (:user-visible-flag t) nil [8393 8528])
+            ("helm-ff-prefix" variable
+               (:default-value (quote ((t (:background "yellow" :foreground "black"))))
+                :type "face")
+                nil [8530 8703])
+            ("helm-ff-executable" variable
+               (:default-value (quote ((t (:foreground "green"))))
+                :type "face")
+                nil [8705 8850])
+            ("helm-ff-directory" variable
+               (:default-value (quote ((t (:foreground "DarkRed" :background "LightGray"))))
+                :type "face")
+                nil [8852 9017])
+            ("helm-ff-dotted-directory" variable
+               (:default-value (quote ((t (:foreground "black" :background "DimGray"))))
+                :type "face")
+                nil [9019 9194])
+            ("helm-ff-dotted-symlink-directory" variable
+               (:default-value (quote ((t (:foreground "DarkOrange" :background "DimGray"))))
+                :type "face")
+                nil [9196 9394])
+            ("helm-ff-symlink" variable
+               (:default-value (quote ((t (:foreground "DarkOrange"))))
+                :type "face")
+                nil [9396 9535])
+            ("helm-ff-invalid-symlink" variable
+               (:default-value (quote ((t (:foreground "black" :background "red"))))
+                :type "face")
+                nil [9537 9705])
+            ("helm-ff-file" variable
+               (:default-value (quote ((t (:inherit font-lock-builtin-face))))
+                :type "face")
+                nil [9707 9852])
+            ("helm-history-deleted" variable
+               (:default-value (quote ((t (:inherit helm-ff-invalid-symlink))))
+                :type "face")
+                nil [9854 10013])
+            ("helm-history-remote" variable
+               (:default-value (quote ((t (:foreground "Indianred1"))))
+                :type "face")
+                nil [10015 10164])
+            ("helm-find-files-map" variable (:default-value (let ((map (make-sparse-keymap))) (set-keymap-parent map helm-map) (define-key map (kbd "C-]") (quote helm-ff-run-toggle-basename)) (define-key map (kbd "C-x C-f") (quote helm-ff-run-locate)) (define-key map (kbd "C-x C-d") (quote helm-ff-run-browse-project)) (define-key map (kbd "C-x r m") (quote helm-ff-bookmark-set)) (define-key map (kbd "C-x r b") (quote helm-find-files-toggle-to-bookmark)) (define-key map (kbd "C-s") (quote helm-ff-run-grep)) (define-key map (kbd "M-g s") (quote helm-ff-run-grep)) (define-key map (kbd "M-g p") (quote helm-ff-run-pdfgrep)) (define-key map (kbd "M-g z") (quote helm-ff-run-zgrep)) (define-key map (kbd "M-g a") (quote helm-ff-run-grep-ag)) (define-key map (kbd "C-c g") (quote helm-ff-run-gid)) (define-key map (kbd "M-.") (quote helm-ff-run-etags)) (define-key map (kbd "M-R") (quote helm-ff-run-rename-file)) (define-key map (kbd "M-C") (quote helm-ff-run-copy-file)) (define-key map (kbd "M-B") (quote helm-ff-run-byte-compile-file)) (define-key map (kbd "M-L") (quote helm-ff-run-load-file)) (define-key map (kbd "M-S") (quote helm-ff-run-symlink-file)) (define-key map (kbd "M-H") (quote helm-ff-run-hardlink-file)) (define-key map (kbd "M-D") (quote helm-ff-run-delete-file)) (define-key map (kbd "M-K") (quote helm-ff-run-kill-buffer-persistent)) (define-key map (kbd "C-c d") (quote helm-ff-persistent-delete)) (define-key map (kbd "M-e") (quote helm-ff-run-switch-to-eshell)) (define-key map (kbd "C-c i") (quote helm-ff-run-complete-fn-at-point)) (define-key map (kbd "C-c o") (quote helm-ff-run-switch-other-window)) (define-key map (kbd "C-c C-o") (quote helm-ff-run-switch-other-frame)) (define-key map (kbd "C-c C-x") (quote helm-ff-run-open-file-externally)) (define-key map (kbd "C-c X") (quote helm-ff-run-open-file-with-default-tool)) (define-key map (kbd "M-!") (quote helm-ff-run-eshell-command-on-file)) (define-key map (kbd "M-%") (quote helm-ff-run-query-replace-on-marked)) (define-key map (kbd "C-c =") (quote helm-ff-run-ediff-file)) (define-key map (kbd "M-=") (quote helm-ff-run-ediff-merge-file)) (define-key map (kbd "M-p") (quote helm-ff-run-switch-to-history)) (define-key map (kbd "C-c h") (quote helm-ff-file-name-history)) (define-key map (kbd "M-i") (quote helm-ff-properties-persistent)) (define-key map (kbd "C-}") (quote helm-narrow-window)) (define-key map (kbd "C-{") (quote helm-enlarge-window)) (define-key map (kbd "C-<backspace>") (quote helm-ff-run-toggle-auto-update)) (define-key map (kbd "C-c <DEL>") (quote helm-ff-run-toggle-auto-update)) (define-key map (kbd "C-c C-a") (quote helm-ff-run-gnus-attach-files)) (define-key map (kbd "C-c p") (quote helm-ff-run-print-file)) (define-key map (kbd "C-c /") (quote helm-ff-run-find-sh-command)) (define-key map (kbd "M-l") (quote helm-ff-rotate-left-persistent)) (define-key map (kbd "M-r") (quote helm-ff-rotate-right-persistent)) (define-key map (kbd "C-l") (quote helm-find-files-up-one-level)) (define-key map (kbd "C-r") (quote helm-find-files-down-last-level)) (define-key map (kbd "C-c r") (quote helm-ff-run-find-file-as-root)) (define-key map (kbd "C-c @") (quote helm-ff-run-insert-org-link)) (helm-define-key-with-subkeys map (kbd "DEL") 127 (quote helm-ff-delete-char-backward) nil nil (quote helm-ff-delete-char-backward--exit-fn)) (when helm-ff-lynx-style-map (define-key map (kbd "<left>") (quote helm-find-files-up-one-level)) (define-key map (kbd "<right>") (quote helm-execute-persistent-action))) (delq nil map))) nil [10227 14123])
+            ("helm-read-file-map" variable (:default-value (let ((map (make-sparse-keymap))) (set-keymap-parent map helm-map) (define-key map (kbd "<C-return>") (quote helm-cr-empty-string)) (define-key map (kbd "<M-RET>") (quote helm-cr-empty-string)) (define-key map (kbd "C-]") (quote helm-ff-run-toggle-basename)) (define-key map (kbd "C-.") (quote helm-find-files-up-one-level)) (define-key map (kbd "C-l") (quote helm-find-files-up-one-level)) (define-key map (kbd "C-r") (quote helm-find-files-down-last-level)) (define-key map (kbd "C-c h") (quote helm-ff-file-name-history)) (define-key map (kbd "C-<backspace>") (quote helm-ff-run-toggle-auto-update)) (define-key map (kbd "C-c <DEL>") (quote helm-ff-run-toggle-auto-update)) (helm-define-key-with-subkeys map (kbd "DEL") 127 (quote helm-ff-delete-char-backward) nil nil (quote helm-ff-delete-char-backward--exit-fn)) (when helm-ff-lynx-style-map (define-key map (kbd "<left>") (quote helm-find-files-up-one-level)) (define-key map (kbd "<right>") (quote helm-execute-persistent-action)) (define-key map (kbd "<M-left>") (quote helm-previous-source)) (define-key map (kbd "<M-right>") (quote helm-next-source))) (delq nil map))) nil [14125 15401])
+            ("helm-find-files-doc-header" variable
+               (:user-visible-flag t
+                :default-value " (\\<helm-find-files-map>\\[helm-find-files-up-one-level]: Go up one level)")
+                nil [15418 15613])
+            ("helm-ff-auto-update-flag" variable nil nil [15614 15791])
+            ("helm-ff-last-expanded" variable nil nil [15792 15869])
+            ("helm-ff-default-directory" variable nil nil [15870 15908])
+            ("helm-ff-history" variable nil nil [15909 15937])
+            ("helm-ff-cand-to-mark" variable nil nil [15938 15971])
+            ("helm-ff-url-regexp" variable (:default-value "\\`\\(news\\(post\\)?:\\|nntp:\\|mailto:\\|file:\\|\\(ftp\\|https?\\|telnet\\|gopher\\|www\\|wais\\):/?/?\\).*") nil [15972 16176])
+            ("helm-tramp-file-name-regexp" variable (:default-value "\\`/\\([^[/:]+\\|[^/]+]\\):") nil [16177 16243])
+            ("helm-marked-buffer-name" variable (:default-value "*helm marked*") nil [16244 16292])
+            ("helm-ff--auto-update-state" variable nil nil [16293 16332])
+            ("helm-ff--deleting-char-backward" variable nil nil [16333 16377])
+            ("helm-multi-files--toggle-locate" variable nil nil [16378 16422])
+            ("helm-ff--move-to-first-real-candidate" variable (:default-value t) nil [16423 16471])
+            ("helm-find-files--toggle-bookmark" variable nil nil [16472 16517])
+            ("helm-find-files-actions" variable (:default-value (helm-make-actions "Find File" (quote helm-find-file-or-marked) "Find file in Dired" (quote helm-point-file-in-dired) (lambda nil (and (locate-library "elscreen") "Find file in Elscreen")) (quote helm-elscreen-find-file) "View file" (quote view-file) "Checksum File" (quote helm-ff-checksum) "Query replace fnames on marked" (quote helm-ff-query-replace-on-marked) "Query replace contents on marked" (quote helm-ff-query-replace) "Query replace regexp contents on marked" (quote helm-ff-query-replace-regexp) "Serial rename files" (quote helm-ff-serial-rename) "Serial rename by symlinking files" (quote helm-ff-serial-rename-by-symlink) "Serial rename by copying files" (quote helm-ff-serial-rename-by-copying) "Open file with default tool" (quote helm-open-file-with-default-tool) "Find file in hex dump" (quote hexl-find-file) "Browse project" (quote helm-ff-browse-project) "Complete at point `C-c i'" (quote helm-insert-file-name-completion-at-point) "Insert as org link `C-c @'" (quote helm-files-insert-as-org-link) "Find shell command `C-c /'" (quote helm-ff-find-sh-command) "Add marked files to file-cache" (quote helm-ff-cache-add-file) "Open file externally `C-c C-x, C-u to choose'" (quote helm-open-file-externally) "Grep File(s) `C-s, C-u Recurse'" (quote helm-find-files-grep) "Grep current directory with AG" (quote helm-find-files-ag) "Zgrep File(s) `M-g z, C-u Recurse'" (quote helm-ff-zgrep) "Gid" (quote helm-ff-gid) "Switch to Eshell `M-e'" (quote helm-ff-switch-to-eshell) "Etags `M-., C-u reload tag file'" (quote helm-ff-etags-select) "Eshell command on file(s) `M-!, C-u take all marked as arguments.'" (quote helm-find-files-eshell-command-on-file) "Find file as root `C-c r'" (quote helm-find-file-as-root) "Ediff File `C-='" (quote helm-find-files-ediff-files) "Ediff Merge File `C-c ='" (quote helm-find-files-ediff-merge-files) "Delete File(s) `M-D'" (quote helm-delete-marked-files) "Copy file(s) `M-C, C-u to follow'" (quote helm-find-files-copy) "Rename file(s) `M-R, C-u to follow'" (quote helm-find-files-rename) "Symlink files(s) `M-S, C-u to follow'" (quote helm-find-files-symlink) "Relsymlink file(s) `C-u to follow'" (quote helm-find-files-relsymlink) "Hardlink file(s) `M-H, C-u to follow'" (quote helm-find-files-hardlink) "Find file other window `C-c o'" (quote find-file-other-window) "Switch to history `M-p'" (quote helm-find-files-switch-to-hist) "Find file other frame `C-c C-o'" (quote find-file-other-frame) "Print File `C-c p, C-u to refresh'" (quote helm-ff-print) "Locate `C-x C-f, C-u to specify locate db'" (quote helm-ff-locate))) nil [16547 19127])
+            ("helm-source-find-files" variable nil nil [19129 19241])
+            ("helm-source-ffiles" type
+               (:superclasses "helm-source-sync"
+                :members 
+                  ( ("header-name" variable (:default-value "(lambda (name) (concat name (substitute-command-keys helm-find-files-doc-header)))") nil nil)
+                    ("init" variable (:default-value "(lambda nil (setq helm-ff-auto-update-flag helm-ff-auto-update-initial-value) (setq helm-ff--auto-update-state helm-ff-auto-update-flag) (helm-set-local-variable (quote bookmark-make-record-function) (function helm-ff-make-bookmark-record)))") nil nil)
+                    ("candidates" variable (:default-value "(quote helm-find-files-get-candidates)") nil nil)
+                    ("filtered-candidate-transformer" variable (:default-value "(quote helm-ff-sort-candidates)") nil nil)
+                    ("filter-one-by-one" variable (:default-value "(quote helm-ff-filter-candidate-one-by-one)") nil nil)
+                    ("persistent-action" variable (:default-value "(quote helm-find-files-persistent-action)") nil nil)
+                    ("persistent-help" variable (:default-value "Hit1 Expand Candidate, Hit2 or (C-u) Find file") nil nil)
+                    ("help-message" variable (:default-value "(quote helm-ff-help-message)") nil nil)
+                    ("volatile" variable (:default-value "t") nil nil)
+                    ("nohighlight" variable (:default-value "t") nil nil)
+                    ("keymap" variable (:default-value "helm-find-files-map") nil nil)
+                    ("candidate-number-limit" variable (:default-value "(quote helm-ff-candidate-number-limit)") nil nil)
+                    ("action-transformer" variable (:default-value "(quote helm-find-files-action-transformer)") nil nil)
+                    ("action" variable (:default-value "(quote helm-find-files-actions)") nil nil)
+                    ("before-init-hook" variable (:default-value "(quote helm-find-files-before-init-hook)") nil nil)
+                    ("after-init-hook" variable (:default-value "(quote helm-find-files-after-init-hook)") nil nil))                  
+                :type "class")
+                nil [19243 20649])
+            ("helm-ff-make-bookmark-record" function nil nil [20676 20925])
+            ("helm-ff-bookmark-jump" function (:arguments ("bookmark")) nil [20927 21292])
+            ("helm-ff-bookmark-set" function (:user-visible-flag t) nil [21294 21591])
+            ("helm-dwim-target-directory" function nil nil [21593 22288])
+            ("helm-find-files-do-action" function (:arguments ("action")) nil [22290 24112])
+            ("helm-find-files-copy" function (:arguments ("_candidate")) nil [24114 24230])
+            ("helm-find-files-rename" function (:arguments ("_candidate")) nil [24232 24354])
+            ("helm-find-files-symlink" function (:arguments ("_candidate")) nil [24356 24481])
+            ("helm-find-files-relsymlink" function (:arguments ("_candidate")) nil [24483 24617])
+            ("helm-find-files-hardlink" function (:arguments ("_candidate")) nil [24619 24747])
+            ("helm-find-files-byte-compile" function (:arguments ("_candidate")) nil [24749 25034])
+            ("helm-find-files-load-files" function (:arguments ("_candidate")) nil [25036 25250])
+            ("helm-find-files-ediff-files-1" function (:arguments ("candidate" "merge")) nil [25252 26201])
+            ("helm-find-files-ediff-files" function (:arguments ("candidate")) nil [26203 26294])
+            ("helm-find-files-ediff-merge-files" function (:arguments ("candidate")) nil [26296 26400])
+            ("helm-find-files-grep" function (:arguments ("_candidate")) nil [26402 26603])
+            ("helm-find-files-ag" function (:arguments ("_candidate")) nil [26605 26689])
+            ("helm-ff-zgrep" function (:arguments ("_candidate")) nil [26691 26869])
+            ("helm-ff-pdfgrep" function (:arguments ("_candidate")) nil [26871 27334])
+            ("helm-ff-etags-select" function (:arguments ("candidate")) nil [27336 27824])
+            ("helm-find-files-switch-to-hist" function (:arguments ("_candidate")) nil [27826 27938])
+            ("eshell-command-aliases-list" variable nil nil [27940 27980])
+            ("helm-eshell-command-on-file-input-history" variable nil nil [27981 28035])
+            ("helm-find-files-eshell-command-on-file-1" function (:arguments ("map")) nil [28036 33064])
+            ("helm-find-files-eshell-command-on-file" function (:arguments ("_candidate")) nil [33066 33316])
+            ("helm-ff-switch-to-eshell" function (:arguments ("_candidate")) nil [33318 33876])
+            ("helm-ff-serial-rename-action" function (:arguments ("method")) nil [33878 35697])
+            ("helm-ff-member-directory-p" function (:arguments ("file" "directory")) nil [35699 35965])
+            ("cl-defun" code nil nil [35967 38490])
+            ("helm-ff-serial-rename" function (:arguments ("_candidate")) nil [38492 38761])
+            ("helm-ff-serial-rename-by-symlink" function (:arguments ("_candidate")) nil [38763 39044])
+            ("helm-ff-serial-rename-by-copying" function (:arguments ("_candidate")) nil [39046 39321])
+            ("helm-ff-query-replace-on-marked-1" function (:arguments ("candidates")) nil [39323 41455])
+            ("helm-ff-query-replace-on-marked" function (:arguments ("_candidate")) nil [41472 41615])
+            ("helm-ff-run-query-replace-on-marked" function nil nil [41659 41811])
+            ("helm-ff-query-replace" function (:arguments ("_candidate")) nil [41813 42027])
+            ("helm-ff-query-replace-regexp" function (:arguments ("_candidate")) nil [42029 42254])
+            ("helm-ff-run-query-replace" function nil nil [42256 42388])
+            ("helm-ff-run-query-replace-regexp" function nil nil [42390 42536])
+            ("helm-ff-toggle-auto-update" function (:arguments ("_candidate")) nil [42538 42807])
+            ("helm-ff-run-toggle-auto-update" function nil nil [42809 43028])
+            ("helm-ff-delete-char-backward" function (:user-visible-flag t) nil [43030 43330])
+            ("helm-ff-delete-char-backward--exit-fn" function nil nil [43332 43486])
+            ("helm-ff-run-switch-to-history" function (:user-visible-flag t) nil [43488 43742])
+            ("helm-ff-run-grep" function (:user-visible-flag t) nil [43744 43917])
+            ("helm-ff-run-grep-ag" function nil nil [43919 44042])
+            ("helm-ff-run-pdfgrep" function (:user-visible-flag t) nil [44044 44218])
+            ("helm-ff-run-zgrep" function (:user-visible-flag t) nil [44220 44387])
+            ("helm-ff-run-copy-file" function (:user-visible-flag t) nil [44389 44572])
+            ("helm-ff-run-rename-file" function (:user-visible-flag t) nil [44574 44763])
+            ("helm-ff-run-byte-compile-file" function (:user-visible-flag t) nil [44765 44972])
+            ("helm-ff-run-load-file" function (:user-visible-flag t) nil [44974 45163])
+            ("helm-ff-run-eshell-command-on-file" function (:user-visible-flag t) nil [45165 45397])
+            ("helm-ff-run-ediff-file" function (:user-visible-flag t) nil [45399 45591])
+            ("helm-ff-run-ediff-merge-file" function (:user-visible-flag t) nil [45593 45808])
+            ("helm-ff-run-symlink-file" function (:user-visible-flag t) nil [45810 46002])
+            ("helm-ff-run-hardlink-file" function (:user-visible-flag t) nil [46004 46199])
+            ("helm-ff-run-delete-file" function (:user-visible-flag t) nil [46201 46392])
+            ("helm-ff-run-complete-fn-at-point" function (:user-visible-flag t) nil [46394 46623])
+            ("helm-ff-run-switch-to-eshell" function (:user-visible-flag t) nil [46625 46826])
+            ("helm-ff-run-switch-other-window" function (:user-visible-flag t) nil [46828 47036])
+            ("helm-ff-run-switch-other-frame" function (:user-visible-flag t) nil [47038 47243])
+            ("helm-ff-run-open-file-externally" function (:user-visible-flag t) nil [47245 47463])
+            ("helm-ff-run-open-file-with-default-tool" function (:user-visible-flag t) nil [47465 47697])
+            ("helm-ff-locate" function (:arguments ("candidate")) nil [47699 48331])
+            ("helm-ff-run-locate" function (:user-visible-flag t) nil [48333 48504])
+            ("helm-files-insert-as-org-link" function (:arguments ("candidate")) nil [48506 48624])
+            ("helm-ff-run-insert-org-link" function nil nil [48626 48768])
+            ("helm-ff-run-find-file-as-root" function nil nil [48770 48907])
+            ("helm-ff-run-gnus-attach-files" function (:user-visible-flag t) nil [48909 49121])
+            ("helm-ff-run-etags" function (:user-visible-flag t) nil [49123 49306])
+            ("lpr-printer-switch" variable nil nil [49308 49335])
+            ("helm-ff-print" function (:arguments ("_candidate")) nil [49336 51373])
+            ("helm-ff-run-print-file" function (:user-visible-flag t) nil [51375 51553])
+            ("helm-ff-checksum" function (:arguments ("file")) nil [51555 51988])
+            ("helm-ff-toggle-basename" function (:arguments ("_candidate")) nil [51990 52370])
+            ("helm-ff-run-toggle-basename" function nil nil [52372 52519])
+            ("cl-defun" code nil nil [52521 53731])
+            ("helm-find-files--level-tree" variable nil nil [53733 53773])
+            ("helm-find-files--level-tree-iterator" variable nil nil [53774 53823])
+            ("helm-find-files-up-one-level" function
+               (:user-visible-flag t
+                :arguments ("arg"))
+                nil [53824 55294])
+            ("helm-find-files-down-last-level" function (:user-visible-flag t) nil [55296 55916])
+            ("helm-find-files--reset-level-tree" function nil nil [55918 56052])
+            ("add-hook" code nil nil [56054 56118])
+            ("add-hook" code nil nil [56119 56187])
+            ("add-hook" code nil nil [56188 56268])
+            ("helm-ff-retrieve-last-expanded" function nil nil [56270 56932])
+            ("helm-ff-move-to-first-real-candidate" function nil nil [56934 57617])
+            ("add-hook" code nil nil [57618 57690])
+            ("helm-ff-update-when-only-one-matched" function nil nil [57763 62033])
+            ("helm-ff-auto-expand-to-home-or-root" function nil nil [62035 63805])
+            ("helm-substitute-in-filename" function (:arguments ("fname")) nil [63807 64826])
+            ("add-hook" code nil nil [64828 64900])
+            ("add-hook" code nil nil [64901 64972])
+            ("helm-point-file-in-dired" function (:arguments ("file")) nil [64974 65296])
+            ("helm-create-tramp-name" function (:arguments ("fname")) nil [65298 65536])
+            ("cl-defun" code nil nil [65538 66335])
+            ("helm-ff-before-action-hook-fn" function nil nil [66337 66764])
+            ("add-hook" code nil nil [66765 66831])
+            ("cl-defun" code nil nil [66833 67049])
+            ("helm-ff-set-pattern" function (:arguments ("pattern")) nil [67051 69545])
+            ("helm-find-files-get-candidates" function (:arguments ("require-match")) nil [69547 74571])
+            ("helm-ff-directory-files" function (:arguments ("directory" "full")) nil [74573 75893])
+            ("helm-ff-handle-backslash" function (:arguments ("fname")) nil [75895 76155])
+            ("helm-ff-smart-completion-p" function nil nil [76157 76289])
+            ("helm-ff--transform-pattern-for-completion" function (:arguments ("pattern")) nil [76291 78743])
+            ("helm-dir-is-dot" function (:arguments ("dir")) nil [78745 78828])
+            ("helm-ff-save-history" function nil nil [78830 79306])
+            ("add-hook" code nil nil [79307 79358])
+            ("helm-files-save-file-name-history" function (:arguments ("force")) nil [79360 80235])
+            ("add-hook" code nil nil [80236 80308])
+            ("helm-ff-valid-symlink-p" function (:arguments ("file")) nil [80310 80581])
+            ("helm-get-default-mode-for-file" function (:arguments ("filename")) nil [80583 80847])
+            ("helm-ff-properties" function (:arguments ("candidate")) nil [80849 82987])
+            ("helm-ff-properties-persistent" function (:user-visible-flag t) nil [82989 83240])
+            ("helm-ff-persistent-delete" function (:user-visible-flag t) nil [83242 83485])
+            ("helm-ff-dot-file-p" function (:arguments ("file")) nil [83487 83598])
+            ("helm-ff-quick-delete" function (:arguments ("_candidate")) nil [83600 84773])
+            ("helm-ff-kill-buffer-fname" function (:arguments ("candidate")) nil [84775 84992])
+            ("helm-ff-kill-or-find-buffer-fname" function (:arguments ("candidate")) nil [84994 85774])
+            ("helm-ff-run-kill-buffer-persistent" function (:user-visible-flag t) nil [85776 86038])
+            ("helm-ff-prefix-filename" function (:arguments ("fname" "file-or-symlinkp" "new-file")) nil [86040 86996])
+            ("helm-ff-score-candidate-for-pattern" function (:arguments ("str" "pattern")) nil [86998 87150])
+            ("helm-ff-sort-candidates" function (:arguments ("candidates" "_source")) nil [87152 88821])
+            ("helm-ff-filter-candidate-one-by-one" function (:arguments ("file")) nil [88823 92261])
+            ("helm-find-files-action-transformer" function (:arguments ("actions" "candidate")) nil [92263 94221])
+            ("helm-ff-goto-linum" function (:arguments ("candidate")) nil [94223 94940])
+            ("helm-ff-gnus-attach-files" function (:arguments ("_candidate")) nil [94942 95172])
+            ("image-dired-display-image-buffer" variable nil nil [95174 95215])
+            ("helm-ff-rotate-current-image-1" function (:arguments ("file" "num-arg")) nil [95216 96078])
+            ("helm-ff-rotate-image-left" function (:arguments ("candidate")) nil [96080 96249])
+            ("helm-ff-rotate-image-right" function (:arguments ("candidate")) nil [96251 96418])
+            ("helm-ff-rotate-left-persistent" function (:user-visible-flag t) nil [96420 96657])
+            ("helm-ff-rotate-right-persistent" function (:user-visible-flag t) nil [96659 96899])
+            ("helm-ff-exif-data" function (:arguments ("candidate")) nil [96901 97434])
+            ("helm-find-files-persistent-action" function (:arguments ("candidate")) nil [97436 101688])
+            ("helm-ff-file-compressed-p" function (:arguments ("candidate")) nil [101690 101868])
+            ("helm-insert-file-name-completion-at-point" function (:arguments ("candidate")) nil [101870 103617])
+            ("cl-defun" code nil nil [103619 104367])
+            ("helm-find-files-1" function (:arguments ("fname" "preselect")) nil [104369 105684])
+            ("helm-find-files-toggle-to-bookmark" function (:user-visible-flag t) nil [105686 106269])
+            ("helm-find-files-initial-input" function (:arguments ("input")) nil [106272 106675])
+            ("helm-find-files-input" function (:arguments ("file-at-pt" "thing-at-pt")) nil [106677 108060])
+            ("helm-ff-find-url-at-point" function nil nil [108062 108742])
+            ("helm-find-library-at-point" function nil nil [108744 109812])
+            ("helm-ff--valid-default-directory" function nil nil [109891 110139])
+            ("dired-async-mode" variable nil nil [110141 110166])
+            ("cl-defun" code nil nil [110167 113590])
+            ("helm-get-dest-fnames-from-list" function (:arguments ("flist" "dest-cand" "rename-dir-flag")) nil [113592 114407])
+            ("helm-ff-maybe-mark-candidates" function nil nil [114409 115156])
+            ("helm-file-buffers" function (:arguments ("filename")) nil [115189 115489])
+            ("helm-delete-file" function (:arguments ("file" "error-if-dot-file-p" "synchro")) nil [115491 116798])
+            ("helm-delete-marked-files" function (:arguments ("_ignore")) nil [116800 117488])
+            ("helm-find-file-or-marked" function (:arguments ("candidate")) nil [117490 119938])
+            ("helm-shadow-boring-files" function (:arguments ("files")) nil [119940 120149])
+            ("helm-skip-boring-files" function (:arguments ("files")) nil [120151 120308])
+            ("helm-skip-current-file" function (:arguments ("files")) nil [120310 120438])
+            ("helm-w32-pathname-transformer" function (:arguments ("args")) nil [120440 120824])
+            ("helm-transform-file-load-el" function (:arguments ("actions" "candidate")) nil [120826 121122])
+            ("helm-transform-file-browse-url" function (:arguments ("actions" "candidate")) nil [121124 121567])
+            ("helm-multi-files-toggle-to-locate" function nil nil [121569 122184])
+            ("helm-files-in-all-dired-candidates" function nil nil [122244 122560])
+            ("helm-files-dired-source" type
+               (:interfaces ("helm-type-file")
+                :superclasses "helm-source-sync"
+                :members 
+                  ( ("candidates" variable (:default-value "(function helm-files-in-all-dired-candidates)") nil nil))                  
+                :type "class")
+                nil [122636 122768])
+            ("helm-source-files-in-all-dired" variable (:default-value (helm-make-source "Files in all dired buffer." (quote helm-files-dired-source))) nil [122770 122884])
+            ("file-cache-alist" variable nil nil [122909 122934])
+            ("helm-file-cache" type
+               (:interfaces ("helm-type-file")
+                :superclasses "helm-source-in-buffer"
+                :members 
+                  ( ("init" variable (:default-value "(lambda nil (require (quote filecache)))") nil nil)
+                    ("keymap" variable (:default-value "helm-generic-files-map") nil nil)
+                    ("help-message" variable (:default-value "helm-generic-file-help-message") nil nil))                  
+                :type "class")
+                nil [122936 123159])
+            ("helm-file-cache-get-candidates" function nil nil [123161 123395])
+            ("helm-source-file-cache" variable nil nil [123397 123432])
+            ("helm-file-cache-fuzzy-match" variable nil nil [123434 123849])
+            ("cl-defun" code nil nil [123851 124227])
+            ("helm-ff-cache-add-file" function (:arguments ("_candidate")) nil [124229 124389])
+            ("helm-ff-file-cache-remove-file-1" function (:arguments ("file")) nil [124391 124783])
+            ("helm-ff-file-cache-remove-file" function (:arguments ("_file")) nil [124785 124970])
+            ("helm-transform-file-cache" function (:arguments ("actions" "_candidate")) nil [124972 125284])
+            ("helm-source-file-name-history" variable (:default-value (helm-build-sync-source "File Name History" :candidates (quote file-name-history) :persistent-action (function ignore) :filtered-candidate-transformer (function helm-file-name-history-transformer) :action (quote helm-type-file-actions))) nil [125316 125577])
+            ("helm-source--ff-file-name-history" variable nil nil [125579 125762])
+            ("helm-file-name-history-transformer" function (:arguments ("candidates" "_source")) nil [125764 126131])
+            ("helm-ff-file-name-history" function (:user-visible-flag t) nil [126133 127653])
+            ("helm-recentf--basename-flag" variable nil nil [127679 127719])
+            ("helm-recentf-pattern-transformer" function (:arguments ("pattern")) nil [127721 128233])
+            ("helm-recentf-source" type
+               (:superclasses "helm-source-sync"
+                :members 
+                  ( ("init" variable (:default-value "(lambda nil (require (quote recentf)) (recentf-mode 1))") nil nil)
+                    ("candidates" variable (:default-value "(lambda nil recentf-list)") nil nil)
+                    ("pattern-transformer" variable (:default-value "(quote helm-recentf-pattern-transformer)") nil nil)
+                    ("match-part" variable (:default-value "(lambda (candidate) (if (or helm-ff-transformer-show-only-basename helm-recentf--basename-flag) (helm-basename candidate) candidate))") nil nil)
+                    ("filter-one-by-one" variable (:default-value "(lambda (c) (if (and helm-ff-transformer-show-only-basename (not (consp c))) (cons (helm-basename c) c) c))") nil nil)
+                    ("keymap" variable (:default-value "helm-generic-files-map") nil nil)
+                    ("help-message" variable (:default-value "helm-generic-file-help-message") nil nil)
+                    ("action" variable (:default-value "(quote helm-type-file-actions)") nil nil))                  
+                :type "class")
+                nil [128235 129212])
+            ("helm-source-recentf" variable nil nil [129214 129365])
+            ("helm-recentf-fuzzy-match" variable nil nil [129367 129716])
+            ("helm--browse-project-cache" variable (:default-value (make-hash-table :test (quote equal))) nil [129894 129960])
+            ("helm-browse-project-get-buffers" function (:arguments ("root-directory")) nil [129962 130197])
+            ("helm-browse-project-build-buffers-source" function (:arguments ("directory")) nil [130199 130544])
+            ("helm-browse-project-find-files" function (:arguments ("directory" "refresh")) nil [130546 132056])
+            ("helm-browse-project" function
+               (:user-visible-flag t
+                :arguments ("arg"))
+                nil [132073 133661])
+            ("helm-browse-project-get--root-dir" function (:arguments ("directory")) nil [133663 134080])
+            ("helm-ff-browse-project" function (:arguments ("_candidate")) nil [134082 134303])
+            ("helm-ff-run-browse-project" function nil nil [134305 134439])
+            ("helm-ff-gid" function (:arguments ("_candidate")) nil [134441 134548])
+            ("helm-ff-run-gid" function nil nil [134550 134662])
+            ("session-file-alist" variable nil nil [134819 134846])
+            ("helm-source-session" variable (:default-value (helm-build-sync-source "Session" :candidates (lambda nil (cl-delete-if-not (function (lambda (f) (or (string-match helm-tramp-file-name-regexp f) (file-exists-p f)))) (mapcar (quote car) session-file-alist))) :keymap helm-generic-files-map :help-message helm-generic-file-help-message :action (quote helm-type-file-actions))) nil [134847 135367])
+            ("helm-highlight-files" function (:arguments ("files")) nil [135402 136805])
+            ("helm-files-in-current-dir-source" type
+               (:interfaces ("helm-type-file")
+                :superclasses "helm-source-sync"
+                :members 
+                  ( ("candidates" variable (:default-value "(lambda nil (with-helm-current-buffer (let ((dir (helm-current-directory))) (when (file-accessible-directory-p dir) (directory-files dir t)))))") nil nil)
+                    ("pattern-transformer" variable (:default-value "(quote helm-recentf-pattern-transformer)") nil nil)
+                    ("match-part" variable (:default-value "(lambda (candidate) (if (or helm-ff-transformer-show-only-basename helm-recentf--basename-flag) (helm-basename candidate) candidate))") nil nil)
+                    ("fuzzy-match" variable (:default-value "t") nil nil)
+                    ("keymap" variable (:default-value "helm-generic-files-map") nil nil)
+                    ("help-message" variable (:default-value "helm-generic-file-help-message") nil nil))                  
+                :type "class")
+                nil [136807 137629])
+            ("helm-source-files-in-current-dir" variable (:default-value (helm-make-source "Files from Current Directory" helm-files-in-current-dir-source)) nil [137631 137763])
+            ("helm-source-tracker-cand-incomplete" variable nil nil [137831 137911])
+            ("helm-source-tracker-transformer" function (:arguments ("candidates" "_source")) nil [137912 139221])
+            ("helm-source-tracker-search" variable (:default-value (helm-build-async-source "Tracker Search" :candidates-process (lambda nil (start-process "tracker-search-process" nil "tracker-search" "--disable-color" "--limit=512" helm-pattern)) :filtered-candidate-transformer (function helm-source-tracker-transformer) :keymap helm-generic-files-map :action (quote helm-type-file-actions) :action-transformer (quote (helm-transform-file-load-el helm-transform-file-browse-url)) :requires-pattern 3)) nil [139223 139989])
+            ("helm-mac-spotlight-source" type
+               (:interfaces ("helm-type-file")
+                :superclasses "helm-source-async"
+                :members 
+                  ( ("candidates-process" variable (:default-value "(lambda nil (start-process \"mdfind-process\" nil \"mdfind\" helm-pattern))") nil nil)
+                    ("requires-pattern" variable nil nil nil))                  
+                :type "class")
+                nil [140029 140315])
+            ("helm-source-mac-spotlight" variable (:default-value (helm-make-source "mdfind" helm-mac-spotlight-source)) nil [140317 140484])
+            ("helm-source-findutils" variable (:default-value (helm-build-async-source "Find" :header-name (lambda (name) (concat name " in [" (helm-default-directory) "]")) :candidates-process (quote helm-find-shell-command-fn) :filtered-candidate-transformer (quote helm-findutils-transformer) :action-transformer (quote helm-transform-file-load-el) :action (quote helm-type-file-actions) :keymap helm-generic-files-map :candidate-number-limit 9999 :requires-pattern 3)) nil [140508 140973])
+            ("helm-findutils-transformer" function (:arguments ("candidates" "_source")) nil [140975 141978])
+            ("helm-find--build-cmd-line" function nil nil [141980 143539])
+            ("helm-find-shell-command-fn" function nil nil [143541 144904])
+            ("helm-find-1" function (:arguments ("dir")) nil [144906 145174])
+            ("helm-ff-find-sh-command" function (:arguments ("_candidate")) nil [145208 145338])
+            ("helm-ff-run-find-sh-command" function (:user-visible-flag t) nil [145340 145543])
+            ("helm-find" function
+               (:user-visible-flag t
+                :arguments ("arg"))
+                nil [145595 145883])
+            ("org-directory" variable nil nil [145885 145907])
+            ("helm-find-files" function
+               (:user-visible-flag t
+                :arguments ("arg"))
+                nil [145923 147458])
+            ("helm-for-files" function (:user-visible-flag t) nil [147475 147882])
+            ("helm-multi-files" function (:user-visible-flag t) nil [147899 148953])
+            ("helm-recentf" function (:user-visible-flag t) nil [148970 149168])
+            ("helm-files" package nil nil [149170 149191]))          
+      :file "helm-files.el"
+      :pointmax 149346
+      :fsize 149345
+      :lastmodtime '(22009 13228 0 0)
+      :unmatched-syntax nil)
+    (semanticdb-table "helm-buffers.el"
+      :major-mode 'emacs-lisp-mode
+      :tags 
+        '( ("cl-lib" include nil nil [812 829])
+            ("helm" include nil nil [830 845])
+            ("helm-types" include nil nil [846 867])
+            ("helm-utils" include nil nil [868 889])
+            ("helm-elscreen" include nil nil [890 914])
+            ("helm-grep" include nil nil [915 935])
+            ("helm-plugin" include nil nil [936 958])
+            ("helm-regexp" include nil nil [959 981])
+            ("helm-help" include nil nil [982 1002])
+            ("declare-function" code nil nil [1004 1059])
+            ("declare-function" code nil nil [1060 1116])
+            ("declare-function" code nil nil [1117 1162])
+            ("helm-buffers" customgroup (:user-visible-flag t) nil [1166 1265])
+            ("helm-boring-buffer-regexp-list" variable (:default-value (quote ("\\` " "\\*helm" "\\*helm-mode" "\\*Echo Area" "\\*Minibuf"))) nil [1267 1641])
+            ("helm-buffers-favorite-modes" variable (:default-value (quote (lisp-interaction-mode emacs-lisp-mode text-mode org-mode))) nil [1643 1977])
+            ("helm-buffer-max-length" variable (:default-value 20) nil [1979 2247])
+            ("helm-buffer-details-flag" variable (:default-value t) nil [2249 2381])
+            ("helm-buffers-fuzzy-matching" variable nil nil [2383 2618])
+            ("helm-buffer-skip-remote-checking" variable nil nil [2620 2765])
+            ("helm-buffers-truncate-lines" variable (:default-value t) nil [2767 2905])
+            ("helm-mini-default-sources" variable (:default-value (quote (helm-source-buffers-list helm-source-recentf helm-source-buffer-not-found))) nil [2907 3202])
+            ("helm-buffers-end-truncated-string" variable (:default-value "...") nil [3204 3354])
+            ("helm-buffers-faces" customgroup (:user-visible-flag t) nil [3374 3515])
+            ("helm-buffer-saved-out" variable
+               (:default-value (quote ((t (:foreground "red" :background "black"))))
+                :type "face")
+                nil [3517 3686])
+            ("helm-buffer-not-saved" variable
+               (:default-value (quote ((t (:foreground "Indianred2"))))
+                :type "face")
+                nil [3688 3844])
+            ("helm-buffer-size" variable
+               (:default-value (quote ((((background dark)) :foreground "RosyBrown") (((background light)) :foreground "SlateGray")))
+                :type "face")
+                nil [3846 4038])
+            ("helm-buffer-process" variable
+               (:default-value (quote ((t (:foreground "Sienna3"))))
+                :type "face")
+                nil [4040 4177])
+            ("helm-buffer-directory" variable
+               (:default-value (quote ((t (:foreground "DarkRed" :background "LightGray"))))
+                :type "face")
+                nil [4179 4352])
+            ("helm-buffer-file" variable
+               (:default-value (quote ((t :inherit font-lock-builtin-face)))
+                :type "face")
+                nil [4354 4507])
+            ("helm-buffer-map" variable (:default-value (let ((map (make-sparse-keymap))) (set-keymap-parent map helm-map) (define-key map (kbd "M-g s") (quote helm-buffer-run-zgrep)) (define-key map (kbd "C-s") (quote helm-buffers-run-multi-occur)) (define-key map (kbd "C-c o") (quote helm-buffer-switch-other-window)) (define-key map (kbd "C-c C-o") (quote helm-buffer-switch-other-frame)) (define-key map (kbd "C-c =") (quote helm-buffer-run-ediff)) (define-key map (kbd "M-=") (quote helm-buffer-run-ediff-merge)) (define-key map (kbd "C-=") (quote helm-buffer-diff-persistent)) (define-key map (kbd "M-U") (quote helm-buffer-revert-persistent)) (define-key map (kbd "C-c d") (quote helm-buffer-run-kill-persistent)) (define-key map (kbd "M-D") (quote helm-buffer-run-kill-buffers)) (define-key map (kbd "C-x C-s") (quote helm-buffer-save-persistent)) (define-key map (kbd "C-M-%") (quote helm-buffer-run-query-replace-regexp)) (define-key map (kbd "M-%") (quote helm-buffer-run-query-replace)) (define-key map (kbd "M-m") (quote helm-toggle-all-marks)) (define-key map (kbd "M-a") (quote helm-mark-all)) (define-key map (kbd "C-]") (quote helm-toggle-buffers-details)) (define-key map (kbd "C-c a") (quote helm-buffers-toggle-show-hidden-buffers)) (define-key map (kbd "<C-M-SPC>") (quote helm-buffers-mark-similar-buffers)) map)) nil [4533 6100])
+            ("helm-buffers-ido-virtual-map" variable (:default-value (let ((map (make-sparse-keymap))) (set-keymap-parent map helm-map) (define-key map (kbd "C-c o") (quote helm-ff-run-switch-other-window)) (define-key map (kbd "C-c C-o") (quote helm-ff-run-switch-other-frame)) (define-key map (kbd "M-g s") (quote helm-ff-run-grep)) (define-key map (kbd "M-g z") (quote helm-ff-run-zgrep)) (define-key map (kbd "M-D") (quote helm-ff-run-delete-file)) (define-key map (kbd "C-c C-x") (quote helm-ff-run-open-file-externally)) map)) nil [6102 6604])
+            ("helm-buffers-list-cache" variable nil nil [6608 6644])
+            ("helm-buffer-max-len-mode" variable nil nil [6645 6682])
+            ("helm-buffers-list--init" function nil nil [6684 7455])
+            ("helm-source-buffers" type
+               (:interfaces ("helm-type-buffer")
+                :superclasses "helm-source-sync"
+                :members 
+                  ( ("buffer-list" variable
+                       (:documentation "  A function with no arguments to create buffer list."
+                        :default-value "(function helm-buffer-list)")
+                        nil nil)
+                    ("init" variable (:default-value "(quote helm-buffers-list--init)") nil nil)
+                    ("candidates" variable (:default-value "helm-buffers-list-cache") nil nil)
+                    ("matchplugin" variable (:default-value "nil") nil nil)
+                    ("match" variable (:default-value "(quote helm-buffers-match-function)") nil nil)
+                    ("persistent-action" variable (:default-value "(quote helm-buffers-list-persistent-action)") nil nil)
+                    ("resume" variable (:default-value "(lambda nil (run-with-idle-timer 0.1 nil (lambda nil (with-helm-buffer (helm-force-update)))))") nil nil)
+                    ("keymap" variable (:default-value "helm-buffer-map") nil nil)
+                    ("volatile" variable (:default-value "t") nil nil)
+                    ("help-message" variable (:default-value "(quote helm-buffer-help-message)") nil nil)
+                    ("persistent-help" variable (:default-value "Show this buffer / C-u \\[helm-execute-persistent-action]: Kill this buffer") nil nil))                  
+                :type "class")
+                nil [7457 8413])
+            ("helm-source-buffers-list" variable nil nil [8415 8452])
+            ("helm-source-buffer-not-found" variable (:default-value (helm-build-dummy-source "Create buffer" :action (helm-make-actions "Create buffer (C-u choose mode)" (lambda (candidate) (let ((mjm (or (and helm-current-prefix-arg (intern-soft (helm-comp-read "Major-mode: " helm-buffers-favorite-modes))) (cl-loop for (r . m) in auto-mode-alist when (string-match r candidate) return m))) (buffer (get-buffer-create candidate))) (if mjm (with-current-buffer buffer (funcall mjm)) (set-buffer-major-mode buffer)) (switch-to-buffer buffer)))))) nil [8454 9330])
+            ("ido-temp-list" variable nil nil [9332 9354])
+            ("ido-ignored-list" variable nil nil [9355 9380])
+            ("ido-process-ignore-lists" variable nil nil [9381 9414])
+            ("ido-use-virtual-buffers" variable nil nil [9415 9447])
+            ("ido-virtual-buffers" variable nil nil [9448 9476])
+            ("helm-source-ido-virtual-buffers" variable (:default-value (helm-build-sync-source "Ido virtual buffers" :candidates (lambda nil (let (ido-temp-list ido-ignored-list (ido-process-ignore-lists t)) (when ido-use-virtual-buffers (ido-add-virtual-buffers-to-list) ido-virtual-buffers))) :fuzzy-match helm-buffers-fuzzy-matching :keymap helm-buffers-ido-virtual-map :help-message (quote helm-buffers-ido-virtual-help-message) :action (quote (("Find file" . helm-find-many-files) ("Find file other window" . find-file-other-window) ("Find file other frame" . find-file-other-frame) ("Find file as root" . helm-find-file-as-root) ("Grep File(s) `C-u recurse'" . helm-find-files-grep) ("Zgrep File(s) `C-u Recurse'" . helm-ff-zgrep) ("View file" . view-file) ("Delete file(s)" . helm-delete-marked-files) ("Open file externally (C-u to choose)" . helm-open-file-externally))))) nil [9478 10592])
+            ("ido-use-virtual-buffers" variable nil nil [10596 10628])
+            ("ido-ignore-buffers" variable nil nil [10629 10656])
+            ("helm-buffer-list" function nil nil [10657 10996])
+            ("helm-buffer-size" function (:arguments ("buffer")) nil [10998 11234])
+            ("helm-buffer--show-details" function (:arguments ("buf-name" "prefix" "help-echo" "size" "mode" "dir" "face1" "face2" "proc" "details" "type")) nil [11236 11885])
+            ("helm-buffer--details" function (:arguments ("buffer" "details")) nil [11887 14383])
+            ("helm-highlight-buffers" function (:arguments ("buffers" "_source")) nil [14385 16022])
+            ("helm-buffer--get-preselection" function (:arguments ("buffer")) nil [16024 16656])
+            ("helm-toggle-buffers-details" function nil nil [16658 16936])
+            ("helm-buffers-sort-transformer" function (:arguments ("candidates" "_source")) nil [16938 17151])
+            ("helm-buffers-mark-similar-buffers-1" function nil nil [17153 18210])
+            ("helm-buffers-mark-similar-buffers" function (:user-visible-flag t) nil [18212 18567])
+            ("helm-buffer--match-mjm" function (:arguments ("pattern" "mjm")) nil [18594 19282])
+            ("helm-buffer--match-pattern" function (:arguments ("pattern" "candidate")) nil [19284 19720])
+            ("helm-buffers--match-from-mjm" function (:arguments ("candidate")) nil [19722 20269])
+            ("helm-buffers--match-from-pat" function (:arguments ("candidate")) nil [20271 20747])
+            ("helm-buffers--match-from-inside" function (:arguments ("candidate")) nil [20749 21314])
+            ("helm-buffers--match-from-directory" function (:arguments ("candidate")) nil [21316 21951])
+            ("helm-buffers-match-function" function (:arguments ("candidate")) nil [21953 22241])
+            ("helm-buffer-query-replace-1" function (:arguments ("regexp-flag" "buffers")) nil [22245 23111])
+            ("helm-buffer-query-replace-regexp" function (:arguments ("_candidate")) nil [23113 23206])
+            ("helm-buffer-query-replace" function (:arguments ("_candidate")) nil [23208 23286])
+            ("helm-buffer-toggle-diff" function (:arguments ("candidate")) nil [23288 23627])
+            ("helm-buffer-diff-persistent" function (:user-visible-flag t) nil [23629 23858])
+            ("helm-revert-buffer" function (:arguments ("candidate")) nil [23860 24019])
+            ("helm-revert-marked-buffers" function (:arguments ("_ignore")) nil [24021 24119])
+            ("helm-buffer-revert-and-update" function (:arguments ("_candidate")) nil [24121 24460])
+            ("helm-buffer-revert-persistent" function (:user-visible-flag t) nil [24462 24714])
+            ("helm-buffer-save-and-update" function (:arguments ("_candidate")) nil [24716 25132])
+            ("helm-buffer-save-persistent" function (:user-visible-flag t) nil [25134 25376])
+            ("helm-buffer-run-kill-persistent" function (:user-visible-flag t) nil [25378 25625])
+            ("helm-kill-marked-buffers" function (:arguments ("_ignore")) nil [25627 25894])
+            ("helm-buffer-run-kill-buffers" function (:user-visible-flag t) nil [25896 26094])
+            ("helm-buffer-run-grep" function (:user-visible-flag t) nil [26096 26272])
+            ("helm-buffer-run-zgrep" function (:user-visible-flag t) nil [26274 26452])
+            ("helm-buffer-run-query-replace-regexp" function (:user-visible-flag t) nil [26454 26677])
+            ("helm-buffer-run-query-replace" function (:user-visible-flag t) nil [26679 26881])
+            ("helm-buffer-switch-other-window" function (:user-visible-flag t) nil [26883 27106])
+            ("helm-buffer-switch-other-frame" function (:user-visible-flag t) nil [27108 27322])
+            ("helm-buffer-switch-to-elscreen" function (:user-visible-flag t) nil [27324 27536])
+            ("helm-buffer-run-ediff" function (:user-visible-flag t) nil [27538 27724])
+            ("helm-buffer-run-ediff-merge" function (:user-visible-flag t) nil [27726 27924])
+            ("helm-buffers-persistent-kill-1" function (:arguments ("buffer")) nil [27926 28616])
+            ("helm-buffers--quote-truncated-buffer" function (:arguments ("buffer")) nil [28618 28946])
+            ("helm-buffers-persistent-kill" function (:arguments ("_buffer")) nil [28948 29653])
+            ("helm-buffers-list-persistent-action" function (:arguments ("candidate")) nil [29655 29816])
+            ("helm-ediff-marked-buffers" function (:arguments ("_candidate" "merge")) nil [29818 30526])
+            ("helm-ediff-marked-buffers-merge" function (:arguments ("candidate")) nil [30528 30708])
+            ("helm-multi-occur-as-action" function (:arguments ("_candidate")) nil [30710 31319])
+            ("helm-buffers-run-multi-occur" function (:user-visible-flag t) nil [31321 31506])
+            ("helm-buffers-toggle-show-hidden-buffers" function nil nil [31508 32368])
+            ("helm-skip-boring-buffers" function (:arguments ("buffers" "_source")) nil [32405 32516])
+            ("helm-shadow-boring-buffers" function (:arguments ("buffers" "_source")) nil [32518 32747])
+            ("define-helm-type-attribute" code nil nil [32751 34312])
+            ("helm-buffers-list" function (:user-visible-flag t) nil [34330 34810])
+            ("helm-mini" function (:user-visible-flag t) nil [34827 35260])
+            ("helm-buffers" package nil nil [35262 35285]))          
+      :file "helm-buffers.el"
+      :pointmax 35442
+      :fsize 35441
+      :lastmodtime '(22009 13228 0 0)
+      :unmatched-syntax nil)
+    (semanticdb-table "helm-types.el"
+      :file "helm-types.el"
+      :fsize 10682
+      :lastmodtime '(22009 13230 0 0))
+    (semanticdb-table "helm-elscreen.el"
+      :file "helm-elscreen.el"
+      :fsize 3105
+      :lastmodtime '(22009 13230 0 0))
+    (semanticdb-table "helm-grep.el"
+      :file "helm-grep.el"
+      :fsize 56044
+      :lastmodtime '(22009 13230 0 0))
+    (semanticdb-table "helm-plugin.el"
+      :file "helm-plugin.el"
+      :fsize 4457
+      :lastmodtime '(22009 13230 0 0))
+    (semanticdb-table "helm-regexp.el"
+      :file "helm-regexp.el"
+      :fsize 25693
+      :lastmodtime '(22009 13228 0 0))
+    (semanticdb-table "helm-external.el"
+      :file "helm-external.el"
+      :fsize 9653
+      :lastmodtime '(22009 13228 0 0))
+    (semanticdb-table "helm-locate.el"
+      :file "helm-locate.el"
+      :fsize 16226
+      :lastmodtime '(22009 13230 0 0))
+    (semanticdb-table "helm-bookmark.el"
+      :file "helm-bookmark.el"
+      :fsize 31776
+      :lastmodtime '(22009 13230 0 0))
+    (semanticdb-table "helm-tags.el"
+      :file "helm-tags.el"
+      :fsize 13249
+      :lastmodtime '(22009 13230 0 0)))
+  :file "!home!chz!.emacs.d!elpa!helm-20150915.2234!semantic.cache"
+  :semantic-tag-version "2.0"
+  :semanticdb-version "2.2")

@@ -1,0 +1,533 @@
+;; Object caam/
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "caam/"
+  :tables (list 
+   (semanticdb-table "caamalg.c"
+    :major-mode 'c-mode
+    :tags 
+        '( ("compat.h" include nil nil [1475 1494])
+            ("regs.h" include nil nil [1496 1513])
+            ("intern.h" include nil nil [1514 1533])
+            ("desc_constr.h" include nil nil [1534 1558])
+            ("jr.h" include nil nil [1559 1574])
+            ("error.h" include nil nil [1575 1593])
+            ("CAAM_CRA_PRIORITY" variable (:constant-flag t) nil [1624 1641])
+            ("CAAM_MAX_KEY_SIZE" variable (:constant-flag t) nil [1717 1734])
+            ("CAAM_MAX_IV_LENGTH" variable (:constant-flag t) nil [1855 1873])
+            ("DESC_AEAD_SHARED_TEXT_LEN" variable (:constant-flag t) nil [1920 1945])
+            ("DESC_AEAD_ENCRYPT_TEXT_LEN" variable (:constant-flag t) nil [1956 1982])
+            ("DESC_AEAD_DECRYPT_TEXT_LEN" variable (:constant-flag t) nil [1995 2021])
+            ("DESC_AEAD_GIVENCRYPT_TEXT_LEN" variable (:constant-flag t) nil [2034 2063])
+            ("debug" variable (:constant-flag t) nil [2234 2239])
+            ("caam_ctx" type
+               (:members 
+                  ( ("jrdev" variable
+                       (:pointer 1
+                        :type ("device" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol classsubparts) [2313 2334])
+                    ("sh_desc" variable
+                       (:pointer 1
+                        :type ("u32" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [2336 2349])
+                    ("shared_desc_phys" variable (:type ("dma_addr_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [2351 2379])
+                    ("class1_alg_type" variable (:type ("u32" type (:type "class") nil nil)) (reparse-symbol classsubparts) [2381 2401])
+                    ("class2_alg_type" variable (:type ("u32" type (:type "class") nil nil)) (reparse-symbol classsubparts) [2403 2423])
+                    ("alg_op" variable (:type ("u32" type (:type "class") nil nil)) (reparse-symbol classsubparts) [2425 2436])
+                    ("key" variable
+                       (:pointer 1
+                        :type ("u8" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [2438 2446])
+                    ("key_phys" variable (:type ("dma_addr_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [2448 2468])
+                    ("enckeylen" variable (:type "unsigned int") (reparse-symbol classsubparts) [2470 2493])
+                    ("split_key_len" variable (:type "unsigned int") (reparse-symbol classsubparts) [2495 2522])
+                    ("split_key_pad_len" variable (:type "unsigned int") (reparse-symbol classsubparts) [2524 2555])
+                    ("authsize" variable (:type "unsigned int") (reparse-symbol classsubparts) [2557 2579]))                  
+                :type "struct")
+                nil [2294 2582])
+            ("aead_authenc_setauthsize" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("authenc" variable
+                       (:pointer 1
+                        :type ("crypto_aead" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [2620 2648])
+                    ("authsize" variable (:type "unsigned int") (reparse-symbol arg-sub-list) [2657 2679]))                  
+                :type "int")
+                nil [2584 2773])
+            ("split_key_result" type
+               (:members 
+                  ( ("completion" variable (:type ("completion" type
+                         (:prototype t
+                          :type "struct")
+                          nil nil)) (reparse-symbol classsubparts) [2802 2831])
+                    ("err" variable (:type "int") (reparse-symbol classsubparts) [2833 2841]))                  
+                :type "struct")
+                nil [2775 2844])
+            ("split_key_done" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("dev" variable
+                       (:pointer 1
+                        :type ("device" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [2873 2892])
+                    ("desc" variable
+                       (:pointer 1
+                        :type ("u32" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [2893 2903])
+                    ("err" variable (:type ("u32" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [2904 2912])
+                    ("context" variable
+                       (:pointer 1
+                        :type "void")
+                        (reparse-symbol arg-sub-list) [2919 2933]))                  
+                :type "void")
+                nil [2846 3220])
+            ("gen_split_key" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("ctx" variable
+                       (:pointer 1
+                        :type ("caam_ctx" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [3705 3726])
+                    ("key_in" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("u8" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [3727 3744])
+                    ("authkeylen" variable (:type ("u32" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [3745 3760]))                  
+                :type ("u32" type (:type "class") nil nil))
+                nil [3680 5913])
+            ("build_sh_desc_ipsec" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("ctx" variable
+                       (:pointer 1
+                        :type ("caam_ctx" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [5946 5967]))                  
+                :type "int")
+                nil [5915 7867])
+            ("aead_authenc_setkey" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("aead" variable
+                       (:pointer 1
+                        :type ("crypto_aead" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [7900 7925])
+                    ("key" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("u8" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [7936 7950])
+                    ("keylen" variable (:type "unsigned int") (reparse-symbol arg-sub-list) [7951 7971]))                  
+                :type "int")
+                nil [7869 10274])
+            ("link_tbl_entry" type
+               (:members 
+                  ( ("ptr" variable (:type ("u64" type (:type "class") nil nil)) (reparse-symbol classsubparts) [10301 10309])
+                    ("len" variable (:type ("u32" type (:type "class") nil nil)) (reparse-symbol classsubparts) [10311 10319])
+                    ("reserved" variable (:type ("u8" type (:type "class") nil nil)) (reparse-symbol classsubparts) [10321 10333])
+                    ("buf_pool_id" variable (:type ("u8" type (:type "class") nil nil)) (reparse-symbol classsubparts) [10335 10350])
+                    ("offset" variable (:type ("u16" type (:type "class") nil nil)) (reparse-symbol classsubparts) [10352 10363]))                  
+                :type "struct")
+                nil [10276 10366])
+            ("ipsec_esp_edesc" type
+               (:members 
+                  ( ("assoc_nents" variable (:type "int") (reparse-symbol classsubparts) [10917 10933])
+                    ("src_nents" variable (:type "int") (reparse-symbol classsubparts) [10935 10949])
+                    ("dst_nents" variable (:type "int") (reparse-symbol classsubparts) [10951 10965])
+                    ("link_tbl_bytes" variable (:type "int") (reparse-symbol classsubparts) [10967 10986])
+                    ("link_tbl_dma" variable (:type ("dma_addr_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [10988 11012])
+                    ("link_tbl" variable
+                       (:pointer 1
+                        :type ("link_tbl_entry" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol classsubparts) [11014 11046])
+                    ("hw_desc" variable
+                       (:dereference 1
+                        :type ("u32" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [11048 11063]))                  
+                :type "struct")
+                nil [10891 11066])
+            ("ipsec_esp_unmap" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("dev" variable
+                       (:pointer 1
+                        :type ("device" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [11096 11115])
+                    ("edesc" variable
+                       (:pointer 1
+                        :type ("ipsec_esp_edesc" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [11123 11153])
+                    ("areq" variable
+                       (:pointer 1
+                        :type ("aead_request" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [11161 11187]))                  
+                :type "void")
+                nil [11068 11662])
+            ("ipsec_esp_encrypt_done" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("jrdev" variable
+                       (:pointer 1
+                        :type ("device" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [11740 11761])
+                    ("desc" variable
+                       (:pointer 1
+                        :type ("u32" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [11762 11772])
+                    ("err" variable (:type ("u32" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [11773 11781])
+                    ("context" variable
+                       (:pointer 1
+                        :type "void")
+                        (reparse-symbol arg-sub-list) [11789 11803]))                  
+                :type "void")
+                nil [11705 12936])
+            ("ipsec_esp_decrypt_done" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("jrdev" variable
+                       (:pointer 1
+                        :type ("device" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [12973 12994])
+                    ("desc" variable
+                       (:pointer 1
+                        :type ("u32" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [12995 13005])
+                    ("err" variable (:type ("u32" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [13006 13014])
+                    ("context" variable
+                       (:pointer 1
+                        :type "void")
+                        (reparse-symbol arg-sub-list) [13022 13036]))                  
+                :type "void")
+                nil [12938 14324])
+            ("sg_to_link_tbl" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("sg" variable
+                       (:pointer 1
+                        :type ("scatterlist" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [14460 14483])
+                    ("sg_count" variable (:type "int") (reparse-symbol arg-sub-list) [14484 14497])
+                    ("link_tbl_ptr" variable
+                       (:pointer 1
+                        :type ("link_tbl_entry" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [14504 14540])
+                    ("offset" variable (:type ("u32" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [14541 14552]))                  
+                :type "void")
+                nil [14433 14906])
+            ("ipsec_esp" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("edesc" variable
+                       (:pointer 1
+                        :type ("ipsec_esp_edesc" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [14983 15013])
+                    ("areq" variable
+                       (:pointer 1
+                        :type ("aead_request" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [15014 15040])
+                    ("encrypt" variable (:type ("u32" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [15048 15060])
+                    ("" variable (:type "void") (reparse-symbol arg-sub-list) [15068 15084]))                  
+                :type "int")
+                nil [14962 19878])
+            ("sg_count" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("sg_list" variable
+                       (:pointer 1
+                        :type ("scatterlist" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [19951 19979])
+                    ("nbytes" variable (:type "int") (reparse-symbol arg-sub-list) [19980 19991])
+                    ("chained" variable
+                       (:pointer 1
+                        :type "int")
+                        (reparse-symbol arg-sub-list) [19992 20005]))                  
+                :type "int")
+                nil [19931 20258])
+            ("ipsec_esp_edesc_alloc" function
+               (:pointer 1
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("areq" variable
+                       (:pointer 1
+                        :type ("aead_request" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [20374 20400])
+                    ("desc_bytes" variable (:type "int") (reparse-symbol arg-sub-list) [20412 20427]))                  
+                :type ("ipsec_esp_edesc" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [20321 21991])
+            ("aead_authenc_encrypt" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("areq" variable
+                       (:pointer 1
+                        :type ("aead_request" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [22025 22051]))                  
+                :type "int")
+                nil [21993 22886])
+            ("aead_authenc_decrypt" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("req" variable
+                       (:pointer 1
+                        :type ("aead_request" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [22920 22945]))                  
+                :type "int")
+                nil [22888 23811])
+            ("aead_authenc_givencrypt" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("req" variable
+                       (:pointer 1
+                        :type ("aead_givcrypt_request" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [23848 23882]))                  
+                :type "int")
+                nil [23813 25679])
+            ("caam_alg_template" type
+               (:members 
+                  ( ("name" variable
+                       (:dereference 1
+                        :type "char")
+                        (reparse-symbol classsubparts) [25709 25740])
+                    ("driver_name" variable
+                       (:dereference 1
+                        :type "char")
+                        (reparse-symbol classsubparts) [25742 25780])
+                    ("blocksize" variable (:type "unsigned int") (reparse-symbol classsubparts) [25782 25805])
+                    ("aead" variable (:type ("aead_alg" type
+                         (:prototype t
+                          :type "struct")
+                          nil nil)) (reparse-symbol classsubparts) [25807 25828])
+                    ("class1_alg_type" variable (:type ("u32" type (:type "class") nil nil)) (reparse-symbol classsubparts) [25830 25850])
+                    ("class2_alg_type" variable (:type ("u32" type (:type "class") nil nil)) (reparse-symbol classsubparts) [25852 25872])
+                    ("alg_op" variable (:type ("u32" type (:type "class") nil nil)) (reparse-symbol classsubparts) [25874 25885]))                  
+                :type "struct")
+                nil [25681 25888])
+            ("driver_algs" variable
+               (:dereference 1
+                :typemodifiers ("static")
+                :type ("caam_alg_template" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [25890 31601])
+            ("caam_crypto_alg" type
+               (:members 
+                  ( ("entry" variable (:type ("list_head" type
+                         (:prototype t
+                          :type "struct")
+                          nil nil)) (reparse-symbol classsubparts) [31629 31652])
+                    ("ctrldev" variable
+                       (:pointer 1
+                        :type ("device" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol classsubparts) [31654 31677])
+                    ("class1_alg_type" variable (:type "int") (reparse-symbol classsubparts) [31679 31699])
+                    ("class2_alg_type" variable (:type "int") (reparse-symbol classsubparts) [31701 31721])
+                    ("alg_op" variable (:type "int") (reparse-symbol classsubparts) [31723 31734])
+                    ("crypto_alg" variable (:type ("crypto_alg" type
+                         (:prototype t
+                          :type "struct")
+                          nil nil)) (reparse-symbol classsubparts) [31736 31765]))                  
+                :type "struct")
+                nil [31603 31768])
+            ("caam_cra_init" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("tfm" variable
+                       (:pointer 1
+                        :type ("crypto_tfm" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [31795 31818]))                  
+                :type "int")
+                nil [31770 32555])
+            ("caam_cra_exit" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("tfm" variable
+                       (:pointer 1
+                        :type ("crypto_tfm" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [32583 32606]))                  
+                :type "void")
+                nil [32557 33023])
+            ("caam_algapi_exit" function
+               (:arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [33061 33066]))                  
+                :type ("__exit" type (:type "class") nil nil))
+                nil [33037 33815])
+            ("caam_alg_alloc" function
+               (:pointer 1
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("ctrldev" variable
+                       (:pointer 1
+                        :type ("device" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [33863 33886])
+                    ("" variable
+                       (:pointer 1
+                        :type ("caam_alg_template" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [33898 33943]))                  
+                :type ("caam_crypto_alg" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [33817 34911])
+            ("caam_algapi_init" function
+               (:arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [34948 34953]))                  
+                :type ("__init" type (:type "class") nil nil))
+                nil [34924 36544])
+            ("module_init" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("caam_algapi_init" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [36558 36575]))                  
+                :type "int")
+                nil [36546 36576])
+            ("module_exit" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("caam_algapi_exit" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [36589 36606]))                  
+                :type "int")
+                nil [36577 36607])
+            ("MODULE_LICENSE" function
+               (:prototype-flag t
+                :type "int")
+                nil [36609 36631])
+            ("MODULE_DESCRIPTION" function
+               (:prototype-flag t
+                :type "int")
+                nil [36632 36686])
+            ("MODULE_AUTHOR" function
+               (:prototype-flag t
+                :type "int")
+                nil [36687 36738]))          
+    :file "caamalg.c"
+    :pointmax 36739
+    :fsize 36738
+    :lastmodtime '(21468 9037 484371 51000)
+    :unmatched-syntax '((string 36701 . 36736) (string 36651 . 36684) (string 36624 . 36629) (INT 34920 . 34923) (STATIC 34913 . 34919) (TEMPLATE 33935 . 33943) (VOID 33032 . 33036) (STATIC 33025 . 33031) (semantic-list 15085 . 15151) (semantic-list 15073 . 15084))
+    :lexical-table 
+        '(("CAAM_MAX_IV_LENGTH" . ((number "16" 1875 . 1877)))
+          ("DESC_AEAD_SHARED_TEXT_LEN" . ((number "4" 1946 . 1947)))
+          ("DESC_AEAD_ENCRYPT_TEXT_LEN" . ((number "21" 1984 . 1986)))
+          ("DESC_AEAD_DECRYPT_TEXT_LEN" . ((number "24" 2023 . 2025)))
+          ("CAAM_MAX_KEY_SIZE" . ((semantic-list "(AES_MAX_KEY_SIZE + \\
+					 SHA512_DIGEST_SIZE * 2)" 1736 . 1787)))
+          ("DESC_AEAD_GIVENCRYPT_TEXT_LEN" . ((number "27" 2065 . 2067)))
+          ("debug" (spp-arg-list ("format" "arg...") 2239 . 2255))
+          ("CAAM_CRA_PRIORITY" . ((number "3000" 1643 . 1647)))
+          )
+
+    )
+   (semanticdb-table "compat.h"
+    :file "compat.h"
+    :fsize 815
+    :lastmodtime '(21468 9037 490370 909000)
+    )
+   (semanticdb-table "regs.h"
+    :file "regs.h"
+    :fsize 21865
+    :lastmodtime '(21468 9037 575368 897000)
+    )
+   (semanticdb-table "intern.h"
+    :file "intern.h"
+    :fsize 3809
+    :lastmodtime '(21468 9037 540369 726000)
+    )
+   (semanticdb-table "desc_constr.h"
+    :file "desc_constr.h"
+    :fsize 4978
+    :lastmodtime '(21468 9037 522370 151000)
+    )
+   (semanticdb-table "jr.h"
+    :file "jr.h"
+    :fsize 636
+    :lastmodtime '(21468 9037 545369 607000)
+    )
+   (semanticdb-table "error.h"
+    :file "error.h"
+    :fsize 257
+    :lastmodtime '(21468 9037 529369 986000)
+    )
+   )
+  :file "!home!chz!linux-3.0.8!drivers!crypto!caam!semantic.cache"
+  :semantic-tag-version "2.0"
+  :semanticdb-version "2.2"
+  )

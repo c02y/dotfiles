@@ -1,0 +1,153 @@
+;; Object nand/
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "nand/"
+  :tables (list 
+   (semanticdb-table "nand_ecc.c"
+    :major-mode 'c-mode
+    :tags 
+        '( ("linux/types.h" include (:system-flag t) nil [1662 1686])
+            ("linux/kernel.h" include (:system-flag t) nil [1687 1712])
+            ("linux/module.h" include (:system-flag t) nil [1713 1738])
+            ("linux/mtd/mtd.h" include (:system-flag t) nil [1739 1765])
+            ("linux/mtd/nand.h" include (:system-flag t) nil [1766 1793])
+            ("linux/mtd/nand_ecc.h" include (:system-flag t) nil [1794 1825])
+            ("asm/byteorder.h" include (:system-flag t) nil [1826 1852])
+            ("invparity" variable
+               (:dereference 1
+                :typemodifiers ("static")
+                :constant-flag t
+                :type "char")
+                nil [2308 3130])
+            ("bitsperbyte" variable
+               (:dereference 1
+                :typemodifiers ("static")
+                :constant-flag t
+                :type "char")
+                nil [3302 4127])
+            ("addressbits" variable
+               (:dereference 1
+                :typemodifiers ("static")
+                :constant-flag t
+                :type "char")
+                nil [4355 5963])
+            ("__nand_calculate_ecc" function
+               (:arguments 
+                  ( ("buf" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "unsigned char")
+                        (reparse-symbol arg-sub-list) [6211 6236])
+                    ("eccsize" variable (:type "unsigned int") (reparse-symbol arg-sub-list) [6237 6258])
+                    ("code" variable
+                       (:pointer 1
+                        :type "unsigned char")
+                        (reparse-symbol arg-sub-list) [6268 6288]))                  
+                :type "void")
+                nil [6185 12342])
+            ("EXPORT_SYMBOL" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("__nand_calculate_ecc" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [12357 12378]))                  
+                :type "int")
+                nil [12343 12379])
+            ("nand_calculate_ecc" function
+               (:arguments 
+                  ( ("mtd" variable
+                       (:pointer 1
+                        :type ("mtd_info" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [12601 12622])
+                    ("buf" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "unsigned char")
+                        (reparse-symbol arg-sub-list) [12623 12648])
+                    ("code" variable
+                       (:pointer 1
+                        :type "unsigned char")
+                        (reparse-symbol arg-sub-list) [12658 12678]))                  
+                :type "int")
+                nil [12578 12774])
+            ("EXPORT_SYMBOL" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("nand_calculate_ecc" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [12789 12808]))                  
+                :type "int")
+                nil [12775 12809])
+            ("__nand_correct_data" function
+               (:arguments 
+                  ( ("buf" variable
+                       (:pointer 1
+                        :type "unsigned char")
+                        (reparse-symbol arg-sub-list) [13145 13164])
+                    ("read_ecc" variable
+                       (:pointer 1
+                        :type "unsigned char")
+                        (reparse-symbol arg-sub-list) [13168 13192])
+                    ("calc_ecc" variable
+                       (:pointer 1
+                        :type "unsigned char")
+                        (reparse-symbol arg-sub-list) [13193 13217])
+                    ("eccsize" variable (:type "unsigned int") (reparse-symbol arg-sub-list) [13221 13242]))                  
+                :type "int")
+                nil [13121 15412])
+            ("EXPORT_SYMBOL" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("__nand_correct_data" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [15427 15447]))                  
+                :type "int")
+                nil [15413 15448])
+            ("nand_correct_data" function
+               (:arguments 
+                  ( ("mtd" variable
+                       (:pointer 1
+                        :type ("mtd_info" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [15759 15780])
+                    ("buf" variable
+                       (:pointer 1
+                        :type "unsigned char")
+                        (reparse-symbol arg-sub-list) [15781 15800])
+                    ("read_ecc" variable
+                       (:pointer 1
+                        :type "unsigned char")
+                        (reparse-symbol arg-sub-list) [15809 15833])
+                    ("calc_ecc" variable
+                       (:pointer 1
+                        :type "unsigned char")
+                        (reparse-symbol arg-sub-list) [15834 15858]))                  
+                :type "int")
+                nil [15737 15966])
+            ("EXPORT_SYMBOL" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("nand_correct_data" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [15981 15999]))                  
+                :type "int")
+                nil [15967 16000])
+            ("MODULE_LICENSE" function
+               (:prototype-flag t
+                :type "int")
+                nil [16002 16024])
+            ("MODULE_AUTHOR" function
+               (:prototype-flag t
+                :type "int")
+                nil [16025 16091])
+            ("MODULE_DESCRIPTION" function
+               (:prototype-flag t
+                :type "int")
+                nil [16092 16139]))          
+    :file "nand_ecc.c"
+    :pointmax 16140
+    :fsize 16140
+    :lastmodtime '(21468 9028 334587 684000)
+    :unmatched-syntax '((string 16111 . 16137) (string 16039 . 16089) (string 16017 . 16022))
+    )
+   )
+  :file "!home!chz!linux-3.0.8!drivers!mtd!nand!semantic.cache"
+  :semantic-tag-version "2.0"
+  :semanticdb-version "2.2"
+  )

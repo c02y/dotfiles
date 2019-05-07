@@ -1,0 +1,796 @@
+;; Object libsrc/
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "libsrc/"
+  :tables (list 
+   (semanticdb-table "names.c"
+    :major-mode 'c-mode
+    :tags 
+        '( ("sys/types.h" include (:system-flag t) nil [1149 1171])
+            ("sys/stat.h" include (:system-flag t) nil [1172 1193])
+            ("fcntl.h" include (:system-flag t) nil [1194 1212])
+            ("dirent.h" include (:system-flag t) nil [1213 1232])
+            ("string.h" include (:system-flag t) nil [1233 1252])
+            ("errno.h" include (:system-flag t) nil [1253 1271])
+            ("stdlib.h" include (:system-flag t) nil [1272 1291])
+            ("unistd.h" include (:system-flag t) nil [1292 1311])
+            ("stdio.h" include (:system-flag t) nil [1312 1330])
+            ("ctype.h" include (:system-flag t) nil [1331 1349])
+            ("names.h" include nil nil [1352 1370])
+            ("vendor" type
+               (:members 
+                  ( ("next" variable
+                       (:pointer 1
+                        :type ("vendor" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol classsubparts) [1468 1488])
+                    ("vendorid" variable (:type ("u_int16_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [1490 1509])
+                    ("name" variable
+                       (:dereference 1
+                        :type "char")
+                        (reparse-symbol classsubparts) [1511 1524]))                  
+                :type "struct")
+                nil [1451 1527])
+            ("product" type
+               (:members 
+                  ( ("next" variable
+                       (:pointer 1
+                        :type ("product" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol classsubparts) [1547 1568])
+                    ("productid" variable (:type ("u_int16_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [1570 1600])
+                    ("vendorid" variable (:type ("u_int16_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [1570 1600])
+                    ("name" variable
+                       (:dereference 1
+                        :type "char")
+                        (reparse-symbol classsubparts) [1602 1615]))                  
+                :type "struct")
+                nil [1529 1618])
+            ("" type
+               (:members 
+                  ( ("next" variable
+                       (:pointer 1
+                        :type ("" type
+                             (:prototype t
+                              :type "class")
+                              nil nil))
+                        (reparse-symbol classsubparts) [1643 1655])
+                    ("classid" variable (:type ("u_int8_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [1657 1674])
+                    ("name" variable
+                       (:dereference 1
+                        :type "char")
+                        (reparse-symbol classsubparts) [1676 1689]))                  
+                :type "class")
+                nil [1627 1692])
+            ("subclass" type
+               (:members 
+                  ( ("next" variable
+                       (:pointer 1
+                        :type ("subclass" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol classsubparts) [1713 1735])
+                    ("subclassid" variable (:type ("u_int8_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [1737 1766])
+                    ("classid" variable (:type ("u_int8_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [1737 1766])
+                    ("name" variable
+                       (:dereference 1
+                        :type "char")
+                        (reparse-symbol classsubparts) [1768 1781]))                  
+                :type "struct")
+                nil [1694 1784])
+            ("protocol" type
+               (:members 
+                  ( ("next" variable
+                       (:pointer 1
+                        :type ("protocol" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol classsubparts) [1805 1827])
+                    ("protocolid" variable (:type ("u_int8_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [1829 1870])
+                    ("subclassid" variable (:type ("u_int8_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [1829 1870])
+                    ("classid" variable (:type ("u_int8_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [1829 1870])
+                    ("name" variable
+                       (:dereference 1
+                        :type "char")
+                        (reparse-symbol classsubparts) [1872 1885]))                  
+                :type "struct")
+                nil [1786 1888])
+            ("audioterminal" type
+               (:members 
+                  ( ("next" variable
+                       (:pointer 1
+                        :type ("audioterminal" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol classsubparts) [1914 1941])
+                    ("termt" variable (:type ("u_int16_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [1943 1959])
+                    ("name" variable
+                       (:dereference 1
+                        :type "char")
+                        (reparse-symbol classsubparts) [1961 1974]))                  
+                :type "struct")
+                nil [1890 1977])
+            ("genericstrtable" type
+               (:members 
+                  ( ("next" variable
+                       (:pointer 1
+                        :type ("genericstrtable" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol classsubparts) [2012 2041])
+                    ("num" variable (:type "unsigned int") (reparse-symbol classsubparts) [2050 2067])
+                    ("name" variable
+                       (:dereference 1
+                        :type "char")
+                        (reparse-symbol classsubparts) [2076 2089]))                  
+                :type "struct")
+                nil [1979 2092])
+            ("HASH1" variable (:constant-flag t) nil [2180 2185])
+            ("HASH2" variable (:constant-flag t) nil [2200 2205])
+            ("HASHSZ" variable (:constant-flag t) nil [2220 2226])
+            ("hashnum" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("num" variable (:type "unsigned int") (reparse-symbol arg-sub-list) [2259 2276]))                  
+                :type "unsigned int")
+                nil [2231 2449])
+            ("vendors" variable
+               (:pointer 1
+                :dereference 1
+                :typemodifiers ("static")
+                :type ("vendor" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [2529 2579])
+            ("products" variable
+               (:pointer 1
+                :dereference 1
+                :typemodifiers ("static")
+                :type ("product" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [2580 2632])
+            ("classes" variable
+               (:pointer 1
+                :dereference 1
+                :type ("" type
+                     (:prototype t
+                      :type "class")
+                      nil nil))
+                nil [2647 2682])
+            ("subclasses" variable
+               (:pointer 1
+                :dereference 1
+                :typemodifiers ("static")
+                :type ("subclass" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [2683 2738])
+            ("protocols" variable
+               (:pointer 1
+                :dereference 1
+                :typemodifiers ("static")
+                :type ("protocol" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [2739 2793])
+            ("audioterminals" variable
+               (:pointer 1
+                :dereference 1
+                :typemodifiers ("static")
+                :type ("audioterminal" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [2794 2858])
+            ("hiddescriptors" variable
+               (:pointer 1
+                :dereference 1
+                :typemodifiers ("static")
+                :type ("genericstrtable" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [2859 2925])
+            ("reports" variable
+               (:pointer 1
+                :dereference 1
+                :typemodifiers ("static")
+                :type ("genericstrtable" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [2926 2985])
+            ("huts" variable
+               (:pointer 1
+                :dereference 1
+                :typemodifiers ("static")
+                :type ("genericstrtable" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [2986 3042])
+            ("biass" variable
+               (:pointer 1
+                :dereference 1
+                :typemodifiers ("static")
+                :type ("genericstrtable" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [3043 3100])
+            ("physdess" variable
+               (:pointer 1
+                :dereference 1
+                :typemodifiers ("static")
+                :type ("genericstrtable" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [3101 3161])
+            ("hutus" variable
+               (:pointer 1
+                :dereference 1
+                :typemodifiers ("static")
+                :type ("genericstrtable" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [3162 3219])
+            ("langids" variable
+               (:pointer 1
+                :dereference 1
+                :typemodifiers ("static")
+                :type ("genericstrtable" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [3220 3279])
+            ("countrycodes" variable
+               (:pointer 1
+                :dereference 1
+                :typemodifiers ("static")
+                :type ("genericstrtable" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [3280 3344])
+            ("names_genericstrtable" function
+               (:pointer 1
+                :typemodifiers ("static")
+                :constant-flag t
+                :arguments 
+                  ( ("t" variable
+                       (:pointer 1
+                        :dereference 1
+                        :type ("genericstrtable" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [3465 3499])
+                    ("index" variable (:type "unsigned int") (reparse-symbol arg-sub-list) [3500 3519]))                  
+                :type "char")
+                nil [3424 3709])
+            ("names_hid" function
+               (:pointer 1
+                :constant-flag t
+                :arguments 
+                  ( ("hidd" variable (:type ("u_int8_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [3733 3747]))                  
+                :type "char")
+                nil [3711 3804])
+            ("names_reporttag" function
+               (:pointer 1
+                :constant-flag t
+                :arguments 
+                  ( ("rt" variable (:type ("u_int8_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [3834 3846]))                  
+                :type "char")
+                nil [3806 3894])
+            ("names_huts" function
+               (:pointer 1
+                :constant-flag t
+                :arguments 
+                  ( ("data" variable (:type "unsigned int") (reparse-symbol arg-sub-list) [3919 3937]))                  
+                :type "char")
+                nil [3896 3984])
+            ("names_hutus" function
+               (:pointer 1
+                :constant-flag t
+                :arguments 
+                  ( ("data" variable (:type "unsigned int") (reparse-symbol arg-sub-list) [4010 4028]))                  
+                :type "char")
+                nil [3986 4076])
+            ("names_langid" function
+               (:pointer 1
+                :constant-flag t
+                :arguments 
+                  ( ("langid" variable (:type ("u_int16_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [4103 4120]))                  
+                :type "char")
+                nil [4078 4172])
+            ("names_physdes" function
+               (:pointer 1
+                :constant-flag t
+                :arguments 
+                  ( ("ph" variable (:type ("u_int8_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [4200 4212]))                  
+                :type "char")
+                nil [4174 4261])
+            ("names_bias" function
+               (:pointer 1
+                :constant-flag t
+                :arguments 
+                  ( ("b" variable (:type ("u_int8_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [4286 4297]))                  
+                :type "char")
+                nil [4263 4342])
+            ("names_countrycode" function
+               (:pointer 1
+                :constant-flag t
+                :arguments 
+                  ( ("countrycode" variable (:type "unsigned int") (reparse-symbol arg-sub-list) [4374 4399]))                  
+                :type "char")
+                nil [4344 4461])
+            ("names_vendor" function
+               (:pointer 1
+                :constant-flag t
+                :arguments 
+                  ( ("vendorid" variable (:type ("u_int16_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [4488 4507]))                  
+                :type "char")
+                nil [4463 4652])
+            ("names_product" function
+               (:pointer 1
+                :constant-flag t
+                :arguments 
+                  ( ("vendorid" variable (:type ("u_int16_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [4680 4699])
+                    ("productid" variable (:type ("u_int16_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [4700 4720]))                  
+                :type "char")
+                nil [4654 4916])
+            ("names_class" function
+               (:pointer 1
+                :constant-flag t
+                :arguments 
+                  ( ("classid" variable (:type ("u_int8_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [4942 4959]))                  
+                :type "char")
+                nil [4918 5100])
+            ("names_subclass" function
+               (:pointer 1
+                :constant-flag t
+                :arguments 
+                  ( ("classid" variable (:type ("u_int8_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [5129 5146])
+                    ("subclassid" variable (:type ("u_int8_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [5147 5167]))                  
+                :type "char")
+                nil [5102 5365])
+            ("names_protocol" function
+               (:pointer 1
+                :constant-flag t
+                :arguments 
+                  ( ("classid" variable (:type ("u_int8_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [5394 5411])
+                    ("subclassid" variable (:type ("u_int8_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [5412 5432])
+                    ("protocolid" variable (:type ("u_int8_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [5433 5453]))                  
+                :type "char")
+                nil [5367 5702])
+            ("names_audioterminal" function
+               (:pointer 1
+                :constant-flag t
+                :arguments 
+                  ( ("termt" variable (:type ("u_int16_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [5736 5752]))                  
+                :type "char")
+                nil [5704 5909])
+            ("pool" type
+               (:members 
+                  ( ("next" variable
+                       (:pointer 1
+                        :type ("pool" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol classsubparts) [6045 6063])
+                    ("mem" variable
+                       (:pointer 1
+                        :type "void")
+                        (reparse-symbol classsubparts) [6065 6075]))                  
+                :type "struct")
+                nil [6030 6078])
+            ("pool_head" variable
+               (:pointer 1
+                :typemodifiers ("static")
+                :type ("pool" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [6080 6117])
+            ("my_malloc" function
+               (:pointer 1
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("size" variable (:type ("size_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [6142 6154]))                  
+                :type "void")
+                nil [6119 6366])
+            ("names_free" function
+               (:arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [6384 6389]))                  
+                :type "void")
+                nil [6368 6594])
+            ("new_vendor" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("name" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [6696 6713])
+                    ("vendorid" variable (:type ("u_int16_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [6714 6733]))                  
+                :type "int")
+                nil [6674 7056])
+            ("new_product" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("name" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [7081 7098])
+                    ("vendorid" variable (:type ("u_int16_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [7099 7118])
+                    ("productid" variable (:type ("u_int16_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [7119 7139]))                  
+                :type "int")
+                nil [7058 7543])
+            ("new_class" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("name" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [7566 7583])
+                    ("classid" variable (:type ("u_int8_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [7584 7601]))                  
+                :type "int")
+                nil [7545 7917])
+            ("new_subclass" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("name" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [7943 7960])
+                    ("classid" variable (:type ("u_int8_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [7961 7978])
+                    ("subclassid" variable (:type ("u_int8_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [7979 7999]))                  
+                :type "int")
+                nil [7919 8410])
+            ("new_protocol" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("name" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [8436 8453])
+                    ("classid" variable (:type ("u_int8_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [8454 8471])
+                    ("subclassid" variable (:type ("u_int8_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [8472 8492])
+                    ("protocolid" variable (:type ("u_int8_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [8493 8513]))                  
+                :type "int")
+                nil [8412 9002])
+            ("new_audioterminal" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("name" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [9033 9050])
+                    ("termt" variable (:type ("u_int16_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [9051 9067]))                  
+                :type "int")
+                nil [9004 9422])
+            ("new_genericstrtable" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("t" variable
+                       (:pointer 1
+                        :dereference 1
+                        :type ("genericstrtable" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [9455 9489])
+                    ("name" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [9490 9507])
+                    ("index" variable (:type "unsigned int") (reparse-symbol arg-sub-list) [9508 9527]))                  
+                :type "int")
+                nil [9424 9940])
+            ("new_hid" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("name" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [9961 9978])
+                    ("hidd" variable (:type ("u_int8_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [9979 9993]))                  
+                :type "int")
+                nil [9942 10054])
+            ("new_reporttag" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("name" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [10081 10098])
+                    ("rt" variable (:type ("u_int8_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [10099 10111]))                  
+                :type "int")
+                nil [10056 10163])
+            ("new_huts" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("name" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [10185 10202])
+                    ("data" variable (:type "unsigned int") (reparse-symbol arg-sub-list) [10203 10221]))                  
+                :type "int")
+                nil [10165 10272])
+            ("new_hutus" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("name" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [10295 10312])
+                    ("data" variable (:type "unsigned int") (reparse-symbol arg-sub-list) [10313 10331]))                  
+                :type "int")
+                nil [10274 10383])
+            ("new_langid" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("name" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [10407 10424])
+                    ("langid" variable (:type ("u_int16_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [10425 10442]))                  
+                :type "int")
+                nil [10385 10498])
+            ("new_physdes" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("name" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [10523 10540])
+                    ("ph" variable (:type ("u_int8_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [10541 10553]))                  
+                :type "int")
+                nil [10500 10606])
+            ("new_bias" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("name" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [10627 10644])
+                    ("b" variable (:type ("u_int8_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [10645 10656]))                  
+                :type "int")
+                nil [10607 10705])
+            ("new_countrycode" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("name" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [10734 10751])
+                    ("countrycode" variable (:type "unsigned int") (reparse-symbol arg-sub-list) [10752 10777]))                  
+                :type "int")
+                nil [10707 10843])
+            ("DBG" variable (:constant-flag t) nil [10931 10934])
+            ("parse" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("f" variable
+                       (:pointer 1
+                        :type ("FILE" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [10957 10965]))                  
+                :type "void")
+                nil [10939 24159])
+            ("names_init" function
+               (:arguments 
+                  ( ("n" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [24254 24262]))                  
+                :type "int")
+                nil [24239 24359]))          
+    :file "names.c"
+    :pointmax 24360
+    :fsize 24359
+    :lastmodtime '(21468 9098 395928 893000)
+    :unmatched-syntax '((STRUCT 2640 . 2646) (STATIC 2633 . 2639) (STRUCT 1636 . 1642) (STRUCT 1620 . 1626))
+    :lexical-table 
+        '(("HASHSZ" . ((number "16" 2227 . 2229)))
+          ("HASH1" . ((number "0x10" 2187 . 2191)))
+          ("HASH2" . ((number "0x02" 2207 . 2211)))
+          ("DBG" (spp-arg-list ("x") 10934 . 10937))
+          )
+
+    )
+   (semanticdb-table "names.h"
+    :major-mode 'c-mode
+    :tags 
+        '( ("_NAMES_H" variable (:constant-flag t) nil [1177 1185])
+            ("sys/types.h" include (:system-flag t) nil [1187 1209])
+            ("names_vendor" function
+               (:prototype-flag t
+                :pointer 1
+                :typemodifiers ("extern")
+                :constant-flag t
+                :arguments 
+                  ( ("vendorid" variable (:type ("u_int16_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [1321 1340]))                  
+                :type "char")
+                nil [1289 1341])
+            ("names_product" function
+               (:prototype-flag t
+                :pointer 1
+                :typemodifiers ("extern")
+                :constant-flag t
+                :arguments 
+                  ( ("vendorid" variable (:type ("u_int16_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [1375 1394])
+                    ("productid" variable (:type ("u_int16_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [1395 1415]))                  
+                :type "char")
+                nil [1342 1416])
+            ("names_class" function
+               (:prototype-flag t
+                :pointer 1
+                :typemodifiers ("extern")
+                :constant-flag t
+                :arguments 
+                  ( ("classid" variable (:type ("u_int8_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [1448 1465]))                  
+                :type "char")
+                nil [1417 1466])
+            ("names_subclass" function
+               (:prototype-flag t
+                :pointer 1
+                :typemodifiers ("extern")
+                :constant-flag t
+                :arguments 
+                  ( ("classid" variable (:type ("u_int8_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [1501 1518])
+                    ("subclassid" variable (:type ("u_int8_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [1519 1539]))                  
+                :type "char")
+                nil [1467 1540])
+            ("names_protocol" function
+               (:prototype-flag t
+                :pointer 1
+                :typemodifiers ("extern")
+                :constant-flag t
+                :arguments 
+                  ( ("classid" variable (:type ("u_int8_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [1575 1592])
+                    ("subclassid" variable (:type ("u_int8_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [1593 1613])
+                    ("protocolid" variable (:type ("u_int8_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [1614 1634]))                  
+                :type "char")
+                nil [1541 1635])
+            ("names_audioterminal" function
+               (:prototype-flag t
+                :pointer 1
+                :typemodifiers ("extern")
+                :constant-flag t
+                :arguments 
+                  ( ("termt" variable (:type ("u_int16_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [1675 1691]))                  
+                :type "char")
+                nil [1636 1692])
+            ("names_hid" function
+               (:prototype-flag t
+                :pointer 1
+                :typemodifiers ("extern")
+                :constant-flag t
+                :arguments 
+                  ( ("hidd" variable (:type ("u_int8_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [1722 1736]))                  
+                :type "char")
+                nil [1693 1737])
+            ("names_reporttag" function
+               (:prototype-flag t
+                :pointer 1
+                :typemodifiers ("extern")
+                :constant-flag t
+                :arguments 
+                  ( ("rt" variable (:type ("u_int8_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [1773 1785]))                  
+                :type "char")
+                nil [1738 1786])
+            ("names_huts" function
+               (:prototype-flag t
+                :pointer 1
+                :typemodifiers ("extern")
+                :constant-flag t
+                :arguments 
+                  ( ("data" variable (:type "unsigned int") (reparse-symbol arg-sub-list) [1817 1835]))                  
+                :type "char")
+                nil [1787 1836])
+            ("names_hutus" function
+               (:prototype-flag t
+                :pointer 1
+                :typemodifiers ("extern")
+                :constant-flag t
+                :arguments 
+                  ( ("data" variable (:type "unsigned int") (reparse-symbol arg-sub-list) [1868 1886]))                  
+                :type "char")
+                nil [1837 1887])
+            ("names_langid" function
+               (:prototype-flag t
+                :pointer 1
+                :typemodifiers ("extern")
+                :constant-flag t
+                :arguments 
+                  ( ("langid" variable (:type ("u_int16_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [1920 1937]))                  
+                :type "char")
+                nil [1888 1938])
+            ("names_physdes" function
+               (:prototype-flag t
+                :pointer 1
+                :typemodifiers ("extern")
+                :constant-flag t
+                :arguments 
+                  ( ("ph" variable (:type ("u_int8_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [1972 1984]))                  
+                :type "char")
+                nil [1939 1985])
+            ("names_bias" function
+               (:prototype-flag t
+                :pointer 1
+                :typemodifiers ("extern")
+                :constant-flag t
+                :arguments 
+                  ( ("b" variable (:type ("u_int8_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [2016 2027]))                  
+                :type "char")
+                nil [1986 2028])
+            ("names_countrycode" function
+               (:prototype-flag t
+                :pointer 1
+                :typemodifiers ("extern")
+                :constant-flag t
+                :arguments 
+                  ( ("countrycode" variable (:type "unsigned int") (reparse-symbol arg-sub-list) [2066 2091]))                  
+                :type "char")
+                nil [2029 2092])
+            ("names_init" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("n" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [2116 2124]))                  
+                :type "int")
+                nil [2093 2125])
+            ("names_free" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [2149 2154]))                  
+                :type "void")
+                nil [2126 2155]))          
+    :file "names.h"
+    :pointmax 2256
+    :fsize 2255
+    :lastmodtime '(21468 9098 404928 680000)
+    :unmatched-syntax 'nil
+    :lexical-table 
+        '(("_NAMES_H")
+          )
+
+    )
+   )
+  :file "!home!chz!linux-3.0.8!drivers!staging!usbip!userspace!libsrc!semantic.cache"
+  :semantic-tag-version "2.0"
+  :semanticdb-version "2.2"
+  )

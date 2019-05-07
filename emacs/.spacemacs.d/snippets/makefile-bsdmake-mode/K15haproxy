@@ -1,0 +1,786 @@
+;; Object howl-1.19-src/
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "howl-1.19-src/"
+  :tables (list 
+   (semanticdb-table "howl119.c"
+    :major-mode 'c-mode
+    :tags 
+        '( ("stdio.h" include (:system-flag t) nil [951 969])
+            ("stdlib.h" include (:system-flag t) nil [970 989])
+            ("libnet.h" include (:system-flag t) nil [990 1009])
+            ("pcap.h" include (:system-flag t) nil [1010 1027])
+            ("resolv.h" include (:system-flag t) nil [1028 1047])
+            ("pthread.h" include (:system-flag t) nil [1048 1068])
+            ("sys/ioctl.h" include (:system-flag t) nil [1069 1091])
+            ("sys/sysctl.h" include (:system-flag t) nil [1092 1115])
+            ("netinet/in.h" include (:system-flag t) nil [1116 1139])
+            ("netinet/ip.h" include (:system-flag t) nil [1140 1163])
+            ("netinet/udp.h" include (:system-flag t) nil [1164 1188])
+            ("net/if.h" include (:system-flag t) nil [1189 1208])
+            ("signal.h" include (:system-flag t) nil [1209 1228])
+            ("microhttpd.h" include (:system-flag t) nil [1229 1252])
+            ("ncurses.h" include (:system-flag t) nil [1253 1273])
+            ("howl.h" include nil nil [1274 1291])
+            ("a" variable
+               (:pointer 1
+                :type ("libnet_t" type (:type "class") nil nil))
+                nil [1352 1364])
+            ("l" variable
+               (:pointer 1
+                :type ("libnet_t" type (:type "class") nil nil))
+                nil [1365 1377])
+            ("s" variable
+               (:pointer 1
+                :type ("libnet_t" type (:type "class") nil nil))
+                nil [1422 1434])
+            ("d" variable
+               (:pointer 1
+                :type ("libnet_t" type (:type "class") nil nil))
+                nil [1480 1492])
+            ("b" variable
+               (:pointer 1
+                :type ("libnet_t" type (:type "class") nil nil))
+                nil [1531 1543])
+            ("dh" variable
+               (:pointer 1
+                :type ("libnet_t" type (:type "class") nil nil))
+                nil [1544 1557])
+            ("k" variable
+               (:pointer 1
+                :type ("libnet_t" type (:type "class") nil nil))
+                nil [1558 1570])
+            ("m" variable
+               (:pointer 1
+                :type ("libnet_t" type (:type "class") nil nil))
+                nil [1571 1583])
+            ("rl" variable
+               (:pointer 1
+                :type ("libnet_t" type (:type "class") nil nil))
+                nil [1584 1597])
+            ("rs" variable
+               (:pointer 1
+                :type ("libnet_t" type (:type "class") nil nil))
+                nil [1598 1611])
+            ("handle_dns" variable
+               (:pointer 1
+                :type ("pcap_t" type (:type "class") nil nil))
+                nil [1612 1638])
+            ("handle_dhcp" variable
+               (:pointer 1
+                :type ("pcap_t" type (:type "class") nil nil))
+                nil [1674 1701])
+            ("handle_arp" variable
+               (:pointer 1
+                :type ("pcap_t" type (:type "class") nil nil))
+                nil [1738 1764])
+            ("pp" variable (:type ("prog_proc" type
+                 (:prototype t
+                  :type "struct")
+                  nil nil)) nil [1765 1785])
+            ("ap" variable (:type ("arp_proc" type
+                 (:prototype t
+                  :type "struct")
+                  nil nil)) nil [1786 1805])
+            ("dp" variable (:type ("dns_proc" type
+                 (:prototype t
+                  :type "struct")
+                  nil nil)) nil [1806 1825])
+            ("wp" variable (:type ("web_proc" type
+                 (:prototype t
+                  :type "struct")
+                  nil nil)) nil [1826 1845])
+            ("sp" variable (:type ("dev_proc" type
+                 (:prototype t
+                  :type "struct")
+                  nil nil)) nil [1846 1865])
+            ("dhc" variable (:type ("dhcp_proc" type
+                 (:prototype t
+                  :type "struct")
+                  nil nil)) nil [1866 1887])
+            ("fp" variable (:type ("flood_proc" type
+                 (:prototype t
+                  :type "struct")
+                  nil nil)) nil [1888 1909])
+            ("mp" variable (:type ("mac_proc" type
+                 (:prototype t
+                  :type "struct")
+                  nil nil)) nil [1910 1929])
+            ("wdaemon" variable
+               (:pointer 1
+                :type ("MHD_Daemon" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [1930 1957])
+            ("usage" function
+               (:arguments 
+                  ( ("name" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [2007 2018]))                  
+                :type "void")
+                nil [1995 3151])
+            ("ipv4_forward" function
+               (:arguments 
+                  ( ("newnet" variable (:type "int") (reparse-symbol arg-sub-list) [3170 3181]))                  
+                :type "int")
+                nil [3153 3306])
+            ("re_arp" function (:type "int") nil [3308 5824])
+            ("ctrl_c" function (:type "void") nil [5852 7827])
+            ("comp" function (:type "void") nil [7829 9091])
+            ("win_ch" function (:type "void") nil [9093 9120])
+            ("dns_reply" function
+               (:arguments 
+                  ( ("args" variable
+                       (:pointer 1
+                        :type ("u_char" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [9137 9150])
+                    ("header" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("pcap_pkthdr" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [9151 9184])
+                    ("packet" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("u_char" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [9185 9206]))                  
+                :type "void")
+                nil [9122 15334])
+            ("setdevdns" function
+               (:arguments 
+                  ( ("filter_exp_dns" variable
+                       (:dereference 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [15350 15372]))                  
+                :type "int")
+                nil [15336 16295])
+            ("setdevdhcp" function
+               (:arguments 
+                  ( ("filter_exp_dhcp" variable
+                       (:dereference 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [16312 16335]))                  
+                :type "int")
+                nil [16297 17266])
+            ("setdevarp" function
+               (:arguments 
+                  ( ("filter_exp_arp" variable
+                       (:dereference 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [17282 17304]))                  
+                :type "int")
+                nil [17268 18227])
+            ("user_agent" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("cls" variable
+                       (:pointer 1
+                        :type "void")
+                        (reparse-symbol arg-sub-list) [18252 18262])
+                    ("kind" variable (:type ("MHD_ValueKind" type (:type "enum") nil nil)) (reparse-symbol arg-sub-list) [18263 18287])
+                    ("key" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [18288 18304])
+                    ("value" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [18305 18323]))                  
+                :type "int")
+                nil [18229 18494])
+            ("wconnect" function
+               (:arguments 
+                  ( ("cls" variable
+                       (:pointer 1
+                        :type "void")
+                        (reparse-symbol arg-sub-list) [18510 18520])
+                    ("connection" variable
+                       (:pointer 1
+                        :type ("MHD_Connection" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [18521 18555])
+                    ("url" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [18556 18572])
+                    ("method" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [18573 18592])
+                    ("version" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [18593 18613])
+                    ("upload_data" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [18614 18638])
+                    ("upload_data_size" variable
+                       (:pointer 1
+                        :type "unsigned int")
+                        (reparse-symbol arg-sub-list) [18639 18670])
+                    ("con_cls" variable
+                       (:pointer 2
+                        :type "void")
+                        (reparse-symbol arg-sub-list) [18671 18686]))                  
+                :type "int")
+                nil [18496 19138])
+            ("set_ip" function
+               (:arguments 
+                  ( ("iflag" variable (:type "int") (reparse-symbol arg-sub-list) [19152 19162]))                  
+                :type "int")
+                nil [19140 19736])
+            ("dhcp_ex" function
+               (:arguments 
+                  ( ("args" variable
+                       (:pointer 1
+                        :type ("u_char" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [19752 19765])
+                    ("header" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("pcap_pkthdr" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [19766 19799])
+                    ("packet" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("u_char" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [19800 19821]))                  
+                :type "void")
+                nil [19739 23331])
+            ("arp_cap" function
+               (:arguments 
+                  ( ("args" variable
+                       (:pointer 1
+                        :type ("u_char" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [23346 23359])
+                    ("header" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("pcap_pkthdr" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [23360 23393])
+                    ("packet" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("u_char" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [23394 23415]))                  
+                :type "void")
+                nil [23333 24262])
+            ("arp_attack" function
+               (:pointer 1
+                :type "void")
+                nil [24264 24991])
+            ("macgen" function
+               (:arguments 
+                  ( ("flag" variable (:type "int") (reparse-symbol arg-sub-list) [25004 25013]))                  
+                :type "int")
+                nil [24992 26524])
+            ("dhcp_attack" function
+               (:pointer 1
+                :type "void")
+                nil [26526 28841])
+            ("arp_listener" function
+               (:pointer 1
+                :type "void")
+                nil [28842 28931])
+            ("dhcp_listener" function
+               (:pointer 1
+                :type "void")
+                nil [28933 29024])
+            ("dns_listener" function
+               (:pointer 1
+                :type "void")
+                nil [29026 29117])
+            ("flood_attack" function
+               (:pointer 1
+                :type "void")
+                nil [29119 29916])
+            ("mac_attack" function
+               (:pointer 1
+                :type "void")
+                nil [29918 30850])
+            ("attack" function (:type "int") nil [30852 42224])
+            ("get_mac" function
+               (:arguments 
+                  ( ("macflag" variable (:type "int") (reparse-symbol arg-sub-list) [42239 42251]))                  
+                :type "int")
+                nil [42226 47021])
+            ("arg_chk" function
+               (:arguments 
+                  ( ("arg" variable
+                       (:dereference 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [47036 47047])
+                    ("flag" variable (:type "int") (reparse-symbol arg-sub-list) [47048 47057]))                  
+                :type "int")
+                nil [47023 47664])
+            ("get_addr" function
+               (:pointer 1
+                :arguments 
+                  ( ("host" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [47681 47692]))                  
+                :type "char")
+                nil [47666 47979])
+            ("main" function
+               (:arguments 
+                  ( ("argc" variable (:type "int") (reparse-symbol arg-sub-list) [47991 48000])
+                    ("argv" variable
+                       (:pointer 1
+                        :dereference 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [48001 48014]))                  
+                :type "int")
+                nil [47981 65141]))          
+    :file "howl119.c"
+    :pointmax 65142
+    :fsize 65141
+    :lastmodtime '(21566 22897 239533 314000)
+    :unmatched-syntax 'nil
+    )
+   (semanticdb-table "howl.h"
+    :major-mode 'c-mode
+    :tags 
+        '( ("ETHER_HDRLEN" variable (:constant-flag t) nil [10 22])
+            ("PORT" variable (:constant-flag t) nil [34 38])
+            ("INFINITE" variable (:constant-flag t) nil [50 58])
+            ("ETHERNET" variable (:constant-flag t) nil [70 78])
+            ("IPPROTO" variable (:constant-flag t) nil [94 101])
+            ("ETHER_HW_S" variable (:constant-flag t) nil [117 127])
+            ("IPPROTO_S" variable (:constant-flag t) nil [138 147])
+            ("TSEC" variable (:constant-flag t) nil [158 162])
+            ("DHCPAY_S" variable (:constant-flag t) nil [178 186])
+            ("DHCPAYR_S" variable (:constant-flag t) nil [198 207])
+            ("FLDPAY_S" variable (:constant-flag t) nil [219 227])
+            ("DPORT" variable (:constant-flag t) nil [240 245])
+            ("prog_proc" type
+               (:members 
+                  ( ("ver" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol classsubparts) [274 284]))                  
+                :type "struct")
+                nil [252 288])
+            ("arp_proc" type
+               (:members 
+                  ( ("gmacip" variable
+                       (:dereference 1
+                        :type "char")
+                        (reparse-symbol classsubparts) [311 327])
+                    ("abak" variable
+                       (:dereference 1
+                        :type "char")
+                        (reparse-symbol classsubparts) [330 344])
+                    ("res" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol classsubparts) [347 357])
+                    ("frq" variable (:type "int") (reparse-symbol classsubparts) [360 368])
+                    ("dur" variable (:type "int") (reparse-symbol classsubparts) [422 430])
+                    ("x" variable (:type "int") (reparse-symbol classsubparts) [490 496])
+                    ("aflag" variable (:type "int") (reparse-symbol classsubparts) [543 553])
+                    ("macflag" variable (:type "int") (reparse-symbol classsubparts) [556 568])
+                    ("mflag" variable (:type "int") (reparse-symbol classsubparts) [571 581])
+                    ("mflagw" variable (:type "int") (reparse-symbol classsubparts) [584 595])
+                    ("mflagc" variable (:type "int") (reparse-symbol classsubparts) [598 609])
+                    ("tflag" variable (:type "int") (reparse-symbol classsubparts) [612 622])
+                    ("tflagw" variable (:type "int") (reparse-symbol classsubparts) [625 636])
+                    ("tflagc" variable (:type "int") (reparse-symbol classsubparts) [639 650])
+                    ("tipflag" variable (:type "int") (reparse-symbol classsubparts) [653 665])
+                    ("tipflag2" variable (:type "int") (reparse-symbol classsubparts) [668 681])
+                    ("gmflag" variable (:type "int") (reparse-symbol classsubparts) [684 695])
+                    ("arp_t1stat" variable (:type "int") (reparse-symbol classsubparts) [698 713])
+                    ("arp_t2stat" variable (:type "int") (reparse-symbol classsubparts) [716 731])
+                    ("ipaddr" variable (:type ("in_addr_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [736 753])
+                    ("destaddr" variable (:type ("in_addr_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [798 817])
+                    ("macaddr" variable
+                       (:pointer 1
+                        :type ("u_int8_t" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [862 880])
+                    ("hwaddr" variable
+                       (:pointer 1
+                        :type ("u_int8_t" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [926 943])
+                    ("taddr" variable
+                       (:pointer 1
+                        :type ("u_int8_t" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [991 1007])
+                    ("ethm" variable (:type ("libnet_ptag_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [1056 1103])
+                    ("eths" variable (:type ("libnet_ptag_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [1056 1103])
+                    ("eth" variable (:type ("libnet_ptag_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [1056 1103])
+                    ("arpm" variable (:type ("libnet_ptag_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [1056 1103])
+                    ("arps" variable (:type ("libnet_ptag_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [1056 1103])
+                    ("arp" variable (:type ("libnet_ptag_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [1056 1103]))                  
+                :type "struct")
+                nil [290 1145])
+            ("dns_proc" type
+               (:members 
+                  ( ("dbuild" variable (:type "int") (reparse-symbol classsubparts) [1168 1179])
+                    ("dflag" variable (:type "int") (reparse-symbol classsubparts) [1243 1253])
+                    ("wflag" variable (:type "int") (reparse-symbol classsubparts) [1256 1266])
+                    ("dns_qstat" variable (:type "int") (reparse-symbol classsubparts) [1269 1283])
+                    ("dns_rstat" variable (:type "int") (reparse-symbol classsubparts) [1286 1300])
+                    ("abak" variable
+                       (:dereference 1
+                        :type "char")
+                        (reparse-symbol classsubparts) [1303 1317])
+                    ("spoofsite" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol classsubparts) [1320 1336])
+                    ("site" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol classsubparts) [1385 1396])
+                    ("res" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol classsubparts) [1442 1452])
+                    ("payload" variable
+                       (:dereference 1
+                        :type ("u_int8_t" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [1455 1476])
+                    ("ipp" variable (:type ("libnet_ptag_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [1511 1539])
+                    ("udp" variable (:type ("libnet_ptag_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [1511 1539])
+                    ("dns" variable (:type ("libnet_ptag_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [1511 1539]))                  
+                :type "struct")
+                nil [1147 1578])
+            ("web_proc" type
+               (:members 
+                  ( ("http_stat" variable (:type "int") (reparse-symbol classsubparts) [1600 1614])
+                    ("wkey" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol classsubparts) [1617 1628])
+                    ("wcok" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol classsubparts) [1631 1642])
+                    ("rep" variable (:type "int") (reparse-symbol classsubparts) [1645 1653])
+                    ("wflag" variable (:type "int") (reparse-symbol classsubparts) [1656 1666])
+                    ("html" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol classsubparts) [1669 1680])
+                    ("pbuf" variable
+                       (:dereference 1
+                        :type "char")
+                        (reparse-symbol classsubparts) [1683 1701])
+                    ("atc" variable (:type "int") (reparse-symbol classsubparts) [1704 1712]))                  
+                :type "struct")
+                nil [1579 1716])
+            ("dev_proc" type
+               (:members 
+                  ( ("device" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol classsubparts) [1738 1751])
+                    ("mask" variable (:type ("bpf_u_int32" type (:type "class") nil nil)) (reparse-symbol classsubparts) [1754 1771])
+                    ("net" variable (:type ("bpf_u_int32" type (:type "class") nil nil)) (reparse-symbol classsubparts) [1795 1811])
+                    ("cflag" variable (:type "int") (reparse-symbol classsubparts) [1838 1848])
+                    ("r" variable (:type "int") (reparse-symbol classsubparts) [1917 1923])
+                    ("p" variable (:type "int") (reparse-symbol classsubparts) [1926 1932])
+                    ("n" variable (:type "int") (reparse-symbol classsubparts) [1935 1941]))                  
+                :type "struct")
+                nil [1717 1945])
+            ("dhcp_proc" type
+               (:members 
+                  ( ("df" variable (:type "int") (reparse-symbol classsubparts) [1968 1975])
+                    ("dwflag" variable (:type "int") (reparse-symbol classsubparts) [1978 1989])
+                    ("flag" variable (:type "int") (reparse-symbol classsubparts) [1992 2001])
+                    ("dhcp_dstat" variable (:type "int") (reparse-symbol classsubparts) [2004 2019])
+                    ("dhcp_ostat" variable (:type "int") (reparse-symbol classsubparts) [2022 2037])
+                    ("dhcp_rstat" variable (:type "int") (reparse-symbol classsubparts) [2040 2055])
+                    ("dhcp_astat" variable (:type "int") (reparse-symbol classsubparts) [2058 2073])
+                    ("genmac" variable
+                       (:dereference 1
+                        :type "char")
+                        (reparse-symbol classsubparts) [2076 2092])
+                    ("abak" variable
+                       (:dereference 1
+                        :type "char")
+                        (reparse-symbol classsubparts) [2095 2109])
+                    ("res" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol classsubparts) [2112 2122])
+                    ("cmac" variable
+                       (:dereference 1
+                        :type ("u_int8_t" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [2125 2171])
+                    ("dmac" variable
+                       (:pointer 1
+                        :type ("u_int8_t" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [2125 2171])
+                    ("rmac" variable
+                       (:pointer 1
+                        :type ("u_int8_t" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [2125 2171])
+                    ("tmac" variable
+                       (:pointer 1
+                        :type ("u_int8_t" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [2125 2171])
+                    ("bmac" variable
+                       (:pointer 1
+                        :type ("u_int8_t" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [2125 2171])
+                    ("src_ip" variable (:type ("u_int32_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [2174 2191])
+                    ("btid" variable (:type ("u_int32_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [2194 2209])
+                    ("tid" variable
+                       (:dereference 1
+                        :type "char")
+                        (reparse-symbol classsubparts) [2212 2224])
+                    ("x" variable (:type "int") (reparse-symbol classsubparts) [2227 2233])
+                    ("payload" variable
+                       (:dereference 1
+                        :type ("u_int8_t" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [2236 2257])
+                    ("payloadr" variable
+                       (:dereference 1
+                        :type ("u_int8_t" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [2260 2282])
+                    ("ethr" variable (:type ("libnet_ptag_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [2285 2330])
+                    ("eth" variable (:type ("libnet_ptag_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [2285 2330])
+                    ("dhcp" variable (:type ("libnet_ptag_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [2285 2330])
+                    ("btp" variable (:type ("libnet_ptag_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [2285 2330])
+                    ("ipp" variable (:type ("libnet_ptag_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [2285 2330])
+                    ("udp" variable (:type ("libnet_ptag_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [2285 2330]))                  
+                :type "struct")
+                nil [1946 2372])
+            ("flood_proc" type
+               (:members 
+                  ( ("payload" variable
+                       (:dereference 1
+                        :type ("u_int8_t" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [2397 2419])
+                    ("x" variable (:type "int") (reparse-symbol classsubparts) [2422 2428])
+                    ("flood_stat" variable (:type "int") (reparse-symbol classsubparts) [2431 2446])
+                    ("kflag" variable (:type "int") (reparse-symbol classsubparts) [2449 2459])
+                    ("test" variable (:type "int") (reparse-symbol classsubparts) [2462 2471])
+                    ("mflagc" variable (:type "int") (reparse-symbol classsubparts) [2474 2485])
+                    ("dport" variable (:type "int") (reparse-symbol classsubparts) [2488 2498])
+                    ("sport" variable (:type "int") (reparse-symbol classsubparts) [2501 2511])
+                    ("gmac" variable (:type "int") (reparse-symbol classsubparts) [2514 2523])
+                    ("rmac" variable (:type "int") (reparse-symbol classsubparts) [2526 2535])
+                    ("gmflag" variable (:type "int") (reparse-symbol classsubparts) [2538 2549])
+                    ("sfaddr" variable (:type ("in_addr_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [2552 2569])
+                    ("dfaddr" variable (:type ("in_addr_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [2572 2589])
+                    ("arp" variable (:type ("libnet_ptag_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [2592 2624])
+                    ("eth" variable (:type ("libnet_ptag_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [2592 2624])
+                    ("ip" variable (:type ("libnet_ptag_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [2592 2624])
+                    ("tcp" variable (:type ("libnet_ptag_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [2592 2624])
+                    ("abak" variable
+                       (:dereference 1
+                        :type "char")
+                        (reparse-symbol classsubparts) [2627 2641])
+                    ("genmac" variable
+                       (:dereference 1
+                        :type "char")
+                        (reparse-symbol classsubparts) [2644 2659])
+                    ("gmacip" variable
+                       (:dereference 1
+                        :type "char")
+                        (reparse-symbol classsubparts) [2662 2678])
+                    ("res" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol classsubparts) [2681 2691])
+                    ("smac" variable
+                       (:pointer 1
+                        :type ("u_int8_t" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [2694 2709])
+                    ("dmac" variable
+                       (:pointer 1
+                        :type ("u_int8_t" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [2712 2727]))                  
+                :type "struct")
+                nil [2374 2731])
+            ("mac_proc" type
+               (:members 
+                  ( ("flag" variable (:type "int") (reparse-symbol classsubparts) [2754 2763])
+                    ("x" variable (:type "int") (reparse-symbol classsubparts) [2766 2772])
+                    ("mac_stat" variable (:type "int") (reparse-symbol classsubparts) [2775 2788])
+                    ("genmac" variable
+                       (:dereference 1
+                        :type "char")
+                        (reparse-symbol classsubparts) [2791 2807])
+                    ("sgenmac" variable
+                       (:dereference 1
+                        :type "char")
+                        (reparse-symbol classsubparts) [2810 2827])
+                    ("smac" variable
+                       (:pointer 1
+                        :type ("u_int8_t" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [2830 2845])
+                    ("dmac" variable
+                       (:pointer 1
+                        :type ("u_int8_t" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [2848 2863])
+                    ("eth" variable (:type ("libnet_ptag_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [2866 2893])
+                    ("ip" variable (:type ("libnet_ptag_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [2866 2893])
+                    ("udp" variable (:type ("libnet_ptag_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [2866 2893]))                  
+                :type "struct")
+                nil [2733 2897])
+            ("dnshdr" type
+               (:members 
+                  ( ("id" variable
+                       (:suffix ":16"
+                        :type "unsigned int")
+                        (reparse-symbol classsubparts) [2925 2949])
+                    ("rd" variable
+                       (:suffix ":1"
+                        :type "unsigned int")
+                        (reparse-symbol classsubparts) [3005 3029])
+                    ("tc" variable
+                       (:suffix ":1"
+                        :type "unsigned int")
+                        (reparse-symbol classsubparts) [3085 3109])
+                    ("aa" variable
+                       (:suffix ":1"
+                        :type "unsigned int")
+                        (reparse-symbol classsubparts) [3165 3189])
+                    ("opcode" variable
+                       (:suffix ":4"
+                        :type "unsigned int")
+                        (reparse-symbol classsubparts) [3245 3269])
+                    ("qr" variable
+                       (:suffix ":1"
+                        :type "unsigned int")
+                        (reparse-symbol classsubparts) [3325 3349])
+                    ("rcode" variable
+                       (:suffix ":4"
+                        :type "unsigned int")
+                        (reparse-symbol classsubparts) [3405 3429])
+                    ("cd" variable
+                       (:suffix ":1"
+                        :type "unsigned int")
+                        (reparse-symbol classsubparts) [3485 3509])
+                    ("ad" variable
+                       (:suffix ":1"
+                        :type "unsigned int")
+                        (reparse-symbol classsubparts) [3565 3589])
+                    ("unused" variable
+                       (:suffix ":1"
+                        :type "unsigned int")
+                        (reparse-symbol classsubparts) [3645 3669])
+                    ("ra" variable
+                       (:suffix ":1"
+                        :type "unsigned int")
+                        (reparse-symbol classsubparts) [3725 3749])
+                    ("qdcount" variable
+                       (:suffix ":16"
+                        :type "unsigned int")
+                        (reparse-symbol classsubparts) [3805 3829])
+                    ("ancount" variable
+                       (:suffix ":16"
+                        :type "unsigned int")
+                        (reparse-symbol classsubparts) [3885 3909])
+                    ("nscount" variable
+                       (:suffix ":16"
+                        :type "unsigned int")
+                        (reparse-symbol classsubparts) [3965 3989])
+                    ("arcount" variable
+                       (:suffix ":16"
+                        :type "unsigned int")
+                        (reparse-symbol classsubparts) [4045 4069]))                  
+                :type "struct")
+                nil [2899 4122])
+            ("dhcphdr" type
+               (:members 
+                  ( ("mtype" variable (:type ("u_int8_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [4151 4169])
+                    ("htype" variable (:type ("u_int8_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [4188 4206])
+                    ("hlen" variable (:type ("u_int8_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [4225 4242])
+                    ("hops" variable (:type ("u_int8_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [4261 4278])
+                    ("tid" variable (:type ("u_int32_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [4297 4313])
+                    ("sec" variable (:type ("u_int16_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [4332 4348])
+                    ("bflag" variable (:type ("u_int16_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [4367 4385])
+                    ("cip" variable (:type ("u_int32_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [4404 4420])
+                    ("yip" variable (:type ("u_int32_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [4439 4455])
+                    ("nip" variable (:type ("u_int32_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [4474 4490])
+                    ("rip" variable (:type ("u_int32_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [4509 4525])
+                    ("cmac" variable
+                       (:dereference 1
+                        :type ("u_int8_t" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [4544 4565])
+                    ("sname" variable
+                       (:dereference 1
+                        :type ("u_int8_t" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [4591 4613])
+                    ("bfile" variable
+                       (:dereference 1
+                        :type ("u_int8_t" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [4639 4662])
+                    ("cookie" variable (:type ("u_int32_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [4677 4696])
+                    ("fop" variable (:type ("u_int8_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [4699 4715])
+                    ("foplen" variable (:type ("u_int8_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [4718 4737])
+                    ("fopval" variable (:type ("u_int8_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [4740 4759]))                  
+                :type "struct")
+                nil [4124 4764])
+            ("arphdr" type
+               (:members 
+                  ( ("etmac" variable
+                       (:dereference 1
+                        :type ("u_int8_t" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [4785 4806])
+                    ("esmac" variable
+                       (:dereference 1
+                        :type ("u_int8_t" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [4809 4830])
+                    ("etype" variable (:type ("u_int16_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [4833 4851])
+                    ("htype" variable (:type ("u_int16_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [4854 4872])
+                    ("ptype" variable (:type ("u_int16_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [4875 4893])
+                    ("hlen" variable (:type ("u_int8_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [4896 4913])
+                    ("plen" variable (:type ("u_int8_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [4916 4933])
+                    ("opcode" variable (:type ("u_int16_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [4936 4955])
+                    ("smac" variable
+                       (:dereference 1
+                        :type ("u_int8_t" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [4958 4978])
+                    ("sip" variable (:type ("u_int32_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [4981 4997]))                  
+                :type "struct")
+                nil [4766 5002]))          
+    :file "howl.h"
+    :pointmax 5003
+    :fsize 5002
+    :lastmodtime '(19908 21237 0 0)
+    :unmatched-syntax 'nil
+    :lexical-table 
+        '(("TSEC" . ((number "100000" 163 . 169)))
+          ("FLDPAY_S" . ((number "128" 228 . 231)))
+          ("PORT" . ((number "80" 39 . 41)))
+          ("ETHERNET" . ((number "0x0001" 79 . 85)))
+          ("DHCPAY_S" . ((number "49" 187 . 189)))
+          ("ETHER_HW_S" . ((number "6" 128 . 129)))
+          ("IPPROTO_S" . ((number "4" 148 . 149)))
+          ("DHCPAYR_S" . ((number "68" 208 . 210)))
+          ("ETHER_HDRLEN" . ((number "14" 23 . 25)))
+          ("INFINITE" . ((punctuation "-" 59 . 60) (number "1" 60 . 61)))
+          ("IPPROTO" . ((number "0x0800" 102 . 108)))
+          ("DPORT" . ((number "3331" 246 . 250)))
+          )
+
+    )
+   )
+  :file "!home!chz!Public!howl-1.19-src!semantic.cache"
+  :semantic-tag-version "2.0"
+  :semanticdb-version "2.2"
+  )

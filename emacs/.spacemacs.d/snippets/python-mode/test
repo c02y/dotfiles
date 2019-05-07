@@ -1,0 +1,17 @@
+# -*- mode: snippet -*-
+# name: test
+# key: t
+# group : testing
+# --
+import unittest
+${1:from ${2:test_file} import ${3:*}}
+
+${4:class Test${5:What}(${6:unittest.TestCase})}:
+    """${7:Tests for '$2.py'.}"""
+    ${8:def test_$9(self):
+        "$10"
+        $13
+        ${0:self.assertEqual($14, $15)}}
+
+if __name__ == '__main__':
+    unittest.main()

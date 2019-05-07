@@ -1,0 +1,1053 @@
+;; Object pcmcia/
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "pcmcia/"
+  :tables (list 
+   (semanticdb-table "cistpl.h"
+    :major-mode 'c-mode
+    :tags 
+        '( ("_LINUX_CISTPL_H" variable (:constant-flag t) nil [488 503])
+            ("cisdata_t" type
+               (:typedef ("unsigned char")
+                :superclasses "unsigned char"
+                :type "typedef")
+                nil [505 537])
+            ("CISTPL_NULL" variable (:constant-flag t) nil [547 558])
+            ("CISTPL_DEVICE" variable (:constant-flag t) nil [573 586])
+            ("CISTPL_LONGLINK_CB" variable (:constant-flag t) nil [601 619])
+            ("CISTPL_INDIRECT" variable (:constant-flag t) nil [633 648])
+            ("CISTPL_CONFIG_CB" variable (:constant-flag t) nil [663 679])
+            ("CISTPL_CFTABLE_ENTRY_CB" variable (:constant-flag t) nil [693 716])
+            ("CISTPL_LONGLINK_MFC" variable (:constant-flag t) nil [730 749])
+            ("CISTPL_BAR" variable (:constant-flag t) nil [763 773])
+            ("CISTPL_PWR_MGMNT" variable (:constant-flag t) nil [788 804])
+            ("CISTPL_EXTDEVICE" variable (:constant-flag t) nil [818 834])
+            ("CISTPL_CHECKSUM" variable (:constant-flag t) nil [848 863])
+            ("CISTPL_LONGLINK_A" variable (:constant-flag t) nil [878 895])
+            ("CISTPL_LONGLINK_C" variable (:constant-flag t) nil [909 926])
+            ("CISTPL_LINKTARGET" variable (:constant-flag t) nil [940 957])
+            ("CISTPL_NO_LINK" variable (:constant-flag t) nil [971 985])
+            ("CISTPL_VERS_1" variable (:constant-flag t) nil [1000 1013])
+            ("CISTPL_ALTSTR" variable (:constant-flag t) nil [1028 1041])
+            ("CISTPL_DEVICE_A" variable (:constant-flag t) nil [1056 1071])
+            ("CISTPL_JEDEC_C" variable (:constant-flag t) nil [1086 1100])
+            ("CISTPL_JEDEC_A" variable (:constant-flag t) nil [1115 1129])
+            ("CISTPL_CONFIG" variable (:constant-flag t) nil [1144 1157])
+            ("CISTPL_CFTABLE_ENTRY" variable (:constant-flag t) nil [1172 1192])
+            ("CISTPL_DEVICE_OC" variable (:constant-flag t) nil [1206 1222])
+            ("CISTPL_DEVICE_OA" variable (:constant-flag t) nil [1236 1252])
+            ("CISTPL_DEVICE_GEO" variable (:constant-flag t) nil [1266 1283])
+            ("CISTPL_DEVICE_GEO_A" variable (:constant-flag t) nil [1297 1316])
+            ("CISTPL_MANFID" variable (:constant-flag t) nil [1330 1343])
+            ("CISTPL_FUNCID" variable (:constant-flag t) nil [1358 1371])
+            ("CISTPL_FUNCE" variable (:constant-flag t) nil [1386 1398])
+            ("CISTPL_SWIL" variable (:constant-flag t) nil [1413 1424])
+            ("CISTPL_END" variable (:constant-flag t) nil [1439 1449])
+            ("CISTPL_VERS_2" variable (:constant-flag t) nil [1485 1498])
+            ("CISTPL_FORMAT" variable (:constant-flag t) nil [1513 1526])
+            ("CISTPL_GEOMETRY" variable (:constant-flag t) nil [1541 1556])
+            ("CISTPL_BYTEORDER" variable (:constant-flag t) nil [1571 1587])
+            ("CISTPL_DATE" variable (:constant-flag t) nil [1601 1612])
+            ("CISTPL_BATTERY" variable (:constant-flag t) nil [1627 1641])
+            ("CISTPL_FORMAT_A" variable (:constant-flag t) nil [1656 1671])
+            ("CISTPL_ORG" variable (:constant-flag t) nil [1707 1717])
+            ("CISTPL_SPCL" variable (:constant-flag t) nil [1732 1743])
+            ("cistpl_longlink_t" type
+               (:typedef ("cistpl_longlink_t" type (:type "struct") nil nil)
+                :superclasses "cistpl_longlink_t"
+                :type "typedef")
+                nil [1751 1822])
+            ("cistpl_longlink_t" type
+               (:members 
+                  ( ("addr" variable (:type ("u_int" type (:type "class") nil nil)) (reparse-symbol classsubparts) [1790 1801]))                  
+                :type "struct")
+                nil [1751 1822])
+            ("cistpl_checksum_t" type
+               (:typedef ("cistpl_checksum_t" type (:type "struct") nil nil)
+                :superclasses "cistpl_checksum_t"
+                :type "typedef")
+                nil [1824 1930])
+            ("cistpl_checksum_t" type
+               (:members 
+                  ( ("addr" variable (:type ("u_short" type (:type "class") nil nil)) (reparse-symbol classsubparts) [1863 1876])
+                    ("len" variable (:type ("u_short" type (:type "class") nil nil)) (reparse-symbol classsubparts) [1881 1893])
+                    ("sum" variable (:type ("u_char" type (:type "class") nil nil)) (reparse-symbol classsubparts) [1898 1909]))                  
+                :type "struct")
+                nil [1824 1930])
+            ("CISTPL_MAX_FUNCTIONS" variable (:constant-flag t) nil [1940 1960])
+            ("CISTPL_MFC_ATTR" variable (:constant-flag t) nil [1971 1986])
+            ("CISTPL_MFC_COMMON" variable (:constant-flag t) nil [2001 2018])
+            ("cistpl_longlink_mfc_t" type
+               (:typedef ("cistpl_longlink_mfc_t" type (:type "struct") nil nil)
+                :superclasses "cistpl_longlink_mfc_t"
+                :type "typedef")
+                nil [2025 2177])
+            ("cistpl_longlink_mfc_t" type
+               (:members 
+                  ( ("nfn" variable (:type ("u_char" type (:type "class") nil nil)) (reparse-symbol classsubparts) [2068 2079])
+                    ("fn" variable
+                       (:dereference 1
+                        :type ("" type
+                             (:members 
+                                ( ("space" variable (:type ("u_char" type (:type "class") nil nil)) (reparse-symbol classsubparts) [2094 2107])
+                                  ("addr" variable (:type ("u_int" type (:type "class") nil nil)) (reparse-symbol classsubparts) [2109 2120]))                                
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol classsubparts) [2084 2152]))                  
+                :type "struct")
+                nil [2025 2177])
+            ("CISTPL_MAX_ALTSTR_STRINGS" variable (:constant-flag t) nil [2187 2212])
+            ("cistpl_altstr_t" type
+               (:typedef ("cistpl_altstr_t" type (:type "struct") nil nil)
+                :superclasses "cistpl_altstr_t"
+                :type "typedef")
+                nil [2216 2344])
+            ("cistpl_altstr_t" type
+               (:members 
+                  ( ("ns" variable (:type ("u_char" type (:type "class") nil nil)) (reparse-symbol classsubparts) [2253 2263])
+                    ("ofs" variable
+                       (:dereference 1
+                        :type ("u_char" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [2268 2306])
+                    ("str" variable
+                       (:dereference 1
+                        :type "char")
+                        (reparse-symbol classsubparts) [2311 2325]))                  
+                :type "struct")
+                nil [2216 2344])
+            ("CISTPL_DTYPE_NULL" variable (:constant-flag t) nil [2354 2371])
+            ("CISTPL_DTYPE_ROM" variable (:constant-flag t) nil [2385 2401])
+            ("CISTPL_DTYPE_OTPROM" variable (:constant-flag t) nil [2415 2434])
+            ("CISTPL_DTYPE_EPROM" variable (:constant-flag t) nil [2448 2466])
+            ("CISTPL_DTYPE_EEPROM" variable (:constant-flag t) nil [2480 2499])
+            ("CISTPL_DTYPE_FLASH" variable (:constant-flag t) nil [2513 2531])
+            ("CISTPL_DTYPE_SRAM" variable (:constant-flag t) nil [2545 2562])
+            ("CISTPL_DTYPE_DRAM" variable (:constant-flag t) nil [2576 2593])
+            ("CISTPL_DTYPE_FUNCSPEC" variable (:constant-flag t) nil [2607 2628])
+            ("CISTPL_DTYPE_EXTEND" variable (:constant-flag t) nil [2642 2661])
+            ("CISTPL_MAX_DEVICES" variable (:constant-flag t) nil [2676 2694])
+            ("cistpl_device_t" type
+               (:typedef ("cistpl_device_t" type (:type "struct") nil nil)
+                :superclasses "cistpl_device_t"
+                :type "typedef")
+                nil [2698 2864])
+            ("cistpl_device_t" type
+               (:members 
+                  ( ("ndev" variable (:type ("u_char" type (:type "class") nil nil)) (reparse-symbol classsubparts) [2735 2747])
+                    ("dev" variable
+                       (:dereference 1
+                        :type ("" type
+                             (:members 
+                                ( ("type" variable (:type ("u_char" type (:type "class") nil nil)) (reparse-symbol classsubparts) [2762 2775])
+                                  ("wp" variable (:type ("u_char" type (:type "class") nil nil)) (reparse-symbol classsubparts) [2777 2787])
+                                  ("speed" variable (:type ("u_int" type (:type "class") nil nil)) (reparse-symbol classsubparts) [2789 2801])
+                                  ("size" variable (:type ("u_int" type (:type "class") nil nil)) (reparse-symbol classsubparts) [2803 2814]))                                
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol classsubparts) [2752 2845]))                  
+                :type "struct")
+                nil [2698 2864])
+            ("CISTPL_DEVICE_MWAIT" variable (:constant-flag t) nil [2874 2893])
+            ("CISTPL_DEVICE_3VCC" variable (:constant-flag t) nil [2907 2925])
+            ("cistpl_device_o_t" type
+               (:typedef ("cistpl_device_o_t" type (:type "struct") nil nil)
+                :superclasses "cistpl_device_o_t"
+                :type "typedef")
+                nil [2932 3034])
+            ("cistpl_device_o_t" type
+               (:members 
+                  ( ("flags" variable (:type ("u_char" type (:type "class") nil nil)) (reparse-symbol classsubparts) [2971 2985])
+                    ("device" variable (:type ("cistpl_device_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [2990 3013]))                  
+                :type "struct")
+                nil [2932 3034])
+            ("CISTPL_VERS_1_MAX_PROD_STRINGS" variable (:constant-flag t) nil [3044 3074])
+            ("cistpl_vers_1_t" type
+               (:typedef ("cistpl_vers_1_t" type (:type "struct") nil nil)
+                :superclasses "cistpl_vers_1_t"
+                :type "typedef")
+                nil [3078 3247])
+            ("cistpl_vers_1_t" type
+               (:members 
+                  ( ("major" variable (:type ("u_char" type (:type "class") nil nil)) (reparse-symbol classsubparts) [3115 3128])
+                    ("minor" variable (:type ("u_char" type (:type "class") nil nil)) (reparse-symbol classsubparts) [3133 3146])
+                    ("ns" variable (:type ("u_char" type (:type "class") nil nil)) (reparse-symbol classsubparts) [3151 3161])
+                    ("ofs" variable
+                       (:dereference 1
+                        :type ("u_char" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [3166 3209])
+                    ("str" variable
+                       (:dereference 1
+                        :type "char")
+                        (reparse-symbol classsubparts) [3214 3228]))                  
+                :type "struct")
+                nil [3078 3247])
+            ("cistpl_jedec_t" type
+               (:typedef ("cistpl_jedec_t" type (:type "struct") nil nil)
+                :superclasses "cistpl_jedec_t"
+                :type "typedef")
+                nil [3249 3384])
+            ("cistpl_jedec_t" type
+               (:members 
+                  ( ("nid" variable (:type ("u_char" type (:type "class") nil nil)) (reparse-symbol classsubparts) [3285 3296])
+                    ("id" variable
+                       (:dereference 1
+                        :type ("" type
+                             (:members 
+                                ( ("mfr" variable (:type ("u_char" type (:type "class") nil nil)) (reparse-symbol classsubparts) [3311 3322])
+                                  ("info" variable (:type ("u_char" type (:type "class") nil nil)) (reparse-symbol classsubparts) [3324 3336]))                                
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol classsubparts) [3301 3366]))                  
+                :type "struct")
+                nil [3249 3384])
+            ("cistpl_manfid_t" type
+               (:typedef ("cistpl_manfid_t" type (:type "struct") nil nil)
+                :superclasses "cistpl_manfid_t"
+                :type "typedef")
+                nil [3386 3473])
+            ("cistpl_manfid_t" type
+               (:members 
+                  ( ("manf" variable (:type ("u_short" type (:type "class") nil nil)) (reparse-symbol classsubparts) [3423 3436])
+                    ("card" variable (:type ("u_short" type (:type "class") nil nil)) (reparse-symbol classsubparts) [3441 3454]))                  
+                :type "struct")
+                nil [3386 3473])
+            ("CISTPL_FUNCID_MULTI" variable (:constant-flag t) nil [3483 3502])
+            ("CISTPL_FUNCID_MEMORY" variable (:constant-flag t) nil [3516 3536])
+            ("CISTPL_FUNCID_SERIAL" variable (:constant-flag t) nil [3550 3570])
+            ("CISTPL_FUNCID_PARALLEL" variable (:constant-flag t) nil [3584 3606])
+            ("CISTPL_FUNCID_FIXED" variable (:constant-flag t) nil [3620 3639])
+            ("CISTPL_FUNCID_VIDEO" variable (:constant-flag t) nil [3653 3672])
+            ("CISTPL_FUNCID_NETWORK" variable (:constant-flag t) nil [3686 3707])
+            ("CISTPL_FUNCID_AIMS" variable (:constant-flag t) nil [3721 3739])
+            ("CISTPL_FUNCID_SCSI" variable (:constant-flag t) nil [3753 3771])
+            ("CISTPL_SYSINIT_POST" variable (:constant-flag t) nil [3786 3805])
+            ("CISTPL_SYSINIT_ROM" variable (:constant-flag t) nil [3819 3837])
+            ("cistpl_funcid_t" type
+               (:typedef ("cistpl_funcid_t" type (:type "struct") nil nil)
+                :superclasses "cistpl_funcid_t"
+                :type "typedef")
+                nil [3844 3932])
+            ("cistpl_funcid_t" type
+               (:members 
+                  ( ("func" variable (:type ("u_char" type (:type "class") nil nil)) (reparse-symbol classsubparts) [3881 3893])
+                    ("sysinit" variable (:type ("u_char" type (:type "class") nil nil)) (reparse-symbol classsubparts) [3898 3913]))                  
+                :type "struct")
+                nil [3844 3932])
+            ("cistpl_funce_t" type
+               (:typedef ("cistpl_funce_t" type (:type "struct") nil nil)
+                :superclasses "cistpl_funce_t"
+                :type "typedef")
+                nil [3934 4020])
+            ("cistpl_funce_t" type
+               (:members 
+                  ( ("type" variable (:type ("u_char" type (:type "class") nil nil)) (reparse-symbol classsubparts) [3970 3982])
+                    ("data" variable
+                       (:dereference 1
+                        :type ("u_char" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [3987 4002]))                  
+                :type "struct")
+                nil [3934 4020])
+            ("CISTPL_FUNCE_SERIAL_IF" variable (:constant-flag t) nil [4215 4237])
+            ("CISTPL_FUNCE_SERIAL_CAP" variable (:constant-flag t) nil [4252 4275])
+            ("CISTPL_FUNCE_SERIAL_SERV_DATA" variable (:constant-flag t) nil [4290 4319])
+            ("CISTPL_FUNCE_SERIAL_SERV_FAX" variable (:constant-flag t) nil [4333 4361])
+            ("CISTPL_FUNCE_SERIAL_SERV_VOICE" variable (:constant-flag t) nil [4375 4405])
+            ("CISTPL_FUNCE_SERIAL_CAP_DATA" variable (:constant-flag t) nil [4419 4447])
+            ("CISTPL_FUNCE_SERIAL_CAP_FAX" variable (:constant-flag t) nil [4461 4488])
+            ("CISTPL_FUNCE_SERIAL_CAP_VOICE" variable (:constant-flag t) nil [4502 4531])
+            ("CISTPL_FUNCE_SERIAL_IF_DATA" variable (:constant-flag t) nil [4545 4572])
+            ("CISTPL_FUNCE_SERIAL_IF_FAX" variable (:constant-flag t) nil [4586 4612])
+            ("CISTPL_FUNCE_SERIAL_IF_VOICE" variable (:constant-flag t) nil [4626 4654])
+            ("CISTPL_SERIAL_UART_8250" variable (:constant-flag t) nil [4695 4718])
+            ("CISTPL_SERIAL_UART_16450" variable (:constant-flag t) nil [4733 4757])
+            ("CISTPL_SERIAL_UART_16550" variable (:constant-flag t) nil [4771 4795])
+            ("CISTPL_SERIAL_UART_8251" variable (:constant-flag t) nil [4809 4832])
+            ("CISTPL_SERIAL_UART_8530" variable (:constant-flag t) nil [4847 4870])
+            ("CISTPL_SERIAL_UART_85230" variable (:constant-flag t) nil [4885 4909])
+            ("CISTPL_SERIAL_UART_SPACE" variable (:constant-flag t) nil [4948 4972])
+            ("CISTPL_SERIAL_UART_MARK" variable (:constant-flag t) nil [4986 5009])
+            ("CISTPL_SERIAL_UART_ODD" variable (:constant-flag t) nil [5024 5046])
+            ("CISTPL_SERIAL_UART_EVEN" variable (:constant-flag t) nil [5061 5084])
+            ("CISTPL_SERIAL_UART_5BIT" variable (:constant-flag t) nil [5099 5122])
+            ("CISTPL_SERIAL_UART_6BIT" variable (:constant-flag t) nil [5137 5160])
+            ("CISTPL_SERIAL_UART_7BIT" variable (:constant-flag t) nil [5175 5198])
+            ("CISTPL_SERIAL_UART_8BIT" variable (:constant-flag t) nil [5213 5236])
+            ("CISTPL_SERIAL_UART_1STOP" variable (:constant-flag t) nil [5251 5275])
+            ("CISTPL_SERIAL_UART_MSTOP" variable (:constant-flag t) nil [5289 5313])
+            ("CISTPL_SERIAL_UART_2STOP" variable (:constant-flag t) nil [5327 5351])
+            ("cistpl_serial_t" type
+               (:typedef ("cistpl_serial_t" type (:type "struct") nil nil)
+                :superclasses "cistpl_serial_t"
+                :type "typedef")
+                nil [5358 5477])
+            ("cistpl_serial_t" type
+               (:members 
+                  ( ("uart_type" variable (:type ("u_char" type (:type "class") nil nil)) (reparse-symbol classsubparts) [5395 5412])
+                    ("uart_cap_0" variable (:type ("u_char" type (:type "class") nil nil)) (reparse-symbol classsubparts) [5417 5435])
+                    ("uart_cap_1" variable (:type ("u_char" type (:type "class") nil nil)) (reparse-symbol classsubparts) [5440 5458]))                  
+                :type "struct")
+                nil [5358 5477])
+            ("cistpl_modem_cap_t" type
+               (:typedef ("cistpl_modem_cap_t" type (:type "struct") nil nil)
+                :superclasses "cistpl_modem_cap_t"
+                :type "typedef")
+                nil [5479 5664])
+            ("cistpl_modem_cap_t" type
+               (:members 
+                  ( ("flow" variable (:type ("u_char" type (:type "class") nil nil)) (reparse-symbol classsubparts) [5519 5531])
+                    ("cmd_buf" variable (:type ("u_char" type (:type "class") nil nil)) (reparse-symbol classsubparts) [5536 5551])
+                    ("rcv_buf_2" variable (:type ("u_char" type (:type "class") nil nil)) (reparse-symbol classsubparts) [5556 5595])
+                    ("rcv_buf_1" variable (:type ("u_char" type (:type "class") nil nil)) (reparse-symbol classsubparts) [5556 5595])
+                    ("rcv_buf_0" variable (:type ("u_char" type (:type "class") nil nil)) (reparse-symbol classsubparts) [5556 5595])
+                    ("xmit_buf_2" variable (:type ("u_char" type (:type "class") nil nil)) (reparse-symbol classsubparts) [5600 5642])
+                    ("xmit_buf_1" variable (:type ("u_char" type (:type "class") nil nil)) (reparse-symbol classsubparts) [5600 5642])
+                    ("xmit_buf_0" variable (:type ("u_char" type (:type "class") nil nil)) (reparse-symbol classsubparts) [5600 5642]))                  
+                :type "struct")
+                nil [5479 5664])
+            ("CISTPL_SERIAL_MOD_103" variable (:constant-flag t) nil [5674 5695])
+            ("CISTPL_SERIAL_MOD_V21" variable (:constant-flag t) nil [5710 5731])
+            ("CISTPL_SERIAL_MOD_V23" variable (:constant-flag t) nil [5746 5767])
+            ("CISTPL_SERIAL_MOD_V22" variable (:constant-flag t) nil [5782 5803])
+            ("CISTPL_SERIAL_MOD_212A" variable (:constant-flag t) nil [5818 5840])
+            ("CISTPL_SERIAL_MOD_V22BIS" variable (:constant-flag t) nil [5855 5879])
+            ("CISTPL_SERIAL_MOD_V26" variable (:constant-flag t) nil [5893 5914])
+            ("CISTPL_SERIAL_MOD_V26BIS" variable (:constant-flag t) nil [5929 5953])
+            ("CISTPL_SERIAL_MOD_V27BIS" variable (:constant-flag t) nil [5967 5991])
+            ("CISTPL_SERIAL_MOD_V29" variable (:constant-flag t) nil [6005 6026])
+            ("CISTPL_SERIAL_MOD_V32" variable (:constant-flag t) nil [6041 6062])
+            ("CISTPL_SERIAL_MOD_V32BIS" variable (:constant-flag t) nil [6077 6101])
+            ("CISTPL_SERIAL_MOD_V34" variable (:constant-flag t) nil [6115 6136])
+            ("CISTPL_SERIAL_ERR_MNP2_4" variable (:constant-flag t) nil [6152 6176])
+            ("CISTPL_SERIAL_ERR_V42_LAPM" variable (:constant-flag t) nil [6190 6216])
+            ("CISTPL_SERIAL_CMPR_V42BIS" variable (:constant-flag t) nil [6231 6256])
+            ("CISTPL_SERIAL_CMPR_MNP5" variable (:constant-flag t) nil [6270 6293])
+            ("CISTPL_SERIAL_CMD_AT1" variable (:constant-flag t) nil [6309 6330])
+            ("CISTPL_SERIAL_CMD_AT2" variable (:constant-flag t) nil [6345 6366])
+            ("CISTPL_SERIAL_CMD_AT3" variable (:constant-flag t) nil [6381 6402])
+            ("CISTPL_SERIAL_CMD_MNP_AT" variable (:constant-flag t) nil [6417 6441])
+            ("CISTPL_SERIAL_CMD_V25BIS" variable (:constant-flag t) nil [6455 6479])
+            ("CISTPL_SERIAL_CMD_V25A" variable (:constant-flag t) nil [6493 6515])
+            ("CISTPL_SERIAL_CMD_DMCL" variable (:constant-flag t) nil [6530 6552])
+            ("cistpl_data_serv_t" type
+               (:typedef ("cistpl_data_serv_t" type (:type "struct") nil nil)
+                :superclasses "cistpl_data_serv_t"
+                :type "typedef")
+                nil [6560 6879])
+            ("cistpl_data_serv_t" type
+               (:members 
+                  ( ("max_data_0" variable (:type ("u_char" type (:type "class") nil nil)) (reparse-symbol classsubparts) [6600 6618])
+                    ("max_data_1" variable (:type ("u_char" type (:type "class") nil nil)) (reparse-symbol classsubparts) [6623 6641])
+                    ("modulation_0" variable (:type ("u_char" type (:type "class") nil nil)) (reparse-symbol classsubparts) [6646 6666])
+                    ("modulation_1" variable (:type ("u_char" type (:type "class") nil nil)) (reparse-symbol classsubparts) [6671 6691])
+                    ("error_control" variable (:type ("u_char" type (:type "class") nil nil)) (reparse-symbol classsubparts) [6696 6717])
+                    ("compression" variable (:type ("u_char" type (:type "class") nil nil)) (reparse-symbol classsubparts) [6722 6741])
+                    ("cmd_protocol" variable (:type ("u_char" type (:type "class") nil nil)) (reparse-symbol classsubparts) [6746 6766])
+                    ("escape" variable (:type ("u_char" type (:type "class") nil nil)) (reparse-symbol classsubparts) [6771 6785])
+                    ("encrypt" variable (:type ("u_char" type (:type "class") nil nil)) (reparse-symbol classsubparts) [6790 6805])
+                    ("misc_features" variable (:type ("u_char" type (:type "class") nil nil)) (reparse-symbol classsubparts) [6810 6831])
+                    ("ccitt_code" variable
+                       (:dereference 1
+                        :type ("u_char" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [6836 6857]))                  
+                :type "struct")
+                nil [6560 6879])
+            ("cistpl_fax_serv_t" type
+               (:typedef ("cistpl_fax_serv_t" type (:type "struct") nil nil)
+                :superclasses "cistpl_fax_serv_t"
+                :type "typedef")
+                nil [6881 7097])
+            ("cistpl_fax_serv_t" type
+               (:members 
+                  ( ("max_data_0" variable (:type ("u_char" type (:type "class") nil nil)) (reparse-symbol classsubparts) [6920 6938])
+                    ("max_data_1" variable (:type ("u_char" type (:type "class") nil nil)) (reparse-symbol classsubparts) [6943 6961])
+                    ("modulation" variable (:type ("u_char" type (:type "class") nil nil)) (reparse-symbol classsubparts) [6966 6984])
+                    ("encrypt" variable (:type ("u_char" type (:type "class") nil nil)) (reparse-symbol classsubparts) [6989 7004])
+                    ("features_0" variable (:type ("u_char" type (:type "class") nil nil)) (reparse-symbol classsubparts) [7009 7027])
+                    ("features_1" variable (:type ("u_char" type (:type "class") nil nil)) (reparse-symbol classsubparts) [7032 7050])
+                    ("ccitt_code" variable
+                       (:dereference 1
+                        :type ("u_char" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [7055 7076]))                  
+                :type "struct")
+                nil [6881 7097])
+            ("cistpl_voice_serv_t" type
+               (:typedef ("cistpl_voice_serv_t" type (:type "struct") nil nil)
+                :superclasses "cistpl_voice_serv_t"
+                :type "typedef")
+                nil [7099 7204])
+            ("cistpl_voice_serv_t" type
+               (:members 
+                  ( ("max_data_0" variable (:type ("u_char" type (:type "class") nil nil)) (reparse-symbol classsubparts) [7140 7158])
+                    ("max_data_1" variable (:type ("u_char" type (:type "class") nil nil)) (reparse-symbol classsubparts) [7163 7181]))                  
+                :type "struct")
+                nil [7099 7204])
+            ("CISTPL_FUNCE_LAN_TECH" variable (:constant-flag t) nil [7397 7418])
+            ("CISTPL_FUNCE_LAN_SPEED" variable (:constant-flag t) nil [7433 7455])
+            ("CISTPL_FUNCE_LAN_MEDIA" variable (:constant-flag t) nil [7470 7492])
+            ("CISTPL_FUNCE_LAN_NODE_ID" variable (:constant-flag t) nil [7507 7531])
+            ("CISTPL_FUNCE_LAN_CONNECTOR" variable (:constant-flag t) nil [7545 7571])
+            ("CISTPL_LAN_TECH_ARCNET" variable (:constant-flag t) nil [7609 7631])
+            ("CISTPL_LAN_TECH_ETHERNET" variable (:constant-flag t) nil [7646 7670])
+            ("CISTPL_LAN_TECH_TOKENRING" variable (:constant-flag t) nil [7684 7709])
+            ("CISTPL_LAN_TECH_LOCALTALK" variable (:constant-flag t) nil [7723 7748])
+            ("CISTPL_LAN_TECH_FDDI" variable (:constant-flag t) nil [7762 7782])
+            ("CISTPL_LAN_TECH_ATM" variable (:constant-flag t) nil [7797 7816])
+            ("CISTPL_LAN_TECH_WIRELESS" variable (:constant-flag t) nil [7831 7855])
+            ("cistpl_lan_tech_t" type
+               (:typedef ("cistpl_lan_tech_t" type (:type "struct") nil nil)
+                :superclasses "cistpl_lan_tech_t"
+                :type "typedef")
+                nil [7862 7934])
+            ("cistpl_lan_tech_t" type
+               (:members 
+                  ( ("tech" variable (:type ("u_char" type (:type "class") nil nil)) (reparse-symbol classsubparts) [7901 7913]))                  
+                :type "struct")
+                nil [7862 7934])
+            ("cistpl_lan_speed_t" type
+               (:typedef ("cistpl_lan_speed_t" type (:type "struct") nil nil)
+                :superclasses "cistpl_lan_speed_t"
+                :type "typedef")
+                nil [7936 8010])
+            ("cistpl_lan_speed_t" type
+               (:members 
+                  ( ("speed" variable (:type ("u_int" type (:type "class") nil nil)) (reparse-symbol classsubparts) [7976 7988]))                  
+                :type "struct")
+                nil [7936 8010])
+            ("CISTPL_LAN_MEDIA_UTP" variable (:constant-flag t) nil [8048 8068])
+            ("CISTPL_LAN_MEDIA_STP" variable (:constant-flag t) nil [8083 8103])
+            ("CISTPL_LAN_MEDIA_THIN_COAX" variable (:constant-flag t) nil [8118 8144])
+            ("CISTPL_LAN_MEDIA_THICK_COAX" variable (:constant-flag t) nil [8158 8185])
+            ("CISTPL_LAN_MEDIA_FIBER" variable (:constant-flag t) nil [8199 8221])
+            ("CISTPL_LAN_MEDIA_900MHZ" variable (:constant-flag t) nil [8236 8259])
+            ("CISTPL_LAN_MEDIA_2GHZ" variable (:constant-flag t) nil [8274 8295])
+            ("CISTPL_LAN_MEDIA_5GHZ" variable (:constant-flag t) nil [8310 8331])
+            ("CISTPL_LAN_MEDIA_DIFF_IR" variable (:constant-flag t) nil [8346 8370])
+            ("CISTPL_LAN_MEDIA_PTP_IR" variable (:constant-flag t) nil [8384 8407])
+            ("cistpl_lan_media_t" type
+               (:typedef ("cistpl_lan_media_t" type (:type "struct") nil nil)
+                :superclasses "cistpl_lan_media_t"
+                :type "typedef")
+                nil [8415 8490])
+            ("cistpl_lan_media_t" type
+               (:members 
+                  ( ("media" variable (:type ("u_char" type (:type "class") nil nil)) (reparse-symbol classsubparts) [8455 8468]))                  
+                :type "struct")
+                nil [8415 8490])
+            ("cistpl_lan_node_id_t" type
+               (:typedef ("cistpl_lan_node_id_t" type (:type "struct") nil nil)
+                :superclasses "cistpl_lan_node_id_t"
+                :type "typedef")
+                nil [8492 8587])
+            ("cistpl_lan_node_id_t" type
+               (:members 
+                  ( ("nb" variable (:type ("u_char" type (:type "class") nil nil)) (reparse-symbol classsubparts) [8534 8544])
+                    ("id" variable
+                       (:dereference 1
+                        :type ("u_char" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [8549 8563]))                  
+                :type "struct")
+                nil [8492 8587])
+            ("cistpl_lan_connector_t" type
+               (:typedef ("cistpl_lan_connector_t" type (:type "struct") nil nil)
+                :superclasses "cistpl_lan_connector_t"
+                :type "typedef")
+                nil [8589 8671])
+            ("cistpl_lan_connector_t" type
+               (:members 
+                  ( ("code" variable (:type ("u_char" type (:type "class") nil nil)) (reparse-symbol classsubparts) [8633 8645]))                  
+                :type "struct")
+                nil [8589 8671])
+            ("CISTPL_IDE_INTERFACE" variable (:constant-flag t) nil [8864 8884])
+            ("cistpl_ide_interface_t" type
+               (:typedef ("cistpl_ide_interface_t" type (:type "struct") nil nil)
+                :superclasses "cistpl_ide_interface_t"
+                :type "typedef")
+                nil [8892 8979])
+            ("cistpl_ide_interface_t" type
+               (:members 
+                  ( ("interface" variable (:type ("u_char" type (:type "class") nil nil)) (reparse-symbol classsubparts) [8936 8953]))                  
+                :type "struct")
+                nil [8892 8979])
+            ("CISTPL_IDE_SILICON" variable (:constant-flag t) nil [9014 9032])
+            ("CISTPL_IDE_UNIQUE" variable (:constant-flag t) nil [9047 9064])
+            ("CISTPL_IDE_DUAL" variable (:constant-flag t) nil [9079 9094])
+            ("CISTPL_IDE_HAS_SLEEP" variable (:constant-flag t) nil [9137 9157])
+            ("CISTPL_IDE_HAS_STANDBY" variable (:constant-flag t) nil [9172 9194])
+            ("CISTPL_IDE_HAS_IDLE" variable (:constant-flag t) nil [9209 9228])
+            ("CISTPL_IDE_LOW_POWER" variable (:constant-flag t) nil [9243 9263])
+            ("CISTPL_IDE_REG_INHIBIT" variable (:constant-flag t) nil [9278 9300])
+            ("CISTPL_IDE_HAS_INDEX" variable (:constant-flag t) nil [9315 9335])
+            ("CISTPL_IDE_IOIS16" variable (:constant-flag t) nil [9350 9367])
+            ("cistpl_ide_feature_t" type
+               (:typedef ("cistpl_ide_feature_t" type (:type "struct") nil nil)
+                :superclasses "cistpl_ide_feature_t"
+                :type "typedef")
+                nil [9375 9478])
+            ("cistpl_ide_feature_t" type
+               (:members 
+                  ( ("feature1" variable (:type ("u_char" type (:type "class") nil nil)) (reparse-symbol classsubparts) [9417 9433])
+                    ("feature2" variable (:type ("u_char" type (:type "class") nil nil)) (reparse-symbol classsubparts) [9438 9454]))                  
+                :type "struct")
+                nil [9375 9478])
+            ("CISTPL_FUNCE_IDE_IFACE" variable (:constant-flag t) nil [9488 9510])
+            ("CISTPL_FUNCE_IDE_MASTER" variable (:constant-flag t) nil [9525 9548])
+            ("CISTPL_FUNCE_IDE_SLAVE" variable (:constant-flag t) nil [9563 9585])
+            ("CISTPL_BAR_SPACE" variable (:constant-flag t) nil [9782 9798])
+            ("CISTPL_BAR_SPACE_IO" variable (:constant-flag t) nil [9812 9831])
+            ("CISTPL_BAR_PREFETCH" variable (:constant-flag t) nil [9845 9864])
+            ("CISTPL_BAR_CACHEABLE" variable (:constant-flag t) nil [9878 9898])
+            ("CISTPL_BAR_1MEG_MAP" variable (:constant-flag t) nil [9912 9931])
+            ("cistpl_bar_t" type
+               (:typedef ("cistpl_bar_t" type (:type "struct") nil nil)
+                :superclasses "cistpl_bar_t"
+                :type "typedef")
+                nil [9938 10016])
+            ("cistpl_bar_t" type
+               (:members 
+                  ( ("attr" variable (:type ("u_char" type (:type "class") nil nil)) (reparse-symbol classsubparts) [9972 9984])
+                    ("size" variable (:type ("u_int" type (:type "class") nil nil)) (reparse-symbol classsubparts) [9989 10000]))                  
+                :type "struct")
+                nil [9938 10016])
+            ("cistpl_config_t" type
+               (:typedef ("cistpl_config_t" type (:type "struct") nil nil)
+                :superclasses "cistpl_config_t"
+                :type "typedef")
+                nil [10018 10148])
+            ("cistpl_config_t" type
+               (:members 
+                  ( ("last_idx" variable (:type ("u_char" type (:type "class") nil nil)) (reparse-symbol classsubparts) [10055 10071])
+                    ("base" variable (:type ("u_int" type (:type "class") nil nil)) (reparse-symbol classsubparts) [10076 10087])
+                    ("rmask" variable
+                       (:dereference 1
+                        :type ("u_int" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [10092 10107])
+                    ("subtuples" variable (:type ("u_char" type (:type "class") nil nil)) (reparse-symbol classsubparts) [10112 10129]))                  
+                :type "struct")
+                nil [10018 10148])
+            ("CISTPL_POWER_VNOM" variable (:constant-flag t) nil [10226 10243])
+            ("CISTPL_POWER_VMIN" variable (:constant-flag t) nil [10254 10271])
+            ("CISTPL_POWER_VMAX" variable (:constant-flag t) nil [10282 10299])
+            ("CISTPL_POWER_ISTATIC" variable (:constant-flag t) nil [10310 10330])
+            ("CISTPL_POWER_IAVG" variable (:constant-flag t) nil [10341 10358])
+            ("CISTPL_POWER_IPEAK" variable (:constant-flag t) nil [10369 10387])
+            ("CISTPL_POWER_IDOWN" variable (:constant-flag t) nil [10398 10416])
+            ("CISTPL_POWER_HIGHZ_OK" variable (:constant-flag t) nil [10428 10449])
+            ("CISTPL_POWER_HIGHZ_REQ" variable (:constant-flag t) nil [10463 10485])
+            ("cistpl_power_t" type
+               (:typedef ("cistpl_power_t" type (:type "struct") nil nil)
+                :superclasses "cistpl_power_t"
+                :type "typedef")
+                nil [10492 10599])
+            ("cistpl_power_t" type
+               (:members 
+                  ( ("present" variable (:type ("u_char" type (:type "class") nil nil)) (reparse-symbol classsubparts) [10528 10543])
+                    ("flags" variable (:type ("u_char" type (:type "class") nil nil)) (reparse-symbol classsubparts) [10548 10561])
+                    ("param" variable
+                       (:dereference 1
+                        :type ("u_int" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [10566 10581]))                  
+                :type "struct")
+                nil [10492 10599])
+            ("cistpl_timing_t" type
+               (:typedef ("cistpl_timing_t" type (:type "struct") nil nil)
+                :superclasses "cistpl_timing_t"
+                :type "typedef")
+                nil [10601 10736])
+            ("cistpl_timing_t" type
+               (:members 
+                  ( ("waitscale" variable (:type ("u_int" type (:type "class") nil nil)) (reparse-symbol classsubparts) [10638 10660])
+                    ("wait" variable (:type ("u_int" type (:type "class") nil nil)) (reparse-symbol classsubparts) [10638 10660])
+                    ("rdyscale" variable (:type ("u_int" type (:type "class") nil nil)) (reparse-symbol classsubparts) [10665 10687])
+                    ("ready" variable (:type ("u_int" type (:type "class") nil nil)) (reparse-symbol classsubparts) [10665 10687])
+                    ("rsvscale" variable (:type ("u_int" type (:type "class") nil nil)) (reparse-symbol classsubparts) [10692 10717])
+                    ("reserved" variable (:type ("u_int" type (:type "class") nil nil)) (reparse-symbol classsubparts) [10692 10717]))                  
+                :type "struct")
+                nil [10601 10736])
+            ("CISTPL_IO_LINES_MASK" variable (:constant-flag t) nil [10746 10766])
+            ("CISTPL_IO_8BIT" variable (:constant-flag t) nil [10780 10794])
+            ("CISTPL_IO_16BIT" variable (:constant-flag t) nil [10809 10824])
+            ("CISTPL_IO_RANGE" variable (:constant-flag t) nil [10839 10854])
+            ("CISTPL_IO_MAX_WIN" variable (:constant-flag t) nil [10870 10887])
+            ("cistpl_io_t" type
+               (:typedef ("cistpl_io_t" type (:type "struct") nil nil)
+                :superclasses "cistpl_io_t"
+                :type "typedef")
+                nil [10892 11038])
+            ("cistpl_io_t" type
+               (:members 
+                  ( ("flags" variable (:type ("u_char" type (:type "class") nil nil)) (reparse-symbol classsubparts) [10925 10938])
+                    ("nwin" variable (:type ("u_char" type (:type "class") nil nil)) (reparse-symbol classsubparts) [10943 10955])
+                    ("win" variable
+                       (:dereference 1
+                        :type ("" type
+                             (:members 
+                                ( ("base" variable (:type ("u_int" type (:type "class") nil nil)) (reparse-symbol classsubparts) [10970 10981])
+                                  ("len" variable (:type ("u_int" type (:type "class") nil nil)) (reparse-symbol classsubparts) [10983 10993]))                                
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol classsubparts) [10960 11023]))                  
+                :type "struct")
+                nil [10892 11038])
+            ("cistpl_irq_t" type
+               (:typedef ("cistpl_irq_t" type (:type "struct") nil nil)
+                :superclasses "cistpl_irq_t"
+                :type "typedef")
+                nil [11040 11125])
+            ("cistpl_irq_t" type
+               (:members 
+                  ( ("IRQInfo1" variable (:type ("u_int" type (:type "class") nil nil)) (reparse-symbol classsubparts) [11074 11089])
+                    ("IRQInfo2" variable (:type ("u_int" type (:type "class") nil nil)) (reparse-symbol classsubparts) [11094 11109]))                  
+                :type "struct")
+                nil [11040 11125])
+            ("CISTPL_MEM_MAX_WIN" variable (:constant-flag t) nil [11135 11153])
+            ("cistpl_mem_t" type
+               (:typedef ("cistpl_mem_t" type (:type "struct") nil nil)
+                :superclasses "cistpl_mem_t"
+                :type "typedef")
+                nil [11157 11329])
+            ("cistpl_mem_t" type
+               (:members 
+                  ( ("flags" variable (:type ("u_char" type (:type "class") nil nil)) (reparse-symbol classsubparts) [11191 11204])
+                    ("nwin" variable (:type ("u_char" type (:type "class") nil nil)) (reparse-symbol classsubparts) [11209 11221])
+                    ("win" variable
+                       (:dereference 1
+                        :type ("" type
+                             (:members 
+                                ( ("len" variable (:type ("u_int" type (:type "class") nil nil)) (reparse-symbol classsubparts) [11236 11246])
+                                  ("card_addr" variable (:type ("u_int" type (:type "class") nil nil)) (reparse-symbol classsubparts) [11248 11264])
+                                  ("host_addr" variable (:type ("u_int" type (:type "class") nil nil)) (reparse-symbol classsubparts) [11266 11282]))                                
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol classsubparts) [11226 11313]))                  
+                :type "struct")
+                nil [11157 11329])
+            ("CISTPL_CFTABLE_DEFAULT" variable (:constant-flag t) nil [11339 11361])
+            ("CISTPL_CFTABLE_BVDS" variable (:constant-flag t) nil [11378 11397])
+            ("CISTPL_CFTABLE_WP" variable (:constant-flag t) nil [11414 11431])
+            ("CISTPL_CFTABLE_RDYBSY" variable (:constant-flag t) nil [11448 11469])
+            ("CISTPL_CFTABLE_MWAIT" variable (:constant-flag t) nil [11486 11506])
+            ("CISTPL_CFTABLE_AUDIO" variable (:constant-flag t) nil [11523 11543])
+            ("CISTPL_CFTABLE_READONLY" variable (:constant-flag t) nil [11560 11583])
+            ("CISTPL_CFTABLE_PWRDOWN" variable (:constant-flag t) nil [11600 11622])
+            ("cistpl_cftable_entry_t" type
+               (:typedef ("cistpl_cftable_entry_t" type (:type "struct") nil nil)
+                :superclasses "cistpl_cftable_entry_t"
+                :type "typedef")
+                nil [11632 11911])
+            ("cistpl_cftable_entry_t" type
+               (:members 
+                  ( ("index" variable (:type ("u_char" type (:type "class") nil nil)) (reparse-symbol classsubparts) [11676 11690])
+                    ("flags" variable (:type ("u_short" type (:type "class") nil nil)) (reparse-symbol classsubparts) [11695 11710])
+                    ("interface" variable (:type ("u_char" type (:type "class") nil nil)) (reparse-symbol classsubparts) [11715 11733])
+                    ("vpp2" variable (:type ("cistpl_power_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [11738 11769])
+                    ("vpp1" variable (:type ("cistpl_power_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [11738 11769])
+                    ("vcc" variable (:type ("cistpl_power_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [11738 11769])
+                    ("timing" variable (:type ("cistpl_timing_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [11774 11797])
+                    ("io" variable (:type ("cistpl_io_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [11802 11818])
+                    ("irq" variable (:type ("cistpl_irq_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [11823 11840])
+                    ("mem" variable (:type ("cistpl_mem_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [11845 11862])
+                    ("subtuples" variable (:type ("u_char" type (:type "class") nil nil)) (reparse-symbol classsubparts) [11867 11885]))                  
+                :type "struct")
+                nil [11632 11911])
+            ("CISTPL_CFTABLE_MASTER" variable (:constant-flag t) nil [11921 11942])
+            ("CISTPL_CFTABLE_INVALIDATE" variable (:constant-flag t) nil [11961 11986])
+            ("CISTPL_CFTABLE_VGA_PALETTE" variable (:constant-flag t) nil [12004 12030])
+            ("CISTPL_CFTABLE_PARITY" variable (:constant-flag t) nil [12048 12069])
+            ("CISTPL_CFTABLE_WAIT" variable (:constant-flag t) nil [12088 12107])
+            ("CISTPL_CFTABLE_SERR" variable (:constant-flag t) nil [12126 12145])
+            ("CISTPL_CFTABLE_FAST_BACK" variable (:constant-flag t) nil [12164 12188])
+            ("CISTPL_CFTABLE_BINARY_AUDIO" variable (:constant-flag t) nil [12206 12233])
+            ("CISTPL_CFTABLE_PWM_AUDIO" variable (:constant-flag t) nil [12251 12275])
+            ("cistpl_cftable_entry_cb_t" type
+               (:typedef ("cistpl_cftable_entry_cb_t" type (:type "struct") nil nil)
+                :superclasses "cistpl_cftable_entry_cb_t"
+                :type "typedef")
+                nil [12286 12508])
+            ("cistpl_cftable_entry_cb_t" type
+               (:members 
+                  ( ("index" variable (:type ("u_char" type (:type "class") nil nil)) (reparse-symbol classsubparts) [12333 12347])
+                    ("flags" variable (:type ("u_int" type (:type "class") nil nil)) (reparse-symbol classsubparts) [12352 12365])
+                    ("vpp2" variable (:type ("cistpl_power_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [12370 12401])
+                    ("vpp1" variable (:type ("cistpl_power_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [12370 12401])
+                    ("vcc" variable (:type ("cistpl_power_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [12370 12401])
+                    ("io" variable (:type ("u_char" type (:type "class") nil nil)) (reparse-symbol classsubparts) [12406 12417])
+                    ("irq" variable (:type ("cistpl_irq_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [12422 12439])
+                    ("mem" variable (:type ("u_char" type (:type "class") nil nil)) (reparse-symbol classsubparts) [12444 12456])
+                    ("subtuples" variable (:type ("u_char" type (:type "class") nil nil)) (reparse-symbol classsubparts) [12461 12479]))                  
+                :type "struct")
+                nil [12286 12508])
+            ("cistpl_device_geo_t" type
+               (:typedef ("cistpl_device_geo_t" type (:type "struct") nil nil)
+                :superclasses "cistpl_device_geo_t"
+                :type "typedef")
+                nil [12510 12751])
+            ("cistpl_device_geo_t" type
+               (:members 
+                  ( ("ngeo" variable (:type ("u_char" type (:type "class") nil nil)) (reparse-symbol classsubparts) [12551 12564])
+                    ("geo" variable
+                       (:dereference 1
+                        :type ("" type
+                             (:members 
+                                ( ("buswidth" variable (:type ("u_char" type (:type "class") nil nil)) (reparse-symbol classsubparts) [12579 12596])
+                                  ("erase_block" variable (:type ("u_int" type (:type "class") nil nil)) (reparse-symbol classsubparts) [12598 12617])
+                                  ("read_block" variable (:type ("u_int" type (:type "class") nil nil)) (reparse-symbol classsubparts) [12619 12637])
+                                  ("write_block" variable (:type ("u_int" type (:type "class") nil nil)) (reparse-symbol classsubparts) [12639 12658])
+                                  ("partition" variable (:type ("u_int" type (:type "class") nil nil)) (reparse-symbol classsubparts) [12660 12677])
+                                  ("interleave" variable (:type ("u_int" type (:type "class") nil nil)) (reparse-symbol classsubparts) [12679 12697]))                                
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol classsubparts) [12569 12728]))                  
+                :type "struct")
+                nil [12510 12751])
+            ("cistpl_vers_2_t" type
+               (:typedef ("cistpl_vers_2_t" type (:type "struct") nil nil)
+                :superclasses "cistpl_vers_2_t"
+                :type "typedef")
+                nil [12753 12948])
+            ("cistpl_vers_2_t" type
+               (:members 
+                  ( ("vers" variable (:type ("u_char" type (:type "class") nil nil)) (reparse-symbol classsubparts) [12790 12802])
+                    ("comply" variable (:type ("u_char" type (:type "class") nil nil)) (reparse-symbol classsubparts) [12807 12821])
+                    ("dindex" variable (:type ("u_short" type (:type "class") nil nil)) (reparse-symbol classsubparts) [12826 12841])
+                    ("vspec9" variable (:type ("u_char" type (:type "class") nil nil)) (reparse-symbol classsubparts) [12846 12868])
+                    ("vspec8" variable (:type ("u_char" type (:type "class") nil nil)) (reparse-symbol classsubparts) [12846 12868])
+                    ("nhdr" variable (:type ("u_char" type (:type "class") nil nil)) (reparse-symbol classsubparts) [12873 12885])
+                    ("info" variable (:type ("u_char" type (:type "class") nil nil)) (reparse-symbol classsubparts) [12890 12910])
+                    ("vendor" variable (:type ("u_char" type (:type "class") nil nil)) (reparse-symbol classsubparts) [12890 12910])
+                    ("str" variable
+                       (:dereference 1
+                        :type "char")
+                        (reparse-symbol classsubparts) [12915 12929]))                  
+                :type "struct")
+                nil [12753 12948])
+            ("cistpl_org_t" type
+               (:typedef ("cistpl_org_t" type (:type "struct") nil nil)
+                :superclasses "cistpl_org_t"
+                :type "typedef")
+                nil [12950 13035])
+            ("cistpl_org_t" type
+               (:members 
+                  ( ("data_org" variable (:type ("u_char" type (:type "class") nil nil)) (reparse-symbol classsubparts) [12984 13000])
+                    ("desc" variable
+                       (:dereference 1
+                        :type "char")
+                        (reparse-symbol classsubparts) [13005 13019]))                  
+                :type "struct")
+                nil [12950 13035])
+            ("CISTPL_ORG_FS" variable (:constant-flag t) nil [13045 13058])
+            ("CISTPL_ORG_APPSPEC" variable (:constant-flag t) nil [13073 13091])
+            ("CISTPL_ORG_XIP" variable (:constant-flag t) nil [13105 13119])
+            ("cistpl_format_t" type
+               (:typedef ("cistpl_format_t" type (:type "struct") nil nil)
+                :superclasses "cistpl_format_t"
+                :type "typedef")
+                nil [13127 13247])
+            ("cistpl_format_t" type
+               (:members 
+                  ( ("type" variable (:type ("u_char" type (:type "class") nil nil)) (reparse-symbol classsubparts) [13164 13176])
+                    ("edc" variable (:type ("u_char" type (:type "class") nil nil)) (reparse-symbol classsubparts) [13181 13192])
+                    ("offset" variable (:type ("u_int" type (:type "class") nil nil)) (reparse-symbol classsubparts) [13197 13210])
+                    ("length" variable (:type ("u_int" type (:type "class") nil nil)) (reparse-symbol classsubparts) [13215 13228]))                  
+                :type "struct")
+                nil [13127 13247])
+            ("CISTPL_FORMAT_DISK" variable (:constant-flag t) nil [13257 13275])
+            ("CISTPL_FORMAT_MEM" variable (:constant-flag t) nil [13289 13306])
+            ("CISTPL_EDC_NONE" variable (:constant-flag t) nil [13321 13336])
+            ("CISTPL_EDC_CKSUM" variable (:constant-flag t) nil [13351 13367])
+            ("CISTPL_EDC_CRC" variable (:constant-flag t) nil [13381 13395])
+            ("CISTPL_EDC_PCC" variable (:constant-flag t) nil [13410 13424])
+            ("cisparse_t" type
+               (:typedef ("cisparse_t" type (:type "union") nil nil)
+                :superclasses "cisparse_t"
+                :type "typedef")
+                nil [13432 14040])
+            ("cisparse_t" type
+               (:members 
+                  ( ("device" variable (:type ("cistpl_device_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [13463 13487])
+                    ("checksum" variable (:type ("cistpl_checksum_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [13492 13520])
+                    ("longlink" variable (:type ("cistpl_longlink_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [13525 13553])
+                    ("longlink_mfc" variable (:type ("cistpl_longlink_mfc_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [13558 13593])
+                    ("version_1" variable (:type ("cistpl_vers_1_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [13598 13625])
+                    ("altstr" variable (:type ("cistpl_altstr_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [13630 13654])
+                    ("jedec" variable (:type ("cistpl_jedec_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [13659 13681])
+                    ("manfid" variable (:type ("cistpl_manfid_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [13686 13710])
+                    ("funcid" variable (:type ("cistpl_funcid_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [13715 13739])
+                    ("funce" variable (:type ("cistpl_funce_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [13744 13766])
+                    ("bar" variable (:type ("cistpl_bar_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [13771 13789])
+                    ("config" variable (:type ("cistpl_config_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [13794 13818])
+                    ("cftable_entry" variable (:type ("cistpl_cftable_entry_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [13823 13860])
+                    ("cftable_entry_cb" variable (:type ("cistpl_cftable_entry_cb_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [13865 13908])
+                    ("device_geo" variable (:type ("cistpl_device_geo_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [13913 13945])
+                    ("vers_2" variable (:type ("cistpl_vers_2_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [13950 13974])
+                    ("org" variable (:type ("cistpl_org_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [13979 13997])
+                    ("format" variable (:type ("cistpl_format_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [14002 14026]))                  
+                :type "union")
+                nil [13432 14040])
+            ("tuple_t" type
+               (:typedef ("tuple_t" type (:type "struct") nil nil)
+                :superclasses "tuple_t"
+                :type "typedef")
+                nil [14042 14405])
+            ("tuple_t" type
+               (:members 
+                  ( ("Attributes" variable (:type ("u_int" type (:type "class") nil nil)) (reparse-symbol classsubparts) [14071 14088])
+                    ("DesiredTuple" variable (:type ("cisdata_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [14093 14117])
+                    ("Flags" variable (:type ("u_int" type (:type "class") nil nil)) (reparse-symbol classsubparts) [14122 14134])
+                    ("LinkOffset" variable (:type ("u_int" type (:type "class") nil nil)) (reparse-symbol classsubparts) [14159 14176])
+                    ("CISOffset" variable (:type ("u_int" type (:type "class") nil nil)) (reparse-symbol classsubparts) [14200 14216])
+                    ("TupleCode" variable (:type ("cisdata_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [14240 14260])
+                    ("TupleLink" variable (:type ("cisdata_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [14265 14285])
+                    ("TupleOffset" variable (:type ("cisdata_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [14290 14312])
+                    ("TupleDataMax" variable (:type ("cisdata_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [14317 14340])
+                    ("TupleDataLen" variable (:type ("cisdata_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [14345 14368])
+                    ("TupleData" variable
+                       (:pointer 1
+                        :type ("cisdata_t" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [14373 14394]))                  
+                :type "struct")
+                nil [14042 14405])
+            ("RETURN_FIRST_TUPLE" variable (:constant-flag t) nil [14445 14463])
+            ("TUPLE_RETURN_LINK" variable (:constant-flag t) nil [14511 14528])
+            ("TUPLE_RETURN_COMMON" variable (:constant-flag t) nil [14542 14561])
+            ("CISTPL_MAX_CIS_SIZE" variable (:constant-flag t) nil [14576 14595]))          
+    :file "cistpl.h"
+    :pointmax 14631
+    :fsize 14630
+    :lastmodtime '(21468 9208 592319 853000)
+    :unmatched-syntax 'nil
+    :lexical-table 
+        '(("CISTPL_LONGLINK_C" . ((number "0x12" 927 . 931)))
+          ("CISTPL_ALTSTR" . ((number "0x16" 1043 . 1047)))
+          ("CISTPL_DTYPE_OTPROM" . ((number "0x02" 2435 . 2439)))
+          ("CISTPL_FUNCE_SERIAL_CAP" . ((number "0x01" 4277 . 4281)))
+          ("CISTPL_FUNCE_SERIAL_SERV_VOICE" . ((number "0x04" 4406 . 4410)))
+          ("CISTPL_SERIAL_UART_5BIT" . ((number "0x01" 5124 . 5128)))
+          ("CISTPL_SERIAL_UART_2STOP" . ((number "0x40" 5352 . 5356)))
+          ("CISTPL_SERIAL_MOD_V26" . ((number "0x40" 5916 . 5920)))
+          ("CISTPL_LAN_TECH_ARCNET" . ((number "0x01" 7633 . 7637)))
+          ("CISTPL_IDE_HAS_IDLE" . ((number "0x04" 9230 . 9234)))
+          ("CISTPL_BAR_SPACE_IO" . ((number "0x10" 9832 . 9836)))
+          ("CISTPL_BAR_PREFETCH" . ((number "0x20" 9865 . 9869)))
+          ("CISTPL_POWER_IAVG" . ((number "4" 10359 . 10360)))
+          ("CISTPL_CFTABLE_BVDS" . ((number "0x0002" 11399 . 11405)))
+          ("CISTPL_CFTABLE_PWM_AUDIO" . ((number "0x020000" 12276 . 12284)))
+          ("CISTPL_CFTABLE_ENTRY_CB" . ((number "0x05" 717 . 721)))
+          ("CISTPL_CHECKSUM" . ((number "0x10" 865 . 869)))
+          ("CISTPL_NO_LINK" . ((number "0x14" 987 . 991)))
+          ("CISTPL_JEDEC_A" . ((number "0x19" 1131 . 1135)))
+          ("CISTPL_MFC_COMMON" . ((number "0x01" 2019 . 2023)))
+          ("CISTPL_DTYPE_SRAM" . ((number "0x06" 2563 . 2567)))
+          ("CISTPL_FUNCE_SERIAL_IF_DATA" . ((number "0x08" 4573 . 4577)))
+          ("CISTPL_SERIAL_UART_6BIT" . ((number "0x02" 5162 . 5166)))
+          ("CISTPL_SERIAL_MOD_V22BIS" . ((number "0x20" 5880 . 5884)))
+          ("CISTPL_SERIAL_MOD_V34" . ((number "0x10" 6138 . 6142)))
+          ("CISTPL_SERIAL_CMPR_V42BIS" . ((number "0x01" 6257 . 6261)))
+          ("CISTPL_LAN_TECH_ETHERNET" . ((number "0x02" 7671 . 7675)))
+          ("CISTPL_CFTABLE_DEFAULT" . ((number "0x0001" 11363 . 11369)))
+          ("TUPLE_RETURN_COMMON" . ((number "0x02" 14562 . 14566)))
+          ("CISTPL_DEVICE_OA" . ((number "0x1d" 1253 . 1257)))
+          ("CISTPL_BYTEORDER" . ((number "0x43" 1588 . 1592)))
+          ("CISTPL_DEVICE_3VCC" . ((number "0x02" 2926 . 2930)))
+          ("CISTPL_SYSINIT_ROM" . ((number "0x02" 3838 . 3842)))
+          ("CISTPL_SERIAL_UART_7BIT" . ((number "0x04" 5200 . 5204)))
+          ("CISTPL_FUNCE_LAN_TECH" . ((number "0x01" 7420 . 7424)))
+          ("CISTPL_LAN_TECH_WIRELESS" . ((number "0x07" 7856 . 7860)))
+          ("CISTPL_LAN_MEDIA_FIBER" . ((number "0x05" 8223 . 8227)))
+          ("CISTPL_LAN_MEDIA_DIFF_IR" . ((number "0x09" 8371 . 8375)))
+          ("CISTPL_IDE_DUAL" . ((number "0x10" 9097 . 9101)))
+          ("CISTPL_IDE_HAS_SLEEP" . ((number "0x01" 9159 . 9163)))
+          ("CISTPL_POWER_ISTATIC" . ((number "3" 10331 . 10332)))
+          ("CISTPL_CFTABLE_PARITY" . ((number "0x000800" 12071 . 12079)))
+          ("CISTPL_INDIRECT" . ((number "0x03" 650 . 654)))
+          ("CISTPL_JEDEC_C" . ((number "0x18" 1102 . 1106)))
+          ("CISTPL_CONFIG" . ((number "0x1a" 1159 . 1163)))
+          ("CISTPL_DTYPE_NULL" . ((number "0x00" 2372 . 2376)))
+          ("CISTPL_FUNCID_MEMORY" . ((number "0x01" 3537 . 3541)))
+          ("CISTPL_SERIAL_UART_8BIT" . ((number "0x08" 5238 . 5242)))
+          ("CISTPL_SERIAL_UART_MSTOP" . ((number "0x20" 5314 . 5318)))
+          ("CISTPL_SERIAL_MOD_V29" . ((number "0x02" 6028 . 6032)))
+          ("CISTPL_SERIAL_ERR_MNP2_4" . ((number "0x01" 6177 . 6181)))
+          ("CISTPL_SERIAL_CMPR_MNP5" . ((number "0x02" 6295 . 6299)))
+          ("CISTPL_SERIAL_CMD_V25A" . ((number "0x20" 6517 . 6521)))
+          ("CISTPL_LAN_MEDIA_STP" . ((number "0x02" 8105 . 8109)))
+          ("CISTPL_BAR_1MEG_MAP" . ((number "0x80" 9932 . 9936)))
+          ("CISTPL_CFTABLE_WP" . ((number "0x0004" 11433 . 11439)))
+          ("CISTPL_ORG_FS" . ((number "0x00" 13060 . 13064)))
+          ("CISTPL_EDC_CKSUM" . ((number "0x01" 13368 . 13372)))
+          ("CISTPL_DEVICE_A" . ((number "0x17" 1073 . 1077)))
+          ("CISTPL_DEVICE_OC" . ((number "0x1c" 1223 . 1227)))
+          ("CISTPL_MAX_FUNCTIONS" . ((number "8" 1961 . 1962)))
+          ("CISTPL_DTYPE_FLASH" . ((number "0x05" 2532 . 2536)))
+          ("CISTPL_DTYPE_FUNCSPEC" . ((number "0x0d" 2629 . 2633)))
+          ("CISTPL_MAX_DEVICES" . ((number "4" 2695 . 2696)))
+          ("CISTPL_DEVICE_MWAIT" . ((number "0x01" 2894 . 2898)))
+          ("CISTPL_FUNCID_VIDEO" . ((number "0x05" 3673 . 3677)))
+          ("CISTPL_FUNCE_SERIAL_CAP_VOICE" . ((number "0x07" 4532 . 4536)))
+          ("CISTPL_SERIAL_MOD_V32BIS" . ((number "0x08" 6102 . 6106)))
+          ("CISTPL_IDE_SILICON" . ((number "0x04" 9034 . 9038)))
+          ("CISTPL_FUNCE_IDE_IFACE" . ((number "0x01" 9512 . 9516)))
+          ("CISTPL_IO_MAX_WIN" . ((number "16" 10888 . 10890)))
+          ("CISTPL_CFTABLE_WAIT" . ((number "0x001000" 12109 . 12117)))
+          ("CISTPL_CFTABLE_FAST_BACK" . ((number "0x004000" 12189 . 12197)))
+          ("CISTPL_FORMAT_DISK" . ((number "0x00" 13276 . 13280)))
+          ("CISTPL_LINKTARGET" . ((number "0x13" 958 . 962)))
+          ("CISTPL_FUNCID" . ((number "0x21" 1373 . 1377)))
+          ("CISTPL_DTYPE_EXTEND" . ((number "0x0e" 2662 . 2666)))
+          ("CISTPL_VERS_1_MAX_PROD_STRINGS" . ((number "4" 3075 . 3076)))
+          ("CISTPL_SERIAL_UART_8530" . ((number "0x04" 4872 . 4876)))
+          ("CISTPL_SERIAL_MOD_V26BIS" . ((number "0x80" 5954 . 5958)))
+          ("CISTPL_LAN_TECH_FDDI" . ((number "0x05" 7784 . 7788)))
+          ("CISTPL_LAN_TECH_ATM" . ((number "0x06" 7818 . 7822)))
+          ("CISTPL_IDE_HAS_STANDBY" . ((number "0x02" 9196 . 9200)))
+          ("CISTPL_BAR_CACHEABLE" . ((number "0x40" 9899 . 9903)))
+          ("CISTPL_POWER_HIGHZ_OK" . ((number "0x01" 10450 . 10454)))
+          ("CISTPL_CFTABLE_PWRDOWN" . ((number "0x2000" 11624 . 11630)))
+          ("CISTPL_CFTABLE_INVALIDATE" . ((number "0x000200" 11987 . 11995)))
+          ("CISTPL_FORMAT_MEM" . ((number "0x01" 13307 . 13311)))
+          ("CISTPL_LONGLINK_CB" . ((number "0x02" 620 . 624)))
+          ("CISTPL_EXTDEVICE" . ((number "0x09" 835 . 839)))
+          ("CISTPL_MAX_ALTSTR_STRINGS" . ((number "4" 2213 . 2214)))
+          ("CISTPL_DTYPE_ROM" . ((number "0x01" 2402 . 2406)))
+          ("CISTPL_FUNCID_SCSI" . ((number "0x08" 3772 . 3776)))
+          ("CISTPL_SYSINIT_POST" . ((number "0x01" 3806 . 3810)))
+          ("CISTPL_FUNCE_SERIAL_SERV_FAX" . ((number "0x03" 4362 . 4366)))
+          ("CISTPL_FUNCE_SERIAL_IF_FAX" . ((number "0x09" 4613 . 4617)))
+          ("CISTPL_SERIAL_UART_ODD" . ((number "0x04" 5048 . 5052)))
+          ("CISTPL_SERIAL_MOD_V27BIS" . ((number "0x01" 5992 . 5996)))
+          ("CISTPL_SERIAL_CMD_MNP_AT" . ((number "0x08" 6442 . 6446)))
+          ("CISTPL_FUNCE_LAN_NODE_ID" . ((number "0x04" 7532 . 7536)))
+          ("CISTPL_IDE_REG_INHIBIT" . ((number "0x10" 9302 . 9306)))
+          ("CISTPL_FUNCE_IDE_SLAVE" . ((number "0x03" 9587 . 9591)))
+          ("CISTPL_CFTABLE_AUDIO" . ((number "0x0800" 11545 . 11551)))
+          ("CISTPL_EDC_PCC" . ((number "0x03" 13426 . 13430)))
+          ("TUPLE_RETURN_LINK" . ((number "0x01" 14529 . 14533)))
+          ("CISTPL_CONFIG_CB" . ((number "0x04" 680 . 684)))
+          ("CISTPL_DATE" . ((number "0x44" 1614 . 1618)))
+          ("CISTPL_SERIAL_UART_MARK" . ((number "0x02" 5011 . 5015)))
+          ("CISTPL_FUNCE_LAN_MEDIA" . ((number "0x03" 7494 . 7498)))
+          ("CISTPL_IDE_LOW_POWER" . ((number "0x08" 9265 . 9269)))
+          ("CISTPL_EDC_NONE" . ((number "0x00" 13338 . 13342)))
+          ("CISTPL_MAX_CIS_SIZE" . ((number "0x200" 14596 . 14601)))
+          ("CISTPL_FORMAT" . ((number "0x41" 1528 . 1532)))
+          ("CISTPL_DTYPE_EPROM" . ((number "0x03" 2467 . 2471)))
+          ("CISTPL_DTYPE_EEPROM" . ((number "0x04" 2500 . 2504)))
+          ("CISTPL_FUNCID_PARALLEL" . ((number "0x03" 3607 . 3611)))
+          ("CISTPL_FUNCID_FIXED" . ((number "0x04" 3640 . 3644)))
+          ("CISTPL_FUNCID_AIMS" . ((number "0x07" 3740 . 3744)))
+          ("CISTPL_FUNCE_SERIAL_CAP_FAX" . ((number "0x06" 4489 . 4493)))
+          ("CISTPL_SERIAL_UART_16550" . ((number "0x02" 4796 . 4800)))
+          ("CISTPL_SERIAL_UART_85230" . ((number "0x05" 4910 . 4914)))
+          ("CISTPL_SERIAL_UART_SPACE" . ((number "0x01" 4973 . 4977)))
+          ("CISTPL_SERIAL_MOD_V21" . ((number "0x02" 5733 . 5737)))
+          ("CISTPL_SERIAL_CMD_DMCL" . ((number "0x40" 6554 . 6558)))
+          ("CISTPL_LAN_MEDIA_UTP" . ((number "0x01" 8070 . 8074)))
+          ("CISTPL_LAN_MEDIA_2GHZ" . ((number "0x07" 8297 . 8301)))
+          ("CISTPL_LAN_MEDIA_PTP_IR" . ((number "0x0a" 8409 . 8413)))
+          ("CISTPL_FUNCE_IDE_MASTER" . ((number "0x02" 9550 . 9554)))
+          ("CISTPL_POWER_IPEAK" . ((number "5" 10388 . 10389)))
+          ("CISTPL_IO_LINES_MASK" . ((number "0x1f" 10767 . 10771)))
+          ("CISTPL_IO_16BIT" . ((number "0x40" 10826 . 10830)))
+          ("RETURN_FIRST_TUPLE" . ((number "0xff" 14464 . 14468)))
+          ("CISTPL_DEVICE_GEO" . ((number "0x1e" 1284 . 1288)))
+          ("CISTPL_MANFID" . ((number "0x20" 1345 . 1349)))
+          ("CISTPL_SPCL" . ((number "0x90" 1745 . 1749)))
+          ("CISTPL_FUNCID_MULTI" . ((number "0x00" 3503 . 3507)))
+          ("CISTPL_FUNCID_SERIAL" . ((number "0x02" 3571 . 3575)))
+          ("CISTPL_FUNCE_SERIAL_SERV_DATA" . ((number "0x02" 4320 . 4324)))
+          ("CISTPL_FUNCE_SERIAL_IF_VOICE" . ((number "0x0a" 4655 . 4659)))
+          ("CISTPL_SERIAL_UART_EVEN" . ((number "0x08" 5086 . 5090)))
+          ("CISTPL_SERIAL_MOD_103" . ((number "0x01" 5697 . 5701)))
+          ("CISTPL_SERIAL_MOD_V22" . ((number "0x08" 5805 . 5809)))
+          ("CISTPL_SERIAL_ERR_V42_LAPM" . ((number "0x02" 6217 . 6221)))
+          ("CISTPL_IDE_IOIS16" . ((number "0x40" 9369 . 9373)))
+          ("CISTPL_CFTABLE_RDYBSY" . ((number "0x0008" 11471 . 11477)))
+          ("CISTPL_CFTABLE_MWAIT" . ((number "0x0010" 11508 . 11514)))
+          ("CISTPL_CFTABLE_READONLY" . ((number "0x1000" 11585 . 11591)))
+          ("CISTPL_CFTABLE_VGA_PALETTE" . ((number "0x000400" 12031 . 12039)))
+          ("CISTPL_CFTABLE_SERR" . ((number "0x002000" 12147 . 12155)))
+          ("CISTPL_DEVICE" . ((number "0x01" 588 . 592)))
+          ("CISTPL_PWR_MGMNT" . ((number "0x08" 805 . 809)))
+          ("CISTPL_VERS_1" . ((number "0x15" 1015 . 1019)))
+          ("CISTPL_CFTABLE_ENTRY" . ((number "0x1b" 1193 . 1197)))
+          ("CISTPL_FUNCE" . ((number "0x22" 1400 . 1404)))
+          ("CISTPL_BATTERY" . ((number "0x45" 1643 . 1647)))
+          ("CISTPL_MFC_ATTR" . ((number "0x00" 1988 . 1992)))
+          ("CISTPL_SERIAL_UART_8250" . ((number "0x00" 4720 . 4724)))
+          ("CISTPL_SERIAL_UART_1STOP" . ((number "0x10" 5276 . 5280)))
+          ("CISTPL_SERIAL_MOD_V23" . ((number "0x04" 5769 . 5773)))
+          ("CISTPL_SERIAL_CMD_AT1" . ((number "0x01" 6332 . 6336)))
+          ("CISTPL_FUNCE_LAN_SPEED" . ((number "0x02" 7457 . 7461)))
+          ("CISTPL_LAN_TECH_TOKENRING" . ((number "0x03" 7710 . 7714)))
+          ("CISTPL_LAN_TECH_LOCALTALK" . ((number "0x04" 7749 . 7753)))
+          ("CISTPL_LAN_MEDIA_THIN_COAX" . ((number "0x03" 8145 . 8149)))
+          ("CISTPL_LAN_MEDIA_THICK_COAX" . ((number "0x04" 8186 . 8190)))
+          ("CISTPL_POWER_VMAX" . ((number "2" 10300 . 10301)))
+          ("CISTPL_IO_RANGE" . ((number "0x80" 10856 . 10860)))
+          ("CISTPL_CFTABLE_MASTER" . ((number "0x000100" 11944 . 11952)))
+          ("CISTPL_ORG_XIP" . ((number "0x02" 13121 . 13125)))
+          ("CISTPL_NULL" . ((number "0x00" 560 . 564)))
+          ("CISTPL_BAR" . ((number "0x07" 775 . 779)))
+          ("CISTPL_LONGLINK_A" . ((number "0x11" 896 . 900)))
+          ("CISTPL_DEVICE_GEO_A" . ((number "0x1f" 1317 . 1321)))
+          ("CISTPL_END" . ((number "0xff" 1451 . 1455)))
+          ("CISTPL_VERS_2" . ((number "0x40" 1500 . 1504)))
+          ("CISTPL_GEOMETRY" . ((number "0x42" 1558 . 1562)))
+          ("CISTPL_FUNCID_NETWORK" . ((number "0x06" 3708 . 3712)))
+          ("CISTPL_FUNCE_SERIAL_CAP_DATA" . ((number "0x05" 4448 . 4452)))
+          ("CISTPL_SERIAL_UART_8251" . ((number "0x03" 4834 . 4838)))
+          ("CISTPL_SERIAL_CMD_AT2" . ((number "0x02" 6368 . 6372)))
+          ("CISTPL_SERIAL_CMD_V25BIS" . ((number "0x10" 6480 . 6484)))
+          ("CISTPL_LAN_MEDIA_900MHZ" . ((number "0x06" 8261 . 8265)))
+          ("CISTPL_LAN_MEDIA_5GHZ" . ((number "0x08" 8333 . 8337)))
+          ("CISTPL_IDE_UNIQUE" . ((number "0x08" 9066 . 9070)))
+          ("CISTPL_POWER_VNOM" . ((number "0" 10244 . 10245)))
+          ("CISTPL_POWER_VMIN" . ((number "1" 10272 . 10273)))
+          ("CISTPL_POWER_HIGHZ_REQ" . ((number "0x02" 10486 . 10490)))
+          ("CISTPL_IO_8BIT" . ((number "0x20" 10796 . 10800)))
+          ("CISTPL_MEM_MAX_WIN" . ((number "8" 11154 . 11155)))
+          ("CISTPL_ORG_APPSPEC" . ((number "0x01" 13092 . 13096)))
+          ("_LINUX_CISTPL_H")
+          ("CISTPL_LONGLINK_MFC" . ((number "0x06" 750 . 754)))
+          ("CISTPL_SWIL" . ((number "0x23" 1426 . 1430)))
+          ("CISTPL_FORMAT_A" . ((number "0x47" 1673 . 1677)))
+          ("CISTPL_ORG" . ((number "0x46" 1719 . 1723)))
+          ("CISTPL_DTYPE_DRAM" . ((number "0x07" 2594 . 2598)))
+          ("CISTPL_FUNCE_SERIAL_IF" . ((number "0x00" 4239 . 4243)))
+          ("CISTPL_SERIAL_UART_16450" . ((number "0x01" 4758 . 4762)))
+          ("CISTPL_SERIAL_MOD_212A" . ((number "0x10" 5842 . 5846)))
+          ("CISTPL_SERIAL_MOD_V32" . ((number "0x04" 6064 . 6068)))
+          ("CISTPL_SERIAL_CMD_AT3" . ((number "0x04" 6404 . 6408)))
+          ("CISTPL_FUNCE_LAN_CONNECTOR" . ((number "0x05" 7572 . 7576)))
+          ("CISTPL_IDE_INTERFACE" . ((number "0x01" 8886 . 8890)))
+          ("CISTPL_IDE_HAS_INDEX" . ((number "0x20" 9337 . 9341)))
+          ("CISTPL_BAR_SPACE" . ((number "0x07" 9799 . 9803)))
+          ("CISTPL_POWER_IDOWN" . ((number "6" 10417 . 10418)))
+          ("CISTPL_CFTABLE_BINARY_AUDIO" . ((number "0x010000" 12234 . 12242)))
+          ("CISTPL_EDC_CRC" . ((number "0x02" 13397 . 13401)))
+          )
+
+    )
+   (semanticdb-table "ds.h"
+    :major-mode 'c-mode
+    :tags 
+        '( ("_LINUX_DS_H" variable (:constant-flag t) nil [536 547])
+            ("pcmcia/device_id.h" include (:system-flag t) nil [610 639]))          
+    :file "ds.h"
+    :pointmax 7635
+    :fsize 7634
+    :lastmodtime '(21468 9208 616319 285000)
+    :unmatched-syntax 'nil
+    :lexical-table 
+        '(("_LINUX_DS_H")
+          )
+
+    )
+   (semanticdb-table "device_id.h"
+    :file "device_id.h"
+    :fsize 9333
+    :lastmodtime '(21468 9208 605319 545000)
+    )
+   )
+  :file "!home!chz!linux-3.0.8!include!pcmcia!semantic.cache"
+  :semantic-tag-version "2.0"
+  :semanticdb-version "2.2"
+  )

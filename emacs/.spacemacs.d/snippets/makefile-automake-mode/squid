@@ -1,0 +1,526 @@
+;; Object src/
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "src/"
+  :tables
+  (list
+    (semanticdb-table "SDNS_NVR_Recording.cpp"
+      :major-mode 'c++-mode
+      :tags 
+        '( ("SDNS_NVR_Recording.h" include nil nil [1 32])
+            ("sstream" include (:system-flag t) nil [33 51])
+            ("CSDNS_Recording" function
+               (:destructor-flag t
+                :parent "CSDNS_Recording"
+                :type "void")
+                nil [53 92])
+            ("CSDNS_Recording" function
+               (:constructor-flag t
+                :parent "CSDNS_Recording"
+                :type ("CSDNS_Recording" type (:type "class") nil nil))
+                nil [94 132])
+            ("vUpdate" function
+               (:parent "CSDNS_Recording"
+                :arguments 
+                  ( ("p_tNotifyMessage" variable (:type ("sNotifyMessage" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [164 196]))                  
+                :type "void")
+                nil [134 4213])
+            ("vStopAllChannelRecord" function
+               (:parent "CSDNS_Recording"
+                :type "void")
+                nil [4215 4550])
+            ("vStopChannelRecord" function
+               (:parent "CSDNS_Recording"
+                :arguments 
+                  ( ("p_iChannelID" variable (:type "int") (reparse-symbol arg-sub-list) [4592 4609])
+                    ("p_RecordState" variable (:type "int") (reparse-symbol arg-sub-list) [4610 4628]))                  
+                :type "void")
+                nil [4551 4982])
+            ("vRestartManullyRecord" function
+               (:parent "CSDNS_Recording"
+                :type "void")
+                nil [5002 5131])
+            ("vRestartRecord" function
+               (:parent "CSDNS_Recording"
+                :arguments 
+                  ( ("p_iChannelID" variable (:type "int") (reparse-symbol arg-sub-list) [5169 5186]))                  
+                :type "void")
+                nil [5132 5747])
+            ("iStartSensitiveRecord" function
+               (:parent "CSDNS_Recording"
+                :arguments 
+                  ( ("p_tNotifyMessage" variable (:type ("sNotifyMessage" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [5793 5825]))                  
+                :type "int")
+                nil [5750 7202])
+            ("iStopSensitiveRecord" function
+               (:parent "CSDNS_Recording"
+                :arguments 
+                  ( ("p_tNotifyMessage" variable (:type ("sNotifyMessage" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [7246 7278]))                  
+                :type "int")
+                nil [7204 7785])
+            ("iCheckSensitiveRecord" function
+               (:parent "CSDNS_Recording"
+                :arguments 
+                  ( ("p_tNotifyMessage" variable (:type ("sNotifyMessage" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [7845 7877]))                  
+                :type "int")
+                nil [7802 9138])
+            ("iAddStartLogMessage" function
+               (:parent "CSDNS_Recording"
+                :arguments 
+                  ( ("p_iChannel" variable (:type "int") (reparse-symbol arg-sub-list) [9181 9196])
+                    ("p_eType" variable (:type ("eEventType" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [9197 9216])
+                    ("p_tTime" variable (:type ("time_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [9216 9231])
+                    ("p_pParam" variable
+                       (:pointer 1
+                        :type "void")
+                        (reparse-symbol arg-sub-list) [9232 9247]))                  
+                :type "int")
+                nil [9140 10929])
+            ("iAddStopLogMessage" function
+               (:parent "CSDNS_Recording"
+                :arguments 
+                  ( ("p_iChannel" variable (:type "int") (reparse-symbol arg-sub-list) [10990 11005])
+                    ("p_eType" variable (:type ("eEventType" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [11006 11025])
+                    ("p_tTime" variable (:type ("time_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [11025 11040])
+                    ("p_pParam" variable
+                       (:pointer 1
+                        :type "void")
+                        (reparse-symbol arg-sub-list) [11041 11056]))                  
+                :type "int")
+                nil [10950 12757]))          
+      :file "SDNS_NVR_Recording.cpp"
+      :pointmax 12759
+      :fsize 14262
+      :lastmodtime '(22101 28156 777965 409000)
+      :unmatched-syntax nil)
+    (semanticdb-table "SDNS_NVR_MsgServer.cpp"
+      :major-mode 'c++-mode
+      :tags 
+        '( ("sys/select.h" include (:system-flag t) nil [1 24])
+            ("sys/time.h" include (:system-flag t) nil [25 46])
+            ("sys/types.h" include (:system-flag t) nil [47 69])
+            ("unistd.h" include (:system-flag t) nil [70 89])
+            ("sys/socket.h" include (:system-flag t) nil [90 113])
+            ("arpa/inet.h" include (:system-flag t) nil [114 136])
+            ("stdlib.h" include (:system-flag t) nil [137 156])
+            ("string.h" include (:system-flag t) nil [157 176])
+            ("pthread.h" include (:system-flag t) nil [177 197])
+            ("unistd.h" include (:system-flag t) nil [198 217])
+            ("fcntl.h" include (:system-flag t) nil [218 236])
+            ("stdio.h" include (:system-flag t) nil [237 255])
+            ("time.h" include (:system-flag t) nil [256 273])
+            ("SDNS_NVR_MsgServer.h" include nil nil [275 306])
+            ("SDNS_PACKET_SIZE" variable (:constant-flag t) nil [317 333])
+            ("SDNS_RECV_BUFSIZE" variable (:constant-flag t) nil [347 364])
+            ("SDNS_MIN_DELAY" variable (:constant-flag t) nil [380 394])
+            ("SDNS_MIN_TIMEOUT" variable (:constant-flag t) nil [407 423])
+            ("sdnsMsgServer" function
+               (:constructor-flag t
+                :parent "sdnsMsgServer"
+                :type ("sdnsMsgServer" type (:type "class") nil nil))
+                nil [432 498])
+            ("sdnsMsgServer" function
+               (:destructor-flag t
+                :parent "sdnsMsgServer"
+                :type "void")
+                nil [500 546])
+            ("init" function
+               (:parent "sdnsMsgServer"
+                :arguments 
+                  ( ("port" variable (:type "unsigned short") (reparse-symbol arg-sub-list) [572 592])
+                    ("delay" variable (:type "int") (reparse-symbol arg-sub-list) [593 603])
+                    ("timeOut" variable (:type "int") (reparse-symbol arg-sub-list) [604 616])
+                    ("callback" variable (:type ("MsgCallback" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [617 638])
+                    ("clientData" variable
+                       (:pointer 1
+                        :type "void")
+                        (reparse-symbol arg-sub-list) [639 656]))                  
+                :type "int")
+                nil [548 1359])
+            ("unInit" function
+               (:parent "sdnsMsgServer"
+                :type "void")
+                nil [1361 1870])
+            ("setDelay" function
+               (:parent "sdnsMsgServer"
+                :arguments 
+                  ( ("delay" variable (:type "int") (reparse-symbol arg-sub-list) [1902 1912]))                  
+                :type "bool")
+                nil [1873 1995])
+            ("setTimeOut" function
+               (:parent "sdnsMsgServer"
+                :arguments 
+                  ( ("timeOut" variable (:type "int") (reparse-symbol arg-sub-list) [2028 2040]))                  
+                :type "bool")
+                nil [1997 2133])
+            ("setPort" function
+               (:parent "sdnsMsgServer"
+                :arguments 
+                  ( ("port" variable (:type "unsigned short") (reparse-symbol arg-sub-list) [2163 2183]))                  
+                :type "int")
+                nil [2135 3058])
+            ("threadFun" function
+               (:pointer 1
+                :parent "sdnsMsgServer"
+                :arguments 
+                  ( ("arg" variable
+                       (:pointer 1
+                        :type "void")
+                        (reparse-symbol arg-sub-list) [3091 3101]))                  
+                :type "void")
+                nil [3060 3252])
+            ("singleSetup" function
+               (:parent "sdnsMsgServer"
+                :type "void")
+                nil [3254 3394])
+            ("handleSocket" function
+               (:parent "sdnsMsgServer"
+                :arguments 
+                  ( ("timeout" variable
+                       (:pointer 1
+                        :type ("timeval" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [3429 3453]))                  
+                :type "int")
+                nil [3396 5283])
+            ("handleMsg" function
+               (:parent "sdnsMsgServer"
+                :arguments 
+                  ( ("data" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [5315 5326])
+                    ("size" variable (:type "int") (reparse-symbol arg-sub-list) [5327 5336]))                  
+                :type "int")
+                nil [5285 9886])
+            ("parseMsg" function
+               (:parent "sdnsMsgServer"
+                :arguments 
+                  ( ("data" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [9917 9928])
+                    ("buf" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [9929 9939])
+                    ("type" variable (:type ("eSDNSFieldType" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [9940 9960]))                  
+                :type "bool")
+                nil [9888 11077])
+            ("handleEvent" function
+               (:parent "sdnsMsgServer"
+                :arguments 
+                  ( ("timeout" variable
+                       (:pointer 1
+                        :type ("timeval" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [11111 11135]))                  
+                :type "int")
+                nil [11079 11381])
+            ("checkSock" function
+               (:parent "sdnsMsgServer"
+                :type "int")
+                nil [11383 11872])
+            ("getTime" function
+               (:parent "sdnsMsgServer"
+                :arguments 
+                  ( ("now" variable
+                       (:pointer 1
+                        :type ("timeval" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [11902 11922]))                  
+                :type "bool")
+                nil [11874 12080])
+            ("sdnsAlarmHandle" function
+               (:constructor-flag t
+                :parent "sdnsAlarmHandle"
+                :arguments 
+                  ( ("event" variable (:type ("eNotifyEvent" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [12170 12189])
+                    ("callback" variable (:type ("MsgCallback" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [12190 12211])
+                    ("clientData" variable
+                       (:pointer 1
+                        :type "void")
+                        (reparse-symbol arg-sub-list) [12212 12229])
+                    ("arg" variable
+                       (:pointer 1
+                        :type ("sdnsEventArg" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [12230 12248])
+                    ("delay" variable (:type ("DelayInterval" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [12249 12269]))                  
+                :type ("sdnsAlarmHandle" type (:type "class") nil nil))
+                nil [12137 12410])
+            ("handleTimeout" function
+               (:parent "sdnsAlarmHandle"
+                :type "void")
+                nil [12412 12570])
+            ("addEntry" function
+               (:parent "sdnsDelayQueue"
+                :arguments 
+                  ( ("newEntry" variable
+                       (:pointer 1
+                        :type ("DelayQueueEntry" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [12602 12628])
+                    ("ip" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [12629 12638])
+                    ("event" variable (:type ("eNotifyEvent" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [12639 12658]))                  
+                :type "void")
+                nil [12572 12826])
+            ("removeEntry" function
+               (:pointer 1
+                :parent "sdnsDelayQueue"
+                :arguments 
+                  ( ("ip" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [12873 12882])
+                    ("event" variable (:type ("eNotifyEvent" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [12883 12902]))                  
+                :type ("DelayQueueEntry" type (:type "class") nil nil))
+                nil [12828 13246]))          
+      :file "SDNS_NVR_MsgServer.cpp"
+      :pointmax 13247
+      :fsize 13916
+      :lastmodtime '(22101 28156 777965 409000)
+      :unmatched-syntax nil
+      :lexical-table 
+        '(("SDNS_MIN_TIMEOUT" . 
+              ((number "5" 424 . 425) (punctuation "*" 426 . 427) (number "60" 428 . 430)))
+          ("SDNS_MIN_DELAY" . ((number "5" 396 . 397)))
+          ("SDNS_RECV_BUFSIZE" . ((number "1024" 365 . 369)))
+          ("SDNS_PACKET_SIZE" . ((number "768" 334 . 337)))
+          )
+)
+    (semanticdb-table "SDNS_NVR_Control.cpp"
+      :major-mode 'c++-mode
+      :tags 
+        '( ("SDNS_NVR_Control.h" include nil nil [1 30])
+            ("SDNS_NVR_Channel.h" include nil nil [31 60])
+            ("SDNS_NVR_Recording.h" include nil nil [61 92])
+            ("SDNSH_SQLManagerExt.h" include nil nil [93 125])
+            ("SDNS_NVR_MessageManager.h" include nil nil [126 162])
+            ("stdio.h" include (:system-flag t) nil [163 181])
+            ("CSDNS_NVRControl" function
+               (:destructor-flag t
+                :parent "CSDNS_NVRControl"
+                :type "void")
+                nil [183 307])
+            ("CSDNS_NVRControl" function
+               (:constructor-flag t
+                :parent "CSDNS_NVRControl"
+                :type ("CSDNS_NVRControl" type (:type "class") nil nil))
+                nil [309 349])
+            ("iInit" function
+               (:parent "CSDNS_NVRControl"
+                :arguments 
+                  ( ("p_pFun" variable (:type ("pCallBack" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [379 396])
+                    ("p_pParam" variable
+                       (:pointer 1
+                        :type "void")
+                        (reparse-symbol arg-sub-list) [396 412]))                  
+                :type "int")
+                nil [351 1871])
+            ("iInitMembers" function
+               (:parent "CSDNS_NVRControl"
+                :type "int")
+                nil [1873 2174])
+            ("iInitChannel" function
+               (:parent "CSDNS_NVRControl"
+                :arguments 
+                  ( ("p_iChannel" variable (:type "int") (reparse-symbol arg-sub-list) [2212 2227]))                  
+                :type "void")
+                nil [2176 2278])
+            ("vSetChannelCallBack" function
+               (:parent "CSDNS_NVRControl"
+                :arguments 
+                  ( ("p_iChannel" variable (:type "int") (reparse-symbol arg-sub-list) [2323 2338]))                  
+                :type "void")
+                nil [2280 2473])
+            ("vSetOtherCallBack" function
+               (:parent "CSDNS_NVRControl"
+                :type "void")
+                nil [2475 2818])
+            ("iRecord" function
+               (:parent "CSDNS_NVRControl"
+                :arguments 
+                  ( ("p_iWinID" variable (:type "int") (reparse-symbol arg-sub-list) [2867 2880]))                  
+                :type "int")
+                nil [2837 3292])
+            ("iSDNS_GetTradeMsgServerConfig" function
+               (:parent "CSDNS_NVRControl"
+                :arguments 
+                  ( ("p_sSdnsServerConfig" variable
+                       (:reference 1
+                        :type ("sSdnsServerConfig" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [3347 3386]))                  
+                :type "int")
+                nil [3294 3471])
+            ("iSDNS_SetTradeMsgServerConfig" function
+               (:parent "CSDNS_NVRControl"
+                :arguments 
+                  ( ("p_sSdnsServerConfig" variable
+                       (:reference 1
+                        :constant-flag t
+                        :type ("sSdnsServerConfig" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [3524 3570]))                  
+                :type "int")
+                nil [3472 3655])
+            ("iSDNS_GetTradeMsgServerConfig" function
+               (:parent "CSDNS_NVRControl"
+                :arguments 
+                  ( ("p_sSdnsMsgConfig" variable
+                       (:reference 1
+                        :type ("sSdnsMsgConfig" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [3709 3743]))                  
+                :type "int")
+                nil [3656 3825])
+            ("iSDNS_SetTradeMsgServerConfig" function
+               (:parent "CSDNS_NVRControl"
+                :arguments 
+                  ( ("p_sSdnsMsgConfig" variable
+                       (:reference 1
+                        :constant-flag t
+                        :type ("sSdnsMsgConfig" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [3878 3918]))                  
+                :type "int")
+                nil [3826 4000])
+            ("iSDNS_GetRelevanceConfig" function
+               (:parent "CSDNS_NVRControl"
+                :arguments 
+                  ( ("p_sSdnsRelevanceConfig" variable
+                       (:reference 1
+                        :type ("sSdnsRelevanceConfig" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [4048 4094]))                  
+                :type "int")
+                nil [4001 4177])
+            ("iSDNS_SetRelevanceConfig" function
+               (:parent "CSDNS_NVRControl"
+                :arguments 
+                  ( ("p_sSdnsRelevanceConfig" variable
+                       (:reference 1
+                        :constant-flag t
+                        :type ("sSdnsRelevanceConfig" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [4225 4277]))                  
+                :type "int")
+                nil [4178 4360])
+            ("iSDNS_GetSensitiveInfo" function
+               (:parent "CSDNS_NVRControl"
+                :arguments 
+                  ( ("p_vecSdnsTransInfoConfig" variable
+                       (:reference 1
+                        :type ("std::vector" type
+                             (:template-specifier 
+                                ( ("sSdnsTransInfoConfig" type nil nil nil))                                
+                              :type "class")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [4407 4468]))                  
+                :type "int")
+                nil [4361 4551])
+            ("iSDNS_SetSensitiveInfo" function
+               (:parent "CSDNS_NVRControl"
+                :arguments 
+                  ( ("p_vecSdnsTransInfoConfig" variable
+                       (:reference 1
+                        :constant-flag t
+                        :type ("std::vector" type
+                             (:template-specifier 
+                                ( ("sSdnsTransInfoConfig" type nil nil nil))                                
+                              :type "class")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [4597 4664]))                  
+                :type "int")
+                nil [4552 4747])
+            ("iSDNS_GetSensitiveBankInfo" function
+               (:parent "CSDNS_NVRControl"
+                :arguments 
+                  ( ("p_vecSdnsTransInfoConfig" variable
+                       (:reference 1
+                        :type ("std::vector" type
+                             (:template-specifier 
+                                ( ("sSdnsTransInfoConfig" type nil nil nil))                                
+                              :type "class")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [4798 4859]))                  
+                :type "int")
+                nil [4748 4946])
+            ("iSDNS_SetSensitiveBankInfo" function
+               (:parent "CSDNS_NVRControl"
+                :arguments 
+                  ( ("p_vecSdnsTransInfoConfig" variable
+                       (:reference 1
+                        :constant-flag t
+                        :type ("std::vector" type
+                             (:template-specifier 
+                                ( ("sSdnsTransInfoConfig" type nil nil nil))                                
+                              :type "class")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [4996 5063]))                  
+                :type "int")
+                nil [4947 5150])
+            ("iSdnsFindFile" function
+               (:parent "CSDNS_NVRControl"
+                :arguments 
+                  ( ("p_sCondition" variable
+                       (:reference 1
+                        :constant-flag t
+                        :type ("sSdnsFindCondition" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [5188 5227])
+                    ("p_lFindHandle" variable
+                       (:reference 1
+                        :type "long")
+                        (reparse-symbol arg-sub-list) [5228 5248]))                  
+                :type "int")
+                nil [5152 5351])
+            ("iSdnsFindNextFile" function
+               (:parent "CSDNS_NVRControl"
+                :arguments 
+                  ( ("p_lFindHandle" variable
+                       (:constant-flag t
+                        :type "long")
+                        (reparse-symbol arg-sub-list) [5393 5418])
+                    ("p_sFindData" variable
+                       (:reference 1
+                        :type ("sSdnsFindData" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [5419 5446]))                  
+                :type "int")
+                nil [5353 5746])
+            ("iSdnsFindFileClose" function
+               (:parent "CSDNS_NVRControl"
+                :arguments 
+                  ( ("p_lFindHandle" variable
+                       (:constant-flag t
+                        :type "long")
+                        (reparse-symbol arg-sub-list) [5789 5814]))                  
+                :type "int")
+                nil [5748 5907])
+            ("iSetAllVideoStatus" function
+               (:parent "CSDNS_NVRControl"
+                :arguments 
+                  ( ("p_bStatus" variable (:type "bool") (reparse-symbol arg-sub-list) [5963 5978]))                  
+                :type "int")
+                nil [5922 6259])
+            ("vSetChannelVideoStatus" function
+               (:parent "CSDNS_NVRControl"
+                :arguments 
+                  ( ("p_iChannelID" variable (:type "int") (reparse-symbol arg-sub-list) [6306 6323])
+                    ("p_bStatus" variable (:type "bool") (reparse-symbol arg-sub-list) [6324 6339]))                  
+                :type "void")
+                nil [6260 6572])
+            ("vDoSynOK" function
+               (:parent "CSDNS_NVRControl"
+                :arguments 
+                  ( ("p_iChannel" variable (:type "int") (reparse-symbol arg-sub-list) [6607 6622]))                  
+                :type "void")
+                nil [6575 6702]))          
+      :file "SDNS_NVR_Control.cpp"
+      :pointmax 6704
+      :fsize 6955
+      :lastmodtime '(22101 34084 495957 712000)
+      :unmatched-syntax nil))
+  :file "!home!chz!ShunDeNongShang-test!main!src!semantic.cache"
+  :semantic-tag-version "2.0"
+  :semanticdb-version "2.2")

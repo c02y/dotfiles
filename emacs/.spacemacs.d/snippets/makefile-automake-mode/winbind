@@ -1,0 +1,568 @@
+# This is the note for reviewing the git source code of tmux from
+# github.com/tmux/tmux
+
+* Preamble
+** the README file
+** the TODO file
+** the FAQ file
+** the SYNCING file
+NOTE: there are a lot of commands/instructions you should be aware of when reviewing/compile/distribute the tmux source code
+
+such as:
+1. the differences between tmux and tmux-openbsd
+   + % git clone https://github.com/tmux/tmux.git
+   + % git clone https://github.com/ThomasAdam/tmux-openbsd.git
+2. "found_debug=yes" in configure.ac
+3. Release tmux for next version
+** man ./tmux.1
+NOTE: this is extremely important in whole reviewing the source code history
+* extern							     :tmux.c::weird:
+#+BEGIN_SRC C
+#if defined(DEBUG) && defined(__OpenBSD__)
+extern char	*malloc_options;
+#endif
+
+//this malloc_options occurs only in the current filemon
+#if defined(DEBUG) && defined(__OpenBSD__)
+	malloc_options = (char *) "AFGJPX";
+#endif
+#+END_SRC
+* struct environ						     :tmux.c:tmux.h:tips:
+tmux.c L40
+#+BEGIN_SRC C
+struct environ	 global_environ;
+#+END_SRC
+or 
+tmux.c L307
+#+BEGIN_SRC C
+environ_init(&global_environ);
+#+END_SRC
+->
+environ.c L38
+#+BEGIN_SRC C
+/* Initialise the environment. */
+void environ_init(struct environ *env)
+{
+	RB_INIT(env);
+}
+#+END_SRC
+compat/tree.h L299
+#+BEGIN_SRC C
+#define RB_INIT(root) do {						\
+	(root)->rbh_root = NULL;					\
+} while (0)
+#+END_SRC
+
++then, where is the definition of =struct environ=+
+tmux.h L974
+#+BEGIN_SRC C
+/* Environment variable. */
+struct environ_entry {
+	char		*name;
+	char		*value;
+
+	RB_ENTRY(environ_entry) entry;
+};
+RB_HEAD(environ, environ_entry);
+#+END_SRC
+
+tree.h L290
+#+BEGIN_SRC C
+/* Macros that define a red-black tree */
+#define RB_HEAD(name, type)						\
+struct name {								\
+	struct type *rbh_root; /* root of the tree */			\
+}
+#+END_SRC
+
+tree.h L305
+#+BEGIN_SRC C
+#define RB_ENTRY(type)							\
+struct {								\
+	struct type *rbe_left;		/* left element */		\
+	struct type *rbe_right;		/* right element */		\
+	struct type *rbe_parent;	/* parent element */		\
+	int rbe_color;			/* node color */		\
+}
+#+END_SRC
+* struct event_base						 :tmux.c:not_found:
+: struct event_base *ev_base
+
+=struct event_base= is declared in /usr/include/event2/bufferevent.h
+: struct event_base;
+but cannot find the exact definition.
+
+*MAY* check /usr/include/event2/event.h
+#+BEGIN_SRC C
+struct event_base
+#ifdef _EVENT_IN_DOXYGEN
+{/*Empty body so that doxygen will generate documentation here.*/}
+#endif
+    ;
+#+END_SRC
+* __attribute__							       :tips:
+** dead
+#+BEGIN_SRC C
+#ifndef __dead
+#define __dead __attribute__ ((__noreturn__))
+#endif
+
+__dead void
+usage(void)
+{
+fprintf("...");
+
+exit(1);
+}
+#+END_SRC
+** unused
+#+BEGIN_SRC C
+/* Definition to shut gcc up about unused arguments. */
+#define unused __attribute__ ((unused))
+
+void log_event_cb(unused int severity, const char *msg)
+{
+	log_debug("%s", msg);
+}
+#+END_SRC
+** get $SHELL
+#+BEGIN_SRC C
+#define	_PATH_BSHELL	"/bin/sh"
+char      *__progname = (char *) "tmux";
+
+const char *
+getshell(void)
+{
+	struct passwd	*pw;
+	const char	*shell;
+
+	shell = getenv("SHELL");
+	if (checkshell(shell))
+		return (shell);
+
+	pw = getpwuid(getuid());
+	if (pw != NULL && checkshell(pw->pw_shell))
+		return (pw->pw_shell);
+
+	return (_PATH_BSHELL);
+}
+
+int
+checkshell(const char *shell)
+{
+	if (shell == NULL || *shell == '\0' || *shell != '/')
+		return (0);
+	if (areshell(shell))
+		return (0);
+	if (access(shell, X_OK) != 0)
+		return (0);
+	return (1);
+}
+
+int
+areshell(const char *shell)
+{
+	const char	*progname, *ptr;
+
+	if ((ptr = strrchr(shell, '/')) != NULL)
+		ptr++;
+	else
+		ptr = shell;
+	progname = __progname;
+	if (*progname == '-')
+		progname++;
+	if (strcmp(ptr, progname) == 0)
+		return (1);
+	return (0);
+}
+#+END_SRC
+** Attribute to make gcc check printf-like arguments		     :fuzzy:
+#+BEGIN_SRC C
+/* Attribute to make gcc check printf-like arguments. */
+#define printflike(a, b) __attribute__ ((format (printf, a, b)))
+
+int printflike(3, 4) xsnprintf(char *, size_t, const char *, ...);
+
+int xsnprintf(char *buf, size_t len, const char *fmt, ...)
+{
+	va_list ap;
+	int	i;
+
+	va_start(ap, fmt);
+	i = xvsnprintf(buf, len, fmt, ap);
+	va_end(ap);
+
+	return (i);
+}
+
+int xvsnprintf(char *buf, size_t len, const char *fmt, va_list ap)
+{
+	int	i;
+
+	if (len > INT_MAX)
+		fatalx("len > INT_MAX");
+
+	i = vsnprintf(buf, len, fmt, ap);
+	if (i < 0)
+		fatal("vsnprintf failed");
+
+	return (i);
+}
+#+END_SRC
+** 256colors
+: #define CLIENT_256COLOURS 0x20000
+Check the source code for the usage of this macro.
+** Control mode
+: #define CLIENT_CONTROL 0x2000
+: #define CLIENT_CONTROLCONTROL 0x4000
+** VERSION
+#+BEGIN_SRC C
+case 'V':
+printf("%s %s\n", __progname, VERSION);
+exit(0);
+#+END_SRC
+* int func1(...) func2(...);					      :weird:
+What's this? tmux.h
+: int printflike(2, 3) xasprintf(char **, const char *, ...);
+
+#+BEGIN_SRC C
+int xasprintf(char **ret, const char *fmt, ...)
+{
+        va_list ap;
+        int     i;
+
+        va_start(ap, fmt);
+        i = xvasprintf(ret, fmt, ap);
+        va_end(ap);
+
+        return (i);
+}
+#+END_SRC
+* log file						       :tmux.c:fuzzy:
+#+BEGIN_SRC C
+void
+logfile(const char *name)
+{
+	char	*path;
+
+	if (debug_level > 0) {
+		xasprintf(&path, "tmux-%s-%ld.log", name, (long) getpid());
+		log_open(path);
+		free(path);
+	}
+}
+#+END_SRC
+* va_list, va_start						  :not_found:
+xmalloc.c file
+: va_list ap;
+in
+: int xasprintf(...)
+
+the definition of va_list, va_start which may be in stdarg.h is not found.
+but you can check =man stdarg.h= or =man va_start=
+
+#+BEGIN_SRC C
+// tmux.c
+void
+logfile(const char *name)
+{
+	char	*path;
+
+	if (debug_level > 0) {
+		xasprintf(&path, "tmux-%s-%ld.log", name, (long) getpid());
+		log_open(path);
+		free(path);
+	}
+}
+
+// xmalloc.c
+int
+xasprintf(char **ret, const char *fmt, ...)
+{
+	va_list ap;
+	int	i;
+
+	va_start(ap, fmt);
+	i = xvasprintf(ret, fmt, ap);
+	va_end(ap);
+
+	return (i);
+}
+
+int
+xvasprintf(char **ret, const char *fmt, va_list ap)
+{
+	int	i;
+
+	i = vasprintf(ret, fmt, ap);
+	if (i < 0 || *ret == NULL)
+		fatal("xvasprintf failed");
+
+	return (i);
+}
+#+END_SRC
+
+TODO: Google the va_* usage.
+* malloc_options						  :not_found:
+#+BEGIN_SRC C
+#if defined(DEBUG) && defined(__OpenBSD__)
+extern char	*malloc_options;
+#endif
+
+#if defined(DEBUG) && defined(__OpenBSD__)
+	malloc_options = (char *) "AFGJPX";
+#endif
+//But there are no references of malloc_options
+#+END_SRC
+* TODO BSD* 							  :not_found:
+tmux.c L246
+#+BEGIN_SRC C
+case 'c':
+free(shell_cmd);
+shell_cmd = xstrdup(optarg); // NOTE: optarg has to be initialized before this,
+                             // it has already been declared in tmux.h L1656
+                             // struct args	*args_parse(const char *, int, char **);
+                             // defined in arguments.c L76, but no reference through
+                             // root step by step
+break;
+#+END_SRC
+tmux.c L259
+#+BEGIN_SRC C
+case 'f':
+free(cfg_file);
+cfg_file = xstrdup(optarg);
+break;
+#+END_SRC
+
+# more optarg...
+
+tmux.c L284
+#+BEGIN_SRC C
+argc -= optind;
+argv += optind;
+#+END_SRC
+* TODO this occurs here, come back later
+** tmux.c L244
+#+BEGIN_SRC C
+case 'c':
+free(shell_cmd); // NOTE: remember to free the arg first
+shell_cmd = xstrdup(optarg); // NOTE: xstrdup()
+#+END_SRC
+** tmux.c L261
+How to deal with of login_shell, and =man tmux= to check the "-l" option.
+** flags
+Note the value of flags and how to deal with it.
+* 1. main() in tmux.c
+Only the first reference of the functions will be listed here.
+** DONE setlocale()
+** TODO getopt()
+** DONE envrion_init() tmux.c L307
+*** RB_INIT() environ.c L38
+**** #define RB_INIT tree.h L299
+***** check the "struct environ" heading for the initialization of argument
+** DONE environ_put() tmux.c L309
+*** environ_set() envrion.c L117 NOTE:
+This function which is defined in envrion.c L80 is a little complicated, review the code deeply.
+*** environ_find() environ.c L86
+**** RB_FIND() environ.c L88
+***** #define RB_FIND(name, x, y) tree.h L721
+: #define RB_FIND(name, x, y)	name##_RB_FIND(x, y)
+**** RB_INSERT environ.c L99
+***** #define RB_INSERT(name, x, y) tree.h L719
+: #define RB_INSERT(name, x, y)	name##_RB_INSERT(x, y)
+** options_init() tmux.c L313
+*** struct options declared in tmux.c L37
+**** RB_HEAD() tmux.h L689
+: RB_HEAD(options_tree, options_entry) tree;
+***** #define RB_HEAD(name, type) tree.h L290
+****** struct options_entry tmux.h L671
+******* RB_ENTRY() tmux.h L685
+******** #define RB_ENTRY(type) tree.h L305
+** options_table_populate_tree() L314
+*** struct options_table_entry tmux.h L1397
+**** struct options_table_entry server_options_table[] options_table.c L55
+*** options_set_string()
+*** options_set_style()
+*** options_set_number()
+** options_init() tmux.c L316
+*** RB_INIT() options.c L43
+**** #define RB_INIT tree.h L299
+***** struct options declared in tmux.c L38
+***** RB_HEAD() tmux.h L689
+: RB_HEAD(options_tree, options_entry) tree;
+****** #define RB_HEAD(name, type) tree.h L290
+******* struct options_entry tmux.h L671
+******** RB_ENTRY() tmux.h L685
+********* #define RB_ENTRY(type) tree.h L305
+** options_table_populate_tree() tmux.c L317
+*** struct options_table_entry tmux.h L1397
+**** struct options_table_entry server_options_table[] options_table.c L55
+*** options_set_string()
+*** options_set_style()
+*** options_set_number()
+** TODO: NOTE: options_set_string() tmux.c L318 		 :fuzzy:tips:
+: /* Attribute to make gcc check printf-like arguments. */
+: #define printflike(a, b) __attribute__ ((format (printf, a, b)))
+
+: struct options_entry *printflike(3, 4) options_set_string(struct options *, const char *, const char *, ...);
+** options_init() tmux.c L321
+** options_table_populate_tree() tmux.c L322
+** NOTE: options_set_number() tmux.c L326
+declared in tmux.h L1516, defined in options.c L135, a function which is a pointer of a struct
+: struct options_entry *options_set_number(struct options *, const char *, long long);
+*** options_find1() options.c L140
+**** RB_FIND() options.c L68
+***** RB_ROOT() compat/tree.h L622
+***** cmp()	tree.h L625 					  :not_found:
+cannot find the definition of cmp()
+***** RB_LEFT() and RB_RIGHT() tree.h L627
+** Locate the configuration file tmux.c L343 			       :tips:
+*** find_home()
+** TODO Get path from environment 				      :fuzzy:
+: sscanf(s, "%255[^,],%lld,%d", in, &pid, &session)
+What is the "%255[^,]"?
+** TODO makesocketpath() tmux.c L375
+** osdep_event_init() tmux.c L396
+** NOTE: client_main() tmux.c L397
+: exit(client_main(argc, argv, flags));
+The main part of tmux starts here.
+* 2. client_main() in client.c
+** struct cmd_list client.c L210				     :fuzzy:
+tmux.h L1299
+#+BEGIN_SRC C
+struct cmd_list {
+	int			 references;
+	TAILQ_HEAD(, cmd)	 list;
+};
+#+END_SRC
+
+What's first argument passed to TAILQ_HEAD?
+
+compat/queue.h L322
+#+BEGIN_SRC C
+/*
+ * Tail queue definitions.
+ */
+#define TAILQ_HEAD(name, type)						\
+struct name {								\
+	struct type *tqh_first;	/* first element */			\
+	struct type **tqh_last;	/* addr of last next element */		\
+}
+#+END_SRC
+** cmd_list_parse() client.c L234
+*** cmd_copy_argv() cmd-list.c L36
+**** xcalloc() cmd.c L173
+***** fatalx() xmalloc.c L46
+: #define fatalx(msg) log_fatalx("%s: %s", __func__, msg);
+****** log_fatalx() tmux.h L75
+defined in log.c L108
+******* log_vwrite() log.c L118
+defined in log.c L66
+***** fatal() xmalloc.c L50
+: #define fatal(msg) log_fatal("%s: %s", __func__, msg);
+****** log_fatal() tmux.h L74
+defined in log.c L94
+******* log_vwrite() log.c L04
+defined in log.c L66
+** TAILQ_FOREACH() client.c L240				      :tips:
+defined in queue.h L351
+#+BEGIN_SRC C
+#define TAILQ_FOREACH(var, head, field)					\
+	for((var) = TAILQ_FIRST(head);					\
+	    (var) != TAILQ_END(head);					\
+	    (var) = TAILQ_NEXT(var, field))
+#+END_SRC
+
+This is the usage of this macro:
+#+BEGIN_SRC C
+TAILQ_FOREACH(cmd, &cmdlist->list, qentry) {
+    if (cmd->entry->flags & CMD_STARTSERVER)
+	cmdflags |= CMD_STARTSERVER;
+}
+#+END_SRC
+** cmd_list_free() client.c L244
+*** TAILQ_FOREACH_SAFE() cmd-list.c L92
+defined in queue.h L356
+#+BEGIN_SRC C
+#define TAILQ_FOREACH_SAFE(var, head, field, tvar)			\
+	for ((var) = TAILQ_FIRST(head);					\
+	    (var) != TAILQ_END(head) &&					\
+	    ((tvar) = TAILQ_NEXT(var, field), 1);			\
+	    (var) = (tvar))
+#+END_SRC
+*** TAILQ_REMOVE() cmd-list.c L93
+defined in queue.h L416
+#+BEGIN_SRC C
+#define TAILQ_REMOVE(head, elm, field) do {				\
+	if (((elm)->field.tqe_next) != NULL)				\
+		(elm)->field.tqe_next->field.tqe_prev =			\
+		    (elm)->field.tqe_prev;				\
+	else								\
+		(head)->tqh_last = (elm)->field.tqe_prev;		\
+	,*(elm)->field.tqe_prev = (elm)->field.tqe_next;			\
+	_Q_INVALIDATE((elm)->field.tqe_prev);				\
+	_Q_INVALIDATE((elm)->field.tqe_next);				\
+} while (0)
+
+#if defined(QUEUE_MACRO_DEBUG) || (defined(_KERNEL) && defined(DIAGNOSTIC))
+#define _Q_INVALIDATE(a) (a) = ((void *)-1)
+#else
+#define _Q_INVALIDATE(a)
+#endif
+#+END_SRC
+*** args_free() cmd-list.c L94
+**** cmd_free_argv() arguments.c L113
+**** RB_FOREACH_SAFE() arguments.c L115
+defined in tree.h L733
+#+BEGIN_SRC C
+#define RB_FOREACH_SAFE(x, name, head, y)				\
+	for ((x) = RB_MIN(name, head);					\
+	    ((x) != NULL) && ((y) = name##_RB_NEXT(x), 1);		\
+	     (x) = (y))
+#+END_SRC
+**** RB_REMOVE() arguments.c L116
+tree.h L520
+#+BEGIN_SRC C
+#define RB_REMOVE(name, x, y)	name##_RB_REMOVE(x, y)
+
+// long definition...
+#+END_SRC
+** NOTE: set_signals() clients.c L248				      :tips:
+defined in signal.c L34
+: void set_signals(void(*handler)(int, short, unused void *)) {...}
+*** client_signal() as the argument passed to set_signals()
+Defined in client.c L433
+* environ tmux.c L308 						  :not_found:
+variable environ referenced in tmux.c L308 is declared in tmux.h L43, where is the initialization?
+* Long dynamically-generating-functions macros in tree.h 	 :fuzzy:tips:
+** #define SPLAY_PROTOTYPE(name, type, field, cmp)
+** #define SPLAY_GENERATE(name, type, field, cmp)
+** #define RB_GENERATE_INTERNAL(name, type, field, cmp, attr)
+* How to write code for different platforms 			       :tips:
+ag PLATFORM in configure.ac and Makefile.am, check the osdep-*.c files for different platforms, and osdep_*() in tmux.h, osdep_event_init() in tmux.c
+* Bug report
+** tmux.h L39
+Two pairs of
+#+BEGIN_SRC C
+extern char    *__progname;
+extern char   **environ;
+#+END_SRC
+** deprecated function event_init()
+
+When you walk down the osdep_event_init() in tmux.c, it will call event_init(), *BUT* in /usr/include/event2/event_compat.h file, it says
+#+BEGIN_QUOTE
+/**
+  Initialize the event API.
+
+  The event API needs to be initialized with event_init() before it can be
+  used.  Sets the global current base that gets used for events that have no
+  base associated with them.
+
+  @deprecated This function is deprecated because it replaces the "current"
+    event_base, and is totally unsafe for multithreaded use.  The replacement
+    is event_base_new().
+
+  @see event_base_set(), event_base_new()
+ */
+struct event_base *event_init(void);
+#+END_QUOTE

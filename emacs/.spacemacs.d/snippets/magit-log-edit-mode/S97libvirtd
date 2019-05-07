@@ -1,0 +1,360 @@
+;; Object progmodes/
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "progmodes/"
+  :tables
+  (list
+    (semanticdb-table "sh-script.el"
+      :major-mode 'emacs-lisp-mode
+      :tags 
+        '( ("comint" include nil nil [8792 8809])
+            ("cl-lib" include nil nil [8772 8789])
+            ("skeleton" include nil nil [8750 8769])
+            ("executable" include nil nil [8811 8832])
+            ("comint-completion-at-point" function (:prototype-flag t) nil [8834 8881])
+            ("comint-filename-completion" function (:prototype-flag t) nil [8882 8929])
+            ("shell-command-completion" function (:prototype-flag t) nil [8930 8974])
+            ("shell-environment-variable-completion" function (:prototype-flag t) nil [8975 9032])
+            ("font-lock-comment-face" variable nil nil [9034 9065])
+            ("font-lock-set-defaults" variable nil nil [9066 9097])
+            ("font-lock-string-face" variable nil nil [9098 9128])
+            ("sh" customgroup (:user-visible-flag t) nil [9131 9201])
+            ("sh-script" customgroup (:user-visible-flag t) nil [9203 9353])
+            ("sh-ancestor-alist" variable (:default-value (quote ((ash . sh) (bash . jsh) (bash2 . jsh) (dash . ash) (dtksh . ksh) (es . rc) (itcsh . tcsh) (jcsh . csh) (jsh . sh) (ksh . ksh88) (ksh88 . jsh) (oash . sh) (pdksh . ksh88) (posix . sh) (tcsh . csh) (wksh . ksh88) (wsh . sh) (zsh . ksh88) (rpm . sh)))) nil [9356 10517])
+            ("sh-alias-alist" variable (:default-value (append (if (eq system-type (quote gnu/linux)) (quote ((csh . tcsh) (ksh . pdksh)))) (quote ((ksh . ksh88) (bash2 . bash) (sh5 . sh))))) nil [10520 10937])
+            ("sh-shell-file" variable (:default-value (or (and (memq system-type (quote (ms-dos windows-nt))) (let* ((shell (getenv "SHELL")) (shell-base (and shell (file-name-nondirectory shell)))) (if (or (null shell) (member (downcase shell-base) (quote ("command.com" "cmd.exe" "4dos.com" "ndos.com" "cmdproxy.exe")))) "/bin/sh" (file-name-sans-extension (downcase shell))))) (getenv "SHELL") "/bin/sh")) nil [10940 11707])
+            ("sh-shell-arg" variable (:default-value (quote ((bash) (csh . "-f") (pdksh) (ksh88) (rc . "-p") (wksh) (zsh . "-f")))) nil [11710 12416])
+            ("sh-imenu-generic-expression" variable (:default-value (\` ((sh (nil "^\\s-*function\\s-+\\([[:alpha:]_][[:alnum:]_]*\\)\\s-*\\(?:()\\)?" 1) (nil "^\\s-*\\([[:alpha:]_][[:alnum:]_]*\\)\\s-*()" 1))))) nil [12418 13066])
+            ("sh-current-defun-name" function nil nil [13068 13695])
+            ("sh-shell-variables" variable nil nil [13697 13977])
+            ("sh-shell-variables-initialized" variable nil nil [13979 14074])
+            ("sh-canonicalize-shell" function (:arguments ("shell")) nil [14076 14388])
+            ("sh-shell" variable (:default-value (sh-canonicalize-shell (file-name-nondirectory sh-shell-file))) nil [14390 14536])
+            ("define-abbrev-table" code nil nil [14598 14644])
+            ("sh-mode-syntax-table" function (:arguments ("table" "list")) nil [15621 15861])
+            ("sh-mode-syntax-table" variable (:default-value (sh-mode-syntax-table nil 35 "<" 10 ">#" 34 "\"\"" 39 "\"'" 96 "\"`" 36 "'" 33 "_" 37 "_" 58 "_" 46 "_" 94 "_" 126 "_" 44 "_" 61 "." 59 "." 124 "." 38 "." 60 "." 62 ".")) nil [15863 16319])
+            ("sh-mode-syntax-table-input" variable (:default-value (quote ((sh)))) nil [16321 16435])
+            ("sh-mode-map" variable (:default-value (let ((map (make-sparse-keymap)) (menu-map (make-sparse-keymap))) (define-key map "(" (quote sh-function)) (define-key map "" (quote sh-while)) (define-key map "" (quote sh-until)) (define-key map "" (quote sh-tmp-file)) (define-key map "" (quote sh-select)) (define-key map "" (quote sh-repeat)) (define-key map "" (quote sh-while-getopts)) (define-key map "" (quote sh-indexed-loop)) (define-key map "	" (quote sh-if)) (define-key map "" (quote sh-for)) (define-key map "" (quote sh-case)) (define-key map "?" (quote sh-show-indent)) (define-key map "=" (quote sh-set-indent)) (define-key map "<" (quote sh-learn-line-indent)) (define-key map ">" (quote sh-learn-buffer-indent)) (define-key map "" (quote sh-backslash-region)) (define-key map "=" (quote sh-assignment)) (define-key map "+" (quote sh-add)) (define-key map "\230" (quote sh-execute-region)) (define-key map "" (quote executable-interpret)) (define-key map "" (quote sh-send-line-or-region-and-step)) (define-key map "" (quote sh-cd-here)) (define-key map "" (quote sh-show-shell)) (define-key map [remap delete-backward-char] (quote backward-delete-char-untabify)) (define-key map ":" (quote sh-set-shell)) (define-key map [remap backward-sentence] (quote sh-beginning-of-command)) (define-key map [remap forward-sentence] (quote sh-end-of-command)) (define-key map [menu-bar sh-script] (cons "Sh-Script" menu-map)) (define-key menu-map [sh-learn-buffer-indent] (quote (menu-item "Learn buffer indentation" sh-learn-buffer-indent :help "Learn how to indent the buffer the way it currently is."))) (define-key menu-map [sh-learn-line-indent] (quote (menu-item "Learn line indentation" sh-learn-line-indent :help "Learn how to indent a line as it currently is indented"))) (define-key menu-map [sh-show-indent] (quote (menu-item "Show indentation" sh-show-indent :help "Show the how the current line would be indented"))) (define-key menu-map [sh-set-indent] (quote (menu-item "Set indentation" sh-set-indent :help "Set the indentation for the current line"))) (define-key menu-map [sh-pair] (quote (menu-item "Insert braces and quotes in pairs" electric-pair-mode :button (:toggle bound-and-true-p electric-pair-mode) :help "Inserting a brace or quote automatically inserts the matching pair"))) (define-key menu-map [sh-s0] (quote ("--"))) (define-key menu-map [sh-function] (quote (menu-item "Function..." sh-function :help "Insert a function definition"))) (define-key menu-map [sh-add] (quote (menu-item "Addition..." sh-add :help "Insert an addition of VAR and prefix DELTA for Bourne (type) shell"))) (define-key menu-map [sh-until] (quote (menu-item "Until Loop" sh-until :help "Insert an until loop"))) (define-key menu-map [sh-repeat] (quote (menu-item "Repeat Loop" sh-repeat :help "Insert a repeat loop definition"))) (define-key menu-map [sh-while] (quote (menu-item "While Loop" sh-while :help "Insert a while loop"))) (define-key menu-map [sh-getopts] (quote (menu-item "Options Loop" sh-while-getopts :help "Insert a while getopts loop."))) (define-key menu-map [sh-indexed-loop] (quote (menu-item "Indexed Loop" sh-indexed-loop :help "Insert an indexed loop from 1 to n."))) (define-key menu-map [sh-select] (quote (menu-item "Select Statement" sh-select :help "Insert a select statement "))) (define-key menu-map [sh-if] (quote (menu-item "If Statement" sh-if :help "Insert an if statement"))) (define-key menu-map [sh-for] (quote (menu-item "For Loop" sh-for :help "Insert a for loop"))) (define-key menu-map [sh-case] (quote (menu-item "Case Statement" sh-case :help "Insert a case/switch statement"))) (define-key menu-map [sh-s1] (quote ("--"))) (define-key menu-map [sh-exec] (quote (menu-item "Execute region" sh-execute-region :help "Pass optional header and region to a subshell for noninteractive execution"))) (define-key menu-map [sh-exec-interpret] (quote (menu-item "Execute script..." executable-interpret :help "Run script with user-specified args, and collect output in a buffer"))) (define-key menu-map [sh-set-shell] (quote (menu-item "Set shell type..." sh-set-shell :help "Set this buffer's shell to SHELL (a string)"))) (define-key menu-map [sh-backslash-region] (quote (menu-item "Backslash region" sh-backslash-region :help "Insert, align, or delete end-of-line backslashes on the lines in the region."))) map)) nil [16437 21099])
+            ("sh-skeleton-pair-default-alist" variable (:default-value (quote ((40 _ 41) (41) (91 32 _ 32 93) (93) (123 _ 125) (125)))) nil [21101 21292])
+            ("sh-dynamic-complete-functions" variable (:default-value (quote (shell-environment-variable-completion shell-command-completion comint-filename-completion))) nil [21294 21533])
+            ("sh-assignment-regexp" variable (:default-value (\` ((csh . "\\<\\([[:alnum:]_]+\\)\\(\\[.+\\]\\)?[ 	]*[-+*/%^]?=") (ksh88 \, (concat "\\<\\([[:alnum:]_]+\\)\\(\\[.+\\]\\)?" "[ 	]*\\(?:[-+*/%&|~^]\\|<<\\|>>\\)?=")) (bash . "\\<\\([[:alnum:]_]+\\)\\(\\[.+\\]\\)?\\+?=") (rc . "\\<\\([[:alnum:]_*]+\\)[ 	]*=") (sh . "\\<\\([[:alnum:]_]+\\)=")))) nil [21535 22266])
+            ("sh-indentation" variable (:default-value 4) nil [22269 22394])
+            ("put" code nil nil [22395 22447])
+            ("sh-remember-variable-min" variable (:default-value 3) nil [22449 22597])
+            ("sh-header-marker" variable nil nil [22600 22761])
+            ("make-variable-buffer-local" code nil nil [22762 22808])
+            ("sh-beginning-of-command" variable (:default-value "\\([;({`|&]\\|\\`\\|[^\\]
+\\)[ 	]*\\([/~[:alnum:]:]\\)") nil [22810 23073])
+            ("sh-end-of-command" variable (:default-value "\\([/~[:alnum:]:]\\)[ 	]*\\([;#)}`|&]\\|$\\)") nil [23076 23307])
+            ("sh-here-document-word" variable (:default-value "EOF") nil [23311 24102])
+            ("sh-test" variable (:default-value (quote ((sh "[  ]" . 3) (ksh88 "[[  ]]" . 4)))) nil [24105 24245])
+            ("sh-builtins" variable (:default-value (quote ((bash sh-append posix "." "alias" "bg" "bind" "builtin" "caller" "compgen" "complete" "declare" "dirs" "disown" "enable" "fc" "fg" "help" "history" "jobs" "kill" "let" "local" "popd" "printf" "pushd" "shopt" "source" "suspend" "typeset" "unalias" "mapfile" "readarray") (bourne sh-append shell "eval" "export" "getopts" "newgrp" "pwd" "read" "readonly" "times" "ulimit") (csh sh-append shell "alias" "chdir" "glob" "history" "limit" "nice" "nohup" "rehash" "setenv" "source" "time" "unalias" "unhash") (dtksh sh-append wksh) (es "access" "apids" "cd" "echo" "eval" "false" "let" "limit" "local" "newpgrp" "result" "time" "umask" "var" "vars" "wait" "whatis") (jsh sh-append sh "bg" "fg" "jobs" "kill" "stop" "suspend") (jcsh sh-append csh "bg" "fg" "jobs" "kill" "notify" "stop" "suspend") (ksh88 sh-append bourne "alias" "bg" "false" "fc" "fg" "jobs" "kill" "let" "print" "time" "typeset" "unalias" "whence") (oash sh-append sh "checkwin" "dateline" "error" "form" "menu" "newwin" "oadeinit" "oaed" "oahelp" "oainit" "pp" "ppfile" "scan" "scrollok" "wattr" "wclear" "werase" "win" "wmclose" "wmmessage" "wmopen" "wmove" "wmtitle" "wrefresh") (pdksh sh-append ksh88 "bind") (posix sh-append sh "command") (rc "builtin" "cd" "echo" "eval" "limit" "newpgrp" "shift" "umask" "wait" "whatis") (sh sh-append bourne "hash" "test" "type") (shell "cd" "echo" "eval" "set" "shift" "umask" "unset" "wait") (wksh sh-append ksh88 "Xt[A-Z][A-Za-z]*") (zsh sh-append ksh88 "autoload" "bindkey" "builtin" "chdir" "compctl" "declare" "dirs" "disable" "disown" "echotc" "enable" "functions" "getln" "hash" "history" "integer" "limit" "local" "log" "popd" "pushd" "r" "readonly" "rehash" "sched" "setopt" "source" "suspend" "true" "ttyctl" "type" "unfunction" "unhash" "unlimit" "unsetopt" "vared" "which")))) nil [24369 26950])
+            ("sh-leading-keywords" variable (:default-value (quote ((bash sh-append sh "time") (csh "else") (es "true" "unwind-protect" "whatis") (rc "else") (sh "!" "do" "elif" "else" "if" "then" "trap" "type" "until" "while")))) nil [26954 27594])
+            ("sh-other-keywords" variable (:default-value (quote ((bash sh-append bourne "bye" "logout" "select") (bourne sh-append sh "function") (csh sh-append shell "breaksw" "default" "end" "endif" "endsw" "foreach" "goto" "if" "logout" "onintr" "repeat" "switch" "then" "while") (es "break" "catch" "exec" "exit" "fn" "for" "forever" "fork" "if" "return" "throw" "while") (ksh88 sh-append bourne "select") (rc "break" "case" "exec" "exit" "fn" "for" "if" "in" "return" "switch" "while") (sh sh-append shell "done" "esac" "fi" "for" "in" "return") (shell "break" "case" "continue" "exec" "exit") (zsh sh-append bash "select" "foreach")))) nil [27597 28594])
+            ("sh-variables" variable (:default-value (quote ((bash sh-append sh "allow_null_glob_expansion" "auto_resume" "BASH" "BASH_ENV" "BASH_VERSINFO" "BASH_VERSION" "cdable_vars" "COMP_CWORD" "COMP_LINE" "COMP_POINT" "COMP_WORDS" "COMPREPLY" "DIRSTACK" "ENV" "EUID" "FCEDIT" "FIGNORE" "FUNCNAME" "glob_dot_filenames" "GLOBIGNORE" "GROUPS" "histchars" "HISTCMD" "HISTCONTROL" "HISTFILE" "HISTFILESIZE" "HISTIGNORE" "history_control" "HISTSIZE" "hostname_completion_file" "HOSTFILE" "HOSTTYPE" "IGNOREEOF" "ignoreeof" "INPUTRC" "LINENO" "MACHTYPE" "MAIL_WARNING" "noclobber" "nolinks" "notify" "no_exit_on_failed_exec" "NO_PROMPT_VARS" "OLDPWD" "OPTERR" "OSTYPE" "PIPESTATUS" "PPID" "POSIXLY_CORRECT" "PROMPT_COMMAND" "PS3" "PS4" "pushd_silent" "PWD" "RANDOM" "REPLY" "SECONDS" "SHELLOPTS" "SHLVL" "TIMEFORMAT" "TMOUT" "UID") (csh sh-append shell "argv" "cdpath" "child" "echo" "histchars" "history" "home" "ignoreeof" "mail" "noclobber" "noglob" "nonomatch" "path" "prompt" "shell" "status" "time" "verbose") (es sh-append shell "apid" "cdpath" "CDPATH" "history" "home" "ifs" "noexport" "path" "pid" "prompt" "signals") (jcsh sh-append csh "notify") (ksh88 sh-append sh "ENV" "ERRNO" "FCEDIT" "FPATH" "HISTFILE" "HISTSIZE" "LINENO" "OLDPWD" "PPID" "PS3" "PS4" "PWD" "RANDOM" "REPLY" "SECONDS" "TMOUT") (oash sh-append sh "FIELD" "FIELD_MAX" "LAST_KEY" "OALIB" "PP_ITEM" "PP_NUM") (rc sh-append shell "apid" "apids" "cdpath" "CDPATH" "history" "home" "ifs" "path" "pid" "prompt" "status") (sh sh-append shell "CDPATH" "IFS" "OPTARG" "OPTIND" "PS1" "PS2") (shell "COLUMNS" "EDITOR" "HOME" "HUSHLOGIN" "LANG" "LC_COLLATE" "LC_CTYPE" "LC_MESSAGES" "LC_MONETARY" "LC_NUMERIC" "LC_TIME" "LINES" "LOGNAME" "MAIL" "MAILCHECK" "MAILPATH" "PAGER" "PATH" "SHELL" "TERM" "TERMCAP" "TERMINFO" "VISUAL") (tcsh sh-append csh "addsuffix" "ampm" "autocorrect" "autoexpand" "autolist" "autologout" "chase_symlinks" "correct" "dextract" "edit" "el" "fignore" "gid" "histlit" "HOST" "HOSTTYPE" "HPATH" "ignore_symlinks" "listjobs" "listlinks" "listmax" "matchbeep" "nobeep" "NOREBIND" "oid" "printexitvalue" "prompt2" "prompt3" "pushdsilent" "pushdtohome" "recexact" "recognize_only_executables" "rmstar" "savehist" "SHLVL" "showdots" "sl" "SYSTYPE" "tcsh" "term" "tperiod" "tty" "uid" "version" "visiblebell" "watch" "who" "wordchars") (zsh sh-append ksh88 "BAUD" "bindcmds" "cdpath" "DIRSTACKSIZE" "fignore" "FIGNORE" "fpath" "HISTCHARS" "hostcmds" "hosts" "HOSTS" "LISTMAX" "LITHISTSIZE" "LOGCHECK" "mailpath" "manpath" "NULLCMD" "optcmds" "path" "POSTEDIT" "prompt" "PROMPT" "PROMPT2" "PROMPT3" "PROMPT4" "psvar" "PSVAR" "READNULLCMD" "REPORTTIME" "RPROMPT" "RPS1" "SAVEHIST" "SPROMPT" "STTY" "TIMEFMT" "TMOUT" "TMPPREFIX" "varcmds" "watch" "WATCH" "WATCHFMT" "WORDCHARS" "ZDOTDIR")))) nil [28598 31650])
+            ("sh-heredoc" variable
+               (:default-value (quote ((((min-colors 88) (class color) (background dark)) (:foreground "yellow1" :weight bold)) (((class color) (background dark)) (:foreground "yellow" :weight bold)) (((class color) (background light)) (:foreground "tan1")) (t (:weight bold))))
+                :type "face")
+                nil [31676 32048])
+            ("sh-quoted-exec" variable
+               (:default-value (quote ((((class color) (background dark)) (:foreground "salmon")) (((class color) (background light)) (:foreground "magenta")) (t (:weight bold))))
+                :type "face")
+                nil [32118 32372])
+            ("define-obsolete-face-alias" code nil nil [32373 32437])
+            ("sh-heredoc-face" variable (:default-value (quote sh-heredoc)) nil [32438 32474])
+            ("sh-escaped-newline" variable
+               (:default-value (quote ((t :inherit font-lock-string-face)))
+                :type "face")
+                nil [32476 32661])
+            ("sh-font-lock-keywords-var" variable (:default-value (quote ((csh sh-append shell ("\\${?[#?]?\\([[:alpha:]_][[:alnum:]_]*\\|0\\)" 1 font-lock-variable-name-face)) (es sh-append executable-font-lock-keywords ("\\$#?\\([[:alpha:]_][[:alnum:]_]*\\|[0-9]+\\)" 1 font-lock-variable-name-face)) (rc sh-append es) (bash sh-append sh ("\\$(\\(\\sw+\\)" (1 (quote sh-quoted-exec) t))) (sh sh-append shell ("\\$\\({#?\\)?\\([[:alpha:]_][[:alnum:]_]*\\|[-#?@!]\\)" 2 font-lock-variable-name-face) ("^\\(\\sw+\\)[ 	]*(" 1 font-lock-function-name-face) ("\\<\\(function\\)\\>[ 	]*\\(\\sw+\\)?" (1 font-lock-keyword-face) (2 font-lock-function-name-face nil t)) ("\\(?:^\\s *\\|[[();&|]\\s *\\|\\(?:\\s +-[ao]\\|if\\|else\\|then\\|while\\|do\\)\\s +\\)\\(!\\)" 1 font-lock-negation-char-face)) (shell ("\\(^\\|[^\\]\\)\\(\\\\\\\\\\)*\\(\\\\\\)$" 3 (quote sh-escaped-newline)) ("\\\\[^[:alnum:]]" 0 font-lock-string-face) ("\\${?\\([[:alpha:]_][[:alnum:]_]*\\|[0-9]+\\|[$*_]\\)" 1 font-lock-variable-name-face)) (rpm sh-append rpm2 ("%{?\\(\\sw+\\)" 1 font-lock-keyword-face)) (rpm2 sh-append shell ("^Summary:\\(.*\\)$" (1 font-lock-doc-face t)) ("^\\(\\sw+\\):" 1 font-lock-variable-name-face))))) nil [32663 34167])
+            ("sh-font-lock-keywords-var-1" variable (:default-value (quote ((sh "[ 	]in\\>")))) nil [34169 34283])
+            ("sh-font-lock-keywords-var-2" variable nil nil [34285 34377])
+            ("sh-st-punc" variable
+               (:constant-flag t
+                :default-value (string-to-syntax "."))
+                nil [34522 34566])
+            ("sh-here-doc-syntax" variable
+               (:constant-flag t
+                :default-value (string-to-syntax "|"))
+                nil [34567 34619])
+            ("sh-here-doc-open-re" variable
+               (:constant-flag t
+                :default-value (concat "<<-?\\s-*\\\\?\\(\\(?:['\"][^'\"]+['\"]\\|\\sw\\|[-/~._]\\)+\\)" sh-escaped-line-re "\\(
+\\)"))
+                nil [34944 35095])
+            ("sh-escaped-line-re" variable
+               (:constant-flag t
+                :default-value "\\(?:\\(?:.*[^\\
+]\\)?\\(?:\\\\\\\\\\)*\\\\
+\\)*.*")
+                nil [34659 34940])
+            ("sh--inside-noncommand-expression" function (:arguments ("pos")) nil [35098 35627])
+            ("sh-font-lock-open-heredoc" function (:arguments ("start" "string" "eol")) nil [35629 37367])
+            ("sh-syntax-propertize-here-doc" function (:arguments ("end")) nil [37369 37865])
+            ("sh-font-lock-quoted-subshell" function (:arguments ("limit")) nil [37867 39906])
+            ("sh-is-quoted-p" function (:arguments ("pos")) nil [39909 40011])
+            ("sh-font-lock-paren" function (:arguments ("start")) nil [40013 42577])
+            ("sh-font-lock-backslash-quote" function nil nil [42579 42769])
+            ("sh-syntax-propertize-function" function (:arguments ("start" "end")) nil [42771 44286])
+            ("sh-font-lock-syntactic-face-function" function (:arguments ("state")) nil [44287 44527])
+            ("sh-indentation" customgroup (:user-visible-flag t) nil [44529 44878])
+            ("sh-set-shell-hook" variable nil nil [44881 44980])
+            ("sh-mode-hook" variable nil nil [44982 45071])
+            ("sh-learn-basic-offset" variable nil nil [45073 45499])
+            ("sh-popup-occur-buffer" variable nil nil [45501 45811])
+            ("sh-blink" variable (:default-value t) nil [45813 46095])
+            ("sh-first-lines-indent" variable nil nil [46097 46455])
+            ("sh-basic-offset" variable (:default-value 4) nil [46458 46643])
+            ("put" code nil nil [46644 46697])
+            ("sh-indent-comment" variable (:default-value t) nil [46699 47202])
+            ("sh-debug" variable nil nil [47205 47297])
+            ("sh-debug" function (:arguments ("_args")) nil [47524 47557])
+            ("sh-symbol-list" variable
+               (:constant-flag t
+                :default-value (quote ((const :tag "+ " :value + :menu-tag "+   Indent right by sh-basic-offset") (const :tag "- " :value - :menu-tag "-   Indent left  by sh-basic-offset") (const :tag "++" :value ++ :menu-tag "++  Indent right twice sh-basic-offset") (const :tag "--" :value -- :menu-tag "--  Indent left  twice sh-basic-offset") (const :tag "* " :value * :menu-tag "*   Indent right half sh-basic-offset") (const :tag "/ " :value / :menu-tag "/   Indent left  half sh-basic-offset"))))
+                nil [47559 48100])
+            ("sh-indent-for-else" variable nil nil [48102 48384])
+            ("sh-number-or-symbol-list" variable
+               (:constant-flag t
+                :default-value (append (quote ((integer :menu-tag "A number (positive=>indent right)" :tag "A number") (const :tag "--"))) sh-symbol-list))
+                nil [48386 48568])
+            ("sh-indent-for-fi" variable nil nil [48570 48736])
+            ("sh-indent-for-done" variable nil nil [48738 48917])
+            ("sh-indent-after-else" variable (:default-value (quote +)) nil [48919 49088])
+            ("sh-indent-after-if" variable (:default-value (quote +)) nil [49090 49386])
+            ("sh-indent-for-then" variable nil nil [49388 49546])
+            ("sh-indent-for-do" variable nil nil [49548 49810])
+            ("sh-indent-after-do" variable (:default-value (quote +)) nil [49812 50148])
+            ("sh-indent-after-loop-construct" variable (:default-value (quote +)) nil [50150 50526])
+            ("sh-indent-after-done" variable nil nil [50529 50887])
+            ("sh-indent-for-case-label" variable (:default-value (quote +)) nil [50889 51108])
+            ("sh-indent-for-case-alt" variable (:default-value (quote ++)) nil [51110 51337])
+            ("sh-indent-for-continuation" variable (:default-value (quote +)) nil [51340 51505])
+            ("sh-indent-after-open" variable (:default-value (quote +)) nil [51507 51759])
+            ("sh-indent-after-function" variable (:default-value (quote +)) nil [51761 51917])
+            ("sh-indent-after-switch" variable (:default-value (quote +)) nil [51953 52165])
+            ("sh-indent-after-case" variable (:default-value (quote +)) nil [52167 52368])
+            ("sh-backslash-column" variable (:default-value 48) nil [52370 52497])
+            ("sh-backslash-align" variable (:default-value t) nil [52499 52623])
+            ("sh-mkword-regexpr" function (:arguments ("word")) nil [52684 52901])
+            ("sh-re-done" variable
+               (:constant-flag t
+                :default-value (sh-mkword-regexpr "done"))
+                nil [52903 52951])
+            ("sh-kws-for-done" variable
+               (:constant-flag t
+                :default-value (quote ((sh "while" "until" "for") (bash "while" "until" "for" "select") (ksh88 "while" "until" "for" "select") (zsh "while" "until" "for" "repeat" "select"))))
+                nil [52954 53240])
+            ("sh-indent-supported" variable
+               (:constant-flag t
+                :default-value (quote ((sh . sh) (csh) (rc . rc))))
+                nil [53243 53371])
+            ("sh-indent-supported-here" variable nil nil [53373 53485])
+            ("sh-var-list" variable
+               (:constant-flag t
+                :default-value (quote (sh-basic-offset sh-first-lines-indent sh-indent-after-case sh-indent-after-do sh-indent-after-done sh-indent-after-else sh-indent-after-if sh-indent-after-loop-construct sh-indent-after-open sh-indent-comment sh-indent-for-case-alt sh-indent-for-case-label sh-indent-for-continuation sh-indent-for-do sh-indent-for-done sh-indent-for-else sh-indent-for-fi sh-indent-for-then)))
+                nil [53487 54156])
+            ("sh-make-vars-local" variable (:default-value t) nil [54158 54530])
+            ("defvar-local" code nil nil [54609 54692])
+            ("explicit-shell-file-name" variable nil nil [54694 54727])
+            ("sh-shell-process" function (:arguments ("force")) nil [54729 55551])
+            ("sh-show-shell" function (:user-visible-flag t) nil [55553 55687])
+            ("sh-send-text" function (:arguments ("text")) nil [55689 55824])
+            ("sh-cd-here" function (:user-visible-flag t) nil [55826 55987])
+            ("sh-send-line-or-region-and-step" function (:user-visible-flag t) nil [55989 56493])
+            ("define-derived-mode" code nil nil [56551 61677])
+            ("defalias" code nil nil [61694 61732])
+            ("sh-font-lock-keywords" function (:arguments ("keywords")) nil [61735 62173])
+            ("sh-font-lock-keywords-1" function (:arguments ("builtins")) nil [62175 62907])
+            ("sh-font-lock-keywords-2" function nil nil [62909 63047])
+            ("sh--vars-before-point" function nil nil [63065 63257])
+            ("sh--cmd-completion-table" function (:arguments ("string" "pred" "action")) nil [63388 63883])
+            ("sh-completion-at-point-function" function nil nil [63885 64260])
+            ("smie" include nil nil [64305 64320])
+            ("sh-use-smie" variable (:default-value t) nil [64580 64667])
+            ("sh-smie--keyword-p" function nil nil [64669 65021])
+            ("sh-smie--newline-semi-p" function (:arguments ("tok")) nil [65023 65705])
+            ("sh-smie-sh-grammar" variable
+               (:constant-flag t
+                :default-value (smie-prec2->grammar (smie-bnf->prec2 (quote ((exp) (cmd ("case" exp "in" branches "esac") ("if" cmd "then" cmd "fi") ("if" cmd "then" cmd "else" cmd "fi") ("if" cmd "then" cmd "elif" cmd "then" cmd "fi") ("if" cmd "then" cmd "elif" cmd "then" cmd "else" cmd "fi") ("if" cmd "then" cmd "elif" cmd "then" cmd "elif" cmd "then" cmd "else" cmd "fi") ("while" cmd "do" cmd "done") ("until" cmd "do" cmd "done") ("for" exp "in" cmd "do" cmd "done") ("for" exp "do" cmd "done") ("select" exp "in" cmd "do" cmd "done") ("repeat" exp "do" cmd "done") (exp "always" exp) (cmd "|" cmd) (cmd "|&" cmd) (cmd "&&" cmd) (cmd "||" cmd) (cmd ";" cmd) (cmd "&" cmd)) (rpattern (rpattern "|" rpattern)) (pattern (rpattern) ("case-(" rpattern)) (branches (branches ";;" branches) (branches ";&" branches) (branches ";;&" branches) (pattern "case-)" cmd)))) (quote ((assoc ";;" ";&" ";;&"))) (quote ((assoc ";" "&") (assoc "&&" "||") (assoc "|" "|&"))))))
+                nil [65736 67089])
+            ("sh-smie--sh-operators" variable
+               (:constant-flag t
+                :default-value (delq nil (mapcar (lambda (x) (setq x (car x)) (and (stringp x) (not (string-match "\\`[a-z]" x)) x)) sh-smie-sh-grammar)))
+                nil [67091 67366])
+            ("sh-smie--sh-operators-re" variable
+               (:constant-flag t
+                :default-value (regexp-opt sh-smie--sh-operators))
+                nil [67368 67438])
+            ("sh-smie--sh-operators-back-re" variable
+               (:constant-flag t
+                :default-value (concat "\\(?:^\\|[^\\]\\)\\(?:\\\\\\\\\\)*" "\\(" sh-smie--sh-operators-re "\\)"))
+                nil [67439 67574])
+            ("sh-smie--sh-keyword-in-p" function nil nil [67576 68605])
+            ("sh-smie--sh-keyword-p" function (:arguments ("tok")) nil [68607 68832])
+            ("sh-smie--default-forward-token" function nil nil [68834 69160])
+            ("sh-smie--default-backward-token" function nil nil [69162 70122])
+            ("sh-smie-sh-forward-token" function nil nil [70124 71651])
+            ("sh-smie--looking-back-at-continuation-p" function nil nil [71653 71909])
+            ("sh-smie-sh-backward-token" function nil nil [71911 73209])
+            ("sh-indent-after-continuation" variable (:default-value t) nil [73211 73390])
+            ("sh-smie--continuation-start-indent" function nil nil [73392 73680])
+            ("sh-smie-sh-rules" function (:arguments ("kind" "token")) nil [73682 76832])
+            ("sh-smie-rc-grammar" variable
+               (:constant-flag t
+                :default-value (smie-prec2->grammar (smie-bnf->prec2 (quote ((exp) (cmd (cmd "case" cmd) ("if" exp) ("switch" exp) ("for" exp) ("while" exp) (cmd "|" cmd) (cmd "|&" cmd) (cmd "&&" cmd) (cmd "||" cmd) (cmd ";" cmd) (cmd "&" cmd)) (pattern (pattern "|" pattern)) (branches (branches ";;" branches) (branches ";&" branches) (branches ";;&" branches) (pattern "case-)" cmd)))) (quote ((assoc ";;" ";&" ";;&"))) (quote ((assoc "case") (assoc ";" "&") (assoc "&&" "||") (assoc "|" "|&"))))))
+                nil [78463 79149])
+            ("sh-smie--rc-after-special-arg-p" function nil nil [79151 79616])
+            ("sh-smie--rc-newline-semi-p" function nil nil [79618 80046])
+            ("sh-smie-rc-forward-token" function nil nil [80048 81619])
+            ("sh-smie-rc-backward-token" function nil nil [81621 83122])
+            ("sh-smie-rc-rules" function (:arguments ("kind" "token")) nil [83124 84244])
+            ("sh-regexp-for-done" variable nil nil [84269 84361])
+            ("sh-kw-alist" variable nil nil [84363 84459])
+            ("sh-kw" variable
+               (:constant-flag t
+                :default-value (quote ((sh ("if" nil sh-handle-prev-if) ("elif" sh-handle-this-else sh-handle-prev-else) ("else" sh-handle-this-else sh-handle-prev-else) ("fi" sh-handle-this-fi sh-handle-prev-fi) ("then" sh-handle-this-then sh-handle-prev-then) ("(" nil sh-handle-prev-open) ("{" nil sh-handle-prev-open) ("[" nil sh-handle-prev-open) ("}" sh-handle-this-close nil) (")" sh-handle-this-close nil) ("]" sh-handle-this-close nil) ("case" nil sh-handle-prev-case) ("esac" sh-handle-this-esac sh-handle-prev-esac) (case-label nil sh-handle-after-case-label) (";;" nil sh-handle-prev-case-alt-end) (";;&" nil sh-handle-prev-case-alt-end) (";&" nil sh-handle-prev-case-alt-end) ("done" sh-handle-this-done sh-handle-prev-done) ("do" sh-handle-this-do sh-handle-prev-do)) (rc ("{" nil sh-handle-prev-open) ("}" sh-handle-this-close nil) ("case" sh-handle-this-rc-case sh-handle-prev-rc-case)))))
+                nil [85521 86757])
+            ("sh-set-shell" function
+               (:user-visible-flag t
+                :arguments ("shell" "no-query-flag" "insert-flag"))
+                nil [86761 90739])
+            ("sh-feature" function (:arguments ("alist" "function")) nil [90742 92600])
+            ("sh-append" function (:arguments ("ancestor" "list")) nil [93751 93895])
+            ("sh-modify" function (:arguments ("skeleton" "list")) nil [93898 94229])
+            ("sh-basic-indent-line" function (:user-visible-flag t) nil [94232 95355])
+            ("sh-execute-region" function
+               (:user-visible-flag t
+                :arguments ("start" "end" "flag"))
+                nil [95358 96333])
+            ("sh-remember-variable" function (:arguments ("var")) nil [96336 96600])
+            ("sh-quoted-p" function nil nil [96604 96743])
+            ("sh-must-support-indent" function nil nil [96768 97033])
+            ("sh-make-vars-local" function (:user-visible-flag t) nil [97035 97454])
+            ("sh-reset-indent-vars-to-global-values" function (:user-visible-flag t) nil [97456 97764])
+            ("sh-special-keywords" variable
+               (:constant-flag t
+                :default-value "then\\|do")
+                nil [97906 97948])
+            ("sh-help-string-for-variable" function (:arguments ("var")) nil [97950 98807])
+            ("sh-read-variable" function (:arguments ("var")) nil [98809 99184])
+            ("sh-in-comment-or-string" function (:arguments ("start")) nil [99188 99380])
+            ("sh-goto-matching-if" function nil nil [99382 99582])
+            ("sh-handle-prev-if" function nil nil [99792 99853])
+            ("sh-handle-this-else" function nil nil [99855 100012])
+            ("sh-handle-prev-else" function nil nil [100014 100116])
+            ("sh-handle-this-fi" function nil nil [100118 100239])
+            ("sh-handle-prev-fi" function nil nil [100241 100633])
+            ("sh-handle-this-then" function nil nil [100635 100751])
+            ("sh-handle-prev-then" function nil nil [100753 100869])
+            ("sh-handle-prev-open" function nil nil [100871 101165])
+            ("sh-handle-this-close" function nil nil [101167 101307])
+            ("sh-goto-matching-case" function nil nil [101309 101444])
+            ("sh-handle-prev-case" function nil nil [101446 101723])
+            ("sh-handle-this-esac" function nil nil [101734 101835])
+            ("sh-handle-prev-esac" function nil nil [101837 101927])
+            ("sh-handle-after-case-label" function nil nil [101929 102038])
+            ("sh-handle-prev-case-alt-end" function nil nil [102040 102152])
+            ("sh-safe-forward-sexp" function (:arguments ("arg")) nil [102154 102469])
+            ("sh-goto-match-for-done" function nil nil [102493 102634])
+            ("sh-handle-this-done" function nil nil [102636 102758])
+            ("sh-handle-prev-done" function nil nil [102760 102851])
+            ("sh-handle-this-do" function nil nil [102853 102948])
+            ("sh-handle-prev-do" function nil nil [102950 103371])
+            ("sh-find-prev-switch" function nil nil [103384 103534])
+            ("sh-handle-this-rc-case" function nil nil [103536 103693])
+            ("sh-handle-prev-rc-case" function nil nil [103695 103763])
+            ("sh-check-rule" function (:arguments ("n" "thing")) nil [103765 104010])
+            ("sh-get-indent-info" function nil nil [104013 109813])
+            ("sh-get-indent-var-for-line" function (:arguments ("info")) nil [109816 111131])
+            ("sh-prev-line" function (:arguments ("end")) nil [111638 112557])
+            ("sh-prev-stmt" function (:user-visible-flag t) nil [112560 114032])
+            ("sh-get-word" function (:user-visible-flag t) nil [114035 114386])
+            ("sh-prev-thing" function nil nil [114388 116716])
+            ("sh-this-is-a-continuation" function nil nil [116719 116997])
+            ("sh-get-kw" function (:arguments ("where" "and-move")) nil [116999 117330])
+            ("sh-find-prev-matching" function (:arguments ("open" "close" "depth")) nil [117332 118357])
+            ("sh-var-value" function (:arguments ("var" "ignore-error")) nil [118360 119146])
+            ("sh-set-var-value" function (:arguments ("var" "value" "no-symbol")) nil [119148 119750])
+            ("sh-calculate-indent" function (:arguments ("info")) nil [119753 121572])
+            ("sh-indent-line" function (:user-visible-flag t) nil [121575 122034])
+            ("sh-blink" function (:arguments ("blinkpos" "msg")) nil [122037 122388])
+            ("sh-show-indent" function
+               (:user-visible-flag t
+                :arguments ("arg"))
+                nil [122390 123891])
+            ("sh-set-indent" function (:user-visible-flag t) nil [123893 125309])
+            ("sh-learn-line-indent" function
+               (:user-visible-flag t
+                :arguments ("arg"))
+                nil [125312 127797])
+            ("sh-mark-init" function (:arguments ("buffer")) nil [127801 127971])
+            ("sh-mark-line" function (:arguments ("message" "point" "buffer" "add-linenum" "occur-point")) nil [127974 129333])
+            ("sh-learned-buffer-hook" variable nil nil [129367 129467])
+            ("sh-learn-buffer-indent" function
+               (:user-visible-flag t
+                :arguments ("arg"))
+                nil [130050 139934])
+            ("sh-guess-basic-offset" function (:arguments ("vec")) nil [139936 142111])
+            ("sh-styles-alist" variable nil nil [142262 142340])
+            ("sh-name-style" function
+               (:user-visible-flag t
+                :arguments ("name" "confirm-overwrite"))
+                nil [142342 143268])
+            ("sh-load-style" function
+               (:user-visible-flag t
+                :arguments ("name"))
+                nil [143270 143663])
+            ("sh-save-styles-to-buffer" function
+               (:user-visible-flag t
+                :arguments ("buff"))
+                nil [143665 144061])
+            ("sh-non-closing-paren" variable
+               (:constant-flag t
+                :default-value (propertize ")" (quote syntax-table) sh-st-punc (quote rear-nonsticky) t))
+                nil [144230 144468])
+            ("define-skeleton" code nil nil [144470 145282])
+            ("define-skeleton" code nil nil [145284 145689])
+            ("define-skeleton" code nil nil [145693 146841])
+            ("sh-shell-initialize-variables" function nil nil [146844 147291])
+            ("sh-add-buffer" variable nil nil [147293 147315])
+            ("sh-add-completer" function (:arguments ("string" "predicate" "code")) nil [147317 148259])
+            ("sh-add" function
+               (:user-visible-flag t
+                :arguments ("var" "delta"))
+                nil [148261 148879])
+            ("define-skeleton" code nil nil [148883 149156])
+            ("define-skeleton" code nil nil [149160 150062])
+            ("define-skeleton" code nil nil [150066 150297])
+            ("define-skeleton" code nil nil [150359 150555])
+            ("define-skeleton" code nil nil [150616 151604])
+            ("define-skeleton" code nil nil [151608 151803])
+            ("define-skeleton" code nil nil [151862 152286])
+            ("define-skeleton" code nil nil [152290 154037])
+            ("sh-assignment" function
+               (:user-visible-flag t
+                :arguments ("arg"))
+                nil [154041 154401])
+            ("sh-maybe-here-document" function (:arguments ("arg")) nil [154404 154742])
+            ("sh--maybe-here-document" function nil nil [154744 155546])
+            ("define-minor-mode" code nil nil [155548 155836])
+            ("sh-beginning-of-command" function (:user-visible-flag t) nil [155866 156098])
+            ("sh-end-of-command" function (:user-visible-flag t) nil [156100 156307])
+            ("sh-backslash-region" function
+               (:user-visible-flag t
+                :arguments ("from" "to" "delete-flag"))
+                nil [156360 158327])
+            ("sh-append-backslash" function (:arguments ("column")) nil [158329 158671])
+            ("sh-delete-backslash" function nil nil [158673 158880])
+            ("sh-script" package nil nil [158882 158902]))          
+      :file "sh-script.el"
+      :pointmax 158931
+      :fsize 158930
+      :lastmodtime '(21788 61018 0 0)
+      :unmatched-syntax '((close-paren 35095 . 35096) (symbol 34640 . 34656) (open-paren 34639 . 34640) (close-paren 8809 . 8810) (symbol 8730 . 8747) (open-paren 8729 . 8730)))
+    (semanticdb-table "executable.el"
+      :file "executable.el"
+      :fsize 11089
+      :lastmodtime '(21710 25077 0 0)))
+  :file "!home!chz!Public!emacs-24.5!lisp!progmodes!semantic.cache"
+  :semantic-tag-version "2.0"
+  :semanticdb-version "2.2")

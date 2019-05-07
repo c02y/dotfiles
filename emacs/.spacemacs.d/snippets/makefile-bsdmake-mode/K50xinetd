@@ -1,0 +1,630 @@
+;; Object elf/
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "elf/"
+  :tables (list 
+   (semanticdb-table "rtld.c"
+    :major-mode 'c-mode
+    :tags 
+        '( ("errno.h" include (:system-flag t) nil [818 836])
+            ("dlfcn.h" include (:system-flag t) nil [837 855])
+            ("fcntl.h" include (:system-flag t) nil [856 874])
+            ("stdbool.h" include (:system-flag t) nil [875 895])
+            ("stdlib.h" include (:system-flag t) nil [896 915])
+            ("string.h" include (:system-flag t) nil [916 935])
+            ("unistd.h" include (:system-flag t) nil [936 955])
+            ("sys/mman.h" include (:system-flag t) nil [956 977])
+            ("sys/param.h" include (:system-flag t) nil [978 1000])
+            ("sys/stat.h" include (:system-flag t) nil [1001 1022])
+            ("ldsodefs.h" include (:system-flag t) nil [1023 1044])
+            ("_itoa.h" include (:system-flag t) nil [1045 1063])
+            ("entry.h" include (:system-flag t) nil [1064 1082])
+            ("fpu_control.h" include (:system-flag t) nil [1083 1107])
+            ("hp-timing.h" include (:system-flag t) nil [1108 1130])
+            ("bits/libc-lock.h" include (:system-flag t) nil [1131 1158])
+            ("dynamic-link.h" include nil nil [1159 1184])
+            ("dl-librecon.h" include (:system-flag t) nil [1185 1209])
+            ("unsecvars.h" include (:system-flag t) nil [1210 1232])
+            ("dl-cache.h" include (:system-flag t) nil [1233 1254])
+            ("dl-osinfo.h" include (:system-flag t) nil [1255 1277])
+            ("dl-procinfo.h" include (:system-flag t) nil [1278 1302])
+            ("tls.h" include (:system-flag t) nil [1303 1319])
+            ("stap-probe.h" include (:system-flag t) nil [1320 1343])
+            ("stackinfo.h" include (:system-flag t) nil [1344 1366])
+            ("assert.h" include (:system-flag t) nil [1368 1387])
+            ("attribute_hidden" variable (:type ("__mempcpy" type (:type "class") nil nil)) nil [1470 1497])
+            ("attribute_hidden" variable (:type "int") nil [1593 1610])
+            ("_exit" variable (:constant-flag t) nil [1619 1624])
+            ("print_unresolved" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("errcode" variable (:type "int") (reparse-symbol arg-sub-list) [1735 1747])
+                    ("objname" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [1748 1768])
+                    ("errsting" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [1778 1799]))                  
+                :type "void")
+                nil [1705 1800])
+            ("print_missing_version" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("errcode" variable (:type "int") (reparse-symbol arg-sub-list) [1904 1916])
+                    ("objname" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [1917 1937])
+                    ("errsting" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [1945 1966]))                  
+                :type "void")
+                nil [1869 1967])
+            ("print_statistics" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("total_timep" variable
+                       (:pointer 1
+                        :type ("hp_timing_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [2044 2069]))                  
+                :type "void")
+                nil [2014 2070])
+            ("process_dl_audit" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("str" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [2128 2138]))                  
+                :type "void")
+                nil [2098 2139])
+            ("mode" type
+               (:members 
+                  ( ("normal" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [2222 2229])
+                    ("list" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [2230 2235])
+                    ("verify" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [2236 2243])
+                    ("trace" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [2244 2251]))                  
+                :type "enum")
+                nil [2210 2252])
+            ("process_envvars" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("modep" variable
+                       (:pointer 1
+                        :type ("mode" type (:type "enum") nil nil))
+                        (reparse-symbol arg-sub-list) [2453 2470]))                  
+                :type "void")
+                nil [2424 2471])
+            ("attribute_hidden" variable (:type ("attribute_relro" type (:type "class") nil nil)) nil [2657 2690])
+            ("attribute_relro" variable (:type ("_dl_argv" type (:type "class") nil nil)) nil [2698 2730])
+            ("attribute_hidden" variable (:type ("attribute_relro" type (:type "class") nil nil)) nil [2758 2791])
+            ("attribute_relro" variable (:type ("__stack_chk_guard" type (:type "class") nil nil)) nil [2962 2996])
+            ("attribute_hidden" variable (:type ("attribute_relro" type (:type "class") nil nil)) nil [3151 3211])
+            ("audit_list" type
+               (:members 
+                  ( ("name" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol classsubparts) [3375 3392])
+                    ("next" variable
+                       (:pointer 1
+                        :type ("audit_list" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol classsubparts) [3395 3419]))                  
+                :type "struct")
+                nil [3346 3434])
+            ("audit_list" variable
+               (:pointer 1
+                :typemodifiers ("static")
+                :type ("audit_list" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [3346 3434])
+            ("_dl_starting_up" variable (:type "int") nil [3868 3892])
+            ("_rtld_global" variable (:type ("rtld_global" type
+                 (:prototype t
+                  :type "struct")
+                  nil nil)) nil [4051 4603])
+            ("_rtld_local" variable
+               (:typemodifiers ("extern")
+                :type ("rtld_global" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [4830 4936])
+            ("attribute_relro" variable (:type ("_rtld_global_ro" type (:type "class") nil nil)) nil [5059 6029])
+            ("_rtld_local_ro" variable
+               (:typemodifiers ("extern")
+                :type ("rtld_global_ro" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [6256 6371])
+            ("dl_main" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("" variable
+                       (:constant-flag t
+                        :type ("ElfW" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [6395 6411])
+                    ("" variable (:type ("phdr" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [6413 6418])
+                    ("" variable (:type ("ElfW" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [6419 6429])
+                    ("" variable (:type ("phnum" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [6430 6436])
+                    ("" variable (:type ("ElfW" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [6444 6454])
+                    ("" variable (:type ("user_entry" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [6456 6467])
+                    ("" variable (:type ("ElfW" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [6468 6480])
+                    ("" variable (:type ("auxv" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [6482 6487]))                  
+                :type "void")
+                nil [6374 6488])
+            ("_dl_rtld_libname" variable
+               (:typemodifiers ("static")
+                :type ("libname_list" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [6552 6596])
+            ("_dl_rtld_libname2" variable
+               (:typemodifiers ("static")
+                :type ("libname_list" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [6597 6642])
+            ("relocate_time" variable
+               (:typemodifiers ("static")
+                :type ("hp_timing_t" type (:type "class") nil nil))
+                nil [6863 6896])
+            ("attribute_relro" variable (:type ("load_time" type (:type "class") nil nil)) nil [6916 6942])
+            ("attribute_relro" variable (:type ("start_time" type (:type "class") nil nil)) nil [6962 6989])
+            ("dl_start_final_info" type
+               (:members 
+                  ( ("l" variable (:type ("link_map" type
+                         (:prototype t
+                          :type "struct")
+                          nil nil)) (reparse-symbol classsubparts) [7769 7787]))                  
+                :type "struct")
+                nil [7738 7875])
+            ("_dl_start_final" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("arg" variable
+                       (:pointer 1
+                        :type "void")
+                        (reparse-symbol arg-sub-list) [7911 7921])
+                    ("info" variable
+                       (:pointer 1
+                        :type ("dl_start_final_info" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [7929 7962]))                  
+                :type "int")
+                nil [7894 7963])
+            ("attribute_hidden" variable (:type "int") nil [8046 8063])
+            ("attribute_hidden" variable (:type "int") nil [8085 8102])
+            ("attribute_hidden" variable (:type "int") nil [8122 8139])
+            ("_dl_start_final" function
+               (:arguments 
+                  ( ("arg" variable
+                       (:pointer 1
+                        :type "void")
+                        (reparse-symbol arg-sub-list) [8778 8788])
+                    ("info" variable
+                       (:pointer 1
+                        :type ("dl_start_final_info" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [8789 8822]))                  
+                :type "int")
+                nil [8761 11463])
+            ("_dl_start" function
+               (:arguments 
+                  ( ("arg" variable
+                       (:pointer 1
+                        :type "void")
+                        (reparse-symbol arg-sub-list) [11531 11541]))                  
+                :type ("internal_function" type (:type "class") nil nil))
+                nil [11502 18622])
+            ("relocate_args" type
+               (:members 
+                  ( ("l" variable
+                       (:pointer 1
+                        :type ("link_map" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol classsubparts) [18802 18821])
+                    ("reloc_mode" variable (:type "int") (reparse-symbol classsubparts) [18824 18839]))                  
+                :type "struct")
+                nil [18777 18842])
+            ("map_args" type
+               (:members 
+                  ( ("str" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol classsubparts) [18895 18905])
+                    ("loader" variable
+                       (:pointer 1
+                        :type ("link_map" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol classsubparts) [18908 18932])
+                    ("mode" variable (:type "int") (reparse-symbol classsubparts) [18935 18944])
+                    ("map" variable
+                       (:pointer 1
+                        :type ("link_map" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol classsubparts) [18982 19003]))                  
+                :type "struct")
+                nil [18844 19006])
+            ("dlmopen_args" type
+               (:members 
+                  ( ("fname" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol classsubparts) [19032 19050])
+                    ("map" variable
+                       (:pointer 1
+                        :type ("link_map" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol classsubparts) [19053 19074]))                  
+                :type "struct")
+                nil [19008 19077])
+            ("lookup_args" type
+               (:members 
+                  ( ("name" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol classsubparts) [19102 19119])
+                    ("map" variable
+                       (:pointer 1
+                        :type ("link_map" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol classsubparts) [19122 19143])
+                    ("result" variable
+                       (:pointer 1
+                        :type "void")
+                        (reparse-symbol classsubparts) [19146 19159]))                  
+                :type "struct")
+                nil [19079 19162])
+            ("version_check_args" type
+               (:members 
+                  ( ("doexit" variable (:type "int") (reparse-symbol classsubparts) [19234 19245])
+                    ("dotrace" variable (:type "int") (reparse-symbol classsubparts) [19248 19260]))                  
+                :type "struct")
+                nil [19204 19263])
+            ("relocate_doit" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("a" variable
+                       (:pointer 1
+                        :type "void")
+                        (reparse-symbol arg-sub-list) [19292 19300]))                  
+                :type "void")
+                nil [19265 19436])
+            ("map_doit" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("a" variable
+                       (:pointer 1
+                        :type "void")
+                        (reparse-symbol arg-sub-list) [19460 19468]))                  
+                :type "void")
+                nil [19438 19625])
+            ("dlmopen_doit" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("a" variable
+                       (:pointer 1
+                        :type "void")
+                        (reparse-symbol arg-sub-list) [19653 19661]))                  
+                :type "void")
+                nil [19627 19894])
+            ("lookup_doit" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("a" variable
+                       (:pointer 1
+                        :type "void")
+                        (reparse-symbol arg-sub-list) [19921 19929]))                  
+                :type "void")
+                nil [19896 20256])
+            ("version_check_doit" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("a" variable
+                       (:pointer 1
+                        :type "void")
+                        (reparse-symbol arg-sub-list) [20290 20298]))                  
+                :type "void")
+                nil [20258 20550])
+            ("find_needed" function
+               (:pointer 1
+                :typemodifiers ("static" "inline")
+                :arguments 
+                  ( ("name" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [20598 20615]))                  
+                :type ("link_map" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [20553 20881])
+            ("match_version" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("string" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [20909 20928])
+                    ("map" variable
+                       (:pointer 1
+                        :type ("link_map" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [20929 20950]))                  
+                :type "int")
+                nil [20883 21745])
+            ("tls_init_tp_called" variable
+               (:typemodifiers ("static")
+                :type "bool")
+                nil [21747 21778])
+            ("init_tls" function
+               (:pointer 1
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [21804 21809]))                  
+                :type "void")
+                nil [21780 24480])
+            ("do_preload" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("fname" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [24790 24802])
+                    ("main_map" variable
+                       (:pointer 1
+                        :type ("link_map" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [24803 24829])
+                    ("where" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [24830 24848]))                  
+                :type "unsigned int")
+                nil [24758 25562])
+            ("security_init" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [25917 25922]))                  
+                :type "void")
+                nil [25890 26673])
+            ("setup-vdso.h" include nil nil [26675 26698])
+            ("attribute_relro" variable (:type ("library_path" type (:type "class") nil nil)) nil [26751 26780])
+            ("attribute_relro" variable (:type ("preloadlist" type (:type "class") nil nil)) nil [26835 26863])
+            ("attribute_relro" variable (:type ("version_info" type (:type "class") nil nil)) nil [26939 26968])
+            ("dl_main" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("" variable
+                       (:constant-flag t
+                        :type ("ElfW" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [26991 27007])
+                    ("" variable (:type ("phdr" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [27009 27014])
+                    ("" variable (:type ("ElfW" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [27017 27027])
+                    ("" variable (:type ("phnum" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [27028 27034])
+                    ("" variable (:type ("ElfW" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [27037 27047])
+                    ("" variable (:type ("user_entry" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [27049 27060])
+                    ("" variable (:type ("ElfW" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [27063 27075])
+                    ("" variable (:type ("auxv" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [27077 27082]))                  
+                :type "void")
+                nil [26970 73358])
+            ("print_unresolved" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("errcode" variable (:type "int") (reparse-symbol arg-sub-list) [73482 73519])
+                    ("objname" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [73520 73540])
+                    ("errstring" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [73545 73567]))                  
+                :type "void")
+                nil [73452 73680])
+            ("print_missing_version" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("errcode" variable (:type "int") (reparse-symbol arg-sub-list) [73809 73846])
+                    ("objname" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [73856 73876])
+                    ("errstring" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [73877 73899]))                  
+                :type "void")
+                nil [73774 73981])
+            ("attribute_relro" variable (:type ("any_debug" type (:type "class") nil nil)) nil [74054 74080])
+            ("process_dl_debug" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("dl_debug" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [74216 74237]))                  
+                :type "void")
+                nil [74186 77476])
+            ("process_dl_audit" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("str" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [77509 77519]))                  
+                :type "void")
+                nil [77479 78096])
+            ("attribute_hidden" variable (:type ("_environ" type (:type "class") nil nil)) nil [78283 78309])
+            ("process_envvars" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("modep" variable
+                       (:pointer 1
+                        :type ("mode" type (:type "enum") nil nil))
+                        (reparse-symbol arg-sub-list) [78341 78358]))                  
+                :type "void")
+                nil [78312 84275])
+            ("print_statistics" function
+               (:arguments 
+                  ( ("rtld_total_timep" variable
+                       (:pointer 1
+                        :type ("hp_timing_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [84378 84408]))                  
+                :type "int")
+                nil [84360 87165]))          
+    :file "rtld.c"
+    :pointmax 87166
+    :fsize 87165
+    :lastmodtime '(21500 27406 0 0)
+    :unmatched-syntax '((semantic-list 84347 . 84359) (symbol 84335 . 84346) (semantic-list 84348 . 84358) (VOID 84330 . 84334) (semantic-list 84348 . 84358) (STATIC 84323 . 84329) (semantic-list 84348 . 84358) (punctuation 78282 . 78283) (punctuation 78281 . 78282) (CHAR 78276 . 78280) (EXTERN 78269 . 78275) (INT 74050 . 74053) (STATIC 74043 . 74049) (punctuation 27076 . 27077) (semantic-list 27067 . 27075) (punctuation 27048 . 27049) (semantic-list 27041 . 27047) (semantic-list 27021 . 27027) (punctuation 27008 . 27009) (semantic-list 27001 . 27007) (INT 26935 . 26938) (STATIC 26928 . 26934) (punctuation 26834 . 26835) (CHAR 26829 . 26833) (CONST 26823 . 26828) (STATIC 26816 . 26822) (punctuation 26750 . 26751) (CHAR 26745 . 26749) (CONST 26739 . 26744) (STATIC 26732 . 26738) (semantic-list 11476 . 11482) (symbol 11472 . 11476) (STATIC 11465 . 11471) (semantic-list 8727 . 8733) (symbol 8723 . 8727) (STATIC 8716 . 8722) (string 8185 . 8242) (symbol 8179 . 8184) (punctuation 8177 . 8178) (semantic-list 8119 . 8121) (symbol 8115 . 8119) (CHAR 8110 . 8114) (EXTERN 8103 . 8109) (semantic-list 8082 . 8084) (symbol 8076 . 8082) (CHAR 8071 . 8075) (EXTERN 8064 . 8070) (semantic-list 8043 . 8045) (symbol 8037 . 8043) (CHAR 8032 . 8036) (EXTERN 8025 . 8031) (semantic-list 7887 . 7893) (symbol 7883 . 7887) (STATIC 7876 . 7882) (symbol 6950 . 6961) (STATIC 6943 . 6949) (symbol 6904 . 6915) (STATIC 6897 . 6903) (punctuation 6481 . 6482) (semantic-list 6472 . 6480) (punctuation 6455 . 6456) (semantic-list 6448 . 6454) (semantic-list 6423 . 6429) (punctuation 6412 . 6413) (semantic-list 6405 . 6411) (symbol 5044 . 5058) (STRUCT 5037 . 5043) (semantic-list 3902 . 3919) (symbol 3893 . 3902) (semantic-list 3258 . 3306) (symbol 3245 . 3257) (symbol 3120 . 3145) (symbol 3110 . 3119) (symbol 2952 . 2961) (semantic-list 2805 . 2815) (symbol 2799 . 2805) (symbol 2744 . 2757) (INT 2740 . 2743) (UNSIGNED 2731 . 2739) (punctuation 2697 . 2698) (punctuation 2696 . 2697) (CHAR 2691 . 2695) (symbol 2648 . 2656) (INT 2644 . 2647) (semantic-list 1583 . 1592) (symbol 1579 . 1582) (string 1584 . 1591) (symbol 1565 . 1578) (string 1584 . 1591) (semantic-list 1557 . 1564) (symbol 1548 . 1556) (EXTERN 1541 . 1547) (semantic-list 1458 . 1469) (symbol 1449 . 1457) (EXTERN 1442 . 1448))
+    :lexical-table 
+        '(("_exit" . ((symbol "exit_internal" 1625 . 1638)))
+          )
+
+    )
+   (semanticdb-table "dynamic-link.h"
+    :major-mode 'c-mode
+    :tags 
+        '( ("CHECK_STATIC_TLS" variable (:constant-flag t) nil [1416 1432])
+            ("TRY_STATIC_TLS" variable (:constant-flag t) nil [1688 1702])
+            ("_dl_try_allocate_static_tls" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("map" variable
+                       (:pointer 1
+                        :type ("link_map" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [1997 2018]))                  
+                :type ("internal_function" type (:type "class") nil nil))
+                nil [1950 2019])
+            ("elf.h" include (:system-flag t) nil [2021 2037])
+            ("dl-machine.h" include (:system-flag t) nil [3910 3933])
+            ("get-dynamic-info.h" include nil nil [3935 3964]))          
+    :file "dynamic-link.h"
+    :pointmax 8150
+    :fsize 8149
+    :lastmodtime '(20998 50247 0 0)
+    :unmatched-syntax '((INT 1946 . 1949))
+    :lexical-table 
+        '(("CHECK_STATIC_TLS" (spp-arg-list ("map" "sym_map") 1432 . 1446) . 
+              ((DO "do" 1457 . 1459) (semantic-list "{								\\
+      if (__builtin_expect ((sym_map)->l_tls_offset == NO_TLS_OFFSET	\\
+			    || ((sym_map)->l_tls_offset			\\
+				== FORCED_DYNAMIC_TLS_OFFSET), 0))	\\
+	_dl_allocate_static_tls (sym_map);				\\
+    }" 1460 . 1668) (WHILE "while" 1669 . 1674) (semantic-list "(0)" 1675 . 1678)))
+          ("TRY_STATIC_TLS" (spp-arg-list ("map" "sym_map") 1702 . 1716) . ((semantic-list "(__builtin_expect ((sym_map)->l_tls_offset				\\
+		       != FORCED_DYNAMIC_TLS_OFFSET, 1)			\\
+     && (__builtin_expect ((sym_map)->l_tls_offset != NO_TLS_OFFSET, 1)	\\
+	 || _dl_try_allocate_static_tls (sym_map) == 0))" 1727 . 1944)))
+          )
+
+    )
+   (semanticdb-table "elf.h"
+    :file "elf.h"
+    :fsize 142078
+    :lastmodtime '(20998 50247 0 0)
+    )
+   (semanticdb-table "get-dynamic-info.h"
+    :file "get-dynamic-info.h"
+    :fsize 5827
+    :lastmodtime '(20998 50247 0 0)
+    )
+   (semanticdb-table "setup-vdso.h"
+    :major-mode 'c-mode
+    :tags 
+        '( ("setup_vdso" function
+               (:typemodifiers ("static" "inline")
+                :arguments 
+                  ( ("main_map" variable
+                       (:pointer 1
+                        :type ("link_map" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [912 963])
+                    ("first_preload" variable
+                       (:pointer 3
+                        :type ("link_map" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [969 1027]))                  
+                :type "void")
+                nil [849 4554]))          
+    :file "setup-vdso.h"
+    :pointmax 4555
+    :fsize 4554
+    :lastmodtime '(21500 27406 0 0)
+    :unmatched-syntax 'nil
+    )
+   )
+  :file "!usr!src!debug!glibc-2.18!elf!semantic.cache"
+  :semantic-tag-version "2.0"
+  :semanticdb-version "2.2"
+  )

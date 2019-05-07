@@ -1,0 +1,446 @@
+;; Object drivers/
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "drivers/"
+  :tables (list 
+   (semanticdb-table "comedi_bond.c"
+    :major-mode 'c-mode
+    :tags 
+        '( ("linux/string.h" include (:system-flag t) nil [2144 2169])
+            ("linux/slab.h" include (:system-flag t) nil [2170 2193])
+            ("../comedi.h" include nil nil [2194 2216])
+            ("../comedilib.h" include nil nil [2217 2242])
+            ("../comedidev.h" include nil nil [2243 2268])
+            ("MAX_CHANS" variable (:constant-flag t) nil [2331 2340])
+            ("MODULE_NAME" variable (:constant-flag t) nil [2354 2365])
+            ("MODULE_LICENSE" function
+               (:prototype-flag t
+                :type "int")
+                nil [2380 2402])
+            ("STR1" variable (:constant-flag t) nil [2425 2429])
+            ("STR" variable (:constant-flag t) nil [2446 2449])
+            ("debug" variable
+               (:typemodifiers ("static")
+                :type "int")
+                nil [2469 2486])
+            ("module_param" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("debug" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [2500 2506])
+                    ("" variable (:type "int") (reparse-symbol arg-sub-list) [2507 2511]))                  
+                :type "int")
+                nil [2487 2518])
+            ("MODULE_PARM_DESC" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("debug" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [2536 2542]))                  
+                :type "int")
+                nil [2519 2624])
+            ("LOG_MSG" variable (:constant-flag t) nil [2634 2641])
+            ("DEBUG" variable (:constant-flag t) nil [2691 2696])
+            ("WARNING" variable (:constant-flag t) nil [2816 2823])
+            ("ERROR" variable (:constant-flag t) nil [2887 2892])
+            ("MODULE_AUTHOR" function
+               (:prototype-flag t
+                :type "int")
+                nil [2951 2985])
+            ("MODULE_DESCRIPTION" function
+               (:prototype-flag t
+                :type "int")
+                nil [2986 3171])
+            ("BondingBoard" type
+               (:members 
+                  ( ("name" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol classsubparts) [3390 3407]))                  
+                :type "struct")
+                nil [3367 3410])
+            ("bondingBoards" variable
+               (:dereference 1
+                :typemodifiers ("static")
+                :constant-flag t
+                :type ("BondingBoard" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [3412 3498])
+            ("thisboard" variable (:constant-flag t) nil [3580 3589])
+            ("BondedDevice" type
+               (:members 
+                  ( ("dev" variable
+                       (:pointer 1
+                        :type ("comedi_device" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol classsubparts) [3660 3686])
+                    ("minor" variable (:type "unsigned int") (reparse-symbol classsubparts) [3688 3703])
+                    ("subdev" variable (:type "unsigned int") (reparse-symbol classsubparts) [3705 3721])
+                    ("subdev_type" variable (:type "unsigned int") (reparse-symbol classsubparts) [3723 3744])
+                    ("nchans" variable (:type "unsigned int") (reparse-symbol classsubparts) [3746 3762])
+                    ("chanid_offset" variable (:type "unsigned int") (reparse-symbol classsubparts) [3764 3787]))                  
+                :type "struct")
+                nil [3637 3889])
+            ("Private" type
+               (:members 
+                  ( ("MAX_BOARD_NAME" variable (:constant-flag t) (reparse-symbol classsubparts) [4139 4153])
+                    ("name" variable
+                       (:dereference 1
+                        :type "char")
+                        (reparse-symbol classsubparts) [4159 4185])
+                    ("devs" variable
+                       (:pointer 2
+                        :type ("BondedDevice" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol classsubparts) [4187 4214])
+                    ("ndevs" variable (:type "unsigned int") (reparse-symbol classsubparts) [4216 4231])
+                    ("chanIdDevMap" variable
+                       (:pointer 1
+                        :dereference 1
+                        :type ("BondedDevice" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol classsubparts) [4233 4278])
+                    ("nchans" variable (:type "unsigned int") (reparse-symbol classsubparts) [4280 4296]))                  
+                :type "struct")
+                nil [4113 4299])
+            ("devpriv" variable (:constant-flag t) nil [4411 4418])
+            ("bonding_attach" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("dev" variable
+                       (:pointer 1
+                        :type ("comedi_device" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [4702 4728])
+                    ("it" variable
+                       (:pointer 1
+                        :type ("comedi_devconfig" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [4734 4762]))                  
+                :type "int")
+                nil [4676 4763])
+            ("bonding_detach" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("dev" variable
+                       (:pointer 1
+                        :type ("comedi_device" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [4790 4816]))                  
+                :type "int")
+                nil [4764 4817])
+            ("doDevConfig" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("dev" variable
+                       (:pointer 1
+                        :type ("comedi_device" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [4885 4911])
+                    ("it" variable
+                       (:pointer 1
+                        :type ("comedi_devconfig" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [4912 4940]))                  
+                :type "int")
+                nil [4862 4941])
+            ("doDevUnconfig" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("dev" variable
+                       (:pointer 1
+                        :type ("comedi_device" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [4968 4994]))                  
+                :type "void")
+                nil [4942 4995])
+            ("Realloc" function
+               (:prototype-flag t
+                :pointer 1
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("ptr" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "void")
+                        (reparse-symbol arg-sub-list) [5157 5173])
+                    ("len" variable (:type ("size_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [5174 5185])
+                    ("old_len" variable (:type ("size_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [5186 5201]))                  
+                :type "void")
+                nil [5136 5202])
+            ("driver_bonding" variable
+               (:typemodifiers ("static")
+                :type ("comedi_driver" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [5204 6391])
+            ("bonding_dio_insn_bits" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("dev" variable
+                       (:pointer 1
+                        :type ("comedi_device" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [6426 6452])
+                    ("s" variable
+                       (:pointer 1
+                        :type ("comedi_subdevice" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [6458 6485])
+                    ("insn" variable
+                       (:pointer 1
+                        :type ("comedi_insn" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [6491 6516])
+                    ("data" variable
+                       (:pointer 1
+                        :type "unsigned int")
+                        (reparse-symbol arg-sub-list) [6517 6536]))                  
+                :type "int")
+                nil [6393 6537])
+            ("bonding_dio_insn_config" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("dev" variable
+                       (:pointer 1
+                        :type ("comedi_device" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [6573 6599])
+                    ("s" variable
+                       (:pointer 1
+                        :type ("comedi_subdevice" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [6607 6634])
+                    ("insn" variable
+                       (:pointer 1
+                        :type ("comedi_insn" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [6642 6667])
+                    ("data" variable
+                       (:pointer 1
+                        :type "unsigned int")
+                        (reparse-symbol arg-sub-list) [6675 6694]))                  
+                :type "int")
+                nil [6538 6695])
+            ("bonding_attach" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("dev" variable
+                       (:pointer 1
+                        :type ("comedi_device" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [6926 6952])
+                    ("it" variable
+                       (:pointer 1
+                        :type ("comedi_devconfig" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [6958 6986]))                  
+                :type "int")
+                nil [6900 8175])
+            ("bonding_detach" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("dev" variable
+                       (:pointer 1
+                        :type ("comedi_device" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [8531 8557]))                  
+                :type "int")
+                nil [8505 8637])
+            ("bonding_dio_insn_bits" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("dev" variable
+                       (:pointer 1
+                        :type ("comedi_device" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [9002 9028])
+                    ("s" variable
+                       (:pointer 1
+                        :type ("comedi_subdevice" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [9034 9061])
+                    ("insn" variable
+                       (:pointer 1
+                        :type ("comedi_insn" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [9067 9092])
+                    ("data" variable
+                       (:pointer 1
+                        :type "unsigned int")
+                        (reparse-symbol arg-sub-list) [9093 9112]))                  
+                :type "int")
+                nil [8969 10501])
+            ("bonding_dio_insn_config" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("dev" variable
+                       (:pointer 1
+                        :type ("comedi_device" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [10538 10564])
+                    ("s" variable
+                       (:pointer 1
+                        :type ("comedi_subdevice" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [10572 10599])
+                    ("insn" variable
+                       (:pointer 1
+                        :type ("comedi_insn" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [10607 10632])
+                    ("data" variable
+                       (:pointer 1
+                        :type "unsigned int")
+                        (reparse-symbol arg-sub-list) [10633 10652]))                  
+                :type "int")
+                nil [10503 11815])
+            ("Realloc" function
+               (:pointer 1
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("oldmem" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "void")
+                        (reparse-symbol arg-sub-list) [11838 11857])
+                    ("newlen" variable (:type ("size_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [11858 11872])
+                    ("oldlen" variable (:type ("size_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [11873 11887]))                  
+                :type "void")
+                nil [11817 12039])
+            ("doDevConfig" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("dev" variable
+                       (:pointer 1
+                        :type ("comedi_device" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [12064 12090])
+                    ("it" variable
+                       (:pointer 1
+                        :type ("comedi_devconfig" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [12091 12119]))                  
+                :type "int")
+                nil [12041 14676])
+            ("doDevUnconfig" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("dev" variable
+                       (:pointer 1
+                        :type ("comedi_device" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [14704 14730]))                  
+                :type "void")
+                nil [14678 15164])
+            ("init" function
+               (:arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [15189 15194]))                  
+                :type ("__init" type (:type "class") nil nil))
+                nil [15177 15247])
+            ("cleanup" function
+               (:arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [15276 15281]))                  
+                :type ("__exit" type (:type "class") nil nil))
+                nil [15261 15329])
+            ("module_init" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("init" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [15343 15348]))                  
+                :type "int")
+                nil [15331 15349])
+            ("module_exit" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("cleanup" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [15362 15370]))                  
+                :type "int")
+                nil [15350 15371]))          
+    :file "comedi_bond.c"
+    :pointmax 15372
+    :fsize 15371
+    :lastmodtime '(21468 9083 551280 359000)
+    :unmatched-syntax '((VOID 15256 . 15260) (STATIC 15249 . 15255) (INT 15173 . 15176) (STATIC 15166 . 15172) (string 3132 . 3169) (string 3069 . 3126) (string 3017 . 3063) (string "\"comedi_bond\"" 3005 . 3016) (string 2965 . 2983) (string 2601 . 2622) (string 2543 . 2597) (number 2512 . 2516) (string 2395 . 2400))
+    :lexical-table 
+        '(("MAX_BOARD_NAME" . ((number "256" 4154 . 4157)))
+          ("STR" (spp-arg-list ("x") 2449 . 2452) . ((symbol "STR1" 2453 . 2457) (semantic-list "(x)" 2457 . 2460)))
+          ("LOG_MSG" (spp-arg-list ("x...") 2641 . 2647) . ((symbol "printk" 2648 . 2654) (semantic-list "(KERN_INFO MODULE_NAME\": \"x)" 2654 . 2682)))
+          ("STR1" (spp-arg-list ("x") 2429 . 2432) . ((punctuation "#" 2433 . 2434) (symbol "x" 2434 . 2435)))
+          ("thisboard" . ((semantic-list "((const struct BondingBoard *)dev->board_ptr)" 3590 . 3635)))
+          ("MAX_CHANS" . ((number "256" 2341 . 2344)))
+          ("ERROR" (spp-arg-list ("x...") 2892 . 2898) . ((symbol "printk" 2900 . 2906) (semantic-list "(KERN_ERR MODULE_NAME \": INTERNAL ERROR: \"x)" 2906 . 2950)))
+          ("WARNING" (spp-arg-list ("x...") 2823 . 2829) . ((symbol "printk" 2831 . 2837) (semantic-list "(KERN_WARNING MODULE_NAME \": WARNING: \"x)" 2837 . 2878)))
+          ("devpriv" . ((semantic-list "((struct Private *)dev->private)" 4419 . 4451)))
+          ("DEBUG" (spp-arg-list ("x...") 2696 . 2702) . 
+              ((DO "do" 2712 . 2714) (semantic-list "{								\\
+		if (debug)						\\
+			printk(KERN_DEBUG MODULE_NAME\": DEBUG: \"x);	\\
+	}" 2715 . 2797) (WHILE "while" 2798 . 2803) (semantic-list "(0)" 2804 . 2807)))
+          ("MODULE_NAME" . ((string "\"comedi_bond\"" 2366 . 2379)))
+          )
+
+    )
+   )
+  :file "!home!chz!linux-3.0.8!drivers!staging!comedi!drivers!semantic.cache"
+  :semantic-tag-version "2.0"
+  :semanticdb-version "2.2"
+  )

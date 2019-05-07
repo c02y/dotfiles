@@ -1,0 +1,124 @@
+;; Object kernel/
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "kernel/"
+  :tables (list 
+   (semanticdb-table "time.c"
+    :major-mode 'c-mode
+    :tags 
+        '( ("linux/kernel.h" include (:system-flag t) nil [423 448])
+            ("linux/module.h" include (:system-flag t) nil [449 474])
+            ("linux/init.h" include (:system-flag t) nil [475 498])
+            ("linux/profile.h" include (:system-flag t) nil [499 525])
+            ("linux/timex.h" include (:system-flag t) nil [526 550])
+            ("linux/sched.h" include (:system-flag t) nil [551 575])
+            ("linux/clockchips.h" include (:system-flag t) nil [576 605])
+            ("linux/platform_device.h" include (:system-flag t) nil [606 640])
+            ("linux/smp.h" include (:system-flag t) nil [641 663])
+            ("linux/rtc.h" include (:system-flag t) nil [664 686])
+            ("asm/clock.h" include (:system-flag t) nil [687 709])
+            ("asm/hwblk.h" include (:system-flag t) nil [710 732])
+            ("asm/rtc.h" include (:system-flag t) nil [733 753])
+            ("null_rtc_get_time" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("tv" variable
+                       (:pointer 1
+                        :type ("timespec" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [805 825]))                  
+                :type "void")
+                nil [775 890])
+            ("null_rtc_set_time" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("secs" variable
+                       (:constant-flag t
+                        :type ("time_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [921 939]))                  
+                :type "int")
+                nil [892 954])
+            ("null_rtc_get_time" variable (:type "int") nil [1001 1019])
+            ("null_rtc_set_time" variable (:type "int") nil [1059 1077])
+            ("read_persistent_clock" function
+               (:arguments 
+                  ( ("ts" variable
+                       (:pointer 1
+                        :type ("timespec" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [1106 1126]))                  
+                :type "void")
+                nil [1079 1152])
+            ("get_rtc_time" function
+               (:arguments 
+                  ( ("tm" variable
+                       (:pointer 1
+                        :type ("rtc_time" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [1312 1332]))                  
+                :type "unsigned int")
+                nil [1286 1482])
+            ("EXPORT_SYMBOL" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("get_rtc_time" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [1497 1510]))                  
+                :type "int")
+                nil [1483 1511])
+            ("set_rtc_time" function
+               (:arguments 
+                  ( ("tm" variable
+                       (:pointer 1
+                        :type ("rtc_time" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [1530 1550]))                  
+                :type "int")
+                nil [1513 1635])
+            ("EXPORT_SYMBOL" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("set_rtc_time" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [1650 1663]))                  
+                :type "int")
+                nil [1636 1664])
+            ("rtc_generic_init" function
+               (:arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [1701 1706]))                  
+                :type ("__init" type (:type "class") nil nil))
+                nil [1677 1928])
+            ("module_init" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("rtc_generic_init" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [1941 1958]))                  
+                :type "int")
+                nil [1929 1959])
+            ("board_time_init" variable
+               (:functionpointer-flag t
+                :type "void")
+                nil [1961 1991])
+            ("sh_late_time_init" function
+               (:arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [2030 2035]))                  
+                :type ("__init" type (:type "class") nil nil))
+                nil [2005 2531])
+            ("time_init" function
+               (:arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [2555 2560]))                  
+                :type ("__init" type (:type "class") nil nil))
+                nil [2538 2674]))          
+    :file "time.c"
+    :pointmax 2675
+    :fsize 2674
+    :lastmodtime '(21468 8985 442603 206000)
+    :unmatched-syntax '((VOID 2533 . 2537) (VOID 2000 . 2004) (STATIC 1993 . 1999) (INT 1673 . 1676) (STATIC 1666 . 1672) (punctuation 1057 . 1058) (semantic-list 1042 . 1056) (semantic-list 1024 . 1042) (INT 1020 . 1023) (punctuation 999 . 1000) (semantic-list 979 . 998) (semantic-list 961 . 979) (VOID 956 . 960))
+    )
+   )
+  :file "!home!chz!linux-3.0.8!arch!sh!kernel!semantic.cache"
+  :semantic-tag-version "2.0"
+  :semanticdb-version "2.2"
+  )

@@ -1,0 +1,175 @@
+;; Object kernel/
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "kernel/"
+  :tables (list 
+   (semanticdb-table "time.c"
+    :major-mode 'c-mode
+    :tags 
+        '( ("linux/timex.h" include (:system-flag t) nil [109 133])
+            ("linux/time.h" include (:system-flag t) nil [134 157])
+            ("linux/clocksource.h" include (:system-flag t) nil [158 188])
+            ("linux/interrupt.h" include (:system-flag t) nil [189 217])
+            ("linux/swap.h" include (:system-flag t) nil [218 241])
+            ("linux/sched.h" include (:system-flag t) nil [242 266])
+            ("linux/init.h" include (:system-flag t) nil [267 290])
+            ("linux/threads.h" include (:system-flag t) nil [291 317])
+            ("linux/cpufreq.h" include (:system-flag t) nil [318 344])
+            ("asm/types.h" include (:system-flag t) nil [345 367])
+            ("asm/signal.h" include (:system-flag t) nil [368 391])
+            ("asm/io.h" include (:system-flag t) nil [392 411])
+            ("asm/delay.h" include (:system-flag t) nil [412 434])
+            ("asm/rtc.h" include (:system-flag t) nil [435 455])
+            ("asm/irq.h" include (:system-flag t) nil [456 476])
+            ("asm/irq_regs.h" include (:system-flag t) nil [477 502])
+            ("hwregs/reg_map.h" include (:system-flag t) nil [504 531])
+            ("hwregs/reg_rdwr.h" include (:system-flag t) nil [532 560])
+            ("hwregs/timer_defs.h" include (:system-flag t) nil [561 591])
+            ("hwregs/intr_vect_defs.h" include (:system-flag t) nil [592 626])
+            ("ETRAX_WD_KEY_MASK" variable (:constant-flag t) nil [730 747])
+            ("ETRAX_WD_HZ" variable (:constant-flag t) nil [780 791])
+            ("ETRAX_WD_CNT" variable (:constant-flag t) nil [886 898])
+            ("read_cont_rotime" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("cs" variable
+                       (:pointer 1
+                        :type ("clocksource" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [1033 1056]))                  
+                :type ("cycle_t" type (:type "class") nil nil))
+                nil [1001 1109])
+            ("cont_rotime" variable
+               (:typemodifiers ("static")
+                :type ("clocksource" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [1111 1316])
+            ("etrax_init_cont_rotime" function
+               (:arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [1359 1364]))                  
+                :type ("__init" type (:type "class") nil nil))
+                nil [1329 1485])
+            ("arch_initcall" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("etrax_init_cont_rotime" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [1500 1523]))                  
+                :type "int")
+                nil [1486 1524])
+            ("timer_regs" variable
+               (:dereference 1
+                :type "unsigned long")
+                nil [1527 1619])
+            ("set_rtc_mmss" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("nowtime" variable (:type "unsigned long") (reparse-symbol arg-sub-list) [1645 1667]))                  
+                :type "int")
+                nil [1621 1668])
+            ("have_rtc" variable
+               (:typemodifiers ("extern")
+                :type "int")
+                nil [1669 1689])
+            ("get_ns_in_jiffie" function
+               (:arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [1960 1965]))                  
+                :type "unsigned long")
+                nil [1929 2111])
+            ("start_watchdog" variable (:constant-flag t) nil [2648 2662])
+            ("WATCHDOG_MIN_FREE_PAGES" variable (:constant-flag t) nil [2919 2942])
+            ("reset_watchdog" function
+               (:arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [2966 2971]))                  
+                :type "void")
+                nil [2946 3450])
+            ("stop_watchdog" function
+               (:arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [3528 3533]))                  
+                :type "void")
+                nil [3509 3828])
+            ("show_registers" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("regs" variable
+                       (:pointer 1
+                        :type ("pt_regs" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [3857 3878]))                  
+                :type "void")
+                nil [3830 3879])
+            ("handle_watchdog_bite" function
+               (:arguments 
+                  ( ("regs" variable
+                       (:pointer 1
+                        :type ("pt_regs" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [3907 3928]))                  
+                :type "void")
+                nil [3881 4758])
+            ("cris_do_profile" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("regs" variable
+                       (:pointer 1
+                        :type ("pt_regs" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [4919 4940]))                  
+                :type "void")
+                nil [4891 4941])
+            ("timer_interrupt" function
+               (:typemodifiers ("static" "inline")
+                :arguments 
+                  ( ("irq" variable (:type "int") (reparse-symbol arg-sub-list) [4985 4993])
+                    ("dev_id" variable
+                       (:pointer 1
+                        :type "void")
+                        (reparse-symbol arg-sub-list) [4994 5007]))                  
+                :type ("irqreturn_t" type (:type "class") nil nil))
+                nil [4943 5824])
+            ("irq_timer" variable
+               (:typemodifiers ("static")
+                :type ("irqaction" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [5977 6102])
+            ("cris_timer_init" function
+               (:arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [6132 6137]))                  
+                :type ("__init" type (:type "class") nil nil))
+                nil [6109 6970])
+            ("time_init" function
+               (:arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [6994 6999]))                  
+                :type ("__init" type (:type "class") nil nil))
+                nil [6977 8394]))          
+    :file "time.c"
+    :pointmax 8851
+    :fsize 8850
+    :lastmodtime '(21468 8926 261004 406000)
+    :unmatched-syntax '((VOID 6972 . 6976) (VOID 6104 . 6108) (INT 1325 . 1328) (STATIC 1318 . 1324))
+    :lexical-table 
+        '(("ETRAX_WD_CNT" . ((semantic-list "((2*ETRAX_WD_HZ)/HZ + 1)" 900 . 924)))
+          ("ETRAX_WD_HZ" . ((number "763" 793 . 796)))
+          ("WATCHDOG_MIN_FREE_PAGES" . ((number "8" 2943 . 2944)))
+          ("start_watchdog" . ((symbol "reset_watchdog" 2663 . 2677)))
+          ("ETRAX_WD_KEY_MASK" . ((number "0x7F" 748 . 752)))
+          )
+
+    )
+   )
+  :file "!home!chz!linux-3.0.8!arch!cris!arch-v32!kernel!semantic.cache"
+  :semantic-tag-version "2.0"
+  :semanticdb-version "2.2"
+  )

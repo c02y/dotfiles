@@ -1,0 +1,676 @@
+;; Object oss/
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "oss/"
+  :tables (list 
+   (semanticdb-table "seq_oss_event.c"
+    :major-mode 'c-mode
+    :tags nil
+    :file "seq_oss_event.c"
+    :pointmax 12863
+    :fsize 12862
+    :lastmodtime '(21468 9236 757653 3000)
+    :unmatched-syntax 'nil
+    )
+   (semanticdb-table "seq_oss_device.h"
+    :major-mode 'c-mode
+    :tags 
+        '( ("__SEQ_OSS_DEVICE_H" variable (:constant-flag t) nil [851 869])
+            ("linux/time.h" include (:system-flag t) nil [871 894])
+            ("linux/wait.h" include (:system-flag t) nil [895 918])
+            ("linux/slab.h" include (:system-flag t) nil [919 942])
+            ("linux/sched.h" include (:system-flag t) nil [943 967])
+            ("sound/core.h" include (:system-flag t) nil [968 991])
+            ("sound/seq_oss.h" include (:system-flag t) nil [992 1018])
+            ("sound/rawmidi.h" include (:system-flag t) nil [1019 1045])
+            ("sound/seq_kernel.h" include (:system-flag t) nil [1046 1075])
+            ("sound/info.h" include (:system-flag t) nil [1076 1099])
+            ("SNDRV_SEQ_OSS_DEBUG" variable (:constant-flag t) nil [1134 1153])
+            ("SNDRV_SEQ_OSS_MAX_CLIENTS" variable (:constant-flag t) nil [1187 1212])
+            ("SNDRV_SEQ_OSS_MAX_SYNTH_DEVS" variable (:constant-flag t) nil [1224 1252])
+            ("SNDRV_SEQ_OSS_MAX_MIDI_DEVS" variable (:constant-flag t) nil [1264 1291])
+            ("SNDRV_SEQ_OSS_MAJOR_VERSION" variable (:constant-flag t) nil [1318 1345])
+            ("SNDRV_SEQ_OSS_MINOR_VERSION" variable (:constant-flag t) nil [1356 1383])
+            ("SNDRV_SEQ_OSS_TINY_VERSION" variable (:constant-flag t) nil [1394 1420])
+            ("SNDRV_SEQ_OSS_VERSION_STR" variable (:constant-flag t) nil [1431 1456])
+            ("SNDRV_SEQ_OSS_DEVNAME" variable (:constant-flag t) nil [1511 1532])
+            ("SNDRV_SEQ_OSS_PROCNAME" variable (:constant-flag t) nil [1552 1574])
+            ("reltime_t" type
+               (:typedef ("unsigned int")
+                :superclasses "unsigned int"
+                :type "typedef")
+                nil [1612 1643])
+            ("abstime_t" type
+               (:typedef ("unsigned int")
+                :superclasses "unsigned int"
+                :type "typedef")
+                nil [1644 1675])
+            ("seq_oss_chinfo" type
+               (:members 
+                  ( ("vel" variable (:type "int") (reparse-symbol classsubparts) [1745 1759])
+                    ("note" variable (:type "int") (reparse-symbol classsubparts) [1745 1759]))                  
+                :type "struct")
+                nil [1720 1762])
+            ("seq_oss_synthinfo" type
+               (:members 
+                  ( ("arg" variable (:type ("snd_seq_oss_arg" type
+                         (:prototype t
+                          :type "struct")
+                          nil nil)) (reparse-symbol classsubparts) [1826 1853])
+                    ("ch" variable
+                       (:pointer 1
+                        :type ("seq_oss_chinfo" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol classsubparts) [1855 1881])
+                    ("sysex" variable
+                       (:pointer 1
+                        :type ("seq_oss_synth_sysex" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol classsubparts) [1883 1917])
+                    ("nr_voices" variable (:type "int") (reparse-symbol classsubparts) [1919 1933])
+                    ("opened" variable (:type "int") (reparse-symbol classsubparts) [1935 1946])
+                    ("is_midi" variable (:type "int") (reparse-symbol classsubparts) [1948 1960])
+                    ("midi_mapped" variable (:type "int") (reparse-symbol classsubparts) [1962 1978]))                  
+                :type "struct")
+                nil [1798 1981])
+            ("seq_oss_devinfo" type
+               (:members 
+                  ( ("index" variable (:type "int") (reparse-symbol classsubparts) [2051 2061])
+                    ("cseq" variable (:type "int") (reparse-symbol classsubparts) [2087 2096])
+                    ("port" variable (:type "int") (reparse-symbol classsubparts) [2128 2137])
+                    ("queue" variable (:type "int") (reparse-symbol classsubparts) [2167 2177])
+                    ("addr" variable (:type ("snd_seq_addr" type
+                         (:prototype t
+                          :type "struct")
+                          nil nil)) (reparse-symbol classsubparts) [2209 2234])
+                    ("seq_mode" variable (:type "int") (reparse-symbol classsubparts) [2266 2279])
+                    ("file_mode" variable (:type "int") (reparse-symbol classsubparts) [2302 2316])
+                    ("max_mididev" variable (:type "int") (reparse-symbol classsubparts) [2362 2378])
+                    ("max_synthdev" variable (:type "int") (reparse-symbol classsubparts) [2407 2424])
+                    ("synths" variable
+                       (:dereference 1
+                        :type ("seq_oss_synthinfo" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol classsubparts) [2426 2488])
+                    ("synth_opened" variable (:type "int") (reparse-symbol classsubparts) [2490 2507])
+                    ("writeq" variable
+                       (:pointer 1
+                        :type ("seq_oss_writeq" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol classsubparts) [2530 2560])
+                    ("readq" variable
+                       (:pointer 1
+                        :type ("seq_oss_readq" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol classsubparts) [2587 2615])
+                    ("timer" variable
+                       (:pointer 1
+                        :type ("seq_oss_timer" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol classsubparts) [2631 2659]))                  
+                :type "struct")
+                nil [2024 2662])
+            ("snd_seq_oss_create_client" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [2767 2772]))                  
+                :type "int")
+                nil [2737 2773])
+            ("snd_seq_oss_delete_client" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [2804 2809]))                  
+                :type "int")
+                nil [2774 2810])
+            ("snd_seq_oss_open" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("file" variable
+                       (:pointer 1
+                        :type ("file" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [2861 2879])
+                    ("level" variable (:type "int") (reparse-symbol arg-sub-list) [2880 2890]))                  
+                :type "int")
+                nil [2840 2891])
+            ("snd_seq_oss_release" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("dp" variable
+                       (:pointer 1
+                        :type ("seq_oss_devinfo" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [2917 2944]))                  
+                :type "void")
+                nil [2892 2945])
+            ("snd_seq_oss_ioctl" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("dp" variable
+                       (:pointer 1
+                        :type ("seq_oss_devinfo" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [2968 2995])
+                    ("cmd" variable (:type "unsigned int") (reparse-symbol arg-sub-list) [2996 3013])
+                    ("arg" variable (:type "unsigned long") (reparse-symbol arg-sub-list) [3014 3032]))                  
+                :type "int")
+                nil [2946 3033])
+            ("snd_seq_oss_read" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("dev" variable
+                       (:pointer 1
+                        :type ("seq_oss_devinfo" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [3055 3083])
+                    ("__user" variable (:type "char") (reparse-symbol arg-sub-list) [3084 3097])
+                    ("" variable (:type ("buf" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [3097 3101])
+                    ("count" variable (:type "int") (reparse-symbol arg-sub-list) [3102 3112]))                  
+                :type "int")
+                nil [3034 3113])
+            ("snd_seq_oss_write" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("dp" variable
+                       (:pointer 1
+                        :type ("seq_oss_devinfo" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [3136 3163])
+                    ("__user" variable
+                       (:constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [3164 3183])
+                    ("" variable (:type ("buf" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [3183 3187])
+                    ("count" variable (:type "int") (reparse-symbol arg-sub-list) [3188 3198])
+                    ("opt" variable
+                       (:pointer 1
+                        :type ("file" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [3199 3216]))                  
+                :type "int")
+                nil [3114 3217])
+            ("snd_seq_oss_poll" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("dp" variable
+                       (:pointer 1
+                        :type ("seq_oss_devinfo" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [3248 3275])
+                    ("file" variable
+                       (:pointer 1
+                        :type ("file" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [3276 3294])
+                    ("wait" variable
+                       (:pointer 1
+                        :type ("poll_table" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [3295 3313]))                  
+                :type "unsigned int")
+                nil [3218 3314])
+            ("snd_seq_oss_reset" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("dp" variable
+                       (:pointer 1
+                        :type ("seq_oss_devinfo" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [3339 3366]))                  
+                :type "void")
+                nil [3316 3367])
+            ("snd_seq_oss_drain_write" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("dp" variable
+                       (:pointer 1
+                        :type ("seq_oss_devinfo" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [3397 3424]))                  
+                :type "void")
+                nil [3368 3425])
+            ("snd_seq_oss_process_queue" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("dp" variable
+                       (:pointer 1
+                        :type ("seq_oss_devinfo" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [3464 3491])
+                    ("time" variable (:type ("abstime_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [3492 3507]))                  
+                :type "void")
+                nil [3433 3508])
+            ("snd_seq_oss_system_info_read" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("buf" variable
+                       (:pointer 1
+                        :type ("snd_info_buffer" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [3566 3594]))                  
+                :type "void")
+                nil [3532 3595])
+            ("snd_seq_oss_midi_info_read" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("buf" variable
+                       (:pointer 1
+                        :type ("snd_info_buffer" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [3628 3656]))                  
+                :type "void")
+                nil [3596 3657])
+            ("snd_seq_oss_synth_info_read" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("buf" variable
+                       (:pointer 1
+                        :type ("snd_info_buffer" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [3691 3719]))                  
+                :type "void")
+                nil [3658 3720])
+            ("snd_seq_oss_readq_info_read" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("q" variable
+                       (:pointer 1
+                        :type ("seq_oss_readq" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [3754 3778])
+                    ("buf" variable
+                       (:pointer 1
+                        :type ("snd_info_buffer" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [3779 3807]))                  
+                :type "void")
+                nil [3721 3808])
+            ("is_read_mode" variable (:constant-flag t) nil [3841 3853])
+            ("is_write_mode" variable (:constant-flag t) nil [3903 3916])
+            ("is_nonblock_mode" variable (:constant-flag t) nil [3967 3983])
+            ("snd_seq_oss_dispatch" function
+               (:typemodifiers ("static" "inline")
+                :arguments 
+                  ( ("dp" variable
+                       (:pointer 1
+                        :type ("seq_oss_devinfo" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [4090 4117])
+                    ("ev" variable
+                       (:pointer 1
+                        :type ("snd_seq_event" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [4118 4143])
+                    ("atomic" variable (:type "int") (reparse-symbol arg-sub-list) [4144 4155])
+                    ("hop" variable (:type "int") (reparse-symbol arg-sub-list) [4156 4164]))                  
+                :type "int")
+                nil [4051 4235])
+            ("snd_seq_oss_control" function
+               (:typemodifiers ("static" "inline")
+                :arguments 
+                  ( ("dp" variable
+                       (:pointer 1
+                        :type ("seq_oss_devinfo" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [4287 4314])
+                    ("type" variable (:type "unsigned int") (reparse-symbol arg-sub-list) [4315 4333])
+                    ("arg" variable
+                       (:pointer 1
+                        :type "void")
+                        (reparse-symbol arg-sub-list) [4334 4344]))                  
+                :type "int")
+                nil [4249 4404])
+            ("snd_seq_oss_fill_addr" function
+               (:typemodifiers ("static" "inline")
+                :arguments 
+                  ( ("dp" variable
+                       (:pointer 1
+                        :type ("seq_oss_devinfo" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [4482 4509])
+                    ("ev" variable
+                       (:pointer 1
+                        :type ("snd_seq_event" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [4510 4535])
+                    ("dest_client" variable (:type "int") (reparse-symbol arg-sub-list) [4543 4559])
+                    ("dest_port" variable (:type "int") (reparse-symbol arg-sub-list) [4560 4574]))                  
+                :type "void")
+                nil [4441 4686])
+            ("enabled_str" function
+               (:prototype-flag t
+                :pointer 1
+                :arguments 
+                  ( ("" variable (:type "int") (reparse-symbol arg-sub-list) [4748 4756])
+                    ("" variable (:type "bool") (reparse-symbol arg-sub-list) [4752 4757]))                  
+                :type "char")
+                nil [4730 4758])
+            ("seq_oss_debug" variable
+               (:typemodifiers ("extern")
+                :type "int")
+                nil [4804 4829])
+            ("debug_printk" variable (:constant-flag t) nil [4838 4850]))          
+    :file "seq_oss_device.h"
+    :pointmax 4983
+    :fsize 4982
+    :lastmodtime '(21468 9236 747653 240000)
+    :unmatched-syntax '((punctuation 3182 . 3183) (punctuation 3096 . 3097))
+    :lexical-table 
+        '(("SNDRV_SEQ_OSS_TINY_VERSION" . ((number "8" 1421 . 1422)))
+          ("__SEQ_OSS_DEVICE_H")
+          ("SNDRV_SEQ_OSS_MAX_CLIENTS" . ((number "16" 1213 . 1215)))
+          ("SNDRV_SEQ_OSS_MAJOR_VERSION" . ((number "0" 1346 . 1347)))
+          ("SNDRV_SEQ_OSS_MAX_SYNTH_DEVS" . ((number "16" 1253 . 1255)))
+          ("SNDRV_SEQ_OSS_DEVNAME" . ((string "\"seq_oss\"" 1534 . 1543)))
+          ("is_nonblock_mode" (spp-arg-list ("mode") 3983 . 3989) . ((semantic-list "((mode) & SNDRV_SEQ_OSS_FILE_NONBLOCK)" 3990 . 4028)))
+          ("SNDRV_SEQ_OSS_MINOR_VERSION" . ((number "1" 1384 . 1385)))
+          ("is_read_mode" (spp-arg-list ("mode") 3853 . 3859) . ((semantic-list "((mode) & SNDRV_SEQ_OSS_FILE_READ)" 3860 . 3894)))
+          ("debug_printk" (spp-arg-list ("x") 4850 . 4853) . 
+              ((DO "do" 4854 . 4856) (semantic-list "{ if (seq_oss_debug > 0) snd_printd x; }" 4857 . 4897) (WHILE "while" 4898 . 4903) (semantic-list "(0)" 4904 . 4907)))
+          ("SNDRV_SEQ_OSS_DEBUG")
+          ("is_write_mode" (spp-arg-list ("mode") 3916 . 3922) . ((semantic-list "((mode) & SNDRV_SEQ_OSS_FILE_WRITE)" 3923 . 3958)))
+          ("SNDRV_SEQ_OSS_MAX_MIDI_DEVS" . ((number "32" 1292 . 1294)))
+          ("SNDRV_SEQ_OSS_VERSION_STR" . ((string "\"0.1.8\"" 1457 . 1464)))
+          ("SNDRV_SEQ_OSS_PROCNAME" . ((string "\"oss\"" 1576 . 1581)))
+          )
+
+    )
+   (semanticdb-table "seq_oss_synth.h"
+    :major-mode 'c-mode
+    :tags 
+        '( ("__SEQ_OSS_SYNTH_H" variable (:constant-flag t) nil [881 898])
+            ("seq_oss_device.h" include nil nil [900 927])
+            ("sound/seq_oss_legacy.h" include (:system-flag t) nil [928 961])
+            ("sound/seq_device.h" include (:system-flag t) nil [962 991])
+            ("snd_seq_oss_synth_init" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [1021 1026]))                  
+                :type "void")
+                nil [993 1027])
+            ("snd_seq_oss_synth_register" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("dev" variable
+                       (:pointer 1
+                        :type ("snd_seq_device" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [1059 1086]))                  
+                :type "int")
+                nil [1028 1087])
+            ("snd_seq_oss_synth_unregister" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("dev" variable
+                       (:pointer 1
+                        :type ("snd_seq_device" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [1121 1148]))                  
+                :type "int")
+                nil [1088 1149])
+            ("snd_seq_oss_synth_setup" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("dp" variable
+                       (:pointer 1
+                        :type ("seq_oss_devinfo" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [1179 1206]))                  
+                :type "void")
+                nil [1150 1207])
+            ("snd_seq_oss_synth_setup_midi" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("dp" variable
+                       (:pointer 1
+                        :type ("seq_oss_devinfo" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [1242 1269]))                  
+                :type "void")
+                nil [1208 1270])
+            ("snd_seq_oss_synth_cleanup" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("dp" variable
+                       (:pointer 1
+                        :type ("seq_oss_devinfo" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [1302 1329]))                  
+                :type "void")
+                nil [1271 1330])
+            ("snd_seq_oss_synth_reset" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("dp" variable
+                       (:pointer 1
+                        :type ("seq_oss_devinfo" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [1361 1388])
+                    ("dev" variable (:type "int") (reparse-symbol arg-sub-list) [1389 1397]))                  
+                :type "void")
+                nil [1332 1398])
+            ("snd_seq_oss_synth_load_patch" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("dp" variable
+                       (:pointer 1
+                        :type ("seq_oss_devinfo" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [1432 1459])
+                    ("dev" variable (:type "int") (reparse-symbol arg-sub-list) [1460 1468])
+                    ("fmt" variable (:type "int") (reparse-symbol arg-sub-list) [1469 1477])
+                    ("__user" variable
+                       (:constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [1483 1502])
+                    ("" variable (:type ("buf" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [1502 1506])
+                    ("p" variable (:type "int") (reparse-symbol arg-sub-list) [1507 1513])
+                    ("c" variable (:type "int") (reparse-symbol arg-sub-list) [1514 1520]))                  
+                :type "int")
+                nil [1399 1521])
+            ("snd_seq_oss_synth_is_valid" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("dp" variable
+                       (:pointer 1
+                        :type ("seq_oss_devinfo" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [1553 1580])
+                    ("dev" variable (:type "int") (reparse-symbol arg-sub-list) [1581 1589]))                  
+                :type "int")
+                nil [1522 1590])
+            ("snd_seq_oss_synth_sysex" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("dp" variable
+                       (:pointer 1
+                        :type ("seq_oss_devinfo" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [1619 1646])
+                    ("dev" variable (:type "int") (reparse-symbol arg-sub-list) [1647 1655])
+                    ("buf" variable
+                       (:pointer 1
+                        :type "unsigned char")
+                        (reparse-symbol arg-sub-list) [1656 1675])
+                    ("ev" variable
+                       (:pointer 1
+                        :type ("snd_seq_event" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [1683 1708]))                  
+                :type "int")
+                nil [1591 1709])
+            ("snd_seq_oss_synth_addr" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("dp" variable
+                       (:pointer 1
+                        :type ("seq_oss_devinfo" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [1737 1764])
+                    ("dev" variable (:type "int") (reparse-symbol arg-sub-list) [1765 1773])
+                    ("ev" variable
+                       (:pointer 1
+                        :type ("snd_seq_event" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [1774 1799]))                  
+                :type "int")
+                nil [1710 1800])
+            ("snd_seq_oss_synth_ioctl" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("dp" variable
+                       (:pointer 1
+                        :type ("seq_oss_devinfo" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [1829 1856])
+                    ("dev" variable (:type "int") (reparse-symbol arg-sub-list) [1857 1865])
+                    ("cmd" variable (:type "unsigned int") (reparse-symbol arg-sub-list) [1866 1883])
+                    ("addr" variable (:type "unsigned long") (reparse-symbol arg-sub-list) [1891 1910]))                  
+                :type "int")
+                nil [1801 1911])
+            ("snd_seq_oss_synth_raw_event" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("dp" variable
+                       (:pointer 1
+                        :type ("seq_oss_devinfo" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [1944 1971])
+                    ("dev" variable (:type "int") (reparse-symbol arg-sub-list) [1972 1980])
+                    ("data" variable
+                       (:pointer 1
+                        :type "unsigned char")
+                        (reparse-symbol arg-sub-list) [1985 2005])
+                    ("ev" variable
+                       (:pointer 1
+                        :type ("snd_seq_event" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [2006 2031]))                  
+                :type "int")
+                nil [1912 2032])
+            ("snd_seq_oss_synth_make_info" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("dp" variable
+                       (:pointer 1
+                        :type ("seq_oss_devinfo" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [2066 2093])
+                    ("dev" variable (:type "int") (reparse-symbol arg-sub-list) [2094 2102])
+                    ("inf" variable
+                       (:pointer 1
+                        :type ("synth_info" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [2103 2126]))                  
+                :type "int")
+                nil [2034 2127]))          
+    :file "seq_oss_synth.h"
+    :pointmax 2136
+    :fsize 2135
+    :lastmodtime '(21468 9236 835651 157000)
+    :unmatched-syntax '((punctuation 1501 . 1502))
+    :lexical-table 
+        '(("__SEQ_OSS_SYNTH_H")
+          )
+
+    )
+   (semanticdb-table "seq_oss_midi.h"
+    :major-mode 'c-mode
+    :tags nil
+    :file "seq_oss_midi.h"
+    :pointmax 2036
+    :fsize 2035
+    :lastmodtime '(21468 9236 799652 9000)
+    :unmatched-syntax 'nil
+    )
+   )
+  :file "!home!chz!linux-3.0.8!sound!core!seq!oss!semantic.cache"
+  :semantic-tag-version "2.0"
+  :semanticdb-version "2.2"
+  )

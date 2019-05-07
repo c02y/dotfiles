@@ -1,0 +1,1349 @@
+# check https://www.safaribooksonline.com/library/view/writing-gnu-emacs/ for errata, a lot of ' symbol are missed or wrong
+# This is the note about the ebook
+# Writing-GNU-Emacs-Extension_Bob Glickstein.pdf
+# Finished reading <2015-09-29 Tue 15:28>
+
+* Preface
+** Tool
+With all that functionality, it may seem crazy that Emacs users often spend a significant portion of their time extending Emacs. After all, most programmers view their editor as tools for creating /other/ software; why spend so much energy modifying the tool itself? A carpenter doesn't tinker with his hammer; a plumber doesn't tinker with his wrench; they use their tools to accomplish the job at hand.
+
+So why are Emacs users different?
+
+The answer is that the carpenter and the plumber /would/ tinker with their tools to make them better, if they know how. Who knows exactly what they need better than they do? Nut they're not toolsmiths. On the other hand, Emacs is a special kind of tool: it's software, which means the tools is the same stuff as what Emacs users use it on. The user of Emacs is often a programmer, and programming Emacs is, just programming. Emacs users are in the happy position of being their own toolsmiths.
+** What we'll learn from this book
+Along the way we'll learn about variables, keymaps, interactive commands, buffers, windows, process I/O, and more.
+
+To borrow an old saying: Give a man a new command and he can hack for a night; teach a man to make new Emacs commands and he can hack fir a lifetime.
+** Resources
+- Built-in Emacs "info" manual
+- Learning GNU Emacs_2nd
+- The GNU Emacs Manual
+- The GNU Emacs Lisp Reference Manual
+- More complete understanding of Lisp Programming
+  + Common Lisp: A Gentle Introduction to Symbolic Computation by David Touretzky
+* Customizing Emacs
+** Backspace and Delete
+To Emacs, what matters isn't the label(such as "Backspace", "Delete" or "Erase") but the numeric character code that the key generic when pressed. Regardless of the label on the key, the "move left and erase the previous character" key may generate an ASCII "backspace" code (decimal 8, usually denoted =BS=) or and ASCII "delete" code (decimal 127, usually denoted =DEL=).
+
+In its default configuration, Emacs believes only ~DEL~ is the code meaning "move left and erase the previous character". If you have a BACKSPACE/DELETE/ERASE key that generate a =BS=, it won't do what you expect when you press it.
+** Fully-parenthesized prefix notation
+NOTE: the advantages
+** List data type
+** Garbage collection
+Lisp is a garbage-collected language, which means that Lisp itself automatically reclaims the memory used by your program's data structures.
+
+Prematurely releasing allocated memory is one of the world's greatest sources of program errors, and forgetting to release allocated memory can cause programs to "bloat" until all available memory is used up.
+
+For all the convenience that garbage collection affords the programmer, it also has drawback: periodically, Emacs stops everything it's doing and displays the message "Garbage collection..." to the user. The user cannot use Emacs until garbage collection is finished. This usually takes only a second of less, but it may happen very often. Later on we'll learn some programming practices that help to reduce the amount of garbage collection that takes place.
+
+ Emacs uses a _mark-and-sweep garbage collection scheme_, which is one of the easiest ways to implement garbage collection. There are other approaches to implementing garbage collection that would not be so intrusive from the user's point of view; for instance, so-called "incremental" garbage collection can take place without bringing Emacs to a halt. Unfortunately, Emacs does not employ one of these more advanced approaches.
+** The META key
+META/ALT/CONTROL/SHIFT are called modifiers which means that you hold it down while pressing some other key.
+
+META/ALT can be replace by ESC, such ~META/ALT-x~ equals to ~ESC x~, but notice that ~ESC~ is not a modifier, there is no "-" between ~ESC~ and ~x~, so you press it and release it like a normal key before pressing x.
+** Denoting Keys in Strings
+- "\M-?" or "\e?" --> ~M-?~
+- "\C-\M-x" --> ~C-M-x~
+  + NOTE: (length "\M-?") --> 1
+  + NOTE: (length "\M-\C-x") --> 1, it only read these strings as x or ?
+* Simple New Commands
+** Interactive (interactive "p"), p is called code letter
+NOTE: You can check the build-in elisp manual for more interactive codes, search "Interactive codes"
+
+#+BEGIN_SRC emacs-lisp
+(defun other-window-backward ( )
+  "Select the previous window."
+  (interactive)
+  (other-window -1))
+
+(defun other-window-backward2 (n)
+  "Select Nth previous window.'
+(interactive "p")
+(other-window (- n)))
+#+END_SRC
+As interactive command is a kind of Lisp function. That means that the command may take argument. Passing arguments to a function from Lisp is easy; they simply get written down in the function call. But what if the function is invoked as an interactive command? Where do the arguments come from then? Answering this question is the purpose of the =interactive= declaration.
+
+The argument to =interactive= (such as p or P) describes how to contain arguments for the command that contains it. When the command takes no arguments, then =interactive= has no arguments. When the command does take arguments, the =interactive= takes one argument: a string of code letters, one code letter per argument being described.
+
+- (interactive "p")
+  + The code letter =p= used in above example means: "if there is a prefix argument, interpret it as a number, and if there is no prefix argument, interpret that as the number 1"
+
+
+It's important to understand the difference between the two expressions (- n) and -1. The first is a function call. There must be a space between the function name and the argument. The second expression is an integer constant. There may not be a space between the minus sign and the 1. It is certainly possible to write (- 1) though there's no reason to incur the cost of a function call when you can alternatively write -1. It is not possible to write -n, because n is not a constant.
+** Making the Argument Optional
+It should be possible to pass zero arguments (like this: (other-window-backward)) and set the default behavior (as if calling this: (other-window-backward 1)). Here is how that's done:
+#+BEGIN_SRC emacs-lisp
+;; if
+(defun other-window-backward3 (&optional n)
+  "Select Nth previous window."
+  (interactive "p")
+  (if n
+	  (other-window (- n))	; if n is non-nil
+	(other-window -1))) 	; if n is nil
+
+;; or
+(defun other-window-backward (&optional n)
+  "Select Nth previous window."
+  (interactive "p")
+  (other-window (- (or n 1))))
+
+;; best definition
+(defun other-window-backward (&optional n)
+  "Select Nth previous window."
+  (interactive "P")
+  (other-window (- (prefix-numeric-value n))))
+#+END_SRC
+The keyword "&optional" appearing in a parameter list means that all subsequent parameters are optional. The function may be called with or without a value for an optional parameter. If no value is given, the optional parameter gets the special value *nil*.
+*** Interactive (interactive "P")
+The capital ~P~ means "when called interactively, leave the prefix argument in /raw from/ and assign it to /n/." The raw form of a prefix argument is a data structure used internally by Emacs to record the prefix information the user gave before invoking a command.
+
+the =prefix-numeric-value= can interpret that data structure as a Number in exactly the way (interactive "p") did. What's more, if =other-window-backward= is called non-interactively (and =n= is therefore not a prefix argument in raw form), =prefix-numeric-value= does the right thing -- namely, return =n= unchanged if it's a number, and return 1 if its nil.
+
+The best version is more "Emacs-Lisp-like" because it achieves better code reuse. It uses the built-in function =prefix-numeric-value= rather than duplicating that function's behavior.
+*** nil symbol
+The symbol =nil= is special in Lisp for three reasons:
+1. It designates falsehood, In the Lisp structures that test a true/false condition -- =if, cond, while, and, or, not= - a value of =nil= means "false" and any other value means "true".
+2. It is indistinguishable from the empty list. Inside the Lisp interpreter, the symbol =nil= and the empty list ( ) are the same object. If you call =listp=, which tests whether its argument is a list, on the symbol =nil=, you'll get the result =t=, which means truth, if you call =symbolp=, which tests whether its argument is a symbol, on the empty list, you'll get =t= again. However, if you call =symbolp= on any other list, or =listp= on any other symbol, you'll get =nil= -- falsehood.
+3. It is its own value, When you evaluate the symbol =nil=, the result is nil. For this reason, unlike other symbols, nil doesn't need to be quoted when you want its name instead of its value, because its name is the same as its value.
+** Logical Expressions
+#+BEGIN_SRC emacs-lisp
+(if n n 1)
+;; ==
+(or n 1)
+
+(if a
+	(if b
+	;	. . .
+		(if y z)))
+; ==
+(and a b . . . y z)
+
+#+END_SRC
+
+The function =or= works like the logical "or" in most languages: if all of its arguments are false, it returns falsehood, otherwise it returns truth. But Lisp's =or= has an extra bit of usefulness: _it evaluates each of its arguments in order until it finds one that's non-nil, then it returns that value. If it doesn't find one, it returns =nil=._ So the return value from or isn't merely false or true, it's false or the first true value in the list.
+** Hooks, progn
+A hook is an ordinary Lisp variable whose value is a list of functions that get executed under specific conditions.
+
+For instance, the variable =write-file-hooks= is a list of functions that Emacs executes whenever a buffer is saved, and =post-command-hook= is a list of functions to run after every interactive command. The hook that interests us most for this example is =find-file-hooks=, which Emacs runs every time a new file is visited. (~C-h h~ hook for more)
+
+#+BEGIN_SRC emacs-lisp
+(defun read-only-if-symlink ()
+  (if (file-symlink-p buffer-file-name)
+	  (progn
+		(setq buffer-read-only t)
+		(message "File is a symlink"))))
+(add-hook 'find-file-hooks 'read-only-if-symlink)
+
+#+END_SRC
+- First, notice that the parameter list is empty. Functions that appear in hook variables take no arguments.
+- The function =file-symlink-p= tests whether its argument, which is a string naming a file, refers to a symbolic link. It's a Boolean predicate, meaning it returns true or false. In Lisp, predicates traditionally have names ending in =p= or =-p=.
+- The argument to =file-symlink-p= is =buffer-file-name=. This predefined variable has a different value in every buffer, and is therefore known as a =buffer-local= variable. It always refers to the name of the file in the current buffer. The "current buffer," when =find-file-hooks= gets executed, is the newly found file.
+- Lisp only allows one expression in the "then" part of an if-then-else. " To get both the call to =setq= and the call to =message= into the "then" part of the if, we wrap them in a =progn=. A =progn= expression evaluates each of its subexpressions in order and returns the value of the last one.
+- The variable buffer-read-only is also buffer-local and controls whether the current buffer is read-only.
+** Anonymous Functions, function without name, =lambda=
+When you use defun to define a function, you give it a name by which the function can be called from anywhere. But what if the function won't ever be called from anywhere else?
+
+It's possible to define a function without giving it a name. Such functions are appropriately known as /anonymous functions/. They're created with the Lisp keyword =lambda=, (The word "lambda" has no significance other than being the name of a Greek letter.) which works exactly like =defun= except that the name of the function is left out:
+#+BEGIN_SRC emacs-lisp
+(add-hook 'find-file-hooks
+		  '(lambda ()
+			 (if (file-symlink-p buffer-file-name)
+				 (progn
+				   (setq buffer-read-only t)
+				   (message "File is a symlink")))))
+#+END_SRC
+Now only =find-file-hooks= has access to the function; no other code is able to call it. (_That's not exactly true. It is possible for another piece of code to search the contents of the =find-file-hooks= list, pick out any function it finds, and execute it. The point is that the function is hidden, not exposed as with defun._)
+
+There's one reason *not* to use anonymous functions in hooks. If you ever wish to remove a function from a hook, you need to refer to it by name in a call to remove-hook, like so:
+: (remove-hook 'find-file-hooks 'read-only-if-symlink)
+This is much harder if the function is anonymous.
+*** More complicated
+#+BEGIN_SRC emacs-lisp
+(defun visit-target-instead ()
+  "Replace this buffer with a buffer visiting the link target."
+  (interactive)
+  (if buffer-file-name
+	  (let ((target (file-symlink-p buffer-file-name)))
+		(if target
+			(find-alternate-file target)
+		  (error "Not visiting a symlink")))
+	(error "Not visiting a file")))
+
+(defun clobber-symlink ()
+  "Replace symlink with a copy of the file."
+  (interactive)
+  (if buffer-file-name
+	  (let ((target (file-symlink-p buffer-file-name)))
+		(if target
+			(if (yes-or-no-p
+				 (format "Replace %s with %s?"
+						 buffer-file-name
+						 target))
+				(progn
+				  (delete-file buffer-file-name)
+				  (write-file buffer-file-name)))
+		  (error "Not visiting a symlink")))
+	(error "Not visiting a file")))
+#+END_SRC
+
+=buffer-file-name= may be =nil= (in the case that the current buffer isn't visiting any file -- e.g., it might be the *scratch* buffer), and passing =nil= to =file-symlink-p= would generate the error, "Wrong type argument: stringp, nil"
+
+When =error= is called, the /current command/ aborts and Emacs returns to its /top-level/ to await the user's next action.
+**** "Wrong type argument: stringp, nil" error message
+The error message means that some function was called expecting a string —- an object satisfying the predicate =stringp= — but got =nil= instead.
+**** let
+#+BEGIN_SRC emacs-lisp
+(let ((var1 value1)
+	  (var2 value2)
+	  . . .
+	  (varn valuen))
+  body1 body2 . . . bodyn)
+#+END_SRC
+This gives var1 the value value1, var2 the value value2, and so on; and var1 and var2 can be used only within the body1 expressions. Among other things, using temporary variables helps to avoid conflicts between regions of code that happen to use identical variable names.
+
+: (let ((target (file-symlink-p buffer-file-name))) . . . )
+=file-symlink-p= is a predicate, which means it returns truth or falsehood. But because "truth" in Lisp can be represented by any expression except =nil=, =file-symlink-p= isn't constrained to returning =t= if its argument really is a symlink. In fact, it returns the name of the file to which the symlink refers. So if =buffer-file-name= is the name of a symlink, =target= will be the name of the symlink's target.
+**** yes-or-no-p
+The function =yes-or-no-p= asks the user a yes or no question (the format part) and returns true or false.
+** defadvice
+A piece of advice attached to a Lisp function is code that gets executed before or after the function each time the function is invoked. /Before advice/ can affect the arguments before they're passed to the advised function. /After advice/ can affect the return value the comes out of the advised function. Advice is a little like hook variables, but whereas Emacs defines only dozen hook variables for particular circumstances, you get to choose which functions get "advised".
+
+#+BEGIN_SRC emacs-lisp
+(defadvice switch-to-buffer (before existing-buffer
+									activate compile)
+  "When interactive, switch to existing buffers only."
+  (interactive "b")) ;; NOTE:
+#+END_SRC
+=before= tells whether this is "before" or "after" advice. (Another type of advice, called =around=, lets you embed a call to the advised function inside the advice code.)
+
+Next comes the name of this piece of advice, I named it =existing-buffer=. The name can be used later if you want to remove or modify the advice.
+
+Next comes some keywords: =activate= meas that this advice should be active as soon as it's defined (it's possible to define advice but leave it inactive); and =compile= means that the advice code should be "byte-compiled" for speed.
+
+After the specially formatted list, a piece of advice has an optional docstring.
+
+The only thing in the body of this advice is its own =interactive= declaration, which replaces the =interactive= declaration of =switch-to-buffer=. Whereas =switch-to-buffer= accepts any string as the buffer-name argument
+*** (interactive "b")
+the code letter =b= in an =interactive= declaration means "accept only names of existing buffers." By using the =interactive= declaration to make this change, we've managed to not affect any Lisp code that wants to call =switch-to-buffer= noninteractively. So this tiny piece of advice effectively does the whole job: it changes =switch-to-buffer= to accept only the names of existing buffers.
+
+Unfortunately, that's too restrictive. It should still be possible to switch to nonexistent buffers, but only when some special indication is given that the restriction should be lifted—say, when a prefix argument is given. Thus, ~C-x b~ should refuse to switch to nonexistent buffers, but ~C-u C-x b~ should permit it.
+
+Here is how this is done:
+#+BEGIN_SRC emacs-lisp
+(defadvice switch-to-buffer
+	(before existing-buffer activate compile)
+  "When interactive, switch to existing buffers only,
+unless given a prefix argument."
+  (interactive
+   (list (read-buffer "Switch to buffer:
+(other-buffer)
+(null current-prefix-arg)))))
+#+END_SRC
+
+we're using interactive in a way we haven't seen before: we're passing a list as its argument, rather than a string of code letters.
+
+When the argument to =interactive= is some expression other than a string, that expression is evaluated to get a list of arguments that should be passed to the function. So in this case we call =list=, which constructs a list out of its arguments, with the result of
+#+BEGIN_SRC emacs-lisp
+(read-buffer "Switch to buffer:
+(other-buffer)
+(null current-prefix-arg))
+#+END_SRC
+The function =read-buffer= is the /low-level/ Lisp function that *prompts* the user for a buffer name. _It's "low-level" in the sense that all other functions that prompt for buffer names ultimately call read-buffer._ It's called with a prompt string and two optional arguments: a default buffer to switch to, and a Boolean stating whether input should be restricted to existing buffers only.
+
+: (null current-prefix-arg)
+This tests whether =current-prefix-arg= is nil. If it is, the result will be t; if not, the result will be nil.
+
+If there is no prefix argument (i.e., =current-prefix-arg= is =nil=), then the above elisp snippet means "read a buffer name, restricting input to existing buffers only". If there is a prefix argument, then it means "read a buffer name with no restricts" (allowing non-existent buffer names to be entered). the result of =read-buffer= is then passed to =list=, and the resulting list (containing one element, the buffer name) is used as the argument list for =switch-to-buffer=.
+** Raw Prefix Argument, (interactive "P")
+The variable =current-prefix-arg= always contains the latest "raw" prefix argument, which is the same thing you get from:
+: (interactive "P")
+
+The function =prefix-numeric-value= can be applied to a "raw" prefix argument to get its numeric value, which is the same thing you get from
+: (interactive "p")
+
+What does a raw prefix argument look like? The following table shows possible raw values along with their corresponding numeric values
+
+|---------------------------------------------------------------+----------------------------------+---------------|
+| If User Types                                                 | Raw Value                        | Numeric Value |
+|---------------------------------------------------------------+----------------------------------+---------------|
+| C-u followed by a (possibly negative) number                  | The number itself                | The number    |
+| C-u - (with no following number)                              | The symbol -                     | -1            |
+| C-u n times in a row (with no following number or minus sign) | A list containing the number 4^n | 4^n itself    |
+| No prefix argument                                            | nil                              | 1             |
+|---------------------------------------------------------------+----------------------------------+---------------|
+* Cooperating Commands
+** Declaring Variables, defvar
+#+BEGIN_SRC emacs-lisp
+(defvar unscroll-to nil
+"Text position for next call to 'unscroll'.")
+#+END_SRC
+Global variables don't need to declared, but there are some advantages to declaring variables with =defvar=:
+1. Using =defvar= allows a docstring to be associated with the variable, int the same way that =defun= allows a docstring to be associated with a function.
+2. A /default value/ for the variable can be given. In this case, =nil= is the default value of =unscroll-to=
+   - Setting a variable's default value with =defvar= is different from setting a variable's value with =setq=. Instead of unconditionally assigning the value to the variable like =setq= does, =defvar= assigns the value /only if/ the variable does not yet have any value, check P43 to see an example.
+3. A variable declaration using =defvar= can be found by the various tag-related commands. =Tags= are a way to quickly find variable and function definitions in a programming project. Emacs's tag facilities, such as the find-tag command, can find anything created with the def* functions (defun, defalias, defmacro, defvar, defsubst, defconst, defadvice).
+4. When you byte-compile the code, the byte-compiler emits a warning for each variable it encounters that hasn't been declared with =defvar=. If all your variables are declared, then you can use the warnings to find places where you've mistyped the name of a variable.
+** Saving and Restoring Point
+Let's define the value of =unscroll-to= to be the position in the text where the cursor was before the latest sequence of =scroll-up=. The position of the cursor in the text is the number of characters from the beginning of the buffer (counting from 1) and is called point or the point. The value of point at any moment is given by the function =point=
+#+BEGIN_SRC emacs-lisp
+(defadvice scroll-up (before remember-for-unscroll
+							 active compile)
+  "Remember where we started from, for 'unscroll'."
+  (if (not (eq last-command 'scroll-up))
+	  (setq unscroll-to (point))))
+#+END_SRC
+
+Now, it should be easy to define =unscroll=
+#+BEGIN_SRC emacs-lisp
+(defun unscroll ()
+  "Jump to location specified by 'unscroll-to'."
+  (interactive)
+  (goto-char unscroll-to))
+#+END_SRC
+** Window Appearance -- Point Jumping Problem
+There's something unsatisfactory about this solution. After an unscroll, the cursor is restored to its correct location, but the screen may look very different from the way it appeared before the =C-v= execution.
+
+Since our goal is to minimize the disruption caused by unintended scrolling, we'd really like to restore not only the location of the cursor, but also the appearance of the window with respect to which lines are visible where.
+
+Saving the value of point is no longer sufficient, therefore. We must also save a value representing what's visible in the current window. Emacs provides several functions describing what's visible in a window, such as =window-edges=, =window-height=, =current-window-configuration=. For now we'll only use window-start which, for a given window, yields the buffer position that is the _first visible character_ in the window.
+
+Updated version:
+#+BEGIN_SRC emacs-lisp
+(defvar unscroll-point nil
+  "Cursor position for next call to 'unscroll'.")
+
+(defvar unscroll-window-start nil
+  "Window start for next call to 'unscroll'.")
+
+(defvar unscroll-hscroll nil
+  "Hscroll for next call to 'unscroll'.")
+
+(defadvice scroll-up (before remember-for-unscroll
+							 active compile)
+  "Remember where we started from, for 'unscroll'."
+  (if (not (eq last-command 'scroll-up))
+	  (progn
+		(setq unscroll-point (point)
+			  unscroll-window-start (window-start)
+			  unscroll-hscroll (window-hscroll)))))
+(defun unscroll ()
+  "Revert to 'unscroll-point' and 'unscroll-window-start'."
+  (interactive)
+  (goto-char unscroll-point)
+  (set-window-start nil unscroll-window-start) ; NOTE: nil
+  (set-window-hscroll nil unscroll-hscroll))
+#+END_SRC
+If =nil= is passed as the first argument to =set-window-start=, the it defaults to currently selected window. (Window objects for =set-window-start= can be obtained from such as =get-buffer-window= and =previous-window=.)
+** Detecting Errors, "Wrong type argument: integer-or-marker-p, nil."
+What happens if the user invokes =unscroll= before any call to =scroll-up=? The variables =unscroll-point=, =unscroll-window-start=, and =unscroll-scroll= will all contain their default value, =nil=. This value is unsuitable for passing to the functions =goto-char=, =set-window-start=, and =set-window-scroll=. As soon as the call to =goto-char= is reached, execution of the =unscroll= command will _abort with this error: "Wrong type argument: integer-or-marker-p, nil._" This means a function expecting an integer or a /marker/ (to satisfy the predicate =integer-or-marker-p=) was passed =nil= instead. (Markers are explained in an earlier section of this chapter.)
+
+To keep the user from being baffled by this cryptic error message, it's a good idea to precede the call to goto-char with a simple check and a more informative error message:
+#+BEGIN_SRC emacs-lisp
+(if (not unscroll-point) ;i.e., if unscroll-point is nil
+	(error "Cannot unscroll yet"))
+#+END_SRC
+When error is invoked, execution of unscroll aborts and the message "Cannot unscroll yet" is displayed.
+** The Final solution =====
+*** Generalizing the Solution
+Check P46, not final actually.
+*** this-command variable
+Check P49
+*** Symbol Properties
+In addition to having a variable value and/or a function definition, every Emacs Lisp symbol also have associated with it a /property list/. A property list is a mapping from names to values. Each name is yet another Lisp symbol, while each value may be any Lisp expression.
+
+Properties are stored with the =put= function and retrieved with the get function. Thus, if we give the value 17 to the property named =some-property= belongs to the symbol =a-symbol=:
+: (put 'a-symbol 'some-property 17)
+then
+: (get 'a-symbol 'some-property) ; returns 17
+*** Markers
+An edit involving a net addition or removal of n characters adds or subtracts n to or from all subsequent positions.
+
+A makers is a special object that specifies a buffer position just like an integer does. But if the buffer position moves because of insertions or deletion, the marker "moves" too so that it keeps pointing to the same spot in the text.
+
+Check P51 for examples.
+**** Addendum: Efficiency Consideration
+In general, to avoid very prolific object creation when possible, but markers happen to be more expensive than other objects to create. Each marker that points into some buffer somewhere has to be updated every time text is inserted or deleted in the buffer. A discarded marker object will eventaully be reclaimed by the garbage collector, but until it is, it'll slow down editing in its buffer.
+
+In general, when you intend to discard a marker object m (meaning that you no longer intend to refer to its value), it's a good idea to first make it point "nowhere" by doing this:
+: (set-marker m nil)
+* Searching and Modifying Buffers
+** Inserting the Current Time
+#+BEGIN_SRC emacs-lisp
+(defun insert-current-time ()
+  "Insert the current time"
+  (interactive "*")
+  (insert (current-time-string)))
+#+END_SRC
+Check P53 for more details such as format.
+*** (interactive "*")
+You now know that =interactive= turns a function into a command and specifies how to obtain the function's arguments when invoked interactively. But we haven't seen * in the argument of =interactive= before, and besides, these functions take no arguments, so why does =interactive= have one?
+
+The asterisk *, when it is the first character in an =interactive= argument, means _abort this function if the current buffer is read only_. It is better to detect a read-only buffer a function begins its work than to let it get halfway through then die from a "Buffer is read-only" error.
+** User Options and Docstrings
+#+BEGIN_SRC emacs-lisp
+(defvar insert-time-format "%X"
+  "*Format for \\[insert-time] (c.f. format-time-string').")
+(defvar insert-date-format "%x"
+  "*Format for \\[insert-date] (c.f. 'format-time-string').")
+#+END_SRC
+There are two new things to note about these docstrings.
+1. First, each begins with an asterisk (*). A leading asterisk has special meaning in =defvar= docstrings. It means that the variable in question is a _user option_. A user option is just like any other Lisp variable except that it's treated specially in two cases:
+   * User options can be set interactively using =set-variable=, which prompts the user for a variable name (with completion of partially typed names) and a value. In some cases, the value can be entered in an intuitive way without having to dress it up in Lisp syntax; e.g., strings can be entered without their surrounding double-quotes.
+   * User options, but not other variables, can be edited en masse using the option-editing mode available as M-x edit-options RET. (NOTE: this book is old, check P54 and =defgroup= =defcustom=)
+2. The second new thing about these docstrings is that each contains the special construct \ [command]. (Yes, it's \[. . . ], but since it's written inside a Lisp string, the backslash has to be doubled: \\[. . . ].) This syntax is magic. When the docstring is displayed to the user - such as when the user uses =apropos= or =describe-variable= —\ [command] is replaced with a representation of a keybinding that invokes command. For example, if ~C-x t~ invokes =insert-time=, when the docstring "*Format for \\[insert-time] (c.f. 'format-time-string')." is display as "*Format for C-x t (c.f. 'format-time-string')." Check P54 for more.
+
+All variables that are shared between two or more functions should be declared with =defvar=. Which of those should be user options? A rule of thumb is that if variable directly controls a user-visible feature that a user might want to change, and if setting that variable is straightforward(i.e., no complex data structures of specially coded values), then it should be a user option.
+** Writestamps
+** Updating Writstamps
+** Regular Expressions
+- To include a right-square-bracket, it must be the first character in the set. So [[a] matches ] or a, Similarly, [^]a] matches any character except ] and a.
+- To include a hyphen, it must appear where is can't be interpreted as part of a range; for example, as the first or last character in the set, or following the end of range. So [a-d-z] matches a, b, c, d, e, -, or z.
+- To include a caret(^), it must appear someplace other than as the first character in the set. so [a-d^z] matches a, b, c, d, ^, or z.
+- Other characters that are normally "magic" in regexps, such as * and . are not magic inside square brackets.
+- \` matches the empty string that's at the beginning of the buffer. so \`hello matches the string hello at the beginning of the buffer, but no other occurrence of hello
+- \' matches the empty string that's at the end of the buffer
+- \= matches the empty string that's at the current location of point.
+- \b matches the empty string, but only at the beginning or end of a word. Thus, ‘\bfoo\b’ matches any occurrence of ‘foo’ as a separate word. ‘\bballs?\b’ matches ‘ball’ or ‘balls’ as a separate word. ‘\b’ matches at the beginning or end of the buffer (or string) regardless of what text appears next to it.
+- \B matches the empty string, but _not_ at the beginning or end of a word, nor at the beginning or end of the buffer (or string).
+- \< matches the empty string, but only at the beginning of a word. ‘\<’ matches at the beginning of the buffer (or string) only if a word-constituent character follows.
+
+- \> matches the empty string, but only at the end of a word. ‘\>’ matches at the end of the buffer (or string) only if the contents end with a word-constituent character.
+** Regexp Quoting
+*** concat
+The function =concat= concatenates its string argument into a single string.
+*** More Regexp Example
+Start from P65
+* Lisp Files
+** .emacs, byte-compiled
+- Code in .emacs is always executed when Emacs starts up, even if it is never needed in given session. This makes startup time longer and consumes memory. By contrast, a separate file of Lisp code can be loaded only when and if needed.
+- Code in .emacs typically isn't byte-compiled. Byte-compiling is the process of turning Emacs Lisp into a more efficient form that _loads faster_, _runs faster_, and _uses less memory_.
+** Finding Lisp Files, load-path
+Directories in =load-path= are searched in the order they appear. TO add a directory to the beginning of load-path, use
+#+BEGIN_SRC emacs-lisp
+(setq load-path
+	  (cons "/path/here" load-path))
+#+END_SRC
+To add a directory to the end, use
+#+BEGIN_SRC emacs-lisp
+(setq load-path
+	  (append load-path
+			  ( "/path/here1" )))
+#+END_SRC
+** Interactive Loading, load-file, load-library
+=M-x load-file= prompts you for the full pathname of a Lisp file (e.g., /home/bobg/emacs/foo.el) and does not search load-path. It uses the normal filename-prompting mechanisms, so filename completion is available.
+
+=M-x load-library= prompts you for just the base name of the library (e.g, foo) and attempts to find it in load-path. It does not use filename-prompting and completion is not available.
+** Programmatic Loading
+*** Explicit Loading
+: (load "lazy-lock")
+searches load-path for lazy-lock.elc, lazy-lock.el or lazy-lock
+: (load-file "/home/user/.emacs.d/lisp/lazy-lock.elc")
+doesn't use =load-path=
+*** Conditional loading
+When n different pieces of Lisp code want to load a particular file, two Emacs Lisp functions, =requir= and =provide=, give a way to make sure it only gets loaded once instead of n times.
+
+A Lisp file usually contains a collection of related functions. The collection can be thought of abstractly as a single =feature=. Loading the file makes available the feature it contains.
+
+Emacs make the feature concept explicit. Features are named by Lisp symbols, declared with =provide=, and requested by =require=.
+
+: (provide 'timestamps)
+normally appears at the very end of timestamps.el file, so that feature isn't provided unless everything preceding it worked correctly. If something fails, then loading of the file aborts before reaching the call to =provide=.
+
+Now suppose that somewhere, there's some code that needs the timestamp functionality. Using =require= like this:
+: (require 'timestamps "timestamp")
+means, if the timestamp feature is not yet present, load it (using load, which searches =load-path=) or nothing happens.
+
+Usually, all the necessary calls to =require= are collected together at the beginning of a Lisp file -- something like the way C programs usually begin with lots of #include.
+
+In the call to =require=, if the filename is the "string equivalent" of the feature name, (_filename and feature name can be different_) the the filename can be omitted and will be inferred from the feature name. The "string equivalent" of a symbol is simply the symbol's name as a string. The string equivalent of the feature symbol timestamp is "timestamp", so we can write
+: (require 'timestamps)
+*** Autoloading
+With autoloading, you can arrange to defer loading a file until it's needed -- that is, until you call one of its functions. Setting up autoloads is very inexpensive, and therefore is usually done in the .emacs file.
+
+The function =autoload= connects a function name with the file defines it.
+: (autoload 'insert-time "timestamp")
+: (autoload 'insert-date "timestamp")
+=timestamp= is the file name exactly like =require=, the =insert-time= is the function. The first time any of the functions =insert-time= or =insert-date= is called, Emacs loads it from =timestamp= file. Not only will this cause the invoked function to get defined , but it will define the other as well, so subsequent calls to these functions won't load timestamp again.
+
+=autoload= function has several optional parameters. The first one is a docstring for the not-yet-defined function. Including a docstring allows the user to get help on the function (via =describe*= and =apropos=) even before its definition has been loaded from the file.
+: (autoload 'insert-time "timestamp" "Insert the current time according to insert-time-format")
+
+The next optional parameter describes whether the function, once loaded, will be an interactive command or a mere function. If omitted or =nil=, the function is expected to be non-interactive. When this information exists prior to loading the actual function definition, it can be used by such function as =command-apropos= that need to distinguish interactive from non-interactive functions
+: (autoload 'insert-time "timestamp" "Insert the current time according to insert-time-format" t)
+If you mistakenly label a non-interactive function interactive or vice verse in the =autoload= call, it won't matter the real definition is loaded. The real definition replaces all information given in the =autoload= call.
+
+The last optional parameter is one we won't cover for now. It specially the /type/ of the autoloadable object, if not a function. As it turns out, keymaps and macros (which we'll cover in coming chapters) may also be autoloaded.
+** Compiling the File
+Like compilation in other programming languages, the result of byte-compilation is essentially unreadable to humans. Unlike other kinds of compilation, the result of byte-compilation is still *portable* among different hardware platform and operating systems (but may not be portable to older versions of Emacs).
+
+There are several ways to byte-compile elisp files. The most straightforward ways are:
+1. From within Emacs: M-x byte-compile
+2. From shell: `emacs -batch -f file.el`
+
+You can byte-compile an entire directory full of of Lisp files with =byte-recompile-directory=.
+
+When Emacs loads a .elc file, it compares the date of the file with the date of the corresponding .el file. If the .elc is out of date with respect to the .el, Emacs will still load it but it will issue a warning.
+** eval-after-load
+If you'd like to defer the execution of some code until a particular file has been loaded, =eval-after-load= is the way to do it.
+
+For example, suppose you came up with a better definition for =dired-sort-toggle= than the one that's in dired (built-in). You couldn't simply put your version into your .emacs, because the first time you edit a directory, dired will be autoloaded, complete with its definition for dired-sort-toggle, which will wipe out your definition.
+#+BEGIN_SRC emacs-lisp
+(eval-after-load
+	"dired"
+  (defun dired-sort-toggle ()
+#+END_SRC
+Note, however, that this will work only if =dired= is loaded under precisely the name *dired*. It won't work if =dired= is loaded under the name dired.elc or /usr/share/emacs/24.5/lisp/dired. The =load= or =autoload= or require that causes dired to be loaded must refer to it by exactly the same name used in =eval-after-load=. This is why, as mentioned earlier, it's best always to load files by just their base name.
+
+Another use for =eval-after-load= is when you need to refer to a variable to a variable, function, or keymap in a package that's not loaded yet, and you don't want to force the package to be loaded:
+#+BEGIN_SRC emacs-lisp
+(eval-after-load
+	"font-locak"
+  '(setq lisp-font-lock-keywords lisp-font-lock-keywords-2))
+#+END_SRC
+If you try to refer to =lisp-font-lock-keywords-2= before =fontlock= is loaded, you'll get a "Symbol's value as variable is void" error.
+
+What happens if you call =eval-after-load= and the named file has already been loaded? Then the given Lisp expression is executed immediately. What if there's more than one =eval-after-load= for the same file? They all execute, one after another, when the file is finally loaded.
+
+You may have observed that =eval-after-load= works very much like *hook* variables. It's true, they do, but one important difference is that hooks only execute Lisp functions (frequently in the form of anonymous =lambda= expressions), whereas =eval-after-load= can execute any Lisp expression.
+** Local Variables Lists
+Do not understand P80
+*** Addendum: Security Consideration
+The /Local variable list/ is a potential hole, exposing the user to "Trojan horse" attacks. Imagine a variable setting that causes Emacs to behave in an unexpected way; or an eval that has unexpected side-effects, like deleting files or forging email in your name. All an attacker has to do is entice you to visit a file with such a setting in its local variables list. As soon as you visit the file, the code is executed.
+
+The way to protect yourself is to put
+: (setq enable-local-variables 'query)
+in your .emacs. This causes Emacs to present any local variables list to you for inspection before executing it. There's also enable-local-eval, specifically controlling the eval pseudovariable.
+* Lists
+** car and cdr
+The functions =car= and =cdr= (pronounced "could-er) are used to access parts of a list: =car= yields the first element in a list, the =cdr= yields the remainder of the list (everything but the first element).
+: (car '(a b c)) --> a
+: (cdr '(a b c)) --> (b c)
+: (cdr '(x)) --> nil
+: (car (cdr '(a b c))) --> b
+: (car '()) --> nil
+: (cdr '()) --> nil
+: (car '(nil)) --> nil
+: (cdr '(nil)) --> nil
+
+Recall that quoting an expression -- even a complete list -- means to use that expression literally. so '(a b c) means the list containing a, b, c, not the result of calling function a on argument b and c.
+
+NOTE: the last four examples above, it doesn't mean () is the same as (nil).
+** list, cons, append and reverse
+Lists are constructed with the functions =list=, =cons=, and =append=.
+
+The function =list= makes a list out of any number of arguments.
+: (list 'a "b" 7) --> (a "b" 7)
+: (list (x y z) 3) --> ((x y z) 3)
+
+The function =cons= takes an arbitrary Lisp expression and an existing list. It makes a new list by prepending an arbitrary expression to an old list:
+: (cons 7 8) --> (7 . 8)
+: (cons 7 a) --> error
+: (cons 'a 'b) --> (a . b)
+: (cons "hello" "world") --> ("hello" . "world")
+: (cons "hello" 'a) --> ("hello" . a)
+: (cons 'a '(3 4 5)) --> (a 3 4 5)
+: (cons "hello" '()) --> ("hello")
+: (cons '(a b) ')c d) --> ((a b) c d)
+
+NOTE: consing onto a list creates a new list without affecting the old list:
+: (setq x '(a b c))
+: (setq y (cons 17 x)) ; NOTE: not '(cons ...)
+: y --> (17 a b c)
+: x --> (a b c)
+
+The function =append= take any number of lists and makes a new list by concatenating the top-level elements of all the lists. It effectively strips off the outer parentheses of each list, sticks all the resulting elements together, and surrounds them with a new pair of parentheses:
+: (append '(a b) '(c d)) --> (a b c d)
+: (append '(a (b c) d) '(e (f))) --> (a (b c) d e (f))
+: (append "abc" "def") --> (97 98 99 . "def") NOTE: weird
+
+The function =reverse= takes a list and makes a new list by reversing its top-level elements.
+: (reverse (a b c)) --> (c b a)
+: (reverse (1 2 (3 4) 5 6)) --> (6 5 (3 4) 2 1)
+NOTE: =reverse= does not reverse elements in sublists.
+** List Details
+List are composed of smaller data structures called =cons cells=. A cons cell is a structure that contains two Lisp expressions, refered to, you may not be surprised to learn, as the cell's =car= and =cdr=
+
+There several functins for testing whether a Lisp object is a list or a list component
+1. =consp= tests whether its argument is a cons cell. (consp x) is true when x is any list except the empty list, and false for all other objects.
+2. =atom= tests whether its argument is /atomic/. (atom x) is the opposite (consp x) -- everything that's not a cons cell, including nil, numbers, strings, and symbols, is an atom,
+3. =lispt= tests whether its argument is a list. (listp x) is true for all cons cells and for nil false for everything else.
+4. =null= tests whether its argument is nil.
+** Recursive List Functions
+
+** COMMENT Interactive List Functions
+Suppose we need a function that counts the number of symbols in a list, skipping over other kinds of list elements like numbers, strings and sublists. A recursive solution is wrong:
+#+BEGIN_SRC emacs-lisp
+(defun count-syms (1st)
+  (if (null 1st) 0
+	(if (symbolp (car 1st))
+		(+ 1 (count-syms (cdr 1st)))
+	  (count-syms (cdr 1st)))))
+#+END_SRC
+
+Recursion -- particular deep recursion -- introduces a fair amount of overhead in terms of keeping track of many nested functions calls and return values, and should be avoided when possible. Furthermore, this problem naturally suggests an iterative solution, and code should usually reflect the natural approach to solving a problem, rather than obfuscating the solution by being too clever.
+#+BEGIN_SRC emacs-lisp
+(defun count-syms (1st)
+  (let ((result 0))
+	(while 1st
+	  (if (sumbolp (car 1st))
+		  (setq result (+ 1 result)))
+	  (setq 1st (cdr 1st)))
+	  result))
+#+END_SRC
+** Other Useful List Functions
+Here are some more useful list-related Lisp functions that Emacs defines
+- =length= returns the length of a list. It does not work on "improper" lists.
+  + (length nil) --> 0
+  + (length '(x y z)) --> 3
+  + (length '((x y z))) --> 1
+  + (length '(a b . c)) --> error
+- =nthcdr= calls =cdr= on a list *n* times
+  + (nthcdr 2 '(a b c)) --> (c)
+- =nth= returns the nth element of a list(where the first element is numbered zero). This is the same as the =car= of the =nthcdr=.
+  + (nth 2 '(a b c)) --> c
+  + (nth 1 '((a b) c d (e f))) --> c
+- =mapcar= takes a function and a list as arguments. It calls the function once for each element of the list, passing that element as an argument to the function. The result of =mapcar= is a list of the results of calling the function on each element. So if you have a list of strings and want to caputilize each one, you could write:
+  #+BEGIN_SRC emacs-lisp
+(mapcar '(lambda (x)
+		   (capitalize x))
+		'("lisp" "is" "cool"))
+;; result is ("Lisp" "Is" "Cool")
+#+END_SRC
+- =equal= tests whether its two arguments are equal. This is a different kind of equality test from =eq=, which tests whether its arguments are the /same object/, =equal= tests whether two objects have the same structure and contents
+  + This distinction is important. In the following example:
+    : (setq x (list 1 2 3))
+    : (setq y (list 1 2 3))
+    : (eq x y) --> nil
+    : (equal x y) --> true
+    x and y are two different objects.
+
+    In Lisp programming, any time you wish to compare two objects for equality, you must be alert to whether =eq= or =equal= is appropriate. Another consideration is the =eq= is an instantaneous operation, whereas =equal= may have to recursively compare the structure of its two arguments.NOTE:
+    : (setq x (list 1 2 3))
+    : (setq y x)
+    : (eq x y) --> become true
+- =assoc= is a function that helps you use lists as lookup tables. When a list has the form
+  #+BEGIN_SRC emacs-lisp
+((key1 . value1)
+ (key2 . value2)
+ (keyn . valuen))
+#+END_SRC
+ it is called an /association list/, or /assoc list/ for short. The function =assoc= finds the first sublist of an assoc list whose car matches the argument you give. So
+  #+BEGIN_SRC emacs-lisp
+(assoc green
+	   ((red . "ff0000")
+		(green . :00ff00)
+		(blue . "0000ff")))
+;; --> (green . "00ff00")
+ #+END_SRC
+ If no matching sublist is found, =assoc= returns =nil=.
+  This function uses =equal= to test whether each key matches the argument you give. Another function, =assq=, is like assoc but uses =eq= instead.
+ Check P90 for more info.
+** Destructive List Operations
+Here is what the non-destructiveness of =append= means in Lisp code:
+: (setq x '(a b c))
+: (setq y '(d e f))
+: (setq x '(g h i))
+: (append x y z) --> (a b c d e f g h i)
+Because =append= does not destructively its arguments, there three variables continue to have their old values.
+
+But if destructive modification were used, then each variable would refer to some part of a single, long cons chain made when the three shorter cons chains are strung together. The function that performs a destructive append is called =nconc=
+: (nconc x y z) --> (a b c d e f g h i)
+: x --> (a b c d e f g h i)
+: y --> (d e f g h i)
+: z --> (g h i)
+NOTE:TODO: need to be tested.
+
+Usually its unwise to destructively modify lists. Many other variables and data structures may be using the same copies of the lists you modify, so it's best not to change them in ways that would have unpredictable effects.
+
+On the other hand, sometimes you do want to destructively modify a list. Perhaps you need the efficiency of nconc and you know that no other code depends on the data structure remaining unchanged.
+
+One of the most common uses of destructive list operations is when changing values in an assoc list.
+Check P93 for more info.
+** Circular Lists
+* Minor Mode -- read again
+A minot mode coexists with a major mode in a buffer, adding a typically small amount of new editing behavior.
+
+We'll create a minor mode that builds on Emacs's idea of filling paragraphs. Out minor mode, Refill, dynamically fills paragraphs as you edit them.
+** Parargraph Filling Example
+** Modes
+A major mode called Fundamental isn't specialized for anything in particular and can be thought of as sort of a null mode.
+
+Generally speaking, a package should be implemented as a minor mode if one should be able to turn it off and on separately in individual buffers, regardless of the major mode.
+** Defining a Minor Mode
+There are the steps involved in defining a minor mode
+1. Choose a /name/. The name for our example is refill.
+2. Define a variable named /name-mode/. Make it buffer-local. The minor mode is "on" in a buffer if that buffer's value of name-mode is non-nil, "off" otherwise.
+   #+BEGIN_SRC emacs-lisp
+(defvar refill-mode nil
+  "Mode variable for refill minor mode")
+(make-variable-buffer-local 'refill-mode)
+#+END_SRC
+3. Define a command called /name-mode/. (You can use the same name for a function and a variable, they won't conflict) The command should take one optional argument. With no arguments, it should toggle the mode on or off. With an argument, it should turn the mode on if the =prefix-numeric-value= of the argument is greater than zero, off otherwise. Thus =C-u M-x name-mode= always turn in on, and =C-u - M-x name-mode= always turn it off. Here is the command for toggling Refill mode:
+   #+BEGIN_SRC emacs-lisp
+(defun refill-mode (&optional arg)
+  "Refill minor mode"
+  (interactive "P")
+  (setq refill-mode
+		(if (null arg)
+			(not refill-mode)
+		  (> (prefix-numeric-value arg) 0)))
+  (if refill-mode
+  ;; code for turning on refill-mode
+  ;; code for turning off refill-mode
+  ))
+    #+END_SRC
+4. Add an entry to =minor-mode-alist=, a variable whose value is an assoc list of form:
+   #+BEGIN_SRC emacs-lisp
+((mode1 string1)
+ (mode1 string2)
+ ...)
+#+END_SRC
+   The new entry maps /name-mode/ to a short string to use in the buffer's mode line. Here's how to do this for Refill mode:
+   #+BEGIN_SRC emacs-lisp
+(if (not (assq 'refill-mode minor-mode-alist))
+	(setq minor-mode-alist
+		  (cons '(refill-mode " Refill")
+				minor-mode-alist)))
+   #+END_SRC
+   The surrounding =if= prevents (refill-mode " Refill") being added a second time if its already in =minor-mode-alist=, such as refill.el is loaded twice.
+
+There are other steps involving in defining some minor modes that don't apply in this example. For instance, the minor mode may have a keymap, a syntax table or an abbrev table assocaited with it.
+** Mode Meat
+The correct way to execute code when the buffer is changed is by adding a function to the hook variable =after-change-functions= when =refill-mode= is turned on (and removing it when it is turned off). We'll add a function called =refil= (which does not yet exist) that will do all the work of making sure the current paragraph remains correctly filled.:
+#+BEGIN_SRC emacs-lisp
+(defun refill-mode (&optional arg)
+  "Refill minor mode"
+  (interactive "P")
+  (setq refill-mode
+		(if (null arg)
+			(not refill-mode)
+		  (> (prefix-numeric-value arg) 0)))
+  (make-local-hook 'after-change-functions)
+  (if refill-mode
+	  (add-hook 'after-change-functions 'refill nil t)
+	(remove-hook 'after-change-functions 'refill t)))
+#+END_SRC
+NOTE: Function =make-local-hook= is obsolete since 21.1
+** Naive First Try
+The hook variable =after-change-functions= is special because the functions in it take three arguments (whereas normal hook functions take no arguments). The three arguments refer to the change that took place in the buffer before =after-change-functions= was executed.
+- The position where the change began, which we'll call /start/
+- The position where the change ended, which we'll call /end/
+- The length of the affected text, which we'll call /len/
+The number /start/ and /end/ refer to positions in the buffer /after/ the change. The length /len/ refers to the text *before* the change. After an insertion, /len/ is zero (because no previously existing text in the buffer was affected), and the newly inserted text lies between /start/ and /end/. After a deletion, /len/ is the length of the deleted text, now gone, and /start/ and /end/ are the same number, since deleting the text closed the gap, so to speak, between the two ends of the deletion.
+
+#+BEGIN_SRC emacs-lisp
+(defun refill (start end len)
+  "After a text change, refill the current paragraph"
+  (fill-paragraph nil))
+#+END_SRC
+This is a totally inadequate solution because =fill-paragraph= is far too expensive a function to invoke on every keystroke! It also has the problem that each time you try to add a space to the end of a line, =fill-paragraph= immediately deletes it—it cleans up trailing whitespace when it fills a paragraph
+** Constraining refill
+When text is inserted or deleted, only the affected line and subsequent lines in the paragraph need to be refilled.
+
+Check P100 for example.
+
+The boundaries we choose for =fill-paragraph= should enclose the entire affected portion of the paragraph.
+
+ For an insertion, the "left" boundary is simply start, the point of insertion, and the "right" boundary is the end of the current paragraph. For a deletion, the left boundary is the beginning of the previous line (that is, the line prior to the one containing start), and the right boundary is again the end of the paragraph. So here's the outline of the new refill:
+#+BEGIN_SRC emacs-lisp
+(defun refill (start end len)
+  "After a text change, refill the current paragraph."
+  (let ((left (if (zerop len)
+				  start
+				(save-excursion
+				  (goto-char start)
+				  (beginning-of-line O)
+				  (point))))
+		(save-excursion
+		  (fill-region left end nil nil t)))))
+#+END_SRC
+** Minor Adjustments
+#+BEGIN_SRC emacs-lisp
+(defun refill (start end len)
+  "After a text change, refill the current paragraph."
+  (let ((left (if (zerop len)
+				  start
+				(max (save-excursion
+					   (goto-char start)
+					   (beginning-of-line 0)
+					   (point))
+					 (save-excursion
+					   (goto-char start)
+					   (backward-paragraph 1)
+					   (point))))))
+	(save-excursion
+	  (fill-region left end nil nil t))))
+#+END_SRC
+-->
+#+BEGIN_SRC emacs-lisp
+(defun refill (start end len)
+  "After a text change, refill the current paragraph."
+  (let ((left (if (zerop len)
+				  start
+				(save-excursion
+				  (max (progn
+						 (goto-char start)
+						 (beginning-of-line 0)
+						 (point))
+					   (progn
+						 (goto-char start)
+						 (backward-paragraph 1)
+						 (point)))))))
+	(save-excursion
+	  .(fill-region left end nil nil t))))
+#+END_SRC
+
+...
+** skip-chars-forward
+#+BEGIN_SRC emacs-lisp
+(defun before-2nd-word-p (pos)
+  "Does POS lie before the second word on the line?"
+  (save-excursion
+	(goto-char pos)
+	(beginning-of-line)
+	(skip-chars-forward "^ ")
+	(skip-chars-forward " ")
+	(< pos (point))))
+#+END_SRC
+The function =skip-chars-forward= is very useful. It moves the cursor forward until encountering a character either in or not in a set of characters you specify. The set of characters works exactly like the inside of a square-bracketed regular expression.
+- (skip-chars-forward "^ ") means skip over characters that aren't space
+- (skip-chars-forward " ") menas skip over spaces
+
+One problem of the first one is that if the line has no spaces, it will skip on to the next line. We don't want that. So let's make sure we don't skip too far by adding a newline to it:
+: (skip-chars-forward "^ \n")
+The next problem is that a tab character may be used to separate words just like spaces. So we must modify our two-chars-forward calls like so
+: (skip-chars-forward "^ \t\n")
+: (skip-chars-forward " \t")
+*** syntax tables
+There are other characters just like space and tab that are considerated whitespace. Let Emacs worry about these details. This is where *syntax tables* come in handy.
+
+A syntax table is a mode-specific mapping from characters to "syntax classes". Classes include
+- "word constituent" (ususlly letters and apostrophes and sometimes digits),
+- "blanced brackets" (ususlly like (), [], {}, and sometimes <>),
+- "command deliters" (which are ; and newline for Lisp mode, /* and */ for C mode)
+- "punctuation", and of course
+- "whitespace"
+
+The syntax table is used by commands like =forward-word= and =backward-word= to figure out just what a word is. Because different buffers can have different syntax tables, the definition of a word can vary from one buffer to another. We're going to use the syntax table to figure out which characters are to be considered whitespace in the current buffer.
+
+All we need to do is replace out two calls to =skip-chars-forward= with two calls to =skip-syntax-forward= like so:
+: (skip-syntax-forward "^ ")
+: (skip-syntax-forward " ")
+For each syntax class, there's a code letter. Space is the code letter meaning "whitespace," so the two lines above mean "skip all non-whitespace" and "skip all whitespace."
+
+Unfortunately, we again have the problem that our first call to =skip-syntax-forward= might traverse to the next line. Worse, this time we can't simply add \n to =skip-syntax-forward='s argument, because \n isn't the code letter for the syntax of newline characters. In fact, the code letter for the syntax of newline characters will be different in different buffers.
+
+What we can do is ask Emacs to tell us the code letter for the syntax of newline characters, then use that result to construct the argument to =skip-syntax-forward=:
+#+BEGIN_SRC emacs-lisp
+(skip-syntax-forward
+ (concat "^ "
+		 (char-to-string
+		  (char-syntax ?\n))))
+#+END_SRC
+The function =char-syntax= returns a character's syntax code as another character. That's then converted to a string with =char-to-string= and appended to "^ ".
+
+Here is the final form of =before-2nd-word-p=
+#+BEGIN_SRC emacs-lisp
+(defun before-2nd-word-p (pos)
+  "Does POS lie before the second word on the line?"
+  (save-excursion
+	(goto-char pos)
+	(beginning-of-line)
+	(skip-syntax-forward
+	 (concat "^ "
+			 (char-to-string
+			  (char-syntax ?\n))))
+	(skip-syntax-forward)
+	(< pos (point))))
+#+END_SRC
+Bear in mind that the cost of computing =before-2nd-word-p= might outweigh the benefit it's meant to provide (i.e., avoiding the calls to =end-of-line= and =backward-paragraph= in refill). If you're interested, you can try using the *profiler* to see which version of refill is faster, the one with a call to =before-2nd-word-p= or the one without.
+** Eliminating Unwanted Filling
+** Trailing Whitespce
+The final version of =refill= includes this new test:
+#+BEGIN_SRC emacs-lisp
+(defun refill (start end len)
+  "After a text change, refill the current paragraph."
+  (let ((left (if (or (zerop len)
+					  (not (before-2nd-word-p start)))
+				  start
+				(save-excursion
+				  (max (progn
+						 (goto-char start)
+						 (beginning-of-line 0)
+						 (point))
+					   (progn
+						 (goto-char start)
+						 (backward-paragraph 1)
+						 (point)))))))
+	(if (or (and (zerop len)
+				 (same-line-p start end)
+				 (short-line-p end))
+			(and (eq (char-syntax (preceding-char))
+					 ?\ )
+				 (looking-at "\\s *$")))
+		nil
+	  (save-excursion
+		(fill-region left end nil nil t)))))
+
+#+END_SRC
+For performance reasons, it's normally a good idea to avoid putting functions, especially complicated ones like =refill=, in =after-change-hooks=. If your computer is fast enough, you may not notice the cost of executing this function on every keypress; otherwise, you might find it makes Emacs unusably sluggish.
+* Evaluation and Error Recovery
+=save-excursion= is a moderately expensive function. It turns out we can replace them with a faster, limited form of =save-excursion= with less overhead.
+** limited-save-excursion
+The purpose of =save-excursion= is to restore the original value of "point" after executing some Lisp expressions; but that's not all. It also restores the value of the "mark", and it restores Emacs's idea of which buffer is current. That's more overhead than we need for =refill=; after all, we're only chaning the value of point. We're not switching buffers or moving the mark.
+
+We can write a limited form of =save-excursion= that does only what we need and no more. Specifically, we need to write a function that, given any number of Lisp expression as arguments, does the following:
+1. Records the position of point
+2. Evaluates the subexpressions in order
+3. Restores point to its original location
+
+The first problem we run into is that when a Lisp function is called, its arguments are all evaluated /before/ the function gets control. In other words, if we write a function named =limited-save-excursion= and call it like this:
+#+BEGIN_SRC emacs-lisp
+(limited-save-excursion
+ (beginning-of-line)
+ (point))
+#+END_SRC
+then the sequence of events is:
+1. (beginning-of-line) is evaluated, moving point to the beginning of the current line and returning nil
+2. (point) is evaluated, returning the position to which the cursor has jut moved.
+3. =limited-save-excursion= is invoked with the values of the arguments it was passed-namely, nil and some number.
+
+In this scenario, there is no way for =limited-save-excursion= to record the position of point prior to evaluation of the subexpressions; and it certainly cannot do anything useful with the arguments =nil= and a cursor position.
+** eval
+#+BEGIN_SRC emacs-lisp
+(defun limited-save-excursion (&rest exprs)
+  "Like save-excursion, but only restores point."
+  (let ((saved-point (point))) ;memorizepoint
+	(while exprs
+	  (eval (car exprs)) ;evaluate the next argument
+	  (setq exprs (cdr exprs)))
+	(goto-char saved-point))) ;restorepoint
+#+END_SRC
+This function contains something new: a call to =eval=, which takes a Lisp expression as an argument and evaluates it. argument and evaluates it. At first that may not seem like much since, after all, the Lisp interpreter is already evaluating Lisp expressions automatically, with no calls to =eval= needed. But sometimes the result of evaluation is another Lisp expression which you'd like to evaluate, and Lisp won't do the second one automatically. If we were to execute only =(car exprs)=, we'd be extracting the first subexpression, then discarding it! We need =eval= to make that subexpression do something useful once we have it.
+
+
+Here is another example to illustrate the difference between the evaluation that Emacs does normally and the need for eval:
+: (setq x '(+ 3 5)) --> x = (+ 3 5)
+: (eval x) --> 8
+** Macro Functions
+It is possible to write a special kind of function, called a *macrofunction*, that behaves as though its arguments are quoted. That is, when a macro function is invoked, its arguments are _not_ evaluated before the function gets control. Instead, the macro function produces some value, typically a rearrangement of its arguments, and then that is evaluated.
+
+Here's a simple example. Suppose we wanted a function called =incr= that could increment the value of a numeric variable. We'd like to be able to write:
+: (setq x 17)
+: (incr x) --> x = 18
+NOTE: the =incr= is not found inside Emacs or Google, it may be obsolete.
+
+But if =inc= were an ordinary function, then it would be invoked with the argument 17, not x, and could not therefore affect x. So =incr= must be a macro function. Its output must be an expression that, when evaluated, adds one to the value of the variable named in its argument.
+
+Macro functions are defined with =defmacro= (whose syntax resemble defun).
+
+The body of a macro function produces an =expression= its input. The expansion then gets evaluated. The expansion of =(incr x)= is
+: (setq x (+ x 1))
+
+What that expression is evaluated, x is incremented.
+
+You can debug macro functions using the function =macrpexpand=. This is an ordinary function that takes a Lisp expression and returns it after macro-expanding it. If the expression is not a macro call, its returned unchanged. So
+: (macroexpand '(incr x)) = (setq x (+ x 1))
+** Backquote and Unquote
+Knowing that =limit-save-excursion= must be a macro function, all we have to do is imagine how a call to =limited-save-excursion= should expand.
+#+BEGIN_SRC emacs-lisp
+(defmacro limited-save-excursion (&rest subexprs)
+  "Like save-excursion, but only restores point."
+  (append '(let ((orig-point (point))))
+		  subexprs
+		  '((goto-char orig-point))))
+#+END_SRC
+
+Remember that =append= works by effectively stripping off the outer parentheses of each list, gluing the results together, and putting a new pair of parentheses around the result.
+
+That would do the trick, but it's hard to read the macro definition and understand what's going on. Fortunately, there's a better way. It turns out that nearly all macros recombine their arguments with calls to such functions as =list= and =append=, with some expressions quoted and others not. In fact, that's so common that Emacs Lisp has a special syntax making it possible to write /templates/ for how macro expansions should appear.
+
+Remember 'expr, which expands to =(quote expr)=? Well, there's also `expr, which expands to (backquote expr). Backquote is just like quote, meaning that the result of evaluating a backquoted expression is the expression itself:
+: `(a b c) --> (a b c)
+There is one important difference, however. A backquoted list's subexpressions may be individually unquoted yet more special syntax. This means that when the backquoted expression is evaluated, the unquoted subexpressions actually do get evaluated -- but the rest of the list remains quoted.
+: b => (ba bb bc) ; assume b has this value
+: `(a b c) => (a b c) ; backquote acts like quote
+: `(a ,b c) => (a (ba bb bc) c) ; insert the value of b
+: `(a ,@b c) ==> (a ba bb bc c) ; splice in the value of b
+
+To understand why this is useful, let's return to the =incr= example. We could rewrite =incr= this way
+#+BEGIN_SRC emacs-lisp
+(defmacro incr (var)
+  "Add one to the named variable"
+  `(setq ,var (+ ,var 1)))
+#+END_SRC
+** Return Value, let and let*
+** Failing Gracefully
+** Point Marker
+* A Major Mode
+NOTE: You don't need the following note, just check the PDF file.
+A Major mode excludes all other major modes, while a minor mode can be turned on and off independently of the major mode and other active minor modes. If the need for editing mode arose from the format of the data itself, which suggested that the mode should be major, not minor.
+
+** My Quips File
+For several years I have been collecting witty quotations from various sources on the Internet, storing them in a file called Quips whose format is the same one used by the old UNIX fortune program. Each quotation is introduced by a line containing the string %%. Here's an example:
+#+BEGIN_EXAMPLE
+%%
+
+I like a man who grins when he fights.
+
+- Winston Churchill
+
+%%
+
+The human race has one really effective weapon, and that is laughter.
+
+- Mark Twain
+#+END_EXAMPLE
+After my Quips file had been growing for a while, I found that I edited it a bit differently from the way I edit ordinary text files. For one thing, I frequently needed to confine my editing to a single quip in order to avoid accidentally straying into a neighboring quip. For another, whenever I needed to fill a paragraph at the beginning of a quip, I first had to separate it from the leading %% with a blank line. Otherwise, the %% would become filled as if it were part of the paragraph:
+#+BEGIN_EXAMPLE
+%%
+
+I like a man who grins when he fights.
+
+- Winston Churchill
+
+%% The human race has one really effective weapon, and that is laughter.
+
+- Mark Twain
+#+END_EXAMPLE
+Inserting a blank line told Emacs that the %% wasn't part of the paragraph. After filling the paragraph, I'd rejoin the text to the leading %% by deleting the blank line. A new editing mode was clearly called for. The following part is to create the quip major mode.
+** Major Mode Skeleton
+These are steps involved in defining a major mode.
+1. Choose a /name/. The name for our example is quip.
+2. Create a file called /name.el/ to contain the code for the mode.
+3. Define a variable called /name-mode-hook/. This will contain the user's hook functions to execute when entering the mode
+   #+BEGIN_SRC emacs-lisp
+(defvar quip-mode-hook nil
+  "*List of functions to call when entering Quip mode.")
+   #+END_SRC
+4. If appropriate, define a mode-specific keymap. Put it in a variable called /name-mode-map/. Create a mode's keymap like this:
+   #+BEGIN_SRC emacs-lisp
+(defvar name-mode-map nil
+  "Keymap for name major mode.")
+(if name-mode-map nil
+  (setq name-mode-map (make-keymap)))
+(define-key name-mode-map keysequence command)
+...
+    #+END_SRC
+	Instead of =make-keymap=, you could use =make-sparse-keymap=, which is better suited to keymaps that contain only a few keybindings.
+5. If appropriate, define a mode-specific syntax table. Put it in a variable named /name-mode-syntax-table/.
+6. If appropriate, define a mode-specific abbrev table. Put it in a variable named /name-mode-abbrev-table/
+7. Define a command named /name-mode/. This is the major mode command, and it takes no arguments (unlike a minor mode command, which takes one optional argument). When executed, it should cause the current buffer to enter /name-mode/ by preforming the following steps
+   a. It must call =kill-all-locak-variables=, which removes the definitions for all buffer-local variables. This effectively turns off whatever modes, major and minor, were previously active.
+   b. It must set the variable =major-mode= to /name-mode/. (setq major-mode 'quip-mode)
+   c. It must set the variable /mode-name/ to a short string describing the mode, to be used in the buffer's mode line. (setq mode-name "Quip")
+   d. It must install the mode-specific keymap, if any, by calling =use-local-map= on /name-mode-map/.
+   e. It must run the user's hook function by calling =run-hooks= on /name-mode-hook/. (run-hooks 'quip-mode-hook)
+8. It must provide the feature implemented by this mode by calling =provide= on /name/, it allows users to (require 'name). (provide 'quip)
+
+Our first version of Quip mode will not include a keymap, syntax table, or abbrev table, so at first quip.el looks like this:
+#+BEGIN_SRC emacs-lisp
+(defvar quip-mode-hook nil
+  "*List of functions to call when entering Quip mode.")
+
+(defun quip-mode ()
+  "Major mode for editing Quip files."
+  (interactive)
+  (kill-all-local-variables)
+  (setq major-mode 'quip-mode)
+  (setq mode-name "Quip")
+  (run-hooks 'quip-mode-hook))
+
+(provide 'quip)
+#+END_SRC
+Those are the basics, shared among all major modes. Now let's start fleshing out the specifics of Quip mode.
+** Changing the Definition of a Paragraph
+First, we must arrange for a line consisting of %% not to be considered part of a paragraph. This means we must change the variable =paragraph-separate=, whose value is a regexp that describes lines that separate paragraphs. We'll also have to change =paragraph-start=, a regexp that describes lines that serve as either the first line of a paragraph or (despite the name) as a line that separates paragraphs.
+
+Emacs uses the regexps in =paragraph-start= and =paragraph-separate= to match at the beginnings of lines, even though the regexps do not explicitly begin with the magic ^ ("match at the beginning of a line") character.
+
+In Text mode, the value of =paragraph-separate= is s "[ \t\n\^L] ", (NOTE: this is not right if you test it in Emacs), which means that if a line starts with a space, tab, newline, or Control-L (the ASCII "formfeed" character), it's either the first line of a paragraphs or a line that separates paragraphs.
+
+Text mode's value for =paragraph-separate= is "[ \t\^L] *$",(NOTE: this is not right if you test it in Emacs), which means that a line containing zero or more spaces, tabs, or formfeeds, or some comnination thereof, and /nothing else/, is not part of any paragraph.
+
+What we'd like to do is augment these patterns to say "a line containing %% is a paragraph separator, too."
+
+The first step is to make these variables have separate values for the current buffer when in Quip mode. (That is, setting these variables, which are global, should not affect other buffers that may not be in Quip mode.) Therefore, in addition to the basic skeleton described in the last section, the function =quip-mode= should do this:
+#+BEGIN_SRC emacs-lisp
+(make-local-variable 'paragraph-start)
+(make-local-variable 'paragraph-separate)
+#+END_SRC
+Next, quip-mode must set the buffer-local values for both paragraph-start and paragraph-separate.
+#+BEGIN_SRC emacs-lisp
+(setq paragraph-start "%%\\I[ \t\n\^L]")
+(setq paragraph-separate "%%$\\ [ \t\^L]*$")
+#+END_SRC
+** Quip Commands
+page-delimiter, what-page
+** Keymaps
+defalias, define-key, local-set-key, local-unset-key,
+** Narrowing
+** Derived Modes
+* A Comprehensive Example
+NOTE: Better to check the PDF file for full information.
+
+This chapter is the culmination of our programming examples. It is a substantial major mode implementing a crossword puzzle editor —- clearly a use which the designers of Emacs didn't foresee, but implementable nonetheless. The straightforwardness of designing and implementing Crossword mode demonstrates Emacs's true potential as an application-building toolkit.
+
+After devising a data model for a crossword puzzle editing application, we'll construct a user interface for it, creating functions for displaying a representation of our data model and restricting input to the set of operations we allow on it. We'll write commands that go on the Emacs menu and commands that communicate with external processes. In doing so, we'll exploit the Lisp techniques we've learned for performing complex logic and string manipulation.
+** Data Representation
+Let's start by choosing a data representation. An obvious approach is to store the cells of the crossword grid in a two-dimensional array, or matrix. Emacs Lisp doesn't have such a data type, but we can create one using =vectors=.
+*** Vectors
+A Lisp =vector= resembles a =list=, in that it is a sequence of zero or more arbitrary subexpressions (including nested vectors or lists). However, vectors permit random access to their elements, whereas _one must traverse a list from its beginning to find a particular element._ (That doesn't necessarily make vectors superior to lists. Unlike lists, vectors can't be lengthened or shortened except by copying. As always, use the right tool for the job.)
+
+Vectors are written with square brackets instead of parentheses, and are self-evaluating; that is, the result of evaluating a vector is the vector itself. Its subexpressions are not evaluated.
+: [a [b c] d] --> [a [b c] d]
+If you want a vector containning the values of variables a, b, and c, you must construct the vector using the =vector= function:
+: (setq a '[1 2 3])
+: (setq b 4)
+: (vector a b c) --> [[1 2 3] 4]
+** Matrix Package
+We'll choose to resprent a matrix as a vector of rows, with each row being a nested vector of columns. Here's how to create one of these:
+#+BEGIN_SRC emacs-lisp
+(defun make-matrix (rows columns &optional initial)
+  "Create a ROWS by COLUMNS matrix."
+  (let ((result (make-vector rows nil))
+        (y 0))
+    (while (< y rows)
+      (aset result y (make-vector columns initial))
+      (setq y (+ y 1)))
+    result))
+#+END_SRC
+The argument =initial= specifies a Lisp expression to use as the initial value for every element in the matrix. The first call to =make-vector= creates a vector of =nils=, =rows= elements long. One by one, we replace each nil with a new vector of length columns. The function =aset= is used for setting vector elements; =aref= retrieves them. Vectors are indexed starting at 0. Calling (=aset= vector index value) changes the element at position index in vector to be value. Calling (=aref= vector index) retrieves the element at position index.
+
+The call to =make-vector= inside the while loop sets each element of the nested vectors to =initial=, so at the end of =make-matrix=, =result= is a vector of rows nested vectors, where each nested vector is a vector of =columns= copies of =initial=.
+
+Why couldn't we have written this function mode simply, like this?
+#+BEGIN_SRC emacs-lisp
+(defun make-matrix (rows columns &optional initial)
+  "Create a ROWS by COLUMNS matrix."
+  (make-vector rows (make-vector columns initial)))
+#+END_SRC
+The reason is that the inner call to =make-vector= yields a single new vector. The outer call would use that =single vector= as the initial value for every element for every element in the outer vector. In other words, every element in the outer vector would share the same inner vector, when what we want is for every element in the outer vector to be a separate nested vector.
+
+Given the structure pf a matrix, it's a simple matter to define the basic operations on one:
+#+BEGIN_SRC emacs-lisp
+(defun matrix-set (matrix row column elt)
+  "Given a MATRIX, ROW and COLUMN, put element ELT there."
+  (let ((nested-vector (aref matrix row)))
+	(aset nested-vector column elt)))
+
+(defun matrix-ref (matrix row column)
+  "Get the element of MATRIX at ROW and COLUMN"
+  (let ((nested-vector (aref matrix row)))
+	(aref nested-vector column)))
+#+END_SRC
+It might also be useful to have functions that report the width and height of the matrix:
+#+BEGIN_SRC emacs-lisp
+(defun matrix-column (matrix)
+  "Number of columns in MATRIX"
+  (length (aref matrix 0)))
+
+(defun matrix-rows (matrix)
+  "Number of rows in MATRIX."
+  (length matrix))
+#+END_SRC
+When function definition are very short, like these last four, it's usually a good idea to turn them into /inline functions/ using =defsubst= instead of =defun=. /Inline functions/ defined with =defsubst= work the same way ordinary =defun= functions do, except that when you compile a function that calls an line function, the call is replaced a copy of the inline function itself. This has major benefit: at run time, the current function doesn't have to setup a call to another function. This is marginally faster, but the savings can add up in loops that run thousands or millions of times. Unfortunately, there are also two drawbacks to inline functions. One is that the inline function is duplicated everywhere it's used, which increase memory requirements. The other drawback is, if the inline function definition changes, the old definition will still be "frozen" into compiled files that use it. (In all these respects, =defsubst= functions are equivalent to =inline functions= in C++, or macro functions in C).
+** Crossword Variant of Matrix
+Now let's consider a crossword grid, which is a specialized kind of matrix. Each cell in the grid can be in only one of four states:
+1. Empty, meaning we may place a letter or a block in it.
+2. Semi-empty, meaning we may only place a letter in it, not a block (because of the requirement of 180° symmetry).
+3. Filled with a block.
+4. Filled with a letter.
+
+Let's use *nil* to stand for a cell that is empty, the symbol *letter* to stand for a semi-empty cell that must be filled with a letter, the symbol *block* to stand for a cell containing a block, and the *letter itself* (which is represented in Emacs by a number, its ASCII value) for cells containing a letter.
+
+Given all that, let's define a new data type for crossword grids, implemented in terms of matrices.
+#+BEGIN_SRC emacs-lisp
+(require 'matrix)
+
+(defun make-crossword (size)
+  "Make a crossword grid with SIZE rows and columns."
+  (if (zerop (% size 2)) ;; Is size even? (% is the remainder function)
+	  (error "make-crossword: size must be odd"))
+  (if (< size 3) ;; Is size too small?
+	  (error "make-crossword: size must be 3 or greater"))
+  (make-matrix size size nil))
+
+(defsubst crossword-size (crossword)
+  "Number of rows and columns in CROSSWORD."
+  (matrix-rows crossword))  ; or matrix-columns, it doesn't matter
+
+(defsubst crossword-ref (crossword row column)
+  "Get the element of CROSSWORD at ROW and COLUMN."
+  (matrix-ref crossword row column))
+
+(defsubst crossword--set (crossword row column elt)
+  "Internal function for setting a crossword grid square."
+  (matrix-set crossword row column elt))
+#+END_SRC
+The function =crossword--set= has a *double hyphen* in its name. This is the conventional way to denote a "private" function that isn't part of a package's advertised programming interface. Users of the Crossword package won't use =crossword--set=; instead they'll use =crossword-store-letter=, =crossword-store-block=, and =crossword-clear-cell=, defined below. Only the Crossword package itself will use =crossword--set=, plus some logic for preserving 180° symmetry and word lengths greater than 2.
+** Using Cons Cells
+** One-Letter Words
+** User Interface
+*** Display
+*** Cursor Positioning
+*** Updating the Display
+** User Commands
+*** Grid-changing commands
+*** Navigation
+** Setting Up the Mode
+** Keybindings
+** Mouse Commands
+=last-input-event=, =mouse-set-point=, 
+** Tracking Unauthorized Changes
+=after-change-functions=, =condition-case=, =unwind-pretect=, 
+** Parsing the Buffer
+: (put 'crossword-mode 'mode-class 'special)
+** Word Finder
+=set-buffer=, =erase-buffer=, =call-process=, =display-buffer=, =corestart=, =coreend=
+** Asynchronous grep
+=start-process=
+** Choosing Words
+*** Ambiguous Alignment
+* Lisp Quick Reference
+** Data Types
+*** Numbers
+: (numberp x)
+: (integerp x)
+: (zerop x)
+: (= a b)
+: (+ a b ...)
+: (- a b ...)
+*** Characters
+?a, \t, ?\n
+: (char-equal a b)
+: (char-to-string c)
+*** Strings
+: (stringp x)
+: (string= s1 s2)
+: (string-lessp s1 s2)
+: (concat s1 s2 ...)
+: (length s)
+: (aref s 1) --> return the ith character of string s, start from 0
+: (aset s i ch) --> set the ith character of string s to ch
+: (substring s f [to])
+*** Symbols
+: (symbolp x)
+: (setq sym erp)
+*** Lists
+: (listp x)
+: (null x)
+: (consp x)
+: (car list)
+: (cdr list)
+: (list a b ...)
+: (cons a b)
+: (append list1 list2 ...)
+: (nth i list) --> return ith element of list, counting from 0
+: (nthcdr i list) --> return the result of calling cdr on list i times
+*** Vectors
+: (vectorp x)
+: (vector a b ...)
+: (length vector)
+: (aref vector i)
+: (aset vector i expr)
+*** Sequences and Arrays
+: (arrayp x)
+: (sequencep x)
+: (copy-sequence seq)
+** Control Structures
+*** Variables
+To reference a variable, simply use its name. To assign a variable, use =setq=.
+
+To make temporary variables that are in effect only in a certain region of code, use =let=.
+
+#+BEGIN_SRC emacs-lisp
+(let ((var1 value1)
+	  (var2 value2)
+	  ...)
+  body1 body2 ...)
+#+END_SRC
+
+In a =let=, all the values are computed in an unspecified order before any of the vars are assigned. The variant =let*= (whose syntax is identical to =let=) evaluates value_i and assigns it to var_i before evaluating value_i+1
+*** Sequencing
+: (progn expr1 expr2 ...)
+: (prog1 expr1 expr2 ...)
+=progn= evaluates each expr in turn, returns the value of the last expr.
+=prog1= evaluate a sequence of expressions and return the value of the first subexpression (expr1) instead of the last.
+*** Conditionals
+Emacs Lisp has two kinds of conditional expressions: =if= and =cond=
+
+The logical operators =and=, =or=, and =not= are often used in conjunction with -- and sometimes as substitutes for -- conditions.
+*** Looping
+=while=
+*** Function call
+*** Literal Data
+** Code Objects
+*** Functions
+=lambda=, =defun=
+*** Macro Functions
+=defmacro=
+* Debugging and Profiling
+** Evaluation
+1. C-x C-e (eval-last-sexp)
+2. M-: (eval-expression)
+3. eval-region
+4. eval-current-buffer
+5. C-j (eval-print-last-sexp) in *scratch* buffer
+6. C-M-x (eval-defun)
+7. load, load-file, load-library, require
+** The Debugger
+1. debug-on-entry
+2. debug-on-error
+3. debug-on-next-call
+4. debug-on-quit
+With the debugger is invoked, a window displaying the Lisp stack appears. In this buffer, called *Backstrace*, each line represents, each line represents a pending function call, with the top lines represents more recent calls.
+
+These are the useful debugging-mode commands
+1. c -- Leave the debugger, continuing whatever code was interrupted by entering it. This isn't possible when the debugger was invoked because of an error.
+2. q -- Leave the debugger, aborting the pending computation.
+3. d -- Continue execution until the next function call, then reenter the debugger.
+4. e -- Prompt for a Lisp expression to evaluate in the context of the topmost stack ''frame."
+5. b -- "Break" when returning from the current function. If the debugger is invoked when a function is called, then this command will continue execution until the same function is about to return, then will reenter the debugger.
+6. r -- When about to return from a function, prompt for a Lisp expression to be that function's return value (instead of whatever value it computed).
+** Edebug
+Edebug is an elaborate debugging environment that is far more powerful than the debugging facilities described in the previous section. It allows you to step through the actual source code of a running Lisp program. Edebug is an amazing piece of work written entirely in Lisp; it's a testament both to the talents of its author, Daniel LaLiberte, and to the expressive power of Emacs Lisp, which provides enough access to its own internals to make such a tool possible.
+
+_This section is only a brief summary of Edebug. For complete information, refer to the *Edebug* section of The GNU Emacs Lisp Reference Manual._
+
+To use Edebug, you must select those functions that you specifically wish to be able to trace. Each function must be individually instrumented, which means evaluating it in a special way. The command edebug-defun performs this task, and is used like eval-defun. The variable edebug-all-defs (q.v.) controls whether loading Edebug should redefine the various eval- commands to do instrumenting as well.
+
+After instrumenting the desired functions, leave their definitions available in some buffer. You can uninstrument functions by re-evaluating their definitions in the ordinary way.
+
+Edebug is activated whenever any instrumented function is called. A window showing the function's definition appears, along with a little arrow in the left margin indicating on what line execution has stopped. The cursor will be placed at the beginning of the expression that is about to be invoked (but if you wish, you can move the cursor, or even hide the buffer, without affecting the operation of Edebug).
+
+Check the _Edebug section of The GNU Emacs Lisp Reference Manual_ built-in Emacs for the commands.
+** The Profiler
+Profiling a program is the process of figuring out how much time different parts of it take to run, presumably in a quest to make it more efficient. Barry Warsaw has written an ingenious package for profiling Emacs Lisp called ELP.
+
+Like Edebug, ELP relies on functions being "instrumented." This is done with the command =elp-instrument-function=, which prompts for a function name. There's also =elp-instrument-package=, which prompts for a prefix. Any existing functions whose names begin with the given prefix will get instrumented.
+
+Functions are uninstrumente with =elp-restore-function= and =elp-restore-all=.
+
+To use ELP, simply run your program after instrumenting the functions you wish to profile. Profiling data will accumulate silently. When you're ready to see the results so far, run the command =elp-results=. A buffer will appear, showing, for each profiled function, the number of times it was called, the total time spent in the function, and the average time per call.
+
+Use =elp-reset-function= to set a function's call-count and elapsed-time counters back to zero; =elp-reset-all= does this for all profiles functions.
+* Sharing Your Code
+** Preparing Source Files
+Once the code is working the way you'd like it to, you should add a comment block to the beginning of each source file describing the file, its copyright (see below), its authorship, its version information, and other commentary. Here's a typical beginning:
+#+BEGIN_EXAMPLE
+;;; foretell.el -- predict what the user will do
+;;; Copyright 1996 by Mortimer J. Hacker <mjh@mjh.net>
+;;; Foretell is free software distributed under the terms
+;;; of the GNU General Public License, version 2. For details,
+;;; see the file COPYING.
+;;; This is version 1.7 of 5 August 1996.
+;;; For more information about Foretell, subscribe to the
+;;; Foretell mailing list by sending a message to
+;;; <foretell-request@mjh.net>.
+
+#+END_EXAMPLE
+The file should end with a comment line like this:
+#+BEGIN_EXAMPLE
+;;; foretell.el ends here
+#+END_EXAMPLE
+
+If your package includes more than one file, it's customary to create a file called README describing the package, the files in it, and how to install it.
+** Documentation
+** Copyright
+** Posting

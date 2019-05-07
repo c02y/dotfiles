@@ -1,0 +1,2069 @@
+;; Object src/
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "src/"
+  :tables
+  (list
+    (semanticdb-table "Service_Data.cpp"
+      :major-mode 'c++-mode
+      :tags 
+        '( ("Service_Data.h" include nil nil [1 26])
+            ("Service_Aid.h" include nil nil [27 51])
+            ("Basic.h" include nil nil [52 70])
+            ("Ctl_lockManager.h" include nil nil [71 99])
+            ("Server_Data::m_instance" variable
+               (:pointer 1
+                :default-value "NULL"
+                :type ("Server_Data" type (:type "class") nil nil))
+                nil [100 147])
+            ("Server_Data::m_instanceCount" variable
+               (:default-value "0"
+                :type "int")
+                nil [148 197])
+            ("Server_Data::m_lock" variable (:type ("QReadWriteLock" type (:type "class") nil nil)) nil [198 233])
+            ("GetInstance" function
+               (:pointer 1
+                :parent "Server_Data"
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [273 278]))                  
+                :type ("Server_Data" type (:type "class") nil nil))
+                nil [235 431])
+            ("DelInstance" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [462 467]))                  
+                :type "int")
+                nil [433 651])
+            ("Server_Data" function
+               (:constructor-flag t
+                :parent "Server_Data"
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [678 683]))                  
+                :type ("Server_Data" type (:type "class") nil nil))
+                nil [653 755])
+            ("InitPrepose" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("para" variable
+                       (:pointer 1
+                        :type "void")
+                        (reparse-symbol arg-sub-list) [787 798]))                  
+                :type "void")
+                nil [757 946])
+            ("UnInitPrepose" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [980 985]))                  
+                :type "void")
+                nil [948 1111])
+            ("LogEx" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("file" variable (:type ("std::string" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [1136 1153])
+                    ("fun" variable (:type ("std::string" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [1154 1170])
+                    ("line" variable (:type "int") (reparse-symbol arg-sub-list) [1171 1180])
+                    ("ret" variable (:type "int") (reparse-symbol arg-sub-list) [1181 1189])
+                    ("ret2" variable (:type "int") (reparse-symbol arg-sub-list) [1190 1199])
+                    ("level" variable (:type ("MSG_LEVEL" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [1200 1216]))                  
+                :type "int")
+                nil [1113 1425])
+            ("RebootChannel" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("channelID" variable (:type "int") (reparse-symbol arg-sub-list) [1458 1472]))                  
+                :type "int")
+                nil [1427 1528])
+            ("AudioArg" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("channelID" variable (:type "int") (reparse-symbol arg-sub-list) [1722 1736])
+                    ("range" variable
+                       (:pointer 1
+                        :type ("sAudioParaOption" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [1737 1761])
+                    ("current" variable
+                       (:pointer 1
+                        :type ("sAudioParaEx" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [1762 1784]))                  
+                :type "int")
+                nil [1696 3300])
+            ("SetAudioArg" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("channelID" variable (:type "int") (reparse-symbol arg-sub-list) [3331 3345])
+                    ("arg" variable
+                       (:pointer 1
+                        :type ("sAudioParaEx" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [3347 3365]))                  
+                :type "int")
+                nil [3302 3427])
+            ("VideoCfg" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("channelID" variable (:type "int") (reparse-symbol arg-sub-list) [3565 3579])
+                    ("range" variable
+                       (:pointer 1
+                        :type ("sIPCImageOptionEx" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [3580 3605])
+                    ("cur" variable
+                       (:pointer 1
+                        :type ("sIPCImageSettingsEx" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [3607 3632]))                  
+                :type "int")
+                nil [3539 4588])
+            ("SerialInfo" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("serialPar" variable
+                       (:pointer 1
+                        :type ("std::vector" type
+                             (:template-specifier 
+                                ( ("sSerialData" type nil nil nil))                                
+                              :type "class")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [4659 4695]))                  
+                :type "void")
+                nil [4630 6305])
+            ("IPSANInfo" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("allInfo" variable
+                       (:pointer 1
+                        :type ("std::vector" type
+                             (:template-specifier 
+                                ( ("getIPSanInfo" type nil nil nil))                                
+                              :type "class")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [6403 6438]))                  
+                :type "void")
+                nil [6375 7722])
+            ("AddIPSan" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("info" variable
+                       (:pointer 1
+                        :type ("addIPSanInfo" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [7750 7769]))                  
+                :type "int")
+                nil [7724 8337])
+            ("DeleteIPSAN" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("info" variable
+                       (:pointer 1
+                        :type ("addIPSanInfo" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [8368 8387]))                  
+                :type "int")
+                nil [8339 8722])
+            ("AlarmBasicCfg" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("info" variable
+                       (:pointer 1
+                        :type ("getAlarmBasic" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [8926 8946]))                  
+                :type "int")
+                nil [8895 10289])
+            ("SetAlarmBasicCfg" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("info" variable
+                       (:pointer 1
+                        :type ("sAlarmControllerInfo" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [10366 10393]))                  
+                :type "int")
+                nil [10331 10458])
+            ("AlarmInputCfg" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("cfg" variable
+                       (:pointer 1
+                        :type ("std::vector" type
+                             (:template-specifier 
+                                ( ("sInputAlarmControllInfo" type nil nil nil))                                
+                              :type "class")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [10577 10619])
+                    ("outputCfg" variable
+                       (:pointer 1
+                        :type ("std::vector" type
+                             (:template-specifier 
+                                ( ("sOutputAlarmControllInfo" type nil nil nil))                                
+                              :type "class")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [10620 10669]))                  
+                :type "int")
+                nil [10546 12097])
+            ("SetAlarmInputCfg" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("cfg" variable
+                       (:pointer 1
+                        :type ("std::vector" type
+                             (:template-specifier 
+                                ( ("sInputAlarmControllInfo" type nil nil nil))                                
+                              :type "class")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [12175 12217]))                  
+                :type "int")
+                nil [12140 12280])
+            ("AlarmOutputCfg" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("cfg" variable
+                       (:pointer 1
+                        :type ("std::vector" type
+                             (:template-specifier 
+                                ( ("sOutputAlarmControllInfo" type nil nil nil))                                
+                              :type "class")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [12352 12395]))                  
+                :type "int")
+                nil [12320 13563])
+            ("SetAlarmOutputCfg" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("cfg" variable
+                       (:pointer 1
+                        :type ("std::vector" type
+                             (:template-specifier 
+                                ( ("sOutputAlarmControllInfo" type nil nil nil))                                
+                              :type "class")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [13601 13644]))                  
+                :type "int")
+                nil [13565 13708])
+            ("AlarmInputID" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("data" variable
+                       (:pointer 1
+                        :type ("std::vector" type
+                             (:template-specifier 
+                                ( ("std::string" type nil nil nil))                                
+                              :type "class")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [13740 13771]))                  
+                :type "int")
+                nil [13710 14150])
+            ("StartBackup" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("destPath" variable (:type ("std::string" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [14181 14202])
+                    ("file" variable
+                       (:reference 1
+                        :type ("sRecordFile" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [14203 14221]))                  
+                :type "int")
+                nil [14152 14279])
+            ("StopBackup" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [14309 14314]))                  
+                :type "int")
+                nil [14281 14357])
+            ("RecordProgress" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("progress" variable
+                       (:pointer 1
+                        :type "int")
+                        (reparse-symbol arg-sub-list) [14391 14405]))                  
+                :type "int")
+                nil [14359 14464])
+            ("BackUpPic" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("destpath" variable (:type ("QString" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [14493 14510])
+                    ("filesName" variable (:type ("std::string" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [14511 14533]))                  
+                :type "int")
+                nil [14466 14695])
+            ("SyncDisk" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [14724 14729]))                  
+                :type "void")
+                nil [14697 14770])
+            ("AlarmCenterCfg" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("data" variable
+                       (:pointer 1
+                        :type ("sUploadCenter" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [14804 14824]))                  
+                :type "int")
+                nil [14772 14883])
+            ("SetAlarmCenterCfg" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("data" variable
+                       (:pointer 1
+                        :type ("sUploadCenter" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [14921 14941]))                  
+                :type "int")
+                nil [14885 15125])
+            ("AuthorityCheck" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("p_iMainAuthority" variable (:type "int") (reparse-symbol arg-sub-list) [16458 16479])
+                    ("p_iSubAuthority" variable (:type "int") (reparse-symbol arg-sub-list) [16481 16501])
+                    ("p_pbtAuthority" variable
+                       (:pointer 1
+                        :type ("std::bitset" type
+                             (:template-specifier 
+                                ( ("Count" type nil nil nil))                                
+                              :type "class")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [16502 16538]))                  
+                :type "bool")
+                nil [16424 16731])
+            ("MountDevList" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("newList" variable
+                       (:pointer 1
+                        :type ("QStringList" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [16826 16847]))                  
+                :type "int")
+                nil [16796 17351])
+            ("MountDev" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [17380 17385]))                  
+                :type "void")
+                nil [17353 17426])
+            ("FormatDisk" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("path" variable (:type ("std::string" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [17456 17473]))                  
+                :type "int")
+                nil [17428 17520])
+            ("FormatDisk" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("diskID" variable (:type "int") (reparse-symbol arg-sub-list) [17550 17561]))                  
+                :type "int")
+                nil [17522 17610])
+            ("DiskIsMounting" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("absolutePath" variable (:type ("QString" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [17866 17887]))                  
+                :type "bool")
+                nil [17833 18467])
+            ("DiskStorageQuota" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("quota" variable
+                       (:pointer 1
+                        :type ("std::vector" type
+                             (:template-specifier 
+                                ( ("sDiskSet" type nil nil nil))                                
+                              :type "class")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [18503 18532]))                  
+                :type "int")
+                nil [18469 18694])
+            ("SetDiskStorageQuota" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("diskNum" variable (:type "int") (reparse-symbol arg-sub-list) [18733 18746])
+                    ("snapQuota" variable (:type "int") (reparse-symbol arg-sub-list) [18747 18762])
+                    ("recordQuota" variable (:type "int") (reparse-symbol arg-sub-list) [18762 18778]))                  
+                :type "int")
+                nil [18696 18861])
+            ("LoopWrite" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("loopWrite" variable
+                       (:pointer 1
+                        :type "int")
+                        (reparse-symbol arg-sub-list) [18890 18905]))                  
+                :type "int")
+                nil [18863 19100])
+            ("SetLoopWrite" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("loopWrite" variable (:type "int") (reparse-symbol arg-sub-list) [19132 19146]))                  
+                :type "int")
+                nil [19102 19203])
+            ("ChannelGroupCfg" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("data" variable
+                       (:pointer 1
+                        :type ("std::vector" type
+                             (:template-specifier 
+                                ( ("ChannelGroup" type nil nil nil))                                
+                              :type "class")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [19238 19270]))                  
+                :type "int")
+                nil [19205 19550])
+            ("SetChannelGroupCfg" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("data" variable
+                       (:pointer 1
+                        :type ("std::vector" type
+                             (:template-specifier 
+                                ( ("ChannelGroup" type nil nil nil))                                
+                              :type "class")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [19588 19620]))                  
+                :type "int")
+                nil [19552 19900])
+            ("DiskGroupCfg" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("data" variable
+                       (:pointer 1
+                        :type ("std::vector" type
+                             (:template-specifier 
+                                ( ("DiskGroup" type nil nil nil))                                
+                              :type "class")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [19932 19961]))                  
+                :type "int")
+                nil [19902 20230])
+            ("SetDiskGroupCfg" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("data" variable
+                       (:pointer 1
+                        :type ("std::vector" type
+                             (:template-specifier 
+                                ( ("DiskGroup" type nil nil nil))                                
+                              :type "class")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [20265 20294]))                  
+                :type "int")
+                nil [20232 20566])
+            ("DiskInfo" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("data" variable
+                       (:pointer 1
+                        :type ("std::vector" type
+                             (:template-specifier 
+                                ( ("sDISK_INFO" type nil nil nil))                                
+                              :type "class")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [20594 20624]))                  
+                :type "int")
+                nil [20568 21013])
+            ("SetDiskInfo" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("diskID" variable (:type "int") (reparse-symbol arg-sub-list) [21044 21055])
+                    ("groupID" variable (:type "int") (reparse-symbol arg-sub-list) [21056 21068])
+                    ("recordQuota" variable (:type "int") (reparse-symbol arg-sub-list) [21069 21085])
+                    ("snapQuota" variable (:type "int") (reparse-symbol arg-sub-list) [21086 21100]))                  
+                :type "int")
+                nil [21015 21183])
+            ("UpdateSystem" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("path" variable (:type ("QString" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [21215 21228]))                  
+                :type "int")
+                nil [21185 21399])
+            ("ImportCfgFile" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("absolutionPath" variable (:type ("QString" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [21432 21455]))                  
+                :type "int")
+                nil [21401 21525])
+            ("ExportCfg" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("absolutionPath" variable (:type ("QString" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [21554 21577]))                  
+                :type "int")
+                nil [21527 21647])
+            ("ExportDebugInfo" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("absolutionPath" variable (:type ("QString" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [21682 21705]))                  
+                :type "int")
+                nil [21649 21825])
+            ("NVR_VersionInfo" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("info" variable
+                       (:pointer 1
+                        :type ("sDeviceInformation" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [21861 21886]))                  
+                :type "void")
+                nil [21827 21930])
+            ("NetCardInfo" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("list" variable
+                       (:pointer 1
+                        :type ("std::vector" type
+                             (:template-specifier 
+                                ( ("std::string" type nil nil nil))                                
+                              :type "class")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [21962 21993]))                  
+                :type "void")
+                nil [21932 22620])
+            ("AllNetCardInfo" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("list" variable
+                       (:pointer 1
+                        :type ("std::vector" type
+                             (:template-specifier 
+                                ( ("sInterfaceAttr" type nil nil nil))                                
+                              :type "class")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [22691 22725]))                  
+                :type "int")
+                nil [22659 22880])
+            ("AllNetworkPara" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("para" variable
+                       (:pointer 1
+                        :type ("std::vector" type
+                             (:template-specifier 
+                                ( ("sAllNetParas" type nil nil nil))                                
+                              :type "class")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [22914 22946]))                  
+                :type "int")
+                nil [22882 23102])
+            ("SetNetWorkPara" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("para" variable
+                       (:pointer 1
+                        :type ("sAllNetParas" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [23136 23155]))                  
+                :type "int")
+                nil [23104 23404])
+            ("DeleteNullPara" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("data" variable
+                       (:pointer 1
+                        :type ("std::vector" type
+                             (:template-specifier 
+                                ( ("sNetBasicPara" type nil nil nil))                                
+                              :type "class")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [23452 23485]))                  
+                :type "void")
+                nil [23419 23926])
+            ("SysLoad" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("load" variable
+                       (:pointer 1
+                        :type ("sysLoad" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [24043 24057])
+                    ("netCardList" variable
+                       (:pointer 1
+                        :type ("std::vector" type
+                             (:template-specifier 
+                                ( ("std::string" type nil nil nil))                                
+                              :type "class")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [24058 24096]))                  
+                :type "int")
+                nil [24018 26384])
+            ("LogOut" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [26411 26416]))                  
+                :type "void")
+                nil [26386 26476])
+            ("Login" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("userID" variable (:type ("std::string" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [26501 26520])
+                    ("psw" variable (:type ("std::string" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [26521 26537]))                  
+                :type "int")
+                nil [26478 26616])
+            ("SetSerialCfg" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("data" variable
+                       (:pointer 1
+                        :type ("sSerialData" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [26648 26666]))                  
+                :type "int")
+                nil [26618 26719])
+            ("SysUniversalCfg" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("data" variable
+                       (:pointer 1
+                        :type ("normalCfgEx" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [26754 26772]))                  
+                :type "int")
+                nil [26721 31806])
+            ("SetSysUniversalCfg" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("data" variable
+                       (:pointer 1
+                        :type ("sSystemConfig" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [31844 31864]))                  
+                :type "int")
+                nil [31808 31917])
+            ("CurUserInfo" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("info" variable
+                       (:pointer 1
+                        :type ("userInfo" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [31976 31991]))                  
+                :type "int")
+                nil [31947 32207])
+            ("PreviewCfg" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("data" variable
+                       (:pointer 1
+                        :type ("sPreviewBasicConfig" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [32237 32263]))                  
+                :type "int")
+                nil [32209 32317])
+            ("SetPreviewCfg" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("data" variable
+                       (:pointer 1
+                        :type ("sPreviewBasicConfig" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [32350 32376]))                  
+                :type "int")
+                nil [32319 32430])
+            ("ChangedUserInfoByPsw" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("id" variable (:type ("std::string" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [32470 32485])
+                    ("oldPsw" variable (:type ("std::string" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [32486 32505])
+                    ("newPsw" variable (:type ("std::string" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [32506 32525])
+                    ("mac" variable (:type ("std::string" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [32526 32542]))                  
+                :type "int")
+                nil [32432 32616])
+            ("ChangedUserInfoByRoot" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("newInfo" variable
+                       (:pointer 1
+                        :type ("sUserMsg" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [32657 32675]))                  
+                :type "int")
+                nil [32618 32775])
+            ("ChangedUserInfoByRootEx" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("newInfo" variable
+                       (:pointer 1
+                        :type ("sUserMsg" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [32873 32891]))                  
+                :type "int")
+                nil [32832 32991])
+            ("ChangedUserAuthority" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("userID" variable (:type ("std::string" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [33031 33050])
+                    ("newAuthority" variable
+                       (:pointer 1
+                        :type ("sAuthority" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [33051 33076]))                  
+                :type "int")
+                nil [32993 33149])
+            ("TotalUserIDList" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("totalUserID" variable
+                       (:pointer 1
+                        :type ("std::vector" type
+                             (:template-specifier 
+                                ( ("std::string" type nil nil nil))                                
+                              :type "class")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [33283 33321]))                  
+                :type "int")
+                nil [33250 33804])
+            ("TotalUserTotalInfo" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("totalUserInfo" variable
+                       (:pointer 1
+                        :type ("std::vector" type
+                             (:template-specifier 
+                                ( ("sUserMsgAndAuthority" type nil nil nil))                                
+                              :type "class")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [33842 33891]))                  
+                :type "int")
+                nil [33806 34067])
+            ("RetrievalRecordFile" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("condition" variable
+                       (:pointer 1
+                        :type ("sSearchCondition" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [34106 34134])
+                    ("data" variable
+                       (:pointer 1
+                        :type ("std::vector" type
+                             (:template-specifier 
+                                ( ("GUI_RecordInfo" type nil nil nil))                                
+                              :type "class")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [34135 34169]))                  
+                :type "int")
+                nil [34069 35985])
+            ("RetrievalNormalRecord" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("result" variable
+                       (:pointer 1
+                        :type ("std::vector" type
+                             (:template-specifier 
+                                ( ("normalRecord" type nil nil nil))                                
+                              :type "class")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [36258 36292])
+                    ("condition" variable
+                       (:pointer 1
+                        :type ("sSearchCondition" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [36293 36321]))                  
+                :type "int")
+                nil [36219 37849])
+            ("RetrievalEventRecord" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("result" variable
+                       (:pointer 1
+                        :type ("std::vector" type
+                             (:template-specifier 
+                                ( ("alarmRecord" type nil nil nil))                                
+                              :type "class")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [37970 38003])
+                    ("condition" variable
+                       (:pointer 1
+                        :type ("sSearchEventCondition" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [38004 38037]))                  
+                :type "int")
+                nil [37932 39145])
+            ("ChangedRecordFileLockStatus" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("record" variable
+                       (:pointer 1
+                        :type ("GUI_RecordInfo" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [39222 39245])
+                    ("newState" variable
+                       (:pointer 1
+                        :type "int")
+                        (reparse-symbol arg-sub-list) [39246 39260]))                  
+                :type "int")
+                nil [39177 39349])
+            ("RetrievalSnapFile" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("condition" variable
+                       (:pointer 1
+                        :type ("sSearchCondition" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [39386 39414])
+                    ("result" variable
+                       (:pointer 1
+                        :type ("std::vector" type
+                             (:template-specifier 
+                                ( ("GUI_SnapInfo" type nil nil nil))                                
+                              :type "class")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [39415 39449]))                  
+                :type "int")
+                nil [39351 39960])
+            ("RetrievalSnapFile" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("condition" variable
+                       (:pointer 1
+                        :type ("sSearchCondition" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [39998 40026])
+                    ("result" variable
+                       (:pointer 1
+                        :type ("std::vector" type
+                             (:template-specifier 
+                                ( ("simplySnapInfo" type nil nil nil))                                
+                              :type "class")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [40027 40063]))                  
+                :type "int")
+                nil [39962 40542])
+            ("RetrievalLog" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("condition" variable
+                       (:pointer 1
+                        :type ("sLogSearchCondition" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [40574 40605])
+                    ("result" variable
+                       (:pointer 1
+                        :type ("std::vector" type
+                             (:template-specifier 
+                                ( ("sLogMessage" type nil nil nil))                                
+                              :type "class")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [40606 40639]))                  
+                :type "int")
+                nil [40544 40794])
+            ("UnCompressPic" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("fileName" variable (:type ("std::string" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [41010 41031])
+                    ("destAbsolutionFileName" variable
+                       (:pointer 1
+                        :type ("std::string" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [41032 41068]))                  
+                :type "int")
+                nil [40979 41860])
+            ("OpenPlaybackPic" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [41896 41901]))                  
+                :type "long")
+                nil [41862 42059])
+            ("PlaybackInputPic" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("handle" variable (:type "long") (reparse-symbol arg-sub-list) [42095 42107])
+                    ("name" variable (:type ("QString" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [42108 42121]))                  
+                :type "int")
+                nil [42061 42240])
+            ("SetPlaybackInfo" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("handle" variable
+                       (:pointer 1
+                        :type "long")
+                        (reparse-symbol arg-sub-list) [42275 42288])
+                    ("recordInfo" variable
+                       (:pointer 1
+                        :type ("normalRecord" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [42289 42314])
+                    ("screen" variable
+                       (:pointer 1
+                        :type ("playbackScreenInfo" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [42315 42342])
+                    ("record" variable
+                       (:pointer 1
+                        :type ("std::vector" type
+                             (:template-specifier 
+                                ( ("normalRecord" type nil nil nil))                                
+                              :type "class")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [42343 42377]))                  
+                :type "int")
+                nil [42242 43769])
+            ("SetPlaybackEx" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("handle" variable
+                       (:pointer 1
+                        :type "long")
+                        (reparse-symbol arg-sub-list) [43802 43815])
+                    ("recordInfo" variable
+                       (:pointer 1
+                        :type ("normalRecord" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [43816 43841])
+                    ("screen" variable
+                       (:pointer 1
+                        :type ("playbackScreenInfo" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [43842 43869])
+                    ("record" variable
+                       (:pointer 1
+                        :type ("std::vector" type
+                             (:template-specifier 
+                                ( ("normalRecord" type nil nil nil))                                
+                              :type "class")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [43870 43904])
+                    ("realyLength" variable
+                       (:pointer 1
+                        :type "int")
+                        (reparse-symbol arg-sub-list) [43905 43922]))                  
+                :type "int")
+                nil [43771 45307])
+            ("StartPlayback" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("offset" variable (:type "int") (reparse-symbol arg-sub-list) [45478 45489])
+                    ("handle" variable (:type "long") (reparse-symbol arg-sub-list) [45490 45502]))                  
+                :type "int")
+                nil [45447 45857])
+            ("Pause" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("handle" variable (:type "long") (reparse-symbol arg-sub-list) [45882 45894]))                  
+                :type "int")
+                nil [45859 45946])
+            ("Continue" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("handle" variable (:type "long") (reparse-symbol arg-sub-list) [45974 45986]))                  
+                :type "int")
+                nil [45948 46041])
+            ("PlayToX" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("offset" variable (:type "int") (reparse-symbol arg-sub-list) [46068 46079])
+                    ("handle" variable (:type "long") (reparse-symbol arg-sub-list) [46080 46092]))                  
+                :type "int")
+                nil [46043 46157])
+            ("SeekToXEx" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("offset" variable (:type "int") (reparse-symbol arg-sub-list) [46186 46197])
+                    ("handle" variable (:type "long") (reparse-symbol arg-sub-list) [46198 46210]))                  
+                :type "int")
+                nil [46159 46277])
+            ("CurOffset" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("offset" variable
+                       (:pointer 1
+                        :type "int")
+                        (reparse-symbol arg-sub-list) [46306 46318])
+                    ("handle" variable (:type "long") (reparse-symbol arg-sub-list) [46319 46331]))                  
+                :type "int")
+                nil [46279 46398])
+            ("CurOffsetEx" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("offset" variable
+                       (:pointer 1
+                        :type "int")
+                        (reparse-symbol arg-sub-list) [46429 46441])
+                    ("handle" variable (:type "long") (reparse-symbol arg-sub-list) [46442 46454]))                  
+                :type "int")
+                nil [46400 46523])
+            ("SetSpeed" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("speed" variable (:type "int") (reparse-symbol arg-sub-list) [46551 46561])
+                    ("handle" variable (:type "long") (reparse-symbol arg-sub-list) [46562 46574]))                  
+                :type "int")
+                nil [46525 46636])
+            ("NextFrame" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("handle" variable (:type "long") (reparse-symbol arg-sub-list) [46811 46823]))                  
+                :type "int")
+                nil [46784 46879])
+            ("OpenVoice" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("handle" variable (:type "long") (reparse-symbol arg-sub-list) [46908 46920]))                  
+                :type "int")
+                nil [46881 46976])
+            ("CloseVoice" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("handle" variable (:type "long") (reparse-symbol arg-sub-list) [47006 47018]))                  
+                :type "int")
+                nil [46978 47075])
+            ("ClosePlayback" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("handle" variable (:type "long") (reparse-symbol arg-sub-list) [47108 47120]))                  
+                :type "int")
+                nil [47077 47439])
+            ("ClosePlaybackEx" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("handle" variable (:type "long") (reparse-symbol arg-sub-list) [47474 47486]))                  
+                :type "int")
+                nil [47441 47579])
+            ("SetWinInfo" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("handle" variable (:type "long") (reparse-symbol arg-sub-list) [47609 47621])
+                    ("info" variable
+                       (:pointer 1
+                        :type ("sPreviewInfo" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [47622 47641]))                  
+                :type "int")
+                nil [47581 47699])
+            ("OpenSubDisplayEx" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("dstArea" variable
+                       (:pointer 1
+                        :type ("sPreviewInfo" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [47735 47757])
+                    ("replayHandle" variable (:type "long") (reparse-symbol arg-sub-list) [47758 47776])
+                    ("srcArea" variable
+                       (:pointer 1
+                        :type ("LM_Regionf" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [47777 47797]))                  
+                :type "int")
+                nil [47701 47878])
+            ("SetSubVideoDisplayRegionEx" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("newSrcArea" variable
+                       (:pointer 1
+                        :type ("LM_Regionf" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [47924 47947])
+                    ("replayHandle" variable (:type "long") (reparse-symbol arg-sub-list) [47948 47966]))                  
+                :type "int")
+                nil [47880 48050])
+            ("CloseSubDisplayEx" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("replayHandle" variable (:type "long") (reparse-symbol arg-sub-list) [48087 48105]))                  
+                :type "int")
+                nil [48052 48166])
+            ("BondChannelID" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("channelID" variable
+                       (:pointer 1
+                        :type ("std::vector" type
+                             (:template-specifier 
+                                ( ("int" type nil nil nil))                                
+                              :type "class")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [48200 48228]))                  
+                :type "void")
+                nil [48168 48379])
+            ("RecordPlan" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("channelID" variable (:type "int") (reparse-symbol arg-sub-list) [48409 48423])
+                    ("plan" variable
+                       (:pointer 1
+                        :type ("sRecordConfigPlan" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [48424 48448]))                  
+                :type "int")
+                nil [48381 48889])
+            ("SetRecordPlan" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("channelID" variable (:type "int") (reparse-symbol arg-sub-list) [48922 48936])
+                    ("plan" variable
+                       (:pointer 1
+                        :type ("sRecordConfigPlan" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [48937 48961]))                  
+                :type "int")
+                nil [48891 49029])
+            ("SnapPlan" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("channelID" variable (:type "int") (reparse-symbol arg-sub-list) [49057 49071])
+                    ("plan" variable
+                       (:pointer 1
+                        :type ("sSnapConfigPlan" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [49072 49094]))                  
+                :type "int")
+                nil [49031 49518])
+            ("SetSnapPlan" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("channelID" variable (:type "int") (reparse-symbol arg-sub-list) [49549 49563])
+                    ("plan" variable
+                       (:pointer 1
+                        :type ("sSnapConfigPlan" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [49565 49587]))                  
+                :type "int")
+                nil [49520 49653])
+            ("SnapCfg" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("channelID" variable (:type "int") (reparse-symbol arg-sub-list) [49680 49694])
+                    ("cfg" variable
+                       (:pointer 1
+                        :type ("sSnapConfigNvr" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [49695 49715]))                  
+                :type "int")
+                nil [49655 49782])
+            ("SetSnapCfg" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("channelID" variable (:type "int") (reparse-symbol arg-sub-list) [49812 49826])
+                    ("cfg" variable
+                       (:pointer 1
+                        :type ("sSnapConfigNvr" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [49828 49848]))                  
+                :type "int")
+                nil [49784 49915])
+            ("HolidayCfg" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("holidayCfg" variable
+                       (:pointer 1
+                        :type ("std::vector" type
+                             (:template-specifier 
+                                ( ("sHolidayConfig" type nil nil nil))                                
+                              :type "class")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [49945 49985]))                  
+                :type "int")
+                nil [49917 50045])
+            ("SetHolidayCfg" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("info" variable
+                       (:pointer 1
+                        :type ("sHolidayConfig" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [50078 50099]))                  
+                :type "int")
+                nil [50047 50156])
+            ("OnlineChannelID" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("onlineChannelID" variable
+                       (:pointer 1
+                        :type ("std::vector" type
+                             (:template-specifier 
+                                ( ("int" type nil nil nil))                                
+                              :type "class")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [50192 50226]))                  
+                :type "void")
+                nil [50158 50389])
+            ("PTZEnableChannelID" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("enabledChannelID" variable
+                       (:pointer 1
+                        :type ("std::vector" type
+                             (:template-specifier 
+                                ( ("int" type nil nil nil))                                
+                              :type "class")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [50428 50463]))                  
+                :type "void")
+                nil [50391 50880])
+            ("PTZAddPreset" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("channelID" variable (:type "int") (reparse-symbol arg-sub-list) [50912 50926])
+                    ("name" variable (:type ("std::string" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [50927 50944]))                  
+                :type "int")
+                nil [50882 51052])
+            ("PTZDeletePreset" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("channelID" variable (:type "int") (reparse-symbol arg-sub-list) [51087 51101])
+                    ("token" variable (:type ("std::string" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [51102 51120]))                  
+                :type "int")
+                nil [51054 51201])
+            ("PTZAllPreset" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("channelID" variable (:type "int") (reparse-symbol arg-sub-list) [51233 51247])
+                    ("data" variable
+                       (:pointer 1
+                        :type ("std::vector" type
+                             (:template-specifier 
+                                ( ("sPTZPreset" type nil nil nil))                                
+                              :type "class")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [51248 51278]))                  
+                :type "int")
+                nil [51203 51448])
+            ("PTZGoToPreset" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("channelID" variable (:type "int") (reparse-symbol arg-sub-list) [51481 51495])
+                    ("token" variable (:type ("std::string" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [51496 51514]))                  
+                :type "int")
+                nil [51450 51593])
+            ("PTZUpdateToNowPosition" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("channelID" variable (:type "int") (reparse-symbol arg-sub-list) [51635 51649])
+                    ("token" variable (:type ("std::string" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [51650 51668])
+                    ("name" variable (:type ("std::string" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [51669 51686]))                  
+                :type "int")
+                nil [51595 51770])
+            ("PTZContinuousMove" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("channelID" variable (:type "int") (reparse-symbol arg-sub-list) [51807 51821])
+                    ("xSpeed" variable (:type "float") (reparse-symbol arg-sub-list) [51822 51835])
+                    ("ySpeed" variable (:type "float") (reparse-symbol arg-sub-list) [51836 51849])
+                    ("zoomSpeed" variable (:type "float") (reparse-symbol arg-sub-list) [51850 51866]))                  
+                :type "int")
+                nil [51772 51969])
+            ("PTZStop" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("channelID" variable (:type "int") (reparse-symbol arg-sub-list) [51996 52010]))                  
+                :type "int")
+                nil [51971 52076])
+            ("OSDInfo" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("options" variable
+                       (:pointer 1
+                        :type ("sIPCOSDTextOptions" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [52225 52253])
+                    ("curData" variable
+                       (:pointer 1
+                        :type ("std::vector" type
+                             (:template-specifier 
+                                ( ("sOSDText" type nil nil nil))                                
+                              :type "class")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [52254 52285])
+                    ("channelID" variable (:type "int") (reparse-symbol arg-sub-list) [52286 52300]))                  
+                :type "int")
+                nil [52200 56202])
+            ("SetOSD" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("data" variable
+                       (:pointer 1
+                        :type ("std::vector" type
+                             (:template-specifier 
+                                ( ("sOSDText" type nil nil nil))                                
+                              :type "class")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [56228 56256])
+                    ("channelID" variable (:type "int") (reparse-symbol arg-sub-list) [56257 56271]))                  
+                :type "int")
+                nil [56204 56344])
+            ("CoverEnableChannelID" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("channelID" variable
+                       (:pointer 1
+                        :type ("std::vector" type
+                             (:template-specifier 
+                                ( ("int" type nil nil nil))                                
+                              :type "class")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [56442 56470]))                  
+                :type "void")
+                nil [56403 56547])
+            ("CoverArea" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("cfg" variable
+                       (:pointer 1
+                        :type ("std::vector" type
+                             (:template-specifier 
+                                ( ("sEventArea" type nil nil nil))                                
+                              :type "class")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [56653 56682])
+                    ("channelID" variable (:type "int") (reparse-symbol arg-sub-list) [56683 56697]))                  
+                :type "int")
+                nil [56626 56852])
+            ("SetCoverArea" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("cfg" variable
+                       (:pointer 1
+                        :type ("std::vector" type
+                             (:template-specifier 
+                                ( ("sEventArea" type nil nil nil))                                
+                              :type "class")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [56884 56913])
+                    ("channelID" variable (:type "int") (reparse-symbol arg-sub-list) [56914 56928]))                  
+                :type "int")
+                nil [56854 56994])
+            ("AddChannel" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("info" variable
+                       (:pointer 1
+                        :type ("sAddChannel" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [57024 57042])
+                    ("channelID" variable (:type "int") (reparse-symbol arg-sub-list) [57043 57057]))                  
+                :type "int")
+                nil [56996 57116])
+            ("DelChannel" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("channelID" variable (:type "int") (reparse-symbol arg-sub-list) [57146 57160]))                  
+                :type "int")
+                nil [57118 57212])
+            ("RecoverDefaultCfg" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("channelID" variable (:type "int") (reparse-symbol arg-sub-list) [57249 57263]))                  
+                :type "int")
+                nil [57214 57318])
+            ("RetrievalChannel" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("result" variable
+                       (:pointer 1
+                        :type ("std::vector" type
+                             (:template-specifier 
+                                ( ("sProbe" type nil nil nil))                                
+                              :type "class")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [57354 57382]))                  
+                :type "int")
+                nil [57320 57539])
+            ("BondChannelInfo" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("info" variable
+                       (:pointer 1
+                        :type ("std::vector" type
+                             (:template-specifier 
+                                ( ("sBindChannel" type nil nil nil))                                
+                              :type "class")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [57574 57606]))                  
+                :type "int")
+                nil [57541 58511])
+            ("ChannelIsBond" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("channelID" variable (:type "int") (reparse-symbol arg-sub-list) [58545 58559]))                  
+                :type "bool")
+                nil [58513 58844])
+            ("ProbeAnaloyChannelCount" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("count" variable
+                       (:pointer 1
+                        :type "int")
+                        (reparse-symbol arg-sub-list) [58914 58925]))                  
+                :type "int")
+                nil [58873 59089])
+            ("ShowMainPreview" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("previewInfo" variable
+                       (:pointer 1
+                        :type ("std::vector" type
+                             (:template-specifier 
+                                ( ("sPreviewInfo" type nil nil nil))                                
+                              :type "class")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [59172 59211]))                  
+                :type "int")
+                nil [59139 59265])
+            ("PreviewCfgInfo" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("info" variable
+                       (:pointer 1
+                        :type ("previewCfg" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [59300 59317]))                  
+                :type "void")
+                nil [59267 59860])
+            ("WinStatusInfo" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("status" variable
+                       (:pointer 1
+                        :type ("winStatus" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [59893 59911])
+                    ("winID" variable (:type "int") (reparse-symbol arg-sub-list) [59912 59922]))                  
+                :type "int")
+                nil [59862 61185])
+            ("CloseVideoEx" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [61217 61222]))                  
+                :type "int")
+                nil [61187 61267])
+            ("ShowVideoEx" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("channelID" variable (:type "int") (reparse-symbol arg-sub-list) [61345 61359])
+                    ("previewInfo" variable
+                       (:pointer 1
+                        :type ("sPreviewInfo" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [61360 61386]))                  
+                :type "int")
+                nil [61316 61453])
+            ("OpenSpeak" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("winID" variable (:type "int") (reparse-symbol arg-sub-list) [61483 61493]))                  
+                :type "void")
+                nil [61455 61542])
+            ("CloseSpeak" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("winID" variable (:type "int") (reparse-symbol arg-sub-list) [61573 61583]))                  
+                :type "void")
+                nil [61544 61632])
+            ("SetMotionCfg" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("cfg" variable
+                       (:pointer 1
+                        :type ("sMotionCfg" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [61664 61680])
+                    ("channelID" variable (:type "int") (reparse-symbol arg-sub-list) [61681 61695]))                  
+                :type "int")
+                nil [61634 61952])
+            ("MotionCfg" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("cfg" variable
+                       (:pointer 1
+                        :type ("sMotionCfg" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [61981 61997])
+                    ("channelID" variable (:type "int") (reparse-symbol arg-sub-list) [61998 62012]))                  
+                :type "int")
+                nil [61954 62579])
+            ("ShelterCfg" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("cfg" variable
+                       (:pointer 1
+                        :type ("shelterCfg" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [62662 62678])
+                    ("channelID" variable (:type "int") (reparse-symbol arg-sub-list) [62679 62693]))                  
+                :type "int")
+                nil [62634 63655])
+            ("SetShelterCfg" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("cfg" variable
+                       (:pointer 1
+                        :type ("shelterCfg" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [63700 63716])
+                    ("channelID" variable (:type "int") (reparse-symbol arg-sub-list) [63717 63731]))                  
+                :type "int")
+                nil [63669 64099])
+            ("ModifyChannelCfg" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("info" variable
+                       (:pointer 1
+                        :type ("sModifyIPAndMask" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [64135 64158]))                  
+                :type "int")
+                nil [64101 64211])
+            ("DelUser" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("userID" variable (:type ("std::string" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [64238 64257]))                  
+                :type "int")
+                nil [64213 64303])
+            ("AddUser" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("info" variable
+                       (:pointer 1
+                        :type ("sUserMsg" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [64330 64345]))                  
+                :type "int")
+                nil [64305 64414])
+            ("VersionInfo" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [64449 64454]))                  
+                :type ("QString" type (:type "class") nil nil))
+                nil [64416 64661])
+            ("VideoCurCfg" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("channelID" variable (:type "int") (reparse-symbol arg-sub-list) [64700 64714])
+                    ("cur" variable
+                       (:pointer 1
+                        :type ("sIPCImageSettingsEx" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [64715 64740]))                  
+                :type "int")
+                nil [64671 64808])
+            ("SetVideoCfg" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("channelID" variable (:type "int") (reparse-symbol arg-sub-list) [64863 64877])
+                    ("cfg" variable
+                       (:pointer 1
+                        :type ("sIPCImageSettingsEx" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [64878 64903]))                  
+                :type "int")
+                nil [64834 64978])
+            ("SetVideoCfgWithLog" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("channelID" variable (:type "int") (reparse-symbol arg-sub-list) [65044 65058])
+                    ("cfg" variable
+                       (:pointer 1
+                        :type ("sIPCImageSettingsEx" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [65059 65084]))                  
+                :type "int")
+                nil [65008 65158])
+            ("SetChannelScreen" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("channelID" variable (:type "int") (reparse-symbol arg-sub-list) [65194 65208])
+                    ("screenID" variable (:type "int") (reparse-symbol arg-sub-list) [65209 65222]))                  
+                :type "int")
+                nil [65160 65301])
+            ("SetChannelScreenWithLog" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("channelID" variable (:type "int") (reparse-symbol arg-sub-list) [65344 65358])
+                    ("screenID" variable (:type "int") (reparse-symbol arg-sub-list) [65359 65372]))                  
+                :type "int")
+                nil [65303 65450])
+            ("WideDynamicCfg" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("channelID" variable (:type "int") (reparse-symbol arg-sub-list) [65575 65589])
+                    ("range" variable
+                       (:pointer 1
+                        :type ("sWideDynamicOption" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [65590 65616])
+                    ("cur" variable
+                       (:pointer 1
+                        :type ("sWideDynamicRange" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [65618 65641]))                  
+                :type "int")
+                nil [65543 66593])
+            ("SetWideDynamicCfg" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("channelID" variable (:type "int") (reparse-symbol arg-sub-list) [66630 66644])
+                    ("cfg" variable
+                       (:pointer 1
+                        :type ("sWideDynamicRange" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [66645 66668]))                  
+                :type "int")
+                nil [66595 66730])
+            ("LowLightCfg" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("channelID" variable (:type "int") (reparse-symbol arg-sub-list) [66761 66775])
+                    ("range" variable
+                       (:pointer 1
+                        :type ("sLowLightOption" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [66776 66799])
+                    ("cur" variable
+                       (:pointer 1
+                        :type ("sLowLight" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [66800 66815]))                  
+                :type "int")
+                nil [66732 67583])
+            ("SetLowLightCfg" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("channelID" variable (:type "int") (reparse-symbol arg-sub-list) [67617 67631])
+                    ("cfg" variable
+                       (:pointer 1
+                        :type ("sLowLight" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [67632 67647]))                  
+                :type "int")
+                nil [67585 67706])
+            ("MirrorFlipCfg" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("channelID" variable (:type "int") (reparse-symbol arg-sub-list) [67739 67753])
+                    ("range" variable
+                       (:pointer 1
+                        :type ("sMirrisOption" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [67754 67775])
+                    ("cur" variable
+                       (:pointer 1
+                        :type ("sMirris" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [67776 67789]))                  
+                :type "int")
+                nil [67708 68582])
+            ("SetMirrorFlipCfg" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("channelID" variable (:type "int") (reparse-symbol arg-sub-list) [68618 68632])
+                    ("cfg" variable
+                       (:pointer 1
+                        :type ("sMirris" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [68633 68646]))                  
+                :type "int")
+                nil [68584 68703])
+            ("RecordCfg" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("channelID" variable (:type "int") (reparse-symbol arg-sub-list) [68813 68827])
+                    ("cfg" variable
+                       (:pointer 1
+                        :type ("sVideoEncodeInfo" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [68828 68850]))                  
+                :type "int")
+                nil [68786 69391])
+            ("CheckRecordCfg" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("cfg" variable
+                       (:pointer 1
+                        :type ("sVideoEncodeInfo" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [69590 69612]))                  
+                :type "bool")
+                nil [69557 70912])
+            ("ProcessRecordCfgExternStreamType" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("cfg" variable
+                       (:pointer 1
+                        :type ("sVideoEncodeInfo" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [71019 71041]))                  
+                :type "void")
+                nil [70968 72014])
+            ("SortRecordCfg" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("cfg" variable
+                       (:pointer 1
+                        :type ("sVideoEncodeInfo" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [72129 72151]))                  
+                :type "void")
+                nil [72097 76371])
+            ("RevisedRecordCfg" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("cfg" variable
+                       (:pointer 1
+                        :type ("sVideoEncodeInfo" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [76462 76484]))                  
+                :type "void")
+                nil [76427 78292])
+            ("SetRecordCfg" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("channelID" variable (:type "int") (reparse-symbol arg-sub-list) [78381 78395])
+                    ("cfg" variable
+                       (:pointer 1
+                        :type ("sVideoEncodeInfo" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [78396 78418]))                  
+                :type "int")
+                nil [78351 78504])
+            ("ShowOnePreview" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("previewInfo" variable
+                       (:pointer 1
+                        :type ("sPreviewInfo" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [78538 78564]))                  
+                :type "int")
+                nil [78506 78678])
+            ("ShowRedArea" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("channelID" variable (:type "int") (reparse-symbol arg-sub-list) [78710 78724])
+                    ("area" variable
+                       (:dereference 1
+                        :type ("MOTION_DETECT_INFO" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [78725 78774])
+                    ("DrawOnSubDisplay" variable (:type "bool") (reparse-symbol arg-sub-list) [78775 78797]))                  
+                :type "void")
+                nil [78680 78908])
+            ("ShowRedAreaEx" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("area" variable
+                       (:dereference 1
+                        :type ("MOTION_DETECT_INFO" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [78941 78990])
+                    ("replayHandle" variable (:type "int") (reparse-symbol arg-sub-list) [78991 79008])
+                    ("DrawOnSubDisplay" variable (:type "bool") (reparse-symbol arg-sub-list) [79009 79031]))                  
+                :type "int")
+                nil [78910 79127])
+            ("CloseRedArea" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("channelID" variable (:type "int") (reparse-symbol arg-sub-list) [79160 79174]))                  
+                :type "void")
+                nil [79129 79268])
+            ("CloseRedAreaEx" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("replayHandle" variable (:type "int") (reparse-symbol arg-sub-list) [79302 79319]))                  
+                :type "int")
+                nil [79270 79398])
+            ("CloseOnePreview" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("winID" variable (:type "int") (reparse-symbol arg-sub-list) [79469 79479]))                  
+                :type "int")
+                nil [79436 79527])
+            ("CheckToolsAuthority" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("winID" variable (:type "int") (reparse-symbol arg-sub-list) [79567 79577])
+                    ("code" variable (:type "int") (reparse-symbol arg-sub-list) [79578 79587]))                  
+                :type "bool")
+                nil [79529 79734])
+            ("SnapByHand" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("winID" variable (:type "int") (reparse-symbol arg-sub-list) [79764 79774]))                  
+                :type "int")
+                nil [79736 79822])
+            ("WinIsBond" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("winID" variable (:type "int") (reparse-symbol arg-sub-list) [79852 79862]))                  
+                :type "bool")
+                nil [79824 80098])
+            ("WinIsOnline" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("winID" variable (:type "int") (reparse-symbol arg-sub-list) [80175 80185]))                  
+                :type "bool")
+                nil [80145 80421])
+            ("WinBondInfo" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("info" variable
+                       (:pointer 1
+                        :type ("std::vector" type
+                             (:template-specifier 
+                                ( ("sWinBindInfo" type nil nil nil))                                
+                              :type "class")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [80676 80708]))                  
+                :type "void")
+                nil [80646 81264])
+            ("SetWinBondCfg" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("cfg" variable
+                       (:pointer 1
+                        :type ("std::vector" type
+                             (:template-specifier 
+                                ( ("sWinBindInfo" type nil nil nil))                                
+                              :type "class")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [81444 81475]))                  
+                :type "int")
+                nil [81413 82238])
+            ("Record" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("winID" variable (:type "int") (reparse-symbol arg-sub-list) [82264 82274]))                  
+                :type "int")
+                nil [82240 82318])
+            ("OneKeyRecordStatus" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("recording" variable
+                       (:pointer 1
+                        :type "bool")
+                        (reparse-symbol arg-sub-list) [82357 82373]))                  
+                :type "void")
+                nil [82320 82492])
+            ("SetOneKeyRecord" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("record" variable (:type "bool") (reparse-symbol arg-sub-list) [82527 82539]))                  
+                :type "int")
+                nil [82494 82595])
+            ("IsAnaloyChannel" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("channelID" variable (:type "int") (reparse-symbol arg-sub-list) [82689 82703]))                  
+                :type "bool")
+                nil [82655 83152])
+            ("ChannelIDByWinID" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("winID" variable (:type "int") (reparse-symbol arg-sub-list) [83248 83258]))                  
+                :type "int")
+                nil [83214 83679])
+            ("WinIDByChannelID" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("channelID" variable (:type "int") (reparse-symbol arg-sub-list) [83715 83729]))                  
+                :type "int")
+                nil [83681 84171])
+            ("ChannelIsOnline" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("channeID" variable (:type "int") (reparse-symbol arg-sub-list) [84207 84220]))                  
+                :type "bool")
+                nil [84173 84494])
+            ("FreeChannelID" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [84527 84532]))                  
+                :type "int")
+                nil [84496 85273])
+            ("ClosePreview" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [85413 85418]))                  
+                :type "int")
+                nil [85383 85461])
+            ("SetPreScreenCount" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("newPreviewScreenCount" variable (:type "int") (reparse-symbol arg-sub-list) [85514 85540]))                  
+                :type "int")
+                nil [85479 85844])
+            ("SetCircularStatus" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("circular" variable (:type "bool") (reparse-symbol arg-sub-list) [85881 85895]))                  
+                :type "int")
+                nil [85846 85953])
+            ("DeleteFile" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("absolutionPath" variable (:type ("QString" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [85983 86006]))                  
+                :type "int")
+                nil [85955 86311])
+            ("MkDir" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("absolutionPath" variable (:type ("QString" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [86336 86359]))                  
+                :type "int")
+                nil [86313 86583])
+            ("OpenSubDisplay" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("dst" variable
+                       (:pointer 1
+                        :type ("screenInfo" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [86736 86752])
+                    ("srcChannelID" variable (:type "int") (reparse-symbol arg-sub-list) [86753 86770])
+                    ("srcRegion" variable
+                       (:pointer 1
+                        :type ("LM_Regionf" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [86771 86793]))                  
+                :type "int")
+                nil [86704 86963])
+            ("SetSubVideoDisplayRegion" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("winID" variable (:type "int") (reparse-symbol arg-sub-list) [87007 87017])
+                    ("srcRegion" variable
+                       (:pointer 1
+                        :type ("LM_Regionf" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [87018 87040]))                  
+                :type "int")
+                nil [86965 87341])
+            ("CloseSubDisplay" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("channelID" variable (:type "int") (reparse-symbol arg-sub-list) [87376 87390]))                  
+                :type "int")
+                nil [87343 87446])
+            ("ChannelIDIsLegal" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("channelID" variable (:type "int") (reparse-symbol arg-sub-list) [87483 87497]))                  
+                :type "bool")
+                nil [87448 87623])
+            ("PreviewInfoToPlaybackScreenInfo" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("previewInfo" variable
+                       (:pointer 1
+                        :type ("sPreviewInfo" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [87675 87701])
+                    ("screenInfo" variable
+                       (:pointer 1
+                        :type ("playbackScreenInfo" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [87702 87733]))                  
+                :type "void")
+                nil [87625 88035])
+            ("DiskInfoIsLegal" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("data" variable
+                       (:pointer 1
+                        :type ("sDISK_INFO" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [88071 88088]))                  
+                :type "bool")
+                nil [88037 88676])
+            ("RetrievalBondScreenIndex" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("cfg" variable
+                       (:pointer 1
+                        :type ("sPreScreenInfo" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [88974 88994])
+                    ("trievalMode" variable (:type ("retrievalBondScreenMode" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [88995 89031]))                  
+                :type "void")
+                nil [88931 90801])
+            ("ScreensIsBond" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("cfg" variable
+                       (:pointer 1
+                        :type ("sPreScreenInfo" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [90859 90879]))                  
+                :type "bool")
+                nil [90827 91072])
+            ("WinIDsIsBond" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("winsID" variable
+                       (:pointer 1
+                        :type ("std::vector" type
+                             (:template-specifier 
+                                ( ("int" type nil nil nil))                                
+                              :type "class")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [91106 91131]))                  
+                :type "bool")
+                nil [91075 91300])
+            ("FishEyeMode" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("mode" variable
+                       (:pointer 1
+                        :type ("eFishEyeMode" type (:type "enum") nil nil))
+                        (reparse-symbol arg-sub-list) [91331 91355])
+                    ("channelID" variable (:type "int") (reparse-symbol arg-sub-list) [91356 91370]))                  
+                :type "int")
+                nil [91302 91433])
+            ("SetFishEyeMode" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("channelID" variable (:type "int") (reparse-symbol arg-sub-list) [91467 91481])
+                    ("mode" variable (:type ("eFishEyeMode" type (:type "enum") nil nil)) (reparse-symbol arg-sub-list) [91482 91505]))                  
+                :type "int")
+                nil [91435 91567])
+            ("FishEyeCircle" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("x" variable
+                       (:dereference 1
+                        :type "float")
+                        (reparse-symbol arg-sub-list) [91600 91611])
+                    ("y" variable
+                       (:dereference 1
+                        :type "float")
+                        (reparse-symbol arg-sub-list) [91612 91623])
+                    ("channelID" variable (:type "int") (reparse-symbol arg-sub-list) [91624 91638]))                  
+                :type "int")
+                nil [91569 91702])
+            ("SetFishEyeCircle" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("channelID" variable (:type "int") (reparse-symbol arg-sub-list) [91738 91752])
+                    ("x" variable
+                       (:dereference 1
+                        :type "float")
+                        (reparse-symbol arg-sub-list) [91753 91764])
+                    ("y" variable
+                       (:dereference 1
+                        :type "float")
+                        (reparse-symbol arg-sub-list) [91765 91776]))                  
+                :type "int")
+                nil [91704 91840])
+            ("FishEyeShowThumb" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("showing" variable
+                       (:pointer 1
+                        :type "bool")
+                        (reparse-symbol arg-sub-list) [91876 91890])
+                    ("channelID" variable (:type "int") (reparse-symbol arg-sub-list) [91891 91905]))                  
+                :type "int")
+                nil [91842 91976])
+            ("SetFishEyeShowThumb" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("channelID" variable (:type "int") (reparse-symbol arg-sub-list) [92015 92029])
+                    ("showing" variable (:type "bool") (reparse-symbol arg-sub-list) [92030 92043]))                  
+                :type "int")
+                nil [91978 92113])
+            ("FishEyeViewID" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("viewID" variable
+                       (:pointer 1
+                        :type "int")
+                        (reparse-symbol arg-sub-list) [92146 92158])
+                    ("channelID" variable (:type "int") (reparse-symbol arg-sub-list) [92159 92173])
+                    ("x" variable (:type "float") (reparse-symbol arg-sub-list) [92174 92182])
+                    ("y" variable (:type "float") (reparse-symbol arg-sub-list) [92183 92191]))                  
+                :type "int")
+                nil [92115 92264])
+            ("FishEyePTZ" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("channelID" variable (:type "int") (reparse-symbol arg-sub-list) [92294 92308])
+                    ("viewID" variable (:type "int") (reparse-symbol arg-sub-list) [92309 92320])
+                    ("x" variable (:type "float") (reparse-symbol arg-sub-list) [92321 92329])
+                    ("y" variable (:type "float") (reparse-symbol arg-sub-list) [92330 92338]))                  
+                :type "int")
+                nil [92266 92404])
+            ("ReplayFishEyeMode" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("mode" variable
+                       (:pointer 1
+                        :type ("eFishEyeMode" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [92441 92460])
+                    ("handle" variable (:type "long") (reparse-symbol arg-sub-list) [92461 92473]))                  
+                :type "int")
+                nil [92406 92541])
+            ("ReplaySetFishEyeMode" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("handle" variable (:type "long") (reparse-symbol arg-sub-list) [92581 92593])
+                    ("mode" variable (:type ("eFishEyeMode" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [92594 92612]))                  
+                :type "int")
+                nil [92543 92679])
+            ("ReplayFishEyeCircle" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("x" variable
+                       (:dereference 1
+                        :type "float")
+                        (reparse-symbol arg-sub-list) [92718 92729])
+                    ("y" variable
+                       (:dereference 1
+                        :type "float")
+                        (reparse-symbol arg-sub-list) [92730 92741])
+                    ("handle" variable (:type "long") (reparse-symbol arg-sub-list) [92742 92754]))                  
+                :type "int")
+                nil [92681 92823])
+            ("ReplaySetFishEyeCircle" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("handle" variable (:type "long") (reparse-symbol arg-sub-list) [92865 92877])
+                    ("x" variable
+                       (:dereference 1
+                        :type "float")
+                        (reparse-symbol arg-sub-list) [92878 92889])
+                    ("y" variable
+                       (:dereference 1
+                        :type "float")
+                        (reparse-symbol arg-sub-list) [92890 92901]))                  
+                :type "int")
+                nil [92825 92970])
+            ("ReplayFishEyeViewID" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("viewID" variable
+                       (:pointer 1
+                        :type "int")
+                        (reparse-symbol arg-sub-list) [93316 93328])
+                    ("handle" variable (:type "long") (reparse-symbol arg-sub-list) [93329 93341])
+                    ("x" variable (:type "float") (reparse-symbol arg-sub-list) [93342 93350])
+                    ("y" variable (:type "float") (reparse-symbol arg-sub-list) [93351 93359]))                  
+                :type "int")
+                nil [93279 93438])
+            ("ReplayFishEyePTZ" function
+               (:parent "Server_Data"
+                :arguments 
+                  ( ("handle" variable (:type "long") (reparse-symbol arg-sub-list) [93474 93486])
+                    ("viewID" variable (:type "int") (reparse-symbol arg-sub-list) [93487 93498])
+                    ("x" variable (:type "float") (reparse-symbol arg-sub-list) [93499 93507])
+                    ("y" variable (:type "float") (reparse-symbol arg-sub-list) [93508 93516]))                  
+                :type "int")
+                nil [93440 93588]))          
+      :file "Service_Data.cpp"
+      :pointmax 93589
+      :fsize 100260
+      :lastmodtime '(21964 20564 830985 810000)
+      :unmatched-syntax nil))
+  :file "!home!chz!NVR!Code!softwareEx!gui!server!src!semantic.cache"
+  :semantic-tag-version "2.0"
+  :semanticdb-version "2.2")

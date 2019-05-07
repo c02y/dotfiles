@@ -1,0 +1,660 @@
+;; Object asm/
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "asm/"
+  :tables (list 
+   (semanticdb-table "cache.h"
+    :major-mode 'c-mode
+    :tags 
+        '( ("__ASMARM_CACHE_H" variable (:constant-flag t) nil [74 90])
+            ("L1_CACHE_SHIFT" variable (:constant-flag t) nil [100 114])
+            ("L1_CACHE_BYTES" variable (:constant-flag t) nil [150 164])
+            ("ARCH_DMA_MINALIGN" variable (:constant-flag t) nil [486 503])
+            ("__read_mostly" variable (:constant-flag t) nil [702 715]))          
+    :file "cache.h"
+    :pointmax 775
+    :fsize 774
+    :lastmodtime '(21468 8885 41980 318000)
+    :unmatched-syntax 'nil
+    :lexical-table 
+        '(("__ASMARM_CACHE_H")
+          ("__read_mostly" . ((symbol "__attribute__" 716 . 729) (semantic-list "((__section__(\".data..read_mostly\")))" 729 . 766)))
+          ("L1_CACHE_BYTES" . ((semantic-list "(1 << L1_CACHE_SHIFT)" 166 . 187)))
+          ("ARCH_DMA_MINALIGN" . ((symbol "L1_CACHE_BYTES" 504 . 518)))
+          ("L1_CACHE_SHIFT" . ((symbol "CONFIG_ARM_L1_CACHE_SHIFT" 116 . 141)))
+          )
+
+    )
+   (semanticdb-table "current.h"
+    :major-mode 'c-mode
+    :tags 
+        '( ("_ASMARM_CURRENT_H" variable (:constant-flag t) nil [35 52])
+            ("linux/thread_info.h" include (:system-flag t) nil [54 84])
+            ("get_current" function
+               (:prototype-flag t
+                :pointer 1
+                :typemodifiers ("static" "inline")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [132 137]))                  
+                :type ("task_struct" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [86 158])
+            ("get_current" function
+               (:pointer 1
+                :typemodifiers ("static" "inline")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [206 211]))                  
+                :type ("task_struct" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [160 252])
+            ("current" variable (:constant-flag t) nil [262 269]))          
+    :file "current.h"
+    :pointmax 318
+    :fsize 317
+    :lastmodtime '(21468 8885 95979 40000)
+    :unmatched-syntax 'nil
+    :lexical-table 
+        '(("_ASMARM_CURRENT_H")
+          ("current" . ((semantic-list "(get_current())" 270 . 285)))
+          )
+
+    )
+   (semanticdb-table "string.h"
+    :major-mode 'c-mode
+    :tags 
+        '( ("__ASM_ARM_STRING_H" variable (:constant-flag t) nil [36 54])
+            ("__HAVE_ARCH_STRRCHR" variable (:constant-flag t) nil [170 189])
+            ("strrchr" function
+               (:prototype-flag t
+                :pointer 1
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("s" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [212 227])
+                    ("c" variable (:type "int") (reparse-symbol arg-sub-list) [228 234]))                  
+                :type "char")
+                nil [190 235])
+            ("__HAVE_ARCH_STRCHR" variable (:constant-flag t) nil [245 263])
+            ("strchr" function
+               (:prototype-flag t
+                :pointer 1
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("s" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [285 300])
+                    ("c" variable (:type "int") (reparse-symbol arg-sub-list) [301 307]))                  
+                :type "char")
+                nil [264 308])
+            ("__HAVE_ARCH_MEMCPY" variable (:constant-flag t) nil [318 336])
+            ("memcpy" function
+               (:prototype-flag t
+                :pointer 1
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("" variable
+                       (:pointer 1
+                        :type "void")
+                        (reparse-symbol arg-sub-list) [358 365])
+                    ("" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "void")
+                        (reparse-symbol arg-sub-list) [366 379])
+                    ("" variable (:type ("__kernel_size_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [380 396]))                  
+                :type "void")
+                nil [337 397])
+            ("__HAVE_ARCH_MEMMOVE" variable (:constant-flag t) nil [407 426])
+            ("memmove" function
+               (:prototype-flag t
+                :pointer 1
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("" variable
+                       (:pointer 1
+                        :type "void")
+                        (reparse-symbol arg-sub-list) [449 456])
+                    ("" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "void")
+                        (reparse-symbol arg-sub-list) [457 470])
+                    ("" variable (:type ("__kernel_size_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [471 487]))                  
+                :type "void")
+                nil [427 488])
+            ("__HAVE_ARCH_MEMCHR" variable (:constant-flag t) nil [498 516])
+            ("memchr" function
+               (:prototype-flag t
+                :pointer 1
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "void")
+                        (reparse-symbol arg-sub-list) [538 551])
+                    ("" variable (:type "int") (reparse-symbol arg-sub-list) [552 556])
+                    ("" variable (:type ("__kernel_size_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [557 573]))                  
+                :type "void")
+                nil [517 574])
+            ("__HAVE_ARCH_MEMSET" variable (:constant-flag t) nil [584 602])
+            ("memset" function
+               (:prototype-flag t
+                :pointer 1
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("" variable
+                       (:pointer 1
+                        :type "void")
+                        (reparse-symbol arg-sub-list) [624 631])
+                    ("" variable (:type "int") (reparse-symbol arg-sub-list) [632 636])
+                    ("" variable (:type ("__kernel_size_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [637 653]))                  
+                :type "void")
+                nil [603 654])
+            ("__memzero" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("ptr" variable
+                       (:pointer 1
+                        :type "void")
+                        (reparse-symbol arg-sub-list) [678 688])
+                    ("n" variable (:type ("__kernel_size_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [689 707]))                  
+                :type "void")
+                nil [656 708])
+            ("memset" variable (:constant-flag t) nil [718 724]))          
+    :file "string.h"
+    :pointmax 987
+    :fsize 986
+    :lastmodtime '(21468 8885 646965 994000)
+    :unmatched-syntax 'nil
+    :lexical-table 
+        '(("__ASM_ARM_STRING_H")
+          ("memset" (spp-arg-list ("p" "v" "n") 724 . 731) . ((semantic-list "({								\\
+	 	void *__p = (p); size_t __n = n;			\\
+		if ((__n) != 0) {					\\
+			if (__builtin_constant_p((v)) && (v) == 0)	\\
+				__memzero((__p),(__n));			\\
+			else						\\
+				memset((__p),(v),(__n));		\\
+		}							\\
+		(__p);							\\
+	})" 741 . 978)))
+          ("__HAVE_ARCH_MEMSET")
+          ("__HAVE_ARCH_STRRCHR")
+          ("__HAVE_ARCH_MEMMOVE")
+          ("__HAVE_ARCH_STRCHR")
+          ("__HAVE_ARCH_MEMCHR")
+          ("__HAVE_ARCH_MEMCPY")
+          )
+
+    )
+   (semanticdb-table "system.h"
+    :major-mode 'c-mode
+    :tags 
+        '( ("__ASM_ARM_SYSTEM_H" variable (:constant-flag t) nil [36 54])
+            ("CPU_ARCH_UNKNOWN" variable (:constant-flag t) nil [83 99])
+            ("CPU_ARCH_ARMv3" variable (:constant-flag t) nil [110 124])
+            ("CPU_ARCH_ARMv4" variable (:constant-flag t) nil [136 150])
+            ("CPU_ARCH_ARMv4T" variable (:constant-flag t) nil [162 177])
+            ("CPU_ARCH_ARMv5" variable (:constant-flag t) nil [189 203])
+            ("CPU_ARCH_ARMv5T" variable (:constant-flag t) nil [215 230])
+            ("CPU_ARCH_ARMv5TE" variable (:constant-flag t) nil [242 258])
+            ("CPU_ARCH_ARMv5TEJ" variable (:constant-flag t) nil [269 286])
+            ("CPU_ARCH_ARMv6" variable (:constant-flag t) nil [297 311])
+            ("CPU_ARCH_ARMv7" variable (:constant-flag t) nil [323 337])
+            ("CR_M" variable (:constant-flag t) nil [381 385])
+            ("CR_A" variable (:constant-flag t) nil [423 427])
+            ("CR_C" variable (:constant-flag t) nil [475 479])
+            ("CR_W" variable (:constant-flag t) nil [519 523])
+            ("CR_P" variable (:constant-flag t) nil [569 573])
+            ("CR_D" variable (:constant-flag t) nil [623 627])
+            ("CR_L" variable (:constant-flag t) nil [678 682])
+            ("CR_B" variable (:constant-flag t) nil [730 734])
+            ("CR_S" variable (:constant-flag t) nil [772 776])
+            ("CR_R" variable (:constant-flag t) nil [823 827])
+            ("CR_F" variable (:constant-flag t) nil [872 876])
+            ("CR_Z" variable (:constant-flag t) nil [925 929])
+            ("CR_I" variable (:constant-flag t) nil [978 982])
+            ("CR_V" variable (:constant-flag t) nil [1023 1027])
+            ("CR_RR" variable (:constant-flag t) nil [1084 1089])
+            ("CR_L4" variable (:constant-flag t) nil [1144 1149])
+            ("CR_DT" variable (:constant-flag t) nil [1197 1202])
+            ("CR_IT" variable (:constant-flag t) nil [1221 1226])
+            ("CR_ST" variable (:constant-flag t) nil [1245 1250])
+            ("CR_FI" variable (:constant-flag t) nil [1269 1274])
+            ("CR_U" variable (:constant-flag t) nil [1335 1339])
+            ("CR_XP" variable (:constant-flag t) nil [1392 1397])
+            ("CR_VE" variable (:constant-flag t) nil [1445 1450])
+            ("CR_EE" variable (:constant-flag t) nil [1497 1502])
+            ("CR_TRE" variable (:constant-flag t) nil [1551 1557])
+            ("CR_AFE" variable (:constant-flag t) nil [1601 1607])
+            ("CR_TE" variable (:constant-flag t) nil [1653 1658])
+            ("__asmeq" variable (:constant-flag t) nil [2100 2107])
+            ("linux/linkage.h" include (:system-flag t) nil [2178 2204])
+            ("linux/irqflags.h" include (:system-flag t) nil [2205 2232])
+            ("asm/outercache.h" include (:system-flag t) nil [2234 2261])
+            ("__exception" variable (:constant-flag t) nil [2271 2282])
+            ("__exception_irq_entry" variable (:constant-flag t) nil [2419 2440])
+            ("thread_info" type
+               (:prototype t
+                :type "struct")
+                nil [2461 2480])
+            ("task_struct" type
+               (:prototype t
+                :type "struct")
+                nil [2481 2500])
+            ("system_rev" variable
+               (:typemodifiers ("extern")
+                :type "unsigned int")
+                nil [2554 2585])
+            ("system_serial_low" variable
+               (:typemodifiers ("extern")
+                :type "unsigned int")
+                nil [2586 2624])
+            ("system_serial_high" variable
+               (:typemodifiers ("extern")
+                :type "unsigned int")
+                nil [2625 2664])
+            ("mem_fclk_21285" variable
+               (:typemodifiers ("extern")
+                :type "unsigned int")
+                nil [2665 2700])
+            ("pt_regs" type
+               (:prototype t
+                :type "struct")
+                nil [2702 2717])
+            ("die" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("msg" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [2728 2744])
+                    ("regs" variable
+                       (:pointer 1
+                        :type ("pt_regs" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [2745 2766])
+                    ("err" variable (:type "int") (reparse-symbol arg-sub-list) [2767 2775]))                  
+                :type "void")
+                nil [2719 2776])
+            ("siginfo" type
+               (:prototype t
+                :type "struct")
+                nil [2778 2793])
+            ("arm_notify_die" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("str" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [2814 2830])
+                    ("regs" variable
+                       (:pointer 1
+                        :type ("pt_regs" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [2831 2852])
+                    ("info" variable
+                       (:pointer 1
+                        :type ("siginfo" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [2853 2874])
+                    ("err" variable (:type "unsigned long") (reparse-symbol arg-sub-list) [2877 2895])
+                    ("trap" variable (:type "unsigned long") (reparse-symbol arg-sub-list) [2896 2915]))                  
+                :type "void")
+                nil [2794 2916])
+            ("hook_fault_code" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("nr" variable (:type "int") (reparse-symbol arg-sub-list) [2939 2946])
+                    ("" variable (:type "int") (reparse-symbol arg-sub-list) [2947 2956])
+                    ("sig" variable (:type "int") (reparse-symbol arg-sub-list) [3023 3031])
+                    ("code" variable (:type "int") (reparse-symbol arg-sub-list) [3032 3041])
+                    ("name" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [3042 3059]))                  
+                :type "void")
+                nil [2918 3060])
+            ("hook_ifault_code" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("nr" variable (:type "int") (reparse-symbol arg-sub-list) [3084 3091])
+                    ("" variable (:type "int") (reparse-symbol arg-sub-list) [3092 3101])
+                    ("sig" variable (:type "int") (reparse-symbol arg-sub-list) [3168 3176])
+                    ("code" variable (:type "int") (reparse-symbol arg-sub-list) [3177 3186])
+                    ("name" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [3187 3204]))                  
+                :type "void")
+                nil [3062 3205])
+            ("xchg" variable (:constant-flag t) nil [3215 3219])
+            ("__backtrace" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [3336 3341]))                  
+                :type "void")
+                nil [3319 3342])
+            ("c_backtrace" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("fp" variable (:type "unsigned long") (reparse-symbol arg-sub-list) [3378 3395])
+                    ("pmode" variable (:type "int") (reparse-symbol arg-sub-list) [3396 3406]))                  
+                :type "void")
+                nil [3361 3407])
+            ("mm_struct" type
+               (:prototype t
+                :type "struct")
+                nil [3409 3426])
+            ("show_pte" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("mm" variable
+                       (:pointer 1
+                        :type ("mm_struct" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [3448 3469])
+                    ("addr" variable (:type "unsigned long") (reparse-symbol arg-sub-list) [3470 3489]))                  
+                :type "void")
+                nil [3427 3490])
+            ("__show_regs" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("" variable
+                       (:pointer 1
+                        :type ("pt_regs" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [3515 3532]))                  
+                :type "void")
+                nil [3491 3533])
+            ("cpu_architecture" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [3563 3568]))                  
+                :type "int")
+                nil [3535 3569])
+            ("cpu_init" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [3591 3596]))                  
+                :type "void")
+                nil [3570 3597])
+            ("arm_machine_restart" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("mode" variable (:type "char") (reparse-symbol arg-sub-list) [3624 3634])
+                    ("cmd" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [3635 3651]))                  
+                :type "void")
+                nil [3599 3652])
+            ("arm_pm_restart" variable
+               (:functionpointer-flag t
+                :type "void")
+                nil [3653 3710])
+            ("UDBG_UNDEFINED" variable (:constant-flag t) nil [3720 3734])
+            ("UDBG_SYSCALL" variable (:constant-flag t) nil [3752 3764])
+            ("UDBG_BADABORT" variable (:constant-flag t) nil [3782 3795])
+            ("UDBG_SEGV" variable (:constant-flag t) nil [3813 3822])
+            ("UDBG_BUS" variable (:constant-flag t) nil [3840 3848])
+            ("user_debug" variable
+               (:typemodifiers ("extern")
+                :type "unsigned int")
+                nil [3859 3890])
+            ("vectors_high" variable (:constant-flag t) nil [3979 3991])
+            ("isb" variable (:constant-flag t) nil [5132 5135])
+            ("dsb" variable (:constant-flag t) nil [5187 5190])
+            ("dmb" variable (:constant-flag t) nil [5286 5289])
+            ("asm/memory.h" include (:system-flag t) nil [5567 5590])
+            ("mb" variable (:constant-flag t) nil [5599 5601])
+            ("rmb" variable (:constant-flag t) nil [5676 5679])
+            ("wmb" variable (:constant-flag t) nil [5754 5757])
+            ("smp_mb" variable (:constant-flag t) nil [5859 5865])
+            ("smp_rmb" variable (:constant-flag t) nil [5886 5893])
+            ("smp_wmb" variable (:constant-flag t) nil [5914 5921])
+            ("read_barrier_depends" variable (:constant-flag t) nil [6027 6047])
+            ("smp_read_barrier_depends" variable (:constant-flag t) nil [6075 6099])
+            ("set_mb" variable (:constant-flag t) nil [6127 6133])
+            ("nop" variable (:constant-flag t) nil [6194 6197])
+            ("cr_no_alignment" variable
+               (:typemodifiers ("extern")
+                :type "unsigned long")
+                nil [6248 6285])
+            ("cr_alignment" variable
+               (:typemodifiers ("extern")
+                :type "unsigned long")
+                nil [6316 6350])
+            ("get_cr" function
+               (:typemodifiers ("static" "inline")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [6416 6421]))                  
+                :type "unsigned int")
+                nil [6382 6523])
+            ("set_cr" function
+               (:typemodifiers ("static" "inline")
+                :arguments 
+                  ( ("val" variable (:type "unsigned int") (reparse-symbol arg-sub-list) [6551 6568]))                  
+                :type "void")
+                nil [6525 6657])
+            ("adjust_cr" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("mask" variable (:type "unsigned long") (reparse-symbol arg-sub-list) [6700 6719])
+                    ("set" variable (:type "unsigned long") (reparse-symbol arg-sub-list) [6720 6738]))                  
+                :type "void")
+                nil [6678 6739])
+            ("CPACC_FULL" variable (:constant-flag t) nil [6756 6766])
+            ("CPACC_SVC" variable (:constant-flag t) nil [6794 6803])
+            ("CPACC_DISABLE" variable (:constant-flag t) nil [6831 6844])
+            ("get_copro_access" function
+               (:typemodifiers ("static" "inline")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [6908 6913]))                  
+                :type "unsigned int")
+                nil [6864 7028])
+            ("set_copro_access" function
+               (:typemodifiers ("static" "inline")
+                :arguments 
+                  ( ("val" variable (:type "unsigned int") (reparse-symbol arg-sub-list) [7066 7083]))                  
+                :type "void")
+                nil [7030 7182])
+            ("__ARCH_WANT_INTERRUPTS_ON_CTXSW" variable (:constant-flag t) nil [7339 7370])
+            ("__switch_to" function
+               (:prototype-flag t
+                :pointer 1
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("" variable
+                       (:pointer 1
+                        :type ("task_struct" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [7614 7635])
+                    ("" variable
+                       (:pointer 1
+                        :type ("thread_info" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [7636 7657])
+                    ("" variable
+                       (:pointer 1
+                        :type ("thread_info" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [7658 7679]))                  
+                :type ("task_struct" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [7575 7680])
+            ("switch_to" variable (:constant-flag t) nil [7690 7699])
+            ("__xchg" function
+               (:typemodifiers ("static" "inline")
+                :arguments 
+                  ( ("x" variable (:type "unsigned long") (reparse-symbol arg-sub-list) [8604 8620])
+                    ("ptr" variable
+                       (:pointer 1
+                        :typemodifiers ("volatile")
+                        :type "void")
+                        (reparse-symbol arg-sub-list) [8621 8640])
+                    ("size" variable (:type "int") (reparse-symbol arg-sub-list) [8641 8650]))                  
+                :type "unsigned long")
+                nil [8569 10062])
+            ("disable_hlt" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [10088 10093]))                  
+                :type "void")
+                nil [10064 10094])
+            ("enable_hlt" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [10118 10123]))                  
+                :type "void")
+                nil [10095 10124])
+            ("cpu_idle_wait" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [10145 10150]))                  
+                :type "void")
+                nil [10126 10151])
+            ("asm-generic/cmpxchg-local.h" include (:system-flag t) nil [10153 10191])
+            ("cmpxchg_local" variable (:constant-flag t) nil [10428 10441])
+            ("cmpxchg64_local" variable (:constant-flag t) nil [10590 10605])
+            ("asm-generic/cmpxchg.h" include (:system-flag t) nil [10680 10712])
+            ("arch_align_stack" variable (:constant-flag t) nil [14451 14467]))          
+    :file "system.h"
+    :pointmax 14508
+    :fsize 14507
+    :lastmodtime '(21468 8885 668965 474000)
+    :unmatched-syntax '((symbol 3350 . 3360) (EXTERN 3343 . 3349) (symbol 3308 . 3318) (EXTERN 3301 . 3307) (semantic-list 3101 . 3159) (semantic-list 3096 . 3101) (semantic-list 2956 . 3014) (semantic-list 2951 . 2956))
+    :lexical-table 
+        '(("CR_C" . ((semantic-list "(1 << 2)" 480 . 488)))
+          ("CR_P" . ((semantic-list "(1 << 4)" 574 . 582)))
+          ("CR_XP" . ((semantic-list "(1 << 23)" 1398 . 1407)))
+          ("CR_TRE" . ((semantic-list "(1 << 28)" 1558 . 1567)))
+          ("__ASM_ARM_SYSTEM_H")
+          ("CR_D" . ((semantic-list "(1 << 5)" 628 . 636)))
+          ("CR_L4" . ((semantic-list "(1 << 15)" 1150 . 1159)))
+          ("CR_AFE" . ((semantic-list "(1 << 29)" 1608 . 1617)))
+          ("UDBG_UNDEFINED" . ((semantic-list "(1 << 0)" 3735 . 3743)))
+          ("UDBG_SEGV" . ((semantic-list "(1 << 3)" 3823 . 3831)))
+          ("wmb" (spp-arg-list nil 5757 . 5759) . 
+              ((DO "do" 5760 . 5762) (semantic-list "{ if (arch_is_coherent()) dmb(); else barrier(); }" 5763 . 5813) (WHILE "while" 5814 . 5819) (semantic-list "(0)" 5820 . 5823)))
+          ("smp_rmb" (spp-arg-list nil 5893 . 5895) . ((symbol "barrier" 5896 . 5903) (semantic-list "()" 5903 . 5905)))
+          ("read_barrier_depends" (spp-arg-list nil 6047 . 6049) . 
+              ((DO "do" 6051 . 6053) (semantic-list "{ }" 6054 . 6057) (WHILE "while" 6058 . 6063) (semantic-list "(0)" 6063 . 6066)))
+          ("cmpxchg64_local" (spp-arg-list ("ptr" "o" "n") 10605 . 10616) . ((symbol "__cmpxchg64_local_generic" 10617 . 10642) (semantic-list "((ptr), (o), (n))" 10642 . 10659)))
+          ("CR_R" . ((semantic-list "(1 << 9)" 828 . 836)))
+          ("CR_ST" . ((semantic-list "(1 << 19)" 1251 . 1260)))
+          ("CPACC_SVC" (spp-arg-list ("n") 6803 . 6806) . ((semantic-list "(1 << (n * 2))" 6808 . 6822)))
+          ("CR_S" . ((semantic-list "(1 << 8)" 777 . 785)))
+          ("CR_F" . ((semantic-list "(1 << 10)" 877 . 886)))
+          ("CR_TE" . ((semantic-list "(1 << 30)" 1659 . 1668)))
+          ("UDBG_SYSCALL" . ((semantic-list "(1 << 1)" 3765 . 3773)))
+          ("UDBG_BADABORT" . ((semantic-list "(1 << 2)" 3796 . 3804)))
+          ("CPACC_FULL" (spp-arg-list ("n") 6766 . 6769) . ((semantic-list "(3 << (n * 2))" 6771 . 6785)))
+          ("CR_FI" . ((semantic-list "(1 << 21)" 1275 . 1284)))
+          ("dsb" (spp-arg-list nil 5190 . 5192) . 
+              ((symbol "__asm__" 5193 . 5200) (symbol "__volatile__" 5201 . 5213) (semantic-list "(\"mcr p15, 0, %0, c7, c10, 4\" \\
+				    : : \"r\" (0) : \"memory\")" 5214 . 5277)))
+          ("set_mb" (spp-arg-list ("var" "value") 6133 . 6145) . 
+              ((DO "do" 6146 . 6148) (semantic-list "{ var = value; smp_mb(); }" 6149 . 6175) (WHILE "while" 6176 . 6181) (semantic-list "(0)" 6182 . 6185)))
+          ("switch_to" (spp-arg-list ("prev" "next" "last") 7699 . 7715) . 
+              ((DO "do" 7722 . 7724) (semantic-list "{									\\
+	last = __switch_to(prev,task_thread_info(prev), task_thread_info(next));	\\
+}" 7725 . 7814) (WHILE "while" 7815 . 7820) (semantic-list "(0)" 7821 . 7824)))
+          ("CPU_ARCH_ARMv4T" . ((number "3" 179 . 180)))
+          ("CR_U" . ((semantic-list "(1 << 22)" 1340 . 1349)))
+          ("nop" (spp-arg-list nil 6197 . 6199) . 
+              ((symbol "__asm__" 6200 . 6207) (symbol "__volatile__" 6208 . 6220) (semantic-list "(\"mov\\tr0,r0\\t@ nop\\n\\t\")" 6220 . 6245) (punctuation ";" 6245 . 6246)))
+          ("CR_I" . ((semantic-list "(1 << 12)" 983 . 992)))
+          ("CR_V" . ((semantic-list "(1 << 13)" 1028 . 1037)))
+          ("__exception_irq_entry" . ((symbol "__exception" 2441 . 2452)))
+          ("CPU_ARCH_UNKNOWN" . ((number "0" 100 . 101)))
+          ("CPU_ARCH_ARMv3" . ((number "1" 126 . 127)))
+          ("CR_W" . ((semantic-list "(1 << 3)" 524 . 532)))
+          ("smp_wmb" (spp-arg-list nil 5921 . 5923) . ((symbol "barrier" 5924 . 5931) (semantic-list "()" 5931 . 5933)))
+          ("smp_read_barrier_depends" (spp-arg-list nil 6099 . 6101) . 
+              ((DO "do" 6102 . 6104) (semantic-list "{ }" 6105 . 6108) (WHILE "while" 6109 . 6114) (semantic-list "(0)" 6114 . 6117)))
+          ("CPU_ARCH_ARMv4" . ((number "2" 152 . 153)))
+          ("CPU_ARCH_ARMv5T" . ((number "5" 232 . 233)))
+          ("rmb" (spp-arg-list nil 5679 . 5681) . 
+              ((DO "do" 5682 . 5684) (semantic-list "{ if (arch_is_coherent()) dmb(); else barrier(); }" 5685 . 5735) (WHILE "while" 5736 . 5741) (semantic-list "(0)" 5742 . 5745)))
+          ("CPU_ARCH_ARMv5" . ((number "4" 205 . 206)))
+          ("CPU_ARCH_ARMv5TEJ" . ((number "7" 287 . 288)))
+          ("CR_L" . ((semantic-list "(1 << 6)" 683 . 691)))
+          ("CR_DT" . ((semantic-list "(1 << 16)" 1203 . 1212)))
+          ("CR_VE" . ((semantic-list "(1 << 24)" 1451 . 1460)))
+          ("xchg" (spp-arg-list ("ptr" "x") 3219 . 3226) . ((semantic-list "((__typeof__(*(ptr)))__xchg((unsigned long)(x),(ptr),sizeof(*(ptr))))" 3230 . 3299)))
+          ("mb" (spp-arg-list nil 5601 . 5603) . 
+              ((DO "do" 5604 . 5606) (semantic-list "{ if (arch_is_coherent()) dmb(); else barrier(); }" 5607 . 5657) (WHILE "while" 5658 . 5663) (semantic-list "(0)" 5664 . 5667)))
+          ("__ARCH_WANT_INTERRUPTS_ON_CTXSW")
+          ("CPU_ARCH_ARMv6" . ((number "8" 313 . 314)))
+          ("CR_M" . ((semantic-list "(1 << 0)" 386 . 394)))
+          ("CR_Z" . ((semantic-list "(1 << 11)" 930 . 939)))
+          ("CR_RR" . ((semantic-list "(1 << 14)" 1090 . 1099)))
+          ("CR_EE" . ((semantic-list "(1 << 25)" 1503 . 1512)))
+          ("__asmeq" (spp-arg-list ("x" "y") 2107 . 2113) . 
+              ((string "\".ifnc \"" 2115 . 2123) (symbol "x" 2124 . 2125) (string "\",\"" 2126 . 2129) (symbol "y" 2130 . 2131) (string "\" ; .err ; .endif\\n\\t\"" 2132 . 2154)))
+          ("isb" (spp-arg-list nil 5135 . 5137) . 
+              ((symbol "__asm__" 5138 . 5145) (symbol "__volatile__" 5146 . 5158) (semantic-list "(\"\" : : : \"memory\")" 5159 . 5178)))
+          ("cmpxchg_local" (spp-arg-list ("ptr" "o" "n") 10441 . 10452) . ((semantic-list "((__typeof__(*(ptr)))__cmpxchg_local_generic((ptr), (unsigned long)(o),\\
+			(unsigned long)(n), sizeof(*(ptr))))" 10469 . 10581)))
+          ("CPU_ARCH_ARMv7" . ((number "9" 339 . 340)))
+          ("CR_A" . ((semantic-list "(1 << 1)" 428 . 436)))
+          ("CR_IT" . ((semantic-list "(1 << 18)" 1227 . 1236)))
+          ("UDBG_BUS" . ((semantic-list "(1 << 4)" 3849 . 3857)))
+          ("vectors_high" (spp-arg-list nil 3991 . 3993) . ((semantic-list "(0)" 3994 . 3997)))
+          ("smp_mb" (spp-arg-list nil 5865 . 5867) . ((symbol "barrier" 5868 . 5875) (semantic-list "()" 5875 . 5877)))
+          ("arch_align_stack" (spp-arg-list ("x") 14467 . 14470) . ((semantic-list "(x)" 14471 . 14474)))
+          ("CPU_ARCH_ARMv5TE" . ((number "6" 259 . 260)))
+          ("CR_B" . ((semantic-list "(1 << 7)" 735 . 743)))
+          ("__exception" . ((symbol "__attribute__" 2283 . 2296) (semantic-list "((section(\".exception.text\")))" 2296 . 2326)))
+          ("dmb" (spp-arg-list nil 5289 . 5291) . 
+              ((symbol "__asm__" 5292 . 5299) (symbol "__volatile__" 5300 . 5312) (semantic-list "(\"\" : : : \"memory\")" 5313 . 5332)))
+          ("CPACC_DISABLE" (spp-arg-list ("n") 6844 . 6847) . ((semantic-list "(0 << (n * 2))" 6848 . 6862)))
+          )
+
+    )
+   )
+  :file "!home!chz!linux-3.0.8!arch!arm!include!asm!semantic.cache"
+  :semantic-tag-version "2.0"
+  :semanticdb-version "2.2"
+  )

@@ -1,0 +1,527 @@
+;; Object lirc/
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "lirc/"
+  :tables (list 
+   (semanticdb-table "lirc_parallel.c"
+    :major-mode 'c-mode
+    :tags 
+        '( ("linux/module.h" include (:system-flag t) nil [971 996])
+            ("linux/sched.h" include (:system-flag t) nil [997 1021])
+            ("linux/errno.h" include (:system-flag t) nil [1022 1046])
+            ("linux/signal.h" include (:system-flag t) nil [1047 1072])
+            ("linux/fs.h" include (:system-flag t) nil [1073 1094])
+            ("linux/kernel.h" include (:system-flag t) nil [1095 1120])
+            ("linux/ioport.h" include (:system-flag t) nil [1121 1146])
+            ("linux/time.h" include (:system-flag t) nil [1147 1170])
+            ("linux/mm.h" include (:system-flag t) nil [1171 1192])
+            ("linux/delay.h" include (:system-flag t) nil [1193 1217])
+            ("linux/io.h" include (:system-flag t) nil [1219 1240])
+            ("linux/irq.h" include (:system-flag t) nil [1241 1263])
+            ("linux/uaccess.h" include (:system-flag t) nil [1264 1290])
+            ("asm/div64.h" include (:system-flag t) nil [1291 1313])
+            ("linux/poll.h" include (:system-flag t) nil [1315 1338])
+            ("linux/parport.h" include (:system-flag t) nil [1339 1365])
+            ("linux/platform_device.h" include (:system-flag t) nil [1366 1400])
+            ("media/lirc.h" include (:system-flag t) nil [1402 1425])
+            ("media/lirc_dev.h" include (:system-flag t) nil [1426 1453])
+            ("lirc_parallel.h" include nil nil [1455 1481])
+            ("LIRC_DRIVER_NAME" variable (:constant-flag t) nil [1491 1507])
+            ("LIRC_IRQ" variable (:constant-flag t) nil [1550 1558])
+            ("LIRC_PORT" variable (:constant-flag t) nil [1594 1603])
+            ("LIRC_TIMER" variable (:constant-flag t) nil [1644 1654])
+            ("debug" variable
+               (:typemodifiers ("static")
+                :type "int")
+                nil [1697 1714])
+            ("check_pselecd" variable
+               (:typemodifiers ("static")
+                :type "int")
+                nil [1715 1740])
+            ("irq" variable (:type "unsigned int") nil [1742 1770])
+            ("io" variable (:type "unsigned int") nil [1771 1799])
+            ("timer" variable (:type "unsigned int") nil [1818 1837])
+            ("default_timer" variable (:type "unsigned int") nil [1838 1878])
+            ("RBUF_SIZE" variable (:constant-flag t) nil [1895 1904])
+            ("rbuf" variable
+               (:dereference 1
+                :typemodifiers ("static")
+                :type "int")
+                nil [1958 1985])
+            ("DECLARE_WAIT_QUEUE_HEAD" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("lirc_wait" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [2011 2021]))                  
+                :type "int")
+                nil [1987 2022])
+            ("rptr" variable (:type "unsigned int") nil [2024 2042])
+            ("wptr" variable (:type "unsigned int") nil [2043 2061])
+            ("lost_irqs" variable (:type "unsigned int") nil [2062 2085])
+            ("is_open" variable (:type "int") nil [2086 2098])
+            ("pport" variable
+               (:pointer 1
+                :type ("parport" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [2100 2122])
+            ("ppdevice" variable
+               (:pointer 1
+                :type ("pardevice" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [2123 2150])
+            ("is_claimed" variable (:type "int") nil [2151 2166])
+            ("tx_mask" variable (:type "unsigned int") nil [2168 2193])
+            ("in" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("offset" variable (:type "int") (reparse-symbol arg-sub-list) [2248 2259]))                  
+                :type "unsigned int")
+                nil [2225 2497])
+            ("out" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("offset" variable (:type "int") (reparse-symbol arg-sub-list) [2515 2526])
+                    ("value" variable (:type "int") (reparse-symbol arg-sub-list) [2527 2537]))                  
+                :type "void")
+                nil [2499 2822])
+            ("lirc_get_timer" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [2859 2864]))                  
+                :type "unsigned int")
+                nil [2824 2919])
+            ("lirc_get_signal" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [2957 2962]))                  
+                :type "unsigned int")
+                nil [2921 3019])
+            ("lirc_on" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [3041 3046]))                  
+                :type "void")
+                nil [3021 3081])
+            ("lirc_off" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [3104 3109]))                  
+                :type "void")
+                nil [3083 3138])
+            ("init_lirc_timer" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [3176 3181]))                  
+                :type "unsigned int")
+                nil [3140 4596])
+            ("lirc_claim" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [4620 4625]))                  
+                :type "int")
+                nil [4598 5078])
+            ("rbuf_write" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("signal" variable (:type "int") (reparse-symbol arg-sub-list) [5132 5143]))                  
+                :type "void")
+                nil [5109 5399])
+            ("irq_handler" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("blah" variable
+                       (:pointer 1
+                        :type "void")
+                        (reparse-symbol arg-sub-list) [5425 5436]))                  
+                :type "void")
+                nil [5401 7253])
+            ("lirc_lseek" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("filep" variable
+                       (:pointer 1
+                        :type ("file" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [7307 7326])
+                    ("offset" variable (:type ("loff_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [7327 7341])
+                    ("orig" variable (:type "int") (reparse-symbol arg-sub-list) [7342 7351]))                  
+                :type ("loff_t" type (:type "class") nil nil))
+                nil [7282 7372])
+            ("lirc_read" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("filep" variable
+                       (:pointer 1
+                        :type ("file" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [7399 7418])
+                    ("buf" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [7419 7429])
+                    ("n" variable (:type ("size_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [7430 7439])
+                    ("ppos" variable
+                       (:pointer 1
+                        :type ("loff_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [7440 7453]))                  
+                :type ("ssize_t" type (:type "class") nil nil))
+                nil [7374 8197])
+            ("lirc_write" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("filep" variable
+                       (:pointer 1
+                        :type ("file" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [8225 8244])
+                    ("buf" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [8245 8261])
+                    ("n" variable (:type ("size_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [8262 8271])
+                    ("ppos" variable
+                       (:pointer 1
+                        :type ("loff_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [8277 8290]))                  
+                :type ("ssize_t" type (:type "class") nil nil))
+                nil [8199 9823])
+            ("lirc_poll" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("file" variable
+                       (:pointer 1
+                        :type ("file" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [9855 9873])
+                    ("wait" variable
+                       (:pointer 1
+                        :type ("poll_table" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [9874 9891]))                  
+                :type "unsigned int")
+                nil [9825 9991])
+            ("lirc_ioctl" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("filep" variable
+                       (:pointer 1
+                        :type ("file" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [10016 10035])
+                    ("cmd" variable (:type "unsigned int") (reparse-symbol arg-sub-list) [10036 10053])
+                    ("arg" variable (:type "unsigned long") (reparse-symbol arg-sub-list) [10054 10072]))                  
+                :type "long")
+                nil [9993 11179])
+            ("lirc_open" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("node" variable
+                       (:pointer 1
+                        :type ("inode" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [11202 11221])
+                    ("filep" variable
+                       (:pointer 1
+                        :type ("file" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [11222 11241]))                  
+                :type "int")
+                nil [11181 11408])
+            ("lirc_close" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("node" variable
+                       (:pointer 1
+                        :type ("inode" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [11432 11451])
+                    ("filep" variable
+                       (:pointer 1
+                        :type ("file" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [11452 11471]))                  
+                :type "int")
+                nil [11410 11569])
+            ("lirc_fops" variable
+               (:typemodifiers ("static")
+                :constant-flag t
+                :type ("file_operations" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [11571 11868])
+            ("set_use_inc" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("data" variable
+                       (:pointer 1
+                        :type "void")
+                        (reparse-symbol arg-sub-list) [11893 11904]))                  
+                :type "int")
+                nil [11870 11919])
+            ("set_use_dec" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("data" variable
+                       (:pointer 1
+                        :type "void")
+                        (reparse-symbol arg-sub-list) [11945 11956]))                  
+                :type "void")
+                nil [11921 11960])
+            ("driver" variable
+               (:typemodifiers ("static")
+                :type ("lirc_driver" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [11962 12238])
+            ("lirc_parallel_dev" variable
+               (:pointer 1
+                :typemodifiers ("static")
+                :type ("platform_device" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [12240 12289])
+            ("lirc_parallel_probe" function
+               (:arguments 
+                  ( ("dev" variable
+                       (:pointer 1
+                        :type ("platform_device" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [12332 12360]))                  
+                :type ("__devinit" type (:type "class") nil nil))
+                nil [12302 12375])
+            ("lirc_parallel_remove" function
+               (:arguments 
+                  ( ("dev" variable
+                       (:pointer 1
+                        :type ("platform_device" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [12419 12447]))                  
+                :type ("__devexit" type (:type "class") nil nil))
+                nil [12388 12462])
+            ("lirc_parallel_suspend" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("dev" variable
+                       (:pointer 1
+                        :type ("platform_device" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [12497 12525])
+                    ("state" variable (:type ("pm_message_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [12531 12550]))                  
+                :type "int")
+                nil [12464 12565])
+            ("lirc_parallel_resume" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("dev" variable
+                       (:pointer 1
+                        :type ("platform_device" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [12599 12627]))                  
+                :type "int")
+                nil [12567 12642])
+            ("lirc_parallel_driver" variable
+               (:typemodifiers ("static")
+                :type ("platform_driver" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [12644 12915])
+            ("pf" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("handle" variable
+                       (:pointer 1
+                        :type "void")
+                        (reparse-symbol arg-sub-list) [12931 12944]))                  
+                :type "int")
+                nil [12917 12945])
+            ("kf" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("handle" variable
+                       (:pointer 1
+                        :type "void")
+                        (reparse-symbol arg-sub-list) [12961 12974]))                  
+                :type "void")
+                nil [12946 12975])
+            ("pf" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("handle" variable
+                       (:pointer 1
+                        :type "void")
+                        (reparse-symbol arg-sub-list) [12991 13004]))                  
+                :type "int")
+                nil [12977 13065])
+            ("kf" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("handle" variable
+                       (:pointer 1
+                        :type "void")
+                        (reparse-symbol arg-sub-list) [13082 13095]))                  
+                :type "void")
+                nil [13067 13320])
+            ("lirc_parallel_init" function
+               (:arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [13404 13409]))                  
+                :type ("__init" type (:type "class") nil nil))
+                nil [13378 15356])
+            ("lirc_parallel_exit" function
+               (:arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [15396 15401]))                  
+                :type ("__exit" type (:type "class") nil nil))
+                nil [15370 15482])
+            ("module_init" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("lirc_parallel_init" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [15496 15515]))                  
+                :type "int")
+                nil [15484 15516])
+            ("module_exit" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("lirc_parallel_exit" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [15529 15548]))                  
+                :type "int")
+                nil [15517 15549])
+            ("MODULE_DESCRIPTION" function
+               (:prototype-flag t
+                :type "int")
+                nil [15551 15618])
+            ("MODULE_AUTHOR" function
+               (:prototype-flag t
+                :type "int")
+                nil [15619 15656])
+            ("MODULE_LICENSE" function
+               (:prototype-flag t
+                :type "int")
+                nil [15657 15679])
+            ("module_param" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("io" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [15694 15697])
+                    ("" variable (:type "int") (reparse-symbol arg-sub-list) [15698 15702])
+                    ("" variable (:type ("S_IRUGO" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [15703 15711]))                  
+                :type "int")
+                nil [15681 15712])
+            ("MODULE_PARM_DESC" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("io" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [15730 15733]))                  
+                :type "int")
+                nil [15713 15778])
+            ("module_param" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("irq" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [15793 15797])
+                    ("" variable (:type "int") (reparse-symbol arg-sub-list) [15798 15802])
+                    ("" variable (:type ("S_IRUGO" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [15803 15811]))                  
+                :type "int")
+                nil [15780 15812])
+            ("MODULE_PARM_DESC" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("irq" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [15830 15834]))                  
+                :type "int")
+                nil [15813 15857])
+            ("module_param" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("tx_mask" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [15872 15880])
+                    ("" variable (:type "int") (reparse-symbol arg-sub-list) [15881 15885])
+                    ("" variable (:type ("S_IRUGO" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [15886 15894]))                  
+                :type "int")
+                nil [15859 15895])
+            ("MODULE_PARM_DESC" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("tx_maxk" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [15913 15921]))                  
+                :type "int")
+                nil [15896 15958])
+            ("module_param" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("debug" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [15973 15979])
+                    ("" variable (:type "bool") (reparse-symbol arg-sub-list) [15980 15985])
+                    ("" variable (:type ("S_IRUGO" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [15986 15995])
+                    ("" variable (:type ("S_IWUSR" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [15996 16004]))                  
+                :type "int")
+                nil [15960 16005])
+            ("MODULE_PARM_DESC" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("debug" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [16023 16029]))                  
+                :type "int")
+                nil [16006 16059])
+            ("module_param" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("check_pselecd" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [16074 16088])
+                    ("" variable (:type "bool") (reparse-symbol arg-sub-list) [16089 16094])
+                    ("" variable (:type ("S_IRUGO" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [16095 16104])
+                    ("" variable (:type ("S_IWUSR" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [16105 16113]))                  
+                :type "int")
+                nil [16061 16114])
+            ("MODULE_PARM_DESC" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("debug" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [16132 16138]))                  
+                :type "int")
+                nil [16115 16173]))          
+    :file "lirc_parallel.c"
+    :pointmax 16174
+    :fsize 16173
+    :lastmodtime '(21468 9090 260121 518000)
+    :unmatched-syntax '((string 16139 . 16171) (punctuation 16103 . 16104) (string 16030 . 16057) (punctuation 15994 . 15995) (string 15922 . 15956) (string 15835 . 15855) (string 15734 . 15776) (string 15672 . 15677) (string 15633 . 15654) (string 15570 . 15616) (VOID 15365 . 15369) (STATIC 15358 . 15364) ...)
+    :lexical-table 
+        '(("RBUF_SIZE" . ((semantic-list "(256)" 1905 . 1910)))
+          ("LIRC_DRIVER_NAME" . ((string "\"lirc_parallel\"" 1508 . 1523)))
+          ("LIRC_PORT" . ((number "0x378" 1604 . 1609)))
+          ("LIRC_IRQ" . ((number "7" 1559 . 1560)))
+          ("LIRC_TIMER" . ((number "65536" 1655 . 1660)))
+          )
+
+    )
+   (semanticdb-table "lirc_parallel.h"
+    :file "lirc_parallel.h"
+    :fsize 795
+    :lastmodtime '(21468 9090 266121 376000)
+    )
+   )
+  :file "!home!chz!linux-3.0.8!drivers!staging!lirc!semantic.cache"
+  :semantic-tag-version "2.0"
+  :semanticdb-version "2.2"
+  )

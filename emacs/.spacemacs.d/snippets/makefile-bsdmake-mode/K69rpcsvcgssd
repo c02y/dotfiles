@@ -1,0 +1,112 @@
+;; Object kernel/
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "kernel/"
+  :tables (list 
+   (semanticdb-table "time.c"
+    :major-mode 'c-mode
+    :tags 
+        '( ("linux/clk.h" include (:system-flag t) nil [243 265])
+            ("linux/clockchips.h" include (:system-flag t) nil [266 295])
+            ("linux/init.h" include (:system-flag t) nil [296 319])
+            ("linux/interrupt.h" include (:system-flag t) nil [320 348])
+            ("linux/irq.h" include (:system-flag t) nil [349 371])
+            ("linux/kernel.h" include (:system-flag t) nil [372 397])
+            ("linux/time.h" include (:system-flag t) nil [398 421])
+            ("asm/sysreg.h" include (:system-flag t) nil [423 446])
+            ("mach/pm.h" include (:system-flag t) nil [448 468])
+            ("read_cycle_count" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("cs" variable
+                       (:pointer 1
+                        :type ("clocksource" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [503 526]))                  
+                :type ("cycle_t" type (:type "class") nil nil))
+                nil [471 567])
+            ("counter" variable
+               (:typemodifiers ("static")
+                :type ("clocksource" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [921 1103])
+            ("timer_interrupt" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("irq" variable (:type "int") (reparse-symbol arg-sub-list) [1140 1148])
+                    ("dev_id" variable
+                       (:pointer 1
+                        :type "void")
+                        (reparse-symbol arg-sub-list) [1149 1162]))                  
+                :type ("irqreturn_t" type (:type "class") nil nil))
+                nil [1105 1438])
+            ("timer_irqaction" variable
+               (:typemodifiers ("static")
+                :type ("irqaction" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [1440 1671])
+            ("comparator_next_event" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("delta" variable (:type "unsigned long") (reparse-symbol arg-sub-list) [1706 1726])
+                    ("evdev" variable
+                       (:pointer 1
+                        :type ("clock_event_device" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [1729 1762]))                  
+                :type "int")
+                nil [1673 2047])
+            ("comparator_mode" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("mode" variable (:type ("clock_event_mode" type (:type "enum") nil nil)) (reparse-symbol arg-sub-list) [2077 2104])
+                    ("evdev" variable
+                       (:pointer 1
+                        :type ("clock_event_device" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [2107 2140]))                  
+                :type "void")
+                nil [2049 2502])
+            ("comparator" variable
+               (:typemodifiers ("static")
+                :type ("clock_event_device" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [2504 2724])
+            ("read_persistent_clock" function
+               (:arguments 
+                  ( ("ts" variable
+                       (:pointer 1
+                        :type ("timespec" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [2753 2773]))                  
+                :type "void")
+                nil [2726 2838])
+            ("time_init" function
+               (:arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [2862 2867]))                  
+                :type ("__init" type (:type "class") nil nil))
+                nil [2845 3763]))          
+    :file "time.c"
+    :pointmax 3764
+    :fsize 3763
+    :lastmodtime '(21468 8921 393119 659000)
+    :unmatched-syntax '((VOID 2840 . 2844))
+    )
+   )
+  :file "!home!chz!linux-3.0.8!arch!avr32!kernel!semantic.cache"
+  :semantic-tag-version "2.0"
+  :semanticdb-version "2.2"
+  )

@@ -1,0 +1,116 @@
+;; Object kernel/
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "kernel/"
+  :tables (list 
+   (semanticdb-table "time.c"
+    :major-mode 'c-mode
+    :tags 
+        '( ("linux/errno.h" include (:system-flag t) nil [479 503])
+            ("linux/module.h" include (:system-flag t) nil [504 529])
+            ("linux/sched.h" include (:system-flag t) nil [530 554])
+            ("linux/kernel.h" include (:system-flag t) nil [555 580])
+            ("linux/param.h" include (:system-flag t) nil [581 605])
+            ("linux/string.h" include (:system-flag t) nil [606 631])
+            ("linux/mm.h" include (:system-flag t) nil [632 653])
+            ("linux/timex.h" include (:system-flag t) nil [654 678])
+            ("linux/profile.h" include (:system-flag t) nil [679 705])
+            ("asm/io.h" include (:system-flag t) nil [707 726])
+            ("asm/timer.h" include (:system-flag t) nil [727 749])
+            ("TICK_SIZE" variable (:constant-flag t) nil [759 768])
+            ("h8300_timer_tick" function
+               (:arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [811 816]))                  
+                :type "void")
+                nil [789 938])
+            ("read_persistent_clock" function
+               (:arguments 
+                  ( ("ts" variable
+                       (:pointer 1
+                        :type ("timespec" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [967 987]))                  
+                :type "void")
+                nil [940 1459])
+            ("time_init" function
+               (:arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [1483 1488]))                  
+                :type ("__init" type (:type "class") nil nil))
+                nil [1466 1515]))          
+    :file "time.c"
+    :pointmax 1516
+    :fsize 1515
+    :lastmodtime '(21468 8931 779873 739000)
+    :unmatched-syntax '((VOID 1461 . 1465))
+    :lexical-table 
+        '(("TICK_SIZE" . ((semantic-list "(tick_nsec / 1000)" 769 . 787)))
+          )
+
+    )
+   (semanticdb-table "sys_h8300.c"
+    :major-mode 'c-mode
+    :tags 
+        '( ("linux/errno.h" include (:system-flag t) nil [173 197])
+            ("linux/sched.h" include (:system-flag t) nil [198 222])
+            ("linux/mm.h" include (:system-flag t) nil [223 244])
+            ("linux/smp.h" include (:system-flag t) nil [245 267])
+            ("linux/sem.h" include (:system-flag t) nil [268 290])
+            ("linux/msg.h" include (:system-flag t) nil [291 313])
+            ("linux/shm.h" include (:system-flag t) nil [314 336])
+            ("linux/stat.h" include (:system-flag t) nil [337 360])
+            ("linux/syscalls.h" include (:system-flag t) nil [361 388])
+            ("linux/mman.h" include (:system-flag t) nil [389 412])
+            ("linux/file.h" include (:system-flag t) nil [413 436])
+            ("linux/fs.h" include (:system-flag t) nil [437 458])
+            ("linux/ipc.h" include (:system-flag t) nil [459 481])
+            ("asm/setup.h" include (:system-flag t) nil [483 505])
+            ("asm/uaccess.h" include (:system-flag t) nil [506 530])
+            ("asm/cachectl.h" include (:system-flag t) nil [531 556])
+            ("asm/traps.h" include (:system-flag t) nil [557 579])
+            ("asm/unistd.h" include (:system-flag t) nil [580 603])
+            ("sys_cacheflush" function
+               (:arguments 
+                  ( ("addr" variable (:type "unsigned long") (reparse-symbol arg-sub-list) [673 692])
+                    ("scope" variable (:type "int") (reparse-symbol arg-sub-list) [693 703])
+                    ("cache" variable (:type "int") (reparse-symbol arg-sub-list) [704 714])
+                    ("len" variable (:type "unsigned long") (reparse-symbol arg-sub-list) [715 733]))                  
+                :type "int")
+                nil [653 754])
+            ("sys_getpagesize" function
+               (:arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [787 792]))                  
+                :type "int")
+                nil [767 815])
+            ("kernel_execve" function
+               (:arguments 
+                  ( ("filename" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [1264 1285])
+                    ("argv" variable
+                       (:pointer 1
+                        :dereference 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [1290 1315])
+                    ("envp" variable
+                       (:pointer 1
+                        :dereference 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [1320 1345]))                  
+                :type "int")
+                nil [1246 1726]))          
+    :file "sys_h8300.c"
+    :pointmax 1729
+    :fsize 1728
+    :lastmodtime '(21468 8931 753874 355000)
+    :unmatched-syntax '((symbol 756 . 766) (symbol 642 . 652))
+    )
+   )
+  :file "!home!chz!linux-3.0.8!arch!h8300!kernel!semantic.cache"
+  :semantic-tag-version "2.0"
+  :semanticdb-version "2.2"
+  )

@@ -1,0 +1,507 @@
+;; Object kernel/
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "kernel/"
+  :tables (list 
+   (semanticdb-table "time.c"
+    :major-mode 'c-mode
+    :tags 
+        '( ("linux/errno.h" include (:system-flag t) nil [1519 1543])
+            ("linux/module.h" include (:system-flag t) nil [1544 1569])
+            ("linux/sched.h" include (:system-flag t) nil [1570 1594])
+            ("linux/kernel.h" include (:system-flag t) nil [1595 1620])
+            ("linux/param.h" include (:system-flag t) nil [1621 1645])
+            ("linux/string.h" include (:system-flag t) nil [1646 1671])
+            ("linux/mm.h" include (:system-flag t) nil [1672 1693])
+            ("linux/interrupt.h" include (:system-flag t) nil [1694 1722])
+            ("linux/timex.h" include (:system-flag t) nil [1723 1747])
+            ("linux/kernel_stat.h" include (:system-flag t) nil [1748 1778])
+            ("linux/time.h" include (:system-flag t) nil [1779 1802])
+            ("linux/init.h" include (:system-flag t) nil [1803 1826])
+            ("linux/profile.h" include (:system-flag t) nil [1827 1853])
+            ("linux/cpu.h" include (:system-flag t) nil [1854 1876])
+            ("linux/security.h" include (:system-flag t) nil [1877 1904])
+            ("linux/percpu.h" include (:system-flag t) nil [1905 1930])
+            ("linux/rtc.h" include (:system-flag t) nil [1931 1953])
+            ("linux/jiffies.h" include (:system-flag t) nil [1954 1980])
+            ("linux/posix-timers.h" include (:system-flag t) nil [1981 2012])
+            ("linux/irq.h" include (:system-flag t) nil [2013 2035])
+            ("linux/delay.h" include (:system-flag t) nil [2036 2060])
+            ("linux/irq_work.h" include (:system-flag t) nil [2061 2088])
+            ("asm/trace.h" include (:system-flag t) nil [2089 2111])
+            ("asm/io.h" include (:system-flag t) nil [2113 2132])
+            ("asm/processor.h" include (:system-flag t) nil [2133 2159])
+            ("asm/nvram.h" include (:system-flag t) nil [2160 2182])
+            ("asm/cache.h" include (:system-flag t) nil [2183 2205])
+            ("asm/machdep.h" include (:system-flag t) nil [2206 2230])
+            ("asm/uaccess.h" include (:system-flag t) nil [2231 2255])
+            ("asm/time.h" include (:system-flag t) nil [2256 2277])
+            ("asm/prom.h" include (:system-flag t) nil [2278 2299])
+            ("asm/irq.h" include (:system-flag t) nil [2300 2320])
+            ("asm/div64.h" include (:system-flag t) nil [2321 2343])
+            ("asm/smp.h" include (:system-flag t) nil [2344 2364])
+            ("asm/vdso_datapage.h" include (:system-flag t) nil [2365 2395])
+            ("asm/firmware.h" include (:system-flag t) nil [2396 2421])
+            ("asm/cputime.h" include (:system-flag t) nil [2422 2446])
+            ("linux/clockchips.h" include (:system-flag t) nil [2597 2626])
+            ("linux/clocksource.h" include (:system-flag t) nil [2627 2657])
+            ("rtc_read" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("" variable
+                       (:pointer 1
+                        :type ("clocksource" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [2683 2704]))                  
+                :type ("cycle_t" type (:type "class") nil nil))
+                nil [2659 2705])
+            ("clocksource_rtc" variable
+               (:typemodifiers ("static")
+                :type ("clocksource" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [2706 2974])
+            ("timebase_read" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("" variable
+                       (:pointer 1
+                        :type ("clocksource" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [3005 3026]))                  
+                :type ("cycle_t" type (:type "class") nil nil))
+                nil [2976 3027])
+            ("clocksource_timebase" variable
+               (:typemodifiers ("static")
+                :type ("clocksource" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [3028 3311])
+            ("DECREMENTER_MAX" variable (:constant-flag t) nil [3321 3336])
+            ("decrementer_set_next_event" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("evt" variable (:type "unsigned long") (reparse-symbol arg-sub-list) [3387 3405])
+                    ("dev" variable
+                       (:pointer 1
+                        :type ("clock_event_device" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [3416 3447]))                  
+                :type "int")
+                nil [3349 3448])
+            ("decrementer_set_mode" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("mode" variable (:type ("clock_event_mode" type (:type "enum") nil nil)) (reparse-symbol arg-sub-list) [3482 3509])
+                    ("dev" variable
+                       (:pointer 1
+                        :type ("clock_event_device" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [3515 3546]))                  
+                :type "void")
+                nil [3449 3547])
+            ("decrementer_clockevent" variable
+               (:typemodifiers ("static")
+                :type ("clock_event_device" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [3549 3958])
+            ("decrementer_clock" type
+               (:members 
+                  ( ("event" variable (:type ("clock_event_device" type
+                         (:prototype t
+                          :type "struct")
+                          nil nil)) (reparse-symbol classsubparts) [3988 4020])
+                    ("next_tb" variable (:type ("u64" type (:type "class") nil nil)) (reparse-symbol classsubparts) [4022 4034]))                  
+                :type "struct")
+                nil [3960 4037])
+            ("DEFINE_PER_CPU" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("" variable (:type ("decrementer_clock" type
+                         (:prototype t
+                          :type "struct")
+                          nil nil)) (reparse-symbol arg-sub-list) [4061 4086])
+                    ("" variable (:type ("decrementers" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [4087 4100]))                  
+                :type "int")
+                nil [4039 4101])
+            ("XSEC_PER_SEC" variable (:constant-flag t) nil [4352 4364])
+            ("SCALE_XSEC" variable (:constant-flag t) nil [4515 4525])
+            ("tb_ticks_per_jiffy" variable (:type "unsigned long") nil [4571 4604])
+            ("tb_ticks_per_usec" variable (:type "unsigned long") nil [4605 4643])
+            ("EXPORT_SYMBOL" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("tb_ticks_per_usec" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [4677 4695]))                  
+                :type "int")
+                nil [4663 4696])
+            ("tb_ticks_per_sec" variable (:type "unsigned long") nil [4697 4728])
+            ("EXPORT_SYMBOL" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("tb_ticks_per_sec" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [4743 4760]))                  
+                :type "int")
+                nil [4729 4761])
+            ("DEFINE_SPINLOCK" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("rtc_lock" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [4811 4820]))                  
+                :type "int")
+                nil [4795 4821])
+            ("EXPORT_SYMBOL_GPL" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("rtc_lock" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [4840 4849]))                  
+                :type "int")
+                nil [4822 4850])
+            ("__read_mostly" variable (:type ("tb_to_ns_scale" type (:type "class") nil nil)) nil [4863 4892])
+            ("__read_mostly" variable (:type ("tb_to_ns_shift" type (:type "class") nil nil)) nil [4909 4938])
+            ("__read_mostly" variable (:type ("boot_tb" type (:type "class") nil nil)) nil [4950 4972])
+            ("sys_tz" variable
+               (:typemodifiers ("extern")
+                :type ("timezone" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [4974 5004])
+            ("timezone_offset" variable
+               (:typemodifiers ("static")
+                :type "long")
+                nil [5005 5033])
+            ("ppc_proc_freq" variable (:type "unsigned long") nil [5035 5063])
+            ("EXPORT_SYMBOL_GPL" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("ppc_proc_freq" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [5082 5096]))                  
+                :type "int")
+                nil [5064 5097])
+            ("ppc_tb_freq" variable (:type "unsigned long") nil [5098 5124])
+            ("EXPORT_SYMBOL_GPL" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("ppc_tb_freq" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [5143 5155]))                  
+                :type "int")
+                nil [5125 5156])
+            ("calc_cputime_factors" variable (:constant-flag t) nil [11425 11445])
+            ("__delay" function
+               (:arguments 
+                  ( ("loops" variable (:type "unsigned long") (reparse-symbol arg-sub-list) [11469 11489]))                  
+                :type "void")
+                nil [11456 11820])
+            ("EXPORT_SYMBOL" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("__delay" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [11835 11843]))                  
+                :type "int")
+                nil [11821 11844])
+            ("udelay" function
+               (:arguments 
+                  ( ("usecs" variable (:type "unsigned long") (reparse-symbol arg-sub-list) [11858 11878]))                  
+                :type "void")
+                nil [11846 11919])
+            ("EXPORT_SYMBOL" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("udelay" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [11934 11941]))                  
+                :type "int")
+                nil [11920 11942])
+            ("test_irq_work_pending" variable (:constant-flag t) nil [15343 15364])
+            ("clear_irq_work_pending" variable (:constant-flag t) nil [15377 15399])
+            ("timer_interrupt" function
+               (:arguments 
+                  ( ("regs" variable
+                       (:pointer 1
+                        :type ("pt_regs" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [15967 15989]))                  
+                :type "void")
+                nil [15946 17624])
+            ("sched_clock" function
+               (:arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [18581 18586]))                  
+                :type "unsigned long long")
+                nil [18550 18698])
+            ("get_freq" function
+               (:arguments 
+                  ( ("name" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [18727 18738])
+                    ("cells" variable (:type "int") (reparse-symbol arg-sub-list) [18739 18749])
+                    ("val" variable
+                       (:pointer 1
+                        :type "unsigned long")
+                        (reparse-symbol arg-sub-list) [18750 18769]))                  
+                :type ("__init" type (:type "class") nil nil))
+                nil [18711 19115])
+            ("start_cpu_decrementer" function
+               (:arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [19211 19216]))                  
+                :type "void")
+                nil [19184 19490])
+            ("generic_calibrate_decr" function
+               (:arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [19527 19532]))                  
+                :type ("__init" type (:type "class") nil nil))
+                nil [19497 20084])
+            ("update_persistent_clock" function
+               (:arguments 
+                  ( ("now" variable (:type ("timespec" type
+                         (:prototype t
+                          :type "struct")
+                          nil nil)) (reparse-symbol arg-sub-list) [20114 20134]))                  
+                :type "int")
+                nil [20086 20320])
+            ("__read_persistent_clock" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("ts" variable
+                       (:pointer 1
+                        :type ("timespec" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [20358 20378]))                  
+                :type "void")
+                nil [20322 20974])
+            ("read_persistent_clock" function
+               (:arguments 
+                  ( ("ts" variable
+                       (:pointer 1
+                        :type ("timespec" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [21003 21023]))                  
+                :type "void")
+                nil [20976 21186])
+            ("rtc_read" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("cs" variable
+                       (:pointer 1
+                        :type ("clocksource" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [21235 21258]))                  
+                :type ("cycle_t" type (:type "class") nil nil))
+                nil [21211 21290])
+            ("timebase_read" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("cs" variable
+                       (:pointer 1
+                        :type ("clocksource" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [21321 21344]))                  
+                :type ("cycle_t" type (:type "class") nil nil))
+                nil [21292 21375])
+            ("update_vsyscall" function
+               (:arguments 
+                  ( ("wall_time" variable
+                       (:pointer 1
+                        :type ("timespec" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [21398 21425])
+                    ("wtm" variable
+                       (:pointer 1
+                        :type ("timespec" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [21426 21447])
+                    ("clock" variable
+                       (:pointer 1
+                        :type ("clocksource" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [21451 21477])
+                    ("mult" variable (:type ("u32" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [21478 21487]))                  
+                :type "void")
+                nil [21377 23055])
+            ("update_vsyscall_tz" function
+               (:arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [23081 23086]))                  
+                :type "void")
+                nil [23057 23328])
+            ("clocksource_init" function
+               (:arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [23366 23371]))                  
+                :type ("__init" type (:type "class") nil nil))
+                nil [23342 23811])
+            ("decrementer_set_next_event" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("evt" variable (:type "unsigned long") (reparse-symbol arg-sub-list) [23851 23869])
+                    ("dev" variable
+                       (:pointer 1
+                        :type ("clock_event_device" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [23880 23911]))                  
+                :type "int")
+                nil [23813 24003])
+            ("decrementer_set_mode" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("mode" variable (:type ("clock_event_mode" type (:type "enum") nil nil)) (reparse-symbol arg-sub-list) [24038 24065])
+                    ("dev" variable
+                       (:pointer 1
+                        :type ("clock_event_device" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [24071 24102]))                  
+                :type "void")
+                nil [24005 24195])
+            ("div_sc64" function
+               (:typemodifiers ("static" "inline")
+                :arguments 
+                  ( ("ticks" variable (:type "unsigned long") (reparse-symbol arg-sub-list) [24229 24249])
+                    ("nsec" variable (:type "unsigned long") (reparse-symbol arg-sub-list) [24250 24269])
+                    ("shift" variable (:type "int") (reparse-symbol arg-sub-list) [24274 24284]))                  
+                :type ("uint64_t" type (:type "class") nil nil))
+                nil [24197 24366])
+            ("setup_clockevent_multiplier" function
+               (:arguments 
+                  ( ("hz" variable (:type "unsigned long") (reparse-symbol arg-sub-list) [24415 24432]))                  
+                :type ("__init" type (:type "class") nil nil))
+                nil [24380 24656])
+            ("register_decrementer_clockevent" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("cpu" variable (:type "int") (reparse-symbol arg-sub-list) [24702 24710]))                  
+                :type "void")
+                nil [24658 25003])
+            ("init_decrementer_clockevent" function
+               (:arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [25052 25057]))                  
+                :type ("__init" type (:type "class") nil nil))
+                nil [25017 25370])
+            ("secondary_cpu_time_init" function
+               (:arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [25401 25406]))                  
+                :type "void")
+                nil [25372 25658])
+            ("time_init" function
+               (:arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [25739 25744]))                  
+                :type ("__init" type (:type "class") nil nil))
+                nil [25722 27724])
+            ("FEBRUARY" variable (:constant-flag t) nil [27735 27743])
+            ("STARTOFTIME" variable (:constant-flag t) nil [27754 27765])
+            ("SECDAY" variable (:constant-flag t) nil [27779 27785])
+            ("SECYR" variable (:constant-flag t) nil [27802 27807])
+            ("leapyear" variable (:constant-flag t) nil [27832 27840])
+            ("days_in_year" variable (:constant-flag t) nil [27925 27937])
+            ("days_in_month" variable (:constant-flag t) nil [27976 27989])
+            ("month_days" variable
+               (:dereference 1
+                :typemodifiers ("static")
+                :type "int")
+                nil [28017 28097])
+            ("GregorianDay" function
+               (:arguments 
+                  ( ("tm" variable
+                       (:pointer 1
+                        :type ("rtc_time" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [28200 28221]))                  
+                :type "void")
+                nil [28182 28874])
+            ("to_tm" function
+               (:arguments 
+                  ( ("tim" variable (:type "int") (reparse-symbol arg-sub-list) [28887 28895])
+                    ("tm" variable
+                       (:pointer 1
+                        :type ("rtc_time" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [28896 28917]))                  
+                :type "void")
+                nil [28876 29627])
+            ("div128_by_32" function
+               (:arguments 
+                  ( ("dividend_high" variable (:type ("u64" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [29733 29751])
+                    ("dividend_low" variable (:type ("u64" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [29752 29769])
+                    ("divisor" variable (:type "unsigned int") (reparse-symbol arg-sub-list) [29774 29791])
+                    ("dr" variable
+                       (:pointer 1
+                        :type ("div_result" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [29792 29814]))                  
+                :type "void")
+                nil [29715 30291])
+            ("calibrate_delay" function
+               (:arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [30387 30392]))                  
+                :type "void")
+                nil [30366 30565])
+            ("rtc_init" function
+               (:arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [30594 30599]))                  
+                :type ("__init" type (:type "class") nil nil))
+                nil [30578 30805])
+            ("module_init" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("rtc_init" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [30819 30828]))                  
+                :type "int")
+                nil [30807 30829]))          
+    :file "time.c"
+    :pointmax 30830
+    :fsize 30829
+    :lastmodtime '(21468 8969 511980 384000)
+    :unmatched-syntax '((INT 30574 . 30577) (STATIC 30567 . 30573) (VOID 25717 . 25721) (VOID 25012 . 25016) (STATIC 25005 . 25011) (VOID 24375 . 24379) (STATIC 24368 . 24374) (VOID 23337 . 23341) (STATIC 23330 . 23336) (VOID 19492 . 19496) (INT 18707 . 18710) (STATIC 18700 . 18706) (symbol 4946 . 4949) (STATIC 4939 . 4945) (UNSIGNED 4900 . 4908) (STATIC 4893 . 4899) (symbol 4859 . 4862) (STATIC 4852 . 4858))
+    :lexical-table 
+        '(("DECREMENTER_MAX" . ((number "0x7fffffff" 3337 . 3347)))
+          ("STARTOFTIME" . ((number "1970" 27766 . 27770)))
+          ("XSEC_PER_SEC" . ((semantic-list "(1024*1024)" 4365 . 4376)))
+          ("calc_cputime_factors" (spp-arg-list nil 11445 . 11447))
+          ("clear_irq_work_pending" (spp-arg-list nil 15399 . 15401))
+          ("days_in_year" (spp-arg-list ("a") 27937 . 27940) . ((semantic-list "(leapyear(a) ? 366 : 365)" 27942 . 27967)))
+          ("test_irq_work_pending" (spp-arg-list nil 15364 . 15366) . ((number "0" 15367 . 15368)))
+          ("SECDAY" . ((number "86400L" 27787 . 27793)))
+          ("SCALE_XSEC" (spp-arg-list ("xsec" "max") 4525 . 4536) . ((symbol "mulhwu" 4537 . 4543) (semantic-list "((xsec) << 12, max)" 4543 . 4562)))
+          ("SECYR" . ((semantic-list "(SECDAY * 365)" 27809 . 27823)))
+          ("leapyear" (spp-arg-list ("year") 27840 . 27846) . ((semantic-list "((year) % 4 == 0 && \\
+				 ((year) % 100 != 0 || (year) % 400 == 0))" 27848 . 27916)))
+          ("FEBRUARY" . ((number "2" 27744 . 27745)))
+          ("days_in_month" (spp-arg-list ("a") 27989 . 27992) . ((semantic-list "(month_days[(a) - 1])" 27994 . 28015)))
+          )
+
+    )
+   )
+  :file "!home!chz!linux-3.0.8!arch!powerpc!kernel!semantic.cache"
+  :semantic-tag-version "2.0"
+  :semanticdb-version "2.2"
+  )

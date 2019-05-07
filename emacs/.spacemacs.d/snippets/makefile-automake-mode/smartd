@@ -1,0 +1,45 @@
+;; Object FDMN/
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "FDMN/"
+  :tables
+  (list
+    (semanticdb-table "Makefile"
+      :major-mode 'makefile-gmake-mode
+      :tags 
+        '( ("CC" variable (:default-value ("g++")) nil [59 66])
+            ("CFLAGS" variable (:default-value ("-O3" "-Iinclude" "-Ilib" "-D_REENTRANT" "-rdynamic")) nil [66 117])
+            ("LFLAGS" variable (:default-value ("-lboost_thread" "-lboost_system" "-lpthread" "-lreadline" "-ltermcap" "-lboost_filesystem" "-lbreakpad_client" "-L$(LIBDIR)")) nil [117 236])
+            ("SRCDIR" variable (:default-value ("src")) nil [237 250])
+            ("OBJDIR" variable (:default-value ("obj")) nil [267 280])
+            ("BINDIR" variable (:default-value ("bin")) nil [280 293])
+            ("LIBDIR" variable (:default-value ("lib")) nil [293 306])
+            ("TESTBIN" variable (:default-value ("bin/tests")) nil [306 326])
+            ("LIB_OBJS" variable (:default-value ("iniReader_linux_x86_64.o")) nil [327 363])
+            ("_LIB_OBJS" variable (:default-value ("$(patsubst %,$(LIBDIR)/%, $(LIB_OBJS))")) nil [363 414])
+            ("LIB_OBJS_WIN" variable (:default-value ("iniReader_win_x86_64.o")) nil [415 453])
+            ("_LIB_OBJS_WIN" variable (:default-value ("$(patsubst %,$(LIBDIR)/%, $(LIB_OBJS_WIN))")) nil [453 512])
+            ("SERVER_DEPS" variable (:default-value ("interface.o" "server_core.o" "settings.o" "logging.o" "net_interface.o" "utility.o" "request_mappings.o" "packets.o" "color_out.o" "fs_util.o" "mounts.o")) nil [513 665])
+            ("_SERVER_DEPS" variable (:default-value ("$(patsubst %,$(OBJDIR)/%,$(SERVER_DEPS))")) nil [665 721])
+            ("CMD_OBJS" variable (:default-value ("cmd_a.o" "cmd_c.o" "cmd_l.o" "cmd_m.o" "cmd_s.o" "cmd_t.o")) nil [722 781])
+            ("_CMD_OBJS" variable (:default-value ("$(patsubst %,$(OBJDIR)/%, $(CMD_OBJS))")) nil [781 832])
+            ("MAIN_FLAGS" variable (:default-value ("-DCOMP_MAIN")) nil [833 858])
+            ("fdmn_server" function (:arguments ("fdmn.cpp" "fdmn.h" "$(SERVER_DEPS)")) nil [1278 1443])
+            ("fdmn_server_debug" function nil nil [1444 1511])
+            ("fdmn_server_win" function (:arguments ("fdmn.cpp" "fdmn.h" "$(SERVER_DEPS)")) nil [1537 1683])
+            ("packet_tests" function (:arguments ("packet_tests.c" "packet_tests.h" "packets.o")) nil [1684 1833])
+            ("test_msg" function (:arguments ("test_msg.cpp" "test_msg.h" "packets.o")) nil [1834 1963])
+            ("%.o" function (:arguments ("%.cpp" "%.h")) nil [1964 2018])
+            ("%.o" function (:arguments ("%.c" "%.h")) nil [2019 2071])
+            ("interface.o" function (:arguments ("interface.cpp" "interface.h" "$(CMD_OBJS)")) nil [2072 2162])
+            ("run_server" function (:arguments ("fdmn_server")) nil [2163 2223])
+            ("run_server_win" function (:arguments ("fdmn_server_win")) nil [2224 2281])
+            ("update_docs" function nil nil [2282 2315])
+            ("clean" function nil nil [2315 2379]))          
+      :file "Makefile"
+      :pointmax 2379
+      :fsize 2378
+      :lastmodtime '(22544 3306 0 0)
+      :unmatched-syntax '((shell-command 2373 . 2378) (bol 2372 . 2372) (semantic-list 1268 . 1276) (punctuation 1267 . 1268) (symbol 1263 . 1266) (symbol 1257 . 1262) (bol 1257 . 1257) (semantic-list 1248 . 1256) (punctuation 1247 . 1248) (symbol 1243 . 1246) (symbol 1237 . 1242) (bol 1237 . 1237) (symbol 1216 . 1235) (semantic-list 1208 . 1216) (punctuation 1207 . 1208) (symbol 1203 . 1206) (symbol 1197 . 1202) (bol 1197 . 1197) (symbol 1180 . 1196) (semantic-list 1172 . 1180) (punctuation 1171 . 1172) (symbol 1167 . 1170) (symbol 1161 . 1166) (bol 1161 . 1161) (symbol 1152 . 1160) (semantic-list 1144 . 1152) (punctuation 1143 . 1144) (symbol 1139 . 1142) (symbol 1133 . 1138) (bol 1133 . 1133) (symbol 1126 . 1132) (semantic-list 1118 . 1126) (punctuation 1117 . 1118) (symbol 1113 . 1116) (symbol 1107 . 1112) (bol 1107 . 1107) (semantic-list 1098 . 1106) (punctuation 1097 . 1098) (symbol 1093 . 1096) (symbol 1087 . 1092) (bol 1087 . 1087) (symbol 1077 . 1085) (semantic-list 1069 . 1077) (punctuation 1068 . 1069) (symbol 1064 . 1067) (symbol 1058 . 1063) (bol 1058 . 1058) (semantic-list 1049 . 1057) (punctuation 1048 . 1049) (symbol 1044 . 1047) (symbol 1038 . 1043) (bol 1038 . 1038) (symbol 1017 . 1036) (semantic-list 1009 . 1017) (punctuation 1008 . 1009) (symbol 1002 . 1007) (symbol 996 . 1001) (bol 996 . 996) (symbol 979 . 995) (semantic-list 971 . 979) (punctuation 970 . 971) (symbol 964 . 969) (symbol 958 . 963) (bol 958 . 958) (symbol 949 . 957) (semantic-list 941 . 949) (punctuation 940 . 941) (symbol 934 . 939) (symbol 928 . 933) (bol 928 . 928) (symbol 921 . 927) (semantic-list 913 . 921) (punctuation 912 . 913) (symbol 906 . 911) (symbol 900 . 905) (bol 900 . 900) (semantic-list 891 . 899) (punctuation 890 . 891) (symbol 884 . 889) (symbol 878 . 883) (bol 878 . 878) (semantic-list 868 . 876) (punctuation 867 . 868) (symbol 865 . 866) (symbol 859 . 864) (bol 859 . 859) (INCLUDE 259 . 266) (punctuation 257 . 258) (symbol 250 . 256) (bol 250 . 250))))
+  :file "!home!chz!Public!2三代平台集中存储!FDMN!semantic.cache"
+  :semantic-tag-version "2.0"
+  :semanticdb-version "2.2")

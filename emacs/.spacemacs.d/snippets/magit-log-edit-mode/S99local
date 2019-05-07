@@ -1,0 +1,45 @@
+;; Object fish-mode-20150914.639/
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "fish-mode-20150914.639/"
+  :tables
+  (list
+    (semanticdb-table "fish-mode.el"
+      :major-mode 'emacs-lisp-mode
+      :tags 
+        '( ("fish-font-lock-keywords-1" variable
+               (:constant-flag t
+                :default-value (list (\` ((\, (rx symbol-start (or "alias" "and" "bg" "bind" "block" "breakpoint" "builtin" "cd" "commandline" "command" "complete" "contains" "count" "dirh" "dirs" "echo" "emit" "eval" "exec" "fg" "fish_config" "fishd" "fish_indent" "fish_pager" "fish_prompt" "fish_right_prompt" "fish" "fish_update_completions" "funced" "funcsave" "functions" "help" "history" "isatty" "jobs" "math" "mimedb" "nextd" "open" "or" "popd" "prevd" "psub" "pushd" "pwd" "random" "read" "set_color" "source" "status" "test" "trap" "type" "ulimit" "umask" "vared") symbol-end)) . font-lock-builtin-face)) (\` ((\, (rx symbol-start (or "begin" "break" "case" "continue" "else" "end" "exit" "for" "function" "if" "return" "set" "switch" "while") symbol-end)) . font-lock-keyword-face)) (\` ((\, (rx symbol-start "function" (1+ space) (group (1+ (or alnum (syntax symbol)))) symbol-end)) 1 font-lock-function-name-face)) (\` ((\, (rx symbol-start (or (and "set" (1+ space) (optional "-" (repeat 1 2 letter) (1+ space))) (and "for" (1+ space))) (group (1+ (or alnum (syntax symbol)))))) 1 font-lock-variable-name-face)) (\` ((\, (rx symbol-start (group "$") (group (1+ (or alnum (syntax symbol)))) symbol-end)) (1 font-lock-string-face) (2 font-lock-variable-name-face))) (\` ((\, (rx symbol-start (or (and (group "not") symbol-end)))) 1 font-lock-negation-char-face)) (\` ((\, (rx symbol-start (and "set" (1+ space) (group (and "-" (repeat 1 2 letter))) (1+ space)))) 1 font-lock-negation-char-face))))
+                nil [1343 3504])
+            ("fish-mode-syntax-table" variable (:default-value (let ((tab (make-syntax-table text-mode-syntax-table))) (modify-syntax-entry 35 "<" tab) (modify-syntax-entry 10 ">" tab) (modify-syntax-entry 34 "\"\"" tab) (modify-syntax-entry 39 "\"'" tab) tab)) nil [3506 3795])
+            ("fish/block-opening-terms" variable (:default-value (mapconcat (quote identity) (quote ("\\<if\\>" "\\<function\\>" "\\<while\\>" "\\<for\\>" "\\<begin\\>" "\\<switch\\>")) "\\|")) nil [3822 4005])
+            ("fish/current-line" function nil nil [4007 4144])
+            ("fish/fold" function (:arguments ("f" "x" "list")) nil [4146 4383])
+            ("fish/count-of-tokens-in-string" function (:arguments ("token" "token-to-ignore" "string")) nil [4385 4780])
+            ("fish/at-comment-line?" function nil nil [4782 4896])
+            ("fish/at-empty-line?" function nil nil [4898 5008])
+            ("fish/count-of-opening-terms" function nil nil [5010 5212])
+            ("fish/count-of-end-terms" function nil nil [5214 5319])
+            ("fish/at-open-block?" function nil nil [5321 5523])
+            ("fish/at-open-end?" function nil nil [5525 5760])
+            ("fish/line-contains-block-opening-term?" function nil nil [5762 5901])
+            ("fish/line-contans-end-term?" function nil nil [5903 6019])
+            ("fish/line-contains-open-switch-term?" function nil nil [6021 6236])
+            ("fish-indent-line" function nil nil [6255 8233])
+            ("fish-get-normal-indent" function nil nil [8235 9925])
+            ("fish-get-end-indent" function nil nil [9927 11234])
+            ("fish-get-case-indent" function nil nil [11236 12122])
+            ("fish_indent" function (:user-visible-flag t) nil [12140 12363])
+            ("fish_indent-before-save" function nil nil [12401 12501])
+            ("define-derived-mode" code nil nil [12518 12846])
+            ("add-to-list" code nil nil [12863 12921])
+            ("add-to-list" code nil nil [12937 13005])
+            ("add-to-list" code nil nil [13021 13080])
+            ("fish-mode" package nil nil [13082 13102]))          
+      :file "fish-mode.el"
+      :pointmax 13131
+      :fsize 13130
+      :lastmodtime '(22009 13262 0 0)
+      :unmatched-syntax nil))
+  :file "!home!chz!.emacs.d!elpa!fish-mode-20150914.639!semantic.cache"
+  :semantic-tag-version "2.0"
+  :semanticdb-version "2.2")

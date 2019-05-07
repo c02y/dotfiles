@@ -1,0 +1,231 @@
+;; Object gnome-keyring/
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "gnome-keyring/"
+  :tables (list 
+   (semanticdb-table "git-credential-gnome-keyring.c"
+    :major-mode 'c-mode
+    :tags 
+        '( ("stdio.h" include (:system-flag t) nil [1003 1021])
+            ("string.h" include (:system-flag t) nil [1022 1041])
+            ("stdlib.h" include (:system-flag t) nil [1042 1061])
+            ("glib.h" include (:system-flag t) nil [1062 1079])
+            ("gnome-keyring.h" include (:system-flag t) nil [1080 1106])
+            ("GNOME_KEYRING_DEFAULT" variable (:constant-flag t) nil [1629 1650])
+            ("GNOME_KEYRING_RESULT_NO_MATCH" variable (:constant-flag t) nil [1909 1938])
+            ("gnome_keyring_memory_alloc" variable (:constant-flag t) nil [1976 2002])
+            ("gnome_keyring_memory_free" variable (:constant-flag t) nil [2020 2045])
+            ("gnome_keyring_memory_strdup" variable (:constant-flag t) nil [2082 2109])
+            ("gnome_keyring_result_to_message" function
+               (:pointer 1
+                :typemodifiers ("static")
+                :constant-flag t
+                :arguments 
+                  ( ("result" variable (:type ("GnomeKeyringResult" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [2171 2197]))                  
+                :type "char")
+                nil [2120 2837])
+            ("credential" type
+               (:members 
+                  ( ("protocol" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol classsubparts) [3906 3921])
+                    ("host" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol classsubparts) [3923 3934])
+                    ("port" variable (:type "unsigned short") (reparse-symbol classsubparts) [3936 3956])
+                    ("path" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol classsubparts) [3958 3969])
+                    ("username" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol classsubparts) [3971 3986])
+                    ("password" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol classsubparts) [3988 4003]))                  
+                :type "struct")
+                nil [3885 4006])
+            ("CREDENTIAL_INIT" variable (:constant-flag t) nil [4016 4031])
+            ("credential_op_cb" variable
+               (:functionpointer-flag t
+                :type "int")
+                nil [4077 4122])
+            ("credential_operation" type
+               (:members 
+                  ( ("name" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol classsubparts) [4155 4166])
+                    ("op" variable (:type ("credential_op_cb" type (:type "class") nil nil)) (reparse-symbol classsubparts) [4168 4188]))                  
+                :type "struct")
+                nil [4124 4191])
+            ("CREDENTIAL_OP_END" variable (:constant-flag t) nil [4201 4218])
+            ("keyring_object" function
+               (:pointer 1
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("c" variable
+                       (:pointer 1
+                        :type ("credential" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [4393 4414]))                  
+                :type "char")
+                nil [4365 4582])
+            ("keyring_get" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("c" variable
+                       (:pointer 1
+                        :type ("credential" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [4607 4628]))                  
+                :type "int")
+                nil [4584 5685])
+            ("keyring_store" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("c" variable
+                       (:pointer 1
+                        :type ("credential" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [5713 5734]))                  
+                :type "int")
+                nil [5688 6706])
+            ("keyring_erase" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("c" variable
+                       (:pointer 1
+                        :type ("credential" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [6733 6754]))                  
+                :type "int")
+                nil [6708 8269])
+            ("credential_helper_ops" variable
+               (:dereference 1
+                :typemodifiers ("static")
+                :type ("credential_operation" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [8372 8547])
+            ("credential_init" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("c" variable
+                       (:pointer 1
+                        :type ("credential" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [8643 8664]))                  
+                :type "void")
+                nil [8615 8695])
+            ("credential_clear" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("c" variable
+                       (:pointer 1
+                        :type ("credential" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [8726 8747]))                  
+                :type "void")
+                nil [8697 8894])
+            ("credential_read" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("c" variable
+                       (:pointer 1
+                        :type ("credential" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [8923 8944]))                  
+                :type "int")
+                nil [8896 10265])
+            ("credential_write_item" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("fp" variable
+                       (:pointer 1
+                        :type ("FILE" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [10301 10310])
+                    ("key" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [10311 10327])
+                    ("value" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [10328 10346]))                  
+                :type "void")
+                nil [10267 10410])
+            ("credential_write" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("c" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("credential" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [10441 10468]))                  
+                :type "void")
+                nil [10412 10630])
+            ("usage" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("name" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [10650 10667]))                  
+                :type "void")
+                nil [10632 11025])
+            ("main" function
+               (:arguments 
+                  ( ("argc" variable (:type "int") (reparse-symbol arg-sub-list) [11036 11045])
+                    ("argv" variable
+                       (:pointer 1
+                        :dereference 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [11046 11059]))                  
+                :type "int")
+                nil [11027 11707]))          
+    :file "git-credential-gnome-keyring.c"
+    :pointmax 11708
+    :fsize 11707
+    :lastmodtime '(21563 28275 574380 122000)
+    :unmatched-syntax '((TYPEDEF 4069 . 4076))
+    :lexical-table 
+        '(("GNOME_KEYRING_DEFAULT" . ((symbol "NULL" 1651 . 1655)))
+          ("gnome_keyring_memory_strdup" . ((symbol "g_strdup" 2110 . 2118)))
+          ("gnome_keyring_memory_alloc" . ((symbol "g_malloc" 2003 . 2011)))
+          ("CREDENTIAL_INIT" . ((semantic-list "{ NULL, NULL, 0, NULL, NULL, NULL }" 4032 . 4067)))
+          ("CREDENTIAL_OP_END" . ((semantic-list "{ NULL, NULL }" 4219 . 4233)))
+          ("GNOME_KEYRING_RESULT_NO_MATCH" . ((symbol "GNOME_KEYRING_RESULT_DENIED" 1939 . 1966)))
+          ("gnome_keyring_memory_free" . ((symbol "gnome_keyring_free_password" 2046 . 2073)))
+          )
+
+    )
+   )
+  :file "!home!chz!Projects!CWork!git!git-github!contrib!credential!gnome-keyring!semantic.cache"
+  :semantic-tag-version "2.0"
+  :semanticdb-version "2.2"
+  )

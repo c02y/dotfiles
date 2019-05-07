@@ -1,0 +1,248 @@
+;; Object kernel/
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "kernel/"
+  :tables (list 
+   (semanticdb-table "timer.c"
+    :major-mode 'c-mode
+    :tags 
+        '( ("linux/init.h" include (:system-flag t) nil [322 345])
+            ("linux/kernel.h" include (:system-flag t) nil [346 371])
+            ("linux/param.h" include (:system-flag t) nil [372 396])
+            ("linux/interrupt.h" include (:system-flag t) nil [397 425])
+            ("linux/profile.h" include (:system-flag t) nil [426 452])
+            ("linux/irq.h" include (:system-flag t) nil [453 475])
+            ("linux/delay.h" include (:system-flag t) nil [476 500])
+            ("linux/sched.h" include (:system-flag t) nil [501 525])
+            ("linux/spinlock.h" include (:system-flag t) nil [526 553])
+            ("linux/err.h" include (:system-flag t) nil [554 576])
+            ("linux/clk.h" include (:system-flag t) nil [577 599])
+            ("linux/clocksource.h" include (:system-flag t) nil [600 630])
+            ("linux/clockchips.h" include (:system-flag t) nil [631 660])
+            ("linux/io.h" include (:system-flag t) nil [661 682])
+            ("linux/bug.h" include (:system-flag t) nil [683 705])
+            ("asm/cpuinfo.h" include (:system-flag t) nil [706 730])
+            ("asm/setup.h" include (:system-flag t) nil [731 753])
+            ("asm/prom.h" include (:system-flag t) nil [754 775])
+            ("asm/irq.h" include (:system-flag t) nil [776 796])
+            ("asm/system.h" include (:system-flag t) nil [797 820])
+            ("linux/cnt32_to_63.h" include (:system-flag t) nil [821 851])
+            ("timer_baseaddr" variable
+               (:typemodifiers ("static")
+                :type "unsigned int")
+                nil [949 984])
+            ("TIMER_BASE" variable (:constant-flag t) nil [993 1003])
+            ("freq_div_hz" variable
+               (:typemodifiers ("static")
+                :type "unsigned int")
+                nil [1027 1059])
+            ("timer_clock_freq" variable
+               (:typemodifiers ("static")
+                :type "unsigned int")
+                nil [1060 1097])
+            ("TCSR0" variable (:constant-flag t) nil [1107 1112])
+            ("TLR0" variable (:constant-flag t) nil [1128 1132])
+            ("TCR0" variable (:constant-flag t) nil [1148 1152])
+            ("TCSR1" variable (:constant-flag t) nil [1168 1173])
+            ("TLR1" variable (:constant-flag t) nil [1189 1193])
+            ("TCR1" variable (:constant-flag t) nil [1209 1213])
+            ("TCSR_MDT" variable (:constant-flag t) nil [1230 1238])
+            ("TCSR_UDT" variable (:constant-flag t) nil [1254 1262])
+            ("TCSR_GENT" variable (:constant-flag t) nil [1278 1287])
+            ("TCSR_CAPT" variable (:constant-flag t) nil [1303 1312])
+            ("TCSR_ARHT" variable (:constant-flag t) nil [1328 1337])
+            ("TCSR_LOAD" variable (:constant-flag t) nil [1353 1362])
+            ("TCSR_ENIT" variable (:constant-flag t) nil [1378 1387])
+            ("TCSR_ENT" variable (:constant-flag t) nil [1403 1411])
+            ("TCSR_TINT" variable (:constant-flag t) nil [1427 1436])
+            ("TCSR_PWMA" variable (:constant-flag t) nil [1452 1461])
+            ("TCSR_ENALL" variable (:constant-flag t) nil [1477 1487])
+            ("microblaze_timer0_stop" function
+               (:typemodifiers ("static" "inline")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [1539 1544]))                  
+                :type "void")
+                nil [1497 1620])
+            ("microblaze_timer0_start_periodic" function
+               (:typemodifiers ("static" "inline")
+                :arguments 
+                  ( ("load_val" variable (:type "unsigned long") (reparse-symbol arg-sub-list) [1674 1697]))                  
+                :type "void")
+                nil [1622 2341])
+            ("microblaze_timer0_start_oneshot" function
+               (:typemodifiers ("static" "inline")
+                :arguments 
+                  ( ("load_val" variable (:type "unsigned long") (reparse-symbol arg-sub-list) [2394 2417]))                  
+                :type "void")
+                nil [2343 2683])
+            ("microblaze_timer_set_next_event" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("delta" variable (:type "unsigned long") (reparse-symbol arg-sub-list) [2728 2748])
+                    ("dev" variable
+                       (:pointer 1
+                        :type ("clock_event_device" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [2754 2785]))                  
+                :type "int")
+                nil [2685 2904])
+            ("microblaze_timer_set_mode" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("mode" variable (:type ("clock_event_mode" type (:type "enum") nil nil)) (reparse-symbol arg-sub-list) [2944 2971])
+                    ("evt" variable
+                       (:pointer 1
+                        :type ("clock_event_device" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [2976 3007]))                  
+                :type "void")
+                nil [2906 3538])
+            ("clockevent_microblaze_timer" variable
+               (:typemodifiers ("static")
+                :type ("clock_event_device" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [3540 3834])
+            ("timer_ack" function
+               (:typemodifiers ("static" "inline")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [3865 3870]))                  
+                :type "void")
+                nil [3836 3934])
+            ("timer_interrupt" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("irq" variable (:type "int") (reparse-symbol arg-sub-list) [3971 3979])
+                    ("dev_id" variable
+                       (:pointer 1
+                        :type "void")
+                        (reparse-symbol arg-sub-list) [3980 3993]))                  
+                :type ("irqreturn_t" type (:type "class") nil nil))
+                nil [3936 4168])
+            ("timer_irqaction" variable
+               (:typemodifiers ("static")
+                :type ("irqaction" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [4170 4342])
+            ("microblaze_clockevent_init" function
+               (:arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [4390 4395]))                  
+                :type "void")
+                nil [4358 4836])
+            ("microblaze_read" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("cs" variable
+                       (:pointer 1
+                        :type ("clocksource" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [4869 4892]))                  
+                :type ("cycle_t" type (:type "class") nil nil))
+                nil [4838 4983])
+            ("microblaze_tc" variable
+               (:typemodifiers ("static")
+                :type ("timecounter" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [4985 5044])
+            ("microblaze_cc_read" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("cc" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("cyclecounter" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [5080 5110]))                  
+                :type ("cycle_t" type (:type "class") nil nil))
+                nil [5046 5145])
+            ("microblaze_cc" variable
+               (:typemodifiers ("static")
+                :type ("cyclecounter" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [5147 5267])
+            ("init_microblaze_timecounter" function
+               (:arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [5315 5320]))                  
+                :type ("__init" type (:type "class") nil nil))
+                nil [5280 5490])
+            ("clocksource_microblaze" variable
+               (:typemodifiers ("static")
+                :type ("clocksource" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [5492 5698])
+            ("microblaze_clocksource_init" function
+               (:arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [5746 5751]))                  
+                :type ("__init" type (:type "class") nil nil))
+                nil [5711 6169])
+            ("timer_initialized" variable
+               (:typemodifiers ("static")
+                :type "int")
+                nil [6285 6314])
+            ("time_init" function
+               (:arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [6338 6343]))                  
+                :type ("__init" type (:type "class") nil nil))
+                nil [6321 7921])
+            ("sched_clock" function
+               (:arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [7962 7967]))                  
+                :type ("notrace" type (:type "class") nil nil))
+                nil [7942 8163]))          
+    :file "timer.c"
+    :pointmax 8164
+    :fsize 8163
+    :lastmodtime '(21468 8943 697591 572000)
+    :unmatched-syntax '((LONG 7937 . 7941) (LONG 7932 . 7936) (UNSIGNED 7923 . 7931) (VOID 6316 . 6320) (INT 5707 . 5710) (STATIC 5700 . 5706) (INT 5276 . 5279) (STATIC 5269 . 5275) (symbol 4351 . 4357) (STATIC 4344 . 4350))
+    :lexical-table 
+        '(("TCSR_TINT" . ((semantic-list "(1<<8)" 1437 . 1443)))
+          ("TCSR_ENALL" . ((semantic-list "(1<<10)" 1488 . 1495)))
+          ("TCSR_UDT" . ((semantic-list "(1<<1)" 1263 . 1269)))
+          ("TCSR_ENIT" . ((semantic-list "(1<<6)" 1388 . 1394)))
+          ("TIMER_BASE" . ((symbol "timer_baseaddr" 1004 . 1018)))
+          ("TCSR_GENT" . ((semantic-list "(1<<2)" 1288 . 1294)))
+          ("TCSR_LOAD" . ((semantic-list "(1<<5)" 1363 . 1369)))
+          ("TCSR_ARHT" . ((semantic-list "(1<<4)" 1338 . 1344)))
+          ("TCSR_ENT" . ((semantic-list "(1<<7)" 1412 . 1418)))
+          ("TCR0" . ((semantic-list "(0x08)" 1153 . 1159)))
+          ("TCR1" . ((semantic-list "(0x18)" 1214 . 1220)))
+          ("TCSR0" . ((semantic-list "(0x00)" 1113 . 1119)))
+          ("TCSR_MDT" . ((semantic-list "(1<<0)" 1239 . 1245)))
+          ("TCSR_CAPT" . ((semantic-list "(1<<3)" 1313 . 1319)))
+          ("TLR0" . ((semantic-list "(0x04)" 1133 . 1139)))
+          ("TCSR1" . ((semantic-list "(0x10)" 1174 . 1180)))
+          ("TCSR_PWMA" . ((semantic-list "(1<<9)" 1462 . 1468)))
+          ("TLR1" . ((semantic-list "(0x14)" 1194 . 1200)))
+          )
+
+    )
+   (semanticdb-table "sys_microblaze.c"
+    :major-mode 'c-mode
+    :tags nil
+    :file "sys_microblaze.c"
+    :pointmax 2641
+    :fsize 2640
+    :lastmodtime '(21468 8943 691591 714000)
+    :unmatched-syntax 'nil
+    )
+   )
+  :file "!home!chz!linux-3.0.8!arch!microblaze!kernel!semantic.cache"
+  :semantic-tag-version "2.0"
+  :semanticdb-version "2.2"
+  )

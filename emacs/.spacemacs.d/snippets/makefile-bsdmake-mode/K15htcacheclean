@@ -1,0 +1,126 @@
+;; Object kernel/
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "kernel/"
+  :tables (list 
+   (semanticdb-table "aperture_64.c"
+    :major-mode 'c-mode
+    :tags 
+        '( ("linux/kernel.h" include (:system-flag t) nil [425 450])
+            ("linux/types.h" include (:system-flag t) nil [451 475])
+            ("linux/init.h" include (:system-flag t) nil [476 499])
+            ("linux/memblock.h" include (:system-flag t) nil [500 527])
+            ("linux/mmzone.h" include (:system-flag t) nil [528 553])
+            ("linux/pci_ids.h" include (:system-flag t) nil [554 580])
+            ("linux/pci.h" include (:system-flag t) nil [581 603])
+            ("linux/bitops.h" include (:system-flag t) nil [604 629])
+            ("linux/ioport.h" include (:system-flag t) nil [630 655])
+            ("linux/suspend.h" include (:system-flag t) nil [656 682])
+            ("linux/kmemleak.h" include (:system-flag t) nil [683 710])
+            ("asm/e820.h" include (:system-flag t) nil [711 732])
+            ("asm/io.h" include (:system-flag t) nil [733 752])
+            ("asm/iommu.h" include (:system-flag t) nil [753 775])
+            ("asm/gart.h" include (:system-flag t) nil [776 797])
+            ("asm/pci-direct.h" include (:system-flag t) nil [798 825])
+            ("asm/dma.h" include (:system-flag t) nil [826 846])
+            ("asm/amd_nb.h" include (:system-flag t) nil [847 870])
+            ("asm/x86_init.h" include (:system-flag t) nil [871 896])
+            ("GART_MIN_ADDR" variable (:constant-flag t) nil [1435 1448])
+            ("GART_MAX_ADDR" variable (:constant-flag t) nil [1472 1485])
+            ("gart_iommu_aperture" variable (:type "int") nil [1502 1526])
+            ("__initdata" variable (:type ("gart_iommu_aperture_disabled" type (:type "class") nil nil)) nil [1531 1571])
+            ("__initdata" variable (:type ("gart_iommu_aperture_allowed" type (:type "class") nil nil)) nil [1576 1615])
+            ("__initdata" variable (:type ("fallback_aper_order" type (:type "class") nil nil)) nil [1621 1656])
+            ("__initdata" variable (:type ("fallback_aper_force" type (:type "class") nil nil)) nil [1672 1703])
+            ("__initdata" variable (:type ("fix_aperture" type (:type "class") nil nil)) nil [1709 1737])
+            ("gart_resource" variable
+               (:typemodifiers ("static")
+                :type ("resource" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [1739 1825])
+            ("insert_aperture_resource" function
+               (:arguments 
+                  ( ("aper_base" variable (:type ("u32" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [1871 1885])
+                    ("aper_size" variable (:type ("u32" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [1886 1900]))                  
+                :type ("__init" type (:type "class") nil nil))
+                nil [1839 2037])
+            ("allocate_aperture" function
+               (:arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [2182 2187]))                  
+                :type ("__init" type (:type "class") nil nil))
+                nil [2157 3345])
+            ("find_cap" function
+               (:arguments 
+                  ( ("bus" variable (:type "int") (reparse-symbol arg-sub-list) [3403 3411])
+                    ("slot" variable (:type "int") (reparse-symbol arg-sub-list) [3412 3421])
+                    ("func" variable (:type "int") (reparse-symbol arg-sub-list) [3422 3431])
+                    ("cap" variable (:type "int") (reparse-symbol arg-sub-list) [3432 3440]))                  
+                :type ("__init" type (:type "class") nil nil))
+                nil [3387 3926])
+            ("read_agp" function
+               (:arguments 
+                  ( ("bus" variable (:type "int") (reparse-symbol arg-sub-list) [3997 4005])
+                    ("slot" variable (:type "int") (reparse-symbol arg-sub-list) [4006 4015])
+                    ("func" variable (:type "int") (reparse-symbol arg-sub-list) [4016 4025])
+                    ("cap" variable (:type "int") (reparse-symbol arg-sub-list) [4026 4034])
+                    ("order" variable
+                       (:pointer 1
+                        :type ("u32" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [4035 4046]))                  
+                :type ("__init" type (:type "class") nil nil))
+                nil [3981 5475])
+            ("search_agp_bridge" function
+               (:arguments 
+                  ( ("order" variable
+                       (:pointer 1
+                        :type ("u32" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [6015 6026])
+                    ("valid_agp" variable
+                       (:pointer 1
+                        :type "int")
+                        (reparse-symbol arg-sub-list) [6027 6042]))                  
+                :type ("__init" type (:type "class") nil nil))
+                nil [5990 6885])
+            ("__initdata" variable (:type ("gart_fix_e820" type (:type "class") nil nil)) nil [6898 6927])
+            ("parse_gart_mem" function
+               (:arguments 
+                  ( ("p" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [6962 6970]))                  
+                :type ("__init" type (:type "class") nil nil))
+                nil [6940 7116])
+            ("early_param" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("parse_gart_mem" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [7146 7161]))                  
+                :type "int")
+                nil [7117 7162])
+            ("early_gart_iommu_check" function
+               (:arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [7199 7204]))                  
+                :type ("__init" type (:type "class") nil nil))
+                nil [7169 9988])
+            ("printed_gart_size_msg" variable (:type ("__initdata" type (:type "class") nil nil)) nil [10001 10034])
+            ("gart_iommu_hole_init" function
+               (:arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [10068 10073]))                  
+                :type ("__init" type (:type "class") nil nil))
+                nil [10040 14496]))          
+    :file "aperture_64.c"
+    :pointmax 14497
+    :fsize 14496
+    :lastmodtime '(21468 9000 671242 649000)
+    :unmatched-syntax '((INT 10036 . 10039) (INT 9997 . 10000) (STATIC 9990 . 9996) (VOID 7164 . 7168) (string 7129 . 7144) (INT 6936 . 6939) (STATIC 6929 . 6935) (INT 6894 . 6897) (STATIC 6887 . 6893) (symbol 5986 . 5989) (STATIC 5979 . 5985) (symbol 3977 . 3980) (STATIC 3970 . 3976) (symbol 3383 . 3386) (STATIC 3376 . 3382) (symbol 2153 . 2156) (STATIC 2146 . 2152) (VOID 1834 . 1838) (STATIC 1827 . 1833) (INT 1705 . 1708) (INT 1668 . 1671) (INT 1617 . 1620) (INT 1572 . 1575) (INT 1527 . 1530))
+    :lexical-table 
+        '(("GART_MIN_ADDR" . ((semantic-list "(512ULL << 20)" 1449 . 1463)))
+          ("GART_MAX_ADDR" . ((semantic-list "(1ULL   << 32)" 1486 . 1500)))
+          )
+
+    )
+   )
+  :file "!home!chz!linux-3.0.8!arch!x86!kernel!semantic.cache"
+  :semantic-tag-version "2.0"
+  :semanticdb-version "2.2"
+  )

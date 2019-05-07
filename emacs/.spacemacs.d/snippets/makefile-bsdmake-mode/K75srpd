@@ -1,0 +1,598 @@
+;; Object git-initial/
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "git-initial/"
+  :tables (list 
+   (semanticdb-table "cache.h"
+    :major-mode 'c-mode
+    :tags nil
+    :file "cache.h"
+    :pointmax 2485
+    :fsize 2484
+    :lastmodtime '(21622 8095 472777 621000)
+    :unmatched-syntax 'nil
+    :lexical-table 
+        '(("CACHE_SIGNATURE" . ((number "0x44495243" 488 . 498)))
+          ("cache_entry_size" (spp-arg-list ("len") 1538 . 1543) . ((semantic-list "((offsetof(struct cache_entry,name) + (len) + 8) & ~7)" 1544 . 1598)))
+          ("CACHE_H")
+          ("DEFAULT_DB_ENVIRONMENT" . ((string "\".dircache/objects\"" 1493 . 1512)))
+          ("DB_ENVIRONMENT" . ((string "\"SHA1_FILE_DIRECTORY\"" 1440 . 1461)))
+          ("ce_size" (spp-arg-list ("ce") 1614 . 1618) . ((symbol "cache_entry_size" 1619 . 1635) (semantic-list "((ce)->namelen)" 1635 . 1650)))
+          ("alloc_nr" (spp-arg-list ("x") 1668 . 1671) . ((semantic-list "(((x)+16)*3/2)" 1672 . 1686)))
+          )
+
+    )
+   (semanticdb-table "commit-tree.c"
+    :major-mode 'c-mode
+    :tags 
+        '( ("cache.h" include nil nil [1 19])
+            ("pwd.h" include (:system-flag t) nil [21 37])
+            ("time.h" include (:system-flag t) nil [38 55])
+            ("BLOCKING" variable (:constant-flag t) nil [65 73])
+            ("ORIG_OFFSET" variable (:constant-flag t) nil [94 105])
+            ("init_buffer" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("bufp" variable
+                       (:pointer 2
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [277 289])
+                    ("sizep" variable
+                       (:pointer 1
+                        :type "unsigned int")
+                        (reparse-symbol arg-sub-list) [290 310]))                  
+                :type "void")
+                nil [253 412])
+            ("add_buffer" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("bufp" variable
+                       (:pointer 2
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [437 449])
+                    ("sizep" variable
+                       (:pointer 1
+                        :type "unsigned int")
+                        (reparse-symbol arg-sub-list) [450 470])
+                    ("fmt" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [471 487])
+                    ("..." variable (:type "vararg") (reparse-symbol arg-sub-list) [488 492]))                  
+                :type "void")
+                nil [414 938])
+            ("prepend_integer" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("buffer" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [967 980])
+                    ("val" variable (:type "unsigned int") (reparse-symbol arg-sub-list) [981 994])
+                    ("i" variable (:type "int") (reparse-symbol arg-sub-list) [995 1001]))                  
+                :type "int")
+                nil [940 1106])
+            ("finish_buffer" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("tag" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [1134 1144])
+                    ("bufp" variable
+                       (:pointer 2
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [1145 1157])
+                    ("sizep" variable
+                       (:pointer 1
+                        :type "unsigned int")
+                        (reparse-symbol arg-sub-list) [1158 1178]))                  
+                :type "void")
+                nil [1108 1456])
+            ("remove_special" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("p" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [1485 1493]))                  
+                :type "void")
+                nil [1458 1653])
+            ("MAXPARENT" variable (:constant-flag t) nil [1985 1994])
+            ("main" function
+               (:arguments 
+                  ( ("argc" variable (:type "int") (reparse-symbol arg-sub-list) [2010 2019])
+                    ("argv" variable
+                       (:pointer 2
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [2020 2032]))                  
+                :type "int")
+                nil [2001 4100]))          
+    :file "commit-tree.c"
+    :pointmax 4101
+    :fsize 4100
+    :lastmodtime '(21622 6503 512332 58000)
+    :unmatched-syntax 'nil
+    :lexical-table 
+        '(("MAXPARENT" . ((semantic-list "(16)" 1995 . 1999)))
+          ("BLOCKING" . ((semantic-list "(1ul << 14)" 74 . 85)))
+          ("ORIG_OFFSET" . ((semantic-list "(40)" 106 . 110)))
+          )
+
+    )
+   (semanticdb-table "init-db.c"
+    :major-mode 'c-mode
+    :tags 
+        '( ("cache.h" include nil nil [1 19])
+            ("main" function
+               (:arguments 
+                  ( ("argc" variable (:type "int") (reparse-symbol arg-sub-list) [30 39])
+                    ("argv" variable
+                       (:pointer 2
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [40 52]))                  
+                :type "int")
+                nil [21 1197]))          
+    :file "init-db.c"
+    :pointmax 1198
+    :fsize 1197
+    :lastmodtime '(21622 6544 605291 473000)
+    :unmatched-syntax 'nil
+    )
+   (semanticdb-table "read-cache.c"
+    :major-mode 'c-mode
+    :tags 
+        '( ("cache.h" include nil nil [1 19])
+            ("sha1_file_directory" variable
+               (:pointer 1
+                :constant-flag t
+                :type "char")
+                nil [21 60])
+            ("active_cache" variable
+               (:pointer 2
+                :type ("cache_entry" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [61 102])
+            ("active_alloc" variable (:type "unsigned int") nil [103 148])
+            ("active_nr" variable (:type "unsigned int") nil [103 148])
+            ("usage" function
+               (:arguments 
+                  ( ("err" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [161 177]))                  
+                :type "void")
+                nil [150 233])
+            ("hexval" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("c" variable (:type "char") (reparse-symbol arg-sub-list) [258 265]))                  
+                :type "unsigned int")
+                nil [235 426])
+            ("get_sha1_hex" function
+               (:arguments 
+                  ( ("hex" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [445 455])
+                    ("sha1" variable
+                       (:pointer 1
+                        :type "unsigned char")
+                        (reparse-symbol arg-sub-list) [456 476]))                  
+                :type "int")
+                nil [428 653])
+            ("sha1_to_hex" function
+               (:pointer 1
+                :arguments 
+                  ( ("sha1" variable
+                       (:pointer 1
+                        :type "unsigned char")
+                        (reparse-symbol arg-sub-list) [674 694]))                  
+                :type "char")
+                nil [655 930])
+            ("sha1_file_name" function
+               (:pointer 1
+                :arguments 
+                  ( ("sha1" variable
+                       (:pointer 1
+                        :type "unsigned char")
+                        (reparse-symbol arg-sub-list) [1111 1131]))                  
+                :type "char")
+                nil [1090 1675])
+            ("read_sha1_file" function
+               (:pointer 1
+                :arguments 
+                  ( ("sha1" variable
+                       (:pointer 1
+                        :type "unsigned char")
+                        (reparse-symbol arg-sub-list) [1699 1719])
+                    ("type" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [1720 1731])
+                    ("size" variable
+                       (:pointer 1
+                        :type "unsigned long")
+                        (reparse-symbol arg-sub-list) [1732 1752]))                  
+                :type "void")
+                nil [1677 2828])
+            ("write_sha1_file" function
+               (:arguments 
+                  ( ("buf" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [2850 2860])
+                    ("len" variable (:type "unsigned int") (reparse-symbol arg-sub-list) [2861 2874]))                  
+                :type "int")
+                nil [2830 3561])
+            ("write_sha1_buffer" function
+               (:arguments 
+                  ( ("sha1" variable
+                       (:pointer 1
+                        :type "unsigned char")
+                        (reparse-symbol arg-sub-list) [3585 3605])
+                    ("buf" variable
+                       (:pointer 1
+                        :type "void")
+                        (reparse-symbol arg-sub-list) [3606 3616])
+                    ("size" variable (:type "unsigned int") (reparse-symbol arg-sub-list) [3617 3635]))                  
+                :type "int")
+                nil [3563 3845])
+            ("error" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("string" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [3864 3884]))                  
+                :type "int")
+                nil [3847 3941])
+            ("verify_hdr" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("hdr" variable
+                       (:pointer 1
+                        :type ("cache_header" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [3965 3990])
+                    ("size" variable (:type "unsigned long") (reparse-symbol arg-sub-list) [3991 4010]))                  
+                :type "int")
+                nil [3943 4405])
+            ("read_cache" function
+               (:arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [4422 4427]))                  
+                :type "int")
+                nil [4407 5680]))          
+    :file "read-cache.c"
+    :pointmax 5681
+    :fsize 5680
+    :lastmodtime '(21622 6595 958991 58000)
+    :unmatched-syntax 'nil
+    )
+   (semanticdb-table "read-tree.c"
+    :major-mode 'c-mode
+    :tags 
+        '( ("cache.h" include nil nil [1 19])
+            ("unpack" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("sha1" variable
+                       (:pointer 1
+                        :type "unsigned char")
+                        (reparse-symbol arg-sub-list) [39 59]))                  
+                :type "int")
+                nil [21 622])
+            ("main" function
+               (:arguments 
+                  ( ("argc" variable (:type "int") (reparse-symbol arg-sub-list) [633 642])
+                    ("argv" variable
+                       (:pointer 2
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [643 655]))                  
+                :type "int")
+                nil [624 986]))          
+    :file "read-tree.c"
+    :pointmax 987
+    :fsize 986
+    :lastmodtime '(21622 6627 846183 588000)
+    :unmatched-syntax 'nil
+    )
+   (semanticdb-table "show-diff.c"
+    :major-mode 'c-mode
+    :tags 
+        '( ("cache.h" include nil nil [1 19])
+            ("MTIME_CHANGED" variable (:constant-flag t) nil [29 42])
+            ("CTIME_CHANGED" variable (:constant-flag t) nil [58 71])
+            ("OWNER_CHANGED" variable (:constant-flag t) nil [87 100])
+            ("MODE_CHANGED" variable (:constant-flag t) nil [116 128])
+            ("INODE_CHANGED" variable (:constant-flag t) nil [144 157])
+            ("DATA_CHANGED" variable (:constant-flag t) nil [173 185])
+            ("match_stat" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("ce" variable
+                       (:pointer 1
+                        :type ("cache_entry" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [216 239])
+                    ("st" variable
+                       (:pointer 1
+                        :type ("stat" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [240 256]))                  
+                :type "int")
+                nil [194 981])
+            ("show_differences" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("ce" variable
+                       (:pointer 1
+                        :type ("cache_entry" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [1012 1035])
+                    ("cur" variable
+                       (:pointer 1
+                        :type ("stat" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [1036 1053])
+                    ("old_contents" variable
+                       (:pointer 1
+                        :type "void")
+                        (reparse-symbol arg-sub-list) [1062 1081])
+                    ("old_size" variable (:type "unsigned long long") (reparse-symbol arg-sub-list) [1082 1110]))                  
+                :type "void")
+                nil [983 1277])
+            ("main" function
+               (:arguments 
+                  ( ("argc" variable (:type "int") (reparse-symbol arg-sub-list) [1288 1297])
+                    ("argv" variable
+                       (:pointer 2
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [1298 1310]))                  
+                :type "int")
+                nil [1279 2030]))          
+    :file "show-diff.c"
+    :pointmax 2031
+    :fsize 2030
+    :lastmodtime '(21622 6659 403384 474000)
+    :unmatched-syntax 'nil
+    :lexical-table 
+        '(("CTIME_CHANGED" . ((number "0x0002" 72 . 78)))
+          ("INODE_CHANGED" . ((number "0x0010" 158 . 164)))
+          ("MODE_CHANGED" . ((number "0x0008" 129 . 135)))
+          ("DATA_CHANGED" . ((number "0x0020" 186 . 192)))
+          ("MTIME_CHANGED" . ((number "0x0001" 43 . 49)))
+          ("OWNER_CHANGED" . ((number "0x0004" 101 . 107)))
+          )
+
+    )
+   (semanticdb-table "update-cache.c"
+    :major-mode 'c-mode
+    :tags 
+        '( ("cache.h" include nil nil [1 19])
+            ("cache_name_compare" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("name1" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [51 69])
+                    ("len1" variable (:type "int") (reparse-symbol arg-sub-list) [70 79])
+                    ("name2" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [80 98])
+                    ("len2" variable (:type "int") (reparse-symbol arg-sub-list) [99 108]))                  
+                :type "int")
+                nil [21 291])
+            ("cache_name_pos" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("name" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [319 336])
+                    ("namelen" variable (:type "int") (reparse-symbol arg-sub-list) [337 349]))                  
+                :type "int")
+                nil [293 695])
+            ("remove_file_from_cache" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("path" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [731 742]))                  
+                :type "int")
+                nil [697 976])
+            ("add_cache_entry" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("ce" variable
+                       (:pointer 1
+                        :type ("cache_entry" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [1005 1028]))                  
+                :type "int")
+                nil [978 1580])
+            ("index_fd" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("path" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [1602 1619])
+                    ("namelen" variable (:type "int") (reparse-symbol arg-sub-list) [1620 1632])
+                    ("ce" variable
+                       (:pointer 1
+                        :type ("cache_entry" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [1633 1656])
+                    ("fd" variable (:type "int") (reparse-symbol arg-sub-list) [1657 1664])
+                    ("st" variable
+                       (:pointer 1
+                        :type ("stat" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [1665 1681]))                  
+                :type "int")
+                nil [1582 2619])
+            ("add_file_to_cache" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("path" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [2650 2661]))                  
+                :type "int")
+                nil [2621 3456])
+            ("write_cache" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("newfd" variable (:type "int") (reparse-symbol arg-sub-list) [3481 3491])
+                    ("cache" variable
+                       (:pointer 2
+                        :type ("cache_entry" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [3492 3519])
+                    ("entries" variable (:type "int") (reparse-symbol arg-sub-list) [3520 3532]))                  
+                :type "int")
+                nil [3458 4122])
+            ("verify_path" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("path" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [4461 4472]))                  
+                :type "int")
+                nil [4438 4670])
+            ("main" function
+               (:arguments 
+                  ( ("argc" variable (:type "int") (reparse-symbol arg-sub-list) [4681 4690])
+                    ("argv" variable
+                       (:pointer 2
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [4691 4703]))                  
+                :type "int")
+                nil [4672 5392]))          
+    :file "update-cache.c"
+    :pointmax 5393
+    :fsize 5392
+    :lastmodtime '(21622 6689 793614 912000)
+    :unmatched-syntax 'nil
+    )
+   (semanticdb-table "write-tree.c"
+    :major-mode 'c-mode
+    :tags 
+        '( ("cache.h" include nil nil [1 19])
+            ("check_valid_sha1" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("sha1" variable
+                       (:pointer 1
+                        :type "unsigned char")
+                        (reparse-symbol arg-sub-list) [49 69]))                  
+                :type "int")
+                nil [21 280])
+            ("prepend_integer" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("buffer" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [309 322])
+                    ("val" variable (:type "unsigned int") (reparse-symbol arg-sub-list) [323 336])
+                    ("i" variable (:type "int") (reparse-symbol arg-sub-list) [337 343]))                  
+                :type "int")
+                nil [282 448])
+            ("ORIG_OFFSET" variable (:constant-flag t) nil [458 469])
+            ("main" function
+               (:arguments 
+                  ( ("argc" variable (:type "int") (reparse-symbol arg-sub-list) [541 550])
+                    ("argv" variable
+                       (:pointer 2
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [551 563]))                  
+                :type "int")
+                nil [532 1441]))          
+    :file "write-tree.c"
+    :pointmax 1442
+    :fsize 1441
+    :lastmodtime '(21622 6711 993052 762000)
+    :unmatched-syntax 'nil
+    )
+   (semanticdb-table "Makefile"
+    :major-mode 'makefile-gmake-mode
+    :tags 
+        '( ("CFLAGS" variable (:default-value ("-g")) nil [1 11])
+            ("CC" variable (:default-value ("gcc")) nil [11 18])
+            ("PROG" variable (:default-value ("update-cache" "show-diff" "init-db" "write-tree" "read-tree" "commit-tree" "cat-file")) nil [19 97])
+            ("all" function (:arguments ("$(PROG)")) nil [98 111])
+            ("install" function (:arguments ("$(PROG)")) nil [112 158])
+            ("LIBS" variable (:default-value ("-lssl")) nil [160 172])
+            ("init-db" function (:arguments ("init-db.o")) nil [173 192])
+            ("update-cache" function (:arguments ("update-cache.o" "read-cache.o")) nil [193 304])
+            ("show-diff" function (:arguments ("show-diff.o" "read-cache.o")) nil [305 404])
+            ("write-tree" function (:arguments ("write-tree.o" "read-cache.o")) nil [405 508])
+            ("read-tree" function (:arguments ("read-tree.o" "read-cache.o")) nil [509 608])
+            ("commit-tree" function (:arguments ("commit-tree.o" "read-cache.o")) nil [609 716])
+            ("cat-file" function (:arguments ("cat-file.o" "read-cache.o")) nil [717 812])
+            ("read-cache.o" function (:arguments ("cache.h")) nil [813 835])
+            ("show-diff.o" function (:arguments ("cache.h")) nil [835 856])
+            ("clean" function nil nil [857 899])
+            ("backup" function (:arguments ("clean")) nil [900 958]))          
+    :file "Makefile"
+    :pointmax 958
+    :fsize 957
+    :lastmodtime '(21622 6857 293373 364000)
+    :unmatched-syntax 'nil
+    )
+    (semanticdb-table "cat-file.c"
+    :major-mode 'c-mode
+    :tags 
+        '( ("cache.h" include nil nil [1 19])
+            ("main" function
+               (:arguments 
+                  ( ("argc" variable (:type "int") (reparse-symbol arg-sub-list) [30 39])
+                    ("argv" variable
+                       (:pointer 2
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [40 52]))                  
+                :type "int")
+                nil [21 503]))          
+    :file "cat-file.c"
+    :pointmax 504
+    :fsize 503
+    :lastmodtime '(21622 8073 336386 712000)
+    :unmatched-syntax 'nil
+    )
+   )
+  :file "!home!chz!Projects!CWork!git!git-initial!semantic.cache"
+  :semantic-tag-version "2.0"
+  :semanticdb-version "2.2"
+  )

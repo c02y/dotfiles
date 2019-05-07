@@ -1,0 +1,771 @@
+;; Object tig/
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "tig/"
+  :tables (list 
+   (semanticdb-table "tig.c"
+    :major-mode 'c-mode
+    :tags 
+        '( ("DEBUG" variable (:constant-flag t) nil [354 359])
+            ("VERSION" variable (:constant-flag t) nil [421 428])
+            ("assert.h" include (:system-flag t) nil [447 466])
+            ("errno.h" include (:system-flag t) nil [467 485])
+            ("ctype.h" include (:system-flag t) nil [486 504])
+            ("signal.h" include (:system-flag t) nil [505 524])
+            ("stdarg.h" include (:system-flag t) nil [525 544])
+            ("stdio.h" include (:system-flag t) nil [545 563])
+            ("stdlib.h" include (:system-flag t) nil [564 583])
+            ("string.h" include (:system-flag t) nil [584 603])
+            ("time.h" include (:system-flag t) nil [604 621])
+            ("curses.h" include (:system-flag t) nil [623 642])
+            ("form.h" include (:system-flag t) nil [643 660])
+            ("die" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("err" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [678 694])
+                    ("..." variable (:type "vararg") (reparse-symbol arg-sub-list) [695 699]))                  
+                :type "void")
+                nil [662 700])
+            ("report" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("msg" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [720 736])
+                    ("..." variable (:type "vararg") (reparse-symbol arg-sub-list) [737 741]))                  
+                :type "void")
+                nil [701 742])
+            ("KEY_TAB" variable (:constant-flag t) nil [817 824])
+            ("KEY_ESC" variable (:constant-flag t) nil [836 843])
+            ("KEY_DEL" variable (:constant-flag t) nil [856 863])
+            ("request" type
+               (:members 
+                  ( ("REQ_OFFSET" variable
+                       (:constant-flag t
+                        :default-value (1053 1065)
+                        :type "int")
+                        (reparse-symbol enumsubparts) [1040 1065])
+                    ("REQ_DIFF" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [1127 1136])
+                    ("REQ_LOG" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [1138 1146])
+                    ("REQ_MAIN" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [1148 1157])
+                    ("REQ_VIEWS" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [1159 1169])
+                    ("REQ_QUIT" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [1172 1181])
+                    ("REQ_VERSION" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [1183 1195])
+                    ("REQ_STOP" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [1197 1206])
+                    ("REQ_UPDATE" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [1208 1219])
+                    ("REQ_REDRAW" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [1221 1232])
+                    ("REQ_FIRST_LINE" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [1234 1249])
+                    ("REQ_LAST_LINE" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [1251 1265])
+                    ("REQ_LINE_NUMBER" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [1267 1283]))                  
+                :type "enum")
+                nil [890 1286])
+            ("VIEW_OFFSET" variable (:constant-flag t) nil [1353 1364])
+            ("SIZEOF_ID" variable (:constant-flag t) nil [1400 1409])
+            ("COLOR_TRANSP" variable (:constant-flag t) nil [1424 1436])
+            ("DATE_FORMAT" variable (:constant-flag t) nil [1451 1462])
+            ("DATE_COLS" variable (:constant-flag t) nil [1488 1497])
+            ("ABS" variable (:constant-flag t) nil [1545 1548])
+            ("MIN" variable (:constant-flag t) nil [1585 1588])
+            ("ARRAY_SIZE" variable (:constant-flag t) nil [1628 1638])
+            ("STRING_SIZE" variable (:constant-flag t) nil [1677 1688])
+            ("commit" type
+               (:members 
+                  ( ("id" variable
+                       (:dereference 1
+                        :type "char")
+                        (reparse-symbol classsubparts) [1726 1738])
+                    ("title" variable
+                       (:dereference 1
+                        :type "char")
+                        (reparse-symbol classsubparts) [1740 1755])
+                    ("author" variable
+                       (:dereference 1
+                        :type "char")
+                        (reparse-symbol classsubparts) [1757 1773])
+                    ("time" variable (:type ("tm" type
+                         (:prototype t
+                          :type "struct")
+                          nil nil)) (reparse-symbol classsubparts) [1775 1790]))                  
+                :type "struct")
+                nil [1709 1793])
+            ("opt_line_number" variable
+               (:typemodifiers ("static")
+                :type "int")
+                nil [1828 1855])
+            ("opt_request" variable
+               (:typemodifiers ("static")
+                :type "int")
+                nil [1856 1890])
+            ("head_id" variable
+               (:dereference 1
+                :type "char")
+                nil [1892 1925])
+            ("commit_id" variable
+               (:dereference 1
+                :type "char")
+                nil [1926 1961])
+            ("parse_options" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("argc" variable (:type "int") (reparse-symbol arg-sub-list) [2050 2059])
+                    ("argv" variable
+                       (:pointer 1
+                        :dereference 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [2060 2073]))                  
+                :type "int")
+                nil [2025 3261])
+            ("line_type" type
+               (:members 
+                  ( ("LINE_DEFAULT" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [3326 3339])
+                    ("LINE_AUTHOR" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [3341 3353])
+                    ("LINE_AUTHOR_IDENT" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [3355 3373])
+                    ("LINE_COMMIT" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [3375 3387])
+                    ("LINE_COMMITTER" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [3389 3404])
+                    ("LINE_CURSOR" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [3406 3418])
+                    ("LINE_DATE" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [3420 3430])
+                    ("LINE_DIFF" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [3432 3442])
+                    ("LINE_DIFF_ADD" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [3444 3458])
+                    ("LINE_DIFF_CHUNK" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [3460 3476])
+                    ("LINE_DIFF_COPY" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [3478 3493])
+                    ("LINE_DIFF_DEL" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [3495 3509])
+                    ("LINE_DIFF_DISSIM" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [3511 3528])
+                    ("LINE_DIFF_NEWMODE" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [3530 3548])
+                    ("LINE_DIFF_OLDMODE" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [3550 3568])
+                    ("LINE_DIFF_RENAME" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [3570 3587])
+                    ("LINE_DIFF_SIM" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [3589 3603])
+                    ("LINE_DIFF_TREE" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [3605 3620])
+                    ("LINE_INDEX" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [3622 3633])
+                    ("LINE_MAIN_AUTHOR" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [3635 3652])
+                    ("LINE_MAIN_COMMIT" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [3654 3671])
+                    ("LINE_MAIN_DATE" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [3673 3688])
+                    ("LINE_MAIN_DELIM" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [3690 3706])
+                    ("LINE_MERGE" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [3708 3719])
+                    ("LINE_PARENT" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [3721 3733])
+                    ("LINE_SIGNOFF" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [3735 3748])
+                    ("LINE_STATUS" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [3750 3762])
+                    ("LINE_TITLE" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [3764 3775])
+                    ("LINE_TREE" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [3777 3787]))                  
+                :type "enum")
+                nil [3308 3790])
+            ("line_info" type
+               (:members 
+                  ( ("type" variable (:type ("line_type" type (:type "enum") nil nil)) (reparse-symbol classsubparts) [3812 3832])
+                    ("line" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol classsubparts) [3834 3845])
+                    ("linelen" variable (:type "int") (reparse-symbol classsubparts) [3847 3859])
+                    ("fg" variable (:type "int") (reparse-symbol classsubparts) [3862 3869])
+                    ("bg" variable (:type "int") (reparse-symbol classsubparts) [3871 3878])
+                    ("attr" variable (:type "int") (reparse-symbol classsubparts) [3880 3889]))                  
+                :type "struct")
+                nil [3792 3892])
+            ("LINE" variable (:constant-flag t) nil [3902 3906])
+            ("line_info" variable
+               (:dereference 1
+                :typemodifiers ("static")
+                :type ("line_info" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [4000 5900])
+            ("get_line_info" function
+               (:pointer 1
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("line" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [5942 5953]))                  
+                :type ("line_info" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [5902 6204])
+            ("get_line_type" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("line" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [6242 6253]))                  
+                :type ("line_type" type (:type "enum") nil nil))
+                nil [6206 6347])
+            ("get_line_attr" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("type" variable (:type ("line_type" type (:type "enum") nil nil)) (reparse-symbol arg-sub-list) [6374 6394]))                  
+                :type "int")
+                nil [6349 6565])
+            ("init_colors" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [6591 6596]))                  
+                :type "void")
+                nil [6567 7038])
+            ("HELP" variable (:constant-flag t) nil [7248 7252])
+            ("keymap" type
+               (:members 
+                  ( ("alias" variable (:type "int") (reparse-symbol classsubparts) [7322 7332])
+                    ("request" variable (:type "int") (reparse-symbol classsubparts) [7334 7346]))                  
+                :type "struct")
+                nil [7305 7349])
+            ("keymap" variable
+               (:dereference 1
+                :type ("keymap" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [7351 8185])
+            ("get_request" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("request" variable (:type "int") (reparse-symbol arg-sub-list) [8210 8222]))                  
+                :type "int")
+                nil [8187 8358])
+            ("view" type
+               (:members 
+                  ( ("name" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol classsubparts) [8394 8405])
+                    ("cmd" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol classsubparts) [8407 8417])
+                    ("id" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol classsubparts) [8419 8428])
+                    ("read" variable
+                       (:functionpointer-flag t
+                        :type "int")
+                        (reparse-symbol classsubparts) [8449 8484])
+                    ("draw" variable
+                       (:functionpointer-flag t
+                        :type "int")
+                        (reparse-symbol classsubparts) [8486 8527])
+                    ("objsize" variable (:type ("size_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [8529 8544])
+                    ("win" variable
+                       (:pointer 1
+                        :type ("WINDOW" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [8588 8600])
+                    ("width" variable (:type "int") (reparse-symbol classsubparts) [8602 8620])
+                    ("height" variable (:type "int") (reparse-symbol classsubparts) [8602 8620])
+                    ("offset" variable (:type "unsigned long") (reparse-symbol classsubparts) [8641 8662])
+                    ("lineno" variable (:type "unsigned long") (reparse-symbol classsubparts) [8695 8716])
+                    ("lines" variable (:type "unsigned long") (reparse-symbol classsubparts) [8762 8782])
+                    ("line" variable
+                       (:pointer 2
+                        :type "void")
+                        (reparse-symbol classsubparts) [8812 8824])
+                    ("pipe" variable
+                       (:pointer 1
+                        :type ("FILE" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [8860 8871]))                  
+                :type "struct")
+                nil [8379 8874])
+            ("pager_draw" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("view" variable
+                       (:pointer 1
+                        :type ("view" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [8898 8916])
+                    ("lineno" variable (:type "unsigned int") (reparse-symbol arg-sub-list) [8917 8937]))                  
+                :type "int")
+                nil [8876 8938])
+            ("pager_read" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("view" variable
+                       (:pointer 1
+                        :type ("view" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [8961 8979])
+                    ("line" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [8980 8991]))                  
+                :type "int")
+                nil [8939 8992])
+            ("main_draw" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("view" variable
+                       (:pointer 1
+                        :type ("view" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [9015 9033])
+                    ("lineno" variable (:type "unsigned int") (reparse-symbol arg-sub-list) [9034 9054]))                  
+                :type "int")
+                nil [8994 9055])
+            ("main_read" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("view" variable
+                       (:pointer 1
+                        :type ("view" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [9077 9095])
+                    ("line" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [9096 9107]))                  
+                :type "int")
+                nil [9056 9108])
+            ("DIFF_CMD" variable (:constant-flag t) nil [9118 9126])
+            ("LOG_CMD" variable (:constant-flag t) nil [9220 9227])
+            ("MAIN_CMD" variable (:constant-flag t) nil [9266 9274])
+            ("status_win" variable
+               (:pointer 1
+                :typemodifiers ("static")
+                :type ("WINDOW" type (:type "class") nil nil))
+                nil [9368 9394])
+            ("title_win" variable
+               (:pointer 1
+                :typemodifiers ("static")
+                :type ("WINDOW" type (:type "class") nil nil))
+                nil [9395 9420])
+            ("nloading" variable
+               (:typemodifiers ("static")
+                :type "unsigned int")
+                nil [9527 9556])
+            ("views" variable
+               (:dereference 1
+                :typemodifiers ("static")
+                :type ("view" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [9558 9831])
+            ("display" variable
+               (:pointer 1
+                :dereference 1
+                :typemodifiers ("static")
+                :type ("view" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [9908 9955])
+            ("current_view" variable
+               (:typemodifiers ("static")
+                :type "unsigned int")
+                nil [9956 9989])
+            ("foreach_view" variable (:constant-flag t) nil [9999 10011])
+            ("redraw_view" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("view" variable
+                       (:pointer 1
+                        :type ("view" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [10111 10129]))                  
+                :type "void")
+                nil [10087 10338])
+            ("resize_view" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("view" variable
+                       (:pointer 1
+                        :type ("view" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [10364 10382]))                  
+                :type "void")
+                nil [10340 10742])
+            ("report_position" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("view" variable
+                       (:pointer 1
+                        :type ("view" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [10801 10819])
+                    ("all" variable (:type "int") (reparse-symbol arg-sub-list) [10820 10828]))                  
+                :type "void")
+                nil [10773 11009])
+            ("move_view" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("view" variable
+                       (:pointer 1
+                        :type ("view" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [11034 11052])
+                    ("lines" variable (:type "int") (reparse-symbol arg-sub-list) [11053 11063]))                  
+                :type "void")
+                nil [11012 11929])
+            ("scroll_view" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("view" variable
+                       (:pointer 1
+                        :type ("view" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [11955 11973])
+                    ("request" variable (:type "int") (reparse-symbol arg-sub-list) [11974 11986]))                  
+                :type "void")
+                nil [11931 12549])
+            ("navigate_view" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("view" variable
+                       (:pointer 1
+                        :type ("view" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [12577 12595])
+                    ("request" variable (:type "int") (reparse-symbol arg-sub-list) [12596 12608]))                  
+                :type "void")
+                nil [12551 14206])
+            ("begin_update" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("view" variable
+                       (:pointer 1
+                        :type ("view" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [14235 14253]))                  
+                :type "bool")
+                nil [14210 14620])
+            ("end_update" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("view" variable
+                       (:pointer 1
+                        :type ("view" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [14645 14663]))                  
+                :type "void")
+                nil [14622 14793])
+            ("update_view" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("view" variable
+                       (:pointer 1
+                        :type ("view" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [14818 14836]))                  
+                :type "int")
+                nil [14795 15826])
+            ("switch_view" function
+               (:pointer 1
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("prev" variable
+                       (:pointer 1
+                        :type ("view" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [15862 15880])
+                    ("request" variable (:type "int") (reparse-symbol arg-sub-list) [15881 15893]))                  
+                :type ("view" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [15829 16669])
+            ("view_driver" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("view" variable
+                       (:pointer 1
+                        :type ("view" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [16721 16739])
+                    ("key" variable (:type "int") (reparse-symbol arg-sub-list) [16740 16748]))                  
+                :type "int")
+                nil [16698 17707])
+            ("pager_draw" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("view" variable
+                       (:pointer 1
+                        :type ("view" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [17753 17771])
+                    ("lineno" variable (:type "unsigned int") (reparse-symbol arg-sub-list) [17772 17792]))                  
+                :type "int")
+                nil [17731 18947])
+            ("pager_read" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("view" variable
+                       (:pointer 1
+                        :type ("view" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [18971 18989])
+                    ("line" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [18990 19001]))                  
+                :type "int")
+                nil [18949 19124])
+            ("main_draw" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("view" variable
+                       (:pointer 1
+                        :type ("view" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [19147 19165])
+                    ("lineno" variable (:type "unsigned int") (reparse-symbol arg-sub-list) [19166 19186]))                  
+                :type "int")
+                nil [19126 20358])
+            ("main_read" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("view" variable
+                       (:pointer 1
+                        :type ("view" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [20459 20477])
+                    ("line" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [20478 20489]))                  
+                :type "int")
+                nil [20438 21920])
+            ("quit" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("sig" variable (:type "int") (reparse-symbol arg-sub-list) [21956 21964]))                  
+                :type "void")
+                nil [21939 22102])
+            ("die" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("err" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [22120 22136])
+                    ("..." variable (:type "vararg") (reparse-symbol arg-sub-list) [22137 22141]))                  
+                :type "void")
+                nil [22104 22298])
+            ("report" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("msg" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [22319 22335])
+                    ("..." variable (:type "vararg") (reparse-symbol arg-sub-list) [22336 22340]))                  
+                :type "void")
+                nil [22300 22733])
+            ("main" function
+               (:arguments 
+                  ( ("argc" variable (:type "int") (reparse-symbol arg-sub-list) [22744 22753])
+                    ("argv" variable
+                       (:pointer 1
+                        :dereference 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [22754 22767]))                  
+                :type "int")
+                nil [22735 24127]))          
+    :file "tig.c"
+    :pointmax 25581
+    :fsize 25580
+    :lastmodtime '(21556 13541 924587 947000)
+    :unmatched-syntax 'nil
+    :lexical-table 
+        '(("COLOR_TRANSP" . ((semantic-list "(-1)" 1437 . 1441)))
+          ("HELP" . ((string "\"(d)iff, (l)og, (m)ain, (q)uit, (v)ersion, (h)elp\"" 7253 . 7303)))
+          ("VIEW_OFFSET" (spp-arg-list ("r") 1364 . 1367) . ((semantic-list "((r) - REQ_OFFSET - 1)" 1368 . 1390)))
+          ("DATE_FORMAT" . ((string "\"%Y-%m-%d %H:%M\"" 1463 . 1479)))
+          ("MIN" (spp-arg-list ("x" "y") 1588 . 1594) . ((semantic-list "((x) < (y) ? (x) : (y))" 1595 . 1618)))
+          ("DIFF_CMD" . ((string "\"git log --stat -n1 %s ; echo; \"" 9130 . 9162) (string "\"git diff --find-copies-harder -B -C %s^ %s\"" 9166 . 9210)))
+          ("KEY_DEL" . ((number "127" 865 . 868)))
+          ("foreach_view" (spp-arg-list ("view" "i") 10011 . 10020) . ((FOR "for" 10024 . 10027) (semantic-list "(i = 0; i < sizeof(display) && (view = display[i]); i++)" 10028 . 10084)))
+          ("VERSION" . ((string "\"tig-0.1\"" 429 . 438)))
+          ("KEY_ESC" . ((number "27" 845 . 847)))
+          ("KEY_TAB" . ((number "9" 826 . 827)))
+          ("ABS" (spp-arg-list ("x") 1548 . 1551) . ((semantic-list "((x) >= 0 ? (x) : -(x))" 1553 . 1576)))
+          ("STRING_SIZE" (spp-arg-list ("x") 1688 . 1691) . ((semantic-list "(sizeof(x) - 1)" 1692 . 1707)))
+          ("LOG_CMD" . ((string "\"git log --stat -n100 %s\"" 9231 . 9256)))
+          ("DATE_COLS" . ((semantic-list "(STRING_SIZE(\"2006-04-29 14:21\") + 1)" 1498 . 1535)))
+          ("ARRAY_SIZE" (spp-arg-list ("x") 1638 . 1641) . ((semantic-list "(sizeof(x) / sizeof(x[0]))" 1642 . 1668)))
+          ("LINE" (spp-arg-list ("type" "line" "fg" "bg" "attr") 3906 . 3932) . ((semantic-list "{ LINE_##type, (line), STRING_SIZE(line), (fg), (bg), (attr) }" 3936 . 3998)))
+          ("DEBUG")
+          ("SIZEOF_ID" . ((number "1024" 1410 . 1414)))
+          ("MAIN_CMD" . ((string "\"git log --stat --pretty=raw %s\"" 9278 . 9310)))
+          )
+
+    )
+       )
+  :file "!home!chz!Projects!CWork!tig!semantic.cache"
+  :semantic-tag-version "2.0"
+  :semanticdb-version "2.2"
+  )

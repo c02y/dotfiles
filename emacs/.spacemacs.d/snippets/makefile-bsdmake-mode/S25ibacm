@@ -1,0 +1,2658 @@
+;; Object Smark/
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "Smark/"
+  :tables (list 
+   (semanticdb-table "SmkApp.cpp"
+    :major-mode 'c++-mode
+    :tags 
+        '( ("QDataStream" include (:system-flag t) nil [1 23])
+            ("SmkConfig.h" include nil nil [24 46])
+            ("SmkApp.h" include nil nil [47 66])
+            ("SmkApp" function
+               (:constructor-flag t
+                :parent "SmkApp"
+                :arguments 
+                  ( ("argc" variable
+                       (:reference 1
+                        :type "int")
+                        (reparse-symbol arg-sub-list) [83 94])
+                    ("argv" variable
+                       (:pointer 2
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [95 107]))                  
+                :type ("SmkApp" type (:type "class") nil nil))
+                nil [68 2525])
+            ("SmkApp" function
+               (:destructor-flag t
+                :parent "SmkApp"
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [2543 2548]))                  
+                :type "void")
+                nil [2527 2576])
+            ("option" function
+               (:parent "SmkApp"
+                :arguments 
+                  ( ("key" variable
+                       (:reference 1
+                        :constant-flag t
+                        :type ("QString" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [2618 2637]))                  
+                :type ("QString" type (:type "class") nil nil))
+                nil [2595 2679])
+            ("setOption" function
+               (:parent "SmkApp"
+                :arguments 
+                  ( ("key" variable
+                       (:reference 1
+                        :constant-flag t
+                        :type ("QString" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [2722 2741])
+                    ("val" variable
+                       (:reference 1
+                        :constant-flag t
+                        :type ("QString" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [2742 2761]))                  
+                :type "void")
+                nil [2699 2790])
+            ("saveOption" function
+               (:parent "SmkApp"
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [2827 2832]))                  
+                :type "void")
+                nil [2803 3179]))          
+    :file "SmkApp.cpp"
+    :pointmax 3180
+    :fsize 3497
+    :lastmodtime '(21550 57192 327850 722000)
+    :unmatched-syntax 'nil
+    )
+   (semanticdb-table "SmkConfig.h"
+    :major-mode 'c-mode
+    :tags 
+        '( ("SMARK_SMK_CONFIG_H" variable (:constant-flag t) nil [36 54])
+            ("QString" include (:system-flag t) nil [56 74])
+            ("QtCore" include (:system-flag t) nil [75 92])
+            ("QtGui" include (:system-flag t) nil [93 109])
+            ("QDebug" include (:system-flag t) nil [110 127])
+            ("QtWidgets" include (:system-flag t) nil [158 178])
+            ("QtWebKitWidgets" include (:system-flag t) nil [179 205])
+            ("QtPrintSupport/QPrinter" include (:system-flag t) nil [206 240])
+            ("QtPrintSupport/QPrintDialog" include (:system-flag t) nil [241 279])
+            ("SMK_VERSION" variable (:constant-flag t) nil [296 307])
+            ("SMK_LINE_END" function
+               (:prototype-flag t
+                :constant-flag t
+                :type ("QChar" type (:type "class") nil nil))
+                nil [375 413])
+            ("SMK_EMPTY_STR" function
+               (:prototype-flag t
+                :constant-flag t
+                :type ("QString" type (:type "class") nil nil))
+                nil [414 446])
+            ("SMK_EMPTY_STR" variable (:constant-flag t) nil [455 468])
+            ("SMK_LINE_END" variable (:constant-flag t) nil [491 503]))          
+    :file "SmkConfig.h"
+    :pointmax 548
+    :fsize 577
+    :lastmodtime '(21516 14366 0 0)
+    :unmatched-syntax '((string 442 . 444) (string 402 . 411))
+    :lexical-table 
+        '(("SMK_EMPTY_STR" . ((symbol "SMK_EMPTY_STR" 469 . 482)))
+          ("SMARK_SMK_CONFIG_H")
+          ("SMK_LINE_END" . ((symbol "SMK_LINE_END" 505 . 517)))
+          ("SMK_VERSION" . ((string "\"smark 2.0.1\"" 308 . 321)))
+          )
+
+    )
+   (semanticdb-table "SmkApp.h"
+    :major-mode 'c-mode
+    :tags 
+        '( ("SMARK_SMK_APP_H" variable (:constant-flag t) nil [33 48])
+            ("SmkConfig.h" include nil nil [50 72])
+            ("SmkApp" type
+               (:superclasses 
+                  ( ("QApplication" type
+                       (:protection "public"
+                        :type "class")
+                        nil nil))                  
+                :members 
+                  ( ("private" label nil (reparse-symbol classsubparts) [413 421])
+                    ("options_" variable (:type ("QHash" type
+                         (:template-specifier 
+                            ( ("QString" type nil nil nil)
+                              ("QString" type nil nil nil))                            
+                          :type "class")
+                          nil nil)) (reparse-symbol classsubparts) [450 483])
+                    ("public" label nil (reparse-symbol classsubparts) [485 492])
+                    ("SmkApp" function
+                       (:prototype-flag t
+                        :constructor-flag t
+                        :arguments 
+                          ( ("argc" variable
+                               (:reference 1
+                                :type "int")
+                                (reparse-symbol arg-sub-list) [520 531])
+                            ("argv" variable
+                               (:pointer 2
+                                :type "char")
+                                (reparse-symbol arg-sub-list) [532 544]))                          
+                        :type ("SmkApp" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [513 545])
+                    ("SmkApp" function
+                       (:prototype-flag t
+                        :destructor-flag t
+                        :typemodifiers ("virtual")
+                        :arguments 
+                          ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [566 571]))                          
+                        :type "void")
+                        (reparse-symbol classsubparts) [550 572])
+                    ("public" label nil (reparse-symbol classsubparts) [574 581])
+                    ("option" function
+                       (:prototype-flag t
+                        :arguments 
+                          ( ("key" variable
+                               (:reference 1
+                                :constant-flag t
+                                :type ("QString" type (:type "class") nil nil))
+                                (reparse-symbol arg-sub-list) [645 664]))                          
+                        :type ("QString" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [630 671])
+                    ("setOption" function
+                       (:prototype-flag t
+                        :arguments 
+                          ( ("key" variable
+                               (:reference 1
+                                :constant-flag t
+                                :type ("QString" type (:type "class") nil nil))
+                                (reparse-symbol arg-sub-list) [714 733])
+                            ("val" variable
+                               (:reference 1
+                                :constant-flag t
+                                :type ("QString" type (:type "class") nil nil))
+                                (reparse-symbol arg-sub-list) [734 753]))                          
+                        :type "void")
+                        (reparse-symbol classsubparts) [699 754])
+                    ("saveOption" function
+                       (:prototype-flag t
+                        :arguments 
+                          ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [791 796]))                          
+                        :type "void")
+                        (reparse-symbol classsubparts) [775 803]))                  
+                :type "class")
+                nil [362 806])
+            ("qSmkApp" function
+               (:pointer 1
+                :typemodifiers ("inline")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [1041 1046]))                  
+                :type ("SmkApp" type (:type "class") nil nil))
+                nil [1018 1113]))          
+    :file "SmkApp.h"
+    :pointmax 1141
+    :fsize 1329
+    :lastmodtime '(21550 56873 912533 645000)
+    :unmatched-syntax '((symbol 403 . 411))
+    :lexical-table 
+        '(("SMARK_SMK_APP_H")
+          )
+
+    )
+   (semanticdb-table "SmkBasicMarkWidget.cpp"
+    :major-mode 'c++-mode
+    :tags 
+        '( ("QtGui" include (:system-flag t) nil [1 17])
+            ("SmkApp.h" include nil nil [18 37])
+            ("SmkBasicMarkWidget.h" include nil nil [38 69])
+            ("SmkPrivate" type
+               (:members 
+                  ( ("LineNumberArea" type
+                       (:superclasses 
+                          ( ("QWidget" type
+                               (:protection "public"
+                                :type "class")
+                                nil nil))                          
+                        :members 
+                          ( ("private" label nil (reparse-symbol classsubparts) [146 154])
+                            ("editor" variable
+                               (:pointer 1
+                                :type ("SmkBasicMarkWidget" type (:type "class") nil nil))
+                                (reparse-symbol classsubparts) [164 191])
+                            ("public" label nil (reparse-symbol classsubparts) [197 204])
+                            ("LineNumberArea" function
+                               (:constructor-flag t
+                                :arguments 
+                                  ( ("parent" variable
+                                       (:pointer 1
+                                        :type ("SmkBasicMarkWidget" type (:type "class") nil nil))
+                                        (reparse-symbol arg-sub-list) [229 256]))                                  
+                                :type ("LineNumberArea" type (:type "class") nil nil))
+                                (reparse-symbol classsubparts) [214 349])
+                            ("sizeHint" function (:type ("QSize" type (:type "class") nil nil)) (reparse-symbol classsubparts) [359 453])
+                            ("protected" label nil (reparse-symbol classsubparts) [459 469])
+                            ("paintEvent" function
+                               (:arguments 
+                                  ( ("event" variable
+                                       (:pointer 1
+                                        :type ("QPaintEvent" type (:type "class") nil nil))
+                                        (reparse-symbol arg-sub-list) [495 514]))                                  
+                                :type "void")
+                                (reparse-symbol classsubparts) [479 579]))                          
+                        :type "class")
+                        (reparse-symbol namespacesubparts) [98 586]))                  
+                :type "namespace")
+                nil [71 588])
+            ("SmkBasicMarkWidget" function
+               (:constructor-flag t
+                :parent "SmkBasicMarkWidget"
+                :arguments 
+                  ( ("parent" variable
+                       (:pointer 1
+                        :type ("QWidget" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [651 667]))                  
+                :type ("SmkBasicMarkWidget" type (:type "class") nil nil))
+                nil [612 1244])
+            ("updateOption" function
+               (:parent "SmkBasicMarkWidget"
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [1284 1289]))                  
+                :type "void")
+                nil [1246 1869])
+            ("lineNumberAreaWidth" function
+               (:parent "SmkBasicMarkWidget"
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [1915 1920]))                  
+                :type "int")
+                nil [1871 2117])
+            ("updateLineNumberAreaWidth" function
+               (:parent "SmkBasicMarkWidget"
+                :arguments 
+                  ( ("" variable (:type "int") (reparse-symbol arg-sub-list) [2170 2192]))                  
+                :type "void")
+                nil [2119 2252])
+            ("updateLineNumberArea" function
+               (:parent "SmkBasicMarkWidget"
+                :arguments 
+                  ( ("rect" variable
+                       (:reference 1
+                        :constant-flag t
+                        :type ("QRect" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [2301 2319])
+                    ("dy" variable (:type "int") (reparse-symbol arg-sub-list) [2320 2327]))                  
+                :type "void")
+                nil [2255 2566])
+            ("resizeEvent" function
+               (:parent "SmkBasicMarkWidget"
+                :arguments 
+                  ( ("e" variable
+                       (:pointer 1
+                        :type ("QResizeEvent" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [2605 2621]))                  
+                :type "void")
+                nil [2568 2877])
+            ("highlightCurrentLine" function
+               (:parent "SmkBasicMarkWidget"
+                :type "void")
+                nil [2879 3722])
+            ("lineNumberAreaPaintEvent" function
+               (:parent "SmkBasicMarkWidget"
+                :arguments 
+                  ( ("event" variable
+                       (:pointer 1
+                        :type ("QPaintEvent" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [3774 3793]))                  
+                :type "void")
+                nil [3724 5228]))          
+    :file "SmkBasicMarkWidget.cpp"
+    :pointmax 5229
+    :fsize 5393
+    :lastmodtime '(21550 57192 290851 615000)
+    :unmatched-syntax 'nil
+    )
+   (semanticdb-table "SmkBasicMarkWidget.h"
+    :major-mode 'c-mode
+    :tags 
+        '( ("SMARK_SMK_BASIC_MARK_WIDGET_H" variable (:constant-flag t) nil [47 76])
+            ("QPlainTextEdit" include (:system-flag t) nil [78 103])
+            ("SmkMarkHighlighter.h" include nil nil [104 135])
+            ("QPaintEvent" type
+               (:prototype t
+                :type "class")
+                nil [156 174])
+            ("QResizeEvent" type
+               (:prototype t
+                :type "class")
+                nil [175 194])
+            ("QSize" type
+               (:prototype t
+                :type "class")
+                nil [195 207])
+            ("QWidget" type
+               (:prototype t
+                :type "class")
+                nil [208 222])
+            ("SmkBasicMarkWidget" type
+               (:superclasses 
+                  ( ("QPlainTextEdit" type
+                       (:protection "public"
+                        :type "class")
+                        nil nil))                  
+                :members 
+                  ( ("public" label nil (reparse-symbol classsubparts) [314 321])
+                    ("SmkBasicMarkWidget" function
+                       (:prototype-flag t
+                        :constructor-flag t
+                        :arguments 
+                          ( ("parent" variable
+                               (:pointer 1
+                                :type ("QWidget" type (:type "class") nil nil))
+                                (reparse-symbol arg-sub-list) [355 372]))                          
+                        :type ("SmkBasicMarkWidget" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [336 376])
+                    ("public" label nil (reparse-symbol classsubparts) [378 385])
+                    ("updateOption" function
+                       (:prototype-flag t
+                        :arguments 
+                          ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [409 414]))                          
+                        :type "void")
+                        (reparse-symbol classsubparts) [391 415])
+                    ("public" label nil (reparse-symbol classsubparts) [417 424])
+                    ("lineNumberAreaPaintEvent" function
+                       (:prototype-flag t
+                        :arguments 
+                          ( ("event" variable
+                               (:pointer 1
+                                :type ("QPaintEvent" type (:type "class") nil nil))
+                                (reparse-symbol arg-sub-list) [460 479]))                          
+                        :type "void")
+                        (reparse-symbol classsubparts) [430 480])
+                    ("lineNumberAreaWidth" function
+                       (:prototype-flag t
+                        :arguments 
+                          ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [510 515]))                          
+                        :type "int")
+                        (reparse-symbol classsubparts) [485 516])
+                    ("protected" label nil (reparse-symbol classsubparts) [518 528])
+                    ("resizeEvent" function
+                       (:prototype-flag t
+                        :arguments 
+                          ( ("event" variable
+                               (:pointer 1
+                                :type ("QResizeEvent" type (:type "class") nil nil))
+                                (reparse-symbol arg-sub-list) [551 571]))                          
+                        :type "void")
+                        (reparse-symbol classsubparts) [534 572])
+                    ("private" label nil (reparse-symbol classsubparts) [574 588])
+                    ("updateLineNumberAreaWidth" function
+                       (:prototype-flag t
+                        :arguments 
+                          ( ("newBlockCount" variable (:type "int") (reparse-symbol arg-sub-list) [625 643]))                          
+                        :type "void")
+                        (reparse-symbol classsubparts) [594 644])
+                    ("highlightCurrentLine" function
+                       (:prototype-flag t
+                        :arguments 
+                          ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [675 680]))                          
+                        :type "void")
+                        (reparse-symbol classsubparts) [649 681])
+                    ("updateLineNumberArea" function
+                       (:prototype-flag t
+                        :arguments 
+                          ( ("" variable
+                               (:reference 1
+                                :constant-flag t
+                                :type ("QRect" type (:type "class") nil nil))
+                                (reparse-symbol arg-sub-list) [712 726])
+                            ("" variable (:type "int") (reparse-symbol arg-sub-list) [727 731]))                          
+                        :type "void")
+                        (reparse-symbol classsubparts) [686 732])
+                    ("private" label nil (reparse-symbol classsubparts) [734 742])
+                    ("pLineNumberArea_" variable
+                       (:pointer 1
+                        :type ("QWidget" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [748 785])
+                    ("pHighlighter_" variable
+                       (:pointer 1
+                        :type ("SmkMarkHighlighter" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [790 824]))                  
+                :type "class")
+                nil [241 827]))          
+    :file "SmkBasicMarkWidget.h"
+    :pointmax 869
+    :fsize 919
+    :lastmodtime '(21550 57192 255852 459000)
+    :unmatched-syntax '((number 373 . 374) (punctuation 371 . 372) (EXPLICIT 327 . 335) (symbol 304 . 312) (symbol 223 . 239) (symbol 137 . 155))
+    :lexical-table 
+        '(("SMARK_SMK_BASIC_MARK_WIDGET_H")
+          )
+
+    )
+   (semanticdb-table "SmkHtmlHighlighter.cpp"
+    :major-mode 'c++-mode
+    :tags 
+        '( ("SmkConfig.h" include nil nil [1 23])
+            ("SmkHtmlHighlighter.h" include nil nil [24 55])
+            ("Construct" type
+               (:members 
+                  ( ("DocType" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [78 86])
+                    ("Entity" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [91 98])
+                    ("Tag" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [103 107])
+                    ("Comment" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [112 120])
+                    ("AttributeName" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [125 139])
+                    ("AttributeValue" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [144 160]))                  
+                :type "enum")
+                nil [57 161])
+            ("State" type
+               (:members 
+                  ( ("State_Text" variable
+                       (:constant-flag t
+                        :default-value (193 195)
+                        :type "int")
+                        (reparse-symbol enumsubparts) [180 195])
+                    ("State_DocType" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [201 215])
+                    ("State_Comment" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [220 234])
+                    ("State_TagStart" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [239 254])
+                    ("State_TagName" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [259 273])
+                    ("State_InsideTag" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [278 294])
+                    ("State_AttributeName" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [299 319])
+                    ("State_SingleQuote" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [324 342])
+                    ("State_DoubleQuote" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [347 365])
+                    ("State_AttributeValue" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [370 391]))                  
+                :type "enum")
+                nil [163 394])
+            ("SmkHtmlHighlighter" function
+               (:constructor-flag t
+                :parent "SmkHtmlHighlighter"
+                :arguments 
+                  ( ("document" variable
+                       (:pointer 1
+                        :type ("QTextDocument" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [435 459]))                  
+                :type ("SmkHtmlHighlighter" type (:type "class") nil nil))
+                nil [396 816])
+            ("highlightBlock" function
+               (:parent "SmkHtmlHighlighter"
+                :arguments 
+                  ( ("text" variable
+                       (:reference 1
+                        :constant-flag t
+                        :type ("QString" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [858 878]))                  
+                :type "void")
+                nil [818 7096]))          
+    :file "SmkHtmlHighlighter.cpp"
+    :pointmax 7097
+    :fsize 7343
+    :lastmodtime '(21550 57192 222853 255000)
+    :unmatched-syntax 'nil
+    )
+   (semanticdb-table "SmkHtmlHighlighter.h"
+    :major-mode 'c-mode
+    :tags 
+        '( ("SMARK_SMK_HTML_HIGHLIGHTER_H" variable (:constant-flag t) nil [46 74])
+            ("QTextCharFormat" include (:system-flag t) nil [76 102])
+            ("QSyntaxHighlighter" include (:system-flag t) nil [103 132])
+            ("SmkConfig.h" include nil nil [133 155])
+            ("SmkHtmlHighlighter" type
+               (:superclasses 
+                  ( ("QSyntaxHighlighter" type
+                       (:protection "public"
+                        :type "class")
+                        nil nil))                  
+                :members 
+                  ( ("private" label nil (reparse-symbol classsubparts) [236 244])
+                    ("colors_" variable (:type ("QHash" type
+                         (:template-specifier 
+                            ( ("int" type nil nil nil)
+                              ("QColor" type nil nil nil))                            
+                          :type "class")
+                          nil nil)) (reparse-symbol classsubparts) [250 277])
+                    ("public" label nil (reparse-symbol classsubparts) [279 286])
+                    ("SmkHtmlHighlighter" function
+                       (:prototype-flag t
+                        :constructor-flag t
+                        :arguments 
+                          ( ("document" variable
+                               (:pointer 1
+                                :type ("QTextDocument" type (:type "class") nil nil))
+                                (reparse-symbol arg-sub-list) [320 344]))                          
+                        :type ("SmkHtmlHighlighter" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [301 345])
+                    ("protected" label nil (reparse-symbol classsubparts) [347 357])
+                    ("highlightBlock" function
+                       (:prototype-flag t
+                        :typemodifiers ("virtual")
+                        :arguments 
+                          ( ("text" variable
+                               (:reference 1
+                                :constant-flag t
+                                :type ("QString" type (:type "class") nil nil))
+                                (reparse-symbol arg-sub-list) [391 411]))                          
+                        :type "void")
+                        (reparse-symbol classsubparts) [363 412]))                  
+                :type "class")
+                nil [157 415]))          
+    :file "SmkHtmlHighlighter.h"
+    :pointmax 456
+    :fsize 484
+    :lastmodtime '(21550 57192 188854 76000)
+    :unmatched-syntax '((EXPLICIT 292 . 300))
+    :lexical-table 
+        '(("SMARK_SMK_HTML_HIGHLIGHTER_H")
+          )
+
+    )
+   (semanticdb-table "SmkHtmlWidget.cpp"
+    :major-mode 'c++-mode
+    :tags nil
+    :file "SmkHtmlWidget.cpp"
+    :pointmax 1282
+    :fsize 1327
+    :lastmodtime '(21550 57192 152854 944000)
+    :unmatched-syntax 'nil
+    )
+   (semanticdb-table "SmkHtmlWidget.h"
+    :major-mode 'c-mode
+    :tags nil
+    :file "SmkHtmlWidget.h"
+    :pointmax 909
+    :fsize 955
+    :lastmodtime '(21520 8822 0 0)
+    :unmatched-syntax 'nil
+    )
+   (semanticdb-table "SmkIO.h"
+    :major-mode 'c-mode
+    :tags 
+        '( ("SMARK_SMK_IO_H" variable (:constant-flag t) nil [32 46])
+            ("QString" include (:system-flag t) nil [48 66])
+            ("SmkConfig.h" include nil nil [67 89])
+            ("SmkApp.h" include nil nil [90 109])
+            ("qSmkRemoveFile" function
+               (:typemodifiers ("inline")
+                :arguments 
+                  ( ("path" variable
+                       (:reference 1
+                        :constant-flag t
+                        :type ("QString" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [401 421]))                  
+                :type ("QString" type (:type "class") nil nil))
+                nil [371 552])
+            ("qSmkLoadText" function
+               (:typemodifiers ("inline")
+                :arguments 
+                  ( ("path" variable
+                       (:reference 1
+                        :constant-flag t
+                        :type ("QString" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [882 902])
+                    ("pContext" variable
+                       (:pointer 1
+                        :type ("QString" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [903 921]))                  
+                :type ("QString" type (:type "class") nil nil))
+                nil [854 1223])
+            ("qSmkSaveText" function
+               (:typemodifiers ("inline")
+                :arguments 
+                  ( ("path" variable
+                       (:reference 1
+                        :constant-flag t
+                        :type ("QString" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [1553 1573])
+                    ("context" variable
+                       (:reference 1
+                        :constant-flag t
+                        :type ("QString" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [1574 1597]))                  
+                :type ("QString" type (:type "class") nil nil))
+                nil [1525 1844])
+            ("qHtmlCachePath" function
+               (:typemodifiers ("inline")
+                :arguments 
+                  ( ("currentPath" variable
+                       (:reference 1
+                        :constant-flag t
+                        :type ("QString" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [2120 2148])
+                    ("" variable (:type ("SMK_EMPTY_STR" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [2149 2163]))                  
+                :type ("QString" type (:type "class") nil nil))
+                nil [2090 2418])
+            ("qMarkCachePath" function
+               (:typemodifiers ("inline")
+                :arguments 
+                  ( ("currentPath" variable
+                       (:reference 1
+                        :constant-flag t
+                        :type ("QString" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [2698 2726])
+                    ("" variable (:type ("SMK_EMPTY_STR" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [2727 2741]))                  
+                :type ("QString" type (:type "class") nil nil))
+                nil [2668 2994]))          
+    :file "SmkIO.h"
+    :pointmax 3021
+    :fsize 3381
+    :lastmodtime '(21550 57192 111855 934000)
+    :unmatched-syntax '((punctuation 2725 . 2726) (punctuation 2147 . 2148))
+    :lexical-table 
+        '(("SMARK_SMK_IO_H")
+          )
+
+    )
+   (semanticdb-table "SmkMainWindow.cpp"
+    :major-mode 'c++-mode
+    :tags nil
+    :file "SmkMainWindow.cpp"
+    :pointmax 27070
+    :fsize 28285
+    :lastmodtime '(21550 57192 72856 875000)
+    :unmatched-syntax 'nil
+    )
+   (semanticdb-table "SmkMainWindow.h"
+    :major-mode 'c-mode
+    :tags 
+        '( ("SMARK_SMK_MAINWINDOW_H" variable (:constant-flag t) nil [40 62])
+            ("QMainWindow" include (:system-flag t) nil [64 86])
+            ("SmkConfig.h" include nil nil [87 109])
+            ("SmkMarkParser.h" include nil nil [110 136])
+            ("SmkHtmlHighlighter.h" include nil nil [137 168])
+            ("Ui" type
+               (:members 
+                  ( ("SmkMainWindow" type
+                       (:prototype t
+                        :type "class")
+                        (reparse-symbol namespacesubparts) [189 209]))                  
+                :type "namespace")
+                nil [170 211])
+            ("SmkGuiMode" type
+               (:members 
+                  ( ("eSmkEditMode" variable
+                       (:constant-flag t
+                        :default-value (253 254)
+                        :type "int")
+                        (reparse-symbol enumsubparts) [235 254])
+                    ("eSmkReadMode" variable
+                       (:constant-flag t
+                        :default-value (278 279)
+                        :type "int")
+                        (reparse-symbol enumsubparts) [260 279])
+                    ("eSmkPreviewMode" variable
+                       (:constant-flag t
+                        :default-value (303 304)
+                        :type "int")
+                        (reparse-symbol enumsubparts) [285 304]))                  
+                :type "enum")
+                nil [213 307])
+            ("SmkMainWindow" type
+               (:superclasses 
+                  ( ("QMainWindow" type
+                       (:protection "public"
+                        :type "class")
+                        nil nil))                  
+                :members 
+                  ( ("public" label nil (reparse-symbol classsubparts) [366 373])
+                    ("SmkMainWindow" function
+                       (:prototype-flag t
+                        :constructor-flag t
+                        :arguments 
+                          ( ("parent" variable
+                               (:pointer 1
+                                :type ("QWidget" type (:type "class") nil nil))
+                                (reparse-symbol arg-sub-list) [402 419]))                          
+                        :type ("SmkMainWindow" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [388 423])
+                    ("SmkMainWindow" function
+                       (:prototype-flag t
+                        :destructor-flag t
+                        :type "void")
+                        (reparse-symbol classsubparts) [428 445])
+                    ("public" label nil (reparse-symbol classsubparts) [447 454])
+                    ("openMarkdownFile" function
+                       (:prototype-flag t
+                        :arguments 
+                          ( ("path" variable
+                               (:reference 1
+                                :constant-flag t
+                                :type ("QString" type (:type "class") nil nil))
+                                (reparse-symbol arg-sub-list) [506 526]))                          
+                        :type "void")
+                        (reparse-symbol classsubparts) [484 527])
+                    ("private" label nil (reparse-symbol classsubparts) [529 537])
+                    ("_aux_connectSignalAndSlot" function
+                       (:prototype-flag t
+                        :arguments 
+                          ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [590 595]))                          
+                        :type "void")
+                        (reparse-symbol classsubparts) [559 596])
+                    ("_aux_switchDisplayMode" function
+                       (:prototype-flag t
+                        :arguments 
+                          ( ("mode" variable (:type ("SmkGuiMode" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [629 645]))                          
+                        :type "void")
+                        (reparse-symbol classsubparts) [601 646])
+                    ("_aux_initGUI" function
+                       (:prototype-flag t
+                        :arguments 
+                          ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [669 674]))                          
+                        :type "void")
+                        (reparse-symbol classsubparts) [651 675])
+                    ("_aux_enableGUI" function
+                       (:prototype-flag t
+                        :arguments 
+                          ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [700 705]))                          
+                        :type "void")
+                        (reparse-symbol classsubparts) [680 706])
+                    ("_aux_disableGUI" function
+                       (:prototype-flag t
+                        :arguments 
+                          ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [732 737]))                          
+                        :type "void")
+                        (reparse-symbol classsubparts) [711 738])
+                    ("_aux_setCurrentPath" function
+                       (:prototype-flag t
+                        :arguments 
+                          ( ("path" variable
+                               (:reference 1
+                                :constant-flag t
+                                :type ("QString" type (:type "class") nil nil))
+                                (reparse-symbol arg-sub-list) [768 788]))                          
+                        :type "void")
+                        (reparse-symbol classsubparts) [743 789])
+                    ("_aux_cancelCurrentOperation" function
+                       (:prototype-flag t
+                        :arguments 
+                          ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [827 832]))                          
+                        :type "bool")
+                        (reparse-symbol classsubparts) [794 833])
+                    ("_aux_parseMarkdownToHTML" function
+                       (:prototype-flag t
+                        :arguments 
+                          ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [868 873]))                          
+                        :type "void")
+                        (reparse-symbol classsubparts) [838 874])
+                    ("protected" label nil (reparse-symbol classsubparts) [876 886])
+                    ("resizeEvent" function
+                       (:prototype-flag t
+                        :typemodifiers ("virtual")
+                        :arguments 
+                          ( ("" variable
+                               (:pointer 1
+                                :type ("QResizeEvent" type (:type "class") nil nil))
+                                (reparse-symbol arg-sub-list) [934 949]))                          
+                        :type "void")
+                        (reparse-symbol classsubparts) [909 950])
+                    ("keyPressEvent" function
+                       (:prototype-flag t
+                        :typemodifiers ("virtual")
+                        :arguments 
+                          ( ("" variable
+                               (:pointer 1
+                                :type ("QKeyEvent" type (:type "class") nil nil))
+                                (reparse-symbol arg-sub-list) [982 994]))                          
+                        :type "void")
+                        (reparse-symbol classsubparts) [955 995])
+                    ("dragEnterEvent" function
+                       (:prototype-flag t
+                        :typemodifiers ("virtual")
+                        :arguments 
+                          ( ("" variable
+                               (:pointer 1
+                                :type ("QDragEnterEvent" type (:type "class") nil nil))
+                                (reparse-symbol arg-sub-list) [1028 1046]))                          
+                        :type "void")
+                        (reparse-symbol classsubparts) [1000 1047])
+                    ("dropEvent" function
+                       (:prototype-flag t
+                        :typemodifiers ("virtual")
+                        :arguments 
+                          ( ("" variable
+                               (:pointer 1
+                                :type ("QDropEvent" type (:type "class") nil nil))
+                                (reparse-symbol arg-sub-list) [1075 1088]))                          
+                        :type "void")
+                        (reparse-symbol classsubparts) [1052 1089])
+                    ("closeEvent" function
+                       (:prototype-flag t
+                        :typemodifiers ("virtual")
+                        :arguments 
+                          ( ("" variable
+                               (:pointer 1
+                                :type ("QCloseEvent" type (:type "class") nil nil))
+                                (reparse-symbol arg-sub-list) [1118 1132]))                          
+                        :type "void")
+                        (reparse-symbol classsubparts) [1094 1133])
+                    ("private" label nil (reparse-symbol classsubparts) [1135 1149])
+                    ("on_actionNew_triggered" function
+                       (:prototype-flag t
+                        :type "void")
+                        (reparse-symbol classsubparts) [1167 1197])
+                    ("on_actionOpen_triggered" function
+                       (:prototype-flag t
+                        :type "void")
+                        (reparse-symbol classsubparts) [1202 1233])
+                    ("on_actionSave_triggered" function
+                       (:prototype-flag t
+                        :type "void")
+                        (reparse-symbol classsubparts) [1238 1269])
+                    ("on_actionSaveAs_triggered" function
+                       (:prototype-flag t
+                        :type "void")
+                        (reparse-symbol classsubparts) [1274 1307])
+                    ("on_actionClose_triggered" function
+                       (:prototype-flag t
+                        :type "void")
+                        (reparse-symbol classsubparts) [1312 1344])
+                    ("on_actionOption_triggered" function
+                       (:prototype-flag t
+                        :type "void")
+                        (reparse-symbol classsubparts) [1349 1382])
+                    ("on_actionPrint_triggered" function
+                       (:prototype-flag t
+                        :type "void")
+                        (reparse-symbol classsubparts) [1387 1419])
+                    ("on_actionQuite_triggered" function
+                       (:prototype-flag t
+                        :type "void")
+                        (reparse-symbol classsubparts) [1424 1456])
+                    ("on_actionPreview_triggered" function
+                       (:prototype-flag t
+                        :type "void")
+                        (reparse-symbol classsubparts) [1474 1508])
+                    ("on_actionReadOnly_triggered" function
+                       (:prototype-flag t
+                        :type "void")
+                        (reparse-symbol classsubparts) [1513 1548])
+                    ("on_actionEditOnly_triggered" function
+                       (:prototype-flag t
+                        :type "void")
+                        (reparse-symbol classsubparts) [1553 1588])
+                    ("on_actionFullScreen_triggered" function
+                       (:prototype-flag t
+                        :arguments 
+                          ( ("checked" variable (:type "bool") (reparse-symbol arg-sub-list) [1628 1641]))                          
+                        :type "void")
+                        (reparse-symbol classsubparts) [1593 1642])
+                    ("on_actionFlush_triggered" function
+                       (:prototype-flag t
+                        :type "void")
+                        (reparse-symbol classsubparts) [1660 1692])
+                    ("on_actionCut_triggered" function
+                       (:prototype-flag t
+                        :type "void")
+                        (reparse-symbol classsubparts) [1697 1727])
+                    ("on_actionCopy_triggered" function
+                       (:prototype-flag t
+                        :type "void")
+                        (reparse-symbol classsubparts) [1732 1763])
+                    ("on_actionPaste_triggered" function
+                       (:prototype-flag t
+                        :type "void")
+                        (reparse-symbol classsubparts) [1768 1800])
+                    ("on_actionRedo_triggered" function
+                       (:prototype-flag t
+                        :type "void")
+                        (reparse-symbol classsubparts) [1805 1836])
+                    ("on_actionUndo_triggered" function
+                       (:prototype-flag t
+                        :type "void")
+                        (reparse-symbol classsubparts) [1841 1872])
+                    ("on_actionFind_triggered" function
+                       (:prototype-flag t
+                        :type "void")
+                        (reparse-symbol classsubparts) [1877 1908])
+                    ("on_actionViewHTML_triggered" function
+                       (:prototype-flag t
+                        :type "void")
+                        (reparse-symbol classsubparts) [1913 1948])
+                    ("on_actionInsertImage_triggered" function
+                       (:prototype-flag t
+                        :type "void")
+                        (reparse-symbol classsubparts) [1966 2004])
+                    ("on_actionInsertLink_triggered" function
+                       (:prototype-flag t
+                        :type "void")
+                        (reparse-symbol classsubparts) [2009 2046])
+                    ("on_actionInsertMathJax_triggered" function
+                       (:prototype-flag t
+                        :type "void")
+                        (reparse-symbol classsubparts) [2051 2091])
+                    ("on_actionFormatBlod_triggered" function
+                       (:prototype-flag t
+                        :type "void")
+                        (reparse-symbol classsubparts) [2109 2146])
+                    ("on_actionFormatItalic_triggered" function
+                       (:prototype-flag t
+                        :type "void")
+                        (reparse-symbol classsubparts) [2151 2190])
+                    ("on_actionFormatUnderline_triggered" function
+                       (:prototype-flag t
+                        :type "void")
+                        (reparse-symbol classsubparts) [2195 2237])
+                    ("on_actionFormatBigger_triggered" function
+                       (:prototype-flag t
+                        :type "void")
+                        (reparse-symbol classsubparts) [2242 2281])
+                    ("on_actionFormatSmaller_triggered" function
+                       (:prototype-flag t
+                        :type "void")
+                        (reparse-symbol classsubparts) [2286 2326])
+                    ("on_actionFormatSub_triggered" function
+                       (:prototype-flag t
+                        :type "void")
+                        (reparse-symbol classsubparts) [2331 2367])
+                    ("on_actionFormatSup_triggered" function
+                       (:prototype-flag t
+                        :type "void")
+                        (reparse-symbol classsubparts) [2372 2408])
+                    ("on_actionFormatCode_triggered" function
+                       (:prototype-flag t
+                        :type "void")
+                        (reparse-symbol classsubparts) [2413 2450])
+                    ("on_actionFormatQuote_triggered" function
+                       (:prototype-flag t
+                        :type "void")
+                        (reparse-symbol classsubparts) [2455 2493])
+                    ("on_actionAlignLeft_triggered" function
+                       (:prototype-flag t
+                        :type "void")
+                        (reparse-symbol classsubparts) [2498 2534])
+                    ("on_actionAlignRight_triggered" function
+                       (:prototype-flag t
+                        :type "void")
+                        (reparse-symbol classsubparts) [2539 2576])
+                    ("on_actionAlignCenter_triggered" function
+                       (:prototype-flag t
+                        :type "void")
+                        (reparse-symbol classsubparts) [2581 2619])
+                    ("on_actionAboutQt_triggered" function
+                       (:prototype-flag t
+                        :type "void")
+                        (reparse-symbol classsubparts) [2637 2671])
+                    ("on_actionAboutSmark_triggered" function
+                       (:prototype-flag t
+                        :type "void")
+                        (reparse-symbol classsubparts) [2676 2713])
+                    ("on_buttonFindPrev_clicked" function
+                       (:prototype-flag t
+                        :type "void")
+                        (reparse-symbol classsubparts) [2731 2764])
+                    ("on_buttonFindNext_clicked" function
+                       (:prototype-flag t
+                        :type "void")
+                        (reparse-symbol classsubparts) [2769 2802])
+                    ("on_buttonReplace_clicked" function
+                       (:prototype-flag t
+                        :type "void")
+                        (reparse-symbol classsubparts) [2807 2839])
+                    ("on_buttonReplaceAll_clicked" function
+                       (:prototype-flag t
+                        :type "void")
+                        (reparse-symbol classsubparts) [2844 2879])
+                    ("on_markView_cursorPositionChanged" function
+                       (:prototype-flag t
+                        :type "void")
+                        (reparse-symbol classsubparts) [2904 2945])
+                    ("when_parser_process_finish" function
+                       (:prototype-flag t
+                        :arguments 
+                          ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [3005 3010]))                          
+                        :type "void")
+                        (reparse-symbol classsubparts) [2973 3011])
+                    ("when_mark_is_edit" function
+                       (:prototype-flag t
+                        :arguments 
+                          ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [3039 3044]))                          
+                        :type "void")
+                        (reparse-symbol classsubparts) [3016 3045])
+                    ("private" label nil (reparse-symbol classsubparts) [3047 3055])
+                    ("ui" variable
+                       (:pointer 1
+                        :type ("Ui::SmkMainWindow" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [3061 3083])
+                    ("pHtmlEditor_" variable
+                       (:pointer 1
+                        :type ("QPlainTextEdit" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [3088 3121])
+                    ("pHtmlHighlighter_" variable
+                       (:pointer 1
+                        :type ("SmkHtmlHighlighter" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [3126 3164])
+                    ("isModified_" variable (:type "bool") (reparse-symbol classsubparts) [3170 3196])
+                    ("parser_" variable (:type ("SmkMarkParser" type (:type "class") nil nil)) (reparse-symbol classsubparts) [3201 3223])
+                    ("currentGuiMode_" variable (:type ("SmkGuiMode" type (:type "class") nil nil)) (reparse-symbol classsubparts) [3228 3258])
+                    ("currentPath_" variable (:type ("QString" type (:type "class") nil nil)) (reparse-symbol classsubparts) [3263 3290])
+                    ("markCachePath_" variable (:type ("QString" type (:type "class") nil nil)) (reparse-symbol classsubparts) [3295 3324])
+                    ("htmlCachePath_" variable (:type ("QString" type (:type "class") nil nil)) (reparse-symbol classsubparts) [3329 3358])
+                    ("htmlContext_" variable (:type ("QString" type (:type "class") nil nil)) (reparse-symbol classsubparts) [3363 3390]))                  
+                :type "class")
+                nil [309 3393]))          
+    :file "SmkMainWindow.h"
+    :pointmax 3428
+    :fsize 3650
+    :lastmodtime '(21550 56917 162490 82000)
+    :unmatched-syntax '((number 420 . 421) (punctuation 418 . 419) (EXPLICIT 379 . 387) (symbol 356 . 364))
+    :lexical-table 
+        '(("SMARK_SMK_MAINWINDOW_H")
+          )
+
+    )
+   (semanticdb-table "SmkMarkParser.h"
+    :major-mode 'c-mode
+    :tags 
+        '( ("SMARK_SMK_MARK_PARSER_H" variable (:constant-flag t) nil [41 64])
+            ("QObject" include (:system-flag t) nil [66 84])
+            ("SmkConfig.h" include nil nil [85 107])
+            ("QString" type
+               (:prototype t
+                :type "class")
+                nil [128 142])
+            ("QThread" type
+               (:prototype t
+                :type "class")
+                nil [143 157])
+            ("SmkMarkParser" type
+               (:superclasses 
+                  ( ("QObject" type
+                       (:protection "public"
+                        :type "class")
+                        nil nil))                  
+                :members 
+                  ( ("private" label nil (reparse-symbol classsubparts) [500 508])
+                    ("parserThread_" variable
+                       (:pointer 1
+                        :type ("QThread" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [514 537])
+                    ("public" label nil (reparse-symbol classsubparts) [539 546])
+                    ("SmkMarkParser" function
+                       (:prototype-flag t
+                        :constructor-flag t
+                        :arguments 
+                          ( ("parent" variable
+                               (:pointer 1
+                                :type ("QObject" type (:type "class") nil nil))
+                                (reparse-symbol arg-sub-list) [575 592]))                          
+                        :type ("SmkMarkParser" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [561 596])
+                    ("SmkMarkParser" function
+                       (:prototype-flag t
+                        :destructor-flag t
+                        :typemodifiers ("virtual")
+                        :arguments 
+                          ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [624 629]))                          
+                        :type "void")
+                        (reparse-symbol classsubparts) [601 630])
+                    ("parseMarkToHtml" function
+                       (:prototype-flag t
+                        :arguments 
+                          ( ("markPath" variable
+                               (:reference 1
+                                :constant-flag t
+                                :type ("QString" type (:type "class") nil nil))
+                                (reparse-symbol arg-sub-list) [767 791])
+                            ("htmlPath" variable
+                               (:reference 1
+                                :constant-flag t
+                                :type ("QString" type (:type "class") nil nil))
+                                (reparse-symbol arg-sub-list) [817 841])
+                            ("cssPath" variable
+                               (:reference 1
+                                :constant-flag t
+                                :type ("QString" type (:type "class") nil nil))
+                                (reparse-symbol arg-sub-list) [867 891]))                          
+                        :type "bool")
+                        (reparse-symbol classsubparts) [746 892])
+                    ("parse" function
+                       (:prototype-flag t
+                        :arguments 
+                          ( ("inPath" variable
+                               (:reference 1
+                                :constant-flag t
+                                :type ("QString" type (:type "class") nil nil))
+                                (reparse-symbol arg-sub-list) [1026 1048])
+                            ("inFormat" variable
+                               (:reference 1
+                                :constant-flag t
+                                :type ("QString" type (:type "class") nil nil))
+                                (reparse-symbol arg-sub-list) [1050 1074])
+                            ("outPath" variable
+                               (:reference 1
+                                :constant-flag t
+                                :type ("QString" type (:type "class") nil nil))
+                                (reparse-symbol arg-sub-list) [1090 1113])
+                            ("outFormat" variable
+                               (:reference 1
+                                :constant-flag t
+                                :type ("QString" type (:type "class") nil nil))
+                                (reparse-symbol arg-sub-list) [1114 1139])
+                            ("cssPath" variable
+                               (:reference 1
+                                :constant-flag t
+                                :type ("QString" type (:type "class") nil nil))
+                                (reparse-symbol arg-sub-list) [1155 1179]))                          
+                        :type "bool")
+                        (reparse-symbol classsubparts) [1015 1180])
+                    ("completed" function
+                       (:prototype-flag t
+                        :arguments 
+                          ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [1233 1238]))                          
+                        :type "void")
+                        (reparse-symbol classsubparts) [1218 1239])
+                    ("private" label nil (reparse-symbol classsubparts) [1241 1255])
+                    ("when_mark_to_html_finished" function
+                       (:prototype-flag t
+                        :arguments 
+                          ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [1331 1336]))                          
+                        :type "void")
+                        (reparse-symbol classsubparts) [1299 1337])
+                    ("when_parser_finished" function
+                       (:prototype-flag t
+                        :arguments 
+                          ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [1391 1396]))                          
+                        :type "void")
+                        (reparse-symbol classsubparts) [1365 1397]))                  
+                :type "class")
+                nil [447 1400]))          
+    :file "SmkMarkParser.h"
+    :pointmax 1436
+    :fsize 1748
+    :lastmodtime '(21550 56935 365050 880000)
+    :unmatched-syntax '((punctuation 1189 . 1190) (symbol 1182 . 1189) (number 593 . 594) (punctuation 591 . 592) (EXPLICIT 552 . 560) (symbol 490 . 498) (symbol 158 . 174) (symbol 109 . 127))
+    :lexical-table 
+        '(("SMARK_SMK_MARK_PARSER_H")
+          )
+
+    )
+   (semanticdb-table "SmkOptionDialog.h"
+    :major-mode 'c-mode
+    :tags nil
+    :file "SmkOptionDialog.h"
+    :pointmax 962
+    :fsize 994
+    :lastmodtime '(21550 57142 78063 180000)
+    :unmatched-syntax 'nil
+    )
+   (semanticdb-table "SmkMarkHighlighter.cpp"
+    :major-mode 'c++-mode
+    :tags 
+        '( ("SmkConfig.h" include nil nil [1 23])
+            ("SmkApp.h" include nil nil [24 43])
+            ("SmkMarkHighlighter.h" include nil nil [44 75])
+            ("SmkMarkHighlighter" function
+               (:constructor-flag t
+                :parent "SmkMarkHighlighter"
+                :arguments 
+                  ( ("parent" variable
+                       (:pointer 1
+                        :type ("QTextDocument" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [116 138]))                  
+                :type ("SmkMarkHighlighter" type (:type "class") nil nil))
+                nil [77 195])
+            ("updateOption" function
+               (:parent "SmkMarkHighlighter"
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [235 240]))                  
+                :type "void")
+                nil [197 1747])
+            ("_aux_multiBlockMatch" function
+               (:parent "SmkMarkHighlighter"
+                :arguments 
+                  ( ("text" variable
+                       (:reference 1
+                        :constant-flag t
+                        :type ("QString" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [1804 1832])
+                    ("bgnFlag" variable
+                       (:reference 1
+                        :constant-flag t
+                        :type ("QString" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [1841 1872])
+                    ("endFlag" variable
+                       (:reference 1
+                        :constant-flag t
+                        :type ("QString" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [1881 1912])
+                    ("format" variable
+                       (:reference 1
+                        :constant-flag t
+                        :type ("QTextCharFormat" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [1921 1951])
+                    ("field" variable
+                       (:constant-flag t
+                        :type "unsigned int")
+                        (reparse-symbol arg-sub-list) [1960 1990]))                  
+                :type "void")
+                nil [1749 3228])
+            ("highlightBlock" function
+               (:parent "SmkMarkHighlighter"
+                :arguments 
+                  ( ("text" variable
+                       (:reference 1
+                        :constant-flag t
+                        :type ("QString" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [3270 3290]))                  
+                :type "void")
+                nil [3230 4277]))          
+    :file "SmkMarkHighlighter.cpp"
+    :pointmax 4278
+    :fsize 4402
+    :lastmodtime '(21550 57191 984858 998000)
+    :unmatched-syntax 'nil
+    )
+   (semanticdb-table "SmkMarkHighlighter.h"
+    :major-mode 'c-mode
+    :tags 
+        '( ("SMARK_SMK_MARK_HIGHLIGHTER_H" variable (:constant-flag t) nil [46 74])
+            ("QTextCharFormat" include (:system-flag t) nil [76 102])
+            ("QSyntaxHighlighter" include (:system-flag t) nil [103 132])
+            ("SmkConfig.h" include nil nil [133 155])
+            ("SmkMarkHighlighter" type
+               (:superclasses 
+                  ( ("QSyntaxHighlighter" type
+                       (:protection "public"
+                        :type "class")
+                        nil nil))                  
+                :members 
+                  ( ("private" label nil (reparse-symbol classsubparts) [236 244])
+                    ("regexp_" variable (:type ("QVector" type
+                         (:template-specifier 
+                            ( ("QRegExp" type nil nil nil))                            
+                          :type "class")
+                          nil nil)) (reparse-symbol classsubparts) [250 283])
+                    ("format_" variable (:type ("QVector" type
+                         (:template-specifier 
+                            ( ("QTextCharFormat" type nil nil nil))                            
+                          :type "class")
+                          nil nil)) (reparse-symbol classsubparts) [288 321])
+                    ("private" label nil (reparse-symbol classsubparts) [323 331])
+                    ("_aux_multiBlockMatch" function
+                       (:prototype-flag t
+                        :arguments 
+                          ( ("text" variable
+                               (:reference 1
+                                :constant-flag t
+                                :type ("QString" type (:type "class") nil nil))
+                                (reparse-symbol arg-sub-list) [376 404])
+                            ("bgnFlag" variable
+                               (:reference 1
+                                :constant-flag t
+                                :type ("QString" type (:type "class") nil nil))
+                                (reparse-symbol arg-sub-list) [417 448])
+                            ("endFlag" variable
+                               (:reference 1
+                                :constant-flag t
+                                :type ("QString" type (:type "class") nil nil))
+                                (reparse-symbol arg-sub-list) [461 492])
+                            ("format" variable
+                               (:reference 1
+                                :constant-flag t
+                                :type ("QTextCharFormat" type (:type "class") nil nil))
+                                (reparse-symbol arg-sub-list) [505 535])
+                            ("field" variable
+                               (:constant-flag t
+                                :type "unsigned int")
+                                (reparse-symbol arg-sub-list) [548 578]))                          
+                        :type "void")
+                        (reparse-symbol classsubparts) [337 579])
+                    ("public" label nil (reparse-symbol classsubparts) [581 588])
+                    ("SmkMarkHighlighter" function
+                       (:prototype-flag t
+                        :constructor-flag t
+                        :arguments 
+                          ( ("parent" variable
+                               (:pointer 1
+                                :type ("QTextDocument" type (:type "class") nil nil))
+                                (reparse-symbol arg-sub-list) [622 645]))                          
+                        :type ("SmkMarkHighlighter" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [603 649])
+                    ("public" label nil (reparse-symbol classsubparts) [651 658])
+                    ("updateOption" function
+                       (:prototype-flag t
+                        :arguments 
+                          ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [682 687]))                          
+                        :type "void")
+                        (reparse-symbol classsubparts) [664 688])
+                    ("protected" label nil (reparse-symbol classsubparts) [690 700])
+                    ("highlightBlock" function
+                       (:prototype-flag t
+                        :typemodifiers ("virtual")
+                        :arguments 
+                          ( ("text" variable
+                               (:reference 1
+                                :constant-flag t
+                                :type ("QString" type (:type "class") nil nil))
+                                (reparse-symbol arg-sub-list) [734 754]))                          
+                        :type "void")
+                        (reparse-symbol classsubparts) [706 755]))                  
+                :type "class")
+                nil [157 758]))          
+    :file "SmkMarkHighlighter.h"
+    :pointmax 799
+    :fsize 841
+    :lastmodtime '(21550 57191 949859 842000)
+    :unmatched-syntax '((number 646 . 647) (punctuation 644 . 645) (EXPLICIT 594 . 602))
+    :lexical-table 
+        '(("SMARK_SMK_MARK_HIGHLIGHTER_H")
+          )
+
+    )
+   (semanticdb-table "SmkMarkParser.cpp"
+    :major-mode 'c++-mode
+    :tags 
+        '( ("QProcess" include (:system-flag t) nil [1 20])
+            ("QThread" include (:system-flag t) nil [21 39])
+            ("SmkConfig.h" include nil nil [40 62])
+            ("SmkMarkParser.h" include nil nil [63 89])
+            ("SmkPrivate" type
+               (:members 
+                  ( ("PandocThread" type
+                       (:superclasses 
+                          ( ("QThread" type
+                               (:protection "public"
+                                :type "class")
+                                nil nil))                          
+                        :members 
+                          ( ("private" label nil (reparse-symbol classsubparts) [176 184])
+                            ("_args" variable (:type ("QStringList" type (:type "class") nil nil)) (reparse-symbol classsubparts) [194 212])
+                            ("public" label nil (reparse-symbol classsubparts) [218 225])
+                            ("PandocThread" function
+                               (:constructor-flag t
+                                :arguments 
+                                  ( ("markPath" variable
+                                       (:reference 1
+                                        :constant-flag t
+                                        :type ("QString" type (:type "class") nil nil))
+                                        (reparse-symbol arg-sub-list) [248 272])
+                                    ("htmlPath" variable
+                                       (:reference 1
+                                        :constant-flag t
+                                        :type ("QString" type (:type "class") nil nil))
+                                        (reparse-symbol arg-sub-list) [294 318])
+                                    ("cssPath" variable
+                                       (:reference 1
+                                        :constant-flag t
+                                        :type ("QString" type (:type "class") nil nil))
+                                        (reparse-symbol arg-sub-list) [340 364]))                                  
+                                :type ("PandocThread" type (:type "class") nil nil))
+                                (reparse-symbol classsubparts) [235 661])
+                            ("PandocThread" function
+                               (:constructor-flag t
+                                :arguments 
+                                  ( ("inPath" variable
+                                       (:reference 1
+                                        :constant-flag t
+                                        :type ("QString" type (:type "class") nil nil))
+                                        (reparse-symbol arg-sub-list) [684 706])
+                                    ("inFormat" variable
+                                       (:reference 1
+                                        :constant-flag t
+                                        :type ("QString" type (:type "class") nil nil))
+                                        (reparse-symbol arg-sub-list) [708 732])
+                                    ("outPath" variable
+                                       (:reference 1
+                                        :constant-flag t
+                                        :type ("QString" type (:type "class") nil nil))
+                                        (reparse-symbol arg-sub-list) [754 777])
+                                    ("outFormat" variable
+                                       (:reference 1
+                                        :constant-flag t
+                                        :type ("QString" type (:type "class") nil nil))
+                                        (reparse-symbol arg-sub-list) [778 803])
+                                    ("cssPath" variable
+                                       (:reference 1
+                                        :constant-flag t
+                                        :type ("QString" type (:type "class") nil nil))
+                                        (reparse-symbol arg-sub-list) [825 848]))                                  
+                                :type ("PandocThread" type (:type "class") nil nil))
+                                (reparse-symbol classsubparts) [671 1143])
+                            ("protected" label nil (reparse-symbol classsubparts) [1149 1159])
+                            ("run" function
+                               (:typemodifiers ("virtual")
+                                :type "void")
+                                (reparse-symbol classsubparts) [1169 1382]))                          
+                        :type "class")
+                        (reparse-symbol namespacesubparts) [118 1389]))                  
+                :type "namespace")
+                nil [91 1391])
+            ("SmkMarkParser" function
+               (:constructor-flag t
+                :parent "SmkMarkParser"
+                :arguments 
+                  ( ("parent" variable
+                       (:pointer 1
+                        :type ("QObject" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [1444 1460]))                  
+                :type ("SmkMarkParser" type (:type "class") nil nil))
+                nil [1415 1536])
+            ("SmkMarkParser" function
+               (:destructor-flag t
+                :parent "SmkMarkParser"
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [1568 1573]))                  
+                :type "void")
+                nil [1538 1637])
+            ("parseMarkToHtml" function
+               (:parent "SmkMarkParser"
+                :arguments 
+                  ( ("markPath" variable
+                       (:reference 1
+                        :constant-flag t
+                        :type ("QString" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [1773 1797])
+                    ("htmlPath" variable
+                       (:reference 1
+                        :constant-flag t
+                        :type ("QString" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [1834 1858])
+                    ("cssPath" variable
+                       (:reference 1
+                        :constant-flag t
+                        :type ("QString" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [1895 1919]))                  
+                :type "bool")
+                nil [1737 2235])
+            ("parse" function
+               (:parent "SmkMarkParser"
+                :arguments 
+                  ( ("inPath" variable
+                       (:reference 1
+                        :constant-flag t
+                        :type ("QString" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [2368 2390])
+                    ("inFormat" variable
+                       (:reference 1
+                        :constant-flag t
+                        :type ("QString" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [2392 2416])
+                    ("outPath" variable
+                       (:reference 1
+                        :constant-flag t
+                        :type ("QString" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [2443 2466])
+                    ("outFormat" variable
+                       (:reference 1
+                        :constant-flag t
+                        :type ("QString" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [2467 2492])
+                    ("cssPath" variable
+                       (:reference 1
+                        :constant-flag t
+                        :type ("QString" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [2519 2543]))                  
+                :type "bool")
+                nil [2342 2978])
+            ("when_mark_to_html_finished" function
+               (:parent "SmkMarkParser"
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [3061 3066]))                  
+                :type "void")
+                nil [3014 3316])
+            ("when_parser_finished" function
+               (:parent "SmkMarkParser"
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [3377 3382]))                  
+                :type "void")
+                nil [3336 3600]))          
+    :file "SmkMarkParser.cpp"
+    :pointmax 3601
+    :fsize 3878
+    :lastmodtime '(21550 57175 926246 470000)
+    :unmatched-syntax 'nil
+    )
+   (semanticdb-table "SmkMarkWidget.cpp"
+    :major-mode 'c++-mode
+    :tags 
+        '( ("SmkConfig.h" include nil nil [1 23])
+            ("SmkMarkWidget.h" include nil nil [24 50])
+            ("SmkMarkWidget" function
+               (:constructor-flag t
+                :parent "SmkMarkWidget"
+                :arguments 
+                  ( ("parent" variable
+                       (:pointer 1
+                        :type ("QWidget" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [81 97]))                  
+                :type ("SmkMarkWidget" type (:type "class") nil nil))
+                nil [52 277])
+            ("scrollRatio" function
+               (:parent "SmkMarkWidget"
+                :type "float")
+                nil [499 693])
+            ("when_VerticalScrollBar_valueChanged" function
+               (:parent "SmkMarkWidget"
+                :arguments 
+                  ( ("val" variable (:type "int") (reparse-symbol arg-sub-list) [751 759]))                  
+                :type "void")
+                nil [695 952])
+            ("findPrevious" function
+               (:parent "SmkMarkWidget"
+                :arguments 
+                  ( ("text" variable
+                       (:reference 1
+                        :constant-flag t
+                        :type ("QString" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [1205 1225])
+                    ("cased" variable (:type "bool") (reparse-symbol arg-sub-list) [1226 1237])
+                    ("whole" variable (:type "bool") (reparse-symbol arg-sub-list) [1238 1249]))                  
+                :type "void")
+                nil [1172 1514])
+            ("findNext" function
+               (:parent "SmkMarkWidget"
+                :arguments 
+                  ( ("text" variable
+                       (:reference 1
+                        :constant-flag t
+                        :type ("QString" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [1545 1565])
+                    ("cased" variable (:type "bool") (reparse-symbol arg-sub-list) [1566 1577])
+                    ("whole" variable (:type "bool") (reparse-symbol arg-sub-list) [1578 1589]))                  
+                :type "void")
+                nil [1516 1807])
+            ("replaceCurrent" function
+               (:parent "SmkMarkWidget"
+                :arguments 
+                  ( ("new_text" variable
+                       (:reference 1
+                        :constant-flag t
+                        :type ("QString" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [1844 1868]))                  
+                :type "void")
+                nil [1809 1950])
+            ("replaceAll" function
+               (:parent "SmkMarkWidget"
+                :arguments 
+                  ( ("old_text" variable
+                       (:reference 1
+                        :constant-flag t
+                        :type ("QString" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [1983 2007])
+                    ("new_text" variable
+                       (:reference 1
+                        :constant-flag t
+                        :type ("QString" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [2039 2063])
+                    ("cased" variable (:type "bool") (reparse-symbol arg-sub-list) [2095 2106])
+                    ("" variable (:type "bool") (reparse-symbol arg-sub-list) [2107 2122]))                  
+                :type "void")
+                nil [1952 2378])
+            ("setSelectedFormat" function
+               (:parent "SmkMarkWidget"
+                :arguments 
+                  ( ("before" variable
+                       (:reference 1
+                        :constant-flag t
+                        :type ("QString" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [2639 2661])
+                    ("after" variable
+                       (:reference 1
+                        :constant-flag t
+                        :type ("QString" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [2662 2683]))                  
+                :type "void")
+                nil [2601 3029])
+            ("setSelectedBlod" function
+               (:parent "SmkMarkWidget"
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [3067 3072]))                  
+                :type "void")
+                nil [3031 3114])
+            ("setSelectedItalic" function
+               (:parent "SmkMarkWidget"
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [3154 3159]))                  
+                :type "void")
+                nil [3116 3201])
+            ("setSelectedUnderLine" function
+               (:parent "SmkMarkWidget"
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [3244 3249]))                  
+                :type "void")
+                nil [3203 3291])
+            ("setSelectedDeleted" function
+               (:parent "SmkMarkWidget"
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [3332 3337]))                  
+                :type "void")
+                nil [3293 3383])
+            ("setSelectedQuote" function
+               (:parent "SmkMarkWidget"
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [3422 3427]))                  
+                :type "void")
+                nil [3385 3928])
+            ("setSelectedCode" function
+               (:parent "SmkMarkWidget"
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [3966 3971]))                  
+                :type "void")
+                nil [3930 4008])
+            ("setSelectedSub" function
+               (:parent "SmkMarkWidget"
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [4045 4050]))                  
+                :type "void")
+                nil [4010 4096])
+            ("setSelectedSup" function
+               (:parent "SmkMarkWidget"
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [4133 4138]))                  
+                :type "void")
+                nil [4098 4184])
+            ("setSelectedBigger" function
+               (:parent "SmkMarkWidget"
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [4224 4229]))                  
+                :type "void")
+                nil [4186 4275])
+            ("setSelectedSmaller" function
+               (:parent "SmkMarkWidget"
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [4316 4321]))                  
+                :type "void")
+                nil [4277 4371])
+            ("setSelectedOrderedList" function
+               (:parent "SmkMarkWidget"
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [4416 4421]))                  
+                :type "void")
+                nil [4373 4852])
+            ("setSelectedUnorderedList" function
+               (:parent "SmkMarkWidget"
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [4899 4904]))                  
+                :type "void")
+                nil [4854 5222])
+            ("setSelectedLeftAlign" function
+               (:parent "SmkMarkWidget"
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [5265 5270]))                  
+                :type "void")
+                nil [5224 5323])
+            ("setSelectedRightAlign" function
+               (:parent "SmkMarkWidget"
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [5367 5372]))                  
+                :type "void")
+                nil [5325 5426])
+            ("setSelectedCenterAlign" function
+               (:parent "SmkMarkWidget"
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [5471 5476]))                  
+                :type "void")
+                nil [5428 5528])
+            ("insertImage" function
+               (:parent "SmkMarkWidget"
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [5781 5786]))                  
+                :type "void")
+                nil [5749 6030])
+            ("insertLink" function
+               (:parent "SmkMarkWidget"
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [6063 6068]))                  
+                :type "void")
+                nil [6032 6358])
+            ("insertMathJax" function
+               (:parent "SmkMarkWidget"
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [6394 6399]))                  
+                :type "void")
+                nil [6360 7309])
+            ("keyPressEvent" function
+               (:parent "SmkMarkWidget"
+                :arguments 
+                  ( ("event" variable
+                       (:pointer 1
+                        :type ("QKeyEvent" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [7560 7577]))                  
+                :type "void")
+                nil [7526 8815]))          
+    :file "SmkMarkWidget.cpp"
+    :pointmax 8816
+    :fsize 9081
+    :lastmodtime '(21550 57191 916860 639000)
+    :unmatched-syntax 'nil
+    )
+   (semanticdb-table "SmkMarkWidget.h"
+    :major-mode 'c-mode
+    :tags 
+        '( ("SMARK_SMK_MARK_WIDGET_H" variable (:constant-flag t) nil [41 64])
+            ("SmkBasicMarkWidget.h" include nil nil [66 97])
+            ("SmkMarkWidget" type
+               (:superclasses 
+                  ( ("SmkBasicMarkWidget" type
+                       (:protection "public"
+                        :type "class")
+                        nil nil))                  
+                :members 
+                  ( ("public" label nil (reparse-symbol classsubparts) [171 178])
+                    ("SmkMarkWidget" function
+                       (:prototype-flag t
+                        :constructor-flag t
+                        :arguments 
+                          ( ("parent" variable
+                               (:pointer 1
+                                :type ("QWidget" type (:type "class") nil nil))
+                                (reparse-symbol arg-sub-list) [207 224]))                          
+                        :type ("SmkMarkWidget" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [193 228])
+                    ("public" label nil (reparse-symbol classsubparts) [450 457])
+                    ("scrollRatio" function
+                       (:prototype-flag t
+                        :arguments 
+                          ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [481 486]))                          
+                        :type "float")
+                        (reparse-symbol classsubparts) [463 487])
+                    ("private" label nil (reparse-symbol classsubparts) [489 503])
+                    ("when_VerticalScrollBar_valueChanged" function
+                       (:prototype-flag t
+                        :arguments 
+                          ( ("val" variable (:type "int") (reparse-symbol arg-sub-list) [550 558]))                          
+                        :type "void")
+                        (reparse-symbol classsubparts) [509 559])
+                    ("verticalScroll" function
+                       (:prototype-flag t
+                        :arguments 
+                          ( ("ratio" variable (:type "float") (reparse-symbol arg-sub-list) [595 607]))                          
+                        :type "void")
+                        (reparse-symbol classsubparts) [575 608])
+                    ("public" label nil (reparse-symbol classsubparts) [828 835])
+                    ("findPrevious" function
+                       (:prototype-flag t
+                        :arguments 
+                          ( ("text" variable
+                               (:reference 1
+                                :constant-flag t
+                                :type ("QString" type (:type "class") nil nil))
+                                (reparse-symbol arg-sub-list) [859 879])
+                            ("cased" variable (:type "bool") (reparse-symbol arg-sub-list) [880 891])
+                            ("whole" variable (:type "bool") (reparse-symbol arg-sub-list) [892 903]))                          
+                        :type "void")
+                        (reparse-symbol classsubparts) [841 904])
+                    ("findNext" function
+                       (:prototype-flag t
+                        :arguments 
+                          ( ("text" variable
+                               (:reference 1
+                                :constant-flag t
+                                :type ("QString" type (:type "class") nil nil))
+                                (reparse-symbol arg-sub-list) [923 943])
+                            ("cased" variable (:type "bool") (reparse-symbol arg-sub-list) [944 955])
+                            ("whole" variable (:type "bool") (reparse-symbol arg-sub-list) [956 967]))                          
+                        :type "void")
+                        (reparse-symbol classsubparts) [909 968])
+                    ("replaceCurrent" function
+                       (:prototype-flag t
+                        :arguments 
+                          ( ("new_text" variable
+                               (:reference 1
+                                :constant-flag t
+                                :type ("QString" type (:type "class") nil nil))
+                                (reparse-symbol arg-sub-list) [993 1017]))                          
+                        :type "void")
+                        (reparse-symbol classsubparts) [973 1018])
+                    ("replaceAll" function
+                       (:prototype-flag t
+                        :arguments 
+                          ( ("old_text" variable
+                               (:reference 1
+                                :constant-flag t
+                                :type ("QString" type (:type "class") nil nil))
+                                (reparse-symbol arg-sub-list) [1039 1063])
+                            ("new_text" variable
+                               (:reference 1
+                                :constant-flag t
+                                :type ("QString" type (:type "class") nil nil))
+                                (reparse-symbol arg-sub-list) [1084 1108])
+                            ("cased" variable (:type "bool") (reparse-symbol arg-sub-list) [1129 1140])
+                            ("whole" variable (:type "bool") (reparse-symbol arg-sub-list) [1141 1152]))                          
+                        :type "void")
+                        (reparse-symbol classsubparts) [1023 1153])
+                    ("public" label nil (reparse-symbol classsubparts) [1376 1383])
+                    ("setSelectedFormat" function
+                       (:prototype-flag t
+                        :arguments 
+                          ( ("before" variable
+                               (:reference 1
+                                :constant-flag t
+                                :type ("QString" type (:type "class") nil nil))
+                                (reparse-symbol arg-sub-list) [1435 1457])
+                            ("after" variable
+                               (:reference 1
+                                :constant-flag t
+                                :type ("QString" type (:type "class") nil nil))
+                                (reparse-symbol arg-sub-list) [1458 1479]))                          
+                        :type "void")
+                        (reparse-symbol classsubparts) [1412 1480])
+                    ("setSelectedBlod" function
+                       (:prototype-flag t
+                        :arguments 
+                          ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [1506 1511]))                          
+                        :type "void")
+                        (reparse-symbol classsubparts) [1485 1512])
+                    ("setSelectedItalic" function
+                       (:prototype-flag t
+                        :arguments 
+                          ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [1540 1545]))                          
+                        :type "void")
+                        (reparse-symbol classsubparts) [1517 1546])
+                    ("setSelectedUnderLine" function
+                       (:prototype-flag t
+                        :arguments 
+                          ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [1577 1582]))                          
+                        :type "void")
+                        (reparse-symbol classsubparts) [1551 1583])
+                    ("setSelectedDeleted" function
+                       (:prototype-flag t
+                        :arguments 
+                          ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [1612 1617]))                          
+                        :type "void")
+                        (reparse-symbol classsubparts) [1588 1618])
+                    ("setSelectedQuote" function
+                       (:prototype-flag t
+                        :arguments 
+                          ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [1645 1650]))                          
+                        :type "void")
+                        (reparse-symbol classsubparts) [1623 1651])
+                    ("setSelectedCode" function
+                       (:prototype-flag t
+                        :arguments 
+                          ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [1677 1682]))                          
+                        :type "void")
+                        (reparse-symbol classsubparts) [1656 1683])
+                    ("setSelectedSub" function
+                       (:prototype-flag t
+                        :arguments 
+                          ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [1708 1713]))                          
+                        :type "void")
+                        (reparse-symbol classsubparts) [1688 1714])
+                    ("setSelectedSup" function
+                       (:prototype-flag t
+                        :arguments 
+                          ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [1739 1744]))                          
+                        :type "void")
+                        (reparse-symbol classsubparts) [1719 1745])
+                    ("setSelectedBigger" function
+                       (:prototype-flag t
+                        :arguments 
+                          ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [1773 1778]))                          
+                        :type "void")
+                        (reparse-symbol classsubparts) [1750 1779])
+                    ("setSelectedSmaller" function
+                       (:prototype-flag t
+                        :arguments 
+                          ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [1808 1813]))                          
+                        :type "void")
+                        (reparse-symbol classsubparts) [1784 1814])
+                    ("setSelectedOrderedList" function
+                       (:prototype-flag t
+                        :arguments 
+                          ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [1847 1852]))                          
+                        :type "void")
+                        (reparse-symbol classsubparts) [1819 1853])
+                    ("setSelectedUnorderedList" function
+                       (:prototype-flag t
+                        :arguments 
+                          ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [1888 1893]))                          
+                        :type "void")
+                        (reparse-symbol classsubparts) [1858 1894])
+                    ("setSelectedLeftAlign" function
+                       (:prototype-flag t
+                        :arguments 
+                          ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [1925 1930]))                          
+                        :type "void")
+                        (reparse-symbol classsubparts) [1899 1931])
+                    ("setSelectedRightAlign" function
+                       (:prototype-flag t
+                        :arguments 
+                          ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [1963 1968]))                          
+                        :type "void")
+                        (reparse-symbol classsubparts) [1936 1969])
+                    ("setSelectedCenterAlign" function
+                       (:prototype-flag t
+                        :arguments 
+                          ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [2002 2007]))                          
+                        :type "void")
+                        (reparse-symbol classsubparts) [1974 2008])
+                    ("public" label nil (reparse-symbol classsubparts) [2229 2236])
+                    ("insertImage" function
+                       (:prototype-flag t
+                        :arguments 
+                          ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [2276 2281]))                          
+                        :type "void")
+                        (reparse-symbol classsubparts) [2259 2282])
+                    ("insertLink" function
+                       (:prototype-flag t
+                        :arguments 
+                          ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [2303 2308]))                          
+                        :type "void")
+                        (reparse-symbol classsubparts) [2287 2309])
+                    ("insertMathJax" function
+                       (:prototype-flag t
+                        :arguments 
+                          ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [2333 2338]))                          
+                        :type "void")
+                        (reparse-symbol classsubparts) [2314 2339])
+                    ("protected" label nil (reparse-symbol classsubparts) [2556 2566])
+                    ("keyPressEvent" function
+                       (:prototype-flag t
+                        :arguments 
+                          ( ("" variable
+                               (:pointer 1
+                                :type ("QKeyEvent" type (:type "class") nil nil))
+                                (reparse-symbol arg-sub-list) [2608 2619]))                          
+                        :type "void")
+                        (reparse-symbol classsubparts) [2589 2620]))                  
+                :type "class")
+                nil [99 2623]))          
+    :file "SmkMarkWidget.h"
+    :pointmax 2659
+    :fsize 2757
+    :lastmodtime '(21550 57191 863861 917000)
+    :unmatched-syntax '((punctuation 568 . 569) (symbol 561 . 568) (number 225 . 226) (punctuation 223 . 224) (EXPLICIT 184 . 192) (symbol 161 . 169))
+    :lexical-table 
+        '(("SMARK_SMK_MARK_WIDGET_H")
+          )
+
+    )
+   (semanticdb-table "SmkOptionDialog.cpp"
+    :major-mode 'c++-mode
+    :tags 
+        '( ("SmkConfig.h" include nil nil [1 23])
+            ("SmkApp.h" include nil nil [24 43])
+            ("SmkHtmlHighlighter.h" include nil nil [44 75])
+            ("SmkOptionDialog.h" include nil nil [76 104])
+            ("ui_SmkOptionDialog.h" include nil nil [105 136])
+            ("SmkOptionDialog" function
+               (:constructor-flag t
+                :parent "SmkOptionDialog"
+                :arguments 
+                  ( ("parent" variable
+                       (:pointer 1
+                        :type ("QWidget" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [171 187]))                  
+                :type ("SmkOptionDialog" type (:type "class") nil nil))
+                nil [138 280])
+            ("SmkOptionDialog" function
+               (:destructor-flag t
+                :parent "SmkOptionDialog"
+                :type "void")
+                nil [282 452])
+            ("initGui" function
+               (:parent "SmkOptionDialog"
+                :type "void")
+                nil [454 5217])
+            ("on_comboBoxGuiStyle_currentIndexChanged" function
+               (:parent "SmkOptionDialog"
+                :arguments 
+                  ( ("style" variable
+                       (:reference 1
+                        :constant-flag t
+                        :type ("QString" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [5281 5302]))                  
+                :type "void")
+                nil [5219 5338])
+            ("on_comboBoxEnglishFont_currentFontChanged" function
+               (:parent "SmkOptionDialog"
+                :arguments 
+                  ( ("font" variable
+                       (:reference 1
+                        :constant-flag t
+                        :type ("QFont" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [5404 5422]))                  
+                :type "void")
+                nil [5340 5557])
+            ("on_spinBoxFontSize_valueChanged" function
+               (:parent "SmkOptionDialog"
+                :arguments 
+                  ( ("fontSize" variable (:type "int") (reparse-symbol arg-sub-list) [5613 5626]))                  
+                :type "void")
+                nil [5559 5768])
+            ("on_listColor_itemDoubleClicked" function
+               (:parent "SmkOptionDialog"
+                :arguments 
+                  ( ("pItem" variable
+                       (:pointer 1
+                        :type ("QListWidgetItem" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [5823 5846]))                  
+                :type "void")
+                nil [5770 7429])
+            ("on_buttonCSSURL_clicked" function
+               (:parent "SmkOptionDialog"
+                :type "void")
+                nil [7431 7922])
+            ("on_buttonMathJaxURL_clicked" function
+               (:parent "SmkOptionDialog"
+                :type "void")
+                nil [7924 8416])
+            ("on_buttonBox_accepted" function
+               (:parent "SmkOptionDialog"
+                :type "void")
+                nil [8418 10894])
+            ("on_lineEditCSSURL_textEdited" function
+               (:parent "SmkOptionDialog"
+                :arguments 
+                  ( ("arg" variable
+                       (:reference 1
+                        :constant-flag t
+                        :type ("QString" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [10947 10966]))                  
+                :type "void")
+                nil [10896 11488])
+            ("on_lineEditMathJaxURL_textEdited" function
+               (:parent "SmkOptionDialog"
+                :arguments 
+                  ( ("arg" variable
+                       (:reference 1
+                        :constant-flag t
+                        :type ("QString" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [11545 11564]))                  
+                :type "void")
+                nil [11490 12086]))          
+    :file "SmkOptionDialog.cpp"
+    :pointmax 12087
+    :fsize 12660
+    :lastmodtime '(21550 57191 796863 534000)
+    :unmatched-syntax 'nil
+    )
+   (semanticdb-table "ui_SmkMainWindow.h"
+    :major-mode 'c-mode
+    :tags 
+        '( ("UI_SMKMAINWINDOW_H" variable (:constant-flag t) nil [402 420])
+            ("QtCore/QVariant" include (:system-flag t) nil [422 448])
+            ("QtGui/QAction" include (:system-flag t) nil [449 473])
+            ("QtGui/QApplication" include (:system-flag t) nil [474 503])
+            ("QtGui/QButtonGroup" include (:system-flag t) nil [504 533])
+            ("QtGui/QCheckBox" include (:system-flag t) nil [534 560])
+            ("QtGui/QGridLayout" include (:system-flag t) nil [561 589])
+            ("QtGui/QHBoxLayout" include (:system-flag t) nil [590 618])
+            ("QtGui/QHeaderView" include (:system-flag t) nil [619 647])
+            ("QtGui/QLineEdit" include (:system-flag t) nil [648 674])
+            ("QtGui/QMainWindow" include (:system-flag t) nil [675 703])
+            ("QtGui/QMenu" include (:system-flag t) nil [704 726])
+            ("QtGui/QMenuBar" include (:system-flag t) nil [727 752])
+            ("QtGui/QPushButton" include (:system-flag t) nil [753 781])
+            ("QtGui/QSpacerItem" include (:system-flag t) nil [782 810])
+            ("QtGui/QSplitter" include (:system-flag t) nil [811 837])
+            ("QtGui/QToolBar" include (:system-flag t) nil [838 863])
+            ("QtGui/QVBoxLayout" include (:system-flag t) nil [864 892])
+            ("QtGui/QWidget" include (:system-flag t) nil [893 917])
+            ("SmkMarkWidget.h" include (:system-flag t) nil [918 944])
+            ("SmkHtmlWidget.h" include nil nil [945 971])
+            ("Ui_SmkMainWindow" type
+               (:members 
+                  ( ("public" label nil (reparse-symbol classsubparts) [1018 1025])
+                    ("actionNew" variable
+                       (:pointer 1
+                        :type ("QAction" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [1030 1049])
+                    ("actionOpen" variable
+                       (:pointer 1
+                        :type ("QAction" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [1054 1074])
+                    ("actionSave" variable
+                       (:pointer 1
+                        :type ("QAction" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [1079 1099])
+                    ("actionSaveAs" variable
+                       (:pointer 1
+                        :type ("QAction" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [1104 1126])
+                    ("actionClose" variable
+                       (:pointer 1
+                        :type ("QAction" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [1131 1152])
+                    ("actionPrint" variable
+                       (:pointer 1
+                        :type ("QAction" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [1157 1178])
+                    ("actionQuite" variable
+                       (:pointer 1
+                        :type ("QAction" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [1183 1204])
+                    ("actionPreview" variable
+                       (:pointer 1
+                        :type ("QAction" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [1209 1232])
+                    ("actionReadOnly" variable
+                       (:pointer 1
+                        :type ("QAction" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [1237 1261])
+                    ("actionEditOnly" variable
+                       (:pointer 1
+                        :type ("QAction" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [1266 1290])
+                    ("actionFullScreen" variable
+                       (:pointer 1
+                        :type ("QAction" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [1295 1321])
+                    ("actionFlush" variable
+                       (:pointer 1
+                        :type ("QAction" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [1326 1347])
+                    ("actionCut" variable
+                       (:pointer 1
+                        :type ("QAction" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [1352 1371])
+                    ("actionCopy" variable
+                       (:pointer 1
+                        :type ("QAction" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [1376 1396])
+                    ("actionPaste" variable
+                       (:pointer 1
+                        :type ("QAction" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [1401 1422])
+                    ("actionRedo" variable
+                       (:pointer 1
+                        :type ("QAction" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [1427 1447])
+                    ("actionUndo" variable
+                       (:pointer 1
+                        :type ("QAction" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [1452 1472])
+                    ("actionFind" variable
+                       (:pointer 1
+                        :type ("QAction" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [1477 1497])
+                    ("actionViewHTML" variable
+                       (:pointer 1
+                        :type ("QAction" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [1502 1526])
+                    ("actionFormatBlod" variable
+                       (:pointer 1
+                        :type ("QAction" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [1531 1557])
+                    ("actionFormatItalic" variable
+                       (:pointer 1
+                        :type ("QAction" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [1562 1590])
+                    ("actionFormatUnderline" variable
+                       (:pointer 1
+                        :type ("QAction" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [1595 1626])
+                    ("actionFormatBigger" variable
+                       (:pointer 1
+                        :type ("QAction" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [1631 1659])
+                    ("actionFormatSmaller" variable
+                       (:pointer 1
+                        :type ("QAction" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [1664 1693])
+                    ("actionFormatSub" variable
+                       (:pointer 1
+                        :type ("QAction" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [1698 1723])
+                    ("actionFormatSup" variable
+                       (:pointer 1
+                        :type ("QAction" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [1728 1753])
+                    ("actionFormatCode" variable
+                       (:pointer 1
+                        :type ("QAction" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [1758 1784])
+                    ("actionFormatQuote" variable
+                       (:pointer 1
+                        :type ("QAction" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [1789 1816])
+                    ("actionAlignLeft" variable
+                       (:pointer 1
+                        :type ("QAction" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [1821 1846])
+                    ("actionAlignRight" variable
+                       (:pointer 1
+                        :type ("QAction" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [1851 1877])
+                    ("actionAlignCenter" variable
+                       (:pointer 1
+                        :type ("QAction" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [1882 1909])
+                    ("actionInsertImage" variable
+                       (:pointer 1
+                        :type ("QAction" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [1914 1941])
+                    ("actionInsertLink" variable
+                       (:pointer 1
+                        :type ("QAction" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [1946 1972])
+                    ("actionInsertMathJax" variable
+                       (:pointer 1
+                        :type ("QAction" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [1977 2006])
+                    ("actionAboutQt" variable
+                       (:pointer 1
+                        :type ("QAction" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [2011 2034])
+                    ("actionAboutSmark" variable
+                       (:pointer 1
+                        :type ("QAction" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [2039 2065])
+                    ("actionOption" variable
+                       (:pointer 1
+                        :type ("QAction" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [2070 2092])
+                    ("widget" variable
+                       (:pointer 1
+                        :type ("QWidget" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [2097 2113])
+                    ("gridLayout" variable
+                       (:pointer 1
+                        :type ("QGridLayout" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [2118 2142])
+                    ("splitter" variable
+                       (:pointer 1
+                        :type ("QSplitter" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [2147 2167])
+                    ("htmlView" variable
+                       (:pointer 1
+                        :type ("SmkHtmlWidget" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [2172 2196])
+                    ("layoutWidget" variable
+                       (:pointer 1
+                        :type ("QWidget" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [2201 2223])
+                    ("verticalLayout" variable
+                       (:pointer 1
+                        :type ("QVBoxLayout" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [2228 2256])
+                    ("markView" variable
+                       (:pointer 1
+                        :type ("SmkMarkWidget" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [2261 2285])
+                    ("widgetFind" variable
+                       (:pointer 1
+                        :type ("QWidget" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [2290 2310])
+                    ("gridLayout_3" variable
+                       (:pointer 1
+                        :type ("QGridLayout" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [2315 2341])
+                    ("horizontalLayout" variable
+                       (:pointer 1
+                        :type ("QHBoxLayout" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [2346 2376])
+                    ("lineEditFind" variable
+                       (:pointer 1
+                        :type ("QLineEdit" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [2381 2405])
+                    ("buttonFindPrev" variable
+                       (:pointer 1
+                        :type ("QPushButton" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [2410 2438])
+                    ("buttonFindNext" variable
+                       (:pointer 1
+                        :type ("QPushButton" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [2443 2471])
+                    ("checkBoxCase" variable
+                       (:pointer 1
+                        :type ("QCheckBox" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [2476 2500])
+                    ("checkBoxWholeWord" variable
+                       (:pointer 1
+                        :type ("QCheckBox" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [2505 2534])
+                    ("horizontalSpacer" variable
+                       (:pointer 1
+                        :type ("QSpacerItem" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [2539 2569])
+                    ("horizontalLayout_2" variable
+                       (:pointer 1
+                        :type ("QHBoxLayout" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [2574 2606])
+                    ("lineEditReplace" variable
+                       (:pointer 1
+                        :type ("QLineEdit" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [2611 2638])
+                    ("buttonReplace" variable
+                       (:pointer 1
+                        :type ("QPushButton" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [2643 2670])
+                    ("buttonReplaceAll" variable
+                       (:pointer 1
+                        :type ("QPushButton" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [2675 2705])
+                    ("menubar" variable
+                       (:pointer 1
+                        :type ("QMenuBar" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [2710 2728])
+                    ("menuFile" variable
+                       (:pointer 1
+                        :type ("QMenu" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [2733 2749])
+                    ("menuView" variable
+                       (:pointer 1
+                        :type ("QMenu" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [2754 2770])
+                    ("menuEdit" variable
+                       (:pointer 1
+                        :type ("QMenu" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [2775 2791])
+                    ("menuFormat" variable
+                       (:pointer 1
+                        :type ("QMenu" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [2796 2814])
+                    ("menuInsert" variable
+                       (:pointer 1
+                        :type ("QMenu" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [2819 2837])
+                    ("menuHelp" variable
+                       (:pointer 1
+                        :type ("QMenu" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [2842 2858])
+                    ("toolBar" variable
+                       (:pointer 1
+                        :type ("QToolBar" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [2863 2881])
+                    ("setupUi" function
+                       (:arguments 
+                          ( ("SmkMainWindow" variable
+                               (:pointer 1
+                                :type ("QMainWindow" type (:type "class") nil nil))
+                                (reparse-symbol arg-sub-list) [2900 2927]))                          
+                        :type "void")
+                        (reparse-symbol classsubparts) [2887 23847])
+                    ("retranslateUi" function
+                       (:arguments 
+                          ( ("SmkMainWindow" variable
+                               (:pointer 1
+                                :type ("QMainWindow" type (:type "class") nil nil))
+                                (reparse-symbol arg-sub-list) [23883 23910]))                          
+                        :type "void")
+                        (reparse-symbol classsubparts) [23864 34064]))                  
+                :type "class")
+                nil [993 34085])
+            ("Ui" type
+               (:members 
+                  ( ("SmkMainWindow" type
+                       (:superclasses 
+                          ( ("Ui_SmkMainWindow" type
+                               (:protection "public"
+                                :type "class")
+                                nil nil))                          
+                        :type "class")
+                        (reparse-symbol namespacesubparts) [34106 34154]))                  
+                :type "namespace")
+                nil [34087 34156]))          
+    :file "ui_SmkMainWindow.h"
+    :pointmax 34221
+    :fsize 34220
+    :lastmodtime '(21550 57138 301154 312000)
+    :unmatched-syntax 'nil
+    :lexical-table 
+        '(("UI_SMKMAINWINDOW_H")
+          )
+
+    )
+   (semanticdb-table "ui_SmkOptionDialog.h"
+    :major-mode 'c-mode
+    :tags 
+        '( ("UI_SMKOPTIONDIALOG_H" variable (:constant-flag t) nil [406 426])
+            ("QtCore/QVariant" include (:system-flag t) nil [428 454])
+            ("QtGui/QAction" include (:system-flag t) nil [455 479])
+            ("QtGui/QApplication" include (:system-flag t) nil [480 509])
+            ("QtGui/QButtonGroup" include (:system-flag t) nil [510 539])
+            ("QtGui/QComboBox" include (:system-flag t) nil [540 566])
+            ("QtGui/QDialog" include (:system-flag t) nil [567 591])
+            ("QtGui/QDialogButtonBox" include (:system-flag t) nil [592 625])
+            ("QtGui/QFontComboBox" include (:system-flag t) nil [626 656])
+            ("QtGui/QGridLayout" include (:system-flag t) nil [657 685])
+            ("QtGui/QHBoxLayout" include (:system-flag t) nil [686 714])
+            ("QtGui/QHeaderView" include (:system-flag t) nil [715 743])
+            ("QtGui/QLabel" include (:system-flag t) nil [744 767])
+            ("QtGui/QLineEdit" include (:system-flag t) nil [768 794])
+            ("QtGui/QListWidget" include (:system-flag t) nil [795 823])
+            ("QtGui/QPlainTextEdit" include (:system-flag t) nil [824 855])
+            ("QtGui/QPushButton" include (:system-flag t) nil [856 884])
+            ("QtGui/QSpacerItem" include (:system-flag t) nil [885 913])
+            ("QtGui/QSpinBox" include (:system-flag t) nil [914 939])
+            ("QtGui/QTabWidget" include (:system-flag t) nil [940 967])
+            ("QtGui/QWidget" include (:system-flag t) nil [968 992])
+            ("Ui_SmkOptionDialog" type
+               (:members 
+                  ( ("public" label nil (reparse-symbol classsubparts) [1041 1048])
+                    ("gridLayout_3" variable
+                       (:pointer 1
+                        :type ("QGridLayout" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [1053 1079])
+                    ("horizontalLayout" variable
+                       (:pointer 1
+                        :type ("QHBoxLayout" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [1084 1114])
+                    ("horizontalSpacer_2" variable
+                       (:pointer 1
+                        :type ("QSpacerItem" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [1119 1151])
+                    ("buttonBox" variable
+                       (:pointer 1
+                        :type ("QDialogButtonBox" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [1156 1184])
+                    ("tabWidget" variable
+                       (:pointer 1
+                        :type ("QTabWidget" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [1189 1211])
+                    ("tabGui" variable
+                       (:pointer 1
+                        :type ("QWidget" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [1216 1232])
+                    ("gridLayout" variable
+                       (:pointer 1
+                        :type ("QGridLayout" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [1237 1261])
+                    ("labelStyle" variable
+                       (:pointer 1
+                        :type ("QLabel" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [1266 1285])
+                    ("comboBoxGuiStyle" variable
+                       (:pointer 1
+                        :type ("QComboBox" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [1290 1318])
+                    ("labelFont" variable
+                       (:pointer 1
+                        :type ("QLabel" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [1323 1341])
+                    ("comboBoxEnglishFont" variable
+                       (:pointer 1
+                        :type ("QFontComboBox" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [1346 1381])
+                    ("comboBoxChineseFont" variable
+                       (:pointer 1
+                        :type ("QFontComboBox" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [1386 1421])
+                    ("spinBoxFontSize" variable
+                       (:pointer 1
+                        :type ("QSpinBox" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [1426 1452])
+                    ("labelColor" variable
+                       (:pointer 1
+                        :type ("QLabel" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [1457 1476])
+                    ("listColor" variable
+                       (:pointer 1
+                        :type ("QListWidget" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [1481 1504])
+                    ("tabContext" variable
+                       (:pointer 1
+                        :type ("QWidget" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [1509 1529])
+                    ("gridLayout_7" variable
+                       (:pointer 1
+                        :type ("QGridLayout" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [1534 1560])
+                    ("labelCSS" variable
+                       (:pointer 1
+                        :type ("QLabel" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [1565 1582])
+                    ("lineEditCSSURL" variable
+                       (:pointer 1
+                        :type ("QLineEdit" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [1587 1613])
+                    ("buttonCSSURL" variable
+                       (:pointer 1
+                        :type ("QPushButton" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [1618 1644])
+                    ("labelMathJax" variable
+                       (:pointer 1
+                        :type ("QLabel" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [1649 1670])
+                    ("lineEditMathJaxURL" variable
+                       (:pointer 1
+                        :type ("QLineEdit" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [1675 1705])
+                    ("buttonMathJaxURL" variable
+                       (:pointer 1
+                        :type ("QPushButton" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [1710 1740])
+                    ("tabWidget_2" variable
+                       (:pointer 1
+                        :type ("QTabWidget" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [1745 1769])
+                    ("tabHeader" variable
+                       (:pointer 1
+                        :type ("QWidget" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [1774 1793])
+                    ("gridLayout_2" variable
+                       (:pointer 1
+                        :type ("QGridLayout" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [1798 1824])
+                    ("labelHeader" variable
+                       (:pointer 1
+                        :type ("QLabel" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [1829 1849])
+                    ("textEditHeader" variable
+                       (:pointer 1
+                        :type ("QPlainTextEdit" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [1854 1885])
+                    ("tabHat" variable
+                       (:pointer 1
+                        :type ("QWidget" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [1890 1906])
+                    ("gridLayout_4" variable
+                       (:pointer 1
+                        :type ("QGridLayout" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [1911 1937])
+                    ("labelHat" variable
+                       (:pointer 1
+                        :type ("QLabel" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [1942 1959])
+                    ("textEditHat" variable
+                       (:pointer 1
+                        :type ("QPlainTextEdit" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [1964 1992])
+                    ("tabTail" variable
+                       (:pointer 1
+                        :type ("QWidget" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [1997 2014])
+                    ("gridLayout_5" variable
+                       (:pointer 1
+                        :type ("QGridLayout" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [2019 2045])
+                    ("labelTail" variable
+                       (:pointer 1
+                        :type ("QLabel" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [2050 2068])
+                    ("textEditTail" variable
+                       (:pointer 1
+                        :type ("QPlainTextEdit" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [2073 2102])
+                    ("tabFoot" variable
+                       (:pointer 1
+                        :type ("QWidget" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [2107 2124])
+                    ("gridLayout_6" variable
+                       (:pointer 1
+                        :type ("QGridLayout" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [2129 2155])
+                    ("labelFoot" variable
+                       (:pointer 1
+                        :type ("QLabel" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [2160 2178])
+                    ("textEditFoot" variable
+                       (:pointer 1
+                        :type ("QPlainTextEdit" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [2183 2212])
+                    ("setupUi" function
+                       (:arguments 
+                          ( ("SmkOptionDialog" variable
+                               (:pointer 1
+                                :type ("QDialog" type (:type "class") nil nil))
+                                (reparse-symbol arg-sub-list) [2231 2256]))                          
+                        :type "void")
+                        (reparse-symbol classsubparts) [2218 11255])
+                    ("retranslateUi" function
+                       (:arguments 
+                          ( ("SmkOptionDialog" variable
+                               (:pointer 1
+                                :type ("QDialog" type (:type "class") nil nil))
+                                (reparse-symbol arg-sub-list) [11291 11316]))                          
+                        :type "void")
+                        (reparse-symbol classsubparts) [11272 13780]))                  
+                :type "class")
+                nil [1014 13801])
+            ("Ui" type
+               (:members 
+                  ( ("SmkOptionDialog" type
+                       (:superclasses 
+                          ( ("Ui_SmkOptionDialog" type
+                               (:protection "public"
+                                :type "class")
+                                nil nil))                          
+                        :type "class")
+                        (reparse-symbol namespacesubparts) [13822 13874]))                  
+                :type "namespace")
+                nil [13803 13876]))          
+    :file "ui_SmkOptionDialog.h"
+    :pointmax 13943
+    :fsize 13942
+    :lastmodtime '(21550 56763 801190 480000)
+    :unmatched-syntax '((symbol 13894 . 13910) (symbol 994 . 1012))
+    :lexical-table 
+        '(("UI_SMKOPTIONDIALOG_H")
+          )
+
+    )
+   )
+  :file "!home!chz!Public!Smark!semantic.cache"
+  :semantic-tag-version "2.0"
+  :semanticdb-version "2.2"
+  )

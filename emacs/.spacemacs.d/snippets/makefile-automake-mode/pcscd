@@ -1,0 +1,392 @@
+;; Object maps/
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "maps/"
+  :tables (list 
+   (semanticdb-table "amd76xrom.c"
+    :major-mode 'c-mode
+    :tags 
+        '( ("linux/module.h" include (:system-flag t) nil [74 99])
+            ("linux/types.h" include (:system-flag t) nil [100 124])
+            ("linux/kernel.h" include (:system-flag t) nil [125 150])
+            ("linux/init.h" include (:system-flag t) nil [151 174])
+            ("linux/slab.h" include (:system-flag t) nil [175 198])
+            ("asm/io.h" include (:system-flag t) nil [199 218])
+            ("linux/mtd/mtd.h" include (:system-flag t) nil [219 245])
+            ("linux/mtd/map.h" include (:system-flag t) nil [246 272])
+            ("linux/mtd/cfi.h" include (:system-flag t) nil [273 299])
+            ("linux/mtd/flashchip.h" include (:system-flag t) nil [300 332])
+            ("linux/pci.h" include (:system-flag t) nil [333 355])
+            ("linux/pci_ids.h" include (:system-flag t) nil [356 382])
+            ("linux/list.h" include (:system-flag t) nil [383 406])
+            ("xstr" variable (:constant-flag t) nil [417 421])
+            ("str" variable (:constant-flag t) nil [440 443])
+            ("MOD_NAME" variable (:constant-flag t) nil [458 466])
+            ("ADDRESS_NAME_LEN" variable (:constant-flag t) nil [498 514])
+            ("ROM_PROBE_STEP_SIZE" variable (:constant-flag t) nil [527 546])
+            ("amd76xrom_window" type
+               (:members 
+                  ( ("virt" variable
+                       (:pointer 1
+                        :type ("__iomem" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [602 616])
+                    ("phys" variable (:type "unsigned long") (reparse-symbol classsubparts) [618 637])
+                    ("size" variable (:type "unsigned long") (reparse-symbol classsubparts) [639 658])
+                    ("maps" variable (:type ("list_head" type
+                         (:prototype t
+                          :type "struct")
+                          nil nil)) (reparse-symbol classsubparts) [660 682])
+                    ("rsrc" variable (:type ("resource" type
+                         (:prototype t
+                          :type "struct")
+                          nil nil)) (reparse-symbol classsubparts) [684 705])
+                    ("pdev" variable
+                       (:pointer 1
+                        :type ("pci_dev" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol classsubparts) [707 728]))                  
+                :type "struct")
+                nil [570 731])
+            ("amd76xrom_map_info" type
+               (:members 
+                  ( ("list" variable (:type ("list_head" type
+                         (:prototype t
+                          :type "struct")
+                          nil nil)) (reparse-symbol classsubparts) [762 784])
+                    ("map" variable (:type ("map_info" type
+                         (:prototype t
+                          :type "struct")
+                          nil nil)) (reparse-symbol classsubparts) [786 806])
+                    ("mtd" variable
+                       (:pointer 1
+                        :type ("mtd_info" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol classsubparts) [808 829])
+                    ("rsrc" variable (:type ("resource" type
+                         (:prototype t
+                          :type "struct")
+                          nil nil)) (reparse-symbol classsubparts) [831 852])
+                    ("map_name" variable
+                       (:dereference 1
+                        :type "char")
+                        (reparse-symbol classsubparts) [854 909]))                  
+                :type "struct")
+                nil [733 912])
+            ("win_size_bits" variable
+               (:typemodifiers ("static")
+                :type ("uint" type (:type "class") nil nil))
+                nil [1424 1450])
+            ("module_param" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("win_size_bits" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [1464 1478])
+                    ("" variable (:type ("uint" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [1479 1484]))                  
+                :type "int")
+                nil [1451 1488])
+            ("MODULE_PARM_DESC" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("win_size_bits" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [1506 1520]))                  
+                :type "int")
+                nil [1489 1591])
+            ("amd76xrom_window" variable
+               (:typemodifiers ("static")
+                :type ("amd76xrom_window" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [1593 1695])
+            ("amd76xrom_cleanup" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("window" variable
+                       (:pointer 1
+                        :type ("amd76xrom_window" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [1727 1759]))                  
+                :type "void")
+                nil [1697 2483])
+            ("amd76xrom_init_one" function
+               (:arguments 
+                  ( ("pdev" variable
+                       (:pointer 1
+                        :type ("pci_dev" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [2527 2548])
+                    ("ent" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("pci_device_id" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [2550 2582]))                  
+                :type ("__devinit" type (:type "class") nil nil))
+                nil [2497 8019])
+            ("amd76xrom_remove_one" function
+               (:arguments 
+                  ( ("pdev" variable
+                       (:pointer 1
+                        :type ("pci_dev" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [8066 8087]))                  
+                :type ("__devexit" type (:type "class") nil nil))
+                nil [8034 8174])
+            ("amd76xrom_pci_tbl" variable
+               (:dereference 1
+                :typemodifiers ("static")
+                :type ("pci_device_id" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [8176 8454])
+            ("MODULE_DEVICE_TABLE" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("pci" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [8476 8480])
+                    ("" variable (:type ("amd76xrom_pci_tbl" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [8481 8499]))                  
+                :type "int")
+                nil [8456 8500])
+            ("init_amd76xrom" function
+               (:arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [8713 8718]))                  
+                :type ("__init" type (:type "class") nil nil))
+                nil [8691 9072])
+            ("cleanup_amd76xrom" function
+               (:arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [9111 9116]))                  
+                :type ("__exit" type (:type "class") nil nil))
+                nil [9086 9166])
+            ("module_init" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("init_amd76xrom" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [9180 9195]))                  
+                :type "int")
+                nil [9168 9196])
+            ("module_exit" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("cleanup_amd76xrom" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [9209 9227]))                  
+                :type "int")
+                nil [9197 9228])
+            ("MODULE_LICENSE" function
+               (:prototype-flag t
+                :type "int")
+                nil [9230 9252])
+            ("MODULE_AUTHOR" function
+               (:prototype-flag t
+                :type "int")
+                nil [9253 9307])
+            ("MODULE_DESCRIPTION" function
+               (:prototype-flag t
+                :type "int")
+                nil [9308 9386]))          
+    :file "amd76xrom.c"
+    :pointmax 9388
+    :fsize 9387
+    :lastmodtime '(21468 9027 62617 799000)
+    :unmatched-syntax '((string 9327 . 9384) (string 9267 . 9305) (string 9245 . 9250) (VOID 9081 . 9085) (STATIC 9074 . 9080) (INT 8687 . 8690) (STATIC 8680 . 8686) (VOID 8029 . 8033) (STATIC 8022 . 8028) (INT 2493 . 2496) (STATIC 2486 . 2492) (string 1521 . 1589) (number 1485 . 1486) (VOID 597 . 601))
+    :lexical-table 
+        '(("ADDRESS_NAME_LEN" . ((number "18" 515 . 517)))
+          ("str" (spp-arg-list ("s") 443 . 446) . ((punctuation "#" 447 . 448) (symbol "s" 448 . 449)))
+          ("xstr" (spp-arg-list ("s") 421 . 424) . ((symbol "str" 425 . 428) (semantic-list "(s)" 428 . 431)))
+          ("ROM_PROBE_STEP_SIZE" . ((semantic-list "(64*1024)" 547 . 556)))
+          ("MOD_NAME" . ((symbol "xstr" 467 . 471) (semantic-list "(KBUILD_BASENAME)" 471 . 488)))
+          )
+
+    )
+   (semanticdb-table "ichxrom.c"
+    :major-mode 'c-mode
+    :tags 
+        '( ("linux/module.h" include (:system-flag t) nil [72 97])
+            ("linux/types.h" include (:system-flag t) nil [98 122])
+            ("linux/kernel.h" include (:system-flag t) nil [123 148])
+            ("linux/init.h" include (:system-flag t) nil [149 172])
+            ("linux/slab.h" include (:system-flag t) nil [173 196])
+            ("asm/io.h" include (:system-flag t) nil [197 216])
+            ("linux/mtd/mtd.h" include (:system-flag t) nil [217 243])
+            ("linux/mtd/map.h" include (:system-flag t) nil [244 270])
+            ("linux/mtd/cfi.h" include (:system-flag t) nil [271 297])
+            ("linux/mtd/flashchip.h" include (:system-flag t) nil [298 330])
+            ("linux/pci.h" include (:system-flag t) nil [331 353])
+            ("linux/pci_ids.h" include (:system-flag t) nil [354 380])
+            ("linux/list.h" include (:system-flag t) nil [381 404])
+            ("xstr" variable (:constant-flag t) nil [414 418])
+            ("str" variable (:constant-flag t) nil [437 440])
+            ("MOD_NAME" variable (:constant-flag t) nil [455 463])
+            ("ADDRESS_NAME_LEN" variable (:constant-flag t) nil [495 511])
+            ("ROM_PROBE_STEP_SIZE" variable (:constant-flag t) nil [524 543])
+            ("BIOS_CNTL" variable (:constant-flag t) nil [575 584])
+            ("FWH_DEC_EN1" variable (:constant-flag t) nil [598 609])
+            ("FWH_DEC_EN2" variable (:constant-flag t) nil [623 634])
+            ("FWH_SEL1" variable (:constant-flag t) nil [648 656])
+            ("FWH_SEL2" variable (:constant-flag t) nil [670 678])
+            ("ichxrom_window" type
+               (:members 
+                  ( ("virt" variable
+                       (:pointer 1
+                        :type ("__iomem" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [715 729])
+                    ("phys" variable (:type "unsigned long") (reparse-symbol classsubparts) [731 750])
+                    ("size" variable (:type "unsigned long") (reparse-symbol classsubparts) [752 771])
+                    ("maps" variable (:type ("list_head" type
+                         (:prototype t
+                          :type "struct")
+                          nil nil)) (reparse-symbol classsubparts) [773 795])
+                    ("rsrc" variable (:type ("resource" type
+                         (:prototype t
+                          :type "struct")
+                          nil nil)) (reparse-symbol classsubparts) [797 818])
+                    ("pdev" variable
+                       (:pointer 1
+                        :type ("pci_dev" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol classsubparts) [820 841]))                  
+                :type "struct")
+                nil [685 844])
+            ("ichxrom_map_info" type
+               (:members 
+                  ( ("list" variable (:type ("list_head" type
+                         (:prototype t
+                          :type "struct")
+                          nil nil)) (reparse-symbol classsubparts) [873 895])
+                    ("map" variable (:type ("map_info" type
+                         (:prototype t
+                          :type "struct")
+                          nil nil)) (reparse-symbol classsubparts) [897 917])
+                    ("mtd" variable
+                       (:pointer 1
+                        :type ("mtd_info" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol classsubparts) [919 940])
+                    ("rsrc" variable (:type ("resource" type
+                         (:prototype t
+                          :type "struct")
+                          nil nil)) (reparse-symbol classsubparts) [942 963])
+                    ("map_name" variable
+                       (:dereference 1
+                        :type "char")
+                        (reparse-symbol classsubparts) [965 1020]))                  
+                :type "struct")
+                nil [846 1023])
+            ("ichxrom_window" variable
+               (:typemodifiers ("static")
+                :type ("ichxrom_window" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [1025 1121])
+            ("ichxrom_cleanup" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("window" variable
+                       (:pointer 1
+                        :type ("ichxrom_window" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [1151 1181]))                  
+                :type "void")
+                nil [1123 1879])
+            ("ichxrom_init_one" function
+               (:arguments 
+                  ( ("pdev" variable
+                       (:pointer 1
+                        :type ("pci_dev" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [1921 1942])
+                    ("ent" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("pci_device_id" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [1944 1976]))                  
+                :type ("__devinit" type (:type "class") nil nil))
+                nil [1893 8377])
+            ("ichxrom_remove_one" function
+               (:arguments 
+                  ( ("pdev" variable
+                       (:pointer 1
+                        :type ("pci_dev" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [8422 8443]))                  
+                :type ("__devexit" type (:type "class") nil nil))
+                nil [8392 8523])
+            ("__devinitdata" variable (:type "int") nil [8571 9021])
+            ("init_ichxrom" function
+               (:arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [9268 9273]))                  
+                :type ("__init" type (:type "class") nil nil))
+                nil [9248 9621])
+            ("cleanup_ichxrom" function
+               (:arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [9658 9663]))                  
+                :type ("__exit" type (:type "class") nil nil))
+                nil [9635 9709])
+            ("module_init" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("init_ichxrom" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [9723 9736]))                  
+                :type "int")
+                nil [9711 9737])
+            ("module_exit" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("cleanup_ichxrom" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [9750 9766]))                  
+                :type "int")
+                nil [9738 9767])
+            ("MODULE_LICENSE" function
+               (:prototype-flag t
+                :type "int")
+                nil [9769 9791])
+            ("MODULE_AUTHOR" function
+               (:prototype-flag t
+                :type "int")
+                nil [9792 9846])
+            ("MODULE_DESCRIPTION" function
+               (:prototype-flag t
+                :type "int")
+                nil [9847 9923]))          
+    :file "ichxrom.c"
+    :pointmax 9924
+    :fsize 9923
+    :lastmodtime '(21468 9027 242613 538000)
+    :unmatched-syntax '((string 9866 . 9921) (string 9806 . 9844) (string 9784 . 9789) (VOID 9630 . 9634) (STATIC 9623 . 9629) (INT 9244 . 9247) (STATIC 9237 . 9243) (semantic-list 8568 . 8570) (symbol 8553 . 8568) (symbol 8539 . 8552) (STRUCT 8532 . 8538) (STATIC 8525 . 8531) (VOID 8387 . 8391) (STATIC 8380 . 8386) (INT 1889 . 1892) (STATIC 1882 . 1888) (VOID 710 . 714))
+    :lexical-table 
+        '(("ADDRESS_NAME_LEN" . ((number "18" 512 . 514)))
+          ("str" (spp-arg-list ("s") 440 . 443) . ((punctuation "#" 444 . 445) (symbol "s" 445 . 446)))
+          ("BIOS_CNTL" . ((number "0x4e" 585 . 589)))
+          ("xstr" (spp-arg-list ("s") 418 . 421) . ((symbol "str" 422 . 425) (semantic-list "(s)" 425 . 428)))
+          ("ROM_PROBE_STEP_SIZE" . ((semantic-list "(64*1024)" 544 . 553)))
+          ("FWH_DEC_EN1" . ((number "0xE3" 610 . 614)))
+          ("FWH_SEL1" . ((number "0xE8" 657 . 661)))
+          ("FWH_DEC_EN2" . ((number "0xF0" 635 . 639)))
+          ("FWH_SEL2" . ((number "0xEE" 679 . 683)))
+          ("MOD_NAME" . ((symbol "xstr" 464 . 468) (semantic-list "(KBUILD_BASENAME)" 468 . 485)))
+          )
+
+    )
+   )
+  :file "!home!chz!linux-3.0.8!drivers!mtd!maps!semantic.cache"
+  :semantic-tag-version "2.0"
+  :semanticdb-version "2.2"
+  )

@@ -1,0 +1,224 @@
+;; Object kernel/
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "kernel/"
+  :tables (list 
+   (semanticdb-table "time.c"
+    :major-mode 'c-mode
+    :tags 
+        '( ("linux/cpu.h" include (:system-flag t) nil [335 357])
+            ("linux/init.h" include (:system-flag t) nil [358 381])
+            ("linux/kernel.h" include (:system-flag t) nil [382 407])
+            ("linux/module.h" include (:system-flag t) nil [408 433])
+            ("linux/profile.h" include (:system-flag t) nil [434 460])
+            ("linux/sched.h" include (:system-flag t) nil [461 485])
+            ("linux/time.h" include (:system-flag t) nil [486 509])
+            ("linux/interrupt.h" include (:system-flag t) nil [510 538])
+            ("linux/efi.h" include (:system-flag t) nil [539 561])
+            ("linux/timex.h" include (:system-flag t) nil [562 586])
+            ("linux/clocksource.h" include (:system-flag t) nil [587 617])
+            ("linux/platform_device.h" include (:system-flag t) nil [618 652])
+            ("asm/machvec.h" include (:system-flag t) nil [654 678])
+            ("asm/delay.h" include (:system-flag t) nil [679 701])
+            ("asm/hw_irq.h" include (:system-flag t) nil [702 725])
+            ("asm/paravirt.h" include (:system-flag t) nil [726 751])
+            ("asm/ptrace.h" include (:system-flag t) nil [752 775])
+            ("asm/sal.h" include (:system-flag t) nil [776 796])
+            ("asm/sections.h" include (:system-flag t) nil [797 822])
+            ("asm/system.h" include (:system-flag t) nil [823 846])
+            ("fsyscall_gtod_data.h" include nil nil [848 879])
+            ("itc_get_cycles" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("cs" variable
+                       (:pointer 1
+                        :type ("clocksource" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [911 934]))                  
+                :type ("cycle_t" type (:type "class") nil nil))
+                nil [881 935])
+            ("fsyscall_gtod_data" variable (:type ("fsyscall_gtod_data_t" type
+                 (:prototype t
+                  :type "struct")
+                  nil nil)) nil [937 1044])
+            ("itc_jitter_data" variable (:type ("itc_jitter_data_t" type
+                 (:prototype t
+                  :type "struct")
+                  nil nil)) nil [1046 1087])
+            ("time_keeper_id" variable
+               (:typemodifiers ("volatile")
+                :type "int")
+                nil [1089 1121])
+            ("clocksource_itc" variable
+               (:typemodifiers ("static")
+                :type ("clocksource" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [1637 1929])
+            ("itc_clocksource" variable
+               (:pointer 1
+                :typemodifiers ("static")
+                :type ("clocksource" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [1930 1973])
+            ("timer_interrupt" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("irq" variable (:type "int") (reparse-symbol arg-sub-list) [4136 4144])
+                    ("dev_id" variable
+                       (:pointer 1
+                        :type "void")
+                        (reparse-symbol arg-sub-list) [4145 4158]))                  
+                :type ("irqreturn_t" type (:type "class") nil nil))
+                nil [4100 5651])
+            ("ia64_cpu_local_tick" function
+               (:arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [5738 5743]))                  
+                :type "void")
+                nil [5712 6257])
+            ("nojitter" variable
+               (:typemodifiers ("static")
+                :type "int")
+                nil [6259 6279])
+            ("nojitter_setup" function
+               (:arguments 
+                  ( ("str" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [6314 6324]))                  
+                :type ("__init" type (:type "class") nil nil))
+                nil [6292 6408])
+            ("__setup" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("nojitter_setup" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [6430 6445]))                  
+                :type "int")
+                nil [6410 6446])
+            ("ia64_init_itm" function
+               (:arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [6479 6484]))                  
+                :type ("__devinit" type (:type "class") nil nil))
+                nil [6454 10378])
+            ("itc_get_cycles" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("cs" variable
+                       (:pointer 1
+                        :type ("clocksource" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [10410 10433]))                  
+                :type ("cycle_t" type (:type "class") nil nil))
+                nil [10380 11014])
+            ("timer_irqaction" variable
+               (:typemodifiers ("static")
+                :type ("irqaction" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [11017 11150])
+            ("rtc_efi_dev" variable
+               (:typemodifiers ("static")
+                :type ("platform_device" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [11152 11231])
+            ("rtc_init" function
+               (:arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [11260 11265]))                  
+                :type ("__init" type (:type "class") nil nil))
+                nil [11244 11419])
+            ("module_init" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("rtc_init" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [11432 11441]))                  
+                :type "int")
+                nil [11420 11442])
+            ("read_persistent_clock" function
+               (:arguments 
+                  ( ("ts" variable
+                       (:pointer 1
+                        :type ("timespec" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [11471 11491]))                  
+                :type "void")
+                nil [11444 11518])
+            ("time_init" function
+               (:arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [11543 11548]))                  
+                :type ("__init" type (:type "class") nil nil))
+                nil [11525 11629])
+            ("ia64_itc_udelay" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("usecs" variable (:type "unsigned long") (reparse-symbol arg-sub-list) [11823 11843]))                  
+                :type "void")
+                nil [11794 12009])
+            ("ia64_itc_udelay" variable (:type "int") nil [12054 12071])
+            ("udelay" function
+               (:arguments 
+                  ( ("usecs" variable (:type "unsigned long") (reparse-symbol arg-sub-list) [12086 12106]))                  
+                :type "void")
+                nil [12073 12134])
+            ("EXPORT_SYMBOL" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("udelay" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [12149 12156]))                  
+                :type "int")
+                nil [12135 12157])
+            ("update_vsyscall_tz" function
+               (:arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [12221 12226]))                  
+                :type "void")
+                nil [12197 12230])
+            ("update_vsyscall" function
+               (:arguments 
+                  ( ("wall" variable
+                       (:pointer 1
+                        :type ("timespec" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [12253 12275])
+                    ("wtm" variable
+                       (:pointer 1
+                        :type ("timespec" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [12276 12297])
+                    ("c" variable
+                       (:pointer 1
+                        :type ("clocksource" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [12301 12323])
+                    ("mult" variable (:type ("u32" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [12324 12333]))                  
+                :type "void")
+                nil [12232 13313]))          
+    :file "time.c"
+    :pointmax 13315
+    :fsize 13314
+    :lastmodtime '(21468 8935 96795 207000)
+    :unmatched-syntax '((punctuation 12052 . 12053) (semantic-list 12030 . 12051) (semantic-list 12016 . 12030) (VOID 12011 . 12015) (VOID 11520 . 11524) (INT 11240 . 11243) (STATIC 11233 . 11239) (VOID 6449 . 6453) (string 6418 . 6428) (INT 6288 . 6291) (STATIC 6281 . 6287))
+    )
+   (semanticdb-table "fsyscall_gtod_data.h"
+    :file "fsyscall_gtod_data.h"
+    :fsize 497
+    :lastmodtime '(21468 8934 429810 999000)
+    )
+   )
+  :file "!home!chz!linux-3.0.8!arch!ia64!kernel!semantic.cache"
+  :semantic-tag-version "2.0"
+  :semanticdb-version "2.2"
+  )

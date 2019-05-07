@@ -1,0 +1,1048 @@
+;; Object core/
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "core/"
+  :tables (list 
+   (semanticdb-table "devio.c"
+    :major-mode 'c-mode
+    :tags 
+        '( ("linux/fs.h" include (:system-flag t) nil [1539 1560])
+            ("linux/mm.h" include (:system-flag t) nil [1561 1582])
+            ("linux/slab.h" include (:system-flag t) nil [1583 1606])
+            ("linux/signal.h" include (:system-flag t) nil [1607 1632])
+            ("linux/poll.h" include (:system-flag t) nil [1633 1656])
+            ("linux/module.h" include (:system-flag t) nil [1657 1682])
+            ("linux/usb.h" include (:system-flag t) nil [1683 1705])
+            ("linux/usbdevice_fs.h" include (:system-flag t) nil [1706 1737])
+            ("linux/usb/hcd.h" include (:system-flag t) nil [1738 1764])
+            ("linux/cdev.h" include (:system-flag t) nil [1793 1816])
+            ("linux/notifier.h" include (:system-flag t) nil [1817 1844])
+            ("linux/security.h" include (:system-flag t) nil [1845 1872])
+            ("asm/uaccess.h" include (:system-flag t) nil [1873 1897])
+            ("asm/byteorder.h" include (:system-flag t) nil [1898 1924])
+            ("linux/moduleparam.h" include (:system-flag t) nil [1925 1955])
+            ("usb.h" include nil nil [1957 1973])
+            ("USB_MAXBUS" variable (:constant-flag t) nil [1983 1993])
+            ("USB_DEVICE_MAX" variable (:constant-flag t) nil [2007 2021])
+            ("DEFINE_MUTEX" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("usbfs_mutex" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [2109 2121]))                  
+                :type "int")
+                nil [2096 2122])
+            ("dev_state" type
+               (:members 
+                  ( ("list" variable (:type ("list_head" type
+                         (:prototype t
+                          :type "struct")
+                          nil nil)) (reparse-symbol classsubparts) [2144 2166])
+                    ("dev" variable
+                       (:pointer 1
+                        :type ("usb_device" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol classsubparts) [2190 2213])
+                    ("file" variable
+                       (:pointer 1
+                        :type ("file" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol classsubparts) [2215 2233])
+                    ("lock" variable (:type ("spinlock_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [2235 2251])
+                    ("async_pending" variable (:type ("list_head" type
+                         (:prototype t
+                          :type "struct")
+                          nil nil)) (reparse-symbol classsubparts) [2299 2330])
+                    ("async_completed" variable (:type ("list_head" type
+                         (:prototype t
+                          :type "struct")
+                          nil nil)) (reparse-symbol classsubparts) [2332 2365])
+                    ("wait" variable (:type ("wait_queue_head_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [2367 2390])
+                    ("discsignr" variable (:type "unsigned int") (reparse-symbol classsubparts) [2433 2456])
+                    ("disc_pid" variable
+                       (:pointer 1
+                        :type ("pid" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol classsubparts) [2458 2479])
+                    ("disc_euid" variable (:type ("uid_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [2481 2507])
+                    ("disc_uid" variable (:type ("uid_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [2481 2507])
+                    ("disccontext" variable
+                       (:pointer 1
+                        :type ("__user" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [2514 2534])
+                    ("ifclaimed" variable (:type "unsigned long") (reparse-symbol classsubparts) [2536 2560])
+                    ("secid" variable (:type ("u32" type (:type "class") nil nil)) (reparse-symbol classsubparts) [2562 2572])
+                    ("disabled_bulk_eps" variable (:type ("u32" type (:type "class") nil nil)) (reparse-symbol classsubparts) [2574 2596]))                  
+                :type "struct")
+                nil [2124 2599])
+            ("async" type
+               (:members 
+                  ( ("asynclist" variable (:type ("list_head" type
+                         (:prototype t
+                          :type "struct")
+                          nil nil)) (reparse-symbol classsubparts) [2617 2644])
+                    ("ps" variable
+                       (:pointer 1
+                        :type ("dev_state" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol classsubparts) [2646 2667])
+                    ("pid" variable
+                       (:pointer 1
+                        :type ("pid" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol classsubparts) [2669 2685])
+                    ("euid" variable (:type ("uid_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [2687 2703])
+                    ("uid" variable (:type ("uid_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [2687 2703])
+                    ("signr" variable (:type "unsigned int") (reparse-symbol classsubparts) [2705 2724])
+                    ("ifnum" variable (:type "unsigned int") (reparse-symbol classsubparts) [2726 2745])
+                    ("userbuffer" variable
+                       (:pointer 1
+                        :type ("__user" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [2752 2771])
+                    ("userurb" variable
+                       (:pointer 1
+                        :type ("__user" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [2778 2794])
+                    ("urb" variable
+                       (:pointer 1
+                        :type ("urb" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol classsubparts) [2796 2812])
+                    ("status" variable (:type "int") (reparse-symbol classsubparts) [2814 2825])
+                    ("secid" variable (:type ("u32" type (:type "class") nil nil)) (reparse-symbol classsubparts) [2827 2837])
+                    ("bulk_addr" variable (:type ("u8" type (:type "class") nil nil)) (reparse-symbol classsubparts) [2839 2852])
+                    ("bulk_status" variable (:type ("u8" type (:type "class") nil nil)) (reparse-symbol classsubparts) [2854 2869]))                  
+                :type "struct")
+                nil [2601 2872])
+            ("usbfs_snoop" variable
+               (:typemodifiers ("static")
+                :type "int")
+                nil [2874 2897])
+            ("module_param" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("usbfs_snoop" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [2911 2923])
+                    ("" variable (:type "bool") (reparse-symbol arg-sub-list) [2924 2929])
+                    ("" variable (:type ("S_IRUGO" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [2930 2939])
+                    ("" variable (:type ("S_IWUSR" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [2940 2948]))                  
+                :type "int")
+                nil [2898 2949])
+            ("MODULE_PARM_DESC" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("usbfs_snoop" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [2967 2979]))                  
+                :type "int")
+                nil [2950 3013])
+            ("snoop" variable (:constant-flag t) nil [3023 3028])
+            ("snoop_when" type
+               (:members 
+                  ( ("SUBMIT" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [3164 3171])
+                    ("COMPLETE" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [3172 3182]))                  
+                :type "enum")
+                nil [3145 3183])
+            ("USB_DEVICE_DEV" variable (:constant-flag t) nil [3193 3207])
+            ("MAX_USBFS_BUFFER_SIZE" variable (:constant-flag t) nil [3245 3266])
+            ("connected" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("ps" variable
+                       (:pointer 1
+                        :type ("dev_state" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [3296 3317]))                  
+                :type "int")
+                nil [3275 3401])
+            ("usbdev_lseek" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("file" variable
+                       (:pointer 1
+                        :type ("file" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [3430 3448])
+                    ("offset" variable (:type ("loff_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [3449 3463])
+                    ("orig" variable (:type "int") (reparse-symbol arg-sub-list) [3464 3473]))                  
+                :type ("loff_t" type (:type "class") nil nil))
+                nil [3403 3787])
+            ("usbdev_read" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("file" variable
+                       (:pointer 1
+                        :type ("file" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [3816 3834])
+                    ("__user" variable (:type "char") (reparse-symbol arg-sub-list) [3835 3848])
+                    ("" variable (:type ("buf" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [3848 3852])
+                    ("nbytes" variable (:type ("size_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [3853 3867])
+                    ("ppos" variable
+                       (:pointer 1
+                        :type ("loff_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [3874 3887]))                  
+                :type ("ssize_t" type (:type "class") nil nil))
+                nil [3789 5739])
+            ("alloc_async" function
+               (:pointer 1
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("numisoframes" variable (:type "unsigned int") (reparse-symbol arg-sub-list) [5805 5831]))                  
+                :type ("async" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [5772 6041])
+            ("free_async" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("as" variable
+                       (:pointer 1
+                        :type ("async" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [6066 6083]))                  
+                :type "void")
+                nil [6043 6207])
+            ("async_newpending" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("as" variable
+                       (:pointer 1
+                        :type ("async" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [6238 6255]))                  
+                :type "void")
+                nil [6209 6447])
+            ("async_removepending" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("as" variable
+                       (:pointer 1
+                        :type ("async" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [6481 6498]))                  
+                :type "void")
+                nil [6449 6670])
+            ("async_getcompleted" function
+               (:pointer 1
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("ps" variable
+                       (:pointer 1
+                        :type ("dev_state" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [6712 6733]))                  
+                :type ("async" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [6672 7031])
+            ("async_getpending" function
+               (:pointer 1
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("ps" variable
+                       (:pointer 1
+                        :type ("dev_state" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [7071 7092])
+                    ("__user" variable (:type "void") (reparse-symbol arg-sub-list) [7103 7116])
+                    ("" variable (:type ("userurb" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [7116 7124]))                  
+                :type ("async" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [7033 7450])
+            ("snoop_urb" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("udev" variable
+                       (:pointer 1
+                        :type ("usb_device" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [7474 7498])
+                    ("__user" variable (:type "void") (reparse-symbol arg-sub-list) [7501 7514])
+                    ("" variable (:type ("userurb" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [7514 7522])
+                    ("pipe" variable (:type "int") (reparse-symbol arg-sub-list) [7523 7532])
+                    ("length" variable (:type "unsigned int") (reparse-symbol arg-sub-list) [7533 7549])
+                    ("timeout_or_status" variable (:type "int") (reparse-symbol arg-sub-list) [7552 7574])
+                    ("when" variable (:type ("snoop_when" type (:type "enum") nil nil)) (reparse-symbol arg-sub-list) [7575 7596])
+                    ("data" variable
+                       (:pointer 1
+                        :type "unsigned char")
+                        (reparse-symbol arg-sub-list) [7599 7619])
+                    ("data_len" variable (:type "unsigned int") (reparse-symbol arg-sub-list) [7620 7638]))                  
+                :type "void")
+                nil [7452 8606])
+            ("AS_CONTINUATION" variable (:constant-flag t) nil [8616 8631])
+            ("AS_UNLINK" variable (:constant-flag t) nil [8642 8651])
+            ("__acquires" function
+               (:arguments 
+                  ( ("" variable (:type ("ps" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [8758 8761])
+                    ("" variable (:type ("lock" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [8762 8767]))                  
+                :type "int")
+                nil [8747 9648])
+            ("async_completed" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("urb" variable
+                       (:pointer 1
+                        :type ("urb" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [9678 9694]))                  
+                :type "void")
+                nil [9650 10732])
+            ("destroy_async" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("ps" variable
+                       (:pointer 1
+                        :type ("dev_state" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [10760 10781])
+                    ("list" variable
+                       (:pointer 1
+                        :type ("list_head" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [10782 10805]))                  
+                :type "void")
+                nil [10734 11222])
+            ("destroy_async_on_interface" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("ps" variable
+                       (:pointer 1
+                        :type ("dev_state" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [11263 11284])
+                    ("ifnum" variable (:type "unsigned int") (reparse-symbol arg-sub-list) [11296 11315]))                  
+                :type "void")
+                nil [11224 11655])
+            ("destroy_all_async" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("ps" variable
+                       (:pointer 1
+                        :type ("dev_state" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [11687 11708]))                  
+                :type "void")
+                nil [11657 11752])
+            ("driver_probe" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("intf" variable
+                       (:pointer 1
+                        :type ("usb_interface" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [11968 11995])
+                    ("id" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("usb_device_id" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [11999 12030]))                  
+                :type "int")
+                nil [11944 12051])
+            ("driver_disconnect" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("intf" variable
+                       (:pointer 1
+                        :type ("usb_interface" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [12083 12110]))                  
+                :type "void")
+                nil [12053 12636])
+            ("driver_suspend" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("intf" variable
+                       (:pointer 1
+                        :type ("usb_interface" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [12787 12814])
+                    ("msg" variable (:type ("pm_message_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [12815 12832]))                  
+                :type "int")
+                nil [12761 12847])
+            ("driver_resume" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("intf" variable
+                       (:pointer 1
+                        :type ("usb_interface" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [12874 12901]))                  
+                :type "int")
+                nil [12849 12916])
+            ("usbfs_driver" variable (:type ("usb_driver" type
+                 (:prototype t
+                  :type "struct")
+                  nil nil)) nil [12918 13086])
+            ("claimintf" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("ps" variable
+                       (:pointer 1
+                        :type ("dev_state" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [13109 13130])
+                    ("ifnum" variable (:type "unsigned int") (reparse-symbol arg-sub-list) [13131 13150]))                  
+                :type "int")
+                nil [13088 13555])
+            ("releaseintf" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("ps" variable
+                       (:pointer 1
+                        :type ("dev_state" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [13580 13601])
+                    ("ifnum" variable (:type "unsigned int") (reparse-symbol arg-sub-list) [13602 13621]))                  
+                :type "int")
+                nil [13557 13976])
+            ("checkintf" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("ps" variable
+                       (:pointer 1
+                        :type ("dev_state" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [13999 14020])
+                    ("ifnum" variable (:type "unsigned int") (reparse-symbol arg-sub-list) [14021 14040]))                  
+                :type "int")
+                nil [13978 14446])
+            ("findintfep" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("dev" variable
+                       (:pointer 1
+                        :type ("usb_device" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [14470 14493])
+                    ("ep" variable (:type "unsigned int") (reparse-symbol arg-sub-list) [14494 14510]))                  
+                :type "int")
+                nil [14448 15104])
+            ("check_ctrlrecip" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("ps" variable
+                       (:pointer 1
+                        :type ("dev_state" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [15133 15154])
+                    ("requesttype" variable (:type "unsigned int") (reparse-symbol arg-sub-list) [15155 15180])
+                    ("index" variable (:type "unsigned int") (reparse-symbol arg-sub-list) [15187 15206]))                  
+                :type "int")
+                nil [15106 15708])
+            ("match_devt" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("dev" variable
+                       (:pointer 1
+                        :type ("device" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [15732 15751])
+                    ("data" variable
+                       (:pointer 1
+                        :type "void")
+                        (reparse-symbol arg-sub-list) [15752 15763]))                  
+                :type "int")
+                nil [15710 15818])
+            ("usbdev_lookup_by_devt" function
+               (:pointer 1
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("devt" variable (:type ("dev_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [15868 15879]))                  
+                :type ("usb_device" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [15820 16079])
+            ("usbdev_open" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("inode" variable
+                       (:pointer 1
+                        :type ("inode" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [16130 16150])
+                    ("file" variable
+                       (:pointer 1
+                        :type ("file" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [16151 16169]))                  
+                :type "int")
+                nil [16107 17757])
+            ("usbdev_release" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("inode" variable
+                       (:pointer 1
+                        :type ("inode" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [17785 17805])
+                    ("file" variable
+                       (:pointer 1
+                        :type ("file" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [17806 17824]))                  
+                :type "int")
+                nil [17759 18429])
+            ("proc_control" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("ps" variable
+                       (:pointer 1
+                        :type ("dev_state" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [18455 18476])
+                    ("__user" variable (:type "void") (reparse-symbol arg-sub-list) [18477 18490])
+                    ("" variable (:type ("arg" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [18490 18494]))                  
+                :type "int")
+                nil [18431 20767])
+            ("proc_bulk" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("ps" variable
+                       (:pointer 1
+                        :type ("dev_state" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [20790 20811])
+                    ("__user" variable (:type "void") (reparse-symbol arg-sub-list) [20812 20825])
+                    ("" variable (:type ("arg" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [20825 20829]))                  
+                :type "int")
+                nil [20769 22374])
+            ("proc_resetep" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("ps" variable
+                       (:pointer 1
+                        :type ("dev_state" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [22400 22421])
+                    ("__user" variable (:type "void") (reparse-symbol arg-sub-list) [22422 22435])
+                    ("" variable (:type ("arg" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [22435 22439]))                  
+                :type "int")
+                nil [22376 22693])
+            ("proc_clearhalt" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("ps" variable
+                       (:pointer 1
+                        :type ("dev_state" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [22721 22742])
+                    ("__user" variable (:type "void") (reparse-symbol arg-sub-list) [22743 22756])
+                    ("" variable (:type ("arg" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [22756 22760]))                  
+                :type "int")
+                nil [22695 23140])
+            ("proc_getdriver" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("ps" variable
+                       (:pointer 1
+                        :type ("dev_state" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [23168 23189])
+                    ("__user" variable (:type "void") (reparse-symbol arg-sub-list) [23190 23203])
+                    ("" variable (:type ("arg" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [23203 23207]))                  
+                :type "int")
+                nil [23142 23595])
+            ("proc_connectinfo" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("ps" variable
+                       (:pointer 1
+                        :type ("dev_state" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [23625 23646])
+                    ("__user" variable (:type "void") (reparse-symbol arg-sub-list) [23647 23660])
+                    ("" variable (:type ("arg" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [23660 23664]))                  
+                :type "int")
+                nil [23597 23850])
+            ("proc_resetdevice" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("ps" variable
+                       (:pointer 1
+                        :type ("dev_state" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [23880 23901]))                  
+                :type "int")
+                nil [23852 23940])
+            ("proc_setintf" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("ps" variable
+                       (:pointer 1
+                        :type ("dev_state" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [23966 23987])
+                    ("__user" variable (:type "void") (reparse-symbol arg-sub-list) [23988 24001])
+                    ("" variable (:type ("arg" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [24001 24005]))                  
+                :type "int")
+                nil [23942 24269])
+            ("proc_setconfig" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("ps" variable
+                       (:pointer 1
+                        :type ("dev_state" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [24297 24318])
+                    ("__user" variable (:type "void") (reparse-symbol arg-sub-list) [24319 24332])
+                    ("" variable (:type ("arg" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [24332 24336]))                  
+                :type "int")
+                nil [24271 25460])
+            ("proc_do_submiturb" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("ps" variable
+                       (:pointer 1
+                        :type ("dev_state" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [25491 25512])
+                    ("uurb" variable
+                       (:pointer 1
+                        :type ("usbdevfs_urb" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [25513 25539])
+                    ("__user" variable (:type ("usbdevfs_iso_packet_desc" type
+                         (:prototype t
+                          :type "struct")
+                          nil nil)) (reparse-symbol arg-sub-list) [25543 25583])
+                    ("" variable (:type ("iso_frame_desc" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [25583 25598])
+                    ("__user" variable (:type "void") (reparse-symbol arg-sub-list) [25602 25615])
+                    ("" variable (:type ("arg" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [25615 25619]))                  
+                :type "int")
+                nil [25462 33519])
+            ("proc_submiturb" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("ps" variable
+                       (:pointer 1
+                        :type ("dev_state" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [33547 33568])
+                    ("__user" variable (:type "void") (reparse-symbol arg-sub-list) [33569 33582])
+                    ("" variable (:type ("arg" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [33582 33586]))                  
+                :type "int")
+                nil [33521 33788])
+            ("proc_unlinkurb" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("ps" variable
+                       (:pointer 1
+                        :type ("dev_state" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [33816 33837])
+                    ("__user" variable (:type "void") (reparse-symbol arg-sub-list) [33838 33851])
+                    ("" variable (:type ("arg" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [33851 33855]))                  
+                :type "int")
+                nil [33790 33975])
+            ("processcompl" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("as" variable
+                       (:pointer 1
+                        :type ("async" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [34001 34018])
+                    ("__user" variable (:type "void") (reparse-symbol arg-sub-list) [34019 34032])
+                    ("arg" variable
+                       (:pointer 1
+                        :type ("__user" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [34033 34045]))                  
+                :type "int")
+                nil [33977 35105])
+            ("reap_as" function
+               (:pointer 1
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("ps" variable
+                       (:pointer 1
+                        :type ("dev_state" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [35136 35157]))                  
+                :type ("async" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [35107 35591])
+            ("proc_reapurb" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("ps" variable
+                       (:pointer 1
+                        :type ("dev_state" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [35617 35638])
+                    ("__user" variable (:type "void") (reparse-symbol arg-sub-list) [35639 35652])
+                    ("" variable (:type ("arg" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [35652 35656]))                  
+                :type "int")
+                nil [35593 35865])
+            ("proc_reapurbnonblock" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("ps" variable
+                       (:pointer 1
+                        :type ("dev_state" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [35899 35920])
+                    ("__user" variable (:type "void") (reparse-symbol arg-sub-list) [35921 35934])
+                    ("" variable (:type ("arg" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [35934 35938]))                  
+                :type "int")
+                nil [35867 36130])
+            ("proc_disconnectsignal" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("ps" variable
+                       (:pointer 1
+                        :type ("dev_state" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [40285 40306])
+                    ("__user" variable (:type "void") (reparse-symbol arg-sub-list) [40307 40320])
+                    ("" variable (:type ("arg" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [40320 40324]))                  
+                :type "int")
+                nil [40252 40497])
+            ("proc_claiminterface" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("ps" variable
+                       (:pointer 1
+                        :type ("dev_state" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [40530 40551])
+                    ("__user" variable (:type "void") (reparse-symbol arg-sub-list) [40552 40565])
+                    ("" variable (:type ("arg" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [40565 40569]))                  
+                :type "int")
+                nil [40499 40693])
+            ("proc_releaseinterface" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("ps" variable
+                       (:pointer 1
+                        :type ("dev_state" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [40728 40749])
+                    ("__user" variable (:type "void") (reparse-symbol arg-sub-list) [40750 40763])
+                    ("" variable (:type ("arg" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [40763 40767]))                  
+                :type "int")
+                nil [40695 40978])
+            ("proc_ioctl" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("ps" variable
+                       (:pointer 1
+                        :type ("dev_state" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [41002 41023])
+                    ("ctl" variable
+                       (:pointer 1
+                        :type ("usbdevfs_ioctl" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [41024 41051]))                  
+                :type "int")
+                nil [40980 42761])
+            ("proc_ioctl_default" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("ps" variable
+                       (:pointer 1
+                        :type ("dev_state" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [42793 42814])
+                    ("__user" variable (:type "void") (reparse-symbol arg-sub-list) [42815 42828])
+                    ("" variable (:type ("arg" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [42828 42832]))                  
+                :type "int")
+                nil [42763 42962])
+            ("proc_claim_port" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("ps" variable
+                       (:pointer 1
+                        :type ("dev_state" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [43476 43497])
+                    ("__user" variable (:type "void") (reparse-symbol arg-sub-list) [43498 43511])
+                    ("" variable (:type ("arg" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [43511 43515]))                  
+                :type "int")
+                nil [43449 43801])
+            ("proc_release_port" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("ps" variable
+                       (:pointer 1
+                        :type ("dev_state" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [43832 43853])
+                    ("__user" variable (:type "void") (reparse-symbol arg-sub-list) [43854 43867])
+                    ("" variable (:type ("arg" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [43867 43871]))                  
+                :type "int")
+                nil [43803 44014])
+            ("usbdev_do_ioctl" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("file" variable
+                       (:pointer 1
+                        :type ("file" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [44249 44267])
+                    ("cmd" variable (:type "unsigned int") (reparse-symbol arg-sub-list) [44268 44285])
+                    ("__user" variable (:type "void") (reparse-symbol arg-sub-list) [44290 44303])
+                    ("" variable (:type ("p" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [44303 44305]))                  
+                :type "long")
+                nil [44221 48287])
+            ("usbdev_ioctl" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("file" variable
+                       (:pointer 1
+                        :type ("file" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [48314 48332])
+                    ("cmd" variable (:type "unsigned int") (reparse-symbol arg-sub-list) [48333 48350])
+                    ("arg" variable (:type "unsigned long") (reparse-symbol arg-sub-list) [48354 48372]))                  
+                :type "long")
+                nil [48289 48456])
+            ("usbdev_poll" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("file" variable
+                       (:pointer 1
+                        :type ("file" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [48719 48737])
+                    ("wait" variable
+                       (:pointer 1
+                        :type ("poll_table_struct" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [48742 48773]))                  
+                :type "unsigned int")
+                nil [48687 49047])
+            ("usbdev_file_operations" variable
+               (:constant-flag t
+                :type ("file_operations" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [49049 49365])
+            ("usbdev_remove" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("udev" variable
+                       (:pointer 1
+                        :type ("usb_device" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [49393 49417]))                  
+                :type "void")
+                nil [49367 49922])
+            ("usb_classdev_add" variable (:constant-flag t) nil [50441 50457])
+            ("usb_classdev_remove" variable (:constant-flag t) nil [50474 50493])
+            ("usbdev_notify" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("self" variable
+                       (:pointer 1
+                        :type ("notifier_block" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [50549 50577])
+                    ("action" variable (:type "unsigned long") (reparse-symbol arg-sub-list) [50588 50609])
+                    ("dev" variable
+                       (:pointer 1
+                        :type "void")
+                        (reparse-symbol arg-sub-list) [50610 50620]))                  
+                :type "int")
+                nil [50524 50831])
+            ("usbdev_nb" variable
+               (:typemodifiers ("static")
+                :type ("notifier_block" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [50833 50912])
+            ("usb_device_cdev" variable
+               (:typemodifiers ("static")
+                :type ("cdev" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [50914 50949])
+            ("usb_devio_init" function
+               (:arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [50977 50982]))                  
+                :type ("__init" type (:type "class") nil nil))
+                nil [50955 52067])
+            ("usb_devio_cleanup" function
+               (:arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [52092 52097]))                  
+                :type "void")
+                nil [52069 52299]))          
+    :file "devio.c"
+    :pointmax 52300
+    :fsize 52299
+    :lastmodtime '(21468 9105 573758 949000)
+    :unmatched-syntax '((INT 50951 . 50954) (punctuation 44302 . 44303) (punctuation 43866 . 43867) (punctuation 43510 . 43511) (punctuation 42827 . 42828) (punctuation 40762 . 40763) (punctuation 40564 . 40565) (punctuation 40319 . 40320) (punctuation 35933 . 35934) (punctuation 35651 . 35652) (punctuation 34031 . 34032) (punctuation 33850 . 33851) (punctuation 33581 . 33582) (punctuation 25614 . 25615) (punctuation 25582 . 25583) (punctuation 24331 . 24332) (punctuation 24000 . 24001) (punctuation 23659 . 23660) (punctuation 23202 . 23203) (punctuation 22755 . 22756) (punctuation 22434 . 22435) (punctuation 20824 . 20825) (punctuation 18489 . 18490) (punctuation 8761 . 8762) (punctuation 8760 . 8761) (semantic-list 8736 . 8746) (symbol 8726 . 8736) (punctuation 8740 . 8741) (punctuation 8739 . 8740) (semantic-list 8683 . 8725) (symbol 8667 . 8683) (VOID 8662 . 8666) (STATIC 8655 . 8661) (punctuation 7513 . 7514) (punctuation 7115 . 7116) (punctuation 3847 . 3848) (string 2980 . 3011) (punctuation 2938 . 2939) (VOID 2773 . 2777) (VOID 2747 . 2751) (VOID 2509 . 2513))
+    :lexical-table 
+        '(("MAX_USBFS_BUFFER_SIZE" . ((number "16384" 3267 . 3272)))
+          ("snoop" (spp-arg-list ("dev" "format" "arg...") 3028 . 3049) . 
+              ((DO "do" 3056 . 3058) (semantic-list "{							\\
+		if (usbfs_snoop)				\\
+			dev_info(dev , format , ## arg);	\\
+	}" 3059 . 3133) (WHILE "while" 3134 . 3139) (semantic-list "(0)" 3140 . 3143)))
+          ("AS_UNLINK" . ((number "2" 8652 . 8653)))
+          ("USB_DEVICE_DEV" . ((symbol "MKDEV" 3209 . 3214) (semantic-list "(USB_DEVICE_MAJOR, 0)" 3214 . 3235)))
+          ("usb_classdev_remove" (spp-arg-list ("dev") 50493 . 50498) . 
+              ((DO "do" 50499 . 50501) (semantic-list "{}" 50502 . 50504) (WHILE "while" 50505 . 50510) (semantic-list "(0)" 50511 . 50514)))
+          ("AS_CONTINUATION" . ((number "1" 8632 . 8633)))
+          ("usb_classdev_add" (spp-arg-list ("dev") 50457 . 50462) . ((number "0" 50464 . 50465)))
+          ("USB_MAXBUS" . ((number "64" 1996 . 1998)))
+          ("USB_DEVICE_MAX" . 
+              ((symbol "USB_MAXBUS" 2024 . 2034) (punctuation "*" 2035 . 2036) (number "128" 2037 . 2040)))
+          )
+
+    )
+   (semanticdb-table "usb.h"
+    :file "usb.h"
+    :fsize 5141
+    :lastmodtime '(21468 9105 738755 42000)
+    )
+   )
+  :file "!home!chz!linux-3.0.8!drivers!usb!core!semantic.cache"
+  :semantic-tag-version "2.0"
+  :semanticdb-version "2.2"
+  )

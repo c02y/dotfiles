@@ -1,0 +1,1342 @@
+;; Object include/
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "include/"
+  :tables
+  (list
+    (semanticdb-table "logging.h"
+      :major-mode 'c-mode
+      :tags 
+        '( ("LOGGING_H_INCLUDED" variable (:constant-flag t) nil [36 54])
+            ("stdio.h" include (:system-flag t) nil [56 74])
+            ("stdlib.h" include (:system-flag t) nil [75 94])
+            ("time.h" include (:system-flag t) nil [95 112])
+            ("string.h" include (:system-flag t) nil [113 132])
+            ("iostream" include (:system-flag t) nil [133 152])
+            ("fstream" include (:system-flag t) nil [153 171])
+            ("boost/thread/mutex.hpp" include (:system-flag t) nil [173 206])
+            ("settings.h" include nil nil [208 229])
+            ("color_out.h" include nil nil [230 252])
+            ("STR" variable (:constant-flag t) nil [262 265])
+            ("INI_EXISTS" variable (:constant-flag t) nil [280 290])
+            ("INI_EXTRACT" variable (:constant-flag t) nil [354 365])
+            ("std" using (:type ("std" type
+                 (:prototype t
+                  :type "namespace")
+                  nil nil)) nil [438 458])
+            ("cLog" type
+               (:members 
+                  ( ("private" label nil (reparse-symbol classsubparts) [474 482])
+                    ("ready" variable (:type "bool") (reparse-symbol classsubparts) [518 529])
+                    ("timestamp" variable (:type "bool") (reparse-symbol classsubparts) [550 565])
+                    ("color_prompt" variable (:type "bool") (reparse-symbol classsubparts) [568 586])
+                    ("log_file" variable (:type ("string" type (:type "class") nil nil)) (reparse-symbol classsubparts) [611 627])
+                    ("log_stream" variable (:type ("ofstream" type (:type "class") nil nil)) (reparse-symbol classsubparts) [661 681])
+                    ("write_lock" variable (:type ("boost::timed_mutex" type (:type "class") nil nil)) (reparse-symbol classsubparts) [722 752])
+                    ("insert_time" function
+                       (:prototype-flag t
+                        :type "void")
+                        (reparse-symbol classsubparts) [756 775])
+                    ("public" label nil (reparse-symbol classsubparts) [778 785])
+                    ("cLog" function
+                       (:prototype-flag t
+                        :constructor-flag t
+                        :type ("cLog" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [788 795])
+                    ("cLog" function
+                       (:prototype-flag t
+                        :constructor-flag t
+                        :arguments 
+                          ( ("filename" variable (:type ("string" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [803 819]))                          
+                        :type ("cLog" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [798 820])
+                    ("cLog" function
+                       (:prototype-flag t
+                        :destructor-flag t
+                        :type "void")
+                        (reparse-symbol classsubparts) [824 832])
+                    ("log_simple" function
+                       (:prototype-flag t
+                        :arguments 
+                          ( ("message" variable (:type ("string" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [852 867]))                          
+                        :type "void")
+                        (reparse-symbol classsubparts) [836 868])
+                    ("log_color" function
+                       (:prototype-flag t
+                        :arguments 
+                          ( ("message" variable (:type ("string" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [1085 1100])
+                            ("options" variable
+                               (:dereference 1
+                                :constant-flag t
+                                :type ("termOpts" type (:type "class") nil nil))
+                                (reparse-symbol arg-sub-list) [1101 1126]))                          
+                        :type "void")
+                        (reparse-symbol classsubparts) [1070 1127])
+                    ("log_block_msg" function
+                       (:prototype-flag t
+                        :arguments 
+                          ( ("block_msg" variable (:type ("string" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [1149 1166]))                          
+                        :type "void")
+                        (reparse-symbol classsubparts) [1130 1167])
+                    ("toggle_time" function
+                       (:prototype-flag t
+                        :arguments 
+                          ( ("setting" variable (:type "bool") (reparse-symbol arg-sub-list) [1188 1201]))                          
+                        :type "void")
+                        (reparse-symbol classsubparts) [1171 1202]))                  
+                :type "class")
+                nil [460 1206]))          
+      :file "logging.h"
+      :pointmax 1237
+      :fsize 1236
+      :lastmodtime '(22544 3306 0 0)
+      :unmatched-syntax nil
+      :lexical-table 
+        '(("LOGGING_H_INCLUDED")
+          ("STR" (spp-arg-list ("x") 265 . 268) . ((punctuation "#" 269 . 270) (symbol "x" 270 . 271)))
+          ("INI_EXTRACT" (spp-arg-list ("section" "key" "type") 365 . 383) . 
+              ((symbol "_settings" 384 . 393) (punctuation "-" 393 . 394) (punctuation ">" 394 . 395) (symbol "extractValue" 395 . 407) (punctuation "<" 407 . 408) (symbol "type" 408 . 412) (punctuation ">" 412 . 413) (semantic-list "(STR(section),STR(key))" 413 . 436)))
+          ("INI_EXISTS" (spp-arg-list ("section" "key") 290 . 303) . 
+              ((symbol "_settings" 304 . 313) (punctuation "-" 313 . 314) (punctuation ">" 314 . 315) (symbol "exists" 315 . 321) (semantic-list "(STR(section), STR(key))" 321 . 345)))
+          )
+)
+    (semanticdb-table "settings.h"
+      :major-mode 'c-mode
+      :tags 
+        '( ("SETTINGS_H_INCLUDED" variable (:constant-flag t) nil [37 56])
+            ("SETTINGS_H_INCLUDED" variable (:constant-flag t) nil [37 56])
+            ("string" include (:system-flag t) nil [58 75])
+            ("sstream" include (:system-flag t) nil [76 94])
+            ("iniReader.h" include nil nil [95 117])
+            ("core_classes.h" include nil nil [118 143])
+            ("cSettings" type
+               (:superclasses 
+                  ( ("cCoreModule" type
+                       (:protection "public"
+                        :type "class")
+                        nil nil))                  
+                :members 
+                  ( ("private" label nil (reparse-symbol classsubparts) [188 196])
+                    ("initialized" variable (:type "bool") (reparse-symbol classsubparts) [205 222])
+                    ("ini_file" variable
+                       (:pointer 1
+                        :type ("INIReader" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [231 251])
+                    ("public" label nil (reparse-symbol classsubparts) [257 264])
+                    ("cSettings" function
+                       (:prototype-flag t
+                        :constructor-flag t
+                        :type ("cSettings" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [273 285])
+                    ("cSettings" function
+                       (:prototype-flag t
+                        :constructor-flag t
+                        :arguments 
+                          ( ("ini" variable
+                               (:pointer 1
+                                :type ("INIReader" type (:type "class") nil nil))
+                                (reparse-symbol arg-sub-list) [304 319]))                          
+                        :type ("cSettings" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [294 320])
+                    ("cSettings" function
+                       (:prototype-flag t
+                        :constructor-flag t
+                        :arguments 
+                          ( ("filename" variable (:type ("string" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [339 355]))                          
+                        :type ("cSettings" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [329 356])
+                    ("cSettings" function
+                       (:prototype-flag t
+                        :destructor-flag t
+                        :type "void")
+                        (reparse-symbol classsubparts) [366 379])
+                    ("load_settings" function
+                       (:prototype-flag t
+                        :arguments 
+                          ( ("filename" variable
+                               (:default-value "\"\""
+                                :type ("string" type (:type "class") nil nil))
+                                (reparse-symbol arg-sub-list) [408 428]))                          
+                        :type "bool")
+                        (reparse-symbol classsubparts) [389 430])
+                    ("set_defaults" function
+                       (:prototype-flag t
+                        :arguments 
+                          ( ("default_fn" function
+                               (:function-pointer t
+                                :arguments 
+                                  ( ("" variable
+                                       (:pointer 1
+                                        :type ("INIReader" type (:type "class") nil nil))
+                                        (reparse-symbol arg-sub-list) [478 489]))                                  
+                                :type "void")
+                                nil nil))                          
+                        :type "void")
+                        (reparse-symbol classsubparts) [439 490])
+                    ("exists" function
+                       (:prototype-flag t
+                        :arguments 
+                          ( ("section" variable
+                               (:reference 1
+                                :constant-flag t
+                                :type ("string" type (:type "class") nil nil))
+                                (reparse-symbol arg-sub-list) [512 534])
+                            ("key" variable
+                               (:reference 1
+                                :constant-flag t
+                                :type ("string" type (:type "class") nil nil))
+                                (reparse-symbol arg-sub-list) [535 553]))                          
+                        :type "bool")
+                        (reparse-symbol classsubparts) [500 554])
+                    ("extractValue" function
+                       (:template 
+                          ( ("T" type (:type "class") nil nil))                          
+                        :type ("T" type (:type "class") nil nil)
+                        :arguments 
+                          ( ("section" variable
+                               (:reference 1
+                                :constant-flag t
+                                :type ("string" type (:type "class") nil nil))
+                                (reparse-symbol arg-sub-list) [597 619])
+                            ("key" variable
+                               (:reference 1
+                                :constant-flag t
+                                :type ("string" type (:type "class") nil nil))
+                                (reparse-symbol arg-sub-list) [620 638]))                          
+                        :prototype-flag t)
+                        (reparse-symbol classsubparts) [564 639])
+                    ("extractDefault" function
+                       (:template 
+                          ( ("T" type (:type "class") nil nil))                          
+                        :type ("T" type (:type "class") nil nil)
+                        :arguments 
+                          ( ("section" variable
+                               (:reference 1
+                                :constant-flag t
+                                :type ("string" type (:type "class") nil nil))
+                                (reparse-symbol arg-sub-list) [683 705])
+                            ("key" variable
+                               (:reference 1
+                                :constant-flag t
+                                :type ("string" type (:type "class") nil nil))
+                                (reparse-symbol arg-sub-list) [706 724]))                          
+                        :prototype-flag t)
+                        (reparse-symbol classsubparts) [648 725])
+                    ("status" function
+                       (:prototype-flag t
+                        :arguments 
+                          ( ("stream" variable
+                               (:reference 1
+                                :type ("stringstream" type (:type "class") nil nil))
+                                (reparse-symbol arg-sub-list) [787 808]))                          
+                        :type "void")
+                        (reparse-symbol classsubparts) [775 809])
+                    ("status_all" function
+                       (:prototype-flag t
+                        :arguments 
+                          ( ("stream" variable
+                               (:reference 1
+                                :type ("stringstream" type (:type "class") nil nil))
+                                (reparse-symbol arg-sub-list) [834 855]))                          
+                        :type "void")
+                        (reparse-symbol classsubparts) [818 856])
+                    ("cleanup" function
+                       (:prototype-flag t
+                        :type "void")
+                        (reparse-symbol classsubparts) [865 880]))                  
+                :type "class")
+                nil [145 883])
+            ("extractValue" function
+               (:template 
+                  ( ("T" type (:type "class") nil nil))                  
+                :type ("T" type (:type "class") nil nil)
+                :arguments 
+                  ( ("section" variable
+                       (:reference 1
+                        :constant-flag t
+                        :type ("string" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [929 951])
+                    ("key" variable
+                       (:reference 1
+                        :constant-flag t
+                        :type ("string" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [952 970]))                  
+                :parent "cSettings")
+                nil [885 1026])
+            ("extractDefault" function
+               (:template 
+                  ( ("T" type (:type "class") nil nil))                  
+                :type ("T" type (:type "class") nil nil)
+                :arguments 
+                  ( ("section" variable
+                       (:reference 1
+                        :constant-flag t
+                        :type ("string" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [1074 1096])
+                    ("key" variable
+                       (:reference 1
+                        :constant-flag t
+                        :type ("string" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [1097 1115]))                  
+                :parent "cSettings")
+                nil [1028 1169]))          
+      :file "settings.h"
+      :pointmax 1200
+      :fsize 1199
+      :lastmodtime '(22561 18726 562994 267000)
+      :unmatched-syntax nil
+      :lexical-table 
+        '(("SETTINGS_H_INCLUDED")
+          )
+)
+    (semanticdb-table "color_out.h"
+      :major-mode 'c-mode
+      :tags 
+        '( ("COLOR_OUT_H_INCLUDED" variable (:constant-flag t) nil [38 58])
+            ("MAX_FORMAT_SIZE" variable (:constant-flag t) nil [68 83])
+            ("enum_termOpts" type
+               (:members 
+                  ( ("cBlack" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [199 206])
+                    ("cRed" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [208 213])
+                    ("cGreen" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [215 222])
+                    ("cYellow" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [224 232])
+                    ("cBlue" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [234 240])
+                    ("cMag" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [242 247])
+                    ("cCyan" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [249 255])
+                    ("cWhite" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [257 264])
+                    ("bcBlack" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [292 300])
+                    ("bcRed" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [302 308])
+                    ("bcGreen" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [310 318])
+                    ("bcYellow" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [320 329])
+                    ("bcBlue" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [331 338])
+                    ("bcMag" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [340 346])
+                    ("bcCyan" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [348 355])
+                    ("bcWhite" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [357 365])
+                    ("eBold" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [383 389])
+                    ("eWeak" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [391 397])
+                    ("eItalic" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [399 407])
+                    ("eULine" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [409 416])
+                    ("eBlink" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [418 425])
+                    ("eNeg" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [427 432])
+                    ("eStrike" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [434 442])
+                    ("EOO" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [467 472]))                  
+                :type "enum")
+                nil [150 482])
+            ("termOpts" type
+               (:typedef ("enum_termOpts" type (:type "enum") nil nil)
+                :type "typedef")
+                nil [150 482])
+            ("redError" variable
+               (:dereference 1
+                :constant-flag t
+                :default-value "{ cRed, EOO}"
+                :type ("termOpts" type (:type "class") nil nil))
+                nil [509 550])
+            ("redErrorStrong" variable
+               (:dereference 1
+                :constant-flag t
+                :default-value "{ cRed, eBold, eULine, EOO}"
+                :type ("termOpts" type (:type "class") nil nil))
+                nil [551 613])
+            ("yellowWarn" variable
+               (:dereference 1
+                :constant-flag t
+                :default-value "{ cYellow, EOO }"
+                :type ("termOpts" type (:type "class") nil nil))
+                nil [614 661])
+            ("yellowWarnStrong" variable
+               (:dereference 1
+                :constant-flag t
+                :default-value "{cYellow, eULine, EOO}"
+                :type ("termOpts" type (:type "class") nil nil))
+                nil [662 721])
+            ("ANSI_ESC" variable
+               (:pointer 1
+                :typemodifiers ("static")
+                :constant-flag t
+                :default-value "\"\\033[\""
+                :type "char")
+                nil [723 761])
+            ("color_strings" variable
+               (:pointer 1
+                :dereference 1
+                :typemodifiers ("static")
+                :constant-flag t
+                :default-value "{
+	/* Text Color Values */
+	\"30\",\"31\",\"32\",\"33\",
+	\"34\",\"35\",\"36\",\"37\",
+
+	/* Background Color Values */
+	\"40\",\"41\",\"42\",\"43\",
+	\"44\",\"45\",\"46\",\"47\",
+
+	/* Effect Values */
+	\"1\",\"2\",\"3\",\"4\",\"5\",
+	\"7\",\"9\"
+}"
+                :type "char")
+                nil [763 1002])
+            ("print_color" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("str" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [1021 1037])
+                    ("options" variable
+                       (:dereference 1
+                        :constant-flag t
+                        :type ("termOpts" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [1038 1063])
+                    ("newline" variable (:type "bool") (reparse-symbol arg-sub-list) [1064 1077]))                  
+                :type "int")
+                nil [1005 1078])
+            ("print_color_file" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("str" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [1100 1116])
+                    ("options" variable
+                       (:dereference 1
+                        :constant-flag t
+                        :type ("termOpts" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [1117 1142])
+                    ("newline" variable (:type "bool") (reparse-symbol arg-sub-list) [1143 1156])
+                    ("file" variable
+                       (:pointer 1
+                        :type ("FILE" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [1157 1168]))                  
+                :type "int")
+                nil [1079 1169])
+            ("makeColorString" function
+               (:prototype-flag t
+                :pointer 1
+                :arguments 
+                  ( ("str" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [1192 1208])
+                    ("output" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [1209 1222])
+                    ("options" variable
+                       (:dereference 1
+                        :type ("termOpts" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [1223 1242]))                  
+                :type "char")
+                nil [1170 1243])
+            ("find_end_length" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("str" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [1268 1284])
+                    ("options" variable
+                       (:dereference 1
+                        :type ("termOpts" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [1285 1304]))                  
+                :type ("ssize_t" type (:type "class") nil nil))
+                nil [1244 1305]))          
+      :file "color_out.h"
+      :pointmax 1338
+      :fsize 1337
+      :lastmodtime '(22561 18797 701994 237000)
+      :unmatched-syntax nil
+      :lexical-table 
+        '(("MAX_FORMAT_SIZE" . ((number "20" 84 . 86)))
+          ("COLOR_OUT_H_INCLUDED")
+          )
+)
+    (semanticdb-table "fdmn.h"
+      :major-mode 'c-mode
+      :tags 
+        '( ("FDMN_H_INCLUDED" variable (:constant-flag t) nil [33 48])
+            ("stdio.h" include (:system-flag t) nil [50 68])
+            ("stdlib.h" include (:system-flag t) nil [69 88])
+            ("signal.h" include (:system-flag t) nil [89 108])
+            ("execinfo.h" include (:system-flag t) nil [109 130])
+            ("server_core.h" include nil nil [131 155])
+            ("boost/filesystem.hpp" include (:system-flag t) nil [195 226])
+            ("boost" using (:type ("boost" type
+                 (:prototype t
+                  :type "namespace")
+                  nil nil)) nil [229 251]))          
+      :file "fdmn.h"
+      :pointmax 279
+      :fsize 278
+      :lastmodtime '(22559 59970 289527 621000)
+      :unmatched-syntax nil
+      :lexical-table 
+        '(("FDMN_H_INCLUDED")
+          )
+)
+    (semanticdb-table "server_core.h"
+      :major-mode 'c-mode
+      :tags 
+        '( ("SERVER_CORE_H_INCLUDED" variable (:constant-flag t) nil [40 62])
+            ("sstream" include (:system-flag t) nil [64 82])
+            ("settings.h" include nil nil [84 105])
+            ("net_interface.h" include nil nil [106 132])
+            ("admin/interface.h" include nil nil [133 161])
+            ("file_management/mounts.h" include nil nil [162 197])
+            ("boost/thread.hpp" include (:system-flag t) nil [226 253])
+            ("boost/bind.hpp" include (:system-flag t) nil [254 279])
+            ("settings/default_settings.h" include nil nil [281 319])
+            ("utility.h" include nil nil [320 340])
+            ("STR" variable (:constant-flag t) nil [350 353])
+            ("toSTR" variable (:constant-flag t) nil [368 373])
+            ("INI_EXISTS" variable (:constant-flag t) nil [392 402])
+            ("INI_EXTRACT" variable (:constant-flag t) nil [466 477])
+            ("SERVER_VERSION" variable (:constant-flag t) nil [558 572])
+            ("" type
+               (:members 
+                  ( ("SF_ALL" variable
+                       (:constant-flag t
+                        :default-value (599 610)
+                        :type "int")
+                        (reparse-symbol enumsubparts) [590 610])
+                    ("SF_NETWORK" variable
+                       (:constant-flag t
+                        :default-value (626 629)
+                        :type "int")
+                        (reparse-symbol enumsubparts) [613 629])
+                    ("SF_LOG" variable
+                       (:constant-flag t
+                        :default-value (641 651)
+                        :type "int")
+                        (reparse-symbol enumsubparts) [632 651])
+                    ("SF_SETTINGS" variable
+                       (:constant-flag t
+                        :default-value (673 679)
+                        :type "int")
+                        (reparse-symbol enumsubparts) [659 679])
+                    ("SF_ALL_SETTINGS" variable
+                       (:constant-flag t
+                        :default-value (705 716)
+                        :type "int")
+                        (reparse-symbol enumsubparts) [687 716])
+                    ("SF_UPTIME" variable
+                       (:constant-flag t
+                        :default-value (736 751)
+                        :type "int")
+                        (reparse-symbol enumsubparts) [724 751])
+                    ("SF_VERSION" variable
+                       (:constant-flag t
+                        :default-value (772 781)
+                        :type "int")
+                        (reparse-symbol enumsubparts) [759 781])
+                    ("SF_MOUNTS" variable
+                       (:constant-flag t
+                        :default-value (801 811)
+                        :type "int")
+                        (reparse-symbol enumsubparts) [789 811]))                  
+                :type "enum")
+                nil [582 819])
+            ("cServerCore" type
+               (:members 
+                  ( ("private" label nil (reparse-symbol classsubparts) [845 853])
+                    ("start_time" variable (:type ("time_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [883 901])
+                    ("network" variable
+                       (:pointer 1
+                        :type ("cNetInterface" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [935 958])
+                    ("protocol" variable
+                       (:pointer 1
+                        :type ("cFDMNProtocol" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [964 988])
+                    ("settings" variable
+                       (:pointer 1
+                        :type ("cSettings" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [997 1017])
+                    ("log" variable
+                       (:pointer 1
+                        :type ("cLog" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [1026 1036])
+                    ("MountSys" variable
+                       (:pointer 1
+                        :type ("cMountSys" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [1045 1065])
+                    ("cServerCore" function
+                       (:prototype-flag t
+                        :constructor-flag t
+                        :type ("cServerCore" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [1075 1089])
+                    ("net_thread" variable
+                       (:pointer 1
+                        :type ("boost::thread" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [1121 1147])
+                    ("prompt_thread" variable
+                       (:pointer 1
+                        :type ("boost::thread" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [1156 1185])
+                    ("public" label nil (reparse-symbol classsubparts) [1191 1198])
+                    ("cServerCore" function
+                       (:prototype-flag t
+                        :constructor-flag t
+                        :arguments 
+                          ( ("settings_file" variable (:type ("string" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [1219 1240]))                          
+                        :type ("cServerCore" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [1207 1241])
+                    ("cServerCore" function
+                       (:prototype-flag t
+                        :destructor-flag t
+                        :type "void")
+                        (reparse-symbol classsubparts) [1250 1265])
+                    ("cleanup" function
+                       (:prototype-flag t
+                        :type "void")
+                        (reparse-symbol classsubparts) [1275 1290])
+                    ("start_server" function
+                       (:prototype-flag t
+                        :type "void")
+                        (reparse-symbol classsubparts) [1300 1320])
+                    ("status" function
+                       (:prototype-flag t
+                        :arguments 
+                          ( ("flags" variable (:type ("uint32_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [1342 1357])
+                            ("log" variable (:type "bool") (reparse-symbol arg-sub-list) [1358 1367]))                          
+                        :type "void")
+                        (reparse-symbol classsubparts) [1330 1368])
+                    ("version" function
+                       (:typemodifiers ("static")
+                        :type ("string" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [1378 1750]))                  
+                :type "class")
+                nil [821 1754]))          
+      :file "server_core.h"
+      :pointmax 1789
+      :fsize 1788
+      :lastmodtime '(22561 18684 434994 291000)
+      :unmatched-syntax '((punctuation 1750 . 1751) (number 815 . 816) (punctuation 813 . 814) (punctuation 812 . 813) (number 785 . 786) (punctuation 783 . 784) (punctuation 782 . 783) (number 755 . 756) (punctuation 753 . 754) (punctuation 752 . 753) (number 720 . 721) (punctuation 718 . 719) (punctuation 717 . 718) (number 683 . 684) (punctuation 681 . 682) (punctuation 680 . 681) (number 655 . 656) (punctuation 653 . 654) (punctuation 652 . 653))
+      :lexical-table 
+        '(("STR" (spp-arg-list ("x") 353 . 356) . ((punctuation "#" 357 . 358) (symbol "x" 358 . 359)))
+          ("SERVER_VERSION" . ((string "\"0.0.2\"" 573 . 580)))
+          ("INI_EXTRACT" (spp-arg-list ("section" "key" "type") 477 . 495) . 
+              ((symbol "_settings" 496 . 505) (punctuation "-" 505 . 506) (punctuation ">" 506 . 507) (symbol "extractValue" 507 . 519) (punctuation "<" 519 . 520) (symbol "type" 520 . 524) (punctuation ">" 524 . 525) (semantic-list "(STR(section),STR(key))" 525 . 548)))
+          ("toSTR" (spp-arg-list ("x") 373 . 376) . ((symbol "STR" 377 . 380) (semantic-list "(X)" 380 . 383)))
+          ("INI_EXISTS" (spp-arg-list ("section" "key") 402 . 415) . 
+              ((symbol "_settings" 416 . 425) (punctuation "-" 425 . 426) (punctuation ">" 426 . 427) (symbol "exists" 427 . 433) (semantic-list "(STR(section), STR(key))" 433 . 457)))
+          ("SERVER_CORE_H_INCLUDED")
+          )
+)
+    (semanticdb-table "net_interface.h"
+      :major-mode 'c-mode
+      :tags 
+        '( ("NET_INTERFACE_H_INCLUDED" variable (:constant-flag t) nil [42 66])
+            ("stdio.h" include (:system-flag t) nil [69 87])
+            ("stdlib.h" include (:system-flag t) nil [88 107])
+            ("errno.h" include (:system-flag t) nil [108 126])
+            ("sstream" include (:system-flag t) nil [127 145])
+            ("sys/types.h" include (:system-flag t) nil [172 194])
+            ("sys/socket.h" include (:system-flag t) nil [195 218])
+            ("netinet/in.h" include (:system-flag t) nil [219 242])
+            ("arpa/inet.h" include (:system-flag t) nil [243 265])
+            ("netdb.h" include (:system-flag t) nil [266 284])
+            ("ifaddrs.h" include (:system-flag t) nil [285 305])
+            ("boost/thread.hpp" include (:system-flag t) nil [358 385])
+            ("boost/thread/mutex.hpp" include (:system-flag t) nil [386 419])
+            ("packet" type
+               (:prototype t
+                :type "struct")
+                nil [422 436])
+            ("logging.h" include nil nil [478 498])
+            ("settings.h" include nil nil [499 520])
+            ("utility.h" include nil nil [521 541])
+            ("network/packets.h" include nil nil [542 570])
+            ("network/request_mappings.h" include nil nil [571 608])
+            ("core_classes.h" include nil nil [610 635])
+            ("LISTEN_SIZE" variable (:constant-flag t) nil [645 656])
+            ("DEFAULT_RETRIES" variable (:constant-flag t) nil [667 682])
+            ("INI_EXISTS" variable (:constant-flag t) nil [714 724])
+            ("INI_EXTRACT" variable (:constant-flag t) nil [788 799])
+            ("cProtocol" type
+               (:members 
+                  ( ("public" label nil (reparse-symbol classsubparts) [943 950])
+                    ("cProtocol" function
+                       (:prototype-flag t
+                        :constructor-flag t
+                        :type ("cProtocol" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [953 965])
+                    ("cProtocol" function
+                       (:prototype-flag t
+                        :destructor-flag t
+                        :type "void")
+                        (reparse-symbol classsubparts) [968 981])
+                    ("addMsg" function
+                       (:pure-virtual-flag t
+                        :prototype-flag t
+                        :typemodifiers ("virtual")
+                        :arguments 
+                          ( ("" variable (:type "int") (reparse-symbol arg-sub-list) [1005 1009]))                          
+                        :type "void")
+                        (reparse-symbol classsubparts) [985 1014]))                  
+                :type "class")
+                nil [924 1017])
+            ("cNetInterface" type
+               (:superclasses 
+                  ( ("cCoreModule" type
+                       (:protection "public"
+                        :type "class")
+                        nil nil))                  
+                :members 
+                  ( ("private" label nil (reparse-symbol classsubparts) [1062 1070])
+                    ("initialized" variable (:type "bool") (reparse-symbol classsubparts) [1073 1090])
+                    ("sock" variable (:type "int") (reparse-symbol classsubparts) [1094 1103])
+                    ("server_addr" variable (:type ("sockaddr_in" type
+                         (:prototype t
+                          :type "struct")
+                          nil nil)) (reparse-symbol classsubparts) [1106 1137])
+                    ("max_retries" variable (:type "int") (reparse-symbol classsubparts) [1141 1157])
+                    ("protocol" variable
+                       (:pointer 1
+                        :type ("cProtocol" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [1161 1181])
+                    ("public" label nil (reparse-symbol classsubparts) [1184 1191])
+                    ("cNetInterface" function
+                       (:prototype-flag t
+                        :constructor-flag t
+                        :type ("cNetInterface" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [1194 1210])
+                    ("cNetInterface" function
+                       (:prototype-flag t
+                        :constructor-flag t
+                        :arguments 
+                          ( ("port" variable (:type "int") (reparse-symbol arg-sub-list) [1227 1236]))                          
+                        :type ("cNetInterface" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [1213 1237])
+                    ("cNetInterface" function
+                       (:prototype-flag t
+                        :destructor-flag t
+                        :type "void")
+                        (reparse-symbol classsubparts) [1240 1257])
+                    ("init_net" function
+                       (:prototype-flag t
+                        :arguments 
+                          ( ("port" variable (:type "int") (reparse-symbol arg-sub-list) [1275 1284]))                          
+                        :type "void")
+                        (reparse-symbol classsubparts) [1261 1285])
+                    ("set_protocol" function
+                       (:prototype-flag t
+                        :arguments 
+                          ( ("" variable
+                               (:pointer 1
+                                :type ("cProtocol" type (:type "class") nil nil))
+                                (reparse-symbol arg-sub-list) [1306 1317]))                          
+                        :type "void")
+                        (reparse-symbol classsubparts) [1288 1318])
+                    ("start_listening" function
+                       (:prototype-flag t
+                        :type "void")
+                        (reparse-symbol classsubparts) [1321 1344])
+                    ("status" function
+                       (:prototype-flag t
+                        :arguments 
+                          ( ("stream" variable
+                               (:reference 1
+                                :type ("stringstream" type (:type "class") nil nil))
+                                (reparse-symbol arg-sub-list) [1360 1381]))                          
+                        :type "void")
+                        (reparse-symbol classsubparts) [1348 1382])
+                    ("cleanup" function
+                       (:prototype-flag t
+                        :type "void")
+                        (reparse-symbol classsubparts) [1385 1400]))                  
+                :type "class")
+                nil [1019 1404])
+            ("cFDMNProtocol" type
+               (:superclasses 
+                  ( ("cProtocol" type
+                       (:protection "public"
+                        :type "class")
+                        nil nil)
+                    ("cCoreModule" type
+                       (:protection "unspecified"
+                        :type "class")
+                        nil nil))                  
+                :members 
+                  ( ("private" label nil (reparse-symbol classsubparts) [1461 1469])
+                    ("version" function
+                       (:pointer 1
+                        :typemodifiers ("static")
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol classsubparts) [1472 1520])
+                    ("msg_queue" variable
+                       (:pointer 1
+                        :type ("ts_queue" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [1525 1545])
+                    ("msg_ids" variable (:type ("cID_dispatch" type (:type "class") nil nil)) (reparse-symbol classsubparts) [1548 1569])
+                    ("listen_threads" variable (:type ("vector" type
+                         (:template-specifier 
+                            ( ("boost::thread" type (:pointer 1) nil nil))                            
+                          :type "class")
+                          nil nil)) (reparse-symbol classsubparts) [1573 1611])
+                    ("status_lock" variable (:type ("boost::mutex" type (:type "class") nil nil)) (reparse-symbol classsubparts) [1642 1667])
+                    ("msg_received" variable (:type "unsigned long") (reparse-symbol classsubparts) [1670 1697])
+                    ("msg_serviced" variable (:type "unsigned long") (reparse-symbol classsubparts) [1700 1727])
+                    ("wait_enqueue" variable (:type "bool") (reparse-symbol classsubparts) [1772 1790])
+                    ("max_threads" variable (:type "int") (reparse-symbol classsubparts) [1793 1809])
+                    ("req_map" variable (:type ("map" type
+                         (:template-specifier 
+                            ( ("string" type nil nil nil)
+                              ("void" type nil nil nil))                            
+                          :type "class")
+                          nil nil)) (reparse-symbol classsubparts) [1842 1881])
+                    ("public" label nil (reparse-symbol classsubparts) [1884 1891])
+                    ("cFDMNProtocol" function
+                       (:prototype-flag t
+                        :constructor-flag t
+                        :type ("cFDMNProtocol" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [1894 1910])
+                    ("cFDMNProtocol" function
+                       (:prototype-flag t
+                        :destructor-flag t
+                        :type "void")
+                        (reparse-symbol classsubparts) [1913 1930])
+                    ("init_mappings" function
+                       (:prototype-flag t
+                        :type "void")
+                        (reparse-symbol classsubparts) [1933 1954])
+                    ("initQueue" function
+                       (:prototype-flag t
+                        :type "void")
+                        (reparse-symbol classsubparts) [1958 1975])
+                    ("startThreads" function
+                       (:prototype-flag t
+                        :type "void")
+                        (reparse-symbol classsubparts) [1978 1998])
+                    ("listen" function
+                       (:prototype-flag t
+                        :type "void")
+                        (reparse-symbol classsubparts) [2001 2015])
+                    ("addMsg" function
+                       (:prototype-flag t
+                        :arguments 
+                          ( ("" variable (:type "int") (reparse-symbol arg-sub-list) [2076 2080]))                          
+                        :type "void")
+                        (reparse-symbol classsubparts) [2064 2081])
+                    ("status" function
+                       (:prototype-flag t
+                        :arguments 
+                          ( ("stream" variable
+                               (:reference 1
+                                :type ("stringstream" type (:type "class") nil nil))
+                                (reparse-symbol arg-sub-list) [2097 2118]))                          
+                        :type "void")
+                        (reparse-symbol classsubparts) [2085 2119])
+                    ("cleanup" function
+                       (:prototype-flag t
+                        :type "void")
+                        (reparse-symbol classsubparts) [2122 2137]))                  
+                :type "class")
+                nil [1407 2140]))          
+      :file "net_interface.h"
+      :pointmax 2177
+      :fsize 2176
+      :lastmodtime '(22544 3306 0 0)
+      :unmatched-syntax '((punctuation 1520 . 1521))
+      :lexical-table 
+        '(("INI_EXTRACT" (spp-arg-list ("section" "key" "type") 799 . 817) . 
+              ((symbol "_settings" 818 . 827) (punctuation "-" 827 . 828) (punctuation ">" 828 . 829) (symbol "extractValue" 829 . 841) (punctuation "<" 841 . 842) (symbol "type" 842 . 846) (punctuation ">" 846 . 847) (semantic-list "(STR(section),STR(key))" 847 . 870)))
+          ("LISTEN_SIZE" . ((number "5" 657 . 658)))
+          ("INI_EXISTS" (spp-arg-list ("section" "key") 724 . 737) . 
+              ((symbol "_settings" 738 . 747) (punctuation "-" 747 . 748) (punctuation ">" 748 . 749) (symbol "exists" 749 . 755) (semantic-list "(STR(section), STR(key))" 755 . 779)))
+          ("NET_INTERFACE_H_INCLUDED")
+          ("DEFAULT_RETRIES" . ((number "2" 683 . 684)))
+          )
+)
+    (semanticdb-table "utility.h"
+      :major-mode 'c-mode
+      :tags 
+        '( ("UTILITY_H_INCLUDED" variable (:constant-flag t) nil [36 54])
+            ("stdio.h" include (:system-flag t) nil [56 74])
+            ("stdlib.h" include (:system-flag t) nil [75 94])
+            ("string" include (:system-flag t) nil [95 112])
+            ("sstream" include (:system-flag t) nil [113 131])
+            ("iostream" include (:system-flag t) nil [132 151])
+            ("vector" include (:system-flag t) nil [152 169])
+            ("map" include (:system-flag t) nil [170 184])
+            ("limits.h" include (:system-flag t) nil [185 204])
+            ("signal.h" include (:system-flag t) nil [205 224])
+            ("sys/types.h" include (:system-flag t) nil [225 247])
+            ("pthread.h" include (:system-flag t) nil [249 269])
+            ("SEC_PER_YEAR" variable (:constant-flag t) nil [364 376])
+            ("SEC_PER_DAY" variable (:constant-flag t) nil [394 405])
+            ("SEC_PER_HOUR" variable (:constant-flag t) nil [420 432])
+            ("SEC_PER_MIN" variable (:constant-flag t) nil [446 457])
+            ("STR" variable (:constant-flag t) nil [470 473])
+            ("std" using (:type ("std" type
+                 (:prototype t
+                  :type "namespace")
+                  nil nil)) nil [481 501])
+            ("sec_to_time" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("seconds" variable (:type "int") (reparse-symbol arg-sub-list) [522 534])
+                    ("style" variable
+                       (:default-value "0"
+                        :type "int")
+                        (reparse-symbol arg-sub-list) [535 548]))                  
+                :type ("string" type (:type "class") nil nil))
+                nil [503 550])
+            ("queue_t" type
+               (:members 
+                  ( ("fd" variable (:type "int") (reparse-symbol classsubparts) [570 577])
+                    ("id" variable (:type "int") (reparse-symbol classsubparts) [579 586]))                  
+                :type "struct")
+                nil [552 589])
+            ("ts_queue" type
+               (:members 
+                  ( ("q_lock" variable (:type ("pthread_mutex_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [618 641])
+                    ("q_full" variable (:type ("pthread_cond_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [643 665])
+                    ("q_empty" variable (:type ("pthread_cond_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [667 690])
+                    ("size" variable (:type "int") (reparse-symbol classsubparts) [696 705])
+                    ("slots_available" variable (:type "int") (reparse-symbol classsubparts) [710 730])
+                    ("start" variable (:type "int") (reparse-symbol classsubparts) [735 745])
+                    ("end" variable (:type "int") (reparse-symbol classsubparts) [750 758])
+                    ("data" variable
+                       (:pointer 2
+                        :type ("queue_t" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [761 776]))                  
+                :type "struct")
+                nil [591 788])
+            ("ts_queue" type
+               (:typedef ("ts_queue" type (:type "struct") nil nil)
+                :type "typedef")
+                nil [591 788])
+            ("init_queue" function
+               (:prototype-flag t
+                :pointer 1
+                :arguments 
+                  ( ("" variable (:type "int") (reparse-symbol arg-sub-list) [863 867]))                  
+                :type ("ts_queue" type (:type "class") nil nil))
+                nil [842 868])
+            ("add_queue" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable
+                       (:pointer 1
+                        :type ("queue_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [883 892])
+                    ("" variable
+                       (:reference 1
+                        :type ("ts_queue" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [893 903]))                  
+                :type "int")
+                nil [869 904])
+            ("add_queue_no_wait" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable
+                       (:pointer 1
+                        :type ("queue_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [927 936])
+                    ("" variable
+                       (:reference 1
+                        :type ("ts_queue" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [937 947])
+                    ("free_fn" function
+                       (:function-pointer t
+                        :arguments 
+                          ( ("" variable
+                               (:pointer 1
+                                :type ("queue_t" type (:type "class") nil nil))
+                                (reparse-symbol arg-sub-list) [965 974]))                          
+                        :type "void")
+                        nil nil))                  
+                :type "int")
+                nil [905 976])
+            ("rm_queue" function
+               (:prototype-flag t
+                :pointer 1
+                :arguments 
+                  ( ("" variable
+                       (:reference 1
+                        :type ("ts_queue" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [995 1005]))                  
+                :type ("queue_t" type (:type "class") nil nil))
+                nil [977 1006])
+            ("node" type
+               (:members 
+                  ( ("public" label nil (reparse-symbol classsubparts) [1103 1110])
+                    ("value" variable (:type "int") (reparse-symbol classsubparts) [1119 1129])
+                    ("next" variable
+                       (:pointer 1
+                        :type ("node" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [1138 1149])
+                    ("node" function
+                       (:prototype-flag t
+                        :constructor-flag t
+                        :type ("node" type (:type "struct") nil nil))
+                        (reparse-symbol classsubparts) [1158 1165])
+                    ("node" function
+                       (:prototype-flag t
+                        :constructor-flag t
+                        :arguments 
+                          ( ("" variable (:type "int") (reparse-symbol arg-sub-list) [1179 1183])
+                            ("" variable
+                               (:pointer 1
+                                :type ("node" type (:type "class") nil nil))
+                                (reparse-symbol arg-sub-list) [1184 1190]))                          
+                        :type ("node" type (:type "struct") nil nil))
+                        (reparse-symbol classsubparts) [1174 1191]))                  
+                :type "struct")
+                nil [1077 1202])
+            ("free_ID" type
+               (:typedef ("node" type (:type "struct") nil nil)
+                :type "typedef")
+                nil [1077 1202])
+            ("cID_dispatch" type
+               (:members 
+                  ( ("private" label nil (reparse-symbol classsubparts) [1237 1245])
+                    ("ID_counter" variable (:type "int") (reparse-symbol classsubparts) [1254 1269])
+                    ("ID_limit" variable (:type "int") (reparse-symbol classsubparts) [1278 1291])
+                    ("recent_ID" variable (:type "int") (reparse-symbol classsubparts) [1300 1314])
+                    ("free_buffer" variable
+                       (:pointer 1
+                        :type ("node" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [1323 1341])
+                    ("ID_lock" variable (:type ("pthread_mutex_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [1351 1375])
+                    ("public" label nil (reparse-symbol classsubparts) [1381 1388])
+                    ("cID_dispatch" function
+                       (:prototype-flag t
+                        :constructor-flag t
+                        :type ("cID_dispatch" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [1397 1412])
+                    ("cID_dispatch" function
+                       (:prototype-flag t
+                        :constructor-flag t
+                        :arguments 
+                          ( ("limit" variable (:type "int") (reparse-symbol arg-sub-list) [1434 1444]))                          
+                        :type ("cID_dispatch" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [1421 1445])
+                    ("ID_getid" function
+                       (:prototype-flag t
+                        :type "int")
+                        (reparse-symbol classsubparts) [1454 1469])
+                    ("ID_getid_ts" function
+                       (:prototype-flag t
+                        :type "int")
+                        (reparse-symbol classsubparts) [1478 1496])
+                    ("ID_recall" function
+                       (:prototype-flag t
+                        :type "int")
+                        (reparse-symbol classsubparts) [1505 1521])
+                    ("ID_returnid" function
+                       (:prototype-flag t
+                        :arguments 
+                          ( ("id" variable (:type "int") (reparse-symbol arg-sub-list) [1547 1554]))                          
+                        :type "void")
+                        (reparse-symbol classsubparts) [1530 1555])
+                    ("ID_returnid_ts" function
+                       (:prototype-flag t
+                        :arguments 
+                          ( ("id" variable (:type "int") (reparse-symbol arg-sub-list) [1584 1591]))                          
+                        :type "void")
+                        (reparse-symbol classsubparts) [1564 1592]))                  
+                :type "class")
+                nil [1204 1608])
+            ("cID_dispatch" type
+               (:typedef ("cID_dispatch" type (:type "class") nil nil)
+                :type "typedef")
+                nil [1204 1608])
+            ("QuickPartition" function
+               (:template 
+                  ( ("T" type (:type "class") nil nil))                  
+                :type "void"
+                :arguments 
+                  ( ("items" variable
+                       (:reference 1
+                        :type ("std::vector" type
+                             (:template-specifier 
+                                ( ("T" type nil nil nil))                                
+                              :type "class")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [1768 1790])
+                    ("sort_fn" function
+                       (:function-pointer t
+                        :arguments 
+                          ( ("" variable (:type ("T" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [1807 1809])
+                            ("" variable (:type ("T" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [1809 1811]))                          
+                        :type "int")
+                        nil nil)
+                    ("left" variable (:type "int") (reparse-symbol arg-sub-list) [1818 1827])
+                    ("right" variable (:type "int") (reparse-symbol arg-sub-list) [1828 1838])
+                    ("pivot" variable (:type "int") (reparse-symbol arg-sub-list) [1839 1849]))                  )
+                nil [1726 2652])
+            ("pivotType" type
+               (:members 
+                  ( ("pivotMiddle" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [2672 2684])
+                    ("pivotRandom" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [2686 2699]))                  
+                :type "enum")
+                nil [2654 2700])
+            ("QuicksortVector" function
+               (:template 
+                  ( ("T" type (:type "class") nil nil))                  
+                :type "void"
+                :arguments 
+                  ( ("items" variable
+                       (:reference 1
+                        :type ("std::vector" type
+                             (:template-specifier 
+                                ( ("T" type nil nil nil))                                
+                              :type "class")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [2853 2875])
+                    ("sort_fn" function
+                       (:function-pointer t
+                        :arguments 
+                          ( ("" variable (:type ("T" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [2892 2894])
+                            ("" variable (:type ("T" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [2894 2896]))                          
+                        :type "int")
+                        nil nil)
+                    ("pType" variable (:type ("pivotType" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [2898 2914])
+                    ("start" variable (:type "int") (reparse-symbol arg-sub-list) [2921 2931])
+                    ("end" variable (:type "int") (reparse-symbol arg-sub-list) [2932 2940]))                  )
+                nil [2810 3521])
+            ("ADD_OPTION" variable (:constant-flag t) nil [3588 3598])
+            ("ADD_EXTRA" variable (:constant-flag t) nil [3669 3678])
+            ("ACCEPT_ANY_EXTRA" variable (:constant-flag t) nil [3802 3818])
+            ("OPTION_SET" variable (:constant-flag t) nil [3920 3930])
+            ("EXTRA_SET" variable (:constant-flag t) nil [4023 4032])
+            ("INT_ARG_FLAG" variable (:constant-flag t) nil [4135 4147])
+            ("STR_ARG_FLAG" variable (:constant-flag t) nil [4165 4177])
+            ("ADD_INT_ARG" variable (:constant-flag t) nil [4196 4207])
+            ("ADD_STR_ARG" variable (:constant-flag t) nil [4316 4327])
+            ("GET_INT_ARG" variable (:constant-flag t) nil [4435 4446])
+            ("GET_STR_START" variable (:constant-flag t) nil [4544 4557])
+            ("GET_STR_LEN" variable (:constant-flag t) nil [4653 4664])
+            ("EXTRACT_STRING" variable (:constant-flag t) nil [4760 4774])
+            ("BUF_SIZE" variable (:constant-flag t) nil [4911 4919])
+            ("uOption" type
+               (:typedef ("" type
+                     (:members 
+                        ( ("set" variable (:type "bool") (reparse-symbol classsubparts) [4942 4951])
+                          ("intArg" variable (:type "int") (reparse-symbol classsubparts) [4953 4964])
+                          ("strStart" variable (:type "int") (reparse-symbol classsubparts) [4966 4987])
+                          ("strLen" variable (:type "int") (reparse-symbol classsubparts) [4966 4987]))                        
+                      :type "struct")
+                      nil nil)
+                :type "typedef")
+                nil [4924 4998])
+            ("argMap" type
+               (:typedef ("std::map" type
+                     (:template-specifier 
+                        ( ("char" type nil nil nil)
+                          ("std::map" type nil nil nil))                        
+                      :type "class")
+                      nil nil)
+                :type "typedef")
+                nil [5000 5055])
+            ("parseFlags" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("args" variable
+                       (:reference 1
+                        :type ("argMap" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [5127 5140])
+                    ("input" variable
+                       (:reference 1
+                        :type ("string" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [5141 5155])
+                    ("argDelimit" variable
+                       (:default-value "'-'"
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [5156 5177]))                  
+                :type "void")
+                nil [5111 5179])
+            ("clearFlags" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("args" variable
+                       (:reference 1
+                        :type ("argMap" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [5196 5209]))                  
+                :type "void")
+                nil [5180 5210])
+            ("OptionsBase" type
+               (:members 
+                  ( ("protected" label nil (reparse-symbol classsubparts) [5233 5243])
+                    ("options" variable (:type ("argMap" type (:type "class") nil nil)) (reparse-symbol classsubparts) [5246 5261])
+                    ("public" label nil (reparse-symbol classsubparts) [5264 5271])
+                    ("()" function
+                       (:prototype-flag t
+                        :operator-flag t
+                        :type ("argMap" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [5274 5296]))                  
+                :type "class")
+                nil [5212 5299]))          
+      :file "utility.h"
+      :pointmax 5329
+      :fsize 5328
+      :lastmodtime '(22561 18770 661994 242000)
+      :unmatched-syntax nil
+      :lexical-table 
+        '(("ADD_EXTRA" (spp-arg-list ("map" "option" "extra") 3678 . 3696) . 
+              ((symbol "map" 3697 . 3700) (semantic-list "[option]" 3700 . 3708) (semantic-list "[extra]" 3708 . 3715)))
+          ("SEC_PER_MIN" . ((number "60" 458 . 460)))
+          ("GET_STR_LEN" (spp-arg-list ("map" "option") 4664 . 4676) . 
+              ((symbol "map" 4677 . 4680) (semantic-list "[option]" 4680 . 4688) (semantic-list "[STR_ARG_FLAG]" 4688 . 4702) (punctuation "." 4702 . 4703) (symbol "strLen" 4703 . 4709)))
+          ("STR" (spp-arg-list ("x") 473 . 476) . ((punctuation "#" 477 . 478) (symbol "x" 478 . 479)))
+          ("ADD_OPTION" (spp-arg-list ("map" "x") 3598 . 3605) . ((symbol "map" 3606 . 3609) (semantic-list "[x]" 3609 . 3612)))
+          ("OPTION_SET" (spp-arg-list ("map" "option" "delimit") 3930 . 3950) . 
+              ((symbol "map" 3951 . 3954) (semantic-list "[option]" 3954 . 3962) (semantic-list "[delimit]" 3962 . 3971) (punctuation "." 3971 . 3972) (symbol "set" 3972 . 3975)))
+          ("STR_ARG_FLAG" . ((semantic-list "(char)" 4178 . 4184) (number "1" 4185 . 4186)))
+          ("UTILITY_H_INCLUDED")
+          ("SEC_PER_YEAR" . ((number "31536000" 377 . 385)))
+          ("EXTRACT_STRING" (spp-arg-list ("map" "option" "str") 4774 . 4790) . 
+              ((symbol "str" 4791 . 4794) (punctuation "." 4794 . 4795) (symbol "substr" 4795 . 4801) (semantic-list "(GET_STR_START(map,option),GET_STR_LEN(map,option))" 4801 . 4852)))
+          ("ADD_STR_ARG" (spp-arg-list ("map" "option") 4327 . 4339) . 
+              ((symbol "map" 4340 . 4343) (semantic-list "[option]" 4343 . 4351) (semantic-list "[STR_ARG_FLAG]" 4351 . 4365)))
+          ("SEC_PER_HOUR" . ((number "3600" 433 . 437)))
+          ("GET_INT_ARG" (spp-arg-list ("map" "option") 4446 . 4458) . 
+              ((symbol "map" 4459 . 4462) (semantic-list "[option]" 4462 . 4470) (semantic-list "[INT_ARG_FLAG]" 4470 . 4484) (punctuation "." 4484 . 4485) (symbol "intArg" 4485 . 4491)))
+          ("ACCEPT_ANY_EXTRA" (spp-arg-list ("map" "option") 3818 . 3830) . 
+              ((symbol "map" 3831 . 3834) (semantic-list "[option]" 3834 . 3842) (semantic-list "[' ']" 3842 . 3847)))
+          ("GET_STR_START" (spp-arg-list ("map" "option") 4557 . 4569) . 
+              ((symbol "map" 4570 . 4573) (semantic-list "[option]" 4573 . 4581) (semantic-list "[STR_ARG_FLAG]" 4581 . 4595) (punctuation "." 4595 . 4596) (symbol "strStart" 4596 . 4604)))
+          ("INT_ARG_FLAG" . ((semantic-list "(char)" 4148 . 4154) (number "0" 4155 . 4156)))
+          ("BUF_SIZE" . ((number "20" 4920 . 4922)))
+          ("SEC_PER_DAY" . ((number "86400" 406 . 411)))
+          ("ADD_INT_ARG" (spp-arg-list ("map" "option") 4207 . 4219) . 
+              ((symbol "map" 4220 . 4223) (semantic-list "[option]" 4223 . 4231) (semantic-list "[INT_ARG_FLAG]" 4231 . 4245)))
+          ("EXTRA_SET" (spp-arg-list ("map" "option" "extra") 4032 . 4050) . 
+              ((symbol "map" 4051 . 4054) (semantic-list "[option]" 4054 . 4062) (semantic-list "[extra]" 4062 . 4069) (punctuation "." 4069 . 4070) (symbol "set" 4070 . 4073)))
+          )
+)
+    (semanticdb-table "core_classes.h"
+      :major-mode 'c-mode
+      :tags 
+        '( ("CORE_CLASSES_H_INCLUDED" variable (:constant-flag t) nil [41 64])
+            ("sstream" include (:system-flag t) nil [66 84])
+            ("cCoreModule" type
+               (:members 
+                  ( ("public" label nil (reparse-symbol classsubparts) [107 114])
+                    ("status" function
+                       (:pure-virtual-flag t
+                        :prototype-flag t
+                        :typemodifiers ("virtual")
+                        :arguments 
+                          ( ("" variable
+                               (:reference 1
+                                :type ("stringstream" type (:type "class") nil nil))
+                                (reparse-symbol arg-sub-list) [137 151]))                          
+                        :type "void")
+                        (reparse-symbol classsubparts) [117 156])
+                    ("cleanup" function
+                       (:pure-virtual-flag t
+                        :prototype-flag t
+                        :typemodifiers ("virtual")
+                        :type "void")
+                        (reparse-symbol classsubparts) [159 186])
+                    ("version" function
+                       (:pointer 1
+                        :typemodifiers ("virtual")
+                        :constant-flag t
+                        :arguments 
+                          ( ("stream" variable
+                               (:reference 1
+                                :type ("stringstream" type (:type "class") nil nil))
+                                (reparse-symbol arg-sub-list) [217 238]))                          
+                        :type "char")
+                        (reparse-symbol classsubparts) [189 253]))                  
+                :type "class")
+                nil [86 257]))          
+      :file "core_classes.h"
+      :pointmax 293
+      :fsize 292
+      :lastmodtime '(22561 18791 218994 230000)
+      :unmatched-syntax '((punctuation 253 . 254) (punctuation 256 . 257))
+      :lexical-table 
+        '(("CORE_CLASSES_H_INCLUDED")
+          )
+))
+  :file "!home!chz!Public!2三代平台集中存储!FDMN!include!semantic.cache"
+  :semantic-tag-version "2.0"
+  :semanticdb-version "2.2")

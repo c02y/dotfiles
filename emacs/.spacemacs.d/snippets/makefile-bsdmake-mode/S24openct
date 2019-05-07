@@ -1,0 +1,327 @@
+;; Object lua-1.0/
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "lua-1.0/"
+  :tables (list 
+   (semanticdb-table "lua.c"
+    :major-mode 'c-mode
+    :tags 
+        '( ("stdio.h" include (:system-flag t) nil [91 109])
+            ("lua.h" include nil nil [111 127])
+            ("lualib.h" include nil nil [128 147])
+            ("test" function
+               (:arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [161 166]))                  
+                :type "void")
+                nil [150 224])
+            ("callfunc" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [249 254]))                  
+                :type "void")
+                nil [227 350])
+            ("execstr" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [373 378]))                  
+                :type "void")
+                nil [352 476])
+            ("main" function
+               (:arguments 
+                  ( ("argc" variable (:type "int") (reparse-symbol arg-sub-list) [489 498])
+                    ("argv" variable
+                       (:pointer 1
+                        :dereference 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [499 512]))                  
+                :type "void")
+                nil [478 835]))          
+    :file "lua.c"
+    :pointmax 838
+    :fsize 837
+    :lastmodtime '(21424 46836 455851 600000)
+    :unmatched-syntax 'nil
+    )
+   (semanticdb-table "lua.h"
+    :major-mode 'c-mode
+    :tags 
+        '( ("lua_h" variable (:constant-flag t) nil [156 161])
+            ("lua_CFunction" variable
+               (:functionpointer-flag t
+                :type "void")
+                nil [171 200])
+            ("lua_Object" type
+               (:typedef ("Object" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil)
+                :pointer 1
+                :superclasses "Object"
+                :type "typedef")
+                nil [201 235])
+            ("lua_register" variable (:constant-flag t) nil [245 257])
+            ("lua_errorfunction" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [346 356]))                  
+                :type "void")
+                nil [308 368])
+            ("lua_error" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("s" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [396 404]))                  
+                :type "void")
+                nil [369 405])
+            ("lua_dofile" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("filename" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [435 450]))                  
+                :type "int")
+                nil [406 451])
+            ("lua_dostring" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("string" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [483 496]))                  
+                :type "int")
+                nil [452 497])
+            ("lua_call" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("functionname" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [525 544])
+                    ("nparam" variable (:type "int") (reparse-symbol arg-sub-list) [545 556]))                  
+                :type "int")
+                nil [498 557])
+            ("lua_getparam" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("number" variable (:type "int") (reparse-symbol arg-sub-list) [590 601]))                  
+                :type ("lua_Object" type (:type "class") nil nil))
+                nil [559 602])
+            ("lua_getnumber" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("object" variable (:type ("lua_Object" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [635 653]))                  
+                :type "float")
+                nil [603 654])
+            ("lua_getstring" function
+               (:prototype-flag t
+                :pointer 1
+                :arguments 
+                  ( ("object" variable (:type ("lua_Object" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [687 705]))                  
+                :type "char")
+                nil [655 706])
+            ("lua_copystring" function
+               (:prototype-flag t
+                :pointer 1
+                :arguments 
+                  ( ("object" variable (:type ("lua_Object" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [738 756]))                  
+                :type "char")
+                nil [707 757])
+            ("lua_getcfunction" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("object" variable (:type ("lua_Object" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [792 810]))                  
+                :type ("lua_CFunction" type (:type "class") nil nil))
+                nil [758 811])
+            ("lua_getuserdata" function
+               (:prototype-flag t
+                :pointer 1
+                :arguments 
+                  ( ("object" variable (:type ("lua_Object" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [846 864]))                  
+                :type "void")
+                nil [812 865])
+            ("lua_getfield" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("object" variable (:type ("lua_Object" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [904 922])
+                    ("field" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [923 935]))                  
+                :type ("lua_Object" type (:type "class") nil nil))
+                nil [866 936])
+            ("lua_getindexed" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("object" variable (:type ("lua_Object" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [977 995])
+                    ("index" variable (:type "float") (reparse-symbol arg-sub-list) [996 1008]))                  
+                :type ("lua_Object" type (:type "class") nil nil))
+                nil [937 1009])
+            ("lua_getglobal" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("name" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [1042 1053]))                  
+                :type ("lua_Object" type (:type "class") nil nil))
+                nil [1010 1054])
+            ("lua_pop" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [1083 1088]))                  
+                :type ("lua_Object" type (:type "class") nil nil))
+                nil [1056 1089])
+            ("lua_pushnil" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [1118 1123]))                  
+                :type "int")
+                nil [1091 1124])
+            ("lua_pushnumber" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("n" variable (:type "float") (reparse-symbol arg-sub-list) [1158 1166]))                  
+                :type "int")
+                nil [1125 1167])
+            ("lua_pushstring" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("s" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [1201 1209]))                  
+                :type "int")
+                nil [1168 1210])
+            ("lua_pushcfunction" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("fn" variable (:type ("lua_CFunction" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [1245 1262]))                  
+                :type "int")
+                nil [1211 1263])
+            ("lua_pushuserdata" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("u" variable
+                       (:pointer 1
+                        :type "void")
+                        (reparse-symbol arg-sub-list) [1302 1310]))                  
+                :type "int")
+                nil [1264 1311])
+            ("lua_pushobject" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("object" variable (:type ("lua_Object" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [1350 1368]))                  
+                :type "int")
+                nil [1312 1369])
+            ("lua_storeglobal" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("name" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [1404 1415]))                  
+                :type "int")
+                nil [1371 1416])
+            ("lua_storefield" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("object" variable (:type ("lua_Object" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [1449 1467])
+                    ("field" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [1468 1480]))                  
+                :type "int")
+                nil [1417 1481])
+            ("lua_storeindexed" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("object" variable (:type ("lua_Object" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [1516 1534])
+                    ("index" variable (:type "float") (reparse-symbol arg-sub-list) [1535 1547]))                  
+                :type "int")
+                nil [1482 1548])
+            ("lua_isnil" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("object" variable (:type ("lua_Object" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [1578 1596]))                  
+                :type "int")
+                nil [1550 1597])
+            ("lua_isnumber" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("object" variable (:type ("lua_Object" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [1629 1647]))                  
+                :type "int")
+                nil [1598 1648])
+            ("lua_isstring" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("object" variable (:type ("lua_Object" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [1680 1698]))                  
+                :type "int")
+                nil [1649 1699])
+            ("lua_istable" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("object" variable (:type ("lua_Object" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [1738 1756]))                  
+                :type "int")
+                nil [1700 1757])
+            ("lua_iscfunction" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("object" variable (:type ("lua_Object" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [1792 1810]))                  
+                :type "int")
+                nil [1758 1811])
+            ("lua_isuserdata" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("object" variable (:type ("lua_Object" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [1845 1863]))                  
+                :type "int")
+                nil [1812 1864]))          
+    :file "lua.h"
+    :pointmax 1873
+    :fsize 1872
+    :lastmodtime '(21424 46836 546773 500000)
+    :unmatched-syntax '((semantic-list 357 . 366) (semantic-list 351 . 356) (TYPEDEF 163 . 170))
+    :lexical-table 
+        '(("lua_h")
+          ("lua_register" (spp-arg-list ("n" "f") 257 . 262) . ((semantic-list "(lua_pushcfunction(f), lua_storeglobal(n))" 263 . 305)))
+          )
+
+    )
+   (semanticdb-table "lualib.h"
+    :major-mode 'c-mode
+    :tags 
+        '( ("lualib_h" variable (:constant-flag t) nil [148 156])
+            ("iolib_open" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [177 182]))                  
+                :type "void")
+                nil [158 183])
+            ("strlib_open" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [203 208]))                  
+                :type "void")
+                nil [184 209])
+            ("mathlib_open" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [229 234]))                  
+                :type "void")
+                nil [210 235]))          
+    :file "lualib.h"
+    :pointmax 244
+    :fsize 243
+    :lastmodtime '(21424 46836 354970 600000)
+    :unmatched-syntax 'nil
+    :lexical-table 
+        '(("lualib_h")
+          )
+
+    )
+   )
+  :file "!home!chz!Projects!CWork!lua-1.0!semantic.cache"
+  :semantic-tag-version "2.0"
+  :semanticdb-version "2.2"
+  )

@@ -1,0 +1,2823 @@
+;; Object src/
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "src/"
+  :tables (list 
+   (semanticdb-table "main.c"
+    :major-mode 'c-mode
+    :tags 
+        '( ("GL/glew.h" include (:system-flag t) nil [1 21])
+            ("GLFW/glfw3.h" include (:system-flag t) nil [22 45])
+            ("curl/curl.h" include (:system-flag t) nil [46 68])
+            ("math.h" include (:system-flag t) nil [69 86])
+            ("stdio.h" include (:system-flag t) nil [87 105])
+            ("stdlib.h" include (:system-flag t) nil [106 125])
+            ("string.h" include (:system-flag t) nil [126 145])
+            ("time.h" include (:system-flag t) nil [146 163])
+            ("auth.h" include nil nil [164 181])
+            ("client.h" include nil nil [182 201])
+            ("config.h" include nil nil [202 221])
+            ("cube.h" include nil nil [222 239])
+            ("db.h" include nil nil [240 255])
+            ("item.h" include nil nil [256 273])
+            ("map.h" include nil nil [274 290])
+            ("matrix.h" include nil nil [291 310])
+            ("noise.h" include nil nil [311 329])
+            ("sign.h" include nil nil [330 347])
+            ("tinycthread.h" include nil nil [348 372])
+            ("util.h" include nil nil [373 390])
+            ("world.h" include nil nil [391 409])
+            ("MAX_CHUNKS" variable (:constant-flag t) nil [419 429])
+            ("MAX_PLAYERS" variable (:constant-flag t) nil [443 454])
+            ("WORKERS" variable (:constant-flag t) nil [467 474])
+            ("MAX_TEXT_LENGTH" variable (:constant-flag t) nil [485 500])
+            ("MAX_NAME_LENGTH" variable (:constant-flag t) nil [513 528])
+            ("MAX_PATH_LENGTH" variable (:constant-flag t) nil [540 555])
+            ("MAX_ADDR_LENGTH" variable (:constant-flag t) nil [568 583])
+            ("ALIGN_LEFT" variable (:constant-flag t) nil [597 607])
+            ("ALIGN_CENTER" variable (:constant-flag t) nil [618 630])
+            ("ALIGN_RIGHT" variable (:constant-flag t) nil [641 652])
+            ("MODE_OFFLINE" variable (:constant-flag t) nil [664 676])
+            ("MODE_ONLINE" variable (:constant-flag t) nil [687 698])
+            ("WORKER_IDLE" variable (:constant-flag t) nil [710 721])
+            ("WORKER_BUSY" variable (:constant-flag t) nil [732 743])
+            ("WORKER_DONE" variable (:constant-flag t) nil [754 765])
+            ("Chunk" type
+               (:typedef ("" type
+                     (:members 
+                        ( ("map" variable (:type ("Map" type (:type "class") nil nil)) (reparse-symbol classsubparts) [790 798])
+                          ("lights" variable (:type ("Map" type (:type "class") nil nil)) (reparse-symbol classsubparts) [803 814])
+                          ("signs" variable (:type ("SignList" type (:type "class") nil nil)) (reparse-symbol classsubparts) [819 834])
+                          ("p" variable (:type "int") (reparse-symbol classsubparts) [839 845])
+                          ("q" variable (:type "int") (reparse-symbol classsubparts) [850 856])
+                          ("faces" variable (:type "int") (reparse-symbol classsubparts) [861 871])
+                          ("sign_faces" variable (:type "int") (reparse-symbol classsubparts) [876 891])
+                          ("dirty" variable (:type "int") (reparse-symbol classsubparts) [896 906])
+                          ("miny" variable (:type "int") (reparse-symbol classsubparts) [911 920])
+                          ("maxy" variable (:type "int") (reparse-symbol classsubparts) [925 934])
+                          ("buffer" variable (:type ("GLuint" type (:type "class") nil nil)) (reparse-symbol classsubparts) [939 953])
+                          ("sign_buffer" variable (:type ("GLuint" type (:type "class") nil nil)) (reparse-symbol classsubparts) [958 977]))                        
+                      :type "struct")
+                      nil nil)
+                :type "typedef")
+                nil [769 986])
+            ("WorkerItem" type
+               (:typedef ("" type
+                     (:members 
+                        ( ("p" variable (:type "int") (reparse-symbol classsubparts) [1009 1015])
+                          ("q" variable (:type "int") (reparse-symbol classsubparts) [1020 1026])
+                          ("load" variable (:type "int") (reparse-symbol classsubparts) [1031 1040])
+                          ("block_maps" variable
+                             (:pointer 1
+                              :dereference 2
+                              :type ("Map" type (:type "class") nil nil))
+                              (reparse-symbol classsubparts) [1045 1067])
+                          ("light_maps" variable
+                             (:pointer 1
+                              :dereference 2
+                              :type ("Map" type (:type "class") nil nil))
+                              (reparse-symbol classsubparts) [1072 1094])
+                          ("miny" variable (:type "int") (reparse-symbol classsubparts) [1099 1108])
+                          ("maxy" variable (:type "int") (reparse-symbol classsubparts) [1113 1122])
+                          ("faces" variable (:type "int") (reparse-symbol classsubparts) [1127 1137])
+                          ("data" variable
+                             (:pointer 1
+                              :type ("GLfloat" type (:type "class") nil nil))
+                              (reparse-symbol classsubparts) [1142 1156]))                        
+                      :type "struct")
+                      nil nil)
+                :type "typedef")
+                nil [988 1170])
+            ("Worker" type
+               (:typedef ("" type
+                     (:members 
+                        ( ("index" variable (:type "int") (reparse-symbol classsubparts) [1193 1203])
+                          ("state" variable (:type "int") (reparse-symbol classsubparts) [1208 1218])
+                          ("thrd" variable (:type ("thrd_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [1223 1235])
+                          ("mtx" variable (:type ("mtx_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [1240 1250])
+                          ("cnd" variable (:type ("cnd_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [1255 1265])
+                          ("item" variable (:type ("WorkerItem" type (:type "class") nil nil)) (reparse-symbol classsubparts) [1270 1286]))                        
+                      :type "struct")
+                      nil nil)
+                :type "typedef")
+                nil [1172 1296])
+            ("Block" type
+               (:typedef ("" type
+                     (:members 
+                        ( ("x" variable (:type "int") (reparse-symbol classsubparts) [1319 1325])
+                          ("y" variable (:type "int") (reparse-symbol classsubparts) [1330 1336])
+                          ("z" variable (:type "int") (reparse-symbol classsubparts) [1341 1347])
+                          ("w" variable (:type "int") (reparse-symbol classsubparts) [1352 1358]))                        
+                      :type "struct")
+                      nil nil)
+                :type "typedef")
+                nil [1298 1367])
+            ("State" type
+               (:typedef ("" type
+                     (:members 
+                        ( ("x" variable (:type "float") (reparse-symbol classsubparts) [1390 1398])
+                          ("y" variable (:type "float") (reparse-symbol classsubparts) [1403 1411])
+                          ("z" variable (:type "float") (reparse-symbol classsubparts) [1416 1424])
+                          ("rx" variable (:type "float") (reparse-symbol classsubparts) [1429 1438])
+                          ("ry" variable (:type "float") (reparse-symbol classsubparts) [1443 1452])
+                          ("t" variable (:type "float") (reparse-symbol classsubparts) [1457 1465]))                        
+                      :type "struct")
+                      nil nil)
+                :type "typedef")
+                nil [1369 1474])
+            ("Player" type
+               (:typedef ("" type
+                     (:members 
+                        ( ("id" variable (:type "int") (reparse-symbol classsubparts) [1497 1504])
+                          ("name" variable
+                             (:dereference 1
+                              :type "char")
+                              (reparse-symbol classsubparts) [1509 1536])
+                          ("state" variable (:type ("State" type (:type "class") nil nil)) (reparse-symbol classsubparts) [1541 1553])
+                          ("state1" variable (:type ("State" type (:type "class") nil nil)) (reparse-symbol classsubparts) [1558 1571])
+                          ("state2" variable (:type ("State" type (:type "class") nil nil)) (reparse-symbol classsubparts) [1576 1589])
+                          ("buffer" variable (:type ("GLuint" type (:type "class") nil nil)) (reparse-symbol classsubparts) [1594 1608]))                        
+                      :type "struct")
+                      nil nil)
+                :type "typedef")
+                nil [1476 1618])
+            ("Attrib" type
+               (:typedef ("" type
+                     (:members 
+                        ( ("program" variable (:type ("GLuint" type (:type "class") nil nil)) (reparse-symbol classsubparts) [1641 1656])
+                          ("position" variable (:type ("GLuint" type (:type "class") nil nil)) (reparse-symbol classsubparts) [1661 1677])
+                          ("normal" variable (:type ("GLuint" type (:type "class") nil nil)) (reparse-symbol classsubparts) [1682 1696])
+                          ("uv" variable (:type ("GLuint" type (:type "class") nil nil)) (reparse-symbol classsubparts) [1701 1711])
+                          ("matrix" variable (:type ("GLuint" type (:type "class") nil nil)) (reparse-symbol classsubparts) [1716 1730])
+                          ("sampler" variable (:type ("GLuint" type (:type "class") nil nil)) (reparse-symbol classsubparts) [1735 1750])
+                          ("camera" variable (:type ("GLuint" type (:type "class") nil nil)) (reparse-symbol classsubparts) [1755 1769])
+                          ("timer" variable (:type ("GLuint" type (:type "class") nil nil)) (reparse-symbol classsubparts) [1774 1787])
+                          ("extra1" variable (:type ("GLuint" type (:type "class") nil nil)) (reparse-symbol classsubparts) [1792 1806])
+                          ("extra2" variable (:type ("GLuint" type (:type "class") nil nil)) (reparse-symbol classsubparts) [1811 1825])
+                          ("extra3" variable (:type ("GLuint" type (:type "class") nil nil)) (reparse-symbol classsubparts) [1830 1844])
+                          ("extra4" variable (:type ("GLuint" type (:type "class") nil nil)) (reparse-symbol classsubparts) [1849 1863]))                        
+                      :type "struct")
+                      nil nil)
+                :type "typedef")
+                nil [1620 1873])
+            ("Model" type
+               (:typedef ("" type
+                     (:members 
+                        ( ("window" variable
+                             (:pointer 1
+                              :type ("GLFWwindow" type (:type "class") nil nil))
+                              (reparse-symbol classsubparts) [1896 1915])
+                          ("workers" variable
+                             (:dereference 1
+                              :type ("Worker" type (:type "class") nil nil))
+                              (reparse-symbol classsubparts) [1920 1944])
+                          ("chunks" variable
+                             (:dereference 1
+                              :type ("Chunk" type (:type "class") nil nil))
+                              (reparse-symbol classsubparts) [1949 1974])
+                          ("chunk_count" variable (:type "int") (reparse-symbol classsubparts) [1979 1995])
+                          ("create_radius" variable (:type "int") (reparse-symbol classsubparts) [2000 2018])
+                          ("render_radius" variable (:type "int") (reparse-symbol classsubparts) [2023 2041])
+                          ("delete_radius" variable (:type "int") (reparse-symbol classsubparts) [2046 2064])
+                          ("sign_radius" variable (:type "int") (reparse-symbol classsubparts) [2069 2085])
+                          ("players" variable
+                             (:dereference 1
+                              :type ("Player" type (:type "class") nil nil))
+                              (reparse-symbol classsubparts) [2090 2118])
+                          ("player_count" variable (:type "int") (reparse-symbol classsubparts) [2123 2140])
+                          ("typing" variable (:type "int") (reparse-symbol classsubparts) [2145 2156])
+                          ("typing_buffer" variable
+                             (:dereference 1
+                              :type "char")
+                              (reparse-symbol classsubparts) [2161 2197])
+                          ("message_index" variable (:type "int") (reparse-symbol classsubparts) [2202 2220])
+                          ("messages" variable
+                             (:dereference 2
+                              :type "char")
+                              (reparse-symbol classsubparts) [2225 2270])
+                          ("width" variable (:type "int") (reparse-symbol classsubparts) [2275 2285])
+                          ("height" variable (:type "int") (reparse-symbol classsubparts) [2290 2301])
+                          ("observe1" variable (:type "int") (reparse-symbol classsubparts) [2306 2319])
+                          ("observe2" variable (:type "int") (reparse-symbol classsubparts) [2324 2337])
+                          ("flying" variable (:type "int") (reparse-symbol classsubparts) [2342 2353])
+                          ("item_index" variable (:type "int") (reparse-symbol classsubparts) [2358 2373])
+                          ("scale" variable (:type "int") (reparse-symbol classsubparts) [2378 2388])
+                          ("ortho" variable (:type "int") (reparse-symbol classsubparts) [2393 2403])
+                          ("fov" variable (:type "float") (reparse-symbol classsubparts) [2408 2418])
+                          ("suppress_char" variable (:type "int") (reparse-symbol classsubparts) [2423 2441])
+                          ("mode" variable (:type "int") (reparse-symbol classsubparts) [2446 2455])
+                          ("mode_changed" variable (:type "int") (reparse-symbol classsubparts) [2460 2477])
+                          ("db_path" variable
+                             (:dereference 1
+                              :type "char")
+                              (reparse-symbol classsubparts) [2482 2512])
+                          ("server_addr" variable
+                             (:dereference 1
+                              :type "char")
+                              (reparse-symbol classsubparts) [2517 2551])
+                          ("server_port" variable (:type "int") (reparse-symbol classsubparts) [2556 2572])
+                          ("day_length" variable (:type "int") (reparse-symbol classsubparts) [2577 2592])
+                          ("time_changed" variable (:type "int") (reparse-symbol classsubparts) [2597 2614])
+                          ("block0" variable (:type ("Block" type (:type "class") nil nil)) (reparse-symbol classsubparts) [2619 2632])
+                          ("block1" variable (:type ("Block" type (:type "class") nil nil)) (reparse-symbol classsubparts) [2637 2650])
+                          ("copy0" variable (:type ("Block" type (:type "class") nil nil)) (reparse-symbol classsubparts) [2655 2667])
+                          ("copy1" variable (:type ("Block" type (:type "class") nil nil)) (reparse-symbol classsubparts) [2672 2684]))                        
+                      :type "struct")
+                      nil nil)
+                :type "typedef")
+                nil [1875 2693])
+            ("model" variable
+               (:typemodifiers ("static")
+                :type ("Model" type (:type "class") nil nil))
+                nil [2695 2714])
+            ("g" variable
+               (:pointer 1
+                :typemodifiers ("static")
+                :type ("Model" type (:type "class") nil nil))
+                nil [2715 2740])
+            ("chunked" function
+               (:arguments 
+                  ( ("x" variable (:type "float") (reparse-symbol arg-sub-list) [2754 2762]))                  
+                :type "int")
+                nil [2742 2809])
+            ("time_of_day" function (:type "float") nil [2811 2987])
+            ("get_daylight" function (:type "float") nil [2989 3252])
+            ("get_scale_factor" function (:type "int") nil [3254 3612])
+            ("get_sight_vector" function
+               (:arguments 
+                  ( ("rx" variable (:type "float") (reparse-symbol arg-sub-list) [3636 3645])
+                    ("ry" variable (:type "float") (reparse-symbol arg-sub-list) [3646 3655])
+                    ("vx" variable
+                       (:pointer 1
+                        :type "float")
+                        (reparse-symbol arg-sub-list) [3656 3666])
+                    ("vy" variable
+                       (:pointer 1
+                        :type "float")
+                        (reparse-symbol arg-sub-list) [3667 3677])
+                    ("vz" variable
+                       (:pointer 1
+                        :type "float")
+                        (reparse-symbol arg-sub-list) [3678 3688]))                  
+                :type "void")
+                nil [3614 3812])
+            ("get_motion_vector" function
+               (:arguments 
+                  ( ("flying" variable (:type "int") (reparse-symbol arg-sub-list) [3837 3848])
+                    ("sz" variable (:type "int") (reparse-symbol arg-sub-list) [3849 3856])
+                    ("sx" variable (:type "int") (reparse-symbol arg-sub-list) [3857 3864])
+                    ("rx" variable (:type "float") (reparse-symbol arg-sub-list) [3865 3874])
+                    ("ry" variable (:type "float") (reparse-symbol arg-sub-list) [3875 3884])
+                    ("vx" variable
+                       (:pointer 1
+                        :type "float")
+                        (reparse-symbol arg-sub-list) [3889 3899])
+                    ("vy" variable
+                       (:pointer 1
+                        :type "float")
+                        (reparse-symbol arg-sub-list) [3900 3910])
+                    ("vz" variable
+                       (:pointer 1
+                        :type "float")
+                        (reparse-symbol arg-sub-list) [3911 3921]))                  
+                :type "void")
+                nil [3814 4465])
+            ("gen_crosshair_buffer" function (:type ("GLuint" type (:type "class") nil nil)) nil [4467 4706])
+            ("gen_wireframe_buffer" function
+               (:arguments 
+                  ( ("x" variable (:type "float") (reparse-symbol arg-sub-list) [4736 4744])
+                    ("y" variable (:type "float") (reparse-symbol arg-sub-list) [4745 4753])
+                    ("z" variable (:type "float") (reparse-symbol arg-sub-list) [4754 4762])
+                    ("n" variable (:type "float") (reparse-symbol arg-sub-list) [4763 4771]))                  
+                :type ("GLuint" type (:type "class") nil nil))
+                nil [4708 4881])
+            ("gen_sky_buffer" function (:type ("GLuint" type (:type "class") nil nil)) nil [4883 5005])
+            ("gen_cube_buffer" function
+               (:arguments 
+                  ( ("x" variable (:type "float") (reparse-symbol arg-sub-list) [5030 5038])
+                    ("y" variable (:type "float") (reparse-symbol arg-sub-list) [5039 5047])
+                    ("z" variable (:type "float") (reparse-symbol arg-sub-list) [5048 5056])
+                    ("n" variable (:type "float") (reparse-symbol arg-sub-list) [5057 5065])
+                    ("w" variable (:type "int") (reparse-symbol arg-sub-list) [5066 5072]))                  
+                :type ("GLuint" type (:type "class") nil nil))
+                nil [5007 5455])
+            ("gen_plant_buffer" function
+               (:arguments 
+                  ( ("x" variable (:type "float") (reparse-symbol arg-sub-list) [5481 5489])
+                    ("y" variable (:type "float") (reparse-symbol arg-sub-list) [5490 5498])
+                    ("z" variable (:type "float") (reparse-symbol arg-sub-list) [5499 5507])
+                    ("n" variable (:type "float") (reparse-symbol arg-sub-list) [5508 5516])
+                    ("w" variable (:type "int") (reparse-symbol arg-sub-list) [5517 5523]))                  
+                :type ("GLuint" type (:type "class") nil nil))
+                nil [5457 5694])
+            ("gen_player_buffer" function
+               (:arguments 
+                  ( ("x" variable (:type "float") (reparse-symbol arg-sub-list) [5721 5729])
+                    ("y" variable (:type "float") (reparse-symbol arg-sub-list) [5730 5738])
+                    ("z" variable (:type "float") (reparse-symbol arg-sub-list) [5739 5747])
+                    ("rx" variable (:type "float") (reparse-symbol arg-sub-list) [5748 5757])
+                    ("ry" variable (:type "float") (reparse-symbol arg-sub-list) [5758 5767]))                  
+                :type ("GLuint" type (:type "class") nil nil))
+                nil [5696 5887])
+            ("gen_text_buffer" function
+               (:arguments 
+                  ( ("x" variable (:type "float") (reparse-symbol arg-sub-list) [5912 5920])
+                    ("y" variable (:type "float") (reparse-symbol arg-sub-list) [5921 5929])
+                    ("n" variable (:type "float") (reparse-symbol arg-sub-list) [5930 5938])
+                    ("text" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [5939 5950]))                  
+                :type ("GLuint" type (:type "class") nil nil))
+                nil [5889 6194])
+            ("draw_triangles_3d_ao" function
+               (:arguments 
+                  ( ("attrib" variable
+                       (:pointer 1
+                        :type ("Attrib" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [6222 6237])
+                    ("buffer" variable (:type ("GLuint" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [6238 6252])
+                    ("count" variable (:type "int") (reparse-symbol arg-sub-list) [6253 6263]))                  
+                :type "void")
+                nil [6196 7026])
+            ("draw_triangles_3d_text" function
+               (:arguments 
+                  ( ("attrib" variable
+                       (:pointer 1
+                        :type ("Attrib" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [7056 7071])
+                    ("buffer" variable (:type ("GLuint" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [7072 7086])
+                    ("count" variable (:type "int") (reparse-symbol arg-sub-list) [7087 7097]))                  
+                :type "void")
+                nil [7028 7634])
+            ("draw_triangles_3d" function
+               (:arguments 
+                  ( ("attrib" variable
+                       (:pointer 1
+                        :type ("Attrib" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [7659 7674])
+                    ("buffer" variable (:type ("GLuint" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [7675 7689])
+                    ("count" variable (:type "int") (reparse-symbol arg-sub-list) [7690 7700]))                  
+                :type "void")
+                nil [7636 8460])
+            ("draw_triangles_2d" function
+               (:arguments 
+                  ( ("attrib" variable
+                       (:pointer 1
+                        :type ("Attrib" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [8485 8500])
+                    ("buffer" variable (:type ("GLuint" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [8501 8515])
+                    ("count" variable (:type "int") (reparse-symbol arg-sub-list) [8516 8526]))                  
+                :type "void")
+                nil [8462 9063])
+            ("draw_lines" function
+               (:arguments 
+                  ( ("attrib" variable
+                       (:pointer 1
+                        :type ("Attrib" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [9081 9096])
+                    ("buffer" variable (:type ("GLuint" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [9097 9111])
+                    ("components" variable (:type "int") (reparse-symbol arg-sub-list) [9112 9127])
+                    ("count" variable (:type "int") (reparse-symbol arg-sub-list) [9128 9138]))                  
+                :type "void")
+                nil [9065 9452])
+            ("draw_chunk" function
+               (:arguments 
+                  ( ("attrib" variable
+                       (:pointer 1
+                        :type ("Attrib" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [9470 9485])
+                    ("chunk" variable
+                       (:pointer 1
+                        :type ("Chunk" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [9486 9499]))                  
+                :type "void")
+                nil [9454 9570])
+            ("draw_item" function
+               (:arguments 
+                  ( ("attrib" variable
+                       (:pointer 1
+                        :type ("Attrib" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [9587 9602])
+                    ("buffer" variable (:type ("GLuint" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [9603 9617])
+                    ("count" variable (:type "int") (reparse-symbol arg-sub-list) [9618 9628]))                  
+                :type "void")
+                nil [9572 9681])
+            ("draw_text" function
+               (:arguments 
+                  ( ("attrib" variable
+                       (:pointer 1
+                        :type ("Attrib" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [9698 9713])
+                    ("buffer" variable (:type ("GLuint" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [9714 9728])
+                    ("length" variable (:type "int") (reparse-symbol arg-sub-list) [9729 9740]))                  
+                :type "void")
+                nil [9683 9899])
+            ("draw_signs" function
+               (:arguments 
+                  ( ("attrib" variable
+                       (:pointer 1
+                        :type ("Attrib" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [9917 9932])
+                    ("chunk" variable
+                       (:pointer 1
+                        :type ("Chunk" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [9933 9946]))                  
+                :type "void")
+                nil [9901 10138])
+            ("draw_sign" function
+               (:arguments 
+                  ( ("attrib" variable
+                       (:pointer 1
+                        :type ("Attrib" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [10155 10170])
+                    ("buffer" variable (:type ("GLuint" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [10171 10185])
+                    ("length" variable (:type "int") (reparse-symbol arg-sub-list) [10186 10197]))                  
+                :type "void")
+                nil [10140 10366])
+            ("draw_cube" function
+               (:arguments 
+                  ( ("attrib" variable
+                       (:pointer 1
+                        :type ("Attrib" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [10383 10398])
+                    ("buffer" variable (:type ("GLuint" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [10399 10413]))                  
+                :type "void")
+                nil [10368 10452])
+            ("draw_plant" function
+               (:arguments 
+                  ( ("attrib" variable
+                       (:pointer 1
+                        :type ("Attrib" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [10470 10485])
+                    ("buffer" variable (:type ("GLuint" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [10486 10500]))                  
+                :type "void")
+                nil [10454 10539])
+            ("draw_player" function
+               (:arguments 
+                  ( ("attrib" variable
+                       (:pointer 1
+                        :type ("Attrib" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [10558 10573])
+                    ("player" variable
+                       (:pointer 1
+                        :type ("Player" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [10574 10589]))                  
+                :type "void")
+                nil [10541 10632])
+            ("find_player" function
+               (:pointer 1
+                :arguments 
+                  ( ("id" variable (:type "int") (reparse-symbol arg-sub-list) [10654 10661]))                  
+                :type ("Player" type (:type "class") nil nil))
+                nil [10634 10843])
+            ("update_player" function
+               (:arguments 
+                  ( ("player" variable
+                       (:pointer 1
+                        :type ("Player" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [10864 10879])
+                    ("x" variable (:type "float") (reparse-symbol arg-sub-list) [10884 10892])
+                    ("y" variable (:type "float") (reparse-symbol arg-sub-list) [10893 10901])
+                    ("z" variable (:type "float") (reparse-symbol arg-sub-list) [10902 10910])
+                    ("rx" variable (:type "float") (reparse-symbol arg-sub-list) [10911 10920])
+                    ("ry" variable (:type "float") (reparse-symbol arg-sub-list) [10921 10930])
+                    ("interpolate" variable (:type "int") (reparse-symbol arg-sub-list) [10931 10947]))                  
+                :type "void")
+                nil [10845 11569])
+            ("interpolate_player" function
+               (:arguments 
+                  ( ("player" variable
+                       (:pointer 1
+                        :type ("Player" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [11595 11610]))                  
+                :type "void")
+                nil [11571 12061])
+            ("delete_player" function
+               (:arguments 
+                  ( ("id" variable (:type "int") (reparse-symbol arg-sub-list) [12082 12089]))                  
+                :type "void")
+                nil [12063 12353])
+            ("delete_all_players" function (:type "void") nil [12355 12540])
+            ("player_player_distance" function
+               (:arguments 
+                  ( ("p1" variable
+                       (:pointer 1
+                        :type ("Player" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [12571 12582])
+                    ("p2" variable
+                       (:pointer 1
+                        :type ("Player" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [12583 12594]))                  
+                :type "float")
+                nil [12542 12782])
+            ("player_crosshair_distance" function
+               (:arguments 
+                  ( ("p1" variable
+                       (:pointer 1
+                        :type ("Player" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [12816 12827])
+                    ("p2" variable
+                       (:pointer 1
+                        :type ("Player" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [12828 12839]))                  
+                :type "float")
+                nil [12784 13247])
+            ("player_crosshair" function
+               (:pointer 1
+                :arguments 
+                  ( ("player" variable
+                       (:pointer 1
+                        :type ("Player" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [13274 13289]))                  
+                :type ("Player" type (:type "class") nil nil))
+                nil [13249 13830])
+            ("find_chunk" function
+               (:pointer 1
+                :arguments 
+                  ( ("p" variable (:type "int") (reparse-symbol arg-sub-list) [13850 13856])
+                    ("q" variable (:type "int") (reparse-symbol arg-sub-list) [13857 13863]))                  
+                :type ("Chunk" type (:type "class") nil nil))
+                nil [13832 14054])
+            ("chunk_distance" function
+               (:arguments 
+                  ( ("chunk" variable
+                       (:pointer 1
+                        :type ("Chunk" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [14075 14088])
+                    ("p" variable (:type "int") (reparse-symbol arg-sub-list) [14089 14095])
+                    ("q" variable (:type "int") (reparse-symbol arg-sub-list) [14096 14102]))                  
+                :type "int")
+                nil [14056 14194])
+            ("chunk_visible" function
+               (:arguments 
+                  ( ("planes" variable
+                       (:dereference 2
+                        :type "float")
+                        (reparse-symbol arg-sub-list) [14214 14233])
+                    ("p" variable (:type "int") (reparse-symbol arg-sub-list) [14234 14240])
+                    ("q" variable (:type "int") (reparse-symbol arg-sub-list) [14241 14247])
+                    ("miny" variable (:type "int") (reparse-symbol arg-sub-list) [14248 14257])
+                    ("maxy" variable (:type "int") (reparse-symbol arg-sub-list) [14258 14267]))                  
+                :type "int")
+                nil [14196 15237])
+            ("highest_block" function
+               (:arguments 
+                  ( ("x" variable (:type "float") (reparse-symbol arg-sub-list) [15257 15265])
+                    ("z" variable (:type "float") (reparse-symbol arg-sub-list) [15266 15274]))                  
+                :type "int")
+                nil [15239 15693])
+            ("_hit_test" function
+               (:arguments 
+                  ( ("map" variable
+                       (:pointer 1
+                        :type ("Map" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [15714 15723])
+                    ("max_distance" variable (:type "float") (reparse-symbol arg-sub-list) [15724 15743])
+                    ("previous" variable (:type "int") (reparse-symbol arg-sub-list) [15744 15757])
+                    ("x" variable (:type "float") (reparse-symbol arg-sub-list) [15762 15770])
+                    ("y" variable (:type "float") (reparse-symbol arg-sub-list) [15771 15779])
+                    ("z" variable (:type "float") (reparse-symbol arg-sub-list) [15780 15788])
+                    ("vx" variable (:type "float") (reparse-symbol arg-sub-list) [15793 15802])
+                    ("vy" variable (:type "float") (reparse-symbol arg-sub-list) [15803 15812])
+                    ("vz" variable (:type "float") (reparse-symbol arg-sub-list) [15813 15822])
+                    ("hx" variable
+                       (:pointer 1
+                        :type "int")
+                        (reparse-symbol arg-sub-list) [15827 15835])
+                    ("hy" variable
+                       (:pointer 1
+                        :type "int")
+                        (reparse-symbol arg-sub-list) [15836 15844])
+                    ("hz" variable
+                       (:pointer 1
+                        :type "int")
+                        (reparse-symbol arg-sub-list) [15845 15853]))                  
+                :type "int")
+                nil [15695 16523])
+            ("hit_test" function
+               (:arguments 
+                  ( ("previous" variable (:type "int") (reparse-symbol arg-sub-list) [16543 16556])
+                    ("x" variable (:type "float") (reparse-symbol arg-sub-list) [16557 16565])
+                    ("y" variable (:type "float") (reparse-symbol arg-sub-list) [16566 16574])
+                    ("z" variable (:type "float") (reparse-symbol arg-sub-list) [16575 16583])
+                    ("rx" variable (:type "float") (reparse-symbol arg-sub-list) [16584 16593])
+                    ("ry" variable (:type "float") (reparse-symbol arg-sub-list) [16594 16603])
+                    ("bx" variable
+                       (:pointer 1
+                        :type "int")
+                        (reparse-symbol arg-sub-list) [16608 16616])
+                    ("by" variable
+                       (:pointer 1
+                        :type "int")
+                        (reparse-symbol arg-sub-list) [16617 16625])
+                    ("bz" variable
+                       (:pointer 1
+                        :type "int")
+                        (reparse-symbol arg-sub-list) [16626 16634]))                  
+                :type "int")
+                nil [16525 17395])
+            ("hit_test_face" function
+               (:arguments 
+                  ( ("player" variable
+                       (:pointer 1
+                        :type ("Player" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [17415 17430])
+                    ("x" variable
+                       (:pointer 1
+                        :type "int")
+                        (reparse-symbol arg-sub-list) [17431 17438])
+                    ("y" variable
+                       (:pointer 1
+                        :type "int")
+                        (reparse-symbol arg-sub-list) [17439 17446])
+                    ("z" variable
+                       (:pointer 1
+                        :type "int")
+                        (reparse-symbol arg-sub-list) [17447 17454])
+                    ("face" variable
+                       (:pointer 1
+                        :type "int")
+                        (reparse-symbol arg-sub-list) [17455 17465]))                  
+                :type "int")
+                nil [17397 18429])
+            ("collide" function
+               (:arguments 
+                  ( ("height" variable (:type "int") (reparse-symbol arg-sub-list) [18443 18454])
+                    ("x" variable
+                       (:pointer 1
+                        :type "float")
+                        (reparse-symbol arg-sub-list) [18455 18464])
+                    ("y" variable
+                       (:pointer 1
+                        :type "float")
+                        (reparse-symbol arg-sub-list) [18465 18474])
+                    ("z" variable
+                       (:pointer 1
+                        :type "float")
+                        (reparse-symbol arg-sub-list) [18475 18484]))                  
+                :type "int")
+                nil [18431 19623])
+            ("player_intersects_block" function
+               (:arguments 
+                  ( ("height" variable (:type "int") (reparse-symbol arg-sub-list) [19658 19669])
+                    ("x" variable (:type "float") (reparse-symbol arg-sub-list) [19674 19682])
+                    ("y" variable (:type "float") (reparse-symbol arg-sub-list) [19683 19691])
+                    ("z" variable (:type "float") (reparse-symbol arg-sub-list) [19692 19700])
+                    ("hx" variable (:type "int") (reparse-symbol arg-sub-list) [19705 19712])
+                    ("hy" variable (:type "int") (reparse-symbol arg-sub-list) [19713 19720])
+                    ("hz" variable (:type "int") (reparse-symbol arg-sub-list) [19721 19728]))                  
+                :type "int")
+                nil [19625 19947])
+            ("_gen_sign_buffer" function
+               (:arguments 
+                  ( ("data" variable
+                       (:pointer 1
+                        :type ("GLfloat" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [19975 19989])
+                    ("x" variable (:type "float") (reparse-symbol arg-sub-list) [19990 19998])
+                    ("y" variable (:type "float") (reparse-symbol arg-sub-list) [19999 20007])
+                    ("z" variable (:type "float") (reparse-symbol arg-sub-list) [20008 20016])
+                    ("face" variable (:type "int") (reparse-symbol arg-sub-list) [20017 20026])
+                    ("text" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [20027 20044]))                  
+                :type "int")
+                nil [19949 22118])
+            ("gen_sign_buffer" function
+               (:arguments 
+                  ( ("chunk" variable
+                       (:pointer 1
+                        :type ("Chunk" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [22141 22154]))                  
+                :type "void")
+                nil [22120 22794])
+            ("has_lights" function
+               (:arguments 
+                  ( ("chunk" variable
+                       (:pointer 1
+                        :type ("Chunk" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [22811 22824]))                  
+                :type "int")
+                nil [22796 23304])
+            ("dirty_chunk" function
+               (:arguments 
+                  ( ("chunk" variable
+                       (:pointer 1
+                        :type ("Chunk" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [23323 23336]))                  
+                :type "void")
+                nil [23306 23669])
+            ("occlusion" function
+               (:arguments 
+                  ( ("neighbors" variable
+                       (:dereference 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [23691 23710])
+                    ("lights" variable
+                       (:dereference 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [23711 23727])
+                    ("shades" variable
+                       (:dereference 1
+                        :type "float")
+                        (reparse-symbol arg-sub-list) [23728 23745])
+                    ("ao" variable
+                       (:dereference 2
+                        :type "float")
+                        (reparse-symbol arg-sub-list) [23750 23765])
+                    ("light" variable
+                       (:dereference 2
+                        :type "float")
+                        (reparse-symbol arg-sub-list) [23766 23784]))                  
+                :type "void")
+                nil [23671 25586])
+            ("XZ_SIZE" variable (:constant-flag t) nil [25596 25603])
+            ("XZ_LO" variable (:constant-flag t) nil [25633 25638])
+            ("XZ_HI" variable (:constant-flag t) nil [25660 25665])
+            ("Y_SIZE" variable (:constant-flag t) nil [25695 25701])
+            ("XYZ" variable (:constant-flag t) nil [25714 25717])
+            ("XZ" variable (:constant-flag t) nil [25783 25785])
+            ("light_fill" function
+               (:arguments 
+                  ( ("opaque" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [25836 25849])
+                    ("light" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [25850 25862])
+                    ("x" variable (:type "int") (reparse-symbol arg-sub-list) [25867 25873])
+                    ("y" variable (:type "int") (reparse-symbol arg-sub-list) [25874 25880])
+                    ("z" variable (:type "int") (reparse-symbol arg-sub-list) [25881 25887])
+                    ("w" variable (:type "int") (reparse-symbol arg-sub-list) [25888 25894])
+                    ("force" variable (:type "int") (reparse-symbol arg-sub-list) [25895 25905]))                  
+                :type "void")
+                nil [25815 26544])
+            ("compute_chunk" function
+               (:arguments 
+                  ( ("item" variable
+                       (:pointer 1
+                        :type ("WorkerItem" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [26565 26582]))                  
+                :type "void")
+                nil [26546 32140])
+            ("generate_chunk" function
+               (:arguments 
+                  ( ("chunk" variable
+                       (:pointer 1
+                        :type ("Chunk" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [32162 32175])
+                    ("item" variable
+                       (:pointer 1
+                        :type ("WorkerItem" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [32176 32193]))                  
+                :type "void")
+                nil [32142 32408])
+            ("gen_chunk_buffer" function
+               (:arguments 
+                  ( ("chunk" variable
+                       (:pointer 1
+                        :type ("Chunk" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [32432 32445]))                  
+                :type "void")
+                nil [32410 33181])
+            ("map_set_func" function
+               (:arguments 
+                  ( ("x" variable (:type "int") (reparse-symbol arg-sub-list) [33201 33207])
+                    ("y" variable (:type "int") (reparse-symbol arg-sub-list) [33208 33214])
+                    ("z" variable (:type "int") (reparse-symbol arg-sub-list) [33215 33221])
+                    ("w" variable (:type "int") (reparse-symbol arg-sub-list) [33222 33228])
+                    ("arg" variable
+                       (:pointer 1
+                        :type "void")
+                        (reparse-symbol arg-sub-list) [33229 33239]))                  
+                :type "void")
+                nil [33183 33300])
+            ("load_chunk" function
+               (:arguments 
+                  ( ("item" variable
+                       (:pointer 1
+                        :type ("WorkerItem" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [33318 33335]))                  
+                :type "void")
+                nil [33302 33594])
+            ("request_chunk" function
+               (:arguments 
+                  ( ("p" variable (:type "int") (reparse-symbol arg-sub-list) [33615 33621])
+                    ("q" variable (:type "int") (reparse-symbol arg-sub-list) [33622 33628]))                  
+                :type "void")
+                nil [33596 33693])
+            ("init_chunk" function
+               (:arguments 
+                  ( ("chunk" variable
+                       (:pointer 1
+                        :type ("Chunk" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [33711 33724])
+                    ("p" variable (:type "int") (reparse-symbol arg-sub-list) [33725 33731])
+                    ("q" variable (:type "int") (reparse-symbol arg-sub-list) [33732 33738]))                  
+                :type "void")
+                nil [33695 34245])
+            ("create_chunk" function
+               (:arguments 
+                  ( ("chunk" variable
+                       (:pointer 1
+                        :type ("Chunk" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [34265 34278])
+                    ("p" variable (:type "int") (reparse-symbol arg-sub-list) [34279 34285])
+                    ("q" variable (:type "int") (reparse-symbol arg-sub-list) [34286 34292]))                  
+                :type "void")
+                nil [34247 34562])
+            ("delete_chunks" function (:type "void") nil [34564 35544])
+            ("delete_all_chunks" function (:type "void") nil [35546 35868])
+            ("check_workers" function (:type "void") nil [35870 37288])
+            ("force_chunks" function
+               (:arguments 
+                  ( ("player" variable
+                       (:pointer 1
+                        :type ("Player" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [37308 37323]))                  
+                :type "void")
+                nil [37290 37968])
+            ("ensure_chunks_worker" function
+               (:arguments 
+                  ( ("player" variable
+                       (:pointer 1
+                        :type ("Player" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [37996 38011])
+                    ("worker" variable
+                       (:pointer 1
+                        :type ("Worker" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [38012 38027]))                  
+                :type "void")
+                nil [37970 40675])
+            ("ensure_chunks" function
+               (:arguments 
+                  ( ("player" variable
+                       (:pointer 1
+                        :type ("Player" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [40696 40711]))                  
+                :type "void")
+                nil [40677 41019])
+            ("worker_run" function
+               (:arguments 
+                  ( ("arg" variable
+                       (:pointer 1
+                        :type "void")
+                        (reparse-symbol arg-sub-list) [41036 41046]))                  
+                :type "int")
+                nil [41021 41562])
+            ("unset_sign" function
+               (:arguments 
+                  ( ("x" variable (:type "int") (reparse-symbol arg-sub-list) [41580 41586])
+                    ("y" variable (:type "int") (reparse-symbol arg-sub-list) [41587 41593])
+                    ("z" variable (:type "int") (reparse-symbol arg-sub-list) [41594 41600]))                  
+                :type "void")
+                nil [41564 41934])
+            ("unset_sign_face" function
+               (:arguments 
+                  ( ("x" variable (:type "int") (reparse-symbol arg-sub-list) [41957 41963])
+                    ("y" variable (:type "int") (reparse-symbol arg-sub-list) [41964 41970])
+                    ("z" variable (:type "int") (reparse-symbol arg-sub-list) [41971 41977])
+                    ("face" variable (:type "int") (reparse-symbol arg-sub-list) [41978 41987]))                  
+                :type "void")
+                nil [41936 42333])
+            ("_set_sign" function
+               (:arguments 
+                  ( ("p" variable (:type "int") (reparse-symbol arg-sub-list) [42355 42361])
+                    ("q" variable (:type "int") (reparse-symbol arg-sub-list) [42362 42368])
+                    ("x" variable (:type "int") (reparse-symbol arg-sub-list) [42369 42375])
+                    ("y" variable (:type "int") (reparse-symbol arg-sub-list) [42376 42382])
+                    ("z" variable (:type "int") (reparse-symbol arg-sub-list) [42383 42389])
+                    ("face" variable (:type "int") (reparse-symbol arg-sub-list) [42390 42399])
+                    ("text" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [42400 42417])
+                    ("dirty" variable (:type "int") (reparse-symbol arg-sub-list) [42418 42428]))                  
+                :type "void")
+                nil [42335 42783])
+            ("set_sign" function
+               (:arguments 
+                  ( ("x" variable (:type "int") (reparse-symbol arg-sub-list) [42799 42805])
+                    ("y" variable (:type "int") (reparse-symbol arg-sub-list) [42806 42812])
+                    ("z" variable (:type "int") (reparse-symbol arg-sub-list) [42813 42819])
+                    ("face" variable (:type "int") (reparse-symbol arg-sub-list) [42820 42829])
+                    ("text" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [42830 42847]))                  
+                :type "void")
+                nil [42785 42982])
+            ("toggle_light" function
+               (:arguments 
+                  ( ("x" variable (:type "int") (reparse-symbol arg-sub-list) [43002 43008])
+                    ("y" variable (:type "int") (reparse-symbol arg-sub-list) [43009 43015])
+                    ("z" variable (:type "int") (reparse-symbol arg-sub-list) [43016 43022]))                  
+                :type "void")
+                nil [42984 43356])
+            ("set_light" function
+               (:arguments 
+                  ( ("p" variable (:type "int") (reparse-symbol arg-sub-list) [43373 43379])
+                    ("q" variable (:type "int") (reparse-symbol arg-sub-list) [43380 43386])
+                    ("x" variable (:type "int") (reparse-symbol arg-sub-list) [43387 43393])
+                    ("y" variable (:type "int") (reparse-symbol arg-sub-list) [43394 43400])
+                    ("z" variable (:type "int") (reparse-symbol arg-sub-list) [43401 43407])
+                    ("w" variable (:type "int") (reparse-symbol arg-sub-list) [43408 43414]))                  
+                :type "void")
+                nil [43358 43702])
+            ("_set_block" function
+               (:arguments 
+                  ( ("p" variable (:type "int") (reparse-symbol arg-sub-list) [43720 43726])
+                    ("q" variable (:type "int") (reparse-symbol arg-sub-list) [43727 43733])
+                    ("x" variable (:type "int") (reparse-symbol arg-sub-list) [43734 43740])
+                    ("y" variable (:type "int") (reparse-symbol arg-sub-list) [43741 43747])
+                    ("z" variable (:type "int") (reparse-symbol arg-sub-list) [43748 43754])
+                    ("w" variable (:type "int") (reparse-symbol arg-sub-list) [43755 43761])
+                    ("dirty" variable (:type "int") (reparse-symbol arg-sub-list) [43762 43772]))                  
+                :type "void")
+                nil [43704 44228])
+            ("set_block" function
+               (:arguments 
+                  ( ("x" variable (:type "int") (reparse-symbol arg-sub-list) [44245 44251])
+                    ("y" variable (:type "int") (reparse-symbol arg-sub-list) [44252 44258])
+                    ("z" variable (:type "int") (reparse-symbol arg-sub-list) [44259 44265])
+                    ("w" variable (:type "int") (reparse-symbol arg-sub-list) [44266 44272]))                  
+                :type "void")
+                nil [44230 44795])
+            ("record_block" function
+               (:arguments 
+                  ( ("x" variable (:type "int") (reparse-symbol arg-sub-list) [44815 44821])
+                    ("y" variable (:type "int") (reparse-symbol arg-sub-list) [44822 44828])
+                    ("z" variable (:type "int") (reparse-symbol arg-sub-list) [44829 44835])
+                    ("w" variable (:type "int") (reparse-symbol arg-sub-list) [44836 44842]))                  
+                :type "void")
+                nil [44797 44981])
+            ("get_block" function
+               (:arguments 
+                  ( ("x" variable (:type "int") (reparse-symbol arg-sub-list) [44997 45003])
+                    ("y" variable (:type "int") (reparse-symbol arg-sub-list) [45004 45010])
+                    ("z" variable (:type "int") (reparse-symbol arg-sub-list) [45011 45017]))                  
+                :type "int")
+                nil [44983 45213])
+            ("builder_block" function
+               (:arguments 
+                  ( ("x" variable (:type "int") (reparse-symbol arg-sub-list) [45234 45240])
+                    ("y" variable (:type "int") (reparse-symbol arg-sub-list) [45241 45247])
+                    ("z" variable (:type "int") (reparse-symbol arg-sub-list) [45248 45254])
+                    ("w" variable (:type "int") (reparse-symbol arg-sub-list) [45255 45261]))                  
+                :type "void")
+                nil [45215 45451])
+            ("render_chunks" function
+               (:arguments 
+                  ( ("attrib" variable
+                       (:pointer 1
+                        :type ("Attrib" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [45471 45486])
+                    ("player" variable
+                       (:pointer 1
+                        :type ("Player" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [45487 45502]))                  
+                :type "int")
+                nil [45453 46727])
+            ("render_signs" function
+               (:arguments 
+                  ( ("attrib" variable
+                       (:pointer 1
+                        :type ("Attrib" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [46747 46762])
+                    ("player" variable
+                       (:pointer 1
+                        :type ("Player" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [46763 46778]))                  
+                :type "void")
+                nil [46729 47624])
+            ("render_sign" function
+               (:arguments 
+                  ( ("attrib" variable
+                       (:pointer 1
+                        :type ("Attrib" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [47643 47658])
+                    ("player" variable
+                       (:pointer 1
+                        :type ("Player" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [47659 47674]))                  
+                :type "void")
+                nil [47626 48568])
+            ("render_players" function
+               (:arguments 
+                  ( ("attrib" variable
+                       (:pointer 1
+                        :type ("Attrib" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [48590 48605])
+                    ("player" variable
+                       (:pointer 1
+                        :type ("Player" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [48606 48621]))                  
+                :type "void")
+                nil [48570 49217])
+            ("render_sky" function
+               (:arguments 
+                  ( ("attrib" variable
+                       (:pointer 1
+                        :type ("Attrib" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [49235 49250])
+                    ("player" variable
+                       (:pointer 1
+                        :type ("Player" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [49251 49266])
+                    ("buffer" variable (:type ("GLuint" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [49267 49281]))                  
+                :type "void")
+                nil [49219 49683])
+            ("render_wireframe" function
+               (:arguments 
+                  ( ("attrib" variable
+                       (:pointer 1
+                        :type ("Attrib" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [49707 49722])
+                    ("player" variable
+                       (:pointer 1
+                        :type ("Player" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [49723 49738]))                  
+                :type "void")
+                nil [49685 50422])
+            ("render_crosshairs" function
+               (:arguments 
+                  ( ("attrib" variable
+                       (:pointer 1
+                        :type ("Attrib" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [50447 50462]))                  
+                :type "void")
+                nil [50424 50866])
+            ("render_item" function
+               (:arguments 
+                  ( ("attrib" variable
+                       (:pointer 1
+                        :type ("Attrib" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [50885 50900]))                  
+                :type "void")
+                nil [50868 51532])
+            ("render_text" function
+               (:arguments 
+                  ( ("attrib" variable
+                       (:pointer 1
+                        :type ("Attrib" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [51556 51571])
+                    ("justify" variable (:type "int") (reparse-symbol arg-sub-list) [51572 51584])
+                    ("x" variable (:type "float") (reparse-symbol arg-sub-list) [51585 51593])
+                    ("y" variable (:type "float") (reparse-symbol arg-sub-list) [51594 51602])
+                    ("n" variable (:type "float") (reparse-symbol arg-sub-list) [51603 51611])
+                    ("text" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [51612 51623]))                  
+                :type "void")
+                nil [51534 52053])
+            ("add_message" function
+               (:arguments 
+                  ( ("text" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [52072 52089]))                  
+                :type "void")
+                nil [52055 52264])
+            ("login" function (:type "void") nil [52266 52980])
+            ("copy" function (:type "void") nil [52982 53097])
+            ("paste" function (:type "void") nil [53099 53757])
+            ("array" function
+               (:arguments 
+                  ( ("b1" variable
+                       (:pointer 1
+                        :type ("Block" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [53770 53780])
+                    ("b2" variable
+                       (:pointer 1
+                        :type ("Block" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [53781 53791])
+                    ("xc" variable (:type "int") (reparse-symbol arg-sub-list) [53792 53799])
+                    ("yc" variable (:type "int") (reparse-symbol arg-sub-list) [53800 53807])
+                    ("zc" variable (:type "int") (reparse-symbol arg-sub-list) [53808 53815]))                  
+                :type "void")
+                nil [53759 54334])
+            ("cube" function
+               (:arguments 
+                  ( ("b1" variable
+                       (:pointer 1
+                        :type ("Block" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [54346 54356])
+                    ("b2" variable
+                       (:pointer 1
+                        :type ("Block" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [54357 54367])
+                    ("fill" variable (:type "int") (reparse-symbol arg-sub-list) [54368 54377]))                  
+                :type "void")
+                nil [54336 55189])
+            ("sphere" function
+               (:arguments 
+                  ( ("center" variable
+                       (:pointer 1
+                        :type ("Block" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [55203 55217])
+                    ("radius" variable (:type "int") (reparse-symbol arg-sub-list) [55218 55229])
+                    ("fill" variable (:type "int") (reparse-symbol arg-sub-list) [55230 55239])
+                    ("fx" variable (:type "int") (reparse-symbol arg-sub-list) [55240 55247])
+                    ("fy" variable (:type "int") (reparse-symbol arg-sub-list) [55248 55255])
+                    ("fz" variable (:type "int") (reparse-symbol arg-sub-list) [55256 55263]))                  
+                :type "void")
+                nil [55191 56698])
+            ("cylinder" function
+               (:arguments 
+                  ( ("b1" variable
+                       (:pointer 1
+                        :type ("Block" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [56714 56724])
+                    ("b2" variable
+                       (:pointer 1
+                        :type ("Block" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [56725 56735])
+                    ("radius" variable (:type "int") (reparse-symbol arg-sub-list) [56736 56747])
+                    ("fill" variable (:type "int") (reparse-symbol arg-sub-list) [56748 56757]))                  
+                :type "void")
+                nil [56700 57616])
+            ("tree" function
+               (:arguments 
+                  ( ("block" variable
+                       (:pointer 1
+                        :type ("Block" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [57628 57641]))                  
+                :type "void")
+                nil [57618 58167])
+            ("parse_command" function
+               (:arguments 
+                  ( ("buffer" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [58188 58207])
+                    ("forward" variable (:type "int") (reparse-symbol arg-sub-list) [58208 58220]))                  
+                :type "void")
+                nil [58169 61874])
+            ("on_light" function (:type "void") nil [61876 62116])
+            ("on_left_click" function (:type "void") nil [62118 62503])
+            ("on_right_click" function (:type "void") nil [62505 62913])
+            ("on_middle_click" function (:type "void") nil [62915 63208])
+            ("on_key" function
+               (:arguments 
+                  ( ("window" variable
+                       (:pointer 1
+                        :type ("GLFWwindow" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [63222 63241])
+                    ("key" variable (:type "int") (reparse-symbol arg-sub-list) [63242 63250])
+                    ("scancode" variable (:type "int") (reparse-symbol arg-sub-list) [63251 63264])
+                    ("action" variable (:type "int") (reparse-symbol arg-sub-list) [63265 63276])
+                    ("mods" variable (:type "int") (reparse-symbol arg-sub-list) [63277 63286]))                  
+                :type "void")
+                nil [63210 66235])
+            ("on_char" function
+               (:arguments 
+                  ( ("window" variable
+                       (:pointer 1
+                        :type ("GLFWwindow" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [66250 66269])
+                    ("u" variable (:type "unsigned int") (reparse-symbol arg-sub-list) [66270 66285]))                  
+                :type "void")
+                nil [66237 67107])
+            ("on_scroll" function
+               (:arguments 
+                  ( ("window" variable
+                       (:pointer 1
+                        :type ("GLFWwindow" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [67124 67143])
+                    ("xdelta" variable (:type "double") (reparse-symbol arg-sub-list) [67144 67158])
+                    ("ydelta" variable (:type "double") (reparse-symbol arg-sub-list) [67159 67173]))                  
+                :type "void")
+                nil [67109 67514])
+            ("on_mouse_button" function
+               (:arguments 
+                  ( ("window" variable
+                       (:pointer 1
+                        :type ("GLFWwindow" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [67537 67556])
+                    ("button" variable (:type "int") (reparse-symbol arg-sub-list) [67557 67568])
+                    ("action" variable (:type "int") (reparse-symbol arg-sub-list) [67569 67580])
+                    ("mods" variable (:type "int") (reparse-symbol arg-sub-list) [67581 67590]))                  
+                :type "void")
+                nil [67516 68465])
+            ("create_window" function (:type "void") nil [68467 68973])
+            ("handle_mouse_input" function (:type "void") nil [68975 69821])
+            ("handle_movement" function
+               (:arguments 
+                  ( ("dt" variable (:type "double") (reparse-symbol arg-sub-list) [69844 69854]))                  
+                :type "void")
+                nil [69823 71667])
+            ("parse_buffer" function
+               (:arguments 
+                  ( ("buffer" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [71687 71700]))                  
+                :type "void")
+                nil [71669 74989])
+            ("reset_model" function (:type "void") nil [74991 75537])
+            ("main" function
+               (:arguments 
+                  ( ("argc" variable (:type "int") (reparse-symbol arg-sub-list) [75548 75557])
+                    ("argv" variable
+                       (:pointer 2
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [75558 75570]))                  
+                :type "int")
+                nil [75539 88970]))          
+    :file "main.c"
+    :pointmax 88971
+    :fsize 88970
+    :lastmodtime '(21493 2473 489990 397000)
+    :unmatched-syntax 'nil
+    :lexical-table 
+        '(("MAX_PLAYERS" . ((number "128" 455 . 458)))
+          ("XZ_SIZE" . ((semantic-list "(CHUNK_SIZE * 3 + 2)" 25604 . 25624)))
+          ("WORKERS" . ((number "4" 475 . 476)))
+          ("WORKER_IDLE" . ((number "0" 722 . 723)))
+          ("MAX_NAME_LENGTH" . ((number "32" 529 . 531)))
+          ("MAX_ADDR_LENGTH" . ((number "256" 584 . 587)))
+          ("MODE_OFFLINE" . ((number "0" 677 . 678)))
+          ("XZ_HI" . ((semantic-list "(CHUNK_SIZE * 2 + 1)" 25666 . 25686)))
+          ("XZ" (spp-arg-list ("x" "z") 25785 . 25791) . ((semantic-list "((x) * XZ_SIZE + (z))" 25792 . 25813)))
+          ("XYZ" (spp-arg-list ("x" "y" "z") 25717 . 25726) . ((semantic-list "((y) * XZ_SIZE * XZ_SIZE + (x) * XZ_SIZE + (z))" 25727 . 25774)))
+          ("MAX_CHUNKS" . ((number "8192" 430 . 434)))
+          ("WORKER_BUSY" . ((number "1" 744 . 745)))
+          ("Y_SIZE" . ((number "258" 25702 . 25705)))
+          ("MAX_TEXT_LENGTH" . ((number "256" 501 . 504)))
+          ("ALIGN_RIGHT" . ((number "2" 653 . 654)))
+          ("XZ_LO" . ((semantic-list "(CHUNK_SIZE)" 25639 . 25651)))
+          ("MAX_PATH_LENGTH" . ((number "256" 556 . 559)))
+          ("ALIGN_LEFT" . ((number "0" 608 . 609)))
+          ("ALIGN_CENTER" . ((number "1" 631 . 632)))
+          ("WORKER_DONE" . ((number "2" 766 . 767)))
+          ("MODE_ONLINE" . ((number "1" 699 . 700)))
+          )
+
+    )
+   (semanticdb-table "auth.h"
+    :major-mode 'c-mode
+    :tags 
+        '( ("_auth_h_" variable (:constant-flag t) nil [26 34])
+            ("get_access_token" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("result" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [62 75])
+                    ("length" variable (:type "int") (reparse-symbol arg-sub-list) [76 87])
+                    ("username" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [88 103])
+                    ("identity_token" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [104 125]))                  
+                :type "int")
+                nil [36 126]))          
+    :file "auth.h"
+    :pointmax 135
+    :fsize 134
+    :lastmodtime '(21493 2473 486990 464000)
+    :unmatched-syntax 'nil
+    :lexical-table 
+        '(("_auth_h_")
+          )
+
+    )
+   (semanticdb-table "client.h"
+    :major-mode 'c-mode
+    :tags 
+        '( ("_client_h_" variable (:constant-flag t) nil [28 38])
+            ("DEFAULT_PORT" variable (:constant-flag t) nil [48 60])
+            ("client_enable" function
+               (:prototype-flag t
+                :type "void")
+                nil [67 88])
+            ("client_disable" function
+               (:prototype-flag t
+                :type "void")
+                nil [89 111])
+            ("get_client_enabled" function
+               (:prototype-flag t
+                :type "int")
+                nil [112 137])
+            ("client_connect" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("hostname" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [158 173])
+                    ("port" variable (:type "int") (reparse-symbol arg-sub-list) [174 183]))                  
+                :type "void")
+                nil [138 184])
+            ("client_start" function
+               (:prototype-flag t
+                :type "void")
+                nil [185 205])
+            ("client_stop" function
+               (:prototype-flag t
+                :type "void")
+                nil [206 225])
+            ("client_send" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("data" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [243 254]))                  
+                :type "void")
+                nil [226 255])
+            ("client_recv" function
+               (:prototype-flag t
+                :pointer 1
+                :type "char")
+                nil [256 276])
+            ("client_version" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("version" variable (:type "int") (reparse-symbol arg-sub-list) [297 309]))                  
+                :type "void")
+                nil [277 310])
+            ("client_login" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("username" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [329 350])
+                    ("identity_token" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [351 378]))                  
+                :type "void")
+                nil [311 379])
+            ("client_position" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("x" variable (:type "float") (reparse-symbol arg-sub-list) [401 409])
+                    ("y" variable (:type "float") (reparse-symbol arg-sub-list) [410 418])
+                    ("z" variable (:type "float") (reparse-symbol arg-sub-list) [419 427])
+                    ("rx" variable (:type "float") (reparse-symbol arg-sub-list) [428 437])
+                    ("ry" variable (:type "float") (reparse-symbol arg-sub-list) [438 447]))                  
+                :type "void")
+                nil [380 448])
+            ("client_chunk" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("p" variable (:type "int") (reparse-symbol arg-sub-list) [467 473])
+                    ("q" variable (:type "int") (reparse-symbol arg-sub-list) [474 480])
+                    ("key" variable (:type "int") (reparse-symbol arg-sub-list) [481 489]))                  
+                :type "void")
+                nil [449 490])
+            ("client_block" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("x" variable (:type "int") (reparse-symbol arg-sub-list) [509 515])
+                    ("y" variable (:type "int") (reparse-symbol arg-sub-list) [516 522])
+                    ("z" variable (:type "int") (reparse-symbol arg-sub-list) [523 529])
+                    ("w" variable (:type "int") (reparse-symbol arg-sub-list) [530 536]))                  
+                :type "void")
+                nil [491 537])
+            ("client_light" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("x" variable (:type "int") (reparse-symbol arg-sub-list) [556 562])
+                    ("y" variable (:type "int") (reparse-symbol arg-sub-list) [563 569])
+                    ("z" variable (:type "int") (reparse-symbol arg-sub-list) [570 576])
+                    ("w" variable (:type "int") (reparse-symbol arg-sub-list) [577 583]))                  
+                :type "void")
+                nil [538 584])
+            ("client_sign" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("x" variable (:type "int") (reparse-symbol arg-sub-list) [602 608])
+                    ("y" variable (:type "int") (reparse-symbol arg-sub-list) [609 615])
+                    ("z" variable (:type "int") (reparse-symbol arg-sub-list) [616 622])
+                    ("face" variable (:type "int") (reparse-symbol arg-sub-list) [623 632])
+                    ("text" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [633 650]))                  
+                :type "void")
+                nil [585 651])
+            ("client_talk" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("text" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [669 686]))                  
+                :type "void")
+                nil [652 687]))          
+    :file "client.h"
+    :pointmax 696
+    :fsize 695
+    :lastmodtime '(21493 2473 486990 464000)
+    :unmatched-syntax 'nil
+    :lexical-table 
+        '(("_client_h_")
+          ("DEFAULT_PORT" . ((number "4080" 61 . 65)))
+          )
+
+    )
+   (semanticdb-table "config.h"
+    :major-mode 'c-mode
+    :tags 
+        '( ("_config_h_" variable (:constant-flag t) nil [28 38])
+            ("DEBUG" variable (:constant-flag t) nil [66 71])
+            ("FULLSCREEN" variable (:constant-flag t) nil [82 92])
+            ("WINDOW_WIDTH" variable (:constant-flag t) nil [103 115])
+            ("WINDOW_HEIGHT" variable (:constant-flag t) nil [129 142])
+            ("VSYNC" variable (:constant-flag t) nil [155 160])
+            ("SCROLL_THRESHOLD" variable (:constant-flag t) nil [171 187])
+            ("MAX_MESSAGES" variable (:constant-flag t) nil [200 212])
+            ("DB_PATH" variable (:constant-flag t) nil [223 230])
+            ("USE_CACHE" variable (:constant-flag t) nil [250 259])
+            ("DAY_LENGTH" variable (:constant-flag t) nil [270 280])
+            ("INVERT_MOUSE" variable (:constant-flag t) nil [293 305])
+            ("SHOW_LIGHTS" variable (:constant-flag t) nil [338 349])
+            ("SHOW_PLANTS" variable (:constant-flag t) nil [360 371])
+            ("SHOW_CLOUDS" variable (:constant-flag t) nil [382 393])
+            ("SHOW_TREES" variable (:constant-flag t) nil [404 414])
+            ("SHOW_ITEM" variable (:constant-flag t) nil [425 434])
+            ("SHOW_CROSSHAIRS" variable (:constant-flag t) nil [445 460])
+            ("SHOW_WIREFRAME" variable (:constant-flag t) nil [471 485])
+            ("SHOW_INFO_TEXT" variable (:constant-flag t) nil [496 510])
+            ("SHOW_CHAT_TEXT" variable (:constant-flag t) nil [521 535])
+            ("SHOW_PLAYER_NAMES" variable (:constant-flag t) nil [546 563])
+            ("CRAFT_KEY_FORWARD" variable (:constant-flag t) nil [591 608])
+            ("CRAFT_KEY_BACKWARD" variable (:constant-flag t) nil [621 639])
+            ("CRAFT_KEY_LEFT" variable (:constant-flag t) nil [652 666])
+            ("CRAFT_KEY_RIGHT" variable (:constant-flag t) nil [679 694])
+            ("CRAFT_KEY_JUMP" variable (:constant-flag t) nil [707 721])
+            ("CRAFT_KEY_FLY" variable (:constant-flag t) nil [745 758])
+            ("CRAFT_KEY_OBSERVE" variable (:constant-flag t) nil [780 797])
+            ("CRAFT_KEY_OBSERVE_INSET" variable (:constant-flag t) nil [810 833])
+            ("CRAFT_KEY_ITEM_NEXT" variable (:constant-flag t) nil [846 865])
+            ("CRAFT_KEY_ITEM_PREV" variable (:constant-flag t) nil [878 897])
+            ("CRAFT_KEY_ZOOM" variable (:constant-flag t) nil [910 924])
+            ("CRAFT_KEY_ORTHO" variable (:constant-flag t) nil [953 968])
+            ("CRAFT_KEY_CHAT" variable (:constant-flag t) nil [981 995])
+            ("CRAFT_KEY_COMMAND" variable (:constant-flag t) nil [1008 1025])
+            ("CRAFT_KEY_SIGN" variable (:constant-flag t) nil [1038 1052])
+            ("CREATE_CHUNK_RADIUS" variable (:constant-flag t) nil [1089 1108])
+            ("RENDER_CHUNK_RADIUS" variable (:constant-flag t) nil [1120 1139])
+            ("RENDER_SIGN_RADIUS" variable (:constant-flag t) nil [1151 1169])
+            ("DELETE_CHUNK_RADIUS" variable (:constant-flag t) nil [1180 1199])
+            ("CHUNK_SIZE" variable (:constant-flag t) nil [1211 1221])
+            ("COMMIT_INTERVAL" variable (:constant-flag t) nil [1233 1248]))          
+    :file "config.h"
+    :pointmax 1259
+    :fsize 1258
+    :lastmodtime '(21493 2473 486990 464000)
+    :unmatched-syntax 'nil
+    :lexical-table 
+        '(("VSYNC" . ((number "1" 161 . 162)))
+          ("INVERT_MOUSE" . ((number "0" 306 . 307)))
+          ("SHOW_LIGHTS" . ((number "1" 350 . 351)))
+          ("SHOW_WIREFRAME" . ((number "1" 486 . 487)))
+          ("CRAFT_KEY_RIGHT" . ((string "'D'" 695 . 698)))
+          ("CREATE_CHUNK_RADIUS" . ((number "10" 1109 . 1111)))
+          ("DAY_LENGTH" . ((number "600" 281 . 284)))
+          ("SHOW_TREES" . ((number "1" 415 . 416)))
+          ("_config_h_")
+          ("SHOW_PLANTS" . ((number "1" 372 . 373)))
+          ("SHOW_CROSSHAIRS" . ((number "1" 461 . 462)))
+          ("CRAFT_KEY_OBSERVE_INSET" . ((string "'P'" 834 . 837)))
+          ("DELETE_CHUNK_RADIUS" . ((number "14" 1200 . 1202)))
+          ("CRAFT_KEY_OBSERVE" . ((string "'O'" 798 . 801)))
+          ("COMMIT_INTERVAL" . ((number "5" 1249 . 1250)))
+          ("WINDOW_HEIGHT" . ((number "768" 143 . 146)))
+          ("SHOW_CLOUDS" . ((number "1" 394 . 395)))
+          ("SHOW_ITEM" . ((number "1" 435 . 436)))
+          ("CRAFT_KEY_LEFT" . ((string "'A'" 667 . 670)))
+          ("CHUNK_SIZE" . ((number "32" 1222 . 1224)))
+          ("USE_CACHE" . ((number "1" 260 . 261)))
+          ("CRAFT_KEY_BACKWARD" . ((string "'S'" 640 . 643)))
+          ("CRAFT_KEY_SIGN" . ((string "'`'" 1053 . 1056)))
+          ("MAX_MESSAGES" . ((number "4" 213 . 214)))
+          ("CRAFT_KEY_JUMP" . ((symbol "GLFW_KEY_SPACE" 722 . 736)))
+          ("CRAFT_KEY_ORTHO" . ((string "'F'" 969 . 972)))
+          ("CRAFT_KEY_CHAT" . ((string "'t'" 996 . 999)))
+          ("RENDER_CHUNK_RADIUS" . ((number "10" 1140 . 1142)))
+          ("SHOW_CHAT_TEXT" . ((number "1" 536 . 537)))
+          ("CRAFT_KEY_ITEM_PREV" . ((string "'R'" 898 . 901)))
+          ("DEBUG" . ((number "0" 72 . 73)))
+          ("WINDOW_WIDTH" . ((number "1024" 116 . 120)))
+          ("CRAFT_KEY_ITEM_NEXT" . ((string "'E'" 866 . 869)))
+          ("SCROLL_THRESHOLD" . ((number "0.1" 188 . 191)))
+          ("SHOW_INFO_TEXT" . ((number "1" 511 . 512)))
+          ("CRAFT_KEY_FLY" . ((symbol "GLFW_KEY_TAB" 759 . 771)))
+          ("CRAFT_KEY_COMMAND" . ((string "'/'" 1026 . 1029)))
+          ("FULLSCREEN" . ((number "0" 93 . 94)))
+          ("DB_PATH" . ((string "\"craft.db\"" 231 . 241)))
+          ("SHOW_PLAYER_NAMES" . ((number "1" 564 . 565)))
+          ("CRAFT_KEY_FORWARD" . ((string "'W'" 609 . 612)))
+          ("CRAFT_KEY_ZOOM" . ((symbol "GLFW_KEY_LEFT_SHIFT" 925 . 944)))
+          ("RENDER_SIGN_RADIUS" . ((number "4" 1170 . 1171)))
+          )
+
+    )
+   (semanticdb-table "cube.h"
+    :major-mode 'c-mode
+    :tags 
+        '( ("_cube_h_" variable (:constant-flag t) nil [26 34])
+            ("make_cube_faces" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("data" variable
+                       (:pointer 1
+                        :type "float")
+                        (reparse-symbol arg-sub-list) [62 74])
+                    ("ao" variable
+                       (:dereference 2
+                        :type "float")
+                        (reparse-symbol arg-sub-list) [75 90])
+                    ("light" variable
+                       (:dereference 2
+                        :type "float")
+                        (reparse-symbol arg-sub-list) [91 109])
+                    ("left" variable (:type "int") (reparse-symbol arg-sub-list) [114 123])
+                    ("right" variable (:type "int") (reparse-symbol arg-sub-list) [124 134])
+                    ("top" variable (:type "int") (reparse-symbol arg-sub-list) [135 143])
+                    ("bottom" variable (:type "int") (reparse-symbol arg-sub-list) [144 155])
+                    ("front" variable (:type "int") (reparse-symbol arg-sub-list) [156 166])
+                    ("back" variable (:type "int") (reparse-symbol arg-sub-list) [167 176])
+                    ("wleft" variable (:type "int") (reparse-symbol arg-sub-list) [181 191])
+                    ("wright" variable (:type "int") (reparse-symbol arg-sub-list) [192 203])
+                    ("wtop" variable (:type "int") (reparse-symbol arg-sub-list) [204 213])
+                    ("wbottom" variable (:type "int") (reparse-symbol arg-sub-list) [214 226])
+                    ("wfront" variable (:type "int") (reparse-symbol arg-sub-list) [227 238])
+                    ("wback" variable (:type "int") (reparse-symbol arg-sub-list) [239 249])
+                    ("x" variable (:type "float") (reparse-symbol arg-sub-list) [254 262])
+                    ("y" variable (:type "float") (reparse-symbol arg-sub-list) [263 271])
+                    ("z" variable (:type "float") (reparse-symbol arg-sub-list) [272 280])
+                    ("n" variable (:type "float") (reparse-symbol arg-sub-list) [281 289]))                  
+                :type "void")
+                nil [36 290])
+            ("make_cube" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("data" variable
+                       (:pointer 1
+                        :type "float")
+                        (reparse-symbol arg-sub-list) [312 324])
+                    ("ao" variable
+                       (:dereference 2
+                        :type "float")
+                        (reparse-symbol arg-sub-list) [325 340])
+                    ("light" variable
+                       (:dereference 2
+                        :type "float")
+                        (reparse-symbol arg-sub-list) [341 359])
+                    ("left" variable (:type "int") (reparse-symbol arg-sub-list) [364 373])
+                    ("right" variable (:type "int") (reparse-symbol arg-sub-list) [374 384])
+                    ("top" variable (:type "int") (reparse-symbol arg-sub-list) [385 393])
+                    ("bottom" variable (:type "int") (reparse-symbol arg-sub-list) [394 405])
+                    ("front" variable (:type "int") (reparse-symbol arg-sub-list) [406 416])
+                    ("back" variable (:type "int") (reparse-symbol arg-sub-list) [417 426])
+                    ("x" variable (:type "float") (reparse-symbol arg-sub-list) [431 439])
+                    ("y" variable (:type "float") (reparse-symbol arg-sub-list) [440 448])
+                    ("z" variable (:type "float") (reparse-symbol arg-sub-list) [449 457])
+                    ("n" variable (:type "float") (reparse-symbol arg-sub-list) [458 466])
+                    ("w" variable (:type "int") (reparse-symbol arg-sub-list) [467 473]))                  
+                :type "void")
+                nil [292 474])
+            ("make_plant" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("data" variable
+                       (:pointer 1
+                        :type "float")
+                        (reparse-symbol arg-sub-list) [497 509])
+                    ("ao" variable (:type "float") (reparse-symbol arg-sub-list) [510 519])
+                    ("light" variable (:type "float") (reparse-symbol arg-sub-list) [520 532])
+                    ("px" variable (:type "float") (reparse-symbol arg-sub-list) [537 546])
+                    ("py" variable (:type "float") (reparse-symbol arg-sub-list) [547 556])
+                    ("pz" variable (:type "float") (reparse-symbol arg-sub-list) [557 566])
+                    ("n" variable (:type "float") (reparse-symbol arg-sub-list) [567 575])
+                    ("w" variable (:type "int") (reparse-symbol arg-sub-list) [576 582])
+                    ("rotation" variable (:type "float") (reparse-symbol arg-sub-list) [583 598]))                  
+                :type "void")
+                nil [476 599])
+            ("make_player" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("data" variable
+                       (:pointer 1
+                        :type "float")
+                        (reparse-symbol arg-sub-list) [623 635])
+                    ("x" variable (:type "float") (reparse-symbol arg-sub-list) [640 648])
+                    ("y" variable (:type "float") (reparse-symbol arg-sub-list) [649 657])
+                    ("z" variable (:type "float") (reparse-symbol arg-sub-list) [658 666])
+                    ("rx" variable (:type "float") (reparse-symbol arg-sub-list) [667 676])
+                    ("ry" variable (:type "float") (reparse-symbol arg-sub-list) [677 686]))                  
+                :type "void")
+                nil [601 687])
+            ("make_cube_wireframe" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("data" variable
+                       (:pointer 1
+                        :type "float")
+                        (reparse-symbol arg-sub-list) [719 731])
+                    ("x" variable (:type "float") (reparse-symbol arg-sub-list) [732 740])
+                    ("y" variable (:type "float") (reparse-symbol arg-sub-list) [741 749])
+                    ("z" variable (:type "float") (reparse-symbol arg-sub-list) [750 758])
+                    ("n" variable (:type "float") (reparse-symbol arg-sub-list) [759 767]))                  
+                :type "void")
+                nil [689 768])
+            ("make_character" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("data" variable
+                       (:pointer 1
+                        :type "float")
+                        (reparse-symbol arg-sub-list) [795 807])
+                    ("x" variable (:type "float") (reparse-symbol arg-sub-list) [812 820])
+                    ("y" variable (:type "float") (reparse-symbol arg-sub-list) [821 829])
+                    ("n" variable (:type "float") (reparse-symbol arg-sub-list) [830 838])
+                    ("m" variable (:type "float") (reparse-symbol arg-sub-list) [839 847])
+                    ("c" variable (:type "char") (reparse-symbol arg-sub-list) [848 855]))                  
+                :type "void")
+                nil [770 856])
+            ("make_character_3d" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("data" variable
+                       (:pointer 1
+                        :type "float")
+                        (reparse-symbol arg-sub-list) [886 898])
+                    ("x" variable (:type "float") (reparse-symbol arg-sub-list) [899 907])
+                    ("y" variable (:type "float") (reparse-symbol arg-sub-list) [908 916])
+                    ("z" variable (:type "float") (reparse-symbol arg-sub-list) [917 925])
+                    ("n" variable (:type "float") (reparse-symbol arg-sub-list) [926 934])
+                    ("face" variable (:type "int") (reparse-symbol arg-sub-list) [935 944])
+                    ("c" variable (:type "char") (reparse-symbol arg-sub-list) [945 952]))                  
+                :type "void")
+                nil [858 953])
+            ("make_sphere" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("data" variable
+                       (:pointer 1
+                        :type "float")
+                        (reparse-symbol arg-sub-list) [972 984])
+                    ("r" variable (:type "float") (reparse-symbol arg-sub-list) [985 993])
+                    ("detail" variable (:type "int") (reparse-symbol arg-sub-list) [994 1005]))                  
+                :type "void")
+                nil [955 1006]))          
+    :file "cube.h"
+    :pointmax 1015
+    :fsize 1014
+    :lastmodtime '(21493 2473 487990 441000)
+    :unmatched-syntax 'nil
+    :lexical-table 
+        '(("_cube_h_")
+          )
+
+    )
+   (semanticdb-table "db.h"
+    :major-mode 'c-mode
+    :tags 
+        '( ("_db_h_" variable (:constant-flag t) nil [24 30])
+            ("map.h" include nil nil [32 48])
+            ("sign.h" include nil nil [49 66])
+            ("db_enable" function
+               (:prototype-flag t
+                :type "void")
+                nil [68 85])
+            ("db_disable" function
+               (:prototype-flag t
+                :type "void")
+                nil [86 104])
+            ("get_db_enabled" function
+               (:prototype-flag t
+                :type "int")
+                nil [105 126])
+            ("db_init" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("path" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [139 150]))                  
+                :type "int")
+                nil [127 151])
+            ("db_close" function
+               (:prototype-flag t
+                :type "void")
+                nil [152 168])
+            ("db_commit" function
+               (:prototype-flag t
+                :type "void")
+                nil [169 186])
+            ("db_auth_set" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("username" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [204 219])
+                    ("identity_token" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [220 241]))                  
+                :type "void")
+                nil [187 242])
+            ("db_auth_select" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("username" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [262 277]))                  
+                :type "int")
+                nil [243 278])
+            ("db_auth_select_none" function
+               (:prototype-flag t
+                :type "void")
+                nil [279 306])
+            ("db_auth_get" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("username" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [328 343])
+                    ("identity_token" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [348 369])
+                    ("identity_token_length" variable (:type "int") (reparse-symbol arg-sub-list) [370 396]))                  
+                :type "int")
+                nil [307 397])
+            ("db_auth_get_selected" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("username" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [428 443])
+                    ("username_length" variable (:type "int") (reparse-symbol arg-sub-list) [444 464])
+                    ("identity_token" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [469 490])
+                    ("identity_token_length" variable (:type "int") (reparse-symbol arg-sub-list) [491 517]))                  
+                :type "int")
+                nil [398 518])
+            ("db_save_state" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("x" variable (:type "float") (reparse-symbol arg-sub-list) [538 546])
+                    ("y" variable (:type "float") (reparse-symbol arg-sub-list) [547 555])
+                    ("z" variable (:type "float") (reparse-symbol arg-sub-list) [556 564])
+                    ("rx" variable (:type "float") (reparse-symbol arg-sub-list) [565 574])
+                    ("ry" variable (:type "float") (reparse-symbol arg-sub-list) [575 584]))                  
+                :type "void")
+                nil [519 585])
+            ("db_load_state" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("x" variable
+                       (:pointer 1
+                        :type "float")
+                        (reparse-symbol arg-sub-list) [604 613])
+                    ("y" variable
+                       (:pointer 1
+                        :type "float")
+                        (reparse-symbol arg-sub-list) [614 623])
+                    ("z" variable
+                       (:pointer 1
+                        :type "float")
+                        (reparse-symbol arg-sub-list) [624 633])
+                    ("rx" variable
+                       (:pointer 1
+                        :type "float")
+                        (reparse-symbol arg-sub-list) [634 644])
+                    ("ry" variable
+                       (:pointer 1
+                        :type "float")
+                        (reparse-symbol arg-sub-list) [645 655]))                  
+                :type "int")
+                nil [586 656])
+            ("db_insert_block" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("p" variable (:type "int") (reparse-symbol arg-sub-list) [678 684])
+                    ("q" variable (:type "int") (reparse-symbol arg-sub-list) [685 691])
+                    ("x" variable (:type "int") (reparse-symbol arg-sub-list) [692 698])
+                    ("y" variable (:type "int") (reparse-symbol arg-sub-list) [699 705])
+                    ("z" variable (:type "int") (reparse-symbol arg-sub-list) [706 712])
+                    ("w" variable (:type "int") (reparse-symbol arg-sub-list) [713 719]))                  
+                :type "void")
+                nil [657 720])
+            ("db_insert_light" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("p" variable (:type "int") (reparse-symbol arg-sub-list) [742 748])
+                    ("q" variable (:type "int") (reparse-symbol arg-sub-list) [749 755])
+                    ("x" variable (:type "int") (reparse-symbol arg-sub-list) [756 762])
+                    ("y" variable (:type "int") (reparse-symbol arg-sub-list) [763 769])
+                    ("z" variable (:type "int") (reparse-symbol arg-sub-list) [770 776])
+                    ("w" variable (:type "int") (reparse-symbol arg-sub-list) [777 783]))                  
+                :type "void")
+                nil [721 784])
+            ("db_insert_sign" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("p" variable (:type "int") (reparse-symbol arg-sub-list) [810 816])
+                    ("q" variable (:type "int") (reparse-symbol arg-sub-list) [817 823])
+                    ("x" variable (:type "int") (reparse-symbol arg-sub-list) [824 830])
+                    ("y" variable (:type "int") (reparse-symbol arg-sub-list) [831 837])
+                    ("z" variable (:type "int") (reparse-symbol arg-sub-list) [838 844])
+                    ("face" variable (:type "int") (reparse-symbol arg-sub-list) [845 854])
+                    ("text" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [855 872]))                  
+                :type "void")
+                nil [785 873])
+            ("db_delete_sign" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("x" variable (:type "int") (reparse-symbol arg-sub-list) [894 900])
+                    ("y" variable (:type "int") (reparse-symbol arg-sub-list) [901 907])
+                    ("z" variable (:type "int") (reparse-symbol arg-sub-list) [908 914])
+                    ("face" variable (:type "int") (reparse-symbol arg-sub-list) [915 924]))                  
+                :type "void")
+                nil [874 925])
+            ("db_delete_signs" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("x" variable (:type "int") (reparse-symbol arg-sub-list) [947 953])
+                    ("y" variable (:type "int") (reparse-symbol arg-sub-list) [954 960])
+                    ("z" variable (:type "int") (reparse-symbol arg-sub-list) [961 967]))                  
+                :type "void")
+                nil [926 968])
+            ("db_delete_all_signs" function
+               (:prototype-flag t
+                :type "void")
+                nil [969 996])
+            ("db_load_blocks" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("map" variable
+                       (:pointer 1
+                        :type ("Map" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [1017 1026])
+                    ("p" variable (:type "int") (reparse-symbol arg-sub-list) [1027 1033])
+                    ("q" variable (:type "int") (reparse-symbol arg-sub-list) [1034 1040]))                  
+                :type "void")
+                nil [997 1041])
+            ("db_load_lights" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("map" variable
+                       (:pointer 1
+                        :type ("Map" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [1062 1071])
+                    ("p" variable (:type "int") (reparse-symbol arg-sub-list) [1072 1078])
+                    ("q" variable (:type "int") (reparse-symbol arg-sub-list) [1079 1085]))                  
+                :type "void")
+                nil [1042 1086])
+            ("db_load_signs" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("list" variable
+                       (:pointer 1
+                        :type ("SignList" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [1106 1121])
+                    ("p" variable (:type "int") (reparse-symbol arg-sub-list) [1122 1128])
+                    ("q" variable (:type "int") (reparse-symbol arg-sub-list) [1129 1135]))                  
+                :type "void")
+                nil [1087 1136])
+            ("db_get_key" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("p" variable (:type "int") (reparse-symbol arg-sub-list) [1152 1158])
+                    ("q" variable (:type "int") (reparse-symbol arg-sub-list) [1159 1165]))                  
+                :type "int")
+                nil [1137 1166])
+            ("db_set_key" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("p" variable (:type "int") (reparse-symbol arg-sub-list) [1183 1189])
+                    ("q" variable (:type "int") (reparse-symbol arg-sub-list) [1190 1196])
+                    ("key" variable (:type "int") (reparse-symbol arg-sub-list) [1197 1205]))                  
+                :type "void")
+                nil [1167 1206])
+            ("db_worker_start" function
+               (:prototype-flag t
+                :type "void")
+                nil [1207 1230])
+            ("db_worker_stop" function
+               (:prototype-flag t
+                :type "void")
+                nil [1231 1253])
+            ("db_worker_run" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("arg" variable
+                       (:pointer 1
+                        :type "void")
+                        (reparse-symbol arg-sub-list) [1272 1282]))                  
+                :type "int")
+                nil [1254 1283]))          
+    :file "db.h"
+    :pointmax 1292
+    :fsize 1291
+    :lastmodtime '(21493 2473 487990 441000)
+    :unmatched-syntax 'nil
+    :lexical-table 
+        '(("_db_h_")
+          )
+
+    )
+   (semanticdb-table "map.h"
+    :major-mode 'c-mode
+    :tags 
+        '( ("_map_h_" variable (:constant-flag t) nil [25 32])
+            ("EMPTY_ENTRY" variable (:constant-flag t) nil [42 53])
+            ("MAP_FOR_EACH" variable (:constant-flag t) nil [92 104])
+            ("END_MAP_FOR_EACH" variable (:constant-flag t) nil [458 474])
+            ("MapEntry" type
+               (:typedef ("" type
+                     (:members 
+                        ( ("value" variable (:type "unsigned int") (reparse-symbol classsubparts) [498 517])
+                          ("e" variable (:type ("" type
+                               (:members 
+                                  ( ("x" variable (:type "unsigned char") (reparse-symbol classsubparts) [539 555])
+                                    ("y" variable (:type "unsigned char") (reparse-symbol classsubparts) [564 580])
+                                    ("z" variable (:type "unsigned char") (reparse-symbol classsubparts) [589 605])
+                                    ("w" variable (:type "char") (reparse-symbol classsubparts) [614 621]))                                  
+                                :type "struct")
+                                nil nil)) (reparse-symbol classsubparts) [522 630]))                        
+                      :type "union")
+                      nil nil)
+                :type "typedef")
+                nil [478 642])
+            ("Map" type
+               (:typedef ("" type
+                     (:members 
+                        ( ("dx" variable (:type "int") (reparse-symbol classsubparts) [665 672])
+                          ("dy" variable (:type "int") (reparse-symbol classsubparts) [677 684])
+                          ("dz" variable (:type "int") (reparse-symbol classsubparts) [689 696])
+                          ("mask" variable (:type "unsigned int") (reparse-symbol classsubparts) [701 719])
+                          ("size" variable (:type "unsigned int") (reparse-symbol classsubparts) [724 742])
+                          ("data" variable
+                             (:pointer 1
+                              :type ("MapEntry" type (:type "class") nil nil))
+                              (reparse-symbol classsubparts) [747 762]))                        
+                      :type "struct")
+                      nil nil)
+                :type "typedef")
+                nil [644 769])
+            ("map_alloc" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("map" variable
+                       (:pointer 1
+                        :type ("Map" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [786 795])
+                    ("dx" variable (:type "int") (reparse-symbol arg-sub-list) [796 803])
+                    ("dy" variable (:type "int") (reparse-symbol arg-sub-list) [804 811])
+                    ("dz" variable (:type "int") (reparse-symbol arg-sub-list) [812 819])
+                    ("mask" variable (:type "int") (reparse-symbol arg-sub-list) [820 829]))                  
+                :type "void")
+                nil [771 830])
+            ("map_free" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("map" variable
+                       (:pointer 1
+                        :type ("Map" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [845 854]))                  
+                :type "void")
+                nil [831 855])
+            ("map_copy" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("dst" variable
+                       (:pointer 1
+                        :type ("Map" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [870 879])
+                    ("src" variable
+                       (:pointer 1
+                        :type ("Map" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [880 889]))                  
+                :type "void")
+                nil [856 890])
+            ("map_grow" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("map" variable
+                       (:pointer 1
+                        :type ("Map" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [905 914]))                  
+                :type "void")
+                nil [891 915])
+            ("map_set" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("map" variable
+                       (:pointer 1
+                        :type ("Map" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [928 937])
+                    ("x" variable (:type "int") (reparse-symbol arg-sub-list) [938 944])
+                    ("y" variable (:type "int") (reparse-symbol arg-sub-list) [945 951])
+                    ("z" variable (:type "int") (reparse-symbol arg-sub-list) [952 958])
+                    ("w" variable (:type "int") (reparse-symbol arg-sub-list) [959 965]))                  
+                :type "int")
+                nil [916 966])
+            ("map_get" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("map" variable
+                       (:pointer 1
+                        :type ("Map" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [979 988])
+                    ("x" variable (:type "int") (reparse-symbol arg-sub-list) [989 995])
+                    ("y" variable (:type "int") (reparse-symbol arg-sub-list) [996 1002])
+                    ("z" variable (:type "int") (reparse-symbol arg-sub-list) [1003 1009]))                  
+                :type "int")
+                nil [967 1010]))          
+    :file "map.h"
+    :pointmax 1019
+    :fsize 1018
+    :lastmodtime '(21493 2473 489990 397000)
+    :unmatched-syntax 'nil
+    :lexical-table 
+        '(("END_MAP_FOR_EACH" . ((close-paren "}" 475 . 476)))
+          ("EMPTY_ENTRY" (spp-arg-list ("entry") 53 . 60) . ((semantic-list "((entry)->value == 0)" 61 . 82)))
+          ("MAP_FOR_EACH" (spp-arg-list ("map" "ex" "ey" "ez" "ew") 104 . 125) . 
+              ((FOR "for" 132 . 135) (semantic-list "(unsigned int i = 0; i <= map->mask; i++)" 136 . 177) (semantic-list "{ \\
+        MapEntry *entry = map->data + i; \\
+        if (EMPTY_ENTRY(entry)) { \\
+            continue; \\
+        } \\
+        int ex = entry->e.x + map->dx; \\
+        int ey = entry->e.y + map->dy; \\
+        int ez = entry->e.z + map->dz; \\
+        int ew = entry->e.w;" 178 . 448)))
+          ("_map_h_")
+          )
+
+    )
+   (semanticdb-table "sign.h"
+    :major-mode 'c-mode
+    :tags 
+        '( ("_sign_h_" variable (:constant-flag t) nil [26 34])
+            ("MAX_SIGN_LENGTH" variable (:constant-flag t) nil [44 59])
+            ("Sign" type
+               (:typedef ("" type
+                     (:members 
+                        ( ("x" variable (:type "int") (reparse-symbol classsubparts) [85 91])
+                          ("y" variable (:type "int") (reparse-symbol classsubparts) [96 102])
+                          ("z" variable (:type "int") (reparse-symbol classsubparts) [107 113])
+                          ("face" variable (:type "int") (reparse-symbol classsubparts) [118 127])
+                          ("text" variable
+                             (:dereference 1
+                              :type "char")
+                              (reparse-symbol classsubparts) [132 159]))                        
+                      :type "struct")
+                      nil nil)
+                :type "typedef")
+                nil [64 167])
+            ("SignList" type
+               (:typedef ("" type
+                     (:members 
+                        ( ("capacity" variable (:type "unsigned int") (reparse-symbol classsubparts) [190 212])
+                          ("size" variable (:type "unsigned int") (reparse-symbol classsubparts) [217 235])
+                          ("data" variable
+                             (:pointer 1
+                              :type ("Sign" type (:type "class") nil nil))
+                              (reparse-symbol classsubparts) [240 251]))                        
+                      :type "struct")
+                      nil nil)
+                :type "typedef")
+                nil [169 263])
+            ("sign_list_alloc" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("list" variable
+                       (:pointer 1
+                        :type ("SignList" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [286 301])
+                    ("capacity" variable (:type "int") (reparse-symbol arg-sub-list) [302 315]))                  
+                :type "void")
+                nil [265 316])
+            ("sign_list_free" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("list" variable
+                       (:pointer 1
+                        :type ("SignList" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [337 352]))                  
+                :type "void")
+                nil [317 353])
+            ("sign_list_grow" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("list" variable
+                       (:pointer 1
+                        :type ("SignList" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [374 389]))                  
+                :type "void")
+                nil [354 390])
+            ("sign_list_add" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("list" variable
+                       (:pointer 1
+                        :type ("SignList" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [415 430])
+                    ("x" variable (:type "int") (reparse-symbol arg-sub-list) [431 437])
+                    ("y" variable (:type "int") (reparse-symbol arg-sub-list) [438 444])
+                    ("z" variable (:type "int") (reparse-symbol arg-sub-list) [445 451])
+                    ("face" variable (:type "int") (reparse-symbol arg-sub-list) [452 461])
+                    ("text" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [462 479]))                  
+                :type "void")
+                nil [391 480])
+            ("sign_list_remove" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("list" variable
+                       (:pointer 1
+                        :type ("SignList" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [502 517])
+                    ("x" variable (:type "int") (reparse-symbol arg-sub-list) [518 524])
+                    ("y" variable (:type "int") (reparse-symbol arg-sub-list) [525 531])
+                    ("z" variable (:type "int") (reparse-symbol arg-sub-list) [532 538])
+                    ("face" variable (:type "int") (reparse-symbol arg-sub-list) [539 548]))                  
+                :type "int")
+                nil [481 549])
+            ("sign_list_remove_all" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("list" variable
+                       (:pointer 1
+                        :type ("SignList" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [575 590])
+                    ("x" variable (:type "int") (reparse-symbol arg-sub-list) [591 597])
+                    ("y" variable (:type "int") (reparse-symbol arg-sub-list) [598 604])
+                    ("z" variable (:type "int") (reparse-symbol arg-sub-list) [605 611]))                  
+                :type "int")
+                nil [550 612]))          
+    :file "sign.h"
+    :pointmax 621
+    :fsize 620
+    :lastmodtime '(21493 2473 490990 375000)
+    :unmatched-syntax 'nil
+    :lexical-table 
+        '(("_sign_h_")
+          ("MAX_SIGN_LENGTH" . ((number "64" 60 . 62)))
+          )
+
+    )
+   (semanticdb-table "item.h"
+    :major-mode 'c-mode
+    :tags 
+        '( ("_item_h_" variable (:constant-flag t) nil [26 34])
+            ("EMPTY" variable (:constant-flag t) nil [44 49])
+            ("GRASS" variable (:constant-flag t) nil [60 65])
+            ("SAND" variable (:constant-flag t) nil [76 80])
+            ("STONE" variable (:constant-flag t) nil [91 96])
+            ("BRICK" variable (:constant-flag t) nil [107 112])
+            ("WOOD" variable (:constant-flag t) nil [123 127])
+            ("CEMENT" variable (:constant-flag t) nil [138 144])
+            ("DIRT" variable (:constant-flag t) nil [155 159])
+            ("PLANK" variable (:constant-flag t) nil [170 175])
+            ("SNOW" variable (:constant-flag t) nil [186 190])
+            ("GLASS" variable (:constant-flag t) nil [201 206])
+            ("COBBLE" variable (:constant-flag t) nil [218 224])
+            ("LIGHT_STONE" variable (:constant-flag t) nil [236 247])
+            ("DARK_STONE" variable (:constant-flag t) nil [259 269])
+            ("CHEST" variable (:constant-flag t) nil [281 286])
+            ("LEAVES" variable (:constant-flag t) nil [298 304])
+            ("CLOUD" variable (:constant-flag t) nil [316 321])
+            ("TALL_GRASS" variable (:constant-flag t) nil [333 343])
+            ("YELLOW_FLOWER" variable (:constant-flag t) nil [355 368])
+            ("RED_FLOWER" variable (:constant-flag t) nil [380 390])
+            ("PURPLE_FLOWER" variable (:constant-flag t) nil [402 415])
+            ("SUN_FLOWER" variable (:constant-flag t) nil [427 437])
+            ("WHITE_FLOWER" variable (:constant-flag t) nil [449 461])
+            ("BLUE_FLOWER" variable (:constant-flag t) nil [473 484])
+            ("COLOR_00" variable (:constant-flag t) nil [496 504])
+            ("COLOR_01" variable (:constant-flag t) nil [516 524])
+            ("COLOR_02" variable (:constant-flag t) nil [536 544])
+            ("COLOR_03" variable (:constant-flag t) nil [556 564])
+            ("COLOR_04" variable (:constant-flag t) nil [576 584])
+            ("COLOR_05" variable (:constant-flag t) nil [596 604])
+            ("COLOR_06" variable (:constant-flag t) nil [616 624])
+            ("COLOR_07" variable (:constant-flag t) nil [636 644])
+            ("COLOR_08" variable (:constant-flag t) nil [656 664])
+            ("COLOR_09" variable (:constant-flag t) nil [676 684])
+            ("COLOR_10" variable (:constant-flag t) nil [696 704])
+            ("COLOR_11" variable (:constant-flag t) nil [716 724])
+            ("COLOR_12" variable (:constant-flag t) nil [736 744])
+            ("COLOR_13" variable (:constant-flag t) nil [756 764])
+            ("COLOR_14" variable (:constant-flag t) nil [776 784])
+            ("COLOR_15" variable (:constant-flag t) nil [796 804])
+            ("COLOR_16" variable (:constant-flag t) nil [816 824])
+            ("COLOR_17" variable (:constant-flag t) nil [836 844])
+            ("COLOR_18" variable (:constant-flag t) nil [856 864])
+            ("COLOR_19" variable (:constant-flag t) nil [876 884])
+            ("COLOR_20" variable (:constant-flag t) nil [896 904])
+            ("COLOR_21" variable (:constant-flag t) nil [916 924])
+            ("COLOR_22" variable (:constant-flag t) nil [936 944])
+            ("COLOR_23" variable (:constant-flag t) nil [956 964])
+            ("COLOR_24" variable (:constant-flag t) nil [976 984])
+            ("COLOR_25" variable (:constant-flag t) nil [996 1004])
+            ("COLOR_26" variable (:constant-flag t) nil [1016 1024])
+            ("COLOR_27" variable (:constant-flag t) nil [1036 1044])
+            ("COLOR_28" variable (:constant-flag t) nil [1056 1064])
+            ("COLOR_29" variable (:constant-flag t) nil [1076 1084])
+            ("COLOR_30" variable (:constant-flag t) nil [1096 1104])
+            ("COLOR_31" variable (:constant-flag t) nil [1116 1124])
+            ("items" variable
+               (:dereference 1
+                :typemodifiers ("extern")
+                :constant-flag t
+                :type "int")
+                nil [1129 1154])
+            ("item_count" variable
+               (:typemodifiers ("extern")
+                :constant-flag t
+                :type "int")
+                nil [1155 1183])
+            ("blocks" variable
+               (:dereference 2
+                :typemodifiers ("extern")
+                :constant-flag t
+                :type "int")
+                nil [1184 1216])
+            ("plants" variable
+               (:dereference 1
+                :typemodifiers ("extern")
+                :constant-flag t
+                :type "int")
+                nil [1217 1246])
+            ("is_plant" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("w" variable (:type "int") (reparse-symbol arg-sub-list) [1261 1267]))                  
+                :type "int")
+                nil [1248 1268])
+            ("is_obstacle" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("w" variable (:type "int") (reparse-symbol arg-sub-list) [1285 1291]))                  
+                :type "int")
+                nil [1269 1292])
+            ("is_transparent" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("w" variable (:type "int") (reparse-symbol arg-sub-list) [1312 1318]))                  
+                :type "int")
+                nil [1293 1319])
+            ("is_destructable" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("w" variable (:type "int") (reparse-symbol arg-sub-list) [1340 1346]))                  
+                :type "int")
+                nil [1320 1347]))          
+    :file "item.h"
+    :pointmax 1356
+    :fsize 1355
+    :lastmodtime '(21493 2473 487990 441000)
+    :unmatched-syntax 'nil
+    :lexical-table 
+        '(("COLOR_03" . ((number "35" 565 . 567)))
+          ("COLOR_10" . ((number "42" 705 . 707)))
+          ("PLANK" . ((number "8" 176 . 177)))
+          ("BLUE_FLOWER" . ((number "23" 485 . 487)))
+          ("COLOR_04" . ((number "36" 585 . 587)))
+          ("COLOR_11" . ((number "43" 725 . 727)))
+          ("DIRT" . ((number "7" 160 . 161)))
+          ("WHITE_FLOWER" . ((number "22" 462 . 464)))
+          ("COLOR_05" . ((number "37" 605 . 607)))
+          ("COLOR_12" . ((number "44" 745 . 747)))
+          ("GRASS" . ((number "1" 66 . 67)))
+          ("COBBLE" . ((number "11" 225 . 227)))
+          ("COLOR_06" . ((number "38" 625 . 627)))
+          ("COLOR_13" . ((number "45" 765 . 767)))
+          ("COLOR_20" . ((number "52" 905 . 907)))
+          ("BRICK" . ((number "4" 113 . 114)))
+          ("SNOW" . ((number "9" 191 . 192)))
+          ("RED_FLOWER" . ((number "19" 391 . 393)))
+          ("COLOR_07" . ((number "39" 645 . 647)))
+          ("COLOR_14" . ((number "46" 785 . 787)))
+          ("COLOR_21" . ((number "53" 925 . 927)))
+          ("_item_h_")
+          ("CHEST" . ((number "14" 287 . 289)))
+          ("LEAVES" . ((number "15" 305 . 307)))
+          ("PURPLE_FLOWER" . ((number "20" 416 . 418)))
+          ("COLOR_08" . ((number "40" 665 . 667)))
+          ("COLOR_15" . ((number "47" 805 . 807)))
+          ("COLOR_22" . ((number "54" 945 . 947)))
+          ("EMPTY" . ((number "0" 50 . 51)))
+          ("CEMENT" . ((number "6" 145 . 146)))
+          ("SUN_FLOWER" . ((number "21" 438 . 440)))
+          ("COLOR_09" . ((number "41" 685 . 687)))
+          ("COLOR_16" . ((number "48" 825 . 827)))
+          ("COLOR_23" . ((number "55" 965 . 967)))
+          ("COLOR_30" . ((number "62" 1105 . 1107)))
+          ("COLOR_17" . ((number "49" 845 . 847)))
+          ("COLOR_24" . ((number "56" 985 . 987)))
+          ("COLOR_31" . ((number "63" 1125 . 1127)))
+          ("SAND" . ((number "2" 81 . 82)))
+          ("STONE" . ((number "3" 97 . 98)))
+          ("COLOR_18" . ((number "50" 865 . 867)))
+          ("COLOR_25" . ((number "57" 1005 . 1007)))
+          ("DARK_STONE" . ((number "13" 270 . 272)))
+          ("TALL_GRASS" . ((number "17" 344 . 346)))
+          ("COLOR_19" . ((number "51" 885 . 887)))
+          ("COLOR_26" . ((number "58" 1025 . 1027)))
+          ("GLASS" . ((number "10" 207 . 209)))
+          ("COLOR_00" . ((number "32" 505 . 507)))
+          ("COLOR_27" . ((number "59" 1045 . 1047)))
+          ("WOOD" . ((number "5" 128 . 129)))
+          ("CLOUD" . ((number "16" 322 . 324)))
+          ("COLOR_01" . ((number "33" 525 . 527)))
+          ("COLOR_28" . ((number "60" 1065 . 1067)))
+          ("LIGHT_STONE" . ((number "12" 248 . 250)))
+          ("YELLOW_FLOWER" . ((number "18" 369 . 371)))
+          ("COLOR_02" . ((number "34" 545 . 547)))
+          ("COLOR_29" . ((number "61" 1085 . 1087)))
+          )
+
+    )
+   (semanticdb-table "matrix.h"
+    :major-mode 'c-mode
+    :tags 
+        '( ("_matrix_h_" variable (:constant-flag t) nil [28 38])
+            ("normalize" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("x" variable
+                       (:pointer 1
+                        :type "float")
+                        (reparse-symbol arg-sub-list) [55 64])
+                    ("y" variable
+                       (:pointer 1
+                        :type "float")
+                        (reparse-symbol arg-sub-list) [65 74])
+                    ("z" variable
+                       (:pointer 1
+                        :type "float")
+                        (reparse-symbol arg-sub-list) [75 84]))                  
+                :type "void")
+                nil [40 85])
+            ("mat_identity" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("matrix" variable
+                       (:pointer 1
+                        :type "float")
+                        (reparse-symbol arg-sub-list) [104 118]))                  
+                :type "void")
+                nil [86 119])
+            ("mat_translate" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("matrix" variable
+                       (:pointer 1
+                        :type "float")
+                        (reparse-symbol arg-sub-list) [139 153])
+                    ("dx" variable (:type "float") (reparse-symbol arg-sub-list) [154 163])
+                    ("dy" variable (:type "float") (reparse-symbol arg-sub-list) [164 173])
+                    ("dz" variable (:type "float") (reparse-symbol arg-sub-list) [174 183]))                  
+                :type "void")
+                nil [120 184])
+            ("mat_rotate" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("matrix" variable
+                       (:pointer 1
+                        :type "float")
+                        (reparse-symbol arg-sub-list) [201 215])
+                    ("x" variable (:type "float") (reparse-symbol arg-sub-list) [216 224])
+                    ("y" variable (:type "float") (reparse-symbol arg-sub-list) [225 233])
+                    ("z" variable (:type "float") (reparse-symbol arg-sub-list) [234 242])
+                    ("angle" variable (:type "float") (reparse-symbol arg-sub-list) [243 255]))                  
+                :type "void")
+                nil [185 256])
+            ("mat_vec_multiply" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("vector" variable
+                       (:pointer 1
+                        :type "float")
+                        (reparse-symbol arg-sub-list) [279 293])
+                    ("a" variable
+                       (:pointer 1
+                        :type "float")
+                        (reparse-symbol arg-sub-list) [294 303])
+                    ("b" variable
+                       (:pointer 1
+                        :type "float")
+                        (reparse-symbol arg-sub-list) [304 313]))                  
+                :type "void")
+                nil [257 314])
+            ("mat_multiply" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("matrix" variable
+                       (:pointer 1
+                        :type "float")
+                        (reparse-symbol arg-sub-list) [333 347])
+                    ("a" variable
+                       (:pointer 1
+                        :type "float")
+                        (reparse-symbol arg-sub-list) [348 357])
+                    ("b" variable
+                       (:pointer 1
+                        :type "float")
+                        (reparse-symbol arg-sub-list) [358 367]))                  
+                :type "void")
+                nil [315 368])
+            ("mat_apply" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("data" variable
+                       (:pointer 1
+                        :type "float")
+                        (reparse-symbol arg-sub-list) [384 396])
+                    ("matrix" variable
+                       (:pointer 1
+                        :type "float")
+                        (reparse-symbol arg-sub-list) [397 411])
+                    ("count" variable (:type "int") (reparse-symbol arg-sub-list) [412 422])
+                    ("offset" variable (:type "int") (reparse-symbol arg-sub-list) [423 434])
+                    ("stride" variable (:type "int") (reparse-symbol arg-sub-list) [435 446]))                  
+                :type "void")
+                nil [369 447])
+            ("frustum_planes" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("planes" variable
+                       (:dereference 2
+                        :type "float")
+                        (reparse-symbol arg-sub-list) [468 487])
+                    ("radius" variable (:type "int") (reparse-symbol arg-sub-list) [488 499])
+                    ("matrix" variable
+                       (:pointer 1
+                        :type "float")
+                        (reparse-symbol arg-sub-list) [500 514]))                  
+                :type "void")
+                nil [448 515])
+            ("mat_frustum" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("matrix" variable
+                       (:pointer 1
+                        :type "float")
+                        (reparse-symbol arg-sub-list) [538 552])
+                    ("left" variable (:type "float") (reparse-symbol arg-sub-list) [553 564])
+                    ("right" variable (:type "float") (reparse-symbol arg-sub-list) [565 577])
+                    ("bottom" variable (:type "float") (reparse-symbol arg-sub-list) [578 591])
+                    ("top" variable (:type "float") (reparse-symbol arg-sub-list) [596 606])
+                    ("znear" variable (:type "float") (reparse-symbol arg-sub-list) [607 619])
+                    ("zfar" variable (:type "float") (reparse-symbol arg-sub-list) [620 631]))                  
+                :type "void")
+                nil [516 632])
+            ("mat_perspective" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("matrix" variable
+                       (:pointer 1
+                        :type "float")
+                        (reparse-symbol arg-sub-list) [659 673])
+                    ("fov" variable (:type "float") (reparse-symbol arg-sub-list) [674 684])
+                    ("aspect" variable (:type "float") (reparse-symbol arg-sub-list) [685 698])
+                    ("near" variable (:type "float") (reparse-symbol arg-sub-list) [703 714])
+                    ("far" variable (:type "float") (reparse-symbol arg-sub-list) [715 725]))                  
+                :type "void")
+                nil [633 726])
+            ("mat_ortho" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("matrix" variable
+                       (:pointer 1
+                        :type "float")
+                        (reparse-symbol arg-sub-list) [747 761])
+                    ("left" variable (:type "float") (reparse-symbol arg-sub-list) [766 777])
+                    ("right" variable (:type "float") (reparse-symbol arg-sub-list) [778 790])
+                    ("bottom" variable (:type "float") (reparse-symbol arg-sub-list) [791 804])
+                    ("top" variable (:type "float") (reparse-symbol arg-sub-list) [805 815])
+                    ("near" variable (:type "float") (reparse-symbol arg-sub-list) [816 827])
+                    ("far" variable (:type "float") (reparse-symbol arg-sub-list) [828 838]))                  
+                :type "void")
+                nil [727 839])
+            ("set_matrix_2d" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("matrix" variable
+                       (:pointer 1
+                        :type "float")
+                        (reparse-symbol arg-sub-list) [859 873])
+                    ("width" variable (:type "int") (reparse-symbol arg-sub-list) [874 884])
+                    ("height" variable (:type "int") (reparse-symbol arg-sub-list) [885 896]))                  
+                :type "void")
+                nil [840 897])
+            ("set_matrix_3d" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("matrix" variable
+                       (:pointer 1
+                        :type "float")
+                        (reparse-symbol arg-sub-list) [922 936])
+                    ("width" variable (:type "int") (reparse-symbol arg-sub-list) [937 947])
+                    ("height" variable (:type "int") (reparse-symbol arg-sub-list) [948 959])
+                    ("x" variable (:type "float") (reparse-symbol arg-sub-list) [964 972])
+                    ("y" variable (:type "float") (reparse-symbol arg-sub-list) [973 981])
+                    ("z" variable (:type "float") (reparse-symbol arg-sub-list) [982 990])
+                    ("rx" variable (:type "float") (reparse-symbol arg-sub-list) [991 1000])
+                    ("ry" variable (:type "float") (reparse-symbol arg-sub-list) [1001 1010])
+                    ("fov" variable (:type "float") (reparse-symbol arg-sub-list) [1015 1025])
+                    ("ortho" variable (:type "int") (reparse-symbol arg-sub-list) [1026 1036])
+                    ("radius" variable (:type "int") (reparse-symbol arg-sub-list) [1037 1048]))                  
+                :type "void")
+                nil [898 1049])
+            ("set_matrix_item" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("matrix" variable
+                       (:pointer 1
+                        :type "float")
+                        (reparse-symbol arg-sub-list) [1071 1085])
+                    ("width" variable (:type "int") (reparse-symbol arg-sub-list) [1086 1096])
+                    ("height" variable (:type "int") (reparse-symbol arg-sub-list) [1097 1108])
+                    ("scale" variable (:type "int") (reparse-symbol arg-sub-list) [1109 1119]))                  
+                :type "void")
+                nil [1050 1120]))          
+    :file "matrix.h"
+    :pointmax 1129
+    :fsize 1128
+    :lastmodtime '(21493 2473 489990 397000)
+    :unmatched-syntax 'nil
+    :lexical-table 
+        '(("_matrix_h_")
+          )
+
+    )
+   (semanticdb-table "util.h"
+    :major-mode 'c-mode
+    :tags 
+        '( ("_util_h_" variable (:constant-flag t) nil [26 34])
+            ("GL/glew.h" include (:system-flag t) nil [36 56])
+            ("GLFW/glfw3.h" include (:system-flag t) nil [57 80])
+            ("config.h" include nil nil [81 100])
+            ("PI" variable (:constant-flag t) nil [110 112])
+            ("DEGREES" variable (:constant-flag t) nil [135 142])
+            ("RADIANS" variable (:constant-flag t) nil [183 190])
+            ("ABS" variable (:constant-flag t) nil [231 234])
+            ("MIN" variable (:constant-flag t) nil [271 274])
+            ("MAX" variable (:constant-flag t) nil [313 316])
+            ("SIGN" variable (:constant-flag t) nil [355 359])
+            ("LOG" variable (:constant-flag t) nil [457 460])
+            ("FPS" type
+               (:typedef ("" type
+                     (:members 
+                        ( ("fps" variable (:type "unsigned int") (reparse-symbol classsubparts) [495 512])
+                          ("frames" variable (:type "unsigned int") (reparse-symbol classsubparts) [517 537])
+                          ("since" variable (:type "double") (reparse-symbol classsubparts) [542 555]))                        
+                      :type "struct")
+                      nil nil)
+                :type "typedef")
+                nil [474 562])
+            ("rand_int" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("n" variable (:type "int") (reparse-symbol arg-sub-list) [577 583]))                  
+                :type "int")
+                nil [564 584])
+            ("rand_double" function
+               (:prototype-flag t
+                :type "double")
+                nil [585 606])
+            ("update_fps" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("fps" variable
+                       (:pointer 1
+                        :type ("FPS" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [623 632]))                  
+                :type "void")
+                nil [607 633])
+            ("gen_buffer" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("size" variable (:type ("GLsizei" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [653 666])
+                    ("data" variable
+                       (:pointer 1
+                        :type ("GLfloat" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [667 681]))                  
+                :type ("GLuint" type (:type "class") nil nil))
+                nil [635 682])
+            ("del_buffer" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("buffer" variable (:type ("GLuint" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [699 713]))                  
+                :type "void")
+                nil [683 714])
+            ("malloc_faces" function
+               (:prototype-flag t
+                :pointer 1
+                :arguments 
+                  ( ("components" variable (:type "int") (reparse-symbol arg-sub-list) [737 752])
+                    ("faces" variable (:type "int") (reparse-symbol arg-sub-list) [753 763]))                  
+                :type ("GLfloat" type (:type "class") nil nil))
+                nil [715 764])
+            ("gen_faces" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("components" variable (:type "int") (reparse-symbol arg-sub-list) [782 797])
+                    ("faces" variable (:type "int") (reparse-symbol arg-sub-list) [798 808])
+                    ("data" variable
+                       (:pointer 1
+                        :type ("GLfloat" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [809 823]))                  
+                :type ("GLuint" type (:type "class") nil nil))
+                nil [765 824])
+            ("make_shader" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("type" variable (:type ("GLenum" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [844 856])
+                    ("source" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [857 876]))                  
+                :type ("GLuint" type (:type "class") nil nil))
+                nil [825 877])
+            ("load_shader" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("type" variable (:type ("GLenum" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [897 909])
+                    ("path" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [910 927]))                  
+                :type ("GLuint" type (:type "class") nil nil))
+                nil [878 928])
+            ("make_program" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("shader1" variable (:type ("GLuint" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [949 964])
+                    ("shader2" variable (:type ("GLuint" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [965 980]))                  
+                :type ("GLuint" type (:type "class") nil nil))
+                nil [929 981])
+            ("load_program" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("path1" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [1002 1020])
+                    ("path2" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [1021 1039]))                  
+                :type ("GLuint" type (:type "class") nil nil))
+                nil [982 1040])
+            ("load_png_texture" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("file_name" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [1063 1085]))                  
+                :type "void")
+                nil [1041 1086])
+            ("tokenize" function
+               (:prototype-flag t
+                :pointer 1
+                :arguments 
+                  ( ("str" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [1102 1112])
+                    ("delim" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [1113 1131])
+                    ("key" variable
+                       (:pointer 2
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [1132 1143]))                  
+                :type "char")
+                nil [1087 1144])
+            ("char_width" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("input" variable (:type "char") (reparse-symbol arg-sub-list) [1160 1171]))                  
+                :type "int")
+                nil [1145 1172])
+            ("string_width" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("input" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [1190 1208]))                  
+                :type "int")
+                nil [1173 1209])
+            ("wrap" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("input" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [1219 1237])
+                    ("max_width" variable (:type "int") (reparse-symbol arg-sub-list) [1238 1252])
+                    ("output" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [1253 1266])
+                    ("max_length" variable (:type "int") (reparse-symbol arg-sub-list) [1267 1282]))                  
+                :type "int")
+                nil [1210 1283]))          
+    :file "util.h"
+    :pointmax 1292
+    :fsize 1291
+    :lastmodtime '(21493 2473 490990 375000)
+    :unmatched-syntax 'nil
+    :lexical-table 
+        '(("RADIANS" (spp-arg-list ("degrees") 190 . 199) . ((semantic-list "((degrees) * PI / 180)" 200 . 222)))
+          ("PI" . ((number "3.14159265359" 113 . 126)))
+          ("MAX" (spp-arg-list ("a" "b") 316 . 322) . ((semantic-list "((a) > (b) ? (a) : (b))" 323 . 346)))
+          ("_util_h_")
+          ("MIN" (spp-arg-list ("a" "b") 274 . 280) . ((semantic-list "((a) < (b) ? (a) : (b))" 281 . 304)))
+          ("SIGN" (spp-arg-list ("x") 359 . 362) . ((semantic-list "(((x) > 0) - ((x) < 0))" 363 . 386)))
+          ("LOG" (spp-arg-list ("...") 460 . 465))
+          ("ABS" (spp-arg-list ("x") 234 . 237) . ((semantic-list "((x) < 0 ? (-(x)) : (x))" 238 . 262)))
+          ("DEGREES" (spp-arg-list ("radians") 142 . 151) . ((semantic-list "((radians) * 180 / PI)" 152 . 174)))
+          )
+
+    )
+   (semanticdb-table "world.h"
+    :major-mode 'c-mode
+    :tags 
+        '( ("_world_h_" variable (:constant-flag t) nil [27 36])
+            ("world_func" variable
+               (:functionpointer-flag t
+                :type "void")
+                nil [46 93])
+            ("create_world" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("p" variable (:type "int") (reparse-symbol arg-sub-list) [113 119])
+                    ("q" variable (:type "int") (reparse-symbol arg-sub-list) [120 126])
+                    ("func" variable (:type ("world_func" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [127 143])
+                    ("arg" variable
+                       (:pointer 1
+                        :type "void")
+                        (reparse-symbol arg-sub-list) [144 154]))                  
+                :type "void")
+                nil [95 155]))          
+    :file "world.h"
+    :pointmax 164
+    :fsize 163
+    :lastmodtime '(21493 2473 490990 375000)
+    :unmatched-syntax '((TYPEDEF 38 . 45))
+    :lexical-table 
+        '(("_world_h_")
+          )
+
+    )
+   )
+  :file "!home!chz!Projects!CWork!Craft!src!semantic.cache"
+  :semantic-tag-version "2.0"
+  :semanticdb-version "2.2"
+  )

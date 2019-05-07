@@ -1,0 +1,1059 @@
+;; Object arm/
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "arm/"
+  :tables (list 
+   (semanticdb-table "fas216.c"
+    :major-mode 'c-mode
+    :tags 
+        '( ("linux/module.h" include (:system-flag t) nil [1338 1363])
+            ("linux/blkdev.h" include (:system-flag t) nil [1364 1389])
+            ("linux/kernel.h" include (:system-flag t) nil [1390 1415])
+            ("linux/string.h" include (:system-flag t) nil [1416 1441])
+            ("linux/ioport.h" include (:system-flag t) nil [1442 1467])
+            ("linux/proc_fs.h" include (:system-flag t) nil [1468 1494])
+            ("linux/delay.h" include (:system-flag t) nil [1495 1519])
+            ("linux/bitops.h" include (:system-flag t) nil [1520 1545])
+            ("linux/init.h" include (:system-flag t) nil [1546 1569])
+            ("linux/interrupt.h" include (:system-flag t) nil [1570 1598])
+            ("asm/dma.h" include (:system-flag t) nil [1600 1620])
+            ("asm/io.h" include (:system-flag t) nil [1621 1640])
+            ("asm/irq.h" include (:system-flag t) nil [1641 1661])
+            ("asm/ecard.h" include (:system-flag t) nil [1662 1684])
+            ("../scsi.h" include nil nil [1686 1706])
+            ("scsi/scsi_dbg.h" include (:system-flag t) nil [1707 1733])
+            ("scsi/scsi_host.h" include (:system-flag t) nil [1734 1761])
+            ("fas216.h" include nil nil [1762 1781])
+            ("scsi.h" include nil nil [1782 1799])
+            ("SCSI2_SYNC" variable (:constant-flag t) nil [2956 2966])
+            ("LOG_CONNECT" variable (:constant-flag t) nil [3062 3073])
+            ("LOG_BUSSERVICE" variable (:constant-flag t) nil [3092 3106])
+            ("LOG_FUNCTIONDONE" variable (:constant-flag t) nil [3125 3141])
+            ("LOG_MESSAGES" variable (:constant-flag t) nil [3159 3171])
+            ("LOG_BUFFER" variable (:constant-flag t) nil [3190 3200])
+            ("LOG_ERROR" variable (:constant-flag t) nil [3219 3228])
+            ("level_mask" variable
+               (:typemodifiers ("static")
+                :type "int")
+                nil [3240 3274])
+            ("module_param" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("level_mask" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [3289 3300])
+                    ("" variable (:type "int") (reparse-symbol arg-sub-list) [3301 3305]))                  
+                :type "int")
+                nil [3276 3312])
+            ("fas216_log_setup" function
+               (:arguments 
+                  ( ("str" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [3349 3359]))                  
+                :type ("__init" type (:type "class") nil nil))
+                nil [3325 3984])
+            ("__setup" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("fas216_log_setup" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [4013 4030]))                  
+                :type "int")
+                nil [3986 4031])
+            ("fas216_readb" function
+               (:typemodifiers ("static" "inline")
+                :arguments 
+                  ( ("info" variable
+                       (:pointer 1
+                        :type ("FAS216_Info" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [4074 4092])
+                    ("reg" variable (:type "unsigned int") (reparse-symbol arg-sub-list) [4093 4110]))                  
+                :type "unsigned char")
+                nil [4033 4203])
+            ("fas216_writeb" function
+               (:typemodifiers ("static" "inline")
+                :arguments 
+                  ( ("info" variable
+                       (:pointer 1
+                        :type ("FAS216_Info" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [4238 4256])
+                    ("reg" variable (:type "unsigned int") (reparse-symbol arg-sub-list) [4257 4274])
+                    ("val" variable (:type "unsigned int") (reparse-symbol arg-sub-list) [4275 4292]))                  
+                :type "void")
+                nil [4205 4384])
+            ("fas216_dumpstate" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("info" variable
+                       (:pointer 1
+                        :type ("FAS216_Info" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [4415 4433]))                  
+                :type "void")
+                nil [4386 5014])
+            ("print_SCp" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("SCp" variable
+                       (:pointer 1
+                        :type ("scsi_pointer" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [5038 5063])
+                    ("prefix" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [5064 5083])
+                    ("suffix" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [5084 5103]))                  
+                :type "void")
+                nil [5016 5267])
+            ("fas216_dumpinfo" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("info" variable
+                       (:pointer 1
+                        :type ("FAS216_Info" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [5297 5315]))                  
+                :type "void")
+                nil [5269 7076])
+            ("fas216_checkmagic" variable (:constant-flag t) nil [7610 7627])
+            ("fas216_bus_phase" function
+               (:pointer 1
+                :typemodifiers ("static")
+                :constant-flag t
+                :arguments 
+                  ( ("stat" variable (:type "int") (reparse-symbol arg-sub-list) [7678 7687]))                  
+                :type "char")
+                nil [7642 7863])
+            ("fas216_drv_phase" function
+               (:pointer 1
+                :typemodifiers ("static")
+                :constant-flag t
+                :arguments 
+                  ( ("info" variable
+                       (:pointer 1
+                        :type ("FAS216_Info" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [7901 7919]))                  
+                :type "char")
+                nil [7865 8459])
+            ("fas216_target" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("info" variable
+                       (:pointer 1
+                        :type ("FAS216_Info" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [8487 8505]))                  
+                :type "char")
+                nil [8461 8587])
+            ("fas216_do_log" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("info" variable
+                       (:pointer 1
+                        :type ("FAS216_Info" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [8615 8633])
+                    ("target" variable (:type "char") (reparse-symbol arg-sub-list) [8634 8646])
+                    ("fmt" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [8647 8657])
+                    ("ap" variable (:type ("va_list" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [8658 8669]))                  
+                :type "void")
+                nil [8589 8797])
+            ("fas216_log_command" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("info" variable
+                       (:pointer 1
+                        :type ("FAS216_Info" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [8830 8848])
+                    ("level" variable (:type "int") (reparse-symbol arg-sub-list) [8849 8859])
+                    ("SCpnt" variable
+                       (:pointer 1
+                        :type ("scsi_cmnd" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [8870 8894])
+                    ("fmt" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [8895 8905])
+                    ("..." variable (:type "vararg") (reparse-symbol arg-sub-list) [8906 8910]))                  
+                :type "void")
+                nil [8799 9134])
+            ("fas216_log_target" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("info" variable
+                       (:pointer 1
+                        :type ("FAS216_Info" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [9166 9184])
+                    ("level" variable (:type "int") (reparse-symbol arg-sub-list) [9185 9195])
+                    ("target" variable (:type "int") (reparse-symbol arg-sub-list) [9196 9207])
+                    ("fmt" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [9208 9218])
+                    ("..." variable (:type "vararg") (reparse-symbol arg-sub-list) [9219 9223]))                  
+                :type "void")
+                nil [9136 9447])
+            ("fas216_log" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("info" variable
+                       (:pointer 1
+                        :type ("FAS216_Info" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [9472 9490])
+                    ("level" variable (:type "int") (reparse-symbol arg-sub-list) [9491 9501])
+                    ("fmt" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [9502 9512])
+                    ("..." variable (:type "vararg") (reparse-symbol arg-sub-list) [9513 9517]))                  
+                :type "void")
+                nil [9449 9697])
+            ("PH_SIZE" variable (:constant-flag t) nil [9707 9714])
+            ("ph_list" variable
+               (:dereference 1
+                :typemodifiers ("static")
+                :type ("" type
+                     (:members 
+                        ( ("ph" variable (:type "int") (reparse-symbol classsubparts) [9735 9758])
+                          ("isr" variable (:type "int") (reparse-symbol classsubparts) [9735 9758])
+                          ("ssr" variable (:type "int") (reparse-symbol classsubparts) [9735 9758])
+                          ("stat" variable (:type "int") (reparse-symbol classsubparts) [9735 9758]))                        
+                      :type "struct")
+                      nil nil))
+                nil [9719 9778])
+            ("ph_ptr" variable
+               (:typemodifiers ("static")
+                :type "int")
+                nil [9779 9797])
+            ("add_debug_list" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("stat" variable (:type "int") (reparse-symbol arg-sub-list) [9826 9835])
+                    ("ssr" variable (:type "int") (reparse-symbol arg-sub-list) [9836 9844])
+                    ("isr" variable (:type "int") (reparse-symbol arg-sub-list) [9845 9853])
+                    ("ph" variable (:type "int") (reparse-symbol arg-sub-list) [9854 9861]))                  
+                :type "void")
+                nil [9799 10016])
+            ("cmd_list" variable
+               (:dereference 1
+                :typemodifiers ("static")
+                :type ("" type
+                     (:members 
+                        ( ("command" variable (:type "int") (reparse-symbol classsubparts) [10034 10046])
+                          ("from" variable
+                             (:pointer 1
+                              :type "void")
+                              (reparse-symbol classsubparts) [10047 10058]))                        
+                      :type "struct")
+                      nil nil))
+                nil [10018 10073])
+            ("cmd_ptr" variable
+               (:typemodifiers ("static")
+                :type "int")
+                nil [10074 10093])
+            ("fas216_cmd" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("info" variable
+                       (:pointer 1
+                        :type ("FAS216_Info" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [10118 10136])
+                    ("command" variable (:type "unsigned int") (reparse-symbol arg-sub-list) [10137 10158]))                  
+                :type "void")
+                nil [10095 10327])
+            ("print_debug_list" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [10358 10363]))                  
+                :type "void")
+                nil [10329 10859])
+            ("fas216_done" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("info" variable
+                       (:pointer 1
+                        :type ("FAS216_Info" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [10885 10903])
+                    ("result" variable (:type "unsigned int") (reparse-symbol arg-sub-list) [10904 10924]))                  
+                :type "void")
+                nil [10861 10925])
+            ("fas216_get_last_msg" function
+               (:typemodifiers ("static" "inline")
+                :arguments 
+                  ( ("info" variable
+                       (:pointer 1
+                        :type ("FAS216_Info" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [11174 11192])
+                    ("pos" variable (:type "int") (reparse-symbol arg-sub-list) [11193 11201]))                  
+                :type "unsigned short")
+                nil [11125 11645])
+            ("fas216_syncperiod" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("info" variable
+                       (:pointer 1
+                        :type ("FAS216_Info" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [11968 11986])
+                    ("ns" variable (:type "int") (reparse-symbol arg-sub-list) [11987 11994]))                  
+                :type "int")
+                nil [11939 12162])
+            ("fas216_set_sync" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("info" variable
+                       (:pointer 1
+                        :type ("FAS216_Info" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [12591 12609])
+                    ("target" variable (:type "int") (reparse-symbol arg-sub-list) [12610 12621]))                  
+                :type "void")
+                nil [12563 12913])
+            ("fas216_handlesync" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("info" variable
+                       (:pointer 1
+                        :type ("FAS216_Info" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [14402 14420])
+                    ("msg" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [14421 14431]))                  
+                :type "void")
+                nil [14372 17193])
+            ("fas216_updateptrs" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("info" variable
+                       (:pointer 1
+                        :type ("FAS216_Info" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [17465 17483])
+                    ("bytes_transferred" variable (:type "int") (reparse-symbol arg-sub-list) [17484 17506]))                  
+                :type "void")
+                nil [17435 18163])
+            ("fas216_pio" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("info" variable
+                       (:pointer 1
+                        :type ("FAS216_Info" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [18462 18480])
+                    ("direction" variable (:type ("fasdmadir_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [18481 18503]))                  
+                :type "void")
+                nil [18439 18770])
+            ("fas216_set_stc" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("info" variable
+                       (:pointer 1
+                        :type ("FAS216_Info" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [18799 18817])
+                    ("length" variable (:type "unsigned int") (reparse-symbol arg-sub-list) [18818 18838]))                  
+                :type "void")
+                nil [18772 18973])
+            ("fas216_get_ctc" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("info" variable
+                       (:pointer 1
+                        :type ("FAS216_Info" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [19010 19028]))                  
+                :type "unsigned int")
+                nil [18975 19163])
+            ("fas216_cleanuptransfer" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("info" variable
+                       (:pointer 1
+                        :type ("FAS216_Info" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [19405 19423]))                  
+                :type "void")
+                nil [19370 20353])
+            ("fas216_transfer" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("info" variable
+                       (:pointer 1
+                        :type ("FAS216_Info" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [20562 20580]))                  
+                :type "void")
+                nil [20534 22547])
+            ("fas216_stoptransfer" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("info" variable
+                       (:pointer 1
+                        :type ("FAS216_Info" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [22779 22797]))                  
+                :type "void")
+                nil [22747 23591])
+            ("fas216_aborttransfer" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("info" variable
+                       (:pointer 1
+                        :type ("FAS216_Info" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [23626 23644]))                  
+                :type "void")
+                nil [23593 23899])
+            ("fas216_kick" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("info" variable
+                       (:pointer 1
+                        :type ("FAS216_Info" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [23925 23943]))                  
+                :type "void")
+                nil [23901 23944])
+            ("fas216_disconnect_intr" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("info" variable
+                       (:pointer 1
+                        :type ("FAS216_Info" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [24137 24155]))                  
+                :type "void")
+                nil [24102 25378])
+            ("fas216_reselected_intr" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("info" variable
+                       (:pointer 1
+                        :type ("FAS216_Info" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [25560 25578]))                  
+                :type "void")
+                nil [25525 28480])
+            ("fas216_parse_message" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("info" variable
+                       (:pointer 1
+                        :type ("FAS216_Info" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [28515 28533])
+                    ("message" variable
+                       (:pointer 1
+                        :type "unsigned char")
+                        (reparse-symbol arg-sub-list) [28534 28557])
+                    ("msglen" variable (:type "int") (reparse-symbol arg-sub-list) [28558 28569]))                  
+                :type "void")
+                nil [28482 31209])
+            ("fas216_wait_cmd" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("info" variable
+                       (:pointer 1
+                        :type ("FAS216_Info" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [31238 31256])
+                    ("cmd" variable (:type "int") (reparse-symbol arg-sub-list) [31257 31265]))                  
+                :type "int")
+                nil [31211 31477])
+            ("fas216_get_msg_byte" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("info" variable
+                       (:pointer 1
+                        :type ("FAS216_Info" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [31510 31528]))                  
+                :type "int")
+                nil [31479 32346])
+            ("fas216_message" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("info" variable
+                       (:pointer 1
+                        :type ("FAS216_Info" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [32566 32584]))                  
+                :type "void")
+                nil [32539 33627])
+            ("fas216_send_command" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("info" variable
+                       (:pointer 1
+                        :type ("FAS216_Info" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [33863 33881]))                  
+                :type "void")
+                nil [33831 34213])
+            ("fas216_send_messageout" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("info" variable
+                       (:pointer 1
+                        :type ("FAS216_Info" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [34478 34496])
+                    ("start" variable (:type "int") (reparse-symbol arg-sub-list) [34497 34507]))                  
+                :type "void")
+                nil [34443 35074])
+            ("fas216_busservice_intr" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("info" variable
+                       (:pointer 1
+                        :type ("FAS216_Info" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [35375 35393])
+                    ("stat" variable (:type "unsigned int") (reparse-symbol arg-sub-list) [35394 35412])
+                    ("is" variable (:type "unsigned int") (reparse-symbol arg-sub-list) [35413 35429]))                  
+                :type "void")
+                nil [35340 41361])
+            ("fas216_funcdone_intr" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("info" variable
+                       (:pointer 1
+                        :type ("FAS216_Info" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [41666 41684])
+                    ("stat" variable (:type "unsigned int") (reparse-symbol arg-sub-list) [41685 41703])
+                    ("is" variable (:type "unsigned int") (reparse-symbol arg-sub-list) [41704 41720]))                  
+                :type "void")
+                nil [41633 42761])
+            ("fas216_bus_reset" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("info" variable
+                       (:pointer 1
+                        :type ("FAS216_Info" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [42792 42810]))                  
+                :type "void")
+                nil [42763 43491])
+            ("fas216_intr" function
+               (:arguments 
+                  ( ("info" variable
+                       (:pointer 1
+                        :type ("FAS216_Info" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [43678 43696]))                  
+                :type ("irqreturn_t" type (:type "class") nil nil))
+                nil [43654 44820])
+            ("__fas216_start_command" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("info" variable
+                       (:pointer 1
+                        :type ("FAS216_Info" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [44857 44875])
+                    ("SCpnt" variable
+                       (:pointer 1
+                        :type ("scsi_cmnd" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [44876 44900]))                  
+                :type "void")
+                nil [44822 46702])
+            ("parity_test" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("info" variable
+                       (:pointer 1
+                        :type ("FAS216_Info" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [46932 46950])
+                    ("target" variable (:type "int") (reparse-symbol arg-sub-list) [46951 46962]))                  
+                :type "int")
+                nil [46909 47098])
+            ("fas216_start_command" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("info" variable
+                       (:pointer 1
+                        :type ("FAS216_Info" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [47133 47151])
+                    ("SCpnt" variable
+                       (:pointer 1
+                        :type ("scsi_cmnd" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [47152 47176]))                  
+                :type "void")
+                nil [47100 48511])
+            ("fas216_allocate_tag" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("info" variable
+                       (:pointer 1
+                        :type ("FAS216_Info" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [48545 48563])
+                    ("SCpnt" variable
+                       (:pointer 1
+                        :type ("scsi_cmnd" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [48564 48588]))                  
+                :type "void")
+                nil [48513 49288])
+            ("fas216_do_bus_device_reset" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("info" variable
+                       (:pointer 1
+                        :type ("FAS216_Info" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [49329 49347])
+                    ("SCpnt" variable
+                       (:pointer 1
+                        :type ("scsi_cmnd" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [49359 49383]))                  
+                :type "void")
+                nil [49290 50257])
+            ("fas216_kick" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("info" variable
+                       (:pointer 1
+                        :type ("FAS216_Info" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [50484 50502]))                  
+                :type "void")
+                nil [50460 52224])
+            ("fas216_devicereset_done" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("info" variable
+                       (:pointer 1
+                        :type ("FAS216_Info" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [52334 52352])
+                    ("SCpnt" variable
+                       (:pointer 1
+                        :type ("scsi_cmnd" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [52353 52377])
+                    ("result" variable (:type "unsigned int") (reparse-symbol arg-sub-list) [52386 52406]))                  
+                :type "void")
+                nil [52298 52550])
+            ("fas216_rq_sns_done" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("info" variable
+                       (:pointer 1
+                        :type ("FAS216_Info" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [52824 52842])
+                    ("SCpnt" variable
+                       (:pointer 1
+                        :type ("scsi_cmnd" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [52843 52867])
+                    ("result" variable (:type "unsigned int") (reparse-symbol arg-sub-list) [52878 52898]))                  
+                :type "void")
+                nil [52793 53797])
+            ("fas216_std_done" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("info" variable
+                       (:pointer 1
+                        :type ("FAS216_Info" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [54041 54059])
+                    ("SCpnt" variable
+                       (:pointer 1
+                        :type ("scsi_cmnd" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [54060 54084])
+                    ("result" variable (:type "unsigned int") (reparse-symbol arg-sub-list) [54085 54105]))                  
+                :type "void")
+                nil [54013 56488])
+            ("fas216_done" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("info" variable
+                       (:pointer 1
+                        :type ("FAS216_Info" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [56694 56712])
+                    ("result" variable (:type "unsigned int") (reparse-symbol arg-sub-list) [56713 56733]))                  
+                :type "void")
+                nil [56670 58302])
+            ("fas216_queue_command_lck" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("SCpnt" variable
+                       (:pointer 1
+                        :type ("scsi_cmnd" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [58643 58667])
+                    ("" variable (:type "void") (reparse-symbol arg-sub-list) [58672 58684]))                  
+                :type "int")
+                nil [58607 59563])
+            ("fas216_internal_done" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("SCpnt" variable
+                       (:pointer 1
+                        :type ("scsi_cmnd" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [59818 59842]))                  
+                :type "void")
+                nil [59785 59967])
+            ("fas216_noqueue_command_lck" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("SCpnt" variable
+                       (:pointer 1
+                        :type ("scsi_cmnd" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [60242 60266])
+                    ("" variable (:type "void") (reparse-symbol arg-sub-list) [60273 60285]))                  
+                :type "int")
+                nil [60204 61515])
+            ("fas216_eh_timer" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("data" variable (:type "unsigned long") (reparse-symbol arg-sub-list) [61716 61735]))                  
+                :type "void")
+                nil [61688 62022])
+            ("res_find" type
+               (:members 
+                  ( ("res_failed" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [62041 62052])
+                    ("res_success" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [62073 62085])
+                    ("res_hw_abort" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [62117 62166]))                  
+                :type "enum")
+                nil [62024 62167])
+            ("fas216_find_command" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("info" variable
+                       (:pointer 1
+                        :type ("FAS216_Info" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [62359 62377])
+                    ("SCpnt" variable
+                       (:pointer 1
+                        :type ("scsi_cmnd" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [62384 62408]))                  
+                :type ("res_find" type (:type "enum") nil nil))
+                nil [62318 63892])
+            ("fas216_eh_abort" function
+               (:arguments 
+                  ( ("SCpnt" variable
+                       (:pointer 1
+                        :type ("scsi_cmnd" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [64112 64136]))                  
+                :type "int")
+                nil [64092 65094])
+            ("fas216_eh_device_reset" function
+               (:arguments 
+                  ( ("SCpnt" variable
+                       (:pointer 1
+                        :type ("scsi_cmnd" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [65438 65462]))                  
+                :type "int")
+                nil [65411 67507])
+            ("fas216_eh_bus_reset" function
+               (:arguments 
+                  ( ("SCpnt" variable
+                       (:pointer 1
+                        :type ("scsi_cmnd" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [67778 67802]))                  
+                :type "int")
+                nil [67754 69544])
+            ("fas216_init_chip" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("info" variable
+                       (:pointer 1
+                        :type ("FAS216_Info" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [69723 69741]))                  
+                :type "void")
+                nil [69694 70204])
+            ("fas216_eh_host_reset" function
+               (:arguments 
+                  ( ("SCpnt" variable
+                       (:pointer 1
+                        :type ("scsi_cmnd" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [70500 70524]))                  
+                :type "int")
+                nil [70475 71246])
+            ("TYPE_UNKNOWN" variable (:constant-flag t) nil [71256 71268])
+            ("TYPE_NCR53C90" variable (:constant-flag t) nil [71279 71292])
+            ("TYPE_NCR53C90A" variable (:constant-flag t) nil [71303 71317])
+            ("TYPE_NCR53C9x" variable (:constant-flag t) nil [71328 71341])
+            ("TYPE_Am53CF94" variable (:constant-flag t) nil [71352 71365])
+            ("TYPE_EmFAS216" variable (:constant-flag t) nil [71376 71389])
+            ("TYPE_QLFAS216" variable (:constant-flag t) nil [71400 71413])
+            ("chip_types" variable
+               (:pointer 1
+                :dereference 1
+                :typemodifiers ("static")
+                :type "char")
+                nil [71417 71562])
+            ("fas216_detect_type" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("info" variable
+                       (:pointer 1
+                        :type ("FAS216_Info" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [71594 71612]))                  
+                :type "int")
+                nil [71564 73200])
+            ("fas216_reset_state" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("info" variable
+                       (:pointer 1
+                        :type ("FAS216_Info" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [73367 73385]))                  
+                :type "void")
+                nil [73336 73982])
+            ("fas216_init" function
+               (:arguments 
+                  ( ("host" variable
+                       (:pointer 1
+                        :type ("Scsi_Host" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [74185 74208]))                  
+                :type "int")
+                nil [74169 75166])
+            ("fas216_add" function
+               (:arguments 
+                  ( ("host" variable
+                       (:pointer 1
+                        :type ("Scsi_Host" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [75374 75397])
+                    ("dev" variable
+                       (:pointer 1
+                        :type ("device" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [75398 75417]))                  
+                :type "int")
+                nil [75359 76461])
+            ("fas216_remove" function
+               (:arguments 
+                  ( ("host" variable
+                       (:pointer 1
+                        :type ("Scsi_Host" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [76482 76505]))                  
+                :type "void")
+                nil [76463 76682])
+            ("fas216_release" function
+               (:arguments 
+                  ( ("host" variable
+                       (:pointer 1
+                        :type ("Scsi_Host" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [76907 76930]))                  
+                :type "void")
+                nil [76887 77062])
+            ("fas216_print_host" function
+               (:arguments 
+                  ( ("info" variable
+                       (:pointer 1
+                        :type ("FAS216_Info" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [77086 77104])
+                    ("buffer" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [77105 77118]))                  
+                :type "int")
+                nil [77064 77313])
+            ("fas216_print_stats" function
+               (:arguments 
+                  ( ("info" variable
+                       (:pointer 1
+                        :type ("FAS216_Info" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [77338 77356])
+                    ("buffer" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [77357 77370]))                  
+                :type "int")
+                nil [77315 77936])
+            ("fas216_print_devices" function
+               (:arguments 
+                  ( ("info" variable
+                       (:pointer 1
+                        :type ("FAS216_Info" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [77963 77981])
+                    ("buffer" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [77982 77995]))                  
+                :type "int")
+                nil [77938 78672])
+            ("EXPORT_SYMBOL" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("fas216_init" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [78688 78700]))                  
+                :type "int")
+                nil [78674 78701])
+            ("EXPORT_SYMBOL" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("fas216_add" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [78716 78727]))                  
+                :type "int")
+                nil [78702 78728])
+            ("EXPORT_SYMBOL" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("fas216_queue_command" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [78743 78764]))                  
+                :type "int")
+                nil [78729 78765])
+            ("EXPORT_SYMBOL" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("fas216_noqueue_command" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [78780 78803]))                  
+                :type "int")
+                nil [78766 78804])
+            ("EXPORT_SYMBOL" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("fas216_intr" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [78819 78831]))                  
+                :type "int")
+                nil [78805 78832])
+            ("EXPORT_SYMBOL" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("fas216_remove" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [78847 78861]))                  
+                :type "int")
+                nil [78833 78862])
+            ("EXPORT_SYMBOL" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("fas216_release" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [78877 78892]))                  
+                :type "int")
+                nil [78863 78893])
+            ("EXPORT_SYMBOL" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("fas216_eh_abort" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [78908 78924]))                  
+                :type "int")
+                nil [78894 78925])
+            ("EXPORT_SYMBOL" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("fas216_eh_device_reset" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [78940 78963]))                  
+                :type "int")
+                nil [78926 78964])
+            ("EXPORT_SYMBOL" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("fas216_eh_bus_reset" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [78979 78999]))                  
+                :type "int")
+                nil [78965 79000])
+            ("EXPORT_SYMBOL" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("fas216_eh_host_reset" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [79015 79036]))                  
+                :type "int")
+                nil [79001 79037])
+            ("EXPORT_SYMBOL" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("fas216_print_host" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [79052 79070]))                  
+                :type "int")
+                nil [79038 79071])
+            ("EXPORT_SYMBOL" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("fas216_print_stats" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [79086 79105]))                  
+                :type "int")
+                nil [79072 79106])
+            ("EXPORT_SYMBOL" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("fas216_print_devices" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [79121 79142]))                  
+                :type "int")
+                nil [79107 79143])
+            ("MODULE_AUTHOR" function
+               (:prototype-flag t
+                :type "int")
+                nil [79145 79175])
+            ("MODULE_DESCRIPTION" function
+               (:prototype-flag t
+                :type "int")
+                nil [79176 79234])
+            ("MODULE_LICENSE" function
+               (:prototype-flag t
+                :type "int")
+                nil [79235 79257]))          
+    :file "fas216.c"
+    :pointmax 79258
+    :fsize 79257
+    :lastmodtime '(21468 9074 912484 893000)
+    :unmatched-syntax '((string 79250 . 79255) (string 79195 . 79232) (string 79159 . 79173) (semantic-list 61530 . 61554) (symbol 61517 . 61530) (semantic-list 60285 . 60305) (semantic-list 60278 . 60285) (semantic-list 59578 . 59600) (symbol 59565 . 59578) (semantic-list 58684 . 58704) (semantic-list 58677 . 58684) (string 3994 . 4011) (INT 3321 . 3324) (STATIC 3314 . 3320) (number 3306 . 3310))
+    :lexical-table 
+        '(("TYPE_NCR53C90A" . ((number "2" 71318 . 71319)))
+          ("TYPE_Am53CF94" . ((number "4" 71366 . 71367)))
+          ("LOG_CONNECT" . ((semantic-list "(1 << 0)" 3075 . 3083)))
+          ("TYPE_NCR53C90" . ((number "1" 71293 . 71294)))
+          ("LOG_BUFFER" . ((semantic-list "(1 << 4)" 3202 . 3210)))
+          ("TYPE_QLFAS216" . ((number "6" 71414 . 71415)))
+          ("LOG_MESSAGES" . ((semantic-list "(1 << 3)" 3173 . 3181)))
+          ("fas216_checkmagic" (spp-arg-list ("info") 7627 . 7633))
+          ("TYPE_NCR53C9x" . ((number "3" 71342 . 71343)))
+          ("TYPE_EmFAS216" . ((number "5" 71390 . 71391)))
+          ("SCSI2_SYNC")
+          ("TYPE_UNKNOWN" . ((number "0" 71269 . 71270)))
+          ("LOG_ERROR" . ((semantic-list "(1 << 8)" 3230 . 3238)))
+          ("LOG_FUNCTIONDONE" . ((semantic-list "(1 << 2)" 3142 . 3150)))
+          ("LOG_BUSSERVICE" . ((semantic-list "(1 << 1)" 3108 . 3116)))
+          ("PH_SIZE" . ((number "32" 9715 . 9717)))
+          )
+
+    )
+   (semanticdb-table "fas216.h"
+    :file "fas216.h"
+    :fsize 13894
+    :lastmodtime '(21468 9074 924484 609000)
+    )
+   (semanticdb-table "scsi.h"
+    :file "scsi.h"
+    :fsize 3010
+    :lastmodtime '(21468 9075 3482 739000)
+    )
+   )
+  :file "!home!chz!linux-3.0.8!drivers!scsi!arm!semantic.cache"
+  :semantic-tag-version "2.0"
+  :semanticdb-version "2.2"
+  )

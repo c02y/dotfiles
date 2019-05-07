@@ -1,0 +1,1269 @@
+;; Object scripts/
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "scripts/"
+  :tables (list 
+   (semanticdb-table "unifdef.c"
+    :major-mode 'c-mode
+    :tags 
+        '( ("sys/types.h" include (:system-flag t) nil [2150 2172])
+            ("sys/stat.h" include (:system-flag t) nil [2173 2194])
+            ("ctype.h" include (:system-flag t) nil [2196 2214])
+            ("err.h" include (:system-flag t) nil [2215 2231])
+            ("errno.h" include (:system-flag t) nil [2232 2250])
+            ("stdarg.h" include (:system-flag t) nil [2251 2270])
+            ("stdbool.h" include (:system-flag t) nil [2271 2291])
+            ("stdio.h" include (:system-flag t) nil [2292 2310])
+            ("stdlib.h" include (:system-flag t) nil [2311 2330])
+            ("string.h" include (:system-flag t) nil [2331 2350])
+            ("unistd.h" include (:system-flag t) nil [2351 2370])
+            ("copyright" variable
+               (:dereference 1
+                :constant-flag t
+                :type "char")
+                nil [2372 2535])
+            ("Linetype" type
+               (:typedef ("" type
+                     (:members 
+                        ( ("LT_TRUEI" variable
+                             (:constant-flag t
+                              :type "int")
+                              (reparse-symbol enumsubparts) [2581 2590])
+                          ("LT_FALSEI" variable
+                             (:constant-flag t
+                              :type "int")
+                              (reparse-symbol enumsubparts) [2627 2637])
+                          ("LT_IF" variable
+                             (:constant-flag t
+                              :type "int")
+                              (reparse-symbol enumsubparts) [2675 2681])
+                          ("LT_TRUE" variable
+                             (:constant-flag t
+                              :type "int")
+                              (reparse-symbol enumsubparts) [2706 2714])
+                          ("LT_FALSE" variable
+                             (:constant-flag t
+                              :type "int")
+                              (reparse-symbol enumsubparts) [2734 2743])
+                          ("LT_ELIF" variable
+                             (:constant-flag t
+                              :type "int")
+                              (reparse-symbol enumsubparts) [2764 2772])
+                          ("LT_ELTRUE" variable
+                             (:constant-flag t
+                              :type "int")
+                              (reparse-symbol enumsubparts) [2798 2808])
+                          ("LT_ELFALSE" variable
+                             (:constant-flag t
+                              :type "int")
+                              (reparse-symbol enumsubparts) [2830 2841])
+                          ("LT_ELSE" variable
+                             (:constant-flag t
+                              :type "int")
+                              (reparse-symbol enumsubparts) [2864 2872])
+                          ("LT_ENDIF" variable
+                             (:constant-flag t
+                              :type "int")
+                              (reparse-symbol enumsubparts) [2887 2896])
+                          ("LT_DODGY" variable
+                             (:constant-flag t
+                              :type "int")
+                              (reparse-symbol enumsubparts) [2912 2921])
+                          ("LT_DODGY_LAST" variable
+                             (:constant-flag t
+                              :default-value (2981 3001)
+                              :type "int")
+                              (reparse-symbol enumsubparts) [2965 3001])
+                          ("LT_PLAIN" variable
+                             (:constant-flag t
+                              :type "int")
+                              (reparse-symbol enumsubparts) [3003 3012])
+                          ("LT_EOF" variable
+                             (:constant-flag t
+                              :type "int")
+                              (reparse-symbol enumsubparts) [3035 3042])
+                          ("LT_ERROR" variable
+                             (:constant-flag t
+                              :type "int")
+                              (reparse-symbol enumsubparts) [3064 3073])
+                          ("LT_COUNT" variable
+                             (:constant-flag t
+                              :type "int")
+                              (reparse-symbol enumsubparts) [3098 3108]))                        
+                      :type "enum")
+                      nil nil)
+                :type "typedef")
+                nil [2565 3118])
+            ("linetype_name" variable
+               (:pointer 1
+                :dereference 1
+                :typemodifiers ("static")
+                :type "char")
+                nil [3120 3435])
+            ("Ifstate" type
+               (:typedef ("" type
+                     (:members 
+                        ( ("IS_OUTSIDE" variable
+                             (:constant-flag t
+                              :type "int")
+                              (reparse-symbol enumsubparts) [3483 3494])
+                          ("IS_FALSE_PREFIX" variable
+                             (:constant-flag t
+                              :type "int")
+                              (reparse-symbol enumsubparts) [3496 3512])
+                          ("IS_TRUE_PREFIX" variable
+                             (:constant-flag t
+                              :type "int")
+                              (reparse-symbol enumsubparts) [3555 3570])
+                          ("IS_PASS_MIDDLE" variable
+                             (:constant-flag t
+                              :type "int")
+                              (reparse-symbol enumsubparts) [3611 3626])
+                          ("IS_FALSE_MIDDLE" variable
+                             (:constant-flag t
+                              :type "int")
+                              (reparse-symbol enumsubparts) [3670 3686])
+                          ("IS_TRUE_MIDDLE" variable
+                             (:constant-flag t
+                              :type "int")
+                              (reparse-symbol enumsubparts) [3727 3742])
+                          ("IS_PASS_ELSE" variable
+                             (:constant-flag t
+                              :type "int")
+                              (reparse-symbol enumsubparts) [3783 3796])
+                          ("IS_FALSE_ELSE" variable
+                             (:constant-flag t
+                              :type "int")
+                              (reparse-symbol enumsubparts) [3832 3846])
+                          ("IS_TRUE_ELSE" variable
+                             (:constant-flag t
+                              :type "int")
+                              (reparse-symbol enumsubparts) [3882 3895])
+                          ("IS_FALSE_TRAILER" variable
+                             (:constant-flag t
+                              :type "int")
+                              (reparse-symbol enumsubparts) [3936 3953])
+                          ("IS_COUNT" variable
+                             (:constant-flag t
+                              :type "int")
+                              (reparse-symbol enumsubparts) [3991 4001]))                        
+                      :type "enum")
+                      nil nil)
+                :type "typedef")
+                nil [3467 4010])
+            ("ifstate_name" variable
+               (:pointer 1
+                :dereference 1
+                :typemodifiers ("static")
+                :type "char")
+                nil [4012 4207])
+            ("Comment_state" type
+               (:typedef ("" type
+                     (:members 
+                        ( ("NO_COMMENT" variable
+                             (:constant-flag t
+                              :default-value (4268 4274)
+                              :type "int")
+                              (reparse-symbol enumsubparts) [4255 4274])
+                          ("C_COMMENT" variable
+                             (:constant-flag t
+                              :type "int")
+                              (reparse-symbol enumsubparts) [4300 4310])
+                          ("CXX_COMMENT" variable
+                             (:constant-flag t
+                              :type "int")
+                              (reparse-symbol enumsubparts) [4346 4358])
+                          ("STARTING_COMMENT" variable
+                             (:constant-flag t
+                              :type "int")
+                              (reparse-symbol enumsubparts) [4394 4411])
+                          ("FINISHING_COMMENT" variable
+                             (:constant-flag t
+                              :type "int")
+                              (reparse-symbol enumsubparts) [4454 4472])
+                          ("CHAR_LITERAL" variable
+                             (:constant-flag t
+                              :type "int")
+                              (reparse-symbol enumsubparts) [4518 4531])
+                          ("STRING_LITERAL" variable
+                             (:constant-flag t
+                              :type "int")
+                              (reparse-symbol enumsubparts) [4550 4583]))                        
+                      :type "enum")
+                      nil nil)
+                :type "typedef")
+                nil [4239 4598])
+            ("comment_name" variable
+               (:pointer 1
+                :dereference 1
+                :typemodifiers ("static")
+                :type "char")
+                nil [4600 4708])
+            ("Line_state" type
+               (:typedef ("" type
+                     (:members 
+                        ( ("LS_START" variable
+                             (:constant-flag t
+                              :type "int")
+                              (reparse-symbol enumsubparts) [4766 4775])
+                          ("LS_HASH" variable
+                             (:constant-flag t
+                              :type "int")
+                              (reparse-symbol enumsubparts) [4821 4829])
+                          ("LS_DIRTY" variable
+                             (:constant-flag t
+                              :type "int")
+                              (reparse-symbol enumsubparts) [4871 4927]))                        
+                      :type "enum")
+                      nil nil)
+                :type "typedef")
+                nil [4750 4939])
+            ("linestate_name" variable
+               (:pointer 1
+                :dereference 1
+                :typemodifiers ("static")
+                :type "char")
+                nil [4941 5016])
+            ("MAXDEPTH" variable (:constant-flag t) nil [5094 5102])
+            ("MAXLINE" variable (:constant-flag t) nil [5149 5156])
+            ("MAXSYMS" variable (:constant-flag t) nil [5209 5216])
+            ("EDITSLOP" variable (:constant-flag t) nil [5426 5434])
+            ("TEMPLATE" variable (:constant-flag t) nil [5488 5496])
+            ("compblank" variable
+               (:typemodifiers ("static")
+                :type "bool")
+                nil [5542 5576])
+            ("lnblank" variable
+               (:typemodifiers ("static")
+                :type "bool")
+                nil [5609 5641])
+            ("complement" variable
+               (:typemodifiers ("static")
+                :type "bool")
+                nil [5673 5708])
+            ("debugging" variable
+               (:typemodifiers ("static")
+                :type "bool")
+                nil [5738 5772])
+            ("iocccok" variable
+               (:typemodifiers ("static")
+                :type "bool")
+                nil [5802 5834])
+            ("strictlogic" variable
+               (:typemodifiers ("static")
+                :type "bool")
+                nil [5865 5901])
+            ("killconsts" variable
+               (:typemodifiers ("static")
+                :type "bool")
+                nil [5933 5968])
+            ("lnnum" variable
+               (:typemodifiers ("static")
+                :type "bool")
+                nil [5999 6029])
+            ("symlist" variable
+               (:typemodifiers ("static")
+                :type "bool")
+                nil [6063 6095])
+            ("symdepth" variable
+               (:typemodifiers ("static")
+                :type "bool")
+                nil [6126 6159])
+            ("text" variable
+               (:typemodifiers ("static")
+                :type "bool")
+                nil [6191 6220])
+            ("symname" variable
+               (:pointer 1
+                :dereference 1
+                :typemodifiers ("static")
+                :constant-flag t
+                :type "char")
+                nil [6254 6295])
+            ("value" variable
+               (:pointer 1
+                :dereference 1
+                :typemodifiers ("static")
+                :constant-flag t
+                :type "char")
+                nil [6314 6353])
+            ("ignore" variable
+               (:dereference 1
+                :typemodifiers ("static")
+                :type "bool")
+                nil [6373 6413])
+            ("nsyms" variable
+               (:typemodifiers ("static")
+                :type "int")
+                nil [6437 6467])
+            ("input" variable
+               (:pointer 1
+                :typemodifiers ("static")
+                :type ("FILE" type (:type "class") nil nil))
+                nil [6495 6525])
+            ("filename" variable
+               (:pointer 1
+                :typemodifiers ("static")
+                :constant-flag t
+                :type "char")
+                nil [6553 6586])
+            ("linenum" variable
+               (:typemodifiers ("static")
+                :type "int")
+                nil [6610 6642])
+            ("output" variable
+               (:pointer 1
+                :typemodifiers ("static")
+                :type ("FILE" type (:type "class") nil nil))
+                nil [6670 6701])
+            ("ofilename" variable
+               (:pointer 1
+                :typemodifiers ("static")
+                :constant-flag t
+                :type "char")
+                nil [6730 6764])
+            ("overwriting" variable
+               (:typemodifiers ("static")
+                :type "bool")
+                nil [6789 6825])
+            ("tempname" variable
+               (:dereference 1
+                :typemodifiers ("static")
+                :type "char")
+                nil [6857 6904])
+            ("tline" variable
+               (:dereference 1
+                :typemodifiers ("static")
+                :type "char")
+                nil [6934 6982])
+            ("keyword" variable
+               (:pointer 1
+                :typemodifiers ("static")
+                :type "char")
+                nil [7012 7044])
+            ("newline" variable
+               (:pointer 1
+                :typemodifiers ("static")
+                :constant-flag t
+                :type "char")
+                nil [7078 7110])
+            ("newline_unix" variable
+               (:dereference 1
+                :typemodifiers ("static")
+                :constant-flag t
+                :type "char")
+                nil [7136 7182])
+            ("newline_crlf" variable
+               (:dereference 1
+                :typemodifiers ("static")
+                :constant-flag t
+                :type "char")
+                nil [7183 7231])
+            ("incomment" variable
+               (:typemodifiers ("static")
+                :type ("Comment_state" type (:type "class") nil nil))
+                nil [7233 7267])
+            ("linestate" variable
+               (:typemodifiers ("static")
+                :type ("Line_state" type (:type "class") nil nil))
+                nil [7296 7330])
+            ("ifstate" variable
+               (:dereference 1
+                :typemodifiers ("static")
+                :type ("Ifstate" type (:type "class") nil nil))
+                nil [7360 7402])
+            ("ignoring" variable
+               (:dereference 1
+                :typemodifiers ("static")
+                :type "bool")
+                nil [7429 7472])
+            ("stifline" variable
+               (:dereference 1
+                :typemodifiers ("static")
+                :type "int")
+                nil [7501 7544])
+            ("depth" variable
+               (:typemodifiers ("static")
+                :type "int")
+                nil [7572 7602])
+            ("delcount" variable
+               (:typemodifiers ("static")
+                :type "int")
+                nil [7631 7664])
+            ("blankcount" variable
+               (:typemodifiers ("static")
+                :type "unsigned int")
+                nil [7695 7730])
+            ("blankmax" variable
+               (:typemodifiers ("static")
+                :type "unsigned int")
+                nil [7759 7792])
+            ("constexpr" variable
+               (:typemodifiers ("static")
+                :type "bool")
+                nil [7826 7860])
+            ("zerosyms" variable
+               (:typemodifiers ("static")
+                :type "bool")
+                nil [7892 7932])
+            ("firstsym" variable
+               (:typemodifiers ("static")
+                :type "bool")
+                nil [7965 7998])
+            ("exitstat" variable
+               (:typemodifiers ("static")
+                :type "int")
+                nil [8013 8046])
+            ("addsym" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("" variable (:type "bool") (reparse-symbol arg-sub-list) [8106 8111])
+                    ("" variable (:type "bool") (reparse-symbol arg-sub-list) [8112 8117])
+                    ("" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [8118 8125]))                  
+                :type "void")
+                nil [8075 8126])
+            ("closeout" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [8160 8165]))                  
+                :type "void")
+                nil [8127 8166])
+            ("debug" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [8197 8210])
+                    ("..." variable (:type "vararg") (reparse-symbol arg-sub-list) [8211 8215]))                  
+                :type "void")
+                nil [8167 8216])
+            ("done" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [8246 8251]))                  
+                :type "void")
+                nil [8217 8252])
+            ("error" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [8283 8296]))                  
+                :type "void")
+                nil [8253 8297])
+            ("findsym" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [8330 8343]))                  
+                :type "int")
+                nil [8298 8344])
+            ("flushline" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("" variable (:type "bool") (reparse-symbol arg-sub-list) [8379 8384]))                  
+                :type "void")
+                nil [8345 8385])
+            ("parseline" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [8420 8425]))                  
+                :type ("Linetype" type (:type "class") nil nil))
+                nil [8386 8426])
+            ("ifeval" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("" variable
+                       (:pointer 2
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [8458 8472]))                  
+                :type ("Linetype" type (:type "class") nil nil))
+                nil [8427 8473])
+            ("ignoreoff" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [8508 8513]))                  
+                :type "void")
+                nil [8474 8514])
+            ("ignoreon" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [8548 8553]))                  
+                :type "void")
+                nil [8515 8554])
+            ("keywordedit" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [8591 8604]))                  
+                :type "void")
+                nil [8555 8605])
+            ("nest" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [8635 8640]))                  
+                :type "void")
+                nil [8606 8641])
+            ("process" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [8674 8679]))                  
+                :type "void")
+                nil [8642 8680])
+            ("skipargs" function
+               (:prototype-flag t
+                :pointer 1
+                :typemodifiers ("static")
+                :constant-flag t
+                :arguments 
+                  ( ("" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [8714 8727]))                  
+                :type "char")
+                nil [8681 8728])
+            ("skipcomment" function
+               (:prototype-flag t
+                :pointer 1
+                :typemodifiers ("static")
+                :constant-flag t
+                :arguments 
+                  ( ("" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [8765 8778]))                  
+                :type "char")
+                nil [8729 8779])
+            ("skipsym" function
+               (:prototype-flag t
+                :pointer 1
+                :typemodifiers ("static")
+                :constant-flag t
+                :arguments 
+                  ( ("" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [8812 8825]))                  
+                :type "char")
+                nil [8780 8826])
+            ("state" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("" variable (:type ("Ifstate" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [8857 8865]))                  
+                :type "void")
+                nil [8827 8866])
+            ("strlcmp" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [8899 8912])
+                    ("" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [8913 8926])
+                    ("" variable (:type ("size_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [8927 8934]))                  
+                :type "int")
+                nil [8867 8935])
+            ("unnest" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [8967 8972]))                  
+                :type "void")
+                nil [8936 8973])
+            ("usage" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [9004 9009]))                  
+                :type "void")
+                nil [8974 9010])
+            ("version" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [9043 9048]))                  
+                :type "void")
+                nil [9011 9049])
+            ("endsym" variable (:constant-flag t) nil [9059 9065])
+            ("main" function
+               (:arguments 
+                  ( ("argc" variable (:type "int") (reparse-symbol arg-sub-list) [9148 9157])
+                    ("argv" variable
+                       (:pointer 1
+                        :dereference 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [9158 9171]))                  
+                :type "int")
+                nil [9139 12220])
+            ("version" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [12242 12247]))                  
+                :type "void")
+                nil [12222 12413])
+            ("usage" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [12433 12438]))                  
+                :type "void")
+                nil [12415 12580])
+            ("state_fn" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [14256 14261]))                  
+                :type "void")
+                nil [14242 14262])
+            ("Eelif" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [14305 14310]))                  
+                :type "void")
+                nil [14286 14344])
+            ("Eelse" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [14364 14369]))                  
+                :type "void")
+                nil [14345 14403])
+            ("Eendif" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [14423 14428]))                  
+                :type "void")
+                nil [14404 14463])
+            ("Eeof" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [14483 14488]))                  
+                :type "void")
+                nil [14464 14516])
+            ("Eioccc" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [14536 14541]))                  
+                :type "void")
+                nil [14517 14592])
+            ("print" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [14638 14643]))                  
+                :type "void")
+                nil [14619 14664])
+            ("drop" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [14684 14689]))                  
+                :type "void")
+                nil [14665 14711])
+            ("Strue" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [14769 14774]))                  
+                :type "void")
+                nil [14750 14823])
+            ("Sfalse" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [14843 14848]))                  
+                :type "void")
+                nil [14824 14898])
+            ("Selse" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [14918 14923]))                  
+                :type "void")
+                nil [14899 14970])
+            ("Pelif" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [15018 15023]))                  
+                :type "void")
+                nil [14999 15072])
+            ("Pelse" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [15092 15097]))                  
+                :type "void")
+                nil [15073 15144])
+            ("Pendif" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [15164 15169]))                  
+                :type "void")
+                nil [15145 15192])
+            ("Dfalse" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [15237 15242]))                  
+                :type "void")
+                nil [15218 15293])
+            ("Delif" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [15313 15318]))                  
+                :type "void")
+                nil [15294 15368])
+            ("Delse" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [15388 15393]))                  
+                :type "void")
+                nil [15369 15441])
+            ("Dendif" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [15461 15466]))                  
+                :type "void")
+                nil [15442 15489])
+            ("Fdrop" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [15535 15540]))                  
+                :type "void")
+                nil [15516 15563])
+            ("Fpass" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [15583 15588]))                  
+                :type "void")
+                nil [15564 15610])
+            ("Ftrue" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [15630 15635]))                  
+                :type "void")
+                nil [15611 15657])
+            ("Ffalse" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [15677 15682]))                  
+                :type "void")
+                nil [15658 15705])
+            ("Oiffy" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [15770 15775]))                  
+                :type "void")
+                nil [15751 15824])
+            ("Oif" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [15844 15849]))                  
+                :type "void")
+                nil [15825 15886])
+            ("Oelif" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [15906 15911]))                  
+                :type "void")
+                nil [15887 15948])
+            ("Idrop" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [16004 16009]))                  
+                :type "void")
+                nil [15985 16035])
+            ("Itrue" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [16055 16060]))                  
+                :type "void")
+                nil [16036 16086])
+            ("Ifalse" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [16106 16111]))                  
+                :type "void")
+                nil [16087 16137])
+            ("Mpass" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [16180 16185]))                  
+                :type "void")
+                nil [16161 16227])
+            ("Mtrue" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [16247 16252]))                  
+                :type "void")
+                nil [16228 16301])
+            ("Melif" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [16321 16326]))                  
+                :type "void")
+                nil [16302 16377])
+            ("Melse" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [16397 16402]))                  
+                :type "void")
+                nil [16378 16450])
+            ("trans_table" variable
+               (:pointer 1
+                :dereference 2
+                :typemodifiers ("static")
+                :type ("state_fn" type (:type "class") nil nil))
+                nil [16452 18603])
+            ("ignoreoff" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [18669 18674]))                  
+                :type "void")
+                nil [18647 18754])
+            ("ignoreon" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [18776 18781]))                  
+                :type "void")
+                nil [18755 18810])
+            ("keywordedit" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("replacement" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [18835 18859]))                  
+                :type "void")
+                nil [18811 18961])
+            ("nest" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [18979 18984]))                  
+                :type "void")
+                nil [18962 19140])
+            ("unnest" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [19160 19165]))                  
+                :type "void")
+                nil [19141 19220])
+            ("state" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("is" variable (:type ("Ifstate" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [19239 19250]))                  
+                :type "void")
+                nil [19221 19276])
+            ("flushline" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("keep" variable (:type "bool") (reparse-symbol arg-sub-list) [19380 19390]))                  
+                :type "void")
+                nil [19358 19930])
+            ("process" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [19996 20001]))                  
+                :type "void")
+                nil [19976 20361])
+            ("closeout" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [20430 20435]))                  
+                :type "void")
+                nil [20409 20666])
+            ("done" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [20714 20719]))                  
+                :type "void")
+                nil [20697 20956])
+            ("parseline" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [21158 21163]))                  
+                :type ("Linetype" type (:type "class") nil nil))
+                nil [21132 23889])
+            ("op_strict" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("p" variable
+                       (:pointer 1
+                        :type "int")
+                        (reparse-symbol arg-sub-list) [24009 24016])
+                    ("v" variable (:type "int") (reparse-symbol arg-sub-list) [24017 24023])
+                    ("at" variable (:type ("Linetype" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [24024 24036])
+                    ("bt" variable (:type ("Linetype" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [24037 24049]))                  
+                :type ("Linetype" type (:type "class") nil nil))
+                nil [23983 24143])
+            ("op_lt" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("p" variable
+                       (:pointer 1
+                        :type "int")
+                        (reparse-symbol arg-sub-list) [24166 24173])
+                    ("at" variable (:type ("Linetype" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [24174 24186])
+                    ("a" variable (:type "int") (reparse-symbol arg-sub-list) [24187 24193])
+                    ("bt" variable (:type ("Linetype" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [24194 24206])
+                    ("b" variable (:type "int") (reparse-symbol arg-sub-list) [24207 24213]))                  
+                :type ("Linetype" type (:type "class") nil nil))
+                nil [24144 24254])
+            ("op_gt" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("p" variable
+                       (:pointer 1
+                        :type "int")
+                        (reparse-symbol arg-sub-list) [24277 24284])
+                    ("at" variable (:type ("Linetype" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [24285 24297])
+                    ("a" variable (:type "int") (reparse-symbol arg-sub-list) [24298 24304])
+                    ("bt" variable (:type ("Linetype" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [24305 24317])
+                    ("b" variable (:type "int") (reparse-symbol arg-sub-list) [24318 24324]))                  
+                :type ("Linetype" type (:type "class") nil nil))
+                nil [24255 24365])
+            ("op_le" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("p" variable
+                       (:pointer 1
+                        :type "int")
+                        (reparse-symbol arg-sub-list) [24388 24395])
+                    ("at" variable (:type ("Linetype" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [24396 24408])
+                    ("a" variable (:type "int") (reparse-symbol arg-sub-list) [24409 24415])
+                    ("bt" variable (:type ("Linetype" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [24416 24428])
+                    ("b" variable (:type "int") (reparse-symbol arg-sub-list) [24429 24435]))                  
+                :type ("Linetype" type (:type "class") nil nil))
+                nil [24366 24477])
+            ("op_ge" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("p" variable
+                       (:pointer 1
+                        :type "int")
+                        (reparse-symbol arg-sub-list) [24500 24507])
+                    ("at" variable (:type ("Linetype" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [24508 24520])
+                    ("a" variable (:type "int") (reparse-symbol arg-sub-list) [24521 24527])
+                    ("bt" variable (:type ("Linetype" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [24528 24540])
+                    ("b" variable (:type "int") (reparse-symbol arg-sub-list) [24541 24547]))                  
+                :type ("Linetype" type (:type "class") nil nil))
+                nil [24478 24589])
+            ("op_eq" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("p" variable
+                       (:pointer 1
+                        :type "int")
+                        (reparse-symbol arg-sub-list) [24612 24619])
+                    ("at" variable (:type ("Linetype" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [24620 24632])
+                    ("a" variable (:type "int") (reparse-symbol arg-sub-list) [24633 24639])
+                    ("bt" variable (:type ("Linetype" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [24640 24652])
+                    ("b" variable (:type "int") (reparse-symbol arg-sub-list) [24653 24659]))                  
+                :type ("Linetype" type (:type "class") nil nil))
+                nil [24590 24701])
+            ("op_ne" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("p" variable
+                       (:pointer 1
+                        :type "int")
+                        (reparse-symbol arg-sub-list) [24724 24731])
+                    ("at" variable (:type ("Linetype" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [24732 24744])
+                    ("a" variable (:type "int") (reparse-symbol arg-sub-list) [24745 24751])
+                    ("bt" variable (:type ("Linetype" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [24752 24764])
+                    ("b" variable (:type "int") (reparse-symbol arg-sub-list) [24765 24771]))                  
+                :type ("Linetype" type (:type "class") nil nil))
+                nil [24702 24813])
+            ("op_or" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("p" variable
+                       (:pointer 1
+                        :type "int")
+                        (reparse-symbol arg-sub-list) [24836 24843])
+                    ("at" variable (:type ("Linetype" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [24844 24856])
+                    ("a" variable (:type "int") (reparse-symbol arg-sub-list) [24857 24863])
+                    ("bt" variable (:type ("Linetype" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [24864 24876])
+                    ("b" variable (:type "int") (reparse-symbol arg-sub-list) [24877 24883]))                  
+                :type ("Linetype" type (:type "class") nil nil))
+                nil [24814 25008])
+            ("op_and" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("p" variable
+                       (:pointer 1
+                        :type "int")
+                        (reparse-symbol arg-sub-list) [25032 25039])
+                    ("at" variable (:type ("Linetype" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [25040 25052])
+                    ("a" variable (:type "int") (reparse-symbol arg-sub-list) [25053 25059])
+                    ("bt" variable (:type ("Linetype" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [25060 25072])
+                    ("b" variable (:type "int") (reparse-symbol arg-sub-list) [25073 25079]))                  
+                :type ("Linetype" type (:type "class") nil nil))
+                nil [25009 25207])
+            ("ops" type
+               (:prototype t
+                :type "struct")
+                nil [25833 25844])
+            ("eval_fn" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("ops" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [25871 25890])
+                    ("" variable
+                       (:pointer 1
+                        :type "int")
+                        (reparse-symbol arg-sub-list) [25891 25897])
+                    ("" variable
+                       (:pointer 2
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [25898 25912]))                  
+                :type ("Linetype" type (:type "class") nil nil))
+                nil [25854 25913])
+            ("eval_unary" variable
+               (:typemodifiers ("static")
+                :type ("eval_fn" type (:type "class") nil nil))
+                nil [25915 25953])
+            ("eval_table" variable
+               (:typemodifiers ("static")
+                :type ("eval_fn" type (:type "class") nil nil))
+                nil [25915 25953])
+            ("ops" type
+               (:members 
+                  ( ("inner" variable
+                       (:pointer 1
+                        :type ("eval_fn" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [26307 26322])
+                    ("op" type
+                       (:members 
+                          ( ("str" variable
+                               (:pointer 1
+                                :constant-flag t
+                                :type "char")
+                                (reparse-symbol classsubparts) [26338 26354])
+                            ("fn" variable
+                               (:functionpointer-flag t
+                                :type ("Linetype" type (:type "class") nil nil))
+                                (reparse-symbol classsubparts) [26357 26409]))                          
+                        :type "struct")
+                        (reparse-symbol classsubparts) [26324 26419])
+                    ("op" variable
+                       (:dereference 1
+                        :type ("op" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol classsubparts) [26324 26419]))                  
+                :type "struct")
+                nil [26280 26669])
+            ("eval_ops" variable
+               (:dereference 1
+                :typemodifiers ("static")
+                :constant-flag t
+                :type ("ops" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [26280 26669])
+            ("eval_unary" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("ops" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("ops" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [26873 26895])
+                    ("valp" variable
+                       (:pointer 1
+                        :type "int")
+                        (reparse-symbol arg-sub-list) [26896 26906])
+                    ("cpp" variable
+                       (:pointer 2
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [26907 26924]))                  
+                :type ("Linetype" type (:type "class") nil nil))
+                nil [26846 28744])
+            ("eval_table" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("ops" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("ops" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [28828 28850])
+                    ("valp" variable
+                       (:pointer 1
+                        :type "int")
+                        (reparse-symbol arg-sub-list) [28851 28861])
+                    ("cpp" variable
+                       (:pointer 2
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [28862 28879]))                  
+                :type ("Linetype" type (:type "class") nil nil))
+                nil [28801 29581])
+            ("ifeval" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("cpp" variable
+                       (:pointer 2
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [29785 29802]))                  
+                :type ("Linetype" type (:type "class") nil nil))
+                nil [29762 30023])
+            ("skipcomment" function
+               (:pointer 1
+                :typemodifiers ("static")
+                :constant-flag t
+                :arguments 
+                  ( ("cp" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [30412 30427]))                  
+                :type "char")
+                nil [30380 32939])
+            ("skipargs" function
+               (:pointer 1
+                :typemodifiers ("static")
+                :constant-flag t
+                :arguments 
+                  ( ("cp" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [33002 33017]))                  
+                :type "char")
+                nil [32973 33351])
+            ("skipsym" function
+               (:pointer 1
+                :typemodifiers ("static")
+                :constant-flag t
+                :arguments 
+                  ( ("cp" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [33416 33431]))                  
+                :type "char")
+                nil [33388 33479])
+            ("findsym" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("str" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [33623 33639]))                  
+                :type "int")
+                nil [33604 34247])
+            ("addsym" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("ignorethis" variable (:type "bool") (reparse-symbol arg-sub-list) [34312 34328])
+                    ("definethis" variable (:type "bool") (reparse-symbol arg-sub-list) [34329 34345])
+                    ("sym" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [34346 34356]))                  
+                :type "void")
+                nil [34293 34905])
+            ("strlcmp" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("s" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [35036 35050])
+                    ("t" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [35051 35065])
+                    ("n" variable (:type ("size_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [35066 35075]))                  
+                :type "int")
+                nil [35017 35222])
+            ("debug" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("msg" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [35265 35281])
+                    ("..." variable (:type "vararg") (reparse-symbol arg-sub-list) [35282 35286]))                  
+                :type "void")
+                nil [35247 35379])
+            ("error" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("msg" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [35399 35415]))                  
+                :type "void")
+                nil [35381 35639]))          
+    :file "unifdef.c"
+    :pointmax 35640
+    :fsize 35639
+    :lastmodtime '(21468 9234 432708 50000)
+    :unmatched-syntax '((TYPEDEF 25846 . 25853) (TYPEDEF 14234 . 14241))
+    :lexical-table 
+        '(("EDITSLOP" . ((number "10" 5442 . 5444)))
+          ("MAXSYMS" . ((number "4096" 5225 . 5229)))
+          ("MAXDEPTH" . ((number "64" 5110 . 5112)))
+          ("MAXLINE" . ((number "4096" 5165 . 5169)))
+          ("TEMPLATE" . ((string "\"unifdef.XXXXXX\"" 5504 . 5520)))
+          ("endsym" (spp-arg-list ("c") 9065 . 9068) . ((semantic-list "(!isalnum((unsigned char)c) && c != '_')" 9069 . 9109)))
+          )
+
+    )
+   )
+  :file "!home!chz!linux-3.0.8!scripts!semantic.cache"
+  :semantic-tag-version "2.0"
+  :semanticdb-version "2.2"
+  )

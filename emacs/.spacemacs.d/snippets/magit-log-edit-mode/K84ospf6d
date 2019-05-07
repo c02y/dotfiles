@@ -1,0 +1,176 @@
+* Configurations files
+`ranger --copy-config=all` to get all the 4 configuration files, check ranger man page for their original position.
+ranger uses 4 main configuration files:
+1. *commands.py* -- contains various functions' implementation, written in Python, used to modify ranger's behavior.
+2. *rc.conf* -- is used for setting various options and binding the keys to functions.
+3. *rifle.con* -- decides which program to use for opening which file.
+4. *scope.sh* -- is a shell script used to generate the previous for various file types.
+
+Be aware that for *rc.conf* and *commands.py*, ranger reads both the global and the user's config (in that order). It allows the user to maintain only a small config which sets only the things not set in the default one. For *sceope.sh* and *rifle.conf*, ranger reads either the users or the global config.
+
+The best practice is to only add the options/keybindings you actually want to change to your rc.conf, rather than to have a complete copy of the default rc.conf. This eliminates the need to update your config manually and gives you the benefits from new options/keybindings of future ranger versions. If you want to keep the full rc.conf though, you may want to set the environment variable /RANGER_LOAD_DEFAULT_RC/ to /FALSE/ to avoid loading both the default and your own rc.conf. In this case you have to update your config manually though.
+* Keybingings
+Source:
+- F1/?->Esc/k for keybingings
+- cheatsheet.png
+- Check ranger man page for more details of these keys
+** keybindings in browser
+prefix key:
+- Esc -- help, man page, keybingings, commands, settings,
+- r -- open_with,
+- y -- copy and misc,
+- u -- undo, mark, tag, closed tab, cut, copy,
+- o -- sort, ls --sort=,
+- p -- paste,
+- d -- cut, delete, du,
+- g -- cd, goto, tab operations,
+- z -- set temporarily,
+- c -- cd, rename, search options,
+- +/- -- chmod +/- ,
+- M -- linemode/attribute,
+
+None bound keys
+F2, ~, F9, F11, F12(bound globally for yakuake), $, %, ^, &, *, (, ), _, e, T, U, O, P, {, D, F, x, X(manually bound to edit rc.conf), C, B, b, </>, ,/., and lots of keys of combination with Ctrl and Alt
+  
+yy -- copy
+pp -- paste
+dd -- delete
+Space -- select then dd/yy, note the "t" is not select but tagging
+uv -- unselect the selected files/dirs, unlike the uv
+ya/da -- add them to the list if you want to copy/delete on multiple marked files/dirs in different dirs
+F5 -- copy
+F6 -- cut
+F7 -- mkdir, new dir
+F8 -- delete
+Insert -- touch, new file
+cd -- cd, cd - --> last directory
+dc -- get the size
+-/+ -- chmod -/+ operations
+= -- chmod, type the number like 755 then = to change the permission
+
+F1 or ? -- show help menu --> Esc or k for keybinging list
+w -- Opens the task window to view and modify background processes In there, you can type "dd" to abort a process and "J" or "K" to change the priority of a process. Only one process is run at a time.
+W -- Opens the log window where you can review messages that pop up at the bottom.
+
+f -- :find
+r -- :open_with
+R -- reload current directory
+C-l -- redraw/refresh the window
+cw -- :rename
+i -- display file, view the file in fullscreen, not highlight like vim
+I -- :rename |filename, | is the point
+a/A or cW -- :rename filename|, | is the point
+[ or ] -- navigate the item in parent dir from the current column
+g -- goto...
+gR -- goto the installed directory of ranger
+g? -- goto the doc file of ranger
+gh -- goto home directory
+gc/t/T/n -- tab operations 
+H/L -- goto history (but you cannot see or choose one from the history list)
+C-h or zh -- show hidden file/dirs
+J/K or C-u/d-- half page
+C-f/b -- one page up/down
+V -- set it to visual, move arrow, all the file/dirs the arrows go will be selected
+v -- invert selection, if selected files, v will unselect the selected files and select the others
+m -- bookmark, check the Bookmarks part
+
+S -- open shell, put ranger in the background, type exit to get back to ranger
+s -- :shell -- "console shell%space" in ?k
+! -- :shell -- "console shell%space" in ?k TODO: what is difference from s
+@ -- :shell | %s
+# -- :shell -p TODO: what is #(-p) means 
+
+:/; -- :
+o -- sort with all kinds of options
+c -- sect files in certain order 
+C-c -- abort the operation
+
+If you'd like to copy files from one ranger instance to another, type(select and yy to copy first) :save_copy_buffer in one and :load_copy_buffer in the other ranger instance. This method can also be sued to _export a list of files_. They are saved in the file ~/.config/ranger/copy_buffer.
+
+** Keybindings in console
+
+** Costume Keybindings
+TODO: this is not working as expected.
+: map X chain shell vim -p ~/.config/ranger/rc.conf %rangerdir/config/rc.conf; source ~/.config/ranger/rc.conf
+"chain" means we can supply multiple commands separated by ";". The first command opens vim with the custom rc.conf and the default rc.conf as a reference in two separate tabs. When you close vim, the second command will source the default config, so that your changes take effect in the current ranger instance.
+
+* Tabs
+Alt-NUM -- create or switch to the tab NUM.
+C-w -- close the tab (won't exit if only one tab existed)
+Alt-left/right or Tab/Shift-Tab -- switch tabs
+q -- exit the current tab.
+
+* TODO Image previews and Custom image previews
+github.com/ranger/ranger/wiki
+* More tips
+** File tagging
+t -- tag (not like Space to select) a file/dir with an asterisk (*), it is persistent and will be there until you remove it manually(type ut), even you exit ranger and restart ranger, the mark will still be there, the marked file/dir info will be stored in "~/.config/ranger/tagged". It may be used to for example for marking the already read e-books, or files that need some action.
+
+"<any> -- tag files with almost any other character besides the asterisk.
+** TODO Metadata
+It may be used to add arbitrary key-value data to any file. Calling ":meta title a very interacting title" will set the tag "title" of the current file to "a very interesting title"
+
+:meta is most commonly used in conjunction with :linemode.
+
+M -- show the built-in linemodes list.
+- file info
+- file name
+- metatitle
+- mtime
+- permissions
+- size and mtime
+
+The "metatitle" which is in the list is extremely handy for organizing all sorts of documents: books, movies, pictures and more. It displays the files based on their metadata.
+
+The info is stored in a file called .metadata.json in the current directory.
+*** TODO Custom linemodes
+github.com/ranger/ranger/wiki
+** Directory flattening -- tree
+:flat 1 -- list all the dirs, files, files in dirs (level 1) (including the hidden) in the current column like tree command (but not structured like tree).
+
+:flat 0 -- disable flat, hide the hidden files/dirs
+:flat -1 -- max level
+** Bulk renaming
+Rename multiple files/dirs name
+1. Space -- select files/dirs
+2. :bulkrename -- open default editor to edit them
+3. rename in vim
+   - insert: C-v --> move --> I --> string --> Esc --> done
+   - replace: :%/s/abc/def/g  --> replace abc with def
+
+:bulkrename works great with :flat
+* Macros
+Macros can be used in commands. They are like global variable with dynamic content:
+%f -- the base name of the current file
+%d -- the path of the current directory
+%s -- the names of the currently selected files
+%t -- the names of all tagged files in this directory
+%c -- the paths of the currently copied files
+%p -- the paths of the currently selected files
+&any -- the key used in a key binding with "<any>", example: map x<any> shell -w echo %any
+%rangerdir -- the path to the ranger installed
+%confdir -- the directory given by --confdir
+%space -- just a space, to avoid typing trailing spaces
+* Bookmarks
+'' -- goto the last visited directory (this is changing)
+m<any> -- mark the current directory (not file),
+'<any> or `<any> -- reenter the bookmarked directory.
+um<any> -- unmark
+
+
+The bookmarked directories can be tabbing first after in :cd.
+
+The info about the bookmarked directories is president even you exit ranger, it is saved into the file ~/.config/ranger/bookmarks, the file is modify once the directory pointed by '' is changing or you modify bookmarks in ranger.
+* NOTE: plugins
+There are various examples on how to extend ranger with plugins or combine ranger with other programs. These can be found in the /usr/share/doc/ranger/examples/ directory, or the doc/ranger/ that is provided along with the source code.
+* NOTE: check the ranger man page available commands and explanation
+* NOTE: Check ranger man page how to use settings
+* TODO FLAGS in ranger man page 
+* TODO :shell 
+* TODO the meaning of idle_delay
+* TODO the meaning of autoupdate_cumulative_size, github
+* TODO the value of metadata_deep_search
+* TODO the effect of shorten_title
+* TODO the effect of update_title
+* TODO check the ranger for the usage of command scout
+* TODO bug of update_tmux_title, github

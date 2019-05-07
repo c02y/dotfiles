@@ -1,0 +1,467 @@
+;; Object file_management/
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "file_management/"
+  :tables
+  (list
+    (semanticdb-table "fs_util.h"
+      :major-mode 'c-mode
+      :tags 
+        '( ("FS_UTIL_H_INCLUDED" variable (:constant-flag t) nil [37 55])
+            ("stdio.h" include (:system-flag t) nil [57 75])
+            ("iostream" include (:system-flag t) nil [76 95])
+            ("string" include (:system-flag t) nil [96 113])
+            ("color_out.h" include nil nil [115 137])
+            ("utility.h" include nil nil [138 158])
+            ("logging.h" include nil nil [159 179])
+            ("boost/filesystem.hpp" include nil nil [181 212])
+            ("boost/algorithm/string.hpp" include nil nil [213 250])
+            ("MAX_REC_DEPTH" variable (:constant-flag t) nil [260 273])
+            ("MAX_REC_PRINT" variable (:constant-flag t) nil [285 298])
+            ("std" using (:type ("std" type
+                 (:prototype t
+                  :type "namespace")
+                  nil nil)) nil [303 323])
+            ("boost" using (:type ("boost" type
+                 (:prototype t
+                  :type "namespace")
+                  nil nil)) nil [324 346])
+            ("fileAttrs" type
+               (:members 
+                  ( ("FA_PATH" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [611 619])
+                    ("FA_SIZE" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [621 629])
+                    ("FA_DIRSIZE" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [631 643]))                  
+                :type "enum")
+                nil [593 644])
+            ("eFileType" type
+               (:members 
+                  ( ("FT_REG" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [664 671])
+                    ("FT_DIR" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [673 680])
+                    ("FT_SYM" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [682 689])
+                    ("FT_OTH" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [691 698])
+                    ("FT_ALL" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [700 707])
+                    ("FT_NONE" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [769 795]))                  
+                :type "enum")
+                nil [646 796])
+            ("AttrVector" type
+               (:members 
+                  ( ("private" label nil (reparse-symbol classsubparts) [818 826])
+                    ("attributes" variable (:type ("vector" type
+                         (:template-specifier 
+                            ( ("fileAttrs" type nil nil nil))                            
+                          :type "class")
+                          nil nil)) (reparse-symbol classsubparts) [829 858])
+                    ("public" label nil (reparse-symbol classsubparts) [861 868])
+                    ("AttrVector" function
+                       (:prototype-flag t
+                        :constructor-flag t
+                        :type ("AttrVector" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [871 884])
+                    ("getVector" function
+                       (:prototype-flag t
+                        :type ("vector" type
+                             (:template-specifier 
+                                ( ("fileAttrs" type nil nil nil))                                
+                              :type "class")
+                              nil nil))
+                        (reparse-symbol classsubparts) [887 918]))                  
+                :type "class")
+                nil [798 921])
+            ("MountAttributes" variable
+               (:typemodifiers ("static")
+                :type ("AttrVector" type (:type "class") nil nil))
+                nil [944 978])
+            ("directoryColor" variable
+               (:dereference 1
+                :constant-flag t
+                :default-value "{ cBlue, eULine, EOO}"
+                :type ("termOpts" type (:type "class") nil nil))
+                nil [980 1036])
+            ("fileColor" variable
+               (:dereference 1
+                :constant-flag t
+                :default-value "{ cGreen, eULine, EOO}"
+                :type ("termOpts" type (:type "class") nil nil))
+                nil [1037 1089])
+            ("pathColor" variable
+               (:dereference 1
+                :constant-flag t
+                :default-value "{ cCyan, EOO}"
+                :type ("termOpts" type (:type "class") nil nil))
+                nil [1090 1133])
+            ("cMountInfo" type
+               (:members 
+                  ( ("protected" label nil (reparse-symbol classsubparts) [1155 1165])
+                    ("regularFiles" variable (:type ("vector" type
+                         (:template-specifier 
+                            ( ("cMountInfo" type (:pointer 1) nil nil))                            
+                          :type "class")
+                          nil nil)) (reparse-symbol classsubparts) [1169 1202])
+                    ("directories" variable (:type ("vector" type
+                         (:template-specifier 
+                            ( ("cMountInfo" type (:pointer 1) nil nil))                            
+                          :type "class")
+                          nil nil)) (reparse-symbol classsubparts) [1205 1237])
+                    ("printIndent" function
+                       (:prototype-flag t
+                        :typemodifiers ("static" "inline")
+                        :arguments 
+                          ( ("level" variable (:type "int") (reparse-symbol arg-sub-list) [1272 1282]))                          
+                        :type "void")
+                        (reparse-symbol classsubparts) [1241 1283])
+                    ("subFiles" variable (:type "int") (reparse-symbol classsubparts) [1380 1393])
+                    ("subDirs" variable (:type "int") (reparse-symbol classsubparts) [1448 1460])
+                    ("subSize" variable (:type ("uint64_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [1522 1539])
+                    ("public" label nil (reparse-symbol classsubparts) [1542 1549])
+                    ("cMountInfo" function
+                       (:prototype-flag t
+                        :constructor-flag t
+                        :type ("cMountInfo" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [1552 1565])
+                    ("cMountInfo" function
+                       (:prototype-flag t
+                        :destructor-flag t
+                        :type "void")
+                        (reparse-symbol classsubparts) [1568 1582])
+                    ("entryType" variable (:type ("eFileType" type (:type "class") nil nil)) (reparse-symbol classsubparts) [1586 1606])
+                    ("entryPath" variable (:type ("filesystem::path" type (:type "class") nil nil)) (reparse-symbol classsubparts) [1609 1636])
+                    ("entrySize" variable (:type ("ssize_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [1639 1657])
+                    ("getAttrs" function
+                       (:prototype-flag t
+                        :type ("vector" type
+                             (:template-specifier 
+                                ( ("fileAttrs" type nil nil nil))                                
+                              :type "class")
+                              nil nil))
+                        (reparse-symbol classsubparts) [1661 1691])
+                    ("setPath" function
+                       (:prototype-flag t
+                        :typemodifiers ("static")
+                        :arguments 
+                          ( ("" variable
+                               (:reference 1
+                                :type ("cMountInfo" type (:type "class") nil nil))
+                                (reparse-symbol arg-sub-list) [1754 1766])
+                            ("path" variable (:type ("string" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [1767 1779]))                          
+                        :type "void")
+                        (reparse-symbol classsubparts) [1734 1780])
+                    ("setPath" function
+                       (:prototype-flag t
+                        :typemodifiers ("static")
+                        :arguments 
+                          ( ("" variable
+                               (:reference 1
+                                :type ("cMountInfo" type (:type "class") nil nil))
+                                (reparse-symbol arg-sub-list) [1803 1815])
+                            ("path" variable (:type ("filesystem::path" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [1816 1838]))                          
+                        :type "void")
+                        (reparse-symbol classsubparts) [1783 1839])
+                    ("setSize" function
+                       (:prototype-flag t
+                        :typemodifiers ("static")
+                        :arguments 
+                          ( ("" variable
+                               (:reference 1
+                                :type ("cMountInfo" type (:type "class") nil nil))
+                                (reparse-symbol arg-sub-list) [1862 1874])
+                            ("size" variable (:type ("ssize_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [1875 1888]))                          
+                        :type "void")
+                        (reparse-symbol classsubparts) [1842 1889])
+                    ("setType" function
+                       (:prototype-flag t
+                        :typemodifiers ("static")
+                        :arguments 
+                          ( ("" variable
+                               (:reference 1
+                                :type ("cMountInfo" type (:type "class") nil nil))
+                                (reparse-symbol arg-sub-list) [1912 1924])
+                            ("type" variable (:type ("eFileType" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [1925 1940]))                          
+                        :type "void")
+                        (reparse-symbol classsubparts) [1892 1941])
+                    ("setSubFiles" function
+                       (:prototype-flag t
+                        :typemodifiers ("static")
+                        :arguments 
+                          ( ("" variable
+                               (:reference 1
+                                :type ("cMountInfo" type (:type "class") nil nil))
+                                (reparse-symbol arg-sub-list) [1968 1980])
+                            ("" variable (:type "int") (reparse-symbol arg-sub-list) [1981 1985]))                          
+                        :type "void")
+                        (reparse-symbol classsubparts) [1944 1986])
+                    ("setSubDirs" function
+                       (:prototype-flag t
+                        :typemodifiers ("static")
+                        :arguments 
+                          ( ("" variable
+                               (:reference 1
+                                :type ("cMountInfo" type (:type "class") nil nil))
+                                (reparse-symbol arg-sub-list) [2012 2024])
+                            ("" variable (:type "int") (reparse-symbol arg-sub-list) [2025 2029]))                          
+                        :type "void")
+                        (reparse-symbol classsubparts) [1989 2030])
+                    ("setSubSize" function
+                       (:prototype-flag t
+                        :typemodifiers ("static")
+                        :arguments 
+                          ( ("" variable
+                               (:reference 1
+                                :type ("cMountInfo" type (:type "class") nil nil))
+                                (reparse-symbol arg-sub-list) [2056 2068])
+                            ("" variable (:type ("uint64_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [2069 2078]))                          
+                        :type "void")
+                        (reparse-symbol classsubparts) [2033 2079])
+                    ("getSubFiles" function
+                       (:prototype-flag t
+                        :typemodifiers ("static")
+                        :arguments 
+                          ( ("" variable
+                               (:reference 1
+                                :type ("cMountInfo" type (:type "class") nil nil))
+                                (reparse-symbol arg-sub-list) [2106 2118]))                          
+                        :type "int")
+                        (reparse-symbol classsubparts) [2083 2119])
+                    ("getSubDirs" function
+                       (:prototype-flag t
+                        :typemodifiers ("static")
+                        :arguments 
+                          ( ("" variable
+                               (:reference 1
+                                :type ("cMountInfo" type (:type "class") nil nil))
+                                (reparse-symbol arg-sub-list) [2144 2156]))                          
+                        :type "int")
+                        (reparse-symbol classsubparts) [2122 2157])
+                    ("getSubSize" function
+                       (:prototype-flag t
+                        :typemodifiers ("static")
+                        :arguments 
+                          ( ("" variable
+                               (:reference 1
+                                :type ("cMountInfo" type (:type "class") nil nil))
+                                (reparse-symbol arg-sub-list) [2187 2199]))                          
+                        :type ("uint64_t" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [2160 2200])
+                    ("addFile" function
+                       (:prototype-flag t
+                        :pointer 1
+                        :typemodifiers ("static")
+                        :arguments 
+                          ( ("" variable
+                               (:reference 1
+                                :type ("cMountInfo" type (:type "class") nil nil))
+                                (reparse-symbol arg-sub-list) [2231 2243])
+                            ("" variable (:type ("eFileType" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [2244 2254]))                          
+                        :type ("cMountInfo" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [2204 2255])
+                    ("sortMounts" function
+                       (:prototype-flag t
+                        :typemodifiers ("static")
+                        :arguments 
+                          ( ("" variable
+                               (:reference 1
+                                :type ("cMountInfo" type (:type "class") nil nil))
+                                (reparse-symbol arg-sub-list) [2282 2294]))                          
+                        :type "void")
+                        (reparse-symbol classsubparts) [2259 2295])
+                    ("addRegular" function
+                       (:prototype-flag t
+                        :arguments 
+                          ( ("" variable
+                               (:pointer 1
+                                :type ("cMountInfo" type (:type "class") nil nil))
+                                (reparse-symbol arg-sub-list) [2354 2366]))                          
+                        :type "void")
+                        (reparse-symbol classsubparts) [2338 2367])
+                    ("addDir" function
+                       (:prototype-flag t
+                        :arguments 
+                          ( ("" variable
+                               (:pointer 1
+                                :type ("cMountInfo" type (:type "class") nil nil))
+                                (reparse-symbol arg-sub-list) [2382 2394]))                          
+                        :type "void")
+                        (reparse-symbol classsubparts) [2370 2395])
+                    ("printContent" function
+                       (:prototype-flag t
+                        :arguments 
+                          ( ("indentLvl" variable
+                               (:default-value "0"
+                                :type "int")
+                                (reparse-symbol arg-sub-list) [2417 2434]))                          
+                        :type "void")
+                        (reparse-symbol classsubparts) [2399 2436])
+                    ("numberFiles" function
+                       (:prototype-flag t
+                        :arguments 
+                          ( ("" variable (:type ("eFileType" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [2455 2465]))                          
+                        :type "int")
+                        (reparse-symbol classsubparts) [2439 2466])
+                    ("getPath" function
+                       (:prototype-flag t
+                        :type ("filesystem::path" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [2470 2498])
+                    ("iterator" type
+                       (:members 
+                          ( ("protected" label nil (reparse-symbol classsubparts) [2522 2532])
+                            ("i" variable (:type "int") (reparse-symbol classsubparts) [2537 2543])
+                            ("infoInstance" variable
+                               (:pointer 1
+                                :type ("cMountInfo" type (:type "class") nil nil))
+                                (reparse-symbol classsubparts) [2548 2573])
+                            ("public" label nil (reparse-symbol classsubparts) [2578 2585])
+                            ("iterator" function
+                               (:prototype-flag t
+                                :constructor-flag t
+                                :type ("iterator" type (:type "class") nil nil))
+                                (reparse-symbol classsubparts) [2590 2601])
+                            ("iterator" function
+                               (:prototype-flag t
+                                :constructor-flag t
+                                :arguments 
+                                  ( ("" variable
+                                       (:pointer 1
+                                        :type ("cMountInfo" type (:type "class") nil nil))
+                                        (reparse-symbol arg-sub-list) [2615 2627])
+                                    ("" variable (:type "int") (reparse-symbol arg-sub-list) [2628 2632]))                                  
+                                :type ("iterator" type (:type "class") nil nil))
+                                (reparse-symbol classsubparts) [2606 2633])
+                            ("++" function
+                               (:operator-flag t
+                                :type ("iterator" type (:type "class") nil nil))
+                                (reparse-symbol classsubparts) [2639 2699])
+                            ("" function
+                               (:operator-flag t
+                                :pointer 1
+                                :function-pointer t
+                                :type ("cMountInfo" type (:type "class") nil nil))
+                                (reparse-symbol classsubparts) [2705 2781])
+                            ("==" function
+                               (:operator-flag t
+                                :arguments 
+                                  ( ("iter" variable
+                                       (:reference 1
+                                        :constant-flag t
+                                        :type ("iterator" type (:type "class") nil nil))
+                                        (reparse-symbol arg-sub-list) [2803 2824]))                                  
+                                :type "bool")
+                                (reparse-symbol classsubparts) [2787 3042])
+                            ("!=" function
+                               (:operator-flag t
+                                :arguments 
+                                  ( ("iter" variable
+                                       (:reference 1
+                                        :constant-flag t
+                                        :type ("iterator" type (:type "class") nil nil))
+                                        (reparse-symbol arg-sub-list) [3064 3085]))                                  
+                                :type "bool")
+                                (reparse-symbol classsubparts) [3048 3139]))                          
+                        :type "class")
+                        (reparse-symbol classsubparts) [2502 3144])
+                    ("begin" function
+                       (:prototype-flag t
+                        :type ("cMountInfo::iterator" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [3148 3177])
+                    ("end" function
+                       (:prototype-flag t
+                        :type ("cMountInfo::iterator" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [3180 3207]))                  
+                :type "class")
+                nil [1135 3211])
+            ("fillFileInfo" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("infoObj" variable
+                       (:reference 1
+                        :type ("cMountInfo" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [3231 3251])
+                    ("startPath" variable (:type ("string" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [3252 3269]))                  
+                :type "void")
+                nil [3213 3270])
+            ("fillFileInfo" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("infoObj" variable
+                       (:reference 1
+                        :type ("cMountInfo" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [3289 3309])
+                    ("startPath" variable
+                       (:reference 1
+                        :type ("filesystem::path" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [3310 3338])
+                    ("recursive" variable
+                       (:default-value "true"
+                        :type "bool")
+                        (reparse-symbol arg-sub-list) [3339 3360]))                  
+                :type "void")
+                nil [3271 3362])
+            ("callFileSetters" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("infoObj" variable
+                       (:reference 1
+                        :type ("cMountInfo" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [3384 3404])
+                    ("currPath" variable
+                       (:reference 1
+                        :type ("filesystem::path" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [3405 3432])
+                    ("type" variable (:type ("eFileType" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [3433 3448])
+                    ("size" variable
+                       (:reference 1
+                        :type ("uint64_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [3449 3464]))                  
+                :type "void")
+                nil [3363 3465])
+            ("sortPathForward" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("path1" variable
+                       (:pointer 1
+                        :type ("cMountInfo" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [3538 3556])
+                    ("path2" variable
+                       (:pointer 1
+                        :type ("cMountInfo" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [3557 3575]))                  
+                :type "int")
+                nil [3517 3576]))          
+      :file "fs_util.h"
+      :pointmax 3610
+      :fsize 3609
+      :lastmodtime '(22544 3306 0 0)
+      :unmatched-syntax nil
+      :lexical-table 
+        '(("MAX_REC_PRINT" . ((number "10" 299 . 301)))
+          ("FS_UTIL_H_INCLUDED")
+          ("MAX_REC_DEPTH" . ((number "30" 274 . 276)))
+          )
+))
+  :file "!home!chz!Public!2三代平台集中存储!FDMN!include!file_management!semantic.cache"
+  :semantic-tag-version "2.0"
+  :semanticdb-version "2.2")

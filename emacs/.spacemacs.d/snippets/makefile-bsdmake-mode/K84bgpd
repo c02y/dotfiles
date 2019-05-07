@@ -1,0 +1,245 @@
+;; Object shared/
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "shared/"
+  :tables (list 
+   (semanticdb-table "user.h"
+    :major-mode 'c-mode
+    :tags 
+        '( ("__USER_H__" variable (:constant-flag t) nil [136 146])
+            ("kern_constants.h" include nil nil [148 175])
+            ("ARRAY_SIZE" variable (:constant-flag t) nil [440 450])
+            ("stddef.h" include (:system-flag t) nil [561 580])
+            ("panic" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("fmt" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [607 623])
+                    ("..." variable (:type "vararg") (reparse-symbol arg-sub-list) [624 628]))                  
+                :type "void")
+                nil [589 670])
+            ("printk" function
+               (:typemodifiers ("static" "inline")
+                :arguments 
+                  ( ("fmt" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [810 826])
+                    ("..." variable (:type "vararg") (reparse-symbol arg-sub-list) [827 831]))                  
+                :type "int")
+                nil [785 846])
+            ("schedule" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [876 881]))                  
+                :type "void")
+                nil [855 882])
+            ("in_aton" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("str" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [902 912]))                  
+                :type "int")
+                nil [883 913])
+            ("open_gdb_chan" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [939 944]))                  
+                :type "int")
+                nil [914 945])
+            ("strlcpy" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [968 975])
+                    ("" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [976 989])
+                    ("" variable (:type ("size_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [990 997]))                  
+                :type ("size_t" type (:type "class") nil nil))
+                nil [946 998])
+            ("strlcat" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [1021 1028])
+                    ("" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [1029 1042])
+                    ("" variable (:type ("size_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [1043 1050]))                  
+                :type ("size_t" type (:type "class") nil nil))
+                nil [999 1051]))          
+    :file "user.h"
+    :pointmax 1060
+    :fsize 1059
+    :lastmodtime '(21468 8994 362392 19000)
+    :unmatched-syntax 'nil
+    :lexical-table 
+        '(("__USER_H__")
+          ("ARRAY_SIZE" (spp-arg-list ("x") 450 . 453) . ((semantic-list "(sizeof(x) / sizeof((x)[0]))" 454 . 482)))
+          )
+
+    )
+   (semanticdb-table "init.h"
+    :major-mode 'c-mode
+    :tags 
+        '( ("_LINUX_UML_INIT_H" variable (:constant-flag t) nil [35 52])
+            ("initcall_t" variable
+               (:functionpointer-flag t
+                :type "int")
+                nil [1225 1249])
+            ("exitcall_t" variable
+               (:functionpointer-flag t
+                :type "void")
+                nil [1258 1283])
+            ("__section" variable (:constant-flag t) nil [1331 1340])
+            ("__used" variable (:constant-flag t) nil [1566 1572])
+            ("__init" variable (:constant-flag t) nil [1759 1765])
+            ("__initdata" variable (:constant-flag t) nil [1797 1807])
+            ("__exitdata" variable (:constant-flag t) nil [1838 1848])
+            ("__exit_call" variable (:constant-flag t) nil [1879 1890])
+            ("__exit" variable (:constant-flag t) nil [1991 1997])
+            ("uml_param" type
+               (:members 
+                  ( ("str" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol classsubparts) [2086 2102])
+                    ("setup_func" variable
+                       (:functionpointer-flag t
+                        :type "int")
+                        (reparse-symbol classsubparts) [2111 2144]))                  
+                :type "struct")
+                nil [2059 2147])
+            ("__uml_initcall_end" variable
+               (:typemodifiers ("extern")
+                :type ("initcall_t" type (:type "class") nil nil))
+                nil [2149 2208])
+            ("__uml_initcall_start" variable
+               (:typemodifiers ("extern")
+                :type ("initcall_t" type (:type "class") nil nil))
+                nil [2149 2208])
+            ("__uml_postsetup_end" variable
+               (:typemodifiers ("extern")
+                :type ("initcall_t" type (:type "class") nil nil))
+                nil [2209 2270])
+            ("__uml_postsetup_start" variable
+               (:typemodifiers ("extern")
+                :type ("initcall_t" type (:type "class") nil nil))
+                nil [2209 2270])
+            ("__uml_help_end" variable
+               (:pointer 1
+                :typemodifiers ("extern")
+                :constant-flag t
+                :type "char")
+                nil [2271 2324])
+            ("__uml_help_start" variable
+               (:pointer 1
+                :typemodifiers ("extern")
+                :constant-flag t
+                :type "char")
+                nil [2271 2324])
+            ("__uml_initcall" variable (:constant-flag t) nil [2341 2355])
+            ("__uml_exitcall" variable (:constant-flag t) nil [2438 2452])
+            ("__uml_setup_end" variable
+               (:typemodifiers ("extern")
+                :type ("uml_param" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [2525 2584])
+            ("__uml_setup_start" variable
+               (:typemodifiers ("extern")
+                :type ("uml_param" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [2525 2584])
+            ("__uml_postsetup" variable (:constant-flag t) nil [2594 2609])
+            ("__non_empty_string" variable (:constant-flag t) nil [2696 2714])
+            ("__uml_setup" variable (:constant-flag t) nil [2869 2880])
+            ("__uml_help" variable (:constant-flag t) nil [3193 3203])
+            ("__uml_init_setup" variable (:constant-flag t) nil [3498 3514])
+            ("__uml_setup_help" variable (:constant-flag t) nil [3557 3573])
+            ("__uml_init_call" variable (:constant-flag t) nil [3615 3630])
+            ("__uml_postsetup_call" variable (:constant-flag t) nil [3677 3697])
+            ("__uml_exit_call" variable (:constant-flag t) nil [3744 3759])
+            ("__define_initcall" variable (:constant-flag t) nil [3827 3844])
+            ("__initcall" variable (:constant-flag t) nil [4076 4086])
+            ("__exitcall" variable (:constant-flag t) nil [4127 4137])
+            ("__init_call" variable (:constant-flag t) nil [4202 4213]))          
+    :file "init.h"
+    :pointmax 4287
+    :fsize 4286
+    :lastmodtime '(21468 8994 190396 91000)
+    :unmatched-syntax '((TYPEDEF 1250 . 1257) (TYPEDEF 1217 . 1224))
+    :lexical-table 
+        '(("__uml_exit_call" . 
+              ((symbol "__used" 3761 . 3767) (symbol "__section" 3768 . 3777) (semantic-list "(.uml.exitcall.exit)" 3777 . 3797)))
+          ("__init" . ((symbol "__section" 1767 . 1776) (semantic-list "(.init.text)" 1776 . 1788)))
+          ("__initcall" (spp-arg-list ("fn") 4086 . 4090) . ((symbol "__define_initcall" 4091 . 4108) (semantic-list "(\"1\", fn)" 4108 . 4117)))
+          ("__initdata" . ((symbol "__section" 1808 . 1817) (semantic-list "(.init.data)" 1817 . 1829)))
+          ("__exit_call" . 
+              ((symbol "__used" 1891 . 1897) (symbol "__section" 1898 . 1907) (semantic-list "(.exitcall.exit)" 1907 . 1923)))
+          ("__init_call" . 
+              ((symbol "__used" 4214 . 4220) (symbol "__section" 4221 . 4230) (semantic-list "(.initcall.init)" 4230 . 4246)))
+          ("__uml_initcall" (spp-arg-list ("fn") 2355 . 2359) . 
+              ((STATIC "static" 2370 . 2376) (symbol "initcall_t" 2377 . 2387) (spp-symbol-merge ((symbol "__uml_initcall_" 2388 . 2403) (symbol "fn" 2405 . 2407)) 2388 . 2407) (symbol "__uml_init_call" 2408 . 2423) (punctuation "=" 2424 . 2425) (symbol "fn" 2426 . 2428)))
+          ("__used" . ((symbol "__attribute__" 1575 . 1588) (semantic-list "((__used__))" 1588 . 1600)))
+          ("__uml_init_setup" . 
+              ((symbol "__used" 3515 . 3521) (symbol "__section" 3522 . 3531) (semantic-list "(.uml.setup.init)" 3531 . 3548)))
+          ("__non_empty_string" (spp-arg-list ("dummyname" "string") 2714 . 2732) . 
+              ((STRUCT "struct" 2739 . 2745) (spp-symbol-merge ((symbol "__uml_non_empty_string_struct_" 2746 . 2776) (symbol "dummyname" 2778 . 2787)) 2746 . 2787) (semantic-list "{								\\
+		char _string[sizeof(string)-2];				\\
+	}" 2792 . 2844)))
+          ("__define_initcall" (spp-arg-list ("level" "fn") 3844 . 3854) . 
+              ((STATIC "static" 3858 . 3864) (symbol "initcall_t" 3865 . 3875) (spp-symbol-merge ((symbol "__initcall_" 3876 . 3887) (symbol "fn" 3889 . 3891)) 3876 . 3891) (symbol "__used" 3892 . 3898) (symbol "__attribute__" 3902 . 3915) (semantic-list "((__section__(\".initcall\" level \".init\")))" 3915 . 3957) (punctuation "=" 3958 . 3959) (symbol "fn" 3960 . 3962)))
+          ("__uml_postsetup" (spp-arg-list ("fn") 2609 . 2613) . 
+              ((STATIC "static" 2622 . 2628) (symbol "initcall_t" 2629 . 2639) (spp-symbol-merge ((symbol "__uml_postsetup_" 2640 . 2656) (symbol "fn" 2658 . 2660)) 2640 . 2660) (symbol "__uml_postsetup_call" 2661 . 2681) (punctuation "=" 2682 . 2683) (symbol "fn" 2684 . 2686)))
+          ("__uml_help" (spp-arg-list ("fn" "help...") 3203 . 3216) . 
+              ((symbol "__non_empty_string" 3225 . 3243) (semantic-list "(fn ##__help, help)" 3243 . 3262) (punctuation ";" 3262 . 3263) (STATIC "static" 3270 . 3276) (CHAR "char" 3277 . 3281) (spp-symbol-merge ((symbol "__uml_help_str_" 3282 . 3297) (symbol "fn" 3299 . 3301)) 3282 . 3301) (semantic-list "[]" 3301 . 3303) (symbol "__initdata" 3304 . 3314) (punctuation "=" 3315 . 3316) (symbol "help" 3317 . 3321) (punctuation ";" 3321 . 3322) (STATIC "static" 3327 . 3333) (CONST "const" 3334 . 3339) (CHAR "char" 3340 . 3344) (punctuation "*" 3345 . 3346) (spp-symbol-merge ((symbol "__uml_help_" 3346 . 3357) (symbol "fn" 3359 . 3361)) 3346 . 3361) (symbol "__uml_setup_help" 3362 . 3378) (punctuation "=" 3379 . 3380) (spp-symbol-merge ((symbol "__uml_help_str_" 3381 . 3396) (symbol "fn" 3398 . 3400)) 3381 . 3400)))
+          ("__exitcall" (spp-arg-list ("fn") 4137 . 4141) . 
+              ((STATIC "static" 4142 . 4148) (symbol "exitcall_t" 4149 . 4159) (spp-symbol-merge ((symbol "__exitcall_" 4160 . 4171) (symbol "fn" 4173 . 4175)) 4160 . 4175) (symbol "__exit_call" 4176 . 4187) (punctuation "=" 4188 . 4189) (symbol "fn" 4190 . 4192)))
+          ("_LINUX_UML_INIT_H")
+          ("__exitdata" . ((symbol "__section" 1849 . 1858) (semantic-list "(.exit.data)" 1858 . 1870)))
+          ("__uml_init_call" . 
+              ((symbol "__used" 3632 . 3638) (symbol "__section" 3639 . 3648) (semantic-list "(.uml.initcall.init)" 3648 . 3668)))
+          ("__exit" . 
+              ((symbol "__used" 1999 . 2005) (symbol "__section" 2006 . 2015) (semantic-list "(.exit.text)" 2015 . 2027)))
+          ("__uml_exitcall" (spp-arg-list ("fn") 2452 . 2456) . 
+              ((STATIC "static" 2465 . 2471) (symbol "exitcall_t" 2472 . 2482) (spp-symbol-merge ((symbol "__uml_exitcall_" 2483 . 2498) (symbol "fn" 2500 . 2502)) 2483 . 2502) (symbol "__uml_exit_call" 2503 . 2518) (punctuation "=" 2519 . 2520) (symbol "fn" 2521 . 2523)))
+          ("__section" (spp-arg-list ("S") 1340 . 1343) . ((symbol "__attribute__" 1344 . 1357) (semantic-list "((__section__(#S)))" 1358 . 1377)))
+          ("__uml_setup" (spp-arg-list ("str" "fn" "help...") 2880 . 2898) . 
+              ((symbol "__non_empty_string" 2906 . 2924) (semantic-list "(fn ##_setup, str)" 2924 . 2942) (punctuation ";" 2942 . 2943) (symbol "__uml_help" 2950 . 2960) (semantic-list "(fn, help)" 2960 . 2970) (punctuation ";" 2970 . 2971) (STATIC "static" 2980 . 2986) (CHAR "char" 2987 . 2991) (spp-symbol-merge ((symbol "__uml_setup_str_" 2992 . 3008) (symbol "fn" 3010 . 3012)) 2992 . 3012) (semantic-list "[]" 3012 . 3014) (symbol "__initdata" 3015 . 3025) (punctuation "=" 3026 . 3027) (symbol "str" 3028 . 3031) (punctuation ";" 3031 . 3032) (STATIC "static" 3037 . 3043) (STRUCT "struct" 3044 . 3050) (symbol "uml_param" 3051 . 3060) (spp-symbol-merge ((symbol "__uml_setup_" 3061 . 3073) (symbol "fn" 3075 . 3077)) 3061 . 3077) (symbol "__uml_init_setup" 3078 . 3094) (punctuation "=" 3095 . 3096) (semantic-list "{ __uml_setup_str_##fn, fn }" 3097 . 3125)))
+          ("__uml_setup_help" . 
+              ((symbol "__used" 3574 . 3580) (symbol "__section" 3581 . 3590) (semantic-list "(.uml.help.init)" 3590 . 3606)))
+          ("__uml_postsetup_call" . 
+              ((symbol "__used" 3698 . 3704) (symbol "__section" 3705 . 3714) (semantic-list "(.uml.postsetup.init)" 3714 . 3735)))
+          )
+
+    )
+   )
+  :file "!home!chz!linux-3.0.8!arch!um!include!shared!semantic.cache"
+  :semantic-tag-version "2.0"
+  :semanticdb-version "2.2"
+  )

@@ -1,0 +1,1299 @@
+;; Object media/
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "media/"
+  :tables
+  (list
+    (semanticdb-table "CLiveMedia.h"
+      :major-mode 'c-mode
+      :tags 
+        '( ("CLIVEMEDIA_H" variable (:constant-flag t) nil [82 94])
+            ("CLIVEMEDIA_API" variable (:constant-flag t) nil [290 304])
+            ("LM_ERROR_CODE" type
+               (:members 
+                  ( ("LM_ERR_FILE_READ_FAIL" variable
+                       (:constant-flag t
+                        :default-value (364 368)
+                        :type "int")
+                        (reparse-symbol enumsubparts) [339 368])
+                    ("LM_ERR_FILE_WRITE_FAIL" variable
+                       (:constant-flag t
+                        :default-value (398 402)
+                        :type "int")
+                        (reparse-symbol enumsubparts) [372 402])
+                    ("LM_ERR_FILESYSTEM_READ_ONLY" variable
+                       (:constant-flag t
+                        :default-value (436 440)
+                        :type "int")
+                        (reparse-symbol enumsubparts) [406 440])
+                    ("LM_ERR_FILE_FORMAT_UNKNOWN" variable
+                       (:constant-flag t
+                        :default-value (473 477)
+                        :type "int")
+                        (reparse-symbol enumsubparts) [444 477])
+                    ("LM_ERR_FILE_OPEN_FAIL" variable
+                       (:constant-flag t
+                        :default-value (506 510)
+                        :type "int")
+                        (reparse-symbol enumsubparts) [481 510])
+                    ("LM_ERR_FILE_NOT_EXITS" variable
+                       (:constant-flag t
+                        :default-value (539 543)
+                        :type "int")
+                        (reparse-symbol enumsubparts) [514 543])
+                    ("LM_ERR_OK" variable
+                       (:constant-flag t
+                        :default-value (559 560)
+                        :type "int")
+                        (reparse-symbol enumsubparts) [547 560]))                  
+                :type "enum")
+                nil [317 565])
+            ("MAX_CHANNEL_NUM" variable (:constant-flag t) nil [579 594])
+            ("OpenStreamParam_t" type
+               (:typedef ("" type
+                     (:members 
+                        ( ("useTCP" variable (:type "int") (reparse-symbol classsubparts) [651 662])
+                          ("streamType" variable (:type "int") (reparse-symbol classsubparts) [689 704])
+                          ("username" variable
+                             (:pointer 1
+                              :type "char")
+                              (reparse-symbol classsubparts) [722 737])
+                          ("password" variable
+                             (:pointer 1
+                              :type "char")
+                              (reparse-symbol classsubparts) [740 755]))                        
+                      :type "struct")
+                      nil nil)
+                :type "typedef")
+                nil [633 776])
+            ("StreamStatistic_t" type
+               (:typedef ("" type
+                     (:members 
+                        ( ("curFps" variable (:type "float") (reparse-symbol classsubparts) [808 821]))                        
+                      :type "struct")
+                      nil nil)
+                :type "typedef")
+                nil [790 854])
+            ("PlaybackCmd" type
+               (:members 
+                  ( ("PLAYBACK_CMD_PLAY" variable
+                       (:constant-flag t
+                        :default-value (966 967)
+                        :type "int")
+                        (reparse-symbol enumsubparts) [946 967])
+                    ("PLAYBACK_CMD_PAUSE" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [971 990])
+                    ("PLAYBACK_CALC_VIDEO_FRAME_NUM" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [993 1023])
+                    ("PLAYBACK_CALC_VIDEO_LENGTH" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [1026 1053])
+                    ("PLAYBACK_CMD_SEEK_TO_TIME" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [1056 1082])
+                    ("PLAYBACK_GET_CUR_TIME" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [1159 1181])
+                    ("PLAYBACK_SET_PLAY_SPEED" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [1198 1222])
+                    ("PLAYBACK_CMD_NEXT_FRAME" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [1263 1287])
+                    ("PLAYBACK_SET_PLAY_FRAMERATE" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [1305 1333])
+                    ("PLAYBACK_SET_REVERSE_PLAY" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [1360 1386]))                  
+                :type "enum")
+                nil [926 1402])
+            ("ChannelEvent" type
+               (:members 
+                  ( ("MSG_NONE" variable
+                       (:constant-flag t
+                        :default-value (1436 1437)
+                        :type "int")
+                        (reparse-symbol enumsubparts) [1427 1437])
+                    ("MSG_LIVE_DESCRIBE_FAIL" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [1441 1464])
+                    ("MSG_LIVE_SETUP_FAIL" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [1467 1487])
+                    ("MSG_LIVE_PLAY_FAIL" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [1490 1509])
+                    ("MSG_LIVE_PLAY_OK" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [1512 1529])
+                    ("MSG_LIVE_KEEPALIVE_FAIL" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [1532 1556])
+                    ("MSG_PLAYBACK_EOF" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [1559 1576])
+                    ("MSG_PLAYBACK_ERROR" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [1579 1598]))                  
+                :type "enum")
+                nil [1406 1645])
+            ("MediaRecordEvent" type
+               (:members 
+                  ( ("MEDIA_RECORD_PRERECORD" variable
+                       (:constant-flag t
+                        :default-value (1697 1698)
+                        :type "int")
+                        (reparse-symbol enumsubparts) [1674 1698])
+                    ("MEDIA_RECORD_WRITE_ERROR" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [1702 1729]))                  
+                :type "enum")
+                nil [1649 1730])
+            ("CodecType" type
+               (:members 
+                  ( ("CODEC_NONE" variable
+                       (:constant-flag t
+                        :default-value (1776 1777)
+                        :type "int")
+                        (reparse-symbol enumsubparts) [1763 1777])
+                    ("CODEC_H264" variable
+                       (:constant-flag t
+                        :default-value (1815 1816)
+                        :type "int")
+                        (reparse-symbol enumsubparts) [1802 1816])
+                    ("CODEC_MP4V" variable
+                       (:constant-flag t
+                        :default-value (1833 1834)
+                        :type "int")
+                        (reparse-symbol enumsubparts) [1820 1834])
+                    ("CODEC_PCMU" variable
+                       (:constant-flag t
+                        :default-value (1872 1873)
+                        :type "int")
+                        (reparse-symbol enumsubparts) [1859 1873])
+                    ("CODEC_PCMA" variable
+                       (:constant-flag t
+                        :default-value (1890 1891)
+                        :type "int")
+                        (reparse-symbol enumsubparts) [1877 1891])
+                    ("CODEC_HIK_VIDEO" variable
+                       (:constant-flag t
+                        :default-value (1929 1930)
+                        :type "int")
+                        (reparse-symbol enumsubparts) [1911 1930])
+                    ("CODEC_HIK_AUDIO" variable
+                       (:constant-flag t
+                        :default-value (1972 1973)
+                        :type "int")
+                        (reparse-symbol enumsubparts) [1954 1973])
+                    ("CODEC_H265" variable
+                       (:constant-flag t
+                        :default-value (2017 2018)
+                        :type "int")
+                        (reparse-symbol enumsubparts) [2004 2018])
+                    ("CODEC_JPEG" variable
+                       (:constant-flag t
+                        :default-value (2037 2038)
+                        :type "int")
+                        (reparse-symbol enumsubparts) [2024 2038]))                  
+                :type "enum")
+                nil [1744 2043])
+            ("LM_FrameType" type
+               (:members 
+                  ( ("LM_I_FRAME" variable
+                       (:constant-flag t
+                        :default-value (2091 2092)
+                        :type "int")
+                        (reparse-symbol enumsubparts) [2078 2092])
+                    ("LM_P_FRAME" variable
+                       (:constant-flag t
+                        :default-value (2109 2110)
+                        :type "int")
+                        (reparse-symbol enumsubparts) [2096 2110])
+                    ("LM_HIK_SYS_FRAME" variable
+                       (:constant-flag t
+                        :default-value (2135 2137)
+                        :type "int")
+                        (reparse-symbol enumsubparts) [2116 2137]))                  
+                :type "enum")
+                nil [2056 2142])
+            ("LM_FrameParam" type
+               (:typedef ("" type
+                     (:members 
+                        ( ("codecType" variable (:type ("CodecType" type (:type "class") nil nil)) (reparse-symbol classsubparts) [2164 2184])
+                          ("frameType" variable (:type ("LM_FrameType" type (:type "class") nil nil)) (reparse-symbol classsubparts) [2187 2210])
+                          ("timeStamp" variable (:type "unsigned int") (reparse-symbol classsubparts) [2213 2236])
+                          ("seqNum" variable (:type "unsigned int") (reparse-symbol classsubparts) [2244 2264])
+                          ("freq" variable (:type "unsigned int") (reparse-symbol classsubparts) [2281 2299])
+                          ("channels" variable (:type "unsigned short") (reparse-symbol classsubparts) [2309 2333])
+                          ("bitsPerSample" variable (:type "unsigned short") (reparse-symbol classsubparts) [2341 2370]))                        
+                      :type "struct")
+                      nil nil)
+                :type "typedef")
+                nil [2146 2392])
+            ("PlayBackDPI" type
+               (:members 
+                  ( ("PLAYBACK_DPI_DEF" variable
+                       (:constant-flag t
+                        :default-value (2435 2436)
+                        :type "int")
+                        (reparse-symbol enumsubparts) [2416 2436])
+                    ("PLAYBACK_DPI_D1" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [2447 2463])
+                    ("PLAYBACK_DPI_CIF" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [2488 2529]))                  
+                :type "enum")
+                nil [2396 2530])
+            ("MAX_MOTION_NUM" variable (:constant-flag t) nil [2555 2569])
+            ("MOTION_DETECT_PRECISION" variable (:constant-flag t) nil [2582 2605])
+            ("MOTION_RESOLUTION_WIDTH" variable (:constant-flag t) nil [2770 2793])
+            ("MOTION_RESOLUTION_HEIGHT" variable (:constant-flag t) nil [2808 2832])
+            ("LM_RECT" type
+               (:typedef ("" type
+                     (:members 
+                        ( ("left" variable (:type "unsigned int") (reparse-symbol classsubparts) [2863 2884])
+                          ("top" variable (:type "unsigned int") (reparse-symbol classsubparts) [2890 2910])
+                          ("right" variable (:type "unsigned int") (reparse-symbol classsubparts) [2916 2938])
+                          ("bottom" variable (:type "unsigned int") (reparse-symbol classsubparts) [2944 2967]))                        
+                      :type "struct")
+                      nil nil)
+                :type "typedef")
+                nil [2840 2978])
+            ("MOTION_DETECT_INFO" type
+               (:typedef ("" type
+                     (:members 
+                        ( ("rcArea" variable (:type ("LM_RECT" type (:type "class") nil nil)) (reparse-symbol classsubparts) [3002 3017])
+                          ("bySensitivity" variable (:type "unsigned char") (reparse-symbol classsubparts) [3020 3048]))                        
+                      :type "struct")
+                      nil nil)
+                :type "typedef")
+                nil [2982 3086])
+            ("LM_Regionf" type
+               (:typedef ("" type
+                     (:members 
+                        ( ("x" variable (:type "float") (reparse-symbol classsubparts) [3110 3118])
+                          ("y" variable (:type "float") (reparse-symbol classsubparts) [3121 3129])
+                          ("w" variable (:type "float") (reparse-symbol classsubparts) [3132 3140])
+                          ("h" variable (:type "float") (reparse-symbol classsubparts) [3143 3151]))                        
+                      :type "struct")
+                      nil nil)
+                :type "typedef")
+                nil [3090 3165])
+            ("pBuffMem" type
+               (:typedef ("" type
+                     (:members 
+                        ( ("pData" variable
+                             (:pointer 1
+                              :type "char")
+                              (reparse-symbol classsubparts) [3202 3214])
+                          ("iLength" variable (:type "unsigned int") (reparse-symbol classsubparts) [3255 3276])
+                          ("iMaxSize" variable (:type "unsigned int") (reparse-symbol classsubparts) [3310 3332]))                        
+                      :type "struct")
+                      nil nil)
+                :pointer 1
+                :type "typedef")
+                nil [3179 3382])
+            ("sBuffMem" type
+               (:typedef ("" type
+                     (:members 
+                        ( ("pData" variable
+                             (:pointer 1
+                              :type "char")
+                              (reparse-symbol classsubparts) [3202 3214])
+                          ("iLength" variable (:type "unsigned int") (reparse-symbol classsubparts) [3255 3276])
+                          ("iMaxSize" variable (:type "unsigned int") (reparse-symbol classsubparts) [3310 3332]))                        
+                      :type "struct")
+                      nil nil)
+                :type "typedef")
+                nil [3179 3382])
+            ("eFishEyeMode" type
+               (:members 
+                  ( ("FISHEYE_MODE_NONE" variable
+                       (:constant-flag t
+                        :default-value (3440 3442)
+                        :type "int")
+                        (reparse-symbol enumsubparts) [3420 3442])
+                    ("FISHEYE_MODE_90_360" variable
+                       (:constant-flag t
+                        :default-value (3475 3476)
+                        :type "int")
+                        (reparse-symbol enumsubparts) [3453 3476])
+                    ("FISHEYE_MODE_2x180" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [3495 3514])
+                    ("FISHEYE_MODE_4x90" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [3532 3550])
+                    ("FISHEYE_MODE_2x90" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [3565 3583])
+                    ("FISHEYE_MODE_LAT" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [3599 3616]))                  
+                :type "enum")
+                nil [3397 3631])
+            ("ChannelEventCallback" function
+               (:prototype-flag t
+                :function-pointer t
+                :arguments 
+                  ( ("channel" variable (:type "int") (reparse-symbol arg-sub-list) [3682 3694])
+                    ("event" variable (:type ("ChannelEvent" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [3695 3714])
+                    ("clientData" variable
+                       (:pointer 1
+                        :type "void")
+                        (reparse-symbol arg-sub-list) [3715 3732]))                  
+                :type "void")
+                nil [3653 3733])
+            ("ChannelStreamCallback" function
+               (:prototype-flag t
+                :function-pointer t
+                :arguments 
+                  ( ("channel" variable (:type "int") (reparse-symbol arg-sub-list) [3781 3793])
+                    ("pData" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [3794 3806])
+                    ("size" variable (:type "int") (reparse-symbol arg-sub-list) [3807 3816])
+                    ("frameParam" variable
+                       (:pointer 1
+                        :type ("LM_FrameParam" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [3817 3843])
+                    ("clientData" variable
+                       (:pointer 1
+                        :type "void")
+                        (reparse-symbol arg-sub-list) [3844 3861]))                  
+                :type "void")
+                nil [3751 3862])
+            ("CaptureResultCallback" function
+               (:prototype-flag t
+                :function-pointer t
+                :arguments 
+                  ( ("channel" variable (:type "int") (reparse-symbol arg-sub-list) [3912 3924])
+                    ("errCode" variable (:type "int") (reparse-symbol arg-sub-list) [3925 3937])
+                    ("clientData" variable
+                       (:pointer 1
+                        :type "void")
+                        (reparse-symbol arg-sub-list) [3938 3955]))                  
+                :type "void")
+                nil [3882 3956])
+            ("RecordEventCallback" function
+               (:prototype-flag t
+                :function-pointer t
+                :arguments 
+                  ( ("channel" variable (:type "int") (reparse-symbol arg-sub-list) [4002 4014])
+                    ("file" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [4015 4026])
+                    ("event" variable (:type ("MediaRecordEvent" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [4027 4050])
+                    ("param" variable
+                       (:pointer 1
+                        :type "void")
+                        (reparse-symbol arg-sub-list) [4051 4063])
+                    ("clientData" variable
+                       (:pointer 1
+                        :type "void")
+                        (reparse-symbol arg-sub-list) [4064 4081]))                  
+                :type "void")
+                nil [3974 4082])
+            ("CLiveMediaImpl" type
+               (:prototype t
+                :type "class")
+                nil [4086 4107])
+            ("CLiveMedia" type
+               (:members 
+                  ( ("public" label nil (reparse-symbol classsubparts) [4146 4153])
+                    ("GetInstance" function
+                       (:prototype-flag t
+                        :pointer 1
+                        :typemodifiers ("static")
+                        :type ("CLiveMedia" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [4158 4191])
+                    ("FreeInstance" function
+                       (:prototype-flag t
+                        :typemodifiers ("static")
+                        :type "void")
+                        (reparse-symbol classsubparts) [4194 4221])
+                    ("InitXDisplay" function
+                       (:prototype-flag t
+                        :arguments 
+                          ( ("display" variable
+                               (:pointer 1
+                                :type "void")
+                                (reparse-symbol arg-sub-list) [4327 4341]))                          
+                        :type "int")
+                        (reparse-symbol classsubparts) [4310 4342])
+                    ("LoadNoVideoPicture" function
+                       (:prototype-flag t
+                        :arguments 
+                          ( ("pictureFile" variable
+                               (:pointer 1
+                                :constant-flag t
+                                :type "char")
+                                (reparse-symbol arg-sub-list) [4370 4394]))                          
+                        :type "int")
+                        (reparse-symbol classsubparts) [4347 4395])
+                    ("EnableNoVideoPicture" function
+                       (:prototype-flag t
+                        :arguments 
+                          ( ("channel" variable (:type "int") (reparse-symbol arg-sub-list) [4423 4435])
+                            ("bEnable" variable (:type "int") (reparse-symbol arg-sub-list) [4436 4448]))                          
+                        :type "int")
+                        (reparse-symbol classsubparts) [4398 4449])
+                    ("SetEventCallback" function
+                       (:prototype-flag t
+                        :arguments 
+                          ( ("channel" variable (:type "int") (reparse-symbol arg-sub-list) [4475 4487])
+                            ("cbEvent" variable (:type ("ChannelEventCallback" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [4488 4517])
+                            ("clientData" variable
+                               (:pointer 1
+                                :type "void")
+                                (reparse-symbol arg-sub-list) [4518 4535]))                          
+                        :type "int")
+                        (reparse-symbol classsubparts) [4454 4536])
+                    ("SetStreamCallback" function
+                       (:prototype-flag t
+                        :arguments 
+                          ( ("channel" variable (:type "int") (reparse-symbol arg-sub-list) [4561 4573])
+                            ("cbStream" variable (:type ("ChannelStreamCallback" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [4574 4605])
+                            ("clientData" variable
+                               (:pointer 1
+                                :type "void")
+                                (reparse-symbol arg-sub-list) [4606 4623]))                          
+                        :type "int")
+                        (reparse-symbol classsubparts) [4539 4624])
+                    ("SetRecordEventCallback" function
+                       (:prototype-flag t
+                        :arguments 
+                          ( ("channel" variable (:type "int") (reparse-symbol arg-sub-list) [4661 4673])
+                            ("cbRecord" variable (:type ("RecordEventCallback" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [4674 4703])
+                            ("clientData" variable
+                               (:pointer 1
+                                :type "void")
+                                (reparse-symbol arg-sub-list) [4704 4721]))                          
+                        :type "int")
+                        (reparse-symbol classsubparts) [4634 4722])
+                    ("OpenStream" function
+                       (:prototype-flag t
+                        :arguments 
+                          ( ("channel" variable (:type "int") (reparse-symbol arg-sub-list) [4788 4800])
+                            ("rtspUrl" variable
+                               (:pointer 1
+                                :constant-flag t
+                                :type "char")
+                                (reparse-symbol arg-sub-list) [4801 4821])
+                            ("info" variable
+                               (:pointer 1
+                                :default-value "0"
+                                :type ("OpenStreamParam_t" type (:type "class") nil nil))
+                                (reparse-symbol arg-sub-list) [4822 4849]))                          
+                        :type "int")
+                        (reparse-symbol classsubparts) [4773 4851])
+                    ("OpenInputStream" function
+                       (:prototype-flag t
+                        :arguments 
+                          ( ("channel" variable (:type "int") (reparse-symbol arg-sub-list) [4922 4934])
+                            ("info" variable
+                               (:pointer 1
+                                :default-value "0"
+                                :type ("OpenStreamParam_t" type (:type "class") nil nil))
+                                (reparse-symbol arg-sub-list) [4935 4962]))                          
+                        :type "int")
+                        (reparse-symbol classsubparts) [4902 4964])
+                    ("InputStreamData" function
+                       (:prototype-flag t
+                        :arguments 
+                          ( ("channel" variable (:type "int") (reparse-symbol arg-sub-list) [4987 4999])
+                            ("pData" variable
+                               (:pointer 1
+                                :type "char")
+                                (reparse-symbol arg-sub-list) [5000 5012])
+                            ("size" variable (:type "int") (reparse-symbol arg-sub-list) [5013 5022])
+                            ("frameParam" variable
+                               (:pointer 1
+                                :type ("LM_FrameParam" type (:type "class") nil nil))
+                                (reparse-symbol arg-sub-list) [5023 5049]))                          
+                        :type "int")
+                        (reparse-symbol classsubparts) [4967 5050])
+                    ("CloseStream" function
+                       (:prototype-flag t
+                        :arguments 
+                          ( ("channel" variable (:type "int") (reparse-symbol arg-sub-list) [5069 5081]))                          
+                        :type "int")
+                        (reparse-symbol classsubparts) [5053 5082])
+                    ("OpenPlayback" function
+                       (:prototype-flag t
+                        :arguments 
+                          ( ("channel" variable (:type "int") (reparse-symbol arg-sub-list) [5185 5197])
+                            ("file" variable
+                               (:pointer 1
+                                :constant-flag t
+                                :type "char")
+                                (reparse-symbol arg-sub-list) [5198 5215])
+                            ("beginTime" variable
+                               (:default-value "0"
+                                :type "unsigned int")
+                                (reparse-symbol arg-sub-list) [5216 5242])
+                            ("endTime" variable
+                               (:default-value "0"
+                                :type "unsigned int")
+                                (reparse-symbol arg-sub-list) [5244 5268])
+                            ("dpi" variable
+                               (:default-value "PLAYBACK_DPI_DEF"
+                                :type ("PlayBackDPI" type (:type "class") nil nil))
+                                (reparse-symbol arg-sub-list) [5270 5304]))                          
+                        :type "int")
+                        (reparse-symbol classsubparts) [5168 5306])
+                    ("OpenPlaybackPic" function
+                       (:prototype-flag t
+                        :arguments 
+                          ( ("channel" variable (:type "int") (reparse-symbol arg-sub-list) [5329 5341]))                          
+                        :type "int")
+                        (reparse-symbol classsubparts) [5309 5342])
+                    ("InputPlaybackPic" function
+                       (:prototype-flag t
+                        :arguments 
+                          ( ("channel" variable (:type "int") (reparse-symbol arg-sub-list) [5366 5378])
+                            ("file" variable
+                               (:pointer 1
+                                :constant-flag t
+                                :type "char")
+                                (reparse-symbol arg-sub-list) [5379 5396]))                          
+                        :type "int")
+                        (reparse-symbol classsubparts) [5345 5397])
+                    ("ClosePlayback" function
+                       (:prototype-flag t
+                        :arguments 
+                          ( ("channel" variable (:type "int") (reparse-symbol arg-sub-list) [5418 5430]))                          
+                        :type "int")
+                        (reparse-symbol classsubparts) [5400 5431])
+                    ("PlaybackControl" function
+                       (:prototype-flag t
+                        :arguments 
+                          ( ("channel" variable (:type "int") (reparse-symbol arg-sub-list) [5454 5466])
+                            ("cmd" variable (:type ("PlaybackCmd" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [5467 5483])
+                            ("data" variable
+                               (:pointer 1
+                                :type "void")
+                                (reparse-symbol arg-sub-list) [5484 5495]))                          
+                        :type "int")
+                        (reparse-symbol classsubparts) [5434 5496])
+                    ("SetDisplayWnd" function
+                       (:prototype-flag t
+                        :arguments 
+                          ( ("channel" variable (:type "int") (reparse-symbol arg-sub-list) [5616 5628])
+                            ("windowId" variable (:type "long") (reparse-symbol arg-sub-list) [5629 5643])
+                            ("x" variable (:type "int") (reparse-symbol arg-sub-list) [5644 5650])
+                            ("y" variable (:type "int") (reparse-symbol arg-sub-list) [5651 5657])
+                            ("width" variable (:type "int") (reparse-symbol arg-sub-list) [5658 5668])
+                            ("height" variable (:type "int") (reparse-symbol arg-sub-list) [5669 5680])
+                            ("srcRegion" variable
+                               (:pointer 1
+                                :constant-flag t
+                                :default-value "0"
+                                :type ("LM_Regionf" type (:type "class") nil nil))
+                                (reparse-symbol arg-sub-list) [5681 5712]))                          
+                        :type "int")
+                        (reparse-symbol classsubparts) [5598 5714])
+                    ("SetDisplayRegion" function
+                       (:prototype-flag t
+                        :arguments 
+                          ( ("channel" variable (:type "int") (reparse-symbol arg-sub-list) [5738 5750])
+                            ("x" variable (:type "int") (reparse-symbol arg-sub-list) [5751 5757])
+                            ("y" variable (:type "int") (reparse-symbol arg-sub-list) [5758 5764])
+                            ("width" variable (:type "int") (reparse-symbol arg-sub-list) [5765 5775])
+                            ("height" variable (:type "int") (reparse-symbol arg-sub-list) [5776 5787]))                          
+                        :type "int")
+                        (reparse-symbol classsubparts) [5717 5788])
+                    ("SetVideoDisplayRegion" function
+                       (:prototype-flag t
+                        :arguments 
+                          ( ("channel" variable (:type "int") (reparse-symbol arg-sub-list) [5817 5829])
+                            ("srcRegion" variable
+                               (:pointer 1
+                                :constant-flag t
+                                :type ("LM_Regionf" type (:type "class") nil nil))
+                                (reparse-symbol arg-sub-list) [5830 5858]))                          
+                        :type "int")
+                        (reparse-symbol classsubparts) [5791 5859])
+                    ("EnableDisplay" function
+                       (:prototype-flag t
+                        :arguments 
+                          ( ("channel" variable (:type "int") (reparse-symbol arg-sub-list) [5880 5892]))                          
+                        :type "int")
+                        (reparse-symbol classsubparts) [5862 5893])
+                    ("DisableDisplay" function
+                       (:prototype-flag t
+                        :arguments 
+                          ( ("channel" variable (:type "int") (reparse-symbol arg-sub-list) [5915 5927]))                          
+                        :type "int")
+                        (reparse-symbol classsubparts) [5896 5928])
+                    ("GetDisplayStatus" function
+                       (:prototype-flag t
+                        :arguments 
+                          ( ("channel" variable (:type "int") (reparse-symbol arg-sub-list) [5952 5964])
+                            ("isEnable" variable
+                               (:pointer 1
+                                :type "int")
+                                (reparse-symbol arg-sub-list) [5965 5979]))                          
+                        :type "int")
+                        (reparse-symbol classsubparts) [5931 5980])
+                    ("OpenSubDisplay" function
+                       (:prototype-flag t
+                        :arguments 
+                          ( ("channel" variable (:type "int") (reparse-symbol arg-sub-list) [6120 6132])
+                            ("srcRegion" variable
+                               (:pointer 1
+                                :constant-flag t
+                                :type ("LM_Regionf" type (:type "class") nil nil))
+                                (reparse-symbol arg-sub-list) [6133 6170])
+                            ("dstWindowId" variable (:type "long") (reparse-symbol arg-sub-list) [6171 6188])
+                            ("dstX" variable (:type "int") (reparse-symbol arg-sub-list) [6189 6198])
+                            ("dstY" variable (:type "int") (reparse-symbol arg-sub-list) [6199 6208])
+                            ("dstWidth" variable (:type "int") (reparse-symbol arg-sub-list) [6209 6222])
+                            ("dstHeight" variable (:type "int") (reparse-symbol arg-sub-list) [6223 6237]))                          
+                        :type "int")
+                        (reparse-symbol classsubparts) [6101 6238])
+                    ("SetSubVideoDisplayRegion" function
+                       (:prototype-flag t
+                        :arguments 
+                          ( ("channel" variable (:type "int") (reparse-symbol arg-sub-list) [6270 6282])
+                            ("srcRegion" variable
+                               (:pointer 1
+                                :constant-flag t
+                                :type ("LM_Regionf" type (:type "class") nil nil))
+                                (reparse-symbol arg-sub-list) [6283 6311]))                          
+                        :type "int")
+                        (reparse-symbol classsubparts) [6241 6312])
+                    ("CloseSubDisplay" function
+                       (:prototype-flag t
+                        :arguments 
+                          ( ("channel" variable (:type "int") (reparse-symbol arg-sub-list) [6348 6360]))                          
+                        :type "int")
+                        (reparse-symbol classsubparts) [6328 6361])
+                    ("ShowMotionDetectArea" function
+                       (:prototype-flag t
+                        :arguments 
+                          ( ("channel" variable (:type "int") (reparse-symbol arg-sub-list) [6534 6546])
+                            ("bShow" variable (:type "bool") (reparse-symbol arg-sub-list) [6547 6558])
+                            ("pMotionDetectInfo" variable
+                               (:pointer 1
+                                :default-value "0"
+                                :type ("MOTION_DETECT_INFO" type (:type "class") nil nil))
+                                (reparse-symbol arg-sub-list) [6559 6600])
+                            ("bDrawOnSubDisplay" variable
+                               (:default-value "false"
+                                :type "bool")
+                                (reparse-symbol arg-sub-list) [6602 6632]))                          
+                        :type "void")
+                        (reparse-symbol classsubparts) [6508 6634])
+                    ("EnableSound" function
+                       (:prototype-flag t
+                        :arguments 
+                          ( ("channel" variable (:type "int") (reparse-symbol arg-sub-list) [6655 6667]))                          
+                        :type "int")
+                        (reparse-symbol classsubparts) [6639 6668])
+                    ("DisableSound" function
+                       (:prototype-flag t
+                        :arguments 
+                          ( ("channel" variable (:type "int") (reparse-symbol arg-sub-list) [6688 6700]))                          
+                        :type "int")
+                        (reparse-symbol classsubparts) [6671 6701])
+                    ("SetAudioDeNoise" function
+                       (:prototype-flag t
+                        :arguments 
+                          ( ("enableDeNoise" variable (:type "int") (reparse-symbol arg-sub-list) [6750 6768]))                          
+                        :type "int")
+                        (reparse-symbol classsubparts) [6730 6769])
+                    ("SetAudioDeNoiseSuppress" function
+                       (:prototype-flag t
+                        :arguments 
+                          ( ("suppress" variable (:type "int") (reparse-symbol arg-sub-list) [6811 6824]))                          
+                        :type "int")
+                        (reparse-symbol classsubparts) [6783 6825])
+                    ("SetRecordAudio" function
+                       (:prototype-flag t
+                        :arguments 
+                          ( ("channel" variable (:type "int") (reparse-symbol arg-sub-list) [6891 6903])
+                            ("recordAudio" variable (:type "int") (reparse-symbol arg-sub-list) [6904 6920]))                          
+                        :type "int")
+                        (reparse-symbol classsubparts) [6872 6921])
+                    ("SetAlarmPrerecordTime" function
+                       (:prototype-flag t
+                        :arguments 
+                          ( ("channel" variable (:type "int") (reparse-symbol arg-sub-list) [7138 7150])
+                            ("bitrate" variable (:type "int") (reparse-symbol arg-sub-list) [7151 7163])
+                            ("prerecordTime" variable (:type "int") (reparse-symbol arg-sub-list) [7164 7182]))                          
+                        :type "int")
+                        (reparse-symbol classsubparts) [7112 7183])
+                    ("StartAlarmRecord" function
+                       (:prototype-flag t
+                        :arguments 
+                          ( ("channel" variable (:type "int") (reparse-symbol arg-sub-list) [7289 7301])
+                            ("file" variable
+                               (:pointer 1
+                                :constant-flag t
+                                :type "char")
+                                (reparse-symbol arg-sub-list) [7302 7319])
+                            ("bPrerecord" variable
+                               (:default-value "1"
+                                :type "int")
+                                (reparse-symbol arg-sub-list) [7320 7338]))                          
+                        :type "int")
+                        (reparse-symbol classsubparts) [7268 7340])
+                    ("ContinueAlarmRecord" function
+                       (:prototype-flag t
+                        :arguments 
+                          ( ("channel" variable (:type "int") (reparse-symbol arg-sub-list) [7367 7379])
+                            ("nextFile" variable
+                               (:pointer 1
+                                :constant-flag t
+                                :type "char")
+                                (reparse-symbol arg-sub-list) [7380 7401]))                          
+                        :type "int")
+                        (reparse-symbol classsubparts) [7343 7402])
+                    ("GetAlarmRecordingFileSize" function
+                       (:prototype-flag t
+                        :arguments 
+                          ( ("channel" variable (:type "int") (reparse-symbol arg-sub-list) [7452 7464])
+                            ("pSize" variable
+                               (:pointer 1
+                                :type "long")
+                                (reparse-symbol arg-sub-list) [7465 7477]))                          
+                        :type "int")
+                        (reparse-symbol classsubparts) [7422 7478])
+                    ("StopAlarmRecord" function
+                       (:prototype-flag t
+                        :arguments 
+                          ( ("channel" variable (:type "int") (reparse-symbol arg-sub-list) [7501 7513]))                          
+                        :type "int")
+                        (reparse-symbol classsubparts) [7481 7514])
+                    ("EnableStatistic" function
+                       (:prototype-flag t
+                        :arguments 
+                          ( ("channel" variable (:type "int") (reparse-symbol arg-sub-list) [7539 7551]))                          
+                        :type "int")
+                        (reparse-symbol classsubparts) [7519 7552])
+                    ("DisableStatistic" function
+                       (:prototype-flag t
+                        :arguments 
+                          ( ("channel" variable (:type "int") (reparse-symbol arg-sub-list) [7576 7588]))                          
+                        :type "int")
+                        (reparse-symbol classsubparts) [7555 7589])
+                    ("GetStreamStatistic" function
+                       (:prototype-flag t
+                        :arguments 
+                          ( ("channel" variable (:type "int") (reparse-symbol arg-sub-list) [7615 7627])
+                            ("statistic" variable
+                               (:pointer 1
+                                :type ("StreamStatistic_t" type (:type "class") nil nil))
+                                (reparse-symbol arg-sub-list) [7628 7657]))                          
+                        :type "int")
+                        (reparse-symbol classsubparts) [7592 7658])
+                    ("SnapBmp" function
+                       (:prototype-flag t
+                        :arguments 
+                          ( ("channel" variable (:type "int") (reparse-symbol arg-sub-list) [7675 7687])
+                            ("file" variable
+                               (:pointer 1
+                                :constant-flag t
+                                :type "char")
+                                (reparse-symbol arg-sub-list) [7688 7705]))                          
+                        :type "int")
+                        (reparse-symbol classsubparts) [7663 7706])
+                    ("OpenClip" function
+                       (:prototype-flag t
+                        :arguments 
+                          ( ("clipHandle" variable
+                               (:pointer 2
+                                :type "void")
+                                (reparse-symbol arg-sub-list) [7774 7792])
+                            ("srcFile" variable
+                               (:pointer 1
+                                :constant-flag t
+                                :type "char")
+                                (reparse-symbol arg-sub-list) [7793 7813])
+                            ("beginTime" variable (:type "unsigned int") (reparse-symbol arg-sub-list) [7814 7837])
+                            ("endTime" variable (:type "unsigned int") (reparse-symbol arg-sub-list) [7838 7859])
+                            ("dstFile" variable
+                               (:pointer 1
+                                :constant-flag t
+                                :type "char")
+                                (reparse-symbol arg-sub-list) [7860 7880])
+                            ("pdstSize" variable
+                               (:pointer 1
+                                :default-value "0"
+                                :type "unsigned int")
+                                (reparse-symbol arg-sub-list) [7881 7908]))                          
+                        :type "int")
+                        (reparse-symbol classsubparts) [7761 7910])
+                    ("StartClip" function
+                       (:prototype-flag t
+                        :arguments 
+                          ( ("clipHandle" variable
+                               (:pointer 1
+                                :type "void")
+                                (reparse-symbol arg-sub-list) [7936 7953]))                          
+                        :type "int")
+                        (reparse-symbol classsubparts) [7922 7954])
+                    ("GetClipProgress" function
+                       (:prototype-flag t
+                        :arguments 
+                          ( ("clipHandle" variable
+                               (:pointer 1
+                                :type "void")
+                                (reparse-symbol arg-sub-list) [8005 8022])
+                            ("progress" variable
+                               (:pointer 1
+                                :type "int")
+                                (reparse-symbol arg-sub-list) [8023 8037]))                          
+                        :type "int")
+                        (reparse-symbol classsubparts) [7985 8038])
+                    ("CloseClip" function
+                       (:prototype-flag t
+                        :arguments 
+                          ( ("clipHandle" variable
+                               (:pointer 1
+                                :type "void")
+                                (reparse-symbol arg-sub-list) [8064 8081]))                          
+                        :type "int")
+                        (reparse-symbol classsubparts) [8050 8082])
+                    ("OpenRecordFile" function
+                       (:prototype-flag t
+                        :arguments 
+                          ( ("fileHandle" variable
+                               (:pointer 2
+                                :type "void")
+                                (reparse-symbol arg-sub-list) [8144 8162])
+                            ("file" variable
+                               (:pointer 1
+                                :constant-flag t
+                                :type "char")
+                                (reparse-symbol arg-sub-list) [8163 8180])
+                            ("beginTime" variable
+                               (:default-value "0"
+                                :type "unsigned int")
+                                (reparse-symbol arg-sub-list) [8181 8207])
+                            ("endTime" variable
+                               (:default-value "0"
+                                :type "unsigned int")
+                                (reparse-symbol arg-sub-list) [8209 8233]))                          
+                        :type "int")
+                        (reparse-symbol classsubparts) [8125 8235])
+                    ("ReadRecordFrame" function
+                       (:prototype-flag t
+                        :arguments 
+                          ( ("fileHandle" variable
+                               (:pointer 1
+                                :type "void")
+                                (reparse-symbol arg-sub-list) [8379 8396])
+                            ("pBuff" variable
+                               (:pointer 1
+                                :type "char")
+                                (reparse-symbol arg-sub-list) [8397 8410])
+                            ("buffSize" variable (:type "int") (reparse-symbol arg-sub-list) [8411 8424])
+                            ("pFrameParam" variable
+                               (:pointer 1
+                                :type ("LM_FrameParam" type (:type "class") nil nil))
+                                (reparse-symbol arg-sub-list) [8425 8453])
+                            ("pFrameLen" variable
+                               (:pointer 1
+                                :type "int")
+                                (reparse-symbol arg-sub-list) [8454 8470])
+                            ("pProgress" variable
+                               (:pointer 1
+                                :type "int")
+                                (reparse-symbol arg-sub-list) [8471 8487]))                          
+                        :type "int")
+                        (reparse-symbol classsubparts) [8359 8488])
+                    ("CloseRecordFile" function
+                       (:prototype-flag t
+                        :arguments 
+                          ( ("fileHandle" variable
+                               (:pointer 1
+                                :type "void")
+                                (reparse-symbol arg-sub-list) [8520 8537]))                          
+                        :type "int")
+                        (reparse-symbol classsubparts) [8500 8538])
+                    ("GetVideoLength" function
+                       (:prototype-flag t
+                        :typemodifiers ("static")
+                        :arguments 
+                          ( ("file" variable
+                               (:pointer 1
+                                :constant-flag t
+                                :type "char")
+                                (reparse-symbol arg-sub-list) [8580 8597])
+                            ("length" variable
+                               (:pointer 1
+                                :type "unsigned int")
+                                (reparse-symbol arg-sub-list) [8598 8619]))                          
+                        :type "int")
+                        (reparse-symbol classsubparts) [8554 8620])
+                    ("GetVideoFrameNum" function
+                       (:prototype-flag t
+                        :typemodifiers ("static")
+                        :arguments 
+                          ( ("file" variable
+                               (:pointer 1
+                                :constant-flag t
+                                :type "char")
+                                (reparse-symbol arg-sub-list) [8692 8709])
+                            ("videoFrames" variable
+                               (:pointer 1
+                                :type "unsigned int")
+                                (reparse-symbol arg-sub-list) [8710 8736])
+                            ("beginTime" variable
+                               (:default-value "0"
+                                :type "unsigned int")
+                                (reparse-symbol arg-sub-list) [8737 8763])
+                            ("endTime" variable
+                               (:default-value "0"
+                                :type "unsigned int")
+                                (reparse-symbol arg-sub-list) [8765 8789]))                          
+                        :type "int")
+                        (reparse-symbol classsubparts) [8664 8791])
+                    ("CaptureLastFrame" function
+                       (:prototype-flag t
+                        :arguments 
+                          ( ("channel" variable (:type "int") (reparse-symbol arg-sub-list) [9088 9100])
+                            ("file" variable
+                               (:pointer 1
+                                :constant-flag t
+                                :type "char")
+                                (reparse-symbol arg-sub-list) [9101 9118]))                          
+                        :type "int")
+                        (reparse-symbol classsubparts) [9067 9119])
+                    ("GetConvertBmpFileSize" function
+                       (:prototype-flag t
+                        :arguments 
+                          ( ("frameFile" variable
+                               (:pointer 1
+                                :constant-flag t
+                                :type "char")
+                                (reparse-symbol arg-sub-list) [9159 9181])
+                            ("bmpSize" variable
+                               (:pointer 1
+                                :type "unsigned int")
+                                (reparse-symbol arg-sub-list) [9182 9204]))                          
+                        :type "int")
+                        (reparse-symbol classsubparts) [9133 9205])
+                    ("ConvertFrameToBmp" function
+                       (:prototype-flag t
+                        :arguments 
+                          ( ("frameFile" variable
+                               (:pointer 1
+                                :constant-flag t
+                                :type "char")
+                                (reparse-symbol arg-sub-list) [9230 9252])
+                            ("bmpFile" variable
+                               (:pointer 1
+                                :constant-flag t
+                                :type "char")
+                                (reparse-symbol arg-sub-list) [9253 9273]))                          
+                        :type "int")
+                        (reparse-symbol classsubparts) [9208 9274])
+                    ("ConvertFrameToJpg" function
+                       (:prototype-flag t
+                        :arguments 
+                          ( ("frameFile" variable
+                               (:pointer 1
+                                :constant-flag t
+                                :type "char")
+                                (reparse-symbol arg-sub-list) [9299 9321])
+                            ("jpgFile" variable
+                               (:pointer 1
+                                :constant-flag t
+                                :type "char")
+                                (reparse-symbol arg-sub-list) [9322 9342])
+                            ("q" variable (:type "int") (reparse-symbol arg-sub-list) [9343 9349]))                          
+                        :type "int")
+                        (reparse-symbol classsubparts) [9277 9350])
+                    ("SnapJpegImage" function
+                       (:prototype-flag t
+                        :arguments 
+                          ( ("channel" variable (:type "int") (reparse-symbol arg-sub-list) [9427 9439])
+                            ("jpegQuality" variable (:type "int") (reparse-symbol arg-sub-list) [9440 9456])
+                            ("sJpegData" variable
+                               (:reference 1
+                                :type ("sBuffMem" type (:type "class") nil nil))
+                                (reparse-symbol arg-sub-list) [9457 9478]))                          
+                        :type "int")
+                        (reparse-symbol classsubparts) [9409 9479])
+                    ("FreeBuffMem" function
+                       (:prototype-flag t
+                        :arguments 
+                          ( ("buffMem" variable
+                               (:reference 1
+                                :type ("sBuffMem" type (:type "class") nil nil))
+                                (reparse-symbol arg-sub-list) [9498 9517]))                          
+                        :type "int")
+                        (reparse-symbol classsubparts) [9482 9518])
+                    ("SetTamperDetectThreshold" function
+                       (:prototype-flag t
+                        :arguments 
+                          ( ("channel" variable (:type "int") (reparse-symbol arg-sub-list) [9589 9601])
+                            ("threshold" variable (:type "float") (reparse-symbol arg-sub-list) [9602 9618]))                          
+                        :type "int")
+                        (reparse-symbol classsubparts) [9559 9619])
+                    ("GetTamperDetectThreshold" function
+                       (:prototype-flag t
+                        :arguments 
+                          ( ("channel" variable (:type "int") (reparse-symbol arg-sub-list) [9652 9664])
+                            ("threshold" variable
+                               (:reference 1
+                                :type "float")
+                                (reparse-symbol arg-sub-list) [9665 9683]))                          
+                        :type "int")
+                        (reparse-symbol classsubparts) [9622 9684])
+                    ("SetTamperDetectArea" function
+                       (:prototype-flag t
+                        :arguments 
+                          ( ("channel" variable (:type "int") (reparse-symbol arg-sub-list) [9738 9750])
+                            ("rect" variable (:type ("LM_RECT" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [9751 9764]))                          
+                        :type "int")
+                        (reparse-symbol classsubparts) [9713 9765])
+                    ("GetTamperDetectArea" function
+                       (:prototype-flag t
+                        :arguments 
+                          ( ("channel" variable (:type "int") (reparse-symbol arg-sub-list) [9793 9805])
+                            ("rect" variable
+                               (:reference 1
+                                :type ("LM_RECT" type (:type "class") nil nil))
+                                (reparse-symbol arg-sub-list) [9806 9821]))                          
+                        :type "int")
+                        (reparse-symbol classsubparts) [9768 9822])
+                    ("EnableTamperDetect" function
+                       (:prototype-flag t
+                        :arguments 
+                          ( ("channel" variable (:type "int") (reparse-symbol arg-sub-list) [9861 9873]))                          
+                        :type "int")
+                        (reparse-symbol classsubparts) [9838 9874])
+                    ("GetTamperStatus" function
+                       (:prototype-flag t
+                        :arguments 
+                          ( ("channel" variable (:type "int") (reparse-symbol arg-sub-list) [9911 9923])
+                            ("bIsTamper" variable
+                               (:reference 1
+                                :type "bool")
+                                (reparse-symbol arg-sub-list) [9924 9941]))                          
+                        :type "int")
+                        (reparse-symbol classsubparts) [9891 9942])
+                    ("DisableTamperDetect" function
+                       (:prototype-flag t
+                        :arguments 
+                          ( ("channel" variable (:type "int") (reparse-symbol arg-sub-list) [9982 9994]))                          
+                        :type "int")
+                        (reparse-symbol classsubparts) [9958 9995])
+                    ("SetMotionDetectThreshold" function
+                       (:prototype-flag t
+                        :arguments 
+                          ( ("channel" variable (:type "int") (reparse-symbol arg-sub-list) [10064 10076])
+                            ("threshold" variable (:type "float") (reparse-symbol arg-sub-list) [10077 10093]))                          
+                        :type "int")
+                        (reparse-symbol classsubparts) [10034 10094])
+                    ("GetMotionDetectThreshold" function
+                       (:prototype-flag t
+                        :arguments 
+                          ( ("channel" variable (:type "int") (reparse-symbol arg-sub-list) [10127 10139])
+                            ("threshold" variable
+                               (:reference 1
+                                :type "float")
+                                (reparse-symbol arg-sub-list) [10140 10158]))                          
+                        :type "int")
+                        (reparse-symbol classsubparts) [10097 10159])
+                    ("SetMotionDetectArea" function
+                       (:prototype-flag t
+                        :arguments 
+                          ( ("channel" variable (:type "int") (reparse-symbol arg-sub-list) [10213 10225])
+                            ("rect" variable
+                               (:dereference 1
+                                :type ("MOTION_DETECT_INFO" type (:type "class") nil nil))
+                                (reparse-symbol arg-sub-list) [10226 10266]))                          
+                        :type "int")
+                        (reparse-symbol classsubparts) [10188 10267])
+                    ("GetMotionDetectArea" function
+                       (:prototype-flag t
+                        :arguments 
+                          ( ("channel" variable (:type "int") (reparse-symbol arg-sub-list) [10312 10324])
+                            ("rect" variable
+                               (:dereference 1
+                                :type ("MOTION_DETECT_INFO" type (:type "class") nil nil))
+                                (reparse-symbol arg-sub-list) [10325 10365]))                          
+                        :type "int")
+                        (reparse-symbol classsubparts) [10287 10366])
+                    ("EnableMotionDetect" function
+                       (:prototype-flag t
+                        :arguments 
+                          ( ("channel" variable (:type "int") (reparse-symbol arg-sub-list) [10401 10413]))                          
+                        :type "int")
+                        (reparse-symbol classsubparts) [10378 10414])
+                    ("GetMotionStatus" function
+                       (:prototype-flag t
+                        :arguments 
+                          ( ("channel" variable (:type "int") (reparse-symbol arg-sub-list) [10451 10463])
+                            ("bIsMotion" variable
+                               (:reference 1
+                                :type "bool")
+                                (reparse-symbol arg-sub-list) [10464 10481]))                          
+                        :type "int")
+                        (reparse-symbol classsubparts) [10431 10482])
+                    ("DisableMotionDetect" function
+                       (:prototype-flag t
+                        :arguments 
+                          ( ("channel" variable (:type "int") (reparse-symbol arg-sub-list) [10518 10530]))                          
+                        :type "int")
+                        (reparse-symbol classsubparts) [10494 10531])
+                    ("GetFishEyeMode" function
+                       (:prototype-flag t
+                        :arguments 
+                          ( ("channel" variable (:type "int") (reparse-symbol arg-sub-list) [10612 10624])
+                            ("eFishEyeMode" variable
+                               (:reference 1
+                                :type ("eFishEyeMode" type (:type "class") nil nil))
+                                (reparse-symbol arg-sub-list) [10625 10652]))                          
+                        :type "int")
+                        (reparse-symbol classsubparts) [10593 10653])
+                    ("SetFishEyeMode" function
+                       (:prototype-flag t
+                        :arguments 
+                          ( ("channel" variable (:type "int") (reparse-symbol arg-sub-list) [10675 10687])
+                            ("eFishEyeMode" variable (:type ("eFishEyeMode" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [10688 10714]))                          
+                        :type "int")
+                        (reparse-symbol classsubparts) [10656 10715])
+                    ("GetFishEyeCircle" function
+                       (:prototype-flag t
+                        :arguments 
+                          ( ("channel" variable (:type "int") (reparse-symbol arg-sub-list) [10750 10762])
+                            ("fX" variable
+                               (:dereference 1
+                                :type "float")
+                                (reparse-symbol arg-sub-list) [10763 10775])
+                            ("fY" variable
+                               (:dereference 1
+                                :type "float")
+                                (reparse-symbol arg-sub-list) [10776 10788]))                          
+                        :type "int")
+                        (reparse-symbol classsubparts) [10729 10789])
+                    ("SetFishEyeCircle" function
+                       (:prototype-flag t
+                        :arguments 
+                          ( ("channel" variable (:type "int") (reparse-symbol arg-sub-list) [10813 10825])
+                            ("fX" variable
+                               (:dereference 1
+                                :constant-flag t
+                                :type "float")
+                                (reparse-symbol arg-sub-list) [10826 10844])
+                            ("fY" variable
+                               (:dereference 1
+                                :constant-flag t
+                                :type "float")
+                                (reparse-symbol arg-sub-list) [10845 10863]))                          
+                        :type "int")
+                        (reparse-symbol classsubparts) [10792 10864])
+                    ("GetFishEyeViewId" function
+                       (:prototype-flag t
+                        :arguments 
+                          ( ("channel" variable (:type "int") (reparse-symbol arg-sub-list) [10899 10911])
+                            ("fX" variable (:type "float") (reparse-symbol arg-sub-list) [10912 10921])
+                            ("fY" variable (:type "float") (reparse-symbol arg-sub-list) [10922 10931])
+                            ("iViewId" variable
+                               (:reference 1
+                                :type "int")
+                                (reparse-symbol arg-sub-list) [10932 10945]))                          
+                        :type "int")
+                        (reparse-symbol classsubparts) [10878 10946])
+                    ("FishEyePTZMove" function
+                       (:prototype-flag t
+                        :arguments 
+                          ( ("channel" variable (:type "int") (reparse-symbol arg-sub-list) [10968 10980])
+                            ("iViewId" variable (:type "int") (reparse-symbol arg-sub-list) [10981 10993])
+                            ("fDX" variable (:type "float") (reparse-symbol arg-sub-list) [10994 11004])
+                            ("fDY" variable (:type "float") (reparse-symbol arg-sub-list) [11005 11015]))                          
+                        :type "int")
+                        (reparse-symbol classsubparts) [10949 11016])
+                    ("GetFishEyeShowThumb" function
+                       (:prototype-flag t
+                        :arguments 
+                          ( ("channel" variable (:type "int") (reparse-symbol arg-sub-list) [11057 11069])
+                            ("bShow" variable
+                               (:reference 1
+                                :type "bool")
+                                (reparse-symbol arg-sub-list) [11070 11082]))                          
+                        :type "int")
+                        (reparse-symbol classsubparts) [11033 11083])
+                    ("SetFishEyeShowThumb" function
+                       (:prototype-flag t
+                        :arguments 
+                          ( ("channel" variable (:type "int") (reparse-symbol arg-sub-list) [11110 11122])
+                            ("bShow" variable (:type "bool") (reparse-symbol arg-sub-list) [11123 11134]))                          
+                        :type "int")
+                        (reparse-symbol classsubparts) [11086 11135])
+                    ("private" label nil (reparse-symbol classsubparts) [11190 11198])
+                    ("CLiveMedia" function
+                       (:prototype-flag t
+                        :constructor-flag t
+                        :type ("CLiveMedia" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [11202 11215])
+                    ("CLiveMedia" function
+                       (:prototype-flag t
+                        :destructor-flag t
+                        :typemodifiers ("virtual")
+                        :type "void")
+                        (reparse-symbol classsubparts) [11219 11241])
+                    ("m_Instance" variable
+                       (:pointer 1
+                        :typemodifiers ("static")
+                        :type ("CLiveMedia" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [11244 11274])
+                    ("m_pImpl" variable
+                       (:pointer 1
+                        :type ("CLiveMediaImpl" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [11291 11315]))                  
+                :type "class")
+                nil [4111 11321]))          
+      :file "CLiveMedia.h"
+      :pointmax 11352
+      :fsize 12396
+      :lastmodtime '(22553 18450 307988 719000)
+      :unmatched-syntax '((TYPEDEF 3966 . 3973) (TYPEDEF 3874 . 3881) (TYPEDEF 3743 . 3750) (TYPEDEF 3645 . 3652))
+      :lexical-table 
+        '(("MOTION_RESOLUTION_HEIGHT" . ((number "288" 2833 . 2836)))
+          ("CLIVEMEDIA_H")
+          ("MAX_MOTION_NUM" . ((number "16" 2570 . 2572)))
+          ("MOTION_RESOLUTION_WIDTH" . ((number "352" 2795 . 2798)))
+          ("CLIVEMEDIA_API")
+          ("MOTION_DETECT_PRECISION" . ((number "16" 2606 . 2608)))
+          ("MAX_CHANNEL_NUM" . ((semantic-list "(140)" 596 . 601)))
+          )
+))
+  :file "!home!chz!NVR.ori!Code!softwareEx!component!media!semantic.cache"
+  :semantic-tag-version "2.0"
+  :semanticdb-version "2.2")

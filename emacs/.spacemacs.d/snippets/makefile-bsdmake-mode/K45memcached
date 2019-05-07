@@ -1,0 +1,1950 @@
+;; Object keys/
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "keys/"
+  :tables (list 
+   (semanticdb-table "request_key.c"
+    :major-mode 'c-mode
+    :tags 
+        '( ("linux/module.h" include (:system-flag t) nil [462 487])
+            ("linux/sched.h" include (:system-flag t) nil [488 512])
+            ("linux/kmod.h" include (:system-flag t) nil [513 536])
+            ("linux/err.h" include (:system-flag t) nil [537 559])
+            ("linux/keyctl.h" include (:system-flag t) nil [560 585])
+            ("linux/slab.h" include (:system-flag t) nil [586 609])
+            ("internal.h" include nil nil [610 631])
+            ("key_negative_timeout" variable (:constant-flag t) nil [641 661])
+            ("key_wait_bit" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("flags" variable
+                       (:pointer 1
+                        :type "void")
+                        (reparse-symbol arg-sub-list) [809 821]))                  
+                :type "int")
+                nil [785 849])
+            ("key_wait_bit_intr" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("flags" variable
+                       (:pointer 1
+                        :type "void")
+                        (reparse-symbol arg-sub-list) [945 957]))                  
+                :type "int")
+                nil [916 1026])
+            ("complete_request_key" function
+               (:arguments 
+                  ( ("cons" variable
+                       (:pointer 1
+                        :type ("key_construction" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [1378 1408])
+                    ("error" variable (:type "int") (reparse-symbol arg-sub-list) [1409 1419]))                  
+                :type "void")
+                nil [1352 1693])
+            ("EXPORT_SYMBOL" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("complete_request_key" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [1708 1729]))                  
+                :type "int")
+                nil [1694 1730])
+            ("umh_keys_init" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("info" variable
+                       (:pointer 1
+                        :type ("subprocess_info" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [2002 2031])
+                    ("cred" variable
+                       (:pointer 1
+                        :type ("cred" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [2032 2050]))                  
+                :type "int")
+                nil [1977 2146])
+            ("umh_keys_cleanup" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("info" variable
+                       (:pointer 1
+                        :type ("subprocess_info" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [2236 2265]))                  
+                :type "void")
+                nil [2207 2323])
+            ("call_usermodehelper_keys" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("path" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [2427 2438])
+                    ("argv" variable
+                       (:pointer 2
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [2439 2451])
+                    ("envp" variable
+                       (:pointer 2
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [2452 2464])
+                    ("session_keyring" variable
+                       (:pointer 1
+                        :type ("key" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [2469 2497])
+                    ("wait" variable (:type ("umh_wait" type (:type "enum") nil nil)) (reparse-symbol arg-sub-list) [2498 2517]))                  
+                :type "int")
+                nil [2391 2854])
+            ("call_sbin_request_key" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("cons" variable
+                       (:pointer 1
+                        :type ("key_construction" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [3036 3066])
+                    ("op" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [3072 3087])
+                    ("aux" variable
+                       (:pointer 1
+                        :type "void")
+                        (reparse-symbol arg-sub-list) [3093 3103]))                  
+                :type "int")
+                nil [3003 5521])
+            ("construct_key" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("key" variable
+                       (:pointer 1
+                        :type ("key" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [5660 5676])
+                    ("callout_info" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "void")
+                        (reparse-symbol arg-sub-list) [5677 5702])
+                    ("callout_len" variable (:type ("size_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [5707 5726])
+                    ("aux" variable
+                       (:pointer 1
+                        :type "void")
+                        (reparse-symbol arg-sub-list) [5727 5737])
+                    ("dest_keyring" variable
+                       (:pointer 1
+                        :type ("key" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [5742 5767]))                  
+                :type "int")
+                nil [5635 6676])
+            ("construct_get_dest_keyring" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("_dest_keyring" variable
+                       (:pointer 2
+                        :type ("key" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [6889 6916]))                  
+                :type "void")
+                nil [6850 8550])
+            ("construct_alloc_key" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("type" variable
+                       (:pointer 1
+                        :type ("key_type" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [8825 8847])
+                    ("description" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [8858 8882])
+                    ("dest_keyring" variable
+                       (:pointer 1
+                        :type ("key" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [8893 8918])
+                    ("flags" variable (:type "unsigned long") (reparse-symbol arg-sub-list) [8929 8949])
+                    ("user" variable
+                       (:pointer 1
+                        :type ("key_user" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [8960 8982])
+                    ("_key" variable
+                       (:pointer 2
+                        :type ("key" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [8993 9011]))                  
+                :type "int")
+                nil [8794 11034])
+            ("construct_key_and_link" function
+               (:pointer 1
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("type" variable
+                       (:pointer 1
+                        :type ("key_type" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [11115 11137])
+                    ("description" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [11145 11169])
+                    ("callout_info" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [11177 11202])
+                    ("callout_len" variable (:type ("size_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [11210 11229])
+                    ("aux" variable
+                       (:pointer 1
+                        :type "void")
+                        (reparse-symbol arg-sub-list) [11237 11247])
+                    ("dest_keyring" variable
+                       (:pointer 1
+                        :type ("key" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [11255 11280])
+                    ("flags" variable (:type "unsigned long") (reparse-symbol arg-sub-list) [11288 11308]))                  
+                :type ("key" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [11073 12156])
+            ("request_key_and_link" function
+               (:pointer 1
+                :arguments 
+                  ( ("type" variable
+                       (:pointer 1
+                        :type ("key_type" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [13505 13527])
+                    ("description" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [13533 13557])
+                    ("callout_info" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "void")
+                        (reparse-symbol arg-sub-list) [13563 13588])
+                    ("callout_len" variable (:type ("size_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [13594 13613])
+                    ("aux" variable
+                       (:pointer 1
+                        :type "void")
+                        (reparse-symbol arg-sub-list) [13619 13629])
+                    ("dest_keyring" variable
+                       (:pointer 1
+                        :type ("key" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [13635 13660])
+                    ("flags" variable (:type "unsigned long") (reparse-symbol arg-sub-list) [13666 13686]))                  
+                :type ("key" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [13472 14733])
+            ("wait_for_key_construction" function
+               (:arguments 
+                  ( ("key" variable
+                       (:pointer 1
+                        :type ("key" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [15151 15167])
+                    ("intr" variable (:type "bool") (reparse-symbol arg-sub-list) [15168 15178]))                  
+                :type "int")
+                nil [15121 15492])
+            ("EXPORT_SYMBOL" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("wait_for_key_construction" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [15507 15533]))                  
+                :type "int")
+                nil [15493 15534])
+            ("request_key" function
+               (:pointer 1
+                :arguments 
+                  ( ("type" variable
+                       (:pointer 1
+                        :type ("key_type" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [16185 16207])
+                    ("description" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [16211 16235])
+                    ("callout_info" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [16239 16264]))                  
+                :type ("key" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [16161 16639])
+            ("EXPORT_SYMBOL" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("request_key" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [16654 16666]))                  
+                :type "int")
+                nil [16640 16667])
+            ("request_key_with_auxdata" function
+               (:pointer 1
+                :arguments 
+                  ( ("type" variable
+                       (:pointer 1
+                        :type ("key_type" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [17363 17385])
+                    ("description" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [17395 17419])
+                    ("callout_info" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "void")
+                        (reparse-symbol arg-sub-list) [17429 17454])
+                    ("callout_len" variable (:type ("size_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [17464 17483])
+                    ("aux" variable
+                       (:pointer 1
+                        :type "void")
+                        (reparse-symbol arg-sub-list) [17493 17503]))                  
+                :type ("key" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [17326 17795])
+            ("EXPORT_SYMBOL" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("request_key_with_auxdata" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [17810 17835]))                  
+                :type "int")
+                nil [17796 17836])
+            ("request_key_async" function
+               (:pointer 1
+                :arguments 
+                  ( ("type" variable
+                       (:pointer 1
+                        :type ("key_type" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [18481 18503])
+                    ("description" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [18513 18537])
+                    ("callout_info" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "void")
+                        (reparse-symbol arg-sub-list) [18547 18572])
+                    ("callout_len" variable (:type ("size_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [18582 18601]))                  
+                :type ("key" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [18451 18729])
+            ("EXPORT_SYMBOL" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("request_key_async" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [18744 18762]))                  
+                :type "int")
+                nil [18730 18763])
+            ("request_key_async_with_auxdata" function
+               (:pointer 1
+                :arguments 
+                  ( ("type" variable
+                       (:pointer 1
+                        :type ("key_type" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [19442 19464])
+                    ("description" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [19473 19497])
+                    ("callout_info" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "void")
+                        (reparse-symbol arg-sub-list) [19506 19531])
+                    ("callout_len" variable (:type ("size_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [19540 19559])
+                    ("aux" variable
+                       (:pointer 1
+                        :type "void")
+                        (reparse-symbol arg-sub-list) [19568 19578]))                  
+                :type ("key" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [19399 19697])
+            ("EXPORT_SYMBOL" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("request_key_async_with_auxdata" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [19712 19743]))                  
+                :type "int")
+                nil [19698 19744]))          
+    :file "request_key.c"
+    :pointmax 19745
+    :fsize 19744
+    :lastmodtime '(21468 9235 93692 400000)
+    :unmatched-syntax 'nil
+    :lexical-table 
+        '(("key_negative_timeout" . ((number "60" 662 . 664)))
+          )
+
+    )
+   (semanticdb-table "internal.h"
+    :major-mode 'c-mode
+    :tags 
+        '( ("_INTERNAL_H" variable (:constant-flag t) nil [471 482])
+            ("linux/sched.h" include (:system-flag t) nil [484 508])
+            ("linux/key-type.h" include (:system-flag t) nil [509 536])
+            ("kenter" variable (:constant-flag t) nil [823 829])
+            ("kleave" variable (:constant-flag t) nil [916 922])
+            ("kdebug" variable (:constant-flag t) nil [1009 1015])
+            ("key_type_user" variable
+               (:typemodifiers ("extern")
+                :type ("key_type" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [1082 1119])
+            ("key_user" type
+               (:members 
+                  ( ("node" variable (:type ("rb_node" type
+                         (:prototype t
+                          :type "struct")
+                          nil nil)) (reparse-symbol classsubparts) [1473 1494])
+                    ("cons_lock" variable (:type ("mutex" type
+                         (:prototype t
+                          :type "struct")
+                          nil nil)) (reparse-symbol classsubparts) [1496 1520])
+                    ("lock" variable (:type ("spinlock_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [1557 1574])
+                    ("usage" variable (:type ("atomic_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [1576 1592])
+                    ("nkeys" variable (:type ("atomic_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [1632 1648])
+                    ("nikeys" variable (:type ("atomic_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [1672 1689])
+                    ("uid" variable (:type ("uid_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [1726 1738])
+                    ("user_ns" variable
+                       (:pointer 1
+                        :type ("user_namespace" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol classsubparts) [1740 1771])
+                    ("qnkeys" variable (:type "int") (reparse-symbol classsubparts) [1773 1786])
+                    ("qnbytes" variable (:type "int") (reparse-symbol classsubparts) [1833 1847]))                  
+                :type "struct")
+                nil [1454 1895])
+            ("key_user_tree" variable
+               (:typemodifiers ("extern")
+                :type ("rb_root" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [1897 1933])
+            ("key_user_lock" variable
+               (:typemodifiers ("extern")
+                :type ("spinlock_t" type (:type "class") nil nil))
+                nil [1934 1966])
+            ("root_key_user" variable
+               (:typemodifiers ("extern")
+                :type ("key_user" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [1967 2004])
+            ("key_user_lookup" function
+               (:prototype-flag t
+                :pointer 1
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("uid" variable (:type ("uid_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [2046 2056])
+                    ("user_ns" variable
+                       (:pointer 1
+                        :type ("user_namespace" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [2062 2093]))                  
+                :type ("key_user" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [2006 2094])
+            ("key_user_put" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("user" variable
+                       (:pointer 1
+                        :type ("key_user" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [2120 2142]))                  
+                :type "void")
+                nil [2095 2143])
+            ("key_quota_root_maxkeys" variable
+               (:typemodifiers ("extern")
+                :type "unsigned int")
+                nil [2228 2267])
+            ("key_quota_root_maxbytes" variable
+               (:typemodifiers ("extern")
+                :type "unsigned int")
+                nil [2268 2308])
+            ("key_quota_maxkeys" variable
+               (:typemodifiers ("extern")
+                :type "unsigned int")
+                nil [2309 2343])
+            ("key_quota_maxbytes" variable
+               (:typemodifiers ("extern")
+                :type "unsigned int")
+                nil [2344 2379])
+            ("KEYQUOTA_LINK_BYTES" variable (:constant-flag t) nil [2389 2408])
+            ("key_serial_tree" variable
+               (:typemodifiers ("extern")
+                :type ("rb_root" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [2457 2495])
+            ("key_serial_lock" variable
+               (:typemodifiers ("extern")
+                :type ("spinlock_t" type (:type "class") nil nil))
+                nil [2496 2530])
+            ("key_construction_mutex" variable
+               (:typemodifiers ("extern")
+                :type ("mutex" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [2531 2574])
+            ("request_key_conswq" variable
+               (:typemodifiers ("extern")
+                :type ("wait_queue_head_t" type (:type "class") nil nil))
+                nil [2575 2619])
+            ("key_type_lookup" function
+               (:prototype-flag t
+                :pointer 1
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("type" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [2662 2679]))                  
+                :type ("key_type" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [2622 2680])
+            ("key_type_put" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("ktype" variable
+                       (:pointer 1
+                        :type ("key_type" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [2706 2729]))                  
+                :type "void")
+                nil [2681 2730])
+            ("__key_link_begin" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("keyring" variable
+                       (:pointer 1
+                        :type ("key" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [2760 2780])
+                    ("type" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("key_type" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [2788 2816])
+                    ("description" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [2824 2848])
+                    ("_prealloc" variable
+                       (:pointer 1
+                        :type "unsigned long")
+                        (reparse-symbol arg-sub-list) [2856 2881]))                  
+                :type "int")
+                nil [2732 2882])
+            ("__key_link_check_live_key" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("keyring" variable
+                       (:pointer 1
+                        :type ("key" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [2920 2940])
+                    ("key" variable
+                       (:pointer 1
+                        :type ("key" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [2941 2957]))                  
+                :type "int")
+                nil [2883 2958])
+            ("__key_link" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("keyring" variable
+                       (:pointer 1
+                        :type ("key" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [2982 3002])
+                    ("key" variable
+                       (:pointer 1
+                        :type ("key" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [3003 3019])
+                    ("_prealloc" variable
+                       (:pointer 1
+                        :type "unsigned long")
+                        (reparse-symbol arg-sub-list) [3029 3054]))                  
+                :type "void")
+                nil [2959 3055])
+            ("__key_link_end" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("keyring" variable
+                       (:pointer 1
+                        :type ("key" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [3083 3103])
+                    ("type" variable
+                       (:pointer 1
+                        :type ("key_type" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [3110 3132])
+                    ("prealloc" variable (:type "unsigned long") (reparse-symbol arg-sub-list) [3139 3162]))                  
+                :type "void")
+                nil [3056 3163])
+            ("__keyring_search_one" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("keyring_ref" variable (:type ("key_ref_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [3203 3225])
+                    ("type" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("key_type" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [3236 3264])
+                    ("description" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [3275 3299])
+                    ("perm" variable (:type ("key_perm_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [3310 3326]))                  
+                :type ("key_ref_t" type (:type "class") nil nil))
+                nil [3165 3327])
+            ("keyring_search_instkey" function
+               (:prototype-flag t
+                :pointer 1
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("keyring" variable
+                       (:pointer 1
+                        :type ("key" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [3371 3391])
+                    ("target_id" variable (:type ("key_serial_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [3399 3422]))                  
+                :type ("key" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [3329 3423])
+            ("key_match_func_t" variable
+               (:functionpointer-flag t
+                :type "int")
+                nil [3433 3491])
+            ("keyring_search_aux" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("keyring_ref" variable (:type ("key_ref_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [3529 3551])
+                    ("cred" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("cred" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [3560 3584])
+                    ("type" variable
+                       (:pointer 1
+                        :type ("key_type" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [3593 3615])
+                    ("description" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "void")
+                        (reparse-symbol arg-sub-list) [3624 3648])
+                    ("match" variable (:type ("key_match_func_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [3657 3680])
+                    ("no_state_check" variable (:type "bool") (reparse-symbol arg-sub-list) [3689 3709]))                  
+                :type ("key_ref_t" type (:type "class") nil nil))
+                nil [3493 3710])
+            ("search_my_process_keyrings" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("type" variable
+                       (:pointer 1
+                        :type ("key_type" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [3756 3778])
+                    ("description" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "void")
+                        (reparse-symbol arg-sub-list) [3788 3812])
+                    ("match" variable (:type ("key_match_func_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [3822 3845])
+                    ("no_state_check" variable (:type "bool") (reparse-symbol arg-sub-list) [3855 3875])
+                    ("cred" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("cred" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [3885 3909]))                  
+                :type ("key_ref_t" type (:type "class") nil nil))
+                nil [3712 3910])
+            ("search_process_keyrings" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("type" variable
+                       (:pointer 1
+                        :type ("key_type" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [3952 3974])
+                    ("description" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "void")
+                        (reparse-symbol arg-sub-list) [3981 4005])
+                    ("match" variable (:type ("key_match_func_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [4012 4035])
+                    ("cred" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("cred" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [4042 4066]))                  
+                :type ("key_ref_t" type (:type "class") nil nil))
+                nil [3911 4067])
+            ("find_keyring_by_name" function
+               (:prototype-flag t
+                :pointer 1
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("name" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [4109 4126])
+                    ("skip_perm_check" variable (:type "bool") (reparse-symbol arg-sub-list) [4127 4148]))                  
+                :type ("key" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [4069 4149])
+            ("install_user_keyrings" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [4184 4189]))                  
+                :type "int")
+                nil [4151 4190])
+            ("install_thread_keyring_to_cred" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("" variable
+                       (:pointer 1
+                        :type ("cred" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [4233 4247]))                  
+                :type "int")
+                nil [4191 4248])
+            ("install_process_keyring_to_cred" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("" variable
+                       (:pointer 1
+                        :type ("cred" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [4292 4306]))                  
+                :type "int")
+                nil [4249 4307])
+            ("install_session_keyring_to_cred" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("" variable
+                       (:pointer 1
+                        :type ("cred" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [4351 4365])
+                    ("" variable
+                       (:pointer 1
+                        :type ("key" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [4366 4379]))                  
+                :type "int")
+                nil [4308 4380])
+            ("request_key_and_link" function
+               (:prototype-flag t
+                :pointer 1
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("type" variable
+                       (:pointer 1
+                        :type ("key_type" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [4422 4444])
+                    ("description" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [4450 4474])
+                    ("callout_info" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "void")
+                        (reparse-symbol arg-sub-list) [4480 4505])
+                    ("callout_len" variable (:type ("size_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [4511 4530])
+                    ("aux" variable
+                       (:pointer 1
+                        :type "void")
+                        (reparse-symbol arg-sub-list) [4536 4546])
+                    ("dest_keyring" variable
+                       (:pointer 1
+                        :type ("key" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [4552 4577])
+                    ("flags" variable (:type "unsigned long") (reparse-symbol arg-sub-list) [4583 4603]))                  
+                :type ("key" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [4382 4604])
+            ("lookup_user_key_possessed" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("key" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("key" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [4643 4665])
+                    ("target" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "void")
+                        (reparse-symbol arg-sub-list) [4666 4685]))                  
+                :type "int")
+                nil [4606 4686])
+            ("lookup_user_key" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("id" variable (:type ("key_serial_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [4720 4736])
+                    ("flags" variable (:type "unsigned long") (reparse-symbol arg-sub-list) [4737 4757])
+                    ("perm" variable (:type ("key_perm_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [4763 4779]))                  
+                :type ("key_ref_t" type (:type "class") nil nil))
+                nil [4687 4780])
+            ("KEY_LOOKUP_CREATE" variable (:constant-flag t) nil [4789 4806])
+            ("KEY_LOOKUP_PARTIAL" variable (:constant-flag t) nil [4820 4838])
+            ("KEY_LOOKUP_FOR_UNLINK" variable (:constant-flag t) nil [4852 4873])
+            ("join_session_keyring" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("name" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [4913 4930]))                  
+                :type "long")
+                nil [4880 4931])
+            ("key_gc_delay" variable
+               (:typemodifiers ("extern")
+                :type "unsigned int")
+                nil [4933 4962])
+            ("keyring_gc" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("keyring" variable
+                       (:pointer 1
+                        :type ("key" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [4986 5006])
+                    ("limit" variable (:type ("time_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [5007 5020]))                  
+                :type "void")
+                nil [4963 5021])
+            ("key_schedule_gc" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("expiry_at" variable (:type ("time_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [5050 5067]))                  
+                :type "void")
+                nil [5022 5068])
+            ("key_task_permission" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("key_ref" variable
+                       (:constant-flag t
+                        :type ("key_ref_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [5101 5125])
+                    ("cred" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("cred" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [5136 5160])
+                    ("perm" variable (:type ("key_perm_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [5171 5187]))                  
+                :type "int")
+                nil [5070 5188])
+            ("key_permission" function
+               (:typemodifiers ("static" "inline")
+                :arguments 
+                  ( ("key_ref" variable
+                       (:constant-flag t
+                        :type ("key_ref_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [5309 5333])
+                    ("perm" variable (:type ("key_perm_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [5334 5350]))                  
+                :type "int")
+                nil [5276 5414])
+            ("KEY_VIEW" variable (:constant-flag t) nil [5451 5459])
+            ("KEY_READ" variable (:constant-flag t) nil [5517 5525])
+            ("KEY_WRITE" variable (:constant-flag t) nil [5580 5589])
+            ("KEY_SEARCH" variable (:constant-flag t) nil [5647 5657])
+            ("KEY_LINK" variable (:constant-flag t) nil [5730 5738])
+            ("KEY_SETATTR" variable (:constant-flag t) nil [5785 5796])
+            ("KEY_ALL" variable (:constant-flag t) nil [5856 5863])
+            ("request_key_auth" type
+               (:members 
+                  ( ("target_key" variable
+                       (:pointer 1
+                        :type ("key" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol classsubparts) [5980 6004])
+                    ("dest_keyring" variable
+                       (:pointer 1
+                        :type ("key" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol classsubparts) [6006 6032])
+                    ("cred" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("cred" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol classsubparts) [6034 6058])
+                    ("callout_info" variable
+                       (:pointer 1
+                        :type "void")
+                        (reparse-symbol classsubparts) [6060 6081])
+                    ("callout_len" variable (:type ("size_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [6083 6104])
+                    ("pid" variable (:type ("pid_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [6106 6118]))                  
+                :type "struct")
+                nil [5953 6121])
+            ("key_type_request_key_auth" variable
+               (:typemodifiers ("extern")
+                :type ("key_type" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [6123 6172])
+            ("request_key_auth_new" function
+               (:prototype-flag t
+                :pointer 1
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("target" variable
+                       (:pointer 1
+                        :type ("key" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [6213 6232])
+                    ("callout_info" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "void")
+                        (reparse-symbol arg-sub-list) [6238 6263])
+                    ("callout_len" variable (:type ("size_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [6269 6288])
+                    ("dest_keyring" variable
+                       (:pointer 1
+                        :type ("key" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [6294 6319]))                  
+                :type ("key" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [6173 6320])
+            ("key_get_instantiation_authkey" function
+               (:prototype-flag t
+                :pointer 1
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("target_id" variable (:type ("key_serial_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [6371 6394]))                  
+                :type ("key" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [6322 6395])
+            ("keyctl_get_keyring_ID" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("" variable (:type ("key_serial_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [6460 6473])
+                    ("" variable (:type "int") (reparse-symbol arg-sub-list) [6474 6478]))                  
+                :type "long")
+                nil [6426 6479])
+            ("keyctl_join_session_keyring" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("__user" variable
+                       (:constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [6520 6539]))                  
+                :type "long")
+                nil [6480 6541])
+            ("keyctl_update_key" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("" variable (:type ("key_serial_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [6572 6585])
+                    ("__user" variable
+                       (:constant-flag t
+                        :type "void")
+                        (reparse-symbol arg-sub-list) [6586 6605])
+                    ("" variable (:type ("size_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [6607 6614]))                  
+                :type "long")
+                nil [6542 6615])
+            ("keyctl_revoke_key" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("" variable (:type ("key_serial_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [6646 6659]))                  
+                :type "long")
+                nil [6616 6660])
+            ("keyctl_keyring_clear" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("" variable (:type ("key_serial_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [6694 6707]))                  
+                :type "long")
+                nil [6661 6708])
+            ("keyctl_keyring_link" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("" variable (:type ("key_serial_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [6741 6754])
+                    ("" variable (:type ("key_serial_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [6755 6768]))                  
+                :type "long")
+                nil [6709 6769])
+            ("keyctl_keyring_unlink" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("" variable (:type ("key_serial_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [6804 6817])
+                    ("" variable (:type ("key_serial_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [6818 6831]))                  
+                :type "long")
+                nil [6770 6832])
+            ("keyctl_describe_key" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("" variable (:type ("key_serial_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [6865 6878])
+                    ("__user" variable (:type "char") (reparse-symbol arg-sub-list) [6879 6892])
+                    ("" variable (:type ("size_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [6894 6901]))                  
+                :type "long")
+                nil [6833 6902])
+            ("keyctl_keyring_search" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("" variable (:type ("key_serial_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [6937 6950])
+                    ("__user" variable
+                       (:constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [6951 6970])
+                    ("__user" variable
+                       (:constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [6978 6997])
+                    ("" variable (:type ("key_serial_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [6999 7012]))                  
+                :type "long")
+                nil [6903 7013])
+            ("keyctl_read_key" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("" variable (:type ("key_serial_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [7042 7055])
+                    ("__user" variable (:type "char") (reparse-symbol arg-sub-list) [7056 7069])
+                    ("" variable (:type ("size_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [7071 7078]))                  
+                :type "long")
+                nil [7014 7079])
+            ("keyctl_chown_key" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("" variable (:type ("key_serial_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [7109 7122])
+                    ("" variable (:type ("uid_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [7123 7129])
+                    ("" variable (:type ("gid_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [7130 7136]))                  
+                :type "long")
+                nil [7080 7137])
+            ("keyctl_setperm_key" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("" variable (:type ("key_serial_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [7169 7182])
+                    ("" variable (:type ("key_perm_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [7183 7194]))                  
+                :type "long")
+                nil [7138 7195])
+            ("keyctl_instantiate_key" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("" variable (:type ("key_serial_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [7231 7244])
+                    ("__user" variable
+                       (:constant-flag t
+                        :type "void")
+                        (reparse-symbol arg-sub-list) [7245 7264])
+                    ("" variable (:type ("size_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [7273 7280])
+                    ("" variable (:type ("key_serial_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [7281 7294]))                  
+                :type "long")
+                nil [7196 7295])
+            ("keyctl_negate_key" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("" variable (:type ("key_serial_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [7326 7339])
+                    ("" variable (:type "unsigned int") (reparse-symbol arg-sub-list) [7340 7349])
+                    ("" variable (:type ("key_serial_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [7350 7363]))                  
+                :type "long")
+                nil [7296 7364])
+            ("keyctl_set_reqkey_keyring" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("" variable (:type "int") (reparse-symbol arg-sub-list) [7403 7407]))                  
+                :type "long")
+                nil [7365 7408])
+            ("keyctl_set_timeout" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("" variable (:type ("key_serial_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [7440 7453])
+                    ("" variable (:type "unsigned int") (reparse-symbol arg-sub-list) [7454 7463]))                  
+                :type "long")
+                nil [7409 7464])
+            ("keyctl_assume_authority" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("" variable (:type ("key_serial_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [7501 7514]))                  
+                :type "long")
+                nil [7465 7515])
+            ("keyctl_get_security" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("keyid" variable (:type ("key_serial_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [7548 7567])
+                    ("__user" variable (:type "char") (reparse-symbol arg-sub-list) [7568 7581])
+                    ("" variable (:type ("buffer" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [7581 7588])
+                    ("buflen" variable (:type ("size_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [7593 7607]))                  
+                :type "long")
+                nil [7516 7608])
+            ("keyctl_session_to_parent" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [7646 7651]))                  
+                :type "long")
+                nil [7609 7652])
+            ("keyctl_reject_key" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("" variable (:type ("key_serial_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [7683 7696])
+                    ("" variable (:type "unsigned int") (reparse-symbol arg-sub-list) [7697 7706])
+                    ("" variable (:type "unsigned int") (reparse-symbol arg-sub-list) [7707 7716])
+                    ("" variable (:type ("key_serial_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [7717 7730]))                  
+                :type "long")
+                nil [7653 7731])
+            ("keyctl_instantiate_key_iov" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("" variable (:type ("key_serial_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [7771 7784])
+                    ("__user" variable
+                       (:constant-flag t
+                        :type ("iovec" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [7796 7823])
+                    ("" variable (:type "unsigned int") (reparse-symbol arg-sub-list) [7836 7845])
+                    ("" variable (:type ("key_serial_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [7846 7859]))                  
+                :type "long")
+                nil [7732 7860])
+            ("keyctl_instantiate_key_common" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("" variable (:type ("key_serial_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [7904 7917])
+                    ("__user" variable
+                       (:constant-flag t
+                        :type ("iovec" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [7925 7952])
+                    ("" variable (:type "unsigned int") (reparse-symbol arg-sub-list) [7961 7970])
+                    ("" variable (:type ("size_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [7971 7978])
+                    ("" variable (:type ("key_serial_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [7979 7992]))                  
+                :type "long")
+                nil [7862 7993])
+            ("key_check" variable (:constant-flag t) nil [8249 8258]))          
+    :file "internal.h"
+    :pointmax 8313
+    :fsize 8312
+    :lastmodtime '(21468 9235 3694 531000)
+    :unmatched-syntax '((punctuation 7951 . 7952) (punctuation 7822 . 7823) (punctuation 7580 . 7581) (punctuation 7263 . 7264) (punctuation 7068 . 7069) (punctuation 6996 . 6997) (punctuation 6969 . 6970) (punctuation 6891 . 6892) (punctuation 6604 . 6605) (punctuation 6538 . 6539) (TYPEDEF 3425 . 3432))
+    :lexical-table 
+        '(("KEY_READ" . ((number "0x02" 5526 . 5530)))
+          ("_INTERNAL_H")
+          ("KEY_LOOKUP_FOR_UNLINK" . ((number "0x04" 4874 . 4878)))
+          ("kenter" (spp-arg-list ("FMT" "...") 829 . 839) . ((symbol "no_printk" 843 . 852) (semantic-list "(KERN_DEBUG \"==> %s(\"FMT\")\\n\", __func__, ##__VA_ARGS__)" 852 . 907)))
+          ("KEY_SETATTR" . ((number "0x20" 5797 . 5801)))
+          ("KEY_LOOKUP_CREATE" . ((number "0x01" 4807 . 4811)))
+          ("KEY_VIEW" . ((number "0x01" 5460 . 5464)))
+          ("KEY_WRITE" . ((number "0x04" 5590 . 5594)))
+          ("KEY_LOOKUP_PARTIAL" . ((number "0x02" 4839 . 4843)))
+          ("KEY_SEARCH" . ((number "0x08" 5658 . 5662)))
+          ("kdebug" (spp-arg-list ("FMT" "...") 1015 . 1025) . ((symbol "no_printk" 1029 . 1038) (semantic-list "(KERN_DEBUG FMT\"\\n\", ##__VA_ARGS__)" 1038 . 1073)))
+          ("KEY_ALL" . ((number "0x3f" 5865 . 5869)))
+          ("key_check" (spp-arg-list ("key") 8258 . 8263) . 
+              ((DO "do" 8264 . 8266) (semantic-list "{}" 8267 . 8269) (WHILE "while" 8270 . 8275) (semantic-list "(0)" 8275 . 8278)))
+          ("KEYQUOTA_LINK_BYTES" . ((number "4" 2409 . 2410)))
+          ("KEY_LINK" . ((number "0x10" 5739 . 5743)))
+          ("kleave" (spp-arg-list ("FMT" "...") 922 . 932) . ((symbol "no_printk" 936 . 945) (semantic-list "(KERN_DEBUG \"<== %s()\"FMT\"\\n\", __func__, ##__VA_ARGS__)" 945 . 1000)))
+          )
+
+    )
+   (semanticdb-table "keyring.c"
+    :major-mode 'c-mode
+    :tags 
+        '( ("linux/module.h" include (:system-flag t) nil [402 427])
+            ("linux/init.h" include (:system-flag t) nil [428 451])
+            ("linux/sched.h" include (:system-flag t) nil [452 476])
+            ("linux/slab.h" include (:system-flag t) nil [477 500])
+            ("linux/security.h" include (:system-flag t) nil [501 528])
+            ("linux/seq_file.h" include (:system-flag t) nil [529 556])
+            ("linux/err.h" include (:system-flag t) nil [557 579])
+            ("keys/keyring-type.h" include (:system-flag t) nil [580 610])
+            ("linux/uaccess.h" include (:system-flag t) nil [611 637])
+            ("internal.h" include nil nil [638 659])
+            ("rcu_dereference_locked_keyring" variable (:constant-flag t) nil [669 699])
+            ("KEY_LINK_FIXQUOTA" variable (:constant-flag t) nil [858 875])
+            ("KEYRING_SEARCH_MAX_DEPTH" variable (:constant-flag t) nil [1004 1028])
+            ("KEYRING_NAME_HASH_SIZE" variable (:constant-flag t) nil [1113 1135])
+            ("keyring_name_hash" variable
+               (:dereference 1
+                :typemodifiers ("static")
+                :type ("list_head" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [1146 1212])
+            ("DEFINE_RWLOCK" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("" variable (:type ("keyring_name_lock" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [1234 1252]))                  
+                :type "int")
+                nil [1213 1253])
+            ("keyring_hash" function
+               (:typemodifiers ("static" "inline")
+                :arguments 
+                  ( ("desc" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [1291 1308]))                  
+                :type "unsigned int")
+                nil [1255 1440])
+            ("keyring_instantiate" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("keyring" variable
+                       (:pointer 1
+                        :type ("key" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [1649 1669])
+                    ("data" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "void")
+                        (reparse-symbol arg-sub-list) [1680 1697])
+                    ("datalen" variable (:type ("size_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [1698 1713]))                  
+                :type "int")
+                nil [1618 1714])
+            ("keyring_match" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("keyring" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("key" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [1740 1766])
+                    ("criterion" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "void")
+                        (reparse-symbol arg-sub-list) [1767 1789]))                  
+                :type "int")
+                nil [1715 1790])
+            ("keyring_revoke" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("keyring" variable
+                       (:pointer 1
+                        :type ("key" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [1818 1838]))                  
+                :type "void")
+                nil [1791 1839])
+            ("keyring_destroy" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("keyring" variable
+                       (:pointer 1
+                        :type ("key" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [1868 1888]))                  
+                :type "void")
+                nil [1840 1889])
+            ("keyring_describe" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("keyring" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("key" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [1919 1945])
+                    ("m" variable
+                       (:pointer 1
+                        :type ("seq_file" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [1946 1965]))                  
+                :type "void")
+                nil [1890 1966])
+            ("keyring_read" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("keyring" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("key" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [1992 2018])
+                    ("__user" variable (:type "char") (reparse-symbol arg-sub-list) [2023 2036])
+                    ("" variable (:type ("buffer" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [2036 2043])
+                    ("buflen" variable (:type ("size_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [2044 2058]))                  
+                :type "long")
+                nil [1967 2059])
+            ("key_type_keyring" variable (:type ("key_type" type
+                 (:prototype t
+                  :type "struct")
+                  nil nil)) nil [2061 2341])
+            ("EXPORT_SYMBOL" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("key_type_keyring" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [2356 2373]))                  
+                :type "int")
+                nil [2342 2374])
+            ("DECLARE_RWSEM" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("" variable (:type ("keyring_serialise_link_sem" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [2508 2535]))                  
+                :type "int")
+                nil [2487 2536])
+            ("keyring_publish_name" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("keyring" variable
+                       (:pointer 1
+                        :type ("key" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [2663 2683]))                  
+                :type "void")
+                nil [2630 3020])
+            ("keyring_instantiate" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("keyring" variable
+                       (:pointer 1
+                        :type ("key" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [3140 3160])
+                    ("data" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "void")
+                        (reparse-symbol arg-sub-list) [3171 3188])
+                    ("datalen" variable (:type ("size_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [3189 3204]))                  
+                :type "int")
+                nil [3109 3374])
+            ("keyring_match" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("keyring" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("key" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [3440 3466])
+                    ("description" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "void")
+                        (reparse-symbol arg-sub-list) [3467 3491]))                  
+                :type "int")
+                nil [3415 3577])
+            ("keyring_destroy" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("keyring" variable
+                       (:pointer 1
+                        :type ("key" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [3720 3740]))                  
+                :type "void")
+                nil [3692 4278])
+            ("keyring_describe" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("keyring" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("key" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [4349 4375])
+                    ("m" variable
+                       (:pointer 1
+                        :type ("seq_file" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [4376 4395]))                  
+                :type "void")
+                nil [4320 4770])
+            ("keyring_read" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("keyring" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("key" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [4933 4959])
+                    ("__user" variable (:type "char") (reparse-symbol arg-sub-list) [4964 4977])
+                    ("" variable (:type ("buffer" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [4977 4984])
+                    ("buflen" variable (:type ("size_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [4985 4999]))                  
+                :type "long")
+                nil [4908 5766])
+            ("keyring_alloc" function
+               (:pointer 1
+                :arguments 
+                  ( ("description" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [5862 5886])
+                    ("uid" variable (:type ("uid_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [5887 5897])
+                    ("gid" variable (:type ("gid_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [5898 5908])
+                    ("cred" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("cred" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [5914 5938])
+                    ("flags" variable (:type "unsigned long") (reparse-symbol arg-sub-list) [5939 5959])
+                    ("dest" variable
+                       (:pointer 1
+                        :type ("key" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [5965 5982]))                  
+                :type ("key" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [5836 6345])
+            ("keyring_search_aux" function
+               (:arguments 
+                  ( ("keyring_ref" variable (:type ("key_ref_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [8221 8243])
+                    ("cred" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("cred" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [8252 8276])
+                    ("type" variable
+                       (:pointer 1
+                        :type ("key_type" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [8285 8307])
+                    ("description" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "void")
+                        (reparse-symbol arg-sub-list) [8316 8340])
+                    ("match" variable (:type ("key_match_func_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [8349 8372])
+                    ("no_state_check" variable (:type "bool") (reparse-symbol arg-sub-list) [8381 8401]))                  
+                :type ("key_ref_t" type (:type "class") nil nil))
+                nil [8192 12180])
+            ("keyring_search" function
+               (:arguments 
+                  ( ("keyring" variable (:type ("key_ref_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [12569 12587])
+                    ("type" variable
+                       (:pointer 1
+                        :type ("key_type" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [12592 12614])
+                    ("description" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [12619 12643]))                  
+                :type ("key_ref_t" type (:type "class") nil nil))
+                nil [12544 12791])
+            ("EXPORT_SYMBOL" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("keyring_search" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [12806 12821]))                  
+                :type "int")
+                nil [12792 12822])
+            ("__keyring_search_one" function
+               (:arguments 
+                  ( ("keyring_ref" variable (:type ("key_ref_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [13454 13476])
+                    ("ktype" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("key_type" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [13487 13516])
+                    ("description" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [13527 13551])
+                    ("perm" variable (:type ("key_perm_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [13562 13578]))                  
+                :type ("key_ref_t" type (:type "class") nil nil))
+                nil [13423 14328])
+            ("find_keyring_by_name" function
+               (:pointer 1
+                :arguments 
+                  ( ("name" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [14826 14843])
+                    ("skip_perm_check" variable (:type "bool") (reparse-symbol arg-sub-list) [14844 14865]))                  
+                :type ("key" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [14793 15897])
+            ("keyring_detect_cycle" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("A" variable
+                       (:pointer 1
+                        :type ("key" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [16219 16233])
+                    ("B" variable
+                       (:pointer 1
+                        :type ("key" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [16234 16248]))                  
+                :type "int")
+                nil [16187 17688])
+            ("keyring_unlink_rcu_disposal" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("rcu" variable
+                       (:pointer 1
+                        :type ("rcu_head" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [17822 17843]))                  
+                :type "void")
+                nil [17782 18012])
+            ("__acquires" function
+               (:arguments 
+                  ( ("" variable (:type ("keyring" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [18232 18240])
+                    ("" variable (:type ("sem" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [18241 18245]))                  
+                :type "int")
+                nil [18220 20990])
+            ("__key_link_check_live_key" function
+               (:arguments 
+                  ( ("keyring" variable
+                       (:pointer 1
+                        :type ("key" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [21239 21259])
+                    ("key" variable
+                       (:pointer 1
+                        :type ("key" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [21260 21276]))                  
+                :type "int")
+                nil [21209 21465])
+            ("__key_link" function
+               (:arguments 
+                  ( ("keyring" variable
+                       (:pointer 1
+                        :type ("key" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [21772 21792])
+                    ("key" variable
+                       (:pointer 1
+                        :type ("key" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [21793 21809])
+                    ("_prealloc" variable
+                       (:pointer 1
+                        :type "unsigned long")
+                        (reparse-symbol arg-sub-list) [21812 21837]))                  
+                :type "void")
+                nil [21756 22860])
+            ("__releases" function
+               (:arguments 
+                  ( ("" variable (:type ("keyring" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [23085 23093])
+                    ("" variable (:type ("sem" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [23094 23098]))                  
+                :type "int")
+                nil [23073 23528])
+            ("key_link" function
+               (:arguments 
+                  ( ("keyring" variable
+                       (:pointer 1
+                        :type ("key" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [24405 24425])
+                    ("key" variable
+                       (:pointer 1
+                        :type ("key" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [24426 24442]))                  
+                :type "int")
+                nil [24392 24782])
+            ("EXPORT_SYMBOL" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("key_link" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [24797 24806]))                  
+                :type "int")
+                nil [24783 24807])
+            ("key_unlink" function
+               (:arguments 
+                  ( ("keyring" variable
+                       (:pointer 1
+                        :type ("key" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [25439 25459])
+                    ("key" variable
+                       (:pointer 1
+                        :type ("key" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [25460 25476]))                  
+                :type "int")
+                nil [25424 26865])
+            ("EXPORT_SYMBOL" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("key_unlink" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [26880 26891]))                  
+                :type "int")
+                nil [26866 26892])
+            ("keyring_clear_rcu_disposal" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("rcu" variable
+                       (:pointer 1
+                        :type ("rcu_head" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [27032 27053]))                  
+                :type "void")
+                nil [26993 27249])
+            ("keyring_clear" function
+               (:arguments 
+                  ( ("keyring" variable
+                       (:pointer 1
+                        :type ("key" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [27472 27492]))                  
+                :type "int")
+                nil [27454 28097])
+            ("EXPORT_SYMBOL" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("keyring_clear" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [28112 28126]))                  
+                :type "int")
+                nil [28098 28127])
+            ("keyring_revoke" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("keyring" variable
+                       (:pointer 1
+                        :type ("key" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [28263 28283]))                  
+                :type "void")
+                nil [28236 28557])
+            ("key_is_dead" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("key" variable
+                       (:pointer 1
+                        :type ("key" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [28626 28642])
+                    ("limit" variable (:type ("time_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [28643 28656]))                  
+                :type "bool")
+                nil [28602 28753])
+            ("keyring_gc" function
+               (:arguments 
+                  ( ("keyring" variable
+                       (:pointer 1
+                        :type ("key" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [29078 29098])
+                    ("limit" variable (:type ("time_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [29099 29112]))                  
+                :type "void")
+                nil [29062 30879]))          
+    :file "keyring.c"
+    :pointmax 30880
+    :fsize 30879
+    :lastmodtime '(21468 9235 41693 631000)
+    :unmatched-syntax '((punctuation 23093 . 23094) (punctuation 23092 . 23093) (punctuation 23084 . 23085) (semantic-list 22997 . 23071) (symbol 22983 . 22997) (VOID 22978 . 22982) (punctuation 18240 . 18241) (punctuation 18239 . 18240) (punctuation 18231 . 18232) (semantic-list 18110 . 18218) (symbol 18094 . 18110) (INT 18090 . 18093) (punctuation 4976 . 4977) (punctuation 2035 . 2036))
+    :lexical-table 
+        '(("rcu_dereference_locked_keyring" (spp-arg-list ("keyring") 699 . 708) . ((semantic-list "(rcu_dereference_protected(					\\
+		(keyring)->payload.subscriptions,			\\
+		rwsem_is_locked((struct rw_semaphore *)&(keyring)->sem)))" 715 . 848)))
+          ("KEY_LINK_FIXQUOTA" . ((symbol "1UL" 876 . 879)))
+          ("KEYRING_NAME_HASH_SIZE" . ((semantic-list "(1 << 5)" 1136 . 1144)))
+          ("KEYRING_SEARCH_MAX_DEPTH" . ((number "6" 1029 . 1030)))
+          )
+
+    )
+   )
+  :file "!home!chz!linux-3.0.8!security!keys!semantic.cache"
+  :semantic-tag-version "2.0"
+  :semanticdb-version "2.2"
+  )

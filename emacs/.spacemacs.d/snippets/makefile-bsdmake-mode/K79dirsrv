@@ -1,0 +1,103 @@
+;; Object Writing-a-Simple-Garbage-Collector-in-C/
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "Writing-a-Simple-Garbage-Collector-in-C/"
+  :tables (list 
+   (semanticdb-table "gc.c"
+    :major-mode 'c-mode
+    :tags 
+        '( ("header_t" type
+               (:typedef ("header" type (:type "struct") nil nil)
+                :superclasses "header"
+                :type "typedef")
+                nil [2527 2604])
+            ("header" type
+               (:members 
+                  ( ("size" variable (:type "unsigned int") (reparse-symbol classsubparts) [2552 2570])
+                    ("next" variable
+                       (:pointer 1
+                        :type ("blocks" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol classsubparts) [2572 2592]))                  
+                :type "struct")
+                nil [2527 2604])
+            ("add_to_free_list" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("bp" variable
+                       (:pointer 1
+                        :type ("header_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [3424 3437]))                  
+                :type "void")
+                nil [3395 3726])
+            ("MIN_ALLOC_SIZE" variable (:constant-flag t) nil [3736 3750])
+            ("morecore" function
+               (:pointer 1
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("num_units" variable (:type ("size_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [3830 3847]))                  
+                :type ("header_t" type (:type "class") nil nil))
+                nil [3804 4126])
+            ("base" variable
+               (:typemodifiers ("static")
+                :type ("header_t" type (:type "class") nil nil))
+                nil [4405 4426])
+            ("freep" variable
+               (:typemodifiers ("static")
+                :type ("header_t" type (:type "class") nil nil))
+                nil [4466 4496])
+            ("usedp" variable
+               (:pointer 1
+                :typemodifiers ("static")
+                :type ("header_t" type (:type "class") nil nil))
+                nil [4466 4496])
+            ("GC_malloc" function
+               (:pointer 1
+                :arguments 
+                  ( ("alloc_size" variable (:type ("size_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [4738 4756]))                  
+                :type "void")
+                nil [4721 5332])
+            ("UNTAG" variable (:constant-flag t) nil [8440 8445])
+            ("mark_from_region" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("" variable (:type ("unsgiend" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [9014 9026])
+                    ("sp" variable
+                       (:pointer 1
+                        :type "int")
+                        (reparse-symbol arg-sub-list) [9023 9031])
+                    ("" variable (:type ("unsgined" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [9032 9044])
+                    ("end" variable
+                       (:pointer 1
+                        :type "int")
+                        (reparse-symbol arg-sub-list) [9041 9050]))                  
+                :type "void")
+                nil [8985 9312])
+            ("mark_from_heap" function
+               (:arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [9978 9983]))                  
+                :type "void")
+                nil [9958 10476])
+            ("GC_init" function
+               (:arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [12690 12695]))                  
+                :type "void")
+                nil [12677 13241])
+            ("GC_collect" function (:type "void") nil [13486 14398]))          
+    :file "gc.c"
+    :pointmax 17576
+    :fsize 17575
+    :lastmodtime '(21539 36859 66690 600000)
+    :unmatched-syntax '((symbol 9951 . 9957))
+    :lexical-table 
+        '(("UNTAG" (spp-arg-list ("p") 8445 . 8448) . ((semantic-list "(((unsigned int) (p) & 0xfffffffc))" 8449 . 8484)))
+          ("MIN_ALLOC_SIZE" . ((number "4096" 3751 . 3755)))
+          )
+
+    )
+   )
+  :file "!home!chz!Projects!CWork!garvege_collector!Writing-a-Simple-Garbage-Collector-in-C!semantic.cache"
+  :semantic-tag-version "2.0"
+  :semanticdb-version "2.2"
+  )

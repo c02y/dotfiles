@@ -1,0 +1,1367 @@
+;; Object kernel/
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "kernel/"
+  :tables (list 
+   (semanticdb-table "time.c"
+    :major-mode 'c-mode
+    :tags 
+        '( ("linux/errno.h" include (:system-flag t) nil [1368 1392])
+            ("linux/module.h" include (:system-flag t) nil [1393 1418])
+            ("linux/sched.h" include (:system-flag t) nil [1419 1443])
+            ("linux/kernel.h" include (:system-flag t) nil [1444 1469])
+            ("linux/param.h" include (:system-flag t) nil [1470 1494])
+            ("linux/string.h" include (:system-flag t) nil [1495 1520])
+            ("linux/mm.h" include (:system-flag t) nil [1521 1542])
+            ("linux/delay.h" include (:system-flag t) nil [1543 1567])
+            ("linux/ioport.h" include (:system-flag t) nil [1568 1593])
+            ("linux/irq.h" include (:system-flag t) nil [1594 1616])
+            ("linux/interrupt.h" include (:system-flag t) nil [1617 1645])
+            ("linux/init.h" include (:system-flag t) nil [1646 1669])
+            ("linux/bcd.h" include (:system-flag t) nil [1670 1692])
+            ("linux/profile.h" include (:system-flag t) nil [1693 1719])
+            ("linux/irq_work.h" include (:system-flag t) nil [1720 1747])
+            ("asm/uaccess.h" include (:system-flag t) nil [1749 1773])
+            ("asm/io.h" include (:system-flag t) nil [1774 1793])
+            ("asm/hwrpb.h" include (:system-flag t) nil [1794 1816])
+            ("asm/8253pit.h" include (:system-flag t) nil [1817 1841])
+            ("asm/rtc.h" include (:system-flag t) nil [1842 1862])
+            ("linux/mc146818rtc.h" include (:system-flag t) nil [1864 1894])
+            ("linux/time.h" include (:system-flag t) nil [1895 1918])
+            ("linux/timex.h" include (:system-flag t) nil [1919 1943])
+            ("linux/clocksource.h" include (:system-flag t) nil [1944 1974])
+            ("proto.h" include nil nil [1976 1994])
+            ("irq_impl.h" include nil nil [1995 2016])
+            ("set_rtc_mmss" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("" variable (:type "unsigned long") (reparse-symbol arg-sub-list) [2042 2056]))                  
+                :type "int")
+                nil [2018 2057])
+            ("DEFINE_SPINLOCK" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("rtc_lock" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [2075 2084]))                  
+                :type "int")
+                nil [2059 2085])
+            ("EXPORT_SYMBOL" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("rtc_lock" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [2100 2109]))                  
+                :type "int")
+                nil [2086 2110])
+            ("TICK_SIZE" variable (:constant-flag t) nil [2120 2129])
+            ("FIX_SHIFT" variable (:constant-flag t) nil [2334 2343])
+            ("state" variable
+               (:typemodifiers ("static")
+                :type ("" type
+                     (:members 
+                        ( ("last_time" variable (:type ("__u32" type (:type "class") nil nil)) (reparse-symbol classsubparts) [2475 2491])
+                          ("scaled_ticks_per_cycle" variable (:type "unsigned long") (reparse-symbol classsubparts) [2519 2556])
+                          ("partial_tick" variable (:type "unsigned long") (reparse-symbol classsubparts) [2585 2612]))                        
+                      :type "struct")
+                      nil nil))
+                nil [2412 2621])
+            ("est_cycle_freq" variable (:type "unsigned long") nil [2623 2652])
+            ("test_irq_work_pending" variable (:constant-flag t) nil [3037 3058])
+            ("clear_irq_work_pending" variable (:constant-flag t) nil [3076 3098])
+            ("rpcc" function
+               (:typemodifiers ("static" "inline")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [3158 3163]))                  
+                :type ("__u32" type (:type "class") nil nil))
+                nil [3133 3249])
+            ("update_persistent_clock" function
+               (:arguments 
+                  ( ("now" variable (:type ("timespec" type
+                         (:prototype t
+                          :type "struct")
+                          nil nil)) (reparse-symbol arg-sub-list) [3279 3299]))                  
+                :type "int")
+                nil [3251 3337])
+            ("read_persistent_clock" function
+               (:arguments 
+                  ( ("ts" variable
+                       (:pointer 1
+                        :type ("timespec" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [3366 3386]))                  
+                :type "void")
+                nil [3339 4247])
+            ("timer_interrupt" function
+               (:arguments 
+                  ( ("irq" variable (:type "int") (reparse-symbol arg-sub-list) [4409 4417])
+                    ("dev" variable
+                       (:pointer 1
+                        :type "void")
+                        (reparse-symbol arg-sub-list) [4418 4428]))                  
+                :type ("irqreturn_t" type (:type "class") nil nil))
+                nil [4381 5218])
+            ("common_init_rtc" function
+               (:arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [5248 5253]))                  
+                :type ("__init" type (:type "class") nil nil))
+                nil [5225 6079])
+            ("common_get_rtc_time" function
+               (:arguments 
+                  ( ("time" variable
+                       (:pointer 1
+                        :type ("rtc_time" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [6114 6136]))                  
+                :type "unsigned int")
+                nil [6081 6170])
+            ("common_set_rtc_time" function
+               (:arguments 
+                  ( ("time" variable
+                       (:pointer 1
+                        :type ("rtc_time" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [6196 6218]))                  
+                :type "int")
+                nil [6172 6252])
+            ("validate_cc_value" function
+               (:arguments 
+                  ( ("cc" variable (:type "unsigned long") (reparse-symbol arg-sub-list) [6590 6607]))                  
+                :type ("__init" type (:type "class") nil nil))
+                nil [6565 8150])
+            ("CALIBRATE_LATCH" variable (:constant-flag t) nil [8258 8273])
+            ("TIMEOUT_COUNT" variable (:constant-flag t) nil [8289 8302])
+            ("calibrate_cc_with_pit" function
+               (:arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [8363 8368]))                  
+                :type ("__init" type (:type "class") nil nil))
+                nil [8334 9141])
+            ("rpcc_after_update_in_progress" function
+               (:arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [9472 9477]))                  
+                :type ("__init" type (:type "class") nil nil))
+                nil [9435 9609])
+            ("read_rpcc" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("cs" variable
+                       (:pointer 1
+                        :type ("clocksource" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [9778 9801]))                  
+                :type ("cycle_t" type (:type "class") nil nil))
+                nil [9753 9850])
+            ("clocksource_rpcc" variable
+               (:typemodifiers ("static")
+                :type ("clocksource" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [9852 10109])
+            ("register_rpcc_clocksource" function
+               (:typemodifiers ("static" "inline")
+                :arguments 
+                  ( ("cycle_freq" variable (:type "long") (reparse-symbol arg-sub-list) [10156 10172]))                  
+                :type "void")
+                nil [10111 10233])
+            ("time_init" function
+               (:arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [10372 10377]))                  
+                :type ("__init" type (:type "class") nil nil))
+                nil [10355 12018])
+            ("set_rtc_mmss" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("nowtime" variable (:type "unsigned long") (reparse-symbol arg-sub-list) [12525 12547]))                  
+                :type "int")
+                nil [12501 14502]))          
+    :file "time.c"
+    :pointmax 14503
+    :fsize 14502
+    :lastmodtime '(21468 8881 579062 307000)
+    :unmatched-syntax '((VOID 10350 . 10354) (LONG 9430 . 9434) (UNSIGNED 9421 . 9429) (STATIC 9414 . 9420) (LONG 8329 . 8333) (UNSIGNED 8320 . 8328) (STATIC 8313 . 8319) (LONG 6560 . 6564) (UNSIGNED 6551 . 6559) (STATIC 6544 . 6550) (VOID 5220 . 5224))
+    :lexical-table 
+        '(("CALIBRATE_LATCH" . ((number "0xffff" 8274 . 8280)))
+          ("FIX_SHIFT" . ((number "48" 2344 . 2346)))
+          ("clear_irq_work_pending" (spp-arg-list nil 3098 . 3100))
+          ("test_irq_work_pending" (spp-arg-list nil 3058 . 3060) . ((number "0" 3066 . 3067)))
+          ("TICK_SIZE" . ((semantic-list "(tick_nsec / 1000)" 2130 . 2148)))
+          ("TIMEOUT_COUNT" . ((number "0x100000" 8303 . 8311)))
+          )
+
+    )
+   (semanticdb-table "proto.h"
+    :major-mode 'c-mode
+    :tags 
+        '( ("linux/interrupt.h" include (:system-flag t) nil [1 29])
+            ("linux/io.h" include (:system-flag t) nil [30 51])
+            ("asm/pgtable.h" include (:system-flag t) nil [53 77])
+            ("vucp" variable (:constant-flag t) nil [163 167])
+            ("vusp" variable (:constant-flag t) nil [202 206])
+            ("vip" variable (:constant-flag t) nil [241 244])
+            ("vuip" variable (:constant-flag t) nil [268 272])
+            ("vulp" variable (:constant-flag t) nil [307 311])
+            ("pt_regs" type
+               (:prototype t
+                :type "struct")
+                nil [339 354])
+            ("task_struct" type
+               (:prototype t
+                :type "struct")
+                nil [355 374])
+            ("pci_dev" type
+               (:prototype t
+                :type "struct")
+                nil [375 390])
+            ("pci_controller" type
+               (:prototype t
+                :type "struct")
+                nil [391 413])
+            ("apecs_pci_ops" variable
+               (:typemodifiers ("extern")
+                :type ("pci_ops" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [434 470])
+            ("apecs_init_arch" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [499 504]))                  
+                :type "void")
+                nil [471 505])
+            ("apecs_pci_clr_err" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [536 541]))                  
+                :type "void")
+                nil [506 542])
+            ("apecs_machine_check" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("vector" variable (:type "unsigned long") (reparse-symbol arg-sub-list) [575 596])
+                    ("la_ptr" variable (:type "unsigned long") (reparse-symbol arg-sub-list) [597 618]))                  
+                :type "void")
+                nil [543 619])
+            ("apecs_pci_tbi" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("" variable
+                       (:pointer 1
+                        :type ("pci_controller" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [646 670])
+                    ("" variable (:type ("dma_addr_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [671 682])
+                    ("" variable (:type ("dma_addr_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [683 694]))                  
+                :type "void")
+                nil [620 695])
+            ("cia_pci_ops" variable
+               (:typemodifiers ("extern")
+                :type ("pci_ops" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [714 748])
+            ("cia_init_pci" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [774 779]))                  
+                :type "void")
+                nil [749 780])
+            ("cia_init_arch" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [807 812]))                  
+                :type "void")
+                nil [781 813])
+            ("pyxis_init_arch" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [842 847]))                  
+                :type "void")
+                nil [814 848])
+            ("cia_kill_arch" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("" variable (:type "int") (reparse-symbol arg-sub-list) [875 879]))                  
+                :type "void")
+                nil [849 880])
+            ("cia_machine_check" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("vector" variable (:type "unsigned long") (reparse-symbol arg-sub-list) [911 932])
+                    ("la_ptr" variable (:type "unsigned long") (reparse-symbol arg-sub-list) [933 954]))                  
+                :type "void")
+                nil [881 955])
+            ("cia_pci_tbi" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("" variable
+                       (:pointer 1
+                        :type ("pci_controller" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [980 1004])
+                    ("" variable (:type ("dma_addr_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [1005 1016])
+                    ("" variable (:type ("dma_addr_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [1017 1028]))                  
+                :type "void")
+                nil [956 1029])
+            ("irongate_pci_ops" variable
+               (:typemodifiers ("extern")
+                :type ("pci_ops" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [1053 1092])
+            ("irongate_pci_clr_err" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [1125 1130]))                  
+                :type "int")
+                nil [1093 1131])
+            ("irongate_init_arch" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [1163 1168]))                  
+                :type "void")
+                nil [1132 1169])
+            ("irongate_pci_tbi" variable (:constant-flag t) nil [1178 1194])
+            ("lca_pci_ops" variable
+               (:typemodifiers ("extern")
+                :type ("pci_ops" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [1225 1259])
+            ("lca_init_arch" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [1286 1291]))                  
+                :type "void")
+                nil [1260 1292])
+            ("lca_machine_check" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("vector" variable (:type "unsigned long") (reparse-symbol arg-sub-list) [1323 1344])
+                    ("la_ptr" variable (:type "unsigned long") (reparse-symbol arg-sub-list) [1345 1366]))                  
+                :type "void")
+                nil [1293 1367])
+            ("lca_pci_tbi" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("" variable
+                       (:pointer 1
+                        :type ("pci_controller" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [1392 1416])
+                    ("" variable (:type ("dma_addr_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [1417 1428])
+                    ("" variable (:type ("dma_addr_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [1429 1440]))                  
+                :type "void")
+                nil [1368 1441])
+            ("marvel_pci_ops" variable
+               (:typemodifiers ("extern")
+                :type ("pci_ops" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [1463 1500])
+            ("marvel_init_arch" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [1530 1535]))                  
+                :type "void")
+                nil [1501 1536])
+            ("marvel_kill_arch" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("" variable (:type "int") (reparse-symbol arg-sub-list) [1566 1570]))                  
+                :type "void")
+                nil [1537 1571])
+            ("marvel_machine_check" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("" variable (:type "unsigned long") (reparse-symbol arg-sub-list) [1605 1619])
+                    ("" variable (:type "unsigned long") (reparse-symbol arg-sub-list) [1620 1634]))                  
+                :type "void")
+                nil [1572 1635])
+            ("marvel_pci_tbi" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("" variable
+                       (:pointer 1
+                        :type ("pci_controller" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [1663 1687])
+                    ("" variable (:type ("dma_addr_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [1688 1699])
+                    ("" variable (:type ("dma_addr_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [1700 1711]))                  
+                :type "void")
+                nil [1636 1712])
+            ("marvel_pa_to_nid" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("" variable (:type "unsigned long") (reparse-symbol arg-sub-list) [1741 1755]))                  
+                :type "int")
+                nil [1713 1756])
+            ("marvel_cpuid_to_nid" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("" variable (:type "int") (reparse-symbol arg-sub-list) [1788 1792]))                  
+                :type "int")
+                nil [1757 1793])
+            ("marvel_node_mem_start" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("" variable (:type "int") (reparse-symbol arg-sub-list) [1837 1841]))                  
+                :type "unsigned long")
+                nil [1794 1842])
+            ("marvel_node_mem_size" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("" variable (:type "int") (reparse-symbol arg-sub-list) [1885 1889]))                  
+                :type "unsigned long")
+                nil [1843 1890])
+            ("marvel_agp_info" function
+               (:prototype-flag t
+                :pointer 1
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [1938 1943]))                  
+                :type ("_alpha_agp_info" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [1891 1944])
+            ("marvel_find_io7" function
+               (:prototype-flag t
+                :pointer 1
+                :arguments 
+                  ( ("pe" variable (:type "int") (reparse-symbol arg-sub-list) [1973 1980]))                  
+                :type ("io7" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [1945 1981])
+            ("marvel_next_io7" function
+               (:prototype-flag t
+                :pointer 1
+                :arguments 
+                  ( ("prev" variable
+                       (:pointer 1
+                        :type ("io7" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [2010 2027]))                  
+                :type ("io7" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [1982 2028])
+            ("io7_clear_errors" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("io7" variable
+                       (:pointer 1
+                        :type ("io7" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [2051 2067]))                  
+                :type "void")
+                nil [2029 2068])
+            ("mcpcia_pci_ops" variable
+               (:typemodifiers ("extern")
+                :type ("pci_ops" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [2090 2127])
+            ("mcpcia_init_arch" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [2157 2162]))                  
+                :type "void")
+                nil [2128 2163])
+            ("mcpcia_init_hoses" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [2194 2199]))                  
+                :type "void")
+                nil [2164 2200])
+            ("mcpcia_machine_check" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("vector" variable (:type "unsigned long") (reparse-symbol arg-sub-list) [2234 2255])
+                    ("la_ptr" variable (:type "unsigned long") (reparse-symbol arg-sub-list) [2256 2277]))                  
+                :type "void")
+                nil [2201 2278])
+            ("mcpcia_pci_tbi" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("" variable
+                       (:pointer 1
+                        :type ("pci_controller" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [2306 2330])
+                    ("" variable (:type ("dma_addr_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [2331 2342])
+                    ("" variable (:type ("dma_addr_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [2343 2354]))                  
+                :type "void")
+                nil [2279 2355])
+            ("polaris_pci_ops" variable
+               (:typemodifiers ("extern")
+                :type ("pci_ops" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [2378 2416])
+            ("polaris_read_config_dword" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("" variable
+                       (:pointer 1
+                        :type ("pci_dev" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [2454 2471])
+                    ("" variable (:type "int") (reparse-symbol arg-sub-list) [2472 2476])
+                    ("" variable
+                       (:pointer 1
+                        :type ("u32" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [2477 2483]))                  
+                :type "int")
+                nil [2417 2484])
+            ("polaris_write_config_dword" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("" variable
+                       (:pointer 1
+                        :type ("pci_dev" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [2523 2540])
+                    ("" variable (:type "int") (reparse-symbol arg-sub-list) [2541 2545])
+                    ("" variable (:type ("u32" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [2546 2550]))                  
+                :type "int")
+                nil [2485 2551])
+            ("polaris_init_arch" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [2582 2587]))                  
+                :type "void")
+                nil [2552 2588])
+            ("polaris_machine_check" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("vector" variable (:type "unsigned long") (reparse-symbol arg-sub-list) [2623 2644])
+                    ("la_ptr" variable (:type "unsigned long") (reparse-symbol arg-sub-list) [2645 2666]))                  
+                :type "void")
+                nil [2589 2667])
+            ("polaris_pci_tbi" variable (:constant-flag t) nil [2676 2691])
+            ("t2_pci_ops" variable
+               (:typemodifiers ("extern")
+                :type ("pci_ops" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [2721 2754])
+            ("t2_init_arch" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [2780 2785]))                  
+                :type "void")
+                nil [2755 2786])
+            ("t2_kill_arch" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("" variable (:type "int") (reparse-symbol arg-sub-list) [2812 2816]))                  
+                :type "void")
+                nil [2787 2817])
+            ("t2_machine_check" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("vector" variable (:type "unsigned long") (reparse-symbol arg-sub-list) [2847 2868])
+                    ("la_ptr" variable (:type "unsigned long") (reparse-symbol arg-sub-list) [2869 2890]))                  
+                :type "void")
+                nil [2818 2891])
+            ("t2_pci_tbi" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("" variable
+                       (:pointer 1
+                        :type ("pci_controller" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [2915 2939])
+                    ("" variable (:type ("dma_addr_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [2940 2951])
+                    ("" variable (:type ("dma_addr_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [2952 2963]))                  
+                :type "void")
+                nil [2892 2964])
+            ("titan_pci_ops" variable
+               (:typemodifiers ("extern")
+                :type ("pci_ops" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [2985 3021])
+            ("titan_init_arch" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [3050 3055]))                  
+                :type "void")
+                nil [3022 3056])
+            ("titan_kill_arch" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("" variable (:type "int") (reparse-symbol arg-sub-list) [3085 3089]))                  
+                :type "void")
+                nil [3057 3090])
+            ("titan_machine_check" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("" variable (:type "unsigned long") (reparse-symbol arg-sub-list) [3123 3137])
+                    ("" variable (:type "unsigned long") (reparse-symbol arg-sub-list) [3138 3152]))                  
+                :type "void")
+                nil [3091 3153])
+            ("titan_pci_tbi" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("" variable
+                       (:pointer 1
+                        :type ("pci_controller" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [3180 3204])
+                    ("" variable (:type ("dma_addr_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [3205 3216])
+                    ("" variable (:type ("dma_addr_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [3217 3228]))                  
+                :type "void")
+                nil [3154 3229])
+            ("titan_agp_info" function
+               (:prototype-flag t
+                :pointer 1
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [3276 3281]))                  
+                :type ("_alpha_agp_info" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [3230 3282])
+            ("tsunami_pci_ops" variable
+               (:typemodifiers ("extern")
+                :type ("pci_ops" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [3305 3343])
+            ("tsunami_init_arch" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [3374 3379]))                  
+                :type "void")
+                nil [3344 3380])
+            ("tsunami_kill_arch" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("" variable (:type "int") (reparse-symbol arg-sub-list) [3411 3415]))                  
+                :type "void")
+                nil [3381 3416])
+            ("tsunami_machine_check" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("vector" variable (:type "unsigned long") (reparse-symbol arg-sub-list) [3451 3472])
+                    ("la_ptr" variable (:type "unsigned long") (reparse-symbol arg-sub-list) [3473 3494]))                  
+                :type "void")
+                nil [3417 3495])
+            ("tsunami_pci_tbi" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("" variable
+                       (:pointer 1
+                        :type ("pci_controller" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [3524 3548])
+                    ("" variable (:type ("dma_addr_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [3549 3560])
+                    ("" variable (:type ("dma_addr_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [3561 3572]))                  
+                :type "void")
+                nil [3496 3573])
+            ("wildfire_pci_ops" variable
+               (:typemodifiers ("extern")
+                :type ("pci_ops" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [3597 3636])
+            ("wildfire_init_arch" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [3668 3673]))                  
+                :type "void")
+                nil [3637 3674])
+            ("wildfire_kill_arch" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("" variable (:type "int") (reparse-symbol arg-sub-list) [3706 3710]))                  
+                :type "void")
+                nil [3675 3711])
+            ("wildfire_machine_check" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("vector" variable (:type "unsigned long") (reparse-symbol arg-sub-list) [3747 3768])
+                    ("la_ptr" variable (:type "unsigned long") (reparse-symbol arg-sub-list) [3769 3790]))                  
+                :type "void")
+                nil [3712 3791])
+            ("wildfire_pci_tbi" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("" variable
+                       (:pointer 1
+                        :type ("pci_controller" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [3821 3845])
+                    ("" variable (:type ("dma_addr_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [3846 3857])
+                    ("" variable (:type ("dma_addr_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [3858 3869]))                  
+                :type "void")
+                nil [3792 3870])
+            ("wildfire_pa_to_nid" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("" variable (:type "unsigned long") (reparse-symbol arg-sub-list) [3901 3915]))                  
+                :type "int")
+                nil [3871 3916])
+            ("wildfire_cpuid_to_nid" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("" variable (:type "int") (reparse-symbol arg-sub-list) [3950 3954]))                  
+                :type "int")
+                nil [3917 3955])
+            ("wildfire_node_mem_start" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("" variable (:type "int") (reparse-symbol arg-sub-list) [4001 4005]))                  
+                :type "unsigned long")
+                nil [3956 4006])
+            ("wildfire_node_mem_size" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("" variable (:type "int") (reparse-symbol arg-sub-list) [4051 4055]))                  
+                :type "unsigned long")
+                nil [4007 4056])
+            ("find_console_vga_hose" function
+               (:typemodifiers ("static" "inline")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [4245 4250]))                  
+                :type "void")
+                nil [4204 4254])
+            ("locate_and_init_vga" function
+               (:typemodifiers ("static" "inline")
+                :arguments 
+                  ( ("" variable
+                       (:pointer 1
+                        :type "void")
+                        (reparse-symbol arg-sub-list) [4294 4311]))                  
+                :type "void")
+                nil [4255 4332])
+            ("srm_hae" variable
+               (:typemodifiers ("extern")
+                :type "unsigned long")
+                nil [4355 4384])
+            ("boot_cpuid" variable
+               (:typemodifiers ("extern")
+                :type "int")
+                nil [4385 4407])
+            ("register_srm_console" variable (:constant-flag t) nil [4663 4683])
+            ("unregister_srm_console" variable (:constant-flag t) nil [4694 4716])
+            ("setup_smp" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [4761 4766]))                  
+                :type "void")
+                nil [4739 4767])
+            ("handle_ipi" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("" variable
+                       (:pointer 1
+                        :type ("pt_regs" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [4791 4808]))                  
+                :type "void")
+                nil [4768 4809])
+            ("smp_percpu_timer_interrupt" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("" variable
+                       (:pointer 1
+                        :type ("pt_regs" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [4849 4866]))                  
+                :type "void")
+                nil [4810 4867])
+            ("timer_interrupt" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("irq" variable (:type "int") (reparse-symbol arg-sub-list) [4972 4980])
+                    ("dev" variable
+                       (:pointer 1
+                        :type "void")
+                        (reparse-symbol arg-sub-list) [4981 4991]))                  
+                :type ("irqreturn_t" type (:type "class") nil nil))
+                nil [4937 4992])
+            ("common_init_rtc" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [5021 5026]))                  
+                :type "void")
+                nil [4993 5027])
+            ("est_cycle_freq" variable
+               (:typemodifiers ("extern")
+                :type "unsigned long")
+                nil [5028 5064])
+            ("common_get_rtc_time" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("time" variable
+                       (:pointer 1
+                        :type ("rtc_time" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [5105 5127]))                  
+                :type "unsigned int")
+                nil [5065 5128])
+            ("common_set_rtc_time" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("time" variable
+                       (:pointer 1
+                        :type ("rtc_time" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [5160 5182]))                  
+                :type "int")
+                nil [5129 5183])
+            ("SMC93x_Init" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [5227 5232]))                  
+                :type "void")
+                nil [5203 5233])
+            ("SMC669_Init" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("" variable (:type "int") (reparse-symbol arg-sub-list) [5277 5281]))                  
+                :type "void")
+                nil [5253 5282])
+            ("es1888_init" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [5323 5328]))                  
+                :type "void")
+                nil [5299 5329])
+            ("alpha_write_fp_reg" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("reg" variable (:type "unsigned long") (reparse-symbol arg-sub-list) [5384 5402])
+                    ("val" variable (:type "unsigned long") (reparse-symbol arg-sub-list) [5403 5421]))                  
+                :type "void")
+                nil [5352 5422])
+            ("alpha_read_fp_reg" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("reg" variable (:type "unsigned long") (reparse-symbol arg-sub-list) [5463 5481]))                  
+                :type "unsigned long")
+                nil [5423 5482])
+            ("wrmces" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("mces" variable (:type "unsigned long") (reparse-symbol arg-sub-list) [5516 5535]))                  
+                :type "void")
+                nil [5497 5536])
+            ("cserve_ena" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("" variable (:type "unsigned long") (reparse-symbol arg-sub-list) [5560 5574]))                  
+                :type "void")
+                nil [5537 5575])
+            ("cserve_dis" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("" variable (:type "unsigned long") (reparse-symbol arg-sub-list) [5599 5613]))                  
+                :type "void")
+                nil [5576 5614])
+            ("__smp_callin" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("" variable (:type "unsigned long") (reparse-symbol arg-sub-list) [5640 5654]))                  
+                :type "void")
+                nil [5615 5655])
+            ("entArith" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [5692 5697]))                  
+                :type "void")
+                nil [5671 5698])
+            ("entIF" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [5717 5722]))                  
+                :type "void")
+                nil [5699 5723])
+            ("entInt" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [5743 5748]))                  
+                :type "void")
+                nil [5724 5749])
+            ("entMM" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [5768 5773]))                  
+                :type "void")
+                nil [5750 5774])
+            ("entSys" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [5794 5799]))                  
+                :type "void")
+                nil [5775 5800])
+            ("entUna" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [5820 5825]))                  
+                :type "void")
+                nil [5801 5826])
+            ("entDbg" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [5846 5851]))                  
+                :type "void")
+                nil [5827 5852])
+            ("ptrace_set_bpt" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("child" variable
+                       (:pointer 1
+                        :type ("task_struct" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [5896 5922]))                  
+                :type "int")
+                nil [5869 5923])
+            ("ptrace_cancel_bpt" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("child" variable
+                       (:pointer 1
+                        :type ("task_struct" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [5954 5980]))                  
+                :type "int")
+                nil [5924 5981])
+            ("dik_show_regs" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("regs" variable
+                       (:pointer 1
+                        :type ("pt_regs" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [6023 6044])
+                    ("r9_15" variable
+                       (:pointer 1
+                        :type "unsigned long")
+                        (reparse-symbol arg-sub-list) [6045 6066]))                  
+                :type "void")
+                nil [5997 6067])
+            ("die_if_kernel" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [6094 6101])
+                    ("" variable
+                       (:pointer 1
+                        :type ("pt_regs" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [6102 6119])
+                    ("" variable (:type "long") (reparse-symbol arg-sub-list) [6120 6125])
+                    ("" variable
+                       (:pointer 1
+                        :type "unsigned long")
+                        (reparse-symbol arg-sub-list) [6126 6142]))                  
+                :type "void")
+                nil [6068 6143])
+            ("titan_dispatch_irqs" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("" variable (:type ("u64" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [6195 6199]))                  
+                :type "void")
+                nil [6163 6200])
+            ("switch_to_system_map" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [6254 6259]))                  
+                :type "void")
+                nil [6221 6260])
+            ("srm_paging_stop" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [6289 6294]))                  
+                :type "void")
+                nil [6261 6295])
+            ("__alpha_remap_area_pages" function
+               (:typemodifiers ("static" "inline")
+                :arguments 
+                  ( ("address" variable (:type "unsigned long") (reparse-symbol arg-sub-list) [6340 6362])
+                    ("phys_addr" variable (:type "unsigned long") (reparse-symbol arg-sub-list) [6363 6387])
+                    ("size" variable (:type "unsigned long") (reparse-symbol arg-sub-list) [6392 6411])
+                    ("flags" variable (:type "unsigned long") (reparse-symbol arg-sub-list) [6412 6432]))                  
+                :type "int")
+                nil [6297 6601])
+            ("mcheck_info" type
+               (:members 
+                  ( ("expected" variable (:type "unsigned char") (reparse-symbol classsubparts) [6840 6891])
+                    ("taken" variable (:type "unsigned char") (reparse-symbol classsubparts) [6893 6913])
+                    ("extra" variable (:type "unsigned char") (reparse-symbol classsubparts) [6915 6935]))                  
+                :type "struct")
+                nil [6811 6952])
+            ("__mcheck_info" variable
+               (:typemodifiers ("extern")
+                :type ("mcheck_info" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [6811 6952])
+            ("mcheck_expected" variable (:constant-flag t) nil [6962 6977])
+            ("mcheck_taken" variable (:constant-flag t) nil [7033 7045])
+            ("mcheck_extra" variable (:constant-flag t) nil [7098 7110])
+            ("process_mcheck_info" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("vector" variable (:type "unsigned long") (reparse-symbol arg-sub-list) [7195 7216])
+                    ("la_ptr" variable (:type "unsigned long") (reparse-symbol arg-sub-list) [7217 7238])
+                    ("machine" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [7243 7263])
+                    ("expected" variable (:type "int") (reparse-symbol arg-sub-list) [7264 7277]))                  
+                :type "void")
+                nil [7163 7278]))          
+    :file "proto.h"
+    :pointmax 7279
+    :fsize 7278
+    :lastmodtime '(21468 8881 257069 931000)
+    :unmatched-syntax '((semantic-list 4311 . 4327) (semantic-list 4300 . 4311))
+    :lexical-table 
+        '(("vusp" . 
+              ((VOLATILE "volatile" 207 . 215) (UNSIGNED "unsigned" 216 . 224) (SHORT "short" 225 . 230) (punctuation "*" 231 . 232)))
+          ("mcheck_expected" (spp-arg-list ("cpu") 6977 . 6982) . ((semantic-list "(*((void)(cpu), &__mcheck_info.expected))" 6983 . 7024)))
+          ("register_srm_console" (spp-arg-list nil 4683 . 4685))
+          ("irongate_pci_tbi" . ((semantic-list "((void *)0)" 1195 . 1206)))
+          ("mcheck_extra" (spp-arg-list ("cpu") 7110 . 7115) . ((semantic-list "(*((void)(cpu), &__mcheck_info.extra))" 7116 . 7154)))
+          ("vucp" . 
+              ((VOLATILE "volatile" 168 . 176) (UNSIGNED "unsigned" 177 . 185) (CHAR "char" 186 . 190) (punctuation "*" 192 . 193)))
+          ("vip" . 
+              ((VOLATILE "volatile" 245 . 253) (INT "int" 254 . 257) (punctuation "*" 258 . 259)))
+          ("vulp" . 
+              ((VOLATILE "volatile" 312 . 320) (UNSIGNED "unsigned" 321 . 329) (LONG "long" 330 . 334) (punctuation "*" 336 . 337)))
+          ("polaris_pci_tbi" . ((semantic-list "((void *)0)" 2692 . 2703)))
+          ("unregister_srm_console" (spp-arg-list nil 4716 . 4718))
+          ("vuip" . 
+              ((VOLATILE "volatile" 273 . 281) (UNSIGNED "unsigned" 282 . 290) (INT "int" 291 . 294) (punctuation "*" 297 . 298)))
+          ("mcheck_taken" (spp-arg-list ("cpu") 7045 . 7050) . ((semantic-list "(*((void)(cpu), &__mcheck_info.taken))" 7051 . 7089)))
+          )
+
+    )
+   (semanticdb-table "irq_impl.h"
+    :major-mode 'c-mode
+    :tags 
+        '( ("linux/interrupt.h" include (:system-flag t) nil [252 280])
+            ("linux/irq.h" include (:system-flag t) nil [281 303])
+            ("linux/profile.h" include (:system-flag t) nil [304 330])
+            ("RTC_IRQ" variable (:constant-flag t) nil [341 348])
+            ("isa_device_interrupt" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("" variable (:type "unsigned long") (reparse-symbol arg-sub-list) [388 402]))                  
+                :type "void")
+                nil [355 403])
+            ("isa_no_iack_sc_device_interrupt" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("" variable (:type "unsigned long") (reparse-symbol arg-sub-list) [448 462]))                  
+                :type "void")
+                nil [404 463])
+            ("srm_device_interrupt" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("" variable (:type "unsigned long") (reparse-symbol arg-sub-list) [497 511]))                  
+                :type "void")
+                nil [464 512])
+            ("pyxis_device_interrupt" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("" variable (:type "unsigned long") (reparse-symbol arg-sub-list) [548 562]))                  
+                :type "void")
+                nil [513 563])
+            ("timer_irqaction" variable
+               (:typemodifiers ("extern")
+                :type ("irqaction" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [565 605])
+            ("isa_cascade_irqaction" variable
+               (:typemodifiers ("extern")
+                :type ("irqaction" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [606 652])
+            ("timer_cascade_irqaction" variable
+               (:typemodifiers ("extern")
+                :type ("irqaction" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [653 701])
+            ("halt_switch_irqaction" variable
+               (:typemodifiers ("extern")
+                :type ("irqaction" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [702 748])
+            ("init_srm_irqs" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("" variable (:type "long") (reparse-symbol arg-sub-list) [776 781])
+                    ("" variable (:type "unsigned long") (reparse-symbol arg-sub-list) [782 796]))                  
+                :type "void")
+                nil [750 797])
+            ("init_pyxis_irqs" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("" variable (:type "unsigned long") (reparse-symbol arg-sub-list) [826 840]))                  
+                :type "void")
+                nil [798 841])
+            ("init_rtc_irq" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [867 872]))                  
+                :type "void")
+                nil [842 873])
+            ("common_init_isa_dma" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [907 912]))                  
+                :type "void")
+                nil [875 913])
+            ("i8259a_enable_irq" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("d" variable
+                       (:pointer 1
+                        :type ("irq_data" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [945 964]))                  
+                :type "void")
+                nil [915 965])
+            ("i8259a_disable_irq" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("d" variable
+                       (:pointer 1
+                        :type ("irq_data" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [997 1016]))                  
+                :type "void")
+                nil [966 1017])
+            ("i8259a_mask_and_ack_irq" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("d" variable
+                       (:pointer 1
+                        :type ("irq_data" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [1054 1073]))                  
+                :type "void")
+                nil [1018 1074])
+            ("i8259a_irq_type" variable
+               (:typemodifiers ("extern")
+                :type ("irq_chip" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [1075 1114])
+            ("init_i8259a_irqs" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [1144 1149]))                  
+                :type "void")
+                nil [1115 1150])
+            ("handle_irq" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("irq" variable (:type "int") (reparse-symbol arg-sub-list) [1175 1183]))                  
+                :type "void")
+                nil [1152 1184]))          
+    :file "irq_impl.h"
+    :pointmax 1185
+    :fsize 1184
+    :lastmodtime '(21468 8881 759058 46000)
+    :unmatched-syntax 'nil
+    :lexical-table 
+        '(("RTC_IRQ" . ((number "8" 352 . 353)))
+          )
+
+    )
+   (semanticdb-table "alpha_ksyms.c"
+    :major-mode 'c-mode
+    :tags nil
+    :file "alpha_ksyms.c"
+    :pointmax 2697
+    :fsize 2696
+    :lastmodtime '(21468 8881 12075 731000)
+    :unmatched-syntax 'nil
+    )
+   )
+  :file "!home!chz!linux-3.0.8!arch!alpha!kernel!semantic.cache"
+  :semantic-tag-version "2.0"
+  :semanticdb-version "2.2"
+  )

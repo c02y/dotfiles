@@ -1,0 +1,241 @@
+;; Object lua-mode-20150804.2302/
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "lua-mode-20150804.2302/"
+  :tables
+  (list
+    (semanticdb-table "lua-mode.el"
+      :major-mode 'emacs-lisp-mode
+      :tags 
+        '( ("cl" include nil nil [3700 3713])
+            ("comint" include nil nil [3716 3733])
+            ("newcomment" include nil nil [3734 3755])
+            ("rx" include nil nil [3756 3769])
+            ("compile" include nil nil [3918 3936])
+            ("mapc" code nil nil [6007 7270])
+            ("unless" code nil nil [5745 6003])
+            ("setq" code nil nil [5621 5679])
+            ("lua--rx-symbol" function (:arguments ("form")) nil [5202 5617])
+            ("lua--new-rx-form" function (:arguments ("form")) nil [4624 5198])
+            ("lua-rx" function (:arguments ("regexps")) nil [4286 4620])
+            ("lua-rx-to-string" function (:arguments ("form" "no-group")) nil [4012 4282])
+            ("rx-parent" variable nil nil [3990 4008])
+            ("lua-rx-constituents" variable nil nil [3959 3987])
+            ("if" code nil nil [7862 8441])
+            ("defalias" code nil nil [7679 7752])
+            ("defalias" code nil nil [7600 7675])
+            ("defalias" code nil nil [7511 7596])
+            ("if" code nil nil [7294 7460])
+            ("lua" customgroup (:user-visible-flag t) nil [8463 8555])
+            ("lua-indent-level" variable (:default-value 3) nil [8557 8671])
+            ("lua-comment-start" variable (:default-value "-- ") nil [8673 8776])
+            ("lua-comment-start-skip" variable (:default-value "---*[ 	]*") nil [8778 8898])
+            ("lua-default-application" variable (:default-value "lua") nil [8900 9021])
+            ("lua-default-command-switches" variable (:default-value (list "-i")) nil [9023 9195])
+            ("make-variable-buffer-local" code nil nil [9196 9254])
+            ("lua-always-show" variable
+               (:user-visible-flag t
+                :default-value t)
+                nil [9256 9387])
+            ("lua-documentation-function" variable (:default-value (quote browse-url)) nil [9389 9747])
+            ("lua-documentation-url" variable (:default-value (or (and (file-readable-p "/usr/share/doc/lua/manual.html") "file:///usr/share/doc/lua/manual.html") "http://www.lua.org/manual/5.1/manual.html")) nil [9749 10023])
+            ("lua-process" variable nil nil [10026 10080])
+            ("lua-process-buffer" variable nil nil [10082 10167])
+            ("lua--customize-set-prefix-key" function (:arguments ("prefix-key-sym" "prefix-key-val")) nil [10169 10658])
+            ("lua-prefix-key" variable (:default-value "") nil [10660 10905])
+            ("lua-mode-menu" variable (:default-value (make-sparse-keymap "Lua")) nil [10907 10988])
+            ("lua-prefix-mode-map" variable (:default-value (eval-when-compile (let ((result-map (make-sparse-keymap))) (mapc (lambda (key_defn) (define-key result-map (read-kbd-macro (car key_defn)) (cdr key_defn))) (quote (("C-l" . lua-send-buffer) ("C-f" . lua-search-documentation)))) result-map))) nil [10990 11457])
+            ("lua-mode-map" variable (:default-value (let ((result-map (make-sparse-keymap)) prefix-key) (mapc (lambda (key_defn) (define-key result-map (read-kbd-macro (car key_defn)) (cdr key_defn))) (\` (("}" . lua-electric-match) ("]" . lua-electric-match) (")" . lua-electric-match)))) (define-key result-map [menu-bar lua-mode] (cons "Lua" lua-mode-menu)) (if (boundp (quote lua-prefix-key)) (define-key result-map (vector lua-prefix-key) lua-prefix-mode-map) (set-keymap-parent result-map lua-prefix-mode-map)) result-map)) nil [11459 12447])
+            ("lua-electric-flag" variable (:default-value t) nil [12449 12589])
+            ("make-variable-buffer-local" code nil nil [12590 12637])
+            ("lua-prompt-regexp" variable (:default-value "[^
+]*\\(>[	 ]+\\)+$") nil [12639 12774])
+            ("lua-traceback-line-re" variable (:default-value "^\\(?:[	 ]*\\|.*>[	 ]+\\)\\(?:[^
+	 ]+:[0-9]+:[	 ]*\\)*\\(?:\\([^
+	 ]+\\):\\([0-9]+\\):\\)") nil [12776 13115])
+            ("lua--repl-buffer-p" variable nil nil [13117 13207])
+            ("make-variable-buffer-local" code nil nil [13208 13256])
+            ("compilation-find-file" function (:arguments ("around" "lua--repl-find-file" "marker" "activate")) nil [13259 13909])
+            ("compilation-goto-locus" function (:arguments ("around" "lua--repl-goto-locus" "msg" "activate")) nil [13912 14525])
+            ("lua-indent-string-contents" variable nil nil [14528 14730])
+            ("lua-jump-on-traceback" variable
+               (:user-visible-flag t
+                :default-value t)
+                nil [14732 15023])
+            ("lua-mode-hook" variable nil nil [15025 15123])
+            ("lua-region-start" variable (:default-value (make-marker)) nil [15125 15215])
+            ("lua-region-end" variable (:default-value (make-marker)) nil [15217 15303])
+            ("lua-emacs-menu" variable (:default-value (quote (["Restart With Whole File" lua-restart-with-whole-file t] ["Kill Process" lua-kill-process t] ["Hide Process Buffer" lua-hide-process-buffer t] ["Show Process Buffer" lua-show-process-buffer t] ["Beginning Of Proc" lua-beginning-of-proc t] ["End Of Proc" lua-end-of-proc t] ["Set Lua-Region Start" lua-set-lua-region-start t] ["Set Lua-Region End" lua-set-lua-region-end t] ["Send Lua-Region" lua-send-lua-region t] ["Send Current Line" lua-send-current-line t] ["Send Region" lua-send-region t] ["Send Proc" lua-send-proc t] ["Send Buffer" lua-send-buffer t] ["Search Documentation" lua-search-documentation t]))) nil [15305 16026])
+            ("lua--builtins" variable
+               (:constant-flag t
+                :default-value (let* ((modules (quote ("_G" "_VERSION" "assert" "collectgarbage" "dofile" "error" "getfenv" "getmetatable" "ipairs" "load" "loadfile" "loadstring" "module" "next" "pairs" "pcall" "print" "rawequal" "rawget" "rawlen" "rawset" "require" "select" "setfenv" "setmetatable" "tonumber" "tostring" "type" "unpack" "xpcall" "self" ("bit32" "arshift" "band" "bnot" "bor" "btest" "bxor" "extract" "lrotate" "lshift" "replace" "rrotate" "rshift") ("coroutine" "create" "isyieldable" "resume" "running" "status" "wrap" "yield") ("debug" "debug" "getfenv" "gethook" "getinfo" "getlocal" "getmetatable" "getregistry" "getupvalue" "getuservalue" "setfenv" "sethook" "setlocal" "setmetatable" "setupvalue" "setuservalue" "traceback" "upvalueid" "upvaluejoin") ("io" "close" "flush" "input" "lines" "open" "output" "popen" "read" "stderr" "stdin" "stdout" "tmpfile" "type" "write") ("math" "abs" "acos" "asin" "atan" "atan2" "ceil" "cos" "cosh" "deg" "exp" "floor" "fmod" "frexp" "huge" "ldexp" "log" "log10" "max" "maxinteger" "min" "mininteger" "modf" "pi" "pow" "rad" "random" "randomseed" "sin" "sinh" "sqrt" "tan" "tanh" "tointeger" "type" "ult") ("os" "clock" "date" "difftime" "execute" "exit" "getenv" "remove" "rename" "setlocale" "time" "tmpname") ("package" "config" "cpath" "loaded" "loaders" "loadlib" "path" "preload" "searchers" "searchpath" "seeall") ("string" "byte" "char" "dump" "find" "format" "gmatch" "gsub" "len" "lower" "match" "pack" "packsize" "rep" "reverse" "sub" "unpack" "upper") ("table" "concat" "insert" "maxn" "move" "pack" "remove" "sort" "unpack") ("utf8" "char" "charpattern" "codepoint" "codes" "len" "offset"))))) (lua--cl-labels ((module-name-re (x) (concat "\\(?1:\\_<" (if (listp x) (car x) x) "\\_>\\)")) (module-members-re (x) (if (listp x) (concat "\\(?:[ 	]*\\.[ 	]*" "\\_<\\(?2:" (regexp-opt (cdr x)) "\\)\\_>\\)?") ""))) (concat "\\(?:^\\|[^:. 	]\\|[.][.]\\)" "[ 	]*" "\\(?:" (mapconcat (lambda (x) (concat (module-name-re x) (module-members-re x))) modules "\\|") "\\)"))))
+                nil [16170 19505])
+            ("lua-make-delimited-matcher" function (:arguments ("elt-regexp" "sep-regexp" "end-regexp")) nil [19700 23521])
+            ("lua-font-lock-keywords" variable (:default-value (\` (("^#!.*$" . font-lock-comment-face) ((\, (lua-rx (symbol "true" "false" "nil"))) . font-lock-constant-face) ((\, (lua-rx lua-keyword)) . font-lock-keyword-face) ((\, (lua-rx "::" ws lua-name ws "::")) . font-lock-constant-face) ((\, (lua-rx (symbol (seq "goto" ws+ (group-n 1 lua-name))))) nil nil (1 font-lock-constant-face)) ((\, lua--builtins) (1 font-lock-builtin-face) (2 font-lock-builtin-face nil noerror)) ("^[ 	]*\\_<for\\_>" ((\, (lua-make-delimited-matcher (lua-rx lua-name) "," (lua-rx (or (symbol "in") lua-assignment-op)))) nil nil (1 font-lock-variable-name-face nil noerror) (2 font-lock-warning-face t noerror) (3 font-lock-warning-face t noerror))) ("^[ 	]*\\_<local\\_>" (0 font-lock-keyword-face) ((\, (lua-rx point ws lua-funcheader (* nonl))) nil nil (1 font-lock-function-name-face nil noerror)) ((\, (lua-make-delimited-matcher (lua-rx lua-name) "," (lua-rx lua-assignment-op))) nil nil (1 font-lock-variable-name-face nil noerror) (2 font-lock-warning-face t noerror) (3 font-lock-warning-face t noerror))) ((\, (lua-rx (or bol ";") ws lua-funcheader)) (1 font-lock-function-name-face))))) nil [23525 25724])
+            ("lua-imenu-generic-expression" variable (:default-value (\` ((nil (\, (lua-rx (or bol ";") ws (opt (seq (symbol "local") ws)) lua-funcheader)) 1)))) nil [25726 25925])
+            ("lua-sexp-alist" variable (:default-value (quote (("then" . "end") ("function" . "end") ("do" . "end") ("repeat" . "until")))) nil [25927 26102])
+            ("lua-mode-abbrev-table" variable nil nil [26104 26187])
+            ("define-abbrev-table" code nil nil [26189 26855])
+            ("lua-mode-syntax-table" variable (:default-value (with-syntax-table (copy-syntax-table) (modify-syntax-entry 45 ". 12") (modify-syntax-entry 10 ">") (modify-syntax-entry 39 "\"") (modify-syntax-entry 34 "\"") (modify-syntax-entry 43 ".") (modify-syntax-entry 42 ".") (modify-syntax-entry 47 ".") (modify-syntax-entry 94 ".") (modify-syntax-entry 37 ".") (modify-syntax-entry 62 ".") (modify-syntax-entry 60 ".") (modify-syntax-entry 61 ".") (modify-syntax-entry 126 ".") (syntax-table))) nil [26857 27577])
+            ("define-derived-mode" code nil nil [27594 30130])
+            ("add-to-list" code nil nil [30149 30203])
+            ("add-to-list" code nil nil [30220 30277])
+            ("lua-electric-match" function
+               (:user-visible-flag t
+                :arguments ("arg"))
+                nil [30279 30500])
+            ("lua-prefix-key-update-bindings" function nil nil [30524 31072])
+            ("lua-set-prefix-key" function
+               (:user-visible-flag t
+                :arguments ("new-key-str"))
+                nil [31074 31477])
+            ("lua-string-p" function (:arguments ("pos")) nil [31479 31606])
+            ("lua-comment-start-pos" function (:arguments ("parsing-state")) nil [31608 31823])
+            ("lua-comment-or-string-p" function (:arguments ("pos")) nil [31825 32056])
+            ("lua-comment-or-string-start-pos" function (:arguments ("pos")) nil [32058 32283])
+            ("lua-ml-begin-regexp" variable
+               (:constant-flag t
+                :default-value "\\(?:\\(?1:-\\)-\\[\\|\\(?2:\\[\\)\\)\\(?3:=*\\)\\[")
+                nil [32382 32468])
+            ("lua-try-match-multiline-end" function (:arguments ("end")) nil [32471 33366])
+            ("lua-try-match-multiline-begin" function (:arguments ("limit")) nil [33369 34503])
+            ("lua-match-multiline-literal-bounds" function (:arguments ("limit")) nil [34505 34787])
+            ("lua-remove-syntax-table-property" function (:arguments ("limit")) nil [34789 35170])
+            ("lua-font-lock-syntactic-keywords" variable (:default-value (quote ((lua-remove-syntax-table-property nil) (lua-match-multiline-literal-bounds (1 "!" nil noerror) (2 "|" nil noerror))))) nil [35172 35348])
+            ("lua--propertize-multiline-bounds" function (:arguments ("start" "end")) nil [35351 35941])
+            ("lua-indent-line" function nil nil [35944 36791])
+            ("lua-calculate-string-or-comment-indentation" function nil nil [36793 37666])
+            ("lua-find-regexp" function (:arguments ("direction" "regexp" "limit" "ignore-p")) nil [37668 38563])
+            ("lua-block-regexp" variable
+               (:constant-flag t
+                :default-value (eval-when-compile (concat "\\(\\_<" (regexp-opt (quote ("do" "function" "repeat" "then" "else" "elseif" "end" "until")) t) "\\_>\\)\\|" (regexp-opt (quote ("{" "(" "[" "]" ")" "}")) t))))
+                nil [38565 38811])
+            ("lua-block-token-alist" variable
+               (:constant-flag t
+                :default-value (quote (("do" "\\_<end\\_>" "\\_<for\\|while\\_>" middle-or-open) ("function" "\\_<end\\_>" nil open) ("repeat" "\\_<until\\_>" nil open) ("then" "\\_<\\(e\\(lse\\(if\\)?\\|nd\\)\\)\\_>" "\\_<\\(else\\)?if\\_>" middle) ("{" "}" nil open) ("[" "]" nil open) ("(" ")" nil open) ("if" "\\_<then\\_>" nil open) ("for" "\\_<do\\_>" nil open) ("while" "\\_<do\\_>" nil open) ("else" "\\_<end\\_>" "\\_<then\\_>" middle) ("elseif" "\\_<then\\_>" "\\_<then\\_>" middle) ("end" nil "\\_<\\(do\\|function\\|then\\|else\\)\\_>" close) ("until" nil "\\_<repeat\\_>" close) ("}" nil "{" close) ("]" nil "\\[" close) (")" nil "(" close))))
+                nil [38813 40868])
+            ("lua-indentation-modifier-regexp" variable
+               (:constant-flag t
+                :default-value (concat "\\(\\_<" (regexp-opt (quote ("do" "function" "repeat" "then" "if" "else" "elseif" "for" "while")) t) "\\_>\\|" (regexp-opt (quote ("{" "(" "["))) "\\)\\|\\(\\_<" (regexp-opt (quote ("end" "until")) t) "\\_>\\|" (regexp-opt (quote ("]" ")" "}"))) "\\)"))
+                nil [40870 41360])
+            ("lua-get-block-token-info" function (:arguments ("token")) nil [41362 41516])
+            ("lua-get-token-match-re" function (:arguments ("token-info" "direction")) nil [41518 41741])
+            ("lua-get-token-type" function (:arguments ("token-info")) nil [41743 41859])
+            ("lua-backwards-to-block-begin-or-end" function (:user-visible-flag t) nil [41861 42052])
+            ("lua-find-matching-token-word" function (:arguments ("token" "direction")) nil [42054 45838])
+            ("lua-goto-matching-block-token" function (:arguments ("parse-start" "direction")) nil [45840 46492])
+            ("lua-goto-matching-block" function
+               (:user-visible-flag t
+                :arguments ("noreport"))
+                nil [46494 47075])
+            ("lua-forward-line-skip-blanks" function (:arguments ("back")) nil [47077 47679])
+            ("lua-operator-class" variable
+               (:constant-flag t
+                :default-value "-+*/^.=<>~:&|")
+                nil [47702 47751])
+            ("lua-cont-eol-regexp" variable
+               (:constant-flag t
+                :default-value (eval-when-compile (concat "\\(\\_<" (regexp-opt (quote ("and" "or" "not" "in" "for" "while" "local" "function" "if" "until" "elseif" "return")) t) "\\_>\\|" "\\(^\\|[^" lua-operator-class "]\\)" (regexp-opt (quote ("+" "-" "*" "/" "%" "^" ".." "==" "=" "<" ">" "<=" ">=" "~=" "." ":" "&" "|" "~" ">>" "<<" "~")) t) "\\)" "\\s *\\=")))
+                nil [47754 48504])
+            ("lua-cont-bol-regexp" variable
+               (:constant-flag t
+                :default-value (eval-when-compile (concat "\\=\\s *" "\\(\\_<" (regexp-opt (quote ("and" "or" "not")) t) "\\_>\\|" (regexp-opt (quote ("+" "-" "*" "/" "%" "^" ".." "==" "=" "<" ">" "<=" ">=" "~=" "." ":" "&" "|" "~" ">>" "<<" "~")) t) "\\($\\|[^" lua-operator-class "]\\)" "\\)")))
+                nil [48506 49240])
+            ("lua-last-token-continues-p" function nil nil [49242 49795])
+            ("lua-first-token-continues-p" function nil nil [49797 50269])
+            ("lua-block-starter-regexp" variable
+               (:constant-flag t
+                :default-value (eval-when-compile (concat "\\(\\_<" (regexp-opt (quote ("do" "while" "repeat" "until" "if" "then" "else" "elseif" "end" "for" "local")) t) "\\_>\\)")))
+                nil [50271 50491])
+            ("lua-first-token-starts-block-p" function nil nil [50493 50776])
+            ("lua-is-continuing-statement-p" function (:arguments ("parse-start")) nil [50778 51573])
+            ("lua-make-indentation-info-pair" function (:arguments ("found-token" "found-pos")) nil [51575 55137])
+            ("lua-add-indentation-info-pair" function (:arguments ("pair" "info")) nil [55139 56255])
+            ("lua-calculate-indentation-info-1" function (:arguments ("indentation-info" "bound")) nil [56257 56882])
+            ("lua-calculate-indentation-info" function (:arguments ("parse-end")) nil [56885 58590])
+            ("lua-accumulate-indentation-info" function (:arguments ("info")) nil [58593 59161])
+            ("lua-calculate-indentation-block-modifier" function (:arguments ("parse-end")) nil [59163 59991])
+            ("lua--function-name-rx" variable
+               (:constant-flag t
+                :default-value (quote (seq symbol-start (+ (any alnum "_")) (* "." (+ (any alnum "_"))) (32 ":" (+ (any alnum "_"))) symbol-end)))
+                nil [60015 60250])
+            ("lua--left-shifter-regexp" variable
+               (:constant-flag t
+                :default-value (eval-when-compile (rx (or (seq (regexp "\\_<local[ 	]+") (regexp "\\(?1:\\)function\\_>")) (seq (eval lua--function-name-rx) (* blank) (regexp "\\(?1:\\)[{(]")) (seq (or (seq (* nonl) (not (any "<=>~")) "=" (* blank)) (seq word-start "return" word-end (* blank))) (regexp "\\(?1:\\)") (or "{" "function" (seq (eval lua--function-name-rx) (* blank) (regexp "\\(?1:\\)") (any "({"))))))))
+                nil [60254 62315])
+            ("lua-point-is-after-left-shifter-p" function nil nil [62318 62711])
+            ("lua-calculate-indentation-override" function (:arguments ("parse-start")) nil [62715 63968])
+            ("lua-calculate-indentation" function (:arguments ("parse-start")) nil [63970 64895])
+            ("lua--beginning-of-defun-re" variable (:default-value (lua-rx-to-string (quote (: bol (32 (symbol "local") ws+) lua-funcheader)))) nil [64897 65083])
+            ("lua-beginning-of-proc" function
+               (:user-visible-flag t
+                :arguments ("arg"))
+                nil [65086 65691])
+            ("lua-end-of-proc" function
+               (:user-visible-flag t
+                :arguments ("arg"))
+                nil [65693 66653])
+            ("lua-process-init-code" variable (:default-value (mapconcat (quote identity) (quote ("local loadstring = loadstring or load" "function luamode_loadstring(str, displayname, lineoffset)" "  if lineoffset > 1 then" "    str = string.rep('\\n', lineoffset - 1) .. str" "  end" "" "  x, e = loadstring(str, '@'..displayname)" "  if e then" "    error(e)" "  end" "  return x()" "end")) " ")) nil [66655 67074])
+            ("lua-make-lua-string" function (:arguments ("str")) nil [67076 67446])
+            ("defalias" code nil nil [67463 67502])
+            ("lua-start-process" function
+               (:user-visible-flag t
+                :arguments ("name" "program" "startfile" "switches"))
+                nil [67519 69060])
+            ("lua-get-create-process" function nil nil [69062 69267])
+            ("lua-kill-process" function (:user-visible-flag t) nil [69269 69433])
+            ("lua-set-lua-region-start" function
+               (:user-visible-flag t
+                :arguments ("arg"))
+                nil [69435 69608])
+            ("lua-set-lua-region-end" function
+               (:user-visible-flag t
+                :arguments ("arg"))
+                nil [69610 69777])
+            ("lua-send-string" function (:arguments ("str")) nil [69779 70052])
+            ("lua-send-current-line" function (:user-visible-flag t) nil [70054 70293])
+            ("lua-send-defun" function
+               (:user-visible-flag t
+                :arguments ("pos"))
+                nil [70295 71263])
+            ("lua-maybe-skip-shebang-line" function (:arguments ("start")) nil [71265 71750])
+            ("lua-send-region" function (:arguments ("start" "end")) nil [71752 72474])
+            ("lua-prompt-line" function nil nil [72476 72635])
+            ("lua-send-lua-region" function (:user-visible-flag t) nil [72637 72863])
+            ("defalias" code nil nil [72865 72906])
+            ("lua-send-buffer" function (:user-visible-flag t) nil [72908 73035])
+            ("lua-restart-with-whole-file" function (:user-visible-flag t) nil [73037 73189])
+            ("lua-show-process-buffer" function (:user-visible-flag t) nil [73191 73408])
+            ("lua-hide-process-buffer" function (:user-visible-flag t) nil [73411 73606])
+            ("lua-funcname-at-point" function nil nil [73608 73857])
+            ("lua-search-documentation" function (:user-visible-flag t) nil [73859 74090])
+            ("lua-toggle-electric-state" function
+               (:user-visible-flag t
+                :arguments ("arg"))
+                nil [74092 74678])
+            ("lua-forward-sexp" function
+               (:user-visible-flag t
+                :arguments ("count"))
+                nil [74680 75538])
+            ("define-key" code nil nil [75554 75668])
+            ("define-key" code nil nil [75669 75749])
+            ("define-key" code nil nil [75751 75852])
+            ("define-key" code nil nil [75853 75954])
+            ("define-key" code nil nil [75956 76033])
+            ("define-key" code nil nil [76034 76129])
+            ("define-key" code nil nil [76131 76220])
+            ("define-key" code nil nil [76221 76319])
+            ("define-key" code nil nil [76320 76424])
+            ("define-key" code nil nil [76426 76521])
+            ("define-key" code nil nil [76522 76599])
+            ("define-key" code nil nil [76600 76671])
+            ("define-key" code nil nil [76672 76749])
+            ("define-key" code nil nil [76750 76854])
+            ("lua-mode" package nil nil [76857 76876]))          
+      :file "lua-mode.el"
+      :pointmax 76904
+      :fsize 76903
+      :lastmodtime '(22009 13236 0 0)
+      :unmatched-syntax '((close-paren 60250 . 60251) (symbol 59995 . 60012) (open-paren 59994 . 59995) (close-paren 47751 . 47752) (symbol 47682 . 47699) (open-paren 47681 . 47682) (close-paren 23521 . 23522) (symbol 19681 . 19697) (open-paren 19680 . 19681) (close-paren 19677 . 19678) (string 19509 . 19677) (symbol 16151 . 16167) (open-paren 16150 . 16151) (close-paren 8441 . 8442) (symbol 7275 . 7291) (open-paren 7274 . 7275) (close-paren 7270 . 7271) (symbol 3940 . 3956) (open-paren 3939 . 3940) (close-paren 3936 . 3937) (symbol 3798 . 3815) (open-paren 3797 . 3798) (close-paren 3713 . 3714) (symbol 3680 . 3697) (open-paren 3679 . 3680))))
+  :file "!home!chz!.emacs.d!elpa!lua-mode-20150804.2302!semantic.cache"
+  :semantic-tag-version "2.0"
+  :semanticdb-version "2.2")

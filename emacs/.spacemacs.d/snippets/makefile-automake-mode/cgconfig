@@ -1,0 +1,755 @@
+;; Object aacraid/
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "aacraid/"
+  :tables (list 
+   (semanticdb-table "linit.c"
+    :major-mode 'c-mode
+    :tags 
+        '( ("linux/compat.h" include (:system-flag t) nil [1100 1125])
+            ("linux/blkdev.h" include (:system-flag t) nil [1126 1151])
+            ("linux/completion.h" include (:system-flag t) nil [1152 1181])
+            ("linux/init.h" include (:system-flag t) nil [1182 1205])
+            ("linux/interrupt.h" include (:system-flag t) nil [1206 1234])
+            ("linux/kernel.h" include (:system-flag t) nil [1235 1260])
+            ("linux/module.h" include (:system-flag t) nil [1261 1286])
+            ("linux/moduleparam.h" include (:system-flag t) nil [1287 1317])
+            ("linux/pci.h" include (:system-flag t) nil [1318 1340])
+            ("linux/slab.h" include (:system-flag t) nil [1341 1364])
+            ("linux/mutex.h" include (:system-flag t) nil [1365 1389])
+            ("linux/spinlock.h" include (:system-flag t) nil [1390 1417])
+            ("linux/syscalls.h" include (:system-flag t) nil [1418 1445])
+            ("linux/delay.h" include (:system-flag t) nil [1446 1470])
+            ("linux/kthread.h" include (:system-flag t) nil [1471 1497])
+            ("scsi/scsi.h" include (:system-flag t) nil [1499 1521])
+            ("scsi/scsi_cmnd.h" include (:system-flag t) nil [1522 1549])
+            ("scsi/scsi_device.h" include (:system-flag t) nil [1550 1579])
+            ("scsi/scsi_host.h" include (:system-flag t) nil [1580 1607])
+            ("scsi/scsi_tcq.h" include (:system-flag t) nil [1608 1634])
+            ("scsi/scsicam.h" include (:system-flag t) nil [1635 1660])
+            ("scsi/scsi_eh.h" include (:system-flag t) nil [1661 1686])
+            ("aacraid.h" include nil nil [1688 1708])
+            ("AAC_DRIVER_VERSION" variable (:constant-flag t) nil [1718 1736])
+            ("AAC_DRIVER_BRANCH" variable (:constant-flag t) nil [1780 1797])
+            ("AAC_DRIVERNAME" variable (:constant-flag t) nil [1817 1831])
+            ("AAC_DRIVER_FULL_VERSION" variable (:constant-flag t) nil [2024 2047])
+            ("MODULE_AUTHOR" function
+               (:prototype-flag t
+                :type "int")
+                nil [2093 2134])
+            ("MODULE_DESCRIPTION" function
+               (:prototype-flag t
+                :type "int")
+                nil [2135 2282])
+            ("MODULE_LICENSE" function
+               (:prototype-flag t
+                :type "int")
+                nil [2283 2305])
+            ("MODULE_VERSION" function
+               (:prototype-flag t
+                :type "int")
+                nil [2306 2346])
+            ("DEFINE_MUTEX" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("" variable (:type ("aac_mutex" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [2368 2378]))                  
+                :type "int")
+                nil [2348 2379])
+            ("LIST_HEAD" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("" variable (:type ("aac_devices" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [2397 2409]))                  
+                :type "int")
+                nil [2380 2410])
+            ("aac_cfg_major" variable
+               (:typemodifiers ("static")
+                :type "int")
+                nil [2411 2441])
+            ("aac_driver_version" variable
+               (:dereference 1
+                :type "char")
+                nil [2442 2494])
+            ("__devinitdata" variable (:type "int") nil [2953 8097])
+            ("MODULE_DEVICE_TABLE" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("pci" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [8118 8122])
+                    ("" variable (:type ("aac_pci_tbl" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [8123 8135]))                  
+                :type "int")
+                nil [8098 8136])
+            ("aac_drivers" variable
+               (:dereference 1
+                :typemodifiers ("static")
+                :type ("aac_driver_ident" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [8352 15610])
+            ("aac_queuecommand_lck" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("cmd" variable
+                       (:pointer 1
+                        :type ("scsi_cmnd" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [15886 15908])
+                    ("" variable (:type "void") (reparse-symbol arg-sub-list) [15909 15921]))                  
+                :type "int")
+                nil [15854 16505])
+            ("aac_info" function
+               (:pointer 1
+                :typemodifiers ("static")
+                :constant-flag t
+                :arguments 
+                  ( ("shost" variable
+                       (:pointer 1
+                        :type ("Scsi_Host" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [16728 16752]))                  
+                :type "char")
+                nil [16700 16855])
+            ("aac_get_driver_ident" function
+               (:pointer 1
+                :arguments 
+                  ( ("devtype" variable (:type "int") (reparse-symbol arg-sub-list) [17038 17050]))                  
+                :type ("aac_driver_ident" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [16992 17085])
+            ("aac_biosparm" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("sdev" variable
+                       (:pointer 1
+                        :type ("scsi_device" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [18229 18254])
+                    ("bdev" variable
+                       (:pointer 1
+                        :type ("block_device" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [18255 18281])
+                    ("capacity" variable (:type ("sector_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [18285 18303])
+                    ("geom" variable
+                       (:pointer 1
+                        :type "int")
+                        (reparse-symbol arg-sub-list) [18304 18314]))                  
+                :type "int")
+                nil [18205 20496])
+            ("aac_slave_configure" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("sdev" variable
+                       (:pointer 1
+                        :type ("scsi_device" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [20838 20863]))                  
+                :type "int")
+                nil [20807 22504])
+            ("aac_change_queue_depth" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("sdev" variable
+                       (:pointer 1
+                        :type ("scsi_device" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [22811 22836])
+                    ("depth" variable (:type "int") (reparse-symbol arg-sub-list) [22837 22847])
+                    ("reason" variable (:type "int") (reparse-symbol arg-sub-list) [22854 22865]))                  
+                :type "int")
+                nil [22777 23634])
+            ("aac_show_raid_level" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("dev" variable
+                       (:pointer 1
+                        :type ("device" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [23671 23690])
+                    ("attr" variable
+                       (:pointer 1
+                        :type ("device_attribute" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [23691 23721])
+                    ("buf" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [23722 23732]))                  
+                :type ("ssize_t" type (:type "class") nil nil))
+                nil [23636 24133])
+            ("aac_raid_level_attr" variable
+               (:typemodifiers ("static")
+                :type ("device_attribute" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [24135 24274])
+            ("aac_dev_attrs" variable
+               (:pointer 1
+                :dereference 1
+                :typemodifiers ("static")
+                :type ("device_attribute" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [24276 24360])
+            ("aac_ioctl" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("sdev" variable
+                       (:pointer 1
+                        :type ("scsi_device" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [24383 24408])
+                    ("cmd" variable (:type "int") (reparse-symbol arg-sub-list) [24409 24417])
+                    ("__user" variable (:type "void") (reparse-symbol arg-sub-list) [24418 24431])
+                    ("" variable (:type ("arg" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [24432 24436]))                  
+                :type "int")
+                nil [24362 24587])
+            ("aac_eh_abort" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("cmd" variable
+                       (:pointer 1
+                        :type ("scsi_cmnd" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [24613 24635]))                  
+                :type "int")
+                nil [24589 26204])
+            ("aac_eh_reset" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("cmd" variable
+                       (:pointer 1
+                        :type ("scsi_cmnd" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [26332 26354]))                  
+                :type "int")
+                nil [26308 28424])
+            ("aac_cfg_open" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("inode" variable
+                       (:pointer 1
+                        :type ("inode" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [28807 28827])
+                    ("file" variable
+                       (:pointer 1
+                        :type ("file" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [28828 28846]))                  
+                :type "int")
+                nil [28783 29192])
+            ("aac_cfg_ioctl" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("file" variable
+                       (:pointer 1
+                        :type ("file" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [29603 29621])
+                    ("cmd" variable (:type "unsigned int") (reparse-symbol arg-sub-list) [29624 29641])
+                    ("arg" variable (:type "unsigned long") (reparse-symbol arg-sub-list) [29642 29660]))                  
+                :type "long")
+                nil [29577 29853])
+            ("aac_show_model" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("device" variable
+                       (:pointer 1
+                        :type ("device" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [31262 31284])
+                    ("attr" variable
+                       (:pointer 1
+                        :type ("device_attribute" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [31294 31324])
+                    ("buf" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [31325 31335]))                  
+                :type ("ssize_t" type (:type "class") nil nil))
+                nil [31232 31754])
+            ("aac_show_vendor" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("device" variable
+                       (:pointer 1
+                        :type ("device" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [31787 31809])
+                    ("attr" variable
+                       (:pointer 1
+                        :type ("device_attribute" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [31820 31850])
+                    ("buf" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [31851 31861]))                  
+                :type ("ssize_t" type (:type "class") nil nil))
+                nil [31756 32368])
+            ("aac_show_flags" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("cdev" variable
+                       (:pointer 1
+                        :type ("device" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [32400 32420])
+                    ("attr" variable
+                       (:pointer 1
+                        :type ("device_attribute" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [32430 32460])
+                    ("buf" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [32461 32471]))                  
+                :type ("ssize_t" type (:type "class") nil nil))
+                nil [32370 33218])
+            ("aac_show_kernel_version" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("device" variable
+                       (:pointer 1
+                        :type ("device" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [33259 33281])
+                    ("attr" variable
+                       (:pointer 1
+                        :type ("device_attribute" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [33293 33323])
+                    ("buf" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [33335 33345]))                  
+                :type ("ssize_t" type (:type "class") nil nil))
+                nil [33220 33645])
+            ("aac_show_monitor_version" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("device" variable
+                       (:pointer 1
+                        :type ("device" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [33687 33709])
+                    ("attr" variable
+                       (:pointer 1
+                        :type ("device_attribute" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [33715 33745])
+                    ("buf" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [33751 33761]))                  
+                :type ("ssize_t" type (:type "class") nil nil))
+                nil [33647 34063])
+            ("aac_show_bios_version" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("device" variable
+                       (:pointer 1
+                        :type ("device" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [34102 34124])
+                    ("attr" variable
+                       (:pointer 1
+                        :type ("device_attribute" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [34134 34164])
+                    ("buf" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [34174 34184]))                  
+                :type ("ssize_t" type (:type "class") nil nil))
+                nil [34065 34480])
+            ("aac_show_serial_number" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("device" variable
+                       (:pointer 1
+                        :type ("device" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [34520 34542])
+                    ("attr" variable
+                       (:pointer 1
+                        :type ("device_attribute" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [34553 34583])
+                    ("buf" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [34584 34594]))                  
+                :type ("ssize_t" type (:type "class") nil nil))
+                nil [34482 35154])
+            ("aac_show_max_channel" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("device" variable
+                       (:pointer 1
+                        :type ("device" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [35192 35214])
+                    ("attr" variable
+                       (:pointer 1
+                        :type ("device_attribute" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [35223 35253])
+                    ("buf" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [35254 35264]))                  
+                :type ("ssize_t" type (:type "class") nil nil))
+                nil [35156 35350])
+            ("aac_show_max_id" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("device" variable
+                       (:pointer 1
+                        :type ("device" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [35383 35405])
+                    ("attr" variable
+                       (:pointer 1
+                        :type ("device_attribute" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [35416 35446])
+                    ("buf" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [35447 35457]))                  
+                :type ("ssize_t" type (:type "class") nil nil))
+                nil [35352 35538])
+            ("aac_store_reset_adapter" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("device" variable
+                       (:pointer 1
+                        :type ("device" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [35579 35601])
+                    ("attr" variable
+                       (:pointer 1
+                        :type ("device_attribute" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [35613 35643])
+                    ("buf" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [35655 35671])
+                    ("count" variable (:type ("size_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [35672 35685]))                  
+                :type ("ssize_t" type (:type "class") nil nil))
+                nil [35540 35907])
+            ("aac_show_reset_adapter" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("device" variable
+                       (:pointer 1
+                        :type ("device" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [35947 35969])
+                    ("attr" variable
+                       (:pointer 1
+                        :type ("device_attribute" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [35980 36010])
+                    ("buf" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [36021 36031]))                  
+                :type ("ssize_t" type (:type "class") nil nil))
+                nil [35909 36274])
+            ("aac_model" variable
+               (:typemodifiers ("static")
+                :type ("device_attribute" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [36276 36401])
+            ("aac_vendor" variable
+               (:typemodifiers ("static")
+                :type ("device_attribute" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [36402 36530])
+            ("aac_flags" variable
+               (:typemodifiers ("static")
+                :type ("device_attribute" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [36531 36656])
+            ("aac_kernel_version" variable
+               (:typemodifiers ("static")
+                :type ("device_attribute" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [36657 36813])
+            ("aac_monitor_version" variable
+               (:typemodifiers ("static")
+                :type ("device_attribute" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [36814 36973])
+            ("aac_bios_version" variable
+               (:typemodifiers ("static")
+                :type ("device_attribute" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [36974 37124])
+            ("aac_serial_number" variable
+               (:typemodifiers ("static")
+                :type ("device_attribute" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [37125 37274])
+            ("aac_max_channel" variable
+               (:typemodifiers ("static")
+                :type ("device_attribute" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [37275 37418])
+            ("aac_max_id" variable
+               (:typemodifiers ("static")
+                :type ("device_attribute" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [37419 37547])
+            ("aac_reset" variable
+               (:typemodifiers ("static")
+                :type ("device_attribute" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [37548 37729])
+            ("aac_attrs" variable
+               (:pointer 1
+                :dereference 1
+                :typemodifiers ("static")
+                :type ("device_attribute" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [37731 37959])
+            ("aac_get_serial_number" function
+               (:arguments 
+                  ( ("device" variable
+                       (:pointer 1
+                        :type ("device" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [37991 38013])
+                    ("buf" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [38014 38024]))                  
+                :type ("ssize_t" type (:type "class") nil nil))
+                nil [37961 38093])
+            ("aac_cfg_fops" variable
+               (:typemodifiers ("static")
+                :constant-flag t
+                :type ("file_operations" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [38095 38326])
+            ("aac_driver_template" variable
+               (:typemodifiers ("static")
+                :type ("scsi_host_template" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [38328 39143])
+            ("__aac_shutdown" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("aac" variable
+                       (:pointer 1
+                        :type ("aac_dev" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [39172 39193]))                  
+                :type "void")
+                nil [39145 39381])
+            ("aac_probe_one" function
+               (:arguments 
+                  ( ("pdev" variable
+                       (:pointer 1
+                        :type ("pci_dev" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [39418 39439])
+                    ("id" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("pci_device_id" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [39442 39473]))                  
+                :type ("__devinit" type (:type "class") nil nil))
+                nil [39394 43837])
+            ("aac_shutdown" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("dev" variable
+                       (:pointer 1
+                        :type ("pci_dev" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [43864 43884]))                  
+                :type "void")
+                nil [43839 44018])
+            ("aac_remove_one" function
+               (:arguments 
+                  ( ("pdev" variable
+                       (:pointer 1
+                        :type ("pci_dev" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [44057 44078]))                  
+                :type ("__devexit" type (:type "class") nil nil))
+                nil [44032 44618])
+            ("aac_pci_driver" variable
+               (:typemodifiers ("static")
+                :type ("pci_driver" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [44620 44812])
+            ("aac_init" function
+               (:arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [44841 44846]))                  
+                :type ("__init" type (:type "class") nil nil))
+                nil [44825 45204])
+            ("aac_exit" function
+               (:arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [45234 45239]))                  
+                :type ("__exit" type (:type "class") nil nil))
+                nil [45218 45352])
+            ("module_init" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("aac_init" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [45366 45375]))                  
+                :type "int")
+                nil [45354 45376])
+            ("module_exit" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("aac_exit" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [45389 45398]))                  
+                :type "int")
+                nil [45377 45399]))          
+    :file "linit.c"
+    :pointmax 45400
+    :fsize 45399
+    :lastmodtime '(21468 9069 763606 800000)
+    :unmatched-syntax '((VOID 45213 . 45217) (STATIC 45206 . 45212) (INT 44821 . 44824) (STATIC 44814 . 44820) (VOID 44027 . 44031) (STATIC 44020 . 44026) (INT 39390 . 39393) (STATIC 39383 . 39389) (punctuation 24430 . 24431) (semantic-list 16527 . 16545) (symbol 16514 . 16527) (STATIC 16507 . 16513) (semantic-list 15921 . 15941) (semantic-list 15914 . 15921) (semantic-list 2950 . 2952) (symbol 2939 . 2950) (symbol 2925 . 2938) (STRUCT 2918 . 2924) (CONST 2912 . 2917) (STATIC 2905 . 2911) (string "\"\"" 2321 . 2344) (string "\"1.1-7\"" 2321 . 2344) (string 2298 . 2303) (string 2232 . 2280) (string 2192 . 2226) (string 2154 . 2186) (string 2107 . 2132))
+    :lexical-table 
+        '(("AAC_DRIVER_VERSION" . ((string "\"1.1-7\"" 1738 . 1745)))
+          ("AAC_DRIVERNAME" . ((string "\"aacraid\"" 1834 . 1843)))
+          ("AAC_DRIVER_FULL_VERSION" . ((symbol "AAC_DRIVER_VERSION" 2048 . 2066) (symbol "AAC_DRIVER_BRANCH" 2067 . 2084)))
+          ("AAC_DRIVER_BRANCH" . ((string "\"\"" 1799 . 1801)))
+          )
+
+    )
+   (semanticdb-table "aacraid.h"
+    :file "aacraid.h"
+    :fsize 56555
+    :lastmodtime '(21468 9069 702608 244000)
+    )
+   )
+  :file "!home!chz!linux-3.0.8!drivers!scsi!aacraid!semantic.cache"
+  :semantic-tag-version "2.0"
+  :semanticdb-version "2.2"
+  )

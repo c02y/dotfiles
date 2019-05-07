@@ -1,0 +1,302 @@
+;; Object asm/
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "asm/"
+  :tables (list 
+   (semanticdb-table "cache.h"
+    :major-mode 'c-mode
+    :tags 
+        '( ("_ASM_X86_CACHE_H" variable (:constant-flag t) nil [34 50])
+            ("linux/linkage.h" include (:system-flag t) nil [52 78])
+            ("L1_CACHE_SHIFT" variable (:constant-flag t) nil [113 127])
+            ("L1_CACHE_BYTES" variable (:constant-flag t) nil [164 178])
+            ("__read_mostly" variable (:constant-flag t) nil [210 223])
+            ("INTERNODE_CACHE_SHIFT" variable (:constant-flag t) nil [284 305])
+            ("INTERNODE_CACHE_BYTES" variable (:constant-flag t) nil [347 368]))          
+    :file "cache.h"
+    :pointmax 603
+    :fsize 602
+    :lastmodtime '(21468 8998 305 887000)
+    :unmatched-syntax 'nil
+    :lexical-table 
+        '(("__read_mostly" . ((symbol "__attribute__" 224 . 237) (semantic-list "((__section__(\".data..read_mostly\")))" 237 . 274)))
+          ("INTERNODE_CACHE_SHIFT" . ((symbol "CONFIG_X86_INTERNODE_CACHE_SHIFT" 306 . 338)))
+          ("_ASM_X86_CACHE_H")
+          ("L1_CACHE_BYTES" . ((semantic-list "(1 << L1_CACHE_SHIFT)" 179 . 200)))
+          ("L1_CACHE_SHIFT" . ((semantic-list "(CONFIG_X86_L1_CACHE_SHIFT)" 128 . 155)))
+          ("INTERNODE_CACHE_BYTES" . ((semantic-list "(1 << INTERNODE_CACHE_SHIFT)" 369 . 397)))
+          )
+
+    )
+   (semanticdb-table "unistd.h"
+    :major-mode 'c-mode
+    :tags 
+        '( ("unistd_32.h" include nil nil [129 153]))          
+    :file "unistd.h"
+    :pointmax 201
+    :fsize 200
+    :lastmodtime '(21468 8999 910260 666000)
+    :unmatched-syntax 'nil
+    )
+   (semanticdb-table "unistd_32.h"
+    :file "unistd_32.h"
+    :fsize 11381
+    :lastmodtime '(21468 8999 922260 382000)
+    )
+   (semanticdb-table "cmpxchg_32.h"
+    :major-mode 'c-mode
+    :tags 
+        '( ("_ASM_X86_CMPXCHG_32_H" variable (:constant-flag t) nil [39 60])
+            ("linux/bitops.h" include (:system-flag t) nil [62 87])
+            ("__xchg_wrong_size" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [280 285]))                  
+                :type "void")
+                nil [250 286])
+            ("__xchg" variable (:constant-flag t) nil [541 547])
+            ("xchg" variable (:constant-flag t) nil [1425 1429])
+            ("set_64bit" function
+               (:typemodifiers ("static" "inline")
+                :arguments 
+                  ( ("ptr" variable
+                       (:pointer 1
+                        :typemodifiers ("volatile")
+                        :type ("u64" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [2123 2141])
+                    ("value" variable (:type ("u64" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [2142 2152]))                  
+                :type "void")
+                nil [2094 2381])
+            ("__cmpxchg_wrong_size" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [2416 2421]))                  
+                :type "void")
+                nil [2383 2422])
+            ("__raw_cmpxchg" variable (:constant-flag t) nil [2618 2631])
+            ("__cmpxchg" variable (:constant-flag t) nil [3671 3680])
+            ("__sync_cmpxchg" variable (:constant-flag t) nil [3774 3788])
+            ("__cmpxchg_local" variable (:constant-flag t) nil [3878 3893])
+            ("__cmpxchg64" function
+               (:typemodifiers ("static" "inline")
+                :arguments 
+                  ( ("ptr" variable
+                       (:pointer 1
+                        :typemodifiers ("volatile")
+                        :type ("u64" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [4663 4681])
+                    ("old" variable (:type ("u64" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [4682 4690])
+                    ("" variable (:type ("u64" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [4691 4698]))                  
+                :type ("u64" type (:type "class") nil nil))
+                nil [4633 4909])
+            ("__cmpxchg64_local" function
+               (:typemodifiers ("static" "inline")
+                :arguments 
+                  ( ("ptr" variable
+                       (:pointer 1
+                        :typemodifiers ("volatile")
+                        :type ("u64" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [4947 4965])
+                    ("old" variable (:type ("u64" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [4966 4974])
+                    ("" variable (:type ("u64" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [4975 4982]))                  
+                :type ("u64" type (:type "class") nil nil))
+                nil [4911 5181])
+            ("cmpxchg_386_u8" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("" variable
+                       (:pointer 1
+                        :typemodifiers ("volatile")
+                        :type "void")
+                        (reparse-symbol arg-sub-list) [5441 5457])
+                    ("" variable (:type ("u8" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [5458 5461])
+                    ("" variable (:type ("u8" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [5462 5465]))                  
+                :type "unsigned long")
+                nil [5405 5466])
+            ("cmpxchg_386_u16" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("" variable
+                       (:pointer 1
+                        :typemodifiers ("volatile")
+                        :type "void")
+                        (reparse-symbol arg-sub-list) [5504 5520])
+                    ("" variable (:type ("u16" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [5521 5525])
+                    ("" variable (:type ("u16" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [5526 5530]))                  
+                :type "unsigned long")
+                nil [5467 5531])
+            ("cmpxchg_386_u32" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("" variable
+                       (:pointer 1
+                        :typemodifiers ("volatile")
+                        :type "void")
+                        (reparse-symbol arg-sub-list) [5569 5585])
+                    ("" variable (:type ("u32" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [5586 5590])
+                    ("" variable (:type ("u32" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [5591 5595]))                  
+                :type "unsigned long")
+                nil [5532 5596])
+            ("cmpxchg_386" function
+               (:typemodifiers ("static" "inline")
+                :arguments 
+                  ( ("ptr" variable
+                       (:pointer 1
+                        :typemodifiers ("volatile")
+                        :type "void")
+                        (reparse-symbol arg-sub-list) [5638 5657])
+                    ("old" variable (:type "unsigned long") (reparse-symbol arg-sub-list) [5658 5676])
+                    ("" variable (:type "unsigned long") (reparse-symbol arg-sub-list) [5682 5699])
+                    ("size" variable (:type "int") (reparse-symbol arg-sub-list) [5701 5710]))                  
+                :type "unsigned long")
+                nil [5598 5896])
+            ("cmpxchg" variable (:constant-flag t) nil [5906 5913])
+            ("cmpxchg_local" variable (:constant-flag t) nil [6306 6319])
+            ("cmpxchg64" variable (:constant-flag t) nil [6895 6904])
+            ("cmpxchg64_local" variable (:constant-flag t) nil [7371 7386]))          
+    :file "cmpxchg_32.h"
+    :pointmax 7862
+    :fsize 7861
+    :lastmodtime '(21468 8999 96279 938000)
+    :unmatched-syntax '((NEW 5696 . 5699) (NEW 4979 . 4982) (NEW 4695 . 4698))
+    :lexical-table 
+        '(("_ASM_X86_CMPXCHG_32_H")
+          ("cmpxchg64_local" (spp-arg-list ("ptr" "o" "n") 7386 . 7397) . ((semantic-list "({								\\
+	__typeof__(*(ptr)) __ret;				\\
+	__typeof__(*(ptr)) __old = (o);				\\
+	__typeof__(*(ptr)) __new = (n);				\\
+	alternative_io(\"call cmpxchg8b_emu\",			\\
+		       \"cmpxchg8b (%%esi)\" ,			\\
+		       X86_FEATURE_CX8,				\\
+		       \"=A\" (__ret),				\\
+		       \"S\" ((ptr)), \"0\" (__old),		\\
+		       \"b\" ((unsigned int)__new),		\\
+		       \"c\" ((unsigned int)(__new>>32))		\\
+		       : \"memory\");				\\
+	__ret; })" 7403 . 7817)))
+          ("__cmpxchg" (spp-arg-list ("ptr" "old" "new" "size") 3680 . 3701) . ((symbol "__raw_cmpxchg" 3709 . 3722) (semantic-list "((ptr), (old), (new), (size), LOCK_PREFIX)" 3722 . 3764)))
+          ("__sync_cmpxchg" (spp-arg-list ("ptr" "old" "new" "size") 3788 . 3809) . ((symbol "__raw_cmpxchg" 3816 . 3829) (semantic-list "((ptr), (old), (new), (size), \"lock; \")" 3829 . 3868)))
+          ("__cmpxchg_local" (spp-arg-list ("ptr" "old" "new" "size") 3893 . 3914) . ((symbol "__raw_cmpxchg" 3921 . 3934) (semantic-list "((ptr), (old), (new), (size), \"\")" 3934 . 3967)))
+          ("__xchg" (spp-arg-list ("x" "ptr" "size") 547 . 561) . ((semantic-list "({									\\
+	__typeof(*(ptr)) __x = (x);					\\
+	switch (size) {							\\
+	case 1:								\\
+	{								\\
+		volatile u8 *__ptr = (volatile u8 *)(ptr);		\\
+		asm volatile(\"xchgb %0,%1\"				\\
+			     : \"=q\" (__x), \"+m\" (*__ptr)		\\
+			     : \"0\" (__x)				\\
+			     : \"memory\");				\\
+		break;							\\
+	}								\\
+	case 2:								\\
+	{								\\
+		volatile u16 *__ptr = (volatile u16 *)(ptr);		\\
+		asm volatile(\"xchgw %0,%1\"				\\
+			     : \"=r\" (__x), \"+m\" (*__ptr)		\\
+			     : \"0\" (__x)				\\
+			     : \"memory\");				\\
+		break;							\\
+	}								\\
+	case 4:								\\
+	{								\\
+		volatile u32 *__ptr = (volatile u32 *)(ptr);		\\
+		asm volatile(\"xchgl %0,%1\"				\\
+			     : \"=r\" (__x), \"+m\" (*__ptr)		\\
+			     : \"0\" (__x)				\\
+			     : \"memory\");				\\
+		break;							\\
+	}								\\
+	default:							\\
+		__xchg_wrong_size();					\\
+	}								\\
+	__x;								\\
+})" 569 . 1415)))
+          ("__raw_cmpxchg" (spp-arg-list ("ptr" "old" "new" "size" "lock") 2631 . 2658) . ((semantic-list "({									\\
+	__typeof__(*(ptr)) __ret;					\\
+	__typeof__(*(ptr)) __old = (old);				\\
+	__typeof__(*(ptr)) __new = (new);				\\
+	switch (size) {							\\
+	case 1:								\\
+	{								\\
+		volatile u8 *__ptr = (volatile u8 *)(ptr);		\\
+		asm volatile(lock \"cmpxchgb %2,%1\"			\\
+			     : \"=a\" (__ret), \"+m\" (*__ptr)		\\
+			     : \"q\" (__new), \"0\" (__old)			\\
+			     : \"memory\");				\\
+		break;							\\
+	}								\\
+	case 2:								\\
+	{								\\
+		volatile u16 *__ptr = (volatile u16 *)(ptr);		\\
+		asm volatile(lock \"cmpxchgw %2,%1\"			\\
+			     : \"=a\" (__ret), \"+m\" (*__ptr)		\\
+			     : \"r\" (__new), \"0\" (__old)			\\
+			     : \"memory\");				\\
+		break;							\\
+	}								\\
+	case 4:								\\
+	{								\\
+		volatile u32 *__ptr = (volatile u32 *)(ptr);		\\
+		asm volatile(lock \"cmpxchgl %2,%1\"			\\
+			     : \"=a\" (__ret), \"+m\" (*__ptr)		\\
+			     : \"r\" (__new), \"0\" (__old)			\\
+			     : \"memory\");				\\
+		break;							\\
+	}								\\
+	default:							\\
+		__cmpxchg_wrong_size();					\\
+	}								\\
+	__ret;								\\
+})" 2663 . 3661)))
+          ("cmpxchg" (spp-arg-list ("ptr" "o" "n") 5913 . 5924) . ((semantic-list "({									\\
+	__typeof__(*(ptr)) __ret;					\\
+	if (likely(boot_cpu_data.x86 > 3))				\\
+		__ret = (__typeof__(*(ptr)))__cmpxchg((ptr),		\\
+				(unsigned long)(o), (unsigned long)(n),	\\
+				sizeof(*(ptr)));			\\
+	else								\\
+		__ret = (__typeof__(*(ptr)))cmpxchg_386((ptr),		\\
+				(unsigned long)(o), (unsigned long)(n),	\\
+				sizeof(*(ptr)));			\\
+	__ret;								\\
+})" 5932 . 6297)))
+          ("xchg" (spp-arg-list ("ptr" "v") 1429 . 1437) . ((symbol "__xchg" 1447 . 1453) (semantic-list "((v), (ptr), sizeof(*ptr))" 1453 . 1479)))
+          ("cmpxchg_local" (spp-arg-list ("ptr" "o" "n") 6319 . 6330) . ((semantic-list "({									\\
+	__typeof__(*(ptr)) __ret;					\\
+	if (likely(boot_cpu_data.x86 > 3))				\\
+		__ret = (__typeof__(*(ptr)))__cmpxchg_local((ptr),	\\
+				(unsigned long)(o), (unsigned long)(n),	\\
+				sizeof(*(ptr)));			\\
+	else								\\
+		__ret = (__typeof__(*(ptr)))cmpxchg_386((ptr),		\\
+				(unsigned long)(o), (unsigned long)(n),	\\
+				sizeof(*(ptr)));			\\
+	__ret;								\\
+})" 6337 . 6707)))
+          ("cmpxchg64" (spp-arg-list ("ptr" "o" "n") 6904 . 6915) . ((semantic-list "({								\\
+	__typeof__(*(ptr)) __ret;				\\
+	__typeof__(*(ptr)) __old = (o);				\\
+	__typeof__(*(ptr)) __new = (n);				\\
+	alternative_io(LOCK_PREFIX_HERE				\\
+			\"call cmpxchg8b_emu\",			\\
+			\"lock; cmpxchg8b (%%esi)\" ,		\\
+		       X86_FEATURE_CX8,				\\
+		       \"=A\" (__ret),				\\
+		       \"S\" ((ptr)), \"0\" (__old),		\\
+		       \"b\" ((unsigned int)__new),		\\
+		       \"c\" ((unsigned int)(__new>>32))		\\
+		       : \"memory\");				\\
+	__ret; })" 6922 . 7360)))
+          )
+
+    )
+   )
+  :file "!home!chz!linux-3.0.8!arch!x86!include!asm!semantic.cache"
+  :semantic-tag-version "2.0"
+  :semanticdb-version "2.2"
+  )

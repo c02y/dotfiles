@@ -1,0 +1,47 @@
+;; Object debugger/
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "debugger/"
+  :tables (list 
+   (semanticdb-table "ptrace.c"
+    :major-mode 'c-mode
+    :tags 
+        '( ("stdio.h" include (:system-flag t) nil [1 19])
+            ("unistd.h" include (:system-flag t) nil [20 39])
+            ("sys/types.h" include (:system-flag t) nil [40 62])
+            ("sys/wait.h" include (:system-flag t) nil [63 84])
+            ("sys/ptrace.h" include (:system-flag t) nil [85 108])
+            ("run_target" function
+               (:arguments 
+                  ( ("programname" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [126 151]))                  
+                :type "void")
+                nil [110 422])
+            ("run_debugger" function
+               (:arguments 
+                  ( ("child_pid" variable (:type ("pid_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [442 458]))                  
+                :type "void")
+                nil [424 905])
+            ("main" function
+               (:arguments 
+                  ( ("argc" variable (:type "int") (reparse-symbol arg-sub-list) [916 925])
+                    ("argv" variable
+                       (:pointer 1
+                        :dereference 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [926 939]))                  
+                :type "int")
+                nil [907 1260]))          
+    :file "ptrace.c"
+    :pointmax 91
+    :fsize 1260
+    :lastmodtime '(21564 5601 204494 137000)
+    :unmatched-syntax 'nil
+    )
+   )
+  :file "!home!chz!Projects!CWork!C!snippets!debugger!semantic.cache"
+  :semantic-tag-version "2.0"
+  :semanticdb-version "2.2"
+  )

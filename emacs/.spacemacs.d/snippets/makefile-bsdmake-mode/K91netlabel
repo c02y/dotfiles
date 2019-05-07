@@ -1,0 +1,120 @@
+;; Object malloc/
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "malloc/"
+  :tables
+  (list
+    (semanticdb-table "malloc.c"
+      :major-mode 'c-mode
+      :tags 
+        '( ("stdlib.h" include (:system-flag t) nil [127 146])
+            ("unistd.h" include (:system-flag t) nil [147 166])
+            ("sys/types.h" include (:system-flag t) nil [167 189])
+            ("assert.h" include (:system-flag t) nil [190 209])
+            ("string.h" include (:system-flag t) nil [210 229])
+            ("META_SIZE" variable (:constant-flag t) nil [239 248])
+            ("block_meta" type
+               (:members 
+                  ( ("size" variable (:type ("size_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [297 309])
+                    ("next" variable
+                       (:pointer 1
+                        :type ("block_meta" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol classsubparts) [311 335])
+                    ("free" variable (:type "int") (reparse-symbol classsubparts) [337 346])
+                    ("magic" variable (:type "int") (reparse-symbol classsubparts) [348 358]))                  
+                :type "struct")
+                nil [276 386])
+            ("global_base" variable
+               (:pointer 1
+                :default-value "NULL"
+                :type "void")
+                nil [388 413])
+            ("find_free_block" function
+               (:pointer 1
+                :arguments 
+                  ( ("last" variable
+                       (:pointer 2
+                        :type ("block_meta" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [450 475])
+                    ("size" variable (:type ("size_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [476 488]))                  
+                :type ("block_meta" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [415 665])
+            ("request_space" function
+               (:pointer 1
+                :arguments 
+                  ( ("last" variable
+                       (:pointer 1
+                        :type ("block_meta" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [700 724])
+                    ("size" variable (:type ("size_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [725 737]))                  
+                :type ("block_meta" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [667 1119])
+            ("malloc" function
+               (:pointer 1
+                :arguments 
+                  ( ("size" variable (:type ("size_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [1134 1146]))                  
+                :type "void")
+                nil [1121 1770])
+            ("get_block_ptr" function
+               (:pointer 1
+                :arguments 
+                  ( ("ptr" variable
+                       (:pointer 1
+                        :type "void")
+                        (reparse-symbol arg-sub-list) [1805 1815]))                  
+                :type ("block_meta" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [1772 1856])
+            ("free" function
+               (:arguments 
+                  ( ("ptr" variable
+                       (:pointer 1
+                        :type "void")
+                        (reparse-symbol arg-sub-list) [1901 1911]))                  
+                :type "void")
+                nil [1891 2201])
+            ("realloc" function
+               (:pointer 1
+                :arguments 
+                  ( ("ptr" variable
+                       (:pointer 1
+                        :type "void")
+                        (reparse-symbol arg-sub-list) [2217 2227])
+                    ("size" variable (:type ("size_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [2228 2240]))                  
+                :type "void")
+                nil [2203 2775])
+            ("calloc" function
+               (:pointer 1
+                :arguments 
+                  ( ("nelem" variable (:type ("size_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [2790 2803])
+                    ("elsize" variable (:type ("size_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [2804 2818]))                  
+                :type "void")
+                nil [2777 2918]))          
+      :file "malloc.c"
+      :pointmax 2919
+      :fsize 2918
+      :lastmodtime '(21691 59024 179010 262000)
+      :unmatched-syntax nil
+      :lexical-table 
+        '(("META_SIZE" . ((SIZEOF "sizeof" 249 . 255) (semantic-list "(struct block_meta)" 255 . 274)))
+          )
+))
+  :file "!home!chz!Projects!CWork!C!snippets!malloc!semantic.cache"
+  :semantic-tag-version "2.0"
+  :semanticdb-version "2.2")

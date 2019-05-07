@@ -1,0 +1,83 @@
+;; Object test/
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "test/"
+  :tables (list 
+   (semanticdb-table "getattr.py"
+    :major-mode 'python-mode
+    :tags 
+        '( ("Dynamo" type
+               (:members 
+                  ( ("__getattr__" function
+                       (:parent "dummy"
+                        :arguments 
+                          ( ("self" variable nil (reparse-symbol function_parameters) [93 97])
+                            ("key" variable nil (reparse-symbol function_parameters) [99 102]))                          )
+                        (reparse-symbol indented_block_body) [77 211]))                  
+                :type "class")
+                nil [59 211])
+            ("dyn" variable nil nil [212 226])
+            ("print" code nil nil [227 243])
+            ("dyn" variable nil nil [257 283])
+            ("print" code nil nil [284 300])
+            ("'''
+The dyn instance does not have an attribute named color, so the __getattr__() method is called to provide a computed value.
+After explicitly setting dyn.color, the __getattr__() method will no longer be called to provide a value for dyn.color, because dyn.color is already defined on the instance. 
+'''" code nil nil [316 622])
+            ("SupperDynamo" type
+               (:members 
+                  ( ("__getattribute__" function
+                       (:parent "dummy"
+                        :arguments 
+                          ( ("self" variable nil (reparse-symbol function_parameters) [668 672])
+                            ("key" variable nil (reparse-symbol function_parameters) [674 677]))                          )
+                        (reparse-symbol indented_block_body) [647 786]))                  
+                :type "class")
+                nil [623 786])
+            ("dyn2" variable nil nil [795 816])
+            ("print" code nil nil [817 834])
+            ("dyn2" variable nil nil [848 875])
+            ("print" code nil nil [876 893])
+            ("print" code nil nil [920 933])
+            ("'''Even after explicitly setting dyn.color, the __getattribute__() method is still called to provide a value for dyn.color. If present, the __getattribute__() method is called unconditionally for every attribute and method lookup, even for attributes that you explicitly set after creating an instance. '''" code nil nil [935 1241])
+            ("'''If your class defines a __getattribute__() method, you probably also want to define a __setattr__() method and coordinate between them to keep track of attribute values. Otherwise, any attributes you set after creating an instance will disappear into a black hole. '''" code nil nil [1242 1513])
+            ("'''You need to be extra careful with the __getattribute__() method, because it is also called when Python looks up a method name on your class:'''" code nil nil [1515 1661])
+            ("Rastan" type
+               (:members 
+                  ( ("__getattribute__" function
+                       (:parent "dummy"
+                        :arguments 
+                          ( ("self" variable nil (reparse-symbol function_parameters) [1701 1705])
+                            ("key" variable nil (reparse-symbol function_parameters) [1707 1710]))                          )
+                        (reparse-symbol indented_block_body) [1680 1742])
+                    ("swim" function
+                       (:parent "dummy"
+                        :arguments 
+                          ( ("self" variable nil (reparse-symbol function_parameters) [1755 1759]))                          )
+                        (reparse-symbol indented_block_body) [1746 1793]))                  
+                :type "class")
+                nil [1662 1793])
+            ("hero" variable nil nil [1794 1809])
+            ("print" code nil nil [1810 1828])
+            ("'''
+Will be:
+
+Traceback (most recent call last):
+  File \"<stdin>\", line 38, in <module>
+  File \"<stdin>\", line 33, in __getattribute__
+AttributeError
+'''" code nil nil [1857 2010])
+            ("'''
+This class defines a __getattribute__() method which always raises an AttributeError exception. No attribute or method lookups will succeed.
+When you call hero.swim(), Python looks for a swim() method in the Rastan class. This lookup goes through the __getattribute__() method, because all attribute and method lookups go through the __getattribute__() method. In this case, the __getattribute__() method raises an AttributeError exception, so the method lookup fails, so the method call fails. 
+'''" code nil nil [2011 2514]))          
+    :file "getattr.py"
+    :pointmax 2515
+    :fsize 2514
+    :lastmodtime '(21301 27505 682252 277000)
+    :unmatched-syntax 'nil
+    )
+   )
+  :file "!home!chz!Projects!Python!test!semantic.cache"
+  :semantic-tag-version "2.0"
+  :semanticdb-version "2.2"
+  )

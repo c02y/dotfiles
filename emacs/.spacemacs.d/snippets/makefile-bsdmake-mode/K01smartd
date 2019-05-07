@@ -1,0 +1,45 @@
+;; Object stdio-common/
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "stdio-common/"
+  :tables (list 
+   (semanticdb-table "printf.c"
+    :major-mode 'c-mode
+    :tags 
+        '( ("libioP.h" include (:system-flag t) nil [790 809])
+            ("stdarg.h" include (:system-flag t) nil [810 829])
+            ("stdio.h" include (:system-flag t) nil [830 848])
+            ("__printf" function
+               (:arguments 
+                  ( ("format" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [965 984])
+                    ("..." variable (:type "vararg") (reparse-symbol arg-sub-list) [985 989]))                  
+                :type "int")
+                nil [951 1120])
+            ("ldbl_strong_alias" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("__printf" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [1159 1168])
+                    ("" variable (:type ("printf" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [1169 1176]))                  
+                :type "int")
+                nil [1140 1177])
+            ("ldbl_strong_alias" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("__printf" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [1224 1233])
+                    ("" variable (:type ("_IO_printf" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [1234 1245]))                  
+                :type "int")
+                nil [1205 1246]))          
+    :file "printf.c"
+    :pointmax 1247
+    :fsize 1246
+    :lastmodtime '(20998 50247 0 0)
+    :unmatched-syntax 'nil
+    )
+   )
+  :file "!usr!src!debug!glibc-2.18!stdio-common!semantic.cache"
+  :semantic-tag-version "2.0"
+  :semanticdb-version "2.2"
+  )

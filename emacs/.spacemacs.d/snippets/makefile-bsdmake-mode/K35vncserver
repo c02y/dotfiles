@@ -1,0 +1,488 @@
+;; Object cxd2099/
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "cxd2099/"
+  :tables (list 
+   (semanticdb-table "cxd2099.c"
+    :major-mode 'c-mode
+    :tags 
+        '( ("linux/version.h" include (:system-flag t) nil [858 884])
+            ("linux/slab.h" include (:system-flag t) nil [885 908])
+            ("linux/kernel.h" include (:system-flag t) nil [909 934])
+            ("linux/module.h" include (:system-flag t) nil [935 960])
+            ("linux/moduleparam.h" include (:system-flag t) nil [961 991])
+            ("linux/init.h" include (:system-flag t) nil [992 1015])
+            ("linux/i2c.h" include (:system-flag t) nil [1016 1038])
+            ("linux/wait.h" include (:system-flag t) nil [1039 1062])
+            ("linux/delay.h" include (:system-flag t) nil [1063 1087])
+            ("linux/mutex.h" include (:system-flag t) nil [1088 1112])
+            ("linux/io.h" include (:system-flag t) nil [1113 1134])
+            ("cxd2099.h" include nil nil [1136 1156])
+            ("MAX_BUFFER_SIZE" variable (:constant-flag t) nil [1166 1181])
+            ("cxd" type
+               (:members 
+                  ( ("en" variable (:type ("dvb_ca_en50221" type
+                         (:prototype t
+                          :type "struct")
+                          nil nil)) (reparse-symbol classsubparts) [1201 1226])
+                    ("i2c" variable
+                       (:pointer 1
+                        :type ("i2c_adapter" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol classsubparts) [1229 1253])
+                    ("adr" variable (:type ("u8" type (:type "class") nil nil)) (reparse-symbol classsubparts) [1255 1266])
+                    ("regs" variable
+                       (:dereference 1
+                        :type ("u8" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [1268 1286])
+                    ("lastaddress" variable (:type ("u8" type (:type "class") nil nil)) (reparse-symbol classsubparts) [1288 1307])
+                    ("clk_reg_f" variable (:type ("u8" type (:type "class") nil nil)) (reparse-symbol classsubparts) [1309 1326])
+                    ("clk_reg_b" variable (:type ("u8" type (:type "class") nil nil)) (reparse-symbol classsubparts) [1328 1345])
+                    ("mode" variable (:type "int") (reparse-symbol classsubparts) [1347 1359])
+                    ("bitrate" variable (:type ("u32" type (:type "class") nil nil)) (reparse-symbol classsubparts) [1361 1376])
+                    ("ready" variable (:type "int") (reparse-symbol classsubparts) [1378 1391])
+                    ("dr" variable (:type "int") (reparse-symbol classsubparts) [1393 1403])
+                    ("slot_stat" variable (:type "int") (reparse-symbol classsubparts) [1405 1422])
+                    ("amem" variable
+                       (:dereference 1
+                        :type ("u8" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [1425 1443])
+                    ("amem_read" variable (:type "int") (reparse-symbol classsubparts) [1445 1462])
+                    ("cammode" variable (:type "int") (reparse-symbol classsubparts) [1465 1480])
+                    ("lock" variable (:type ("mutex" type
+                         (:prototype t
+                          :type "struct")
+                          nil nil)) (reparse-symbol classsubparts) [1482 1500]))                  
+                :type "struct")
+                nil [1187 1503])
+            ("i2c_write_reg" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("adapter" variable
+                       (:pointer 1
+                        :type ("i2c_adapter" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [1530 1558])
+                    ("adr" variable (:type ("u8" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [1559 1566])
+                    ("reg" variable (:type ("u8" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [1571 1578])
+                    ("data" variable (:type ("u8" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [1579 1587]))                  
+                :type "int")
+                nil [1505 1842])
+            ("i2c_write" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("adapter" variable
+                       (:pointer 1
+                        :type ("i2c_adapter" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [1865 1893])
+                    ("adr" variable (:type ("u8" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [1894 1901])
+                    ("data" variable
+                       (:pointer 1
+                        :type ("u8" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [1909 1918])
+                    ("len" variable (:type ("u8" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [1919 1926]))                  
+                :type "int")
+                nil [1844 2124])
+            ("i2c_read_reg" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("adapter" variable
+                       (:pointer 1
+                        :type ("i2c_adapter" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [2150 2178])
+                    ("adr" variable (:type ("u8" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [2179 2186])
+                    ("reg" variable (:type ("u8" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [2190 2197])
+                    ("val" variable
+                       (:pointer 1
+                        :type ("u8" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [2198 2206]))                  
+                :type "int")
+                nil [2126 2485])
+            ("i2c_read" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("adapter" variable
+                       (:pointer 1
+                        :type ("i2c_adapter" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [2507 2535])
+                    ("adr" variable (:type ("u8" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [2536 2543])
+                    ("reg" variable (:type ("u8" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [2550 2557])
+                    ("data" variable
+                       (:pointer 1
+                        :type ("u8" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [2558 2567])
+                    ("n" variable (:type ("u8" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [2568 2573]))                  
+                :type "int")
+                nil [2487 2849])
+            ("read_block" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("ci" variable
+                       (:pointer 1
+                        :type ("cxd" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [2873 2888])
+                    ("adr" variable (:type ("u8" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [2889 2896])
+                    ("data" variable
+                       (:pointer 1
+                        :type ("u8" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [2897 2906])
+                    ("n" variable (:type ("u8" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [2907 2912]))                  
+                :type "int")
+                nil [2851 3092])
+            ("read_reg" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("ci" variable
+                       (:pointer 1
+                        :type ("cxd" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [3114 3129])
+                    ("reg" variable (:type ("u8" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [3130 3137])
+                    ("val" variable
+                       (:pointer 1
+                        :type ("u8" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [3138 3146]))                  
+                :type "int")
+                nil [3094 3187])
+            ("read_pccard" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("ci" variable
+                       (:pointer 1
+                        :type ("cxd" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [3213 3228])
+                    ("address" variable (:type ("u16" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [3229 3241])
+                    ("data" variable
+                       (:pointer 1
+                        :type ("u8" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [3242 3251])
+                    ("n" variable (:type ("u8" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [3252 3257]))                  
+                :type "int")
+                nil [3190 3451])
+            ("write_pccard" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("ci" variable
+                       (:pointer 1
+                        :type ("cxd" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [3477 3492])
+                    ("address" variable (:type ("u16" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [3493 3505])
+                    ("data" variable
+                       (:pointer 1
+                        :type ("u8" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [3506 3515])
+                    ("n" variable (:type ("u8" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [3516 3521]))                  
+                :type "int")
+                nil [3453 3766])
+            ("read_io" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("ci" variable
+                       (:pointer 1
+                        :type ("cxd" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [3787 3802])
+                    ("address" variable (:type ("u16" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [3803 3815])
+                    ("val" variable
+                       (:pointer 1
+                        :type ("u8" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [3816 3824]))                  
+                :type "int")
+                nil [3768 4017])
+            ("write_io" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("ci" variable
+                       (:pointer 1
+                        :type ("cxd" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [4039 4054])
+                    ("address" variable (:type ("u16" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [4055 4067])
+                    ("val" variable (:type ("u8" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [4068 4075]))                  
+                :type "int")
+                nil [4019 4292])
+            ("write_regm" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("ci" variable
+                       (:pointer 1
+                        :type ("cxd" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [4317 4332])
+                    ("reg" variable (:type ("u8" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [4333 4340])
+                    ("val" variable (:type ("u8" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [4341 4348])
+                    ("mask" variable (:type ("u8" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [4349 4357]))                  
+                :type "int")
+                nil [4295 4753])
+            ("write_reg" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("ci" variable
+                       (:pointer 1
+                        :type ("cxd" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [4776 4791])
+                    ("reg" variable (:type ("u8" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [4792 4799])
+                    ("val" variable (:type ("u8" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [4800 4807]))                  
+                :type "int")
+                nil [4755 4851])
+            ("set_mode" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("ci" variable
+                       (:pointer 1
+                        :type ("cxd" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [5190 5205])
+                    ("mode" variable (:type "int") (reparse-symbol arg-sub-list) [5206 5215]))                  
+                :type "void")
+                nil [5169 5451])
+            ("cam_mode" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("ci" variable
+                       (:pointer 1
+                        :type ("cxd" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [5474 5489])
+                    ("mode" variable (:type "int") (reparse-symbol arg-sub-list) [5490 5499]))                  
+                :type "void")
+                nil [5453 5904])
+            ("CHK_ERROR" variable (:constant-flag t) nil [5916 5925])
+            ("init" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("ci" variable
+                       (:pointer 1
+                        :type ("cxd" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [5970 5985]))                  
+                :type "int")
+                nil [5954 7615])
+            ("read_attribute_mem" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("ca" variable
+                       (:pointer 1
+                        :type ("dvb_ca_en50221" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [7648 7674])
+                    ("slot" variable (:type "int") (reparse-symbol arg-sub-list) [7684 7693])
+                    ("address" variable (:type "int") (reparse-symbol arg-sub-list) [7694 7706]))                  
+                :type "int")
+                nil [7618 7864])
+            ("write_attribute_mem" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("ca" variable
+                       (:pointer 1
+                        :type ("dvb_ca_en50221" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [7898 7924])
+                    ("slot" variable (:type "int") (reparse-symbol arg-sub-list) [7925 7934])
+                    ("address" variable (:type "int") (reparse-symbol arg-sub-list) [7945 7957])
+                    ("value" variable (:type ("u8" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [7958 7967]))                  
+                :type "int")
+                nil [7867 8118])
+            ("read_cam_control" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("ca" variable
+                       (:pointer 1
+                        :type ("dvb_ca_en50221" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [8148 8174])
+                    ("slot" variable (:type "int") (reparse-symbol arg-sub-list) [8182 8191])
+                    ("address" variable (:type ("u8" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [8192 8203]))                  
+                :type "int")
+                nil [8120 8355])
+            ("write_cam_control" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("ca" variable
+                       (:pointer 1
+                        :type ("dvb_ca_en50221" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [8386 8412])
+                    ("slot" variable (:type "int") (reparse-symbol arg-sub-list) [8413 8422])
+                    ("address" variable (:type ("u8" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [8431 8442])
+                    ("value" variable (:type ("u8" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [8443 8452]))                  
+                :type "int")
+                nil [8357 8595])
+            ("slot_reset" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("ca" variable
+                       (:pointer 1
+                        :type ("dvb_ca_en50221" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [8619 8645])
+                    ("slot" variable (:type "int") (reparse-symbol arg-sub-list) [8646 8655]))                  
+                :type "int")
+                nil [8597 9059])
+            ("slot_shutdown" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("ca" variable
+                       (:pointer 1
+                        :type ("dvb_ca_en50221" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [9086 9112])
+                    ("slot" variable (:type "int") (reparse-symbol arg-sub-list) [9113 9122]))                  
+                :type "int")
+                nil [9061 9401])
+            ("slot_ts_enable" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("ca" variable
+                       (:pointer 1
+                        :type ("dvb_ca_en50221" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [9429 9455])
+                    ("slot" variable (:type "int") (reparse-symbol arg-sub-list) [9456 9465]))                  
+                :type "int")
+                nil [9403 9656])
+            ("campoll" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("ci" variable
+                       (:pointer 1
+                        :type ("cxd" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [9678 9693]))                  
+                :type "int")
+                nil [9659 10460])
+            ("poll_slot_status" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("ca" variable
+                       (:pointer 1
+                        :type ("dvb_ca_en50221" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [10491 10517])
+                    ("slot" variable (:type "int") (reparse-symbol arg-sub-list) [10518 10527])
+                    ("open" variable (:type "int") (reparse-symbol arg-sub-list) [10528 10537]))                  
+                :type "int")
+                nil [10463 10704])
+            ("en_templ" variable
+               (:typemodifiers ("static")
+                :type ("dvb_ca_en50221" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [11515 11988])
+            ("cxd2099_attach" function
+               (:pointer 1
+                :arguments 
+                  ( ("adr" variable (:type ("u8" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [12028 12035])
+                    ("priv" variable
+                       (:pointer 1
+                        :type "void")
+                        (reparse-symbol arg-sub-list) [12036 12047])
+                    ("i2c" variable
+                       (:pointer 1
+                        :type ("i2c_adapter" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [12058 12082]))                  
+                :type ("dvb_ca_en50221" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [11990 12664])
+            ("EXPORT_SYMBOL" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("cxd2099_attach" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [12679 12694]))                  
+                :type "int")
+                nil [12665 12695])
+            ("MODULE_DESCRIPTION" function
+               (:prototype-flag t
+                :type "int")
+                nil [12697 12727])
+            ("MODULE_AUTHOR" function
+               (:prototype-flag t
+                :type "int")
+                nil [12728 12781])
+            ("MODULE_LICENSE" function
+               (:prototype-flag t
+                :type "int")
+                nil [12782 12804]))          
+    :file "cxd2099.c"
+    :pointmax 12805
+    :fsize 12804
+    :lastmodtime '(21468 9084 766251 593000)
+    :unmatched-syntax '((string 12797 . 12802) (string 12742 . 12779) (string 12716 . 12725))
+    :lexical-table 
+        '(("CHK_ERROR" (spp-arg-list ("s") 5925 . 5928) . 
+              ((IF "if" 5929 . 5931) (semantic-list "((status = s))" 5932 . 5946) (BREAK "break" 5947 . 5952)))
+          ("MAX_BUFFER_SIZE" . ((number "248" 1182 . 1185)))
+          )
+
+    )
+   (semanticdb-table "cxd2099.h"
+    :file "cxd2099.h"
+    :fsize 1316
+    :lastmodtime '(21468 9084 780251 261000)
+    )
+   )
+  :file "!home!chz!linux-3.0.8!drivers!staging!cxd2099!semantic.cache"
+  :semantic-tag-version "2.0"
+  :semanticdb-version "2.2"
+  )

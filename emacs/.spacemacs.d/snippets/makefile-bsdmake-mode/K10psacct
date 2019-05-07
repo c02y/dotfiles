@@ -1,0 +1,829 @@
+;; Object sunrpc/
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "sunrpc/"
+  :tables (list 
+   (semanticdb-table "xprt.h"
+    :major-mode 'c-mode
+    :tags 
+        '( ("_LINUX_SUNRPC_XPRT_H" variable (:constant-flag t) nil [200 220])
+            ("linux/uio.h" include (:system-flag t) nil [222 244])
+            ("linux/socket.h" include (:system-flag t) nil [245 270])
+            ("linux/in.h" include (:system-flag t) nil [271 292])
+            ("linux/ktime.h" include (:system-flag t) nil [293 317])
+            ("linux/sunrpc/sched.h" include (:system-flag t) nil [318 349])
+            ("linux/sunrpc/xdr.h" include (:system-flag t) nil [350 379])
+            ("linux/sunrpc/msg_prot.h" include (:system-flag t) nil [380 414]))          
+    :file "xprt.h"
+    :pointmax 11913
+    :fsize 11912
+    :lastmodtime '(21468 9197 19593 852000)
+    :unmatched-syntax 'nil
+    :lexical-table 
+        '(("_LINUX_SUNRPC_XPRT_H")
+          )
+
+    )
+   (semanticdb-table "sched.h"
+    :major-mode 'c-mode
+    :tags 
+        '( ("_LINUX_SUNRPC_SCHED_H_" variable (:constant-flag t) nil [191 213])
+            ("linux/timer.h" include (:system-flag t) nil [215 239])
+            ("linux/ktime.h" include (:system-flag t) nil [240 264])
+            ("linux/sunrpc/types.h" include (:system-flag t) nil [265 296])
+            ("linux/spinlock.h" include (:system-flag t) nil [297 324])
+            ("linux/wait.h" include (:system-flag t) nil [325 348])
+            ("linux/workqueue.h" include (:system-flag t) nil [349 377])
+            ("linux/sunrpc/xdr.h" include (:system-flag t) nil [378 407])
+            ("rpc_procinfo" type
+               (:prototype t
+                :type "struct")
+                nil [463 483])
+            ("rpc_message" type
+               (:members 
+                  ( ("rpc_proc" variable
+                       (:pointer 1
+                        :type ("rpc_procinfo" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol classsubparts) [506 537])
+                    ("rpc_argp" variable
+                       (:pointer 1
+                        :type "void")
+                        (reparse-symbol classsubparts) [567 585])
+                    ("rpc_resp" variable
+                       (:pointer 1
+                        :type "void")
+                        (reparse-symbol classsubparts) [603 621])
+                    ("rpc_cred" variable
+                       (:pointer 1
+                        :type ("rpc_cred" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol classsubparts) [636 663]))                  
+                :type "struct")
+                nil [484 684])
+            ("rpc_call_ops" type
+               (:prototype t
+                :type "struct")
+                nil [686 706])
+            ("rpc_wait_queue" type
+               (:prototype t
+                :type "struct")
+                nil [707 729])
+            ("rpc_wait" type
+               (:members 
+                  ( ("list" variable (:type ("list_head" type
+                         (:prototype t
+                          :type "struct")
+                          nil nil)) (reparse-symbol classsubparts) [749 771])
+                    ("links" variable (:type ("list_head" type
+                         (:prototype t
+                          :type "struct")
+                          nil nil)) (reparse-symbol classsubparts) [797 820])
+                    ("timer_list" variable (:type ("list_head" type
+                         (:prototype t
+                          :type "struct")
+                          nil nil)) (reparse-symbol classsubparts) [852 880])
+                    ("expires" variable (:type "unsigned long") (reparse-symbol classsubparts) [899 922]))                  
+                :type "struct")
+                nil [730 925])
+            ("rpc_task" type
+               (:members 
+                  ( ("tk_count" variable (:type ("atomic_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [984 1003])
+                    ("tk_task" variable (:type ("list_head" type
+                         (:prototype t
+                          :type "struct")
+                          nil nil)) (reparse-symbol classsubparts) [1027 1052])
+                    ("tk_client" variable
+                       (:pointer 1
+                        :type ("rpc_clnt" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol classsubparts) [1081 1109])
+                    ("tk_rqstp" variable
+                       (:pointer 1
+                        :type ("rpc_rqst" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol classsubparts) [1128 1155])
+                    ("tk_msg" variable (:type ("rpc_message" type
+                         (:prototype t
+                          :type "struct")
+                          nil nil)) (reparse-symbol classsubparts) [1204 1230])
+                    ("tk_callback" variable
+                       (:functionpointer-flag t
+                        :type "void")
+                        (reparse-symbol classsubparts) [1377 1418])
+                    ("tk_action" variable
+                       (:functionpointer-flag t
+                        :type "void")
+                        (reparse-symbol classsubparts) [1420 1459])
+                    ("tk_ops" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("rpc_call_ops" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol classsubparts) [1461 1495])
+                    ("tk_calldata" variable
+                       (:pointer 1
+                        :type "void")
+                        (reparse-symbol classsubparts) [1497 1518])
+                    ("tk_timeout" variable (:type "unsigned long") (reparse-symbol classsubparts) [1521 1547])
+                    ("tk_runstate" variable (:type "unsigned long") (reparse-symbol classsubparts) [1579 1606])
+                    ("tk_workqueue" variable
+                       (:pointer 1
+                        :type ("workqueue_struct" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol classsubparts) [1630 1668])
+                    ("tk_waitqueue" variable
+                       (:pointer 1
+                        :type ("rpc_wait_queue" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol classsubparts) [1736 1773])
+                    ("u" variable (:type ("" type
+                         (:members 
+                            ( ("tk_work" variable (:type ("work_struct" type
+                                   (:prototype t
+                                    :type "struct")
+                                    nil nil)) (reparse-symbol classsubparts) [1815 1842])
+                              ("tk_wait" variable (:type ("rpc_wait" type
+                                   (:prototype t
+                                    :type "struct")
+                                    nil nil)) (reparse-symbol classsubparts) [1873 1898]))                            
+                          :type "union")
+                          nil nil)) (reparse-symbol classsubparts) [1805 1919])
+                    ("tk_start" variable (:type ("ktime_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [1922 1941])
+                    ("tk_owner" variable (:type ("pid_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [1974 1991])
+                    ("tk_status" variable (:type "int") (reparse-symbol classsubparts) [2029 2045])
+                    ("tk_flags" variable (:type "unsigned short") (reparse-symbol classsubparts) [2078 2103])
+                    ("tk_timeouts" variable (:type "unsigned short") (reparse-symbol classsubparts) [2122 2150])
+                    ("tk_rebind_retry" variable
+                       (:suffix ":2"
+                        :type "unsigned char")
+                        (reparse-symbol classsubparts) [2242 2363])
+                    ("tk_cred_retry" variable
+                       (:suffix ":2"
+                        :type "unsigned char")
+                        (reparse-symbol classsubparts) [2242 2363])
+                    ("tk_garb_retry" variable
+                       (:suffix ":2"
+                        :type "unsigned char")
+                        (reparse-symbol classsubparts) [2242 2363])
+                    ("tk_priority" variable
+                       (:suffix ":2"
+                        :type "unsigned char")
+                        (reparse-symbol classsubparts) [2242 2363]))                  
+                :type "struct")
+                nil [965 2366])
+            ("tk_xprt" variable (:constant-flag t) nil [2375 2382])
+            ("task_for_each" variable (:constant-flag t) nil [2467 2480])
+            ("task_for_first" variable (:constant-flag t) nil [2602 2616])
+            ("rpc_action" variable
+               (:functionpointer-flag t
+                :type "void")
+                nil [2744 2784])
+            ("rpc_call_ops" type
+               (:members 
+                  ( ("rpc_call_prepare" variable
+                       (:functionpointer-flag t
+                        :type "void")
+                        (reparse-symbol classsubparts) [2809 2861])
+                    ("rpc_call_done" variable
+                       (:functionpointer-flag t
+                        :type "void")
+                        (reparse-symbol classsubparts) [2863 2912])
+                    ("rpc_release" variable
+                       (:functionpointer-flag t
+                        :type "void")
+                        (reparse-symbol classsubparts) [2914 2942]))                  
+                :type "struct")
+                nil [2786 2945])
+            ("rpc_task_setup" type
+               (:members 
+                  ( ("task" variable
+                       (:pointer 1
+                        :type ("rpc_task" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol classsubparts) [2972 2994])
+                    ("rpc_client" variable
+                       (:pointer 1
+                        :type ("rpc_clnt" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol classsubparts) [2996 3024])
+                    ("rpc_message" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("rpc_message" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol classsubparts) [3026 3064])
+                    ("callback_ops" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("rpc_call_ops" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol classsubparts) [3066 3106])
+                    ("callback_data" variable
+                       (:pointer 1
+                        :type "void")
+                        (reparse-symbol classsubparts) [3108 3128])
+                    ("workqueue" variable
+                       (:pointer 1
+                        :type ("workqueue_struct" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol classsubparts) [3130 3165])
+                    ("flags" variable (:type "unsigned short") (reparse-symbol classsubparts) [3167 3188])
+                    ("priority" variable (:type "signed char") (reparse-symbol classsubparts) [3190 3211]))                  
+                :type "struct")
+                nil [2947 3214])
+            ("RPC_TASK_ASYNC" variable (:constant-flag t) nil [3249 3263])
+            ("RPC_TASK_SWAPPER" variable (:constant-flag t) nil [3304 3320])
+            ("RPC_CALL_MAJORSEEN" variable (:constant-flag t) nil [3362 3380])
+            ("RPC_TASK_ROOTCREDS" variable (:constant-flag t) nil [3422 3440])
+            ("RPC_TASK_DYNAMIC" variable (:constant-flag t) nil [3480 3496])
+            ("RPC_TASK_KILLED" variable (:constant-flag t) nil [3539 3554])
+            ("RPC_TASK_SOFT" variable (:constant-flag t) nil [3594 3607])
+            ("RPC_TASK_SOFTCONN" variable (:constant-flag t) nil [3649 3666])
+            ("RPC_TASK_SENT" variable (:constant-flag t) nil [3711 3724])
+            ("RPC_TASK_TIMEOUT" variable (:constant-flag t) nil [3765 3781])
+            ("RPC_IS_ASYNC" variable (:constant-flag t) nil [3836 3848])
+            ("RPC_IS_SWAPPER" variable (:constant-flag t) nil [3894 3908])
+            ("RPC_DO_ROOTOVERRIDE" variable (:constant-flag t) nil [3955 3974])
+            ("RPC_ASSASSINATED" variable (:constant-flag t) nil [4023 4039])
+            ("RPC_IS_SOFT" variable (:constant-flag t) nil [4085 4096])
+            ("RPC_IS_SOFTCONN" variable (:constant-flag t) nil [4160 4175])
+            ("RPC_WAS_SENT" variable (:constant-flag t) nil [4223 4235])
+            ("RPC_TASK_RUNNING" variable (:constant-flag t) nil [4281 4297])
+            ("RPC_TASK_QUEUED" variable (:constant-flag t) nil [4308 4323])
+            ("RPC_TASK_ACTIVE" variable (:constant-flag t) nil [4335 4350])
+            ("RPC_IS_RUNNING" variable (:constant-flag t) nil [4363 4377])
+            ("rpc_set_running" variable (:constant-flag t) nil [4435 4450])
+            ("rpc_test_and_set_running" variable (:constant-flag t) nil [4507 4531])
+            ("rpc_clear_running" variable (:constant-flag t) nil [4603 4620])
+            ("RPC_IS_QUEUED" variable (:constant-flag t) nil [4771 4784])
+            ("rpc_set_queued" variable (:constant-flag t) nil [4841 4855])
+            ("rpc_clear_queued" variable (:constant-flag t) nil [4911 4927])
+            ("RPC_IS_ACTIVATED" variable (:constant-flag t) nil [5077 5093])
+            ("RPC_PRIORITY_LOW" variable (:constant-flag t) nil [5275 5291])
+            ("RPC_PRIORITY_NORMAL" variable (:constant-flag t) nil [5305 5324])
+            ("RPC_PRIORITY_HIGH" variable (:constant-flag t) nil [5337 5354])
+            ("RPC_PRIORITY_PRIVILEGED" variable (:constant-flag t) nil [5367 5390])
+            ("RPC_NR_PRIORITY" variable (:constant-flag t) nil [5403 5418])
+            ("rpc_timer" type
+               (:members 
+                  ( ("timer" variable (:type ("timer_list" type
+                         (:prototype t
+                          :type "struct")
+                          nil nil)) (reparse-symbol classsubparts) [5490 5514])
+                    ("list" variable (:type ("list_head" type
+                         (:prototype t
+                          :type "struct")
+                          nil nil)) (reparse-symbol classsubparts) [5516 5538])
+                    ("expires" variable (:type "unsigned long") (reparse-symbol classsubparts) [5540 5562]))                  
+                :type "struct")
+                nil [5470 5565])
+            ("rpc_wait_queue" type
+               (:members 
+                  ( ("lock" variable (:type ("spinlock_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [5630 5647])
+                    ("tasks" variable
+                       (:dereference 1
+                        :type ("list_head" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol classsubparts) [5649 5689])
+                    ("owner" variable (:type ("pid_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [5732 5746])
+                    ("maxpriority" variable (:type "unsigned char") (reparse-symbol classsubparts) [5789 5816])
+                    ("priority" variable (:type "unsigned char") (reparse-symbol classsubparts) [5879 5903])
+                    ("count" variable (:type "unsigned char") (reparse-symbol classsubparts) [5929 5950])
+                    ("nr" variable (:type "unsigned char") (reparse-symbol classsubparts) [6000 6018])
+                    ("qlen" variable (:type "unsigned short") (reparse-symbol classsubparts) [6057 6078])
+                    ("timer_list" variable (:type ("rpc_timer" type
+                         (:prototype t
+                          :type "struct")
+                          nil nil)) (reparse-symbol classsubparts) [6119 6147]))                  
+                :type "struct")
+                nil [5605 6195])
+            ("RPC_BATCH_COUNT" variable (:constant-flag t) nil [6361 6376])
+            ("RPC_IS_PRIORITY" variable (:constant-flag t) nil [6390 6405])
+            ("rpc_new_task" function
+               (:prototype-flag t
+                :pointer 1
+                :arguments 
+                  ( ("" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("rpc_task_setup" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [6494 6524]))                  
+                :type ("rpc_task" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [6464 6525])
+            ("rpc_run_task" function
+               (:prototype-flag t
+                :pointer 1
+                :arguments 
+                  ( ("" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("rpc_task_setup" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [6556 6586]))                  
+                :type ("rpc_task" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [6526 6587])
+            ("rpc_run_bc_task" function
+               (:prototype-flag t
+                :pointer 1
+                :arguments 
+                  ( ("req" variable
+                       (:pointer 1
+                        :type ("rpc_rqst" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [6621 6642])
+                    ("ops" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("rpc_call_ops" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [6647 6678]))                  
+                :type ("rpc_task" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [6588 6679])
+            ("rpc_put_task" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable
+                       (:pointer 1
+                        :type ("rpc_task" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [6699 6717]))                  
+                :type "void")
+                nil [6680 6718])
+            ("rpc_put_task_async" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable
+                       (:pointer 1
+                        :type ("rpc_task" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [6744 6762]))                  
+                :type "void")
+                nil [6719 6763])
+            ("rpc_exit_task" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable
+                       (:pointer 1
+                        :type ("rpc_task" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [6784 6802]))                  
+                :type "void")
+                nil [6764 6803])
+            ("rpc_exit" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable
+                       (:pointer 1
+                        :type ("rpc_task" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [6819 6837])
+                    ("" variable (:type "int") (reparse-symbol arg-sub-list) [6838 6842]))                  
+                :type "void")
+                nil [6804 6843])
+            ("rpc_release_calldata" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("rpc_call_ops" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [6871 6899])
+                    ("" variable
+                       (:pointer 1
+                        :type "void")
+                        (reparse-symbol arg-sub-list) [6900 6907]))                  
+                :type "void")
+                nil [6844 6908])
+            ("rpc_killall_tasks" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable
+                       (:pointer 1
+                        :type ("rpc_clnt" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [6933 6951]))                  
+                :type "void")
+                nil [6909 6952])
+            ("rpc_execute" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable
+                       (:pointer 1
+                        :type ("rpc_task" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [6971 6989]))                  
+                :type "void")
+                nil [6953 6990])
+            ("rpc_init_priority_wait_queue" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable
+                       (:pointer 1
+                        :type ("rpc_wait_queue" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [7026 7050])
+                    ("" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [7051 7064]))                  
+                :type "void")
+                nil [6991 7065])
+            ("rpc_init_wait_queue" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable
+                       (:pointer 1
+                        :type ("rpc_wait_queue" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [7092 7116])
+                    ("" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [7117 7130]))                  
+                :type "void")
+                nil [7066 7131])
+            ("rpc_destroy_wait_queue" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable
+                       (:pointer 1
+                        :type ("rpc_wait_queue" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [7161 7185]))                  
+                :type "void")
+                nil [7132 7186])
+            ("rpc_sleep_on" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable
+                       (:pointer 1
+                        :type ("rpc_wait_queue" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [7206 7230])
+                    ("" variable
+                       (:pointer 1
+                        :type ("rpc_task" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [7231 7249])
+                    ("action" variable (:type ("rpc_action" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [7255 7273]))                  
+                :type "void")
+                nil [7187 7274])
+            ("rpc_wake_up_queued_task" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable
+                       (:pointer 1
+                        :type ("rpc_wait_queue" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [7305 7329])
+                    ("" variable
+                       (:pointer 1
+                        :type ("rpc_task" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [7335 7353]))                  
+                :type "void")
+                nil [7275 7354])
+            ("rpc_wake_up" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable
+                       (:pointer 1
+                        :type ("rpc_wait_queue" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [7373 7397]))                  
+                :type "void")
+                nil [7355 7398])
+            ("rpc_wake_up_next" function
+               (:prototype-flag t
+                :pointer 1
+                :arguments 
+                  ( ("" variable
+                       (:pointer 1
+                        :type ("rpc_wait_queue" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [7433 7457]))                  
+                :type ("rpc_task" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [7399 7458])
+            ("rpc_wake_up_status" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable
+                       (:pointer 1
+                        :type ("rpc_wait_queue" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [7484 7508])
+                    ("" variable (:type "int") (reparse-symbol arg-sub-list) [7509 7513]))                  
+                :type "void")
+                nil [7459 7514])
+            ("rpc_queue_empty" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable
+                       (:pointer 1
+                        :type ("rpc_wait_queue" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [7536 7560]))                  
+                :type "int")
+                nil [7515 7561])
+            ("rpc_delay" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable
+                       (:pointer 1
+                        :type ("rpc_task" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [7578 7596])
+                    ("" variable (:type "unsigned long") (reparse-symbol arg-sub-list) [7597 7611]))                  
+                :type "void")
+                nil [7562 7612])
+            ("rpc_malloc" function
+               (:prototype-flag t
+                :pointer 1
+                :arguments 
+                  ( ("" variable
+                       (:pointer 1
+                        :type ("rpc_task" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [7632 7650])
+                    ("" variable (:type ("size_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [7651 7658]))                  
+                :type "void")
+                nil [7613 7659])
+            ("rpc_free" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable
+                       (:pointer 1
+                        :type "void")
+                        (reparse-symbol arg-sub-list) [7675 7682]))                  
+                :type "void")
+                nil [7660 7683])
+            ("rpciod_up" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [7699 7704]))                  
+                :type "int")
+                nil [7684 7705])
+            ("rpciod_down" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [7724 7729]))                  
+                :type "void")
+                nil [7706 7730])
+            ("__rpc_wait_for_completion_task" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("task" variable
+                       (:pointer 1
+                        :type ("rpc_task" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [7767 7789])
+                    ("" variable (:type "int") (reparse-symbol arg-sub-list) [7790 7797]))                  
+                :type "int")
+                nil [7731 7807])
+            ("rpc_init_mempool" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [7882 7887]))                  
+                :type "int")
+                nil [7860 7888])
+            ("rpc_destroy_mempool" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [7915 7920]))                  
+                :type "void")
+                nil [7889 7921])
+            ("rpciod_workqueue" variable
+               (:pointer 1
+                :typemodifiers ("extern")
+                :type ("workqueue_struct" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [7922 7971])
+            ("rpc_prepare_task" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("task" variable
+                       (:pointer 1
+                        :type ("rpc_task" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [7995 8017]))                  
+                :type "void")
+                nil [7972 8018])
+            ("rpc_wait_for_completion_task" function
+               (:typemodifiers ("static" "inline")
+                :arguments 
+                  ( ("task" variable
+                       (:pointer 1
+                        :type ("rpc_task" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [8067 8089]))                  
+                :type "int")
+                nil [8020 8145])
+            ("rpc_task_set_priority" function
+               (:typemodifiers ("static" "inline")
+                :arguments 
+                  ( ("task" variable
+                       (:pointer 1
+                        :type ("rpc_task" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [8188 8210])
+                    ("prio" variable (:type "unsigned char") (reparse-symbol arg-sub-list) [8211 8230]))                  
+                :type "void")
+                nil [8147 8280])
+            ("rpc_task_has_priority" function
+               (:typemodifiers ("static" "inline")
+                :arguments 
+                  ( ("task" variable
+                       (:pointer 1
+                        :type ("rpc_task" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [8322 8344])
+                    ("prio" variable (:type "unsigned char") (reparse-symbol arg-sub-list) [8345 8364]))                  
+                :type "int")
+                nil [8282 8424]))          
+    :file "sched.h"
+    :pointmax 8602
+    :fsize 8601
+    :lastmodtime '(21468 9196 915596 315000)
+    :unmatched-syntax '((semantic-list 7797 . 7805) (semantic-list 7794 . 7797) (TYPEDEF 2736 . 2743))
+    :lexical-table 
+        '(("RPC_CALL_MAJORSEEN" . ((number "0x0020" 3381 . 3387)))
+          ("RPC_IS_SWAPPER" (spp-arg-list ("t") 3908 . 3911) . ((semantic-list "((t)->tk_flags & RPC_TASK_SWAPPER)" 3912 . 3946)))
+          ("RPC_IS_PRIORITY" (spp-arg-list ("q") 6405 . 6408) . ((semantic-list "((q)->maxpriority > 0)" 6410 . 6432)))
+          ("RPC_TASK_ROOTCREDS" . ((number "0x0040" 3441 . 3447)))
+          ("RPC_TASK_DYNAMIC" . ((number "0x0080" 3497 . 3503)))
+          ("RPC_TASK_RUNNING" . ((number "0" 4298 . 4299)))
+          ("_LINUX_SUNRPC_SCHED_H_")
+          ("RPC_IS_ASYNC" (spp-arg-list ("t") 3848 . 3851) . ((semantic-list "((t)->tk_flags & RPC_TASK_ASYNC)" 3853 . 3885)))
+          ("RPC_TASK_ACTIVE" . ((number "2" 4352 . 4353)))
+          ("rpc_set_running" (spp-arg-list ("t") 4450 . 4453) . ((symbol "set_bit" 4454 . 4461) (semantic-list "(RPC_TASK_RUNNING, &(t)->tk_runstate)" 4461 . 4498)))
+          ("RPC_PRIORITY_LOW" . ((semantic-list "(-1)" 5292 . 5296)))
+          ("task_for_first" (spp-arg-list ("task" "head") 2616 . 2628) . ((IF "if" 2632 . 2634) (semantic-list "(!list_empty(head) &&  \\
+	    ((task=list_entry((head)->next, struct rpc_task, u.tk_wait.list)),1))" 2635 . 2734)))
+          ("RPC_TASK_SENT" . ((number "0x0800" 3726 . 3732)))
+          ("RPC_ASSASSINATED" (spp-arg-list ("t") 4039 . 4042) . ((semantic-list "((t)->tk_flags & RPC_TASK_KILLED)" 4043 . 4076)))
+          ("rpc_set_queued" (spp-arg-list ("t") 4855 . 4858) . ((symbol "set_bit" 4859 . 4866) (semantic-list "(RPC_TASK_QUEUED, &(t)->tk_runstate)" 4866 . 4902)))
+          ("RPC_PRIORITY_HIGH" . ((semantic-list "(1)" 5355 . 5358)))
+          ("RPC_PRIORITY_PRIVILEGED" . ((semantic-list "(2)" 5391 . 5394)))
+          ("RPC_NR_PRIORITY" . ((semantic-list "(1 + RPC_PRIORITY_PRIVILEGED - RPC_PRIORITY_LOW)" 5420 . 5468)))
+          ("RPC_TASK_ASYNC" . ((number "0x0001" 3265 . 3271)))
+          ("RPC_TASK_SWAPPER" . ((number "0x0002" 3321 . 3327)))
+          ("RPC_TASK_SOFT" . ((number "0x0200" 3609 . 3615)))
+          ("RPC_IS_SOFT" (spp-arg-list ("t") 4096 . 4099) . ((semantic-list "((t)->tk_flags & (RPC_TASK_SOFT|RPC_TASK_TIMEOUT))" 4101 . 4151)))
+          ("RPC_IS_SOFTCONN" (spp-arg-list ("t") 4175 . 4178) . ((semantic-list "((t)->tk_flags & RPC_TASK_SOFTCONN)" 4179 . 4214)))
+          ("RPC_IS_QUEUED" (spp-arg-list ("t") 4784 . 4787) . ((symbol "test_bit" 4788 . 4796) (semantic-list "(RPC_TASK_QUEUED, &(t)->tk_runstate)" 4796 . 4832)))
+          ("RPC_PRIORITY_NORMAL" . ((semantic-list "(0)" 5325 . 5328)))
+          ("RPC_DO_ROOTOVERRIDE" (spp-arg-list ("t") 3974 . 3977) . ((semantic-list "((t)->tk_flags & RPC_TASK_ROOTCREDS)" 3978 . 4014)))
+          ("RPC_WAS_SENT" (spp-arg-list ("t") 4235 . 4238) . ((semantic-list "((t)->tk_flags & RPC_TASK_SENT)" 4240 . 4271)))
+          ("RPC_IS_ACTIVATED" (spp-arg-list ("t") 5093 . 5096) . ((symbol "test_bit" 5097 . 5105) (semantic-list "(RPC_TASK_ACTIVE, &(t)->tk_runstate)" 5105 . 5141)))
+          ("RPC_TASK_QUEUED" . ((number "1" 4325 . 4326)))
+          ("rpc_test_and_set_running" (spp-arg-list ("t") 4531 . 4534) . ((symbol "test_and_set_bit" 4541 . 4557) (semantic-list "(RPC_TASK_RUNNING, &(t)->tk_runstate)" 4557 . 4594)))
+          ("RPC_TASK_TIMEOUT" . ((number "0x1000" 3782 . 3788)))
+          ("RPC_IS_RUNNING" (spp-arg-list ("t") 4377 . 4380) . ((symbol "test_bit" 4381 . 4389) (semantic-list "(RPC_TASK_RUNNING, &(t)->tk_runstate)" 4389 . 4426)))
+          ("rpc_clear_running" (spp-arg-list ("t") 4620 . 4623) . 
+              ((DO "do" 4627 . 4629) (semantic-list "{ \\
+		smp_mb__before_clear_bit(); \\
+		clear_bit(RPC_TASK_RUNNING, &(t)->tk_runstate); \\
+		smp_mb__after_clear_bit(); \\
+	}" 4630 . 4751) (WHILE "while" 4752 . 4757) (semantic-list "(0)" 4758 . 4761)))
+          ("RPC_BATCH_COUNT" . ((number "16" 6379 . 6381)))
+          ("task_for_each" (spp-arg-list ("task" "pos" "head") 2480 . 2497) . 
+              ((symbol "list_for_each" 2501 . 2514) (semantic-list "(pos, head)" 2514 . 2525) (IF "if" 2530 . 2532) (semantic-list "((task=list_entry(pos, struct rpc_task, u.tk_wait.list)),1)" 2533 . 2592)))
+          ("tk_xprt" . 
+              ((symbol "tk_client" 2385 . 2394) (punctuation "-" 2394 . 2395) (punctuation ">" 2395 . 2396) (symbol "cl_xprt" 2396 . 2403)))
+          ("RPC_TASK_KILLED" . ((number "0x0100" 3556 . 3562)))
+          ("RPC_TASK_SOFTCONN" . ((number "0x0400" 3667 . 3673)))
+          ("rpc_clear_queued" (spp-arg-list ("t") 4927 . 4930) . 
+              ((DO "do" 4934 . 4936) (semantic-list "{ \\
+		smp_mb__before_clear_bit(); \\
+		clear_bit(RPC_TASK_QUEUED, &(t)->tk_runstate); \\
+		smp_mb__after_clear_bit(); \\
+	}" 4937 . 5057) (WHILE "while" 5058 . 5063) (semantic-list "(0)" 5064 . 5067)))
+          )
+
+    )
+   (semanticdb-table "xdr.h"
+    :major-mode 'c-mode
+    :tags nil
+    :file "xdr.h"
+    :pointmax 7780
+    :fsize 7779
+    :lastmodtime '(21468 9197 10594 65000)
+    :unmatched-syntax 'nil
+    )
+   (semanticdb-table "msg_prot.h"
+    :file "msg_prot.h"
+    :fsize 6078
+    :lastmodtime '(21468 9196 887596 978000)
+    )
+   (semanticdb-table "types.h"
+    :file "types.h"
+    :fsize 426
+    :lastmodtime '(21468 9197 3594 231000)
+    )
+   )
+  :file "!home!chz!linux-3.0.8!include!linux!sunrpc!semantic.cache"
+  :semantic-tag-version "2.0"
+  :semanticdb-version "2.2"
+  )

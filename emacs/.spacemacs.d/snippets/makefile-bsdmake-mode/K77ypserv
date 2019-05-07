@@ -1,0 +1,439 @@
+;; Object net/
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "net/"
+  :tables (list 
+   (semanticdb-table "flow.h"
+    :major-mode 'c-mode
+    :tags 
+        '( ("_NET_FLOW_H" variable (:constant-flag t) nil [69 80])
+            ("linux/in6.h" include (:system-flag t) nil [82 104])
+            ("asm/atomic.h" include (:system-flag t) nil [105 128])
+            ("flowi_common" type
+               (:members 
+                  ( ("flowic_oif" variable (:type "int") (reparse-symbol classsubparts) [153 168])
+                    ("flowic_iif" variable (:type "int") (reparse-symbol classsubparts) [170 185])
+                    ("flowic_mark" variable (:type ("__u32" type (:type "class") nil nil)) (reparse-symbol classsubparts) [187 205])
+                    ("flowic_tos" variable (:type ("__u8" type (:type "class") nil nil)) (reparse-symbol classsubparts) [207 223])
+                    ("flowic_scope" variable (:type ("__u8" type (:type "class") nil nil)) (reparse-symbol classsubparts) [225 243])
+                    ("flowic_proto" variable (:type ("__u8" type (:type "class") nil nil)) (reparse-symbol classsubparts) [245 263])
+                    ("flowic_flags" variable (:type ("__u8" type (:type "class") nil nil)) (reparse-symbol classsubparts) [265 283])
+                    ("FLOWI_FLAG_ANYSRC" variable (:constant-flag t) (reparse-symbol classsubparts) [292 309])
+                    ("FLOWI_FLAG_PRECOW_METRICS" variable (:constant-flag t) (reparse-symbol classsubparts) [324 349])
+                    ("FLOWI_FLAG_CAN_SLEEP" variable (:constant-flag t) (reparse-symbol classsubparts) [363 383])
+                    ("flowic_secid" variable (:type ("__u32" type (:type "class") nil nil)) (reparse-symbol classsubparts) [391 410]))                  
+                :type "struct")
+                nil [130 413])
+            ("flowi_uli" type
+               (:members 
+                  ( ("ports" variable (:type ("" type
+                         (:members 
+                            ( ("dport" variable (:type ("__be16" type (:type "class") nil nil)) (reparse-symbol classsubparts) [445 458])
+                              ("sport" variable (:type ("__be16" type (:type "class") nil nil)) (reparse-symbol classsubparts) [461 474]))                            
+                          :type "struct")
+                          nil nil)) (reparse-symbol classsubparts) [434 484])
+                    ("icmpt" variable (:type ("" type
+                         (:members 
+                            ( ("type" variable (:type ("__u8" type (:type "class") nil nil)) (reparse-symbol classsubparts) [498 508])
+                              ("code" variable (:type ("__u8" type (:type "class") nil nil)) (reparse-symbol classsubparts) [511 521]))                            
+                          :type "struct")
+                          nil nil)) (reparse-symbol classsubparts) [487 531])
+                    ("dnports" variable (:type ("" type
+                         (:members 
+                            ( ("dport" variable (:type ("__le16" type (:type "class") nil nil)) (reparse-symbol classsubparts) [545 558])
+                              ("sport" variable (:type ("__le16" type (:type "class") nil nil)) (reparse-symbol classsubparts) [561 574]))                            
+                          :type "struct")
+                          nil nil)) (reparse-symbol classsubparts) [534 586])
+                    ("spi" variable (:type ("__be32" type (:type "class") nil nil)) (reparse-symbol classsubparts) [589 601])
+                    ("gre_key" variable (:type ("__be32" type (:type "class") nil nil)) (reparse-symbol classsubparts) [603 619])
+                    ("mht" variable (:type ("" type
+                         (:members 
+                            ( ("type" variable (:type ("__u8" type (:type "class") nil nil)) (reparse-symbol classsubparts) [633 643]))                            
+                          :type "struct")
+                          nil nil)) (reparse-symbol classsubparts) [622 651]))                  
+                :type "union")
+                nil [415 654])
+            ("flowi4" type
+               (:members 
+                  ( ("__fl_common" variable (:type ("flowi_common" type
+                         (:prototype t
+                          :type "struct")
+                          nil nil)) (reparse-symbol classsubparts) [673 705])
+                    ("flowi4_oif" variable (:constant-flag t) (reparse-symbol classsubparts) [714 724])
+                    ("flowi4_iif" variable (:constant-flag t) (reparse-symbol classsubparts) [757 767])
+                    ("flowi4_mark" variable (:constant-flag t) (reparse-symbol classsubparts) [800 811])
+                    ("flowi4_tos" variable (:constant-flag t) (reparse-symbol classsubparts) [845 855])
+                    ("flowi4_scope" variable (:constant-flag t) (reparse-symbol classsubparts) [888 900])
+                    ("flowi4_proto" variable (:constant-flag t) (reparse-symbol classsubparts) [935 947])
+                    ("flowi4_flags" variable (:constant-flag t) (reparse-symbol classsubparts) [982 994])
+                    ("flowi4_secid" variable (:constant-flag t) (reparse-symbol classsubparts) [1029 1041])
+                    ("daddr" variable (:type ("__be32" type (:type "class") nil nil)) (reparse-symbol classsubparts) [1069 1084])
+                    ("saddr" variable (:type ("__be32" type (:type "class") nil nil)) (reparse-symbol classsubparts) [1086 1101])
+                    ("uli" variable (:type ("flowi_uli" type (:type "union") nil nil)) (reparse-symbol classsubparts) [1103 1124])
+                    ("fl4_sport" variable (:constant-flag t) (reparse-symbol classsubparts) [1133 1142])
+                    ("fl4_dport" variable (:constant-flag t) (reparse-symbol classsubparts) [1168 1177])
+                    ("fl4_icmp_type" variable (:constant-flag t) (reparse-symbol classsubparts) [1203 1216])
+                    ("fl4_icmp_code" variable (:constant-flag t) (reparse-symbol classsubparts) [1241 1254])
+                    ("fl4_ipsec_spi" variable (:constant-flag t) (reparse-symbol classsubparts) [1279 1292])
+                    ("fl4_mh_type" variable (:constant-flag t) (reparse-symbol classsubparts) [1310 1321])
+                    ("fl4_gre_key" variable (:constant-flag t) (reparse-symbol classsubparts) [1344 1355]))                  
+                :type "struct")
+                nil [656 1371])
+            ("flowi4_init_output" function
+               (:typemodifiers ("static" "inline")
+                :arguments 
+                  ( ("fl4" variable
+                       (:pointer 1
+                        :type ("flowi4" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [1411 1430])
+                    ("oif" variable (:type "int") (reparse-symbol arg-sub-list) [1431 1439])
+                    ("mark" variable (:type ("__u32" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [1450 1461])
+                    ("tos" variable (:type ("__u8" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [1462 1471])
+                    ("scope" variable (:type ("__u8" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [1472 1483])
+                    ("proto" variable (:type ("__u8" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [1494 1505])
+                    ("flags" variable (:type ("__u8" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [1506 1517])
+                    ("daddr" variable (:type ("__be32" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [1528 1541])
+                    ("saddr" variable (:type ("__be32" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [1542 1555])
+                    ("dport" variable (:type ("__be16" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [1566 1579])
+                    ("sport" variable (:type ("__be32" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [1580 1593]))                  
+                :type "void")
+                nil [1373 1893])
+            ("flowi6" type
+               (:members 
+                  ( ("__fl_common" variable (:type ("flowi_common" type
+                         (:prototype t
+                          :type "struct")
+                          nil nil)) (reparse-symbol classsubparts) [1923 1955])
+                    ("flowi6_oif" variable (:constant-flag t) (reparse-symbol classsubparts) [1964 1974])
+                    ("flowi6_iif" variable (:constant-flag t) (reparse-symbol classsubparts) [2007 2017])
+                    ("flowi6_mark" variable (:constant-flag t) (reparse-symbol classsubparts) [2050 2061])
+                    ("flowi6_tos" variable (:constant-flag t) (reparse-symbol classsubparts) [2095 2105])
+                    ("flowi6_scope" variable (:constant-flag t) (reparse-symbol classsubparts) [2138 2150])
+                    ("flowi6_proto" variable (:constant-flag t) (reparse-symbol classsubparts) [2185 2197])
+                    ("flowi6_flags" variable (:constant-flag t) (reparse-symbol classsubparts) [2232 2244])
+                    ("flowi6_secid" variable (:constant-flag t) (reparse-symbol classsubparts) [2279 2291])
+                    ("daddr" variable (:type ("in6_addr" type
+                         (:prototype t
+                          :type "struct")
+                          nil nil)) (reparse-symbol classsubparts) [2319 2342])
+                    ("saddr" variable (:type ("in6_addr" type
+                         (:prototype t
+                          :type "struct")
+                          nil nil)) (reparse-symbol classsubparts) [2344 2367])
+                    ("flowlabel" variable (:type ("__be32" type (:type "class") nil nil)) (reparse-symbol classsubparts) [2369 2388])
+                    ("uli" variable (:type ("flowi_uli" type (:type "union") nil nil)) (reparse-symbol classsubparts) [2390 2411])
+                    ("fl6_sport" variable (:constant-flag t) (reparse-symbol classsubparts) [2420 2429])
+                    ("fl6_dport" variable (:constant-flag t) (reparse-symbol classsubparts) [2455 2464])
+                    ("fl6_icmp_type" variable (:constant-flag t) (reparse-symbol classsubparts) [2490 2503])
+                    ("fl6_icmp_code" variable (:constant-flag t) (reparse-symbol classsubparts) [2528 2541])
+                    ("fl6_ipsec_spi" variable (:constant-flag t) (reparse-symbol classsubparts) [2566 2579])
+                    ("fl6_mh_type" variable (:constant-flag t) (reparse-symbol classsubparts) [2597 2608])
+                    ("fl6_gre_key" variable (:constant-flag t) (reparse-symbol classsubparts) [2631 2642]))                  
+                :type "struct")
+                nil [1906 2658])
+            ("flowidn" type
+               (:members 
+                  ( ("__fl_common" variable (:type ("flowi_common" type
+                         (:prototype t
+                          :type "struct")
+                          nil nil)) (reparse-symbol classsubparts) [2678 2710])
+                    ("flowidn_oif" variable (:constant-flag t) (reparse-symbol classsubparts) [2719 2730])
+                    ("flowidn_iif" variable (:constant-flag t) (reparse-symbol classsubparts) [2763 2774])
+                    ("flowidn_mark" variable (:constant-flag t) (reparse-symbol classsubparts) [2807 2819])
+                    ("flowidn_scope" variable (:constant-flag t) (reparse-symbol classsubparts) [2853 2866])
+                    ("flowidn_proto" variable (:constant-flag t) (reparse-symbol classsubparts) [2901 2914])
+                    ("flowidn_flags" variable (:constant-flag t) (reparse-symbol classsubparts) [2949 2962])
+                    ("daddr" variable (:type ("__le16" type (:type "class") nil nil)) (reparse-symbol classsubparts) [2990 3005])
+                    ("saddr" variable (:type ("__le16" type (:type "class") nil nil)) (reparse-symbol classsubparts) [3007 3022])
+                    ("uli" variable (:type ("flowi_uli" type (:type "union") nil nil)) (reparse-symbol classsubparts) [3024 3045])
+                    ("fld_sport" variable (:constant-flag t) (reparse-symbol classsubparts) [3054 3063])
+                    ("fld_dport" variable (:constant-flag t) (reparse-symbol classsubparts) [3089 3098]))                  
+                :type "struct")
+                nil [2660 3118])
+            ("flowi" type
+               (:members 
+                  ( ("u" variable (:type ("" type
+                         (:members 
+                            ( ("__fl_common" variable (:type ("flowi_common" type
+                                   (:prototype t
+                                    :type "struct")
+                                    nil nil)) (reparse-symbol classsubparts) [3146 3178])
+                              ("ip4" variable (:type ("flowi4" type
+                                   (:prototype t
+                                    :type "struct")
+                                    nil nil)) (reparse-symbol classsubparts) [3181 3200])
+                              ("ip6" variable (:type ("flowi6" type
+                                   (:prototype t
+                                    :type "struct")
+                                    nil nil)) (reparse-symbol classsubparts) [3203 3222])
+                              ("dn" variable (:type ("flowidn" type
+                                   (:prototype t
+                                    :type "struct")
+                                    nil nil)) (reparse-symbol classsubparts) [3225 3244]))                            
+                          :type "union")
+                          nil nil)) (reparse-symbol classsubparts) [3136 3250])
+                    ("flowi_oif" variable (:constant-flag t) (reparse-symbol classsubparts) [3259 3268])
+                    ("flowi_iif" variable (:constant-flag t) (reparse-symbol classsubparts) [3302 3311])
+                    ("flowi_mark" variable (:constant-flag t) (reparse-symbol classsubparts) [3345 3355])
+                    ("flowi_tos" variable (:constant-flag t) (reparse-symbol classsubparts) [3390 3399])
+                    ("flowi_scope" variable (:constant-flag t) (reparse-symbol classsubparts) [3433 3444])
+                    ("flowi_proto" variable (:constant-flag t) (reparse-symbol classsubparts) [3480 3491])
+                    ("flowi_flags" variable (:constant-flag t) (reparse-symbol classsubparts) [3527 3538])
+                    ("flowi_secid" variable (:constant-flag t) (reparse-symbol classsubparts) [3574 3585]))                  
+                :type "struct")
+                nil [3120 3661])
+            ("flowi4_to_flowi" function
+               (:pointer 1
+                :typemodifiers ("static" "inline")
+                :arguments 
+                  ( ("fl4" variable
+                       (:pointer 1
+                        :type ("flowi4" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [3707 3726]))                  
+                :type ("flowi" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [3663 3778])
+            ("flowi6_to_flowi" function
+               (:pointer 1
+                :typemodifiers ("static" "inline")
+                :arguments 
+                  ( ("fl6" variable
+                       (:pointer 1
+                        :type ("flowi6" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [3824 3843]))                  
+                :type ("flowi" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [3780 3895])
+            ("flowidn_to_flowi" function
+               (:pointer 1
+                :typemodifiers ("static" "inline")
+                :arguments 
+                  ( ("fldn" variable
+                       (:pointer 1
+                        :type ("flowidn" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [3942 3963]))                  
+                :type ("flowi" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [3897 4015])
+            ("FLOW_DIR_IN" variable (:constant-flag t) nil [4025 4036])
+            ("FLOW_DIR_OUT" variable (:constant-flag t) nil [4047 4059])
+            ("FLOW_DIR_FWD" variable (:constant-flag t) nil [4070 4082])
+            ("net" type
+               (:prototype t
+                :type "struct")
+                nil [4086 4097])
+            ("sock" type
+               (:prototype t
+                :type "struct")
+                nil [4098 4110])
+            ("flow_cache_ops" type
+               (:prototype t
+                :type "struct")
+                nil [4111 4133])
+            ("flow_cache_object" type
+               (:members 
+                  ( ("ops" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("flow_cache_ops" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol classsubparts) [4163 4196]))                  
+                :type "struct")
+                nil [4135 4199])
+            ("flow_cache_ops" type
+               (:members 
+                  ( ("get" variable
+                       (:functionpointer-flag t
+                        :type ("flow_cache_object" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol classsubparts) [4226 4287])
+                    ("check" variable
+                       (:functionpointer-flag t
+                        :type "int")
+                        (reparse-symbol classsubparts) [4289 4330]))                  
+                :type "struct")
+                nil [4201 4378])
+            ("flow_resolve_t" variable
+               (:functionpointer-flag t
+                :type ("flow_cache_object" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [4388 4544])
+            ("flow_cache_lookup" function
+               (:prototype-flag t
+                :pointer 1
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("net" variable
+                       (:pointer 1
+                        :type ("net" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [4600 4616])
+                    ("key" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("flowi" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [4617 4641])
+                    ("family" variable (:type ("u16" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [4642 4653])
+                    ("dir" variable (:type ("u8" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [4656 4663])
+                    ("resolver" variable (:type ("flow_resolve_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [4664 4688])
+                    ("ctx" variable
+                       (:pointer 1
+                        :type "void")
+                        (reparse-symbol arg-sub-list) [4689 4699]))                  
+                :type ("flow_cache_object" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [4546 4700])
+            ("flow_cache_flush" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [4731 4736]))                  
+                :type "void")
+                nil [4702 4737])
+            ("flow_cache_genid" variable
+               (:typemodifiers ("extern")
+                :type ("atomic_t" type (:type "class") nil nil))
+                nil [4738 4771]))          
+    :file "flow.h"
+    :pointmax 4780
+    :fsize 4779
+    :lastmodtime '(21468 9208 317326 364000)
+    :unmatched-syntax '((TYPEDEF 4380 . 4387) (punctuation 4374 . 4375) (semantic-list 4346 . 4374) (semantic-list 4337 . 4346) (VOID 4332 . 4336))
+    :lexical-table 
+        '(("flowidn_iif" . 
+              ((symbol "__fl_common" 2776 . 2787) (punctuation "." 2787 . 2788) (symbol "flowic_iif" 2788 . 2798)))
+          ("flowi_mark" . 
+              ((symbol "u" 3356 . 3357) (punctuation "." 3357 . 3358) (symbol "__fl_common" 3358 . 3369) (punctuation "." 3369 . 3370) (symbol "flowic_mark" 3370 . 3381)))
+          ("flowi4_iif" . 
+              ((symbol "__fl_common" 769 . 780) (punctuation "." 780 . 781) (symbol "flowic_iif" 781 . 791)))
+          ("flowi4_tos" . 
+              ((symbol "__fl_common" 857 . 868) (punctuation "." 868 . 869) (symbol "flowic_tos" 869 . 879)))
+          ("fl4_sport" . 
+              ((symbol "uli" 1144 . 1147) (punctuation "." 1147 . 1148) (symbol "ports" 1148 . 1153) (punctuation "." 1153 . 1154) (symbol "sport" 1154 . 1159)))
+          ("fl6_gre_key" . 
+              ((symbol "uli" 2644 . 2647) (punctuation "." 2647 . 2648) (symbol "gre_key" 2648 . 2655)))
+          ("fl4_icmp_type" . 
+              ((symbol "uli" 1218 . 1221) (punctuation "." 1221 . 1222) (symbol "icmpt" 1222 . 1227) (punctuation "." 1227 . 1228) (symbol "type" 1228 . 1232)))
+          ("fl4_icmp_code" . 
+              ((symbol "uli" 1256 . 1259) (punctuation "." 1259 . 1260) (symbol "icmpt" 1260 . 1265) (punctuation "." 1265 . 1266) (symbol "code" 1266 . 1270)))
+          ("flowidn_oif" . 
+              ((symbol "__fl_common" 2732 . 2743) (punctuation "." 2743 . 2744) (symbol "flowic_oif" 2744 . 2754)))
+          ("fld_sport" . 
+              ((symbol "uli" 3065 . 3068) (punctuation "." 3068 . 3069) (symbol "ports" 3069 . 3074) (punctuation "." 3074 . 3075) (symbol "sport" 3075 . 3080)))
+          ("FLOW_DIR_IN" . ((number "0" 4037 . 4038)))
+          ("flowi4_oif" . 
+              ((symbol "__fl_common" 726 . 737) (punctuation "." 737 . 738) (symbol "flowic_oif" 738 . 748)))
+          ("fl6_sport" . 
+              ((symbol "uli" 2431 . 2434) (punctuation "." 2434 . 2435) (symbol "ports" 2435 . 2440) (punctuation "." 2440 . 2441) (symbol "sport" 2441 . 2446)))
+          ("fl6_ipsec_spi" . 
+              ((symbol "uli" 2581 . 2584) (punctuation "." 2584 . 2585) (symbol "spi" 2585 . 2588)))
+          ("flowi4_mark" . 
+              ((symbol "__fl_common" 813 . 824) (punctuation "." 824 . 825) (symbol "flowic_mark" 825 . 836)))
+          ("flowi4_scope" . 
+              ((symbol "__fl_common" 902 . 913) (punctuation "." 913 . 914) (symbol "flowic_scope" 914 . 926)))
+          ("flowi4_flags" . 
+              ((symbol "__fl_common" 996 . 1007) (punctuation "." 1007 . 1008) (symbol "flowic_flags" 1008 . 1020)))
+          ("FLOWI_FLAG_CAN_SLEEP" . ((number "0x04" 385 . 389)))
+          ("fl4_mh_type" . 
+              ((symbol "uli" 1323 . 1326) (punctuation "." 1326 . 1327) (symbol "mht" 1327 . 1330) (punctuation "." 1330 . 1331) (symbol "type" 1331 . 1335)))
+          ("_NET_FLOW_H")
+          ("flowi4_proto" . 
+              ((symbol "__fl_common" 949 . 960) (punctuation "." 960 . 961) (symbol "flowic_proto" 961 . 973)))
+          ("flowi4_secid" . 
+              ((symbol "__fl_common" 1043 . 1054) (punctuation "." 1054 . 1055) (symbol "flowic_secid" 1055 . 1067)))
+          ("flowi6_scope" . 
+              ((symbol "__fl_common" 2152 . 2163) (punctuation "." 2163 . 2164) (symbol "flowic_scope" 2164 . 2176)))
+          ("flowi6_flags" . 
+              ((symbol "__fl_common" 2246 . 2257) (punctuation "." 2257 . 2258) (symbol "flowic_flags" 2258 . 2270)))
+          ("flowidn_scope" . 
+              ((symbol "__fl_common" 2868 . 2879) (punctuation "." 2879 . 2880) (symbol "flowic_scope" 2880 . 2892)))
+          ("flowidn_flags" . 
+              ((symbol "__fl_common" 2964 . 2975) (punctuation "." 2975 . 2976) (symbol "flowic_flags" 2976 . 2988)))
+          ("flowi6_iif" . 
+              ((symbol "__fl_common" 2019 . 2030) (punctuation "." 2030 . 2031) (symbol "flowic_iif" 2031 . 2041)))
+          ("flowi6_tos" . 
+              ((symbol "__fl_common" 2107 . 2118) (punctuation "." 2118 . 2119) (symbol "flowic_tos" 2119 . 2129)))
+          ("fl6_icmp_type" . 
+              ((symbol "uli" 2505 . 2508) (punctuation "." 2508 . 2509) (symbol "icmpt" 2509 . 2514) (punctuation "." 2514 . 2515) (symbol "type" 2515 . 2519)))
+          ("fl6_icmp_code" . 
+              ((symbol "uli" 2543 . 2546) (punctuation "." 2546 . 2547) (symbol "icmpt" 2547 . 2552) (punctuation "." 2552 . 2553) (symbol "code" 2553 . 2557)))
+          ("fl6_mh_type" . 
+              ((symbol "uli" 2610 . 2613) (punctuation "." 2613 . 2614) (symbol "mht" 2614 . 2617) (punctuation "." 2617 . 2618) (symbol "type" 2618 . 2622)))
+          ("fl4_dport" . 
+              ((symbol "uli" 1179 . 1182) (punctuation "." 1182 . 1183) (symbol "ports" 1183 . 1188) (punctuation "." 1188 . 1189) (symbol "dport" 1189 . 1194)))
+          ("flowi6_proto" . 
+              ((symbol "__fl_common" 2199 . 2210) (punctuation "." 2210 . 2211) (symbol "flowic_proto" 2211 . 2223)))
+          ("flowi6_secid" . 
+              ((symbol "__fl_common" 2293 . 2304) (punctuation "." 2304 . 2305) (symbol "flowic_secid" 2305 . 2317)))
+          ("flowidn_proto" . 
+              ((symbol "__fl_common" 2916 . 2927) (punctuation "." 2927 . 2928) (symbol "flowic_proto" 2928 . 2940)))
+          ("flowi6_oif" . 
+              ((symbol "__fl_common" 1976 . 1987) (punctuation "." 1987 . 1988) (symbol "flowic_oif" 1988 . 1998)))
+          ("flowi6_mark" . 
+              ((symbol "__fl_common" 2063 . 2074) (punctuation "." 2074 . 2075) (symbol "flowic_mark" 2075 . 2086)))
+          ("fld_dport" . 
+              ((symbol "uli" 3100 . 3103) (punctuation "." 3103 . 3104) (symbol "ports" 3104 . 3109) (punctuation "." 3109 . 3110) (symbol "dport" 3110 . 3115)))
+          ("flowi_iif" . 
+              ((symbol "u" 3312 . 3313) (punctuation "." 3313 . 3314) (symbol "__fl_common" 3314 . 3325) (punctuation "." 3325 . 3326) (symbol "flowic_iif" 3326 . 3336)))
+          ("flowi_tos" . 
+              ((symbol "u" 3400 . 3401) (punctuation "." 3401 . 3402) (symbol "__fl_common" 3402 . 3413) (punctuation "." 3413 . 3414) (symbol "flowic_tos" 3414 . 3424)))
+          ("flowi_scope" . 
+              ((symbol "u" 3445 . 3446) (punctuation "." 3446 . 3447) (symbol "__fl_common" 3447 . 3458) (punctuation "." 3458 . 3459) (symbol "flowic_scope" 3459 . 3471)))
+          ("flowi_flags" . 
+              ((symbol "u" 3539 . 3540) (punctuation "." 3540 . 3541) (symbol "__fl_common" 3541 . 3552) (punctuation "." 3552 . 3553) (symbol "flowic_flags" 3553 . 3565)))
+          ("fl6_dport" . 
+              ((symbol "uli" 2466 . 2469) (punctuation "." 2469 . 2470) (symbol "ports" 2470 . 2475) (punctuation "." 2475 . 2476) (symbol "dport" 2476 . 2481)))
+          ("flowidn_mark" . 
+              ((symbol "__fl_common" 2821 . 2832) (punctuation "." 2832 . 2833) (symbol "flowic_mark" 2833 . 2844)))
+          ("FLOWI_FLAG_PRECOW_METRICS" . ((number "0x02" 350 . 354)))
+          ("fl4_ipsec_spi" . 
+              ((symbol "uli" 1294 . 1297) (punctuation "." 1297 . 1298) (symbol "spi" 1298 . 1301)))
+          ("flowi_oif" . 
+              ((symbol "u" 3269 . 3270) (punctuation "." 3270 . 3271) (symbol "__fl_common" 3271 . 3282) (punctuation "." 3282 . 3283) (symbol "flowic_oif" 3283 . 3293)))
+          ("flowi_proto" . 
+              ((symbol "u" 3492 . 3493) (punctuation "." 3493 . 3494) (symbol "__fl_common" 3494 . 3505) (punctuation "." 3505 . 3506) (symbol "flowic_proto" 3506 . 3518)))
+          ("flowi_secid" . 
+              ((symbol "u" 3586 . 3587) (punctuation "." 3587 . 3588) (symbol "__fl_common" 3588 . 3599) (punctuation "." 3599 . 3600) (symbol "flowic_secid" 3600 . 3612)))
+          ("FLOW_DIR_OUT" . ((number "1" 4060 . 4061)))
+          ("FLOW_DIR_FWD" . ((number "2" 4083 . 4084)))
+          ("FLOWI_FLAG_ANYSRC" . ((number "0x01" 311 . 315)))
+          ("fl4_gre_key" . 
+              ((symbol "uli" 1357 . 1360) (punctuation "." 1360 . 1361) (symbol "gre_key" 1361 . 1368)))
+          )
+
+    )
+   )
+  :file "!home!chz!linux-3.0.8!include!net!semantic.cache"
+  :semantic-tag-version "2.0"
+  :semanticdb-version "2.2"
+  )

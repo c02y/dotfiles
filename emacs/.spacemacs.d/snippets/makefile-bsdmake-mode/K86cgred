@@ -1,0 +1,149 @@
+;; Object perf/
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "perf/"
+  :tables (list 
+   (semanticdb-table "perf.h"
+    :major-mode 'c-mode
+    :tags 
+        '( ("_PERF_PERF_H" variable (:constant-flag t) nil [30 42])
+            ("winsize" type
+               (:prototype t
+                :type "struct")
+                nil [44 59])
+            ("get_term_dimensions" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("ws" variable
+                       (:pointer 1
+                        :type ("winsize" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [86 105]))                  
+                :type "void")
+                nil [61 106])
+            ("../../arch/x86/include/asm/unistd.h" include nil nil [130 176])
+            ("rmb" variable (:constant-flag t) nil [185 188])
+            ("cpu_relax" variable (:constant-flag t) nil [252 261])
+            ("time.h" include (:system-flag t) nil [2410 2427])
+            ("unistd.h" include (:system-flag t) nil [2428 2447])
+            ("sys/types.h" include (:system-flag t) nil [2448 2470])
+            ("sys/syscall.h" include (:system-flag t) nil [2471 2495])
+            ("../../include/linux/perf_event.h" include nil nil [2497 2540])
+            ("util/types.h" include nil nil [2541 2564])
+            ("stdbool.h" include (:system-flag t) nil [2565 2585])
+            ("perf_mmap" type
+               (:members 
+                  ( ("base" variable
+                       (:pointer 1
+                        :type "void")
+                        (reparse-symbol classsubparts) [2607 2620])
+                    ("mask" variable (:type "int") (reparse-symbol classsubparts) [2622 2633])
+                    ("prev" variable (:type "unsigned int") (reparse-symbol classsubparts) [2635 2654]))                  
+                :type "struct")
+                nil [2587 2657])
+            ("perf_mmap__read_head" function
+               (:typemodifiers ("static" "inline")
+                :arguments 
+                  ( ("mm" variable
+                       (:pointer 1
+                        :type ("perf_mmap" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [2707 2728]))                  
+                :type "unsigned int")
+                nil [2659 2826])
+            ("perf_mmap__write_tail" function
+               (:typemodifiers ("static" "inline")
+                :arguments 
+                  ( ("md" variable
+                       (:pointer 1
+                        :type ("perf_mmap" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [2869 2890])
+                    ("tail" variable (:type "unsigned long") (reparse-symbol arg-sub-list) [2897 2916]))                  
+                :type "void")
+                nil [2828 3071])
+            ("PR_TASK_PERF_EVENTS_DISABLE" variable (:constant-flag t) nil [3186 3213])
+            ("PR_TASK_PERF_EVENTS_ENABLE" variable (:constant-flag t) nil [3227 3253])
+            ("NSEC_PER_SEC" variable (:constant-flag t) nil [3291 3303])
+            ("rdclock" function
+               (:typemodifiers ("static" "inline")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [3369 3374]))                  
+                :type "unsigned long long")
+                nil [3328 3486])
+            ("__user" variable (:constant-flag t) nil [3544 3550])
+            ("asmlinkage" variable (:constant-flag t) nil [3559 3569])
+            ("unlikely" variable (:constant-flag t) nil [3579 3587])
+            ("min" variable (:constant-flag t) nil [3626 3629])
+            ("sys_perf_event_open" function
+               (:typemodifiers ("static" "inline")
+                :arguments 
+                  ( ("attr" variable
+                       (:pointer 1
+                        :type ("perf_event_attr" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [3805 3834])
+                    ("pid" variable (:type ("pid_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [3843 3853])
+                    ("cpu" variable (:type "int") (reparse-symbol arg-sub-list) [3854 3862])
+                    ("group_fd" variable (:type "int") (reparse-symbol arg-sub-list) [3863 3876])
+                    ("flags" variable (:type "unsigned long") (reparse-symbol arg-sub-list) [3885 3905]))                  
+                :type "int")
+                nil [3767 4019])
+            ("MAX_COUNTERS" variable (:constant-flag t) nil [4029 4041])
+            ("MAX_NR_CPUS" variable (:constant-flag t) nil [4056 4067])
+            ("ip_callchain" type
+               (:members 
+                  ( ("nr" variable (:type ("u64" type (:type "class") nil nil)) (reparse-symbol classsubparts) [4098 4105])
+                    ("ips" variable
+                       (:dereference 1
+                        :type ("u64" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [4107 4118]))                  
+                :type "struct")
+                nil [4075 4121])
+            ("perf_guest" variable
+               (:typemodifiers ("extern")
+                :type "bool")
+                nil [4123 4157])
+            ("perf_host" variable
+               (:typemodifiers ("extern")
+                :type "bool")
+                nil [4123 4157]))          
+    :file "perf.h"
+    :pointmax 4166
+    :fsize 4165
+    :lastmodtime '(21468 9250 16339 87000)
+    :unmatched-syntax 'nil
+    :lexical-table 
+        '(("MAX_COUNTERS" . ((number "256" 4044 . 4047)))
+          ("min" (spp-arg-list ("x" "y") 3629 . 3635) . ((semantic-list "({				\\
+	typeof(x) _min1 = (x);			\\
+	typeof(y) _min2 = (y);			\\
+	(void) (&_min1 == &_min2);		\\
+	_min1 < _min2 ? _min1 : _min2; })" 3636 . 3765)))
+          ("cpu_relax" (spp-arg-list nil 261 . 263) . 
+              ((symbol "asm" 264 . 267) (VOLATILE "volatile" 268 . 276) (semantic-list "(\"rep; nop\" ::: \"memory\")" 276 . 301) (punctuation ";" 301 . 302)))
+          ("PR_TASK_PERF_EVENTS_DISABLE" . ((number "31" 3216 . 3218)))
+          ("__user")
+          ("asmlinkage")
+          ("_PERF_PERF_H")
+          ("NSEC_PER_SEC" . ((symbol "1000000000ULL" 3306 . 3319)))
+          ("unlikely" (spp-arg-list ("x") 3587 . 3590) . ((symbol "__builtin_expect" 3591 . 3607) (semantic-list "(!!(x), 0)" 3607 . 3617)))
+          ("MAX_NR_CPUS" . ((number "256" 4070 . 4073)))
+          ("rmb" (spp-arg-list nil 188 . 190) . 
+              ((symbol "asm" 192 . 195) (VOLATILE "volatile" 196 . 204) (semantic-list "(\"lock; addl $0,0(%%esp)\" ::: \"memory\")" 204 . 243)))
+          ("PR_TASK_PERF_EVENTS_ENABLE" . ((number "32" 3257 . 3259)))
+          )
+
+    )
+   )
+  :file "!home!chz!linux-3.0.8!tools!perf!semantic.cache"
+  :semantic-tag-version "2.0"
+  :semanticdb-version "2.2"
+  )

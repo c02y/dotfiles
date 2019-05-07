@@ -1,0 +1,366 @@
+;; Object bplus_tree/
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "bplus_tree/"
+  :tables (list 
+   (semanticdb-table "bplus_tree.c"
+    :major-mode 'c-mode
+    :tags 
+        '( ("stdio.h" include (:system-flag t) nil [178 196])
+            ("stdlib.h" include (:system-flag t) nil [197 216])
+            ("assert.h" include (:system-flag t) nil [217 236])
+            ("string.h" include (:system-flag t) nil [237 256])
+            ("DEGREE" variable (:constant-flag t) nil [266 272])
+            ("ENTRIES" variable (:constant-flag t) nil [290 297])
+            ("MAX_LEVEL" variable (:constant-flag t) nil [315 324])
+            ("" type
+               (:members 
+                  ( ("BPLUS_TREE_LEAF" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [347 363])
+                    ("BPLUS_TREE_NON_LEAF" variable
+                       (:constant-flag t
+                        :default-value (394 395)
+                        :type "int")
+                        (reparse-symbol enumsubparts) [372 395]))                  
+                :type "enum")
+                nil [332 399])
+            ("" type
+               (:members 
+                  ( ("BORROW_FROM_LEFT" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [416 433])
+                    ("BORROW_FROM_RIGHT" variable
+                       (:constant-flag t
+                        :default-value (462 463)
+                        :type "int")
+                        (reparse-symbol enumsubparts) [442 463]))                  
+                :type "enum")
+                nil [401 467])
+            ("node" type
+               (:members 
+                  ( ("type" variable (:type "int") (reparse-symbol classsubparts) [491 500])
+                    ("parent" variable
+                       (:pointer 1
+                        :type ("non_leaf" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol classsubparts) [509 533]))                  
+                :type "struct")
+                nil [469 536])
+            ("non_leaf" type
+               (:members 
+                  ( ("type" variable (:type "int") (reparse-symbol classsubparts) [564 573])
+                    ("parent" variable
+                       (:pointer 1
+                        :type ("non_leaf" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol classsubparts) [582 606])
+                    ("next" variable
+                       (:pointer 1
+                        :type ("non_leaf" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol classsubparts) [615 637])
+                    ("children" variable (:type "int") (reparse-symbol classsubparts) [646 659])
+                    ("key" variable
+                       (:dereference 1
+                        :type "int")
+                        (reparse-symbol classsubparts) [668 688])
+                    ("sub_ptr" variable
+                       (:pointer 1
+                        :dereference 1
+                        :type ("node" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol classsubparts) [697 726]))                  
+                :type "struct")
+                nil [538 729])
+            ("leaf" type
+               (:members 
+                  ( ("type" variable (:type "int") (reparse-symbol classsubparts) [753 762])
+                    ("parent" variable
+                       (:pointer 1
+                        :type ("non_leaf" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol classsubparts) [771 795])
+                    ("next" variable
+                       (:pointer 1
+                        :type ("leaf" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol classsubparts) [804 822])
+                    ("entries" variable (:type "int") (reparse-symbol classsubparts) [831 843])
+                    ("key" variable
+                       (:dereference 1
+                        :type "int")
+                        (reparse-symbol classsubparts) [852 869])
+                    ("data" variable
+                       (:dereference 1
+                        :type "int")
+                        (reparse-symbol classsubparts) [878 896]))                  
+                :type "struct")
+                nil [731 899])
+            ("tree" type
+               (:members 
+                  ( ("root" variable
+                       (:pointer 1
+                        :type ("node" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol classsubparts) [923 941])
+                    ("head" variable
+                       (:pointer 1
+                        :dereference 1
+                        :type ("node" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol classsubparts) [950 979]))                  
+                :type "struct")
+                nil [901 982])
+            ("bplus_tree" variable
+               (:pointer 1
+                :typemodifiers ("static")
+                :type ("tree" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [984 1015])
+            ("key_binary_search" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("arr" variable
+                       (:pointer 1
+                        :type "int")
+                        (reparse-symbol arg-sub-list) [1046 1055])
+                    ("len" variable (:type "int") (reparse-symbol arg-sub-list) [1056 1064])
+                    ("target" variable (:type "int") (reparse-symbol arg-sub-list) [1065 1076]))                  
+                :type "int")
+                nil [1017 1507])
+            ("non_leaf_new" function
+               (:pointer 1
+                :typemodifiers ("static")
+                :type ("non_leaf" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [1509 1908])
+            ("leaf_new" function
+               (:pointer 1
+                :typemodifiers ("static")
+                :type ("leaf" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [1910 2275])
+            ("non_leaf_delete" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("node" variable
+                       (:pointer 1
+                        :type ("non_leaf" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [2305 2327]))                  
+                :type "void")
+                nil [2277 2351])
+            ("leaf_delete" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("node" variable
+                       (:pointer 1
+                        :type ("leaf" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [2377 2395]))                  
+                :type "void")
+                nil [2353 2419])
+            ("bplus_tree_search" function
+               (:arguments 
+                  ( ("tree" variable
+                       (:pointer 1
+                        :type ("tree" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [2443 2461])
+                    ("key" variable (:type "int") (reparse-symbol arg-sub-list) [2462 2470]))                  
+                :type "int")
+                nil [2421 3740])
+            ("non_leaf_insert" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("tree" variable
+                       (:pointer 1
+                        :type ("tree" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [3770 3788])
+                    ("node" variable
+                       (:pointer 1
+                        :type ("non_leaf" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [3789 3811])
+                    ("sub_node" variable
+                       (:pointer 1
+                        :type ("node" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [3812 3834])
+                    ("key" variable (:type "int") (reparse-symbol arg-sub-list) [3835 3843])
+                    ("level" variable (:type "int") (reparse-symbol arg-sub-list) [3844 3854]))                  
+                :type "void")
+                nil [3742 9118])
+            ("leaf_insert" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("tree" variable
+                       (:pointer 1
+                        :type ("tree" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [9144 9162])
+                    ("leaf" variable
+                       (:pointer 1
+                        :type ("leaf" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [9163 9181])
+                    ("key" variable (:type "int") (reparse-symbol arg-sub-list) [9182 9190])
+                    ("data" variable (:type "int") (reparse-symbol arg-sub-list) [9191 9200]))                  
+                :type "void")
+                nil [9120 12802])
+            ("bplus_tree_insert" function
+               (:arguments 
+                  ( ("tree" variable
+                       (:pointer 1
+                        :type ("tree" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [12827 12845])
+                    ("key" variable (:type "int") (reparse-symbol arg-sub-list) [12846 12854])
+                    ("data" variable (:type "int") (reparse-symbol arg-sub-list) [12855 12864]))                  
+                :type "void")
+                nil [12804 14227])
+            ("non_leaf_remove" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("tree" variable
+                       (:pointer 1
+                        :type ("tree" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [14257 14275])
+                    ("node" variable
+                       (:pointer 1
+                        :type ("non_leaf" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [14276 14298])
+                    ("remove" variable (:type "int") (reparse-symbol arg-sub-list) [14299 14310])
+                    ("level" variable (:type "int") (reparse-symbol arg-sub-list) [14311 14321]))                  
+                :type "void")
+                nil [14229 22878])
+            ("leaf_remove" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("tree" variable
+                       (:pointer 1
+                        :type ("tree" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [22904 22922])
+                    ("leaf" variable
+                       (:pointer 1
+                        :type ("leaf" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [22923 22941])
+                    ("key" variable (:type "int") (reparse-symbol arg-sub-list) [22942 22950]))                  
+                :type "void")
+                nil [22880 31072])
+            ("bplus_tree_delete" function
+               (:arguments 
+                  ( ("tree" variable
+                       (:pointer 1
+                        :type ("tree" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [31097 31115])
+                    ("key" variable (:type "int") (reparse-symbol arg-sub-list) [31116 31124]))                  
+                :type "void")
+                nil [31074 32158])
+            ("bplus_tree_dump" function
+               (:arguments 
+                  ( ("tree" variable
+                       (:pointer 1
+                        :type ("tree" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [32181 32199]))                  
+                :type "void")
+                nil [32160 33372])
+            ("get" function
+               (:arguments 
+                  ( ("key" variable (:type "int") (reparse-symbol arg-sub-list) [33382 33390]))                  
+                :type "int")
+                nil [33374 33566])
+            ("put" function
+               (:arguments 
+                  ( ("key" variable (:type "int") (reparse-symbol arg-sub-list) [33577 33585])
+                    ("data" variable (:type "int") (reparse-symbol arg-sub-list) [33586 33595]))                  
+                :type "void")
+                nil [33568 33756])
+            ("init" function
+               (:arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [33768 33773]))                  
+                :type "void")
+                nil [33758 34076])
+            ("main" function
+               (:arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [34087 34092]))                  
+                :type "int")
+                nil [34078 36901]))          
+    :file "bplus_tree.c"
+    :pointmax 36902
+    :fsize 36952
+    :lastmodtime '(21585 35973 273541 451000)
+    :unmatched-syntax 'nil
+    :lexical-table 
+        '(("MAX_LEVEL" . ((number "5" 329 . 330)))
+          ("DEGREE" . ((number "7" 280 . 281)))
+          ("ENTRIES" . ((number "10" 304 . 306)))
+          )
+
+    )
+   )
+  :file "!home!chz!Projects!CWork!bplus_tree!semantic.cache"
+  :semantic-tag-version "2.0"
+  :semanticdb-version "2.2"
+  )

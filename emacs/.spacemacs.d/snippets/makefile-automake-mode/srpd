@@ -1,0 +1,213 @@
+;; Object lisp/
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "lisp/"
+  :tables
+  (list
+    (semanticdb-table "shell.el"
+      :major-mode 'emacs-lisp-mode
+      :tags 
+        '( ("comint" include nil nil [4332 4349])
+            ("pcomplete" include nil nil [4350 4370])
+            ("shell" customgroup (:user-visible-flag t) nil [4412 4512])
+            ("shell-directories" customgroup (:user-visible-flag t) nil [4514 4599])
+            ("shell-dumb-shell-regexp" variable (:default-value (purecopy "cmd\\(proxy\\)?\\.exe")) nil [4711 5097])
+            ("shell-prompt-pattern" variable (:default-value "^[^#$%>
+]*[#$%>] *") nil [5099 5739])
+            ("shell-completion-fignore" variable nil nil [5741 6089])
+            ("shell-delimiter-argument-list" variable (:default-value (quote (124 38 60 62 40 41 59))) nil [6091 6459])
+            ("shell-file-name-chars" variable (:default-value (if (memq system-type (quote (ms-dos windows-nt cygwin))) "~/A-Za-z0-9_^$!#%&{}@`'.,:()-" "[]~/A-Za-z0-9+@:_.$#%,={}-")) nil [6461 6836])
+            ("shell-file-name-quote-list" variable (:default-value (if (memq system-type (quote (ms-dos windows-nt))) nil (append shell-delimiter-argument-list (quote (32 36 42 33 34 39 96 35 92))))) nil [6838 7254])
+            ("shell-dynamic-complete-functions" variable (:default-value (quote (comint-c-a-p-replace-by-expanded-history shell-environment-variable-completion shell-command-completion shell-c-a-p-replace-by-expanded-directory pcomplete-completions-at-point shell-filename-completion comint-filename-completion))) nil [7256 7747])
+            ("shell-command-regexp" variable (:default-value "[^;&|
+]+") nil [7749 7948])
+            ("shell-command-separator-regexp" variable (:default-value "[;&|
+ 	]*") nil [7950 8161])
+            ("shell-completion-execonly" variable (:default-value t) nil [8163 8424])
+            ("shell-popd-regexp" variable (:default-value "popd") nil [8426 8564])
+            ("shell-pushd-regexp" variable (:default-value "pushd") nil [8566 8707])
+            ("shell-pushd-tohome" variable nil nil [8709 8904])
+            ("shell-pushd-dextract" variable nil nil [8906 9099])
+            ("shell-pushd-dunique" variable nil nil [9101 9294])
+            ("shell-cd-regexp" variable (:default-value "cd") nil [9296 9428])
+            ("shell-chdrive-regexp" variable (:default-value (if (memq system-type (quote (ms-dos windows-nt))) "[]a-zA-Z^_`\\[\\\\]:" nil)) nil [9430 9744])
+            ("shell-dirtrack-verbose" variable (:default-value t) nil [9746 10067])
+            ("explicit-shell-file-name" variable nil nil [10069 10249])
+            ("explicit-csh-args" variable (:default-value (if (eq system-type (quote hpux)) (quote ("-i" "-T")) (quote ("-i")))) nil [10393 10766])
+            ("explicit-bash-args" variable (:default-value (quote ("--noediting" "-i"))) nil [10924 11280])
+            ("shell-input-autoexpand" variable (:default-value (quote history)) nil [11282 11905])
+            ("shell-dirstack" variable nil nil [11907 12056])
+            ("shell-dirtrackp" variable (:default-value t) nil [12058 12151])
+            ("shell-last-dir" variable nil nil [12153 12237])
+            ("shell-dirstack-query" variable nil nil [12239 12332])
+            ("shell-mode-map" variable (:default-value (let ((map (nconc (make-sparse-keymap) comint-mode-map))) (define-key map "" (quote shell-forward-command)) (define-key map "" (quote shell-backward-command)) (define-key map "	" (quote completion-at-point)) (define-key map (kbd "M-RET") (quote shell-resync-dirs)) (define-key map "\277" (quote comint-dynamic-list-filename-completions)) (define-key map [menu-bar completion] (cons "Complete" (copy-keymap (lookup-key comint-mode-map [menu-bar completion])))) (define-key-after (lookup-key map [menu-bar completion]) [complete-env-variable] (quote ("Complete Env. Variable Name" . shell-dynamic-complete-environment-variable)) (quote complete-file)) (define-key-after (lookup-key map [menu-bar completion]) [expand-directory] (quote ("Expand Directory Reference" . shell-replace-by-expanded-directory)) (quote complete-expand)) map)) nil [12334 13227])
+            ("shell-mode-hook" variable (:default-value (quote nil)) nil [13229 13327])
+            ("shell-font-lock-keywords" variable (:default-value (quote (("[ 	]\\([+-][^ 	
+]+\\)" 1 font-lock-comment-face) ("^[^ 	
+]+:.*" . font-lock-string-face) ("^\\[[1-9][0-9]*\\]" . font-lock-string-face)))) nil [13329 13573])
+            ("shell--unquote&requote-argument" function (:arguments ("qstr" "upos")) nil [13597 15323])
+            ("shell--unquote-argument" function (:arguments ("str")) nil [15325 15408])
+            ("shell--requote-argument" function (:arguments ("upos" "qstr")) nil [15409 15589])
+            ("shell--parse-pcomplete-arguments" function nil nil [15591 17224])
+            ("shell-command-completion-function" function nil nil [17226 17578])
+            ("shell-completion-vars" function nil nil [17580 19245])
+            ("put" code nil nil [19247 19285])
+            ("define-derived-mode" code nil nil [19287 24647])
+            ("shell-apply-ansi-color" function (:arguments ("beg" "end" "face")) nil [24649 24887])
+            ("shell-reapply-ansi-color" function nil nil [24889 25386])
+            ("shell-filter-ctrl-a-ctrl-b" function (:arguments ("string")) nil [25388 26016])
+            ("shell-write-history-on-exit" function (:arguments ("process" "event")) nil [26018 26615])
+            ("shell" function
+               (:user-visible-flag t
+                :arguments ("buffer"))
+                nil [26632 30604])
+            ("shell-directory-tracker" function (:arguments ("str")) nil [32720 35161])
+            ("shell-unquote-argument" function (:arguments ("string")) nil [35163 36031])
+            ("shell-process-popd" function (:arguments ("arg")) nil [36046 36591])
+            ("shell-prefixed-directory-name" function (:arguments ("dir")) nil [36661 36991])
+            ("shell-process-cd" function (:arguments ("arg")) nil [37005 37327])
+            ("shell-process-pushd" function (:arguments ("arg")) nil [37349 38821])
+            ("shell-extract-num" function (:arguments ("str")) nil [38887 38994])
+            ("defvaralias" code nil nil [38996 39047])
+            ("define-minor-mode" code nil nil [39048 39711])
+            ("define-obsolete-function-alias" code nil nil [39713 39798])
+            ("shell-cd" function (:arguments ("dir")) nil [39800 39971])
+            ("shell-resync-dirs" function (:user-visible-flag t) nil [39973 42355])
+            ("defalias" code nil nil [42389 42424])
+            ("shell-dirstack-message" function nil nil [42702 43552])
+            ("shell-snarf-envar" function (:arguments ("var")) nil [43604 44347])
+            ("shell-copy-environment-variable" function
+               (:user-visible-flag t
+                :arguments ("variable"))
+                nil [44349 44875])
+            ("shell-forward-command" function
+               (:user-visible-flag t
+                :arguments ("arg"))
+                nil [44877 45207])
+            ("shell-backward-command" function
+               (:user-visible-flag t
+                :arguments ("arg"))
+                nil [45210 45722])
+            ("shell-dynamic-complete-command" function (:user-visible-flag t) nil [45724 46435])
+            ("shell-command-completion" function nil nil [46437 46795])
+            ("shell--command-completion-data" function nil nil [46797 48946])
+            ("shell-dynamic-complete-filename" function (:user-visible-flag t) nil [49186 49467])
+            ("shell-filename-completion" function nil nil [49469 49831])
+            ("shell-match-partial-variable" function nil nil [49833 50236])
+            ("shell-dynamic-complete-environment-variable" function (:user-visible-flag t) nil [50238 51192])
+            ("shell-environment-variable-completion" function nil nil [51195 52395])
+            ("shell-c-a-p-replace-by-expanded-directory" function nil nil [52398 53581])
+            ("shell-replace-by-expanded-directory" function (:user-visible-flag t) nil [53583 53914])
+            ("shell" package nil nil [53916 53932]))          
+      :file "shell.el"
+      :pointmax 53957
+      :fsize 53956
+      :lastmodtime '(21788 61018 0 0)
+      :unmatched-syntax nil)
+    (semanticdb-table "comint.el"
+      :file "comint.el"
+      :fsize 162155
+      :lastmodtime '(21788 61018 0 0))
+    (semanticdb-table "pcomplete.el"
+      :file "pcomplete.el"
+      :fsize 51908
+      :lastmodtime '(21710 25077 0 0))
+    (semanticdb-table "align.el"
+      :major-mode 'emacs-lisp-mode
+      :tags 
+        '( ("align" customgroup (:user-visible-flag t) nil [4413 4514])
+            ("align-load-hook" variable nil nil [4537 4656])
+            ("align-indent-before-aligning" variable nil nil [4658 4796])
+            ("align-default-spacing" variable (:default-value 1) nil [4798 5183])
+            ("align-to-tab-stop" variable (:default-value (quote indent-tabs-mode)) nil [5185 5400])
+            ("align-region-heuristic" variable (:default-value 500) nil [5402 5914])
+            ("align-highlight-change-face" variable (:default-value (quote highlight)) nil [5916 6053])
+            ("align-highlight-nochange-face" variable (:default-value (quote secondary-selection)) nil [6055 6207])
+            ("align-large-region" variable (:default-value 10000) nil [6209 6407])
+            ("align-c++-modes" variable (:default-value (quote (c++-mode c-mode java-mode))) nil [6409 6556])
+            ("align-perl-modes" variable (:default-value (quote (perl-mode cperl-mode))) nil [6558 6704])
+            ("align-lisp-modes" variable (:default-value (quote (emacs-lisp-mode lisp-interaction-mode lisp-mode scheme-mode))) nil [6706 6889])
+            ("align-tex-modes" variable (:default-value (quote (tex-mode plain-tex-mode latex-mode slitex-mode))) nil [6891 7072])
+            ("align-text-modes" variable (:default-value (quote (text-mode outline-mode))) nil [7074 7218])
+            ("align-dq-string-modes" variable (:default-value (append align-lisp-modes align-c++-modes align-perl-modes (quote (python-mode)))) nil [7220 7441])
+            ("align-sq-string-modes" variable (:default-value (append align-perl-modes (quote (python-mode)))) nil [7443 7628])
+            ("align-open-comment-modes" variable (:default-value (append align-lisp-modes align-c++-modes align-perl-modes (quote (python-mode makefile-mode)))) nil [7630 7974])
+            ("align-region-separate" variable (:default-value "^\\s-*[{}]?\\s-*$") nil [7976 11436])
+            ("put" code nil nil [11438 11490])
+            ("align-rules-list-type" variable (:default-value (quote (repeat (cons :tag "Alignment rule" (symbol :tag "Title") (cons :tag "Required attributes" (cons :tag "Regexp" (const :tag "(Regular expression to match)" regexp) (choice :value "\\(\\s-+\\)" regexp function)) (repeat :tag "Optional attributes" (choice (cons :tag "Repeat" (const :tag "(Repeat this rule throughout line)" repeat) (boolean :value t)) (cons :tag "Paren group" (const :tag "(Parenthesis group to use)" group) (choice :value 2 integer (repeat integer))) (cons :tag "Modes" (const :tag "(Modes where this rule applies)" modes) (sexp :value (text-mode))) (cons :tag "Case-fold" (const :tag "(Should case be ignored for this rule)" case-fold) (boolean :value t)) (cons :tag "To Tab Stop" (const :tag "(Should rule align to tab stops)" tab-stop) (boolean :value nil)) (cons :tag "Valid" (const :tag "(Return non-nil if rule is valid)" valid) (function :value t)) (cons :tag "Run If" (const :tag "(Return non-nil if rule should run)" run-if) (function :value t)) (cons :tag "Column" (const :tag "(Column to fix alignment at)" column) (choice :value comment-column integer symbol)) (cons :tag "Spacing" (const :tag "(Amount of spacing to use)" spacing) (integer :value 1)) (cons :tag "Justify" (const :tag "(Should text be right justified)" justify) (boolean :value t)) (cons :tag "Separate" (const :tag "(Separation to use for this rule)" separate) (choice :value "^\\s-*$" (const entire) (const group) regexp function))))))))) nil [11492 13437])
+            ("align-rules-list" variable (:default-value (\` ((lisp-second-arg (regexp . "\\(^\\s-+[^( 	
+]\\|(\\(\\S-+\\)\\s-+\\)\\S-+\\(\\s-+\\)") (group . 3) (modes . align-lisp-modes) (run-if \, (function (lambda nil current-prefix-arg)))) (lisp-alist-dot (regexp . "\\(\\s-*\\)\\.\\(\\s-*\\)") (group 1 2) (modes . align-lisp-modes)) (open-comment (regexp \, (function (lambda (end reverse) (funcall (if reverse (quote re-search-backward) (quote re-search-forward)) (concat "[^ 	
+\\\\]" (regexp-quote comment-start) "\\(.+\\)$") end t)))) (modes . align-open-comment-modes)) (c-macro-definition (regexp . "^\\s-*#\\s-*define\\s-+\\S-+\\(\\s-+\\)") (modes . align-c++-modes)) (c-variable-declaration (regexp \, (concat "[*&0-9A-Za-z_]>?[&*]*\\(\\s-+[*&]*\\)" "[A-Za-z_][0-9A-Za-z:_]*\\s-*\\(\\()\\|" "=[^=
+].*\\|(.*)\\|\\(\\[.*\\]\\)*\\)?" "\\s-*[;,]\\|)\\s-*$\\)")) (group . 1) (modes . align-c++-modes) (justify . t) (valid \, (function (lambda nil (not (or (save-excursion (goto-char (match-beginning 1)) (backward-word 1) (looking-at "\\(goto\\|return\\|new\\|delete\\|throw\\)")) (if (and (boundp (quote font-lock-mode)) font-lock-mode) (eq (get-text-property (point) (quote face)) (quote font-lock-comment-face)) (eq (caar (c-guess-basic-syntax)) (quote c))))))))) (c-assignment (regexp \, (concat "[^-=!^&*+<>/| 	
+]\\(\\s-*[-=!^&*+<>/|]*\\)" "=\\(\\s-*\\)\\([^= 	
+]\\|$\\)")) (group 1 2) (modes . align-c++-modes) (justify . t) (tab-stop)) (perl-assignment (regexp \, (concat "[^=!^&*-+<>/| 	
+]\\(\\s-*\\)=[~>]?" "\\(\\s-*\\)\\([^>= 	
+]\\|$\\)")) (group 1 2) (modes . align-perl-modes) (tab-stop)) (python-assignment (regexp \, (concat "[^=!<> 	
+]\\(\\s-*\\)=" "\\(\\s-*\\)\\([^>= 	
+]\\|$\\)")) (group 1 2) (modes quote (python-mode)) (tab-stop)) (make-assignment (regexp . "^\\s-*\\w+\\(\\s-*\\):?=\\(\\s-*\\)\\([^	
+ \\\\]\\|$\\)") (group 1 2) (modes quote (makefile-mode)) (tab-stop)) (c-comma-delimiter (regexp . ",\\(\\s-*\\)[^/ 	
+]") (repeat . t) (modes . align-c++-modes) (run-if \, (function (lambda nil current-prefix-arg)))) (basic-comma-delimiter (regexp . ",\\(\\s-*\\)[^# 	
+]") (repeat . t) (modes append align-perl-modes (quote (python-mode))) (run-if \, (function (lambda nil current-prefix-arg)))) (c++-comment (regexp . "\\(\\s-*\\)\\(//.*\\|/\\*.*\\*/\\s-*\\)$") (modes . align-c++-modes) (column . comment-column) (valid \, (function (lambda nil (save-excursion (goto-char (match-beginning 1)) (not (bolp))))))) (c-chain-logic (regexp . "\\(\\s-*\\)\\(&&\\|||\\|\\<and\\>\\|\\<or\\>\\)") (modes . align-c++-modes) (valid \, (function (lambda nil (save-excursion (goto-char (match-end 2)) (looking-at "\\s-*\\(/[*/]\\|$\\)")))))) (perl-chain-logic (regexp . "\\(\\s-*\\)\\(&&\\|||\\|\\<and\\>\\|\\<or\\>\\)") (modes . align-perl-modes) (valid \, (function (lambda nil (save-excursion (goto-char (match-end 2)) (looking-at "\\s-*\\(#\\|$\\)")))))) (python-chain-logic (regexp . "\\(\\s-*\\)\\(\\<and\\>\\|\\<or\\>\\)") (modes quote (python-mode)) (valid \, (function (lambda nil (save-excursion (goto-char (match-end 2)) (looking-at "\\s-*\\(#\\|$\\|\\\\\\)")))))) (c-macro-line-continuation (regexp . "\\(\\s-*\\)\\\\$") (modes . align-c++-modes) (column . c-backslash-column)) (basic-line-continuation (regexp . "\\(\\s-*\\)\\\\$") (modes quote (python-mode makefile-mode))) (tex-record-separator (regexp \, (function (lambda (end reverse) (align-match-tex-pattern "&" end reverse)))) (group 1 2) (modes . align-tex-modes) (repeat . t)) (tex-tabbing-separator (regexp \, (function (lambda (end reverse) (align-match-tex-pattern "\\\\[=>]" end reverse)))) (group 1 2) (modes . align-tex-modes) (repeat . t) (run-if \, (function (lambda nil (eq major-mode (quote latex-mode)))))) (tex-record-break (regexp . "\\(\\s-*\\)\\\\\\\\") (modes . align-tex-modes)) (text-column (regexp . "\\(^\\|\\S-\\)\\([ 	]+\\)\\(\\S-\\|$\\)") (group . 2) (modes . align-text-modes) (repeat . t) (run-if \, (function (lambda nil (and current-prefix-arg (not (eq (quote -) current-prefix-arg))))))) (text-dollar-figure (regexp . "\\$?\\(\\s-+[0-9]+\\)\\.") (modes . align-text-modes) (justify . t) (run-if \, (function (lambda nil (eq (quote -) current-prefix-arg))))) (css-declaration (regexp . "^\\s-*\\w+:\\(\\s-*\\).*;") (group 1) (modes quote (css-mode html-mode)))))) nil [13439 25871])
+            ("put" code nil nil [25873 25920])
+            ("align-exclude-rules-list-type" variable (:default-value (quote (repeat (cons :tag "Exclusion rule" (symbol :tag "Title") (cons :tag "Required attributes" (cons :tag "Regexp" (const :tag "(Regular expression to match)" regexp) (choice :value "\\(\\s-+\\)" regexp function)) (repeat :tag "Optional attributes" (choice (cons :tag "Repeat" (const :tag "(Repeat this rule throughout line)" repeat) (boolean :value t)) (cons :tag "Paren group" (const :tag "(Parenthesis group to use)" group) (choice :value 2 integer (repeat integer))) (cons :tag "Modes" (const :tag "(Modes where this rule applies)" modes) (sexp :value (text-mode))) (cons :tag "Case-fold" (const :tag "(Should case be ignored for this rule)" case-fold) (boolean :value t))))))))) nil [25922 26829])
+            ("align-exclude-rules-list" variable (:default-value (\` ((exc-dq-string (regexp . "\"\\([^\"
+]+\\)\"") (repeat . t) (modes . align-dq-string-modes)) (exc-sq-string (regexp . "'\\([^'
+]+\\)'") (repeat . t) (modes . align-sq-string-modes)) (exc-open-comment (regexp \, (function (lambda (end reverse) (funcall (if reverse (quote re-search-backward) (quote re-search-forward)) (concat "[^ 	
+\\\\]" (regexp-quote comment-start) "\\(.+\\)$") end t)))) (modes . align-open-comment-modes)) (exc-c-comment (regexp . "/\\*\\(.+\\)\\*/") (repeat . t) (modes . align-c++-modes)) (exc-c-func-params (regexp . "(\\([^)
+]+\\))") (repeat . t) (modes . align-c++-modes)) (exc-c-macro (regexp . "^\\s-*#\\s-*\\(if\\w*\\|endif\\)\\(.*\\)$") (group . 2) (modes . align-c++-modes))))) nil [26831 27912])
+            ("put" code nil nil [27914 27969])
+            ("align-mode-rules-list" variable nil nil [27996 28140])
+            ("make-variable-buffer-local" code nil nil [28142 28193])
+            ("align-mode-exclude-rules-list" variable nil nil [28195 28365])
+            ("make-variable-buffer-local" code nil nil [28367 28426])
+            ("align-highlight-overlays" variable nil nil [28428 28531])
+            ("align-vhdl-rules-list" variable (:default-value (\` ((vhdl-declaration (regexp . "\\(signal\\|variable\\|constant\\)\\(\\s-+\\)\\S-") (group . 2)) (vhdl-case (regexp . "\\(others\\|[^ 	
+=<]\\)\\(\\s-*\\)=>\\(\\s-*\\)\\S-") (group 2 3) (valid \, (function (lambda nil (not (string= (downcase (match-string 1)) "others")))))) (vhdl-colon (regexp . "[^ 	
+:]\\(\\s-*\\):\\(\\s-*\\)[^=
+]") (group 1 2)) (direction (regexp . ":\\s-*\\(in\\|out\\|inout\\|buffer\\)\\(\\s-*\\)") (group . 2)) (sig-assign (regexp . "[^ 	
+=<]\\(\\s-*\\)<=\\(\\s-*\\)\\S-") (group 1 2)) (var-assign (regexp . "[^ 	
+:]\\(\\s-*\\):=")) (use-entity (regexp . "\\(\\s-+\\)use\\s-+entity"))))) nil [28631 29559])
+            ("put" code nil nil [29561 29613])
+            ("align-set-vhdl-rules" function nil nil [29615 29763])
+            ("add-hook" code nil nil [29765 29813])
+            ("add-to-list" code nil nil [29815 29862])
+            ("add-to-list" code nil nil [29863 29913])
+            ("align" function
+               (:user-visible-flag t
+                :arguments ("beg" "end" "separate" "rules" "exclude-rules"))
+                nil [29951 31840])
+            ("align-regexp" function
+               (:user-visible-flag t
+                :arguments ("beg" "end" "regexp" "group" "spacing" "repeat"))
+                nil [31857 34630])
+            ("align-entire" function
+               (:user-visible-flag t
+                :arguments ("beg" "end" "rules" "exclude-rules"))
+                nil [34647 35066])
+            ("align-current" function
+               (:user-visible-flag t
+                :arguments ("rules" "exclude-rules"))
+                nil [35083 35546])
+            ("align-highlight-rule" function
+               (:user-visible-flag t
+                :arguments ("beg" "end" "title" "rules" "exclude-rules"))
+                nil [35563 37253])
+            ("align-unhighlight-rule" function (:user-visible-flag t) nil [37270 37546])
+            ("align-newline-and-indent" function (:user-visible-flag t) nil [37563 38114])
+            ("align-match-tex-pattern" function (:arguments ("regexp" "end" "reverse")) nil [38141 38874])
+            ("align-new-section-p" function (:arguments ("beg" "end" "separator")) nil [38876 39684])
+            ("align-adjust-col-for-rule" function (:arguments ("column" "_rule" "spacing" "tab-stop")) nil [39686 40132])
+            ("align-column" function (:arguments ("pos")) nil [40134 40371])
+            ("align-regions" function (:arguments ("regions" "props" "rule" "func")) nil [40373 40878])
+            ("align-areas" function (:arguments ("areas" "props" "rule" "func")) nil [40880 44315])
+            ("align--set-marker" function (:arguments ("marker-var" "pos" "type")) nil [44317 44614])
+            ("align-region" function (:arguments ("beg" "end" "separate" "rules" "exclude-rules" "func")) nil [44616 59279])
+            ("align" package nil nil [59294 59310])
+            ("run-hooks" code nil nil [59312 59340]))          
+      :file "align.el"
+      :pointmax 59365
+      :fsize 59364
+      :lastmodtime '(21710 25077 0 0)
+      :unmatched-syntax nil))
+  :file "!home!chz!Public!emacs-24.5!lisp!semantic.cache"
+  :semantic-tag-version "2.0"
+  :semanticdb-version "2.2")

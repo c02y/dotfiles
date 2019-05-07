@@ -1,0 +1,181 @@
+;; Object hw_random/
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "hw_random/"
+  :tables (list 
+   (semanticdb-table "virtio-rng.c"
+    :major-mode 'c-mode
+    :tags 
+        '( ("linux/err.h" include (:system-flag t) nil [827 849])
+            ("linux/hw_random.h" include (:system-flag t) nil [850 878])
+            ("linux/scatterlist.h" include (:system-flag t) nil [879 909])
+            ("linux/spinlock.h" include (:system-flag t) nil [910 937])
+            ("linux/virtio.h" include (:system-flag t) nil [938 963])
+            ("linux/virtio_rng.h" include (:system-flag t) nil [964 993])
+            ("vq" variable
+               (:pointer 1
+                :typemodifiers ("static")
+                :type ("virtqueue" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [995 1023])
+            ("data_avail" variable
+               (:typemodifiers ("static")
+                :type "unsigned int")
+                nil [1024 1055])
+            ("DECLARE_COMPLETION" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("" variable (:type ("have_data" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [1082 1092]))                  
+                :type "int")
+                nil [1056 1093])
+            ("busy" variable
+               (:typemodifiers ("static")
+                :type "bool")
+                nil [1094 1111])
+            ("random_recv_done" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("vq" variable
+                       (:pointer 1
+                        :type ("virtqueue" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [1142 1163]))                  
+                :type "void")
+                nil [1113 1312])
+            ("register_buffer" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("buf" variable
+                       (:pointer 1
+                        :type ("u8" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [1419 1427])
+                    ("size" variable (:type ("size_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [1428 1440]))                  
+                :type "void")
+                nil [1391 1630])
+            ("virtio_read" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("rng" variable
+                       (:pointer 1
+                        :type ("hwrng" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [1655 1673])
+                    ("buf" variable
+                       (:pointer 1
+                        :type "void")
+                        (reparse-symbol arg-sub-list) [1674 1684])
+                    ("size" variable (:type ("size_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [1685 1697])
+                    ("wait" variable (:type "bool") (reparse-symbol arg-sub-list) [1698 1708]))                  
+                :type "int")
+                nil [1632 1903])
+            ("virtio_cleanup" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("rng" variable
+                       (:pointer 1
+                        :type ("hwrng" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [1932 1950]))                  
+                :type "void")
+                nil [1905 2000])
+            ("virtio_hwrng" variable
+               (:typemodifiers ("static")
+                :type ("hwrng" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [2003 2113])
+            ("virtrng_probe" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("vdev" variable
+                       (:pointer 1
+                        :type ("virtio_device" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [2140 2167]))                  
+                :type "int")
+                nil [2115 2431])
+            ("virtrng_remove" function
+               (:arguments 
+                  ( ("vdev" variable
+                       (:pointer 1
+                        :type ("virtio_device" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [2470 2497]))                  
+                :type ("__devexit" type (:type "class") nil nil))
+                nil [2445 2593])
+            ("id_table" variable
+               (:dereference 1
+                :typemodifiers ("static")
+                :type ("virtio_device_id" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [2595 2690])
+            ("virtio_rng_driver" variable
+               (:typemodifiers ("static")
+                :type ("virtio_driver" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [2692 2894])
+            ("init" function
+               (:arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [2919 2924]))                  
+                :type ("__init" type (:type "class") nil nil))
+                nil [2907 2980])
+            ("fini" function
+               (:arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [3006 3011]))                  
+                :type ("__exit" type (:type "class") nil nil))
+                nil [2994 3062])
+            ("module_init" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("init" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [3075 3080]))                  
+                :type "int")
+                nil [3063 3081])
+            ("module_exit" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("fini" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [3094 3099]))                  
+                :type "int")
+                nil [3082 3100])
+            ("MODULE_DEVICE_TABLE" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("virtio" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [3122 3129])
+                    ("" variable (:type ("id_table" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [3130 3139]))                  
+                :type "int")
+                nil [3102 3140])
+            ("MODULE_DESCRIPTION" function
+               (:prototype-flag t
+                :type "int")
+                nil [3141 3191])
+            ("MODULE_LICENSE" function
+               (:prototype-flag t
+                :type "int")
+                nil [3192 3214]))          
+    :file "virtio-rng.c"
+    :pointmax 3215
+    :fsize 3214
+    :lastmodtime '(21468 9035 890408 790000)
+    :unmatched-syntax '((string 3207 . 3212) (string 3160 . 3189) (VOID 2989 . 2993) (STATIC 2982 . 2988) (INT 2903 . 2906) (STATIC 2896 . 2902) (VOID 2440 . 2444) (STATIC 2433 . 2439))
+    )
+   )
+  :file "!home!chz!linux-3.0.8!drivers!char!hw_random!semantic.cache"
+  :semantic-tag-version "2.0"
+  :semanticdb-version "2.2"
+  )

@@ -1,0 +1,159 @@
+;; Object helm-20150313.1353/
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "helm-20150313.1353/"
+  :tables
+  (list
+    (semanticdb-table "helm-regexp.el"
+      :major-mode 'emacs-lisp-mode
+      :tags 
+        '( ("cl-lib" include nil nil [837 854])
+            ("helm" include nil nil [855 870])
+            ("helm-utils" include nil nil [871 892])
+            ("helm-plugin" include nil nil [893 915])
+            ("helm-regexp" customgroup (:user-visible-flag t) nil [919 1016])
+            ("helm-moccur-always-search-in-current" variable nil nil [1018 1177])
+            ("helm-moccur-use-ioccur-style-keys" variable (:default-value t) nil [1179 1335])
+            ("helm-moccur-auto-update-on-resume" variable nil nil [1337 2019])
+            ("helm-moccur-buffer" variable
+               (:default-value (quote ((t (:foreground "DarkTurquoise" :underline t))))
+                :type "face")
+                nil [2023 2175])
+            ("helm-resume-need-update" variable
+               (:default-value (quote ((t (:background "red"))))
+                :type "face")
+                nil [2177 2322])
+            ("helm-moccur-map" variable (:default-value (let ((map (make-sparse-keymap))) (set-keymap-parent map helm-map) (define-key map (kbd "M-<down>") (quote helm-goto-next-file)) (define-key map (kbd "M-<up>") (quote helm-goto-precedent-file)) (define-key map (kbd "C-w") (quote helm-yank-text-at-point)) (define-key map (kbd "C-c ?") (quote helm-moccur-help)) (define-key map (kbd "C-c o") (quote helm-moccur-run-goto-line-ow)) (define-key map (kbd "C-c C-o") (quote helm-moccur-run-goto-line-of)) (define-key map (kbd "C-x C-s") (quote helm-moccur-run-save-buffer)) (when helm-moccur-use-ioccur-style-keys (define-key map (kbd "<right>") (quote helm-execute-persistent-action)) (define-key map (kbd "<left>") (quote helm-moccur-run-default-action))) (delq nil map))) nil [2326 3111])
+            ("helm-build-regexp-history" variable nil nil [3115 3153])
+            ("helm-query-replace-regexp" function (:arguments ("_candidate")) nil [3154 3515])
+            ("helm-kill-regexp-as-sexp" function (:arguments ("_candidate")) nil [3517 3687])
+            ("helm-kill-regexp" function (:arguments ("_candidate")) nil [3689 3825])
+            ("helm-query-replace-args" function (:arguments ("regexp")) nil [3827 4394])
+            ("helm-source-regexp" variable (:default-value (quote ((name . "Regexp Builder") (init lambda nil (helm-init-candidates-in-buffer (quote global) (with-temp-buffer (insert-buffer-substring helm-current-buffer) (buffer-string)))) (candidates-in-buffer) (get-line . helm-regexp-get-line) (persistent-action . helm-regexp-persistent-action) (persistent-help . "Show this line") (multiline) (no-matchplugin) (requires-pattern . 2) (mode-line . "Press TAB to select action.") (regexp lambda nil helm-input) (action ("Kill Regexp as sexp" . helm-kill-regexp-as-sexp) ("Query Replace Regexp (C-u Not inside word.)" . helm-query-replace-regexp) ("Kill Regexp" . helm-kill-regexp))))) nil [4396 5226])
+            ("helm-regexp-get-line" function (:arguments ("s" "e")) nil [5228 5862])
+            ("helm-regexp-persistent-action" function (:arguments ("pt")) nil [5864 5960])
+            ("helm-regexp-kill-new" function (:arguments ("input")) nil [5962 6048])
+            ("helm-quote-whitespace" function (:arguments ("candidate")) nil [6050 6194])
+            ("helm-source-occur" variable nil nil [6214 6244])
+            ("helm-occur-init-source" function nil nil [6245 6398])
+            ("helm-multi-occur-buffer-list" variable nil nil [6437 6478])
+            ("helm-multi-occur-buffer-tick" variable nil nil [6479 6520])
+            ("helm-moccur-init" function nil nil [6521 6990])
+            ("helm-moccur--next-or-previous-char" function nil nil [6992 7136])
+            ("helm-moccur-get-line" function (:arguments ("beg" "end")) nil [7138 8346])
+            ("cl-defun" code nil nil [8348 9394])
+            ("helm-moccur-persistent-action" function (:arguments ("candidate")) nil [9396 9513])
+            ("helm-moccur-goto-line" function (:arguments ("candidate")) nil [9515 9766])
+            ("helm-moccur-goto-line-ow" function (:arguments ("candidate")) nil [9776 10055])
+            ("helm-moccur-goto-line-of" function (:arguments ("candidate")) nil [10065 10337])
+            ("helm-moccur-run-goto-line-ow" function (:user-visible-flag t) nil [10347 10550])
+            ("helm-moccur-run-goto-line-of" function (:user-visible-flag t) nil [10552 10752])
+            ("helm-moccur-run-default-action" function nil nil [10754 10891])
+            ("helm-source-moccur" variable nil nil [10893 10924])
+            ("helm-source-multi-occur" type
+               (:superclasses "helm-source-in-buffer"
+                :members 
+                  ( ("init" variable (:default-value "(lambda nil (require (quote helm-grep)) (helm-moccur-init))") nil nil)
+                    ("filter-one-by-one" variable (:default-value "(quote helm-moccur-filter-one-by-one)") nil nil)
+                    ("get-line" variable (:default-value "helm-moccur-get-line") nil nil)
+                    ("nohighlight" variable (:default-value "t") nil nil)
+                    ("migemo" variable (:default-value "t") nil nil)
+                    ("action" variable (:default-value "(quote ((\"Go to Line\" . helm-moccur-goto-line) (\"Goto line other window\" . helm-moccur-goto-line-ow) (\"Goto line new frame\" . helm-moccur-goto-line-of)))") nil nil)
+                    ("persistent-action" variable (:default-value "(quote helm-moccur-persistent-action)") nil nil)
+                    ("persistent-help" variable (:default-value "Go to line") nil nil)
+                    ("recenter" variable (:default-value "t") nil nil)
+                    ("resume" variable (:default-value "(quote helm-moccur-resume-fn)") nil nil)
+                    ("candidate-number-limit" variable (:default-value "9999") nil nil)
+                    ("mode-line" variable (:default-value "helm-moccur-mode-line") nil nil)
+                    ("keymap" variable (:default-value "helm-moccur-map") nil nil)
+                    ("history" variable (:default-value "(quote helm-grep-history)") nil nil)
+                    ("requires-pattern" variable (:default-value "2") nil nil))                  
+                :type "class")
+                nil [10925 11858])
+            ("helm-moccur-resume-fn" function nil nil [11860 14816])
+            ("helm-moccur-filter-one-by-one" function (:arguments ("candidate")) nil [14818 15508])
+            ("helm-multi-occur-1" function (:arguments ("buffers" "input")) nil [15510 16476])
+            ("helm-moccur-run-save-buffer" function (:user-visible-flag t) nil [16493 16686])
+            ("helm-moccur-mode-map" variable (:default-value (let ((map (make-sparse-keymap))) (define-key map (kbd "RET") (quote helm-moccur-mode-goto-line)) (define-key map (kbd "C-o") (quote helm-moccur-mode-goto-line-ow)) (define-key map (kbd "<C-down>") (quote undefined)) (define-key map (kbd "<C-up>") (quote undefined)) (define-key map (kbd "<M-down>") (quote helm-gm-next-file)) (define-key map (kbd "<M-up>") (quote helm-gm-precedent-file)) map)) nil [16717 17143])
+            ("helm-moccur-mode-goto-line" function nil nil [17145 17276])
+            ("helm-moccur-mode-goto-line-ow" function nil nil [17278 17415])
+            ("helm-moccur-save-results" function (:arguments ("_candidate")) nil [17417 18576])
+            ("define-derived-mode" code nil nil [18593 18998])
+            ("helm-moccur-mode--revert-buffer-function" function (:arguments ("_ignore-auto" "_noconfirm")) nil [19000 20760])
+            ("helm-regexp" function (:user-visible-flag t) nil [20810 21365])
+            ("helm-occur" function (:user-visible-flag t) nil [21382 22120])
+            ("helm-occur-from-isearch" function (:user-visible-flag t) nil [22137 22889])
+            ("helm-multi-occur" function
+               (:user-visible-flag t
+                :arguments ("buffers"))
+                nil [22906 23607])
+            ("helm-multi-occur-from-isearch" function
+               (:user-visible-flag t
+                :arguments ("_arg"))
+                nil [23624 24627])
+            ("helm-regexp" package nil nil [24630 24652]))          
+      :file "helm-regexp.el"
+      :pointmax 24808
+      :fsize 24807
+      :lastmodtime '(21763 38009 272771 941000)
+      :unmatched-syntax nil)
+    (semanticdb-table "helm.el"
+      :file "helm.el"
+      :fsize 217280
+      :lastmodtime '(21763 38009 262772 156000))
+    (semanticdb-table "helm-utils.el"
+      :file "helm-utils.el"
+      :fsize 39502
+      :lastmodtime '(21763 38009 256772 286000))
+    (semanticdb-table "helm-plugin.el"
+      :file "helm-plugin.el"
+      :fsize 9039
+      :lastmodtime '(21763 38009 261772 178000))
+    (semanticdb-table "helm-files.el"
+      :file "helm-files.el"
+      :fsize 138463
+      :lastmodtime '(21763 38009 268772 27000))
+    (semanticdb-table "helm-semantic.el"
+      :major-mode 'emacs-lisp-mode
+      :tags 
+        '( ("cl-lib" include nil nil [901 918])
+            ("semantic" include nil nil [919 938])
+            ("helm-imenu" include nil nil [939 960])
+            ("declare-function" code nil nil [962 1049])
+            ("helm-semantic" customgroup (:user-visible-flag t) nil [1051 1157])
+            ("helm-semantic-lynx-style-map" variable (:default-value t) nil [1159 1285])
+            ("helm-semantic-map" variable (:default-value (let ((map (make-sparse-keymap))) (set-keymap-parent map helm-map) (define-key map (kbd "C-c ?") (quote helm-semantic-help)) (when helm-imenu-lynx-style-map (define-key map (kbd "<left>") (quote helm-maybe-exit-minibuffer)) (define-key map (kbd "<right>") (quote helm-execute-persistent-action))) (delq nil map))) nil [1298 1647])
+            ("helm-semantic--tags-cache" variable nil nil [1667 1705])
+            ("helm-semantic--fetch-candidates" function (:arguments ("tags" "depth" "class")) nil [1707 3052])
+            ("helm-semantic-default-action" function (:arguments ("_candidate" "persistent")) nil [3054 3614])
+            ("helm-semantic--maybe-set-needs-update" function nil nil [3616 3873])
+            ("helm-source-semantic" variable nil nil [3875 3908])
+            ("helm-semantic-source" type
+               (:superclasses "helm-source-in-buffer"
+                :members 
+                  ( ("init" variable (:default-value "(lambda nil (helm-semantic--maybe-set-needs-update) (setq helm-semantic--tags-cache (semantic-fetch-tags)) (with-current-buffer (helm-candidate-buffer (quote global)) (let ((major-mode (with-helm-current-buffer major-mode))) (helm-semantic--fetch-candidates helm-semantic--tags-cache 0))))") nil nil)
+                    ("get-line" variable (:default-value "(quote buffer-substring)") nil nil)
+                    ("persistent-help" variable (:default-value "Show this entry") nil nil)
+                    ("keymap" variable (:default-value "(quote helm-semantic-map)") nil nil)
+                    ("mode-line" variable (:default-value "helm-semantic-mode-line") nil nil)
+                    ("persistent-action" variable (:default-value "(lambda (elm) (helm-semantic-default-action elm t) (helm-highlight-current-line))") nil nil)
+                    ("action" variable (:default-value "(quote helm-semantic-default-action)") nil nil))                  
+                :type "class")
+                nil [3910 4795])
+            ("helm-semantic-fuzzy-match" variable nil nil [4797 5147])
+            ("helm-semantic" function
+               (:user-visible-flag t
+                :arguments ("arg"))
+                nil [5164 5987])
+            ("helm-semantic-or-imenu" function
+               (:user-visible-flag t
+                :arguments ("arg"))
+                nil [6004 7525])
+            ("helm-semantic" package nil nil [7527 7551]))          
+      :file "helm-semantic.el"
+      :pointmax 7709
+      :fsize 7712
+      :lastmodtime '(21763 38009 264772 113000)
+      :unmatched-syntax nil))
+  :file "!home!chz!.emacs.d!elpa!helm-20150313.1353!semantic.cache"
+  :semantic-tag-version "2.0"
+  :semanticdb-version "2.2")

@@ -1,0 +1,11 @@
+# -*- mode: snippet -*-
+# name: import.logging
+# key: impl
+# --
+import logging
+logging.basicConfig(${1:filename='${2:logfile.log}', filemode='w', }level=logging.${3:$$(yas-choose-value '("DEBUG" "INFO" "WARNING" "ERROR" "CRITICAL"))}, format='%(asctime)s - %(levelname)s - %(message)s')
+${4:logging.debug('${5:Start of program}')}
+
+$0
+
+${6:logging.debug('${7:End of program}')}

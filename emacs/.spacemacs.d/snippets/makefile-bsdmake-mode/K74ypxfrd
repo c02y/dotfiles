@@ -1,0 +1,165 @@
+;; Object uio/
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "uio/"
+  :tables (list 
+   (semanticdb-table "uio_pci_generic.c"
+    :major-mode 'c-mode
+    :tags 
+        '( ("linux/device.h" include (:system-flag t) nil [910 935])
+            ("linux/module.h" include (:system-flag t) nil [936 961])
+            ("linux/pci.h" include (:system-flag t) nil [962 984])
+            ("linux/slab.h" include (:system-flag t) nil [985 1008])
+            ("linux/uio_driver.h" include (:system-flag t) nil [1009 1038])
+            ("linux/spinlock.h" include (:system-flag t) nil [1039 1066])
+            ("DRIVER_VERSION" variable (:constant-flag t) nil [1076 1090])
+            ("DRIVER_AUTHOR" variable (:constant-flag t) nil [1108 1121])
+            ("DRIVER_DESC" variable (:constant-flag t) nil [1168 1179])
+            ("uio_pci_generic_dev" type
+               (:members 
+                  ( ("info" variable (:type ("uio_info" type
+                         (:prototype t
+                          :type "struct")
+                          nil nil)) (reparse-symbol classsubparts) [1252 1273])
+                    ("pdev" variable
+                       (:pointer 1
+                        :type ("pci_dev" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol classsubparts) [1275 1296])
+                    ("lock" variable (:type ("spinlock_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [1298 1314]))                  
+                :type "struct")
+                nil [1222 1356])
+            ("to_uio_pci_generic_dev" function
+               (:pointer 1
+                :typemodifiers ("static" "inline")
+                :arguments 
+                  ( ("info" variable
+                       (:pointer 1
+                        :type ("uio_info" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [1424 1446]))                  
+                :type ("uio_pci_generic_dev" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [1358 1512])
+            ("irqhandler" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("irq" variable (:type "int") (reparse-symbol arg-sub-list) [1637 1645])
+                    ("info" variable
+                       (:pointer 1
+                        :type ("uio_info" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [1646 1668]))                  
+                :type ("irqreturn_t" type (:type "class") nil nil))
+                nil [1607 3006])
+            ("verify_pci_2_3" function
+               (:arguments 
+                  ( ("pdev" variable
+                       (:pointer 1
+                        :type ("pci_dev" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [3220 3241]))                  
+                :type ("__devinit" type (:type "class") nil nil))
+                nil [3195 4159])
+            ("probe" function
+               (:arguments 
+                  ( ("pdev" variable
+                       (:pointer 1
+                        :type ("pci_dev" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [4188 4209])
+                    ("id" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("pci_device_id" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [4216 4247]))                  
+                :type ("__devinit" type (:type "class") nil nil))
+                nil [4172 5206])
+            ("remove" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("pdev" variable
+                       (:pointer 1
+                        :type ("pci_dev" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [5227 5248]))                  
+                :type "void")
+                nil [5208 5390])
+            ("driver" variable
+               (:typemodifiers ("static")
+                :type ("pci_driver" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [5392 5537])
+            ("init" function
+               (:arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [5562 5567]))                  
+                :type ("__init" type (:type "class") nil nil))
+                nil [5550 5665])
+            ("cleanup" function
+               (:arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [5694 5699]))                  
+                :type ("__exit" type (:type "class") nil nil))
+                nil [5679 5736])
+            ("module_init" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("init" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [5750 5755]))                  
+                :type "int")
+                nil [5738 5756])
+            ("module_exit" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("cleanup" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [5769 5777]))                  
+                :type "int")
+                nil [5757 5778])
+            ("MODULE_VERSION" function
+               (:prototype-flag t
+                :type "int")
+                nil [5780 5811])
+            ("MODULE_LICENSE" function
+               (:prototype-flag t
+                :type "int")
+                nil [5812 5837])
+            ("MODULE_AUTHOR" function
+               (:prototype-flag t
+                :type "int")
+                nil [5838 5867])
+            ("MODULE_DESCRIPTION" function
+               (:prototype-flag t
+                :type "int")
+                nil [5868 5900]))          
+    :file "uio_pci_generic.c"
+    :pointmax 5901
+    :fsize 5900
+    :lastmodtime '(21468 9105 302765 365000)
+    :unmatched-syntax '((string "\"Generic UIO driver for PCI 2.3 devices\"" 5887 . 5898) (string "\"Michael S. Tsirkin <mst@redhat.com>\"" 5852 . 5865) (string 5827 . 5835) (string "\"0.01.0\"" 5795 . 5809) (VOID 5674 . 5678) (STATIC 5667 . 5673) (INT 5546 . 5549) (STATIC 5539 . 5545) (INT 4168 . 4171) (STATIC 4161 . 4167) (INT 3191 . 3194) (STATIC 3184 . 3190))
+    :lexical-table 
+        '(("DRIVER_VERSION" . ((string "\"0.01.0\"" 1091 . 1099)))
+          ("DRIVER_AUTHOR" . ((string "\"Michael S. Tsirkin <mst@redhat.com>\"" 1122 . 1159)))
+          ("DRIVER_DESC" . ((string "\"Generic UIO driver for PCI 2.3 devices\"" 1180 . 1220)))
+          )
+
+    )
+   )
+  :file "!home!chz!linux-3.0.8!drivers!uio!semantic.cache"
+  :semantic-tag-version "2.0"
+  :semanticdb-version "2.2"
+  )

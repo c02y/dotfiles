@@ -1,0 +1,165 @@
+;; Object 2048.c/
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "2048.c/"
+  :tables (list 
+   (semanticdb-table "2048.c"
+    :major-mode 'c-mode
+    :tags 
+        '( ("_XOPEN_SOURCE" variable (:constant-flag t) nil [296 309])
+            ("stdio.h" include (:system-flag t) nil [314 332])
+            ("stdlib.h" include (:system-flag t) nil [333 352])
+            ("string.h" include (:system-flag t) nil [353 372])
+            ("unistd.h" include (:system-flag t) nil [373 392])
+            ("termios.h" include (:system-flag t) nil [393 413])
+            ("stdbool.h" include (:system-flag t) nil [414 434])
+            ("stdint.h" include (:system-flag t) nil [435 454])
+            ("time.h" include (:system-flag t) nil [455 472])
+            ("signal.h" include (:system-flag t) nil [473 492])
+            ("SIZE" variable (:constant-flag t) nil [502 506])
+            ("score" variable (:type ("uint32_t" type (:type "class") nil nil)) nil [509 526])
+            ("scheme" variable (:type ("uint8_t" type (:type "class") nil nil)) nil [527 544])
+            ("getColor" function
+               (:arguments 
+                  ( ("value" variable (:type ("uint16_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [560 575])
+                    ("color" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [576 588])
+                    ("length" variable (:type ("size_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [589 603]))                  
+                :type "void")
+                nil [546 1353])
+            ("drawBoard" function
+               (:arguments 
+                  ( ("board" variable
+                       (:dereference 2
+                        :type ("uint16_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [1370 1397]))                  
+                :type "void")
+                nil [1355 2222])
+            ("findTarget" function
+               (:arguments 
+                  ( ("array" variable
+                       (:dereference 1
+                        :type ("uint16_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [2242 2263])
+                    ("x" variable (:type ("int8_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [2263 2272])
+                    ("stop" variable (:type ("int8_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [2272 2284]))                  
+                :type ("int8_t" type (:type "class") nil nil))
+                nil [2224 2682])
+            ("slideArray" function
+               (:arguments 
+                  ( ("array" variable
+                       (:dereference 1
+                        :type ("uint16_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [2700 2721]))                  
+                :type "bool")
+                nil [2684 3150])
+            ("rotateBoard" function
+               (:arguments 
+                  ( ("board" variable
+                       (:dereference 2
+                        :type ("uint16_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [3169 3196]))                  
+                :type "void")
+                nil [3152 3459])
+            ("moveUp" function
+               (:arguments 
+                  ( ("board" variable
+                       (:dereference 2
+                        :type ("uint16_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [3473 3500]))                  
+                :type "bool")
+                nil [3461 3617])
+            ("moveLeft" function
+               (:arguments 
+                  ( ("board" variable
+                       (:dereference 2
+                        :type ("uint16_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [3633 3660]))                  
+                :type "bool")
+                nil [3619 3806])
+            ("moveDown" function
+               (:arguments 
+                  ( ("board" variable
+                       (:dereference 2
+                        :type ("uint16_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [3822 3849]))                  
+                :type "bool")
+                nil [3808 3995])
+            ("moveRight" function
+               (:arguments 
+                  ( ("board" variable
+                       (:dereference 2
+                        :type ("uint16_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [4012 4039]))                  
+                :type "bool")
+                nil [3997 4185])
+            ("findPairDown" function
+               (:arguments 
+                  ( ("board" variable
+                       (:dereference 2
+                        :type ("uint16_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [4205 4232]))                  
+                :type "bool")
+                nil [4187 4395])
+            ("countEmpty" function
+               (:arguments 
+                  ( ("board" variable
+                       (:dereference 2
+                        :type ("uint16_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [4416 4443]))                  
+                :type ("int16_t" type (:type "class") nil nil))
+                nil [4397 4592])
+            ("gameEnded" function
+               (:arguments 
+                  ( ("board" variable
+                       (:dereference 2
+                        :type ("uint16_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [4609 4636]))                  
+                :type "bool")
+                nil [4594 4880])
+            ("addRandom" function
+               (:arguments 
+                  ( ("board" variable
+                       (:dereference 2
+                        :type ("uint16_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [4897 4924]))                  
+                :type "void")
+                nil [4882 5347])
+            ("setBufferedInput" function
+               (:arguments 
+                  ( ("enable" variable (:type "bool") (reparse-symbol arg-sub-list) [5371 5383]))                  
+                :type "void")
+                nil [5349 6016])
+            ("test" function (:type "int") nil [6018 7123])
+            ("signal_callback_handler" function
+               (:arguments 
+                  ( ("signum" variable (:type "int") (reparse-symbol arg-sub-list) [7154 7165]))                  
+                :type "void")
+                nil [7125 7274])
+            ("main" function
+               (:arguments 
+                  ( ("argc" variable (:type "int") (reparse-symbol arg-sub-list) [7285 7294])
+                    ("argv" variable
+                       (:pointer 1
+                        :dereference 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [7295 7308]))                  
+                :type "int")
+                nil [7276 9158]))          
+    :file "2048.c"
+    :pointmax 9160
+    :fsize 9168
+    :lastmodtime '(21596 42790 129270 10000)
+    :unmatched-syntax 'nil
+    :lexical-table 
+        '(("SIZE" . ((number "4" 507 . 508)))
+          ("_XOPEN_SOURCE" . ((number "500" 310 . 313)))
+          )
+
+    )
+   )
+  :file "!home!chz!Projects!CWork!2048.c!semantic.cache"
+  :semantic-tag-version "2.0"
+  :semanticdb-version "2.2"
+  )

@@ -1,0 +1,2331 @@
+;; Object src/
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "src/"
+  :tables (list 
+   (semanticdb-table "main.c"
+    :major-mode 'c-mode
+    :tags nil
+    :file "main.c"
+    :pointmax 5258
+    :fsize 5257
+    :lastmodtime '(21580 64880 115974 811000)
+    :unmatched-syntax 'nil
+    )
+   (semanticdb-table "log.h"
+    :major-mode 'c-mode
+    :tags 
+        '( ("LOG_H" variable (:constant-flag t) nil [23 28])
+            ("stdarg.h" include (:system-flag t) nil [30 49])
+            ("log_level" type
+               (:members 
+                  ( ("LOG_LEVEL_DEBUG" variable
+                       (:constant-flag t
+                        :default-value (90 92)
+                        :type "int")
+                        (reparse-symbol enumsubparts) [72 92])
+                    ("LOG_LEVEL_MSG" variable
+                       (:constant-flag t
+                        :default-value (114 116)
+                        :type "int")
+                        (reparse-symbol enumsubparts) [98 116])
+                    ("LOG_LEVEL_WARN" variable
+                       (:constant-flag t
+                        :default-value (139 141)
+                        :type "int")
+                        (reparse-symbol enumsubparts) [122 141])
+                    ("LOG_LEVEL_ERR" variable
+                       (:constant-flag t
+                        :default-value (163 165)
+                        :type "int")
+                        (reparse-symbol enumsubparts) [147 165])
+                    ("LOG_LEVEL_NONE" variable
+                       (:constant-flag t
+                        :default-value (188 191)
+                        :type "int")
+                        (reparse-symbol enumsubparts) [171 191]))                  
+                :type "enum")
+                nil [51 194])
+            ("set_log_level" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("threshold" variable (:type ("log_level" type (:type "enum") nil nil)) (reparse-symbol arg-sub-list) [215 240]))                  
+                :type "void")
+                nil [196 241])
+            ("log_debug" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("fmt" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [258 274])
+                    ("..." variable (:type "vararg") (reparse-symbol arg-sub-list) [275 279]))                  
+                :type "void")
+                nil [243 280])
+            ("log_msg" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("fmt" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [294 310])
+                    ("..." variable (:type "vararg") (reparse-symbol arg-sub-list) [311 315]))                  
+                :type "void")
+                nil [281 316])
+            ("log_warn" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("fmt" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [331 347])
+                    ("..." variable (:type "vararg") (reparse-symbol arg-sub-list) [348 352]))                  
+                :type "void")
+                nil [317 353])
+            ("log_err" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("fmt" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [367 383])
+                    ("..." variable (:type "vararg") (reparse-symbol arg-sub-list) [384 388]))                  
+                :type "void")
+                nil [354 389])
+            ("vplog" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("level" variable
+                       (:constant-flag t
+                        :type "unsigned int")
+                        (reparse-symbol arg-sub-list) [402 427])
+                    ("fmt" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [428 444])
+                    ("args" variable (:type ("va_list" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [445 458]))                  
+                :type "void")
+                nil [391 459])
+            ("plog" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("level" variable
+                       (:constant-flag t
+                        :type "unsigned int")
+                        (reparse-symbol arg-sub-list) [470 495])
+                    ("fmt" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [496 512])
+                    ("..." variable (:type "vararg") (reparse-symbol arg-sub-list) [513 517]))                  
+                :type "void")
+                nil [460 518]))          
+    :file "log.h"
+    :pointmax 527
+    :fsize 526
+    :lastmodtime '(21550 35228 255974 442000)
+    :unmatched-syntax 'nil
+    :lexical-table 
+        '(("LOG_H")
+          )
+
+    )
+   (semanticdb-table "options.h"
+    :major-mode 'c-mode
+    :tags nil
+    :file "options.h"
+    :pointmax 2428
+    :fsize 2427
+    :lastmodtime '(21566 18292 128702 766000)
+    :unmatched-syntax 'nil
+    )
+   (semanticdb-table "search.h"
+    :major-mode 'c-mode
+    :tags 
+        '( ("SEARCH_H" variable (:constant-flag t) nil [26 34])
+            ("dirent.h" include (:system-flag t) nil [36 55])
+            ("errno.h" include (:system-flag t) nil [56 74])
+            ("fcntl.h" include (:system-flag t) nil [75 93])
+            ("limits.h" include (:system-flag t) nil [94 113])
+            ("pcre.h" include (:system-flag t) nil [114 131])
+            ("stdio.h" include (:system-flag t) nil [132 150])
+            ("stdlib.h" include (:system-flag t) nil [151 170])
+            ("string.h" include (:system-flag t) nil [171 190])
+            ("sys/mman.h" include (:system-flag t) nil [232 253])
+            ("sys/stat.h" include (:system-flag t) nil [261 282])
+            ("unistd.h" include (:system-flag t) nil [283 302])
+            ("config.h" include nil nil [304 323])
+            ("ignore.h" include nil nil [376 395])
+            ("log.h" include nil nil [396 412])
+            ("options.h" include nil nil [413 433])
+            ("print.h" include nil nil [434 452])
+            ("util.h" include nil nil [453 470])
+            ("uthash.h" include nil nil [471 490])
+            ("alpha_skip_lookup" variable
+               (:dereference 1
+                :type ("size_t" type (:type "class") nil nil))
+                nil [492 522])
+            ("find_skip_lookup" variable
+               (:pointer 1
+                :type ("size_t" type (:type "class") nil nil))
+                nil [523 548])
+            ("work_queue_t" type
+               (:members 
+                  ( ("path" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol classsubparts) [576 587])
+                    ("next" variable
+                       (:pointer 1
+                        :type ("work_queue_t" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol classsubparts) [592 618]))                  
+                :type "struct")
+                nil [550 621])
+            ("work_queue_t" type
+               (:typedef ("work_queue_t" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil)
+                :superclasses "work_queue_t"
+                :type "typedef")
+                nil [622 663])
+            ("work_queue" variable
+               (:pointer 1
+                :type ("work_queue_t" type (:type "class") nil nil))
+                nil [665 690])
+            ("work_queue_tail" variable
+               (:pointer 1
+                :type ("work_queue_t" type (:type "class") nil nil))
+                nil [691 721])
+            ("done_adding_files" variable (:type "int") nil [722 744])
+            ("files_ready" variable (:type ("pthread_cond_t" type (:type "class") nil nil)) nil [745 772])
+            ("print_mtx" variable (:type ("pthread_mutex_t" type (:type "class") nil nil)) nil [773 799])
+            ("stats_mtx" variable (:type ("pthread_mutex_t" type (:type "class") nil nil)) nil [800 826])
+            ("work_queue_mtx" variable (:type ("pthread_mutex_t" type (:type "class") nil nil)) nil [827 858])
+            ("SYMLOOP_ERROR" variable (:constant-flag t) nil [902 915])
+            ("SYMLOOP_OK" variable (:constant-flag t) nil [929 939])
+            ("SYMLOOP_LOOP" variable (:constant-flag t) nil [952 964])
+            ("dirkey_t" type
+               (:typedef ("" type
+                     (:members 
+                        ( ("dev" variable (:type ("dev_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [991 1001])
+                          ("ino" variable (:type ("ino_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [1006 1016]))                        
+                      :type "struct")
+                      nil nil)
+                :type "typedef")
+                nil [970 1028])
+            ("symdir_t" type
+               (:typedef ("" type
+                     (:members 
+                        ( ("key" variable (:type ("dirkey_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [1051 1064])
+                          ("hh" variable (:type ("UT_hash_handle" type (:type "class") nil nil)) (reparse-symbol classsubparts) [1069 1087]))                        
+                      :type "struct")
+                      nil nil)
+                :type "typedef")
+                nil [1030 1099])
+            ("symhash" variable
+               (:pointer 1
+                :type ("symdir_t" type (:type "class") nil nil))
+                nil [1101 1119])
+            ("search_buf" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("buf" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [1137 1153])
+                    ("buf_len" variable
+                       (:constant-flag t
+                        :type ("size_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [1154 1175])
+                    ("dir_full_path" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [1192 1218]))                  
+                :type "void")
+                nil [1121 1219])
+            ("search_stream" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("stream" variable
+                       (:pointer 1
+                        :type ("FILE" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [1239 1252])
+                    ("path" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [1253 1270]))                  
+                :type "void")
+                nil [1220 1271])
+            ("search_file" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("file_full_path" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [1289 1316]))                  
+                :type "void")
+                nil [1272 1317])
+            ("search_file_worker" function
+               (:prototype-flag t
+                :pointer 1
+                :arguments 
+                  ( ("i" variable
+                       (:pointer 1
+                        :type "void")
+                        (reparse-symbol arg-sub-list) [1344 1352]))                  
+                :type "void")
+                nil [1319 1353])
+            ("search_dir" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("ig" variable
+                       (:pointer 1
+                        :type ("ignores" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [1371 1383])
+                    ("base_path" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [1384 1406])
+                    ("path" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [1407 1424])
+                    ("depth" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol arg-sub-list) [1425 1441]))                  
+                :type "void")
+                nil [1355 1442]))          
+    :file "search.h"
+    :pointmax 1451
+    :fsize 1450
+    :lastmodtime '(21550 35228 257974 393000)
+    :unmatched-syntax 'nil
+    :lexical-table 
+        '(("SYMLOOP_LOOP" . ((semantic-list "(1)" 965 . 968)))
+          ("SYMLOOP_OK" . ((semantic-list "(0)" 940 . 943)))
+          ("SYMLOOP_ERROR" . ((semantic-list "(-1)" 916 . 920)))
+          ("SEARCH_H")
+          )
+
+    )
+   (semanticdb-table "ignore.h"
+    :major-mode 'c-mode
+    :tags 
+        '( ("IGNORE_H" variable (:constant-flag t) nil [26 34])
+            ("dirent.h" include (:system-flag t) nil [36 55])
+            ("sys/types.h" include (:system-flag t) nil [56 78])
+            ("SVN_DIR_PROP_BASE" variable (:constant-flag t) nil [88 105])
+            ("SVN_DIR" variable (:constant-flag t) nil [130 137])
+            ("SVN_PROP_IGNORE" variable (:constant-flag t) nil [153 168])
+            ("ignores" type
+               (:members 
+                  ( ("names" variable
+                       (:pointer 2
+                        :type "char")
+                        (reparse-symbol classsubparts) [204 217])
+                    ("names_len" variable (:type ("size_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [289 306])
+                    ("regexes" variable
+                       (:pointer 2
+                        :type "char")
+                        (reparse-symbol classsubparts) [311 326])
+                    ("regexes_len" variable (:type ("size_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [368 387])
+                    ("parent" variable
+                       (:pointer 1
+                        :type ("ignores" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol classsubparts) [392 415]))                  
+                :type "struct")
+                nil [183 418])
+            ("ignores" type
+               (:typedef ("ignores" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil)
+                :superclasses "ignores"
+                :type "typedef")
+                nil [419 450])
+            ("root_ignores" variable
+               (:pointer 1
+                :type ("ignores" type (:type "class") nil nil))
+                nil [452 474])
+            ("evil_hardcoded_ignore_files" variable
+               (:pointer 1
+                :dereference 1
+                :typemodifiers ("extern")
+                :constant-flag t
+                :type "char")
+                nil [476 525])
+            ("ignore_pattern_files" variable
+               (:pointer 1
+                :dereference 1
+                :typemodifiers ("extern")
+                :constant-flag t
+                :type "char")
+                nil [526 568])
+            ("init_ignore" function
+               (:prototype-flag t
+                :pointer 1
+                :arguments 
+                  ( ("parent" variable
+                       (:pointer 1
+                        :type ("ignores" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [591 607]))                  
+                :type ("ignores" type (:type "class") nil nil))
+                nil [570 608])
+            ("cleanup_ignore" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("ig" variable
+                       (:pointer 1
+                        :type ("ignores" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [629 641]))                  
+                :type "void")
+                nil [609 642])
+            ("add_ignore_pattern" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("ig" variable
+                       (:pointer 1
+                        :type ("ignores" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [668 680])
+                    ("pattern" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [681 701]))                  
+                :type "void")
+                nil [644 702])
+            ("load_ignore_patterns" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("ig" variable
+                       (:pointer 1
+                        :type ("ignores" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [730 742])
+                    ("path" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [743 760]))                  
+                :type "void")
+                nil [704 761])
+            ("load_svn_ignore_patterns" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("ig" variable
+                       (:pointer 1
+                        :type ("ignores" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [792 804])
+                    ("path" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [805 822]))                  
+                :type "void")
+                nil [762 823])
+            ("filename_filter" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("path" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [845 862])
+                    ("dir" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("dirent" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [863 888])
+                    ("baton" variable
+                       (:pointer 1
+                        :type "void")
+                        (reparse-symbol arg-sub-list) [889 901]))                  
+                :type "int")
+                nil [825 902]))          
+    :file "ignore.h"
+    :pointmax 911
+    :fsize 1197
+    :lastmodtime '(21566 18292 127702 790000)
+    :unmatched-syntax 'nil
+    :lexical-table 
+        '(("SVN_PROP_IGNORE" . ((string "\"svn:ignore\"" 169 . 181)))
+          ("SVN_DIR_PROP_BASE" . ((string "\"dir-prop-base\"" 106 . 121)))
+          ("SVN_DIR" . ((string "\".svn\"" 138 . 144)))
+          ("IGNORE_H")
+          )
+
+    )
+   (semanticdb-table "print.h"
+    :major-mode 'c-mode
+    :tags 
+        '( ("PRINT_H" variable (:constant-flag t) nil [25 32])
+            ("match" type
+               (:typedef ("" type
+                     (:members 
+                        ( ("start" variable (:type "int") (reparse-symbol classsubparts) [55 65])
+                          ("end" variable (:type "int") (reparse-symbol classsubparts) [107 115]))                        
+                      :type "struct")
+                      nil nil)
+                :type "typedef")
+                nil [34 148])
+            ("print_path" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("path" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [166 183]))                  
+                :type "void")
+                nil [150 184])
+            ("print_file_matches" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("path" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [210 227])
+                    ("buf" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [228 244])
+                    ("buf_len" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol arg-sub-list) [245 263])
+                    ("matches" variable
+                       (:dereference 1
+                        :constant-flag t
+                        :type ("match" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [264 286])
+                    ("matches_len" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol arg-sub-list) [287 309]))                  
+                :type "void")
+                nil [186 310]))          
+    :file "print.h"
+    :pointmax 319
+    :fsize 645
+    :lastmodtime '(21566 18292 128702 766000)
+    :unmatched-syntax 'nil
+    :lexical-table 
+        '(("PRINT_H")
+          )
+
+    )
+   (semanticdb-table "util.h"
+    :major-mode 'c-mode
+    :tags 
+        '( ("UTIL_H" variable (:constant-flag t) nil [24 30])
+            ("dirent.h" include (:system-flag t) nil [32 51])
+            ("pcre.h" include (:system-flag t) nil [52 69])
+            ("stdio.h" include (:system-flag t) nil [70 88])
+            ("string.h" include (:system-flag t) nil [89 108])
+            ("stdio.h" include (:system-flag t) nil [109 127])
+            ("sys/time.h" include (:system-flag t) nil [128 149])
+            ("config.h" include nil nil [151 170])
+            ("log.h" include nil nil [171 187])
+            ("options.h" include nil nil [188 208])
+            ("out_fd" variable
+               (:pointer 1
+                :type ("FILE" type (:type "class") nil nil))
+                nil [210 223])
+            ("TRUE" variable (:constant-flag t) nil [246 250])
+            ("FALSE" variable (:constant-flag t) nil [283 288])
+            ("ag_malloc" function
+               (:prototype-flag t
+                :pointer 1
+                :arguments 
+                  ( ("size" variable (:type ("size_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [315 327]))                  
+                :type "void")
+                nil [299 328])
+            ("ag_realloc" function
+               (:prototype-flag t
+                :pointer 1
+                :arguments 
+                  ( ("ptr" variable
+                       (:pointer 1
+                        :type "void")
+                        (reparse-symbol arg-sub-list) [346 356])
+                    ("size" variable (:type ("size_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [357 369]))                  
+                :type "void")
+                nil [329 370])
+            ("ag_calloc" function
+               (:prototype-flag t
+                :pointer 1
+                :arguments 
+                  ( ("nelem" variable (:type ("size_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [387 400])
+                    ("elsize" variable (:type ("size_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [401 415]))                  
+                :type "void")
+                nil [371 416])
+            ("ag_strdup" function
+               (:prototype-flag t
+                :pointer 1
+                :arguments 
+                  ( ("s" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [433 447]))                  
+                :type "char")
+                nil [417 448])
+            ("ag_strndup" function
+               (:prototype-flag t
+                :pointer 1
+                :arguments 
+                  ( ("s" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [466 480])
+                    ("size" variable (:type ("size_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [481 493]))                  
+                :type "char")
+                nil [449 494])
+            ("match_t" type
+               (:typedef ("" type
+                     (:members 
+                        ( ("start" variable (:type ("size_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [517 530])
+                          ("end" variable (:type ("size_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [572 583]))                        
+                      :type "struct")
+                      nil nil)
+                :type "typedef")
+                nil [496 620])
+            ("ag_stats" type
+               (:typedef ("" type
+                     (:members 
+                        ( ("total_bytes" variable (:type "long") (reparse-symbol classsubparts) [643 660])
+                          ("total_files" variable (:type "long") (reparse-symbol classsubparts) [665 682])
+                          ("total_matches" variable (:type "long") (reparse-symbol classsubparts) [687 706])
+                          ("time_start" variable (:type ("timeval" type
+                               (:prototype t
+                                :type "struct")
+                                nil nil)) (reparse-symbol classsubparts) [711 737])
+                          ("time_end" variable (:type ("timeval" type
+                               (:prototype t
+                                :type "struct")
+                                nil nil)) (reparse-symbol classsubparts) [742 766]))                        
+                      :type "struct")
+                      nil nil)
+                :type "typedef")
+                nil [622 778])
+            ("ag_compression_type" type
+               (:typedef ("" type
+                     (:members 
+                        ( ("AG_NO_COMPRESSION" variable
+                             (:constant-flag t
+                              :type "int")
+                              (reparse-symbol enumsubparts) [799 817])
+                          ("AG_GZIP" variable
+                             (:constant-flag t
+                              :type "int")
+                              (reparse-symbol enumsubparts) [822 830])
+                          ("AG_COMPRESS" variable
+                             (:constant-flag t
+                              :type "int")
+                              (reparse-symbol enumsubparts) [835 847])
+                          ("AG_ZIP" variable
+                             (:constant-flag t
+                              :type "int")
+                              (reparse-symbol enumsubparts) [852 860]))                        
+                      :type "enum")
+                      nil nil)
+                :type "typedef")
+                nil [780 881])
+            ("stats" variable (:type ("ag_stats" type (:type "class") nil nil)) nil [883 898])
+            ("strncmp_fp" variable
+               (:functionpointer-flag t
+                :type "char")
+                nil [908 1022])
+            ("generate_alpha_skip" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("find" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [1049 1066])
+                    ("f_len" variable (:type ("size_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [1067 1080])
+                    ("skip_lookup" variable
+                       (:dereference 1
+                        :type ("size_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [1081 1102])
+                    ("case_sensitive" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol arg-sub-list) [1103 1128]))                  
+                :type "void")
+                nil [1024 1129])
+            ("is_prefix" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("s" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [1144 1158])
+                    ("s_len" variable
+                       (:constant-flag t
+                        :type ("size_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [1159 1178])
+                    ("pos" variable
+                       (:constant-flag t
+                        :type ("size_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [1179 1196])
+                    ("case_sensitive" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol arg-sub-list) [1197 1222]))                  
+                :type "int")
+                nil [1130 1223])
+            ("suffix_len" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("s" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [1242 1256])
+                    ("s_len" variable
+                       (:constant-flag t
+                        :type ("size_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [1257 1276])
+                    ("pos" variable
+                       (:constant-flag t
+                        :type ("size_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [1277 1294])
+                    ("case_sensitive" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol arg-sub-list) [1295 1320]))                  
+                :type ("size_t" type (:type "class") nil nil))
+                nil [1224 1321])
+            ("generate_find_skip" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("find" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [1346 1363])
+                    ("f_len" variable
+                       (:constant-flag t
+                        :type ("size_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [1364 1383])
+                    ("skip_lookup" variable
+                       (:pointer 2
+                        :type ("size_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [1384 1405])
+                    ("case_sensitive" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol arg-sub-list) [1406 1431]))                  
+                :type "void")
+                nil [1322 1432])
+            ("ag_max" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("a" variable (:type ("size_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [1519 1528])
+                    ("b" variable (:type ("size_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [1529 1538]))                  
+                :type ("size_t" type (:type "class") nil nil))
+                nil [1505 1539])
+            ("boyer_moore_strnstr" function
+               (:prototype-flag t
+                :pointer 1
+                :constant-flag t
+                :arguments 
+                  ( ("s" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [1573 1587])
+                    ("find" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [1588 1605])
+                    ("s_len" variable
+                       (:constant-flag t
+                        :type ("size_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [1606 1625])
+                    ("f_len" variable
+                       (:constant-flag t
+                        :type ("size_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [1626 1645])
+                    ("alpha_skip_lookup" variable
+                       (:dereference 1
+                        :constant-flag t
+                        :type ("size_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [1678 1711])
+                    ("find_skip_lookup" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("size_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [1712 1743]))                  
+                :type "char")
+                nil [1541 1744])
+            ("boyer_moore_strncasestr" function
+               (:prototype-flag t
+                :pointer 1
+                :constant-flag t
+                :arguments 
+                  ( ("s" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [1781 1795])
+                    ("find" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [1796 1813])
+                    ("s_len" variable
+                       (:constant-flag t
+                        :type ("size_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [1814 1833])
+                    ("f_len" variable
+                       (:constant-flag t
+                        :type ("size_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [1834 1853])
+                    ("alpha_skip_lookup" variable
+                       (:dereference 1
+                        :constant-flag t
+                        :type ("size_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [1890 1923])
+                    ("find_skip_lookup" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("size_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [1924 1955]))                  
+                :type "char")
+                nil [1745 1956])
+            ("get_strstr" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("opts" variable (:type ("case_behavior" type (:type "enum") nil nil)) (reparse-symbol arg-sub-list) [1980 2004]))                  
+                :type ("strncmp_fp" type (:type "class") nil nil))
+                nil [1958 2005])
+            ("invert_matches" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("buf" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [2029 2045])
+                    ("buf_len" variable
+                       (:constant-flag t
+                        :type ("size_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [2046 2067])
+                    ("matches" variable
+                       (:dereference 1
+                        :type ("match_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [2068 2086])
+                    ("matches_len" variable (:type ("size_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [2087 2106]))                  
+                :type ("size_t" type (:type "class") nil nil))
+                nil [2007 2107])
+            ("compile_study" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("re" variable
+                       (:pointer 2
+                        :type ("pcre" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [2127 2137])
+                    ("re_extra" variable
+                       (:pointer 2
+                        :type ("pcre_extra" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [2138 2160])
+                    ("q" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [2161 2169])
+                    ("pcre_opts" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol arg-sub-list) [2170 2190])
+                    ("study_opts" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol arg-sub-list) [2191 2212]))                  
+                :type "void")
+                nil [2108 2213])
+            ("decompress" function
+               (:prototype-flag t
+                :pointer 1
+                :arguments 
+                  ( ("zip_type" variable
+                       (:constant-flag t
+                        :type ("ag_compression_type" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [2232 2267])
+                    ("buf" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "void")
+                        (reparse-symbol arg-sub-list) [2268 2284])
+                    ("buf_len" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol arg-sub-list) [2285 2303])
+                    ("dir_full_path" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [2304 2330])
+                    ("new_buf_len" variable
+                       (:pointer 1
+                        :type "int")
+                        (reparse-symbol arg-sub-list) [2331 2348]))                  
+                :type "void")
+                nil [2215 2349])
+            ("is_zipped" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("buf" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "void")
+                        (reparse-symbol arg-sub-list) [2380 2396])
+                    ("buf_len" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol arg-sub-list) [2397 2415]))                  
+                :type ("ag_compression_type" type (:type "class") nil nil))
+                nil [2350 2416])
+            ("is_binary" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("buf" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "void")
+                        (reparse-symbol arg-sub-list) [2432 2448])
+                    ("buf_len" variable
+                       (:constant-flag t
+                        :type ("size_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [2449 2470]))                  
+                :type "int")
+                nil [2418 2471])
+            ("is_regex" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("query" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [2485 2503]))                  
+                :type "int")
+                nil [2472 2504])
+            ("is_fnmatch" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("filename" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [2520 2541]))                  
+                :type "int")
+                nil [2505 2542])
+            ("binary_search" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("needle" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [2561 2580])
+                    ("haystack" variable
+                       (:pointer 2
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [2581 2597])
+                    ("start" variable (:type "int") (reparse-symbol arg-sub-list) [2598 2608])
+                    ("end" variable (:type "int") (reparse-symbol arg-sub-list) [2609 2617]))                  
+                :type "int")
+                nil [2543 2618])
+            ("init_wordchar_table" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [2645 2650]))                  
+                :type "void")
+                nil [2620 2651])
+            ("is_wordchar" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("ch" variable (:type "char") (reparse-symbol arg-sub-list) [2668 2676]))                  
+                :type "int")
+                nil [2652 2677])
+            ("is_lowercase" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("s" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [2696 2710]))                  
+                :type "int")
+                nil [2679 2711])
+            ("is_directory" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("path" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [2730 2747])
+                    ("d" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("dirent" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [2748 2771]))                  
+                :type "int")
+                nil [2713 2772])
+            ("is_symlink" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("path" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [2788 2805])
+                    ("d" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("dirent" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [2806 2829]))                  
+                :type "int")
+                nil [2773 2830])
+            ("is_named_pipe" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("path" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [2849 2866])
+                    ("d" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("dirent" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [2867 2890]))                  
+                :type "int")
+                nil [2831 2891])
+            ("die" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("fmt" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [2902 2918])
+                    ("..." variable (:type "vararg") (reparse-symbol arg-sub-list) [2919 2923]))                  
+                :type "void")
+                nil [2893 2924])
+            ("ag_asprintf" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("ret" variable
+                       (:pointer 2
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [2943 2954])
+                    ("fmt" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [2955 2971])
+                    ("..." variable (:type "vararg") (reparse-symbol arg-sub-list) [2972 2976]))                  
+                :type "void")
+                nil [2926 2977])
+            ("fgetln" function
+               (:prototype-flag t
+                :pointer 1
+                :arguments 
+                  ( ("fp" variable
+                       (:pointer 1
+                        :type ("FILE" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [3012 3021])
+                    ("lenp" variable
+                       (:pointer 1
+                        :type ("size_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [3022 3035]))                  
+                :type "char")
+                nil [2999 3036])
+            ("getline" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("lineptr" variable
+                       (:pointer 2
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [3081 3096])
+                    ("n" variable
+                       (:pointer 1
+                        :type ("size_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [3097 3107])
+                    ("stream" variable
+                       (:pointer 1
+                        :type ("FILE" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [3108 3121]))                  
+                :type ("ssize_t" type (:type "class") nil nil))
+                nil [3065 3122])
+            ("realpath" function
+               (:prototype-flag t
+                :pointer 1
+                :arguments 
+                  ( ("path" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [3167 3184])
+                    ("resolved_path" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [3185 3205]))                  
+                :type "char")
+                nil [3152 3206])
+            ("strlcpy" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("dest" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [3250 3261])
+                    ("src" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [3262 3278])
+                    ("size" variable (:type ("size_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [3279 3291]))                  
+                :type ("size_t" type (:type "class") nil nil))
+                nil [3235 3292])
+            ("vasprintf" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("ret" variable
+                       (:pointer 2
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [3337 3348])
+                    ("fmt" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [3349 3365])
+                    ("args" variable (:type ("va_list" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [3366 3379]))                  
+                :type "int")
+                nil [3323 3380]))          
+    :file "util.h"
+    :pointmax 3396
+    :fsize 3395
+    :lastmodtime '(21550 35228 258974 368000)
+    :unmatched-syntax '((semantic-list 1002 . 1004) (TYPEDEF 900 . 907))
+    :lexical-table 
+        '(("TRUE" . ((number "1" 251 . 252)))
+          ("FALSE" . ((number "0" 289 . 290)))
+          ("UTIL_H")
+          )
+
+    )
+   (semanticdb-table "uthash.h"
+    :major-mode 'c-mode
+    :tags 
+        '( ("UTHASH_H" variable (:constant-flag t) nil [1166 1174])
+            ("string.h" include (:system-flag t) nil [1176 1195])
+            ("stddef.h" include (:system-flag t) nil [1216 1235])
+            ("stdlib.h" include (:system-flag t) nil [1252 1271])
+            ("DECLTYPE" variable (:constant-flag t) nil [1894 1902])
+            ("DECLTYPE_ASSIGN" variable (:constant-flag t) nil [2161 2176])
+            ("inttypes.h" include (:system-flag t) nil [2453 2474])
+            ("UTHASH_VERSION" variable (:constant-flag t) nil [2506 2520])
+            ("uthash_fatal" variable (:constant-flag t) nil [2557 2569])
+            ("uthash_malloc" variable (:constant-flag t) nil [2659 2672])
+            ("uthash_free" variable (:constant-flag t) nil [2761 2772])
+            ("uthash_noexpand_fyi" variable (:constant-flag t) nil [2874 2893])
+            ("uthash_expand_fyi" variable (:constant-flag t) nil [2978 2995])
+            ("HASH_INITIAL_NUM_BUCKETS" variable (:constant-flag t) nil [3087 3111])
+            ("HASH_INITIAL_NUM_BUCKETS_LOG2" variable (:constant-flag t) nil [3166 3195])
+            ("HASH_BKT_CAPACITY_THRESH" variable (:constant-flag t) nil [3245 3269])
+            ("ELMT_FROM_HH" variable (:constant-flag t) nil [3386 3398])
+            ("HASH_FIND" variable (:constant-flag t) nil [3461 3470])
+            ("HASH_BLOOM_MAKE" variable (:constant-flag t) nil [6041 6056])
+            ("HASH_BLOOM_FREE" variable (:constant-flag t) nil [6070 6085])
+            ("HASH_BLOOM_ADD" variable (:constant-flag t) nil [6099 6113])
+            ("HASH_BLOOM_TEST" variable (:constant-flag t) nil [6134 6149])
+            ("HASH_MAKE_TABLE" variable (:constant-flag t) nil [6182 6197])
+            ("HASH_ADD" variable (:constant-flag t) nil [8485 8493])
+            ("HASH_ADD_KEYPTR" variable (:constant-flag t) nil [8609 8624])
+            ("HASH_TO_BKT" variable (:constant-flag t) nil [10694 10705])
+            ("HASH_DELETE" variable (:constant-flag t) nil [11525 11536])
+            ("HASH_FIND_STR" variable (:constant-flag t) nil [14838 14851])
+            ("HASH_ADD_STR" variable (:constant-flag t) nil [14937 14949])
+            ("HASH_FIND_INT" variable (:constant-flag t) nil [15042 15055])
+            ("HASH_ADD_INT" variable (:constant-flag t) nil [15137 15149])
+            ("HASH_FIND_PTR" variable (:constant-flag t) nil [15232 15245])
+            ("HASH_ADD_PTR" variable (:constant-flag t) nil [15330 15342])
+            ("HASH_DEL" variable (:constant-flag t) nil [15428 15436])
+            ("HASH_FSCK" variable (:constant-flag t) nil [21339 21348])
+            ("HASH_EMIT_KEY" variable (:constant-flag t) nil [21928 21941])
+            ("HASH_FCN" variable (:constant-flag t) nil [22122 22130])
+            ("HASH_BER" variable (:constant-flag t) nil [22218 22226])
+            ("HASH_SAX" variable (:constant-flag t) nil [22869 22877])
+            ("HASH_FNV" variable (:constant-flag t) nil [23438 23446])
+            ("HASH_OAT" variable (:constant-flag t) nil [23927 23935])
+            ("HASH_JEN_MIX" variable (:constant-flag t) nil [24700 24712])
+            ("HASH_JEN" variable (:constant-flag t) nil [25645 25653])
+            ("get16bits" variable (:constant-flag t) nil [31616 31625])
+            ("HASH_SFH" variable (:constant-flag t) nil [31813 31821])
+            ("HASH_KEYCMP" variable (:constant-flag t) nil [40503 40514])
+            ("HASH_FIND_IN_BKT" variable (:constant-flag t) nil [40617 40633])
+            ("HASH_ADD_TO_BKT" variable (:constant-flag t) nil [41913 41928])
+            ("HASH_DEL_IN_BKT" variable (:constant-flag t) nil [43339 43354])
+            ("HASH_EXPAND_BUCKETS" variable (:constant-flag t) nil [45335 45354])
+            ("HASH_SORT" variable (:constant-flag t) nil [51501 51510])
+            ("HASH_SRT" variable (:constant-flag t) nil [51560 51568])
+            ("HASH_SELECT" variable (:constant-flag t) nil [61969 61980])
+            ("HASH_CLEAR" variable (:constant-flag t) nil [66234 66244])
+            ("HASH_ITER" variable (:constant-flag t) nil [67429 67438])
+            ("HASH_COUNT" variable (:constant-flag t) nil [67706 67716])
+            ("HASH_CNT" variable (:constant-flag t) nil [67750 67758])
+            ("UT_hash_bucket" type
+               (:typedef ("UT_hash_bucket" type (:type "struct") nil nil)
+                :superclasses "UT_hash_bucket"
+                :type "typedef")
+                nil [67813 68788])
+            ("UT_hash_bucket" type
+               (:members 
+                  ( ("hh_head" variable
+                       (:pointer 1
+                        :type ("UT_hash_handle" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol classsubparts) [67849 67880])
+                    ("count" variable (:type "unsigned int") (reparse-symbol classsubparts) [67885 67900])
+                    ("expand_mult" variable (:type "unsigned int") (reparse-symbol classsubparts) [68748 68769]))                  
+                :type "struct")
+                nil [67813 68788])
+            ("HASH_SIGNATURE" variable (:constant-flag t) nil [68872 68886])
+            ("HASH_BLOOM_SIGNATURE" variable (:constant-flag t) nil [68906 68926])
+            ("UT_hash_table" type
+               (:typedef ("UT_hash_table" type (:type "struct") nil nil)
+                :superclasses "UT_hash_table"
+                :type "typedef")
+                nil [68939 70442])
+            ("UT_hash_table" type
+               (:members 
+                  ( ("buckets" variable
+                       (:pointer 1
+                        :type ("UT_hash_bucket" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [68974 68998])
+                    ("log2_num_buckets" variable (:type "unsigned int") (reparse-symbol classsubparts) [69003 69042])
+                    ("num_buckets" variable (:type "unsigned int") (reparse-symbol classsubparts) [69003 69042])
+                    ("num_items" variable (:type "unsigned int") (reparse-symbol classsubparts) [69047 69066])
+                    ("tail" variable
+                       (:pointer 1
+                        :type ("UT_hash_handle" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol classsubparts) [69071 69099])
+                    ("hho" variable (:type ("ptrdiff_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [69151 69165])
+                    ("ideal_chain_maxlen" variable (:type "unsigned int") (reparse-symbol classsubparts) [69403 69431])
+                    ("nonideal_items" variable (:type "unsigned int") (reparse-symbol classsubparts) [69677 69701])
+                    ("noexpand" variable (:type "unsigned int") (reparse-symbol classsubparts) [70157 70190])
+                    ("ineff_expands" variable (:type "unsigned int") (reparse-symbol classsubparts) [70157 70190])
+                    ("signature" variable (:type ("uint32_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [70196 70215]))                  
+                :type "struct")
+                nil [68939 70442])
+            ("UT_hash_handle" type
+               (:typedef ("UT_hash_handle" type (:type "struct") nil nil)
+                :superclasses "UT_hash_handle"
+                :type "typedef")
+                nil [70444 71035])
+            ("UT_hash_handle" type
+               (:members 
+                  ( ("tbl" variable
+                       (:pointer 1
+                        :type ("UT_hash_table" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol classsubparts) [70480 70506])
+                    ("prev" variable
+                       (:pointer 1
+                        :type "void")
+                        (reparse-symbol classsubparts) [70511 70522])
+                    ("next" variable
+                       (:pointer 1
+                        :type "void")
+                        (reparse-symbol classsubparts) [70584 70595])
+                    ("hh_prev" variable
+                       (:pointer 1
+                        :type ("UT_hash_handle" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol classsubparts) [70657 70688])
+                    ("hh_next" variable
+                       (:pointer 1
+                        :type ("UT_hash_handle" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol classsubparts) [70730 70761])
+                    ("key" variable
+                       (:pointer 1
+                        :type "void")
+                        (reparse-symbol classsubparts) [70803 70813])
+                    ("keylen" variable (:type "unsigned int") (reparse-symbol classsubparts) [70876 70892])
+                    ("hashv" variable (:type "unsigned int") (reparse-symbol classsubparts) [70949 70964]))                  
+                :type "struct")
+                nil [70444 71035]))          
+    :file "uthash.h"
+    :pointmax 71059
+    :fsize 74506
+    :lastmodtime '(21586 38612 125582 191000)
+    :unmatched-syntax 'nil
+    :lexical-table 
+        '(("uthash_expand_fyi" (spp-arg-list ("tbl") 2995 . 3000))
+          ("HASH_MAKE_TABLE" (spp-arg-list ("hh" "head") 6197 . 6207) . 
+              ((DO "do" 6305 . 6307) (semantic-list "{                                                                                                                     \\
+        (head)->hh.tbl = (UT_hash_table *)uthash_malloc(sizeof(UT_hash_table));                                              \\
+        if (!((head)->hh.tbl)) {                                                                                             \\
+            uthash_fatal(\"out of memory\");                                                                                   \\
+        }                                                                                                                    \\
+        memset((head)->hh.tbl, 0, sizeof(UT_hash_table));                                                                    \\
+        (head)->hh.tbl->tail = &((head)->hh);                                                                                \\
+        (head)->hh.tbl->num_buckets = HASH_INITIAL_NUM_BUCKETS;                                                              \\
+        (head)->hh.tbl->log2_num_buckets = HASH_INITIAL_NUM_BUCKETS_LOG2;                                                    \\
+        (head)->hh.tbl->hho = (char *)(&(head)->hh) - (char *)(head);                                                        \\
+        (head)->hh.tbl->buckets = (UT_hash_bucket *)uthash_malloc(HASH_INITIAL_NUM_BUCKETS * sizeof(struct UT_hash_bucket)); \\
+        if (!(head)->hh.tbl->buckets) {                                                                                      \\
+            uthash_fatal(\"out of memory\");                                                                                   \\
+        }                                                                                                                    \\
+        memset((head)->hh.tbl->buckets, 0, HASH_INITIAL_NUM_BUCKETS * sizeof(struct UT_hash_bucket));                        \\
+        HASH_BLOOM_MAKE((head)->hh.tbl);                                                                                     \\
+        (head)->hh.tbl->signature = HASH_SIGNATURE;                                                                          \\
+    }" 6308 . 8465) (WHILE "while" 8466 . 8471) (semantic-list "(0)" 8472 . 8475)))
+          ("HASH_DELETE" (spp-arg-list ("hh" "head" "delptr") 11536 . 11554) . 
+              ((DO "do" 11641 . 11643) (semantic-list "{                                                                                                              \\
+        unsigned _hd_bkt;                                                                                             \\
+        struct UT_hash_handle *_hd_hh_del;                                                                            \\
+        if (((delptr)->hh.prev == NULL) && ((delptr)->hh.next == NULL)) {                                             \\
+            uthash_free((head)->hh.tbl->buckets, (head)->hh.tbl->num_buckets * sizeof(struct UT_hash_bucket));        \\
+            HASH_BLOOM_FREE((head)->hh.tbl);                                                                          \\
+            uthash_free((head)->hh.tbl, sizeof(UT_hash_table));                                                       \\
+            head = NULL;                                                                                              \\
+        } else {                                                                                                      \\
+            _hd_hh_del = &((delptr)->hh);                                                                             \\
+            if ((delptr) == ELMT_FROM_HH((head)->hh.tbl, (head)->hh.tbl->tail)) {                                     \\
+                (head)->hh.tbl->tail = (UT_hash_handle *)((ptrdiff_t)((delptr)->hh.prev) + (head)->hh.tbl->hho);      \\
+            }                                                                                                         \\
+            if ((delptr)->hh.prev) {                                                                                  \\
+                ((UT_hash_handle *)((ptrdiff_t)((delptr)->hh.prev) + (head)->hh.tbl->hho))->next = (delptr)->hh.next; \\
+            } else {                                                                                                  \\
+                DECLTYPE_ASSIGN(head, (delptr)->hh.next);                                                             \\
+            }                                                                                                         \\
+            if (_hd_hh_del->next) {                                                                                   \\
+                ((UT_hash_handle *)((ptrdiff_t)_hd_hh_del->next + (head)->hh.tbl->hho))->prev = _hd_hh_del->prev;     \\
+            }                                                                                                         \\
+            HASH_TO_BKT(_hd_hh_del->hashv, (head)->hh.tbl->num_buckets, _hd_bkt);                                     \\
+            HASH_DEL_IN_BKT(hh, (head)->hh.tbl->buckets[_hd_bkt], _hd_hh_del);                                        \\
+            (head)->hh.tbl->num_items--;                                                                              \\
+        }                                                                                                             \\
+        HASH_FSCK(hh, head);                                                                                          \\
+    }" 11644 . 14762) (WHILE "while" 14763 . 14768) (semantic-list "(0)" 14769 . 14772)))
+          ("uthash_free" (spp-arg-list ("ptr" "sz") 2772 . 2781) . ((symbol "free" 2782 . 2786) (semantic-list "(ptr)" 2786 . 2791)))
+          ("HASH_INITIAL_NUM_BUCKETS_LOG2" . ((number "5" 3196 . 3197)))
+          ("HASH_BLOOM_MAKE" (spp-arg-list ("tbl") 6056 . 6061))
+          ("HASH_FIND_IN_BKT" (spp-arg-list ("tbl" "hh" "head" "keyptr" "keylen_in" "out") 40633 . 40672) . 
+              ((DO "do" 40691 . 40693) (semantic-list "{                                                                    \\
+        if (head.hh_head)                                                   \\
+            DECLTYPE_ASSIGN(out, ELMT_FROM_HH(tbl, head.hh_head));          \\
+        else                                                                \\
+            out = NULL;                                                     \\
+        while (out) {                                                       \\
+            if ((out)->hh.keylen == keylen_in) {                            \\
+                if ((HASH_KEYCMP((out)->hh.key, keyptr, keylen_in)) == 0)   \\
+                    break;                                                  \\
+            }                                                               \\
+            if ((out)->hh.hh_next)                                          \\
+                DECLTYPE_ASSIGN(out, ELMT_FROM_HH(tbl, (out)->hh.hh_next)); \\
+            else                                                            \\
+                out = NULL;                                                 \\
+        }                                                                   \\
+    }" 40694 . 41862) (WHILE "while" 41863 . 41868) (semantic-list "(0)" 41869 . 41872)))
+          ("HASH_DEL_IN_BKT" (spp-arg-list ("hh" "head" "hh_del") 43354 . 43372) . 
+              ((semantic-list "(head)" 43389 . 43395) (punctuation "." 43395 . 43396) (symbol "count" 43396 . 43401) (punctuation "-" 43401 . 43402) (punctuation "-" 43402 . 43403) (punctuation ";" 43403 . 43404) (IF "if" 43443 . 43445) (semantic-list "((head).hh_head == hh_del)" 43446 . 43472) (semantic-list "{                 \\
+        (head).hh_head = hh_del->hh_next;           \\
+    }" 43473 . 43552) (IF "if" 43605 . 43607) (semantic-list "(hh_del->hh_prev)" 43608 . 43625) (semantic-list "{                          \\
+        hh_del->hh_prev->hh_next = hh_del->hh_next; \\
+    }" 43626 . 43714) (IF "if" 43767 . 43769) (semantic-list "(hh_del->hh_next)" 43770 . 43787) (semantic-list "{                          \\
+        hh_del->hh_next->hh_prev = hh_del->hh_prev; \\
+    }" 43788 . 43876)))
+          ("UTHASH_VERSION" . ((number "1.9" 2521 . 2524) (number ".7" 2524 . 2526)))
+          ("HASH_JEN_MIX" (spp-arg-list ("a" "b" "c") 24712 . 24721) . 
+              ((DO "do" 24728 . 24730) (semantic-list "{                      \\
+        a -= b;               \\
+        a -= c;               \\
+        a ^= (c >> 13);       \\
+        b -= c;               \\
+        b -= a;               \\
+        b ^= (a << 8);        \\
+        c -= a;               \\
+        c -= b;               \\
+        c ^= (b >> 13);       \\
+        a -= b;               \\
+        a -= c;               \\
+        a ^= (c >> 12);       \\
+        b -= c;               \\
+        b -= a;               \\
+        b ^= (a << 16);       \\
+        c -= a;               \\
+        c -= b;               \\
+        c ^= (b >> 5);        \\
+        a -= b;               \\
+        a -= c;               \\
+        a ^= (c >> 3);        \\
+        b -= c;               \\
+        b -= a;               \\
+        b ^= (a << 10);       \\
+        c -= a;               \\
+        c -= b;               \\
+        c ^= (b >> 15);       \\
+    }" 24731 . 25625) (WHILE "while" 25626 . 25631) (semantic-list "(0)" 25632 . 25635)))
+          ("uthash_noexpand_fyi" (spp-arg-list ("tbl") 2893 . 2898))
+          ("HASH_BKT_CAPACITY_THRESH" . ((number "10" 3270 . 3272)))
+          ("HASH_ITER" (spp-arg-list ("hh" "head" "el" "tmp") 67438 . 67457) . ((FOR "for" 67458 . 67461) (semantic-list "((el) = (head), (tmp) = DECLTYPE(el)((head) ? (head)->hh.next : NULL); \\
+                                          el; (el) = (tmp), (tmp) = DECLTYPE(el)((tmp) ? (tmp)->hh.next : NULL))" 67462 . 67647)))
+          ("DECLTYPE" (spp-arg-list ("x") 1902 . 1905) . ((semantic-list "(__typeof(x))" 1906 . 1919)))
+          ("HASH_INITIAL_NUM_BUCKETS" . ((number "32" 3112 . 3114)))
+          ("HASH_BLOOM_ADD" (spp-arg-list ("tbl" "hashv") 6113 . 6125))
+          ("HASH_FIND_INT" (spp-arg-list ("head" "findint" "out") 15055 . 15075) . ((symbol "HASH_FIND" 15082 . 15091) (semantic-list "(hh, head, findint, sizeof(int), out)" 15091 . 15128)))
+          ("HASH_FSCK" (spp-arg-list ("hh" "head") 21348 . 21358))
+          ("HASH_EMIT_KEY" (spp-arg-list ("hh" "head" "keyptr" "fieldlen") 21941 . 21969))
+          ("DECLTYPE_ASSIGN" (spp-arg-list ("dst" "src") 2176 . 2186) . 
+              ((DO "do" 2195 . 2197) (semantic-list "{                            \\
+        (dst) = DECLTYPE(dst)(src); \\
+    }" 2198 . 2272) (WHILE "while" 2273 . 2278) (semantic-list "(0)" 2279 . 2282)))
+          ("HASH_FIND" (spp-arg-list ("hh" "head" "keyptr" "keylen" "out") 3470 . 3501) . 
+              ((DO "do" 3568 . 3570) (semantic-list "{                                                                                                     \\
+        unsigned _hf_bkt, _hf_hashv;                                                                         \\
+        out = NULL;                                                                                          \\
+        if (head) {                                                                                          \\
+            HASH_FCN(keyptr, keylen, (head)->hh.tbl->num_buckets, _hf_hashv, _hf_bkt);                       \\
+            if (HASH_BLOOM_TEST((head)->hh.tbl, _hf_hashv)) {                                                \\
+                HASH_FIND_IN_BKT((head)->hh.tbl, hh, (head)->hh.tbl->buckets[_hf_bkt], keyptr, keylen, out); \\
+            }                                                                                                \\
+        }                                                                                                    \\
+    }" 3571 . 4568) (WHILE "while" 4569 . 4574) (semantic-list "(0)" 4575 . 4578)))
+          ("HASH_BLOOM_TEST" (spp-arg-list ("tbl" "hashv") 6149 . 6161) . ((semantic-list "(1)" 6162 . 6165)))
+          ("HASH_FIND_PTR" (spp-arg-list ("head" "findptr" "out") 15245 . 15265) . ((symbol "HASH_FIND" 15272 . 15281) (semantic-list "(hh, head, findptr, sizeof(void *), out)" 15281 . 15321)))
+          ("HASH_DEL" (spp-arg-list ("head" "delptr") 15436 . 15450) . ((symbol "HASH_DELETE" 15457 . 15468) (semantic-list "(hh, head, delptr)" 15468 . 15486)))
+          ("HASH_SRT" (spp-arg-list ("hh" "head" "cmpfcn") 51568 . 51586) . 
+              ((DO "do" 51716 . 51718) (semantic-list "{                                                                                                                                                      \\
+        unsigned _hs_i;                                                                                                                                       \\
+        unsigned _hs_looping, _hs_nmerges, _hs_insize, _hs_psize, _hs_qsize;                                                                                  \\
+        struct UT_hash_handle *_hs_p, *_hs_q, *_hs_e, *_hs_list, *_hs_tail;                                                                                   \\
+        if (head) {                                                                                                                                           \\
+            _hs_insize = 1;                                                                                                                                   \\
+            _hs_looping = 1;                                                                                                                                  \\
+            _hs_list = &((head)->hh);                                                                                                                         \\
+            while (_hs_looping) {                                                                                                                             \\
+                _hs_p = _hs_list;                                                                                                                             \\
+                _hs_list = NULL;                                                                                                                              \\
+                _hs_tail = NULL;                                                                                                                              \\
+                _hs_nmerges = 0;                                                                                                                              \\
+                while (_hs_p) {                                                                                                                               \\
+                    _hs_nmerges++;                                                                                                                            \\
+                    _hs_q = _hs_p;                                                                                                                            \\
+                    _hs_psize = 0;                                                                                                                            \\
+                    for (_hs_i = 0; _hs_i < _hs_insize; _hs_i++) {                                                                                            \\
+                        _hs_psize++;                                                                                                                          \\
+                        _hs_q = (UT_hash_handle *)((_hs_q->next) ? ((void *)((char *)(_hs_q->next) + (head)->hh.tbl->hho)) : NULL);                           \\
+                        if (!(_hs_q))                                                                                                                         \\
+                            break;                                                                                                                            \\
+                    }                                                                                                                                         \\
+                    _hs_qsize = _hs_insize;                                                                                                                   \\
+                    while ((_hs_psize > 0) || ((_hs_qsize > 0) && _hs_q)) {                                                                                   \\
+                        if (_hs_psize == 0) {                                                                                                                 \\
+                            _hs_e = _hs_q;                                                                                                                    \\
+                            _hs_q = (UT_hash_handle *)((_hs_q->next) ? ((void *)((char *)(_hs_q->next) + (head)->hh.tbl->hho)) : NULL);                       \\
+                            _hs_qsize--;                                                                                                                      \\
+                        } else if ((_hs_qsize == 0) || !(_hs_q)) {                                                                                            \\
+                            _hs_e = _hs_p;                                                                                                                    \\
+                            _hs_p = (UT_hash_handle *)((_hs_p->next) ? ((void *)((char *)(_hs_p->next) + (head)->hh.tbl->hho)) : NULL);                       \\
+                            _hs_psize--;                                                                                                                      \\
+                        } else if ((cmpfcn(DECLTYPE(head)(ELMT_FROM_HH((head)->hh.tbl, _hs_p)), DECLTYPE(head)(ELMT_FROM_HH((head)->hh.tbl, _hs_q)))) <= 0) { \\
+                            _hs_e = _hs_p;                                                                                                                    \\
+                            _hs_p = (UT_hash_handle *)((_hs_p->next) ? ((void *)((char *)(_hs_p->next) + (head)->hh.tbl->hho)) : NULL);                       \\
+                            _hs_psize--;                                                                                                                      \\
+                        } else {                                                                                                                              \\
+                            _hs_e = _hs_q;                                                                                                                    \\
+                            _hs_q = (UT_hash_handle *)((_hs_q->next) ? ((void *)((char *)(_hs_q->next) + (head)->hh.tbl->hho)) : NULL);                       \\
+                            _hs_qsize--;                                                                                                                      \\
+                        }                                                                                                                                     \\
+                        if (_hs_tail) {                                                                                                                       \\
+                            _hs_tail->next = ((_hs_e) ? ELMT_FROM_HH((head)->hh.tbl, _hs_e) : NULL);                                                          \\
+                        } else {                                                                                                                              \\
+                            _hs_list = _hs_e;                                                                                                                 \\
+                        }                                                                                                                                     \\
+                        _hs_e->prev = ((_hs_tail) ? ELMT_FROM_HH((head)->hh.tbl, _hs_tail) : NULL);                                                           \\
+                        _hs_tail = _hs_e;                                                                                                                     \\
+                    }                                                                                                                                         \\
+                    _hs_p = _hs_q;                                                                                                                            \\
+                }                                                                                                                                             \\
+                _hs_tail->next = NULL;                                                                                                                        \\
+                if (_hs_nmerges <= 1) {                                                                                                                       \\
+                    _hs_looping = 0;                                                                                                                          \\
+                    (head)->hh.tbl->tail = _hs_tail;                                                                                                          \\
+                    DECLTYPE_ASSIGN(head, ELMT_FROM_HH((head)->hh.tbl, _hs_list));                                                                            \\
+                }                                                                                                                                             \\
+                _hs_insize *= 2;                                                                                                                              \\
+            }                                                                                                                                                 \\
+            HASH_FSCK(hh, head);                                                                                                                              \\
+        }                                                                                                                                                     \\
+    }" 51719 . 61637) (WHILE "while" 61638 . 61643) (semantic-list "(0)" 61644 . 61647)))
+          ("HASH_CLEAR" (spp-arg-list ("hh" "head") 66244 . 66254) . 
+              ((DO "do" 66343 . 66345) (semantic-list "{                                                                                                       \\
+        if (head) {                                                                                            \\
+            uthash_free((head)->hh.tbl->buckets, (head)->hh.tbl->num_buckets * sizeof(struct UT_hash_bucket)); \\
+            HASH_BLOOM_FREE((head)->hh.tbl);                                                                   \\
+            uthash_free((head)->hh.tbl, sizeof(UT_hash_table));                                                \\
+            (head) = NULL;                                                                                     \\
+        }                                                                                                      \\
+    }" 66346 . 67135) (WHILE "while" 67136 . 67141) (semantic-list "(0)" 67142 . 67145)))
+          ("HASH_CNT" (spp-arg-list ("hh" "head") 67758 . 67768) . ((semantic-list "((head) ? ((head)->hh.tbl->num_items) : 0)" 67769 . 67811)))
+          ("HASH_ADD" (spp-arg-list ("hh" "head" "fieldname" "keylen_in" "add") 8493 . 8530) . ((symbol "HASH_ADD_KEYPTR" 8537 . 8552) (semantic-list "(hh, head, &((add)->fieldname), keylen_in, add)" 8552 . 8599)))
+          ("HASH_FIND_STR" (spp-arg-list ("head" "findstr" "out") 14851 . 14871) . ((symbol "HASH_FIND" 14878 . 14887) (semantic-list "(hh, head, findstr, strlen(findstr), out)" 14887 . 14928)))
+          ("HASH_FCN" . ((symbol "HASH_JEN" 22131 . 22139)))
+          ("HASH_BER" (spp-arg-list ("key" "keylen" "num_bkts" "hashv" "bkt") 22226 . 22261) . 
+              ((DO "do" 22268 . 22270) (semantic-list "{                                            \\
+        unsigned _hb_keylen = keylen;               \\
+        char *_hb_key = (char *)(key);              \\
+        (hashv) = 0;                                \\
+        while (_hb_keylen--) {                      \\
+            (hashv) = ((hashv) * 33) + *_hb_key++;  \\
+        }                                           \\
+        bkt = (hashv) & (num_bkts - 1);             \\
+    }" 22271 . 22701) (WHILE "while" 22702 . 22707) (semantic-list "(0)" 22708 . 22711)))
+          ("HASH_EXPAND_BUCKETS" (spp-arg-list ("tbl") 45354 . 45359) . 
+              ((DO "do" 45476 . 45478) (semantic-list "{                                                                                                                                       \\
+        unsigned _he_bkt;                                                                                                                      \\
+        unsigned _he_bkt_i;                                                                                                                    \\
+        struct UT_hash_handle *_he_thh, *_he_hh_nxt;                                                                                           \\
+        UT_hash_bucket *_he_new_buckets, *_he_newbkt;                                                                                          \\
+        _he_new_buckets = (UT_hash_bucket *)uthash_malloc(2 * tbl->num_buckets * sizeof(struct UT_hash_bucket));                               \\
+        if (!_he_new_buckets) {                                                                                                                \\
+            uthash_fatal(\"out of memory\");                                                                                                     \\
+        }                                                                                                                                      \\
+        memset(_he_new_buckets, 0, 2 * tbl->num_buckets * sizeof(struct UT_hash_bucket));                                                      \\
+        tbl->ideal_chain_maxlen = (tbl->num_items >> (tbl->log2_num_buckets + 1)) + ((tbl->num_items & ((tbl->num_buckets * 2) - 1)) ? 1 : 0); \\
+        tbl->nonideal_items = 0;                                                                                                               \\
+        for (_he_bkt_i = 0; _he_bkt_i < tbl->num_buckets; _he_bkt_i++) {                                                                       \\
+            _he_thh = tbl->buckets[_he_bkt_i].hh_head;                                                                                         \\
+            while (_he_thh) {                                                                                                                  \\
+                _he_hh_nxt = _he_thh->hh_next;                                                                                                 \\
+                HASH_TO_BKT(_he_thh->hashv, tbl->num_buckets * 2, _he_bkt);                                                                    \\
+                _he_newbkt = &(_he_new_buckets[_he_bkt]);                                                                                      \\
+                if (++(_he_newbkt->count) > tbl->ideal_chain_maxlen) {                                                                         \\
+                    tbl->nonideal_items++;                                                                                                     \\
+                    _he_newbkt->expand_mult = _he_newbkt->count / tbl->ideal_chain_maxlen;                                                     \\
+                }                                                                                                                              \\
+                _he_thh->hh_prev = NULL;                                                                                                       \\
+                _he_thh->hh_next = _he_newbkt->hh_head;                                                                                        \\
+                if (_he_newbkt->hh_head)                                                                                                       \\
+                    _he_newbkt->hh_head->hh_prev = _he_thh;                                                                                    \\
+                _he_newbkt->hh_head = _he_thh;                                                                                                 \\
+                _he_thh = _he_hh_nxt;                                                                                                          \\
+            }                                                                                                                                  \\
+        }                                                                                                                                      \\
+        uthash_free(tbl->buckets, tbl->num_buckets * sizeof(struct UT_hash_bucket));                                                           \\
+        tbl->num_buckets *= 2;                                                                                                                 \\
+        tbl->log2_num_buckets++;                                                                                                               \\
+        tbl->buckets = _he_new_buckets;                                                                                                        \\
+        tbl->ineff_expands = (tbl->nonideal_items > (tbl->num_items >> 1)) ? (tbl->ineff_expands + 1) : 0;                                     \\
+        if (tbl->ineff_expands > 1) {                                                                                                          \\
+            tbl->noexpand = 1;                                                                                                                 \\
+            uthash_noexpand_fyi(tbl);                                                                                                          \\
+        }                                                                                                                                      \\
+        uthash_expand_fyi(tbl);                                                                                                                \\
+    }" 45479 . 51277) (WHILE "while" 51278 . 51283) (semantic-list "(0)" 51284 . 51287)))
+          ("UTHASH_H")
+          ("HASH_ADD_KEYPTR" (spp-arg-list ("hh" "head" "keyptr" "keylen_in" "add") 8624 . 8658) . 
+              ((DO "do" 8699 . 8701) (semantic-list "{                                                                                    \\
+        unsigned _ha_bkt;                                                                   \\
+        (add)->hh.next = NULL;                                                              \\
+        (add)->hh.key = (char *)keyptr;                                                     \\
+        (add)->hh.keylen = (unsigned)keylen_in;                                             \\
+        if (!(head)) {                                                                      \\
+            head = (add);                                                                   \\
+            (head)->hh.prev = NULL;                                                         \\
+            HASH_MAKE_TABLE(hh, head);                                                      \\
+        } else {                                                                            \\
+            (head)->hh.tbl->tail->next = (add);                                             \\
+            (add)->hh.prev = ELMT_FROM_HH((head)->hh.tbl, (head)->hh.tbl->tail);            \\
+            (head)->hh.tbl->tail = &((add)->hh);                                            \\
+        }                                                                                   \\
+        (head)->hh.tbl->num_items++;                                                        \\
+        (add)->hh.tbl = (head)->hh.tbl;                                                     \\
+        HASH_FCN(keyptr, keylen_in, (head)->hh.tbl->num_buckets, (add)->hh.hashv, _ha_bkt); \\
+        HASH_ADD_TO_BKT((head)->hh.tbl->buckets[_ha_bkt], &(add)->hh);                      \\
+        HASH_BLOOM_ADD((head)->hh.tbl, (add)->hh.hashv);                                    \\
+        HASH_EMIT_KEY(hh, head, keyptr, keylen_in);                                         \\
+        HASH_FSCK(hh, head);                                                                \\
+    }" 8702 . 10674) (WHILE "while" 10675 . 10680) (semantic-list "(0)" 10681 . 10684)))
+          ("HASH_ADD_INT" (spp-arg-list ("head" "intfield" "add") 15149 . 15170) . ((symbol "HASH_ADD" 15177 . 15185) (semantic-list "(hh, head, intfield, sizeof(int), add)" 15185 . 15223)))
+          ("ELMT_FROM_HH" (spp-arg-list ("tbl" "hhp") 3398 . 3408) . ((semantic-list "((void *)(((char *)(hhp)) - ((tbl)->hho)))" 3409 . 3451)))
+          ("HASH_ADD_PTR" (spp-arg-list ("head" "ptrfield" "add") 15342 . 15363) . ((symbol "HASH_ADD" 15370 . 15378) (semantic-list "(hh, head, ptrfield, sizeof(void *), add)" 15378 . 15419)))
+          ("HASH_FNV" (spp-arg-list ("key" "keylen" "num_bkts" "hashv" "bkt") 23446 . 23481) . 
+              ((DO "do" 23493 . 23495) (semantic-list "{                                                 \\
+        unsigned _fn_i;                                  \\
+        char *_hf_key = (char *)(key);                   \\
+        hashv = 2166136261UL;                            \\
+        for (_fn_i = 0; _fn_i < keylen; _fn_i++)         \\
+            hashv = (hashv * 16777619) ^ _hf_key[_fn_i]; \\
+        bkt = hashv & (num_bkts - 1);                    \\
+    }" 23496 . 23907) (WHILE "while" 23908 . 23913) (semantic-list "(0)" 23914 . 23917)))
+          ("HASH_SELECT" (spp-arg-list ("hh_dst" "dst" "hh_src" "src" "cond") 61980 . 62012) . 
+              ((DO "do" 62083 . 62085) (semantic-list "{                                                                                                            \\
+        unsigned _src_bkt, _dst_bkt;                                                                                \\
+        void *_last_elt = NULL, *_elt;                                                                              \\
+        UT_hash_handle *_src_hh, *_dst_hh, *_last_elt_hh = NULL;                                                    \\
+        ptrdiff_t _dst_hho = ((char *)(&(dst)->hh_dst) - (char *)(dst));                                            \\
+        if (src) {                                                                                                  \\
+            for (_src_bkt = 0; _src_bkt < (src)->hh_src.tbl->num_buckets; _src_bkt++) {                             \\
+                for (_src_hh = (src)->hh_src.tbl->buckets[_src_bkt].hh_head; _src_hh; _src_hh = _src_hh->hh_next) { \\
+                    _elt = ELMT_FROM_HH((src)->hh_src.tbl, _src_hh);                                                \\
+                    if (cond(_elt)) {                                                                               \\
+                        _dst_hh = (UT_hash_handle *)(((char *)_elt) + _dst_hho);                                    \\
+                        _dst_hh->key = _src_hh->key;                                                                \\
+                        _dst_hh->keylen = _src_hh->keylen;                                                          \\
+                        _dst_hh->hashv = _src_hh->hashv;                                                            \\
+                        _dst_hh->prev = _last_elt;                                                                  \\
+                        _dst_hh->next = NULL;                                                                       \\
+                        if (_last_elt_hh) {                                                                         \\
+                            _last_elt_hh->next = _elt;                                                              \\
+                        }                                                                                           \\
+                        if (!dst) {                                                                                 \\
+                            DECLTYPE_ASSIGN(dst, _elt);                                                             \\
+                            HASH_MAKE_TABLE(hh_dst, dst);                                                           \\
+                        } else {                                                                                    \\
+                            _dst_hh->tbl = (dst)->hh_dst.tbl;                                                       \\
+                        }                                                                                           \\
+                        HASH_TO_BKT(_dst_hh->hashv, _dst_hh->tbl->num_buckets, _dst_bkt);                           \\
+                        HASH_ADD_TO_BKT(_dst_hh->tbl->buckets[_dst_bkt], _dst_hh);                                  \\
+                        (dst)->hh_dst.tbl->num_items++;                                                             \\
+                        _last_elt = _elt;                                                                           \\
+                        _last_elt_hh = _dst_hh;                                                                     \\
+                    }                                                                                               \\
+                }                                                                                                   \\
+            }                                                                                                       \\
+        }                                                                                                           \\
+        HASH_FSCK(hh_dst, dst);                                                                                     \\
+    }" 62086 . 66214) (WHILE "while" 66215 . 66220) (semantic-list "(0)" 66221 . 66224)))
+          ("HASH_ADD_STR" (spp-arg-list ("head" "strfield" "add") 14949 . 14970) . ((symbol "HASH_ADD" 14977 . 14985) (semantic-list "(hh, head, strfield, strlen(add->strfield), add)" 14985 . 15033)))
+          ("HASH_OAT" (spp-arg-list ("key" "keylen" "num_bkts" "hashv" "bkt") 23935 . 23970) . 
+              ((DO "do" 23977 . 23979) (semantic-list "{                                            \\
+        unsigned _ho_i;                             \\
+        char *_ho_key = (char *)(key);              \\
+        hashv = 0;                                  \\
+        for (_ho_i = 0; _ho_i < keylen; _ho_i++) {  \\
+            hashv += _ho_key[_ho_i];                \\
+            hashv += (hashv << 10);                 \\
+            hashv ^= (hashv >> 6);                  \\
+        }                                           \\
+        hashv += (hashv << 3);                      \\
+        hashv ^= (hashv >> 11);                     \\
+        hashv += (hashv << 15);                     \\
+        bkt = hashv & (num_bkts - 1);               \\
+    }" 23980 . 24680) (WHILE "while" 24681 . 24686) (semantic-list "(0)" 24687 . 24690)))
+          ("HASH_JEN" (spp-arg-list ("key" "keylen" "num_bkts" "hashv" "bkt") 25653 . 25688) . 
+              ((DO "do" 25772 . 25774) (semantic-list "{                                                                                                                         \\
+        unsigned _hj_i, _hj_j, _hj_k;                                                                                            \\
+        char *_hj_key = (char *)(key);                                                                                           \\
+        hashv = 0xfeedbeef;                                                                                                      \\
+        _hj_i = _hj_j = 0x9e3779b9;                                                                                              \\
+        _hj_k = (unsigned)keylen;                                                                                                \\
+        while (_hj_k >= 12) {                                                                                                    \\
+            _hj_i += (_hj_key[0] + ((unsigned)_hj_key[1] << 8) + ((unsigned)_hj_key[2] << 16) + ((unsigned)_hj_key[3] << 24));   \\
+            _hj_j += (_hj_key[4] + ((unsigned)_hj_key[5] << 8) + ((unsigned)_hj_key[6] << 16) + ((unsigned)_hj_key[7] << 24));   \\
+            hashv += (_hj_key[8] + ((unsigned)_hj_key[9] << 8) + ((unsigned)_hj_key[10] << 16) + ((unsigned)_hj_key[11] << 24)); \\
+                                                                                                                                 \\
+            HASH_JEN_MIX(_hj_i, _hj_j, hashv);                                                                                   \\
+                                                                                                                                 \\
+            _hj_key += 12;                                                                                                       \\
+            _hj_k -= 12;                                                                                                         \\
+        }                                                                                                                        \\
+        hashv += keylen;                                                                                                         \\
+        switch (_hj_k) {                                                                                                         \\
+            case 11:                                                                                                             \\
+                hashv += ((unsigned)_hj_key[10] << 24);                                                                          \\
+            case 10:                                                                                                             \\
+                hashv += ((unsigned)_hj_key[9] << 16);                                                                           \\
+            case 9:                                                                                                              \\
+                hashv += ((unsigned)_hj_key[8] << 8);                                                                            \\
+            case 8:                                                                                                              \\
+                _hj_j += ((unsigned)_hj_key[7] << 24);                                                                           \\
+            case 7:                                                                                                              \\
+                _hj_j += ((unsigned)_hj_key[6] << 16);                                                                           \\
+            case 6:                                                                                                              \\
+                _hj_j += ((unsigned)_hj_key[5] << 8);                                                                            \\
+            case 5:                                                                                                              \\
+                _hj_j += _hj_key[4];                                                                                             \\
+            case 4:                                                                                                              \\
+                _hj_i += ((unsigned)_hj_key[3] << 24);                                                                           \\
+            case 3:                                                                                                              \\
+                _hj_i += ((unsigned)_hj_key[2] << 16);                                                                           \\
+            case 2:                                                                                                              \\
+                _hj_i += ((unsigned)_hj_key[1] << 8);                                                                            \\
+            case 1:                                                                                                              \\
+                _hj_i += _hj_key[0];                                                                                             \\
+        }                                                                                                                        \\
+        HASH_JEN_MIX(_hj_i, _hj_j, hashv);                                                                                       \\
+        bkt = hashv & (num_bkts - 1);                                                                                            \\
+    }" 25775 . 31406) (WHILE "while" 31407 . 31412) (semantic-list "(0)" 31413 . 31416)))
+          ("get16bits" (spp-arg-list ("d") 31625 . 31628) . ((semantic-list "(*((const uint16_t *)(d)))" 31629 . 31655)))
+          ("HASH_SFH" (spp-arg-list ("key" "keylen" "num_bkts" "hashv" "bkt") 31821 . 31856) . 
+              ((DO "do" 31875 . 31877) (semantic-list "{                                                        \\
+        char *_sfh_key = (char *)(key);                         \\
+        uint32_t _sfh_tmp, _sfh_len = keylen;                   \\
+                                                                \\
+        int _sfh_rem = _sfh_len & 3;                            \\
+        _sfh_len >>= 2;                                         \\
+        hashv = 0xcafebabe;                                     \\
+                                                                \\
+        /* Main loop */                                         \\
+        for (; _sfh_len > 0; _sfh_len--) {                      \\
+            hashv += get16bits(_sfh_key);                       \\
+            _sfh_tmp = (get16bits(_sfh_key + 2) << 11) ^ hashv; \\
+            hashv = (hashv << 16) ^ _sfh_tmp;                   \\
+            _sfh_key += 2 * sizeof(uint16_t);                   \\
+            hashv += hashv >> 11;                               \\
+        }                                                       \\
+                                                                \\
+        /* Handle end cases */                                  \\
+        switch (_sfh_rem) {                                     \\
+            case 3:                                             \\
+                hashv += get16bits(_sfh_key);                   \\
+                hashv ^= hashv << 16;                           \\
+                hashv ^= _sfh_key[sizeof(uint16_t)] << 18;      \\
+                hashv += hashv >> 11;                           \\
+                break;                                          \\
+            case 2:                                             \\
+                hashv += get16bits(_sfh_key);                   \\
+                hashv ^= hashv << 11;                           \\
+                hashv += hashv >> 17;                           \\
+                break;                                          \\
+            case 1:                                             \\
+                hashv += *_sfh_key;                             \\
+                hashv ^= hashv << 10;                           \\
+                hashv += hashv >> 1;                            \\
+        }                                                       \\
+                                                                \\
+        /* Force \"avalanching\" of final 127 bits */             \\
+        hashv ^= hashv << 3;                                    \\
+        hashv += hashv >> 5;                                    \\
+        hashv ^= hashv << 4;                                    \\
+        hashv += hashv >> 17;                                   \\
+        hashv ^= hashv << 25;                                   \\
+        hashv += hashv >> 6;                                    \\
+        bkt = hashv & (num_bkts - 1);                           \\
+    }" 31878 . 34780) (WHILE "while" 34781 . 34786) (semantic-list "(0)" 34787 . 34790)))
+          ("HASH_KEYCMP" (spp-arg-list ("a" "b" "len") 40514 . 40525) . ((symbol "memcmp" 40526 . 40532) (semantic-list "(a, b, len)" 40532 . 40543)))
+          ("HASH_SORT" (spp-arg-list ("head" "cmpfcn") 51510 . 51524) . ((symbol "HASH_SRT" 51525 . 51533) (semantic-list "(hh, head, cmpfcn)" 51533 . 51551)))
+          ("uthash_fatal" (spp-arg-list ("msg") 2569 . 2574) . ((symbol "exit" 2575 . 2579) (semantic-list "(-1)" 2579 . 2583)))
+          ("HASH_SAX" (spp-arg-list ("key" "keylen" "num_bkts" "hashv" "bkt") 22877 . 22912) . 
+              ((DO "do" 22934 . 22936) (semantic-list "{                                                           \\
+        unsigned _sx_i;                                            \\
+        char *_hs_key = (char *)(key);                             \\
+        hashv = 0;                                                 \\
+        for (_sx_i = 0; _sx_i < keylen; _sx_i++)                   \\
+            hashv ^= (hashv << 5) + (hashv >> 2) + _hs_key[_sx_i]; \\
+        bkt = hashv & (num_bkts - 1);                              \\
+    }" 22937 . 23418) (WHILE "while" 23419 . 23424) (semantic-list "(0)" 23425 . 23428)))
+          ("HASH_SIGNATURE" . ((number "0xa0111fe1" 68887 . 68897)))
+          ("HASH_TO_BKT" (spp-arg-list ("hashv" "num_bkts" "bkt") 10705 . 10727) . 
+              ((DO "do" 10736 . 10738) (semantic-list "{                                    \\
+        bkt = ((hashv) & ((num_bkts) - 1)); \\
+    }" 10739 . 10829) (WHILE "while" 10830 . 10835) (semantic-list "(0)" 10836 . 10839)))
+          ("HASH_COUNT" (spp-arg-list ("head") 67716 . 67722) . ((symbol "HASH_CNT" 67723 . 67731) (semantic-list "(hh, head)" 67731 . 67741)))
+          ("HASH_BLOOM_SIGNATURE" . ((number "0xb12220f2" 68927 . 68937)))
+          ("uthash_malloc" (spp-arg-list ("sz") 2672 . 2676) . ((symbol "malloc" 2677 . 2683) (semantic-list "(sz)" 2683 . 2687)))
+          ("HASH_BLOOM_FREE" (spp-arg-list ("tbl") 6085 . 6090))
+          ("HASH_ADD_TO_BKT" (spp-arg-list ("head" "addhh") 41928 . 41941) . 
+              ((DO "do" 42023 . 42025) (semantic-list "{                                                                                                        \\
+        head.count++;                                                                                           \\
+        (addhh)->hh_next = head.hh_head;                                                                        \\
+        (addhh)->hh_prev = NULL;                                                                                \\
+        if (head.hh_head) {                                                                                     \\
+            (head).hh_head->hh_prev = (addhh);                                                                  \\
+        }                                                                                                       \\
+        (head).hh_head = addhh;                                                                                 \\
+        if (head.count >= ((head.expand_mult + 1) * HASH_BKT_CAPACITY_THRESH) && (addhh)->tbl->noexpand != 1) { \\
+            HASH_EXPAND_BUCKETS((addhh)->tbl);                                                                  \\
+        }                                                                                                       \\
+    }" 42026 . 43278) (WHILE "while" 43279 . 43284) (semantic-list "(0)" 43285 . 43288)))
+          )
+
+    )
+   (semanticdb-table "log.c"
+    :major-mode 'c-mode
+    :tags 
+        '( ("stdio.h" include (:system-flag t) nil [1 19])
+            ("stdarg.h" include (:system-flag t) nil [20 39])
+            ("log.h" include nil nil [41 57])
+            ("util.h" include nil nil [58 75])
+            ("log_threshold" variable
+               (:typemodifiers ("static")
+                :type ("log_level" type (:type "enum") nil nil))
+                nil [77 129])
+            ("set_log_level" function
+               (:arguments 
+                  ( ("threshold" variable (:type ("log_level" type (:type "enum") nil nil)) (reparse-symbol arg-sub-list) [150 175]))                  
+                :type "void")
+                nil [131 210])
+            ("log_debug" function
+               (:arguments 
+                  ( ("fmt" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [227 243])
+                    ("..." variable (:type "vararg") (reparse-symbol arg-sub-list) [244 248]))                  
+                :type "void")
+                nil [212 352])
+            ("log_msg" function
+               (:arguments 
+                  ( ("fmt" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [367 383])
+                    ("..." variable (:type "vararg") (reparse-symbol arg-sub-list) [384 388]))                  
+                :type "void")
+                nil [354 490])
+            ("log_warn" function
+               (:arguments 
+                  ( ("fmt" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [506 522])
+                    ("..." variable (:type "vararg") (reparse-symbol arg-sub-list) [523 527]))                  
+                :type "void")
+                nil [492 630])
+            ("log_err" function
+               (:arguments 
+                  ( ("fmt" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [645 661])
+                    ("..." variable (:type "vararg") (reparse-symbol arg-sub-list) [662 666]))                  
+                :type "void")
+                nil [632 768])
+            ("vplog" function
+               (:arguments 
+                  ( ("level" variable
+                       (:constant-flag t
+                        :type "unsigned int")
+                        (reparse-symbol arg-sub-list) [781 806])
+                    ("fmt" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [807 823])
+                    ("args" variable (:type ("va_list" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [824 837]))                  
+                :type "void")
+                nil [770 1388])
+            ("plog" function
+               (:arguments 
+                  ( ("level" variable
+                       (:constant-flag t
+                        :type "unsigned int")
+                        (reparse-symbol arg-sub-list) [1400 1425])
+                    ("fmt" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [1426 1442])
+                    ("..." variable (:type "vararg") (reparse-symbol arg-sub-list) [1443 1447]))                  
+                :type "void")
+                nil [1390 1541]))          
+    :file "log.c"
+    :pointmax 1542
+    :fsize 1541
+    :lastmodtime '(21550 35228 255974 442000)
+    :unmatched-syntax 'nil
+    )
+   (semanticdb-table "ignore.c"
+    :major-mode 'c-mode
+    :tags 
+        '( ("ctype.h" include (:system-flag t) nil [1 19])
+            ("dirent.h" include (:system-flag t) nil [20 39])
+            ("stdio.h" include (:system-flag t) nil [40 58])
+            ("stdlib.h" include (:system-flag t) nil [59 78])
+            ("string.h" include (:system-flag t) nil [79 98])
+            ("sys/stat.h" include (:system-flag t) nil [99 120])
+            ("ignore.h" include nil nil [122 141])
+            ("log.h" include nil nil [142 158])
+            ("options.h" include nil nil [159 179])
+            ("scandir.h" include nil nil [180 200])
+            ("util.h" include nil nil [201 218])
+            ("fnmatch.h" include (:system-flag t) nil [309 329])
+            ("fnmatch_flags" variable
+               (:constant-flag t
+                :type "int")
+                nil [330 369])
+            ("evil_hardcoded_ignore_files" variable
+               (:pointer 1
+                :dereference 1
+                :constant-flag t
+                :type "char")
+                nil [487 563])
+            ("ignore_pattern_files" variable
+               (:pointer 1
+                :dereference 1
+                :constant-flag t
+                :type "char")
+                nil [635 774])
+            ("init_ignore" function
+               (:pointer 1
+                :arguments 
+                  ( ("parent" variable
+                       (:pointer 1
+                        :type ("ignores" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [797 813]))                  
+                :type ("ignores" type (:type "class") nil nil))
+                nil [776 997])
+            ("cleanup_ignore" function
+               (:arguments 
+                  ( ("ig" variable
+                       (:pointer 1
+                        :type ("ignores" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [1019 1031]))                  
+                :type "void")
+                nil [999 1424])
+            ("add_ignore_pattern" function
+               (:arguments 
+                  ( ("ig" variable
+                       (:pointer 1
+                        :type ("ignores" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [1450 1462])
+                    ("pattern" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [1463 1483]))                  
+                :type "void")
+                nil [1426 3125])
+            ("load_ignore_patterns" function
+               (:arguments 
+                  ( ("ig" variable
+                       (:pointer 1
+                        :type ("ignores" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [3194 3206])
+                    ("path" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [3207 3224]))                  
+                :type "void")
+                nil [3168 3793])
+            ("load_svn_ignore_patterns" function
+               (:arguments 
+                  ( ("ig" variable
+                       (:pointer 1
+                        :type ("ignores" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [3825 3837])
+                    ("path" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [3838 3855]))                  
+                :type "void")
+                nil [3795 6069])
+            ("ackmate_dir_match" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("dir_name" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [6100 6121]))                  
+                :type "int")
+                nil [6071 6354])
+            ("filename_ignore_search" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("ig" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("ignores" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [6390 6408])
+                    ("filename" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [6409 6430]))                  
+                :type "int")
+                nil [6356 7169])
+            ("path_ignore_search" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("ig" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("ignores" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [7201 7219])
+                    ("path" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [7220 7237])
+                    ("filename" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [7238 7259]))                  
+                :type "int")
+                nil [7171 7589])
+            ("filename_filter" function
+               (:arguments 
+                  ( ("path" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [7676 7693])
+                    ("dir" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("dirent" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [7694 7719])
+                    ("baton" variable
+                       (:pointer 1
+                        :type "void")
+                        (reparse-symbol arg-sub-list) [7720 7732]))                  
+                :type "int")
+                nil [7656 9522]))          
+    :file "ignore.c"
+    :pointmax 9523
+    :fsize 12008
+    :lastmodtime '(21580 64880 114974 835000)
+    :unmatched-syntax 'nil
+    )
+   (semanticdb-table "scandir.h"
+    :major-mode 'c-mode
+    :tags 
+        '( ("SCANDIR_H" variable (:constant-flag t) nil [27 36])
+            ("ignore.h" include nil nil [38 57])
+            ("scandir_baton_t" type
+               (:typedef ("" type
+                     (:members 
+                        ( ("ig" variable
+                             (:pointer 1
+                              :constant-flag t
+                              :type ("ignores" type (:type "class") nil nil))
+                              (reparse-symbol classsubparts) [80 98])
+                          ("base_path" variable
+                             (:pointer 1
+                              :constant-flag t
+                              :type "char")
+                              (reparse-symbol classsubparts) [103 125])
+                          ("base_path_len" variable (:type ("size_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [130 151]))                        
+                      :type "struct")
+                      nil nil)
+                :type "typedef")
+                nil [59 170])
+            ("filter_fp" variable
+               (:functionpointer-flag t
+                :type "int")
+                nil [180 246])
+            ("ag_scandir" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("dirname" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [263 283])
+                    ("namelist" variable
+                       (:pointer 3
+                        :type ("dirent" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [299 325])
+                    ("filter" variable (:type ("filter_fp" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [341 358])
+                    ("baton" variable
+                       (:pointer 1
+                        :type "void")
+                        (reparse-symbol arg-sub-list) [374 386]))                  
+                :type "int")
+                nil [248 387]))          
+    :file "scandir.h"
+    :pointmax 396
+    :fsize 395
+    :lastmodtime '(21550 35228 256974 417000)
+    :unmatched-syntax '((TYPEDEF 172 . 179))
+    :lexical-table 
+        '(("SCANDIR_H")
+          )
+
+    )
+   (semanticdb-table "options.c"
+    :major-mode 'c-mode
+    :tags 
+        '( ("errno.h" include (:system-flag t) nil [1 19])
+            ("limits.h" include (:system-flag t) nil [20 39])
+            ("stdarg.h" include (:system-flag t) nil [40 59])
+            ("stdio.h" include (:system-flag t) nil [60 78])
+            ("stdlib.h" include (:system-flag t) nil [79 98])
+            ("string.h" include (:system-flag t) nil [99 118])
+            ("sys/param.h" include (:system-flag t) nil [119 141])
+            ("sys/stat.h" include (:system-flag t) nil [142 163])
+            ("unistd.h" include (:system-flag t) nil [164 183])
+            ("config.h" include nil nil [185 204])
+            ("ignore.h" include nil nil [205 224])
+            ("options.h" include nil nil [225 245])
+            ("lang.h" include nil nil [246 263])
+            ("log.h" include nil nil [264 280])
+            ("util.h" include nil nil [281 298])
+            ("color_line_number" variable
+               (:pointer 1
+                :constant-flag t
+                :type "char")
+                nil [300 345])
+            ("color_match" variable
+               (:pointer 1
+                :constant-flag t
+                :type "char")
+                nil [381 421])
+            ("color_path" variable
+               (:pointer 1
+                :constant-flag t
+                :type "char")
+                nil [462 500])
+            ("usage" function
+               (:arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [569 574]))                  
+                :type "void")
+                nil [558 4485])
+            ("print_version" function
+               (:arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [4506 4511]))                  
+                :type "void")
+                nil [4487 4563])
+            ("init_options" function
+               (:arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [4583 4588]))                  
+                :type "void")
+                nil [4565 5111])
+            ("cleanup_options" function
+               (:arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [5134 5139]))                  
+                :type "void")
+                nil [5113 5828])
+            ("parse_options" function
+               (:arguments 
+                  ( ("argc" variable (:type "int") (reparse-symbol arg-sub-list) [5849 5858])
+                    ("argv" variable
+                       (:pointer 2
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [5859 5871])
+                    ("base_paths" variable
+                       (:pointer 2
+                        :dereference 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [5872 5892])
+                    ("paths" variable
+                       (:pointer 2
+                        :dereference 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [5893 5908]))                  
+                :type "void")
+                nil [5830 21172]))          
+    :file "options.c"
+    :pointmax 21173
+    :fsize 23510
+    :lastmodtime '(21566 18292 128702 766000)
+    :unmatched-syntax 'nil
+    )
+   (semanticdb-table "lang.h"
+    :major-mode 'c-mode
+    :tags 
+        '( ("LANG_H" variable (:constant-flag t) nil [24 30])
+            ("MAX_EXTENSIONS" variable (:constant-flag t) nil [40 54])
+            ("LANG_COUNT" variable (:constant-flag t) nil [66 76])
+            ("lang_spec_t" type
+               (:typedef ("" type
+                     (:members 
+                        ( ("name" variable
+                             (:pointer 1
+                              :constant-flag t
+                              :type "char")
+                              (reparse-symbol classsubparts) [102 119])
+                          ("extensions" variable
+                             (:pointer 1
+                              :dereference 1
+                              :constant-flag t
+                              :type "char")
+                              (reparse-symbol classsubparts) [124 163]))                        
+                      :type "struct")
+                      nil nil)
+                :type "typedef")
+                nil [81 178])
+            ("langs" variable
+               (:dereference 1
+                :typemodifiers ("extern")
+                :type ("lang_spec_t" type (:type "class") nil nil))
+                nil [180 207])
+            ("make_lang_regex" function
+               (:prototype-flag t
+                :pointer 1
+                :arguments 
+                  ( ("extensions" variable
+                       (:pointer 2
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [417 441]))                  
+                :type "char")
+                nil [395 442]))          
+    :file "lang.h"
+    :pointmax 451
+    :fsize 500
+    :lastmodtime '(21566 18292 127702 790000)
+    :unmatched-syntax 'nil
+    :lexical-table 
+        '(("MAX_EXTENSIONS" . ((number "12" 55 . 57)))
+          ("LANG_H")
+          ("LANG_COUNT" . ((number "56" 77 . 79)))
+          )
+
+    )
+   (semanticdb-table "lang.c"
+    :major-mode 'c-mode
+    :tags 
+        '( ("stdlib.h" include (:system-flag t) nil [1 20])
+            ("string.h" include (:system-flag t) nil [21 40])
+            ("lang.h" include nil nil [42 59])
+            ("util.h" include nil nil [60 77])
+            ("langs" variable
+               (:dereference 1
+                :type ("lang_spec_t" type (:type "class") nil nil))
+                nil [79 2545])
+            ("make_lang_regex" function
+               (:pointer 1
+                :arguments 
+                  ( ("extensions" variable
+                       (:pointer 2
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [2569 2593]))                  
+                :type "char")
+                nil [2547 3408]))          
+    :file "lang.c"
+    :pointmax 3409
+    :fsize 3751
+    :lastmodtime '(21580 64880 115974 811000)
+    :unmatched-syntax 'nil
+    )
+   (semanticdb-table "config.h"
+    :major-mode 'c-mode
+    :tags 
+        '( ("HAVE_DIRENT_DTYPE" variable (:constant-flag t) nil [180 197])
+            ("HAVE_GETLINE" variable (:constant-flag t) nil [345 357])
+            ("HAVE_INTTYPES_H" variable (:constant-flag t) nil [429 444])
+            ("HAVE_LZMA_H" variable (:constant-flag t) nil [512 523])
+            ("HAVE_MEMORY_H" variable (:constant-flag t) nil [593 606])
+            ("HAVE_PTHREAD_H" variable (:constant-flag t) nil [677 691])
+            ("HAVE_PTHREAD_PRIO_INHERIT" variable (:constant-flag t) nil [736 761])
+            ("HAVE_REALPATH" variable (:constant-flag t) nil [828 841])
+            ("HAVE_STDINT_H" variable (:constant-flag t) nil [911 924])
+            ("HAVE_STDLIB_H" variable (:constant-flag t) nil [994 1007])
+            ("HAVE_STRINGS_H" variable (:constant-flag t) nil [1078 1092])
+            ("HAVE_STRING_H" variable (:constant-flag t) nil [1162 1175])
+            ("HAVE_STRNDUP" variable (:constant-flag t) nil [1322 1334])
+            ("HAVE_SYS_STAT_H" variable (:constant-flag t) nil [1406 1421])
+            ("HAVE_SYS_TYPES_H" variable (:constant-flag t) nil [1494 1510])
+            ("HAVE_UNISTD_H" variable (:constant-flag t) nil [1580 1593])
+            ("HAVE_VASPRINTF" variable (:constant-flag t) nil [1661 1675])
+            ("HAVE_ZLIB_H" variable (:constant-flag t) nil [1743 1754])
+            ("PACKAGE_BUGREPORT" variable (:constant-flag t) nil [1950 1967])
+            ("PACKAGE_NAME" variable (:constant-flag t) nil [2079 2091])
+            ("PACKAGE_STRING" variable (:constant-flag t) nil [2182 2196])
+            ("PACKAGE_TARNAME" variable (:constant-flag t) nil [2294 2309])
+            ("PACKAGE_URL" variable (:constant-flag t) nil [2389 2400])
+            ("PACKAGE_VERSION" variable (:constant-flag t) nil [2503 2518])
+            ("STDC_HEADERS" variable (:constant-flag t) nil [2724 2736])
+            ("USE_PCRE_JIT" variable (:constant-flag t) nil [2767 2779]))          
+    :file "config.h"
+    :pointmax 2785
+    :fsize 2784
+    :lastmodtime '(21533 50941 617683 334000)
+    :unmatched-syntax 'nil
+    :lexical-table 
+        '(("HAVE_LZMA_H" . ((number "1" 524 . 525)))
+          ("HAVE_DIRENT_DTYPE")
+          ("HAVE_STRINGS_H" . ((number "1" 1093 . 1094)))
+          ("HAVE_PTHREAD_PRIO_INHERIT" . ((number "1" 762 . 763)))
+          ("HAVE_REALPATH" . ((number "1" 842 . 843)))
+          ("HAVE_STRING_H" . ((number "1" 1176 . 1177)))
+          ("PACKAGE_NAME" . ((string "\"the_silver_searcher\"" 2092 . 2113)))
+          ("HAVE_GETLINE" . ((number "1" 358 . 359)))
+          ("HAVE_STRNDUP" . ((number "1" 1335 . 1336)))
+          ("STDC_HEADERS" . ((number "1" 2737 . 2738)))
+          ("HAVE_MEMORY_H" . ((number "1" 607 . 608)))
+          ("HAVE_STDLIB_H" . ((number "1" 1008 . 1009)))
+          ("HAVE_SYS_STAT_H" . ((number "1" 1422 . 1423)))
+          ("USE_PCRE_JIT")
+          ("HAVE_INTTYPES_H" . ((number "1" 445 . 446)))
+          ("HAVE_PTHREAD_H" . ((number "1" 692 . 693)))
+          ("HAVE_VASPRINTF" . ((number "1" 1676 . 1677)))
+          ("PACKAGE_URL" . ((string "\"https://github.com/ggreer/the_silver_searcher\"" 2401 . 2448)))
+          ("HAVE_STDINT_H" . ((number "1" 925 . 926)))
+          ("HAVE_UNISTD_H" . ((number "1" 1594 . 1595)))
+          ("HAVE_SYS_TYPES_H" . ((number "1" 1511 . 1512)))
+          ("PACKAGE_TARNAME" . ((string "\"the_silver_searcher\"" 2310 . 2331)))
+          ("PACKAGE_VERSION" . ((string "\"0.23.0\"" 2519 . 2527)))
+          ("HAVE_ZLIB_H" . ((number "1" 1755 . 1756)))
+          ("PACKAGE_STRING" . ((string "\"the_silver_searcher 0.23.0\"" 2197 . 2225)))
+          ("PACKAGE_BUGREPORT" . ((string "\"https://github.com/ggreer/the_silver_searcher/issues\"" 1968 . 2022)))
+          )
+
+    )
+   )
+  :file "!home!chz!Projects!CWork!the_silver_searcher!src!semantic.cache"
+  :semantic-tag-version "2.0"
+  :semanticdb-version "2.2"
+  )

@@ -1,0 +1,124 @@
+;; Object kvm/
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "kvm/"
+  :tables (list 
+   (semanticdb-table "vmm.c"
+    :major-mode 'c-mode
+    :tags 
+        '( ("linux/kernel.h" include (:system-flag t) nil [812 836])
+            ("linux/module.h" include (:system-flag t) nil [837 861])
+            ("asm/fpswa.h" include (:system-flag t) nil [862 883])
+            ("vcpu.h" include nil nil [885 902])
+            ("MODULE_AUTHOR" function
+               (:prototype-flag t
+                :type "int")
+                nil [904 927])
+            ("MODULE_LICENSE" function
+               (:prototype-flag t
+                :type "int")
+                nil [928 950])
+            ("kvm_ia64_ivt" variable
+               (:typemodifiers ("extern")
+                :type "char")
+                nil [952 977])
+            ("kvm_asm_mov_from_ar" variable
+               (:typemodifiers ("extern")
+                :type "char")
+                nil [978 1010])
+            ("kvm_asm_mov_from_ar_sn2" variable
+               (:typemodifiers ("extern")
+                :type "char")
+                nil [1011 1047])
+            ("vmm_fpswa_interface" variable
+               (:pointer 1
+                :typemodifiers ("extern")
+                :type ("fpswa_interface_t" type (:type "class") nil nil))
+                nil [1048 1094])
+            ("vmm_sanity" variable (:type "long") nil [1096 1116])
+            ("vmm_info" variable (:type ("kvm_vmm_info" type
+                 (:prototype t
+                  :type "struct")
+                  nil nil)) nil [1118 1398])
+            ("kvm_vmm_init" function
+               (:arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [1432 1437]))                  
+                :type ("__init" type (:type "class") nil nil))
+                nil [1411 1569])
+            ("kvm_vmm_exit" function
+               (:arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [1603 1608]))                  
+                :type ("__exit" type (:type "class") nil nil))
+                nil [1583 1635])
+            ("vmm_spin_lock" function
+               (:arguments 
+                  ( ("lock" variable
+                       (:pointer 1
+                        :type ("vmm_spinlock_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [1656 1677]))                  
+                :type "void")
+                nil [1637 1708])
+            ("vmm_spin_unlock" function
+               (:arguments 
+                  ( ("lock" variable
+                       (:pointer 1
+                        :type ("vmm_spinlock_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [1731 1752]))                  
+                :type "void")
+                nil [1710 1785])
+            ("vcpu_debug_exit" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("vcpu" variable
+                       (:pointer 1
+                        :type ("kvm_vcpu" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [1815 1837]))                  
+                :type "void")
+                nil [1787 2010])
+            ("printk" function
+               (:arguments 
+                  ( ("fmt" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [2034 2050])
+                    ("..." variable (:type "vararg") (reparse-symbol arg-sub-list) [2051 2055]))                  
+                :type "int")
+                nil [2023 2299]))          
+    :file "vmm.c"
+    :pointmax 2353
+    :fsize 2352
+    :lastmodtime '(21468 8935 391788 223000)
+    :unmatched-syntax '((semantic-list 2338 . 2352) (symbol 2327 . 2338) (semantic-list 2312 . 2326) (symbol 2301 . 2312) (symbol 2012 . 2022) (VOID 1578 . 1582) (STATIC 1571 . 1577) (INT 1407 . 1410) (STATIC 1400 . 1406) (string 943 . 948) (string 918 . 925))
+    )
+   (semanticdb-table "vcpu.h"
+    :file "vcpu.h"
+    :fsize 20699
+    :lastmodtime '(21468 8935 381788 459000)
+    )
+   (semanticdb-table "kvm_lib.c"
+    :major-mode 'c-mode
+    :tags 
+        '( ("linux/module.h" include (:system-flag t) nil [436 461])
+            ("EXPORT_SYMBOL" variable (:constant-flag t) nil [539 552])
+            ("EXPORT_SYMBOL_GPL" variable (:constant-flag t) nil [566 583])
+            ("../../../lib/vsprintf.c" include nil nil [589 623])
+            ("../../../lib/ctype.c" include nil nil [624 655]))          
+    :file "kvm_lib.c"
+    :pointmax 656
+    :fsize 655
+    :lastmodtime '(21468 8935 258791 372000)
+    :unmatched-syntax 'nil
+    :lexical-table 
+        '(("EXPORT_SYMBOL_GPL" (spp-arg-list ("sym") 583 . 588))
+          ("EXPORT_SYMBOL" (spp-arg-list ("sym") 552 . 557))
+          )
+
+    )
+   )
+  :file "!home!chz!linux-3.0.8!arch!ia64!kvm!semantic.cache"
+  :semantic-tag-version "2.0"
+  :semanticdb-version "2.2"
+  )

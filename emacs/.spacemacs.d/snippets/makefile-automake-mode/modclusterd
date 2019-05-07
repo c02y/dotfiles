@@ -1,0 +1,155 @@
+;; Object kernel/
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "kernel/"
+  :tables (list 
+   (semanticdb-table "time.c"
+    :major-mode 'c-mode
+    :tags 
+        '( ("linux/errno.h" include (:system-flag t) nil [569 593])
+            ("linux/init.h" include (:system-flag t) nil [594 617])
+            ("linux/module.h" include (:system-flag t) nil [618 643])
+            ("linux/sched.h" include (:system-flag t) nil [644 668])
+            ("linux/kernel.h" include (:system-flag t) nil [669 694])
+            ("linux/param.h" include (:system-flag t) nil [695 719])
+            ("linux/string.h" include (:system-flag t) nil [720 745])
+            ("linux/mm.h" include (:system-flag t) nil [746 767])
+            ("linux/interrupt.h" include (:system-flag t) nil [768 796])
+            ("linux/profile.h" include (:system-flag t) nil [797 823])
+            ("asm/io.h" include (:system-flag t) nil [825 844])
+            ("asm/m32r.h" include (:system-flag t) nil [845 866])
+            ("asm/hw_irq.h" include (:system-flag t) nil [868 891])
+            ("TICK_SIZE" variable (:constant-flag t) nil [1212 1221])
+            ("USECS_PER_JIFFY" variable (:constant-flag t) nil [1369 1384])
+            ("latch" variable
+               (:typemodifiers ("static")
+                :type "unsigned long")
+                nil [1399 1426])
+            ("arch_gettimeoffset" function
+               (:arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [1451 1456]))                  
+                :type ("u32" type (:type "class") nil nil))
+                nil [1428 2683])
+            ("timer_interrupt" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("irq" variable (:type "int") (reparse-symbol arg-sub-list) [2850 2858])
+                    ("dev_id" variable
+                       (:pointer 1
+                        :type "void")
+                        (reparse-symbol arg-sub-list) [2859 2872]))                  
+                :type ("irqreturn_t" type (:type "class") nil nil))
+                nil [2815 3366])
+            ("irq0" variable
+               (:typemodifiers ("static")
+                :type ("irqaction" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [3368 3474])
+            ("read_persistent_clock" function
+               (:arguments 
+                  ( ("ts" variable
+                       (:pointer 1
+                        :type ("timespec" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [3503 3523]))                  
+                :type "void")
+                nil [3476 4069])
+            ("time_init" function
+               (:arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [4094 4099]))                  
+                :type ("__init" type (:type "class") nil nil))
+                nil [4077 4968]))          
+    :file "time.c"
+    :pointmax 4969
+    :fsize 4968
+    :lastmodtime '(21468 8937 430739 948000)
+    :unmatched-syntax '((VOID 4072 . 4076))
+    :lexical-table 
+        '(("USECS_PER_JIFFY" . ((semantic-list "(1000000/HZ)" 1385 . 1397)))
+          ("TICK_SIZE" . ((semantic-list "(tick_nsec / 1000)" 1222 . 1240)))
+          )
+
+    )
+   (semanticdb-table "sys_m32r.c"
+    :major-mode 'c-mode
+    :tags 
+        '( ("linux/errno.h" include (:system-flag t) nil [203 227])
+            ("linux/sched.h" include (:system-flag t) nil [228 252])
+            ("linux/mm.h" include (:system-flag t) nil [253 274])
+            ("linux/fs.h" include (:system-flag t) nil [275 296])
+            ("linux/smp.h" include (:system-flag t) nil [297 319])
+            ("linux/sem.h" include (:system-flag t) nil [320 342])
+            ("linux/msg.h" include (:system-flag t) nil [343 365])
+            ("linux/shm.h" include (:system-flag t) nil [366 388])
+            ("linux/stat.h" include (:system-flag t) nil [389 412])
+            ("linux/syscalls.h" include (:system-flag t) nil [413 440])
+            ("linux/mman.h" include (:system-flag t) nil [441 464])
+            ("linux/file.h" include (:system-flag t) nil [465 488])
+            ("linux/utsname.h" include (:system-flag t) nil [489 515])
+            ("linux/ipc.h" include (:system-flag t) nil [516 538])
+            ("asm/uaccess.h" include (:system-flag t) nil [540 564])
+            ("asm/cachectl.h" include (:system-flag t) nil [565 590])
+            ("asm/cacheflush.h" include (:system-flag t) nil [591 618])
+            ("asm/syscall.h" include (:system-flag t) nil [619 643])
+            ("asm/unistd.h" include (:system-flag t) nil [644 667])
+            ("sys_tas" function
+               (:arguments 
+                  ( ("__user" variable (:type "int") (reparse-symbol arg-sub-list) [727 739])
+                    ("" variable (:type ("addr" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [739 744]))                  
+                :type "int")
+                nil [715 1717])
+            ("sys_cacheflush" function
+               (:arguments 
+                  ( ("addr" variable
+                       (:pointer 1
+                        :type "void")
+                        (reparse-symbol arg-sub-list) [1749 1760])
+                    ("bytes" variable (:type "int") (reparse-symbol arg-sub-list) [1761 1771])
+                    ("cache" variable (:type "int") (reparse-symbol arg-sub-list) [1772 1782]))                  
+                :type "int")
+                nil [1730 1865])
+            ("sys_cachectl" function
+               (:arguments 
+                  ( ("addr" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [1895 1906])
+                    ("nbytes" variable (:type "int") (reparse-symbol arg-sub-list) [1907 1918])
+                    ("op" variable (:type "int") (reparse-symbol arg-sub-list) [1919 1926]))                  
+                :type "int")
+                nil [1878 1975])
+            ("kernel_execve" function
+               (:arguments 
+                  ( ("filename" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [2101 2122])
+                    ("argv" variable
+                       (:pointer 1
+                        :dereference 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [2127 2152])
+                    ("envp" variable
+                       (:pointer 1
+                        :dereference 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [2157 2182]))                  
+                :type "int")
+                nil [2083 2567]))          
+    :file "sys_m32r.c"
+    :pointmax 2568
+    :fsize 2567
+    :lastmodtime '(21468 8937 417740 256000)
+    :unmatched-syntax '((symbol 1867 . 1877) (symbol 1719 . 1729) (punctuation 738 . 739) (symbol 704 . 714))
+    )
+   )
+  :file "!home!chz!linux-3.0.8!arch!m32r!kernel!semantic.cache"
+  :semantic-tag-version "2.0"
+  :semanticdb-version "2.2"
+  )

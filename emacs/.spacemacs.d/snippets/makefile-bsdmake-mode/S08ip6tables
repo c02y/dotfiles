@@ -1,0 +1,313 @@
+;; Object usr/
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "usr/"
+  :tables (list 
+   (semanticdb-table "gen_init_cpio.c"
+    :major-mode 'c-mode
+    :tags 
+        '( ("stdio.h" include (:system-flag t) nil [1 19])
+            ("stdlib.h" include (:system-flag t) nil [20 39])
+            ("sys/types.h" include (:system-flag t) nil [40 62])
+            ("sys/stat.h" include (:system-flag t) nil [63 84])
+            ("string.h" include (:system-flag t) nil [85 104])
+            ("unistd.h" include (:system-flag t) nil [105 124])
+            ("time.h" include (:system-flag t) nil [125 142])
+            ("fcntl.h" include (:system-flag t) nil [143 161])
+            ("errno.h" include (:system-flag t) nil [162 180])
+            ("ctype.h" include (:system-flag t) nil [181 199])
+            ("limits.h" include (:system-flag t) nil [200 219])
+            ("xstr" variable (:constant-flag t) nil [384 388])
+            ("str" variable (:constant-flag t) nil [403 406])
+            ("offset" variable
+               (:typemodifiers ("static")
+                :type "unsigned int")
+                nil [419 446])
+            ("ino" variable
+               (:typemodifiers ("static")
+                :type "unsigned int")
+                nil [447 477])
+            ("default_mtime" variable
+               (:typemodifiers ("static")
+                :type ("time_t" type (:type "class") nil nil))
+                nil [478 506])
+            ("file_handler" type
+               (:members 
+                  ( ("type" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol classsubparts) [531 548])
+                    ("handler" variable
+                       (:functionpointer-flag t
+                        :type "int")
+                        (reparse-symbol classsubparts) [550 583]))                  
+                :type "struct")
+                nil [508 586])
+            ("push_string" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("name" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [612 629]))                  
+                :type "void")
+                nil [588 733])
+            ("push_pad" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [757 762]))                  
+                :type "void")
+                nil [735 817])
+            ("push_rest" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("name" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [841 858]))                  
+                :type "void")
+                nil [819 1078])
+            ("push_hdr" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("s" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [1101 1115]))                  
+                :type "void")
+                nil [1080 1154])
+            ("cpio_trailer" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [1181 1186]))                  
+                :type "void")
+                nil [1156 1724])
+            ("cpio_mkslink" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("name" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [1750 1767])
+                    ("target" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [1768 1787])
+                    ("mode" variable (:type "unsigned int") (reparse-symbol arg-sub-list) [1792 1810])
+                    ("uid" variable (:type ("uid_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [1811 1821])
+                    ("gid" variable (:type ("gid_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [1822 1832]))                  
+                :type "int")
+                nil [1726 2427])
+            ("cpio_mkslink_line" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("line" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [2458 2475]))                  
+                :type "int")
+                nil [2429 2841])
+            ("cpio_mkgeneric" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("name" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [2869 2886])
+                    ("mode" variable (:type "unsigned int") (reparse-symbol arg-sub-list) [2887 2905])
+                    ("uid" variable (:type ("uid_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [2915 2925])
+                    ("gid" variable (:type ("gid_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [2926 2936]))                  
+                :type "int")
+                nil [2843 3449])
+            ("generic_types" type
+               (:members 
+                  ( ("GT_DIR" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [3473 3480])
+                    ("GT_PIPE" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [3482 3490])
+                    ("GT_SOCK" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [3492 3501]))                  
+                :type "enum")
+                nil [3451 3502])
+            ("generic_type" type
+               (:members 
+                  ( ("type" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol classsubparts) [3527 3544])
+                    ("mode" variable (:type ("mode_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [3546 3558]))                  
+                :type "struct")
+                nil [3504 3561])
+            ("generic_type_table" variable
+               (:dereference 1
+                :typemodifiers ("static")
+                :type ("generic_type" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [3563 3780])
+            ("cpio_mkgeneric_line" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("line" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [3813 3830])
+                    ("gt" variable (:type ("generic_types" type (:type "enum") nil nil)) (reparse-symbol arg-sub-list) [3831 3853]))                  
+                :type "int")
+                nil [3782 4226])
+            ("cpio_mkdir_line" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("line" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [4255 4272]))                  
+                :type "int")
+                nil [4228 4319])
+            ("cpio_mkpipe_line" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("line" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [4349 4366]))                  
+                :type "int")
+                nil [4321 4414])
+            ("cpio_mksock_line" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("line" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [4444 4461]))                  
+                :type "int")
+                nil [4416 4509])
+            ("cpio_mknod" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("name" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [4533 4550])
+                    ("mode" variable (:type "unsigned int") (reparse-symbol arg-sub-list) [4551 4569])
+                    ("uid" variable (:type ("uid_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [4579 4589])
+                    ("gid" variable (:type ("gid_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [4590 4600])
+                    ("dev_type" variable (:type "char") (reparse-symbol arg-sub-list) [4601 4615])
+                    ("maj" variable (:type "unsigned int") (reparse-symbol arg-sub-list) [4625 4642])
+                    ("min" variable (:type "unsigned int") (reparse-symbol arg-sub-list) [4643 4660]))                  
+                :type "int")
+                nil [4511 5244])
+            ("cpio_mknod_line" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("line" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [5273 5290]))                  
+                :type "int")
+                nil [5246 5700])
+            ("cpio_mkfile" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("name" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [5725 5742])
+                    ("location" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [5743 5764])
+                    ("mode" variable (:type "unsigned int") (reparse-symbol arg-sub-list) [5768 5786])
+                    ("uid" variable (:type ("uid_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [5787 5797])
+                    ("gid" variable (:type ("gid_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [5798 5808])
+                    ("nlinks" variable (:type "unsigned int") (reparse-symbol arg-sub-list) [5812 5832]))                  
+                :type "int")
+                nil [5702 7451])
+            ("cpio_replace_env" function
+               (:pointer 1
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("new_location" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [7483 7502]))                  
+                :type "char")
+                nil [7453 8244])
+            ("cpio_mkfile_line" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("line" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [8275 8292]))                  
+                :type "int")
+                nil [8247 9392])
+            ("usage" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("prog" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [9412 9429]))                  
+                :type "void")
+                nil [9394 10918])
+            ("file_handler_table" variable
+               (:dereference 1
+                :type ("file_handler" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [10920 11357])
+            ("LINE_SIZE" variable (:constant-flag t) nil [11367 11376])
+            ("main" function
+               (:arguments 
+                  ( ("argc" variable (:type "int") (reparse-symbol arg-sub-list) [11408 11417])
+                    ("argv" variable
+                       (:pointer 1
+                        :dereference 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [11418 11431]))                  
+                :type "int")
+                nil [11398 13412]))          
+    :file "gen_init_cpio.c"
+    :pointmax 13413
+    :fsize 13412
+    :lastmodtime '(21468 9251 636300 732000)
+    :unmatched-syntax 'nil
+    :lexical-table 
+        '(("str" (spp-arg-list ("s") 406 . 409) . ((symbol "xstr" 410 . 414) (semantic-list "(s)" 414 . 417)))
+          ("xstr" (spp-arg-list ("s") 388 . 391) . ((punctuation "#" 392 . 393) (symbol "s" 393 . 394)))
+          ("LINE_SIZE" . ((semantic-list "(2 * PATH_MAX + 50)" 11377 . 11396)))
+          )
+
+    )
+   )
+  :file "!home!chz!linux-3.0.8!usr!semantic.cache"
+  :semantic-tag-version "2.0"
+  :semanticdb-version "2.2"
+  )

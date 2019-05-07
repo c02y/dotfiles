@@ -1,0 +1,120 @@
+;; Object asm/
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "asm/"
+  :tables (list 
+   (semanticdb-table "cache.h"
+    :major-mode 'c-mode
+    :tags 
+        '( ("__ARCH_PARISC_CACHE_H" variable (:constant-flag t) nil [77 98])
+            ("L1_CACHE_BYTES" variable (:constant-flag t) nil [572 586])
+            ("L1_CACHE_SHIFT" variable (:constant-flag t) nil [598 612])
+            ("SMP_CACHE_BYTES" variable (:constant-flag t) nil [653 668])
+            ("ARCH_DMA_MINALIGN" variable (:constant-flag t) nil [693 710])
+            ("__read_mostly" variable (:constant-flag t) nil [735 748])
+            ("parisc_cache_init" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [824 829]))                  
+                :type "void")
+                nil [801 830])
+            ("disable_sr_hashing_asm" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type "int") (reparse-symbol arg-sub-list) [892 896]))                  
+                :type "void")
+                nil [864 897])
+            ("disable_sr_hashing" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [956 961]))                  
+                :type "void")
+                nil [932 962])
+            ("free_sid" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type "unsigned long") (reparse-symbol arg-sub-list) [1018 1032]))                  
+                :type "void")
+                nil [1004 1033])
+            ("alloc_sid" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [1058 1063]))                  
+                :type "unsigned long")
+                nil [1034 1064])
+            ("seq_file" type
+               (:prototype t
+                :type "struct")
+                nil [1066 1082])
+            ("show_cache_info" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("m" variable
+                       (:pointer 1
+                        :type ("seq_file" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [1111 1130]))                  
+                :type "void")
+                nil [1083 1131])
+            ("split_tlb" variable
+               (:typemodifiers ("extern")
+                :type "int")
+                nil [1133 1154])
+            ("dcache_stride" variable
+               (:typemodifiers ("extern")
+                :type "int")
+                nil [1155 1180])
+            ("icache_stride" variable
+               (:typemodifiers ("extern")
+                :type "int")
+                nil [1181 1206])
+            ("cache_info" variable
+               (:typemodifiers ("extern")
+                :type ("pdc_cache_info" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [1207 1247])
+            ("parisc_setup_cache_timing" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [1279 1284]))                  
+                :type "void")
+                nil [1248 1285])
+            ("pdtlb" variable (:constant-flag t) nil [1295 1300])
+            ("pitlb" variable (:constant-flag t) nil [1373 1378])
+            ("pdtlb_kernel" variable (:constant-flag t) nil [1451 1463])
+            ("SRHASH_PCXST" variable (:constant-flag t) nil [1619 1631])
+            ("SRHASH_PCXL" variable (:constant-flag t) nil [1671 1682])
+            ("SRHASH_PA20" variable (:constant-flag t) nil [1710 1721]))          
+    :file "cache.h"
+    :pointmax 1769
+    :fsize 1768
+    :lastmodtime '(21468 8960 241199 881000)
+    :unmatched-syntax 'nil
+    :lexical-table 
+        '(("SRHASH_PA20" . ((number "2" 1726 . 1727)))
+          ("__read_mostly" . ((symbol "__attribute__" 749 . 762) (semantic-list "((__section__(\".data..read_mostly\")))" 762 . 799)))
+          ("pdtlb_kernel" (spp-arg-list ("addr") 1463 . 1469) . 
+              ((symbol "asm" 1471 . 1474) (VOLATILE "volatile" 1475 . 1483) (semantic-list "(\"pdtlb 0(%0)\" : : \"r\" (addr))" 1483 . 1513) (punctuation ";" 1513 . 1514)))
+          ("SMP_CACHE_BYTES" . ((symbol "L1_CACHE_BYTES" 669 . 683)))
+          ("__ARCH_PARISC_CACHE_H")
+          ("pdtlb" (spp-arg-list ("addr") 1300 . 1306) . 
+              ((symbol "asm" 1315 . 1318) (VOLATILE "volatile" 1319 . 1327) (semantic-list "(\"pdtlb 0(%%sr1,%0)\" : : \"r\" (addr))" 1327 . 1363) (punctuation ";" 1363 . 1364)))
+          ("SRHASH_PCXST" . ((number "0" 1635 . 1636)))
+          ("SRHASH_PCXL" . ((number "1" 1687 . 1688)))
+          ("L1_CACHE_BYTES" . ((number "32" 587 . 589)))
+          ("ARCH_DMA_MINALIGN" . ((symbol "L1_CACHE_BYTES" 711 . 725)))
+          ("pitlb" (spp-arg-list ("addr") 1378 . 1384) . 
+              ((symbol "asm" 1393 . 1396) (VOLATILE "volatile" 1397 . 1405) (semantic-list "(\"pitlb 0(%%sr1,%0)\" : : \"r\" (addr))" 1405 . 1441) (punctuation ";" 1441 . 1442)))
+          ("L1_CACHE_SHIFT" . ((number "5" 613 . 614)))
+          )
+
+    )
+   )
+  :file "!home!chz!linux-3.0.8!arch!parisc!include!asm!semantic.cache"
+  :semantic-tag-version "2.0"
+  :semanticdb-version "2.2"
+  )

@@ -1,0 +1,1929 @@
+;; Object arpa/
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "arpa/"
+  :tables
+  (list
+    (semanticdb-table "inet.h"
+      :major-mode 'c-mode
+      :tags 
+        '( ("_ARPA_INET_H" variable (:constant-flag t) nil [905 917])
+            ("features.h" include (:system-flag t) nil [921 942])
+            ("netinet/in.h" include (:system-flag t) nil [943 966])
+            ("socklen_t" type
+               (:typedef ("__socklen_t" type (:type "class") nil nil)
+                :type "typedef")
+                nil [1082 1112])
+            ("__socklen_t_defined" variable (:constant-flag t) nil [1122 1141])
+            ("inet_nsap_ntoa" function
+               (:type "char"
+                :arguments 
+                  ( ("__len" variable (:type "int") (reparse-symbol arg-sub-list) [4262 4272])
+                    ("__cp" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "unsigned char")
+                        (reparse-symbol arg-sub-list) [4273 4301])
+                    ("__buf" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [4310 4322]))                  
+                :typemodifiers ("extern" "\"C\"" "extern")
+                :pointer 1
+                :prototype-flag t)
+                (reparse-symbol extern-c-contents) [4233 4331])
+            ("inet_nsap_addr" function
+               (:type "unsigned int"
+                :arguments 
+                  ( ("__cp" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [4039 4058])
+                    ("__buf" variable
+                       (:pointer 1
+                        :type "unsigned char")
+                        (reparse-symbol arg-sub-list) [4067 4088])
+                    ("__len" variable (:type "int") (reparse-symbol arg-sub-list) [4089 4099]))                  
+                :typemodifiers ("extern" "\"C\"" "extern")
+                :prototype-flag t)
+                (reparse-symbol extern-c-contents) [4003 4108])
+            ("inet_net_pton" function
+               (:type "int"
+                :arguments 
+                  ( ("__af" variable (:type "int") (reparse-symbol arg-sub-list) [3772 3781])
+                    ("__cp" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [3782 3801])
+                    ("__buf" variable
+                       (:pointer 1
+                        :type "void")
+                        (reparse-symbol arg-sub-list) [3807 3819])
+                    ("__len" variable (:type ("size_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [3820 3833]))                  
+                :typemodifiers ("extern" "\"C\"" "extern")
+                :prototype-flag t)
+                (reparse-symbol extern-c-contents) [3746 3842])
+            ("inet_net_ntop" function
+               (:type "char"
+                :arguments 
+                  ( ("__af" variable (:type "int") (reparse-symbol arg-sub-list) [3484 3493])
+                    ("__cp" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "void")
+                        (reparse-symbol arg-sub-list) [3494 3513])
+                    ("__bits" variable (:type "int") (reparse-symbol arg-sub-list) [3514 3525])
+                    ("__buf" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [3533 3545])
+                    ("__len" variable (:type ("size_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [3546 3559]))                  
+                :typemodifiers ("extern" "\"C\"" "extern")
+                :pointer 1
+                :prototype-flag t)
+                (reparse-symbol extern-c-contents) [3456 3568])
+            ("inet_neta" function
+               (:type "char"
+                :arguments 
+                  ( ("__net" variable (:type ("in_addr_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [3244 3260])
+                    ("__buf" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [3261 3273])
+                    ("__len" variable (:type ("size_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [3274 3287]))                  
+                :typemodifiers ("extern" "\"C\"" "extern")
+                :pointer 1
+                :prototype-flag t)
+                (reparse-symbol extern-c-contents) [3220 3296])
+            ("inet_aton" function
+               (:type "int"
+                :arguments 
+                  ( ("__cp" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [3035 3054])
+                    ("__inp" variable
+                       (:pointer 1
+                        :type ("in_addr" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [3055 3077]))                  
+                :typemodifiers ("extern" "\"C\"" "extern")
+                :prototype-flag t)
+                (reparse-symbol extern-c-contents) [3013 3086])
+            ("inet_ntop" function
+               (:type "char"
+                :arguments 
+                  ( ("__af" variable (:type "int") (reparse-symbol arg-sub-list) [2700 2709])
+                    ("__cp" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "void")
+                        (reparse-symbol arg-sub-list) [2710 2740])
+                    ("__buf" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [2745 2768])
+                    ("__len" variable (:type ("socklen_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [2769 2785]))                  
+                :constant-flag t
+                :typemodifiers ("extern" "\"C\"" "extern")
+                :pointer 1
+                :prototype-flag t)
+                (reparse-symbol extern-c-contents) [2668 2799])
+            ("inet_pton" function
+               (:type "int"
+                :arguments 
+                  ( ("__af" variable (:type "int") (reparse-symbol arg-sub-list) [2393 2402])
+                    ("__cp" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [2403 2433])
+                    ("__buf" variable
+                       (:pointer 1
+                        :type "void")
+                        (reparse-symbol arg-sub-list) [2442 2465]))                  
+                :typemodifiers ("extern" "\"C\"" "extern")
+                :prototype-flag t)
+                (reparse-symbol extern-c-contents) [2371 2474])
+            ("inet_ntoa" function
+               (:type "char"
+                :arguments 
+                  ( ("__in" variable (:type ("in_addr" type
+                         (:prototype t
+                          :type "struct")
+                          nil nil)) (reparse-symbol arg-sub-list) [2152 2172]))                  
+                :typemodifiers ("extern" "\"C\"" "extern")
+                :pointer 1
+                :prototype-flag t)
+                (reparse-symbol extern-c-contents) [2128 2181])
+            ("inet_network" function
+               (:type ("in_addr_t" type (:type "class") nil nil)
+                :arguments 
+                  ( ("__cp" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [1958 1977]))                  
+                :typemodifiers ("extern" "\"C\"" "extern")
+                :prototype-flag t)
+                (reparse-symbol extern-c-contents) [1927 1986])
+            ("inet_netof" function
+               (:type ("in_addr_t" type (:type "class") nil nil)
+                :arguments 
+                  ( ("__in" variable (:type ("in_addr" type
+                         (:prototype t
+                          :type "struct")
+                          nil nil)) (reparse-symbol arg-sub-list) [1775 1795]))                  
+                :typemodifiers ("extern" "\"C\"" "extern")
+                :prototype-flag t)
+                (reparse-symbol extern-c-contents) [1746 1804])
+            ("inet_makeaddr" function
+               (:type ("in_addr" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil)
+                :arguments 
+                  ( ("__net" variable (:type ("in_addr_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [1634 1650])
+                    ("__host" variable (:type ("in_addr_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [1651 1668]))                  
+                :typemodifiers ("extern" "\"C\"" "extern")
+                :prototype-flag t)
+                (reparse-symbol extern-c-contents) [1597 1682])
+            ("inet_lnaof" function
+               (:type ("in_addr_t" type (:type "class") nil nil)
+                :arguments 
+                  ( ("__in" variable (:type ("in_addr" type
+                         (:prototype t
+                          :type "struct")
+                          nil nil)) (reparse-symbol arg-sub-list) [1442 1462]))                  
+                :typemodifiers ("extern" "\"C\"" "extern")
+                :prototype-flag t)
+                (reparse-symbol extern-c-contents) [1413 1471])
+            ("inet_addr" function
+               (:type ("in_addr_t" type (:type "class") nil nil)
+                :arguments 
+                  ( ("__cp" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [1310 1329]))                  
+                :typemodifiers ("extern" "\"C\"" "extern")
+                :prototype-flag t)
+                (reparse-symbol extern-c-contents) [1282 1338]))          
+      :file "inet.h"
+      :pointmax 4378
+      :fsize 4377
+      :lastmodtime '(21134 28714 0 0)
+      :unmatched-syntax nil
+      :lexical-table 
+        '(("_ARPA_INET_H" . ((number "1" 918 . 919)))
+          ("__socklen_t_defined")
+          )
+)
+    (semanticdb-table "nameser.h"
+      :major-mode 'c-mode
+      :tags 
+        '( ("_ARPA_NAMESER_H_" variable (:constant-flag t) nil [2610 2626])
+            ("BIND_4_COMPAT" variable (:constant-flag t) nil [2650 2663])
+            ("sys/param.h" include (:system-flag t) nil [2665 2687])
+            ("sys/bitypes.h" include (:system-flag t) nil [2726 2751])
+            ("sys/cdefs.h" include (:system-flag t) nil [2789 2811])
+            ("__NAMESER" variable (:constant-flag t) nil [3192 3201])
+            ("NS_PACKETSZ" variable (:constant-flag t) nil [3320 3331])
+            ("NS_MAXDNAME" variable (:constant-flag t) nil [3376 3387])
+            ("NS_MAXMSG" variable (:constant-flag t) nil [3429 3438])
+            ("NS_MAXCDNAME" variable (:constant-flag t) nil [3482 3494])
+            ("NS_MAXLABEL" variable (:constant-flag t) nil [3546 3557])
+            ("NS_HFIXEDSZ" variable (:constant-flag t) nil [3608 3619])
+            ("NS_QFIXEDSZ" variable (:constant-flag t) nil [3671 3682])
+            ("NS_RRFIXEDSZ" variable (:constant-flag t) nil [3732 3744])
+            ("NS_INT32SZ" variable (:constant-flag t) nil [3798 3808])
+            ("NS_INT16SZ" variable (:constant-flag t) nil [3858 3868])
+            ("NS_INT8SZ" variable (:constant-flag t) nil [3918 3927])
+            ("NS_INADDRSZ" variable (:constant-flag t) nil [3976 3987])
+            ("NS_IN6ADDRSZ" variable (:constant-flag t) nil [4015 4027])
+            ("NS_CMPRSFLGS" variable (:constant-flag t) nil [4059 4071])
+            ("NS_DEFAULTPORT" variable (:constant-flag t) nil [4132 4146])
+            ("ns_sect" type
+               (:typedef ("__ns_sect" type (:type "enum") nil nil)
+                :superclasses "__ns_sect"
+                :type "typedef")
+                nil [4286 4636])
+            ("__ns_sect" type
+               (:members 
+                  ( ("ns_s_qd" variable
+                       (:constant-flag t
+                        :default-value (4322 4323)
+                        :type "int")
+                        (reparse-symbol enumsubparts) [4312 4323])
+                    ("ns_s_zn" variable
+                       (:constant-flag t
+                        :default-value (4362 4363)
+                        :type "int")
+                        (reparse-symbol enumsubparts) [4352 4363])
+                    ("ns_s_an" variable
+                       (:constant-flag t
+                        :default-value (4399 4400)
+                        :type "int")
+                        (reparse-symbol enumsubparts) [4389 4400])
+                    ("ns_s_pr" variable
+                       (:constant-flag t
+                        :default-value (4437 4438)
+                        :type "int")
+                        (reparse-symbol enumsubparts) [4427 4438])
+                    ("ns_s_ns" variable
+                       (:constant-flag t
+                        :default-value (4483 4484)
+                        :type "int")
+                        (reparse-symbol enumsubparts) [4473 4484])
+                    ("ns_s_ud" variable
+                       (:constant-flag t
+                        :default-value (4527 4528)
+                        :type "int")
+                        (reparse-symbol enumsubparts) [4517 4528])
+                    ("ns_s_ar" variable
+                       (:constant-flag t
+                        :default-value (4566 4567)
+                        :type "int")
+                        (reparse-symbol enumsubparts) [4556 4567])
+                    ("ns_s_max" variable
+                       (:constant-flag t
+                        :default-value (4624 4625)
+                        :type "int")
+                        (reparse-symbol enumsubparts) [4613 4625]))                  
+                :type "enum")
+                nil [4286 4636])
+            ("ns_msg" type
+               (:typedef ("__ns_msg" type (:type "struct") nil nil)
+                :superclasses "__ns_msg"
+                :type "typedef")
+                nil [4877 5075])
+            ("__ns_msg" type
+               (:members 
+                  ( ("_eom" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("u_char" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [4904 4930])
+                    ("_msg" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("u_char" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [4904 4930])
+                    ("_counts" variable
+                       (:dereference 1
+                        :type ("u_int16_t" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [4932 4973])
+                    ("_flags" variable (:type ("u_int16_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [4932 4973])
+                    ("_id" variable (:type ("u_int16_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [4932 4973])
+                    ("_sections" variable
+                       (:pointer 1
+                        :dereference 1
+                        :constant-flag t
+                        :type ("u_char" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [4975 5009])
+                    ("_sect" variable (:type ("ns_sect" type (:type "class") nil nil)) (reparse-symbol classsubparts) [5011 5026])
+                    ("_rrnum" variable (:type "int") (reparse-symbol classsubparts) [5028 5040])
+                    ("_msg_ptr" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("u_char" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [5042 5065]))                  
+                :type "struct")
+                nil [4877 5075])
+            ("_ns_flagdata" type
+               (:members 
+                  ( ("shift" variable (:type "int") (reparse-symbol classsubparts) [5164 5180])
+                    ("mask" variable (:type "int") (reparse-symbol classsubparts) [5164 5180]))                  
+                :type "struct")
+                nil [5141 5184])
+            ("_ns_flagdata" variable
+               (:dereference 1
+                :typemodifiers ("extern")
+                :constant-flag t
+                :type ("_ns_flagdata" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [5185 5233])
+            ("ns_msg_id" variable (:constant-flag t) nil [5306 5315])
+            ("ns_msg_base" variable (:constant-flag t) nil [5351 5362])
+            ("ns_msg_end" variable (:constant-flag t) nil [5399 5409])
+            ("ns_msg_size" variable (:constant-flag t) nil [5446 5457])
+            ("ns_msg_count" variable (:constant-flag t) nil [5506 5518])
+            ("ns_rr" type
+               (:typedef ("__ns_rr" type (:type "struct") nil nil)
+                :superclasses "__ns_rr"
+                :type "typedef")
+                nil [5654 5811])
+            ("__ns_rr" type
+               (:members 
+                  ( ("name" variable
+                       (:dereference 1
+                        :type "char")
+                        (reparse-symbol classsubparts) [5680 5704])
+                    ("type" variable (:type ("u_int16_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [5706 5721])
+                    ("rr_class" variable (:type ("u_int16_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [5723 5742])
+                    ("ttl" variable (:type ("u_int32_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [5744 5758])
+                    ("rdlength" variable (:type ("u_int16_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [5760 5779])
+                    ("rdata" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("u_char" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [5781 5802]))                  
+                :type "struct")
+                nil [5654 5811])
+            ("ns_rr_name" variable (:constant-flag t) nil [5883 5893])
+            ("ns_rr_type" variable (:constant-flag t) nil [5949 5959])
+            ("ns_rr_class" variable (:constant-flag t) nil [5999 6010])
+            ("ns_rr_ttl" variable (:constant-flag t) nil [6055 6064])
+            ("ns_rr_rdlen" variable (:constant-flag t) nil [6092 6103])
+            ("ns_rr_rdata" variable (:constant-flag t) nil [6136 6147])
+            ("ns_flag" type
+               (:typedef ("__ns_flag" type (:type "enum") nil nil)
+                :superclasses "__ns_flag"
+                :type "typedef")
+                nil [6368 6801])
+            ("__ns_flag" type
+               (:members 
+                  ( ("ns_f_qr" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [6394 6402])
+                    ("ns_f_opcode" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [6432 6444])
+                    ("ns_f_aa" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [6471 6479])
+                    ("ns_f_tc" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [6512 6520])
+                    ("ns_f_rd" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [6552 6560])
+                    ("ns_f_ra" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [6590 6598])
+                    ("ns_f_z" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [6630 6637])
+                    ("ns_f_ad" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [6654 6662])
+                    ("ns_f_cd" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [6698 6706])
+                    ("ns_f_rcode" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [6745 6756])
+                    ("ns_f_max" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [6782 6792]))                  
+                :type "enum")
+                nil [6368 6801])
+            ("ns_opcode" type
+               (:typedef ("__ns_opcode" type (:type "enum") nil nil)
+                :superclasses "__ns_opcode"
+                :type "typedef")
+                nil [6841 7209])
+            ("__ns_opcode" type
+               (:members 
+                  ( ("ns_o_query" variable
+                       (:constant-flag t
+                        :default-value (6882 6883)
+                        :type "int")
+                        (reparse-symbol enumsubparts) [6869 6883])
+                    ("ns_o_iquery" variable
+                       (:constant-flag t
+                        :default-value (6925 6926)
+                        :type "int")
+                        (reparse-symbol enumsubparts) [6911 6926])
+                    ("ns_o_status" variable
+                       (:constant-flag t
+                        :default-value (6991 6992)
+                        :type "int")
+                        (reparse-symbol enumsubparts) [6977 6992])
+                    ("ns_o_notify" variable
+                       (:constant-flag t
+                        :default-value (7099 7100)
+                        :type "int")
+                        (reparse-symbol enumsubparts) [7085 7100])
+                    ("ns_o_update" variable
+                       (:constant-flag t
+                        :default-value (7151 7152)
+                        :type "int")
+                        (reparse-symbol enumsubparts) [7137 7152])
+                    ("ns_o_max" variable
+                       (:constant-flag t
+                        :default-value (7195 7196)
+                        :type "int")
+                        (reparse-symbol enumsubparts) [7184 7196]))                  
+                :type "enum")
+                nil [6841 7209])
+            ("ns_rcode" type
+               (:typedef ("__ns_rcode" type (:type "enum") nil nil)
+                :superclasses "__ns_rcode"
+                :type "typedef")
+                nil [7256 8014])
+            ("__ns_rcode" type
+               (:members 
+                  ( ("ns_r_noerror" variable
+                       (:constant-flag t
+                        :default-value (7298 7299)
+                        :type "int")
+                        (reparse-symbol enumsubparts) [7283 7299])
+                    ("ns_r_formerr" variable
+                       (:constant-flag t
+                        :default-value (7344 7345)
+                        :type "int")
+                        (reparse-symbol enumsubparts) [7329 7345])
+                    ("ns_r_servfail" variable
+                       (:constant-flag t
+                        :default-value (7386 7387)
+                        :type "int")
+                        (reparse-symbol enumsubparts) [7370 7387])
+                    ("ns_r_nxdomain" variable
+                       (:constant-flag t
+                        :default-value (7430 7431)
+                        :type "int")
+                        (reparse-symbol enumsubparts) [7414 7431])
+                    ("ns_r_notimpl" variable
+                       (:constant-flag t
+                        :default-value (7469 7470)
+                        :type "int")
+                        (reparse-symbol enumsubparts) [7454 7470])
+                    ("ns_r_refused" variable
+                       (:constant-flag t
+                        :default-value (7511 7512)
+                        :type "int")
+                        (reparse-symbol enumsubparts) [7496 7512])
+                    ("ns_r_yxdomain" variable
+                       (:constant-flag t
+                        :default-value (7591 7592)
+                        :type "int")
+                        (reparse-symbol enumsubparts) [7575 7592])
+                    ("ns_r_yxrrset" variable
+                       (:constant-flag t
+                        :default-value (7630 7631)
+                        :type "int")
+                        (reparse-symbol enumsubparts) [7615 7631])
+                    ("ns_r_nxrrset" variable
+                       (:constant-flag t
+                        :default-value (7670 7671)
+                        :type "int")
+                        (reparse-symbol enumsubparts) [7655 7671])
+                    ("ns_r_notauth" variable
+                       (:constant-flag t
+                        :default-value (7718 7719)
+                        :type "int")
+                        (reparse-symbol enumsubparts) [7703 7719])
+                    ("ns_r_notzone" variable
+                       (:constant-flag t
+                        :default-value (7772 7774)
+                        :type "int")
+                        (reparse-symbol enumsubparts) [7757 7774])
+                    ("ns_r_max" variable
+                       (:constant-flag t
+                        :default-value (7839 7841)
+                        :type "int")
+                        (reparse-symbol enumsubparts) [7828 7841])
+                    ("ns_r_badvers" variable
+                       (:constant-flag t
+                        :default-value (7905 7907)
+                        :type "int")
+                        (reparse-symbol enumsubparts) [7890 7907])
+                    ("ns_r_badsig" variable
+                       (:constant-flag t
+                        :default-value (7961 7963)
+                        :type "int")
+                        (reparse-symbol enumsubparts) [7947 7963])
+                    ("ns_r_badkey" variable
+                       (:constant-flag t
+                        :default-value (7980 7982)
+                        :type "int")
+                        (reparse-symbol enumsubparts) [7966 7982])
+                    ("ns_r_badtime" variable
+                       (:constant-flag t
+                        :default-value (8000 8002)
+                        :type "int")
+                        (reparse-symbol enumsubparts) [7985 8002]))                  
+                :type "enum")
+                nil [7256 8014])
+            ("ns_update_operation" type
+               (:typedef ("__ns_update_operation" type (:type "enum") nil nil)
+                :superclasses "__ns_update_operation"
+                :type "typedef")
+                nil [8034 8146])
+            ("__ns_update_operation" type
+               (:members 
+                  ( ("ns_uop_delete" variable
+                       (:constant-flag t
+                        :default-value (8088 8089)
+                        :type "int")
+                        (reparse-symbol enumsubparts) [8072 8089])
+                    ("ns_uop_add" variable
+                       (:constant-flag t
+                        :default-value (8105 8106)
+                        :type "int")
+                        (reparse-symbol enumsubparts) [8092 8106])
+                    ("ns_uop_max" variable
+                       (:constant-flag t
+                        :default-value (8122 8123)
+                        :type "int")
+                        (reparse-symbol enumsubparts) [8109 8123]))                  
+                :type "enum")
+                nil [8034 8146])
+            ("ns_tsig_key" type
+               (:members 
+                  ( ("alg" variable
+                       (:dereference 1
+                        :type "char")
+                        (reparse-symbol classsubparts) [8243 8284])
+                    ("name" variable
+                       (:dereference 1
+                        :type "char")
+                        (reparse-symbol classsubparts) [8243 8284])
+                    ("data" variable
+                       (:pointer 1
+                        :type "unsigned char")
+                        (reparse-symbol classsubparts) [8293 8313])
+                    ("len" variable (:type "int") (reparse-symbol classsubparts) [8322 8330]))                  
+                :type "struct")
+                nil [8214 8333])
+            ("ns_tsig_key" type
+               (:typedef ("ns_tsig_key" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil)
+                :superclasses "ns_tsig_key"
+                :type "typedef")
+                nil [8334 8373])
+            ("ns_tcp_tsig_state" type
+               (:members 
+                  ( ("counter" variable (:type "int") (reparse-symbol classsubparts) [8473 8485])
+                    ("key" variable
+                       (:pointer 1
+                        :type ("dst_key" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol classsubparts) [8487 8507])
+                    ("ctx" variable
+                       (:pointer 1
+                        :type "void")
+                        (reparse-symbol classsubparts) [8509 8519])
+                    ("sig" variable
+                       (:dereference 1
+                        :type "unsigned char")
+                        (reparse-symbol classsubparts) [8521 8552])
+                    ("siglen" variable (:type "int") (reparse-symbol classsubparts) [8554 8565]))                  
+                :type "struct")
+                nil [8445 8568])
+            ("ns_tcp_tsig_state" type
+               (:typedef ("ns_tcp_tsig_state" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil)
+                :superclasses "ns_tcp_tsig_state"
+                :type "typedef")
+                nil [8569 8620])
+            ("NS_TSIG_FUDGE" variable (:constant-flag t) nil [8630 8643])
+            ("NS_TSIG_TCP_COUNT" variable (:constant-flag t) nil [8656 8673])
+            ("NS_TSIG_ALG_HMAC_MD5" variable (:constant-flag t) nil [8686 8706])
+            ("NS_TSIG_ERROR_NO_TSIG" variable (:constant-flag t) nil [8743 8764])
+            ("NS_TSIG_ERROR_NO_SPACE" variable (:constant-flag t) nil [8777 8799])
+            ("NS_TSIG_ERROR_FORMERR" variable (:constant-flag t) nil [8812 8833])
+            ("ns_type" type
+               (:typedef ("__ns_type" type (:type "enum") nil nil)
+                :superclasses "__ns_type"
+                :type "typedef")
+                nil [8907 11323])
+            ("__ns_type" type
+               (:members 
+                  ( ("ns_t_invalid" variable
+                       (:constant-flag t
+                        :default-value (8948 8949)
+                        :type "int")
+                        (reparse-symbol enumsubparts) [8933 8949])
+                    ("ns_t_a" variable
+                       (:constant-flag t
+                        :default-value (8977 8978)
+                        :type "int")
+                        (reparse-symbol enumsubparts) [8968 8978])
+                    ("ns_t_ns" variable
+                       (:constant-flag t
+                        :default-value (9014 9015)
+                        :type "int")
+                        (reparse-symbol enumsubparts) [9004 9015])
+                    ("ns_t_md" variable
+                       (:constant-flag t
+                        :default-value (9059 9060)
+                        :type "int")
+                        (reparse-symbol enumsubparts) [9049 9060])
+                    ("ns_t_mf" variable
+                       (:constant-flag t
+                        :default-value (9100 9101)
+                        :type "int")
+                        (reparse-symbol enumsubparts) [9090 9101])
+                    ("ns_t_cname" variable
+                       (:constant-flag t
+                        :default-value (9142 9143)
+                        :type "int")
+                        (reparse-symbol enumsubparts) [9129 9143])
+                    ("ns_t_soa" variable
+                       (:constant-flag t
+                        :default-value (9182 9183)
+                        :type "int")
+                        (reparse-symbol enumsubparts) [9171 9183])
+                    ("ns_t_mb" variable
+                       (:constant-flag t
+                        :default-value (9230 9231)
+                        :type "int")
+                        (reparse-symbol enumsubparts) [9220 9231])
+                    ("ns_t_mg" variable
+                       (:constant-flag t
+                        :default-value (9274 9275)
+                        :type "int")
+                        (reparse-symbol enumsubparts) [9264 9275])
+                    ("ns_t_mr" variable
+                       (:constant-flag t
+                        :default-value (9316 9317)
+                        :type "int")
+                        (reparse-symbol enumsubparts) [9306 9317])
+                    ("ns_t_null" variable
+                       (:constant-flag t
+                        :default-value (9359 9361)
+                        :type "int")
+                        (reparse-symbol enumsubparts) [9347 9361])
+                    ("ns_t_wks" variable
+                       (:constant-flag t
+                        :default-value (9406 9408)
+                        :type "int")
+                        (reparse-symbol enumsubparts) [9395 9408])
+                    ("ns_t_ptr" variable
+                       (:constant-flag t
+                        :default-value (9451 9453)
+                        :type "int")
+                        (reparse-symbol enumsubparts) [9440 9453])
+                    ("ns_t_hinfo" variable
+                       (:constant-flag t
+                        :default-value (9499 9501)
+                        :type "int")
+                        (reparse-symbol enumsubparts) [9486 9501])
+                    ("ns_t_minfo" variable
+                       (:constant-flag t
+                        :default-value (9543 9545)
+                        :type "int")
+                        (reparse-symbol enumsubparts) [9530 9545])
+                    ("ns_t_mx" variable
+                       (:constant-flag t
+                        :default-value (9587 9589)
+                        :type "int")
+                        (reparse-symbol enumsubparts) [9577 9589])
+                    ("ns_t_txt" variable
+                       (:constant-flag t
+                        :default-value (9638 9640)
+                        :type "int")
+                        (reparse-symbol enumsubparts) [9627 9640])
+                    ("ns_t_rp" variable
+                       (:constant-flag t
+                        :default-value (9676 9678)
+                        :type "int")
+                        (reparse-symbol enumsubparts) [9666 9678])
+                    ("ns_t_afsdb" variable
+                       (:constant-flag t
+                        :default-value (9723 9725)
+                        :type "int")
+                        (reparse-symbol enumsubparts) [9710 9725])
+                    ("ns_t_x25" variable
+                       (:constant-flag t
+                        :default-value (9766 9768)
+                        :type "int")
+                        (reparse-symbol enumsubparts) [9755 9768])
+                    ("ns_t_isdn" variable
+                       (:constant-flag t
+                        :default-value (9814 9816)
+                        :type "int")
+                        (reparse-symbol enumsubparts) [9802 9816])
+                    ("ns_t_rt" variable
+                       (:constant-flag t
+                        :default-value (9860 9862)
+                        :type "int")
+                        (reparse-symbol enumsubparts) [9850 9862])
+                    ("ns_t_nsap" variable
+                       (:constant-flag t
+                        :default-value (9894 9896)
+                        :type "int")
+                        (reparse-symbol enumsubparts) [9882 9896])
+                    ("ns_t_nsap_ptr" variable
+                       (:constant-flag t
+                        :default-value (9938 9940)
+                        :type "int")
+                        (reparse-symbol enumsubparts) [9922 9940])
+                    ("ns_t_sig" variable
+                       (:constant-flag t
+                        :default-value (9996 9998)
+                        :type "int")
+                        (reparse-symbol enumsubparts) [9985 9998])
+                    ("ns_t_key" variable
+                       (:constant-flag t
+                        :default-value (10041 10043)
+                        :type "int")
+                        (reparse-symbol enumsubparts) [10030 10043])
+                    ("ns_t_px" variable
+                       (:constant-flag t
+                        :default-value (10079 10081)
+                        :type "int")
+                        (reparse-symbol enumsubparts) [10069 10081])
+                    ("ns_t_gpos" variable
+                       (:constant-flag t
+                        :default-value (10125 10127)
+                        :type "int")
+                        (reparse-symbol enumsubparts) [10113 10127])
+                    ("ns_t_aaaa" variable
+                       (:constant-flag t
+                        :default-value (10186 10188)
+                        :type "int")
+                        (reparse-symbol enumsubparts) [10174 10188])
+                    ("ns_t_loc" variable
+                       (:constant-flag t
+                        :default-value (10224 10226)
+                        :type "int")
+                        (reparse-symbol enumsubparts) [10213 10226])
+                    ("ns_t_nxt" variable
+                       (:constant-flag t
+                        :default-value (10271 10273)
+                        :type "int")
+                        (reparse-symbol enumsubparts) [10260 10273])
+                    ("ns_t_eid" variable
+                       (:constant-flag t
+                        :default-value (10320 10322)
+                        :type "int")
+                        (reparse-symbol enumsubparts) [10309 10322])
+                    ("ns_t_nimloc" variable
+                       (:constant-flag t
+                        :default-value (10369 10371)
+                        :type "int")
+                        (reparse-symbol enumsubparts) [10355 10371])
+                    ("ns_t_srv" variable
+                       (:constant-flag t
+                        :default-value (10409 10411)
+                        :type "int")
+                        (reparse-symbol enumsubparts) [10398 10411])
+                    ("ns_t_atma" variable
+                       (:constant-flag t
+                        :default-value (10453 10455)
+                        :type "int")
+                        (reparse-symbol enumsubparts) [10441 10455])
+                    ("ns_t_naptr" variable
+                       (:constant-flag t
+                        :default-value (10492 10494)
+                        :type "int")
+                        (reparse-symbol enumsubparts) [10479 10494])
+                    ("ns_t_kx" variable
+                       (:constant-flag t
+                        :default-value (10540 10542)
+                        :type "int")
+                        (reparse-symbol enumsubparts) [10530 10542])
+                    ("ns_t_cert" variable
+                       (:constant-flag t
+                        :default-value (10579 10581)
+                        :type "int")
+                        (reparse-symbol enumsubparts) [10567 10581])
+                    ("ns_t_a6" variable
+                       (:constant-flag t
+                        :default-value (10624 10626)
+                        :type "int")
+                        (reparse-symbol enumsubparts) [10614 10626])
+                    ("ns_t_dname" variable
+                       (:constant-flag t
+                        :default-value (10692 10694)
+                        :type "int")
+                        (reparse-symbol enumsubparts) [10679 10694])
+                    ("ns_t_sink" variable
+                       (:constant-flag t
+                        :default-value (10747 10749)
+                        :type "int")
+                        (reparse-symbol enumsubparts) [10735 10749])
+                    ("ns_t_opt" variable
+                       (:constant-flag t
+                        :default-value (10801 10803)
+                        :type "int")
+                        (reparse-symbol enumsubparts) [10790 10803])
+                    ("ns_t_apl" variable
+                       (:constant-flag t
+                        :default-value (10849 10851)
+                        :type "int")
+                        (reparse-symbol enumsubparts) [10838 10851])
+                    ("ns_t_tkey" variable
+                       (:constant-flag t
+                        :default-value (10905 10908)
+                        :type "int")
+                        (reparse-symbol enumsubparts) [10893 10908])
+                    ("ns_t_tsig" variable
+                       (:constant-flag t
+                        :default-value (10947 10950)
+                        :type "int")
+                        (reparse-symbol enumsubparts) [10935 10950])
+                    ("ns_t_ixfr" variable
+                       (:constant-flag t
+                        :default-value (10996 10999)
+                        :type "int")
+                        (reparse-symbol enumsubparts) [10984 10999])
+                    ("ns_t_axfr" variable
+                       (:constant-flag t
+                        :default-value (11049 11052)
+                        :type "int")
+                        (reparse-symbol enumsubparts) [11037 11052])
+                    ("ns_t_mailb" variable
+                       (:constant-flag t
+                        :default-value (11104 11107)
+                        :type "int")
+                        (reparse-symbol enumsubparts) [11091 11107])
+                    ("ns_t_maila" variable
+                       (:constant-flag t
+                        :default-value (11157 11160)
+                        :type "int")
+                        (reparse-symbol enumsubparts) [11144 11160])
+                    ("ns_t_any" variable
+                       (:constant-flag t
+                        :default-value (11211 11214)
+                        :type "int")
+                        (reparse-symbol enumsubparts) [11200 11214])
+                    ("ns_t_zxfr" variable
+                       (:constant-flag t
+                        :default-value (11254 11257)
+                        :type "int")
+                        (reparse-symbol enumsubparts) [11242 11257])
+                    ("ns_t_max" variable
+                       (:constant-flag t
+                        :default-value (11307 11312)
+                        :type "int")
+                        (reparse-symbol enumsubparts) [11296 11312]))                  
+                :type "enum")
+                nil [8907 11323])
+            ("ns_t_qt_p" variable (:constant-flag t) nil [11380 11389])
+            ("ns_t_mrr_p" variable (:constant-flag t) nil [11553 11563])
+            ("ns_t_rr_p" variable (:constant-flag t) nil [11673 11682])
+            ("ns_t_udp_p" variable (:constant-flag t) nil [11728 11738])
+            ("ns_t_xfr_p" variable (:constant-flag t) nil [11789 11799])
+            ("ns_class" type
+               (:typedef ("__ns_class" type (:type "enum") nil nil)
+                :superclasses "__ns_class"
+                :type "typedef")
+                nil [11908 12328])
+            ("__ns_class" type
+               (:members 
+                  ( ("ns_c_invalid" variable
+                       (:constant-flag t
+                        :default-value (11950 11951)
+                        :type "int")
+                        (reparse-symbol enumsubparts) [11935 11951])
+                    ("ns_c_in" variable
+                       (:constant-flag t
+                        :default-value (11980 11981)
+                        :type "int")
+                        (reparse-symbol enumsubparts) [11970 11981])
+                    ("ns_c_2" variable
+                       (:constant-flag t
+                        :default-value (12012 12013)
+                        :type "int")
+                        (reparse-symbol enumsubparts) [12003 12013])
+                    ("ns_c_chaos" variable
+                       (:constant-flag t
+                        :default-value (12063 12064)
+                        :type "int")
+                        (reparse-symbol enumsubparts) [12050 12064])
+                    ("ns_c_hs" variable
+                       (:constant-flag t
+                        :default-value (12101 12102)
+                        :type "int")
+                        (reparse-symbol enumsubparts) [12091 12102])
+                    ("ns_c_none" variable
+                       (:constant-flag t
+                        :default-value (12204 12207)
+                        :type "int")
+                        (reparse-symbol enumsubparts) [12192 12207])
+                    ("ns_c_any" variable
+                       (:constant-flag t
+                        :default-value (12269 12272)
+                        :type "int")
+                        (reparse-symbol enumsubparts) [12258 12272])
+                    ("ns_c_max" variable
+                       (:constant-flag t
+                        :default-value (12311 12316)
+                        :type "int")
+                        (reparse-symbol enumsubparts) [12300 12316]))                  
+                :type "enum")
+                nil [11908 12328])
+            ("ns_key_types" type
+               (:typedef ("__ns_key_types" type (:type "enum") nil nil)
+                :superclasses "__ns_key_types"
+                :type "typedef")
+                nil [12355 12608])
+            ("__ns_key_types" type
+               (:members 
+                  ( ("ns_kt_rsa" variable
+                       (:constant-flag t
+                        :default-value (12398 12399)
+                        :type "int")
+                        (reparse-symbol enumsubparts) [12386 12399])
+                    ("ns_kt_dh" variable
+                       (:constant-flag t
+                        :default-value (12440 12441)
+                        :type "int")
+                        (reparse-symbol enumsubparts) [12428 12441])
+                    ("ns_kt_dsa" variable
+                       (:constant-flag t
+                        :default-value (12480 12481)
+                        :type "int")
+                        (reparse-symbol enumsubparts) [12468 12481])
+                    ("ns_kt_private" variable
+                       (:constant-flag t
+                        :default-value (12548 12551)
+                        :type "int")
+                        (reparse-symbol enumsubparts) [12532 12551]))                  
+                :type "enum")
+                nil [12355 12608])
+            ("ns_cert_types" type
+               (:typedef ("__ns_cert_types" type (:type "enum") nil nil)
+                :superclasses "__ns_cert_types"
+                :type "typedef")
+                nil [12610 12848])
+            ("__ns_cert_types" type
+               (:members 
+                  ( ("cert_t_pkix" variable
+                       (:constant-flag t
+                        :default-value (12656 12657)
+                        :type "int")
+                        (reparse-symbol enumsubparts) [12642 12657])
+                    ("cert_t_spki" variable
+                       (:constant-flag t
+                        :default-value (12697 12698)
+                        :type "int")
+                        (reparse-symbol enumsubparts) [12683 12698])
+                    ("cert_t_pgp" variable
+                       (:constant-flag t
+                        :default-value (12728 12729)
+                        :type "int")
+                        (reparse-symbol enumsubparts) [12714 12729])
+                    ("cert_t_url" variable
+                       (:constant-flag t
+                        :default-value (12758 12761)
+                        :type "int")
+                        (reparse-symbol enumsubparts) [12744 12761])
+                    ("cert_t_oid" variable
+                       (:constant-flag t
+                        :default-value (12803 12806)
+                        :type "int")
+                        (reparse-symbol enumsubparts) [12789 12806]))                  
+                :type "enum")
+                nil [12610 12848])
+            ("NS_KEY_TYPEMASK" variable (:constant-flag t) nil [12897 12912])
+            ("NS_KEY_TYPE_AUTH_CONF" variable (:constant-flag t) nil [12958 12979])
+            ("NS_KEY_TYPE_CONF_ONLY" variable (:constant-flag t) nil [13023 13044])
+            ("NS_KEY_TYPE_AUTH_ONLY" variable (:constant-flag t) nil [13099 13120])
+            ("NS_KEY_TYPE_NO_KEY" variable (:constant-flag t) nil [13174 13192])
+            ("NS_KEY_NO_AUTH" variable (:constant-flag t) nil [13324 13338])
+            ("NS_KEY_NO_CONF" variable (:constant-flag t) nil [13395 13409])
+            ("NS_KEY_RESERVED2" variable (:constant-flag t) nil [13467 13483])
+            ("NS_KEY_EXTENDED_FLAGS" variable (:constant-flag t) nil [13538 13559])
+            ("NS_KEY_RESERVED4" variable (:constant-flag t) nil [13607 13623])
+            ("NS_KEY_RESERVED5" variable (:constant-flag t) nil [13672 13688])
+            ("NS_KEY_NAME_TYPE" variable (:constant-flag t) nil [13737 13753])
+            ("NS_KEY_NAME_USER" variable (:constant-flag t) nil [13807 13823])
+            ("NS_KEY_NAME_ENTITY" variable (:constant-flag t) nil [13871 13889])
+            ("NS_KEY_NAME_ZONE" variable (:constant-flag t) nil [13947 13963])
+            ("NS_KEY_NAME_RESERVED" variable (:constant-flag t) nil [14003 14023])
+            ("NS_KEY_RESERVED8" variable (:constant-flag t) nil [14064 14080])
+            ("NS_KEY_RESERVED9" variable (:constant-flag t) nil [14129 14145])
+            ("NS_KEY_RESERVED10" variable (:constant-flag t) nil [14194 14211])
+            ("NS_KEY_RESERVED11" variable (:constant-flag t) nil [14260 14277])
+            ("NS_KEY_SIGNATORYMASK" variable (:constant-flag t) nil [14326 14346])
+            ("NS_KEY_RESERVED_BITMASK" variable (:constant-flag t) nil [14401 14424])
+            ("NS_KEY_RESERVED_BITMASK2" variable (:constant-flag t) nil [14618 14642])
+            ("NS_ALG_MD5RSA" variable (:constant-flag t) nil [14761 14774])
+            ("NS_ALG_DH" variable (:constant-flag t) nil [14807 14816])
+            ("NS_ALG_DSA" variable (:constant-flag t) nil [14868 14878])
+            ("NS_ALG_DSS" variable (:constant-flag t) nil [14918 14928])
+            ("NS_ALG_EXPIRE_ONLY" variable (:constant-flag t) nil [14961 14979])
+            ("NS_ALG_PRIVATE_OID" variable (:constant-flag t) nil [15020 15038])
+            ("NS_KEY_PROT_TLS" variable (:constant-flag t) nil [15139 15154])
+            ("NS_KEY_PROT_EMAIL" variable (:constant-flag t) nil [15173 15190])
+            ("NS_KEY_PROT_DNSSEC" variable (:constant-flag t) nil [15207 15225])
+            ("NS_KEY_PROT_IPSEC" variable (:constant-flag t) nil [15241 15258])
+            ("NS_KEY_PROT_ANY" variable (:constant-flag t) nil [15275 15290])
+            ("NS_MD5RSA_MIN_BITS" variable (:constant-flag t) nil [15322 15340])
+            ("NS_MD5RSA_MAX_BITS" variable (:constant-flag t) nil [15391 15409])
+            ("NS_MD5RSA_MAX_BYTES" variable (:constant-flag t) nil [15458 15477])
+            ("NS_MD5RSA_MAX_BASE64" variable (:constant-flag t) nil [15553 15573])
+            ("NS_MD5RSA_MIN_SIZE" variable (:constant-flag t) nil [15614 15632])
+            ("NS_MD5RSA_MAX_SIZE" variable (:constant-flag t) nil [15668 15686])
+            ("NS_DSA_SIG_SIZE" variable (:constant-flag t) nil [15723 15738])
+            ("NS_DSA_MIN_SIZE" variable (:constant-flag t) nil [15758 15773])
+            ("NS_DSA_MAX_BYTES" variable (:constant-flag t) nil [15794 15810])
+            ("NS_SIG_TYPE" variable (:constant-flag t) nil [15890 15901])
+            ("NS_SIG_ALG" variable (:constant-flag t) nil [15931 15941])
+            ("NS_SIG_LABELS" variable (:constant-flag t) nil [15970 15983])
+            ("NS_SIG_OTTL" variable (:constant-flag t) nil [16026 16037])
+            ("NS_SIG_EXPIR" variable (:constant-flag t) nil [16069 16081])
+            ("NS_SIG_SIGNED" variable (:constant-flag t) nil [16116 16129])
+            ("NS_SIG_FOOT" variable (:constant-flag t) nil [16164 16175])
+            ("NS_SIG_SIGNER" variable (:constant-flag t) nil [16209 16222])
+            ("NS_NXT_BITS" variable (:constant-flag t) nil [16334 16345])
+            ("NS_NXT_BIT_SET" variable (:constant-flag t) nil [16356 16370])
+            ("NS_NXT_BIT_CLEAR" variable (:constant-flag t) nil [16437 16453])
+            ("NS_NXT_BIT_ISSET" variable (:constant-flag t) nil [16518 16534])
+            ("NS_NXT_MAX" variable (:constant-flag t) nil [16599 16609])
+            ("NS_OPT_DNSSEC_OK" variable (:constant-flag t) nil [16685 16701])
+            ("NS_OPT_NSID" variable (:constant-flag t) nil [16725 16736])
+            ("NS_GET16" variable (:constant-flag t) nil [16821 16829])
+            ("NS_GET32" variable (:constant-flag t) nil [17008 17016])
+            ("NS_PUT16" variable (:constant-flag t) nil [17267 17275])
+            ("NS_PUT32" variable (:constant-flag t) nil [17444 17452])
+            ("C" extern nil nil [17661 17674])
+            ("ns_msg_getflag" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("ns_msg" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [17696 17703])
+                    ("" variable (:type "int") (reparse-symbol arg-sub-list) [17704 17708]))                  
+                :type "int")
+                nil [17675 17717])
+            ("ns_get16" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("u_char" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [17735 17750]))                  
+                :type ("u_int" type (:type "class") nil nil))
+                nil [17718 17759])
+            ("ns_get32" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("u_char" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [17778 17793]))                  
+                :type ("u_long" type (:type "class") nil nil))
+                nil [17760 17802])
+            ("ns_put16" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("u_int" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [17819 17825])
+                    ("" variable
+                       (:pointer 1
+                        :type ("u_char" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [17826 17835]))                  
+                :type "void")
+                nil [17803 17844])
+            ("ns_put32" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("u_long" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [17861 17868])
+                    ("" variable
+                       (:pointer 1
+                        :type ("u_char" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [17869 17878]))                  
+                :type "void")
+                nil [17845 17887])
+            ("ns_initparse" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("u_char" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [17907 17922])
+                    ("" variable (:type "int") (reparse-symbol arg-sub-list) [17923 17927])
+                    ("" variable
+                       (:pointer 1
+                        :type ("ns_msg" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [17928 17937]))                  
+                :type "int")
+                nil [17888 17946])
+            ("ns_skiprr" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("u_char" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [17963 17978])
+                    ("" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("u_char" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [17979 17994])
+                    ("" variable (:type ("ns_sect" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [17995 18003])
+                    ("" variable (:type "int") (reparse-symbol arg-sub-list) [18004 18008]))                  
+                :type "int")
+                nil [17947 18022])
+            ("ns_parserr" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable
+                       (:pointer 1
+                        :type ("ns_msg" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [18040 18049])
+                    ("" variable (:type ("ns_sect" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [18050 18058])
+                    ("" variable (:type "int") (reparse-symbol arg-sub-list) [18059 18063])
+                    ("" variable
+                       (:pointer 1
+                        :type ("ns_rr" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [18064 18072]))                  
+                :type "int")
+                nil [18023 18081])
+            ("ns_sprintrr" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("ns_msg" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [18100 18115])
+                    ("" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("ns_rr" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [18116 18130])
+                    ("" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [18139 18152])
+                    ("" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [18153 18166])
+                    ("" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [18167 18174])
+                    ("" variable (:type ("size_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [18175 18182]))                  
+                :type "int")
+                nil [18082 18196])
+            ("ns_sprintrrf" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("u_char" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [18216 18231])
+                    ("" variable (:type ("size_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [18232 18239])
+                    ("" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [18240 18253])
+                    ("" variable (:type ("ns_class" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [18263 18272])
+                    ("" variable (:type ("ns_type" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [18273 18281])
+                    ("" variable (:type ("u_long" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [18282 18289])
+                    ("" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("u_char" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [18290 18305])
+                    ("" variable (:type ("size_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [18315 18322])
+                    ("" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [18323 18336])
+                    ("" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [18337 18350])
+                    ("" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [18360 18367])
+                    ("" variable (:type ("size_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [18368 18375]))                  
+                :type "int")
+                nil [18197 18384])
+            ("ns_format_ttl" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("u_long" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [18405 18412])
+                    ("" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [18413 18420])
+                    ("" variable (:type ("size_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [18421 18428]))                  
+                :type "int")
+                nil [18385 18437])
+            ("ns_parse_ttl" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [18457 18470])
+                    ("" variable
+                       (:pointer 1
+                        :type ("u_long" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [18471 18480]))                  
+                :type "int")
+                nil [18438 18489])
+            ("ns_datetosecs" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [18515 18528])
+                    ("" variable
+                       (:pointer 1
+                        :type "int")
+                        (reparse-symbol arg-sub-list) [18529 18535]))                  
+                :type ("u_int32_t" type (:type "class") nil nil))
+                nil [18490 18544])
+            ("ns_name_ntol" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("u_char" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [18564 18579])
+                    ("" variable
+                       (:pointer 1
+                        :type ("u_char" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [18580 18589])
+                    ("" variable (:type ("size_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [18590 18597]))                  
+                :type "int")
+                nil [18545 18606])
+            ("ns_name_ntop" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("u_char" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [18626 18641])
+                    ("" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [18642 18649])
+                    ("" variable (:type ("size_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [18650 18657]))                  
+                :type "int")
+                nil [18607 18666])
+            ("ns_name_pton" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [18686 18699])
+                    ("" variable
+                       (:pointer 1
+                        :type ("u_char" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [18700 18709])
+                    ("" variable (:type ("size_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [18710 18717]))                  
+                :type "int")
+                nil [18667 18726])
+            ("ns_name_unpack" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("u_char" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [18748 18763])
+                    ("" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("u_char" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [18764 18779])
+                    ("" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("u_char" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [18784 18799])
+                    ("" variable
+                       (:pointer 1
+                        :type ("u_char" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [18800 18809])
+                    ("" variable (:type ("size_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [18810 18817]))                  
+                :type "int")
+                nil [18727 18826])
+            ("ns_name_pack" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("u_char" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [18846 18861])
+                    ("" variable
+                       (:pointer 1
+                        :type ("u_char" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [18862 18871])
+                    ("" variable (:type "int") (reparse-symbol arg-sub-list) [18872 18876])
+                    ("" variable
+                       (:pointer 2
+                        :constant-flag t
+                        :type ("u_char" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [18886 18902])
+                    ("" variable
+                       (:pointer 2
+                        :constant-flag t
+                        :type ("u_char" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [18903 18919]))                  
+                :type "int")
+                nil [18827 18928])
+            ("ns_name_uncompress" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("u_char" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [18954 18969])
+                    ("" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("u_char" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [18970 18985])
+                    ("" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("u_char" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [18994 19009])
+                    ("" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [19010 19017])
+                    ("" variable (:type ("size_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [19018 19025]))                  
+                :type "int")
+                nil [18929 19034])
+            ("ns_name_compress" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [19058 19071])
+                    ("" variable
+                       (:pointer 1
+                        :type ("u_char" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [19072 19081])
+                    ("" variable (:type ("size_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [19082 19089])
+                    ("" variable
+                       (:pointer 2
+                        :constant-flag t
+                        :type ("u_char" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [19096 19112])
+                    ("" variable
+                       (:pointer 2
+                        :constant-flag t
+                        :type ("u_char" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [19113 19129]))                  
+                :type "int")
+                nil [19035 19138])
+            ("ns_name_skip" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable
+                       (:pointer 2
+                        :constant-flag t
+                        :type ("u_char" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [19158 19174])
+                    ("" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("u_char" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [19175 19190]))                  
+                :type "int")
+                nil [19139 19199])
+            ("ns_name_rollback" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("u_char" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [19224 19239])
+                    ("" variable
+                       (:pointer 2
+                        :constant-flag t
+                        :type ("u_char" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [19240 19256])
+                    ("" variable
+                       (:pointer 2
+                        :constant-flag t
+                        :type ("u_char" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [19263 19279]))                  
+                :type "void")
+                nil [19200 19288])
+            ("ns_sign" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable
+                       (:pointer 1
+                        :type ("u_char" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [19303 19312])
+                    ("" variable
+                       (:pointer 1
+                        :type "int")
+                        (reparse-symbol arg-sub-list) [19313 19319])
+                    ("" variable (:type "int") (reparse-symbol arg-sub-list) [19320 19324])
+                    ("" variable (:type "int") (reparse-symbol arg-sub-list) [19325 19329])
+                    ("" variable
+                       (:pointer 1
+                        :type "void")
+                        (reparse-symbol arg-sub-list) [19330 19337])
+                    ("" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("u_char" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [19342 19357])
+                    ("" variable (:type "int") (reparse-symbol arg-sub-list) [19358 19362])
+                    ("" variable
+                       (:pointer 1
+                        :type ("u_char" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [19363 19372])
+                    ("" variable
+                       (:pointer 1
+                        :type "int")
+                        (reparse-symbol arg-sub-list) [19373 19379])
+                    ("" variable (:type ("time_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [19380 19387]))                  
+                :type "int")
+                nil [19289 19396])
+            ("ns_sign2" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable
+                       (:pointer 1
+                        :type ("u_char" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [19412 19421])
+                    ("" variable
+                       (:pointer 1
+                        :type "int")
+                        (reparse-symbol arg-sub-list) [19422 19428])
+                    ("" variable (:type "int") (reparse-symbol arg-sub-list) [19429 19433])
+                    ("" variable (:type "int") (reparse-symbol arg-sub-list) [19434 19438])
+                    ("" variable
+                       (:pointer 1
+                        :type "void")
+                        (reparse-symbol arg-sub-list) [19439 19446])
+                    ("" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("u_char" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [19452 19467])
+                    ("" variable (:type "int") (reparse-symbol arg-sub-list) [19468 19472])
+                    ("" variable
+                       (:pointer 1
+                        :type ("u_char" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [19473 19482])
+                    ("" variable
+                       (:pointer 1
+                        :type "int")
+                        (reparse-symbol arg-sub-list) [19483 19489])
+                    ("" variable (:type ("time_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [19490 19497])
+                    ("" variable
+                       (:pointer 2
+                        :type ("u_char" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [19503 19513])
+                    ("" variable
+                       (:pointer 2
+                        :type ("u_char" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [19514 19524]))                  
+                :type "int")
+                nil [19397 19533])
+            ("ns_sign_tcp" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable
+                       (:pointer 1
+                        :type ("u_char" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [19552 19561])
+                    ("" variable
+                       (:pointer 1
+                        :type "int")
+                        (reparse-symbol arg-sub-list) [19562 19568])
+                    ("" variable (:type "int") (reparse-symbol arg-sub-list) [19569 19573])
+                    ("" variable (:type "int") (reparse-symbol arg-sub-list) [19574 19578])
+                    ("" variable
+                       (:pointer 1
+                        :type ("ns_tcp_tsig_state" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [19587 19607])
+                    ("" variable (:type "int") (reparse-symbol arg-sub-list) [19608 19612]))                  
+                :type "int")
+                nil [19534 19621])
+            ("ns_sign_tcp2" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable
+                       (:pointer 1
+                        :type ("u_char" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [19641 19650])
+                    ("" variable
+                       (:pointer 1
+                        :type "int")
+                        (reparse-symbol arg-sub-list) [19651 19657])
+                    ("" variable (:type "int") (reparse-symbol arg-sub-list) [19658 19662])
+                    ("" variable (:type "int") (reparse-symbol arg-sub-list) [19663 19667])
+                    ("" variable
+                       (:pointer 1
+                        :type ("ns_tcp_tsig_state" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [19677 19697])
+                    ("" variable (:type "int") (reparse-symbol arg-sub-list) [19698 19702])
+                    ("" variable
+                       (:pointer 2
+                        :type ("u_char" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [19712 19722])
+                    ("" variable
+                       (:pointer 2
+                        :type ("u_char" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [19723 19733]))                  
+                :type "int")
+                nil [19622 19742])
+            ("ns_sign_tcp_init" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable
+                       (:pointer 1
+                        :type "void")
+                        (reparse-symbol arg-sub-list) [19766 19773])
+                    ("" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("u_char" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [19774 19789])
+                    ("" variable (:type "int") (reparse-symbol arg-sub-list) [19790 19794])
+                    ("" variable
+                       (:pointer 1
+                        :type ("ns_tcp_tsig_state" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [19801 19821]))                  
+                :type "int")
+                nil [19743 19830])
+            ("ns_find_tsig" function
+               (:prototype-flag t
+                :pointer 1
+                :arguments 
+                  ( ("" variable
+                       (:pointer 1
+                        :type ("u_char" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [19854 19863])
+                    ("" variable
+                       (:pointer 1
+                        :type ("u_char" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [19864 19873]))                  
+                :type ("u_char" type (:type "class") nil nil))
+                nil [19831 19882])
+            ("ns_verify" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable
+                       (:pointer 1
+                        :type ("u_char" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [19899 19908])
+                    ("" variable
+                       (:pointer 1
+                        :type "int")
+                        (reparse-symbol arg-sub-list) [19909 19915])
+                    ("" variable
+                       (:pointer 1
+                        :type "void")
+                        (reparse-symbol arg-sub-list) [19916 19923])
+                    ("" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("u_char" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [19924 19939])
+                    ("" variable (:type "int") (reparse-symbol arg-sub-list) [19940 19944])
+                    ("" variable
+                       (:pointer 1
+                        :type ("u_char" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [19951 19960])
+                    ("" variable
+                       (:pointer 1
+                        :type "int")
+                        (reparse-symbol arg-sub-list) [19961 19967])
+                    ("" variable
+                       (:pointer 1
+                        :type ("time_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [19968 19977])
+                    ("" variable (:type "int") (reparse-symbol arg-sub-list) [19978 19982]))                  
+                :type "int")
+                nil [19883 19991])
+            ("ns_verify_tcp" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable
+                       (:pointer 1
+                        :type ("u_char" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [20012 20021])
+                    ("" variable
+                       (:pointer 1
+                        :type "int")
+                        (reparse-symbol arg-sub-list) [20022 20028])
+                    ("" variable
+                       (:pointer 1
+                        :type ("ns_tcp_tsig_state" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [20029 20049])
+                    ("" variable (:type "int") (reparse-symbol arg-sub-list) [20050 20054]))                  
+                :type "int")
+                nil [19992 20068])
+            ("ns_verify_tcp_init" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable
+                       (:pointer 1
+                        :type "void")
+                        (reparse-symbol arg-sub-list) [20094 20101])
+                    ("" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("u_char" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [20102 20117])
+                    ("" variable (:type "int") (reparse-symbol arg-sub-list) [20118 20122])
+                    ("" variable
+                       (:pointer 1
+                        :type ("ns_tcp_tsig_state" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [20131 20151]))                  
+                :type "int")
+                nil [20069 20160])
+            ("ns_samedomain" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [20181 20194])
+                    ("" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [20195 20208]))                  
+                :type "int")
+                nil [20161 20217])
+            ("ns_subdomain" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [20237 20250])
+                    ("" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [20251 20264]))                  
+                :type "int")
+                nil [20218 20273])
+            ("ns_makecanon" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [20293 20306])
+                    ("" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [20307 20314])
+                    ("" variable (:type ("size_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [20315 20322]))                  
+                :type "int")
+                nil [20274 20331])
+            ("ns_samename" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [20350 20363])
+                    ("" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [20364 20377]))                  
+                :type "int")
+                nil [20332 20386])
+            ("arpa/nameser_compat.h" include (:system-flag t) nil [20421 20453]))          
+      :file "nameser.h"
+      :pointmax 20506
+      :fsize 20559
+      :lastmodtime '(21134 28708 0 0)
+      :unmatched-syntax '((close-paren "}" 20387 . 20398))
+      :lexical-table 
+        '(("ns_msg_count" (spp-arg-list ("handle" "section") 5518 . 5535) . ((semantic-list "((handle)._counts[section] + 0)" 5536 . 5567)))
+          ("NS_TSIG_FUDGE" . ((number "300" 8644 . 8647)))
+          ("NS_TSIG_TCP_COUNT" . ((number "100" 8674 . 8677)))
+          ("NS_KEY_RESERVED2" . ((number "0x2000" 13484 . 13490)))
+          ("NS_KEY_PROT_DNSSEC" . ((number "3" 15231 . 15232)))
+          ("NS_SIG_FOOT" . ((number "16" 16176 . 16178)))
+          ("NS_PACKETSZ" . ((number "512" 3332 . 3335)))
+          ("NS_MAXLABEL" . ((number "63" 3558 . 3560)))
+          ("NS_CMPRSFLGS" . ((number "0xc0" 4072 . 4076)))
+          ("ns_rr_rdlen" (spp-arg-list ("rr") 6103 . 6107) . ((semantic-list "((rr).rdlength + 0)" 6108 . 6127)))
+          ("NS_KEY_TYPEMASK" . ((number "0xC000" 12914 . 12920)))
+          ("NS_KEY_SIGNATORYMASK" . ((number "0x000F" 14347 . 14353)))
+          ("NS_SIG_TYPE" . ((number "0" 15902 . 15903)))
+          ("NS_SIG_SIGNED" . ((number "12" 16130 . 16132)))
+          ("NS_NXT_BIT_ISSET" (spp-arg-list ("n" "p") 16534 . 16539) . ((semantic-list "(p[(n)/NS_NXT_BITS] &   (0x80>>((n)%NS_NXT_BITS)))" 16540 . 16590)))
+          ("NS_DEFAULTPORT" . ((number "53" 4147 . 4149)))
+          ("ns_t_xfr_p" (spp-arg-list ("t") 11799 . 11802) . ((semantic-list "((t) == ns_t_axfr || (t) == ns_t_ixfr || \\
+		       (t) == ns_t_zxfr)" 11803 . 11872)))
+          ("NS_KEY_RESERVED4" . ((number "0x0800" 13624 . 13630)))
+          ("NS_ALG_DSA" . ((number "3" 14892 . 14893)))
+          ("NS_MD5RSA_MIN_SIZE" . ((semantic-list "((NS_MD5RSA_MIN_BITS+7)/8)" 15633 . 15659)))
+          ("NS_DSA_SIG_SIZE" . ((number "41" 15747 . 15749)))
+          ("NS_SIG_SIGNER" . ((number "18" 16223 . 16225)))
+          ("NS_RRFIXEDSZ" . ((number "10" 3745 . 3747)))
+          ("NS_INT32SZ" . ((number "4" 3809 . 3810)))
+          ("NS_INT8SZ" . ((number "1" 3928 . 3929)))
+          ("ns_rr_class" (spp-arg-list ("rr") 6010 . 6014) . ((semantic-list "((ns_class)((rr).rr_class + 0))" 6015 . 6046)))
+          ("NS_TSIG_ALG_HMAC_MD5" . ((string "\"HMAC-MD5.SIG-ALG.REG.INT\"" 8707 . 8733)))
+          ("NS_KEY_NO_CONF" . ((number "0x4000" 13411 . 13417)))
+          ("NS_KEY_RESERVED5" . ((number "0x0400" 13689 . 13695)))
+          ("NS_KEY_NAME_TYPE" . ((number "0x0300" 13754 . 13760)))
+          ("NS_ALG_MD5RSA" . ((number "1" 14776 . 14777)))
+          ("NS_SIG_ALG" . ((number "2" 15942 . 15943)))
+          ("__NAMESER" . ((number "19991006" 3202 . 3210)))
+          ("NS_HFIXEDSZ" . ((number "12" 3620 . 3622)))
+          ("NS_KEY_NAME_ZONE" . ((number "0x0100" 13964 . 13970)))
+          ("NS_MD5RSA_MAX_BASE64" . ((semantic-list "(((NS_MD5RSA_MAX_BYTES+2)/3)*4)" 15574 . 15605)))
+          ("NS_NXT_MAX" . ((number "127" 16610 . 16613)))
+          ("NS_MAXMSG" . ((number "65535" 3439 . 3444)))
+          ("ns_msg_size" (spp-arg-list ("handle") 5457 . 5465) . ((semantic-list "((handle)._eom - (handle)._msg)" 5466 . 5497)))
+          ("ns_rr_type" (spp-arg-list ("rr") 5959 . 5963) . ((semantic-list "((ns_type)((rr).type + 0))" 5964 . 5990)))
+          ("NS_KEY_RESERVED_BITMASK" . ((semantic-list "( NS_KEY_RESERVED2 | \\
+				  NS_KEY_RESERVED4 | \\
+				  NS_KEY_RESERVED5 | \\
+				  NS_KEY_RESERVED8 | \\
+				  NS_KEY_RESERVED9 | \\
+				  NS_KEY_RESERVED10 | \\
+				  NS_KEY_RESERVED11 )" 14425 . 14609)))
+          ("NS_ALG_DH" . ((number "2" 14831 . 14832)))
+          ("NS_ALG_EXPIRE_ONLY" . ((number "253" 14980 . 14983)))
+          ("NS_NXT_BIT_CLEAR" (spp-arg-list ("n" "p") 16453 . 16458) . ((semantic-list "(p[(n)/NS_NXT_BITS] &= ~(0x80>>((n)%NS_NXT_BITS)))" 16459 . 16509)))
+          ("NS_OPT_DNSSEC_OK" . ((symbol "0x8000U" 16709 . 16716)))
+          ("NS_OPT_NSID" . ((number "3" 16738 . 16739)))
+          ("NS_GET16" (spp-arg-list ("s" "cp") 16829 . 16836) . 
+              ((DO "do" 16837 . 16839) (semantic-list "{ \\
+	const u_char *t_cp = (const u_char *)(cp); \\
+	(s) = ((u_int16_t)t_cp[0] << 8) \\
+	    | ((u_int16_t)t_cp[1]) \\
+	    ; \\
+	(cp) += NS_INT16SZ; \\
+}" 16840 . 16988) (WHILE "while" 16989 . 16994) (semantic-list "(0)" 16995 . 16998)))
+          ("ns_t_rr_p" (spp-arg-list ("t") 11682 . 11685) . ((semantic-list "(!ns_t_qt_p(t) && !ns_t_mrr_p(t))" 11686 . 11719)))
+          ("NS_KEY_TYPE_AUTH_CONF" . ((number "0x0000" 12980 . 12986)))
+          ("NS_KEY_RESERVED8" . ((number "0x0080" 14081 . 14087)))
+          ("NS_MD5RSA_MAX_SIZE" . ((semantic-list "((NS_MD5RSA_MAX_BITS+7)/8)" 15687 . 15713)))
+          ("ns_msg_end" (spp-arg-list ("handle") 5409 . 5417) . ((semantic-list "((handle)._eom + 0)" 5418 . 5437)))
+          ("NS_TSIG_ERROR_NO_TSIG" . ((punctuation "-" 8765 . 8766) (number "10" 8766 . 8768)))
+          ("ns_t_mrr_p" (spp-arg-list ("t") 11563 . 11566) . ((semantic-list "((t) == ns_t_tsig || (t) == ns_t_opt)" 11567 . 11604)))
+          ("NS_KEY_RESERVED9" . ((number "0x0040" 14146 . 14152)))
+          ("NS_ALG_DSS" . ((symbol "NS_ALG_DSA" 14942 . 14952)))
+          ("NS_KEY_PROT_EMAIL" . ((number "2" 15197 . 15198)))
+          ("NS_KEY_PROT_IPSEC" . ((number "4" 15265 . 15266)))
+          ("NS_MD5RSA_MIN_BITS" . ((number "512" 15342 . 15345)))
+          ("NS_SIG_LABELS" . ((number "3" 15984 . 15985)))
+          ("NS_GET32" (spp-arg-list ("l" "cp") 17016 . 17023) . 
+              ((DO "do" 17024 . 17026) (semantic-list "{ \\
+	const u_char *t_cp = (const u_char *)(cp); \\
+	(l) = ((u_int32_t)t_cp[0] << 24) \\
+	    | ((u_int32_t)t_cp[1] << 16) \\
+	    | ((u_int32_t)t_cp[2] << 8) \\
+	    | ((u_int32_t)t_cp[3]) \\
+	    ; \\
+	(cp) += NS_INT32SZ; \\
+}" 17027 . 17247) (WHILE "while" 17248 . 17253) (semantic-list "(0)" 17254 . 17257)))
+          ("_ARPA_NAMESER_H_")
+          ("NS_INADDRSZ" . ((number "4" 3988 . 3989)))
+          ("ns_msg_id" (spp-arg-list ("handle") 5315 . 5323) . ((semantic-list "((handle)._id + 0)" 5324 . 5342)))
+          ("ns_rr_name" (spp-arg-list ("rr") 5893 . 5897) . ((semantic-list "(((rr).name[0] != '\\0') ? (rr).name : \".\")" 5898 . 5940)))
+          ("NS_TSIG_ERROR_FORMERR" . ((punctuation "-" 8834 . 8835) (number "12" 8835 . 8837)))
+          ("NS_KEY_TYPE_CONF_ONLY" . ((number "0x8000" 13045 . 13051)))
+          ("NS_KEY_NAME_USER" . ((number "0x0000" 13824 . 13830)))
+          ("NS_DSA_MIN_SIZE" . ((number "213" 15782 . 15785)))
+          ("NS_DSA_MAX_BYTES" . ((number "405" 15818 . 15821)))
+          ("NS_SIG_EXPIR" . ((number "8" 16082 . 16083)))
+          ("NS_NXT_BITS" . ((number "8" 16346 . 16347)))
+          ("NS_NXT_BIT_SET" (spp-arg-list ("n" "p") 16370 . 16377) . ((semantic-list "(p[(n)/NS_NXT_BITS] |=  (0x80>>((n)%NS_NXT_BITS)))" 16378 . 16428)))
+          ("BIND_4_COMPAT")
+          ("NS_KEY_TYPE_AUTH_ONLY" . ((number "0x4000" 13121 . 13127)))
+          ("NS_KEY_EXTENDED_FLAGS" . ((number "0x1000" 13560 . 13566)))
+          ("NS_KEY_NAME_ENTITY" . ((number "0x0200" 13890 . 13896)))
+          ("NS_KEY_NAME_RESERVED" . ((number "0x0300" 14024 . 14030)))
+          ("NS_KEY_PROT_ANY" . ((number "255" 15292 . 15295)))
+          ("NS_SIG_OTTL" . ((number "4" 16038 . 16039)))
+          ("NS_PUT16" (spp-arg-list ("s" "cp") 17275 . 17282) . 
+              ((DO "do" 17283 . 17285) (semantic-list "{ \\
+	u_int16_t t_s = (u_int16_t)(s); \\
+	u_char *t_cp = (u_char *)(cp); \\
+	*t_cp++ = t_s >> 8; \\
+	*t_cp   = t_s; \\
+	(cp) += NS_INT16SZ; \\
+}" 17286 . 17424) (WHILE "while" 17425 . 17430) (semantic-list "(0)" 17431 . 17434)))
+          ("NS_MAXCDNAME" . ((number "255" 3495 . 3498)))
+          ("NS_QFIXEDSZ" . ((number "4" 3683 . 3684)))
+          ("NS_TSIG_ERROR_NO_SPACE" . ((punctuation "-" 8800 . 8801) (number "11" 8801 . 8803)))
+          ("ns_t_qt_p" (spp-arg-list ("t") 11389 . 11392) . ((semantic-list "(ns_t_xfr_p(t) || (t) == ns_t_any || \\
+		      (t) == ns_t_mailb || (t) == ns_t_maila)" 11393 . 11479)))
+          ("NS_KEY_NO_AUTH" . ((number "0x8000" 13340 . 13346)))
+          ("NS_KEY_RESERVED_BITMASK2" . ((number "0xFFFF" 14643 . 14649)))
+          ("NS_ALG_PRIVATE_OID" . ((number "254" 15039 . 15042)))
+          ("NS_MAXDNAME" . ((number "1025" 3388 . 3392)))
+          ("NS_INT16SZ" . ((number "2" 3869 . 3870)))
+          ("NS_IN6ADDRSZ" . ((number "16" 4028 . 4030)))
+          ("NS_KEY_TYPE_NO_KEY" . ((number "0xC000" 13193 . 13199)))
+          ("NS_KEY_RESERVED10" . ((number "0x0020" 14212 . 14218)))
+          ("NS_MD5RSA_MAX_BITS" . ((number "4096" 15410 . 15414)))
+          ("NS_MD5RSA_MAX_BYTES" . ((semantic-list "((NS_MD5RSA_MAX_BITS+7/8)*2+3)" 15478 . 15508)))
+          ("NS_PUT32" (spp-arg-list ("l" "cp") 17452 . 17459) . 
+              ((DO "do" 17460 . 17462) (semantic-list "{ \\
+	u_int32_t t_l = (u_int32_t)(l); \\
+	u_char *t_cp = (u_char *)(cp); \\
+	*t_cp++ = t_l >> 24; \\
+	*t_cp++ = t_l >> 16; \\
+	*t_cp++ = t_l >> 8; \\
+	*t_cp   = t_l; \\
+	(cp) += NS_INT32SZ; \\
+}" 17463 . 17649) (WHILE "while" 17650 . 17655) (semantic-list "(0)" 17656 . 17659)))
+          ("ns_msg_base" (spp-arg-list ("handle") 5362 . 5370) . ((semantic-list "((handle)._msg + 0)" 5371 . 5390)))
+          ("ns_rr_ttl" (spp-arg-list ("rr") 6064 . 6068) . ((semantic-list "((rr).ttl + 0)" 6069 . 6083)))
+          ("ns_rr_rdata" (spp-arg-list ("rr") 6147 . 6151) . ((semantic-list "((rr).rdata + 0)" 6152 . 6168)))
+          ("ns_t_udp_p" (spp-arg-list ("t") 11738 . 11741) . ((semantic-list "((t) != ns_t_axfr && (t) != ns_t_zxfr)" 11742 . 11780)))
+          ("NS_KEY_RESERVED11" . ((number "0x0010" 14278 . 14284)))
+          ("NS_KEY_PROT_TLS" . ((number "1" 15163 . 15164)))
+          )
+)
+    (semanticdb-table "nameser_compat.h"
+      :file "nameser_compat.h"
+      :fsize 6205
+      :lastmodtime '(21134 28708 0 0)))
+  :file "!usr!include!arpa!semantic.cache"
+  :semantic-tag-version "2.0"
+  :semanticdb-version "2.2")

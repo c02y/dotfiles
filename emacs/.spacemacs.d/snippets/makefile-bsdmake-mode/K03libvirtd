@@ -1,0 +1,106 @@
+;; Object kernel/
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "kernel/"
+  :tables (list 
+   (semanticdb-table "time.c"
+    :major-mode 'c-mode
+    :tags 
+        '( ("linux/timex.h" include (:system-flag t) nil [160 184])
+            ("linux/time.h" include (:system-flag t) nil [185 208])
+            ("linux/jiffies.h" include (:system-flag t) nil [209 235])
+            ("linux/interrupt.h" include (:system-flag t) nil [236 264])
+            ("linux/swap.h" include (:system-flag t) nil [265 288])
+            ("linux/sched.h" include (:system-flag t) nil [289 313])
+            ("linux/init.h" include (:system-flag t) nil [314 337])
+            ("linux/mm.h" include (:system-flag t) nil [338 359])
+            ("arch/svinto.h" include (:system-flag t) nil [360 384])
+            ("asm/types.h" include (:system-flag t) nil [385 407])
+            ("asm/signal.h" include (:system-flag t) nil [408 431])
+            ("asm/io.h" include (:system-flag t) nil [432 451])
+            ("asm/delay.h" include (:system-flag t) nil [452 474])
+            ("asm/rtc.h" include (:system-flag t) nil [475 495])
+            ("asm/irq_regs.h" include (:system-flag t) nil [496 521])
+            ("set_rtc_mmss" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("nowtime" variable (:type "unsigned long") (reparse-symbol arg-sub-list) [688 710]))                  
+                :type "int")
+                nil [664 711])
+            ("have_rtc" variable
+               (:typemodifiers ("extern")
+                :type "int")
+                nil [712 732])
+            ("get_ns_in_jiffie" function
+               (:arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [765 770]))                  
+                :type "unsigned long")
+                nil [734 1508])
+            ("do_slow_gettimeoffset" function
+               (:arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [1546 1551]))                  
+                :type "unsigned long")
+                nil [1510 1874])
+            ("start_watchdog" variable (:constant-flag t) nil [3058 3072])
+            ("WATCHDOG_MIN_FREE_PAGES" variable (:constant-flag t) nil [3349 3372])
+            ("reset_watchdog" function
+               (:arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [3396 3401]))                  
+                :type "void")
+                nil [3376 3808])
+            ("stop_watchdog" function
+               (:arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [3887 3892]))                  
+                :type "void")
+                nil [3867 4121])
+            ("cris_do_profile" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("regs" variable
+                       (:pointer 1
+                        :type ("pt_regs" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [4364 4385]))                  
+                :type "void")
+                nil [4336 4386])
+            ("timer_interrupt" function
+               (:typemodifiers ("static" "inline")
+                :arguments 
+                  ( ("irq" variable (:type "int") (reparse-symbol arg-sub-list) [4430 4438])
+                    ("dev_id" variable
+                       (:pointer 1
+                        :type "void")
+                        (reparse-symbol arg-sub-list) [4439 4452]))                  
+                :type ("irqreturn_t" type (:type "class") nil nil))
+                nil [4388 5281])
+            ("irq2" variable
+               (:typemodifiers ("static")
+                :type ("irqaction" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [5433 5555])
+            ("time_init" function
+               (:arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [5579 5584]))                  
+                :type ("__init" type (:type "class") nil nil))
+                nil [5562 8821]))          
+    :file "time.c"
+    :pointmax 8822
+    :fsize 8821
+    :lastmodtime '(21468 8925 805015 202000)
+    :unmatched-syntax '((VOID 5557 . 5561))
+    :lexical-table 
+        '(("WATCHDOG_MIN_FREE_PAGES" . ((number "8" 3373 . 3374)))
+          ("start_watchdog" . ((symbol "reset_watchdog" 3073 . 3087)))
+          )
+
+    )
+   )
+  :file "!home!chz!linux-3.0.8!arch!cris!arch-v10!kernel!semantic.cache"
+  :semantic-tag-version "2.0"
+  :semanticdb-version "2.2"
+  )

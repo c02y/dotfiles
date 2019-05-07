@@ -1,0 +1,1029 @@
+;; Object power/
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "power/"
+  :tables (list 
+   (semanticdb-table "hibernate.c"
+    :major-mode 'c-mode
+    :tags 
+        '( ("linux/suspend.h" include (:system-flag t) nil [322 348])
+            ("linux/syscalls.h" include (:system-flag t) nil [349 376])
+            ("linux/reboot.h" include (:system-flag t) nil [377 402])
+            ("linux/string.h" include (:system-flag t) nil [403 428])
+            ("linux/device.h" include (:system-flag t) nil [429 454])
+            ("linux/kmod.h" include (:system-flag t) nil [455 478])
+            ("linux/delay.h" include (:system-flag t) nil [479 503])
+            ("linux/fs.h" include (:system-flag t) nil [504 525])
+            ("linux/mount.h" include (:system-flag t) nil [526 550])
+            ("linux/pm.h" include (:system-flag t) nil [551 572])
+            ("linux/console.h" include (:system-flag t) nil [573 599])
+            ("linux/cpu.h" include (:system-flag t) nil [600 622])
+            ("linux/freezer.h" include (:system-flag t) nil [623 649])
+            ("linux/gfp.h" include (:system-flag t) nil [650 672])
+            ("linux/syscore_ops.h" include (:system-flag t) nil [673 703])
+            ("scsi/scsi_scan.h" include (:system-flag t) nil [704 731])
+            ("power.h" include nil nil [733 751])
+            ("nocompress" variable
+               (:typemodifiers ("static")
+                :type "int")
+                nil [754 780])
+            ("noresume" variable
+               (:typemodifiers ("static")
+                :type "int")
+                nil [781 805])
+            ("resume_file" variable
+               (:dereference 1
+                :typemodifiers ("static")
+                :type "char")
+                nil [806 861])
+            ("swsusp_resume_device" variable (:type ("dev_t" type (:type "class") nil nil)) nil [862 889])
+            ("swsusp_resume_block" variable (:type ("sector_t" type (:type "class") nil nil)) nil [890 919])
+            ("__nosavedata" variable (:type ("in_suspend" type (:type "class") nil nil)) nil [924 952])
+            ("" type
+               (:members 
+                  ( ("HIBERNATION_INVALID" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [962 982])
+                    ("HIBERNATION_PLATFORM" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [984 1005])
+                    ("HIBERNATION_TEST" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [1007 1024])
+                    ("HIBERNATION_TESTPROC" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [1026 1047])
+                    ("HIBERNATION_SHUTDOWN" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [1049 1070])
+                    ("HIBERNATION_REBOOT" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [1072 1091])
+                    ("__HIBERNATION_AFTER_LAST" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [1110 1136]))                  
+                :type "enum")
+                nil [954 1137])
+            ("HIBERNATION_MAX" variable (:constant-flag t) nil [1146 1161])
+            ("HIBERNATION_FIRST" variable (:constant-flag t) nil [1199 1216])
+            ("hibernation_mode" variable
+               (:typemodifiers ("static")
+                :type "int")
+                nil [1244 1295])
+            ("hibernation_ops" variable
+               (:pointer 1
+                :typemodifiers ("static")
+                :constant-flag t
+                :type ("platform_hibernation_ops" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [1297 1359])
+            ("hibernation_set_ops" function
+               (:arguments 
+                  ( ("ops" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("platform_hibernation_ops" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [1534 1577]))                  
+                :type "void")
+                nil [1509 2007])
+            ("entering_platform_hibernation" variable
+               (:typemodifiers ("static")
+                :type "bool")
+                nil [2009 2051])
+            ("system_entering_hibernation" function
+               (:arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [2086 2091]))                  
+                :type "bool")
+                nil [2053 2134])
+            ("EXPORT_SYMBOL" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("system_entering_hibernation" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [2149 2177]))                  
+                :type "int")
+                nil [2135 2178])
+            ("hibernation_testmode" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("mode" variable (:type "int") (reparse-symbol arg-sub-list) [2656 2665]))                  
+                :type "int")
+                nil [2624 2679])
+            ("hibernation_test" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("level" variable (:type "int") (reparse-symbol arg-sub-list) [2708 2718]))                  
+                :type "int")
+                nil [2680 2732])
+            ("platform_begin" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("platform_mode" variable (:type "int") (reparse-symbol arg-sub-list) [2916 2934]))                  
+                :type "int")
+                nil [2890 3015])
+            ("platform_end" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("platform_mode" variable (:type "int") (reparse-symbol arg-sub-list) [3187 3205]))                  
+                :type "void")
+                nil [3162 3274])
+            ("platform_pre_snapshot" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("platform_mode" variable (:type "int") (reparse-symbol arg-sub-list) [3606 3624]))                  
+                :type "int")
+                nil [3573 3712])
+            ("platform_leave" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("platform_mode" variable (:type "int") (reparse-symbol arg-sub-list) [4068 4086]))                  
+                :type "void")
+                nil [4041 4157])
+            ("platform_finish" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("platform_mode" variable (:type "int") (reparse-symbol arg-sub-list) [4483 4501]))                  
+                :type "void")
+                nil [4455 4573])
+            ("platform_pre_restore" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("platform_mode" variable (:type "int") (reparse-symbol arg-sub-list) [4946 4964]))                  
+                :type "int")
+                nil [4914 5051])
+            ("platform_restore_cleanup" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("platform_mode" variable (:type "int") (reparse-symbol arg-sub-list) [5520 5538]))                  
+                :type "void")
+                nil [5483 5619])
+            ("platform_recover" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("platform_mode" variable (:type "int") (reparse-symbol arg-sub-list) [5785 5803]))                  
+                :type "void")
+                nil [5756 5904])
+            ("swsusp_show_speed" function
+               (:arguments 
+                  ( ("start" variable
+                       (:pointer 1
+                        :type ("timeval" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [6190 6212])
+                    ("stop" variable
+                       (:pointer 1
+                        :type ("timeval" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [6213 6234])
+                    ("nr_pages" variable (:type "unsigned int") (reparse-symbol arg-sub-list) [6238 6256])
+                    ("msg" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [6257 6267]))                  
+                :type "void")
+                nil [6167 6768])
+            ("create_image" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("platform_mode" variable (:type "int") (reparse-symbol arg-sub-list) [7117 7135]))                  
+                :type "int")
+                nil [7093 8428])
+            ("hibernation_snapshot" function
+               (:arguments 
+                  ( ("platform_mode" variable (:type "int") (reparse-symbol arg-sub-list) [8669 8687]))                  
+                :type "int")
+                nil [8644 9842])
+            ("resume_target_kernel" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("platform_mode" variable (:type "bool") (reparse-symbol arg-sub-list) [10289 10308]))                  
+                :type "int")
+                nil [10257 11560])
+            ("hibernation_restore" function
+               (:arguments 
+                  ( ("platform_mode" variable (:type "int") (reparse-symbol arg-sub-list) [11904 11922]))                  
+                :type "int")
+                nil [11880 12227])
+            ("hibernation_platform_enter" function
+               (:arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [12348 12353]))                  
+                :type "int")
+                nil [12317 13610])
+            ("power_down" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [13897 13902]))                  
+                :type "void")
+                nil [13874 14365])
+            ("prepare_processes" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [14396 14401]))                  
+                :type "int")
+                nil [14367 14505])
+            ("hibernate" function
+               (:arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [14602 14607]))                  
+                :type "int")
+                nil [14588 16103])
+            ("software_resume" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [16783 16788]))                  
+                :type "int")
+                nil [16756 19780])
+            ("late_initcall" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("software_resume" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [19796 19812]))                  
+                :type "int")
+                nil [19782 19813])
+            ("hibernation_modes" variable
+               (:pointer 1
+                :dereference 1
+                :typemodifiers ("static")
+                :constant-flag t
+                :type "char")
+                nil [19816 20046])
+            ("disk_show" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("kobj" variable
+                       (:pointer 1
+                        :type ("kobject" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [21172 21193])
+                    ("attr" variable
+                       (:pointer 1
+                        :type ("kobj_attribute" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [21194 21222])
+                    ("buf" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [21227 21237]))                  
+                :type ("ssize_t" type (:type "class") nil nil))
+                nil [21147 21826])
+            ("disk_store" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("kobj" variable
+                       (:pointer 1
+                        :type ("kobject" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [21854 21875])
+                    ("attr" variable
+                       (:pointer 1
+                        :type ("kobj_attribute" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [21876 21904])
+                    ("buf" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [21910 21926])
+                    ("n" variable (:type ("size_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [21927 21936]))                  
+                :type ("ssize_t" type (:type "class") nil nil))
+                nil [21828 22767])
+            ("power_attr" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("disk" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [22780 22785]))                  
+                :type "int")
+                nil [22769 22786])
+            ("resume_show" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("kobj" variable
+                       (:pointer 1
+                        :type ("kobject" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [22815 22836])
+                    ("attr" variable
+                       (:pointer 1
+                        :type ("kobj_attribute" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [22837 22865])
+                    ("buf" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [22872 22882]))                  
+                :type ("ssize_t" type (:type "class") nil nil))
+                nil [22788 22985])
+            ("resume_store" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("kobj" variable
+                       (:pointer 1
+                        :type ("kobject" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [23015 23036])
+                    ("attr" variable
+                       (:pointer 1
+                        :type ("kobj_attribute" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [23037 23065])
+                    ("buf" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [23073 23089])
+                    ("n" variable (:type ("size_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [23090 23099]))                  
+                :type ("ssize_t" type (:type "class") nil nil))
+                nil [22987 23502])
+            ("power_attr" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("resume" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [23515 23522]))                  
+                :type "int")
+                nil [23504 23523])
+            ("image_size_show" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("kobj" variable
+                       (:pointer 1
+                        :type ("kobject" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [23556 23577])
+                    ("attr" variable
+                       (:pointer 1
+                        :type ("kobj_attribute" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [23578 23606])
+                    ("buf" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [23617 23627]))                  
+                :type ("ssize_t" type (:type "class") nil nil))
+                nil [23525 23674])
+            ("image_size_store" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("kobj" variable
+                       (:pointer 1
+                        :type ("kobject" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [23708 23729])
+                    ("attr" variable
+                       (:pointer 1
+                        :type ("kobj_attribute" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [23730 23758])
+                    ("buf" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [23763 23779])
+                    ("n" variable (:type ("size_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [23780 23789]))                  
+                :type ("ssize_t" type (:type "class") nil nil))
+                nil [23676 23908])
+            ("power_attr" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("image_size" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [23921 23932]))                  
+                :type "int")
+                nil [23910 23933])
+            ("reserved_size_show" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("kobj" variable
+                       (:pointer 1
+                        :type ("kobject" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [23969 23990])
+                    ("attr" variable
+                       (:pointer 1
+                        :type ("kobj_attribute" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [23997 24025])
+                    ("buf" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [24026 24036]))                  
+                :type ("ssize_t" type (:type "class") nil nil))
+                nil [23935 24086])
+            ("reserved_size_store" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("kobj" variable
+                       (:pointer 1
+                        :type ("kobject" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [24123 24144])
+                    ("attr" variable
+                       (:pointer 1
+                        :type ("kobj_attribute" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [24152 24180])
+                    ("buf" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [24188 24204])
+                    ("n" variable (:type ("size_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [24205 24214]))                  
+                :type ("ssize_t" type (:type "class") nil nil))
+                nil [24088 24336])
+            ("power_attr" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("reserved_size" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [24349 24363]))                  
+                :type "int")
+                nil [24338 24364])
+            ("g" variable
+               (:pointer 1
+                :dereference 1
+                :typemodifiers ("static")
+                :type ("attribute" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [24366 24498])
+            ("attr_group" variable
+               (:typemodifiers ("static")
+                :type ("attribute_group" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [24501 24561])
+            ("pm_disk_init" function
+               (:arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [24595 24600]))                  
+                :type ("__init" type (:type "class") nil nil))
+                nil [24575 24657])
+            ("core_initcall" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("pm_disk_init" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [24673 24686]))                  
+                :type "int")
+                nil [24659 24687])
+            ("resume_setup" function
+               (:arguments 
+                  ( ("str" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [24721 24731]))                  
+                :type ("__init" type (:type "class") nil nil))
+                nil [24701 24809])
+            ("resume_offset_setup" function
+               (:arguments 
+                  ( ("str" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [24849 24859]))                  
+                :type ("__init" type (:type "class") nil nil))
+                nil [24822 25004])
+            ("hibernate_setup" function
+               (:arguments 
+                  ( ("str" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [25040 25050]))                  
+                :type ("__init" type (:type "class") nil nil))
+                nil [25017 25177])
+            ("noresume_setup" function
+               (:arguments 
+                  ( ("str" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [25212 25222]))                  
+                :type ("__init" type (:type "class") nil nil))
+                nil [25190 25252])
+            ("__setup" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("noresume_setup" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [25274 25289]))                  
+                :type "int")
+                nil [25254 25290])
+            ("__setup" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("resume_offset_setup" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [25317 25337]))                  
+                :type "int")
+                nil [25291 25338])
+            ("__setup" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("resume_setup" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [25358 25371]))                  
+                :type "int")
+                nil [25339 25372])
+            ("__setup" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("hibernate_setup" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [25395 25411]))                  
+                :type "int")
+                nil [25373 25412]))          
+    :file "hibernate.c"
+    :pointmax 25413
+    :fsize 25412
+    :lastmodtime '(21468 9214 726174 627000)
+    :unmatched-syntax '((string 25381 . 25393) (string 25347 . 25356) (string 25299 . 25315) (string 25262 . 25272) (INT 25186 . 25189) (STATIC 25179 . 25185) (INT 25013 . 25016) (STATIC 25006 . 25012) (INT 24818 . 24821) (STATIC 24811 . 24817) (INT 24697 . 24700) (STATIC 24690 . 24696) (INT 24571 . 24574) (STATIC 24564 . 24570) (INT 920 . 923))
+    :lexical-table 
+        '(("HIBERNATION_FIRST" . ((semantic-list "(HIBERNATION_INVALID + 1)" 1217 . 1242)))
+          ("HIBERNATION_MAX" . ((semantic-list "(__HIBERNATION_AFTER_LAST-1)" 1162 . 1190)))
+          )
+
+    )
+   (semanticdb-table "power.h"
+    :major-mode 'c-mode
+    :tags 
+        '( ("linux/suspend.h" include (:system-flag t) nil [1 27])
+            ("linux/suspend_ioctls.h" include (:system-flag t) nil [28 61])
+            ("linux/utsname.h" include (:system-flag t) nil [62 88])
+            ("linux/freezer.h" include (:system-flag t) nil [89 115])
+            ("swsusp_info" type
+               (:members 
+                  ( ("uts" variable (:type ("new_utsname" type
+                         (:prototype t
+                          :type "struct")
+                          nil nil)) (reparse-symbol classsubparts) [139 162])
+                    ("version_code" variable (:type ("u32" type (:type "class") nil nil)) (reparse-symbol classsubparts) [164 183])
+                    ("num_physpages" variable (:type "unsigned long") (reparse-symbol classsubparts) [185 214])
+                    ("cpus" variable (:type "int") (reparse-symbol classsubparts) [216 227])
+                    ("image_pages" variable (:type "unsigned long") (reparse-symbol classsubparts) [229 256])
+                    ("pages" variable (:type "unsigned long") (reparse-symbol classsubparts) [258 279])
+                    ("size" variable (:type "unsigned long") (reparse-symbol classsubparts) [281 301]))                  
+                :type "struct")
+                nil [117 340])
+            ("__attribute__" function
+               (:type ("swsusp_info" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil)
+                :prototype-flag t)
+                nil [117 340])
+            ("hibernate_reserved_size_init" function
+               (:typemodifiers ("static" "inline")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [1784 1789]))                  
+                :type "void")
+                nil [1736 1792])
+            ("hibernate_image_size_init" function
+               (:typemodifiers ("static" "inline")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [1838 1843]))                  
+                :type "void")
+                nil [1793 1846])
+            ("pfn_is_nosave" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("" variable (:type "unsigned long") (reparse-symbol arg-sub-list) [1906 1920]))                  
+                :type "int")
+                nil [1881 1921])
+            ("power_attr" variable (:constant-flag t) nil [1931 1941])
+            ("image_size" variable
+               (:typemodifiers ("extern")
+                :type "unsigned long")
+                nil [2188 2220])
+            ("reserved_size" variable
+               (:typemodifiers ("extern")
+                :type "unsigned long")
+                nil [2297 2332])
+            ("in_suspend" variable
+               (:typemodifiers ("extern")
+                :type "int")
+                nil [2333 2355])
+            ("swsusp_resume_device" variable
+               (:typemodifiers ("extern")
+                :type ("dev_t" type (:type "class") nil nil))
+                nil [2356 2390])
+            ("swsusp_resume_block" variable
+               (:typemodifiers ("extern")
+                :type ("sector_t" type (:type "class") nil nil))
+                nil [2391 2427])
+            ("swsusp_arch_suspend" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [2471 2476]))                  
+                :type "int")
+                nil [2447 2477])
+            ("swsusp_arch_resume" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [2519 2524]))                  
+                :type "int")
+                nil [2496 2525])
+            ("create_basic_memory_bitmaps" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [2566 2571]))                  
+                :type "int")
+                nil [2527 2572])
+            ("free_basic_memory_bitmaps" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [2611 2616]))                  
+                :type "void")
+                nil [2573 2617])
+            ("hibernate_preallocate_memory" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [2658 2663]))                  
+                :type "int")
+                nil [2618 2664])
+            ("snapshot_handle" type
+               (:members 
+                  ( ("cur" variable (:type "unsigned int") (reparse-symbol classsubparts) [3576 3593])
+                    ("buffer" variable
+                       (:pointer 1
+                        :type "void")
+                        (reparse-symbol classsubparts) [3699 3713])
+                    ("sync_read" variable (:type "int") (reparse-symbol classsubparts) [3781 3796]))                  
+                :type "struct")
+                nil [3550 3929])
+            ("data_of" variable (:constant-flag t) nil [4111 4118])
+            ("snapshot_additional_pages" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("zone" variable
+                       (:pointer 1
+                        :type ("zone" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [4192 4210]))                  
+                :type "unsigned int")
+                nil [4146 4211])
+            ("snapshot_get_image_size" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [4257 4262]))                  
+                :type "unsigned long")
+                nil [4212 4263])
+            ("snapshot_read_next" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("handle" variable
+                       (:pointer 1
+                        :type ("snapshot_handle" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [4294 4325]))                  
+                :type "int")
+                nil [4264 4326])
+            ("snapshot_write_next" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("handle" variable
+                       (:pointer 1
+                        :type ("snapshot_handle" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [4358 4389]))                  
+                :type "int")
+                nil [4327 4390])
+            ("snapshot_write_finalize" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("handle" variable
+                       (:pointer 1
+                        :type ("snapshot_handle" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [4427 4458]))                  
+                :type "void")
+                nil [4391 4459])
+            ("snapshot_image_loaded" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("handle" variable
+                       (:pointer 1
+                        :type ("snapshot_handle" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [4493 4524]))                  
+                :type "int")
+                nil [4460 4525])
+            ("snapshot_device_available" variable
+               (:typemodifiers ("extern")
+                :type ("atomic_t" type (:type "class") nil nil))
+                nil [4579 4621])
+            ("alloc_swapdev_block" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("swap" variable (:type "int") (reparse-symbol arg-sub-list) [4659 4668]))                  
+                :type ("sector_t" type (:type "class") nil nil))
+                nil [4623 4669])
+            ("free_all_swap_pages" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("swap" variable (:type "int") (reparse-symbol arg-sub-list) [4702 4711]))                  
+                :type "void")
+                nil [4670 4712])
+            ("swsusp_swap_in_use" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [4743 4748]))                  
+                :type "int")
+                nil [4713 4749])
+            ("SF_PLATFORM_MODE" variable (:constant-flag t) nil [4866 4882])
+            ("SF_NOCOMPRESS_MODE" variable (:constant-flag t) nil [4893 4911])
+            ("swsusp_check" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [4970 4975]))                  
+                :type "int")
+                nil [4946 4976])
+            ("swsusp_free" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [5001 5006]))                  
+                :type "void")
+                nil [4977 5007])
+            ("swsusp_read" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("flags_p" variable
+                       (:pointer 1
+                        :type "unsigned int")
+                        (reparse-symbol arg-sub-list) [5031 5053]))                  
+                :type "int")
+                nil [5008 5054])
+            ("swsusp_write" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("flags" variable (:type "unsigned int") (reparse-symbol arg-sub-list) [5079 5098]))                  
+                :type "int")
+                nil [5055 5099])
+            ("swsusp_close" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("" variable (:type ("fmode_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [5125 5133]))                  
+                :type "void")
+                nil [5100 5134])
+            ("hib_resume_bdev" variable
+               (:pointer 1
+                :typemodifiers ("extern")
+                :type ("block_device" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [5166 5210])
+            ("hib_bio_read_page" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("page_off" variable (:type ("pgoff_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [5241 5258])
+                    ("addr" variable
+                       (:pointer 1
+                        :type "void")
+                        (reparse-symbol arg-sub-list) [5259 5270])
+                    ("bio_chain" variable
+                       (:pointer 2
+                        :type ("bio" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [5273 5296]))                  
+                :type "int")
+                nil [5212 5297])
+            ("hib_bio_write_page" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("page_off" variable (:type ("pgoff_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [5328 5345])
+                    ("addr" variable
+                       (:pointer 1
+                        :type "void")
+                        (reparse-symbol arg-sub-list) [5346 5357])
+                    ("bio_chain" variable
+                       (:pointer 2
+                        :type ("bio" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [5360 5383]))                  
+                :type "int")
+                nil [5298 5384])
+            ("hib_wait_on_bio_chain" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("bio_chain" variable
+                       (:pointer 2
+                        :type ("bio" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [5418 5441]))                  
+                :type "int")
+                nil [5385 5442])
+            ("timeval" type
+               (:prototype t
+                :type "struct")
+                nil [5444 5459])
+            ("swsusp_show_speed" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("" variable
+                       (:pointer 1
+                        :type ("timeval" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [5518 5535])
+                    ("" variable
+                       (:pointer 1
+                        :type ("timeval" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [5536 5553])
+                    ("" variable (:type "unsigned int") (reparse-symbol arg-sub-list) [5558 5571])
+                    ("" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [5572 5579]))                  
+                :type "void")
+                nil [5488 5580])
+            ("suspend_devices_and_enter" function
+               (:typemodifiers ("static" "inline")
+                :arguments 
+                  ( ("state" variable (:type ("suspend_state_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [5900 5922]))                  
+                :type "int")
+                nil [5856 5943])
+            ("enter_state" function
+               (:typemodifiers ("static" "inline")
+                :arguments 
+                  ( ("state" variable (:type ("suspend_state_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [5974 5996]))                  
+                :type "int")
+                nil [5944 6016])
+            ("valid_state" function
+               (:typemodifiers ("static" "inline")
+                :arguments 
+                  ( ("state" variable (:type ("suspend_state_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [6048 6070]))                  
+                :type "bool")
+                nil [6017 6088])
+            ("suspend_test_start" function
+               (:typemodifiers ("static" "inline")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [6347 6352]))                  
+                :type "void")
+                nil [6309 6355])
+            ("suspend_test_finish" function
+               (:typemodifiers ("static" "inline")
+                :arguments 
+                  ( ("label" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [6395 6413]))                  
+                :type "void")
+                nil [6356 6416])
+            ("count_highmem_pages" function
+               (:typemodifiers ("static" "inline")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [6668 6673]))                  
+                :type "unsigned int")
+                nil [6621 6687])
+            ("restore_highmem" function
+               (:typemodifiers ("static" "inline")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [6722 6727]))                  
+                :type "int")
+                nil [6688 6741])
+            ("" type
+               (:members 
+                  ( ("TEST_NONE" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [6806 6816])
+                    ("TEST_CORE" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [6818 6828])
+                    ("TEST_CPUS" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [6830 6840])
+                    ("TEST_PLATFORM" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [6842 6856])
+                    ("TEST_DEVICES" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [6858 6871])
+                    ("TEST_FREEZER" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [6873 6886])
+                    ("__TEST_AFTER_LAST" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [6905 6924]))                  
+                :type "enum")
+                nil [6780 6925])
+            ("TEST_FIRST" variable (:constant-flag t) nil [6935 6945])
+            ("TEST_MAX" variable (:constant-flag t) nil [6964 6972])
+            ("pm_test_level" variable
+               (:typemodifiers ("extern")
+                :type "int")
+                nil [6998 7023])
+            ("suspend_freeze_processes" function
+               (:typemodifiers ("static" "inline")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [7257 7262]))                  
+                :type "int")
+                nil [7214 7277])
+            ("suspend_thaw_processes" function
+               (:typemodifiers ("static" "inline")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [7321 7326]))                  
+                :type "void")
+                nil [7279 7330]))          
+    :file "power.h"
+    :pointmax 7338
+    :fsize 7337
+    :lastmodtime '(21468 9214 757173 893000)
+    :unmatched-syntax '((symbol 2485 . 2495) (EXTERN 2478 . 2484) (symbol 2436 . 2446) (EXTERN 2429 . 2435) (semantic-list 318 . 338))
+    :lexical-table 
+        '(("TEST_FIRST" . ((symbol "TEST_NONE" 6946 . 6955)))
+          ("data_of" (spp-arg-list ("handle") 4118 . 4126) . ((semantic-list "((handle).buffer)" 4127 . 4144)))
+          ("power_attr" (spp-arg-list ("_name") 1941 . 1948) . 
+              ((STATIC "static" 1951 . 1957) (STRUCT "struct" 1958 . 1964) (symbol "kobj_attribute" 1965 . 1979) (spp-symbol-merge ((symbol "_name" 1980 . 1985) (symbol "_attr" 1987 . 1992)) 1980 . 1992) (punctuation "=" 1993 . 1994) (semantic-list "{	\\
+	.attr	= {				\\
+		.name = __stringify(_name),	\\
+		.mode = 0644,			\\
+	},					\\
+	.show	= _name##_show,			\\
+	.store	= _name##_store,		\\
+}" 1995 . 2133)))
+          ("SF_PLATFORM_MODE" . ((number "1" 4883 . 4884)))
+          ("TEST_MAX" . ((semantic-list "(__TEST_AFTER_LAST - 1)" 6973 . 6996)))
+          ("SF_NOCOMPRESS_MODE" . ((number "2" 4912 . 4913)))
+          )
+
+    )
+   )
+  :file "!home!chz!linux-3.0.8!kernel!power!semantic.cache"
+  :semantic-tag-version "2.0"
+  :semanticdb-version "2.2"
+  )

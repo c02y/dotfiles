@@ -1,0 +1,68 @@
+;; Object arch/
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "arch/"
+  :tables (list 
+   (semanticdb-table "cache.h"
+    :major-mode 'c-mode
+    :tags 
+        '( ("_ASM_CRIS_ARCH_CACHE_H" variable (:constant-flag t) nil [40 62])
+            ("arch/hwregs/dma.h" include (:system-flag t) nil [64 92])
+            ("L1_CACHE_BYTES" variable (:constant-flag t) nil [134 148])
+            ("L1_CACHE_SHIFT" variable (:constant-flag t) nil [160 174])
+            ("__read_mostly" variable (:constant-flag t) nil [186 199])
+            ("flush_dma_list" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("descr" variable
+                       (:pointer 1
+                        :type ("dma_descr_data" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [271 293]))                  
+                :type "void")
+                nil [251 294])
+            ("flush_dma_descr" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("descr" variable
+                       (:pointer 1
+                        :type ("dma_descr_data" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [316 338])
+                    ("flush_buf" variable (:type "int") (reparse-symbol arg-sub-list) [339 353]))                  
+                :type "void")
+                nil [295 354])
+            ("flush_dma_context" variable (:constant-flag t) nil [364 381])
+            ("cris_flush_cache_range" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("buf" variable
+                       (:pointer 1
+                        :type "void")
+                        (reparse-symbol arg-sub-list) [465 475])
+                    ("len" variable (:type "unsigned long") (reparse-symbol arg-sub-list) [476 494]))                  
+                :type "void")
+                nil [437 495])
+            ("cris_flush_cache" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [518 523]))                  
+                :type "void")
+                nil [496 524]))          
+    :file "cache.h"
+    :pointmax 562
+    :fsize 561
+    :lastmodtime '(21468 8927 32986 128000)
+    :unmatched-syntax 'nil
+    :lexical-table 
+        '(("__read_mostly" . ((symbol "__attribute__" 200 . 213) (semantic-list "((__section__(\".data.read_mostly\")))" 213 . 249)))
+          ("L1_CACHE_BYTES" . ((number "32" 149 . 151)))
+          ("_ASM_CRIS_ARCH_CACHE_H")
+          ("flush_dma_context" (spp-arg-list ("c") 381 . 384) . 
+              ((symbol "flush_dma_list" 389 . 403) (semantic-list "(phys_to_virt((c)->saved_data))" 403 . 434) (punctuation ";" 434 . 435)))
+          ("L1_CACHE_SHIFT" . ((number "5" 175 . 176)))
+          )
+
+    )
+   )
+  :file "!home!chz!linux-3.0.8!arch!cris!include!arch-v32!arch!semantic.cache"
+  :semantic-tag-version "2.0"
+  :semanticdb-version "2.2"
+  )

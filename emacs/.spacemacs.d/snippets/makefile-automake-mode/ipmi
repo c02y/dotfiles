@@ -1,0 +1,463 @@
+;; Object tetris/
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "tetris/"
+  :tables
+  (list
+    (semanticdb-table "tetris.c"
+      :major-mode 'c-mode
+      :tags 
+        '( ("stdio.h" include (:system-flag t) nil [76 94])
+            ("stdlib.h" include (:system-flag t) nil [95 114])
+            ("string.h" include (:system-flag t) nil [115 134])
+            ("stdint.h" include (:system-flag t) nil [135 154])
+            ("signal.h" include (:system-flag t) nil [155 174])
+            ("time.h" include (:system-flag t) nil [175 192])
+            ("assert.h" include (:system-flag t) nil [193 212])
+            ("sys/time.h" include (:system-flag t) nil [213 234])
+            ("sys/select.h" include (:system-flag t) nil [235 258])
+            ("termios.h" include (:system-flag t) nil [259 279])
+            ("unistd.h" include (:system-flag t) nil [280 299])
+            ("WINDOW_HEIGHT" variable (:constant-flag t) nil [341 354])
+            ("WINDOW_WIDTH" variable (:constant-flag t) nil [366 378])
+            ("KEY_ANIM" variable (:constant-flag t) nil [392 400])
+            ("KEY_DOWN" variable (:constant-flag t) nil [416 424])
+            ("KEY_LEFT" variable (:constant-flag t) nil [440 448])
+            ("KEY_RIGHT" variable (:constant-flag t) nil [464 473])
+            ("GRAVITY" variable (:constant-flag t) nil [489 496])
+            ("GRAVITY_FACTOR" variable (:constant-flag t) nil [517 531])
+            ("MIN_DTIME" variable (:constant-flag t) nil [547 556])
+            ("LEVEL_FACTOR" variable (:constant-flag t) nil [574 586])
+            ("SYM_LEFT" variable (:constant-flag t) nil [601 609])
+            ("SYM_RIGHT" variable (:constant-flag t) nil [625 634])
+            ("SYM_BLOCK" variable (:constant-flag t) nil [649 658])
+            ("SYM_EMPTY" variable (:constant-flag t) nil [674 683])
+            ("SYM_BOTTOM" variable (:constant-flag t) nil [699 709])
+            ("BOUND_WIDTH" variable (:constant-flag t) nil [754 765])
+            ("BOUND_HEIGHT" variable (:constant-flag t) nil [777 789])
+            ("MASK_CLEAR" variable (:constant-flag t) nil [801 811])
+            ("MASK_SET" variable (:constant-flag t) nil [823 831])
+            ("FIELD_WIDTH" variable (:constant-flag t) nil [846 857])
+            ("FIELD_HEIGHT" variable (:constant-flag t) nil [886 898])
+            ("FIELD_FIRST" variable (:constant-flag t) nil [928 939])
+            ("FIELD_LAST" variable (:constant-flag t) nil [953 963])
+            ("FIELD_FULL" variable (:constant-flag t) nil [1002 1012])
+            ("FIELD_ANY" variable (:constant-flag t) nil [1049 1058])
+            ("bit" variable (:constant-flag t) nil [1163 1166])
+            ("bit_at" variable (:constant-flag t) nil [1208 1214])
+            ("bit_set" variable (:constant-flag t) nil [1249 1256])
+            ("bit_clear" variable (:constant-flag t) nil [1291 1300])
+            ("term_write" variable (:constant-flag t) nil [1337 1347])
+            ("term_move_to" variable (:constant-flag t) nil [1381 1393])
+            ("term_clear" variable (:constant-flag t) nil [1441 1451])
+            ("term_erase" variable (:constant-flag t) nil [1487 1497])
+            ("term_cursor_hide" variable (:constant-flag t) nil [1533 1549])
+            ("term_cursor_show" variable (:constant-flag t) nil [1580 1596])
+            ("LEN" variable (:constant-flag t) nil [1628 1631])
+            ("SHIFTL" variable (:constant-flag t) nil [1670 1676])
+            ("SHIFTR" variable (:constant-flag t) nil [1717 1723])
+            ("ROW" variable (:constant-flag t) nil [1773 1776])
+            ("ANIM" variable (:constant-flag t) nil [1850 1854])
+            ("XRAND" variable (:constant-flag t) nil [1928 1933])
+            ("byte" type
+               (:typedef ("uint8_t" type (:type "class") nil nil)
+                :superclasses "uint8_t"
+                :type "typedef")
+                nil [2046 2067])
+            ("i64" type
+               (:typedef ("int64_t" type (:type "class") nil nil)
+                :superclasses "int64_t"
+                :type "typedef")
+                nil [2068 2088])
+            ("u16" type
+               (:typedef ("uint16_t" type (:type "class") nil nil)
+                :superclasses "uint16_t"
+                :type "typedef")
+                nil [2089 2110])
+            ("u32" type
+               (:typedef ("uint32_t" type (:type "class") nil nil)
+                :superclasses "uint32_t"
+                :type "typedef")
+                nil [2111 2132])
+            ("u64" type
+               (:typedef ("uint64_t" type (:type "class") nil nil)
+                :superclasses "uint64_t"
+                :type "typedef")
+                nil [2133 2154])
+            ("Shape" type
+               (:typedef ("Shape" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil)
+                :superclasses "Shape"
+                :type "typedef")
+                nil [2155 2182])
+            ("Tetris" type
+               (:typedef ("Tetris" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil)
+                :superclasses "Tetris"
+                :type "typedef")
+                nil [2183 2212])
+            ("" type
+               (:members 
+                  ( ("O" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [2220 2222])
+                    ("I" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [2223 2225])
+                    ("Z" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [2226 2228])
+                    ("S" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [2229 2231])
+                    ("J" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [2232 2234])
+                    ("L" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [2235 2237])
+                    ("T" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [2238 2240]))                  
+                :type "enum")
+                nil [2214 2241])
+            ("Shape" type
+               (:members 
+                  ( ("anim" variable (:type "int") (reparse-symbol classsubparts) [2261 2270])
+                    ("mask" variable (:type ("u64" type (:type "class") nil nil)) (reparse-symbol classsubparts) [2275 2284]))                  
+                :type "struct")
+                nil [2242 2287])
+            ("Tetris" type
+               (:members 
+                  ( ("field" variable
+                       (:dereference 1
+                        :type ("u32" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [2309 2334])
+                    ("shape" variable (:type "int") (reparse-symbol classsubparts) [2339 2349])
+                    ("next_shape" variable (:type "int") (reparse-symbol classsubparts) [2354 2369])
+                    ("anim" variable (:type "int") (reparse-symbol classsubparts) [2374 2383])
+                    ("next_anim" variable (:type "int") (reparse-symbol classsubparts) [2388 2402])
+                    ("down" variable (:type "int") (reparse-symbol classsubparts) [2407 2416])
+                    ("dir" variable (:type "double") (reparse-symbol classsubparts) [2421 2432])
+                    ("x" variable (:type "double") (reparse-symbol classsubparts) [2437 2446])
+                    ("y" variable (:type "double") (reparse-symbol classsubparts) [2451 2460])
+                    ("score" variable (:type ("u32" type (:type "class") nil nil)) (reparse-symbol classsubparts) [2465 2475])
+                    ("rows" variable (:type ("u32" type (:type "class") nil nil)) (reparse-symbol classsubparts) [2480 2489])
+                    ("lvl" variable (:type ("u32" type (:type "class") nil nil)) (reparse-symbol classsubparts) [2494 2502]))                  
+                :type "struct")
+                nil [2289 2505])
+            ("kbhit" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [2540 2545]))                  
+                :type "int")
+                nil [2523 2546])
+            ("getch" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [2564 2569]))                  
+                :type "int")
+                nil [2547 2570])
+            ("timestamp" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [2592 2597]))                  
+                :type ("i64" type (:type "class") nil nil))
+                nil [2571 2598])
+            ("sleep_for" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("" variable (:type "long long") (reparse-symbol arg-sub-list) [2621 2631]))                  
+                :type "void")
+                nil [2599 2632])
+            ("fits" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("u32" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [2649 2660])
+                    ("" variable (:type ("u16" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [2661 2665])
+                    ("" variable (:type "int") (reparse-symbol arg-sub-list) [2666 2670])
+                    ("" variable (:type "int") (reparse-symbol arg-sub-list) [2671 2675]))                  
+                :type "int")
+                nil [2633 2676])
+            ("blit" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("" variable
+                       (:pointer 1
+                        :type ("u32" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [2694 2699])
+                    ("" variable (:type "int") (reparse-symbol arg-sub-list) [2700 2704])
+                    ("" variable (:type ("u16" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [2705 2709])
+                    ("" variable (:type "int") (reparse-symbol arg-sub-list) [2710 2714])
+                    ("" variable (:type "int") (reparse-symbol arg-sub-list) [2715 2719]))                  
+                :type "void")
+                nil [2677 2720])
+            ("init" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("" variable
+                       (:pointer 1
+                        :type ("Tetris" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [2739 2747]))                  
+                :type "void")
+                nil [2722 2748])
+            ("input" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("" variable
+                       (:pointer 1
+                        :type ("Tetris" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [2767 2775]))                  
+                :type "void")
+                nil [2749 2776])
+            ("tick" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("" variable
+                       (:pointer 1
+                        :type ("Tetris" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [2794 2802])
+                    ("" variable (:type ("i64" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [2802 2806]))                  
+                :type "void")
+                nil [2777 2807])
+            ("draw" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("" variable
+                       (:pointer 1
+                        :type ("Tetris" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [2825 2833]))                  
+                :type "void")
+                nil [2808 2834])
+            ("shutdown" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("" variable (:type "int") (reparse-symbol arg-sub-list) [2856 2860]))                  
+                :type "void")
+                nil [2835 2861])
+            ("terminal" variable
+               (:typemodifiers ("static")
+                :type ("termios" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [3036 3067])
+            ("gshapes" variable
+               (:dereference 1
+                :typemodifiers ("static")
+                :constant-flag t
+                :type ("Shape" type (:type "class") nil nil))
+                nil [3068 3432])
+            ("kbhit" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [3451 3456]))                  
+                :type "int")
+                nil [3434 3597])
+            ("getch" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [3616 3621]))                  
+                :type "int")
+                nil [3599 3729])
+            ("timestamp" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [3752 3757]))                  
+                :type ("i64" type (:type "class") nil nil))
+                nil [3731 3905])
+            ("sleep_for" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("ms" variable (:type "long long") (reparse-symbol arg-sub-list) [3929 3942]))                  
+                :type "void")
+                nil [3907 4154])
+            ("blit" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("field" variable
+                       (:pointer 1
+                        :type ("u32" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [4173 4184])
+                    ("op" variable (:type "int") (reparse-symbol arg-sub-list) [4185 4192])
+                    ("amask" variable (:type ("u16" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [4193 4203])
+                    ("off_x" variable (:type "int") (reparse-symbol arg-sub-list) [4204 4214])
+                    ("off_y" variable (:type "int") (reparse-symbol arg-sub-list) [4215 4225]))                  
+                :type "void")
+                nil [4156 4714])
+            ("fits" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("field" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("u32" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [4732 4749])
+                    ("amask" variable (:type ("u16" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [4750 4760])
+                    ("off_x" variable (:type "int") (reparse-symbol arg-sub-list) [4761 4771])
+                    ("off_y" variable (:type "int") (reparse-symbol arg-sub-list) [4772 4782]))                  
+                :type "int")
+                nil [4716 5247])
+            ("init" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("tetris" variable
+                       (:pointer 1
+                        :type ("Tetris" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [5266 5281]))                  
+                :type "void")
+                nil [5249 5834])
+            ("input" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("tetris" variable
+                       (:pointer 1
+                        :type ("Tetris" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [5854 5869]))                  
+                :type "void")
+                nil [5836 6294])
+            ("tick" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("tetris" variable
+                       (:pointer 1
+                        :type ("Tetris" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [6313 6328])
+                    ("dt" variable (:type ("i64" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [6329 6336]))                  
+                :type "void")
+                nil [6296 8718])
+            ("draw" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("tetris" variable
+                       (:pointer 1
+                        :type ("Tetris" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [8737 8752]))                  
+                :type "void")
+                nil [8720 10152])
+            ("shutdown" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("sig" variable (:type "int") (reparse-symbol arg-sub-list) [10175 10183]))                  
+                :type "void")
+                nil [10154 10562])
+            ("main" function
+               (:arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [10573 10578]))                  
+                :type "int")
+                nil [10564 11248]))          
+      :file "tetris.c"
+      :pointmax 11250
+      :fsize 11249
+      :lastmodtime '(21620 42964 832822 250000)
+      :unmatched-syntax nil
+      :lexical-table 
+        '(("GRAVITY_FACTOR" . ((number "0.5f" 533 . 537)))
+          ("SYM_EMPTY" . ((string "\" .\"" 686 . 690)))
+          ("bit" (spp-arg-list ("b") 1166 . 1169) . ((semantic-list "(unsigned)" 1179 . 1189) (semantic-list "(1 << (b))" 1189 . 1199)))
+          ("BOUND_WIDTH" . ((number "4" 767 . 768)))
+          ("bit_at" (spp-arg-list ("i" "b") 1214 . 1219) . ((semantic-list "((i) & bit((b)))" 1224 . 1240)))
+          ("term_move_to" (spp-arg-list ("x" "y") 1393 . 1398) . 
+              ((symbol "printf" 1401 . 1407) (semantic-list "(\"\\e[%d;%d;f\", (y), (x))" 1407 . 1431) (punctuation ";" 1431 . 1432)))
+          ("bit_set" (spp-arg-list ("i" "b") 1256 . 1261) . ((semantic-list "((i) |= bit((b)))" 1265 . 1282)))
+          ("term_write" (spp-arg-list ("c") 1347 . 1350) . ((symbol "printf" 1357 . 1363) (semantic-list "(\"\\e[\" c)" 1363 . 1372)))
+          ("FIELD_FIRST" . ((semantic-list "(1)" 941 . 944)))
+          ("term_erase" (spp-arg-list nil 1497 . 1499) . 
+              ((symbol "term_write" 1507 . 1517) (semantic-list "(\"2K\")" 1517 . 1523) (punctuation ";" 1523 . 1524)))
+          ("SYM_RIGHT" . ((string "\"!>\"" 636 . 640)))
+          ("WINDOW_HEIGHT" . ((number "21" 355 . 357)))
+          ("SYM_LEFT" . ((string "\"<!\"" 612 . 616)))
+          ("bit_clear" (spp-arg-list ("i" "b") 1300 . 1305) . ((semantic-list "((i) &= ~(bit((b))))" 1307 . 1327)))
+          ("SHIFTL" (spp-arg-list ("val" "max") 1676 . 1686) . ((semantic-list "(((val) + 1) % (max))" 1687 . 1708)))
+          ("KEY_ANIM" . ((string "'w'" 404 . 407)))
+          ("term_cursor_hide" (spp-arg-list nil 1549 . 1551) . ((symbol "term_write" 1553 . 1563) (semantic-list "(\"?25l\")" 1563 . 1571)))
+          ("SYM_BLOCK" . ((string "\"[]\"" 661 . 665)))
+          ("BOUND_HEIGHT" . ((number "4" 790 . 791)))
+          ("FIELD_LAST" . ((semantic-list "((1 << (WINDOW_WIDTH - 1)))" 966 . 993)))
+          ("FIELD_ANY" . ((semantic-list "((FIELD_FULL & ~FIELD_FIRST) & (FIELD_FULL & ~FIELD_LAST))" 1062 . 1120)))
+          ("term_cursor_show" (spp-arg-list nil 1596 . 1598) . ((symbol "term_write" 1600 . 1610) (semantic-list "(\"?25h\")" 1610 . 1618)))
+          ("LEN" (spp-arg-list ("a") 1631 . 1634) . ((semantic-list "(sizeof(a)/sizeof((a)[0]))" 1635 . 1661)))
+          ("KEY_RIGHT" . ((string "'d'" 476 . 479)))
+          ("GRAVITY" . ((number "5.0" 505 . 508)))
+          ("MASK_SET" . ((number "1" 835 . 836)))
+          ("KEY_DOWN" . ((string "'s'" 428 . 431)))
+          ("SYM_BOTTOM" . ((string "\"\\\\/\"" 711 . 716)))
+          ("FIELD_FULL" . ((semantic-list "((1 << WINDOW_WIDTH) - 1)" 1015 . 1040)))
+          ("ROW" (spp-arg-list ("a" "r" "w") 1776 . 1785) . ((semantic-list "(u16)" 1786 . 1791) (semantic-list "((a & (((1 << (w)) - 1) << (r) * (w))) >> (r)*(w))" 1791 . 1841)))
+          ("WINDOW_WIDTH" . ((number "12" 380 . 382)))
+          ("MASK_CLEAR" . ((number "0" 813 . 814)))
+          ("FIELD_WIDTH" . ((semantic-list "(WINDOW_WIDTH - 2)" 859 . 877)))
+          ("ANIM" (spp-arg-list ("m" "a") 1854 . 1859) . ((semantic-list "(u16)" 1859 . 1864) (semantic-list "(((u64)((m)>>((a)*BOUND_WIDTH*BOUND_HEIGHT))) & 0xFFFF)" 1864 . 1919)))
+          ("MIN_DTIME" . ((number "42" 563 . 565)))
+          ("LEVEL_FACTOR" . ((number "5" 590 . 591)))
+          ("FIELD_HEIGHT" . ((semantic-list "(WINDOW_HEIGHT -  1)" 899 . 919)))
+          ("SHIFTR" (spp-arg-list ("val" "max") 1723 . 1733) . ((semantic-list "((!(val)) ? (max-1) : (val)-1)" 1734 . 1764)))
+          ("XRAND" (spp-arg-list ("f" "t") 1933 . 1939) . ((semantic-list "(int)" 1945 . 1950) (semantic-list "(((f) == (t)) ? (f): \\
+    ((unsigned long)rand()%(unsigned long)((t)-(f)) + (f)))" 1950 . 2032)))
+          ("KEY_LEFT" . ((string "'a'" 452 . 455)))
+          ("term_clear" (spp-arg-list nil 1451 . 1453) . 
+              ((symbol "term_write" 1461 . 1471) (semantic-list "(\"2J\")" 1471 . 1477) (punctuation ";" 1477 . 1478)))
+          )
+)
+    (semanticdb-table "Makefile"
+      :major-mode 'makefile-gmake-mode
+      :tags 
+        '( ("PREFIX" variable (:default-value ("/usr/local")) nil [11 29])
+            ("BIN" variable (:default-value ("tetris")) nil [29 40])
+            ("CC" variable (:default-value ("gcc")) nil [52 61])
+            ("DCC" variable (:default-value ("clang")) nil [61 73])
+            ("DFLAGS" variable (:default-value ("-g" "-Wall" "-Wextra" "-Werror" "-Wformat=2" "-Wunreachable-code")) nil [82 146])
+            ("DFLAGS" variable (:default-value ("-fstack-protector" "-Winline" "-Wshadow" "-Wwrite-strings")) nil [146 208])
+            ("DFLAGS" variable (:default-value ("-Wstrict-prototypes" "-Wold-style-definition" "-Wconversion")) nil [208 274])
+            ("DFLAGS" variable (:default-value ("-Wredundant-decls" "-Wnested-externs" "-Wmissing-include-dirs")) nil [274 342])
+            ("DFLAGS" variable (:default-value ("-Wshadow" "-Wpointer-arith" "-Wcast-qual" "-Wcast-align" "-Wmissing-prototypes" "-Wconversion")) nil [342 436])
+            ("DFLAGS" variable (:default-value ("-Wswitch-default" "-Wundef" "-Wno-unused" "-Wstrict-overflow=5" "-Wsign-conversion")) nil [436 521])
+            ("DFLAGS" variable (:default-value ("-Winit-self")) nil [521 543])
+            ("RFLAGS" variable (:default-value ("-O3")) nil [543 556])
+            (".PHONY" function (:arguments ("release")) nil [565 581])
+            ("release" function (:arguments ("CFLAGS" "=" "$(RFLAGS)")) nil [581 609])
+            ("release" function (:arguments ("$(BIN)")) nil [609 625])
+            (".PHONY" function (:arguments ("debug")) nil [626 640])
+            ("debug" function (:arguments ("CFLAGS" "=" "$(DFLAGS)")) nil [640 666])
+            ("debug" function (:arguments ("CC" "=" "$(DCC)")) nil [666 685])
+            ("debug" function (:arguments ("$(BIN)")) nil [685 699])
+            ("SRC" variable (:default-value ("tetris.c")) nil [710 725])
+            ("OBJ" variable (:default-value ("$(SRC:.c=.o)")) nil [725 744])
+            ("$(BIN)" function (:arguments ("$(SRC)")) nil [745 844])
+            ("install" function (:arguments ("$(BIN)")) nil [845 895])
+            ("uninstall" function nil nil [896 932])
+            ("clean" function nil nil [933 965])
+            ("all" function nil nil [966 980]))          
+      :file "Makefile"
+      :pointmax 1017
+      :fsize 1016
+      :lastmodtime '(21620 42964 831822 319000)
+      :unmatched-syntax '((symbol 1007 . 1016) (symbol 999 . 1006) (symbol 993 . 998) (symbol 989 . 992) (punctuation 987 . 988) (symbol 981 . 987) (bol 981 . 981))))
+  :file "!home!chz!Projects!CWork!tetris!semantic.cache"
+  :semantic-tag-version "2.0"
+  :semanticdb-version "2.2")

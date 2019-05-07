@@ -1,0 +1,628 @@
+;; Object src/
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "src/"
+  :tables
+  (list
+    (semanticdb-table "fdmn.cpp"
+      :major-mode 'c++-mode
+      :tags 
+        '( ("fdmn.h" include nil nil [1 18])
+            ("_log" variable
+               (:pointer 1
+                :typemodifiers ("extern")
+                :type ("cLog" type (:type "class") nil nil))
+                nil [20 38])
+            ("_core" variable
+               (:pointer 1
+                :type ("cServerCore" type (:type "class") nil nil))
+                nil [40 59])
+            ("exit_handler" function
+               (:arguments 
+                  ( ("signum" variable (:type "int") (reparse-symbol arg-sub-list) [79 90]))                  
+                :type "void")
+                nil [61 316])
+            ("seg_handler" function
+               (:arguments 
+                  ( ("signum" variable (:type "int") (reparse-symbol arg-sub-list) [335 346]))                  
+                :type "void")
+                nil [318 808])
+            ("main" function
+               (:arguments 
+                  ( ("argc" variable (:type "int") (reparse-symbol arg-sub-list) [819 828])
+                    ("argv" variable
+                       (:pointer 2
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [829 841]))                  
+                :type "int")
+                nil [810 1668]))          
+      :file "fdmn.cpp"
+      :pointmax 1669
+      :fsize 1668
+      :lastmodtime '(22544 3306 0 0)
+      :unmatched-syntax '((semantic-list 1369 . 1372) (semantic-list 1369 . 1372) (semantic-list 1369 . 1372) (semantic-list 1369 . 1372) (semantic-list 1369 . 1372) (semantic-list 1369 . 1372) (semantic-list 1369 . 1372) (semantic-list 1369 . 1372) (semantic-list 1369 . 1372) (semantic-list 1369 . 1372) (semantic-list 1369 . 1372) (semantic-list 1369 . 1372)))
+    (semanticdb-table "logging.cpp"
+      :major-mode 'c++-mode
+      :tags 
+        '( ("logging.h" include nil nil [1 21])
+            ("_settings" variable
+               (:pointer 1
+                :typemodifiers ("extern")
+                :type ("cSettings" type (:type "class") nil nil))
+                nil [23 51])
+            ("cLog" function
+               (:constructor-flag t
+                :parent "cLog"
+                :type ("cLog" type (:type "class") nil nil))
+                nil [53 200])
+            ("cLog" function
+               (:constructor-flag t
+                :parent "cLog"
+                :arguments 
+                  ( ("filename" variable (:type ("string" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [213 229]))                  
+                :type ("cLog" type (:type "class") nil nil))
+                nil [202 995])
+            ("cLog" function
+               (:destructor-flag t
+                :parent "cLog"
+                :type "void")
+                nil [997 1045])
+            ("insert_time" function
+               (:parent "cLog"
+                :type "void")
+                nil [1047 1358])
+            ("log_simple" function
+               (:parent "cLog"
+                :arguments 
+                  ( ("message" variable (:type ("string" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [1382 1397]))                  
+                :type "void")
+                nil [1360 1547])
+            ("log_color" function
+               (:parent "cLog"
+                :arguments 
+                  ( ("message" variable (:type ("string" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [1570 1585])
+                    ("options" variable
+                       (:dereference 1
+                        :constant-flag t
+                        :type ("termOpts" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [1586 1611]))                  
+                :type "void")
+                nil [1549 1716])
+            ("log_block_msg" function
+               (:parent "cLog"
+                :arguments 
+                  ( ("message" variable (:type ("string" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [1743 1758]))                  
+                :type "void")
+                nil [1718 1849])
+            ("toggle_time" function
+               (:parent "cLog"
+                :arguments 
+                  ( ("setting" variable (:type "bool") (reparse-symbol arg-sub-list) [1874 1887]))                  
+                :type "void")
+                nil [1851 2035]))          
+      :file "logging.cpp"
+      :pointmax 2036
+      :fsize 2035
+      :lastmodtime '(22544 3306 0 0)
+      :unmatched-syntax nil)
+    (semanticdb-table "color_out.c"
+      :major-mode 'c-mode
+      :tags 
+        '( ("stdio.h" include (:system-flag t) nil [1 19])
+            ("string.h" include (:system-flag t) nil [20 39])
+            ("color_out.h" include nil nil [41 63])
+            ("print_color" function
+               (:arguments 
+                  ( ("str" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [81 97])
+                    ("options" variable
+                       (:dereference 1
+                        :constant-flag t
+                        :type ("termOpts" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [98 123])
+                    ("newline" variable (:type "bool") (reparse-symbol arg-sub-list) [124 137]))                  
+                :type "int")
+                nil [65 778])
+            ("print_color_file" function
+               (:arguments 
+                  ( ("str" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [801 817])
+                    ("options" variable
+                       (:dereference 1
+                        :constant-flag t
+                        :type ("termOpts" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [818 843])
+                    ("newline" variable (:type "bool") (reparse-symbol arg-sub-list) [844 857])
+                    ("file" variable
+                       (:pointer 1
+                        :type ("FILE" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [858 869]))                  
+                :type "int")
+                nil [780 1524])
+            ("makeColorString" function
+               (:pointer 1
+                :arguments 
+                  ( ("str" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [1548 1564])
+                    ("output" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [1565 1578])
+                    ("options" variable
+                       (:dereference 1
+                        :type ("termOpts" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [1579 1598]))                  
+                :type "char")
+                nil [1526 2223])
+            ("find_end_length" function
+               (:arguments 
+                  ( ("str" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [2250 2266])
+                    ("options" variable
+                       (:dereference 1
+                        :type ("termOpts" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [2267 2286]))                  
+                :type ("ssize_t" type (:type "class") nil nil))
+                nil [2226 2670])
+            ("strip_color" function
+               (:arguments 
+                  ( ("str" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [2689 2699]))                  
+                :type "void")
+                nil [2672 2713]))          
+      :file "color_out.c"
+      :pointmax 3216
+      :fsize 3215
+      :lastmodtime '(22544 3306 0 0)
+      :unmatched-syntax nil)
+    (semanticdb-table "server_core.cpp"
+      :major-mode 'c++-mode
+      :tags 
+        '( ("server_core.h" include nil nil [1 25])
+            ("_settings" variable
+               (:pointer 1
+                :type ("cSettings" type (:type "class") nil nil))
+                nil [27 48])
+            ("_log" variable
+               (:pointer 1
+                :type ("cLog" type (:type "class") nil nil))
+                nil [49 60])
+            ("_mountsys" variable
+               (:pointer 1
+                :type ("cMountSys" type (:type "class") nil nil))
+                nil [61 82])
+            ("cServerCore" function
+               (:constructor-flag t
+                :parent "cServerCore"
+                :type ("cServerCore" type (:type "class") nil nil))
+                nil [84 155])
+            ("cServerCore" function
+               (:constructor-flag t
+                :parent "cServerCore"
+                :arguments 
+                  ( ("settings_file" variable (:type ("string" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [182 203]))                  
+                :type ("cServerCore" type (:type "class") nil nil))
+                nil [157 799])
+            ("cServerCore" function
+               (:destructor-flag t
+                :parent "cServerCore"
+                :type "void")
+                nil [801 841])
+            ("cleanup" function
+               (:parent "cServerCore"
+                :type "void")
+                nil [843 964])
+            ("start_server" function
+               (:parent "cServerCore"
+                :type "void")
+                nil [966 1302])
+            ("status" function
+               (:parent "cServerCore"
+                :arguments 
+                  ( ("flags" variable (:type ("uint32_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [1329 1344])
+                    ("log" variable (:type "bool") (reparse-symbol arg-sub-list) [1345 1354]))                  
+                :type "void")
+                nil [1304 2133]))          
+      :file "server_core.cpp"
+      :pointmax 2134
+      :fsize 2133
+      :lastmodtime '(22544 3306 0 0)
+      :unmatched-syntax nil)
+    (semanticdb-table "net_interface.cpp"
+      :major-mode 'c++-mode
+      :tags 
+        '( ("net_interface.h" include nil nil [1 27])
+            ("_settings" variable
+               (:pointer 1
+                :typemodifiers ("extern")
+                :type ("cSettings" type (:type "class") nil nil))
+                nil [29 57])
+            ("_log" variable
+               (:pointer 1
+                :typemodifiers ("extern")
+                :type ("cLog" type (:type "class") nil nil))
+                nil [58 76])
+            ("cProtocol" function
+               (:constructor-flag t
+                :parent "cProtocol"
+                :type ("cProtocol" type (:type "class") nil nil))
+                nil [78 162])
+            ("cProtocol" function
+               (:destructor-flag t
+                :parent "cProtocol"
+                :type "void")
+                nil [164 200])
+            ("cNetInterface" function
+               (:constructor-flag t
+                :parent "cNetInterface"
+                :type ("cNetInterface" type (:type "class") nil nil))
+                nil [202 267])
+            ("cNetInterface" function
+               (:constructor-flag t
+                :parent "cNetInterface"
+                :arguments 
+                  ( ("port" variable (:type "int") (reparse-symbol arg-sub-list) [298 307]))                  
+                :type ("cNetInterface" type (:type "class") nil nil))
+                nil [269 508])
+            ("init_net" function
+               (:parent "cNetInterface"
+                :arguments 
+                  ( ("port" variable (:type "int") (reparse-symbol arg-sub-list) [539 548]))                  
+                :type "void")
+                nil [510 1919])
+            ("set_protocol" function
+               (:parent "cNetInterface"
+                :arguments 
+                  ( ("_protocol" variable
+                       (:pointer 1
+                        :type ("cProtocol" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [1954 1975]))                  
+                :type "void")
+                nil [1921 2012])
+            ("start_listening" function
+               (:parent "cNetInterface"
+                :type "void")
+                nil [2014 2742])
+            ("status" function
+               (:parent "cNetInterface"
+                :arguments 
+                  ( ("stream" variable
+                       (:reference 1
+                        :type ("stringstream" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [2810 2831]))                  
+                :type "void")
+                nil [2783 3811])
+            ("cleanup" function
+               (:parent "cNetInterface"
+                :type "void")
+                nil [3813 3870])
+            ("cFDMNProtocol" function
+               (:constructor-flag t
+                :parent "cFDMNProtocol"
+                :type ("cFDMNProtocol" type (:type "class") nil nil))
+                nil [3901 4392])
+            ("cFDMNProtocol" function
+               (:destructor-flag t
+                :parent "cFDMNProtocol"
+                :type "void")
+                nil [4394 4439])
+            ("init_mappings" function
+               (:parent "cFDMNProtocol"
+                :type "void")
+                nil [4441 4510])
+            ("initQueue" function
+               (:parent "cFDMNProtocol"
+                :type "void")
+                nil [4512 5065])
+            ("startThreads" function
+               (:parent "cFDMNProtocol"
+                :type "void")
+                nil [5067 5312])
+            ("listen" function
+               (:parent "cFDMNProtocol"
+                :type "void")
+                nil [5314 6155])
+            ("addMsg" function
+               (:parent "cFDMNProtocol"
+                :arguments 
+                  ( ("client_fd" variable (:type "int") (reparse-symbol arg-sub-list) [6184 6198]))                  
+                :type "void")
+                nil [6157 6680])
+            ("status" function
+               (:parent "cFDMNProtocol"
+                :arguments 
+                  ( ("stream" variable
+                       (:reference 1
+                        :type ("stringstream" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [6709 6730]))                  
+                :type "void")
+                nil [6682 6984])
+            ("cleanup" function
+               (:parent "cFDMNProtocol"
+                :type "void")
+                nil [6986 7287]))          
+      :file "net_interface.cpp"
+      :pointmax 7288
+      :fsize 7287
+      :lastmodtime '(22544 3306 0 0)
+      :unmatched-syntax nil)
+    (semanticdb-table "settings.cpp"
+      :major-mode 'c++-mode
+      :tags 
+        '( ("settings.h" include nil nil [1 22])
+            ("cSettings" function
+               (:constructor-flag t
+                :parent "cSettings"
+                :type ("cSettings" type (:type "class") nil nil))
+                nil [24 80])
+            ("cSettings" function
+               (:constructor-flag t
+                :parent "cSettings"
+                :arguments 
+                  ( ("ini" variable
+                       (:pointer 1
+                        :type ("INIReader" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [103 118]))                  
+                :type ("cSettings" type (:type "class") nil nil))
+                nil [82 179])
+            ("cSettings" function
+               (:constructor-flag t
+                :parent "cSettings"
+                :arguments 
+                  ( ("filename" variable (:type ("string" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [202 218]))                  
+                :type ("cSettings" type (:type "class") nil nil))
+                nil [181 299])
+            ("cSettings" function
+               (:destructor-flag t
+                :parent "cSettings"
+                :type "void")
+                nil [301 337])
+            ("load_settings" function
+               (:parent "cSettings"
+                :arguments 
+                  ( ("filename" variable (:type ("string" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [369 385]))                  
+                :type "bool")
+                nil [339 800])
+            ("set_defaults" function
+               (:parent "cSettings"
+                :arguments 
+                  ( ("default_fn" function
+                       (:function-pointer t
+                        :arguments 
+                          ( ("ini" variable
+                               (:pointer 1
+                                :type ("INIReader" type (:type "class") nil nil))
+                                (reparse-symbol arg-sub-list) [851 866]))                          
+                        :type "void")
+                        nil nil))                  
+                :type "void")
+                nil [802 914])
+            ("exists" function
+               (:parent "cSettings"
+                :arguments 
+                  ( ("section" variable
+                       (:reference 1
+                        :constant-flag t
+                        :type ("string" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [939 961])
+                    ("key" variable
+                       (:reference 1
+                        :constant-flag t
+                        :type ("string" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [962 980]))                  
+                :type "bool")
+                nil [916 1024])
+            ("status" function
+               (:parent "cSettings"
+                :arguments 
+                  ( ("stream" variable
+                       (:reference 1
+                        :type ("stringstream" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [1049 1070]))                  
+                :type "void")
+                nil [1026 1233])
+            ("status_all" function
+               (:parent "cSettings"
+                :arguments 
+                  ( ("stream" variable
+                       (:reference 1
+                        :type ("stringstream" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [1262 1283]))                  
+                :type "void")
+                nil [1235 1476])
+            ("cleanup" function
+               (:parent "cSettings"
+                :type "void")
+                nil [1478 1525]))          
+      :file "settings.cpp"
+      :pointmax 1526
+      :fsize 1525
+      :lastmodtime '(22544 3306 0 0)
+      :unmatched-syntax nil)
+    (semanticdb-table "core_classes.cpp"
+      :major-mode 'c++-mode
+      :tags 
+        '( ("core_classes.h" include nil nil [1 26]))          
+      :file "core_classes.cpp"
+      :pointmax 51
+      :fsize 50
+      :lastmodtime '(22544 3306 0 0)
+      :unmatched-syntax nil)
+    (semanticdb-table "utility.cpp"
+      :major-mode 'c++-mode
+      :tags 
+        '( ("utility.h" include nil nil [1 21])
+            ("sec_to_time" function
+               (:arguments 
+                  ( ("seconds" variable (:type "int") (reparse-symbol arg-sub-list) [42 54])
+                    ("style" variable (:type "int") (reparse-symbol arg-sub-list) [55 65]))                  
+                :type ("string" type (:type "class") nil nil))
+                nil [23 932])
+            ("init_queue" function
+               (:pointer 1
+                :arguments 
+                  ( ("_size" variable (:type "int") (reparse-symbol arg-sub-list) [990 1000]))                  
+                :type ("ts_queue" type (:type "class") nil nil))
+                nil [969 1520])
+            ("add_queue" function
+               (:arguments 
+                  ( ("new_t" variable
+                       (:pointer 1
+                        :type ("queue_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [1536 1551])
+                    ("q" variable
+                       (:reference 1
+                        :type ("ts_queue" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [1552 1564]))                  
+                :type "int")
+                nil [1522 2114])
+            ("add_queue_no_wait" function
+               (:arguments 
+                  ( ("new_t" variable
+                       (:pointer 1
+                        :type ("queue_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [2190 2205])
+                    ("q" variable
+                       (:reference 1
+                        :type ("ts_queue" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [2206 2218])
+                    ("free_fn" function
+                       (:function-pointer t
+                        :arguments 
+                          ( ("" variable
+                               (:pointer 1
+                                :type "void")
+                                (reparse-symbol arg-sub-list) [2236 2242]))                          
+                        :type "void")
+                        nil nil))                  
+                :type "int")
+                nil [2168 2825])
+            ("rm_queue" function
+               (:pointer 1
+                :arguments 
+                  ( ("q" variable
+                       (:reference 1
+                        :type ("ts_queue" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [2893 2905]))                  
+                :type ("queue_t" type (:type "class") nil nil))
+                nil [2875 3321])
+            ("node" function
+               (:constructor-flag t
+                :parent "node"
+                :type ("node" type (:type "class") nil nil))
+                nil [3360 3420])
+            ("node" function
+               (:constructor-flag t
+                :parent "node"
+                :arguments 
+                  ( ("id" variable (:type "int") (reparse-symbol arg-sub-list) [3433 3440])
+                    ("next_node" variable
+                       (:pointer 1
+                        :type ("node" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [3441 3457]))                  
+                :type ("node" type (:type "class") nil nil))
+                nil [3422 3511])
+            ("cID_dispatch" function
+               (:constructor-flag t
+                :parent "cID_dispatch"
+                :type ("cID_dispatch" type (:type "class") nil nil))
+                nil [3513 3747])
+            ("cID_dispatch" function
+               (:constructor-flag t
+                :parent "cID_dispatch"
+                :arguments 
+                  ( ("limit" variable (:type "int") (reparse-symbol arg-sub-list) [3776 3786]))                  
+                :type ("cID_dispatch" type (:type "class") nil nil))
+                nil [3749 3930])
+            ("ID_getid" function
+               (:parent "cID_dispatch"
+                :type "int")
+                nil [3932 4234])
+            ("ID_getid_ts" function
+               (:parent "cID_dispatch"
+                :type "int")
+                nil [4236 4656])
+            ("ID_recall" function
+               (:parent "cID_dispatch"
+                :type "int")
+                nil [4658 4713])
+            ("ID_returnid" function
+               (:parent "cID_dispatch"
+                :arguments 
+                  ( ("id" variable (:type "int") (reparse-symbol arg-sub-list) [4746 4753]))                  
+                :type "void")
+                nil [4715 4932])
+            ("ID_returnid_ts" function
+               (:parent "cID_dispatch"
+                :arguments 
+                  ( ("id" variable (:type "int") (reparse-symbol arg-sub-list) [4968 4975]))                  
+                :type "void")
+                nil [4934 5224])
+            ("nextChar" function
+               (:arguments 
+                  ( ("str" variable
+                       (:reference 1
+                        :type ("string" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [5280 5292])
+                    ("dest" variable
+                       (:reference 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [5293 5304])
+                    ("index" variable
+                       (:reference 1
+                        :type "int")
+                        (reparse-symbol arg-sub-list) [5305 5316]))                  
+                :type "bool")
+                nil [5266 5401])
+            ("isInt" function
+               (:arguments 
+                  ( ("c" variable (:type "char") (reparse-symbol arg-sub-list) [5414 5421]))                  
+                :type "bool")
+                nil [5403 5483])
+            ("parseFlags" function
+               (:arguments 
+                  ( ("args" variable
+                       (:reference 1
+                        :type ("argMap" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [5501 5514])
+                    ("input" variable
+                       (:reference 1
+                        :type ("string" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [5515 5529])
+                    ("argDelimit" variable (:type "char") (reparse-symbol arg-sub-list) [5530 5546]))                  
+                :type "void")
+                nil [5485 8207])
+            ("clearFlags" function
+               (:arguments 
+                  ( ("flags" variable
+                       (:reference 1
+                        :type ("argMap" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [8225 8239]))                  
+                :type "void")
+                nil [8209 8537])
+            ("()" function
+               (:operator-flag t
+                :parent "OptionsBase"
+                :type ("argMap" type (:type "class") nil nil))
+                nil [8539 8594]))          
+      :file "utility.cpp"
+      :pointmax 8595
+      :fsize 8594
+      :lastmodtime '(22544 3306 0 0)
+      :unmatched-syntax nil))
+  :file "!home!chz!Public!2三代平台集中存储!FDMN!src!semantic.cache"
+  :semantic-tag-version "2.0"
+  :semanticdb-version "2.2")

@@ -1,0 +1,268 @@
+;; Object interactive-c-demo/
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "interactive-c-demo/"
+  :tables
+  (list
+    (semanticdb-table "main.c"
+      :major-mode 'c-mode
+      :tags 
+        '( ("_BSD_SOURCE" variable (:constant-flag t) nil [9 20])
+            ("stdio.h" include (:system-flag t) nil [33 51])
+            ("unistd.h" include (:system-flag t) nil [52 71])
+            ("sys/types.h" include (:system-flag t) nil [72 94])
+            ("sys/stat.h" include (:system-flag t) nil [95 116])
+            ("dlfcn.h" include (:system-flag t) nil [117 135])
+            ("game.h" include nil nil [136 153])
+            ("GAME_LIBRARY" variable
+               (:pointer 1
+                :constant-flag t
+                :default-value "\"./libgame.so\""
+                :type "char")
+                nil [155 197])
+            ("game" type
+               (:members 
+                  ( ("handle" variable
+                       (:pointer 1
+                        :type "void")
+                        (reparse-symbol classsubparts) [217 230])
+                    ("id" variable (:type ("ino_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [235 244])
+                    ("api" variable (:type ("game_api" type
+                         (:prototype t
+                          :type "struct")
+                          nil nil)) (reparse-symbol classsubparts) [249 269])
+                    ("state" variable
+                       (:pointer 1
+                        :type ("game_state" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol classsubparts) [274 299]))                  
+                :type "struct")
+                nil [199 302])
+            ("game_load" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("game" variable
+                       (:pointer 1
+                        :type ("game" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [326 344]))                  
+                :type "void")
+                nil [304 1219])
+            ("game_unload" function
+               (:arguments 
+                  ( ("game" variable
+                       (:pointer 1
+                        :type ("game" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [1238 1256]))                  
+                :type "void")
+                nil [1221 1441])
+            ("main" function
+               (:arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [1452 1457]))                  
+                :type "int")
+                nil [1443 1690]))          
+      :file "main.c"
+      :pointmax 1691
+      :fsize 1690
+      :lastmodtime '(21666 19838 381864 701000)
+      :unmatched-syntax nil
+      :lexical-table 
+        '(("_BSD_SOURCE")
+          )
+)
+    (semanticdb-table "game.c"
+      :major-mode 'c-mode
+      :tags 
+        '( ("stdlib.h" include (:system-flag t) nil [1 20])
+            ("ncurses.h" include (:system-flag t) nil [21 41])
+            ("game.h" include nil nil [42 59])
+            ("game_state" type
+               (:members 
+                  ( ("width" variable (:type "int") (reparse-symbol classsubparts) [85 103])
+                    ("height" variable (:type "int") (reparse-symbol classsubparts) [85 103])
+                    ("select" variable (:type "int") (reparse-symbol classsubparts) [108 119])
+                    ("cells" variable
+                       (:dereference 1
+                        :type "char")
+                        (reparse-symbol classsubparts) [124 137]))                  
+                :type "struct")
+                nil [61 140])
+            ("get" function
+               (:typemodifiers ("static" "inline")
+                :arguments 
+                  ( ("state" variable
+                       (:pointer 1
+                        :type ("game_state" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [165 190])
+                    ("x" variable (:type "int") (reparse-symbol arg-sub-list) [191 197])
+                    ("y" variable (:type "int") (reparse-symbol arg-sub-list) [198 204]))                  
+                :type "char")
+                nil [142 326])
+            ("set" function
+               (:typemodifiers ("static" "inline")
+                :arguments 
+                  ( ("state" variable
+                       (:pointer 1
+                        :type ("game_state" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [351 376])
+                    ("x" variable (:type "int") (reparse-symbol arg-sub-list) [377 383])
+                    ("y" variable (:type "int") (reparse-symbol arg-sub-list) [384 390])
+                    ("c" variable (:type "char") (reparse-symbol arg-sub-list) [391 398]))                  
+                :type "void")
+                nil [328 511])
+            ("flip" function
+               (:typemodifiers ("static" "inline")
+                :arguments 
+                  ( ("state" variable
+                       (:pointer 1
+                        :type ("game_state" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [537 562]))                  
+                :type "void")
+                nil [513 602])
+            ("randomize" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("state" variable
+                       (:pointer 1
+                        :type ("game_state" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [626 651]))                  
+                :type "void")
+                nil [604 805])
+            ("game_init" function
+               (:pointer 1
+                :typemodifiers ("static")
+                :type ("game_state" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [807 1229])
+            ("game_reload" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("state" variable
+                       (:pointer 1
+                        :type ("game_state" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [1255 1280]))                  
+                :type "void")
+                nil [1231 1302])
+            ("game_unload" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("state" variable
+                       (:pointer 1
+                        :type ("game_state" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [1328 1353]))                  
+                :type "void")
+                nil [1304 1375])
+            ("game_finalize" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("state" variable
+                       (:pointer 1
+                        :type ("game_state" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [1403 1428]))                  
+                :type "void")
+                nil [1377 1463])
+            ("count" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("state" variable
+                       (:pointer 1
+                        :type ("game_state" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [1482 1507])
+                    ("x" variable (:type "int") (reparse-symbol arg-sub-list) [1508 1514])
+                    ("y" variable (:type "int") (reparse-symbol arg-sub-list) [1515 1521]))                  
+                :type "int")
+                nil [1465 1843])
+            ("iterate" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("state" variable
+                       (:pointer 1
+                        :type ("game_state" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [1865 1890]))                  
+                :type "void")
+                nil [1845 2138])
+            ("draw" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("state" variable
+                       (:pointer 1
+                        :type ("game_state" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [2157 2182]))                  
+                :type "void")
+                nil [2140 2369])
+            ("game_step" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("state" variable
+                       (:pointer 1
+                        :type ("game_state" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [2393 2418]))                  
+                :type "bool")
+                nil [2371 2596])
+            ("GAME_API" variable
+               (:constant-flag t
+                :default-value "{
+    .init = game_init,
+    .reload = game_reload,
+    .step = game_step,
+    .unload = game_unload,
+    .finalize = game_finalize
+}"
+                :type ("game_api" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [2598 2765]))          
+      :file "game.c"
+      :pointmax 2766
+      :fsize 2765
+      :lastmodtime '(21666 19838 381864 701000)
+      :unmatched-syntax nil)
+    (semanticdb-table "game.h"
+      :file "game.h"
+      :fsize 721
+      :lastmodtime '(21666 19838 381864 701000)))
+  :file "!home!chz!Projects!CWork!interactive-c-demo!semantic.cache"
+  :semantic-tag-version "2.0"
+  :semanticdb-version "2.2")

@@ -1,0 +1,1097 @@
+;; Object char/
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "char/"
+  :tables (list 
+   (semanticdb-table "virtio_console.c"
+    :major-mode 'c-mode
+    :tags 
+        '( ("linux/cdev.h" include (:system-flag t) nil [904 927])
+            ("linux/debugfs.h" include (:system-flag t) nil [928 954])
+            ("linux/device.h" include (:system-flag t) nil [955 980])
+            ("linux/err.h" include (:system-flag t) nil [981 1003])
+            ("linux/fs.h" include (:system-flag t) nil [1004 1025])
+            ("linux/init.h" include (:system-flag t) nil [1026 1049])
+            ("linux/list.h" include (:system-flag t) nil [1050 1073])
+            ("linux/poll.h" include (:system-flag t) nil [1074 1097])
+            ("linux/sched.h" include (:system-flag t) nil [1098 1122])
+            ("linux/slab.h" include (:system-flag t) nil [1123 1146])
+            ("linux/spinlock.h" include (:system-flag t) nil [1147 1174])
+            ("linux/virtio.h" include (:system-flag t) nil [1175 1200])
+            ("linux/virtio_console.h" include (:system-flag t) nil [1201 1234])
+            ("linux/wait.h" include (:system-flag t) nil [1235 1258])
+            ("linux/workqueue.h" include (:system-flag t) nil [1259 1287])
+            ("../tty/hvc/hvc_console.h" include nil nil [1288 1323])
+            ("ports_driver_data" type
+               (:members 
+                  ( ("" type
+                       (:prototype t
+                        :type "class")
+                        (reparse-symbol classsubparts) [1706 1712])
+                    ("debugfs_dir" variable
+                       (:pointer 1
+                        :type ("dentry" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol classsubparts) [1773 1800])
+                    ("portdevs" variable (:type ("list_head" type
+                         (:prototype t
+                          :type "struct")
+                          nil nil)) (reparse-symbol classsubparts) [1849 1875])
+                    ("index" variable (:type "unsigned int") (reparse-symbol classsubparts) [1927 1946])
+                    ("next_vtermno" variable (:type "unsigned int") (reparse-symbol classsubparts) [2388 2414])
+                    ("consoles" variable (:type ("list_head" type
+                         (:prototype t
+                          :type "struct")
+                          nil nil)) (reparse-symbol classsubparts) [2471 2497]))                  
+                :type "struct")
+                nil [1627 2500])
+            ("pdrvdata" variable
+               (:typemodifiers ("static")
+                :type ("ports_driver_data" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [2501 2542])
+            ("DEFINE_SPINLOCK" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("pdrvdata_lock" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [2560 2574]))                  
+                :type "int")
+                nil [2544 2575])
+            ("console" type
+               (:members 
+                  ( ("list" variable (:type ("list_head" type
+                         (:prototype t
+                          :type "struct")
+                          nil nil)) (reparse-symbol classsubparts) [2735 2757])
+                    ("hvc" variable
+                       (:pointer 1
+                        :type ("hvc_struct" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol classsubparts) [2816 2839])
+                    ("ws" variable (:type ("winsize" type
+                         (:prototype t
+                          :type "struct")
+                          nil nil)) (reparse-symbol classsubparts) [2873 2891])
+                    ("vtermno" variable (:type ("u32" type (:type "class") nil nil)) (reparse-symbol classsubparts) [3157 3169]))                  
+                :type "struct")
+                nil [2652 3172])
+            ("port_buffer" type
+               (:members 
+                  ( ("buf" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol classsubparts) [3196 3206])
+                    ("size" variable (:type ("size_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [3249 3261])
+                    ("len" variable (:type ("size_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [3297 3308])
+                    ("offset" variable (:type ("size_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [3362 3376]))                  
+                :type "struct")
+                nil [3174 3379])
+            ("ports_device" type
+               (:members 
+                  ( ("list" variable (:type ("list_head" type
+                         (:prototype t
+                          :type "struct")
+                          nil nil)) (reparse-symbol classsubparts) [3580 3602])
+                    ("control_work" variable (:type ("work_struct" type
+                         (:prototype t
+                          :type "struct")
+                          nil nil)) (reparse-symbol classsubparts) [3691 3723])
+                    ("ports" variable (:type ("list_head" type
+                         (:prototype t
+                          :type "struct")
+                          nil nil)) (reparse-symbol classsubparts) [3726 3749])
+                    ("ports_lock" variable (:type ("spinlock_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [3788 3810])
+                    ("cvq_lock" variable (:type ("spinlock_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [3873 3893])
+                    ("config" variable (:type ("virtio_console_config" type
+                         (:prototype t
+                          :type "struct")
+                          nil nil)) (reparse-symbol classsubparts) [3943 3979])
+                    ("vdev" variable
+                       (:pointer 1
+                        :type ("virtio_device" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol classsubparts) [4029 4056])
+                    ("c_ovq" variable
+                       (:pointer 1
+                        :type ("virtqueue" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol classsubparts) [4185 4217])
+                    ("c_ivq" variable
+                       (:pointer 1
+                        :type ("virtqueue" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol classsubparts) [4185 4217])
+                    ("out_vqs" variable
+                       (:pointer 2
+                        :type ("virtqueue" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol classsubparts) [4259 4296])
+                    ("in_vqs" variable
+                       (:pointer 2
+                        :type ("virtqueue" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol classsubparts) [4259 4296])
+                    ("drv_index" variable (:type "unsigned int") (reparse-symbol classsubparts) [4355 4378])
+                    ("chr_major" variable (:type "int") (reparse-symbol classsubparts) [4452 4466]))                  
+                :type "struct")
+                nil [3493 4469])
+            ("port" type
+               (:members 
+                  ( ("list" variable (:type ("list_head" type
+                         (:prototype t
+                          :type "struct")
+                          nil nil)) (reparse-symbol classsubparts) [4586 4608])
+                    ("portdev" variable
+                       (:pointer 1
+                        :type ("ports_device" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol classsubparts) [4662 4691])
+                    ("inbuf" variable
+                       (:pointer 1
+                        :type ("port_buffer" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol classsubparts) [4761 4787])
+                    ("inbuf_lock" variable (:type ("spinlock_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [4961 4983])
+                    ("outvq_lock" variable (:type ("spinlock_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [5031 5053])
+                    ("out_vq" variable
+                       (:pointer 1
+                        :type ("virtqueue" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol classsubparts) [5088 5121])
+                    ("in_vq" variable
+                       (:pointer 1
+                        :type ("virtqueue" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol classsubparts) [5088 5121])
+                    ("debugfs_file" variable
+                       (:pointer 1
+                        :type ("dentry" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol classsubparts) [5198 5226])
+                    ("cons" variable (:type ("console" type
+                         (:prototype t
+                          :type "struct")
+                          nil nil)) (reparse-symbol classsubparts) [5331 5351])
+                    ("cdev" variable
+                       (:pointer 1
+                        :type ("cdev" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol classsubparts) [5410 5428])
+                    ("dev" variable
+                       (:pointer 1
+                        :type ("device" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol classsubparts) [5430 5449])
+                    ("kref" variable (:type ("kref" type
+                         (:prototype t
+                          :type "struct")
+                          nil nil)) (reparse-symbol classsubparts) [5525 5542])
+                    ("waitqueue" variable (:type ("wait_queue_head_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [5603 5631])
+                    ("name" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol classsubparts) [5700 5711])
+                    ("async_queue" variable
+                       (:pointer 1
+                        :type ("fasync_struct" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol classsubparts) [5786 5820])
+                    ("id" variable (:type ("u32" type (:type "class") nil nil)) (reparse-symbol classsubparts) [5874 5881])
+                    ("outvq_full" variable (:type "bool") (reparse-symbol classsubparts) [5884 5900])
+                    ("host_connected" variable (:type "bool") (reparse-symbol classsubparts) [5934 5954])
+                    ("guest_connected" variable (:type "bool") (reparse-symbol classsubparts) [6012 6033]))                  
+                :type "struct")
+                nil [4513 6036])
+            ("early_put_chars" variable
+               (:functionpointer-flag t
+                :type "int")
+                nil [6102 6156])
+            ("find_port_by_vtermno" function
+               (:pointer 1
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("vtermno" variable (:type ("u32" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [6199 6211]))                  
+                :type ("port" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [6158 6563])
+            ("find_port_by_devt_in_portdev" function
+               (:pointer 1
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("portdev" variable
+                       (:pointer 1
+                        :type ("ports_device" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [6614 6643])
+                    ("dev" variable (:type ("dev_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [6651 6661]))                  
+                :type ("port" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [6565 6938])
+            ("find_port_by_devt" function
+               (:pointer 1
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("dev" variable (:type ("dev_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [6978 6988]))                  
+                :type ("port" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [6940 7329])
+            ("find_port_by_id" function
+               (:pointer 1
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("portdev" variable
+                       (:pointer 1
+                        :type ("ports_device" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [7367 7396])
+                    ("id" variable (:type ("u32" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [7397 7404]))                  
+                :type ("port" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [7331 7673])
+            ("find_port_by_vq" function
+               (:pointer 1
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("portdev" variable
+                       (:pointer 1
+                        :type ("ports_device" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [7711 7740])
+                    ("vq" variable
+                       (:pointer 1
+                        :type ("virtqueue" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [7749 7770]))                  
+                :type ("port" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [7675 8063])
+            ("is_console_port" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("port" variable
+                       (:pointer 1
+                        :type ("port" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [8093 8111]))                  
+                :type "bool")
+                nil [8065 8166])
+            ("use_multiport" function
+               (:typemodifiers ("static" "inline")
+                :arguments 
+                  ( ("portdev" variable
+                       (:pointer 1
+                        :type ("ports_device" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [8201 8230]))                  
+                :type "bool")
+                nil [8168 8424])
+            ("free_buf" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("buf" variable
+                       (:pointer 1
+                        :type ("port_buffer" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [8447 8471]))                  
+                :type "void")
+                nil [8426 8506])
+            ("alloc_buf" function
+               (:pointer 1
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("buf_size" variable (:type ("size_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [8545 8561]))                  
+                :type ("port_buffer" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [8508 8847])
+            ("get_inbuf" function
+               (:pointer 1
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("port" variable
+                       (:pointer 1
+                        :type ("port" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [8916 8934]))                  
+                :type "void")
+                nil [8893 9127])
+            ("add_inbuf" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("vq" variable
+                       (:pointer 1
+                        :type ("virtqueue" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [9292 9313])
+                    ("buf" variable
+                       (:pointer 1
+                        :type ("port_buffer" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [9314 9338]))                  
+                :type "int")
+                nil [9271 9499])
+            ("discard_port_data" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("port" variable
+                       (:pointer 1
+                        :type ("port" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [9593 9611]))                  
+                :type "void")
+                nil [9563 10123])
+            ("port_has_data" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("port" variable
+                       (:pointer 1
+                        :type ("port" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [10151 10169]))                  
+                :type "bool")
+                nil [10125 10466])
+            ("__send_control_msg" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("portdev" variable
+                       (:pointer 1
+                        :type ("ports_device" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [10502 10531])
+                    ("port_id" variable (:type ("u32" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [10532 10544])
+                    ("event" variable (:type "unsigned int") (reparse-symbol arg-sub-list) [10551 10570])
+                    ("value" variable (:type "unsigned int") (reparse-symbol arg-sub-list) [10571 10590]))                  
+                :type ("ssize_t" type (:type "class") nil nil))
+                nil [10468 11012])
+            ("send_control_msg" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("port" variable
+                       (:pointer 1
+                        :type ("port" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [11046 11064])
+                    ("event" variable (:type "unsigned int") (reparse-symbol arg-sub-list) [11065 11084])
+                    ("value" variable (:type "unsigned int") (reparse-symbol arg-sub-list) [11089 11108]))                  
+                :type ("ssize_t" type (:type "class") nil nil))
+                nil [11014 11273])
+            ("reclaim_consumed_buffers" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("port" variable
+                       (:pointer 1
+                        :type ("port" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [11357 11375]))                  
+                :type "void")
+                nil [11320 11607])
+            ("send_buf" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("port" variable
+                       (:pointer 1
+                        :type ("port" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [11633 11651])
+                    ("in_buf" variable
+                       (:pointer 1
+                        :type "void")
+                        (reparse-symbol arg-sub-list) [11652 11665])
+                    ("in_count" variable (:type ("size_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [11666 11682])
+                    ("nonblock" variable (:type "bool") (reparse-symbol arg-sub-list) [11686 11700]))                  
+                :type ("ssize_t" type (:type "class") nil nil))
+                nil [11609 12815])
+            ("fill_readbuf" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("port" variable
+                       (:pointer 1
+                        :type ("port" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [12933 12951])
+                    ("out_buf" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [12952 12966])
+                    ("out_count" variable (:type ("size_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [12967 12984])
+                    ("to_user" variable (:type "bool") (reparse-symbol arg-sub-list) [12992 13005]))                  
+                :type ("ssize_t" type (:type "class") nil nil))
+                nil [12905 13836])
+            ("will_read_block" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("port" variable
+                       (:pointer 1
+                        :type ("port" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [13923 13941]))                  
+                :type "bool")
+                nil [13895 14093])
+            ("will_write_block" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("port" variable
+                       (:pointer 1
+                        :type ("port" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [14124 14142]))                  
+                :type "bool")
+                nil [14095 14573])
+            ("port_fops_read" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("filp" variable
+                       (:pointer 1
+                        :type ("file" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [14605 14623])
+                    ("__user" variable (:type "char") (reparse-symbol arg-sub-list) [14624 14637])
+                    ("" variable (:type ("ubuf" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [14637 14642])
+                    ("count" variable (:type ("size_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [14652 14665])
+                    ("offp" variable
+                       (:pointer 1
+                        :type ("loff_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [14666 14679]))                  
+                :type ("ssize_t" type (:type "class") nil nil))
+                nil [14575 15716])
+            ("port_fops_write" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("filp" variable
+                       (:pointer 1
+                        :type ("file" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [15749 15767])
+                    ("__user" variable
+                       (:constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [15768 15787])
+                    ("" variable (:type ("ubuf" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [15787 15792])
+                    ("count" variable (:type ("size_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [15803 15816])
+                    ("offp" variable
+                       (:pointer 1
+                        :type ("loff_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [15817 15830]))                  
+                :type ("ssize_t" type (:type "class") nil nil))
+                nil [15718 16919])
+            ("port_fops_poll" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("filp" variable
+                       (:pointer 1
+                        :type ("file" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [16956 16974])
+                    ("wait" variable
+                       (:pointer 1
+                        :type ("poll_table" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [16975 16992]))                  
+                :type "unsigned int")
+                nil [16921 17363])
+            ("remove_port" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("kref" variable
+                       (:pointer 1
+                        :type ("kref" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [17389 17407]))                  
+                :type "void")
+                nil [17365 17408])
+            ("port_fops_release" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("inode" variable
+                       (:pointer 1
+                        :type ("inode" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [17439 17459])
+                    ("filp" variable
+                       (:pointer 1
+                        :type ("file" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [17460 17478]))                  
+                :type "int")
+                nil [17410 18259])
+            ("port_fops_open" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("inode" variable
+                       (:pointer 1
+                        :type ("inode" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [18287 18307])
+                    ("filp" variable
+                       (:pointer 1
+                        :type ("file" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [18308 18326]))                  
+                :type "int")
+                nil [18261 19538])
+            ("port_fops_fasync" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("fd" variable (:type "int") (reparse-symbol arg-sub-list) [19568 19575])
+                    ("filp" variable
+                       (:pointer 1
+                        :type ("file" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [19576 19594])
+                    ("mode" variable (:type "int") (reparse-symbol arg-sub-list) [19595 19604]))                  
+                :type "int")
+                nil [19540 19716])
+            ("port_fops" variable
+               (:typemodifiers ("static")
+                :constant-flag t
+                :type ("file_operations" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [19940 20202])
+            ("put_chars" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("vtermno" variable (:type ("u32" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [20552 20564])
+                    ("buf" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [20565 20581])
+                    ("count" variable (:type "int") (reparse-symbol arg-sub-list) [20582 20592]))                  
+                :type "int")
+                nil [20531 20817])
+            ("get_chars" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("vtermno" variable (:type ("u32" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [21053 21065])
+                    ("buf" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [21066 21076])
+                    ("count" variable (:type "int") (reparse-symbol arg-sub-list) [21077 21087]))                  
+                :type "int")
+                nil [21032 21428])
+            ("resize_console" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("port" variable
+                       (:pointer 1
+                        :type ("port" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [21457 21475]))                  
+                :type "void")
+                nil [21430 21732])
+            ("notifier_add_vio" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("hp" variable
+                       (:pointer 1
+                        :type ("hvc_struct" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [21832 21854])
+                    ("data" variable (:type "int") (reparse-symbol arg-sub-list) [21855 21864]))                  
+                :type "int")
+                nil [21804 22022])
+            ("notifier_del_vio" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("hp" variable
+                       (:pointer 1
+                        :type ("hvc_struct" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [22053 22075])
+                    ("data" variable (:type "int") (reparse-symbol arg-sub-list) [22076 22085]))                  
+                :type "void")
+                nil [22024 22113])
+            ("hv_ops" variable
+               (:typemodifiers ("static")
+                :constant-flag t
+                :type ("hv_ops" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [22155 22353])
+            ("virtio_cons_early_init" function
+               (:arguments 
+                  ( ("" variable (:type "int") (reparse-symbol arg-sub-list) [22736 22752]))                  
+                :type ("__init" type (:type "class") nil nil))
+                nil [22706 22851])
+            ("init_port_console" function
+               (:arguments 
+                  ( ("port" variable
+                       (:pointer 1
+                        :type ("port" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [22875 22893]))                  
+                :type "int")
+                nil [22853 24286])
+            ("show_port_name" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("dev" variable
+                       (:pointer 1
+                        :type ("device" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [24318 24337])
+                    ("attr" variable
+                       (:pointer 1
+                        :type ("device_attribute" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [24347 24377])
+                    ("buffer" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [24378 24391]))                  
+                :type ("ssize_t" type (:type "class") nil nil))
+                nil [24288 24492])
+            ("DEVICE_ATTR" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("" variable (:type ("name" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [24513 24518])
+                    ("" variable (:type ("S_IRUGO" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [24519 24527])
+                    ("" variable (:type ("show_port_name" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [24528 24543])
+                    ("" variable (:type ("NULL" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [24544 24549]))                  
+                :type "int")
+                nil [24494 24550])
+            ("port_sysfs_entries" variable
+               (:pointer 1
+                :dereference 1
+                :typemodifiers ("static")
+                :type ("attribute" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [24552 24632])
+            ("port_attribute_group" variable
+               (:typemodifiers ("static")
+                :type ("attribute_group" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [24634 24767])
+            ("debugfs_open" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("inode" variable
+                       (:pointer 1
+                        :type ("inode" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [24793 24813])
+                    ("filp" variable
+                       (:pointer 1
+                        :type ("file" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [24814 24832]))                  
+                :type "int")
+                nil [24769 24887])
+            ("debugfs_read" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("filp" variable
+                       (:pointer 1
+                        :type ("file" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [24917 24935])
+                    ("__user" variable (:type "char") (reparse-symbol arg-sub-list) [24936 24949])
+                    ("" variable (:type ("ubuf" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [24949 24954])
+                    ("count" variable (:type ("size_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [24962 24975])
+                    ("offp" variable
+                       (:pointer 1
+                        :type ("loff_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [24976 24989]))                  
+                :type ("ssize_t" type (:type "class") nil nil))
+                nil [24889 26029])
+            ("port_debugfs_ops" variable
+               (:typemodifiers ("static")
+                :constant-flag t
+                :type ("file_operations" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [26031 26161])
+            ("set_console_size" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("port" variable
+                       (:pointer 1
+                        :type ("port" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [26192 26210])
+                    ("rows" variable (:type ("u16" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [26211 26220])
+                    ("cols" variable (:type ("u16" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [26221 26230]))                  
+                :type "void")
+                nil [26163 26343])
+            ("fill_queue" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("vq" variable
+                       (:pointer 1
+                        :type ("virtqueue" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [26376 26397])
+                    ("lock" variable
+                       (:pointer 1
+                        :type ("spinlock_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [26398 26415]))                  
+                :type "unsigned int")
+                nil [26345 26778])
+            ("send_sigio_to_port" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("port" variable
+                       (:pointer 1
+                        :type ("port" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [26811 26829]))                  
+                :type "void")
+                nil [26780 26934])
+            ("add_port" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("portdev" variable
+                       (:pointer 1
+                        :type ("ports_device" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [26956 26985])
+                    ("id" variable (:type ("u32" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [26986 26993]))                  
+                :type "int")
+                nil [26936 29923])
+            ("remove_port" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("kref" variable
+                       (:pointer 1
+                        :type ("kref" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [30003 30021]))                  
+                :type "void")
+                nil [29979 30303])
+            ("unplug_port" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("port" variable
+                       (:pointer 1
+                        :type ("port" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [30512 30530]))                  
+                :type "void")
+                nil [30488 31671])
+            ("handle_control_message" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("portdev" variable
+                       (:pointer 1
+                        :type ("ports_device" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [31773 31802])
+                    ("buf" variable
+                       (:pointer 1
+                        :type ("port_buffer" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [31810 31834]))                  
+                :type "void")
+                nil [31738 34807])
+            ("control_work_handler" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("work" variable
+                       (:pointer 1
+                        :type ("work_struct" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [34842 34867]))                  
+                :type "void")
+                nil [34809 35463])
+            ("out_intr" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("vq" variable
+                       (:pointer 1
+                        :type ("virtqueue" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [35486 35507]))                  
+                :type "void")
+                nil [35465 35642])
+            ("in_intr" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("vq" variable
+                       (:pointer 1
+                        :type ("virtqueue" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [35664 35685]))                  
+                :type "void")
+                nil [35644 36523])
+            ("control_intr" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("vq" variable
+                       (:pointer 1
+                        :type ("virtqueue" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [36550 36571]))                  
+                :type "void")
+                nil [36525 36674])
+            ("config_intr" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("vdev" variable
+                       (:pointer 1
+                        :type ("virtio_device" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [36700 36727]))                  
+                :type "void")
+                nil [36676 37404])
+            ("init_vqs" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("portdev" variable
+                       (:pointer 1
+                        :type ("ports_device" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [37426 37455]))                  
+                :type "int")
+                nil [37406 39459])
+            ("portdev_fops" variable
+               (:typemodifiers ("static")
+                :constant-flag t
+                :type ("file_operations" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [39461 39539])
+            ("virtcons_probe" function
+               (:arguments 
+                  ( ("vdev" variable
+                       (:pointer 1
+                        :type ("virtio_device" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [39826 39853]))                  
+                :type ("__devinit" type (:type "class") nil nil))
+                nil [39801 42106])
+            ("virtcons_remove" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("vdev" variable
+                       (:pointer 1
+                        :type ("virtio_device" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [42136 42163]))                  
+                :type "void")
+                nil [42108 43291])
+            ("id_table" variable
+               (:dereference 1
+                :typemodifiers ("static")
+                :type ("virtio_device_id" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [43293 43392])
+            ("features" variable
+               (:dereference 1
+                :typemodifiers ("static")
+                :type "unsigned int")
+                nil [43394 43484])
+            ("virtio_console" variable
+               (:typemodifiers ("static")
+                :type ("virtio_driver" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [43486 43779])
+            ("init" function
+               (:arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [43804 43809]))                  
+                :type ("__init" type (:type "class") nil nil))
+                nil [43792 44351])
+            ("fini" function
+               (:arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [44377 44382]))                  
+                :type ("__exit" type (:type "class") nil nil))
+                nil [44365 44540])
+            ("module_init" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("init" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [44553 44558]))                  
+                :type "int")
+                nil [44541 44559])
+            ("module_exit" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("fini" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [44572 44577]))                  
+                :type "int")
+                nil [44560 44578])
+            ("MODULE_DEVICE_TABLE" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("virtio" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [44600 44607])
+                    ("" variable (:type ("id_table" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [44608 44617]))                  
+                :type "int")
+                nil [44580 44618])
+            ("MODULE_DESCRIPTION" function
+               (:prototype-flag t
+                :type "int")
+                nil [44619 44663])
+            ("MODULE_LICENSE" function
+               (:prototype-flag t
+                :type "int")
+                nil [44664 44686]))          
+    :file "virtio_console.c"
+    :pointmax 44687
+    :fsize 44686
+    :lastmodtime '(21468 9036 679390 110000)
+    :unmatched-syntax '((string 44679 . 44684) (string 44638 . 44661) (VOID 44360 . 44364) (STATIC 44353 . 44359) (INT 43788 . 43791) (STATIC 43781 . 43787) (INT 39797 . 39800) (STATIC 39790 . 39796) (punctuation 24948 . 24949) (semantic-list 22752 . 22776) (semantic-list 22740 . 22752) (INT 22702 . 22705) (punctuation 15786 . 15787) (punctuation 14636 . 14637) (punctuation 1705 . 1706) (CLASS 1699 . 1704) (STRUCT 1692 . 1698))
+    )
+   )
+  :file "!home!chz!linux-3.0.8!drivers!char!semantic.cache"
+  :semantic-tag-version "2.0"
+  :semanticdb-version "2.2"
+  )

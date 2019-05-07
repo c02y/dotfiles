@@ -1,0 +1,335 @@
+;; Object crypto/
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "crypto/"
+  :tables (list 
+   (semanticdb-table "salsa20_glue.c"
+    :major-mode 'c-mode
+    :tags 
+        '( ("crypto/algapi.h" include (:system-flag t) nil [865 891])
+            ("linux/module.h" include (:system-flag t) nil [892 917])
+            ("linux/crypto.h" include (:system-flag t) nil [918 943])
+            ("SALSA20_IV_SIZE" variable (:constant-flag t) nil [953 968])
+            ("SALSA20_MIN_KEY_SIZE" variable (:constant-flag t) nil [987 1007])
+            ("SALSA20_MAX_KEY_SIZE" variable (:constant-flag t) nil [1021 1041])
+            ("salsa20_keysetup" variable (:constant-flag t) nil [1091 1107])
+            ("salsa20_ivsetup" variable (:constant-flag t) nil [1139 1154])
+            ("salsa20_encrypt_bytes" variable (:constant-flag t) nil [1186 1207])
+            ("salsa20_ctx" type
+               (:members 
+                  ( ("input" variable
+                       (:dereference 1
+                        :type ("u32" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [1254 1268]))                  
+                :type "struct")
+                nil [1232 1271])
+            ("ECRYPT_keysetup" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("ctx" variable
+                       (:pointer 1
+                        :type ("salsa20_ctx" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [1306 1330])
+                    ("k" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("u8" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [1331 1343])
+                    ("keysize" variable (:type ("u32" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [1349 1361])
+                    ("ivsize" variable (:type ("u32" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [1362 1373]))                  
+                :type "void")
+                nil [1284 1374])
+            ("ECRYPT_ivsetup" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("ctx" variable
+                       (:pointer 1
+                        :type ("salsa20_ctx" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [1407 1431])
+                    ("iv" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("u8" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [1432 1445]))                  
+                :type "void")
+                nil [1386 1446])
+            ("ECRYPT_encrypt_bytes" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("ctx" variable
+                       (:pointer 1
+                        :type ("salsa20_ctx" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [1485 1509])
+                    ("src" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("u8" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [1520 1534])
+                    ("dst" variable
+                       (:pointer 1
+                        :type ("u8" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [1535 1543])
+                    ("bytes" variable (:type ("u32" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [1544 1554]))                  
+                :type "void")
+                nil [1458 1555])
+            ("setkey" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("tfm" variable
+                       (:pointer 1
+                        :type ("crypto_tfm" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [1575 1598])
+                    ("key" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("u8" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [1599 1613])
+                    ("keysize" variable (:type "unsigned int") (reparse-symbol arg-sub-list) [1618 1639]))                  
+                :type "int")
+                nil [1557 1761])
+            ("encrypt" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("desc" variable
+                       (:pointer 1
+                        :type ("blkcipher_desc" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [1782 1810])
+                    ("dst" variable
+                       (:pointer 1
+                        :type ("scatterlist" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [1816 1840])
+                    ("src" variable
+                       (:pointer 1
+                        :type ("scatterlist" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [1841 1865])
+                    ("nbytes" variable (:type "unsigned int") (reparse-symbol arg-sub-list) [1871 1891]))                  
+                :type "int")
+                nil [1763 2733])
+            ("alg" variable
+               (:typemodifiers ("static")
+                :type ("crypto_alg" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [2735 3453])
+            ("init" function
+               (:arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [3478 3483]))                  
+                :type ("__init" type (:type "class") nil nil))
+                nil [3466 3522])
+            ("fini" function
+               (:arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [3548 3553]))                  
+                :type ("__exit" type (:type "class") nil nil))
+                nil [3536 3587])
+            ("module_init" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("init" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [3601 3606]))                  
+                :type "int")
+                nil [3589 3607])
+            ("module_exit" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("fini" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [3620 3625]))                  
+                :type "int")
+                nil [3608 3626])
+            ("MODULE_LICENSE" function
+               (:prototype-flag t
+                :type "int")
+                nil [3628 3650])
+            ("MODULE_DESCRIPTION" function
+               (:prototype-flag t
+                :type "int")
+                nil [3651 3735])
+            ("MODULE_ALIAS" function
+               (:prototype-flag t
+                :type "int")
+                nil [3736 3760])
+            ("MODULE_ALIAS" function
+               (:prototype-flag t
+                :type "int")
+                nil [3761 3789]))          
+    :file "salsa20_glue.c"
+    :pointmax 3790
+    :fsize 3789
+    :lastmodtime '(21468 8997 690313 226000)
+    :unmatched-syntax '((string 3774 . 3787) (string 3749 . 3758) (string 3671 . 3733) (string 3643 . 3648) (VOID 3531 . 3535) (STATIC 3524 . 3530) (INT 3462 . 3465) (STATIC 3455 . 3461) (symbol 1447 . 1457) (symbol 1375 . 1385) (symbol 1273 . 1283))
+    :lexical-table 
+        '(("salsa20_ivsetup" . ((symbol "ECRYPT_ivsetup" 1163 . 1177)))
+          ("SALSA20_MAX_KEY_SIZE" . ((symbol "32U" 1043 . 1046)))
+          ("salsa20_encrypt_bytes" . ((symbol "ECRYPT_encrypt_bytes" 1210 . 1230)))
+          ("salsa20_keysetup" . ((symbol "ECRYPT_keysetup" 1115 . 1130)))
+          ("SALSA20_MIN_KEY_SIZE" . ((symbol "16U" 1009 . 1012)))
+          ("SALSA20_IV_SIZE" . ((symbol "8U" 976 . 978)))
+          )
+
+    )
+   (semanticdb-table "twofish_glue.c"
+    :major-mode 'c-mode
+    :tags 
+        '( ("crypto/twofish.h" include (:system-flag t) nil [1817 1844])
+            ("linux/crypto.h" include (:system-flag t) nil [1845 1870])
+            ("linux/init.h" include (:system-flag t) nil [1871 1894])
+            ("linux/module.h" include (:system-flag t) nil [1895 1920])
+            ("linux/types.h" include (:system-flag t) nil [1921 1945])
+            ("twofish_enc_blk" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("tfm" variable
+                       (:pointer 1
+                        :type ("crypto_tfm" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [1979 2002])
+                    ("dst" variable
+                       (:pointer 1
+                        :type ("u8" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [2003 2011])
+                    ("src" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("u8" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [2012 2026]))                  
+                :type "void")
+                nil [1958 2027])
+            ("twofish_dec_blk" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("tfm" variable
+                       (:pointer 1
+                        :type ("crypto_tfm" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [2060 2083])
+                    ("dst" variable
+                       (:pointer 1
+                        :type ("u8" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [2084 2092])
+                    ("src" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("u8" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [2093 2107]))                  
+                :type "void")
+                nil [2039 2108])
+            ("twofish_encrypt" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("tfm" variable
+                       (:pointer 1
+                        :type ("crypto_tfm" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [2138 2161])
+                    ("dst" variable
+                       (:pointer 1
+                        :type ("u8" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [2162 2170])
+                    ("src" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("u8" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [2171 2185]))                  
+                :type "void")
+                nil [2110 2222])
+            ("twofish_decrypt" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("tfm" variable
+                       (:pointer 1
+                        :type ("crypto_tfm" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [2252 2275])
+                    ("dst" variable
+                       (:pointer 1
+                        :type ("u8" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [2276 2284])
+                    ("src" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("u8" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [2285 2299]))                  
+                :type "void")
+                nil [2224 2336])
+            ("alg" variable
+               (:typemodifiers ("static")
+                :type ("crypto_alg" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [2338 2887])
+            ("init" function
+               (:arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [2912 2917]))                  
+                :type ("__init" type (:type "class") nil nil))
+                nil [2900 2956])
+            ("fini" function
+               (:arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [2982 2987]))                  
+                :type ("__exit" type (:type "class") nil nil))
+                nil [2970 3021])
+            ("module_init" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("init" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [3035 3040]))                  
+                :type "int")
+                nil [3023 3041])
+            ("module_exit" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("fini" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [3054 3059]))                  
+                :type "int")
+                nil [3042 3060])
+            ("MODULE_LICENSE" function
+               (:prototype-flag t
+                :type "int")
+                nil [3062 3084])
+            ("MODULE_DESCRIPTION" function
+               (:prototype-flag t
+                :type "int")
+                nil [3085 3148])
+            ("MODULE_ALIAS" function
+               (:prototype-flag t
+                :type "int")
+                nil [3149 3173])
+            ("MODULE_ALIAS" function
+               (:prototype-flag t
+                :type "int")
+                nil [3174 3202]))          
+    :file "twofish_glue.c"
+    :pointmax 3203
+    :fsize 3202
+    :lastmodtime '(21468 8997 713312 681000)
+    :unmatched-syntax '((string 3187 . 3200) (string 3162 . 3171) (string 3105 . 3146) (string 3077 . 3082) (VOID 2965 . 2969) (STATIC 2958 . 2964) (INT 2896 . 2899) (STATIC 2889 . 2895) (symbol 2028 . 2038) (symbol 1947 . 1957))
+    )
+   )
+  :file "!home!chz!linux-3.0.8!arch!x86!crypto!semantic.cache"
+  :semantic-tag-version "2.0"
+  :semanticdb-version "2.2"
+  )

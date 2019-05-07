@@ -1,0 +1,471 @@
+;; Object xcb/
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "xcb/"
+  :tables (list 
+   (semanticdb-table "xcb.h"
+    :major-mode 'c-mode
+    :tags 
+        '( ("__XCB_H__" variable (:constant-flag t) nil [1440 1449])
+            ("sys/types.h" include (:system-flag t) nil [1450 1472])
+            ("stdint.h" include (:system-flag t) nil [1527 1546])
+            ("sys/uio.h" include (:system-flag t) nil [1570 1590])
+            ("pthread.h" include (:system-flag t) nil [1629 1649])
+            ("X_PROTOCOL" variable
+               (:typemodifiers ("extern" "\"C\"")
+                :constant-flag t)
+                (reparse-symbol extern-c-contents) [1881 1891])
+            ("X_PROTOCOL_REVISION" variable
+               (:typemodifiers ("extern" "\"C\"")
+                :constant-flag t)
+                (reparse-symbol extern-c-contents) [1933 1952])
+            ("X_TCP_PORT" variable
+               (:typemodifiers ("extern" "\"C\"")
+                :constant-flag t)
+                (reparse-symbol extern-c-contents) [2031 2041])
+            ("XCB_CONN_ERROR" variable
+               (:typemodifiers ("extern" "\"C\"")
+                :constant-flag t)
+                (reparse-symbol extern-c-contents) [2134 2148])
+            ("XCB_CONN_CLOSED_EXT_NOTSUPPORTED" variable
+               (:typemodifiers ("extern" "\"C\"")
+                :constant-flag t)
+                (reparse-symbol extern-c-contents) [2226 2258])
+            ("XCB_CONN_CLOSED_MEM_INSUFFICIENT" variable
+               (:typemodifiers ("extern" "\"C\"")
+                :constant-flag t)
+                (reparse-symbol extern-c-contents) [2344 2376])
+            ("XCB_CONN_CLOSED_REQ_LEN_EXCEED" variable
+               (:typemodifiers ("extern" "\"C\"")
+                :constant-flag t)
+                (reparse-symbol extern-c-contents) [2460 2490])
+            ("XCB_CONN_CLOSED_PARSE_ERR" variable
+               (:typemodifiers ("extern" "\"C\"")
+                :constant-flag t)
+                (reparse-symbol extern-c-contents) [2565 2590])
+            ("XCB_CONN_CLOSED_INVALID_SCREEN" variable
+               (:typemodifiers ("extern" "\"C\"")
+                :constant-flag t)
+                (reparse-symbol extern-c-contents) [2691 2721])
+            ("XCB_TYPE_PAD" variable
+               (:typemodifiers ("extern" "\"C\"")
+                :constant-flag t)
+                (reparse-symbol extern-c-contents) [2733 2745])
+            ("xcb_connection_t" type
+               (:typemodifiers ("extern" "\"C\"")
+                :type "typedef"
+                :superclasses "xcb_connection_t"
+                :typedef ("xcb_connection_t" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                (reparse-symbol extern-c-contents) [2955 3004])
+            ("xcb_generic_iterator_t" type
+               (:typemodifiers ("extern" "\"C\"")
+                :type "typedef"
+                :typedef ("" type
+                     (:members 
+                        ( ("data" variable
+                             (:pointer 1
+                              :type "void")
+                              (reparse-symbol classsubparts) [3214 3225])
+                          ("rem" variable (:type "int") (reparse-symbol classsubparts) [3269 3277])
+                          ("index" variable (:type "int") (reparse-symbol classsubparts) [3312 3322]))                        
+                      :type "struct")
+                      nil nil))
+                (reparse-symbol extern-c-contents) [3193 3387])
+            ("xcb_generic_reply_t" type
+               (:typemodifiers ("extern" "\"C\"")
+                :type "typedef"
+                :typedef ("" type
+                     (:members 
+                        ( ("response_type" variable (:type ("uint8_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [3476 3500])
+                          ("pad0" variable (:type ("uint8_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [3535 3549])
+                          ("sequence" variable (:type ("uint16_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [3580 3598])
+                          ("length" variable (:type ("uint32_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [3633 3649]))                        
+                      :type "struct")
+                      nil nil))
+                (reparse-symbol extern-c-contents) [3455 3711])
+            ("xcb_generic_event_t" type
+               (:typemodifiers ("extern" "\"C\"")
+                :type "typedef"
+                :typedef ("" type
+                     (:members 
+                        ( ("response_type" variable (:type ("uint8_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [3800 3824])
+                          ("pad0" variable (:type ("uint8_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [3859 3873])
+                          ("sequence" variable (:type ("uint16_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [3904 3922])
+                          ("pad" variable
+                             (:dereference 1
+                              :type ("uint32_t" type (:type "class") nil nil))
+                              (reparse-symbol classsubparts) [3957 3973])
+                          ("full_sequence" variable (:type ("uint32_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [4002 4025]))                        
+                      :type "struct")
+                      nil nil))
+                (reparse-symbol extern-c-contents) [3779 4071])
+            ("xcb_ge_event_t" type
+               (:typemodifiers ("extern" "\"C\"")
+                :type "typedef"
+                :typedef ("" type
+                     (:members 
+                        ( ("response_type" variable (:type ("uint8_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [4245 4268])
+                          ("pad0" variable (:type ("uint8_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [4303 4317])
+                          ("sequence" variable (:type ("uint16_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [4348 4366])
+                          ("length" variable (:type ("uint32_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [4401 4417])
+                          ("event_type" variable (:type ("uint16_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [4422 4442])
+                          ("pad1" variable (:type ("uint16_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [4447 4461])
+                          ("pad" variable
+                             (:dereference 1
+                              :type ("uint32_t" type (:type "class") nil nil))
+                              (reparse-symbol classsubparts) [4466 4482])
+                          ("full_sequence" variable (:type ("uint32_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [4511 4534]))                        
+                      :type "struct")
+                      nil nil))
+                (reparse-symbol extern-c-contents) [4224 4575])
+            ("xcb_generic_error_t" type
+               (:typemodifiers ("extern" "\"C\"")
+                :type "typedef"
+                :typedef ("" type
+                     (:members 
+                        ( ("response_type" variable (:type ("uint8_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [4664 4688])
+                          ("error_code" variable (:type ("uint8_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [4723 4744])
+                          ("sequence" variable (:type ("uint16_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [4772 4790])
+                          ("resource_id" variable (:type ("uint32_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [4825 4846])
+                          ("minor_code" variable (:type ("uint16_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [4912 4932])
+                          ("major_code" variable (:type ("uint8_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [4986 5005])
+                          ("pad0" variable (:type ("uint8_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [5060 5073])
+                          ("pad" variable
+                             (:dereference 1
+                              :type ("uint32_t" type (:type "class") nil nil))
+                              (reparse-symbol classsubparts) [5078 5094])
+                          ("full_sequence" variable (:type ("uint32_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [5123 5146]))                        
+                      :type "struct")
+                      nil nil))
+                (reparse-symbol extern-c-contents) [4643 5192])
+            ("xcb_void_cookie_t" type
+               (:typemodifiers ("extern" "\"C\"")
+                :type "typedef"
+                :typedef ("" type
+                     (:members 
+                        ( ("sequence" variable (:type "unsigned int") (reparse-symbol classsubparts) [5283 5305]))                        
+                      :type "struct")
+                      nil nil))
+                (reparse-symbol extern-c-contents) [5262 5351])
+            ("xproto.h" include (:typemodifiers ("extern" "\"C\"")) (reparse-symbol extern-c-contents) [5397 5416])
+            ("XCB_NONE" variable
+               (:typemodifiers ("extern" "\"C\"")
+                :constant-flag t)
+                (reparse-symbol extern-c-contents) [5528 5536])
+            ("XCB_COPY_FROM_PARENT" variable
+               (:typemodifiers ("extern" "\"C\"")
+                :constant-flag t)
+                (reparse-symbol extern-c-contents) [5627 5647])
+            ("XCB_CURRENT_TIME" variable
+               (:typemodifiers ("extern" "\"C\"")
+                :constant-flag t)
+                (reparse-symbol extern-c-contents) [5742 5758])
+            ("XCB_NO_SYMBOL" variable
+               (:typemodifiers ("extern" "\"C\"")
+                :constant-flag t)
+                (reparse-symbol extern-c-contents) [5839 5852])
+            ("xcb_auth_info_t" type
+               (:typemodifiers ("extern" "\"C\"")
+                :type "typedef"
+                :superclasses "xcb_auth_info_t"
+                :typedef ("xcb_auth_info_t" type (:type "struct") nil nil))
+                (reparse-symbol extern-c-contents) [6011 6405])
+            ("xcb_auth_info_t" type
+               (:typemodifiers ("extern" "\"C\"")
+                :type "struct"
+                :members 
+                  ( ("namelen" variable (:type "int") (reparse-symbol classsubparts) [6048 6062])
+                    ("name" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol classsubparts) [6127 6138])
+                    ("datalen" variable (:type "int") (reparse-symbol classsubparts) [6262 6276])
+                    ("data" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol classsubparts) [6317 6328]))                  )
+                (reparse-symbol extern-c-contents) [6011 6405])
+            ("xcb_flush" function
+               (:typemodifiers ("extern" "\"C\"")
+                :type "int"
+                :arguments 
+                  ( ("c" variable
+                       (:pointer 1
+                        :type ("xcb_connection_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [6708 6728]))                  
+                :prototype-flag t)
+                (reparse-symbol extern-c-contents) [6694 6729])
+            ("xcb_get_maximum_request_length" function
+               (:typemodifiers ("extern" "\"C\"")
+                :type ("uint32_t" type (:type "class") nil nil)
+                :arguments 
+                  ( ("c" variable
+                       (:pointer 1
+                        :type ("xcb_connection_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [7412 7432]))                  
+                :prototype-flag t)
+                (reparse-symbol extern-c-contents) [7372 7433])
+            ("xcb_prefetch_maximum_request_length" function
+               (:typemodifiers ("extern" "\"C\"")
+                :type "void"
+                :arguments 
+                  ( ("c" variable
+                       (:pointer 1
+                        :type ("xcb_connection_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [8178 8198]))                  
+                :prototype-flag t)
+                (reparse-symbol extern-c-contents) [8137 8199])
+            ("xcb_wait_for_event" function
+               (:typemodifiers ("extern" "\"C\"")
+                :type ("xcb_generic_event_t" type (:type "class") nil nil)
+                :arguments 
+                  ( ("c" variable
+                       (:pointer 1
+                        :type ("xcb_connection_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [8590 8610]))                  
+                :pointer 1
+                :prototype-flag t)
+                (reparse-symbol extern-c-contents) [8550 8611])
+            ("xcb_poll_for_event" function
+               (:typemodifiers ("extern" "\"C\"")
+                :type ("xcb_generic_event_t" type (:type "class") nil nil)
+                :arguments 
+                  ( ("c" variable
+                       (:pointer 1
+                        :type ("xcb_connection_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [9163 9183]))                  
+                :pointer 1
+                :prototype-flag t)
+                (reparse-symbol extern-c-contents) [9123 9184])
+            ("xcb_poll_for_queued_event" function
+               (:typemodifiers ("extern" "\"C\"")
+                :type ("xcb_generic_event_t" type (:type "class") nil nil)
+                :arguments 
+                  ( ("c" variable
+                       (:pointer 1
+                        :type ("xcb_connection_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [9871 9891]))                  
+                :pointer 1
+                :prototype-flag t)
+                (reparse-symbol extern-c-contents) [9824 9892])
+            ("xcb_request_check" function
+               (:typemodifiers ("extern" "\"C\"")
+                :type ("xcb_generic_error_t" type (:type "class") nil nil)
+                :arguments 
+                  ( ("c" variable
+                       (:pointer 1
+                        :type ("xcb_connection_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [10773 10793])
+                    ("cookie" variable (:type ("xcb_void_cookie_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [10794 10819]))                  
+                :pointer 1
+                :prototype-flag t)
+                (reparse-symbol extern-c-contents) [10734 10820])
+            ("xcb_discard_reply" function
+               (:typemodifiers ("extern" "\"C\"")
+                :type "void"
+                :arguments 
+                  ( ("c" variable
+                       (:pointer 1
+                        :type ("xcb_connection_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [11411 11431])
+                    ("sequence" variable (:type "unsigned int") (reparse-symbol arg-sub-list) [11432 11454]))                  
+                :prototype-flag t)
+                (reparse-symbol extern-c-contents) [11388 11455])
+            ("xcb_extension_t" type
+               (:typemodifiers ("extern" "\"C\"")
+                :type "typedef"
+                :superclasses "xcb_extension_t"
+                :typedef ("xcb_extension_t" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                (reparse-symbol extern-c-contents) [11542 11589])
+            ("xcb_get_extension_data" function
+               (:typemodifiers ("extern" "\"C\"")
+                :type ("xcb_query_extension_reply_t" type (:type "class") nil nil)
+                :arguments 
+                  ( ("c" variable
+                       (:pointer 1
+                        :type ("xcb_connection_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [12338 12358])
+                    ("ext" variable
+                       (:pointer 1
+                        :type ("xcb_extension_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [12359 12380]))                  
+                :constant-flag t
+                :pointer 1
+                :prototype-flag t)
+                (reparse-symbol extern-c-contents) [12280 12381])
+            ("xcb_prefetch_extension_data" function
+               (:typemodifiers ("extern" "\"C\"")
+                :type "void"
+                :arguments 
+                  ( ("c" variable
+                       (:pointer 1
+                        :type ("xcb_connection_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [12853 12873])
+                    ("ext" variable
+                       (:pointer 1
+                        :type ("xcb_extension_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [12874 12895]))                  
+                :prototype-flag t)
+                (reparse-symbol extern-c-contents) [12820 12896])
+            ("xcb_get_setup" function
+               (:typemodifiers ("extern" "\"C\"")
+                :type ("xcb_setup_t" type (:type "class") nil nil)
+                :arguments 
+                  ( ("c" variable
+                       (:pointer 1
+                        :type ("xcb_connection_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [13539 13559]))                  
+                :constant-flag t
+                :pointer 1
+                :prototype-flag t)
+                (reparse-symbol extern-c-contents) [13506 13560])
+            ("xcb_get_file_descriptor" function
+               (:typemodifiers ("extern" "\"C\"")
+                :type "int"
+                :arguments 
+                  ( ("c" variable
+                       (:pointer 1
+                        :type ("xcb_connection_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [13823 13843]))                  
+                :prototype-flag t)
+                (reparse-symbol extern-c-contents) [13795 13844])
+            ("xcb_connection_has_error" function
+               (:typemodifiers ("extern" "\"C\"")
+                :type "int"
+                :arguments 
+                  ( ("c" variable
+                       (:pointer 1
+                        :type ("xcb_connection_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [14777 14797]))                  
+                :prototype-flag t)
+                (reparse-symbol extern-c-contents) [14748 14798])
+            ("xcb_connect_to_fd" function
+               (:typemodifiers ("extern" "\"C\"")
+                :type ("xcb_connection_t" type (:type "class") nil nil)
+                :arguments 
+                  ( ("fd" variable (:type "int") (reparse-symbol arg-sub-list) [15269 15276])
+                    ("auth_info" variable
+                       (:pointer 1
+                        :type ("xcb_auth_info_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [15277 15304]))                  
+                :pointer 1
+                :prototype-flag t)
+                (reparse-symbol extern-c-contents) [15233 15305])
+            ("xcb_disconnect" function
+               (:typemodifiers ("extern" "\"C\"")
+                :type "void"
+                :arguments 
+                  ( ("c" variable
+                       (:pointer 1
+                        :type ("xcb_connection_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [15491 15511]))                  
+                :prototype-flag t)
+                (reparse-symbol extern-c-contents) [15471 15512])
+            ("xcb_parse_display" function
+               (:typemodifiers ("extern" "\"C\"")
+                :type "int"
+                :arguments 
+                  ( ("name" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [16366 16383])
+                    ("host" variable
+                       (:pointer 2
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [16384 16396])
+                    ("display" variable
+                       (:pointer 1
+                        :type "int")
+                        (reparse-symbol arg-sub-list) [16397 16410])
+                    ("screen" variable
+                       (:pointer 1
+                        :type "int")
+                        (reparse-symbol arg-sub-list) [16411 16423]))                  
+                :prototype-flag t)
+                (reparse-symbol extern-c-contents) [16344 16424])
+            ("xcb_connect" function
+               (:typemodifiers ("extern" "\"C\"")
+                :type ("xcb_connection_t" type (:type "class") nil nil)
+                :arguments 
+                  ( ("displayname" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [16987 17011])
+                    ("screenp" variable
+                       (:pointer 1
+                        :type "int")
+                        (reparse-symbol arg-sub-list) [17012 17025]))                  
+                :pointer 1
+                :prototype-flag t)
+                (reparse-symbol extern-c-contents) [16957 17026])
+            ("xcb_connect_to_display_with_auth_info" function
+               (:typemodifiers ("extern" "\"C\"")
+                :type ("xcb_connection_t" type (:type "class") nil nil)
+                :arguments 
+                  ( ("display" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [17641 17661])
+                    ("auth" variable
+                       (:pointer 1
+                        :type ("xcb_auth_info_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [17662 17684])
+                    ("screen" variable
+                       (:pointer 1
+                        :type "int")
+                        (reparse-symbol arg-sub-list) [17685 17697]))                  
+                :pointer 1
+                :prototype-flag t)
+                (reparse-symbol extern-c-contents) [17585 17698])
+            ("xcb_generate_id" function
+               (:typemodifiers ("extern" "\"C\"")
+                :type ("uint32_t" type (:type "class") nil nil)
+                :arguments 
+                  ( ("c" variable
+                       (:pointer 1
+                        :type ("xcb_connection_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [17994 18014]))                  
+                :prototype-flag t)
+                (reparse-symbol extern-c-contents) [17969 18015]))          
+    :file "xcb.h"
+    :pointmax 18086
+    :fsize 18085
+    :lastmodtime '(20993 24395 0 0)
+    :unmatched-syntax 'nil
+    :lexical-table 
+        '(("XCB_CONN_ERROR" . ((number "1" 2149 . 2150)))
+          ("XCB_NONE" . ((number "0L" 5537 . 5539)))
+          ("XCB_CONN_CLOSED_MEM_INSUFFICIENT" . ((number "3" 2377 . 2378)))
+          ("XCB_TYPE_PAD" (spp-arg-list ("T" "I") 2745 . 2750) . ((semantic-list "(-(I) & (sizeof(T) > 4 ? 3 : sizeof(T) - 1))" 2751 . 2795)))
+          ("XCB_CURRENT_TIME" . ((number "0L" 5759 . 5761)))
+          ("XCB_NO_SYMBOL" . ((number "0L" 5853 . 5855)))
+          ("__XCB_H__")
+          ("XCB_COPY_FROM_PARENT" . ((number "0L" 5648 . 5650)))
+          ("XCB_CONN_CLOSED_PARSE_ERR" . ((number "5" 2591 . 2592)))
+          ("X_TCP_PORT" . ((number "6000" 2042 . 2046)))
+          ("XCB_CONN_CLOSED_INVALID_SCREEN" . ((number "6" 2722 . 2723)))
+          ("X_PROTOCOL_REVISION" . ((number "0" 1953 . 1954)))
+          ("XCB_CONN_CLOSED_EXT_NOTSUPPORTED" . ((number "2" 2259 . 2260)))
+          ("XCB_CONN_CLOSED_REQ_LEN_EXCEED" . ((number "4" 2491 . 2492)))
+          ("X_PROTOCOL" . ((number "11" 1892 . 1894)))
+          )
+
+    )
+   (semanticdb-table "xproto.h"
+    :file "xproto.h"
+    :fsize 543329
+    :lastmodtime '(20993 24395 0 0)
+    )
+   )
+  :file "!usr!include!xcb!semantic.cache"
+  :semantic-tag-version "2.0"
+  :semanticdb-version "2.2"
+  )

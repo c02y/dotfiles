@@ -1,0 +1,1351 @@
+;; Object git-github/
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "git-github/"
+  :tables (list 
+    (semanticdb-table "cache.h"
+    :major-mode 'c-mode
+    :tags 
+        '( ("CACHE_H" variable (:constant-flag t) nil [25 32])
+            ("unistd.h" include (:system-flag t) nil [34 53])
+            ("stdio.h" include (:system-flag t) nil [54 72])
+            ("sys/stat.h" include (:system-flag t) nil [73 94])
+            ("fcntl.h" include (:system-flag t) nil [95 113])
+            ("stddef.h" include (:system-flag t) nil [114 133])
+            ("stdlib.h" include (:system-flag t) nil [134 153])
+            ("stdarg.h" include (:system-flag t) nil [154 173])
+            ("string.h" include (:system-flag t) nil [174 193])
+            ("errno.h" include (:system-flag t) nil [194 212])
+            ("limits.h" include (:system-flag t) nil [213 232])
+            ("sys/mman.h" include (:system-flag t) nil [233 254])
+            ("sys/param.h" include (:system-flag t) nil [255 277])
+            ("netinet/in.h" include (:system-flag t) nil [278 301])
+            ("sys/types.h" include (:system-flag t) nil [302 324])
+            ("dirent.h" include (:system-flag t) nil [325 344])
+            ("zlib.h" include (:system-flag t) nil [367 384])
+            ("DT_UNKNOWN" variable (:constant-flag t) nil [561 571])
+            ("DT_DIR" variable (:constant-flag t) nil [582 588])
+            ("DT_REG" variable (:constant-flag t) nil [600 606])
+            ("DT_LNK" variable (:constant-flag t) nil [618 624])
+            ("DTYPE" variable (:constant-flag t) nil [636 641])
+            ("NORETURN" variable (:constant-flag t) nil [689 697])
+            ("gitenv_bc" function
+               (:prototype-flag t
+                :pointer 1
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [869 882]))                  
+                :type "char")
+                nil [846 883])
+            ("gitenv" variable (:constant-flag t) nil [892 898])
+            ("CACHE_SIGNATURE" variable (:constant-flag t) nil [997 1012])
+            ("cache_header" type
+               (:members 
+                  ( ("hdr_signature" variable (:type "unsigned int") (reparse-symbol classsubparts) [1060 1087])
+                    ("hdr_version" variable (:type "unsigned int") (reparse-symbol classsubparts) [1089 1114])
+                    ("hdr_entries" variable (:type "unsigned int") (reparse-symbol classsubparts) [1116 1141]))                  
+                :type "struct")
+                nil [1037 1144])
+            ("cache_time" type
+               (:members 
+                  ( ("sec" variable (:type "unsigned int") (reparse-symbol classsubparts) [1327 1344])
+                    ("nsec" variable (:type "unsigned int") (reparse-symbol classsubparts) [1346 1364]))                  
+                :type "struct")
+                nil [1306 1367])
+            ("cache_entry" type
+               (:members 
+                  ( ("ce_ctime" variable (:type ("cache_time" type
+                         (:prototype t
+                          :type "struct")
+                          nil nil)) (reparse-symbol classsubparts) [1661 1688])
+                    ("ce_mtime" variable (:type ("cache_time" type
+                         (:prototype t
+                          :type "struct")
+                          nil nil)) (reparse-symbol classsubparts) [1690 1717])
+                    ("ce_dev" variable (:type "unsigned int") (reparse-symbol classsubparts) [1719 1739])
+                    ("ce_ino" variable (:type "unsigned int") (reparse-symbol classsubparts) [1741 1761])
+                    ("ce_mode" variable (:type "unsigned int") (reparse-symbol classsubparts) [1763 1784])
+                    ("ce_uid" variable (:type "unsigned int") (reparse-symbol classsubparts) [1786 1806])
+                    ("ce_gid" variable (:type "unsigned int") (reparse-symbol classsubparts) [1808 1828])
+                    ("sha1" variable
+                       (:dereference 1
+                        :type "unsigned char")
+                        (reparse-symbol classsubparts) [1853 1876])
+                    ("ce_flags" variable (:type "unsigned short") (reparse-symbol classsubparts) [1878 1902])
+                    ("name" variable
+                       (:dereference 1
+                        :type "char")
+                        (reparse-symbol classsubparts) [1904 1917]))                  
+                :type "struct")
+                nil [1639 1920])
+            ("CE_NAMEMASK" variable (:constant-flag t) nil [1930 1941])
+            ("CE_STAGEMASK" variable (:constant-flag t) nil [1960 1972])
+            ("CE_UPDATE" variable (:constant-flag t) nil [1990 1999])
+            ("CE_STAGESHIFT" variable (:constant-flag t) nil [2020 2033])
+            ("create_ce_flags" variable (:constant-flag t) nil [2046 2061])
+            ("ce_namelen" variable (:constant-flag t) nil [2124 2134])
+            ("ce_size" variable (:constant-flag t) nil [2185 2192])
+            ("ce_stage" variable (:constant-flag t) nil [2238 2246])
+            ("ce_permissions" variable (:constant-flag t) nil [2318 2332])
+            ("create_ce_mode" function
+               (:typemodifiers ("static" "inline")
+                :arguments 
+                  ( ("mode" variable (:type "unsigned int") (reparse-symbol arg-sub-list) [2413 2431]))                  
+                :type "unsigned int")
+                nil [2371 2527])
+            ("cache_entry_size" variable (:constant-flag t) nil [2537 2553])
+            ("active_cache" variable
+               (:pointer 2
+                :typemodifiers ("extern")
+                :type ("cache_entry" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [2615 2656])
+            ("active_cache_changed" variable
+               (:typemodifiers ("extern")
+                :type "unsigned int")
+                nil [2657 2723])
+            ("active_alloc" variable
+               (:typemodifiers ("extern")
+                :type "unsigned int")
+                nil [2657 2723])
+            ("active_nr" variable
+               (:typemodifiers ("extern")
+                :type "unsigned int")
+                nil [2657 2723])
+            ("GIT_DIR_ENVIRONMENT" variable (:constant-flag t) nil [2733 2752])
+            ("DEFAULT_GIT_DIR_ENVIRONMENT" variable (:constant-flag t) nil [2771 2798])
+            ("DB_ENVIRONMENT" variable (:constant-flag t) nil [2814 2828])
+            ("INDEX_ENVIRONMENT" variable (:constant-flag t) nil [2860 2877])
+            ("get_object_directory" function
+               (:prototype-flag t
+                :pointer 1
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [2930 2935]))                  
+                :type "char")
+                nil [2896 2936])
+            ("get_refs_directory" function
+               (:prototype-flag t
+                :pointer 1
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [2969 2974]))                  
+                :type "char")
+                nil [2937 2975])
+            ("get_index_file" function
+               (:prototype-flag t
+                :pointer 1
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [3004 3009]))                  
+                :type "char")
+                nil [2976 3010])
+            ("ALTERNATE_DB_ENVIRONMENT" variable (:constant-flag t) nil [3020 3044])
+            ("alloc_nr" variable (:constant-flag t) nil [3089 3097])
+            ("read_cache" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [3186 3191]))                  
+                :type "int")
+                nil [3164 3192])
+            ("write_cache" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("newfd" variable (:type "int") (reparse-symbol arg-sub-list) [3216 3226])
+                    ("cache" variable
+                       (:pointer 2
+                        :type ("cache_entry" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [3227 3254])
+                    ("entries" variable (:type "int") (reparse-symbol arg-sub-list) [3255 3267]))                  
+                :type "int")
+                nil [3193 3268])
+            ("cache_name_pos" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("name" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [3295 3312])
+                    ("namelen" variable (:type "int") (reparse-symbol arg-sub-list) [3313 3325]))                  
+                :type "int")
+                nil [3269 3326])
+            ("ADD_CACHE_OK_TO_ADD" variable (:constant-flag t) nil [3335 3354])
+            ("ADD_CACHE_OK_TO_REPLACE" variable (:constant-flag t) nil [3382 3405])
+            ("ADD_CACHE_SKIP_DFCHECK" variable (:constant-flag t) nil [3451 3473])
+            ("add_cache_entry" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("ce" variable
+                       (:pointer 1
+                        :type ("cache_entry" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [3539 3562])
+                    ("option" variable (:type "int") (reparse-symbol arg-sub-list) [3563 3574]))                  
+                :type "int")
+                nil [3512 3575])
+            ("remove_cache_entry_at" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("pos" variable (:type "int") (reparse-symbol arg-sub-list) [3609 3617]))                  
+                :type "int")
+                nil [3576 3618])
+            ("remove_file_from_cache" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("path" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [3653 3664]))                  
+                :type "int")
+                nil [3619 3665])
+            ("ce_same_name" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("a" variable
+                       (:pointer 1
+                        :type ("cache_entry" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [3690 3712])
+                    ("b" variable
+                       (:pointer 1
+                        :type ("cache_entry" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [3713 3735]))                  
+                :type "int")
+                nil [3666 3736])
+            ("ce_match_stat" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("ce" variable
+                       (:pointer 1
+                        :type ("cache_entry" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [3762 3785])
+                    ("st" variable
+                       (:pointer 1
+                        :type ("stat" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [3786 3802]))                  
+                :type "int")
+                nil [3737 3803])
+            ("index_fd" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("sha1" variable
+                       (:pointer 1
+                        :type "unsigned char")
+                        (reparse-symbol arg-sub-list) [3824 3844])
+                    ("fd" variable (:type "int") (reparse-symbol arg-sub-list) [3845 3852])
+                    ("st" variable
+                       (:pointer 1
+                        :type ("stat" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [3853 3869])
+                    ("write_object" variable (:type "int") (reparse-symbol arg-sub-list) [3870 3887])
+                    ("type" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [3888 3905]))                  
+                :type "int")
+                nil [3804 3906])
+            ("fill_stat_cache_info" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("ce" variable
+                       (:pointer 1
+                        :type ("cache_entry" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [3940 3963])
+                    ("st" variable
+                       (:pointer 1
+                        :type ("stat" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [3964 3980]))                  
+                :type "void")
+                nil [3907 3981])
+            ("cache_file" type
+               (:members 
+                  ( ("next" variable
+                       (:pointer 1
+                        :type ("cache_file" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol classsubparts) [4004 4028])
+                    ("lockfile" variable
+                       (:dereference 1
+                        :type "char")
+                        (reparse-symbol classsubparts) [4030 4054]))                  
+                :type "struct")
+                nil [3983 4057])
+            ("hold_index_file_for_update" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("" variable
+                       (:pointer 1
+                        :type ("cache_file" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [4096 4116])
+                    ("path" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [4117 4134]))                  
+                :type "int")
+                nil [4058 4135])
+            ("commit_index_file" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("" variable
+                       (:pointer 1
+                        :type ("cache_file" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [4165 4185]))                  
+                :type "int")
+                nil [4136 4186])
+            ("rollback_index_file" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("" variable
+                       (:pointer 1
+                        :type ("cache_file" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [4219 4239]))                  
+                :type "void")
+                nil [4187 4240])
+            ("MTIME_CHANGED" variable (:constant-flag t) nil [4250 4263])
+            ("CTIME_CHANGED" variable (:constant-flag t) nil [4279 4292])
+            ("OWNER_CHANGED" variable (:constant-flag t) nil [4308 4321])
+            ("MODE_CHANGED" variable (:constant-flag t) nil [4337 4349])
+            ("INODE_CHANGED" variable (:constant-flag t) nil [4368 4381])
+            ("DATA_CHANGED" variable (:constant-flag t) nil [4399 4411])
+            ("TYPE_CHANGED" variable (:constant-flag t) nil [4430 4442])
+            ("mkpath" function
+               (:prototype-flag t
+                :pointer 1
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("fmt" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [4547 4563])
+                    ("..." variable (:type "vararg") (reparse-symbol arg-sub-list) [4564 4568]))                  
+                :type "char")
+                nil [4527 4569])
+            ("git_path" function
+               (:prototype-flag t
+                :pointer 1
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("fmt" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [4592 4608])
+                    ("..." variable (:type "vararg") (reparse-symbol arg-sub-list) [4609 4613]))                  
+                :type "char")
+                nil [4570 4614])
+            ("sha1_file_name" function
+               (:prototype-flag t
+                :pointer 1
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("sha1" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "unsigned char")
+                        (reparse-symbol arg-sub-list) [4643 4669]))                  
+                :type "char")
+                nil [4615 4670])
+            ("safe_create_leading_directories" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("path" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [4708 4719]))                  
+                :type "int")
+                nil [4672 4720])
+            ("unpack_sha1_header" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("stream" variable
+                       (:pointer 1
+                        :type ("z_stream" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [4827 4844])
+                    ("map" variable
+                       (:pointer 1
+                        :type "void")
+                        (reparse-symbol arg-sub-list) [4845 4855])
+                    ("mapsize" variable (:type "unsigned long") (reparse-symbol arg-sub-list) [4856 4878])
+                    ("buffer" variable
+                       (:pointer 1
+                        :type "void")
+                        (reparse-symbol arg-sub-list) [4879 4892])
+                    ("size" variable (:type "unsigned long") (reparse-symbol arg-sub-list) [4893 4912]))                  
+                :type "int")
+                nil [4797 4913])
+            ("parse_sha1_header" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("hdr" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [4943 4953])
+                    ("type" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [4954 4965])
+                    ("sizep" variable
+                       (:pointer 1
+                        :type "unsigned long")
+                        (reparse-symbol arg-sub-list) [4966 4987]))                  
+                :type "int")
+                nil [4914 4988])
+            ("sha1_object_info" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "unsigned char")
+                        (reparse-symbol arg-sub-list) [5017 5039])
+                    ("" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [5040 5047])
+                    ("" variable
+                       (:pointer 1
+                        :type "unsigned long")
+                        (reparse-symbol arg-sub-list) [5048 5064]))                  
+                :type "int")
+                nil [4989 5065])
+            ("unpack_sha1_file" function
+               (:prototype-flag t
+                :pointer 1
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("map" variable
+                       (:pointer 1
+                        :type "void")
+                        (reparse-symbol arg-sub-list) [5097 5107])
+                    ("mapsize" variable (:type "unsigned long") (reparse-symbol arg-sub-list) [5108 5130])
+                    ("type" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [5131 5142])
+                    ("size" variable
+                       (:pointer 1
+                        :type "unsigned long")
+                        (reparse-symbol arg-sub-list) [5143 5163]))                  
+                :type "void")
+                nil [5066 5164])
+            ("read_sha1_file" function
+               (:prototype-flag t
+                :pointer 1
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("sha1" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "unsigned char")
+                        (reparse-symbol arg-sub-list) [5194 5220])
+                    ("type" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [5221 5232])
+                    ("size" variable
+                       (:pointer 1
+                        :type "unsigned long")
+                        (reparse-symbol arg-sub-list) [5233 5253]))                  
+                :type "void")
+                nil [5165 5254])
+            ("write_sha1_file" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("buf" variable
+                       (:pointer 1
+                        :type "void")
+                        (reparse-symbol arg-sub-list) [5282 5292])
+                    ("len" variable (:type "unsigned long") (reparse-symbol arg-sub-list) [5293 5311])
+                    ("type" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [5312 5329])
+                    ("return_sha1" variable
+                       (:pointer 1
+                        :type "unsigned char")
+                        (reparse-symbol arg-sub-list) [5330 5357]))                  
+                :type "int")
+                nil [5255 5358])
+            ("write_sha1_file_prepare" function
+               (:prototype-flag t
+                :pointer 1
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("buf" variable
+                       (:pointer 1
+                        :type "void")
+                        (reparse-symbol arg-sub-list) [5396 5406])
+                    ("len" variable (:type "unsigned long") (reparse-symbol arg-sub-list) [5416 5434])
+                    ("type" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [5444 5461])
+                    ("sha1" variable
+                       (:pointer 1
+                        :type "unsigned char")
+                        (reparse-symbol arg-sub-list) [5471 5491])
+                    ("hdr" variable
+                       (:pointer 1
+                        :type "unsigned char")
+                        (reparse-symbol arg-sub-list) [5501 5520])
+                    ("hdrlen" variable
+                       (:pointer 1
+                        :type "int")
+                        (reparse-symbol arg-sub-list) [5530 5542]))                  
+                :type "char")
+                nil [5359 5543])
+            ("check_sha1_signature" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("sha1" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "unsigned char")
+                        (reparse-symbol arg-sub-list) [5577 5603])
+                    ("buf" variable
+                       (:pointer 1
+                        :type "void")
+                        (reparse-symbol arg-sub-list) [5604 5614])
+                    ("size" variable (:type "unsigned long") (reparse-symbol arg-sub-list) [5615 5634])
+                    ("type" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [5635 5652]))                  
+                :type "int")
+                nil [5545 5653])
+            ("read_tree" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("buffer" variable
+                       (:pointer 1
+                        :type "void")
+                        (reparse-symbol arg-sub-list) [5709 5722])
+                    ("size" variable (:type "unsigned long") (reparse-symbol arg-sub-list) [5723 5742])
+                    ("stage" variable (:type "int") (reparse-symbol arg-sub-list) [5743 5753]))                  
+                :type "int")
+                nil [5688 5754])
+            ("write_sha1_from_fd" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("sha1" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "unsigned char")
+                        (reparse-symbol arg-sub-list) [5786 5812])
+                    ("fd" variable (:type "int") (reparse-symbol arg-sub-list) [5813 5820]))                  
+                :type "int")
+                nil [5756 5821])
+            ("write_sha1_to_fd" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("fd" variable (:type "int") (reparse-symbol arg-sub-list) [5850 5857])
+                    ("sha1" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "unsigned char")
+                        (reparse-symbol arg-sub-list) [5858 5884]))                  
+                :type "int")
+                nil [5822 5885])
+            ("has_sha1_pack" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("sha1" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "unsigned char")
+                        (reparse-symbol arg-sub-list) [5912 5938]))                  
+                :type "int")
+                nil [5887 5939])
+            ("has_sha1_file" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("sha1" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "unsigned char")
+                        (reparse-symbol arg-sub-list) [5965 5991]))                  
+                :type "int")
+                nil [5940 5992])
+            ("get_sha1" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("str" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [6060 6076])
+                    ("sha1" variable
+                       (:pointer 1
+                        :type "unsigned char")
+                        (reparse-symbol arg-sub-list) [6077 6097]))                  
+                :type "int")
+                nil [6040 6098])
+            ("get_sha1_hex" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("hex" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [6123 6139])
+                    ("sha1" variable
+                       (:pointer 1
+                        :type "unsigned char")
+                        (reparse-symbol arg-sub-list) [6140 6160]))                  
+                :type "int")
+                nil [6099 6161])
+            ("sha1_to_hex" function
+               (:prototype-flag t
+                :pointer 1
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("sha1" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "unsigned char")
+                        (reparse-symbol arg-sub-list) [6187 6213]))                  
+                :type "char")
+                nil [6162 6214])
+            ("usage" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("err" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [6293 6309]))                  
+                :type "void")
+                nil [6275 6319])
+            ("die" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("err" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [6336 6352])
+                    ("..." variable (:type "vararg") (reparse-symbol arg-sub-list) [6353 6357]))                  
+                :type "void")
+                nil [6320 6367])
+            ("error" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("err" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [6385 6401])
+                    ("..." variable (:type "vararg") (reparse-symbol arg-sub-list) [6402 6406]))                  
+                :type "int")
+                nil [6368 6407])
+            ("base_name_compare" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("name1" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [6438 6456])
+                    ("len1" variable (:type "int") (reparse-symbol arg-sub-list) [6457 6466])
+                    ("mode1" variable (:type "int") (reparse-symbol arg-sub-list) [6467 6477])
+                    ("name2" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [6478 6496])
+                    ("len2" variable (:type "int") (reparse-symbol arg-sub-list) [6497 6506])
+                    ("mode2" variable (:type "int") (reparse-symbol arg-sub-list) [6507 6517]))                  
+                :type "int")
+                nil [6409 6518])
+            ("cache_name_compare" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("name1" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [6549 6567])
+                    ("len1" variable (:type "int") (reparse-symbol arg-sub-list) [6568 6577])
+                    ("name2" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [6578 6596])
+                    ("len2" variable (:type "int") (reparse-symbol arg-sub-list) [6597 6606]))                  
+                :type "int")
+                nil [6519 6607])
+            ("read_object_with_reference" function
+               (:prototype-flag t
+                :pointer 1
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("sha1" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "unsigned char")
+                        (reparse-symbol arg-sub-list) [6649 6675])
+                    ("required_type" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [6681 6707])
+                    ("size" variable
+                       (:pointer 1
+                        :type "unsigned long")
+                        (reparse-symbol arg-sub-list) [6713 6733])
+                    ("sha1_ret" variable
+                       (:pointer 1
+                        :type "unsigned char")
+                        (reparse-symbol arg-sub-list) [6739 6763]))                  
+                :type "void")
+                nil [6609 6764])
+            ("show_date" function
+               (:prototype-flag t
+                :pointer 1
+                :constant-flag t
+                :arguments 
+                  ( ("time" variable (:type "unsigned long") (reparse-symbol arg-sub-list) [6788 6807])
+                    ("timezone" variable (:type "int") (reparse-symbol arg-sub-list) [6808 6821]))                  
+                :type "char")
+                nil [6766 6822])
+            ("parse_date" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("date" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [6839 6850])
+                    ("buf" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [6851 6861])
+                    ("bufsize" variable (:type "int") (reparse-symbol arg-sub-list) [6862 6874]))                  
+                :type "void")
+                nil [6823 6875])
+            ("datestamp" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("buf" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [6891 6901])
+                    ("bufsize" variable (:type "int") (reparse-symbol arg-sub-list) [6902 6914]))                  
+                :type "void")
+                nil [6876 6915])
+            ("xmalloc" function
+               (:pointer 1
+                :typemodifiers ("static" "inline")
+                :arguments 
+                  ( ("size" variable (:type ("size_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [6945 6957]))                  
+                :type "void")
+                nil [6917 7051])
+            ("xrealloc" function
+               (:pointer 1
+                :typemodifiers ("static" "inline")
+                :arguments 
+                  ( ("ptr" variable
+                       (:pointer 1
+                        :type "void")
+                        (reparse-symbol arg-sub-list) [7082 7092])
+                    ("size" variable (:type ("size_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [7093 7105]))                  
+                :type "void")
+                nil [7053 7206])
+            ("xcalloc" function
+               (:pointer 1
+                :typemodifiers ("static" "inline")
+                :arguments 
+                  ( ("nmemb" variable (:type ("size_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [7236 7249])
+                    ("size" variable (:type ("size_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [7250 7262]))                  
+                :type "void")
+                nil [7208 7363])
+            ("checkout" type
+               (:members 
+                  ( ("base_dir" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol classsubparts) [7384 7405])
+                    ("base_dir_len" variable (:type "int") (reparse-symbol classsubparts) [7407 7424])
+                    ("refresh_cache" variable
+                       (:suffix ":1"
+                        :type "unsigned int")
+                        (reparse-symbol classsubparts) [7426 7489])
+                    ("not_new" variable
+                       (:suffix ":1"
+                        :type "unsigned int")
+                        (reparse-symbol classsubparts) [7426 7489])
+                    ("quiet" variable
+                       (:suffix ":1"
+                        :type "unsigned int")
+                        (reparse-symbol classsubparts) [7426 7489])
+                    ("force" variable
+                       (:suffix ":1"
+                        :type "unsigned int")
+                        (reparse-symbol classsubparts) [7426 7489]))                  
+                :type "struct")
+                nil [7365 7492])
+            ("checkout_entry" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("ce" variable
+                       (:pointer 1
+                        :type ("cache_entry" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [7520 7543])
+                    ("state" variable
+                       (:pointer 1
+                        :type ("checkout" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [7544 7567]))                  
+                :type "int")
+                nil [7494 7568])
+            ("alternate_object_database" type
+               (:members 
+                  ( ("base" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol classsubparts) [7613 7624])
+                    ("name" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol classsubparts) [7626 7637]))                  
+                :type "struct")
+                nil [7570 7649])
+            ("alt_odb" variable
+               (:pointer 1
+                :typemodifiers ("extern")
+                :type ("alternate_object_database" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [7570 7649])
+            ("prepare_alt_odb" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [7678 7683]))                  
+                :type "void")
+                nil [7650 7684])
+            ("packed_git" type
+               (:members 
+                  ( ("next" variable
+                       (:pointer 1
+                        :type ("packed_git" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol classsubparts) [7714 7738])
+                    ("index_size" variable (:type "unsigned long") (reparse-symbol classsubparts) [7740 7765])
+                    ("pack_size" variable (:type "unsigned long") (reparse-symbol classsubparts) [7767 7791])
+                    ("index_base" variable
+                       (:pointer 1
+                        :type "unsigned int")
+                        (reparse-symbol classsubparts) [7793 7818])
+                    ("pack_base" variable
+                       (:pointer 1
+                        :type "void")
+                        (reparse-symbol classsubparts) [7820 7836])
+                    ("pack_last_used" variable (:type "unsigned int") (reparse-symbol classsubparts) [7838 7866])
+                    ("pack_use_cnt" variable (:type "unsigned int") (reparse-symbol classsubparts) [7868 7894])
+                    ("pack_name" variable
+                       (:dereference 1
+                        :type "char")
+                        (reparse-symbol classsubparts) [7896 7914]))                  
+                :type "struct")
+                nil [7686 7981])
+            ("packed_git" variable
+               (:pointer 1
+                :typemodifiers ("extern")
+                :type ("packed_git" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [7686 7981])
+            ("pack_entry" type
+               (:members 
+                  ( ("offset" variable (:type "unsigned int") (reparse-symbol classsubparts) [8004 8024])
+                    ("sha1" variable
+                       (:dereference 1
+                        :type "unsigned char")
+                        (reparse-symbol classsubparts) [8026 8049])
+                    ("p" variable
+                       (:pointer 1
+                        :type ("packed_git" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol classsubparts) [8051 8072]))                  
+                :type "struct")
+                nil [7983 8075])
+            ("git_connect" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("fd" variable
+                       (:dereference 1
+                        :type "int")
+                        (reparse-symbol arg-sub-list) [8100 8110])
+                    ("url" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [8111 8121])
+                    ("prog" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [8122 8139]))                  
+                :type "int")
+                nil [8077 8140])
+            ("finish_connect" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("pid" variable (:type ("pid_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [8167 8177]))                  
+                :type "int")
+                nil [8141 8178])
+            ("path_match" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("path" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [8201 8218])
+                    ("nr" variable (:type "int") (reparse-symbol arg-sub-list) [8219 8226])
+                    ("match" variable
+                       (:pointer 2
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [8227 8240]))                  
+                :type "int")
+                nil [8179 8241])
+            ("get_ack" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("fd" variable (:type "int") (reparse-symbol arg-sub-list) [8261 8268])
+                    ("result_sha1" variable
+                       (:pointer 1
+                        :type "unsigned char")
+                        (reparse-symbol arg-sub-list) [8269 8296]))                  
+                :type "int")
+                nil [8242 8297])
+            ("prepare_packed_git" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [8330 8335]))                  
+                :type "void")
+                nil [8299 8336])
+            ("use_packed_git" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("" variable
+                       (:pointer 1
+                        :type ("packed_git" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [8363 8383]))                  
+                :type "int")
+                nil [8337 8384])
+            ("unuse_packed_git" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("" variable
+                       (:pointer 1
+                        :type ("packed_git" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [8414 8434]))                  
+                :type "void")
+                nil [8385 8435])
+            ("add_packed_git" function
+               (:prototype-flag t
+                :pointer 1
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [8477 8484])
+                    ("" variable (:type "int") (reparse-symbol arg-sub-list) [8485 8489]))                  
+                :type ("packed_git" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [8436 8490])
+            ("num_packed_objects" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("p" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("packed_git" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [8521 8548]))                  
+                :type "int")
+                nil [8491 8549])
+            ("nth_packed_object_sha1" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("packed_git" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [8584 8610])
+                    ("" variable (:type "int") (reparse-symbol arg-sub-list) [8611 8615])
+                    ("" variable
+                       (:pointer 1
+                        :type "unsigned char")
+                        (reparse-symbol arg-sub-list) [8616 8631]))                  
+                :type "int")
+                nil [8550 8632])
+            ("find_pack_entry_one" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "unsigned char")
+                        (reparse-symbol arg-sub-list) [8664 8686])
+                    ("" variable
+                       (:pointer 1
+                        :type ("pack_entry" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [8687 8707])
+                    ("" variable
+                       (:pointer 1
+                        :type ("packed_git" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [8708 8728]))                  
+                :type "int")
+                nil [8633 8729])
+            ("unpack_entry_gently" function
+               (:prototype-flag t
+                :pointer 1
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("" variable
+                       (:pointer 1
+                        :type ("pack_entry" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [8763 8783])
+                    ("" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [8784 8791])
+                    ("" variable
+                       (:pointer 1
+                        :type "unsigned long")
+                        (reparse-symbol arg-sub-list) [8792 8808]))                  
+                :type "void")
+                nil [8730 8809])
+            ("packed_object_info_detail" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("" variable
+                       (:pointer 1
+                        :type ("pack_entry" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [8848 8868])
+                    ("" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [8869 8876])
+                    ("" variable
+                       (:pointer 1
+                        :type "unsigned long")
+                        (reparse-symbol arg-sub-list) [8877 8893])
+                    ("" variable
+                       (:pointer 1
+                        :type "unsigned long")
+                        (reparse-symbol arg-sub-list) [8894 8910])
+                    ("" variable
+                       (:pointer 1
+                        :type "int")
+                        (reparse-symbol arg-sub-list) [8911 8917])
+                    ("" variable
+                       (:pointer 1
+                        :type "unsigned char")
+                        (reparse-symbol arg-sub-list) [8918 8934]))                  
+                :type "void")
+                nil [8810 8935]))          
+    :file "cache.h"
+    :pointmax 8958
+    :fsize 2484
+    :lastmodtime '(21624 26985 684664 450000)
+    :unmatched-syntax '((semantic-list #("((offsetof(struct cache_entry,name) + (len) + 8) & ~7)" 0 1 (macros (("len" semantic-list #("(CE_NAMEMASK & ntohs((ce)->ce_flags))" 0 1 (macros (("ce")))) 1 . 15)))) 1843 . 1851) (INT 1839 . 1842) (UNSIGNED 1830 . 1838) (symbol 355 . 366) (symbol 347 . 354) (punctuation 346 . 347))
+    :lexical-table 
+        '(("DT_UNKNOWN" . ((number "0" 572 . 573)))
+          ("DT_DIR" . ((number "1" 590 . 591)))
+          ("CACHE_SIGNATURE" . ((number "0x44495243" 1013 . 1023)))
+          ("ce_permissions" (spp-arg-list ("mode") 2332 . 2338) . ((semantic-list "(((mode) & 0100) ? 0755 : 0644)" 2339 . 2370)))
+          ("GIT_DIR_ENVIRONMENT" . ((string "\"GIT_DIR\"" 2753 . 2762)))
+          ("CTIME_CHANGED" . ((number "0x0002" 4293 . 4299)))
+          ("INODE_CHANGED" . ((number "0x0010" 4384 . 4390)))
+          ("DT_LNK" . ((number "3" 626 . 627)))
+          ("CE_UPDATE" . ((semantic-list "(0x4000)" 2003 . 2011)))
+          ("MODE_CHANGED" . ((number "0x0008" 4353 . 4359)))
+          ("DATA_CHANGED" . ((number "0x0020" 4415 . 4421)))
+          ("cache_entry_size" (spp-arg-list ("len") 2553 . 2558) . ((semantic-list "((offsetof(struct cache_entry,name) + (len) + 8) & ~7)" 2559 . 2613)))
+          ("ADD_CACHE_OK_TO_ADD" . ((number "1" 3355 . 3356)))
+          ("CACHE_H")
+          ("MTIME_CHANGED" . ((number "0x0001" 4264 . 4270)))
+          ("TYPE_CHANGED" . ((number "0x0040" 4446 . 4452)))
+          ("CE_STAGEMASK" . ((semantic-list "(0x3000)" 1973 . 1981)))
+          ("INDEX_ENVIRONMENT" . ((string "\"GIT_INDEX_FILE\"" 2878 . 2894)))
+          ("DTYPE" (spp-arg-list ("de") 641 . 645) . ((symbol "DT_UNKNOWN" 646 . 656)))
+          ("DB_ENVIRONMENT" . ((string "\"GIT_OBJECT_DIRECTORY\"" 2829 . 2851)))
+          ("CE_NAMEMASK" . ((semantic-list "(0x0fff)" 1943 . 1951)))
+          ("ADD_CACHE_SKIP_DFCHECK" . ((number "4" 3474 . 3475)))
+          ("OWNER_CHANGED" . ((number "0x0004" 4322 . 4328)))
+          ("CE_STAGESHIFT" . ((number "12" 2034 . 2036)))
+          ("DEFAULT_GIT_DIR_ENVIRONMENT" . ((string "\".git\"" 2799 . 2805)))
+          ("gitenv" (spp-arg-list ("e") 898 . 901) . ((semantic-list "(getenv(e) ? : gitenv_bc(e))" 902 . 930)))
+          ("ce_stage" (spp-arg-list ("ce") 2246 . 2250) . ((semantic-list "((CE_STAGEMASK & ntohs((ce)->ce_flags)) >> CE_STAGESHIFT)" 2251 . 2308)))
+          ("ADD_CACHE_OK_TO_REPLACE" . ((number "2" 3406 . 3407)))
+          ("DT_REG" . ((number "2" 608 . 609)))
+          ("NORETURN" . ((symbol "__attribute__" 698 . 711) (semantic-list "((__noreturn__))" 711 . 727)))
+          ("create_ce_flags" (spp-arg-list ("len" "stage") 2061 . 2073) . ((symbol "htons" 2074 . 2079) (semantic-list "((len) | ((stage) << CE_STAGESHIFT))" 2079 . 2115)))
+          ("ce_namelen" (spp-arg-list ("ce") 2134 . 2138) . ((semantic-list "(CE_NAMEMASK & ntohs((ce)->ce_flags))" 2139 . 2176)))
+          ("ce_size" (spp-arg-list ("ce") 2192 . 2196) . ((symbol "cache_entry_size" 2197 . 2213) (semantic-list "(ce_namelen(ce))" 2213 . 2229)))
+          ("ALTERNATE_DB_ENVIRONMENT" . ((string "\"GIT_ALTERNATE_OBJECT_DIRECTORIES\"" 3045 . 3079)))
+          ("alloc_nr" (spp-arg-list ("x") 3097 . 3100) . ((semantic-list "(((x)+16)*3/2)" 3101 . 3115)))
+          )
+
+    )
+        (semanticdb-table "Makefile"
+    :major-mode 'makefile-gmake-mode
+    :tags 
+        '( ("GIT_VERSION" variable (:default-value ("0.99")) nil [587 604])
+            ("COPTS" variable (:default-value ("-O2")) nil [605 615])
+            ("CFLAGS" variable (:default-value ("-g" "$(COPTS)" "-Wall")) nil [615 640])
+            ("prefix" variable (:default-value ("$(HOME)")) nil [641 656])
+            ("bin" variable (:default-value ("$(prefix)/bin")) nil [656 674])
+            ("CC" variable (:default-value ("gcc")) nil [683 690])
+            ("AR" variable (:default-value ("ar")) nil [690 696])
+            ("INSTALL" variable (:default-value ("install")) nil [696 712])
+            ("SPARSE_FLAGS" variable (:default-value ("-D__BIG_ENDIAN__" "-D__powerpc__")) nil [856 900])
+            ("SCRIPTS" variable (:default-value ("git" "git-apply-patch-script" "git-merge-one-file-script" "git-prune-script" "git-pull-script" "git-tag-script" "git-resolve-script" "git-whatchanged" "git-fetch-script" "git-status-script" "git-commit-script" "git-log-script" "git-shortlog" "git-cvsimport-script" "git-diff-script" "git-reset-script" "git-add-script" "git-checkout-script" "git-clone-script" "gitk" "git-cherry" "git-rebase-script" "git-relink-script" "git-repack-script" "git-format-patch-script" "git-sh-setup-script" "git-push-script")) nil [901 1380])
+            ("PROG" variable (:default-value ("git-update-cache" "git-diff-files" "git-init-db" "git-write-tree" "git-read-tree" "git-commit-tree" "git-cat-file" "git-fsck-cache" "git-checkout-cache" "git-diff-tree" "git-rev-tree" "git-ls-files" "git-check-files" "git-ls-tree" "git-merge-base" "git-merge-cache" "git-unpack-file" "git-export" "git-diff-cache" "git-convert-cache" "git-http-pull" "git-ssh-push" "git-ssh-pull" "git-rev-list" "git-mktag" "git-diff-helper" "git-tar-tree" "git-local-pull" "git-hash-object" "git-get-tar-commit-id" "git-apply" "git-stripspace" "git-diff-stages" "git-rev-parse" "git-patch-id" "git-pack-objects" "git-unpack-objects" "git-verify-pack" "git-receive-pack" "git-send-pack" "git-prune-packed" "git-fetch-pack" "git-upload-pack" "git-clone-pack" "git-show-index")) nil [1381 2091])
+            ("all" function (:arguments ("$(PROG)")) nil [2092 2105])
+            ("install" function (:arguments ("$(PROG)" "$(SCRIPTS)")) nil [2106 2214])
+            ("LIB_OBJS" variable (:default-value ("read-cache.o" "sha1_file.o" "usage.o" "object.o" "commit.o" "tree.o" "blob.o" "tag.o" "date.o" "index.o" "diff-delta.o" "patch-delta.o" "entry.o" "path.o" "epoch.o" "refs.o" "csum-file.o" "pack-check.o" "pkt-line.o" "connect.o")) nil [2215 2421])
+            ("LIB_FILE" variable (:default-value ("libgit.a")) nil [2421 2439])
+            ("LIB_H" variable (:default-value ("cache.h" "object.h" "blob.h" "tree.h" "commit.h" "tag.h" "delta.h" "epoch.h" "csum-file.h" "pack.h" "pkt-line.h" "refs.h")) nil [2439 2547])
+            ("LIB_H" variable (:default-value ("strbuf.h")) nil [2548 2566])
+            ("LIB_OBJS" variable (:default-value ("strbuf.o")) nil [2566 2587])
+            ("LIB_H" variable (:default-value ("quote.h")) nil [2588 2605])
+            ("LIB_OBJS" variable (:default-value ("quote.o")) nil [2605 2626])
+            ("LIB_H" variable (:default-value ("diff.h" "count-delta.h")) nil [2627 2657])
+            ("LIB_OBJS" variable (:default-value ("diff.o" "diffcore-rename.o" "diffcore-pickaxe.o" "diffcore-pathspec.o" "count-delta.o" "diffcore-break.o" "diffcore-order.o")) nil [2657 2784])
+            ("LIB_OBJS" variable (:default-value ("gitenv.o")) nil [2785 2806])
+            ("LIBS" variable (:default-value ("$(LIB_FILE)")) nil [2807 2826])
+            ("LIBS" variable (:default-value ("-lz")) nil [2826 2838])
+            ("CFLAGS" variable (:default-value ("'-DSHA1_HEADER=$(SHA1_HEADER)'")) nil [3081 3122])
+            ("$(LIB_FILE)" function (:arguments ("$(LIB_OBJS)")) nil [3123 3174])
+            ("check" function nil nil [3175 3243])
+            ("test-date" function (:arguments ("test-date.c" "date.o")) nil [3244 3316])
+            ("test-delta" function (:arguments ("test-delta.c" "diff-delta.o" "patch-delta.o")) nil [3317 3395])
+            ("git-%" function (:arguments ("%.c" "$(LIB_FILE)")) nil [3396 3467])
+            ("git-update-cache" function (:arguments ("update-cache.c")) nil [3468 3501])
+            ("git-diff-files" function (:arguments ("diff-files.c")) nil [3501 3530])
+            ("git-init-db" function (:arguments ("init-db.c")) nil [3530 3553])
+            ("git-write-tree" function (:arguments ("write-tree.c")) nil [3553 3582])
+            ("git-read-tree" function (:arguments ("read-tree.c")) nil [3582 3609])
+            ("git-commit-tree" function (:arguments ("commit-tree.c")) nil [3609 3640])
+            ("git-cat-file" function (:arguments ("cat-file.c")) nil [3640 3665])
+            ("git-fsck-cache" function (:arguments ("fsck-cache.c")) nil [3665 3694])
+            ("git-checkout-cache" function (:arguments ("checkout-cache.c")) nil [3694 3731])
+            ("git-diff-tree" function (:arguments ("diff-tree.c")) nil [3731 3758])
+            ("git-rev-tree" function (:arguments ("rev-tree.c")) nil [3758 3783])
+            ("git-ls-files" function (:arguments ("ls-files.c")) nil [3783 3808])
+            ("git-check-files" function (:arguments ("check-files.c")) nil [3808 3839])
+            ("git-ls-tree" function (:arguments ("ls-tree.c")) nil [3839 3862])
+            ("git-merge-base" function (:arguments ("merge-base.c")) nil [3862 3891])
+            ("git-merge-cache" function (:arguments ("merge-cache.c")) nil [3891 3922])
+            ("git-unpack-file" function (:arguments ("unpack-file.c")) nil [3922 3953])
+            ("git-export" function (:arguments ("export.c")) nil [3953 3974])
+            ("git-diff-cache" function (:arguments ("diff-cache.c")) nil [3974 4003])
+            ("git-convert-cache" function (:arguments ("convert-cache.c")) nil [4003 4038])
+            ("git-http-pull" function (:arguments ("http-pull.c" "pull.c")) nil [4038 4072])
+            ("git-local-pull" function (:arguments ("local-pull.c" "pull.c")) nil [4072 4108])
+            ("git-ssh-push" function (:arguments ("rsh.c")) nil [4108 4128])
+            ("git-ssh-pull" function (:arguments ("rsh.c" "pull.c")) nil [4128 4155])
+            ("git-rev-list" function (:arguments ("rev-list.c")) nil [4155 4180])
+            ("git-mktag" function (:arguments ("mktag.c")) nil [4180 4199])
+            ("git-diff-helper" function (:arguments ("diff-helper.c")) nil [4199 4230])
+            ("git-tar-tree" function (:arguments ("tar-tree.c")) nil [4230 4255])
+            ("git-hash-object" function (:arguments ("hash-object.c")) nil [4255 4286])
+            ("git-stripspace" function (:arguments ("stripspace.c")) nil [4286 4315])
+            ("git-diff-stages" function (:arguments ("diff-stages.c")) nil [4315 4346])
+            ("git-rev-parse" function (:arguments ("rev-parse.c")) nil [4346 4373])
+            ("git-patch-id" function (:arguments ("patch-id.c")) nil [4373 4398])
+            ("git-pack-objects" function (:arguments ("pack-objects.c")) nil [4398 4431])
+            ("git-unpack-objects" function (:arguments ("unpack-objects.c")) nil [4431 4468])
+            ("git-verify-pack" function (:arguments ("verify-pack.c")) nil [4468 4499])
+            ("git-receive-pack" function (:arguments ("receive-pack.c")) nil [4499 4532])
+            ("git-send-pack" function (:arguments ("send-pack.c")) nil [4532 4559])
+            ("git-prune-packed" function (:arguments ("prune-packed.c")) nil [4559 4592])
+            ("git-fetch-pack" function (:arguments ("fetch-pack.c")) nil [4592 4621])
+            ("git-http-pull" function (:arguments ("LIBS" "+=" "-lcurl")) nil [4622 4652])
+            ("git-rev-list" function (:arguments ("LIBS" "+=" "-lssl")) nil [4652 4680])
+            ("blob.o" function (:arguments ("$(LIB_H)")) nil [4701 4718])
+            ("tree.o" function (:arguments ("$(LIB_H)")) nil [4718 4735])
+            ("commit.o" function (:arguments ("$(LIB_H)")) nil [4735 4754])
+            ("tag.o" function (:arguments ("$(LIB_H)")) nil [4754 4770])
+            ("object.o" function (:arguments ("$(LIB_H)")) nil [4770 4789])
+            ("read-cache.o" function (:arguments ("$(LIB_H)")) nil [4789 4812])
+            ("sha1_file.o" function (:arguments ("$(LIB_H)")) nil [4812 4834])
+            ("usage.o" function (:arguments ("$(LIB_H)")) nil [4834 4852])
+            ("strbuf.o" function (:arguments ("$(LIB_H)")) nil [4852 4871])
+            ("gitenv.o" function (:arguments ("$(LIB_H)")) nil [4871 4890])
+            ("entry.o" function (:arguments ("$(LIB_H)")) nil [4890 4908])
+            ("diff.o" function (:arguments ("$(LIB_H)" "diffcore.h")) nil [4908 4936])
+            ("diffcore-rename.o" function (:arguments ("$(LIB_H)" "diffcore.h")) nil [4936 4976])
+            ("diffcore-pathspec.o" function (:arguments ("$(LIB_H)" "diffcore.h")) nil [4976 5018])
+            ("diffcore-pickaxe.o" function (:arguments ("$(LIB_H)" "diffcore.h")) nil [5018 5059])
+            ("diffcore-break.o" function (:arguments ("$(LIB_H)" "diffcore.h")) nil [5059 5098])
+            ("diffcore-order.o" function (:arguments ("$(LIB_H)" "diffcore.h")) nil [5098 5137])
+            ("epoch.o" function (:arguments ("$(LIB_H)")) nil [5137 5155])
+            ("git.spec" function (:arguments ("git.spec.in")) nil [5156 5229])
+            ("GIT_TARNAME" variable (:default-value ("git-$(GIT_VERSION)")) nil [5230 5261])
+            ("dist" function (:arguments ("git.spec")) nil [5261 5489])
+            ("rpm" function (:arguments ("dist")) nil [5490 5540])
+            ("test" function (:arguments ("all")) nil [5541 5570])
+            ("clean" function nil nil [5571 5667])
+            ("backup" function (:arguments ("clean")) nil [5668 5726]))          
+    :file "Makefile"
+    :pointmax 5726
+    :fsize 957
+    :lastmodtime '(21624 26985 683664 474000)
+    :unmatched-syntax '((shell-command 5683 . 5725) (bol 5682 . 5682) (symbol 3059 . 3067) (punctuation 3057 . 3058) (punctuation 3056 . 3057) (symbol 3051 . 3055) (bol 3049 . 3049) (symbol 3033 . 3048) (punctuation 3032 . 3033) (symbol 3021 . 3032) (bol 3019 . 3019) (symbol 3000 . 3013) (symbol 2989 . 2999) (punctuation 2987 . 2988) (punctuation 2986 . 2987) (symbol 2977 . 2985) (bol 2975 . 2975) (string 2962 . 2974) (punctuation 2961 . 2962) (symbol 2950 . 2961) (bol 2948 . 2948) (symbol 2908 . 2927) (punctuation 2906 . 2907) (punctuation 2905 . 2906) (symbol 2896 . 2904) (bol 2894 . 2894) (string 2872 . 2893) (punctuation 2871 . 2872) (symbol 2860 . 2871) (bol 2858 . 2858))
+    )
+   (semanticdb-table "init-db.c"
+    :major-mode 'c-mode
+    :tags 
+        '( ("cache.h" include nil nil [1 19])
+            ("main" function
+               (:arguments 
+                  ( ("argc" variable (:type "int") (reparse-symbol arg-sub-list) [30 39])
+                    ("argv" variable
+                       (:pointer 2
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [40 52]))                  
+                :type "int")
+                nil [21 1198]))          
+    :file "init-db.c"
+    :pointmax 1199
+    :fsize 1198
+    :lastmodtime '(21624 26985 685664 425000)
+    :unmatched-syntax 'nil
+    )
+   )
+  :file "!home!chz!Projects!CWork!git!git-github!semantic.cache"
+  :semantic-tag-version "2.0"
+  :semanticdb-version "2.2"
+  )

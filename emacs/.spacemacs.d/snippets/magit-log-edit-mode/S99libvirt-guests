@@ -1,0 +1,2919 @@
+;; Object src/
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "src/"
+  :tables (list 
+   (semanticdb-table "vifm.c"
+    :major-mode 'c-mode
+    :tags 
+        '( ("VERSION" variable (:constant-flag t) nil [771 778])
+            ("../config.h" include nil nil [786 808])
+            ("ncurses.h" include (:system-flag t) nil [888 908])
+            ("unistd.h" include (:system-flag t) nil [909 928])
+            ("string.h" include (:system-flag t) nil [953 972])
+            ("sys/stat.h" include (:system-flag t) nil [987 1008])
+            ("unistd.h" include (:system-flag t) nil [1020 1039])
+            ("locale.h" include (:system-flag t) nil [1051 1070])
+            ("bookmarks.h" include nil nil [1088 1110])
+            ("color_scheme.h" include nil nil [1111 1136])
+            ("commands.h" include nil nil [1137 1158])
+            ("config.h" include nil nil [1159 1178])
+            ("filelist.h" include nil nil [1179 1200])
+            ("filetype.h" include nil nil [1201 1222])
+            ("main_loop.h" include nil nil [1223 1245])
+            ("modes.h" include nil nil [1246 1264])
+            ("registers.h" include nil nil [1265 1287])
+            ("signals.h" include nil nil [1288 1308])
+            ("status.h" include nil nil [1309 1328])
+            ("ui.h" include nil nil [1329 1344])
+            ("utils.h" include nil nil [1345 1363])
+            ("show_help_msg" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [1391 1396]))                  
+                :type "void")
+                nil [1365 1884])
+            ("init_window" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("win" variable
+                       (:pointer 1
+                        :type ("FileView" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [1910 1924]))                  
+                :type "void")
+                nil [1886 2130])
+            ("init_window_history" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("win" variable
+                       (:pointer 1
+                        :type ("FileView" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [2164 2178]))                  
+                :type "void")
+                nil [2132 2397])
+            ("load_initial_directory" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("view" variable
+                       (:pointer 1
+                        :type ("FileView" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [2434 2449])
+                    ("dir" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [2450 2466]))                  
+                :type "void")
+                nil [2399 2895])
+            ("main" function
+               (:arguments 
+                  ( ("argc" variable (:type "int") (reparse-symbol arg-sub-list) [2906 2915])
+                    ("argv" variable
+                       (:pointer 1
+                        :dereference 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [2916 2929]))                  
+                :type "int")
+                nil [2897 6000]))          
+    :file "vifm.c"
+    :pointmax 6068
+    :fsize 6067
+    :lastmodtime '(21556 7830 296565 115000)
+    :unmatched-syntax 'nil
+    :lexical-table 
+        '(("VERSION" . ((string "\"0.6\"" 779 . 784)))
+          )
+
+    )
+   (semanticdb-table "Makefile.am"
+    :major-mode 'makefile-automake-mode
+    :tags 
+        '( ("pkgdata_DATA" variable (:default-value ("startup" "vifmrc" "vifm-help.txt" "vifm.txt" "vifm.vim")) nil [60 162])
+            ("bin_PROGRAMS" variable (:default-value ("vifm")) nil [163 183])
+            ("bin_SCRIPTS" variable (:default-value ("pauseme")) nil [184 206])
+            ("man_MANS" variable (:default-value ("vifm.1")) nil [207 225])
+            ("vifm_SOURCES" variable (:default-value ("background.c" "background.h" "bookmarks.c" "bookmarks.h" "cmdline.c" "cmdline.h" "color_scheme.c" "colorscheme.h" "commands.c" "commands.h" "config.c" "config.h" "dir_stack.c" "dir_stack.h" "file_info.c" "file_info.h" "file_magic.c" "file_magic.h" "filelist.c" "filelist.h" "fileops.c" "fileops.h" "filetype.c" "filetype.h" "keys.c" "keys.h" "main_loop.c" "main_loop.h" "menu.c" "menu.h" "menus.c" "menus.h" "modes.c" "modes.h" "normal.c" "normal.h" "permissions_dialog.c" "permissions_dialog.h" "registers.c" "registers.h" "search.c" "search.h" "signals.c" "signals.h" "sort.c" "sort.h" "sort_dialog.c" "sort_dialog.h" "status.c" "status.h" "ui.c" "ui.h" "utils.c" "utils.h" "vifm.c" "visual.c" "visual.h")) nil [226 922]))          
+    :file "Makefile.am"
+    :pointmax 985
+    :fsize 984
+    :lastmodtime '(21556 7830 268565 803000)
+    :unmatched-syntax 'nil
+    )
+   (semanticdb-table "menus.c"
+    :major-mode 'c-mode
+    :tags 
+        '( ("sys/types.h" include (:system-flag t) nil [763 785])
+            ("regex.h" include (:system-flag t) nil [786 804])
+            ("ctype.h" include (:system-flag t) nil [805 823])
+            ("string.h" include (:system-flag t) nil [840 859])
+            ("unistd.h" include (:system-flag t) nil [875 894])
+            ("termios.h" include (:system-flag t) nil [910 930])
+            ("sys/ioctl.h" include (:system-flag t) nil [952 974])
+            ("signal.h" include (:system-flag t) nil [975 994])
+            ("../config.h" include nil nil [996 1018])
+            ("background.h" include nil nil [1020 1043])
+            ("bookmarks.h" include nil nil [1044 1066])
+            ("cmdline.h" include nil nil [1067 1087])
+            ("color_scheme.h" include nil nil [1088 1113])
+            ("commands.h" include nil nil [1114 1135])
+            ("config.h" include nil nil [1136 1155])
+            ("file_magic.h" include nil nil [1156 1179])
+            ("filelist.h" include nil nil [1180 1201])
+            ("fileops.h" include nil nil [1202 1222])
+            ("filetype.h" include nil nil [1223 1244])
+            ("menu.h" include nil nil [1245 1262])
+            ("registers.h" include nil nil [1263 1285])
+            ("status.h" include nil nil [1286 1305])
+            ("ui.h" include nil nil [1306 1321])
+            ("utils.h" include nil nil [1322 1340])
+            ("show_position_in_menu" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("m" variable
+                       (:pointer 1
+                        :type ("menu_info" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [1376 1389]))                  
+                :type "void")
+                nil [1342 1574])
+            ("clean_menu_position" function
+               (:arguments 
+                  ( ("m" variable
+                       (:pointer 1
+                        :type ("menu_info" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [1601 1614]))                  
+                :type "void")
+                nil [1576 2111])
+            ("show_error_msg" function
+               (:arguments 
+                  ( ("title" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [2133 2145])
+                    ("message" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [2146 2160]))                  
+                :type "void")
+                nil [2113 3096])
+            ("reset_popup_menu" function
+               (:arguments 
+                  ( ("m" variable
+                       (:pointer 1
+                        :type ("menu_info" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [3120 3133]))                  
+                :type "void")
+                nil [3098 3289])
+            ("setup_menu" function
+               (:arguments 
+                  ( ("view" variable
+                       (:pointer 1
+                        :type ("FileView" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [3307 3322]))                  
+                :type "void")
+                nil [3291 3469])
+            ("init_active_bookmarks" function
+               (:arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [3498 3503]))                  
+                :type "void")
+                nil [3471 3622])
+            ("moveto_menu_pos" function
+               (:arguments 
+                  ( ("view" variable
+                       (:pointer 1
+                        :type ("FileView" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [3645 3660])
+                    ("pos" variable (:type "int") (reparse-symbol arg-sub-list) [3661 3669])
+                    ("m" variable
+                       (:pointer 1
+                        :type ("menu_info" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [3671 3684]))                  
+                :type "void")
+                nil [3624 4741])
+            ("redraw_menu" function
+               (:arguments 
+                  ( ("view" variable
+                       (:pointer 1
+                        :type ("FileView" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [4760 4775])
+                    ("m" variable
+                       (:pointer 1
+                        :type ("menu_info" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [4776 4789]))                  
+                :type "void")
+                nil [4743 5455])
+            ("search_menu_forwards" function
+               (:arguments 
+                  ( ("view" variable
+                       (:pointer 1
+                        :type ("FileView" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [5482 5497])
+                    ("m" variable
+                       (:pointer 1
+                        :type ("menu_info" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [5498 5511])
+                    ("start_pos" variable (:type "int") (reparse-symbol arg-sub-list) [5512 5526]))                  
+                :type "int")
+                nil [5457 6508])
+            ("search_menu_backwards" function
+               (:arguments 
+                  ( ("view" variable
+                       (:pointer 1
+                        :type ("FileView" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [6536 6551])
+                    ("m" variable
+                       (:pointer 1
+                        :type ("menu_info" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [6552 6565])
+                    ("start_pos" variable (:type "int") (reparse-symbol arg-sub-list) [6566 6580]))                  
+                :type "int")
+                nil [6510 7567])
+            ("search_menu_list" function
+               (:arguments 
+                  ( ("view" variable
+                       (:pointer 1
+                        :type ("FileView" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [7590 7605])
+                    ("pattern" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [7606 7621])
+                    ("m" variable
+                       (:pointer 1
+                        :type ("menu_info" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [7622 7635]))                  
+                :type "int")
+                nil [7569 7985])
+            ("execute_jobs_cb" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("view" variable
+                       (:pointer 1
+                        :type ("FileView" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [8015 8030])
+                    ("m" variable
+                       (:pointer 1
+                        :type ("menu_info" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [8031 8044]))                  
+                :type "void")
+                nil [7987 8049])
+            ("execute_apropos_cb" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("view" variable
+                       (:pointer 1
+                        :type ("FileView" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [8082 8097])
+                    ("m" variable
+                       (:pointer 1
+                        :type ("menu_info" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [8098 8111]))                  
+                :type "void")
+                nil [8051 8632])
+            ("execute_locate_cb" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("view" variable
+                       (:pointer 1
+                        :type ("FileView" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [8664 8679])
+                    ("m" variable
+                       (:pointer 1
+                        :type ("menu_info" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [8680 8693]))                  
+                :type "void")
+                nil [8634 9522])
+            ("execute_filetype" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("cmd" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [9553 9563])
+                    ("background" variable (:type "int") (reparse-symbol arg-sub-list) [9564 9579]))                  
+                :type "void")
+                nil [9524 9655])
+            ("execute_filetype_cb" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("view" variable
+                       (:pointer 1
+                        :type ("FileView" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [9689 9704])
+                    ("m" variable
+                       (:pointer 1
+                        :type ("menu_info" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [9705 9718]))                  
+                :type "void")
+                nil [9657 11500])
+            ("execute_menu_cb" function
+               (:arguments 
+                  ( ("view" variable
+                       (:pointer 1
+                        :type ("FileView" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [11523 11538])
+                    ("m" variable
+                       (:pointer 1
+                        :type ("menu_info" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [11539 11552]))                  
+                :type "void")
+                nil [11502 12094])
+            ("reload_bookmarks_menu_list" function
+               (:arguments 
+                  ( ("m" variable
+                       (:pointer 1
+                        :type ("menu_info" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [12128 12141]))                  
+                :type "void")
+                nil [12096 12980])
+            ("reload_command_menu_list" function
+               (:arguments 
+                  ( ("m" variable
+                       (:pointer 1
+                        :type ("menu_info" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [13012 13025]))                  
+                :type "void")
+                nil [12982 13655])
+            ("draw_menu" function
+               (:arguments 
+                  ( ("view" variable
+                       (:pointer 1
+                        :type ("FileView" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [13672 13687])
+                    ("m" variable
+                       (:pointer 1
+                        :type ("menu_info" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [13689 13702]))                  
+                :type "void")
+                nil [13657 14229])
+            ("show_apropos_menu" function
+               (:arguments 
+                  ( ("view" variable
+                       (:pointer 1
+                        :type ("FileView" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [14254 14269])
+                    ("args" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [14270 14281]))                  
+                :type "void")
+                nil [14231 15460])
+            ("show_bookmarks_menu" function
+               (:arguments 
+                  ( ("view" variable
+                       (:pointer 1
+                        :type ("FileView" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [15487 15502]))                  
+                :type "void")
+                nil [15462 16709])
+            ("show_commands_menu" function
+               (:arguments 
+                  ( ("view" variable
+                       (:pointer 1
+                        :type ("FileView" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [16735 16750]))                  
+                :type "void")
+                nil [16711 17911])
+            ("show_filetypes_menu" function
+               (:arguments 
+                  ( ("view" variable
+                       (:pointer 1
+                        :type ("FileView" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [17938 17953])
+                    ("force_mime" variable (:type "int") (reparse-symbol arg-sub-list) [17954 17969])
+                    ("background" variable (:type "int") (reparse-symbol arg-sub-list) [17970 17985]))                  
+                :type "void")
+                nil [17913 19545])
+            ("show_history_menu" function
+               (:arguments 
+                  ( ("view" variable
+                       (:pointer 1
+                        :type ("FileView" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [19570 19585]))                  
+                :type "void")
+                nil [19547 20720])
+            ("show_locate_menu" function
+               (:arguments 
+                  ( ("view" variable
+                       (:pointer 1
+                        :type ("FileView" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [20744 20759])
+                    ("args" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [20760 20771]))                  
+                :type "void")
+                nil [20722 21869])
+            ("show_user_menu" function
+               (:arguments 
+                  ( ("view" variable
+                       (:pointer 1
+                        :type ("FileView" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [21891 21906])
+                    ("command" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [21907 21921]))                  
+                :type "void")
+                nil [21871 23218])
+            ("show_jobs_menu" function
+               (:arguments 
+                  ( ("view" variable
+                       (:pointer 1
+                        :type ("FileView" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [23240 23255]))                  
+                :type "void")
+                nil [23220 24895])
+            ("show_register_menu" function
+               (:arguments 
+                  ( ("view" variable
+                       (:pointer 1
+                        :type ("FileView" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [24921 24936]))                  
+                :type "void")
+                nil [24897 25916])
+            ("show_vifm_menu" function
+               (:arguments 
+                  ( ("view" variable
+                       (:pointer 1
+                        :type ("FileView" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [25938 25953]))                  
+                :type "void")
+                nil [25918 26323])
+            ("query_user_menu" function
+               (:arguments 
+                  ( ("title" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [26345 26357])
+                    ("message" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [26358 26372]))                  
+                :type "int")
+                nil [26325 27206]))          
+    :file "menus.c"
+    :pointmax 27274
+    :fsize 27273
+    :lastmodtime '(21556 7830 286565 360000)
+    :unmatched-syntax 'nil
+    )
+   (semanticdb-table "config.h"
+    :major-mode 'c-mode
+    :tags 
+        '( ("__CONFIG_H__" variable (:constant-flag t) nil [792 804])
+            ("limits.h" include (:system-flag t) nil [806 825])
+            ("ncurses.h" include (:system-flag t) nil [826 846])
+            ("KEYPRESS_TIMEOUT" variable (:constant-flag t) nil [856 872])
+            ("Config" type
+               (:typedef ("_Config" type (:type "struct") nil nil)
+                :superclasses "_Config"
+                :type "typedef")
+                nil [894 1511])
+            ("_Config" type
+               (:members 
+                  ( ("config_dir" variable
+                       (:dereference 1
+                        :type "char")
+                        (reparse-symbol classsubparts) [920 946])
+                    ("trash_dir" variable
+                       (:dereference 1
+                        :type "char")
+                        (reparse-symbol classsubparts) [948 973])
+                    ("vi_command" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol classsubparts) [975 992])
+                    ("num_bookmarks" variable (:type "int") (reparse-symbol classsubparts) [994 1012])
+                    ("use_trash" variable (:type "int") (reparse-symbol classsubparts) [1014 1028])
+                    ("vim_filter" variable (:type "int") (reparse-symbol classsubparts) [1030 1045])
+                    ("use_screen" variable (:type "int") (reparse-symbol classsubparts) [1047 1062])
+                    ("use_vim_help" variable (:type "int") (reparse-symbol classsubparts) [1064 1081])
+                    ("command_num" variable (:type "int") (reparse-symbol classsubparts) [1083 1099])
+                    ("filetypes_num" variable (:type "int") (reparse-symbol classsubparts) [1101 1119])
+                    ("history_len" variable (:type "int") (reparse-symbol classsubparts) [1121 1137])
+                    ("nmapped_num" variable (:type "int") (reparse-symbol classsubparts) [1139 1155])
+                    ("screen_num" variable (:type "int") (reparse-symbol classsubparts) [1157 1172])
+                    ("search_history" variable
+                       (:pointer 2
+                        :type "char")
+                        (reparse-symbol classsubparts) [1174 1196])
+                    ("search_history_len" variable (:type "int") (reparse-symbol classsubparts) [1198 1221])
+                    ("search_history_num" variable (:type "int") (reparse-symbol classsubparts) [1223 1246])
+                    ("cmd_history" variable
+                       (:pointer 2
+                        :type "char")
+                        (reparse-symbol classsubparts) [1248 1267])
+                    ("cmd_history_len" variable (:type "int") (reparse-symbol classsubparts) [1269 1289])
+                    ("cmd_history_num" variable (:type "int") (reparse-symbol classsubparts) [1291 1311])
+                    ("auto_execute" variable (:type "int") (reparse-symbol classsubparts) [1313 1330])
+                    ("color_scheme_num" variable (:type "int") (reparse-symbol classsubparts) [1332 1353])
+                    ("color_pairs_num" variable (:type "int") (reparse-symbol classsubparts) [1355 1375])
+                    ("show_one_window" variable (:type "int") (reparse-symbol classsubparts) [1377 1397])
+                    ("max_args" variable (:type "long") (reparse-symbol classsubparts) [1399 1413])
+                    ("using_default_config" variable (:type "int") (reparse-symbol classsubparts) [1415 1440])
+                    ("use_iec_prefixes" variable (:type "int") (reparse-symbol classsubparts) [1442 1463])
+                    ("time_format" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol classsubparts) [1465 1483])
+                    ("fuse_home" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol classsubparts) [1485 1501]))                  
+                :type "struct")
+                nil [894 1511])
+            ("cfg" variable
+               (:typemodifiers ("extern")
+                :type ("Config" type (:type "class") nil nil))
+                nil [1513 1531])
+            ("read_config_file" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [1554 1559]))                  
+                :type "int")
+                nil [1533 1560])
+            ("write_config_file" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [1584 1589]))                  
+                :type "void")
+                nil [1561 1590])
+            ("set_config_dir" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [1611 1616]))                  
+                :type "void")
+                nil [1591 1617])
+            ("init_config" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [1635 1640]))                  
+                :type "void")
+                nil [1618 1641])
+            ("exec_startup" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [1660 1665]))                  
+                :type "void")
+                nil [1642 1666]))          
+    :file "config.h"
+    :pointmax 1742
+    :fsize 1741
+    :lastmodtime '(21556 7830 277565 581000)
+    :unmatched-syntax 'nil
+    :lexical-table 
+        '(("__CONFIG_H__")
+          ("KEYPRESS_TIMEOUT" . ((number "1000" 873 . 877)))
+          )
+
+    )
+   (semanticdb-table "background.h"
+    :major-mode 'c-mode
+    :tags 
+        '( ("__BACKGROUND_H__" variable (:constant-flag t) nil [796 812])
+            ("sys/types.h" include (:system-flag t) nil [814 836])
+            ("Jobs_List" type
+               (:typedef ("Jobs_List" type (:type "struct") nil nil)
+                :superclasses "Jobs_List"
+                :type "typedef")
+                nil [838 967])
+            ("Jobs_List" type
+               (:members 
+                  ( ("fd" variable (:type "int") (reparse-symbol classsubparts) [866 873])
+                    ("pid" variable (:type ("pid_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [875 885])
+                    ("cmd" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol classsubparts) [887 897])
+                    ("error_buf" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol classsubparts) [899 915])
+                    ("running" variable (:type "int") (reparse-symbol classsubparts) [917 929])
+                    ("next" variable
+                       (:pointer 1
+                        :type ("Jobs_List" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol classsubparts) [931 954]))                  
+                :type "struct")
+                nil [838 967])
+            ("Finished_Jobs" type
+               (:typedef ("Finished_Jobs" type (:type "struct") nil nil)
+                :superclasses "Finished_Jobs"
+                :type "typedef")
+                nil [969 1070])
+            ("Finished_Jobs" type
+               (:members 
+                  ( ("pid" variable (:type ("pid_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [1001 1011])
+                    ("remove" variable (:type "int") (reparse-symbol classsubparts) [1013 1024])
+                    ("next" variable
+                       (:pointer 1
+                        :type ("Finished_Jobs" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol classsubparts) [1026 1053]))                  
+                :type "struct")
+                nil [969 1070])
+            ("jobs" variable
+               (:pointer 1
+                :typemodifiers ("extern")
+                :type ("Jobs_List" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [1072 1102])
+            ("fjobs" variable
+               (:pointer 1
+                :typemodifiers ("extern")
+                :type ("Finished_Jobs" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [1103 1138])
+            ("start_background_job" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("cmd" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [1165 1175]))                  
+                :type "int")
+                nil [1140 1176])
+            ("background_and_wait_for_errors" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("cmd" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [1212 1222]))                  
+                :type "int")
+                nil [1177 1223])
+            ("background_and_wait_for_status" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("cmd" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [1259 1269]))                  
+                :type "int")
+                nil [1224 1270])
+            ("add_finished_job" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("pid" variable (:type ("pid_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [1293 1303])
+                    ("status" variable (:type "int") (reparse-symbol arg-sub-list) [1304 1315]))                  
+                :type "void")
+                nil [1271 1316])
+            ("check_background_jobs" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [1344 1349]))                  
+                :type "void")
+                nil [1317 1350])
+            ("update_jobs_list" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [1373 1378]))                  
+                :type "void")
+                nil [1351 1379]))          
+    :file "background.h"
+    :pointmax 1455
+    :fsize 1454
+    :lastmodtime '(21556 7830 271565 729000)
+    :unmatched-syntax 'nil
+    :lexical-table 
+        '(("__BACKGROUND_H__")
+          )
+
+    )
+   (semanticdb-table "bookmarks.h"
+    :major-mode 'c-mode
+    :tags 
+        '( ("__BOOKMARKS_H__" variable (:constant-flag t) nil [795 810])
+            ("ui.h" include nil nil [812 827])
+            ("NUM_BOOKMARKS" variable (:constant-flag t) nil [837 850])
+            ("bookmarks_t" type
+               (:typedef ("" type
+                     (:members 
+                        ( ("file" variable
+                             (:pointer 1
+                              :type "char")
+                              (reparse-symbol classsubparts) [1252 1263])
+                          ("directory" variable
+                             (:pointer 1
+                              :type "char")
+                              (reparse-symbol classsubparts) [1265 1281]))                        
+                      :type "struct")
+                      nil nil)
+                :type "typedef")
+                nil [855 1296])
+            ("bookmarks" variable
+               (:dereference 1
+                :type ("bookmarks_t" type (:type "class") nil nil))
+                nil [1298 1335])
+            ("active_bookmarks" variable
+               (:dereference 1
+                :type "int")
+                nil [1415 1451])
+            ("init_bookmarks" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [1473 1478]))                  
+                :type "void")
+                nil [1453 1479])
+            ("index2mark" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("x" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol arg-sub-list) [1496 1508]))                  
+                :type "char")
+                nil [1480 1509])
+            ("is_bookmark" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("x" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol arg-sub-list) [1526 1538]))                  
+                :type "int")
+                nil [1510 1539])
+            ("add_bookmark" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("mark" variable
+                       (:constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [1558 1574])
+                    ("directory" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [1575 1597])
+                    ("file" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [1598 1615]))                  
+                :type "void")
+                nil [1540 1616])
+            ("get_bookmark" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("view" variable
+                       (:pointer 1
+                        :type ("FileView" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [1634 1649])
+                    ("key" variable (:type "char") (reparse-symbol arg-sub-list) [1650 1659]))                  
+                :type "int")
+                nil [1617 1660])
+            ("move_to_bookmark" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("view" variable
+                       (:pointer 1
+                        :type ("FileView" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [1682 1697])
+                    ("mark" variable
+                       (:constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [1698 1714]))                  
+                :type "int")
+                nil [1661 1715])
+            ("remove_bookmark" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("x" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol arg-sub-list) [1737 1749]))                  
+                :type "void")
+                nil [1716 1750])
+            ("check_mark_directory" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("view" variable
+                       (:pointer 1
+                        :type ("FileView" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [1776 1791])
+                    ("mark" variable (:type "char") (reparse-symbol arg-sub-list) [1792 1802]))                  
+                :type "int")
+                nil [1751 1803]))          
+    :file "bookmarks.h"
+    :pointmax 1879
+    :fsize 1878
+    :lastmodtime '(21556 7830 272565 704000)
+    :unmatched-syntax 'nil
+    :lexical-table 
+        '(("NUM_BOOKMARKS" . ((number "62" 851 . 853)))
+          ("__BOOKMARKS_H__")
+          )
+
+    )
+   (semanticdb-table "cmdline.h"
+    :major-mode 'c-mode
+    :tags 
+        '( ("__CMDLINE_H__" variable (:constant-flag t) nil [793 806])
+            ("wchar.h" include (:system-flag t) nil [808 826])
+            ("CmdLineSubModes" type
+               (:members 
+                  ( ("CMD_SUBMODE" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [852 864])
+                    ("MENU_CMD_SUBMODE" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [866 883])
+                    ("SEARCH_FORWARD_SUBMODE" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [885 908])
+                    ("SEARCH_BACKWARD_SUBMODE" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [910 934])
+                    ("MENU_SEARCH_FORWARD_SUBMODE" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [936 964])
+                    ("MENU_SEARCH_BACKWARD_SUBMODE" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [966 995])
+                    ("PROMPT_SUBMODE" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [997 1012]))                  
+                :type "enum")
+                nil [828 1015])
+            ("prompt_cb" variable
+               (:functionpointer-flag t
+                :type "void")
+                nil [1025 1065])
+            ("init_cmdline_mode" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("key_mode" variable
+                       (:pointer 1
+                        :type "int")
+                        (reparse-symbol arg-sub-list) [1090 1104]))                  
+                :type "void")
+                nil [1067 1105])
+            ("enter_cmdline_mode" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("cl_sub_mode" variable (:type ("CmdLineSubModes" type (:type "enum") nil nil)) (reparse-symbol arg-sub-list) [1130 1163])
+                    ("cmd" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "wchar_t")
+                        (reparse-symbol arg-sub-list) [1164 1183])
+                    ("ptr" variable
+                       (:pointer 1
+                        :type "void")
+                        (reparse-symbol arg-sub-list) [1186 1196]))                  
+                :type "void")
+                nil [1106 1197])
+            ("enter_prompt_mode" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("prompt" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "wchar_t")
+                        (reparse-symbol arg-sub-list) [1221 1243])
+                    ("cmd" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [1244 1260])
+                    ("cb" variable (:type ("prompt_cb" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [1261 1274]))                  
+                :type "void")
+                nil [1198 1275])
+            ("redraw_cmdline" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [1296 1301]))                  
+                :type "void")
+                nil [1276 1302]))          
+    :file "cmdline.h"
+    :pointmax 1378
+    :fsize 1377
+    :lastmodtime '(21556 7830 274565 655000)
+    :unmatched-syntax '((TYPEDEF 1017 . 1024))
+    :lexical-table 
+        '(("__CMDLINE_H__")
+          )
+
+    )
+   (semanticdb-table "color_scheme.h"
+    :major-mode 'c-mode
+    :tags 
+        '( ("__COLOR_SCHEME_H__" variable (:constant-flag t) nil [798 816])
+            ("limits.h" include (:system-flag t) nil [818 837])
+            ("MAXNUM_COLOR" variable (:constant-flag t) nil [846 858])
+            ("MENU_COLOR" variable (:constant-flag t) nil [871 881])
+            ("BORDER_COLOR" variable (:constant-flag t) nil [892 904])
+            ("WIN_COLOR" variable (:constant-flag t) nil [915 924])
+            ("STATUS_BAR_COLOR" variable (:constant-flag t) nil [935 951])
+            ("CURR_LINE_COLOR" variable (:constant-flag t) nil [962 977])
+            ("DIRECTORY_COLOR" variable (:constant-flag t) nil [988 1003])
+            ("LINK_COLOR" variable (:constant-flag t) nil [1014 1024])
+            ("SOCKET_COLOR" variable (:constant-flag t) nil [1035 1047])
+            ("DEVICE_COLOR" variable (:constant-flag t) nil [1058 1070])
+            ("EXECUTABLE_COLOR" variable (:constant-flag t) nil [1081 1097])
+            ("SELECTED_COLOR" variable (:constant-flag t) nil [1108 1122])
+            ("CURRENT_COLOR" variable (:constant-flag t) nil [1134 1147])
+            ("Col_attr" type
+               (:typedef ("_Col_attr" type (:type "struct") nil nil)
+                :superclasses "_Col_attr"
+                :type "typedef")
+                nil [1152 1219])
+            ("_Col_attr" type
+               (:members 
+                  ( ("name" variable (:type "int") (reparse-symbol classsubparts) [1180 1189])
+                    ("fg" variable (:type "int") (reparse-symbol classsubparts) [1191 1198])
+                    ("bg" variable (:type "int") (reparse-symbol classsubparts) [1200 1207]))                  
+                :type "struct")
+                nil [1152 1219])
+            ("Col_scheme" type
+               (:typedef ("_Col_Scheme" type (:type "struct") nil nil)
+                :superclasses "_Col_Scheme"
+                :type "typedef")
+                nil [1222 1328])
+            ("_Col_Scheme" type
+               (:members 
+                  ( ("name" variable
+                       (:dereference 1
+                        :type "char")
+                        (reparse-symbol classsubparts) [1252 1272])
+                    ("dir" variable
+                       (:dereference 1
+                        :type "char")
+                        (reparse-symbol classsubparts) [1274 1293])
+                    ("color" variable
+                       (:dereference 1
+                        :type ("Col_attr" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [1295 1314]))                  
+                :type "struct")
+                nil [1222 1328])
+            ("col_schemes" variable
+               (:pointer 1
+                :typemodifiers ("extern")
+                :type ("Col_scheme" type (:type "class") nil nil))
+                nil [1330 1361])
+            ("read_color_scheme_file" function
+               (:prototype-flag t
+                :type "void")
+                nil [1363 1393])
+            ("check_directory_for_color_scheme" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [1431 1444]))                  
+                :type "int")
+                nil [1394 1445])
+            ("load_color_scheme" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("name" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [1469 1481])
+                    ("dir" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [1482 1492]))                  
+                :type "void")
+                nil [1446 1493]))          
+    :file "color_scheme.h"
+    :pointmax 1569
+    :fsize 1568
+    :lastmodtime '(21556 7830 275565 631000)
+    :unmatched-syntax 'nil
+    :lexical-table 
+        '(("__COLOR_SCHEME_H__")
+          ("MENU_COLOR" . ((number "0" 882 . 883)))
+          ("DIRECTORY_COLOR" . ((number "5" 1004 . 1005)))
+          ("SELECTED_COLOR" . ((number "10" 1123 . 1125)))
+          ("MAXNUM_COLOR" . ((number "12" 859 . 861)))
+          ("BORDER_COLOR" . ((number "1" 905 . 906)))
+          ("STATUS_BAR_COLOR" . ((number "3" 952 . 953)))
+          ("DEVICE_COLOR" . ((number "8" 1071 . 1072)))
+          ("LINK_COLOR" . ((number "6" 1025 . 1026)))
+          ("EXECUTABLE_COLOR" . ((number "9" 1098 . 1099)))
+          ("WIN_COLOR" . ((number "2" 925 . 926)))
+          ("SOCKET_COLOR" . ((number "7" 1048 . 1049)))
+          ("CURR_LINE_COLOR" . ((number "4" 978 . 979)))
+          ("CURRENT_COLOR" . ((number "11" 1148 . 1150)))
+          )
+
+    )
+   (semanticdb-table "commands.h"
+    :major-mode 'c-mode
+    :tags 
+        '( ("__COMMANDS_H__" variable (:constant-flag t) nil [794 808])
+            ("ui.h" include nil nil [810 825])
+            ("" type
+               (:members 
+                  ( ("CHANGE_WINDOWS" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [835 850])
+                    ("GET_COMMAND" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [852 864])
+                    ("GET_BOOKMARK" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [866 879])
+                    ("GET_FSEARCH_PATTERN" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [881 901])
+                    ("GET_BSEARCH_PATTERN" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [903 923])
+                    ("GET_VISUAL_COMMAND" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [925 944])
+                    ("MAPPED_COMMAND" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [946 961])
+                    ("MAPPED_SEARCH" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [963 978]))                  
+                :type "enum")
+                nil [827 979])
+            ("" type
+               (:members 
+                  ( ("COM_EXECUTE" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [989 1001])
+                    ("COM_APROPOS" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [1003 1015])
+                    ("COM_CD" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [1017 1024])
+                    ("COM_CHANGE" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [1026 1037])
+                    ("COM_CMAP" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [1039 1048])
+                    ("COM_COLORSCHEME" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [1050 1066])
+                    ("COM_COMMAND" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [1068 1080])
+                    ("COM_DELCOMMAND" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [1082 1097])
+                    ("COM_DELETE" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [1099 1110])
+                    ("COM_DISPLAY" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [1112 1124])
+                    ("COM_EDIT" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [1126 1135])
+                    ("COM_EMPTY" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [1137 1147])
+                    ("COM_FILE" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [1149 1158])
+                    ("COM_FILTER" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [1160 1171])
+                    ("COM_HELP" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [1173 1182])
+                    ("COM_HISTORY" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [1184 1196])
+                    ("COM_INVERT" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [1198 1209])
+                    ("COM_JOBS" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [1211 1220])
+                    ("COM_LOCATE" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [1222 1233])
+                    ("COM_LS" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [1235 1242])
+                    ("COM_MAP" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [1244 1252])
+                    ("COM_MARKS" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [1254 1264])
+                    ("COM_NMAP" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [1266 1275])
+                    ("COM_NOH" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [1277 1285])
+                    ("COM_ONLY" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [1287 1296])
+                    ("COM_POPD" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [1298 1307])
+                    ("COM_PUSHD" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [1309 1319])
+                    ("COM_PWD" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [1321 1329])
+                    ("COM_QUIT" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [1331 1340])
+                    ("COM_REGISTER" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [1342 1355])
+                    ("COM_SCREEN" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [1357 1368])
+                    ("COM_SHELL" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [1370 1380])
+                    ("COM_SORT" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [1382 1391])
+                    ("COM_SPLIT" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [1393 1403])
+                    ("COM_SYNC" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [1405 1414])
+                    ("COM_UNMAP" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [1416 1426])
+                    ("COM_VIEW" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [1428 1437])
+                    ("COM_VIFM" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [1439 1448])
+                    ("COM_VMAP" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [1450 1459])
+                    ("COM_W" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [1461 1467])
+                    ("COM_WQ" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [1469 1476])
+                    ("COM_WRITE" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [1478 1488])
+                    ("COM_X" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [1490 1496])
+                    ("COM_YANK" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [1498 1507])
+                    ("RESERVED" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [1510 1520]))                  
+                :type "enum")
+                nil [981 1521])
+            ("command_t" type
+               (:typedef ("" type
+                     (:members 
+                        ( ("action" variable
+                             (:pointer 1
+                              :type "char")
+                              (reparse-symbol classsubparts) [1541 1554])
+                          ("name" variable
+                             (:pointer 1
+                              :type "char")
+                              (reparse-symbol classsubparts) [1556 1567]))                        
+                      :type "struct")
+                      nil nil)
+                :type "typedef")
+                nil [1523 1579])
+            ("reserved_commands" variable
+               (:pointer 1
+                :dereference 1
+                :typemodifiers ("extern")
+                :type "char")
+                nil [1581 1614])
+            ("command_list" variable
+               (:pointer 1
+                :type ("command_t" type (:type "class") nil nil))
+                nil [1616 1640])
+            ("exec_commands" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("cmd" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [1660 1670])
+                    ("view" variable
+                       (:pointer 1
+                        :type ("FileView" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [1671 1686])
+                    ("type" variable (:type "int") (reparse-symbol arg-sub-list) [1687 1696])
+                    ("ptr" variable
+                       (:pointer 1
+                        :type "void")
+                        (reparse-symbol arg-sub-list) [1697 1708]))                  
+                :type "int")
+                nil [1642 1709])
+            ("shellout" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("command" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [1724 1738])
+                    ("pause" variable (:type "int") (reparse-symbol arg-sub-list) [1739 1749]))                  
+                :type "void")
+                nil [1710 1750])
+            ("add_command" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("name" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [1768 1779])
+                    ("action" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [1780 1793]))                  
+                :type "void")
+                nil [1751 1794])
+            ("execute_command" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("view" variable
+                       (:pointer 1
+                        :type ("FileView" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [1815 1830])
+                    ("action" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [1831 1844]))                  
+                :type "int")
+                nil [1795 1845])
+            ("sort_this" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("one" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "void")
+                        (reparse-symbol arg-sub-list) [1860 1876])
+                    ("two" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "void")
+                        (reparse-symbol arg-sub-list) [1877 1893]))                  
+                :type "int")
+                nil [1846 1894])
+            ("is_user_command" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("command" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [1915 1929]))                  
+                :type "int")
+                nil [1895 1930])
+            ("command_is_reserved" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("command" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [1955 1969]))                  
+                :type "int")
+                nil [1931 1970])
+            ("command_completion" function
+               (:prototype-flag t
+                :pointer 1
+                :arguments 
+                  ( ("str" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [1997 2007])
+                    ("users_only" variable (:type "int") (reparse-symbol arg-sub-list) [2008 2023]))                  
+                :type "char")
+                nil [1971 2024])
+            ("expand_macros" function
+               (:prototype-flag t
+                :pointer 1
+                :arguments 
+                  ( ("view" variable
+                       (:pointer 1
+                        :type ("FileView" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [2046 2061])
+                    ("command" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [2062 2076])
+                    ("args" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [2077 2088])
+                    ("menu" variable
+                       (:pointer 1
+                        :type "int")
+                        (reparse-symbol arg-sub-list) [2089 2099])
+                    ("split" variable
+                       (:pointer 1
+                        :type "int")
+                        (reparse-symbol arg-sub-list) [2100 2111]))                  
+                :type "char")
+                nil [2025 2112])
+            ("remove_command" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("name" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [2133 2144]))                  
+                :type "void")
+                nil [2113 2145])
+            ("comm_quit" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [2161 2166]))                  
+                :type "void")
+                nil [2146 2167])
+            ("comm_only" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [2183 2188]))                  
+                :type "void")
+                nil [2168 2189])
+            ("comm_split" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [2206 2211]))                  
+                :type "void")
+                nil [2190 2212]))          
+    :file "commands.h"
+    :pointmax 2288
+    :fsize 2287
+    :lastmodtime '(21556 7830 276565 606000)
+    :unmatched-syntax 'nil
+    :lexical-table 
+        '(("__COMMANDS_H__")
+          )
+
+    )
+   (semanticdb-table "file_magic.h"
+    :major-mode 'c-mode
+    :tags nil
+    :file "file_magic.h"
+    :pointmax 278
+    :fsize 277
+    :lastmodtime '(21556 7830 278565 557000)
+    :unmatched-syntax 'nil
+    )
+   (semanticdb-table "filelist.h"
+    :major-mode 'c-mode
+    :tags 
+        '( ("__FILELIST_H__" variable (:constant-flag t) nil [794 808])
+            ("ui.h" include nil nil [810 825])
+            ("" type
+               (:members 
+                  ( ("LINK" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [835 840])
+                    ("DIRECTORY" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [842 852])
+                    ("DEVICE" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [854 861])
+                    ("SOCKET" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [863 870])
+                    ("EXECUTABLE" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [872 883])
+                    ("REGULAR" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [885 893])
+                    ("UNKNOWN" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [895 904]))                  
+                :type "enum")
+                nil [827 905])
+            ("friendly_size_notation" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("num" variable (:type "unsigned long long") (reparse-symbol arg-sub-list) [935 958])
+                    ("str_size" variable (:type "int") (reparse-symbol arg-sub-list) [959 972])
+                    ("str" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [973 983]))                  
+                :type "void")
+                nil [907 984])
+            ("quick_view_file" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("view" variable
+                       (:pointer 1
+                        :type ("FileView" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [1006 1022]))                  
+                :type "void")
+                nil [985 1023])
+            ("clean_selected_files" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("view" variable
+                       (:pointer 1
+                        :type ("FileView" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [1050 1065]))                  
+                :type "void")
+                nil [1024 1066])
+            ("goto_history_pos" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("view" variable
+                       (:pointer 1
+                        :type ("FileView" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [1089 1104])
+                    ("pos" variable (:type "int") (reparse-symbol arg-sub-list) [1105 1113]))                  
+                :type "void")
+                nil [1067 1114])
+            ("change_directory" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("view" variable
+                       (:pointer 1
+                        :type ("FileView" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [1136 1151])
+                    ("directory" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [1152 1174]))                  
+                :type "int")
+                nil [1115 1175])
+            ("load_dir_list" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("view" variable
+                       (:pointer 1
+                        :type ("FileView" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [1195 1210])
+                    ("reload" variable (:type "int") (reparse-symbol arg-sub-list) [1211 1222]))                  
+                :type "void")
+                nil [1176 1223])
+            ("draw_dir_list" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("view" variable
+                       (:pointer 1
+                        :type ("FileView" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [1243 1258])
+                    ("top" variable (:type "int") (reparse-symbol arg-sub-list) [1259 1267])
+                    ("pos" variable (:type "int") (reparse-symbol arg-sub-list) [1268 1276]))                  
+                :type "void")
+                nil [1224 1277])
+            ("get_current_file_name" function
+               (:prototype-flag t
+                :pointer 1
+                :arguments 
+                  ( ("view" variable
+                       (:pointer 1
+                        :type ("FileView" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [1307 1322]))                  
+                :type "char")
+                nil [1278 1323])
+            ("moveto_list_pos" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("view" variable
+                       (:pointer 1
+                        :type ("FileView" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [1345 1360])
+                    ("pos" variable (:type "int") (reparse-symbol arg-sub-list) [1361 1369]))                  
+                :type "void")
+                nil [1324 1370])
+            ("find_file_pos_in_list" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("view" variable
+                       (:pointer 1
+                        :type ("FileView" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [1397 1412])
+                    ("file" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [1413 1430]))                  
+                :type "int")
+                nil [1371 1431])
+            ("get_all_selected_files" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("view" variable
+                       (:pointer 1
+                        :type ("FileView" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [1460 1475]))                  
+                :type "void")
+                nil [1432 1476])
+            ("get_selected_files" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("view" variable
+                       (:pointer 1
+                        :type ("FileView" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [1501 1516])
+                    ("count" variable (:type "int") (reparse-symbol arg-sub-list) [1517 1527])
+                    ("indexes" variable
+                       (:pointer 1
+                        :type "int")
+                        (reparse-symbol arg-sub-list) [1528 1541]))                  
+                :type "void")
+                nil [1477 1542])
+            ("free_selected_file_array" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("view" variable
+                       (:pointer 1
+                        :type ("FileView" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [1573 1588]))                  
+                :type "void")
+                nil [1543 1589])
+            ("erase_current_line_bar" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("view" variable
+                       (:pointer 1
+                        :type ("FileView" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [1618 1633]))                  
+                :type "void")
+                nil [1590 1634])
+            ("filter_selected_files" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("view" variable
+                       (:pointer 1
+                        :type ("FileView" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [1662 1677]))                  
+                :type "void")
+                nil [1635 1678])
+            ("hide_dot_files" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("view" variable
+                       (:pointer 1
+                        :type ("FileView" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [1699 1714]))                  
+                :type "void")
+                nil [1679 1715])
+            ("show_dot_files" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("view" variable
+                       (:pointer 1
+                        :type ("FileView" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [1736 1751]))                  
+                :type "void")
+                nil [1716 1752])
+            ("toggle_dot_files" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("view" variable
+                       (:pointer 1
+                        :type ("FileView" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [1775 1790]))                  
+                :type "void")
+                nil [1753 1791])
+            ("remove_filename_filter" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("view" variable
+                       (:pointer 1
+                        :type ("FileView" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [1820 1835]))                  
+                :type "void")
+                nil [1792 1836])
+            ("restore_filename_filter" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("view" variable
+                       (:pointer 1
+                        :type ("FileView" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [1866 1881]))                  
+                :type "void")
+                nil [1837 1882])
+            ("scroll_view" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("view" variable
+                       (:pointer 1
+                        :type ("FileView" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [1900 1915]))                  
+                :type "void")
+                nil [1883 1916])
+            ("check_if_filelists_have_changed" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("view" variable
+                       (:pointer 1
+                        :type ("FileView" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [1954 1969]))                  
+                :type "void")
+                nil [1917 1970])
+            ("S_ISEXE" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("mode" variable (:type ("mode_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [1983 1995]))                  
+                :type "int")
+                nil [1971 1996]))          
+    :file "filelist.h"
+    :pointmax 2072
+    :fsize 2071
+    :lastmodtime '(21556 7830 281565 483000)
+    :unmatched-syntax 'nil
+    :lexical-table 
+        '(("__FILELIST_H__")
+          )
+
+    )
+   (semanticdb-table "fileops.h"
+    :major-mode 'c-mode
+    :tags 
+        '( ("__FILEOPS_H__" variable (:constant-flag t) nil [793 806])
+            ("ui.h" include nil nil [808 823])
+            ("FILE_CHANGE" variable (:constant-flag t) nil [833 844])
+            ("FILE_NAME" variable (:constant-flag t) nil [855 864])
+            ("FILE_OWNER" variable (:constant-flag t) nil [875 885])
+            ("FILE_GROUP" variable (:constant-flag t) nil [896 906])
+            ("FILE_PERMISSIONS" variable (:constant-flag t) nil [917 933])
+            ("DEFAULT_REG_NAME" variable (:constant-flag t) nil [945 961])
+            ("yank_t" type
+               (:typedef ("" type
+                     (:members 
+                        ( ("dir" variable
+                             (:pointer 1
+                              :type "char")
+                              (reparse-symbol classsubparts) [985 995])
+                          ("file" variable
+                             (:pointer 1
+                              :type "char")
+                              (reparse-symbol classsubparts) [997 1008]))                        
+                      :type "struct")
+                      nil nil)
+                :type "typedef")
+                nil [967 1017])
+            ("yanked_file" variable
+               (:pointer 1
+                :type ("yank_t" type (:type "class") nil nil))
+                nil [1019 1039])
+            ("cd_updir" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("view" variable
+                       (:pointer 1
+                        :type ("FileView" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [1055 1070]))                  
+                :type "void")
+                nil [1041 1071])
+            ("handle_file" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("view" variable
+                       (:pointer 1
+                        :type ("FileView" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [1089 1104])
+                    ("dont_execute" variable (:type "int") (reparse-symbol arg-sub-list) [1105 1122]))                  
+                :type "void")
+                nil [1072 1123])
+            ("delete_file" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("view" variable
+                       (:pointer 1
+                        :type ("FileView" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [1140 1155])
+                    ("reg" variable (:type "int") (reparse-symbol arg-sub-list) [1156 1164])
+                    ("count" variable (:type "int") (reparse-symbol arg-sub-list) [1165 1175])
+                    ("indexes" variable
+                       (:pointer 1
+                        :type "int")
+                        (reparse-symbol arg-sub-list) [1176 1189])
+                    ("use_trash" variable (:type "int") (reparse-symbol arg-sub-list) [1192 1206]))                  
+                :type "int")
+                nil [1124 1207])
+            ("my_system" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("command" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [1222 1236]))                  
+                :type "int")
+                nil [1208 1237])
+            ("system_and_wait_for_errors" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("cmd" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [1269 1279]))                  
+                :type "int")
+                nil [1238 1280])
+            ("yank_files" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("view" variable
+                       (:pointer 1
+                        :type ("FileView" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [1296 1311])
+                    ("reg" variable (:type "int") (reparse-symbol arg-sub-list) [1312 1320])
+                    ("count" variable (:type "int") (reparse-symbol arg-sub-list) [1321 1331])
+                    ("indexes" variable
+                       (:pointer 1
+                        :type "int")
+                        (reparse-symbol arg-sub-list) [1332 1345]))                  
+                :type "int")
+                nil [1281 1346])
+            ("yank_selected_files" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("view" variable
+                       (:pointer 1
+                        :type ("FileView" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [1372 1387])
+                    ("reg" variable (:type "int") (reparse-symbol arg-sub-list) [1388 1396]))                  
+                :type "void")
+                nil [1347 1397])
+            ("pipe_and_capture_errors" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("command" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [1426 1440]))                  
+                :type "int")
+                nil [1398 1441])
+            ("file_exec" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("command" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [1456 1470]))                  
+                :type "int")
+                nil [1442 1471])
+            ("show_change_window" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("view" variable
+                       (:pointer 1
+                        :type ("FileView" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [1496 1511])
+                    ("type" variable (:type "int") (reparse-symbol arg-sub-list) [1512 1521]))                  
+                :type "void")
+                nil [1472 1522])
+            ("check_link_is_dir" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("view" variable
+                       (:pointer 1
+                        :type ("FileView" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [1545 1560])
+                    ("pos" variable (:type "int") (reparse-symbol arg-sub-list) [1561 1569]))                  
+                :type "int")
+                nil [1523 1570])
+            ("rename_file" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("view" variable
+                       (:pointer 1
+                        :type ("FileView" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [1588 1603])
+                    ("name_only" variable (:type "int") (reparse-symbol arg-sub-list) [1604 1618]))                  
+                :type "void")
+                nil [1571 1619])
+            ("change_owner" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("view" variable
+                       (:pointer 1
+                        :type ("FileView" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [1638 1653]))                  
+                :type "void")
+                nil [1620 1654])
+            ("change_group" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("view" variable
+                       (:pointer 1
+                        :type ("FileView" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [1673 1688]))                  
+                :type "void")
+                nil [1655 1689])
+            ("put_files_from_register" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("view" variable
+                       (:pointer 1
+                        :type ("FileView" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [1761 1776])
+                    ("name" variable (:type "int") (reparse-symbol arg-sub-list) [1777 1786])
+                    ("force_move" variable (:type "int") (reparse-symbol arg-sub-list) [1787 1802]))                  
+                :type "int")
+                nil [1733 1803])
+            ("clone_file" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("view" variable
+                       (:pointer 1
+                        :type ("FileView" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [1820 1835]))                  
+                :type "void")
+                nil [1804 1836]))          
+    :file "fileops.h"
+    :pointmax 1912
+    :fsize 1911
+    :lastmodtime '(21556 7830 282565 459000)
+    :unmatched-syntax 'nil
+    :lexical-table 
+        '(("DEFAULT_REG_NAME" . ((string "'\"'" 962 . 965)))
+          ("FILE_NAME" . ((number "2" 865 . 866)))
+          ("FILE_PERMISSIONS" . ((number "8" 934 . 935)))
+          ("FILE_OWNER" . ((number "4" 886 . 887)))
+          ("FILE_GROUP" . ((number "6" 907 . 908)))
+          ("FILE_CHANGE" . ((number "1" 845 . 846)))
+          ("__FILEOPS_H__")
+          )
+
+    )
+   (semanticdb-table "filetype.h"
+    :major-mode 'c-mode
+    :tags 
+        '( ("__FILETYPE_H__" variable (:constant-flag t) nil [794 808])
+            ("filetype_t" type
+               (:typedef ("" type
+                     (:members 
+                        ( ("type" variable
+                             (:pointer 1
+                              :type "char")
+                              (reparse-symbol classsubparts) [828 839])
+                          ("ext" variable
+                             (:pointer 1
+                              :type "char")
+                              (reparse-symbol classsubparts) [841 851])
+                          ("viewer" variable
+                             (:pointer 1
+                              :type "char")
+                              (reparse-symbol classsubparts) [853 866])
+                          ("programs" variable
+                             (:pointer 1
+                              :type "char")
+                              (reparse-symbol classsubparts) [868 883]))                        
+                      :type "struct")
+                      nil nil)
+                :type "typedef")
+                nil [810 896])
+            ("filetypes" variable
+               (:pointer 1
+                :type ("filetype_t" type (:type "class") nil nil))
+                nil [898 920])
+            ("get_default_program_for_file" function
+               (:prototype-flag t
+                :pointer 1
+                :arguments 
+                  ( ("file" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [957 968]))                  
+                :type "char")
+                nil [921 969])
+            ("get_viewer_for_file" function
+               (:prototype-flag t
+                :pointer 1
+                :arguments 
+                  ( ("file" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [997 1008]))                  
+                :type "char")
+                nil [970 1009])
+            ("add_filetype" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("description" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [1028 1046])
+                    ("extension" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [1047 1063])
+                    ("viewer" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [1064 1077])
+                    ("programs" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [1080 1095]))                  
+                :type "void")
+                nil [1010 1096])
+            ("get_all_programs_for_file" function
+               (:prototype-flag t
+                :pointer 1
+                :arguments 
+                  ( ("file" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [1130 1141]))                  
+                :type "char")
+                nil [1097 1142])
+            ("clear_filetypes" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [1164 1169]))                  
+                :type "void")
+                nil [1143 1170]))          
+    :file "filetype.h"
+    :pointmax 1246
+    :fsize 1245
+    :lastmodtime '(21556 7830 282565 459000)
+    :unmatched-syntax 'nil
+    :lexical-table 
+        '(("__FILETYPE_H__")
+          )
+
+    )
+   (semanticdb-table "menu.h"
+    :major-mode 'c-mode
+    :tags 
+        '( ("__MENU_H__" variable (:constant-flag t) nil [790 800])
+            ("menus.h" include nil nil [802 820])
+            ("ui.h" include nil nil [821 836])
+            ("init_menu_mode" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("key_mode" variable
+                       (:pointer 1
+                        :type "int")
+                        (reparse-symbol arg-sub-list) [858 872]))                  
+                :type "void")
+                nil [838 873])
+            ("enter_menu_mode" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("m" variable
+                       (:pointer 1
+                        :type ("menu_info" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [895 908])
+                    ("active_view" variable
+                       (:pointer 1
+                        :type ("FileView" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [909 931]))                  
+                :type "void")
+                nil [874 932])
+            ("menu_pre" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [947 952]))                  
+                :type "void")
+                nil [933 953])
+            ("menu_post" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [969 974]))                  
+                :type "void")
+                nil [954 975])
+            ("menu_redraw" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [993 998]))                  
+                :type "void")
+                nil [976 999])
+            ("execute_menu_command" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("view" variable
+                       (:pointer 1
+                        :type ("FileView" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [1026 1041])
+                    ("command" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [1042 1056])
+                    ("ptr" variable
+                       (:pointer 1
+                        :type ("menu_info" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [1057 1072]))                  
+                :type "void")
+                nil [1000 1073]))          
+    :file "menu.h"
+    :pointmax 1149
+    :fsize 1148
+    :lastmodtime '(21556 7830 284565 410000)
+    :unmatched-syntax 'nil
+    :lexical-table 
+        '(("__MENU_H__")
+          )
+
+    )
+   (semanticdb-table "registers.h"
+    :major-mode 'c-mode
+    :tags 
+        '( ("__REGISTERS_H_" variable (:constant-flag t) nil [794 808])
+            ("NUM_REGISTERS" variable (:constant-flag t) nil [818 831])
+            ("registers_t" type
+               (:typedef ("_Registers" type (:type "struct") nil nil)
+                :superclasses "_Registers"
+                :type "typedef")
+                nil [836 935])
+            ("_Registers" type
+               (:members 
+                  ( ("name" variable (:type "int") (reparse-symbol classsubparts) [865 874])
+                    ("num_files" variable (:type "int") (reparse-symbol classsubparts) [876 890])
+                    ("files" variable
+                       (:pointer 2
+                        :type "char")
+                        (reparse-symbol classsubparts) [892 906])
+                    ("deleted" variable (:type "int") (reparse-symbol classsubparts) [908 920]))                  
+                :type "struct")
+                nil [836 935])
+            ("reg" variable
+               (:dereference 1
+                :type ("registers_t" type (:type "class") nil nil))
+                nil [937 968])
+            ("init_registers" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [990 995]))                  
+                :type "void")
+                nil [970 996])
+            ("load_register" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("reg" variable (:type "int") (reparse-symbol arg-sub-list) [1016 1024])
+                    ("file" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [1025 1036]))                  
+                :type "void")
+                nil [997 1037])
+            ("find_register" function
+               (:prototype-flag t
+                :pointer 1
+                :arguments 
+                  ( ("key" variable (:type "int") (reparse-symbol arg-sub-list) [1066 1074]))                  
+                :type ("registers_t" type (:type "class") nil nil))
+                nil [1038 1075])
+            ("append_to_register" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("reg" variable (:type "int") (reparse-symbol arg-sub-list) [1100 1108])
+                    ("file" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [1109 1120]))                  
+                :type "void")
+                nil [1076 1121])
+            ("clear_register" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("reg" variable (:type "int") (reparse-symbol arg-sub-list) [1142 1150]))                  
+                :type "void")
+                nil [1122 1151])
+            ("pack_register" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("reg" variable (:type "int") (reparse-symbol arg-sub-list) [1171 1179]))                  
+                :type "void")
+                nil [1152 1180]))          
+    :file "registers.h"
+    :pointmax 1256
+    :fsize 1255
+    :lastmodtime '(21556 7830 289565 287000)
+    :unmatched-syntax 'nil
+    :lexical-table 
+        '(("__REGISTERS_H_")
+          ("NUM_REGISTERS" . ((number "27" 832 . 834)))
+          )
+
+    )
+   (semanticdb-table "status.h"
+    :major-mode 'c-mode
+    :tags 
+        '( ("__STATUS_H__" variable (:constant-flag t) nil [792 804])
+            ("../config.h" include nil nil [806 828])
+            ("sys/stat.h" include (:system-flag t) nil [830 851])
+            ("Status" type
+               (:typedef ("" type
+                     (:members 
+                        ( ("need_redraw" variable (:type "int") (reparse-symbol classsubparts) [871 887])
+                          ("freeze" variable
+                             (:typemodifiers ("volatile")
+                              :type "int")
+                              (reparse-symbol classsubparts) [889 909])
+                          ("is_updir" variable (:type "int") (reparse-symbol classsubparts) [911 924])
+                          ("last_char" variable (:type "int") (reparse-symbol classsubparts) [926 940])
+                          ("updir_file" variable
+                             (:dereference 1
+                              :type "char")
+                              (reparse-symbol classsubparts) [942 968])
+                          ("is_console" variable (:type "int") (reparse-symbol classsubparts) [970 985])
+                          ("config_file_mtime" variable (:type ("time_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [987 1012])
+                          ("search" variable (:type "int") (reparse-symbol classsubparts) [1014 1025])
+                          ("save_msg" variable (:type "int") (reparse-symbol classsubparts) [1027 1040])
+                          ("use_register" variable (:type "int") (reparse-symbol classsubparts) [1042 1059])
+                          ("use_input_bar" variable (:type "int") (reparse-symbol classsubparts) [1061 1079])
+                          ("curr_register" variable (:type "int") (reparse-symbol classsubparts) [1081 1099])
+                          ("register_saved" variable (:type "int") (reparse-symbol classsubparts) [1101 1120])
+                          ("number_of_windows" variable (:type "int") (reparse-symbol classsubparts) [1122 1144])
+                          ("view" variable (:type "int") (reparse-symbol classsubparts) [1146 1155])
+                          ("show_full" variable (:type "int") (reparse-symbol classsubparts) [1157 1171])
+                          ("setting_change" variable (:type "int") (reparse-symbol classsubparts) [1173 1192])
+                          ("skip_history" variable (:type "int") (reparse-symbol classsubparts) [1194 1211])
+                          ("save_locations" variable (:type "int") (reparse-symbol classsubparts) [1213 1232]))                        
+                      :type "struct")
+                      nil nil)
+                :type "typedef")
+                nil [853 1338])
+            ("curr_stats" variable
+               (:typemodifiers ("extern")
+                :type ("Status" type (:type "class") nil nil))
+                nil [1340 1365])
+            ("init_status" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [1384 1389]))                  
+                :type "void")
+                nil [1367 1390]))          
+    :file "status.h"
+    :pointmax 1466
+    :fsize 1465
+    :lastmodtime '(21556 7830 292565 213000)
+    :unmatched-syntax 'nil
+    :lexical-table 
+        '(("__STATUS_H__")
+          )
+
+    )
+   (semanticdb-table "ui.h"
+    :major-mode 'c-mode
+    :tags 
+        '( ("__UI_H__" variable (:constant-flag t) nil [788 796])
+            ("limits.h" include (:system-flag t) nil [798 817])
+            ("ncurses.h" include (:system-flag t) nil [842 862])
+            ("stdlib.h" include (:system-flag t) nil [863 882])
+            ("inttypes.h" include (:system-flag t) nil [905 926])
+            ("sys/types.h" include (:system-flag t) nil [943 965])
+            ("unistd.h" include (:system-flag t) nil [966 985])
+            ("dirent.h" include (:system-flag t) nil [1021 1040])
+            ("NAME_MAX" variable (:constant-flag t) nil [1049 1057])
+            ("" type
+               (:members 
+                  ( ("SORT_BY_EXTENSION" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [1084 1102])
+                    ("SORT_BY_NAME" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [1104 1117])
+                    ("SORT_BY_GROUP_ID" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [1119 1136])
+                    ("SORT_BY_GROUP_NAME" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [1138 1157])
+                    ("SORT_BY_MODE" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [1159 1172])
+                    ("SORT_BY_OWNER_ID" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [1174 1191])
+                    ("SORT_BY_OWNER_NAME" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [1193 1212])
+                    ("SORT_BY_SIZE" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [1214 1227])
+                    ("SORT_BY_TIME_ACCESSED" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [1229 1251])
+                    ("SORT_BY_TIME_CHANGED" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [1253 1274])
+                    ("SORT_BY_TIME_MODIFIED" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [1276 1298])
+                    ("NUM_SORT_OPTIONS" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [1300 1318]))                  
+                :type "enum")
+                nil [1076 1319])
+            ("history_t" type
+               (:typedef ("" type
+                     (:members 
+                        ( ("dir" variable
+                             (:dereference 1
+                              :type "char")
+                              (reparse-symbol classsubparts) [1339 1358])
+                          ("file" variable
+                             (:dereference 1
+                              :type "char")
+                              (reparse-symbol classsubparts) [1360 1380]))                        
+                      :type "struct")
+                      nil nil)
+                :type "typedef")
+                nil [1321 1392])
+            ("dir_entry_t" type
+               (:typedef ("" type
+                     (:members 
+                        ( ("name" variable
+                             (:pointer 1
+                              :type "char")
+                              (reparse-symbol classsubparts) [1412 1423])
+                          ("size" variable (:type ("off_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [1425 1436])
+                          ("mode" variable (:type ("mode_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [1438 1450])
+                          ("uid" variable (:type ("uid_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [1452 1462])
+                          ("gid" variable (:type ("gid_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [1464 1474])
+                          ("mtime" variable (:type ("time_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [1476 1489])
+                          ("atime" variable (:type ("time_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [1491 1504])
+                          ("ctime" variable (:type ("time_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [1506 1519])
+                          ("owner" variable
+                             (:pointer 1
+                              :type "char")
+                              (reparse-symbol classsubparts) [1521 1533])
+                          ("group" variable
+                             (:pointer 1
+                              :type "char")
+                              (reparse-symbol classsubparts) [1535 1547])
+                          ("date" variable
+                             (:dereference 1
+                              :type "char")
+                              (reparse-symbol classsubparts) [1549 1563])
+                          ("type" variable (:type "char") (reparse-symbol classsubparts) [1565 1575])
+                          ("selected" variable (:type "int") (reparse-symbol classsubparts) [1577 1590])
+                          ("executable" variable (:type "char") (reparse-symbol classsubparts) [1592 1608])
+                          ("list_num" variable (:type "int") (reparse-symbol classsubparts) [1610 1623])
+                          ("ext" variable
+                             (:dereference 1
+                              :type "char")
+                              (reparse-symbol classsubparts) [1625 1638]))                        
+                      :type "struct")
+                      nil nil)
+                :type "typedef")
+                nil [1394 1652])
+            ("FileView" type
+               (:typedef ("_FileView" type (:type "struct") nil nil)
+                :superclasses "_FileView"
+                :type "typedef")
+                nil [1654 2645])
+            ("_FileView" type
+               (:members 
+                  ( ("win" variable
+                       (:pointer 1
+                        :type ("WINDOW" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [1682 1694])
+                    ("title" variable
+                       (:pointer 1
+                        :type ("WINDOW" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [1696 1710])
+                    ("curr_dir" variable
+                       (:dereference 1
+                        :type "char")
+                        (reparse-symbol classsubparts) [1712 1736])
+                    ("dir_mtime" variable (:type ("time_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [1738 1755])
+                    ("last_dir" variable
+                       (:dereference 1
+                        :type "char")
+                        (reparse-symbol classsubparts) [1757 1781])
+                    ("regexp" variable
+                       (:dereference 1
+                        :type "char")
+                        (reparse-symbol classsubparts) [1783 1800])
+                    ("prev_filter" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol classsubparts) [1851 1870])
+                    ("filename_filter" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol classsubparts) [1872 1895])
+                    ("hide_dot" variable (:type "int") (reparse-symbol classsubparts) [1942 1955])
+                    ("prev_invert" variable (:type "int") (reparse-symbol classsubparts) [1957 1973])
+                    ("invert" variable (:type "bool") (reparse-symbol classsubparts) [1975 1987])
+                    ("curr_line" variable (:type "int") (reparse-symbol classsubparts) [2034 2048])
+                    ("top_line" variable (:type "int") (reparse-symbol classsubparts) [2086 2099])
+                    ("list_pos" variable (:type "int") (reparse-symbol classsubparts) [2161 2174])
+                    ("list_rows" variable (:type "int") (reparse-symbol classsubparts) [2215 2229])
+                    ("window_rows" variable (:type "int") (reparse-symbol classsubparts) [2259 2275])
+                    ("window_width" variable (:type "int") (reparse-symbol classsubparts) [2314 2331])
+                    ("filtered" variable (:type "int") (reparse-symbol classsubparts) [2333 2346])
+                    ("selected_files" variable (:type "int") (reparse-symbol classsubparts) [2406 2425])
+                    ("color_scheme" variable (:type "int") (reparse-symbol classsubparts) [2427 2444])
+                    ("dir_entry" variable
+                       (:pointer 1
+                        :type ("dir_entry_t" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [2484 2507])
+                    ("selected_filelist" variable
+                       (:pointer 2
+                        :type "char")
+                        (reparse-symbol classsubparts) [2509 2535])
+                    ("sort_type" variable (:type "char") (reparse-symbol classsubparts) [2538 2553])
+                    ("sort_descending" variable (:type "char") (reparse-symbol classsubparts) [2555 2576])
+                    ("history_num" variable (:type "int") (reparse-symbol classsubparts) [2579 2595])
+                    ("history_pos" variable (:type "int") (reparse-symbol classsubparts) [2597 2613])
+                    ("history" variable
+                       (:pointer 1
+                        :type ("history_t" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [2615 2634]))                  
+                :type "struct")
+                nil [1654 2645])
+            ("lwin" variable (:type ("FileView" type (:type "class") nil nil)) nil [2647 2661])
+            ("rwin" variable (:type ("FileView" type (:type "class") nil nil)) nil [2662 2676])
+            ("other_view" variable
+               (:pointer 1
+                :type ("FileView" type (:type "class") nil nil))
+                nil [2677 2698])
+            ("curr_view" variable
+               (:pointer 1
+                :type ("FileView" type (:type "class") nil nil))
+                nil [2699 2719])
+            ("status_bar" variable
+               (:pointer 1
+                :type ("WINDOW" type (:type "class") nil nil))
+                nil [2721 2740])
+            ("stat_win" variable
+               (:pointer 1
+                :type ("WINDOW" type (:type "class") nil nil))
+                nil [2741 2758])
+            ("pos_win" variable
+               (:pointer 1
+                :type ("WINDOW" type (:type "class") nil nil))
+                nil [2759 2775])
+            ("num_win" variable
+               (:pointer 1
+                :type ("WINDOW" type (:type "class") nil nil))
+                nil [2776 2792])
+            ("menu_win" variable
+               (:pointer 1
+                :type ("WINDOW" type (:type "class") nil nil))
+                nil [2793 2810])
+            ("sort_win" variable
+               (:pointer 1
+                :type ("WINDOW" type (:type "class") nil nil))
+                nil [2811 2828])
+            ("change_win" variable
+               (:pointer 1
+                :type ("WINDOW" type (:type "class") nil nil))
+                nil [2829 2848])
+            ("error_win" variable
+               (:pointer 1
+                :type ("WINDOW" type (:type "class") nil nil))
+                nil [2849 2867])
+            ("lborder" variable
+               (:pointer 1
+                :type ("WINDOW" type (:type "class") nil nil))
+                nil [2868 2884])
+            ("mborder" variable
+               (:pointer 1
+                :type ("WINDOW" type (:type "class") nil nil))
+                nil [2885 2901])
+            ("rborder" variable
+               (:pointer 1
+                :type ("WINDOW" type (:type "class") nil nil))
+                nil [2902 2918])
+            ("setup_ncurses_interface" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [2948 2953]))                  
+                :type "int")
+                nil [2920 2954])
+            ("status_bar_message" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("message" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [2979 2993]))                  
+                :type "void")
+                nil [2955 2994])
+            ("update_stat_window" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("view" variable
+                       (:pointer 1
+                        :type ("FileView" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [3019 3034]))                  
+                :type "void")
+                nil [2995 3035])
+            ("redraw_window" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [3055 3060]))                  
+                :type "void")
+                nil [3036 3061])
+            ("write_stat_win" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("message" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [3082 3096]))                  
+                :type "void")
+                nil [3062 3097])
+            ("update_pos_window" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("view" variable
+                       (:pointer 1
+                        :type ("FileView" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [3121 3136]))                  
+                :type "void")
+                nil [3098 3137])
+            ("clean_status_bar" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [3160 3165]))                  
+                :type "void")
+                nil [3138 3166])
+            ("change_window" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [3186 3191]))                  
+                :type "void")
+                nil [3167 3192])
+            ("update_all_windows" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [3217 3222]))                  
+                :type "void")
+                nil [3193 3223])
+            ("update_input_bar" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("c" variable (:type "wchar_t") (reparse-symbol arg-sub-list) [3246 3256]))                  
+                :type "void")
+                nil [3224 3257])
+            ("switch_views" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [3276 3281]))                  
+                :type "void")
+                nil [3258 3282])
+            ("clear_num_window" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [3305 3310]))                  
+                :type "void")
+                nil [3283 3311])
+            ("show_progress" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("msg" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [3331 3347])
+                    ("period" variable (:type "int") (reparse-symbol arg-sub-list) [3348 3359]))                  
+                :type "void")
+                nil [3312 3360]))          
+    :file "ui.h"
+    :pointmax 3436
+    :fsize 3435
+    :lastmodtime '(21556 7830 294565 164000)
+    :unmatched-syntax 'nil
+    :lexical-table 
+        '(("NAME_MAX" . ((symbol "MAXNAMLEN" 1058 . 1067)))
+          ("__UI_H__")
+          )
+
+    )
+   (semanticdb-table "utils.h"
+    :major-mode 'c-mode
+    :tags 
+        '( ("__UTILS_H__" variable (:constant-flag t) nil [791 802])
+            ("ui.h" include nil nil [804 819])
+            ("MAX" variable (:constant-flag t) nil [829 832])
+            ("MIN" variable (:constant-flag t) nil [872 875])
+            ("Fuse_List" type
+               (:typedef ("Fuse_List" type (:type "struct") nil nil)
+                :superclasses "Fuse_List"
+                :type "typedef")
+                nil [908 1089])
+            ("Fuse_List" type
+               (:members 
+                  ( ("source_file_name" variable
+                       (:dereference 1
+                        :type "char")
+                        (reparse-symbol classsubparts) [936 968])
+                    ("source_file_dir" variable
+                       (:dereference 1
+                        :type "char")
+                        (reparse-symbol classsubparts) [970 1001])
+                    ("mount_point" variable
+                       (:dereference 1
+                        :type "char")
+                        (reparse-symbol classsubparts) [1003 1030])
+                    ("mount_point_id" variable (:type "int") (reparse-symbol classsubparts) [1032 1051])
+                    ("next" variable
+                       (:pointer 1
+                        :type ("Fuse_List" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol classsubparts) [1053 1076]))                  
+                :type "struct")
+                nil [908 1089])
+            ("fuse_mounts" variable
+               (:pointer 1
+                :typemodifiers ("extern")
+                :type ("Fuse_List" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [1091 1128])
+            ("chomp" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("text" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [1141 1152]))                  
+                :type "void")
+                nil [1130 1153])
+            ("duplicate" function
+               (:prototype-flag t
+                :pointer 1
+                :arguments 
+                  ( ("stuff" variable
+                       (:pointer 1
+                        :type "void")
+                        (reparse-symbol arg-sub-list) [1171 1183])
+                    ("size" variable (:type "int") (reparse-symbol arg-sub-list) [1184 1193]))                  
+                :type "void")
+                nil [1154 1194])
+            ("is_dir" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("file" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [1206 1217]))                  
+                :type "int")
+                nil [1195 1218])
+            ("escape_filename" function
+               (:prototype-flag t
+                :pointer 1
+                :arguments 
+                  ( ("string" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [1242 1261])
+                    ("len" variable (:type ("size_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [1262 1273])
+                    ("quote_percent" variable (:type "int") (reparse-symbol arg-sub-list) [1274 1292]))                  
+                :type "char")
+                nil [1219 1293])
+            ("write_string_to_file" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("filename" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [1319 1334])
+                    ("string" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [1335 1348]))                  
+                :type "int")
+                nil [1294 1349])
+            ("guess_char_width" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("c" variable (:type "char") (reparse-symbol arg-sub-list) [1374 1381]))                  
+                :type ("size_t" type (:type "class") nil nil))
+                nil [1350 1382])
+            ("get_char_width" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("string" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [1405 1424]))                  
+                :type ("size_t" type (:type "class") nil nil))
+                nil [1383 1425])
+            ("get_normal_utf8_string_length" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("string" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [1463 1482]))                  
+                :type ("size_t" type (:type "class") nil nil))
+                nil [1426 1483])
+            ("get_real_string_width" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("string" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [1513 1526])
+                    ("max_len" variable (:type ("size_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [1527 1542]))                  
+                :type ("size_t" type (:type "class") nil nil))
+                nil [1484 1543])
+            ("get_normal_utf8_string_width" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("string" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [1580 1599]))                  
+                :type ("size_t" type (:type "class") nil nil))
+                nil [1544 1600])
+            ("get_utf8_string_length" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("string" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [1631 1650]))                  
+                :type ("size_t" type (:type "class") nil nil))
+                nil [1601 1651])
+            ("get_utf8_overhead" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("string" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [1677 1696]))                  
+                :type ("size_t" type (:type "class") nil nil))
+                nil [1652 1697])
+            ("get_utf8_prev_width" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("string" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [1725 1738])
+                    ("cut_length" variable (:type ("size_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [1739 1757]))                  
+                :type ("size_t" type (:type "class") nil nil))
+                nil [1698 1758])
+            ("to_wide" function
+               (:prototype-flag t
+                :pointer 1
+                :arguments 
+                  ( ("s" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [1777 1791]))                  
+                :type "wchar_t")
+                nil [1759 1792])
+            ("run_from_fork" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("pipe" variable
+                       (:dereference 1
+                        :type "int")
+                        (reparse-symbol arg-sub-list) [1812 1824])
+                    ("err" variable (:type "int") (reparse-symbol arg-sub-list) [1825 1833])
+                    ("cmd" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [1834 1844]))                  
+                :type "void")
+                nil [1793 1845]))          
+    :file "utils.h"
+    :pointmax 1921
+    :fsize 1920
+    :lastmodtime '(21556 7830 294565 164000)
+    :unmatched-syntax 'nil
+    :lexical-table 
+        '(("MAX" (spp-arg-list ("a" "b") 832 . 837) . ((semantic-list "(((a) > (b)) ? (a) : (b))" 838 . 863)))
+          ("MIN" (spp-arg-list ("a" "b") 875 . 880) . ((semantic-list "(((a) < (b)) ? (a) : (b))" 881 . 906)))
+          ("__UTILS_H__")
+          )
+
+    )
+   (semanticdb-table "menus.h"
+    :file "menus.h"
+    :fsize 2418
+    :lastmodtime '(21556 7830 286565 360000)
+    )
+   (semanticdb-table "main_loop.h"
+    :major-mode 'c-mode
+    :tags 
+        '( ("__MAIN_LOOP_H__" variable (:constant-flag t) nil [795 810])
+            ("main_loop" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [827 832]))                  
+                :type "void")
+                nil [812 833]))          
+    :file "main_loop.h"
+    :pointmax 909
+    :fsize 908
+    :lastmodtime '(21556 7830 283565 434000)
+    :unmatched-syntax 'nil
+    :lexical-table 
+        '(("__MAIN_LOOP_H__")
+          )
+
+    )
+   (semanticdb-table "modes.h"
+    :major-mode 'c-mode
+    :tags 
+        '( ("__MODES_H__" variable (:constant-flag t) nil [821 832])
+            ("" type
+               (:members 
+                  ( ("NORMAL_MODE" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [842 854])
+                    ("CMDLINE_MODE" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [856 869])
+                    ("VISUAL_MODE" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [871 883])
+                    ("MENU_MODE" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [885 895])
+                    ("SORT_MODE" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [897 907])
+                    ("PERMISSIONS_MODE" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [909 926])
+                    ("MODES_COUNT" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [928 941]))                  
+                :type "enum")
+                nil [834 942])
+            ("init_modes" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [960 965]))                  
+                :type "void")
+                nil [944 966])
+            ("modes_pre" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [982 987]))                  
+                :type "void")
+                nil [967 988])
+            ("modes_post" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [1005 1010]))                  
+                :type "void")
+                nil [989 1011])
+            ("modes_redraw" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [1030 1035]))                  
+                :type "void")
+                nil [1012 1036])
+            ("add_to_input_bar" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("c" variable (:type "wchar_t") (reparse-symbol arg-sub-list) [1059 1069]))                  
+                :type "void")
+                nil [1037 1070])
+            ("clear_input_bar" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [1092 1097]))                  
+                :type "void")
+                nil [1071 1098]))          
+    :file "modes.h"
+    :pointmax 1174
+    :fsize 1173
+    :lastmodtime '(21556 7830 286565 360000)
+    :unmatched-syntax 'nil
+    :lexical-table 
+        '(("__MODES_H__")
+          )
+
+    )
+   (semanticdb-table "signals.h"
+    :major-mode 'c-mode
+    :tags 
+        '( ("__SIGNALS_H__" variable (:constant-flag t) nil [793 806])
+            ("setup_signals" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [827 832]))                  
+                :type "void")
+                nil [808 833]))          
+    :file "signals.h"
+    :pointmax 909
+    :fsize 908
+    :lastmodtime '(21556 7830 291565 238000)
+    :unmatched-syntax 'nil
+    :lexical-table 
+        '(("__SIGNALS_H__")
+          )
+
+    )
+   )
+  :file "!home!chz!Projects!CWork!vifm!src!semantic.cache"
+  :semantic-tag-version "2.0"
+  :semanticdb-version "2.2"
+  )

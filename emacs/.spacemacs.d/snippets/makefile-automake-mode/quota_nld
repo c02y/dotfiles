@@ -1,0 +1,164 @@
+;; Object lguest/
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "lguest/"
+  :tables (list 
+   (semanticdb-table "core.c"
+    :major-mode 'c-mode
+    :tags 
+        '( ("linux/module.h" include (:system-flag t) nil [239 264])
+            ("linux/stringify.h" include (:system-flag t) nil [265 293])
+            ("linux/stddef.h" include (:system-flag t) nil [294 319])
+            ("linux/io.h" include (:system-flag t) nil [320 341])
+            ("linux/mm.h" include (:system-flag t) nil [342 363])
+            ("linux/vmalloc.h" include (:system-flag t) nil [364 390])
+            ("linux/cpu.h" include (:system-flag t) nil [391 413])
+            ("linux/freezer.h" include (:system-flag t) nil [414 440])
+            ("linux/highmem.h" include (:system-flag t) nil [441 467])
+            ("linux/slab.h" include (:system-flag t) nil [468 491])
+            ("asm/paravirt.h" include (:system-flag t) nil [492 517])
+            ("asm/pgtable.h" include (:system-flag t) nil [518 542])
+            ("asm/uaccess.h" include (:system-flag t) nil [543 567])
+            ("asm/poll.h" include (:system-flag t) nil [568 589])
+            ("asm/asm-offsets.h" include (:system-flag t) nil [590 618])
+            ("lg.h" include nil nil [619 634])
+            ("switcher_vma" variable
+               (:pointer 1
+                :typemodifiers ("static")
+                :type ("vm_struct" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [637 675])
+            ("switcher_page" variable
+               (:pointer 2
+                :typemodifiers ("static")
+                :type ("page" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [676 711])
+            ("DEFINE_MUTEX" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("lguest_lock" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [792 804]))                  
+                :type "int")
+                nil [779 805])
+            ("map_switcher" function
+               (:arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [1353 1358]))                  
+                :type "int")
+                nil [1336 4131])
+            ("unmap_switcher" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [4247 4252]))                  
+                :type "void")
+                nil [4220 4542])
+            ("lguest_address_ok" function
+               (:arguments 
+                  ( ("lg" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("lguest" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [5196 5220])
+                    ("addr" variable (:type "unsigned long") (reparse-symbol arg-sub-list) [5230 5249])
+                    ("len" variable (:type "unsigned long") (reparse-symbol arg-sub-list) [5250 5268]))                  
+                :type "bool")
+                nil [5173 5342])
+            ("__lgread" function
+               (:arguments 
+                  ( ("cpu" variable
+                       (:pointer 1
+                        :type ("lg_cpu" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [5579 5598])
+                    ("b" variable
+                       (:pointer 1
+                        :type "void")
+                        (reparse-symbol arg-sub-list) [5599 5607])
+                    ("addr" variable (:type "unsigned long") (reparse-symbol arg-sub-list) [5608 5627])
+                    ("bytes" variable (:type "unsigned int") (reparse-symbol arg-sub-list) [5628 5643]))                  
+                :type "void")
+                nil [5565 5913])
+            ("__lgwrite" function
+               (:arguments 
+                  ( ("cpu" variable
+                       (:pointer 1
+                        :type ("lg_cpu" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [5981 6000])
+                    ("addr" variable (:type "unsigned long") (reparse-symbol arg-sub-list) [6001 6020])
+                    ("b" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "void")
+                        (reparse-symbol arg-sub-list) [6021 6035])
+                    ("bytes" variable (:type "unsigned int") (reparse-symbol arg-sub-list) [6044 6059]))                  
+                :type "void")
+                nil [5966 6237])
+            ("run_guest" function
+               (:arguments 
+                  ( ("cpu" variable
+                       (:pointer 1
+                        :type ("lg_cpu" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [6478 6497])
+                    ("__user" variable (:type "unsigned long") (reparse-symbol arg-sub-list) [6498 6520])
+                    ("" variable (:type ("user" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [6520 6525]))                  
+                :type "int")
+                nil [6464 8857])
+            ("init" function
+               (:arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [9164 9169]))                  
+                :type ("__init" type (:type "class") nil nil))
+                nil [9152 10064])
+            ("fini" function
+               (:arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [10165 10170]))                  
+                :type ("__exit" type (:type "class") nil nil))
+                nil [10153 10285])
+            ("module_init" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("init" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [10407 10412]))                  
+                :type "int")
+                nil [10395 10413])
+            ("module_exit" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("fini" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [10426 10431]))                  
+                :type "int")
+                nil [10414 10432])
+            ("MODULE_LICENSE" function
+               (:prototype-flag t
+                :type "int")
+                nil [10433 10455])
+            ("MODULE_AUTHOR" function
+               (:prototype-flag t
+                :type "int")
+                nil [10456 10511]))          
+    :file "core.c"
+    :pointmax 10512
+    :fsize 10511
+    :lastmodtime '(21468 9140 691927 481000)
+    :unmatched-syntax '((string 10470 . 10509) (string 10448 . 10453) (VOID 10148 . 10152) (STATIC 10141 . 10147) (INT 9148 . 9151) (STATIC 9141 . 9147) (punctuation 6519 . 6520) (symbol 1329 . 1335) (STATIC 1322 . 1328))
+    )
+   (semanticdb-table "lg.h"
+    :file "lg.h"
+    :fsize 8209
+    :lastmodtime '(21468 9140 714926 937000)
+    )
+   )
+  :file "!home!chz!linux-3.0.8!drivers!lguest!semantic.cache"
+  :semantic-tag-version "2.0"
+  :semanticdb-version "2.2"
+  )

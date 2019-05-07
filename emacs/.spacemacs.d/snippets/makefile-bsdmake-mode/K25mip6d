@@ -1,0 +1,729 @@
+;; Object yum/
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "yum/"
+  :tables (list 
+   (semanticdb-table "plugins.py"
+    :major-mode 'python-mode
+    :tags 
+        '( ("os" include nil nil [767 776])
+            ("glob" include nil nil [777 788])
+            ("imp" include nil nil [789 799])
+            ("warnings" include nil nil [800 815])
+            ("atexit" include nil nil [816 829])
+            ("gettext" include nil nil [830 844])
+            ("logging" include nil nil [845 859])
+            ("logginglevels" include nil nil [860 880])
+            ("constants" include nil nil [881 904])
+            ("config" include nil nil [905 918])
+            ("config" include nil nil [920 965])
+            ("Errors" include nil nil [966 979])
+            ("parser" include nil nil [980 1017])
+            ("textwrap" include nil nil [1019 1044])
+            ("fnmatch" include nil nil [1045 1059])
+            ("weakref" include nil nil [1061 1097])
+            ("yum" include nil nil [1099 1116])
+            ("yum.i18n" include nil nil [1118 1149])
+            ("API_VERSION" variable nil nil [2506 2525])
+            ("DeprecatedInt" type
+               (:documentation "A simple int subclass that is used to check when a deprecated
+    constant is used.
+    "
+                :superclasses ("int")
+                :type "class")
+                nil [2527 2652])
+            ("TYPE_CORE" variable nil nil [2668 2681])
+            ("TYPE_INTERACTIVE" variable nil nil [2682 2702])
+            ("TYPE_INTERFACE" variable nil nil [2703 2736])
+            ("ALL_TYPES" variable nil nil [2737 2778])
+            ("SLOT_TO_CONDUIT" variable nil nil [2818 3770])
+            ("SLOTS" variable nil nil [3799 3837])
+            ("PluginYumExit" type
+               (:documentation "Exception that can be raised by plugins to signal that yum should stop."
+                :superclasses ("Exception")
+                :members 
+                  ( ("__init__" function
+                       (:suite 
+                          ( ("self" variable nil (reparse-symbol indented_block_body) [4019 4037])
+                            ("self" variable nil (reparse-symbol indented_block_body) [4046 4090]))                          
+                        :parent "dummy"
+                        :arguments 
+                          ( ("self" variable nil (reparse-symbol function_parameters) [3971 3975])
+                            ("value" variable nil (reparse-symbol function_parameters) [3977 3982])
+                            ("translation_domain" variable nil (reparse-symbol function_parameters) [3987 4005]))                          
+                        :constructor-flag t)
+                        (reparse-symbol indented_block_body) [3958 4091])
+                    ("__str__" function
+                       (:parent "dummy"
+                        :arguments 
+                          ( ("self" variable nil (reparse-symbol function_parameters) [4107 4111]))                          )
+                        (reparse-symbol indented_block_body) [4095 4267]))                  
+                :type "class")
+                nil [3839 4267])
+            ("YumPlugins" type
+               (:documentation "Manager class for Yum plugins."
+                :members 
+                  ( ("__init__" function
+                       (:suite 
+                          ( ("'''Initialise the instance.
+
+        @param base: The
+        @param searchpath: A list of paths to look for plugin modules.
+        @param optparser: The OptionParser instance for this run (optional).
+            Use to allow plugins to extend command line options.
+        @param types: A sequence specifying the types of plugins to load.
+            This should be sequnce containing one or more of the TYPE_...
+            constants. If None (the default), all plugins will be loaded.
+        @param pluginconfpath: A list of paths to look for plugin configuration
+            files. Defaults to \"/etc/yum/pluginconf.d\".
+        '''" code nil (reparse-symbol indented_block_body) [4471 5107])
+                            ("if" code nil (reparse-symbol indented_block_body) [5116 5194])
+                            ("self" variable nil (reparse-symbol indented_block_body) [5203 5231])
+                            ("self" variable nil (reparse-symbol indented_block_body) [5240 5276])
+                            ("self" variable nil (reparse-symbol indented_block_body) [5285 5310])
+                            ("self" variable nil (reparse-symbol indented_block_body) [5319 5345])
+                            ("self" variable nil (reparse-symbol indented_block_body) [5354 5381])
+                            ("self" variable nil (reparse-symbol indented_block_body) [5390 5455])
+                            ("self" variable nil (reparse-symbol indented_block_body) [5464 5495])
+                            ("self" variable nil (reparse-symbol indented_block_body) [5504 5534])
+                            ("if" code nil (reparse-symbol indented_block_body) [5543 5591])
+                            ("if" code nil (reparse-symbol indented_block_body) [5599 5669])
+                            ("if" code nil (reparse-symbol indented_block_body) [5678 5934])
+                            ("self" code nil (reparse-symbol indented_block_body) [5943 5969])
+                            ("self" variable nil (reparse-symbol indented_block_body) [5979 5997])
+                            ("atexit" code nil (reparse-symbol indented_block_body) [6053 6087])
+                            ("self" code nil (reparse-symbol indented_block_body) [6155 6173]))                          
+                        :parent "dummy"
+                        :arguments 
+                          ( ("self" variable nil (reparse-symbol function_parameters) [4349 4353])
+                            ("base" variable nil (reparse-symbol function_parameters) [4355 4359])
+                            ("searchpath" variable nil (reparse-symbol function_parameters) [4361 4371])
+                            ("optparser" variable nil (reparse-symbol function_parameters) [4373 4382])
+                            ("types" variable nil (reparse-symbol function_parameters) [4389 4394])
+                            ("pluginconfpath" variable nil (reparse-symbol function_parameters) [4414 4428])
+                            ("disabled" variable nil (reparse-symbol function_parameters) [4434 4442])
+                            ("enabled" variable nil (reparse-symbol function_parameters) [4448 4455]))                          
+                        :constructor-flag t)
+                        (reparse-symbol indented_block_body) [4336 6174])
+                    ("run" function
+                       (:parent "dummy"
+                        :arguments 
+                          ( ("self" variable nil (reparse-symbol function_parameters) [6187 6191])
+                            ("slotname" variable nil (reparse-symbol function_parameters) [6193 6201])
+                            ("kwargs" variable nil (reparse-symbol function_parameters) [6203 6211]))                          
+                        :documentation "Run all plugin functions for the given slot.
+
+        :param slotname: a string representing the name of the slot to
+           run the plugins for
+        :param kwargs: keyword arguments that will be simply passed on
+           to the plugins
+        ")
+                        (reparse-symbol indented_block_body) [6179 7113])
+                    ("_importplugins" function
+                       (:parent "dummy"
+                        :arguments 
+                          ( ("self" variable nil (reparse-symbol function_parameters) [7137 7141])
+                            ("types" variable nil (reparse-symbol function_parameters) [7143 7148]))                          )
+                        (reparse-symbol indented_block_body) [7118 9037])
+                    ("_plugin_cmdline_match" function
+                       (:typemodifiers ("static")
+                        :decorators 
+                          ( ("staticmethod" function (:type "decorator") nil nil))                          
+                        :arguments 
+                          ( ("modname" variable nil (reparse-symbol function_parameters) [9086 9093])
+                            ("plugins" variable nil (reparse-symbol function_parameters) [9095 9102])
+                            ("used" variable nil (reparse-symbol function_parameters) [9104 9108]))                          
+                        :documentation " Check if this plugin has been temporary enabled/disabled. ")
+                        (reparse-symbol indented_block_body) [9042 9390])
+                    ("_loadplugin" function
+                       (:parent "dummy"
+                        :arguments 
+                          ( ("self" variable nil (reparse-symbol function_parameters) [9412 9416])
+                            ("modulefile" variable nil (reparse-symbol function_parameters) [9418 9428])
+                            ("types" variable nil (reparse-symbol function_parameters) [9430 9435]))                          )
+                        (reparse-symbol indented_block_body) [9396 13099])
+                    ("_getpluginconf" function
+                       (:parent "dummy"
+                        :arguments 
+                          ( ("self" variable nil (reparse-symbol function_parameters) [13123 13127])
+                            ("modname" variable nil (reparse-symbol function_parameters) [13129 13136]))                          )
+                        (reparse-symbol indented_block_body) [13104 14226])
+                    ("setCmdLine" function
+                       (:parent "dummy"
+                        :arguments 
+                          ( ("self" variable nil (reparse-symbol function_parameters) [14246 14250])
+                            ("opts" variable nil (reparse-symbol function_parameters) [14252 14256])
+                            ("commands" variable nil (reparse-symbol function_parameters) [14258 14266]))                          
+                        :documentation "Set the parsed command line options so that plugins can
+        access them.
+
+        :param opts: a dictionary containing the values of the command
+           line options
+        :param commands: a list of command line arguments passed to yum
+        ")
+                        (reparse-symbol indented_block_body) [14231 14577]))                  
+                :type "class")
+                nil [4272 14577])
+            ("DummyYumPlugins" type
+               (:documentation "This class provides basic emulation of the :class:`YumPlugins`
+    class. It exists so that calls to plugins.run() don't fail if
+    plugins aren't in use.
+    "
+                :members 
+                  ( ("run" function
+                       (:parent "dummy"
+                        :arguments 
+                          ( ("self" variable nil (reparse-symbol function_parameters) [14785 14789])
+                            ("args" variable nil (reparse-symbol function_parameters) [14791 14796])
+                            ("kwargs" variable nil (reparse-symbol function_parameters) [14798 14806]))                          
+                        :documentation "Do nothing.  All arguments are unused.")
+                        (reparse-symbol indented_block_body) [14777 14876])
+                    ("setCmdLine" function
+                       (:parent "dummy"
+                        :arguments 
+                          ( ("self" variable nil (reparse-symbol function_parameters) [14896 14900])
+                            ("args" variable nil (reparse-symbol function_parameters) [14902 14907])
+                            ("kwargs" variable nil (reparse-symbol function_parameters) [14909 14917]))                          
+                        :documentation "Do nothing.  All arguments are unused.")
+                        (reparse-symbol indented_block_body) [14881 14987]))                  
+                :type "class")
+                nil [14579 14987])
+            ("PluginConduit" type
+               (:documentation "A conduit class to transfer information between yum and the
+    plugin.
+    "
+                :members 
+                  ( ("__init__" function
+                       (:suite 
+                          ( ("self" variable nil (reparse-symbol indented_block_body) [15148 15169])
+                            ("self" variable nil (reparse-symbol indented_block_body) [15178 15195])
+                            ("self" variable nil (reparse-symbol indented_block_body) [15204 15221])
+                            ("self" variable nil (reparse-symbol indented_block_body) [15231 15276])
+                            ("self" variable nil (reparse-symbol indented_block_body) [15285 15346]))                          
+                        :parent "dummy"
+                        :arguments 
+                          ( ("self" variable nil (reparse-symbol function_parameters) [15113 15117])
+                            ("parent" variable nil (reparse-symbol function_parameters) [15119 15125])
+                            ("base" variable nil (reparse-symbol function_parameters) [15127 15131])
+                            ("conf" variable nil (reparse-symbol function_parameters) [15133 15137]))                          
+                        :constructor-flag t)
+                        (reparse-symbol indented_block_body) [15100 15347])
+                    ("info" function
+                       (:parent "dummy"
+                        :arguments 
+                          ( ("self" variable nil (reparse-symbol function_parameters) [15361 15365])
+                            ("level" variable nil (reparse-symbol function_parameters) [15367 15372])
+                            ("msg" variable nil (reparse-symbol function_parameters) [15374 15377]))                          
+                        :documentation "Send an info message to the logger.
+
+        :param level: the level of the message to send
+        :param msg: the message to send
+        ")
+                        (reparse-symbol indented_block_body) [15352 15659])
+                    ("error" function
+                       (:parent "dummy"
+                        :arguments 
+                          ( ("self" variable nil (reparse-symbol function_parameters) [15674 15678])
+                            ("level" variable nil (reparse-symbol function_parameters) [15680 15685])
+                            ("msg" variable nil (reparse-symbol function_parameters) [15687 15690]))                          
+                        :documentation "Send an error message to the logger.
+
+        :param level: the level of the message to send
+        :param msg: the message to send
+        ")
+                        (reparse-symbol indented_block_body) [15664 15965])
+                    ("promptYN" function
+                       (:parent "dummy"
+                        :arguments 
+                          ( ("self" variable nil (reparse-symbol function_parameters) [15983 15987])
+                            ("msg" variable nil (reparse-symbol function_parameters) [15989 15992]))                          
+                        :documentation "Return a yes or no response, either from assumeyes already
+        being set, or from prompting the user.
+
+        :param msg: the message to prompt the user with
+        :return: 1 if the response is yes, and 0 if the response is no
+        ")
+                        (reparse-symbol indented_block_body) [15970 16395])
+                    ("getYumVersion" function
+                       (:parent "dummy"
+                        :arguments 
+                          ( ("self" variable nil (reparse-symbol function_parameters) [16418 16422]))                          
+                        :documentation "Return a string representing the current version of yum.")
+                        (reparse-symbol indented_block_body) [16400 16547])
+                    ("getOptParser" function
+                       (:parent "dummy"
+                        :arguments 
+                          ( ("self" variable nil (reparse-symbol function_parameters) [16569 16573]))                          
+                        :documentation "Return the :class:`optparse.OptionParser` instance for this
+        execution of Yum.  In the \"config\" and \"init\" slots a plugin
+        may add extra options to this instance to extend the command
+        line options that Yum exposes.  In all other slots a plugin
+        may only read the :class:`OptionParser` instance.  Any
+        modification of the instance at this point will have no
+        effect.  See the
+        :func:`PreRepoSetupPluginConduit.getCmdLine` method for
+        details on how to retrieve the parsed values of command line
+        options.
+
+        :return: the global :class:`optparse.OptionParser` instance used by
+           Yum. May be None if an OptionParser isn't in use
+        ")
+                        (reparse-symbol indented_block_body) [16552 17478])
+                    ("confString" function
+                       (:parent "dummy"
+                        :arguments 
+                          ( ("self" variable nil (reparse-symbol function_parameters) [17498 17502])
+                            ("section" variable nil (reparse-symbol function_parameters) [17504 17511])
+                            ("opt" variable nil (reparse-symbol function_parameters) [17513 17516])
+                            ("default" variable nil (reparse-symbol function_parameters) [17518 17525]))                          
+                        :documentation "Read a string value from the plugin's own configuration file.
+
+        :param section: configuration file section to read
+        :param opt: option name to read
+        :param default: value to read if the option is missing
+        :return: string option value read, or default if option was missing
+        ")
+                        (reparse-symbol indented_block_body) [17483 17976])
+                    ("confInt" function
+                       (:parent "dummy"
+                        :arguments 
+                          ( ("self" variable nil (reparse-symbol function_parameters) [17993 17997])
+                            ("section" variable nil (reparse-symbol function_parameters) [17999 18006])
+                            ("opt" variable nil (reparse-symbol function_parameters) [18008 18011])
+                            ("default" variable nil (reparse-symbol function_parameters) [18013 18020]))                          
+                        :documentation "Read an integer value from the plugin's own configuration file.
+
+        :param section: configuration file section to read
+        :param opt: option name to read
+        :param default: value to read if the option is missing
+
+        :return: the integer option value read, or *default* if the
+            option was missing or could not be parsed
+        ")
+                        (reparse-symbol indented_block_body) [17981 18486])
+                    ("confFloat" function
+                       (:parent "dummy"
+                        :arguments 
+                          ( ("self" variable nil (reparse-symbol function_parameters) [18505 18509])
+                            ("section" variable nil (reparse-symbol function_parameters) [18511 18518])
+                            ("opt" variable nil (reparse-symbol function_parameters) [18520 18523])
+                            ("default" variable nil (reparse-symbol function_parameters) [18525 18532]))                          
+                        :documentation "Read a float value from the plugin's own configuration file.
+
+        :param section: configuration file section to read
+        :param opt: option name to read
+        :param default: value to read if the option is missing
+        :return: float option value read, or *default* if the option was
+            missing or could not be parsed
+        ")
+                        (reparse-symbol indented_block_body) [18491 18990])
+                    ("confBool" function
+                       (:parent "dummy"
+                        :arguments 
+                          ( ("self" variable nil (reparse-symbol function_parameters) [19008 19012])
+                            ("section" variable nil (reparse-symbol function_parameters) [19014 19021])
+                            ("opt" variable nil (reparse-symbol function_parameters) [19023 19026])
+                            ("default" variable nil (reparse-symbol function_parameters) [19028 19035]))                          
+                        :documentation "Read a boolean value from the plugin's own configuration file
+
+        :param section: configuration file section to read
+        :param opt: option name to read
+        :param default: value to read if the option is missing
+        :return: boolean option value read, or *default* if the option
+            was missing or could not be parsed
+        ")
+                        (reparse-symbol indented_block_body) [18995 19495])
+                    ("registerPackageName" function
+                       (:parent "dummy"
+                        :arguments 
+                          ( ("self" variable nil (reparse-symbol function_parameters) [19524 19528])
+                            ("name" variable nil (reparse-symbol function_parameters) [19530 19534]))                          
+                        :documentation "Register the name of a package to use.
+
+        :param name: the name of the package to register
+        ")
+                        (reparse-symbol indented_block_body) [19500 19709]))                  
+                :type "class")
+                nil [14988 19709])
+            ("ConfigPluginConduit" type
+               (:documentation "A conduit for use in the config slot."
+                :superclasses ("PluginConduit")
+                :members 
+                  ( ("registerOpt" function
+                       (:parent "dummy"
+                        :arguments 
+                          ( ("self" variable nil (reparse-symbol function_parameters) [19822 19826])
+                            ("name" variable nil (reparse-symbol function_parameters) [19828 19832])
+                            ("valuetype" variable nil (reparse-symbol function_parameters) [19834 19843])
+                            ("where" variable nil (reparse-symbol function_parameters) [19845 19850])
+                            ("default" variable nil (reparse-symbol function_parameters) [19852 19859]))                          
+                        :documentation "Deprecated.  Register a yum configuration file option.
+
+        :param name: name of the new option
+        :param valuetype: option type (PLUG_OPT_BOOL, PLUG_OPT_STRING, etc.)
+        :param where: where the option should be available in the config file
+            (PLUG_OPT_WHERE_MAIN, PLUG_OPT_WHERE_REPO, etc)
+        :param default: default value for the option if it is not set by the user
+        ")
+                        (reparse-symbol indented_block_body) [19806 21141])
+                    ("registerCommand" function
+                       (:parent "dummy"
+                        :arguments 
+                          ( ("self" variable nil (reparse-symbol function_parameters) [21166 21170])
+                            ("command" variable nil (reparse-symbol function_parameters) [21172 21179]))                          
+                        :documentation "Register a new command.
+
+        :param command: the command to register
+        :raises: :class:`yum.Errors.ConfigError` if the registration
+           of commands is not supported
+        ")
+                        (reparse-symbol indented_block_body) [21146 21582]))                  
+                :type "class")
+                nil [19711 21582])
+            ("PostConfigPluginConduit" type
+               (:documentation "Conduit for use in the postconfig slot."
+                :superclasses ("ConfigPluginConduit")
+                :members 
+                  ( ("getConf" function
+                       (:parent "dummy"
+                        :arguments 
+                          ( ("self" variable nil (reparse-symbol function_parameters) [21702 21706]))                          
+                        :documentation "Return a dictionary containing the values of the
+        configuration options.
+
+        :return: a dictionary containing the values of the
+           configuration options
+        ")
+                        (reparse-symbol indented_block_body) [21690 21936]))                  
+                :type "class")
+                nil [21583 21936])
+            ("InitPluginConduit" type
+               (:documentation "Conduit for use in the init slot."
+                :superclasses ("PluginConduit")
+                :members 
+                  ( ("getConf" function
+                       (:parent "dummy"
+                        :arguments 
+                          ( ("self" variable nil (reparse-symbol function_parameters) [22038 22042]))                          
+                        :documentation "Return a dictionary containing the values of the
+        configuration options.
+
+        :return: a dictionary containing the values of the
+           configuration options
+        ")
+                        (reparse-symbol indented_block_body) [22026 22272])
+                    ("getRepos" function
+                       (:parent "dummy"
+                        :arguments 
+                          ( ("self" variable nil (reparse-symbol function_parameters) [22290 22294]))                          
+                        :documentation "Return Yum's container object for all configured repositories.
+
+        :return: Yum's :class:`yum.repos.RepoStorage` instance
+        ")
+                        (reparse-symbol indented_block_body) [22277 22479]))                  
+                :type "class")
+                nil [21937 22479])
+            ("ArgsPluginConduit" type
+               (:documentation "Conduit for dealing with command line arguments."
+                :superclasses ("InitPluginConduit")
+                :members 
+                  ( ("__init__" function
+                       (:suite 
+                          ( ("InitPluginConduit" code nil (reparse-symbol indented_block_body) [22642 22694])
+                            ("self" variable nil (reparse-symbol indented_block_body) [22703 22720]))                          
+                        :parent "dummy"
+                        :arguments 
+                          ( ("self" variable nil (reparse-symbol function_parameters) [22601 22605])
+                            ("parent" variable nil (reparse-symbol function_parameters) [22607 22613])
+                            ("base" variable nil (reparse-symbol function_parameters) [22615 22619])
+                            ("conf" variable nil (reparse-symbol function_parameters) [22621 22625])
+                            ("args" variable nil (reparse-symbol function_parameters) [22627 22631]))                          
+                        :constructor-flag t)
+                        (reparse-symbol indented_block_body) [22588 22721])
+                    ("getArgs" function
+                       (:parent "dummy"
+                        :arguments 
+                          ( ("self" variable nil (reparse-symbol function_parameters) [22738 22742]))                          
+                        :documentation "Return a list of the command line arguments passed to yum.
+
+        :return: a list of the command line arguments passed to yum
+        ")
+                        (reparse-symbol indented_block_body) [22726 22922]))                  
+                :type "class")
+                nil [22480 22922])
+            ("PreRepoSetupPluginConduit" type
+               (:documentation "Conduit for use in the prererosetup slot."
+                :superclasses ("InitPluginConduit")
+                :members 
+                  ( ("getCmdLine" function
+                       (:parent "dummy"
+                        :arguments 
+                          ( ("self" variable nil (reparse-symbol function_parameters) [23048 23052]))                          
+                        :documentation "Return parsed command line options.
+
+        :return: (options, commands) as returned by :class:`OptionParser.parse_args()`
+        ")
+                        (reparse-symbol indented_block_body) [23033 23238])
+                    ("getRpmDB" function
+                       (:parent "dummy"
+                        :arguments 
+                          ( ("self" variable nil (reparse-symbol function_parameters) [23256 23260]))                          
+                        :documentation "Return a representation of the local RPM database. This
+        allows querying of installed packages.
+
+        :return: a :class:`yum.rpmUtils.RpmDBHolder` instance
+        ")
+                        (reparse-symbol indented_block_body) [23243 23484]))                  
+                :type "class")
+                nil [22923 23484])
+            ("PostRepoSetupPluginConduit" type
+               (:documentation "Conduit for use in the postreposetup slot."
+                :superclasses ("PreRepoSetupPluginConduit")
+                :members 
+                  ( ("getGroups" function
+                       (:parent "dummy"
+                        :arguments 
+                          ( ("self" variable nil (reparse-symbol function_parameters) [23618 23622]))                          
+                        :documentation "Return group information.
+
+        :return: :class:`yum.comps.Comps` instance
+        ")
+                        (reparse-symbol indented_block_body) [23604 23758]))                  
+                :type "class")
+                nil [23485 23758])
+            ("DownloadPluginConduit" type
+               (:documentation "Conduit for use in the download slots."
+                :superclasses ("PostRepoSetupPluginConduit")
+                :members 
+                  ( ("__init__" function
+                       (:suite 
+                          ( ("PostRepoSetupPluginConduit" code nil (reparse-symbol indented_block_body) [23940 24001])
+                            ("self" variable nil (reparse-symbol indented_block_body) [24010 24033])
+                            ("self" variable nil (reparse-symbol indented_block_body) [24042 24063]))                          
+                        :parent "dummy"
+                        :arguments 
+                          ( ("self" variable nil (reparse-symbol function_parameters) [23883 23887])
+                            ("parent" variable nil (reparse-symbol function_parameters) [23889 23895])
+                            ("base" variable nil (reparse-symbol function_parameters) [23897 23901])
+                            ("conf" variable nil (reparse-symbol function_parameters) [23903 23907])
+                            ("pkglist" variable nil (reparse-symbol function_parameters) [23909 23916])
+                            ("errors" variable nil (reparse-symbol function_parameters) [23918 23924]))                          
+                        :constructor-flag t)
+                        (reparse-symbol indented_block_body) [23870 24064])
+                    ("getDownloadPackages" function
+                       (:parent "dummy"
+                        :arguments 
+                          ( ("self" variable nil (reparse-symbol function_parameters) [24093 24097]))                          
+                        :documentation "Return a list of package objects representing packages to be
+        downloaded.
+
+        :return: a list of package object representing packages to be
+           downloaded
+        ")
+                        (reparse-symbol indented_block_body) [24069 24326])
+                    ("getErrors" function
+                       (:parent "dummy"
+                        :arguments 
+                          ( ("self" variable nil (reparse-symbol function_parameters) [24345 24349]))                          
+                        :documentation "Return a dictionary of download errors. 
+        
+        :return: a dictionary of download errors. This dictionary is
+           indexed by package object. Each element is a list of
+           strings describing the error
+        ")
+                        (reparse-symbol indented_block_body) [24331 24677]))                  
+                :type "class")
+                nil [23759 24677])
+            ("MainPluginConduit" type
+               (:documentation "Main conduit class for plugins.  Many other conduit classes
+    will inherit from this class.
+    "
+                :superclasses ("PostRepoSetupPluginConduit")
+                :members 
+                  ( ("getPackages" function
+                       (:parent "dummy"
+                        :arguments 
+                          ( ("self" variable nil (reparse-symbol function_parameters) [24860 24864])
+                            ("repo" variable nil (reparse-symbol function_parameters) [24866 24870]))                          
+                        :documentation "Return a list of packages.
+
+        :param repo: the repo to return a packages from
+        :return: a list of package objects
+        ")
+                        (reparse-symbol indented_block_body) [24844 25162])
+                    ("getPackageByNevra" function
+                       (:parent "dummy"
+                        :arguments 
+                          ( ("self" variable nil (reparse-symbol function_parameters) [25189 25193])
+                            ("nevra" variable nil (reparse-symbol function_parameters) [25195 25200]))                          
+                        :documentation "Retrieve a package object from the packages loaded by Yum using
+        nevra information.
+        
+        :param nevra: a tuple holding (name, epoch, version, release, arch)
+            for a package
+        :return: a :class:`yum.packages.PackageObject` instance (or subclass)
+        ")
+                        (reparse-symbol indented_block_body) [25167 25556])
+                    ("delPackage" function
+                       (:parent "dummy"
+                        :arguments 
+                          ( ("self" variable nil (reparse-symbol function_parameters) [25576 25580])
+                            ("po" variable nil (reparse-symbol function_parameters) [25582 25584]))                          
+                        :documentation "Delete the given package from the package sack.
+
+        :param po: the package object to delete
+        ")
+                        (reparse-symbol indented_block_body) [25561 25743])
+                    ("getTsInfo" function
+                       (:parent "dummy"
+                        :arguments 
+                          ( ("self" variable nil (reparse-symbol function_parameters) [25762 25766]))                          
+                        :documentation "Return transaction set.
+
+        :return: the transaction set
+        ")
+                        (reparse-symbol indented_block_body) [25748 25887]))                  
+                :type "class")
+                nil [24678 25887])
+            ("DepsolvePluginConduit" type
+               (:documentation "Conduit for use in solving dependencies."
+                :superclasses ("MainPluginConduit")
+                :members 
+                  ( ("__init__" function
+                       (:suite 
+                          ( ("MainPluginConduit" code nil (reparse-symbol indented_block_body) [26067 26119])
+                            ("self" variable nil (reparse-symbol indented_block_body) [26128 26153])
+                            ("self" variable nil (reparse-symbol indented_block_body) [26162 26190]))                          
+                        :parent "dummy"
+                        :arguments 
+                          ( ("self" variable nil (reparse-symbol function_parameters) [26005 26009])
+                            ("parent" variable nil (reparse-symbol function_parameters) [26011 26017])
+                            ("base" variable nil (reparse-symbol function_parameters) [26019 26023])
+                            ("conf" variable nil (reparse-symbol function_parameters) [26025 26029])
+                            ("rescode" variable nil (reparse-symbol function_parameters) [26031 26038])
+                            ("restring" variable nil (reparse-symbol function_parameters) [26045 26053]))                          
+                        :constructor-flag t)
+                        (reparse-symbol indented_block_body) [25992 26191]))                  
+                :type "class")
+                nil [25888 26191])
+            ("CompareProvidersPluginConduit" type
+               (:documentation "Conduit to compare different providers of packages."
+                :superclasses ("MainPluginConduit")
+                :members 
+                  ( ("__init__" function
+                       (:suite 
+                          ( ("MainPluginConduit" code nil (reparse-symbol indented_block_body) [26394 26446])
+                            ("self" variable nil (reparse-symbol indented_block_body) [26455 26485])
+                            ("self" variable nil (reparse-symbol indented_block_body) [26494 26512]))                          
+                        :parent "dummy"
+                        :arguments 
+                          ( ("self" variable nil (reparse-symbol function_parameters) [26328 26332])
+                            ("parent" variable nil (reparse-symbol function_parameters) [26334 26340])
+                            ("base" variable nil (reparse-symbol function_parameters) [26342 26346])
+                            ("conf" variable nil (reparse-symbol function_parameters) [26348 26352])
+                            ("providers_dict" variable nil (reparse-symbol function_parameters) [26354 26368])
+                            ("reqpo" variable nil (reparse-symbol function_parameters) [26373 26378]))                          
+                        :constructor-flag t)
+                        (reparse-symbol indented_block_body) [26315 26513]))                  
+                :type "class")
+                nil [26192 26513])
+            ("HistoryPluginConduit" type
+               (:documentation "Conduit to access information about the yum history."
+                :superclasses ("MainPluginConduit")
+                :members 
+                  ( ("__init__" function
+                       (:suite 
+                          ( ("MainPluginConduit" code nil (reparse-symbol indented_block_body) [26704 26756])
+                            ("self" variable nil (reparse-symbol indented_block_body) [26765 26798]))                          
+                        :parent "dummy"
+                        :arguments 
+                          ( ("self" variable nil (reparse-symbol function_parameters) [26642 26646])
+                            ("parent" variable nil (reparse-symbol function_parameters) [26648 26654])
+                            ("base" variable nil (reparse-symbol function_parameters) [26656 26660])
+                            ("conf" variable nil (reparse-symbol function_parameters) [26662 26666])
+                            ("rescode" variable nil (reparse-symbol function_parameters) [26668 26675])
+                            ("restring" variable nil (reparse-symbol function_parameters) [26682 26690]))                          
+                        :constructor-flag t)
+                        (reparse-symbol indented_block_body) [26629 26799]))                  
+                :type "class")
+                nil [26514 26799])
+            ("VerifyPluginConduit" type
+               (:documentation "Conduit to verify packages."
+                :superclasses ("MainPluginConduit")
+                :members 
+                  ( ("__init__" function
+                       (:suite 
+                          ( ("MainPluginConduit" code nil (reparse-symbol indented_block_body) [26953 27005])
+                            ("self" variable nil (reparse-symbol indented_block_body) [27014 27050]))                          
+                        :parent "dummy"
+                        :arguments 
+                          ( ("self" variable nil (reparse-symbol function_parameters) [26902 26906])
+                            ("parent" variable nil (reparse-symbol function_parameters) [26908 26914])
+                            ("base" variable nil (reparse-symbol function_parameters) [26916 26920])
+                            ("conf" variable nil (reparse-symbol function_parameters) [26922 26926])
+                            ("verify_package" variable nil (reparse-symbol function_parameters) [26928 26942]))                          
+                        :constructor-flag t)
+                        (reparse-symbol indented_block_body) [26889 27051]))                  
+                :type "class")
+                nil [26800 27051])
+            ("parsever" function
+               (:documentation "Parse a string representing an api version.
+
+    :param apiver: a string representing an api version
+    :return: a tuple containing the major and minor version numbers
+    "
+                :arguments 
+                  ( ("apiver" variable nil (reparse-symbol function_parameters) [27065 27071]))                  )
+                nil [27052 27321])
+            ("apiverok" function
+               (:documentation "Return true if API version \"a\" supports API version \"b\"
+
+    :param a: a string representing an api version
+    :param b: a string representing an api version
+
+    :return: whether version *a* supports version *b*
+    "
+                :arguments 
+                  ( ("a" variable nil (reparse-symbol function_parameters) [27335 27336])
+                    ("b" variable nil (reparse-symbol function_parameters) [27338 27339]))                  )
+                nil [27322 27703]))          
+    :file "plugins.py"
+    :pointmax 27703
+    :fsize 27702
+    :lastmodtime '(21409 34095 0 0)
+    :unmatched-syntax 'nil
+    )
+   (semanticdb-table "logginglevels.py"
+    :file "logginglevels.py"
+    :fsize 8094
+    :lastmodtime '(21409 34095 0 0)
+    )
+   (semanticdb-table "constants.py"
+    :file "constants.py"
+    :fsize 3741
+    :lastmodtime '(21409 34095 0 0)
+    )
+   (semanticdb-table "config.py"
+    :file "config.py"
+    :fsize 49898
+    :lastmodtime '(21409 34095 0 0)
+    )
+   (semanticdb-table "Errors.py"
+    :file "Errors.py"
+    :fsize 4417
+    :lastmodtime '(21409 34095 0 0)
+    )
+   (semanticdb-table "parser.py"
+    :file "parser.py"
+    :fsize 8224
+    :lastmodtime '(21409 34095 0 0)
+    )
+   (semanticdb-table "i18n.py"
+    :file "i18n.py"
+    :fsize 20860
+    :lastmodtime '(21409 34095 0 0)
+    )
+   )
+  :file "!usr!lib!python2.7!site-packages!yum!semantic.cache"
+  :semantic-tag-version "2.0"
+  :semanticdb-version "2.2"
+  )

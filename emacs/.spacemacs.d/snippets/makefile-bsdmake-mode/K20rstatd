@@ -1,0 +1,1111 @@
+;; Object xdiff/
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "xdiff/"
+  :tables (list 
+   (semanticdb-table "xhistogram.c"
+    :major-mode 'c-mode
+    :tags 
+        '( ("xinclude.h" include nil nil [1930 1951])
+            ("xtypes.h" include nil nil [1952 1971])
+            ("xdiff.h" include nil nil [1972 1990])
+            ("MAX_PTR" variable (:constant-flag t) nil [2000 2007])
+            ("MAX_CNT" variable (:constant-flag t) nil [2025 2032])
+            ("LINE_END" variable (:constant-flag t) nil [2051 2059])
+            ("LINE_END_PTR" variable (:constant-flag t) nil [2096 2108])
+            ("histindex" type
+               (:members 
+                  ( ("record" type
+                       (:members 
+                          ( ("cnt" variable (:type "unsigned int") (reparse-symbol classsubparts) [2178 2200])
+                            ("ptr" variable (:type "unsigned int") (reparse-symbol classsubparts) [2178 2200])
+                            ("next" variable
+                               (:pointer 1
+                                :type ("record" type
+                                     (:prototype t
+                                      :type "struct")
+                                      nil nil))
+                                (reparse-symbol classsubparts) [2203 2223]))                          
+                        :type "struct")
+                        (reparse-symbol classsubparts) [2160 2272])
+                    ("line_map" variable
+                       (:pointer 2
+                        :type ("record" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol classsubparts) [2160 2272])
+                    ("records" variable
+                       (:pointer 2
+                        :type ("record" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol classsubparts) [2160 2272])
+                    ("rcha" variable (:type ("chastore_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [2308 2324])
+                    ("next_ptrs" variable
+                       (:pointer 1
+                        :type "unsigned int")
+                        (reparse-symbol classsubparts) [2326 2350])
+                    ("line_map_size" variable (:type "unsigned int") (reparse-symbol classsubparts) [2352 2419])
+                    ("records_size" variable (:type "unsigned int") (reparse-symbol classsubparts) [2352 2419])
+                    ("table_bits" variable (:type "unsigned int") (reparse-symbol classsubparts) [2352 2419])
+                    ("ptr_shift" variable (:type "unsigned int") (reparse-symbol classsubparts) [2422 2488])
+                    ("key_shift" variable (:type "unsigned int") (reparse-symbol classsubparts) [2422 2488])
+                    ("max_chain_length" variable (:type "unsigned int") (reparse-symbol classsubparts) [2422 2488])
+                    ("has_common" variable (:type "unsigned int") (reparse-symbol classsubparts) [2491 2527])
+                    ("cnt" variable (:type "unsigned int") (reparse-symbol classsubparts) [2491 2527])
+                    ("env" variable
+                       (:pointer 1
+                        :type ("xdfenv_t" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [2530 2544])
+                    ("xpp" variable
+                       (:pointer 1
+                        :type ("xpparam_t" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [2546 2567]))                  
+                :type "struct")
+                nil [2140 2570])
+            ("region" type
+               (:members 
+                  ( ("end1" variable (:type "unsigned int") (reparse-symbol classsubparts) [2589 2615])
+                    ("begin1" variable (:type "unsigned int") (reparse-symbol classsubparts) [2589 2615])
+                    ("end2" variable (:type "unsigned int") (reparse-symbol classsubparts) [2617 2643])
+                    ("begin2" variable (:type "unsigned int") (reparse-symbol classsubparts) [2617 2643]))                  
+                :type "struct")
+                nil [2572 2646])
+            ("LINE_MAP" variable (:constant-flag t) nil [2656 2664])
+            ("NEXT_PTR" variable (:constant-flag t) nil [2714 2722])
+            ("CNT" variable (:constant-flag t) nil [2792 2795])
+            ("REC" variable (:constant-flag t) nil [2850 2853])
+            ("cmp_recs" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("xpp" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("xpparam_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [2915 2936])
+                    ("r1" variable
+                       (:pointer 1
+                        :type ("xrecord_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [2938 2952])
+                    ("r2" variable
+                       (:pointer 1
+                        :type ("xrecord_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [2953 2967]))                  
+                :type "int")
+                nil [2895 3072])
+            ("CMP_ENV" variable (:constant-flag t) nil [3082 3089])
+            ("CMP" variable (:constant-flag t) nil [3180 3183])
+            ("TABLE_HASH" variable (:constant-flag t) nil [3276 3286])
+            ("scanA" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("index" variable
+                       (:pointer 1
+                        :type ("histindex" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [3394 3418])
+                    ("line1" variable (:type "int") (reparse-symbol arg-sub-list) [3419 3429])
+                    ("count1" variable (:type "int") (reparse-symbol arg-sub-list) [3430 3441]))                  
+                :type "int")
+                nil [3377 4533])
+            ("try_lcs" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("index" variable
+                       (:pointer 1
+                        :type ("histindex" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [4554 4578])
+                    ("lcs" variable
+                       (:pointer 1
+                        :type ("region" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [4579 4598])
+                    ("b_ptr" variable (:type "int") (reparse-symbol arg-sub-list) [4599 4609])
+                    ("line1" variable (:type "int") (reparse-symbol arg-sub-list) [4611 4621])
+                    ("count1" variable (:type "int") (reparse-symbol arg-sub-list) [4622 4633])
+                    ("line2" variable (:type "int") (reparse-symbol arg-sub-list) [4634 4644])
+                    ("count2" variable (:type "int") (reparse-symbol arg-sub-list) [4645 4656]))                  
+                :type "int")
+                nil [4535 5958])
+            ("find_lcs" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("index" variable
+                       (:pointer 1
+                        :type ("histindex" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [5980 6004])
+                    ("lcs" variable
+                       (:pointer 1
+                        :type ("region" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [6005 6024])
+                    ("line1" variable (:type "int") (reparse-symbol arg-sub-list) [6026 6036])
+                    ("count1" variable (:type "int") (reparse-symbol arg-sub-list) [6037 6048])
+                    ("line2" variable (:type "int") (reparse-symbol arg-sub-list) [6049 6059])
+                    ("count2" variable (:type "int") (reparse-symbol arg-sub-list) [6060 6071]))                  
+                :type "int")
+                nil [5960 6361])
+            ("fall_back_to_classic_diff" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("index" variable
+                       (:pointer 1
+                        :type ("histindex" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [6400 6424])
+                    ("line1" variable (:type "int") (reparse-symbol arg-sub-list) [6427 6437])
+                    ("count1" variable (:type "int") (reparse-symbol arg-sub-list) [6438 6449])
+                    ("line2" variable (:type "int") (reparse-symbol arg-sub-list) [6450 6460])
+                    ("count2" variable (:type "int") (reparse-symbol arg-sub-list) [6461 6472]))                  
+                :type "int")
+                nil [6363 6634])
+            ("histogram_diff" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("xpp" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("xpparam_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [6662 6683])
+                    ("env" variable
+                       (:pointer 1
+                        :type ("xdfenv_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [6684 6698])
+                    ("line1" variable (:type "int") (reparse-symbol arg-sub-list) [6700 6710])
+                    ("count1" variable (:type "int") (reparse-symbol arg-sub-list) [6711 6722])
+                    ("line2" variable (:type "int") (reparse-symbol arg-sub-list) [6723 6733])
+                    ("count2" variable (:type "int") (reparse-symbol arg-sub-list) [6734 6745]))                  
+                :type "int")
+                nil [6636 8851])
+            ("xdl_do_histogram_diff" function
+               (:arguments 
+                  ( ("file1" variable
+                       (:pointer 1
+                        :type ("mmfile_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [8879 8895])
+                    ("file2" variable
+                       (:pointer 1
+                        :type ("mmfile_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [8896 8912])
+                    ("xpp" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("xpparam_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [8914 8935])
+                    ("env" variable
+                       (:pointer 1
+                        :type ("xdfenv_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [8936 8950]))                  
+                :type "int")
+                nil [8853 9178]))          
+    :file "xhistogram.c"
+    :pointmax 9179
+    :fsize 9178
+    :lastmodtime '(21563 28276 6370 136000)
+    :unmatched-syntax 'nil
+    :lexical-table 
+        '(("LINE_END" (spp-arg-list ("n") 2059 . 2062) . ((semantic-list "(line##n + count##n - 1)" 2063 . 2087)))
+          ("LINE_END_PTR" (spp-arg-list ("n") 2108 . 2111) . ((semantic-list "(*line##n + *count##n - 1)" 2112 . 2138)))
+          ("CMP" (spp-arg-list ("i" "s1" "l1" "s2" "l2") 3183 . 3202) . ((semantic-list "(cmp_recs(i->xpp, REC(i->env, s1, l1), REC(i->env, s2, l2)))" 3206 . 3266)))
+          ("MAX_CNT" . ((symbol "UINT_MAX" 2033 . 2041)))
+          ("MAX_PTR" . ((symbol "UINT_MAX" 2008 . 2016)))
+          ("CMP_ENV" (spp-arg-list ("xpp" "env" "s1" "l1" "s2" "l2") 3089 . 3115) . ((semantic-list "(cmp_recs(xpp, REC(env, s1, l1), REC(env, s2, l2)))" 3119 . 3170)))
+          ("LINE_MAP" (spp-arg-list ("i" "a") 2664 . 2670) . ((semantic-list "(i->line_map[(a) - i->ptr_shift])" 2671 . 2704)))
+          ("CNT" (spp-arg-list ("index" "ptr") 2795 . 2807) . ((semantic-list "((LINE_MAP(index, ptr))->cnt)" 2811 . 2840)))
+          ("REC" (spp-arg-list ("env" "s" "l") 2853 . 2864) . ((semantic-list "(env->xdf##s.recs[l - 1])" 2868 . 2893)))
+          ("NEXT_PTR" (spp-arg-list ("index" "ptr") 2722 . 2734) . ((semantic-list "(index->next_ptrs[(ptr) - index->ptr_shift])" 2738 . 2782)))
+          ("TABLE_HASH" (spp-arg-list ("index" "side" "line") 3286 . 3305) . ((symbol "XDL_HASHLONG" 3309 . 3321) (semantic-list "((REC(index->env, side, line))->ha, index->table_bits)" 3321 . 3375)))
+          )
+
+    )
+   (semanticdb-table "xinclude.h"
+    :major-mode 'c-mode
+    :tags 
+        '( ("XINCLUDE_H" variable (:constant-flag t) nil [943 953])
+            ("ctype.h" include (:system-flag t) nil [955 973])
+            ("stdio.h" include (:system-flag t) nil [974 992])
+            ("stdlib.h" include (:system-flag t) nil [993 1012])
+            ("unistd.h" include (:system-flag t) nil [1013 1032])
+            ("string.h" include (:system-flag t) nil [1033 1052])
+            ("limits.h" include (:system-flag t) nil [1053 1072])
+            ("xmacros.h" include nil nil [1074 1094])
+            ("xdiff.h" include nil nil [1095 1113])
+            ("xtypes.h" include nil nil [1114 1133])
+            ("xutils.h" include nil nil [1134 1153])
+            ("xprepare.h" include nil nil [1154 1175])
+            ("xdiffi.h" include nil nil [1176 1195])
+            ("xemit.h" include nil nil [1196 1214]))          
+    :file "xinclude.h"
+    :pointmax 1255
+    :fsize 1254
+    :lastmodtime '(21563 28276 6370 136000)
+    :unmatched-syntax 'nil
+    :lexical-table 
+        '(("XINCLUDE_H")
+          )
+
+    )
+   (semanticdb-table "xmacros.h"
+    :major-mode 'c-mode
+    :tags 
+        '( ("XMACROS_H" variable (:constant-flag t) nil [942 951])
+            ("XDL_MIN" variable (:constant-flag t) nil [964 971])
+            ("XDL_MAX" variable (:constant-flag t) nil [1009 1016])
+            ("XDL_ABS" variable (:constant-flag t) nil [1054 1061])
+            ("XDL_ISDIGIT" variable (:constant-flag t) nil [1096 1107])
+            ("XDL_ISSPACE" variable (:constant-flag t) nil [1146 1157])
+            ("XDL_ADDBITS" variable (:constant-flag t) nil [1199 1210])
+            ("XDL_MASKBITS" variable (:constant-flag t) nil [1245 1257])
+            ("XDL_HASHLONG" variable (:constant-flag t) nil [1289 1301])
+            ("XDL_PTRFREE" variable (:constant-flag t) nil [1370 1381])
+            ("XDL_LE32_PUT" variable (:constant-flag t) nil [1446 1458])
+            ("XDL_LE32_GET" variable (:constant-flag t) nil [1694 1706]))          
+    :file "xmacros.h"
+    :pointmax 1967
+    :fsize 1966
+    :lastmodtime '(21563 28276 6370 136000)
+    :unmatched-syntax 'nil
+    :lexical-table 
+        '(("XDL_LE32_PUT" (spp-arg-list ("p" "v") 1458 . 1464) . 
+              ((DO "do" 1467 . 1469) (semantic-list "{ \\
+	unsigned char *__p = (unsigned char *) (p); \\
+	*__p++ = (unsigned char) (v); \\
+	*__p++ = (unsigned char) ((v) >> 8); \\
+	*__p++ = (unsigned char) ((v) >> 16); \\
+	*__p = (unsigned char) ((v) >> 24); \\
+}" 1470 . 1675) (WHILE "while" 1676 . 1681) (semantic-list "(0)" 1682 . 1685)))
+          ("XDL_LE32_GET" (spp-arg-list ("p" "v") 1706 . 1712) . 
+              ((DO "do" 1715 . 1717) (semantic-list "{ \\
+	unsigned char const *__p = (unsigned char const *) (p); \\
+	(v) = (unsigned long) __p[0] | ((unsigned long) __p[1]) << 8 | \\
+		((unsigned long) __p[2]) << 16 | ((unsigned long) __p[3]) << 24; \\
+}" 1718 . 1917) (WHILE "while" 1918 . 1923) (semantic-list "(0)" 1924 . 1927)))
+          ("XDL_ABS" (spp-arg-list ("v") 1061 . 1064) . ((semantic-list "((v) >= 0 ? (v): -(v))" 1065 . 1087)))
+          ("XDL_PTRFREE" (spp-arg-list ("p") 1381 . 1384) . 
+              ((DO "do" 1385 . 1387) (semantic-list "{ if (p) { xdl_free(p); (p) = NULL; } }" 1388 . 1427) (WHILE "while" 1428 . 1433) (semantic-list "(0)" 1434 . 1437)))
+          ("XDL_ISDIGIT" (spp-arg-list ("c") 1107 . 1110) . ((semantic-list "((c) >= '0' && (c) <= '9')" 1111 . 1137)))
+          ("XDL_MASKBITS" (spp-arg-list ("b") 1257 . 1260) . ((semantic-list "((1UL << (b)) - 1)" 1262 . 1280)))
+          ("XMACROS_H")
+          ("XDL_MAX" (spp-arg-list ("a" "b") 1016 . 1022) . ((semantic-list "((a) > (b) ? (a): (b))" 1023 . 1045)))
+          ("XDL_MIN" (spp-arg-list ("a" "b") 971 . 977) . ((semantic-list "((a) < (b) ? (a): (b))" 978 . 1000)))
+          ("XDL_ISSPACE" (spp-arg-list ("c") 1157 . 1160) . ((semantic-list "(isspace((unsigned char)(c)))" 1161 . 1190)))
+          ("XDL_ADDBITS" (spp-arg-list ("v" "b") 1210 . 1215) . ((semantic-list "((v) + ((v) >> (b)))" 1216 . 1236)))
+          ("XDL_HASHLONG" (spp-arg-list ("v" "b") 1301 . 1306) . ((semantic-list "(XDL_ADDBITS((unsigned long)(v), b) & XDL_MASKBITS(b))" 1307 . 1361)))
+          )
+
+    )
+   (semanticdb-table "xdiff.h"
+    :major-mode 'c-mode
+    :tags 
+        '( ("XDIFF_H" variable (:constant-flag t) nil [940 947])
+            ("XDF_NEED_MINIMAL" variable
+               (:typemodifiers ("extern" "\"C\"")
+                :constant-flag t)
+                (reparse-symbol extern-c-contents) [1023 1039])
+            ("XDF_IGNORE_WHITESPACE" variable
+               (:typemodifiers ("extern" "\"C\"")
+                :constant-flag t)
+                (reparse-symbol extern-c-contents) [1057 1078])
+            ("XDF_IGNORE_WHITESPACE_CHANGE" variable
+               (:typemodifiers ("extern" "\"C\"")
+                :constant-flag t)
+                (reparse-symbol extern-c-contents) [1096 1124])
+            ("XDF_IGNORE_WHITESPACE_AT_EOL" variable
+               (:typemodifiers ("extern" "\"C\"")
+                :constant-flag t)
+                (reparse-symbol extern-c-contents) [1142 1170])
+            ("XDF_WHITESPACE_FLAGS" variable
+               (:typemodifiers ("extern" "\"C\"")
+                :constant-flag t)
+                (reparse-symbol extern-c-contents) [1188 1208])
+            ("XDF_PATIENCE_DIFF" variable
+               (:typemodifiers ("extern" "\"C\"")
+                :constant-flag t)
+                (reparse-symbol extern-c-contents) [1304 1321])
+            ("XDF_HISTOGRAM_DIFF" variable
+               (:typemodifiers ("extern" "\"C\"")
+                :constant-flag t)
+                (reparse-symbol extern-c-contents) [1339 1357])
+            ("XDF_DIFF_ALGORITHM_MASK" variable
+               (:typemodifiers ("extern" "\"C\"")
+                :constant-flag t)
+                (reparse-symbol extern-c-contents) [1375 1398])
+            ("XDF_DIFF_ALG" variable
+               (:typemodifiers ("extern" "\"C\"")
+                :constant-flag t)
+                (reparse-symbol extern-c-contents) [1448 1460])
+            ("XDF_IGNORE_BLANK_LINES" variable
+               (:typemodifiers ("extern" "\"C\"")
+                :constant-flag t)
+                (reparse-symbol extern-c-contents) [1505 1527])
+            ("XDL_EMIT_FUNCNAMES" variable
+               (:typemodifiers ("extern" "\"C\"")
+                :constant-flag t)
+                (reparse-symbol extern-c-contents) [1546 1564])
+            ("XDL_EMIT_COMMON" variable
+               (:typemodifiers ("extern" "\"C\"")
+                :constant-flag t)
+                (reparse-symbol extern-c-contents) [1582 1597])
+            ("XDL_EMIT_FUNCCONTEXT" variable
+               (:typemodifiers ("extern" "\"C\"")
+                :constant-flag t)
+                (reparse-symbol extern-c-contents) [1615 1635])
+            ("XDL_MMB_READONLY" variable
+               (:typemodifiers ("extern" "\"C\"")
+                :constant-flag t)
+                (reparse-symbol extern-c-contents) [1654 1670])
+            ("XDL_MMF_ATOMIC" variable
+               (:typemodifiers ("extern" "\"C\"")
+                :constant-flag t)
+                (reparse-symbol extern-c-contents) [1689 1703])
+            ("XDL_BDOP_INS" variable
+               (:typemodifiers ("extern" "\"C\"")
+                :constant-flag t)
+                (reparse-symbol extern-c-contents) [1722 1734])
+            ("XDL_BDOP_CPY" variable
+               (:typemodifiers ("extern" "\"C\"")
+                :constant-flag t)
+                (reparse-symbol extern-c-contents) [1745 1757])
+            ("XDL_BDOP_INSB" variable
+               (:typemodifiers ("extern" "\"C\"")
+                :constant-flag t)
+                (reparse-symbol extern-c-contents) [1768 1781])
+            ("XDL_MERGE_MINIMAL" variable
+               (:typemodifiers ("extern" "\"C\"")
+                :constant-flag t)
+                (reparse-symbol extern-c-contents) [1827 1844])
+            ("XDL_MERGE_EAGER" variable
+               (:typemodifiers ("extern" "\"C\"")
+                :constant-flag t)
+                (reparse-symbol extern-c-contents) [1855 1870])
+            ("XDL_MERGE_ZEALOUS" variable
+               (:typemodifiers ("extern" "\"C\"")
+                :constant-flag t)
+                (reparse-symbol extern-c-contents) [1881 1898])
+            ("XDL_MERGE_ZEALOUS_ALNUM" variable
+               (:typemodifiers ("extern" "\"C\"")
+                :constant-flag t)
+                (reparse-symbol extern-c-contents) [1909 1932])
+            ("XDL_MERGE_FAVOR_OURS" variable
+               (:typemodifiers ("extern" "\"C\"")
+                :constant-flag t)
+                (reparse-symbol extern-c-contents) [1968 1988])
+            ("XDL_MERGE_FAVOR_THEIRS" variable
+               (:typemodifiers ("extern" "\"C\"")
+                :constant-flag t)
+                (reparse-symbol extern-c-contents) [1999 2021])
+            ("XDL_MERGE_FAVOR_UNION" variable
+               (:typemodifiers ("extern" "\"C\"")
+                :constant-flag t)
+                (reparse-symbol extern-c-contents) [2032 2053])
+            ("XDL_MERGE_DIFF3" variable
+               (:typemodifiers ("extern" "\"C\"")
+                :constant-flag t)
+                (reparse-symbol extern-c-contents) [2091 2106])
+            ("mmfile_t" type
+               (:typemodifiers ("extern" "\"C\"")
+                :type "typedef"
+                :superclasses "s_mmfile"
+                :typedef ("s_mmfile" type (:type "struct") nil nil))
+                (reparse-symbol extern-c-contents) [2110 2171])
+            ("s_mmfile" type
+               (:typemodifiers ("extern" "\"C\"")
+                :type "struct"
+                :members 
+                  ( ("ptr" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol classsubparts) [2137 2147])
+                    ("size" variable (:type "long") (reparse-symbol classsubparts) [2149 2159]))                  )
+                (reparse-symbol extern-c-contents) [2110 2171])
+            ("mmbuffer_t" type
+               (:typemodifiers ("extern" "\"C\"")
+                :type "typedef"
+                :superclasses "s_mmbuffer"
+                :typedef ("s_mmbuffer" type (:type "struct") nil nil))
+                (reparse-symbol extern-c-contents) [2173 2238])
+            ("s_mmbuffer" type
+               (:typemodifiers ("extern" "\"C\"")
+                :type "struct"
+                :members 
+                  ( ("ptr" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol classsubparts) [2202 2212])
+                    ("size" variable (:type "long") (reparse-symbol classsubparts) [2214 2224]))                  )
+                (reparse-symbol extern-c-contents) [2173 2238])
+            ("xpparam_t" type
+               (:typemodifiers ("extern" "\"C\"")
+                :type "typedef"
+                :superclasses "s_xpparam"
+                :typedef ("s_xpparam" type (:type "struct") nil nil))
+                (reparse-symbol extern-c-contents) [2240 2301])
+            ("s_xpparam" type
+               (:typemodifiers ("extern" "\"C\"")
+                :type "struct"
+                :members 
+                  ( ("flags" variable (:type "unsigned long") (reparse-symbol classsubparts) [2268 2288]))                  )
+                (reparse-symbol extern-c-contents) [2240 2301])
+            ("xdemitcb_t" type
+               (:typemodifiers ("extern" "\"C\"")
+                :type "typedef"
+                :superclasses "s_xdemitcb"
+                :typedef ("s_xdemitcb" type (:type "struct") nil nil))
+                (reparse-symbol extern-c-contents) [2303 2398])
+            ("s_xdemitcb" type
+               (:typemodifiers ("extern" "\"C\"")
+                :type "struct"
+                :members 
+                  ( ("priv" variable
+                       (:pointer 1
+                        :type "void")
+                        (reparse-symbol classsubparts) [2332 2343])
+                    ("outf" variable
+                       (:functionpointer-flag t
+                        :type "int")
+                        (reparse-symbol classsubparts) [2345 2384]))                  )
+                (reparse-symbol extern-c-contents) [2303 2398])
+            ("find_func_t" variable
+               (:typemodifiers ("extern" "\"C\"")
+                :type "long"
+                :functionpointer-flag t)
+                (reparse-symbol extern-c-contents) [2408 2505])
+            ("xdl_emit_hunk_consume_func_t" variable
+               (:typemodifiers ("extern" "\"C\"")
+                :type "int"
+                :functionpointer-flag t)
+                (reparse-symbol extern-c-contents) [2515 2640])
+            ("xdemitconf_t" type
+               (:typemodifiers ("extern" "\"C\"")
+                :type "typedef"
+                :superclasses "s_xdemitconf"
+                :typedef ("s_xdemitconf" type (:type "struct") nil nil))
+                (reparse-symbol extern-c-contents) [2642 2834])
+            ("s_xdemitconf" type
+               (:typemodifiers ("extern" "\"C\"")
+                :type "struct"
+                :members 
+                  ( ("ctxlen" variable (:type "long") (reparse-symbol classsubparts) [2673 2685])
+                    ("interhunkctxlen" variable (:type "long") (reparse-symbol classsubparts) [2687 2708])
+                    ("flags" variable (:type "unsigned long") (reparse-symbol classsubparts) [2710 2730])
+                    ("find_func" variable (:type ("find_func_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [2732 2754])
+                    ("find_func_priv" variable
+                       (:pointer 1
+                        :type "void")
+                        (reparse-symbol classsubparts) [2756 2777])
+                    ("hunk_func" variable (:type ("xdl_emit_hunk_consume_func_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [2779 2818]))                  )
+                (reparse-symbol extern-c-contents) [2642 2834])
+            ("bdiffparam_t" type
+               (:typemodifiers ("extern" "\"C\"")
+                :type "typedef"
+                :superclasses "s_bdiffparam"
+                :typedef ("s_bdiffparam" type (:type "struct") nil nil))
+                (reparse-symbol extern-c-contents) [2836 2894])
+            ("s_bdiffparam" type
+               (:typemodifiers ("extern" "\"C\"")
+                :type "struct"
+                :members 
+                  ( ("bsize" variable (:type "long") (reparse-symbol classsubparts) [2867 2878]))                  )
+                (reparse-symbol extern-c-contents) [2836 2894])
+            ("xdl_malloc" variable
+               (:typemodifiers ("extern" "\"C\"")
+                :constant-flag t)
+                (reparse-symbol extern-c-contents) [2905 2915])
+            ("xdl_free" variable
+               (:typemodifiers ("extern" "\"C\"")
+                :constant-flag t)
+                (reparse-symbol extern-c-contents) [2937 2945])
+            ("xdl_realloc" variable
+               (:typemodifiers ("extern" "\"C\"")
+                :constant-flag t)
+                (reparse-symbol extern-c-contents) [2969 2980])
+            ("xdl_mmfile_first" function
+               (:typemodifiers ("extern" "\"C\"")
+                :type "void"
+                :arguments 
+                  ( ("mmf" variable
+                       (:pointer 1
+                        :type ("mmfile_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [3027 3041])
+                    ("size" variable
+                       (:pointer 1
+                        :type "long")
+                        (reparse-symbol arg-sub-list) [3042 3053]))                  
+                :pointer 1
+                :prototype-flag t)
+                (reparse-symbol extern-c-contents) [3004 3054])
+            ("xdl_mmfile_size" function
+               (:typemodifiers ("extern" "\"C\"")
+                :type "long"
+                :arguments 
+                  ( ("mmf" variable
+                       (:pointer 1
+                        :type ("mmfile_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [3076 3090]))                  
+                :prototype-flag t)
+                (reparse-symbol extern-c-contents) [3055 3091])
+            ("xdl_diff" function
+               (:typemodifiers ("extern" "\"C\"")
+                :type "int"
+                :arguments 
+                  ( ("mf1" variable
+                       (:pointer 1
+                        :type ("mmfile_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [3106 3120])
+                    ("mf2" variable
+                       (:pointer 1
+                        :type ("mmfile_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [3121 3135])
+                    ("xpp" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("xpparam_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [3136 3157])
+                    ("xecfg" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("xdemitconf_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [3164 3190])
+                    ("ecb" variable
+                       (:pointer 1
+                        :type ("xdemitcb_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [3191 3207]))                  
+                :prototype-flag t)
+                (reparse-symbol extern-c-contents) [3093 3208])
+            ("xmparam_t" type
+               (:typemodifiers ("extern" "\"C\"")
+                :type "typedef"
+                :superclasses "s_xmparam"
+                :typedef ("s_xmparam" type (:type "struct") nil nil))
+                (reparse-symbol extern-c-contents) [3210 3443])
+            ("s_xmparam" type
+               (:typemodifiers ("extern" "\"C\"")
+                :type "struct"
+                :members 
+                  ( ("xpp" variable (:type ("xpparam_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [3238 3252])
+                    ("marker_size" variable (:type "int") (reparse-symbol classsubparts) [3254 3270])
+                    ("level" variable (:type "int") (reparse-symbol classsubparts) [3272 3282])
+                    ("favor" variable (:type "int") (reparse-symbol classsubparts) [3284 3294])
+                    ("style" variable (:type "int") (reparse-symbol classsubparts) [3296 3306])
+                    ("ancestor" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol classsubparts) [3308 3329])
+                    ("file1" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol classsubparts) [3352 3370])
+                    ("file2" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol classsubparts) [3392 3410]))                  )
+                (reparse-symbol extern-c-contents) [3210 3443])
+            ("DEFAULT_CONFLICT_MARKER_SIZE" variable
+               (:typemodifiers ("extern" "\"C\"")
+                :constant-flag t)
+                (reparse-symbol extern-c-contents) [3453 3481])
+            ("xdl_merge" function
+               (:typemodifiers ("extern" "\"C\"")
+                :type "int"
+                :arguments 
+                  ( ("orig" variable
+                       (:pointer 1
+                        :type ("mmfile_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [3499 3514])
+                    ("mf1" variable
+                       (:pointer 1
+                        :type ("mmfile_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [3515 3529])
+                    ("mf2" variable
+                       (:pointer 1
+                        :type ("mmfile_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [3530 3544])
+                    ("xmp" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("xmparam_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [3547 3568])
+                    ("result" variable
+                       (:pointer 1
+                        :type ("mmbuffer_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [3569 3588]))                  
+                :prototype-flag t)
+                (reparse-symbol extern-c-contents) [3485 3589]))          
+    :file "xdiff.h"
+    :pointmax 3680
+    :fsize 3679
+    :lastmodtime '(21563 28276 5370 159000)
+    :unmatched-syntax '((TYPEDEF 2507 . 2514) (TYPEDEF 2400 . 2407))
+    :lexical-table 
+        '(("XDIFF_H")
+          ("XDF_PATIENCE_DIFF" . ((semantic-list "(1 << 5)" 1322 . 1330)))
+          ("XDF_IGNORE_WHITESPACE_CHANGE" . ((semantic-list "(1 << 3)" 1125 . 1133)))
+          ("XDF_DIFF_ALG" (spp-arg-list ("x") 1460 . 1463) . ((semantic-list "((x) & XDF_DIFF_ALGORITHM_MASK)" 1464 . 1495)))
+          ("XDL_BDOP_INS" . ((number "1" 1735 . 1736)))
+          ("xdl_realloc" (spp-arg-list ("ptr" "x") 2980 . 2987) . ((symbol "realloc" 2988 . 2995) (semantic-list "(ptr,x)" 2995 . 3002)))
+          ("XDF_DIFF_ALGORITHM_MASK" . ((semantic-list "(XDF_PATIENCE_DIFF | XDF_HISTOGRAM_DIFF)" 1399 . 1439)))
+          ("XDF_WHITESPACE_FLAGS" . ((semantic-list "(XDF_IGNORE_WHITESPACE | XDF_IGNORE_WHITESPACE_CHANGE | XDF_IGNORE_WHITESPACE_AT_EOL)" 1209 . 1294)))
+          ("XDF_HISTOGRAM_DIFF" . ((semantic-list "(1 << 6)" 1358 . 1366)))
+          ("XDF_IGNORE_BLANK_LINES" . ((semantic-list "(1 << 7)" 1528 . 1536)))
+          ("XDL_MERGE_ZEALOUS_ALNUM" . ((number "3" 1933 . 1934)))
+          ("XDL_EMIT_FUNCNAMES" . ((semantic-list "(1 << 0)" 1565 . 1573)))
+          ("XDL_MMB_READONLY" . ((semantic-list "(1 << 0)" 1671 . 1679)))
+          ("XDL_MERGE_DIFF3" . ((number "1" 2107 . 2108)))
+          ("xdl_malloc" (spp-arg-list ("x") 2915 . 2918) . ((symbol "malloc" 2919 . 2925) (semantic-list "(x)" 2925 . 2928)))
+          ("XDF_NEED_MINIMAL" . ((semantic-list "(1 << 1)" 1040 . 1048)))
+          ("XDL_EMIT_FUNCCONTEXT" . ((semantic-list "(1 << 2)" 1636 . 1644)))
+          ("XDL_BDOP_INSB" . ((number "3" 1782 . 1783)))
+          ("XDL_MERGE_MINIMAL" . ((number "0" 1845 . 1846)))
+          ("XDL_MERGE_ZEALOUS" . ((number "2" 1899 . 1900)))
+          ("xdl_free" (spp-arg-list ("ptr") 2945 . 2950) . ((symbol "free" 2951 . 2955) (semantic-list "(ptr)" 2955 . 2960)))
+          ("XDL_MMF_ATOMIC" . ((semantic-list "(1 << 0)" 1704 . 1712)))
+          ("XDL_MERGE_FAVOR_THEIRS" . ((number "2" 2022 . 2023)))
+          ("XDF_IGNORE_WHITESPACE" . ((semantic-list "(1 << 2)" 1079 . 1087)))
+          ("XDL_BDOP_CPY" . ((number "2" 1758 . 1759)))
+          ("XDL_MERGE_FAVOR_OURS" . ((number "1" 1989 . 1990)))
+          ("XDL_MERGE_FAVOR_UNION" . ((number "3" 2054 . 2055)))
+          ("DEFAULT_CONFLICT_MARKER_SIZE" . ((number "7" 3482 . 3483)))
+          ("XDF_IGNORE_WHITESPACE_AT_EOL" . ((semantic-list "(1 << 4)" 1171 . 1179)))
+          ("XDL_EMIT_COMMON" . ((semantic-list "(1 << 1)" 1598 . 1606)))
+          ("XDL_MERGE_EAGER" . ((number "1" 1871 . 1872)))
+          )
+
+    )
+   (semanticdb-table "xtypes.h"
+    :major-mode 'c-mode
+    :tags 
+        '( ("XTYPES_H" variable (:constant-flag t) nil [941 949])
+            ("chanode_t" type
+               (:typedef ("s_chanode" type (:type "struct") nil nil)
+                :superclasses "s_chanode"
+                :type "typedef")
+                nil [953 1030])
+            ("s_chanode" type
+               (:members 
+                  ( ("next" variable
+                       (:pointer 1
+                        :type ("s_chanode" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol classsubparts) [981 1004])
+                    ("icurr" variable (:type "long") (reparse-symbol classsubparts) [1006 1017]))                  
+                :type "struct")
+                nil [953 1030])
+            ("chastore_t" type
+               (:typedef ("s_chastore" type (:type "struct") nil nil)
+                :superclasses "s_chastore"
+                :type "typedef")
+                nil [1032 1169])
+            ("s_chastore" type
+               (:members 
+                  ( ("tail" variable
+                       (:pointer 1
+                        :type ("chanode_t" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [1061 1084])
+                    ("head" variable
+                       (:pointer 1
+                        :type ("chanode_t" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [1061 1084])
+                    ("nsize" variable (:type "long") (reparse-symbol classsubparts) [1086 1104])
+                    ("isize" variable (:type "long") (reparse-symbol classsubparts) [1086 1104])
+                    ("ancur" variable
+                       (:pointer 1
+                        :type ("chanode_t" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [1106 1123])
+                    ("sncur" variable
+                       (:pointer 1
+                        :type ("chanode_t" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [1125 1142])
+                    ("scurr" variable (:type "long") (reparse-symbol classsubparts) [1144 1155]))                  
+                :type "struct")
+                nil [1032 1169])
+            ("xrecord_t" type
+               (:typedef ("s_xrecord" type (:type "struct") nil nil)
+                :superclasses "s_xrecord"
+                :type "typedef")
+                nil [1171 1284])
+            ("s_xrecord" type
+               (:members 
+                  ( ("next" variable
+                       (:pointer 1
+                        :type ("s_xrecord" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol classsubparts) [1199 1222])
+                    ("ptr" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol classsubparts) [1224 1240])
+                    ("size" variable (:type "long") (reparse-symbol classsubparts) [1242 1252])
+                    ("ha" variable (:type "unsigned long") (reparse-symbol classsubparts) [1254 1271]))                  
+                :type "struct")
+                nil [1171 1284])
+            ("xdfile_t" type
+               (:typedef ("s_xdfile" type (:type "struct") nil nil)
+                :superclasses "s_xdfile"
+                :type "typedef")
+                nil [1286 1494])
+            ("s_xdfile" type
+               (:members 
+                  ( ("rcha" variable (:type ("chastore_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [1313 1329])
+                    ("nrec" variable (:type "long") (reparse-symbol classsubparts) [1331 1341])
+                    ("hbits" variable (:type "unsigned int") (reparse-symbol classsubparts) [1343 1362])
+                    ("rhash" variable
+                       (:pointer 2
+                        :type ("xrecord_t" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [1364 1382])
+                    ("dend" variable (:type "long") (reparse-symbol classsubparts) [1384 1402])
+                    ("dstart" variable (:type "long") (reparse-symbol classsubparts) [1384 1402])
+                    ("recs" variable
+                       (:pointer 2
+                        :type ("xrecord_t" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [1404 1421])
+                    ("rchg" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol classsubparts) [1423 1434])
+                    ("rindex" variable
+                       (:pointer 1
+                        :type "long")
+                        (reparse-symbol classsubparts) [1436 1449])
+                    ("nreff" variable (:type "long") (reparse-symbol classsubparts) [1451 1462])
+                    ("ha" variable
+                       (:pointer 1
+                        :type "unsigned long")
+                        (reparse-symbol classsubparts) [1464 1482]))                  
+                :type "struct")
+                nil [1286 1494])
+            ("xdfenv_t" type
+               (:typedef ("s_xdfenv" type (:type "struct") nil nil)
+                :superclasses "s_xdfenv"
+                :type "typedef")
+                nil [1496 1555])
+            ("s_xdfenv" type
+               (:members 
+                  ( ("xdf2" variable (:type ("xdfile_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [1523 1543])
+                    ("xdf1" variable (:type ("xdfile_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [1523 1543]))                  
+                :type "struct")
+                nil [1496 1555]))          
+    :file "xtypes.h"
+    :pointmax 1595
+    :fsize 1594
+    :lastmodtime '(21563 28276 7370 112000)
+    :unmatched-syntax 'nil
+    :lexical-table 
+        '(("XTYPES_H")
+          )
+
+    )
+   (semanticdb-table "xutils.h"
+    :file "xutils.h"
+    :fsize 1844
+    :lastmodtime '(21563 28276 7370 112000)
+    )
+   (semanticdb-table "xprepare.h"
+    :file "xprepare.h"
+    :fsize 1123
+    :lastmodtime '(21563 28276 7370 112000)
+    )
+   (semanticdb-table "xdiffi.h"
+    :major-mode 'c-mode
+    :tags 
+        '( ("XDIFFI_H" variable (:constant-flag t) nil [941 949])
+            ("diffdata_t" type
+               (:typedef ("s_diffdata" type (:type "struct") nil nil)
+                :superclasses "s_diffdata"
+                :type "typedef")
+                nil [952 1059])
+            ("s_diffdata" type
+               (:members 
+                  ( ("nrec" variable (:type "long") (reparse-symbol classsubparts) [981 991])
+                    ("ha" variable
+                       (:pointer 1
+                        :type "unsigned long")
+                        (reparse-symbol classsubparts) [993 1017])
+                    ("rindex" variable
+                       (:pointer 1
+                        :type "long")
+                        (reparse-symbol classsubparts) [1019 1032])
+                    ("rchg" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol classsubparts) [1034 1045]))                  
+                :type "struct")
+                nil [952 1059])
+            ("xdalgoenv_t" type
+               (:typedef ("s_xdalgoenv" type (:type "struct") nil nil)
+                :superclasses "s_xdalgoenv"
+                :type "typedef")
+                nil [1061 1151])
+            ("s_xdalgoenv" type
+               (:members 
+                  ( ("mxcost" variable (:type "long") (reparse-symbol classsubparts) [1091 1103])
+                    ("snake_cnt" variable (:type "long") (reparse-symbol classsubparts) [1105 1120])
+                    ("heur_min" variable (:type "long") (reparse-symbol classsubparts) [1122 1136]))                  
+                :type "struct")
+                nil [1061 1151])
+            ("xdchange_t" type
+               (:typedef ("s_xdchange" type (:type "struct") nil nil)
+                :superclasses "s_xdchange"
+                :type "typedef")
+                nil [1153 1265])
+            ("s_xdchange" type
+               (:members 
+                  ( ("next" variable
+                       (:pointer 1
+                        :type ("s_xdchange" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol classsubparts) [1182 1206])
+                    ("i2" variable (:type "long") (reparse-symbol classsubparts) [1208 1220])
+                    ("i1" variable (:type "long") (reparse-symbol classsubparts) [1208 1220])
+                    ("chg2" variable (:type "long") (reparse-symbol classsubparts) [1222 1238])
+                    ("chg1" variable (:type "long") (reparse-symbol classsubparts) [1222 1238])
+                    ("ignore" variable (:type "int") (reparse-symbol classsubparts) [1240 1251]))                  
+                :type "struct")
+                nil [1153 1265])
+            ("xdl_recs_cmp" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("dd1" variable
+                       (:pointer 1
+                        :type ("diffdata_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [1286 1302])
+                    ("off1" variable (:type "long") (reparse-symbol arg-sub-list) [1303 1313])
+                    ("lim1" variable (:type "long") (reparse-symbol arg-sub-list) [1314 1324])
+                    ("dd2" variable
+                       (:pointer 1
+                        :type ("diffdata_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [1328 1344])
+                    ("off2" variable (:type "long") (reparse-symbol arg-sub-list) [1345 1355])
+                    ("lim2" variable (:type "long") (reparse-symbol arg-sub-list) [1356 1366])
+                    ("kvdf" variable
+                       (:pointer 1
+                        :type "long")
+                        (reparse-symbol arg-sub-list) [1370 1381])
+                    ("kvdb" variable
+                       (:pointer 1
+                        :type "long")
+                        (reparse-symbol arg-sub-list) [1382 1393])
+                    ("need_min" variable (:type "int") (reparse-symbol arg-sub-list) [1394 1407])
+                    ("xenv" variable
+                       (:pointer 1
+                        :type ("xdalgoenv_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [1408 1426]))                  
+                :type "int")
+                nil [1269 1427])
+            ("xdl_do_diff" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("mf1" variable
+                       (:pointer 1
+                        :type ("mmfile_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [1444 1458])
+                    ("mf2" variable
+                       (:pointer 1
+                        :type ("mmfile_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [1459 1473])
+                    ("xpp" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("xpparam_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [1474 1495])
+                    ("xe" variable
+                       (:pointer 1
+                        :type ("xdfenv_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [1498 1511]))                  
+                :type "int")
+                nil [1428 1512])
+            ("xdl_change_compact" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("xdf" variable
+                       (:pointer 1
+                        :type ("xdfile_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [1536 1550])
+                    ("xdfo" variable
+                       (:pointer 1
+                        :type ("xdfile_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [1551 1566])
+                    ("flags" variable (:type "long") (reparse-symbol arg-sub-list) [1567 1578]))                  
+                :type "int")
+                nil [1513 1579])
+            ("xdl_build_script" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("xe" variable
+                       (:pointer 1
+                        :type ("xdfenv_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [1601 1614])
+                    ("xscr" variable
+                       (:pointer 2
+                        :type ("xdchange_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [1615 1633]))                  
+                :type "int")
+                nil [1580 1634])
+            ("xdl_free_script" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("xscr" variable
+                       (:pointer 1
+                        :type ("xdchange_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [1656 1673]))                  
+                :type "void")
+                nil [1635 1674])
+            ("xdl_emit_diff" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("xe" variable
+                       (:pointer 1
+                        :type ("xdfenv_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [1693 1706])
+                    ("xscr" variable
+                       (:pointer 1
+                        :type ("xdchange_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [1707 1724])
+                    ("ecb" variable
+                       (:pointer 1
+                        :type ("xdemitcb_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [1725 1741])
+                    ("xecfg" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("xdemitconf_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [1746 1772]))                  
+                :type "int")
+                nil [1675 1773])
+            ("xdl_do_patience_diff" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("mf1" variable
+                       (:pointer 1
+                        :type ("mmfile_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [1799 1813])
+                    ("mf2" variable
+                       (:pointer 1
+                        :type ("mmfile_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [1814 1828])
+                    ("xpp" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("xpparam_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [1829 1850])
+                    ("env" variable
+                       (:pointer 1
+                        :type ("xdfenv_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [1853 1867]))                  
+                :type "int")
+                nil [1774 1868])
+            ("xdl_do_histogram_diff" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("mf1" variable
+                       (:pointer 1
+                        :type ("mmfile_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [1895 1909])
+                    ("mf2" variable
+                       (:pointer 1
+                        :type ("mmfile_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [1910 1924])
+                    ("xpp" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("xpparam_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [1925 1946])
+                    ("env" variable
+                       (:pointer 1
+                        :type ("xdfenv_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [1949 1963]))                  
+                :type "int")
+                nil [1869 1964]))          
+    :file "xdiffi.h"
+    :pointmax 2002
+    :fsize 2001
+    :lastmodtime '(21563 28276 5370 159000)
+    :unmatched-syntax 'nil
+    :lexical-table 
+        '(("XDIFFI_H")
+          )
+
+    )
+   (semanticdb-table "xemit.h"
+    :major-mode 'c-mode
+    :tags 
+        '( ("XEMIT_H" variable (:constant-flag t) nil [940 947])
+            ("emit_func_t" variable
+               (:functionpointer-flag t
+                :type "int")
+                nil [958 1059])
+            ("xdl_get_hunk" function
+               (:prototype-flag t
+                :pointer 1
+                :arguments 
+                  ( ("xscr" variable
+                       (:pointer 2
+                        :type ("xdchange_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [1086 1104])
+                    ("xecfg" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("xdemitconf_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [1105 1131]))                  
+                :type ("xdchange_t" type (:type "class") nil nil))
+                nil [1061 1132])
+            ("xdl_emit_diff" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("xe" variable
+                       (:pointer 1
+                        :type ("xdfenv_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [1151 1164])
+                    ("xscr" variable
+                       (:pointer 1
+                        :type ("xdchange_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [1165 1182])
+                    ("ecb" variable
+                       (:pointer 1
+                        :type ("xdemitcb_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [1183 1199])
+                    ("xecfg" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("xdemitconf_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [1204 1230]))                  
+                :type "int")
+                nil [1133 1231]))          
+    :file "xemit.h"
+    :pointmax 1270
+    :fsize 1269
+    :lastmodtime '(21563 28276 5370 159000)
+    :unmatched-syntax '((TYPEDEF 950 . 957))
+    :lexical-table 
+        '(("XEMIT_H")
+          )
+
+    )
+   )
+  :file "!home!chz!Projects!CWork!git!git-github!xdiff!semantic.cache"
+  :semantic-tag-version "2.0"
+  :semanticdb-version "2.2"
+  )

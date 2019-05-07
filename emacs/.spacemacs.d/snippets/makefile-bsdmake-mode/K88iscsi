@@ -1,0 +1,109 @@
+;; Object ncurses/
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "ncurses/"
+  :tables
+  (list
+    (semanticdb-table "demo.c"
+      :major-mode 'c-mode
+      :tags 
+        '( ("ncurses.h" include (:system-flag t) nil [1 21])
+            ("_win_border_struct" type
+               (:members 
+                  ( ("ls" variable (:type ("chtype" type (:type "class") nil nil)) (reparse-symbol classsubparts) [60 102])
+                    ("rs" variable (:type ("chtype" type (:type "class") nil nil)) (reparse-symbol classsubparts) [60 102])
+                    ("ts" variable (:type ("chtype" type (:type "class") nil nil)) (reparse-symbol classsubparts) [60 102])
+                    ("bs" variable (:type ("chtype" type (:type "class") nil nil)) (reparse-symbol classsubparts) [60 102])
+                    ("tl" variable (:type ("chtype" type (:type "class") nil nil)) (reparse-symbol classsubparts) [60 102])
+                    ("tr" variable (:type ("chtype" type (:type "class") nil nil)) (reparse-symbol classsubparts) [60 102])
+                    ("bl" variable (:type ("chtype" type (:type "class") nil nil)) (reparse-symbol classsubparts) [60 102])
+                    ("br" variable (:type ("chtype" type (:type "class") nil nil)) (reparse-symbol classsubparts) [60 102]))                  
+                :type "struct")
+                nil [23 115])
+            ("WIN_BORDER" type
+               (:typedef ("_win_border_struct" type (:type "struct") nil nil)
+                :type "typedef")
+                nil [23 115])
+            ("_WIN_struct" type
+               (:members 
+                  ( ("startx" variable (:type "int") (reparse-symbol classsubparts) [148 167])
+                    ("starty" variable (:type "int") (reparse-symbol classsubparts) [148 167])
+                    ("height" variable (:type "int") (reparse-symbol classsubparts) [169 187])
+                    ("width" variable (:type "int") (reparse-symbol classsubparts) [169 187])
+                    ("border" variable (:type ("WIN_BORDER" type (:type "class") nil nil)) (reparse-symbol classsubparts) [189 207]))                  
+                :type "struct")
+                nil [117 213])
+            ("WIN" type
+               (:typedef ("_WIN_struct" type (:type "struct") nil nil)
+                :type "typedef")
+                nil [117 213])
+            ("init_win_params" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("p_win" variable
+                       (:pointer 1
+                        :type ("WIN" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [236 247]))                  
+                :type "void")
+                nil [215 248])
+            ("print_win_params" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("p_win" variable
+                       (:pointer 1
+                        :type ("WIN" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [271 282]))                  
+                :type "void")
+                nil [249 283])
+            ("create_box" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("win" variable
+                       (:pointer 1
+                        :type ("WIN" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [300 309])
+                    ("flag" variable (:type "bool") (reparse-symbol arg-sub-list) [310 320]))                  
+                :type "void")
+                nil [284 321])
+            ("main" function (:type "int") nil [323 1764])
+            ("init_win_params" function
+               (:arguments 
+                  ( ("p_win" variable
+                       (:pointer 1
+                        :type ("WIN" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [1786 1797]))                  
+                :type "void")
+                nil [1765 2129])
+            ("print_win_params" function
+               (:arguments 
+                  ( ("p_win" variable
+                       (:pointer 1
+                        :type ("WIN" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [2152 2163]))                  
+                :type "void")
+                nil [2130 2295])
+            ("create_box" function
+               (:arguments 
+                  ( ("p_win" variable
+                       (:pointer 1
+                        :type ("WIN" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [2312 2323])
+                    ("flag" variable (:type "bool") (reparse-symbol arg-sub-list) [2324 2334]))                  
+                :type "void")
+                nil [2296 2922]))          
+      :file "demo.c"
+      :pointmax 2923
+      :fsize 2922
+      :lastmodtime '(21715 57335 735608 680000)
+      :unmatched-syntax nil)
+    (semanticdb-table "Makefile"
+      :major-mode 'makefile-gmake-mode
+      :tags 
+        '( ("LDFLAGS" variable (:default-value ("-lncurses")) nil [1 19]))          
+      :file "Makefile"
+      :pointmax 30
+      :fsize 29
+      :lastmodtime '(21710 39757 522715 693000)
+      :unmatched-syntax '((symbol 25 . 29) (punctuation 23 . 24) (symbol 20 . 23) (bol 20 . 20))))
+  :file "!tmp!ncurses!semantic.cache"
+  :semantic-tag-version "2.0"
+  :semanticdb-version "2.2")

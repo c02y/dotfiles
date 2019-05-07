@@ -1,0 +1,361 @@
+;; Object block/
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "block/"
+  :tables (list 
+   (semanticdb-table "virtio_blk.c"
+    :major-mode 'c-mode
+    :tags 
+        '( ("linux/spinlock.h" include (:system-flag t) nil [17 44])
+            ("linux/slab.h" include (:system-flag t) nil [45 68])
+            ("linux/blkdev.h" include (:system-flag t) nil [69 94])
+            ("linux/hdreg.h" include (:system-flag t) nil [95 119])
+            ("linux/virtio.h" include (:system-flag t) nil [120 145])
+            ("linux/virtio_blk.h" include (:system-flag t) nil [146 175])
+            ("linux/scatterlist.h" include (:system-flag t) nil [176 206])
+            ("linux/string_helpers.h" include (:system-flag t) nil [207 240])
+            ("scsi/scsi_cmnd.h" include (:system-flag t) nil [241 268])
+            ("PART_BITS" variable (:constant-flag t) nil [278 287])
+            ("index" variable
+               (:typemodifiers ("static")
+                :type "int")
+                nil [291 315])
+            ("major" variable
+               (:typemodifiers ("static")
+                :type "int")
+                nil [291 315])
+            ("virtblk_wq" variable
+               (:pointer 1
+                :type ("workqueue_struct" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [316 352])
+            ("virtio_blk" type
+               (:members 
+                  ( ("lock" variable (:type ("spinlock_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [375 391])
+                    ("vdev" variable
+                       (:pointer 1
+                        :type ("virtio_device" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol classsubparts) [394 421])
+                    ("vq" variable
+                       (:pointer 1
+                        :type ("virtqueue" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol classsubparts) [423 444])
+                    ("disk" variable
+                       (:pointer 1
+                        :type ("gendisk" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol classsubparts) [489 510])
+                    ("reqs" variable (:type ("list_head" type
+                         (:prototype t
+                          :type "struct")
+                          nil nil)) (reparse-symbol classsubparts) [538 560])
+                    ("pool" variable
+                       (:pointer 1
+                        :type ("mempool_t" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [563 579])
+                    ("config_work" variable (:type ("work_struct" type
+                         (:prototype t
+                          :type "struct")
+                          nil nil)) (reparse-symbol classsubparts) [630 661])
+                    ("sg_elems" variable (:type "unsigned int") (reparse-symbol classsubparts) [719 741])
+                    ("sg" variable
+                       (:dereference 1
+                        :type ("scatterlist" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol classsubparts) [790 826]))                  
+                :type "struct")
+                nil [354 829])
+            ("virtblk_req" type
+               (:members 
+                  ( ("list" variable (:type ("list_head" type
+                         (:prototype t
+                          :type "struct")
+                          nil nil)) (reparse-symbol classsubparts) [853 875])
+                    ("req" variable
+                       (:pointer 1
+                        :type ("request" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol classsubparts) [877 897])
+                    ("out_hdr" variable (:type ("virtio_blk_outhdr" type
+                         (:prototype t
+                          :type "struct")
+                          nil nil)) (reparse-symbol classsubparts) [899 932])
+                    ("in_hdr" variable (:type ("virtio_scsi_inhdr" type
+                         (:prototype t
+                          :type "struct")
+                          nil nil)) (reparse-symbol classsubparts) [934 966])
+                    ("status" variable (:type ("u8" type (:type "class") nil nil)) (reparse-symbol classsubparts) [968 978]))                  
+                :type "struct")
+                nil [831 981])
+            ("blk_done" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("vq" variable
+                       (:pointer 1
+                        :type ("virtqueue" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [1004 1025]))                  
+                :type "void")
+                nil [983 1973])
+            ("do_req" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("q" variable
+                       (:pointer 1
+                        :type ("request_queue" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [1994 2018])
+                    ("vblk" variable
+                       (:pointer 1
+                        :type ("virtio_blk" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [2019 2043])
+                    ("req" variable
+                       (:pointer 1
+                        :type ("request" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [2049 2069]))                  
+                :type "bool")
+                nil [1975 4206])
+            ("do_virtblk_request" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("q" variable
+                       (:pointer 1
+                        :type ("request_queue" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [4239 4263]))                  
+                :type "void")
+                nil [4208 4704])
+            ("virtblk_get_id" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("disk" variable
+                       (:pointer 1
+                        :type ("gendisk" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [4783 4804])
+                    ("id_str" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [4805 4818]))                  
+                :type "int")
+                nil [4757 5311])
+            ("virtblk_ioctl" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("bdev" variable
+                       (:pointer 1
+                        :type ("block_device" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [5338 5364])
+                    ("mode" variable (:type ("fmode_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [5365 5378])
+                    ("cmd" variable (:type "unsigned int") (reparse-symbol arg-sub-list) [5387 5404])
+                    ("data" variable (:type "unsigned long") (reparse-symbol arg-sub-list) [5405 5424]))                  
+                :type "int")
+                nil [5313 5751])
+            ("virtblk_getgeo" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("bd" variable
+                       (:pointer 1
+                        :type ("block_device" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [5857 5881])
+                    ("geo" variable
+                       (:pointer 1
+                        :type ("hd_geometry" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [5882 5906]))                  
+                :type "int")
+                nil [5831 6455])
+            ("virtblk_fops" variable
+               (:typemodifiers ("static")
+                :constant-flag t
+                :type ("block_device_operations" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [6457 6597])
+            ("index_to_minor" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("index" variable (:type "int") (reparse-symbol arg-sub-list) [6625 6635]))                  
+                :type "int")
+                nil [6599 6667])
+            ("virtblk_serial_show" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("dev" variable
+                       (:pointer 1
+                        :type ("device" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [6704 6723])
+                    ("attr" variable
+                       (:pointer 1
+                        :type ("device_attribute" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [6728 6758])
+                    ("buf" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [6759 6769]))                  
+                :type ("ssize_t" type (:type "class") nil nil))
+                nil [6669 7096])
+            ("DEVICE_ATTR" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("serial" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [7109 7116])
+                    ("" variable (:type ("S_IRUGO" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [7117 7125])
+                    ("" variable (:type ("virtblk_serial_show" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [7126 7146])
+                    ("" variable (:type ("NULL" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [7147 7152]))                  
+                :type "int")
+                nil [7097 7153])
+            ("virtblk_config_changed_work" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("work" variable
+                       (:pointer 1
+                        :type ("work_struct" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [7195 7220]))                  
+                :type "void")
+                nil [7155 8232])
+            ("virtblk_config_changed" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("vdev" variable
+                       (:pointer 1
+                        :type ("virtio_device" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [8269 8296]))                  
+                :type "void")
+                nil [8234 8385])
+            ("virtblk_probe" function
+               (:arguments 
+                  ( ("vdev" variable
+                       (:pointer 1
+                        :type ("virtio_device" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [8422 8449]))                  
+                :type ("__devinit" type (:type "class") nil nil))
+                nil [8398 13451])
+            ("virtblk_remove" function
+               (:arguments 
+                  ( ("vdev" variable
+                       (:pointer 1
+                        :type ("virtio_device" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [13490 13517]))                  
+                :type ("__devexit" type (:type "class") nil nil))
+                nil [13465 13888])
+            ("id_table" variable
+               (:dereference 1
+                :typemodifiers ("static")
+                :constant-flag t
+                :type ("virtio_device_id" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [13890 13993])
+            ("features" variable
+               (:dereference 1
+                :typemodifiers ("static")
+                :type "unsigned int")
+                nil [13995 14204])
+            ("virtio_blk" variable (:type ("__refdata" type (:type "class") nil nil)) nil [14408 14710])
+            ("init" function
+               (:arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [14735 14740]))                  
+                :type ("__init" type (:type "class") nil nil))
+                nil [14723 15185])
+            ("fini" function
+               (:arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [15211 15216]))                  
+                :type ("__exit" type (:type "class") nil nil))
+                nil [15199 15330])
+            ("module_init" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("init" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [15343 15348]))                  
+                :type "int")
+                nil [15331 15349])
+            ("module_exit" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("fini" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [15362 15367]))                  
+                :type "int")
+                nil [15350 15368])
+            ("MODULE_DEVICE_TABLE" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("virtio" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [15390 15397])
+                    ("" variable (:type ("id_table" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [15398 15407]))                  
+                :type "int")
+                nil [15370 15408])
+            ("MODULE_DESCRIPTION" function
+               (:prototype-flag t
+                :type "int")
+                nil [15409 15451])
+            ("MODULE_LICENSE" function
+               (:prototype-flag t
+                :type "int")
+                nil [15452 15474]))          
+    :file "virtio_blk.c"
+    :pointmax 15475
+    :fsize 15474
+    :lastmodtime '(21468 9034 830433 887000)
+    :unmatched-syntax '((string 15467 . 15472) (string 15428 . 15449) (VOID 15194 . 15198) (STATIC 15187 . 15193) (INT 14719 . 14722) (STATIC 14712 . 14718) (symbol 14394 . 14407) (STRUCT 14387 . 14393) (STATIC 14380 . 14386) (VOID 13460 . 13464) (STATIC 13453 . 13459) (INT 8394 . 8397) (STATIC 8387 . 8393))
+    :lexical-table 
+        '(("PART_BITS" . ((number "4" 288 . 289)))
+          )
+
+    )
+   )
+  :file "!home!chz!linux-3.0.8!drivers!block!semantic.cache"
+  :semantic-tag-version "2.0"
+  :semanticdb-version "2.2"
+  )

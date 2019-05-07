@@ -1,0 +1,348 @@
+;; Object virtio/
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "virtio/"
+  :tables (list 
+   (semanticdb-table "virtio_balloon.c"
+    :major-mode 'c-mode
+    :tags 
+        '( ("linux/virtio.h" include (:system-flag t) nil [898 923])
+            ("linux/virtio_balloon.h" include (:system-flag t) nil [924 957])
+            ("linux/swap.h" include (:system-flag t) nil [958 981])
+            ("linux/kthread.h" include (:system-flag t) nil [982 1008])
+            ("linux/freezer.h" include (:system-flag t) nil [1009 1035])
+            ("linux/delay.h" include (:system-flag t) nil [1036 1060])
+            ("linux/slab.h" include (:system-flag t) nil [1061 1084])
+            ("virtio_balloon" type
+               (:members 
+                  ( ("vdev" variable
+                       (:pointer 1
+                        :type ("virtio_device" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol classsubparts) [1111 1138])
+                    ("stats_vq" variable
+                       (:pointer 1
+                        :type ("virtqueue" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol classsubparts) [1140 1193])
+                    ("deflate_vq" variable
+                       (:pointer 1
+                        :type ("virtqueue" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol classsubparts) [1140 1193])
+                    ("inflate_vq" variable
+                       (:pointer 1
+                        :type ("virtqueue" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol classsubparts) [1140 1193])
+                    ("config_change" variable (:type ("wait_queue_head_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [1259 1291])
+                    ("thread" variable
+                       (:pointer 1
+                        :type ("task_struct" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol classsubparts) [1335 1362])
+                    ("acked" variable (:type ("completion" type
+                         (:prototype t
+                          :type "struct")
+                          nil nil)) (reparse-symbol classsubparts) [1419 1443])
+                    ("num_pages" variable (:type "unsigned int") (reparse-symbol classsubparts) [1500 1523])
+                    ("pages" variable (:type ("list_head" type
+                         (:prototype t
+                          :type "struct")
+                          nil nil)) (reparse-symbol classsubparts) [1525 1548])
+                    ("num_pfns" variable (:type "unsigned int") (reparse-symbol classsubparts) [1600 1622])
+                    ("pfns" variable
+                       (:dereference 1
+                        :type ("u32" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [1624 1638])
+                    ("need_stats_update" variable (:type "int") (reparse-symbol classsubparts) [1666 1688])
+                    ("stats" variable
+                       (:dereference 1
+                        :type ("virtio_balloon_stat" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol classsubparts) [1690 1744]))                  
+                :type "struct")
+                nil [1086 1747])
+            ("id_table" variable
+               (:dereference 1
+                :typemodifiers ("static")
+                :type ("virtio_device_id" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [1749 1848])
+            ("page_to_balloon_pfn" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("page" variable
+                       (:pointer 1
+                        :type ("page" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [1881 1899]))                  
+                :type ("u32" type (:type "class") nil nil))
+                nil [1850 2116])
+            ("balloon_ack" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("vq" variable
+                       (:pointer 1
+                        :type ("virtqueue" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [2142 2163]))                  
+                :type "void")
+                nil [2118 2283])
+            ("tell_host" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("vb" variable
+                       (:pointer 1
+                        :type ("virtio_balloon" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [2307 2333])
+                    ("vq" variable
+                       (:pointer 1
+                        :type ("virtqueue" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [2334 2355]))                  
+                :type "void")
+                nil [2285 2727])
+            ("fill_balloon" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("vb" variable
+                       (:pointer 1
+                        :type ("virtio_balloon" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [2754 2780])
+                    ("num" variable (:type ("size_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [2781 2792]))                  
+                :type "void")
+                nil [2729 3515])
+            ("release_pages_by_pfn" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("pfns" variable
+                       (:dereference 1
+                        :constant-flag t
+                        :type ("u32" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [3550 3567])
+                    ("num" variable (:type "unsigned int") (reparse-symbol arg-sub-list) [3568 3585]))                  
+                :type "void")
+                nil [3517 3696])
+            ("leak_balloon" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("vb" variable
+                       (:pointer 1
+                        :type ("virtio_balloon" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [3723 3749])
+                    ("num" variable (:type ("size_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [3750 3761]))                  
+                :type "void")
+                nil [3698 4310])
+            ("update_stat" function
+               (:typemodifiers ("static" "inline")
+                :arguments 
+                  ( ("vb" variable
+                       (:pointer 1
+                        :type ("virtio_balloon" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [4343 4369])
+                    ("idx" variable (:type "int") (reparse-symbol arg-sub-list) [4370 4378])
+                    ("tag" variable (:type ("u16" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [4389 4397])
+                    ("val" variable (:type ("u64" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [4398 4406]))                  
+                :type "void")
+                nil [4312 4501])
+            ("pages_to_bytes" variable (:constant-flag t) nil [4511 4525])
+            ("update_balloon_stats" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("vb" variable
+                       (:pointer 1
+                        :type ("virtio_balloon" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [4588 4614]))                  
+                :type "void")
+                nil [4555 5213])
+            ("stats_request" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("vq" variable
+                       (:pointer 1
+                        :type ("virtqueue" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [5723 5744]))                  
+                :type "void")
+                nil [5697 5909])
+            ("stats_handle_request" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("vb" variable
+                       (:pointer 1
+                        :type ("virtio_balloon" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [5944 5970]))                  
+                :type "void")
+                nil [5911 6224])
+            ("virtballoon_changed" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("vdev" variable
+                       (:pointer 1
+                        :type ("virtio_device" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [6258 6285]))                  
+                :type "void")
+                nil [6226 6361])
+            ("towards_target" function
+               (:typemodifiers ("static" "inline")
+                :arguments 
+                  ( ("vb" variable
+                       (:pointer 1
+                        :type ("virtio_balloon" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [6396 6422]))                  
+                :type ("s64" type (:type "class") nil nil))
+                nil [6363 6584])
+            ("update_balloon_size" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("vb" variable
+                       (:pointer 1
+                        :type ("virtio_balloon" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [6618 6644]))                  
+                :type "void")
+                nil [6586 6819])
+            ("balloon" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("_vballoon" variable
+                       (:pointer 1
+                        :type "void")
+                        (reparse-symbol arg-sub-list) [6840 6856]))                  
+                :type "int")
+                nil [6821 7352])
+            ("virtballoon_probe" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("vdev" variable
+                       (:pointer 1
+                        :type ("virtio_device" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [7383 7410]))                  
+                :type "int")
+                nil [7354 8761])
+            ("virtballoon_remove" function
+               (:arguments 
+                  ( ("vdev" variable
+                       (:pointer 1
+                        :type ("virtio_device" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [8804 8831]))                  
+                :type ("__devexit" type (:type "class") nil nil))
+                nil [8775 9157])
+            ("features" variable
+               (:dereference 1
+                :typemodifiers ("static")
+                :type "unsigned int")
+                nil [9159 9258])
+            ("virtio_balloon_driver" variable
+               (:typemodifiers ("static")
+                :type ("virtio_driver" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [9260 9587])
+            ("init" function
+               (:arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [9612 9617]))                  
+                :type ("__init" type (:type "class") nil nil))
+                nil [9600 9677])
+            ("fini" function
+               (:arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [9703 9708]))                  
+                :type ("__exit" type (:type "class") nil nil))
+                nil [9691 9763])
+            ("module_init" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("init" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [9776 9781]))                  
+                :type "int")
+                nil [9764 9782])
+            ("module_exit" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("fini" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [9795 9800]))                  
+                :type "int")
+                nil [9783 9801])
+            ("MODULE_DEVICE_TABLE" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("virtio" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [9823 9830])
+                    ("" variable (:type ("id_table" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [9831 9840]))                  
+                :type "int")
+                nil [9803 9841])
+            ("MODULE_DESCRIPTION" function
+               (:prototype-flag t
+                :type "int")
+                nil [9842 9886])
+            ("MODULE_LICENSE" function
+               (:prototype-flag t
+                :type "int")
+                nil [9887 9909]))          
+    :file "virtio_balloon.c"
+    :pointmax 9910
+    :fsize 9909
+    :lastmodtime '(21468 9118 866444 227000)
+    :unmatched-syntax '((string 9902 . 9907) (string 9861 . 9884) (VOID 9686 . 9690) (STATIC 9679 . 9685) (INT 9596 . 9599) (STATIC 9589 . 9595) (VOID 8770 . 8774) (STATIC 8763 . 8769))
+    :lexical-table 
+        '(("pages_to_bytes" (spp-arg-list ("x") 4525 . 4528) . ((semantic-list "((u64)(x) << PAGE_SHIFT)" 4529 . 4553)))
+          )
+
+    )
+   )
+  :file "!home!chz!linux-3.0.8!drivers!virtio!semantic.cache"
+  :semantic-tag-version "2.0"
+  :semanticdb-version "2.2"
+  )

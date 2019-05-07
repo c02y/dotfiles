@@ -1,0 +1,85 @@
+;; Object kernel/
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "kernel/"
+  :tables (list 
+   (semanticdb-table "time.c"
+    :major-mode 'c-mode
+    :tags 
+        '( ("linux/module.h" include (:system-flag t) nil [442 467])
+            ("linux/kernel.h" include (:system-flag t) nil [468 493])
+            ("linux/interrupt.h" include (:system-flag t) nil [494 522])
+            ("linux/time.h" include (:system-flag t) nil [523 546])
+            ("linux/init.h" include (:system-flag t) nil [547 570])
+            ("linux/sched.h" include (:system-flag t) nil [571 595])
+            ("linux/smp.h" include (:system-flag t) nil [596 618])
+            ("linux/timex.h" include (:system-flag t) nil [619 643])
+            ("linux/errno.h" include (:system-flag t) nil [644 668])
+            ("linux/profile.h" include (:system-flag t) nil [669 695])
+            ("linux/syscore_ops.h" include (:system-flag t) nil [696 726])
+            ("linux/timer.h" include (:system-flag t) nil [727 751])
+            ("linux/irq.h" include (:system-flag t) nil [752 774])
+            ("linux/mc146818rtc.h" include (:system-flag t) nil [776 806])
+            ("asm/leds.h" include (:system-flag t) nil [808 829])
+            ("asm/thread_info.h" include (:system-flag t) nil [830 858])
+            ("asm/sched_clock.h" include (:system-flag t) nil [859 887])
+            ("asm/stacktrace.h" include (:system-flag t) nil [888 915])
+            ("asm/mach/arch.h" include (:system-flag t) nil [916 942])
+            ("asm/mach/time.h" include (:system-flag t) nil [943 969])
+            ("system_timer" variable
+               (:pointer 1
+                :typemodifiers ("static")
+                :type ("sys_timer" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [999 1037])
+            ("USECS_PER_JIFFY" variable (:constant-flag t) nil [1341 1356])
+            ("do_leds" variable (:constant-flag t) nil [2176 2183])
+            ("timer_tick" function
+               (:arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [2285 2290]))                  
+                :type "void")
+                nil [2269 2430])
+            ("timer_suspend" variable (:constant-flag t) nil [2707 2720])
+            ("timer_resume" variable (:constant-flag t) nil [2734 2746])
+            ("timer_syscore_ops" variable
+               (:typemodifiers ("static")
+                :type ("syscore_ops" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [2760 2863])
+            ("timer_init_syscore_ops" function
+               (:arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [2906 2911]))                  
+                :type ("__init" type (:type "class") nil nil))
+                nil [2876 2970])
+            ("device_initcall" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("timer_init_syscore_ops" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [2988 3011]))                  
+                :type "int")
+                nil [2972 3012])
+            ("time_init" function
+               (:arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [3036 3041]))                  
+                :type ("__init" type (:type "class") nil nil))
+                nil [3019 3168]))          
+    :file "time.c"
+    :pointmax 3170
+    :fsize 3169
+    :lastmodtime '(21468 8887 323926 290000)
+    :unmatched-syntax '((VOID 3014 . 3018) (INT 2872 . 2875) (STATIC 2865 . 2871))
+    :lexical-table 
+        '(("do_leds" (spp-arg-list nil 2183 . 2185))
+          ("timer_suspend" . ((symbol "NULL" 2721 . 2725)))
+          ("USECS_PER_JIFFY" . ((semantic-list "(1000000/HZ)" 1357 . 1369)))
+          ("timer_resume" . ((symbol "NULL" 2747 . 2751)))
+          )
+
+    )
+   )
+  :file "!home!chz!linux-3.0.8!arch!arm!kernel!semantic.cache"
+  :semantic-tag-version "2.0"
+  :semanticdb-version "2.2"
+  )

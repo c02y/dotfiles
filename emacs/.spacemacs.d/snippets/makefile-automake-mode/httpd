@@ -1,0 +1,634 @@
+;; Object international/
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "international/"
+  :tables
+  (list
+    (semanticdb-table "mule.el.gz"
+      :major-mode 'emacs-lisp-mode
+      :tags 
+        '( ("mule-version" variable
+               (:constant-flag t
+                :default-value "6.0 (HANACHIRUSATO)")
+                nil [1315 1440])
+            ("mule-version-date" variable
+               (:constant-flag t
+                :default-value "2003.9.1")
+                nil [1442 1555])
+            ("private-char-area-1-min" variable (:default-value 983040) nil [1637 1677])
+            ("private-char-area-1-max" variable (:default-value 1048574) nil [1678 1718])
+            ("private-char-area-2-min" variable (:default-value 1048576) nil [1719 1760])
+            ("private-char-area-2-max" variable (:default-value 1114110) nil [1761 1802])
+            ("emacs-mule-charset-table" variable (:default-value (make-vector 256 nil)) nil [1868 1923])
+            ("aset" code nil nil [1924 1964])
+            ("convert-define-charset-argument" function (:arguments ("emacs-mule-id" "info-vector")) nil [2225 3603])
+            ("define-charset" function (:arguments ("name" "docstring" "props")) nil [3605 10439])
+            ("load-with-code-conversion" function (:arguments ("fullname" "file" "noerror" "nomessage")) nil [10442 12941])
+            ("charset-info" function (:arguments ("charset")) nil [12943 14477])
+            ("charset-id" function (:arguments ("_charset")) nil [14648 14782])
+            ("charset-bytes" function (:arguments ("_charset")) nil [14784 14924])
+            ("get-charset-property" function (:arguments ("charset" "propname")) nil [14926 15156])
+            ("put-charset-property" function (:arguments ("charset" "propname" "value")) nil [15158 15476])
+            ("charset-description" function (:arguments ("charset")) nil [15478 15606])
+            ("charset-dimension" function (:arguments ("charset")) nil [15608 15725])
+            ("charset-chars" function (:arguments ("charset" "dimension")) nil [15727 16095])
+            ("charset-iso-final-char" function (:arguments ("charset")) nil [16097 16297])
+            ("charset-short-name" function (:arguments ("charset")) nil [16299 16422])
+            ("charset-long-name" function (:arguments ("charset")) nil [16424 16544])
+            ("charset-list" function nil nil [16546 16673])
+            ("define-obsolete-function-alias" code nil nil [16691 16756])
+            ("generic-char-p" function (:arguments ("_char")) nil [16758 16897])
+            ("make-char-internal" function (:arguments ("charset-id" "code1" "code2")) nil [16899 17132])
+            ("ascii-case-table" variable (:default-value (let ((tbl (copy-sequence (standard-case-table))) (up (char-table-extra-slot (standard-case-table) 0))) (if up (set-char-table-extra-slot tbl 0 (copy-sequence up))) (set-char-table-extra-slot tbl 1 nil) (set-char-table-extra-slot tbl 2 nil) tbl)) nil [17341 17747])
+            ("coding-system-iso-2022-flags" variable
+               (:constant-flag t
+                :default-value (quote (long-form ascii-at-eol ascii-at-cntl 7-bit locking-shift single-shift designation revision direction init-at-bol designate-at-bol safe latin-extra composition euc-tw-shift use-roman use-oldjis 8-bit-level-4)))
+                nil [17869 20839])
+            ("define-coding-system" function (:arguments ("name" "docstring" "props")) nil [20841 32483])
+            ("coding-system-doc-string" function (:arguments ("coding-system")) nil [32485 32649])
+            ("coding-system-mnemonic" function (:arguments ("coding-system")) nil [32651 32940])
+            ("coding-system-type" function (:arguments ("coding-system")) nil [32942 33224])
+            ("coding-system-charset-list" function (:arguments ("coding-system")) nil [33226 33536])
+            ("coding-system-category" function (:arguments ("coding-system")) nil [33538 33691])
+            ("coding-system-get" function (:arguments ("coding-system" "prop")) nil [33693 34309])
+            ("coding-system-eol-type-mnemonic" function (:arguments ("coding-system")) nil [34311 34718])
+            ("coding-system-lessp" function (:arguments ("x" "y")) nil [34720 35103])
+            ("coding-system-equal" function (:arguments ("coding-system-1" "coding-system-2")) nil [35105 35693])
+            ("add-to-coding-system-list" function (:arguments ("coding-system")) nil [35695 36307])
+            ("coding-system-list" function (:arguments ("base-only")) nil [36309 36957])
+            ("char-coding-system-table" variable (:constant-flag t) nil [36959 37074])
+            ("make-obsolete-variable" code nil nil [37075 37136])
+            ("transform-make-coding-system-args" function (:arguments ("name" "type" "doc-string" "props")) nil [37138 40113])
+            ("make-coding-system" function (:arguments ("coding-system" "type" "mnemonic" "doc-string" "flags" "properties" "eol-type")) nil [40115 43465])
+            ("merge-coding-systems" function (:arguments ("first" "second")) nil [43467 44146])
+            ("autoload-coding-system" function (:arguments ("symbol" "form")) nil [44148 44675])
+            ("buffer-file-coding-system-explicit" variable nil nil [45399 45622])
+            ("make-variable-buffer-local" code nil nil [45623 45687])
+            ("put" code nil nil [45688 45748])
+            ("read-buffer-file-coding-system" function nil nil [45750 48574])
+            ("set-buffer-file-coding-system" function
+               (:user-visible-flag t
+                :arguments ("coding-system" "force" "nomodify"))
+                nil [48576 50706])
+            ("revert-buffer-with-coding-system" function
+               (:user-visible-flag t
+                :arguments ("coding-system" "force"))
+                nil [50708 51635])
+            ("set-file-name-coding-system" function
+               (:user-visible-flag t
+                :arguments ("coding-system"))
+                nil [51637 52227])
+            ("default-terminal-coding-system" variable nil nil [52229 52442])
+            ("set-terminal-coding-system" function
+               (:user-visible-flag t
+                :arguments ("coding-system" "terminal"))
+                nil [52444 53532])
+            ("default-keyboard-coding-system" variable nil nil [53534 53746])
+            ("set-keyboard-coding-system" function
+               (:user-visible-flag t
+                :arguments ("coding-system" "terminal"))
+                nil [53748 56169])
+            ("keyboard-coding-system" variable nil nil [56171 57057])
+            ("set-buffer-process-coding-system" function
+               (:user-visible-flag t
+                :arguments ("decoding" "encoding"))
+                nil [57059 57777])
+            ("defalias" code nil nil [57779 57847])
+            ("set-selection-coding-system" function
+               (:user-visible-flag t
+                :arguments ("coding-system"))
+                nil [57849 58226])
+            ("last-next-selection-coding-system" variable nil nil [58314 58360])
+            ("set-next-selection-coding-system" function
+               (:user-visible-flag t
+                :arguments ("coding-system"))
+                nil [58362 59072])
+            ("set-coding-priority" function (:arguments ("arg")) nil [59074 59416])
+            ("ctext-non-standard-encodings-alist" variable (:default-value (mapcar (quote purecopy) (quote (("big5-0" big5 2 big5) ("ISO8859-14" iso-8859-14 1 latin-iso8859-14) ("ISO8859-15" iso-8859-15 1 latin-iso8859-15) ("gbk-0" gbk 2 chinese-gbk) ("koi8-r" koi8-r 1 koi8-r) ("microsoft-cp1251" windows-1251 1 windows-1251))))) nil [59436 60761])
+            ("ctext-non-standard-encodings" variable nil nil [60763 60991])
+            ("ctext-non-standard-encodings-regexp" variable (:default-value (purecopy (string-to-multibyte (concat "\\(%/[0-4][\200-\377][\200-\377]\\([^]+\\)\\)" "\\|" "\\(%G[^]*%@\\)")))) nil [60993 61247])
+            ("ctext-post-read-conversion" function (:arguments ("len")) nil [61488 63132])
+            ("ctext-standard-encodings" variable (:default-value (quote (ascii latin-jisx0201 katakana-jisx0201 latin-iso8859-1 latin-iso8859-2 latin-iso8859-3 latin-iso8859-4 greek-iso8859-7 arabic-iso8859-6 hebrew-iso8859-8 cyrillic-iso8859-5 latin-iso8859-9 chinese-gb2312 japanese-jisx0208 korean-ksc5601))) nil [63134 63864])
+            ("ctext-non-standard-encodings-table" function nil nil [64442 65162])
+            ("ctext-pre-write-conversion" function (:arguments ("from" "to")) nil [65164 67749])
+            ("auto-coding-alist" variable (:default-value (mapcar (lambda (arg) (cons (purecopy (car arg)) (cdr arg))) (quote (("\\.\\(arc\\|zip\\|lzh\\|lha\\|zoo\\|[jew]ar\\|xpi\\|rar\\|7z\\|ARC\\|ZIP\\|LZH\\|LHA\\|ZOO\\|[JEW]AR\\|XPI\\|RAR\\|7Z\\)\\'" . no-conversion-multibyte) ("\\.\\(exe\\|EXE\\)\\'" . no-conversion) ("\\.\\(sx[dmicw]\\|odt\\|tar\\|t[bg]z\\)\\'" . no-conversion) ("\\.\\(gz\\|Z\\|bz\\|bz2\\|xz\\|gpg\\)\\'" . no-conversion) ("\\.\\(jpe?g\\|png\\|gif\\|tiff?\\|p[bpgn]m\\)\\'" . no-conversion) ("\\.pdf\\'" . no-conversion) ("/#[^/]+#\\'" . utf-8-emacs-unix))))) nil [67845 69059])
+            ("auto-coding-regexp-alist" variable (:default-value (mapcar (lambda (arg) (cons (purecopy (car arg)) (cdr arg))) (quote (("\\`BABYL OPTIONS:[ 	]*-\\*-[ 	]*rmail[ 	]*-\\*-" . no-conversion) ("\\`\376\377" . utf-16be-with-signature) ("\\`\377\376" . utf-16le-with-signature) ("\\`\357\273\277" . utf-8-with-signature) ("\\`;ELC   " . emacs-mule))))) nil [69061 69895])
+            ("auto-coding-regexp-alist-lookup" function (:arguments ("from" "to")) nil [69897 70508])
+            ("auto-coding-functions" variable (:default-value (quote (sgml-xml-auto-coding-function sgml-html-meta-auto-coding-function))) nil [70577 71358])
+            ("set-auto-coding-for-load" variable nil nil [71360 71551])
+            ("auto-coding-alist-lookup" function (:arguments ("filename")) nil [71553 71973])
+            ("put" code nil nil [71975 72029])
+            ("put" code nil nil [72030 72096])
+            ("find-auto-coding" function (:arguments ("filename" "size")) nil [72098 78430])
+            ("set-auto-coding" function (:arguments ("filename" "size")) nil [78432 78862])
+            ("setq" code nil nil [78864 78912])
+            ("after-insert-file-set-coding" function (:arguments ("inserted" "visit")) nil [78914 79781])
+            ("find-new-buffer-file-coding-system" function (:arguments ("coding")) nil [79971 82006])
+            ("modify-coding-system-alist" function (:arguments ("target-type" "regexp" "coding-system")) nil [82008 84294])
+            ("decode-coding-inserted-region" function (:arguments ("from" "to" "filename" "visit" "beg" "end" "replace")) nil [84296 86293])
+            ("recode-region" function
+               (:user-visible-flag t
+                :arguments ("start" "end" "new-coding" "coding"))
+                nil [86295 87104])
+            ("make-translation-table" function (:arguments ("args")) nil [87106 88593])
+            ("make-translation-table-from-vector" function (:arguments ("vec")) nil [88595 89210])
+            ("make-translation-table-from-alist" function (:arguments ("alist")) nil [89212 90574])
+            ("define-translation-table" function (:arguments ("symbol" "args")) nil [90576 91971])
+            ("translate-region" function
+               (:user-visible-flag t
+                :arguments ("start" "end" "table"))
+                nil [91973 93009])
+            ("with-category-table" function (:arguments ("table" "body")) nil [93011 93650])
+            ("define-translation-hash-table" function (:arguments ("symbol" "table")) nil [93652 94606])
+            ("put" code nil nil [94640 94691])
+            ("setq" code nil nil [94692 94755])
+            ("put" code nil nil [94756 94816])
+            ("setq" code nil nil [94817 94904])
+            ("sgml-xml-auto-coding-function" function (:arguments ("size")) nil [94943 96425])
+            ("sgml-html-meta-auto-coding-function" function (:arguments ("size")) nil [96427 97626])
+            ("xml-find-file-coding-system" function (:arguments ("args")) nil [97628 98958])
+            ("mule" package nil nil [98964 98979]))          
+      :file "mule.el.gz"
+      :pointmax 99003
+      :fsize 26760
+      :lastmodtime '(21788 61018 0 0)
+      :unmatched-syntax nil)
+    (semanticdb-table "mule-cmds.el.gz"
+      :major-mode 'emacs-lisp-mode
+      :tags 
+        '( ("cl-lib" include nil nil [1252 1269])
+            ("dos-codepage" variable nil nil [1272 1293])
+            ("widget-value" function (:prototype-flag t) nil [1294 1329])
+            ("mac-system-coding-system" variable nil nil [1331 1364])
+            ("mule-keymap" variable (:default-value (let ((map (make-sparse-keymap))) (define-key map "f" (quote set-buffer-file-coding-system)) (define-key map "r" (quote revert-buffer-with-coding-system)) (define-key map "F" (quote set-file-name-coding-system)) (define-key map "t" (quote set-terminal-coding-system)) (define-key map "k" (quote set-keyboard-coding-system)) (define-key map "p" (quote set-buffer-process-coding-system)) (define-key map "x" (quote set-selection-coding-system)) (define-key map "X" (quote set-next-selection-coding-system)) (define-key map "" (quote set-input-method)) (define-key map "c" (quote universal-coding-system-argument)) (define-key map "l" (quote set-language-environment)) map)) nil [1408 2143])
+            ("define-key" code nil nil [2195 2236])
+            ("describe-language-environment-map" variable (:default-value (let ((map (make-sparse-keymap "Describe Language Environment"))) (bindings--define-key map [Default] (quote (menu-item "Default" describe-specified-language-support))) map)) nil [2238 2463])
+            ("setup-language-environment-map" variable (:default-value (let ((map (make-sparse-keymap "Set Language Environment"))) (bindings--define-key map [Default] (quote (menu-item "Default" setup-specified-language-environment))) map)) nil [2465 2683])
+            ("set-coding-system-map" variable (:default-value (let ((map (make-sparse-keymap "Set Coding System"))) (bindings--define-key map [set-buffer-process-coding-system] (quote (menu-item "For I/O with Subprocess" set-buffer-process-coding-system :visible (fboundp (quote start-process)) :enable (get-buffer-process (current-buffer)) :help "How to en/decode I/O from/to subprocess connected to this buffer"))) (bindings--define-key map [set-next-selection-coding-system] (quote (menu-item "For Next X Selection" set-next-selection-coding-system :visible (display-selections-p) :help "How to en/decode next selection/clipboard operation"))) (bindings--define-key map [set-selection-coding-system] (quote (menu-item "For X Selections/Clipboard" set-selection-coding-system :visible (display-selections-p) :help "How to en/decode data to/from selection/clipboard"))) (bindings--define-key map [separator-3] menu-bar-separator) (bindings--define-key map [set-terminal-coding-system] (quote (menu-item "For Terminal" set-terminal-coding-system :enable (null (memq initial-window-system (quote (x w32 ns)))) :help "How to encode terminal output"))) (bindings--define-key map [set-keyboard-coding-system] (quote (menu-item "For Keyboard" set-keyboard-coding-system :help "How to decode keyboard input"))) (bindings--define-key map [separator-2] menu-bar-separator) (bindings--define-key map [set-file-name-coding-system] (quote (menu-item "For File Name" set-file-name-coding-system :help "How to decode/encode file names"))) (bindings--define-key map [revert-buffer-with-coding-system] (quote (menu-item "For Reverting This File Now" revert-buffer-with-coding-system :enable buffer-file-name :help "Revisit this file immediately using specified coding system"))) (bindings--define-key map [set-buffer-file-coding-system] (quote (menu-item "For Saving This Buffer" set-buffer-file-coding-system :help "How to encode this buffer when saved"))) (bindings--define-key map [separator-1] menu-bar-separator) (bindings--define-key map [universal-coding-system-argument] (quote (menu-item "For Next Command" universal-coding-system-argument :help "Coding system to be used by next command"))) map)) nil [2685 5005])
+            ("mule-menu-keymap" variable (:default-value (let ((map (make-sparse-keymap "Mule (Multilingual Environment)"))) (bindings--define-key map [mule-diag] (quote (menu-item "Show All Multilingual Settings" mule-diag :help "Display multilingual environment settings"))) (bindings--define-key map [list-character-sets] (quote (menu-item "List Character Sets" list-character-sets :help "Show table of available character sets"))) (bindings--define-key map [describe-coding-system] (quote (menu-item "Describe Coding System..." describe-coding-system))) (bindings--define-key map [describe-input-method] (quote (menu-item "Describe Input Method..." describe-input-method :help "Keyboard layout for a specific input method"))) (bindings--define-key map [describe-language-environment] (\` (menu-item "Describe Language Environment" (\, describe-language-environment-map) :help "Show multilingual settings for a specific language"))) (bindings--define-key map [separator-coding-system] menu-bar-separator) (bindings--define-key map [view-hello-file] (quote (menu-item "Show Multilingual Sample Text" view-hello-file :enable (file-readable-p (expand-file-name "HELLO" data-directory)) :help "Demonstrate various character sets"))) (bindings--define-key map [set-various-coding-system] (\` (menu-item "Set Coding Systems" (\, set-coding-system-map) :enable (default-value (quote enable-multibyte-characters))))) (bindings--define-key map [separator-input-method] menu-bar-separator) (bindings--define-key map [describe-input-method] (quote (menu-item "Describe Input Method" describe-input-method))) (bindings--define-key map [set-input-method] (quote (menu-item "Select Input Method..." set-input-method))) (bindings--define-key map [toggle-input-method] (quote (menu-item "Toggle Input Method" toggle-input-method))) (bindings--define-key map [separator-mule] menu-bar-separator) (bindings--define-key map [set-language-environment] (\` (menu-item "Set Language Environment" (\, setup-language-environment-map)))) map)) nil [5007 7198])
+            ("define-key" code nil nil [7581 7633])
+            ("help-xref-mule-regexp-template" variable
+               (:constant-flag t
+                :default-value (purecopy (concat "\\(\\<\\(" "\\(coding system\\)\\|" "\\(input method\\)\\|" "\\(character set\\)\\|" "\\(charset\\)" "\\)\\s-+\\)?" "`\\(\\sw\\(\\sw\\|\\s_\\)+\\)'")))
+                nil [7876 8176])
+            ("coding-system-change-eol-conversion" function (:arguments ("coding-system" "eol-type")) nil [8178 9417])
+            ("coding-system-change-text-conversion" function (:arguments ("coding-system" "coding")) nil [9419 9969])
+            ("canonicalize-coding-system-name" function (:arguments ("name")) nil [10119 10892])
+            ("coding-system-from-name" function (:arguments ("name")) nil [10894 11631])
+            ("toggle-enable-multibyte-characters" function
+               (:user-visible-flag t
+                :arguments ("arg"))
+                nil [11633 12436])
+            ("view-hello-file" function (:user-visible-flag t) nil [12438 12711])
+            ("universal-coding-system-argument" function
+               (:user-visible-flag t
+                :arguments ("coding-system"))
+                nil [12713 14645])
+            ("set-default-coding-systems" function (:arguments ("coding-system")) nil [14647 16507])
+            ("prefer-coding-system" function
+               (:user-visible-flag t
+                :arguments ("coding-system"))
+                nil [16509 18405])
+            ("sort-coding-systems-predicate" variable nil nil [18407 18659])
+            ("sort-coding-systems" function (:arguments ("codings")) nil [18661 21346])
+            ("find-coding-systems-region" function (:arguments ("from" "to")) nil [21348 22034])
+            ("find-coding-systems-string" function (:arguments ("string")) nil [22036 22359])
+            ("find-coding-systems-for-charsets" function (:arguments ("charsets")) nil [22361 23611])
+            ("find-multibyte-characters" function (:arguments ("from" "to" "maxcount" "excludes")) nil [23613 25364])
+            ("search-unencodable-char" function
+               (:user-visible-flag t
+                :arguments ("coding-system"))
+                nil [25366 26116])
+            ("last-coding-system-specified" variable nil nil [26118 26511])
+            ("select-safe-coding-system-accept-default-p" variable nil nil [26513 26801])
+            ("sanitize-coding-system-list" function (:arguments ("codings")) nil [26803 27971])
+            ("select-safe-coding-system-interactively" function (:arguments ("from" "to" "codings" "unsafe" "rejected" "default")) nil [27973 33142])
+            ("select-safe-coding-system" function (:arguments ("from" "to" "default-coding-system" "accept-default-p" "file")) nil [33144 42815])
+            ("setq" code nil nil [42817 42885])
+            ("select-message-coding-system" function nil nil [42887 43981])
+            ("language-info-alist" variable nil nil [44013 46328])
+            ("get-language-info" function (:arguments ("lang-env" "key")) nil [46330 46770])
+            ("set-language-info" function (:arguments ("lang-env" "key" "info")) nil [46772 47920])
+            ("set-language-info-internal" function (:arguments ("lang-env" "key" "info")) nil [47922 48770])
+            ("set-language-info-alist" function (:arguments ("lang-env" "alist" "parents")) nil [48772 51236])
+            ("read-language-name" function (:arguments ("key" "prompt" "default")) nil [51238 51833])
+            ("leim" customgroup (:user-visible-flag t) nil [51868 51946])
+            ("leim-list-file-name" variable
+               (:constant-flag t
+                :default-value "leim-list.el")
+                nil [51948 52197])
+            ("leim-list-header" variable
+               (:constant-flag t
+                :default-value (format ";;; %s -- list of LEIM (Library of Emacs Input Method) -*-coding: utf-8;-*-
+;;
+;; This file is automatically generated.
+;;
+;; This file contains a list of LEIM (Library of Emacs Input Method)
+;; methods in the same directory as this file.  Loading this file
+;; registers all the input methods in Emacs.
+;;
+;; Each entry has the form:
+;;   (register-input-method
+;;    INPUT-METHOD LANGUAGE-NAME ACTIVATE-FUNC
+;;    TITLE DESCRIPTION
+;;    ARG ...)
+;; See the function `register-input-method' for the meanings of the arguments.
+;;
+;; If this directory is included in `load-path', Emacs automatically
+;; loads this file at startup time.
+
+" leim-list-file-name))
+                nil [52199 52944])
+            ("leim-list-entry-regexp" variable
+               (:constant-flag t
+                :default-value "^(register-input-method")
+                nil [52946 53105])
+            ("update-leim-list-functions" variable (:default-value (quote (quail-update-leim-list-file))) nil [53107 53290])
+            ("update-leim-list-file" function (:arguments ("dirs")) nil [53292 53456])
+            ("current-input-method" variable nil nil [53458 53596])
+            ("make-variable-buffer-local" code nil nil [53597 53647])
+            ("put" code nil nil [53648 53694])
+            ("current-input-method-title" variable nil nil [53696 53800])
+            ("make-variable-buffer-local" code nil nil [53801 53857])
+            ("put" code nil nil [53858 53910])
+            ("define-widget" code nil nil [53912 54206])
+            ("default-input-method" variable nil nil [54208 54597])
+            ("put" code nil nil [54599 54646])
+            ("input-method-history" variable nil nil [54648 54836])
+            ("make-variable-buffer-local" code nil nil [54837 54887])
+            ("put" code nil nil [54888 54934])
+            ("define-obsolete-variable-alias" code nil nil [54936 55063])
+            ("deactivate-current-input-method-function" variable nil nil [55064 55430])
+            ("make-variable-buffer-local" code nil nil [55431 55501])
+            ("put" code nil nil [55502 55568])
+            ("describe-current-input-method-function" variable nil nil [55570 55725])
+            ("make-variable-buffer-local" code nil nil [55726 55794])
+            ("put" code nil nil [55795 55859])
+            ("input-method-alist" variable nil nil [55861 56117])
+            ("put" code nil nil [56133 56182])
+            ("register-input-method" function (:arguments ("input-method" "lang-env" "args")) nil [56184 57906])
+            ("read-input-method-name" function (:arguments ("prompt" "default" "inhibit-null")) nil [57908 59080])
+            ("activate-input-method" function (:arguments ("input-method")) nil [59082 60347])
+            ("deactivate-input-method" function nil nil [60349 61079])
+            ("define-obsolete-function-alias" code nil nil [61081 61174])
+            ("set-input-method" function
+               (:user-visible-flag t
+                :arguments ("input-method" "interactive"))
+                nil [61176 62245])
+            ("toggle-input-method-active" variable nil nil [62247 62328])
+            ("toggle-input-method" function
+               (:user-visible-flag t
+                :arguments ("arg" "interactive"))
+                nil [62330 64054])
+            ("help-buffer" function (:prototype-flag t) nil [64056 64091])
+            ("describe-input-method" function
+               (:user-visible-flag t
+                :arguments ("input-method"))
+                nil [64093 65203])
+            ("describe-current-input-method" function nil nil [65205 65687])
+            ("read-multilingual-string" function (:arguments ("prompt" "initial-input" "input-method")) nil [65689 66613])
+            ("input-method-verbose-flag" variable (:default-value (quote default)) nil [66722 67651])
+            ("input-method-highlight-flag" variable (:default-value t) nil [67653 68060])
+            ("input-method-activate-hook" variable nil nil [68062 68275])
+            ("define-obsolete-variable-alias" code nil nil [68277 68380])
+            ("input-method-deactivate-hook" variable nil nil [68382 68625])
+            ("input-method-after-insert-chunk-hook" variable nil nil [68627 68782])
+            ("input-method-exit-on-first-char" variable nil nil [68784 69161])
+            ("input-method-use-echo-area" variable nil nil [69163 69536])
+            ("input-method-exit-on-invalid-key" variable nil nil [69538 69934])
+            ("set-language-environment-hook" variable nil nil [69938 70299])
+            ("exit-language-environment-hook" variable nil nil [70301 70665])
+            ("put" code nil nil [70667 70729])
+            ("setup-specified-language-environment" function (:user-visible-flag t) nil [70731 71209])
+            ("current-language-environment" variable (:default-value "English") nil [71211 72101])
+            ("reset-language-environment" function (:user-visible-flag t) nil [72103 74897])
+            ("reset-language-environment" code nil nil [74899 74927])
+            ("set-display-table-and-terminal-coding-system" function (:arguments ("language-name" "coding-system" "display")) nil [74929 75712])
+            ("set-language-environment" function
+               (:user-visible-flag t
+                :arguments ("language-name"))
+                nil [75714 77963])
+            ("define-widget" code nil nil [77965 78444])
+            ("language-info-custom-alist" variable nil nil [78446 80249])
+            ("declare-function" code nil nil [80251 80315])
+            ("declare-function" code nil nil [80316 80381])
+            ("standard-display-european-internal" function nil nil [80383 81746])
+            ("set-language-environment-coding-systems" function (:arguments ("language-name")) nil [81748 83230])
+            ("set-language-environment-input-method" function (:arguments ("language-name")) nil [83232 83648])
+            ("set-language-environment-nonascii-translation" function (:arguments ("language-name")) nil [83650 84405])
+            ("set-language-environment-charset" function (:arguments ("language-name")) nil [84407 84980])
+            ("set-language-environment-unibyte" function (:arguments ("language-name")) nil [84982 85176])
+            ("princ-list" function (:arguments ("args")) nil [85178 85364])
+            ("put" code nil nil [85366 85427])
+            ("describe-specified-language-support" function (:user-visible-flag t) nil [85716 86183])
+            ("describe-language-environment" function
+               (:user-visible-flag t
+                :arguments ("language-name"))
+                nil [86185 89520])
+            ("locale-translation-file-name" variable nil nil [89537 89654])
+            ("locale-language-names" variable
+               (:constant-flag t
+                :default-value (purecopy (quote (("aa_DJ" . "Latin-1") ("aa" . "UTF-8") ("af" . "Latin-1") ("am" "Ethiopic" utf-8) ("an" . "Latin-9") ("ar" . "Arabic") ("az" . "UTF-8") ("be" "Belarusian" cp1251) ("bg" "Bulgarian" cp1251) ("bn" . "UTF-8") ("bo" . "Tibetan") ("br" . "Latin-1") ("bs" . "Latin-2") ("byn" . "UTF-8") ("ca" . "Latin-1") ("cs" "Czech" iso-8859-2) ("cy" "Welsh" iso-8859-14) ("da" . "Latin-1") ("de" "German" iso-8859-1) ("el" "Greek" iso-8859-7) ("en_IN" "English" utf-8) ("en" "English" iso-8859-1) ("eo" . "Esperanto") ("es" "Spanish" iso-8859-1) ("et" . "Latin-1") ("eu" . "Latin-1") ("fa" . "UTF-8") ("fi" . "Latin-1") ("fj" . "Latin-1") ("fo" . "Latin-1") ("fr" "French" iso-8859-1) ("fy" . "Latin-1") ("ga" . "Latin-1") ("gd" . "Latin-9") ("gez" "Ethiopic" utf-8) ("gl" . "Latin-1") ("gu" . "UTF-8") ("gv" . "Latin-1") ("he" "Hebrew" iso-8859-8) ("hi" "Devanagari" utf-8) ("hr" "Croatian" iso-8859-2) ("hu" . "Latin-2") ("id" . "Latin-1") ("is" . "Latin-1") ("it" "Italian" iso-8859-1) ("iw" "Hebrew" iso-8859-8) ("ja" "Japanese" euc-jp) ("ka" "Georgian" georgian-ps) ("kl" . "Latin-1") ("kn" "Kannada" utf-8) ("ko" "Korean" euc-kr) ("kw" . "Latin-1") ("la" . "Latin-1") ("lb" . "Latin-1") ("lg" . "Laint-6") ("lo" "Lao" utf-8) ("lt" "Lithuanian" iso-8859-13) ("lv" . "Latvian") ("mi" . "Latin-7") ("mk" "Cyrillic-ISO" iso-8859-5) ("ml" "Malayalam" utf-8) ("mn" . "UTF-8") ("mr" "Devanagari" utf-8) ("ms" . "Latin-1") ("mt" . "Latin-3") ("nb" . "Latin-1") ("ne" "Devanagari" utf-8) ("nl" "Dutch" iso-8859-1) ("no" . "Latin-1") ("oc" . "Latin-1") ("om_ET" . "UTF-8") ("om" . "Latin-1") ("pa" . "UTF-8") ("pl" . "Latin-2") ("pt" . "Latin-1") ("rm" . "Latin-1") ("ro" "Romanian" iso-8859-2) ("ru_RU" "Russian" iso-8859-5) ("ru_UA" "Russian" koi8-u) ("sa" . "Devanagari") ("se" . "UTF-8") ("sh" . "Latin-2") ("sid" . "UTF-8") ("sk" "Slovak" iso-8859-2) ("sl" "Slovenian" iso-8859-2) ("so_ET" "UTF-8") ("so" "Latin-1") ("sq" . "Latin-1") ("sr" . "Latin-2") ("st" . "Latin-1") ("sv" "Swedish" iso-8859-1) ("sw" . "Latin-1") ("ta" "Tamil" utf-8) ("te" . "UTF-8") ("tg" "Tajik" koi8-t) ("th" "Thai" tis-620) ("ti" "Ethiopic" utf-8) ("tig_ER" . "UTF-8") ("tl" . "Latin-1") ("tr" "Turkish" iso-8859-9) ("tt" . "UTF-8") ("uk" "Ukrainian" koi8-u) ("ur" . "UTF-8") ("uz_UZ@cyrillic" . "UTF-8") ("uz" . "Latin-1") ("vi" "Vietnamese" utf-8) ("wa" . "Latin-1") ("xh" . "Latin-1") ("yi" . "Windows-1255") ("zh_HK" . "Chinese-Big5") ("zh_TW" . "Chinese-Big5") ("zh_CN.GB2312" "Chinese-GB") ("zh_CN.GBK" "Chinese-GBK") ("zh_CN.GB18030" "Chinese-GB18030") ("zh_CN.UTF-8" . "Chinese-GBK") ("zh_CN" . "Chinese-GB") ("zh" . "Chinese-GB") ("zu" . "Latin-1") ("c$" . "ASCII") ("posix$" . "ASCII") ("ipa$" . "IPA") ("cz" . "Czech") ("ee" . "Latin-4") ("iw" . "Hebrew") ("sp" . "Cyrillic-ISO") ("su" . "Latin-1") ("jp" . "Japanese") ("chs" . "Chinese-GBK") ("cht" . "Chinese-BIG5") ("gbz" . "UTF-8") ("div" . "UTF-8") ("wee" . "Latin-2") ("wen" . "Latin-2")))))
+                nil [89846 97425])
+            ("locale-charset-language-names" variable
+               (:constant-flag t
+                :default-value (purecopy (quote ((".*8859[-_]?1\\>" . "Latin-1") (".*8859[-_]?2\\>" . "Latin-2") (".*8859[-_]?3\\>" . "Latin-3") (".*8859[-_]?4\\>" . "Latin-4") (".*8859[-_]?9\\>" . "Latin-5") (".*8859[-_]?14\\>" . "Latin-8") (".*8859[-_]?15\\>" . "Latin-9") (".*utf\\(?:-?8\\)?\\>" . "UTF-8") (".*@euro\\>" . "Latin-9")))))
+                nil [97427 98227])
+            ("locale-preferred-coding-systems" variable
+               (:constant-flag t
+                :default-value (purecopy (quote ((".*8859[-_]?1\\>" . iso-8859-1) (".*8859[-_]?2\\>" . iso-8859-2) (".*8859[-_]?3\\>" . iso-8859-3) (".*8859[-_]?4\\>" . iso-8859-4) (".*8859[-_]?9\\>" . iso-8859-9) (".*8859[-_]?14\\>" . iso-8859-14) (".*8859[-_]?15\\>" . iso-8859-15) (".*utf\\(?:-?8\\)?" . utf-8) (".*@euro" . iso-8859-15) ("koi8-?r" . koi8-r) ("koi8-?u" . koi8-u) ("tcvn" . tcvn) ("big5[-_]?hkscs" . big5-hkscs) ("big5" . big5) ("euc-?tw" . euc-tw) ("euc-?cn" . euc-cn) ("gb2312" . gb2312) ("gbk" . gbk) ("gb18030" . gb18030) ("ja.*[._]euc" . japanese-iso-8bit) ("ja.*[._]jis7" . iso-2022-jp) ("ja.*[._]pck" . japanese-shift-jis) ("ja.*[._]sjis" . japanese-shift-jis) ("jpn" . japanese-shift-jis)))))
+                nil [98229 99505])
+            ("locale-name-match" function (:arguments ("key" "alist")) nil [99507 99941])
+            ("locale-charset-match-p" function (:arguments ("charset1" "charset2")) nil [99943 100394])
+            ("locale-charset-alist" variable nil nil [100396 100532])
+            ("locale-charset-to-coding-system" function (:arguments ("charset")) nil [100534 101322])
+            ("locale-translate" function (:arguments ("locale")) nil [101491 102002])
+            ("set-locale-environment" function
+               (:user-visible-flag t
+                :arguments ("locale-name" "frame"))
+                nil [102004 110204])
+            ("put" code nil nil [110231 110288])
+            ("define-char-code-property" function (:arguments ("name" "table" "docstring")) nil [110290 112053])
+            ("char-code-property-table" variable (:default-value (make-char-table (quote char-code-property-table))) nil [112055 112361])
+            ("get-char-code-property" function (:arguments ("char" "propname")) nil [112363 112771])
+            ("put-char-code-property" function (:arguments ("char" "propname" "value")) nil [112773 113357])
+            ("char-code-property-description" function (:arguments ("prop" "value")) nil [113359 113713])
+            ("iso-2022-control-alist" variable
+               (:constant-flag t
+                :default-value (quote ((27 . "ESC") (14 . "SO") (15 . "SI") (142 . "SS2") (143 . "SS3") (155 . "CSI"))))
+                nil [113830 113982])
+            ("encoded-string-description" function (:arguments ("str" "coding-system")) nil [113984 114472])
+            ("encode-coding-char" function (:arguments ("char" "coding-system" "charset")) nil [114474 115939])
+            ("define-minor-mode" code nil nil [116039 116158])
+            ("make-obsolete" code nil nil [116226 116293])
+            ("define-minor-mode" code nil nil [116295 116414])
+            ("make-obsolete" code nil nil [116482 116549])
+            ("nonascii-insert-offset" variable nil nil [116551 116584])
+            ("make-obsolete-variable" code nil nil [116585 116657])
+            ("nonascii-translation-table" variable nil nil [116658 116697])
+            ("make-obsolete-variable" code nil nil [116698 116774])
+            ("ucs-names" variable nil nil [116776 116849])
+            ("ucs-names" function nil nil [116851 118405])
+            ("read-char-by-name" function (:arguments ("prompt")) nil [118407 119684])
+            ("define-obsolete-function-alias" code nil nil [119686 119750])
+            ("define-key" code nil nil [119751 119792]))          
+      :file "mule-cmds.el.gz"
+      :pointmax 119821
+      :fsize 33247
+      :lastmodtime '(21788 61018 0 0)
+      :unmatched-syntax '((close-paren 1269 . 1270) (symbol 1234 . 1251) (open-paren 1233 . 1234)))
+    (semanticdb-table "mule-diag.el.gz"
+      :major-mode 'emacs-lisp-mode
+      :tags 
+        '( ("help-mode" include nil nil [1338 1358])
+            ("print-list" function (:arguments ("args")) nil [1390 1571])
+            ("define-button-type" code nil nil [1586 1804])
+            ("define-button-type" code nil nil [1806 1985])
+            ("list-character-sets" function
+               (:user-visible-flag t
+                :arguments ("arg"))
+                nil [2002 3646])
+            ("sort-listed-character-sets" function (:arguments ("sort-key")) nil [3648 3912])
+            ("list-character-sets-1" function (:arguments ("sort-key")) nil [3914 5940])
+            ("list-character-sets-2" function nil nil [6014 6855])
+            ("non-iso-charset-alist" variable nil nil [6857 6905])
+            ("make-obsolete-variable" code nil nil [6906 6982])
+            ("decode-codepage-char" function (:arguments ("codepage" "code")) nil [6984 7273])
+            ("charset-history" variable nil nil [7320 7348])
+            ("read-charset" function (:arguments ("prompt" "default-value" "initial-input")) nil [7366 8102])
+            ("list-block-of-chars" function (:arguments ("charset" "row" "min" "max")) nil [8379 9156])
+            ("list-charset-chars" function
+               (:user-visible-flag t
+                :arguments ("charset"))
+                nil [9173 10705])
+            ("describe-character-set" function
+               (:user-visible-flag t
+                :arguments ("charset"))
+                nil [10723 13052])
+            ("graphic-register" variable nil nil [13074 13099])
+            ("print-designation" function (:arguments ("designations")) nil [13343 14419])
+            ("describe-coding-system" function
+               (:user-visible-flag t
+                :arguments ("coding-system"))
+                nil [14436 17673])
+            ("describe-current-coding-system-briefly" function (:user-visible-flag t) nil [17690 20136])
+            ("print-coding-system-briefly" function (:arguments ("coding-system" "doc-string")) nil [20138 21564])
+            ("describe-current-coding-system" function (:user-visible-flag t) nil [21581 25596])
+            ("print-coding-system" function (:arguments ("coding-system")) nil [25598 27472])
+            ("list-coding-systems" function
+               (:user-visible-flag t
+                :arguments ("arg"))
+                nil [27489 27860])
+            ("list-coding-systems-1" function (:arguments ("arg")) nil [27862 29227])
+            ("list-coding-categories" function nil nil [29262 29636])
+            ("declare-function" code nil nil [29649 29709])
+            ("describe-font-internal" function (:arguments ("font-info" "ignored")) nil [29711 30237])
+            ("describe-font" function
+               (:user-visible-flag t
+                :arguments ("fontname"))
+                nil [30254 31160])
+            ("print-fontset-element" function (:arguments ("val")) nil [31162 33346])
+            ("declare-function" code nil nil [33348 33420])
+            ("declare-function" code nil nil [33421 33490])
+            ("print-fontset" function (:arguments ("fontset" "print-opened")) nil [33492 35784])
+            ("fontset-alias-alist" variable nil nil [35786 35814])
+            ("declare-function" code nil nil [35815 35861])
+            ("describe-fontset" function
+               (:user-visible-flag t
+                :arguments ("fontset"))
+                nil [35878 36703])
+            ("declare-function" code nil nil [36705 36762])
+            ("list-fontsets" function
+               (:user-visible-flag t
+                :arguments ("arg"))
+                nil [36779 37676])
+            ("list-input-methods" function (:user-visible-flag t) nil [37694 38170])
+            ("list-input-methods-1" function nil nil [38172 39132])
+            ("insert-section" function (:arguments ("section-number" "title")) nil [39213 39426])
+            ("mule-diag" function (:user-visible-flag t) nil [39443 42209])
+            ("font-show-log" function
+               (:user-visible-flag t
+                :arguments ("limit"))
+                nil [42226 43061])
+            ("mule-diag" package nil nil [43064 43084]))          
+      :file "mule-diag.el.gz"
+      :pointmax 43113
+      :fsize 12170
+      :lastmodtime '(21788 61018 0 0)
+      :unmatched-syntax nil)
+    (semanticdb-table "mule-util.el.gz"
+      :major-mode 'emacs-lisp-mode
+      :tags 
+        '( ("string-to-list" function (:arguments ("string")) nil [1340 1439])
+            ("string-to-vector" function (:arguments ("string")) nil [1456 1556])
+            ("store-substring" function (:arguments ("string" "idx" "obj")) nil [1573 1879])
+            ("truncate-string-to-width" function (:arguments ("str" "end-column" "start-column" "padding" "ellipsis")) nil [1896 4605])
+            ("nested-alist-p" function (:arguments ("obj")) nil [4716 5173])
+            ("set-nested-alist" function (:arguments ("keyseq" "entry" "alist" "len" "branches")) nil [5190 6159])
+            ("lookup-nested-alist" function (:arguments ("keyseq" "alist" "len" "start" "nil-for-too-long")) nil [6176 7356])
+            ("coding-system-post-read-conversion" function (:arguments ("coding-system")) nil [7412 7601])
+            ("coding-system-pre-write-conversion" function (:arguments ("coding-system")) nil [7618 7807])
+            ("coding-system-translation-table-for-decode" function (:arguments ("coding-system")) nil [7824 8029])
+            ("coding-system-translation-table-for-encode" function (:arguments ("coding-system")) nil [8046 8251])
+            ("with-coding-priority" function (:arguments ("coding-systems" "body")) nil [8268 8855])
+            ("put" code nil nil [8922 8969])
+            ("detect-coding-with-priority" function (:arguments ("from" "to" "priority-list")) nil [8986 9376])
+            ("detect-coding-with-language-environment" function (:arguments ("from" "to" "lang-env")) nil [9393 9815])
+            ("declare-function" code nil nil [9817 9890])
+            ("char-displayable-p" function (:arguments ("char")) nil [9907 11556])
+            ("mule-util" package nil nil [11559 11579]))          
+      :file "mule-util.el.gz"
+      :pointmax 11654
+      :fsize 3976
+      :lastmodtime '(21788 61018 0 0)
+      :unmatched-syntax nil)
+    (semanticdb-table "ccl.el.gz"
+      :major-mode 'emacs-lisp-mode
+      :tags 
+        '( ("ccl-command-table" variable
+               (:constant-flag t
+                :default-value [if branch loop break repeat write-repeat write-read-repeat read read-if read-branch write call end read-multibyte-character write-multibyte-character translate-character iterate-multiple-map map-multiple map-single lookup-integer lookup-character])
+                nil [2019 2366])
+            ("let" code nil nil [2435 2638])
+            ("ccl-code-table" variable
+               (:constant-flag t
+                :default-value [set-register set-short-const set-const set-array jump jump-cond write-register-jump write-register-read-jump write-const-jump write-const-read-jump write-string-jump write-array-read-jump read-jump branch read-register write-expr-const read-branch write-register write-expr-register call write-const-string write-array end set-assign-expr-const set-assign-expr-register set-expr-const set-expr-register jump-cond-expr-const jump-cond-expr-register read-jump-cond-expr-const read-jump-cond-expr-register ex-cmd])
+                nil [2640 3320])
+            ("ccl-extended-code-table" variable
+               (:constant-flag t
+                :default-value [read-multibyte-character write-multibyte-character translate-character translate-character-const-tbl nil nil nil nil nil nil nil nil nil nil nil nil iterate-multiple-map map-multiple map-single lookup-int-const-tbl lookup-char-const-tbl])
+                nil [3322 3693])
+            ("let" code nil nil [3763 3989])
+            ("let" code nil nil [3991 4259])
+            ("ccl-jump-code-list" variable
+               (:constant-flag t
+                :default-value (quote (jump jump-cond write-register-jump write-register-read-jump write-const-jump write-const-read-jump write-string-jump write-array-read-jump read-jump)))
+                nil [4261 4452])
+            ("let" code nil nil [4536 4630])
+            ("ccl-register-table" variable
+               (:constant-flag t
+                :default-value [r0 r1 r2 r3 r4 r5 r6 r7])
+                nil [4632 4728])
+            ("let" code nil nil [4813 4984])
+            ("ccl-arith-table" variable
+               (:constant-flag t
+                :default-value [+ - * / % & | ^ << >> <8 >8 // nil nil nil < > == <= >= != de-sjis en-sjis])
+                nil [4986 5152])
+            ("let" code nil nil [5222 5399])
+            ("ccl-assign-arith-table" variable
+               (:constant-flag t
+                :default-value [+= -= *= /= %= &= |= ^= <<= >>= <8= >8= //=])
+                nil [5401 5532])
+            ("let" code nil nil [5613 5798])
+            ("ccl-program-vector" variable nil nil [5800 5889])
+            ("ccl-current-ic" variable nil nil [5890 5963])
+            ("ccl-embed-data" function (:arguments ("data" "ic")) nil [5965 6540])
+            ("ccl-embed-symbol" function (:arguments ("symbol" "prop")) nil [6542 6836])
+            ("ccl-embed-string" function (:arguments ("len" "str")) nil [6838 7363])
+            ("ccl-embed-current-address" function (:arguments ("ic")) nil [7365 7664])
+            ("ccl-embed-code" function (:arguments ("op" "reg" "data" "reg2")) nil [7666 8809])
+            ("ccl-embed-extended-command" function (:arguments ("ex-op" "reg" "reg2" "reg3")) nil [8811 9185])
+            ("ccl-increment-ic" function (:arguments ("inc")) nil [9187 9306])
+            ("ccl-loop-head" variable nil nil [9308 9390])
+            ("ccl-breaks" variable nil nil [9391 9501])
+            ("ccl-compile" function (:arguments ("ccl-program")) nil [9518 10736])
+            ("ccl-syntax-error" function (:arguments ("cmd")) nil [10738 10831])
+            ("ccl-check-register" function (:arguments ("arg" "cmd")) nil [10833 11012])
+            ("ccl-check-compile-function" function (:arguments ("arg" "cmd")) nil [11014 11183])
+            ("ccl-compile-1" function (:arguments ("ccl-block")) nil [11310 12501])
+            ("ccl-max-short-const" variable
+               (:constant-flag t
+                :default-value (ash 1 19))
+                nil [12503 12544])
+            ("ccl-min-short-const" variable
+               (:constant-flag t
+                :default-value (ash -1 19))
+                nil [12545 12587])
+            ("ccl-compile-set" function (:arguments ("cmd")) nil [12589 13471])
+            ("ccl-compile-self-set" function (:arguments ("cmd")) nil [13473 14114])
+            ("ccl-compile-expression" function (:arguments ("rrr" "expr")) nil [14116 15243])
+            ("ccl-compile-write-string" function (:arguments ("str")) nil [15245 15446])
+            ("ccl-compile-if" function (:arguments ("cmd" "read-flag")) nil [15448 18217])
+            ("ccl-compile-branch" function (:arguments ("cmd")) nil [18219 18482])
+            ("ccl-compile-read-branch" function (:arguments ("cmd")) nil [18484 18806])
+            ("ccl-compile-branch-expression" function (:arguments ("expr" "cmd")) nil [18808 19191])
+            ("ccl-compile-branch-blocks" function (:arguments ("code" "rrr" "blocks")) nil [19193 21406])
+            ("ccl-compile-loop" function (:arguments ("cmd")) nil [21408 22094])
+            ("ccl-compile-break" function (:arguments ("cmd")) nil [22096 22397])
+            ("ccl-compile-repeat" function (:arguments ("cmd")) nil [22399 22661])
+            ("ccl-compile-write-repeat" function (:arguments ("cmd")) nil [22663 23309])
+            ("ccl-compile-write-read-repeat" function (:arguments ("cmd")) nil [23311 24168])
+            ("ccl-compile-read" function (:arguments ("cmd")) nil [24170 24515])
+            ("ccl-compile-read-if" function (:arguments ("cmd")) nil [24517 24610])
+            ("ccl-compile-write" function (:arguments ("cmd")) nil [24612 26460])
+            ("ccl-compile-call" function (:arguments ("cmd")) nil [26462 26783])
+            ("ccl-compile-end" function (:arguments ("cmd")) nil [26785 26957])
+            ("ccl-compile-read-multibyte-character" function (:arguments ("cmd")) nil [26959 27318])
+            ("ccl-compile-write-multibyte-character" function (:arguments ("cmd")) nil [27320 27682])
+            ("ccl-compile-translate-character" function (:arguments ("cmd")) nil [27684 28294])
+            ("ccl-compile-lookup-integer" function (:arguments ("cmd")) nil [28296 28951])
+            ("ccl-compile-lookup-character" function (:arguments ("cmd")) nil [28953 29614])
+            ("ccl-compile-iterate-multiple-map" function (:arguments ("cmd")) nil [29616 29732])
+            ("ccl-compile-map-multiple" function (:arguments ("cmd")) nil [29734 30427])
+            ("ccl-compile-map-single" function (:arguments ("cmd")) nil [30429 30969])
+            ("ccl-compile-multiple-map-function" function (:arguments ("command" "cmd")) nil [30971 31686])
+            ("ccl-code" variable nil nil [31710 31727])
+            ("ccl-dump" function (:arguments ("ccl-code")) nil [31744 32376])
+            ("ccl-get-next-code" function nil nil [32378 32556])
+            ("ccl-dump-1" function nil nil [32558 32828])
+            ("ccl-dump-set-register" function (:arguments ("rrr" "cc")) nil [32830 32909])
+            ("ccl-dump-set-short-const" function (:arguments ("rrr" "cc")) nil [32911 32992])
+            ("ccl-dump-set-const" function (:arguments ("rrr" "ignore")) nil [32994 33090])
+            ("ccl-dump-set-array" function (:arguments ("rrr" "cc")) nil [33092 33373])
+            ("ccl-dump-jump" function (:arguments ("ignore" "cc" "address")) nil [33375 33567])
+            ("ccl-dump-jump-cond" function (:arguments ("rrr" "cc")) nil [33569 33671])
+            ("ccl-dump-write-register-jump" function (:arguments ("rrr" "cc")) nil [33673 33781])
+            ("ccl-dump-write-register-read-jump" function (:arguments ("rrr" "cc")) nil [33783 33960])
+            ("ccl-extract-arith-op" function (:arguments ("cc")) nil [33962 34032])
+            ("ccl-dump-write-expr-const" function (:arguments ("ignore" "cc")) nil [34034 34193])
+            ("ccl-dump-write-expr-register" function (:arguments ("ignore" "cc")) nil [34195 34361])
+            ("ccl-dump-insert-char" function (:arguments ("cc")) nil [34363 34506])
+            ("ccl-dump-write-const-jump" function (:arguments ("ignore" "cc")) nil [34508 34714])
+            ("ccl-dump-write-const-read-jump" function (:arguments ("rrr" "cc")) nil [34716 34997])
+            ("ccl-dump-write-string-jump" function (:arguments ("ignore" "cc")) nil [34999 35410])
+            ("ccl-dump-write-array-read-jump" function (:arguments ("rrr" "cc")) nil [35412 35826])
+            ("ccl-dump-read-jump" function (:arguments ("rrr" "cc")) nil [35828 35925])
+            ("ccl-dump-branch" function (:arguments ("rrr" "len")) nil [35927 36211])
+            ("ccl-dump-read-register" function (:arguments ("rrr" "cc")) nil [36213 36307])
+            ("ccl-dump-read-branch" function (:arguments ("rrr" "len")) nil [36309 36412])
+            ("ccl-dump-write-register" function (:arguments ("rrr" "cc")) nil [36414 36510])
+            ("ccl-dump-call" function (:arguments ("ignore" "cc")) nil [36512 36652])
+            ("ccl-dump-write-const-string" function (:arguments ("rrr" "cc")) nil [36654 37245])
+            ("ccl-dump-write-array" function (:arguments ("rrr" "cc")) nil [37247 37475])
+            ("ccl-dump-end" function (:arguments ("ignore")) nil [37477 37531])
+            ("ccl-dump-set-assign-expr-const" function (:arguments ("rrr" "cc")) nil [37533 37677])
+            ("ccl-dump-set-assign-expr-register" function (:arguments ("rrr" "cc")) nil [37679 37821])
+            ("ccl-dump-set-expr-const" function (:arguments ("rrr" "cc")) nil [37823 37983])
+            ("ccl-dump-set-expr-register" function (:arguments ("rrr" "cc")) nil [37985 38152])
+            ("ccl-dump-jump-cond-expr-const" function (:arguments ("rrr" "cc")) nil [38154 38397])
+            ("ccl-dump-jump-cond-expr-register" function (:arguments ("rrr" "cc")) nil [38399 38646])
+            ("ccl-dump-read-jump-cond-expr-const" function (:arguments ("rrr" "cc")) nil [38648 38777])
+            ("ccl-dump-read-jump-cond-expr-register" function (:arguments ("rrr" "cc")) nil [38779 38914])
+            ("ccl-dump-binary" function (:arguments ("ccl-code")) nil [38916 39316])
+            ("ccl-dump-ex-cmd" function (:arguments ("rrr" "cc")) nil [39318 39581])
+            ("ccl-dump-read-multibyte-character" function (:arguments ("rrr" "RRR" "Rrr")) nil [39583 39703])
+            ("ccl-dump-write-multibyte-character" function (:arguments ("rrr" "RRR" "Rrr")) nil [39705 39827])
+            ("ccl-dump-translate-character" function (:arguments ("rrr" "RRR" "Rrr")) nil [39829 39946])
+            ("ccl-dump-translate-character-const-tbl" function (:arguments ("rrr" "RRR" "Rrr")) nil [39948 40112])
+            ("ccl-dump-lookup-int-const-tbl" function (:arguments ("rrr" "RRR" "Rrr")) nil [40114 40262])
+            ("ccl-dump-lookup-char-const-tbl" function (:arguments ("rrr" "RRR" "Rrr")) nil [40264 40413])
+            ("ccl-dump-iterate-multiple-map" function (:arguments ("rrr" "RRR" "Rrr")) nil [40415 40771])
+            ("ccl-dump-map-multiple" function (:arguments ("rrr" "RRR" "Rrr")) nil [40773 41165])
+            ("ccl-dump-map-single" function (:arguments ("rrr" "RRR" "Rrr")) nil [41167 41307])
+            ("declare-ccl-program" function (:arguments ("name" "vector")) nil [41404 41919])
+            ("define-ccl-program" function (:arguments ("name" "ccl-program" "doc")) nil [41936 48830])
+            ("check-ccl-program" function (:arguments ("ccl-program" "name")) nil [48847 49309])
+            ("ccl-execute-with-args" function (:arguments ("ccl-prog" "args")) nil [49326 49845])
+            ("ccl" package nil nil [49847 49861]))          
+      :file "ccl.el.gz"
+      :pointmax 49884
+      :fsize 12013
+      :lastmodtime '(21788 61018 0 0)
+      :unmatched-syntax nil))
+  :file "!usr!share!emacs!24.5!lisp!international!semantic.cache"
+  :semantic-tag-version "2.0"
+  :semanticdb-version "2.2")

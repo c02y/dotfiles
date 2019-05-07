@@ -1,0 +1,553 @@
+;; Object kdb/
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "kdb/"
+  :tables (list 
+   (semanticdb-table "kdb_io.c"
+    :major-mode 'c-mode
+    :tags 
+        '( ("linux/module.h" include (:system-flag t) nil [393 418])
+            ("linux/types.h" include (:system-flag t) nil [419 443])
+            ("linux/ctype.h" include (:system-flag t) nil [444 468])
+            ("linux/kernel.h" include (:system-flag t) nil [469 494])
+            ("linux/init.h" include (:system-flag t) nil [495 518])
+            ("linux/kdev_t.h" include (:system-flag t) nil [519 544])
+            ("linux/console.h" include (:system-flag t) nil [545 571])
+            ("linux/string.h" include (:system-flag t) nil [572 597])
+            ("linux/sched.h" include (:system-flag t) nil [598 622])
+            ("linux/smp.h" include (:system-flag t) nil [623 645])
+            ("linux/nmi.h" include (:system-flag t) nil [646 668])
+            ("linux/delay.h" include (:system-flag t) nil [669 693])
+            ("linux/kgdb.h" include (:system-flag t) nil [694 717])
+            ("linux/kdb.h" include (:system-flag t) nil [718 740])
+            ("linux/kallsyms.h" include (:system-flag t) nil [741 768])
+            ("kdb_private.h" include nil nil [769 793])
+            ("CMD_BUFLEN" variable (:constant-flag t) nil [803 813])
+            ("kdb_prompt_str" variable
+               (:dereference 1
+                :type "char")
+                nil [818 850])
+            ("kdb_trap_printk" variable (:type "int") nil [852 872])
+            ("kgdb_transition_check" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("buffer" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [908 921]))                  
+                :type "void")
+                nil [874 1164])
+            ("kdb_read_get_key" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("buffer" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [1194 1207])
+                    ("bufsize" variable (:type ("size_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [1208 1223]))                  
+                :type "int")
+                nil [1166 3698])
+            ("kdb_read" function
+               (:pointer 1
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("buffer" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [5013 5026])
+                    ("bufsize" variable (:type ("size_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [5027 5042]))                  
+                :type "char")
+                nil [4991 9751])
+            ("kdb_getstr" function
+               (:pointer 1
+                :arguments 
+                  ( ("buffer" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [10190 10203])
+                    ("bufsize" variable (:type ("size_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [10204 10219])
+                    ("prompt" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [10220 10233]))                  
+                :type "char")
+                nil [10173 10450])
+            ("kdb_input_flush" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [10809 10814]))                  
+                :type "void")
+                nil [10781 11101])
+            ("kdb_buffer" variable
+               (:dereference 1
+                :typemodifiers ("static")
+                :type "char")
+                nil [11544 11572])
+            ("next_avail" variable
+               (:pointer 1
+                :typemodifiers ("static")
+                :type "char")
+                nil [11608 11645])
+            ("size_avail" variable
+               (:typemodifiers ("static")
+                :type "int")
+                nil [11646 11669])
+            ("suspend_grep" variable
+               (:typemodifiers ("static")
+                :type "int")
+                nil [11670 11695])
+            ("kdb_search_string" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("searched" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [11864 11879])
+                    ("searchfor" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [11880 11896]))                  
+                :type "int")
+                nil [11835 12507])
+            ("vkdb_printf" function
+               (:arguments 
+                  ( ("fmt" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [12525 12541])
+                    ("ap" variable (:type ("va_list" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [12542 12553]))                  
+                :type "int")
+                nil [12509 19840])
+            ("kdb_printf" function
+               (:arguments 
+                  ( ("fmt" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [19857 19873])
+                    ("..." variable (:type "vararg") (reparse-symbol arg-sub-list) [19874 19878]))                  
+                :type "int")
+                nil [19842 19976])
+            ("EXPORT_SYMBOL_GPL" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("kdb_printf" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [19995 20006]))                  
+                :type "int")
+                nil [19977 20007]))          
+    :file "kdb_io.c"
+    :pointmax 20008
+    :fsize 20007
+    :lastmodtime '(21468 9212 595225 80000)
+    :unmatched-syntax 'nil
+    :lexical-table 
+        '(("CMD_BUFLEN" . ((number "256" 814 . 817)))
+          )
+
+    )
+   (semanticdb-table "kdb_private.h"
+    :major-mode 'c-mode
+    :tags 
+        '( ("_KDBPRIVATE_H" variable (:constant-flag t) nil [31 44])
+            ("linux/kgdb.h" include (:system-flag t) nil [434 457])
+            ("../debug_core.h" include nil nil [458 484])
+            ("KDB_CMD_GO" variable (:constant-flag t) nil [567 577])
+            ("KDB_CMD_CPU" variable (:constant-flag t) nil [594 605])
+            ("KDB_CMD_SS" variable (:constant-flag t) nil [622 632])
+            ("KDB_CMD_SSB" variable (:constant-flag t) nil [649 660])
+            ("KDB_CMD_KGDB" variable (:constant-flag t) nil [677 689])
+            ("KDB_CMD_KGDB2" variable (:constant-flag t) nil [706 719])
+            ("KDB_DEBUG_FLAG_BP" variable (:constant-flag t) nil [764 781])
+            ("KDB_DEBUG_FLAG_BB_SUMM" variable (:constant-flag t) nil [830 852])
+            ("KDB_DEBUG_FLAG_AR" variable (:constant-flag t) nil [909 926])
+            ("KDB_DEBUG_FLAG_ARA" variable (:constant-flag t) nil [975 993])
+            ("KDB_DEBUG_FLAG_BB" variable (:constant-flag t) nil [1048 1065])
+            ("KDB_DEBUG_FLAG_STATE" variable (:constant-flag t) nil [1112 1132])
+            ("KDB_DEBUG_FLAG_MASK" variable (:constant-flag t) nil [1166 1185])
+            ("KDB_DEBUG_FLAG_SHIFT" variable (:constant-flag t) nil [1223 1243])
+            ("KDB_DEBUG" variable (:constant-flag t) nil [1287 1296])
+            ("KDB_DEBUG_STATE" variable (:constant-flag t) nil [1376 1391])
+            ("KDB_MAXBPT" variable (:constant-flag t) nil [2188 2198])
+            ("kdb_symtab_t" type
+               (:typedef ("__ksymtab" type (:type "struct") nil nil)
+                :superclasses "__ksymtab"
+                :type "typedef")
+                nil [2251 2707])
+            ("__ksymtab" type
+               (:members 
+                  ( ("value" variable (:type "unsigned long") (reparse-symbol classsubparts) [2280 2300])
+                    ("mod_name" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol classsubparts) [2327 2348])
+                    ("mod_start" variable (:type "unsigned long") (reparse-symbol classsubparts) [2402 2426])
+                    ("mod_end" variable (:type "unsigned long") (reparse-symbol classsubparts) [2429 2451])
+                    ("sec_name" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol classsubparts) [2454 2475])
+                    ("sec_start" variable (:type "unsigned long") (reparse-symbol classsubparts) [2510 2534])
+                    ("sec_end" variable (:type "unsigned long") (reparse-symbol classsubparts) [2537 2559])
+                    ("sym_name" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol classsubparts) [2562 2583])
+                    ("sym_start" variable (:type "unsigned long") (reparse-symbol classsubparts) [2640 2664])
+                    ("sym_end" variable (:type "unsigned long") (reparse-symbol classsubparts) [2667 2689]))                  
+                :type "struct")
+                nil [2251 2707])
+            ("kallsyms_symbol_next" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("prefix_name" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [2740 2758])
+                    ("flag" variable (:type "int") (reparse-symbol arg-sub-list) [2759 2768]))                  
+                :type "int")
+                nil [2708 2769])
+            ("kallsyms_symbol_complete" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("prefix_name" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [2806 2824])
+                    ("max_len" variable (:type "int") (reparse-symbol arg-sub-list) [2825 2837]))                  
+                :type "int")
+                nil [2770 2838])
+            ("kdb_getarea_size" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("" variable
+                       (:pointer 1
+                        :type "void")
+                        (reparse-symbol arg-sub-list) [2927 2934])
+                    ("" variable (:type "unsigned long") (reparse-symbol arg-sub-list) [2935 2949])
+                    ("" variable (:type ("size_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [2950 2957]))                  
+                :type "int")
+                nil [2899 2958])
+            ("kdb_putarea_size" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("" variable (:type "unsigned long") (reparse-symbol arg-sub-list) [2987 3001])
+                    ("" variable
+                       (:pointer 1
+                        :type "void")
+                        (reparse-symbol arg-sub-list) [3002 3009])
+                    ("" variable (:type ("size_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [3010 3017]))                  
+                :type "int")
+                nil [2959 3018])
+            ("kdb_getarea" variable (:constant-flag t) nil [3180 3191])
+            ("kdb_putarea" variable (:constant-flag t) nil [3251 3262])
+            ("kdb_getphysword" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("word" variable
+                       (:pointer 1
+                        :type "unsigned long")
+                        (reparse-symbol arg-sub-list) [3342 3362])
+                    ("addr" variable (:type "unsigned long") (reparse-symbol arg-sub-list) [3366 3385])
+                    ("size" variable (:type ("size_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [3386 3398]))                  
+                :type "int")
+                nil [3315 3399])
+            ("kdb_getword" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("" variable
+                       (:pointer 1
+                        :type "unsigned long")
+                        (reparse-symbol arg-sub-list) [3423 3439])
+                    ("" variable (:type "unsigned long") (reparse-symbol arg-sub-list) [3440 3454])
+                    ("" variable (:type ("size_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [3455 3462]))                  
+                :type "int")
+                nil [3400 3463])
+            ("kdb_putword" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("" variable (:type "unsigned long") (reparse-symbol arg-sub-list) [3487 3501])
+                    ("" variable (:type "unsigned long") (reparse-symbol arg-sub-list) [3502 3516])
+                    ("" variable (:type ("size_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [3517 3524]))                  
+                :type "int")
+                nil [3464 3525])
+            ("kdbgetularg" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [3550 3563])
+                    ("" variable
+                       (:pointer 1
+                        :type "unsigned long")
+                        (reparse-symbol arg-sub-list) [3564 3580]))                  
+                :type "int")
+                nil [3527 3581])
+            ("kdbgetu64arg" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [3606 3619])
+                    ("" variable
+                       (:pointer 1
+                        :type ("u64" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [3620 3626]))                  
+                :type "int")
+                nil [3582 3627])
+            ("kdbgetenv" function
+               (:prototype-flag t
+                :pointer 1
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [3651 3664]))                  
+                :type "char")
+                nil [3628 3665])
+            ("kdbgetaddrarg" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("" variable (:type "int") (reparse-symbol arg-sub-list) [3691 3695])
+                    ("" variable
+                       (:pointer 2
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [3696 3710])
+                    ("" variable
+                       (:pointer 1
+                        :type "int")
+                        (reparse-symbol arg-sub-list) [3711 3716])
+                    ("" variable
+                       (:pointer 1
+                        :type "unsigned long")
+                        (reparse-symbol arg-sub-list) [3717 3733])
+                    ("" variable
+                       (:pointer 1
+                        :type "long")
+                        (reparse-symbol arg-sub-list) [3738 3745])
+                    ("" variable
+                       (:pointer 2
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [3746 3754]))                  
+                :type "int")
+                nil [3666 3755])
+            ("kdbgetsymval" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [3780 3793])
+                    ("" variable
+                       (:pointer 1
+                        :type ("kdb_symtab_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [3794 3809]))                  
+                :type "int")
+                nil [3756 3810])
+            ("kdbnearsym" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("" variable (:type "unsigned long") (reparse-symbol arg-sub-list) [3833 3847])
+                    ("" variable
+                       (:pointer 1
+                        :type ("kdb_symtab_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [3848 3863]))                  
+                :type "int")
+                nil [3811 3864])
+            ("kdbnearsym_cleanup" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [3896 3901]))                  
+                :type "void")
+                nil [3865 3902])
+            ("kdb_strdup" function
+               (:prototype-flag t
+                :pointer 1
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("str" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [3927 3943])
+                    ("type" variable (:type ("gfp_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [3944 3955]))                  
+                :type "char")
+                nil [3903 3956])
+            ("kdb_symbol_print" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("" variable (:type "unsigned long") (reparse-symbol arg-sub-list) [3986 4000])
+                    ("" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("kdb_symtab_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [4001 4022])
+                    ("" variable (:type "unsigned int") (reparse-symbol arg-sub-list) [4023 4036]))                  
+                :type "void")
+                nil [3957 4037])
+            ("kdb_print_state" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [4115 4128])
+                    ("" variable (:type "int") (reparse-symbol arg-sub-list) [4129 4133]))                  
+                :type "void")
+                nil [4087 4134])
+            ("kdb_state" variable
+               (:typemodifiers ("extern")
+                :type "int")
+                nil [4136 4157])
+            ("KDB_STATE_KDB" variable (:constant-flag t) nil [4166 4179])
+            ("KDB_STATE_LEAVING" variable (:constant-flag t) nil [4224 4241])
+            ("KDB_STATE_CMD" variable (:constant-flag t) nil [4286 4299])
+            ("KDB_STATE_KDB_CONTROL" variable (:constant-flag t) nil [4348 4369])
+            ("KDB_STATE_HOLD_CPU" variable (:constant-flag t) nil [4434 4452])
+            ("KDB_STATE_DOING_SS" variable (:constant-flag t) nil [4503 4521])
+            ("KDB_STATE_DOING_SSB" variable (:constant-flag t) nil [4564 4583])
+            ("KDB_STATE_SSBPT" variable (:constant-flag t) nil [4658 4673])
+            ("KDB_STATE_REENTRY" variable (:constant-flag t) nil [4775 4792])
+            ("KDB_STATE_SUPPRESS" variable (:constant-flag t) nil [4842 4860])
+            ("KDB_STATE_PAGER" variable (:constant-flag t) nil [4910 4925])
+            ("KDB_STATE_GO_SWITCH" variable (:constant-flag t) nil [4971 4990])
+            ("KDB_STATE_PRINTF_LOCK" variable (:constant-flag t) nil [5061 5082])
+            ("KDB_STATE_WAIT_IPI" variable (:constant-flag t) nil [5130 5148])
+            ("KDB_STATE_RECURSE" variable (:constant-flag t) nil [5200 5217])
+            ("KDB_STATE_IP_ADJUSTED" variable (:constant-flag t) nil [5266 5287])
+            ("KDB_STATE_GO1" variable (:constant-flag t) nil [5351 5364])
+            ("KDB_STATE_KEYBOARD" variable (:constant-flag t) nil [5416 5434])
+            ("KDB_STATE_KEXEC" variable (:constant-flag t) nil [5506 5521])
+            ("KDB_STATE_DOING_KGDB" variable (:constant-flag t) nil [5561 5581])
+            ("KDB_STATE_DOING_KGDB2" variable (:constant-flag t) nil [5629 5650])
+            ("KDB_STATE_KGDB_TRANS" variable (:constant-flag t) nil [5698 5718])
+            ("KDB_STATE_ARCH" variable (:constant-flag t) nil [5763 5777])
+            ("KDB_STATE" variable (:constant-flag t) nil [5845 5854])
+            ("KDB_STATE_SET" variable (:constant-flag t) nil [5900 5913])
+            ("KDB_STATE_CLEAR" variable (:constant-flag t) nil [5968 5983])
+            ("kdb_nextline" variable
+               (:typemodifiers ("extern")
+                :type "int")
+                nil [6032 6056])
+            ("kdb_bp_t" type
+               (:typedef ("_kdb_bp" type (:type "struct") nil nil)
+                :superclasses "_kdb_bp"
+                :type "typedef")
+                nil [6098 6589])
+            ("_kdb_bp" type
+               (:members 
+                  ( ("bp_addr" variable (:type "unsigned long") (reparse-symbol classsubparts) [6124 6146])
+                    ("bp_free" variable
+                       (:suffix ":1"
+                        :type "unsigned int")
+                        (reparse-symbol classsubparts) [6187 6210])
+                    ("bp_enabled" variable
+                       (:suffix ":1"
+                        :type "unsigned int")
+                        (reparse-symbol classsubparts) [6242 6268])
+                    ("bp_type" variable
+                       (:suffix ":4"
+                        :type "unsigned int")
+                        (reparse-symbol classsubparts) [6309 6332])
+                    ("bp_installed" variable
+                       (:suffix ":1"
+                        :type "unsigned int")
+                        (reparse-symbol classsubparts) [6363 6391])
+                    ("bp_delay" variable
+                       (:suffix ":1"
+                        :type "unsigned int")
+                        (reparse-symbol classsubparts) [6423 6447])
+                    ("bp_delayed" variable
+                       (:suffix ":1"
+                        :type "unsigned int")
+                        (reparse-symbol classsubparts) [6478 6504])
+                    ("bph_length" variable (:type "unsigned int") (reparse-symbol classsubparts) [6531 6555]))                  
+                :type "struct")
+                nil [6098 6589]))          
+    :file "kdb_private.h"
+    :pointmax 9756
+    :fsize 9755
+    :lastmodtime '(21468 9212 627224 322000)
+    :unmatched-syntax 'nil
+    :lexical-table 
+        '(("KDB_CMD_KGDB" . ((semantic-list "(-1005)" 690 . 697)))
+          ("KDB_STATE_DOING_SSB" . ((number "0x00000040" 4584 . 4594)))
+          ("KDB_STATE_CLEAR" (spp-arg-list ("flag") 5983 . 5989) . ((semantic-list "((void)(kdb_state &= ~KDB_STATE_##flag))" 5990 . 6030)))
+          ("KDB_CMD_SSB" . ((semantic-list "(-1004)" 661 . 668)))
+          ("KDB_DEBUG_FLAG_SHIFT" . ((number "16" 1244 . 1246)))
+          ("KDB_STATE_WAIT_IPI" . ((number "0x00002000" 5149 . 5159)))
+          ("KDB_STATE_SET" (spp-arg-list ("flag") 5913 . 5919) . ((semantic-list "((void)(kdb_state |= KDB_STATE_##flag))" 5920 . 5959)))
+          ("KDB_DEBUG_FLAG_BB_SUMM" . ((number "0x0004" 853 . 859)))
+          ("KDB_STATE" (spp-arg-list ("flag") 5854 . 5860) . ((semantic-list "(kdb_state & KDB_STATE_##flag)" 5861 . 5891)))
+          ("KDB_CMD_GO" . ((semantic-list "(-1001)" 578 . 585)))
+          ("KDB_STATE_KEXEC" . ((number "0x00040000" 5523 . 5533)))
+          ("KDB_STATE_DOING_KGDB2" . ((number "0x00100000" 5651 . 5661)))
+          ("KDB_CMD_SS" . ((semantic-list "(-1003)" 633 . 640)))
+          ("KDB_MAXBPT" . ((number "16" 2199 . 2201)))
+          ("KDB_STATE_KDB_CONTROL" . ((number "0x00000008" 4370 . 4380)))
+          ("KDB_STATE_REENTRY" . ((number "0x00000100" 4793 . 4803)))
+          ("KDB_STATE_SUPPRESS" . ((number "0x00000200" 4861 . 4871)))
+          ("KDB_DEBUG_FLAG_AR" . ((number "0x0008" 927 . 933)))
+          ("KDB_DEBUG_FLAG_BB" . ((number "0x0020" 1066 . 1072)))
+          ("KDB_STATE_GO1" . ((number "0x00010000" 5366 . 5376)))
+          ("KDB_DEBUG_FLAG_BP" . ((number "0x0002" 782 . 788)))
+          ("kdb_putarea" (spp-arg-list ("addr" "x") 3262 . 3271) . ((symbol "kdb_putarea_size" 3272 . 3288) (semantic-list "(addr, &(x), sizeof((x)))" 3288 . 3313)))
+          ("KDB_STATE_HOLD_CPU" . ((number "0x00000010" 4453 . 4463)))
+          ("KDB_STATE_PAGER" . ((number "0x00000400" 4927 . 4937)))
+          ("KDB_STATE_KEYBOARD" . ((number "0x00020000" 5435 . 5445)))
+          ("KDB_DEBUG_FLAG_STATE" . ((number "0x0040" 1133 . 1139)))
+          ("KDB_DEBUG_FLAG_MASK" . ((number "0xffff" 1186 . 1192)))
+          ("KDB_DEBUG_STATE" (spp-arg-list ("text" "value") 1391 . 1404) . 
+              ((IF "if" 1405 . 1407) (semantic-list "(KDB_DEBUG(STATE))" 1408 . 1426) (symbol "kdb_print_state" 1431 . 1446) (semantic-list "(text, value)" 1446 . 1459)))
+          ("KDB_STATE_ARCH" . ((number "0xff000000" 5779 . 5789)))
+          ("KDB_DEBUG" (spp-arg-list ("flag") 1296 . 1302) . ((semantic-list "(kdb_flags & \\
+	(KDB_DEBUG_FLAG_##flag << KDB_DEBUG_FLAG_SHIFT))" 1303 . 1367)))
+          ("KDB_STATE_LEAVING" . ((number "0x00000002" 4242 . 4252)))
+          ("KDB_STATE_CMD" . ((number "0x00000004" 4301 . 4311)))
+          ("kdb_getarea" (spp-arg-list ("x" "addr") 3191 . 3200) . ((symbol "kdb_getarea_size" 3201 . 3217) (semantic-list "(&(x), addr, sizeof((x)))" 3217 . 3242)))
+          ("KDB_STATE_PRINTF_LOCK" . ((number "0x00001000" 5083 . 5093)))
+          ("KDB_STATE_RECURSE" . ((number "0x00004000" 5218 . 5228)))
+          ("KDB_STATE_DOING_KGDB" . ((number "0x00080000" 5582 . 5592)))
+          ("KDB_STATE_KGDB_TRANS" . ((number "0x00200000" 5719 . 5729)))
+          ("KDB_CMD_CPU" . ((semantic-list "(-1002)" 606 . 613)))
+          ("KDB_DEBUG_FLAG_ARA" . ((number "0x0010" 994 . 1000)))
+          ("KDB_STATE_SSBPT" . ((number "0x00000080" 4675 . 4685)))
+          ("_KDBPRIVATE_H")
+          ("KDB_STATE_DOING_SS" . ((number "0x00000020" 4522 . 4532)))
+          ("KDB_STATE_GO_SWITCH" . ((number "0x00000800" 4991 . 5001)))
+          ("KDB_STATE_IP_ADJUSTED" . ((number "0x00008000" 5288 . 5298)))
+          ("KDB_CMD_KGDB2" . ((semantic-list "(-1006)" 720 . 727)))
+          ("KDB_STATE_KDB" . ((number "0x00000001" 4181 . 4191)))
+          )
+
+    )
+   )
+  :file "!home!chz!linux-3.0.8!kernel!debug!kdb!semantic.cache"
+  :semantic-tag-version "2.0"
+  :semanticdb-version "2.2"
+  )

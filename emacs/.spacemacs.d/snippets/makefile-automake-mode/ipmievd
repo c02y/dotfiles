@@ -1,0 +1,145 @@
+;; Object crypto/
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "crypto/"
+  :tables (list 
+   (semanticdb-table "sha512_s390.c"
+    :major-mode 'c-mode
+    :tags 
+        '( ("crypto/internal/hash.h" include (:system-flag t) nil [436 469])
+            ("crypto/sha.h" include (:system-flag t) nil [470 493])
+            ("linux/errno.h" include (:system-flag t) nil [494 518])
+            ("linux/init.h" include (:system-flag t) nil [519 542])
+            ("linux/kernel.h" include (:system-flag t) nil [543 568])
+            ("linux/module.h" include (:system-flag t) nil [569 594])
+            ("sha.h" include nil nil [596 612])
+            ("crypt_s390.h" include nil nil [613 636])
+            ("sha512_init" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("desc" variable
+                       (:pointer 1
+                        :type ("shash_desc" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [661 685]))                  
+                :type "int")
+                nil [638 1207])
+            ("sha512_export" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("desc" variable
+                       (:pointer 1
+                        :type ("shash_desc" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [1234 1258])
+                    ("out" variable
+                       (:pointer 1
+                        :type "void")
+                        (reparse-symbol arg-sub-list) [1259 1269]))                  
+                :type "int")
+                nil [1209 1528])
+            ("sha512_import" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("desc" variable
+                       (:pointer 1
+                        :type ("shash_desc" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [1555 1579])
+                    ("in" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "void")
+                        (reparse-symbol arg-sub-list) [1580 1595]))                  
+                :type "int")
+                nil [1530 1916])
+            ("sha512_alg" variable
+               (:typemodifiers ("static")
+                :type ("shash_alg" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [1918 2430])
+            ("MODULE_ALIAS" function
+               (:prototype-flag t
+                :type "int")
+                nil [2432 2455])
+            ("sha384_init" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("desc" variable
+                       (:pointer 1
+                        :type ("shash_desc" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [2480 2504]))                  
+                :type "int")
+                nil [2457 3026])
+            ("sha384_alg" variable
+               (:typemodifiers ("static")
+                :type ("shash_alg" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [3028 3586])
+            ("MODULE_ALIAS" function
+               (:prototype-flag t
+                :type "int")
+                nil [3588 3611])
+            ("init" function
+               (:arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [3636 3641]))                  
+                :type ("__init" type (:type "class") nil nil))
+                nil [3624 3917])
+            ("fini" function
+               (:arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [3943 3948]))                  
+                :type ("__exit" type (:type "class") nil nil))
+                nil [3931 4030])
+            ("module_init" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("init" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [4044 4049]))                  
+                :type "int")
+                nil [4032 4050])
+            ("module_exit" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("fini" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [4063 4068]))                  
+                :type "int")
+                nil [4051 4069])
+            ("MODULE_LICENSE" function
+               (:prototype-flag t
+                :type "int")
+                nil [4071 4093])
+            ("MODULE_DESCRIPTION" function
+               (:prototype-flag t
+                :type "int")
+                nil [4094 4157]))          
+    :file "sha512_s390.c"
+    :pointmax 4158
+    :fsize 4157
+    :lastmodtime '(21468 8976 774808 427000)
+    :unmatched-syntax '((string 4113 . 4155) (string 4086 . 4091) (VOID 3926 . 3930) (STATIC 3919 . 3925) (INT 3620 . 3623) (STATIC 3613 . 3619) (string 3601 . 3609) (string 2445 . 2453))
+    )
+   (semanticdb-table "sha.h"
+    :file "sha.h"
+    :fsize 1028
+    :lastmodtime '(21468 8976 744809 137000)
+    )
+   (semanticdb-table "crypt_s390.h"
+    :file "crypt_s390.h"
+    :fsize 13697
+    :lastmodtime '(21468 8976 702810 132000)
+    )
+   )
+  :file "!home!chz!linux-3.0.8!arch!s390!crypto!semantic.cache"
+  :semantic-tag-version "2.0"
+  :semanticdb-version "2.2"
+  )

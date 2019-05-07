@@ -1,0 +1,145 @@
+;; Object linux/
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "linux/"
+  :tables (list 
+   (semanticdb-table "module.h"
+    :major-mode 'c-mode
+    :tags nil
+    :file "module.h"
+    :pointmax 94
+    :fsize 93
+    :lastmodtime '(21468 9251 297308 759000)
+    :unmatched-syntax 'nil
+    )
+   (semanticdb-table "kernel.h"
+    :major-mode 'c-mode
+    :tags 
+        '( ("PERF_LINUX_KERNEL_H_" variable (:constant-flag t) nil [38 58])
+            ("stdarg.h" include (:system-flag t) nil [60 79])
+            ("stdio.h" include (:system-flag t) nil [80 98])
+            ("stdlib.h" include (:system-flag t) nil [99 118])
+            ("assert.h" include (:system-flag t) nil [119 138])
+            ("DIV_ROUND_UP" variable (:constant-flag t) nil [148 160])
+            ("ALIGN" variable (:constant-flag t) nil [199 204])
+            ("__ALIGN_MASK" variable (:constant-flag t) nil [252 264])
+            ("offsetof" variable (:constant-flag t) nil [322 330])
+            ("container_of" variable (:constant-flag t) nil [658 670])
+            ("BUILD_BUG_ON_ZERO" variable (:constant-flag t) nil [823 840])
+            ("max" variable (:constant-flag t) nil [898 901])
+            ("min" variable (:constant-flag t) nil [1066 1069])
+            ("BUG_ON" variable (:constant-flag t) nil [1237 1243])
+            ("cpu_to_le64" variable (:constant-flag t) nil [1373 1384])
+            ("cpu_to_le32" variable (:constant-flag t) nil [1400 1411])
+            ("vscnprintf" function
+               (:typemodifiers ("static" "inline")
+                :arguments 
+                  ( ("buf" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [1449 1459])
+                    ("size" variable (:type ("size_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [1460 1472])
+                    ("fmt" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [1473 1489])
+                    ("args" variable (:type ("va_list" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [1490 1503]))                  
+                :type "int")
+                nil [1420 1618])
+            ("scnprintf" function
+               (:typemodifiers ("static" "inline")
+                :arguments 
+                  ( ("buf" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [1648 1659])
+                    ("size" variable (:type ("size_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [1660 1672])
+                    ("fmt" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [1673 1690])
+                    ("..." variable (:type "vararg") (reparse-symbol arg-sub-list) [1691 1695]))                  
+                :type "int")
+                nil [1620 1862])
+            ("simple_strtoul" function
+               (:typemodifiers ("static" "inline")
+                :arguments 
+                  ( ("nptr" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [1907 1924])
+                    ("endptr" variable
+                       (:pointer 2
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [1925 1939])
+                    ("base" variable (:type "int") (reparse-symbol arg-sub-list) [1940 1949]))                  
+                :type "unsigned long")
+                nil [1864 1990])
+            ("eprintf" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("level" variable (:type "int") (reparse-symbol arg-sub-list) [2004 2014])
+                    ("fmt" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [2020 2036])
+                    ("..." variable (:type "vararg") (reparse-symbol arg-sub-list) [2037 2041]))                  
+                :type "int")
+                nil [1992 2080])
+            ("pr_fmt" variable (:constant-flag t) nil [2105 2111])
+            ("pr_err" variable (:constant-flag t) nil [2137 2143])
+            ("pr_warning" variable (:constant-flag t) nil [2204 2214])
+            ("pr_info" variable (:constant-flag t) nil [2275 2282])
+            ("pr_debug" variable (:constant-flag t) nil [2343 2351])
+            ("pr_debugN" variable (:constant-flag t) nil [2412 2421])
+            ("pr_debug2" variable (:constant-flag t) nil [2485 2494])
+            ("pr_debug3" variable (:constant-flag t) nil [2554 2563])
+            ("pr_debug4" variable (:constant-flag t) nil [2623 2632]))          
+    :file "kernel.h"
+    :pointmax 2692
+    :fsize 2691
+    :lastmodtime '(21468 9251 286309 19000)
+    :unmatched-syntax 'nil
+    :lexical-table 
+        '(("container_of" (spp-arg-list ("ptr" "type" "member") 670 . 689) . ((semantic-list "({			\\
+	const typeof(((type *)0)->member) * __mptr = (ptr);	\\
+	(type *)((char *)__mptr - offsetof(type, member)); })" 690 . 806)))
+          ("cpu_to_le64" (spp-arg-list ("x") 1384 . 1387) . ((semantic-list "(x)" 1388 . 1391)))
+          ("max" (spp-arg-list ("x" "y") 901 . 907) . ((semantic-list "({				\\
+	typeof(x) _max1 = (x);			\\
+	typeof(y) _max2 = (y);			\\
+	(void) (&_max1 == &_max2);		\\
+	_max1 > _max2 ? _max1 : _max2; })" 908 . 1037)))
+          ("min" (spp-arg-list ("x" "y") 1069 . 1075) . ((semantic-list "({				\\
+	typeof(x) _min1 = (x);			\\
+	typeof(y) _min2 = (y);			\\
+	(void) (&_min1 == &_min2);		\\
+	_min1 < _min2 ? _min1 : _min2; })" 1076 . 1205)))
+          ("cpu_to_le32" (spp-arg-list ("x") 1411 . 1414) . ((semantic-list "(x)" 1415 . 1418)))
+          ("pr_err" (spp-arg-list ("fmt" "...") 2143 . 2153) . ((symbol "eprintf" 2157 . 2164) (semantic-list "(0, pr_fmt(fmt), ##__VA_ARGS__)" 2164 . 2195)))
+          ("PERF_LINUX_KERNEL_H_")
+          ("DIV_ROUND_UP" (spp-arg-list ("n" "d") 160 . 165) . ((semantic-list "(((n) + (d) - 1) / (d))" 166 . 189)))
+          ("__ALIGN_MASK" (spp-arg-list ("x" "mask") 264 . 272) . ((semantic-list "(((x)+(mask))&~(mask))" 273 . 295)))
+          ("BUILD_BUG_ON_ZERO" (spp-arg-list ("e") 840 . 843) . ((semantic-list "(sizeof(struct { int:-!!(e); }))" 844 . 876)))
+          ("pr_debug2" (spp-arg-list ("fmt" "...") 2494 . 2504) . ((symbol "pr_debugN" 2505 . 2514) (semantic-list "(2, pr_fmt(fmt), ##__VA_ARGS__)" 2514 . 2545)))
+          ("pr_debug" (spp-arg-list ("fmt" "...") 2351 . 2361) . ((symbol "eprintf" 2365 . 2372) (semantic-list "(1, pr_fmt(fmt), ##__VA_ARGS__)" 2372 . 2403)))
+          ("pr_debug3" (spp-arg-list ("fmt" "...") 2563 . 2573) . ((symbol "pr_debugN" 2574 . 2583) (semantic-list "(3, pr_fmt(fmt), ##__VA_ARGS__)" 2583 . 2614)))
+          ("ALIGN" (spp-arg-list ("x" "a") 204 . 209) . ((symbol "__ALIGN_MASK" 211 . 223) (semantic-list "(x,(typeof(x))(a)-1)" 223 . 243)))
+          ("BUG_ON" (spp-arg-list ("cond") 1243 . 1249) . ((symbol "assert" 1250 . 1256) (semantic-list "(!(cond))" 1256 . 1265)))
+          ("pr_info" (spp-arg-list ("fmt" "...") 2282 . 2292) . ((symbol "eprintf" 2296 . 2303) (semantic-list "(0, pr_fmt(fmt), ##__VA_ARGS__)" 2303 . 2334)))
+          ("pr_debugN" (spp-arg-list ("n" "fmt" "...") 2421 . 2434) . ((symbol "eprintf" 2438 . 2445) (semantic-list "(n, pr_fmt(fmt), ##__VA_ARGS__)" 2445 . 2476)))
+          ("pr_debug4" (spp-arg-list ("fmt" "...") 2632 . 2642) . ((symbol "pr_debugN" 2643 . 2652) (semantic-list "(4, pr_fmt(fmt), ##__VA_ARGS__)" 2652 . 2683)))
+          ("offsetof" (spp-arg-list ("TYPE" "MEMBER") 330 . 344) . ((semantic-list "((size_t) &((TYPE *)0)->MEMBER)" 345 . 376)))
+          ("pr_fmt" (spp-arg-list ("fmt") 2111 . 2116) . ((symbol "fmt" 2117 . 2120)))
+          ("pr_warning" (spp-arg-list ("fmt" "...") 2214 . 2224) . ((symbol "eprintf" 2228 . 2235) (semantic-list "(0, pr_fmt(fmt), ##__VA_ARGS__)" 2235 . 2266)))
+          )
+
+    )
+   )
+  :file "!home!chz!linux-3.0.8!tools!perf!util!include!linux!semantic.cache"
+  :semantic-tag-version "2.0"
+  :semanticdb-version "2.2"
+  )

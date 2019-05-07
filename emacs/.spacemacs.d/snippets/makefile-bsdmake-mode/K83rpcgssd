@@ -1,0 +1,2522 @@
+;; Object howm/
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "howm/"
+  :tables (list 
+    (semanticdb-table "howm.c"
+    :major-mode 'c-mode
+    :tags 
+        '( ("err.h" include (:system-flag t) nil [1 17])
+            ("errno.h" include (:system-flag t) nil [18 36])
+            ("stdbool.h" include (:system-flag t) nil [37 57])
+            ("stdio.h" include (:system-flag t) nil [58 76])
+            ("stdlib.h" include (:system-flag t) nil [77 96])
+            ("string.h" include (:system-flag t) nil [97 116])
+            ("unistd.h" include (:system-flag t) nil [117 136])
+            ("X11/keysym.h" include (:system-flag t) nil [137 160])
+            ("X11/X.h" include (:system-flag t) nil [161 179])
+            ("xcb/xcb.h" include (:system-flag t) nil [180 200])
+            ("xcb/xcb_icccm.h" include (:system-flag t) nil [201 227])
+            ("xcb/xcb_keysyms.h" include (:system-flag t) nil [228 256])
+            ("xcb/xcb_ewmh.h" include (:system-flag t) nil [257 282])
+            ("MOVE_RESIZE_MASK" variable (:constant-flag t) nil [527 543])
+            ("CLEANMASK" variable (:constant-flag t) nil [761 770])
+            ("EQUALMODS" variable (:constant-flag t) nil [899 908])
+            ("LENGTH" variable (:constant-flag t) nil [1010 1016])
+            ("FFT" variable (:constant-flag t) nil [1138 1141])
+            ("UNUSED" variable (:constant-flag t) nil [1265 1271])
+            ("_NET_WM_STATE_REMOVE" variable (:constant-flag t) nil [1294 1314])
+            ("_NET_WM_STATE_ADD" variable (:constant-flag t) nil [1325 1342])
+            ("_NET_WM_STATE_TOGGLE" variable (:constant-flag t) nil [1353 1373])
+            ("Arg" type
+               (:typedef ("" type
+                     (:members 
+                        ( ("cmd" variable
+                             (:pointer 2
+                              :constant-flag t
+                              :type "char")
+                              (reparse-symbol classsubparts) [1544 1575])
+                          ("i" variable (:type "int") (reparse-symbol classsubparts) [1639 1645]))                        
+                      :type "union")
+                      nil nil)
+                :type "typedef")
+                nil [1527 1711])
+            ("Key" type
+               (:typedef ("" type
+                     (:members 
+                        ( ("mod" variable (:type "int") (reparse-symbol classsubparts) [1889 1897])
+                          ("mode" variable (:type "unsigned int") (reparse-symbol classsubparts) [1942 1960])
+                          ("sym" variable (:type ("xcb_keysym_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [2016 2033])
+                          ("func" variable
+                             (:functionpointer-flag t
+                              :type "void")
+                              (reparse-symbol classsubparts) [2075 2101])
+                          ("arg" variable
+                             (:constant-flag t
+                              :type ("Arg" type (:type "class") nil nil))
+                              (reparse-symbol classsubparts) [2163 2177]))                        
+                      :type "struct")
+                      nil nil)
+                :type "typedef")
+                nil [1871 2235])
+            ("Rule" type
+               (:typedef ("" type
+                     (:members 
+                        ( ("" type
+                             (:prototype t
+                              :type "class")
+                              (reparse-symbol classsubparts) [2349 2355])
+                          ("ws" variable (:type "int") (reparse-symbol classsubparts) [2398 2405])
+                          ("follow" variable (:type "bool") (reparse-symbol classsubparts) [2500 2512])
+                          ("is_floating" variable (:type "bool") (reparse-symbol classsubparts) [2579 2596])
+                          ("is_fullscreen" variable (:type "bool") (reparse-symbol classsubparts) [2644 2663]))                        
+                      :type "struct")
+                      nil nil)
+                :type "typedef")
+                nil [2319 2719])
+            ("Operator" type
+               (:typedef ("" type
+                     (:members 
+                        ( ("mod" variable (:type "int") (reparse-symbol classsubparts) [2868 2876])
+                          ("sym" variable (:type ("xcb_keysym_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [2921 2938])
+                          ("mode" variable (:type "unsigned int") (reparse-symbol classsubparts) [2979 2997])
+                          ("func" variable
+                             (:functionpointer-flag t
+                              :type "void")
+                              (reparse-symbol classsubparts) [3053 3106]))                        
+                      :type "struct")
+                      nil nil)
+                :type "typedef")
+                nil [2850 3188])
+            ("Motion" type
+               (:typedef ("" type
+                     (:members 
+                        ( ("mod" variable (:type "int") (reparse-symbol classsubparts) [3403 3411])
+                          ("sym" variable (:type ("xcb_keysym_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [3456 3473])
+                          ("type" variable (:type "unsigned int") (reparse-symbol classsubparts) [3514 3532]))                        
+                      :type "struct")
+                      nil nil)
+                :type "typedef")
+                nil [3385 3604])
+            ("Button" type
+               (:typedef ("" type
+                     (:members 
+                        ( ("mod" variable (:type "int") (reparse-symbol classsubparts) [3759 3767])
+                          ("button" variable (:type "short int") (reparse-symbol classsubparts) [3813 3830])
+                          ("func" variable
+                             (:functionpointer-flag t
+                              :type "void")
+                              (reparse-symbol classsubparts) [3869 3895])
+                          ("arg" variable
+                             (:constant-flag t
+                              :type ("Arg" type (:type "class") nil nil))
+                              (reparse-symbol classsubparts) [3966 3980]))                        
+                      :type "struct")
+                      nil nil)
+                :type "typedef")
+                nil [3741 4041])
+            ("Client" type
+               (:typedef ("Client" type (:type "struct") nil nil)
+                :superclasses "Client"
+                :type "typedef")
+                nil [4191 5014])
+            ("Client" type
+               (:members 
+                  ( ("next" variable
+                       (:pointer 1
+                        :type ("Client" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol classsubparts) [4216 4236])
+                    ("is_fullscreen" variable (:type "bool") (reparse-symbol classsubparts) [4333 4352])
+                    ("is_floating" variable (:type "bool") (reparse-symbol classsubparts) [4388 4405])
+                    ("is_transient" variable (:type "bool") (reparse-symbol classsubparts) [4439 4457])
+                    ("is_urgent" variable (:type "bool") (reparse-symbol classsubparts) [4571 4586])
+                    ("win" variable (:type ("xcb_window_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [4653 4670])
+                    ("x" variable (:type ("uint16_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [4720 4731])
+                    ("y" variable (:type ("uint16_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [4773 4784])
+                    ("w" variable (:type ("uint16_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [4826 4837])
+                    ("h" variable (:type ("uint16_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [4871 4882])
+                    ("gap" variable (:type ("uint16_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [4917 4930]))                  
+                :type "struct")
+                nil [4191 5014])
+            ("Workspace" type
+               (:typedef ("" type
+                     (:members 
+                        ( ("layout" variable (:type "int") (reparse-symbol classsubparts) [5237 5248])
+                          ("client_cnt" variable (:type "int") (reparse-symbol classsubparts) [5325 5340])
+                          ("gap" variable (:type ("uint16_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [5390 5403])
+                          ("master_ratio" variable (:type "float") (reparse-symbol classsubparts) [5477 5496])
+                          ("bar_height" variable (:type ("uint16_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [5584 5604])
+                          ("head" variable
+                             (:pointer 1
+                              :type ("Client" type (:type "class") nil nil))
+                              (reparse-symbol classsubparts) [5703 5716])
+                          ("prev_foc" variable
+                             (:pointer 1
+                              :type ("Client" type (:type "class") nil nil))
+                              (reparse-symbol classsubparts) [5756 5773])
+                          ("current" variable
+                             (:pointer 1
+                              :type ("Client" type (:type "class") nil nil))
+                              (reparse-symbol classsubparts) [5861 5877]))                        
+                      :type "struct")
+                      nil nil)
+                :type "typedef")
+                nil [5219 5937])
+            ("replay_state" type
+               (:members 
+                  ( ("last_op" variable
+                       (:functionpointer-flag t
+                        :type "void")
+                        (reparse-symbol classsubparts) [6092 6142])
+                    ("last_cmd" variable
+                       (:functionpointer-flag t
+                        :type "void")
+                        (reparse-symbol classsubparts) [6183 6216])
+                    ("last_arg" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("Arg" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [6256 6276])
+                    ("last_type" variable (:type "unsigned int") (reparse-symbol classsubparts) [6332 6355])
+                    ("last_cnt" variable (:type "int") (reparse-symbol classsubparts) [6431 6444]))                  
+                :type "struct")
+                nil [6069 6507])
+            ("stack" type
+               (:members 
+                  ( ("size" variable (:type "int") (reparse-symbol classsubparts) [6784 6793])
+                    ("contents" variable
+                       (:pointer 2
+                        :type ("Client" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [6836 6854]))                  
+                :type "struct")
+                nil [6768 6965])
+            ("op_kill" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("type" variable
+                       (:constant-flag t
+                        :type "unsigned int")
+                        (reparse-symbol arg-sub-list) [7004 7028])
+                    ("cnt" variable (:type "int") (reparse-symbol arg-sub-list) [7029 7037]))                  
+                :type "void")
+                nil [6984 7038])
+            ("op_move_up" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("type" variable
+                       (:constant-flag t
+                        :type "unsigned int")
+                        (reparse-symbol arg-sub-list) [7062 7086])
+                    ("cnt" variable (:type "int") (reparse-symbol arg-sub-list) [7087 7095]))                  
+                :type "void")
+                nil [7039 7096])
+            ("op_move_down" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("type" variable
+                       (:constant-flag t
+                        :type "unsigned int")
+                        (reparse-symbol arg-sub-list) [7122 7146])
+                    ("cnt" variable (:type "int") (reparse-symbol arg-sub-list) [7147 7155]))                  
+                :type "void")
+                nil [7097 7156])
+            ("op_focus_down" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("type" variable
+                       (:constant-flag t
+                        :type "unsigned int")
+                        (reparse-symbol arg-sub-list) [7183 7207])
+                    ("cnt" variable (:type "int") (reparse-symbol arg-sub-list) [7208 7216]))                  
+                :type "void")
+                nil [7157 7217])
+            ("op_focus_up" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("type" variable
+                       (:constant-flag t
+                        :type "unsigned int")
+                        (reparse-symbol arg-sub-list) [7242 7266])
+                    ("cnt" variable (:type "int") (reparse-symbol arg-sub-list) [7267 7275]))                  
+                :type "void")
+                nil [7218 7276])
+            ("op_shrink_gaps" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("type" variable
+                       (:constant-flag t
+                        :type "unsigned int")
+                        (reparse-symbol arg-sub-list) [7304 7328])
+                    ("cnt" variable (:type "int") (reparse-symbol arg-sub-list) [7329 7337]))                  
+                :type "void")
+                nil [7277 7338])
+            ("op_grow_gaps" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("type" variable
+                       (:constant-flag t
+                        :type "unsigned int")
+                        (reparse-symbol arg-sub-list) [7364 7388])
+                    ("cnt" variable (:type "int") (reparse-symbol arg-sub-list) [7389 7397]))                  
+                :type "void")
+                nil [7339 7398])
+            ("op_cut" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("type" variable
+                       (:constant-flag t
+                        :type "unsigned int")
+                        (reparse-symbol arg-sub-list) [7418 7442])
+                    ("cnt" variable (:type "int") (reparse-symbol arg-sub-list) [7443 7451]))                  
+                :type "void")
+                nil [7399 7452])
+            ("teleport_client" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("arg" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("Arg" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [7496 7511]))                  
+                :type "void")
+                nil [7468 7512])
+            ("change_client_gaps" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("c" variable
+                       (:pointer 1
+                        :type ("Client" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [7544 7554])
+                    ("size" variable (:type "int") (reparse-symbol arg-sub-list) [7555 7564]))                  
+                :type "void")
+                nil [7513 7565])
+            ("change_gaps" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("type" variable
+                       (:constant-flag t
+                        :type "unsigned int")
+                        (reparse-symbol arg-sub-list) [7590 7614])
+                    ("cnt" variable (:type "int") (reparse-symbol arg-sub-list) [7615 7623])
+                    ("size" variable (:type "int") (reparse-symbol arg-sub-list) [7624 7633]))                  
+                :type "void")
+                nil [7566 7634])
+            ("move_current_down" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("arg" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("Arg" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [7665 7680]))                  
+                :type "void")
+                nil [7635 7681])
+            ("move_current_up" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("arg" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("Arg" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [7710 7725]))                  
+                :type "void")
+                nil [7682 7726])
+            ("kill_client" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("ws" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol arg-sub-list) [7751 7764])
+                    ("arrange" variable (:type "bool") (reparse-symbol arg-sub-list) [7765 7778]))                  
+                :type "void")
+                nil [7727 7779])
+            ("move_down" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("c" variable
+                       (:pointer 1
+                        :type ("Client" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [7802 7812]))                  
+                :type "void")
+                nil [7780 7813])
+            ("move_up" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("c" variable
+                       (:pointer 1
+                        :type ("Client" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [7834 7844]))                  
+                :type "void")
+                nil [7814 7845])
+            ("next_client" function
+               (:prototype-flag t
+                :pointer 1
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("c" variable
+                       (:pointer 1
+                        :type ("Client" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [7873 7883]))                  
+                :type ("Client" type (:type "class") nil nil))
+                nil [7846 7884])
+            ("focus_next_client" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("arg" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("Arg" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [7915 7930]))                  
+                :type "void")
+                nil [7885 7931])
+            ("focus_prev_client" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("arg" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("Arg" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [7962 7977]))                  
+                :type "void")
+                nil [7932 7978])
+            ("update_focused_client" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("c" variable
+                       (:pointer 1
+                        :type ("Client" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [8013 8023]))                  
+                :type "void")
+                nil [7979 8024])
+            ("prev_client" function
+               (:prototype-flag t
+                :pointer 1
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("c" variable
+                       (:pointer 1
+                        :type ("Client" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [8052 8062])
+                    ("ws" variable (:type "int") (reparse-symbol arg-sub-list) [8063 8070]))                  
+                :type ("Client" type (:type "class") nil nil))
+                nil [8025 8071])
+            ("create_client" function
+               (:prototype-flag t
+                :pointer 1
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("w" variable (:type ("xcb_window_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [8101 8116]))                  
+                :type ("Client" type (:type "class") nil nil))
+                nil [8072 8117])
+            ("remove_client" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("c" variable
+                       (:pointer 1
+                        :type ("Client" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [8144 8154]))                  
+                :type "void")
+                nil [8118 8155])
+            ("find_client_by_win" function
+               (:prototype-flag t
+                :pointer 1
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("w" variable (:type ("xcb_window_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [8190 8205]))                  
+                :type ("Client" type (:type "class") nil nil))
+                nil [8156 8206])
+            ("client_to_ws" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("c" variable
+                       (:pointer 1
+                        :type ("Client" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [8232 8242])
+                    ("ws" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol arg-sub-list) [8243 8256])
+                    ("follow" variable (:type "bool") (reparse-symbol arg-sub-list) [8257 8269]))                  
+                :type "void")
+                nil [8207 8270])
+            ("current_to_ws" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("arg" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("Arg" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [8297 8312]))                  
+                :type "void")
+                nil [8271 8313])
+            ("draw_clients" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [8339 8344]))                  
+                :type "void")
+                nil [8314 8345])
+            ("change_client_geom" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("c" variable
+                       (:pointer 1
+                        :type ("Client" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [8377 8387])
+                    ("x" variable (:type ("uint16_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [8388 8399])
+                    ("y" variable (:type ("uint16_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [8400 8411])
+                    ("w" variable (:type ("uint16_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [8412 8423])
+                    ("h" variable (:type ("uint16_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [8424 8435]))                  
+                :type "void")
+                nil [8346 8436])
+            ("toggle_float" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("arg" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("Arg" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [8462 8477]))                  
+                :type "void")
+                nil [8437 8478])
+            ("resize_float_width" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("arg" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("Arg" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [8510 8525]))                  
+                :type "void")
+                nil [8479 8526])
+            ("resize_float_height" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("arg" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("Arg" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [8559 8574]))                  
+                :type "void")
+                nil [8527 8575])
+            ("move_float_y" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("arg" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("Arg" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [8601 8616]))                  
+                :type "void")
+                nil [8576 8617])
+            ("move_float_x" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("arg" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("Arg" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [8643 8658]))                  
+                :type "void")
+                nil [8618 8659])
+            ("make_master" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("arg" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("Arg" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [8684 8699]))                  
+                :type "void")
+                nil [8660 8700])
+            ("grab_buttons" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("c" variable
+                       (:pointer 1
+                        :type ("Client" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [8726 8736]))                  
+                :type "void")
+                nil [8701 8737])
+            ("set_fullscreen" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("c" variable
+                       (:pointer 1
+                        :type ("Client" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [8765 8775])
+                    ("fscr" variable (:type "bool") (reparse-symbol arg-sub-list) [8776 8786]))                  
+                :type "void")
+                nil [8738 8787])
+            ("set_urgent" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("c" variable
+                       (:pointer 1
+                        :type ("Client" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [8811 8821])
+                    ("urg" variable (:type "bool") (reparse-symbol arg-sub-list) [8822 8831]))                  
+                :type "void")
+                nil [8788 8832])
+            ("toggle_fullscreen" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("arg" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("Arg" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [8863 8878]))                  
+                :type "void")
+                nil [8833 8879])
+            ("focus_urgent" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("arg" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("Arg" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [8905 8920]))                  
+                :type "void")
+                nil [8880 8921])
+            ("send_to_scratchpad" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("arg" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("Arg" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [8953 8968]))                  
+                :type "void")
+                nil [8922 8969])
+            ("get_from_scratchpad" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("arg" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("Arg" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [9002 9017]))                  
+                :type "void")
+                nil [8970 9018])
+            ("kill_ws" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("ws" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol arg-sub-list) [9057 9070]))                  
+                :type "void")
+                nil [9037 9071])
+            ("toggle_bar" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("arg" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("Arg" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [9095 9110]))                  
+                :type "void")
+                nil [9072 9111])
+            ("resize_master" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("arg" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("Arg" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [9138 9153]))                  
+                :type "void")
+                nil [9112 9154])
+            ("focus_next_ws" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("arg" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("Arg" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [9181 9196]))                  
+                :type "void")
+                nil [9155 9197])
+            ("focus_prev_ws" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("arg" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("Arg" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [9224 9239]))                  
+                :type "void")
+                nil [9198 9240])
+            ("focus_last_ws" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("arg" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("Arg" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [9267 9282]))                  
+                :type "void")
+                nil [9241 9283])
+            ("change_ws" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("arg" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("Arg" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [9306 9321]))                  
+                :type "void")
+                nil [9284 9322])
+            ("correct_ws" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("ws" variable (:type "int") (reparse-symbol arg-sub-list) [9345 9352]))                  
+                :type "int")
+                nil [9323 9353])
+            ("change_layout" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("arg" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("Arg" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [9395 9410]))                  
+                :type "void")
+                nil [9369 9411])
+            ("next_layout" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("arg" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("Arg" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [9436 9451]))                  
+                :type "void")
+                nil [9412 9452])
+            ("previous_layout" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("arg" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("Arg" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [9481 9496]))                  
+                :type "void")
+                nil [9453 9497])
+            ("last_layout" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("arg" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("Arg" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [9522 9537]))                  
+                :type "void")
+                nil [9498 9538])
+            ("stack" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [9557 9562]))                  
+                :type "void")
+                nil [9539 9563])
+            ("grid" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [9581 9586]))                  
+                :type "void")
+                nil [9564 9587])
+            ("zoom" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [9605 9610]))                  
+                :type "void")
+                nil [9588 9611])
+            ("arrange_windows" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [9640 9645]))                  
+                :type "void")
+                nil [9612 9646])
+            ("change_mode" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("arg" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("Arg" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [9684 9699]))                  
+                :type "void")
+                nil [9660 9700])
+            ("stack_push" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("s" variable
+                       (:pointer 1
+                        :type ("stack" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [9737 9753])
+                    ("c" variable
+                       (:pointer 1
+                        :type ("Client" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [9754 9764]))                  
+                :type "void")
+                nil [9714 9765])
+            ("stack_pop" function
+               (:prototype-flag t
+                :pointer 1
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("s" variable
+                       (:pointer 1
+                        :type ("stack" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [9791 9807]))                  
+                :type ("Client" type (:type "class") nil nil))
+                nil [9766 9808])
+            ("stack_init" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("s" variable
+                       (:pointer 1
+                        :type ("stack" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [9832 9848]))                  
+                :type "void")
+                nil [9809 9849])
+            ("stack_free" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("s" variable
+                       (:pointer 1
+                        :type ("stack" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [9873 9889]))                  
+                :type "void")
+                nil [9850 9890])
+            ("enter_event" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("ev" variable
+                       (:pointer 1
+                        :type ("xcb_generic_event_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [9929 9953]))                  
+                :type "void")
+                nil [9905 9954])
+            ("destroy_event" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("ev" variable
+                       (:pointer 1
+                        :type ("xcb_generic_event_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [9981 10005]))                  
+                :type "void")
+                nil [9955 10006])
+            ("button_press_event" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("ev" variable
+                       (:pointer 1
+                        :type ("xcb_generic_event_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [10038 10062]))                  
+                :type "void")
+                nil [10007 10063])
+            ("key_press_event" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("ev" variable
+                       (:pointer 1
+                        :type ("xcb_generic_event_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [10092 10116]))                  
+                :type "void")
+                nil [10064 10117])
+            ("map_event" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("ev" variable
+                       (:pointer 1
+                        :type ("xcb_generic_event_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [10140 10164]))                  
+                :type "void")
+                nil [10118 10165])
+            ("configure_event" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("ev" variable
+                       (:pointer 1
+                        :type ("xcb_generic_event_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [10194 10218]))                  
+                :type "void")
+                nil [10166 10219])
+            ("unmap_event" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("ev" variable
+                       (:pointer 1
+                        :type ("xcb_generic_event_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [10244 10268]))                  
+                :type "void")
+                nil [10220 10269])
+            ("client_message_event" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("ev" variable
+                       (:pointer 1
+                        :type ("xcb_generic_event_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [10303 10327]))                  
+                :type "void")
+                nil [10270 10328])
+            ("grab_keys" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [10362 10367]))                  
+                :type "void")
+                nil [10340 10368])
+            ("keysym_to_keycode" function
+               (:prototype-flag t
+                :pointer 1
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("sym" variable (:type ("xcb_keysym_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [10409 10426]))                  
+                :type ("xcb_keycode_t" type (:type "class") nil nil))
+                nil [10369 10427])
+            ("grab_keycode" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("keycode" variable
+                       (:pointer 1
+                        :type ("xcb_keycode_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [10453 10476])
+                    ("mod" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol arg-sub-list) [10477 10491]))                  
+                :type "void")
+                nil [10428 10492])
+            ("elevate_window" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("win" variable (:type ("xcb_window_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [10520 10537]))                  
+                :type "void")
+                nil [10493 10538])
+            ("move_resize" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("win" variable (:type ("xcb_window_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [10563 10580])
+                    ("x" variable (:type ("uint16_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [10581 10592])
+                    ("y" variable (:type ("uint16_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [10593 10604])
+                    ("w" variable (:type ("uint16_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [10605 10616])
+                    ("h" variable (:type ("uint16_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [10617 10628]))                  
+                :type "void")
+                nil [10539 10629])
+            ("set_border_width" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("win" variable (:type ("xcb_window_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [10659 10676])
+                    ("w" variable (:type ("uint16_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [10677 10688]))                  
+                :type "void")
+                nil [10630 10689])
+            ("get_atoms" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("names" variable
+                       (:pointer 2
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [10712 10725])
+                    ("atoms" variable
+                       (:pointer 1
+                        :type ("xcb_atom_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [10726 10744]))                  
+                :type "void")
+                nil [10690 10745])
+            ("check_other_wm" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [10773 10778]))                  
+                :type "void")
+                nil [10746 10779])
+            ("keycode_to_keysym" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("keycode" variable (:type ("xcb_keycode_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [10818 10840]))                  
+                :type ("xcb_keysym_t" type (:type "class") nil nil))
+                nil [10780 10841])
+            ("ewmh_process_wm_state" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("c" variable
+                       (:pointer 1
+                        :type ("Client" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [10876 10886])
+                    ("a" variable (:type ("xcb_atom_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [10887 10900])
+                    ("action" variable (:type "int") (reparse-symbol arg-sub-list) [10901 10912]))                  
+                :type "void")
+                nil [10842 10913])
+            ("apply_rules" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("c" variable
+                       (:pointer 1
+                        :type ("Client" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [10950 10960]))                  
+                :type "void")
+                nil [10926 10961])
+            ("howm_info" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [10984 10989]))                  
+                :type "void")
+                nil [10962 10990])
+            ("save_last_ocm" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [11017 11027])
+                    ("type" variable
+                       (:constant-flag t
+                        :type "unsigned int")
+                        (reparse-symbol arg-sub-list) [11055 11079])
+                    ("cnt" variable (:type "int") (reparse-symbol arg-sub-list) [11080 11088]))                  
+                :type "void")
+                nil [10991 11089])
+            ("save_last_cmd" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [11116 11127])
+                    ("arg" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("Arg" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [11142 11157]))                  
+                :type "void")
+                nil [11090 11158])
+            ("replay" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("arg" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("Arg" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [11178 11193]))                  
+                :type "void")
+                nil [11159 11194])
+            ("paste" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("arg" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("Arg" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [11213 11228]))                  
+                :type "void")
+                nil [11195 11229])
+            ("get_non_tff_count" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [11259 11264]))                  
+                :type "int")
+                nil [11230 11265])
+            ("get_first_non_tff" function
+               (:prototype-flag t
+                :pointer 1
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [11299 11304]))                  
+                :type ("Client" type (:type "class") nil nil))
+                nil [11266 11305])
+            ("get_colour" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("colour" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [11333 11346]))                  
+                :type ("uint32_t" type (:type "class") nil nil))
+                nil [11306 11347])
+            ("spawn" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("arg" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("Arg" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [11366 11381]))                  
+                :type "void")
+                nil [11348 11382])
+            ("setup" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [11401 11406]))                  
+                :type "void")
+                nil [11383 11407])
+            ("move_client" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("cnt" variable (:type "int") (reparse-symbol arg-sub-list) [11432 11440])
+                    ("up" variable (:type "bool") (reparse-symbol arg-sub-list) [11441 11449]))                  
+                :type "void")
+                nil [11408 11450])
+            ("focus_window" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("win" variable (:type ("xcb_window_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [11476 11493]))                  
+                :type "void")
+                nil [11451 11494])
+            ("quit_howm" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("arg" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("Arg" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [11517 11532]))                  
+                :type "void")
+                nil [11495 11533])
+            ("restart_howm" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("arg" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("Arg" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [11559 11574]))                  
+                :type "void")
+                nil [11534 11575])
+            ("cleanup" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [11596 11601]))                  
+                :type "void")
+                nil [11576 11602])
+            ("delete_win" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("win" variable (:type ("xcb_window_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [11626 11643]))                  
+                :type "void")
+                nil [11603 11644])
+            ("setup_ewmh" function
+               (:prototype-flag t
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [11668 11673]))                  
+                :type "void")
+                nil [11645 11674])
+            ("layouts" type
+               (:members 
+                  ( ("ZOOM" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [11691 11696])
+                    ("GRID" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [11697 11702])
+                    ("HSTACK" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [11703 11710])
+                    ("VSTACK" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [11711 11718])
+                    ("END_LAYOUT" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [11719 11731]))                  
+                :type "enum")
+                nil [11676 11732])
+            ("states" type
+               (:members 
+                  ( ("OPERATOR_STATE" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [11747 11762])
+                    ("COUNT_STATE" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [11763 11775])
+                    ("MOTION_STATE" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [11776 11789])
+                    ("END_STATE" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [11790 11801]))                  
+                :type "enum")
+                nil [11733 11802])
+            ("modes" type
+               (:members 
+                  ( ("NORMAL" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [11816 11823])
+                    ("FOCUS" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [11824 11830])
+                    ("FLOATING" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [11831 11840])
+                    ("END_MODES" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [11841 11852]))                  
+                :type "enum")
+                nil [11803 11853])
+            ("motions" type
+               (:members 
+                  ( ("CLIENT" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [11869 11876])
+                    ("WORKSPACE" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [11877 11888]))                  
+                :type "enum")
+                nil [11854 11889])
+            ("net_atom_enum" type
+               (:members 
+                  ( ("NET_WM_STATE_FULLSCREEN" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [11911 11935])
+                    ("NET_SUPPORTED" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [11936 11950])
+                    ("NET_WM_STATE" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [11951 11964])
+                    ("NET_ACTIVE_WINDOW" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [11966 11985]))                  
+                :type "enum")
+                nil [11890 11986])
+            ("wm_atom_enum" type
+               (:members 
+                  ( ("WM_DELETE_WINDOW" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [12007 12024])
+                    ("WM_PROTOCOLS" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [12025 12039]))                  
+                :type "enum")
+                nil [11987 12040])
+            ("teleport_locations" type
+               (:members 
+                  ( ("TOP_LEFT" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [12067 12076])
+                    ("TOP_CENTER" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [12077 12088])
+                    ("TOP_RIGHT" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [12089 12099])
+                    ("CENTER" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [12100 12107])
+                    ("BOTTOM_LEFT" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [12108 12120])
+                    ("BOTTOM_CENTER" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [12121 12135])
+                    ("BOTTOM_RIGHT" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [12136 12150]))                  
+                :type "enum")
+                nil [12041 12151])
+            ("config.h" include nil nil [12662 12681])
+            ("operator_func" variable
+               (:functionpointer-flag t
+                :type "void")
+                nil [12683 12746])
+            ("scratchpad" variable
+               (:pointer 1
+                :typemodifiers ("static")
+                :type ("Client" type (:type "class") nil nil))
+                nil [12748 12774])
+            ("del_reg" variable
+               (:typemodifiers ("static")
+                :type ("stack" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [12775 12803])
+            ("dpy" variable
+               (:pointer 1
+                :typemodifiers ("static")
+                :type ("xcb_connection_t" type (:type "class") nil nil))
+                nil [12804 12833])
+            ("WM_ATOM_NAMES" variable
+               (:pointer 1
+                :dereference 1
+                :typemodifiers ("static")
+                :type "char")
+                nil [12834 12904])
+            ("wm_atoms" variable
+               (:dereference 1
+                :typemodifiers ("static")
+                :type ("xcb_atom_t" type (:type "class") nil nil))
+                nil [12905 12955])
+            ("screen" variable
+               (:pointer 1
+                :typemodifiers ("static")
+                :type ("xcb_screen_t" type (:type "class") nil nil))
+                nil [12956 12984])
+            ("ewmh" variable
+               (:pointer 1
+                :typemodifiers ("static")
+                :type ("xcb_ewmh_connection_t" type (:type "class") nil nil))
+                nil [12985 13020])
+            ("cw" variable
+               (:typemodifiers ("static")
+                :type "int")
+                nil [13021 13098])
+            ("prev_layout" variable
+               (:typemodifiers ("static")
+                :type "int")
+                nil [13021 13098])
+            ("last_ws" variable
+               (:typemodifiers ("static")
+                :type "int")
+                nil [13021 13098])
+            ("retval" variable
+               (:typemodifiers ("static")
+                :type "int")
+                nil [13021 13098])
+            ("numlockmask" variable
+               (:typemodifiers ("static")
+                :type "int")
+                nil [13021 13098])
+            ("border_urgent" variable
+               (:typemodifiers ("static")
+                :type ("uint32_t" type (:type "class") nil nil))
+                nil [13099 13178])
+            ("border_prev_focus" variable
+               (:typemodifiers ("static")
+                :type ("uint32_t" type (:type "class") nil nil))
+                nil [13099 13178])
+            ("border_unfocus" variable
+               (:typemodifiers ("static")
+                :type ("uint32_t" type (:type "class") nil nil))
+                nil [13099 13178])
+            ("border_focus" variable
+               (:typemodifiers ("static")
+                :type ("uint32_t" type (:type "class") nil nil))
+                nil [13099 13178])
+            ("cur_cnt" variable
+               (:typemodifiers ("static")
+                :type "unsigned int")
+                nil [13179 13249])
+            ("cur_state" variable
+               (:typemodifiers ("static")
+                :type "unsigned int")
+                nil [13179 13249])
+            ("cur_mode" variable
+               (:typemodifiers ("static")
+                :type "unsigned int")
+                nil [13179 13249])
+            ("screen_width" variable
+               (:typemodifiers ("static")
+                :type ("uint16_t" type (:type "class") nil nil))
+                nil [13250 13294])
+            ("screen_height" variable
+               (:typemodifiers ("static")
+                :type ("uint16_t" type (:type "class") nil nil))
+                nil [13250 13294])
+            ("restart" variable
+               (:typemodifiers ("static")
+                :type "bool")
+                nil [13295 13331])
+            ("running" variable
+               (:typemodifiers ("static")
+                :type "bool")
+                nil [13295 13331])
+            ("rep_state" variable
+               (:typemodifiers ("static")
+                :type ("replay_state" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [13333 13370])
+            ("DEBUG" variable (:constant-flag t) nil [13769 13774])
+            ("DEBUGP" variable (:constant-flag t) nil [13809 13815])
+            ("LOG_DEBUG" variable (:constant-flag t) nil [13856 13865])
+            ("LOG_INFO" variable (:constant-flag t) nil [13876 13884])
+            ("LOG_WARN" variable (:constant-flag t) nil [13895 13903])
+            ("LOG_ERR" variable (:constant-flag t) nil [13914 13921])
+            ("LOG_NONE" variable (:constant-flag t) nil [13932 13940])
+            ("log_debug" variable (:constant-flag t) nil [14089 14098])
+            ("log_info" variable (:constant-flag t) nil [14166 14174])
+            ("log_warn" variable (:constant-flag t) nil [14349 14357])
+            ("log_err" variable (:constant-flag t) nil [14531 14538])
+            ("setup" function
+               (:arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [14853 14858]))                  
+                :type "void")
+                nil [14842 15464])
+            ("get_colour" function
+               (:arguments 
+                  ( ("colour" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [15697 15710]))                  
+                :type ("uint32_t" type (:type "class") nil nil))
+                nil [15677 16184])
+            ("main" function
+               (:arguments 
+                  ( ("argc" variable (:type "int") (reparse-symbol arg-sub-list) [16250 16259])
+                    ("argv" variable
+                       (:pointer 1
+                        :dereference 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [16260 16273]))                  
+                :type "int")
+                nil [16241 17074])
+            ("check_other_wm" function
+               (:arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [17276 17281]))                  
+                :type "void")
+                nil [17256 17861])
+            ("button_press_event" function
+               (:arguments 
+                  ( ("ev" variable
+                       (:pointer 1
+                        :type ("xcb_generic_event_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [17969 17993]))                  
+                :type "void")
+                nil [17945 18419])
+            ("key_press_event" function
+               (:arguments 
+                  ( ("ev" variable
+                       (:pointer 1
+                        :type ("xcb_generic_event_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [18967 18991]))                  
+                :type "void")
+                nil [18946 20349])
+            ("spawn" function
+               (:arguments 
+                  ( ("arg" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("Arg" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [20398 20413]))                  
+                :type "void")
+                nil [20387 20674])
+            ("map_event" function
+               (:arguments 
+                  ( ("ev" variable
+                       (:pointer 1
+                        :type ("xcb_generic_event_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [21024 21048]))                  
+                :type "void")
+                nil [21009 23122])
+            ("find_client_by_win" function
+               (:pointer 1
+                :arguments 
+                  ( ("win" variable (:type ("xcb_window_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [23377 23394]))                  
+                :type ("Client" type (:type "class") nil nil))
+                nil [23350 23582])
+            ("keycode_to_keysym" function
+               (:arguments 
+                  ( ("code" variable (:type ("xcb_keycode_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [23759 23778]))                  
+                :type ("xcb_keysym_t" type (:type "class") nil nil))
+                nil [23728 23973])
+            ("keysym_to_keycode" function
+               (:pointer 1
+                :arguments 
+                  ( ("sym" variable (:type ("xcb_keysym_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [24150 24167]))                  
+                :type ("xcb_keycode_t" type (:type "class") nil nil))
+                nil [24117 24367])
+            ("prev_client" function
+               (:pointer 1
+                :arguments 
+                  ( ("c" variable
+                       (:pointer 1
+                        :type ("Client" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [24691 24701])
+                    ("ws" variable (:type "int") (reparse-symbol arg-sub-list) [24702 24709]))                  
+                :type ("Client" type (:type "class") nil nil))
+                nil [24671 24874])
+            ("next_client" function
+               (:pointer 1
+                :arguments 
+                  ( ("c" variable
+                       (:pointer 1
+                        :type ("Client" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [25338 25348]))                  
+                :type ("Client" type (:type "class") nil nil))
+                nil [25318 25470])
+            ("arrange_windows" function
+               (:arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [25564 25569]))                  
+                :type "void")
+                nil [25543 25713])
+            ("grid" function
+               (:arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [25783 25788]))                  
+                :type "void")
+                nil [25773 26574])
+            ("zoom" function
+               (:arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [26771 26776]))                  
+                :type "void")
+                nil [26761 27294])
+            ("move_resize" function
+               (:arguments 
+                  ( ("win" variable (:type ("xcb_window_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [27653 27670])
+                    ("x" variable (:type ("uint16_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [27674 27685])
+                    ("y" variable (:type ("uint16_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [27686 27697])
+                    ("w" variable (:type ("uint16_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [27698 27709])
+                    ("h" variable (:type ("uint16_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [27710 27721]))                  
+                :type "void")
+                nil [27636 27826])
+            ("update_focused_client" function
+               (:arguments 
+                  ( ("c" variable
+                       (:pointer 1
+                        :type ("Client" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [28158 28168]))                  
+                :type "void")
+                nil [28131 29686])
+            ("grab_keys" function
+               (:arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [29933 29938]))                  
+                :type "void")
+                nil [29918 30737])
+            ("grab_buttons" function
+               (:arguments 
+                  ( ("c" variable
+                       (:pointer 1
+                        :type ("Client" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [30888 30898]))                  
+                :type "void")
+                nil [30870 31161])
+            ("grab_keycode" function
+               (:arguments 
+                  ( ("keycode" variable
+                       (:pointer 1
+                        :type ("xcb_keycode_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [31470 31493])
+                    ("mod" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol arg-sub-list) [31494 31508]))                  
+                :type "void")
+                nil [31452 31804])
+            ("set_border_width" function
+               (:arguments 
+                  ( ("win" variable (:type ("xcb_window_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [32018 32035])
+                    ("w" variable (:type ("uint16_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [32036 32047]))                  
+                :type "void")
+                nil [31996 32152])
+            ("elevate_window" function
+               (:arguments 
+                  ( ("win" variable (:type ("xcb_window_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [32286 32303]))                  
+                :type "void")
+                nil [32266 32554])
+            ("get_atoms" function
+               (:arguments 
+                  ( ("names" variable
+                       (:pointer 2
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [32748 32761])
+                    ("atoms" variable
+                       (:pointer 1
+                        :type ("xcb_atom_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [32762 32780]))                  
+                :type "void")
+                nil [32733 33333])
+            ("stack" function
+               (:arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [33472 33477]))                  
+                :type "void")
+                nil [33461 35568])
+            ("get_non_tff_count" function
+               (:arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [35753 35758]))                  
+                :type "int")
+                nil [35731 35868])
+            ("get_first_non_tff" function
+               (:pointer 1
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [36056 36061]))                  
+                :type ("Client" type (:type "class") nil nil))
+                nil [36023 36150])
+            ("destroy_event" function
+               (:arguments 
+                  ( ("ev" variable
+                       (:pointer 1
+                        :type ("xcb_generic_event_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [36455 36479]))                  
+                :type "void")
+                nil [36436 36706])
+            ("remove_client" function
+               (:arguments 
+                  ( ("c" variable
+                       (:pointer 1
+                        :type ("Client" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [36834 36844]))                  
+                :type "void")
+                nil [36815 37318])
+            ("howm_info" function
+               (:arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [37512 37517]))                  
+                :type "void")
+                nil [37497 37865])
+            ("enter_event" function
+               (:arguments 
+                  ( ("ev" variable
+                       (:pointer 1
+                        :type ("xcb_generic_event_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [37997 38021]))                  
+                :type "void")
+                nil [37980 38215])
+            ("move_down" function
+               (:arguments 
+                  ( ("c" variable
+                       (:pointer 1
+                        :type ("Client" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [38328 38338]))                  
+                :type "void")
+                nil [38313 38727])
+            ("move_up" function
+               (:arguments 
+                  ( ("c" variable
+                       (:pointer 1
+                        :type ("Client" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [38841 38851]))                  
+                :type "void")
+                nil [38828 39294])
+            ("focus_next_client" function
+               (:arguments 
+                  ( ("arg" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("Arg" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [39489 39504]))                  
+                :type "void")
+                nil [39466 39699])
+            ("focus_prev_client" function
+               (:arguments 
+                  ( ("arg" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("Arg" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [39898 39913]))                  
+                :type "void")
+                nil [39875 40122])
+            ("change_ws" function
+               (:arguments 
+                  ( ("arg" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("Arg" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [40291 40306]))                  
+                :type "void")
+                nil [40276 40942])
+            ("focus_prev_ws" function
+               (:arguments 
+                  ( ("arg" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("Arg" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [41036 41051]))                  
+                :type "void")
+                nil [41017 41159])
+            ("focus_last_ws" function
+               (:arguments 
+                  ( ("arg" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("Arg" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [41257 41272]))                  
+                :type "void")
+                nil [41238 41366])
+            ("focus_next_ws" function
+               (:arguments 
+                  ( ("arg" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("Arg" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [41456 41471]))                  
+                :type "void")
+                nil [41437 41579])
+            ("change_layout" function
+               (:arguments 
+                  ( ("arg" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("Arg" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [41754 41769]))                  
+                :type "void")
+                nil [41735 42023])
+            ("previous_layout" function
+               (:arguments 
+                  ( ("arg" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("Arg" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [42120 42135]))                  
+                :type "void")
+                nil [42099 42308])
+            ("next_layout" function
+               (:arguments 
+                  ( ("arg" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("Arg" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [42397 42412]))                  
+                :type "void")
+                nil [42380 42558])
+            ("last_layout" function
+               (:arguments 
+                  ( ("arg" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("Arg" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [42652 42667]))                  
+                :type "void")
+                nil [42635 42786])
+            ("change_mode" function
+               (:arguments 
+                  ( ("arg" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("Arg" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [43035 43050]))                  
+                :type "void")
+                nil [43018 43200])
+            ("op_kill" function
+               (:arguments 
+                  ( ("type" variable
+                       (:constant-flag t
+                        :type "unsigned int")
+                        (reparse-symbol arg-sub-list) [43413 43437])
+                    ("cnt" variable (:type "int") (reparse-symbol arg-sub-list) [43438 43446]))                  
+                :type "void")
+                nil [43400 43726])
+            ("kill_client" function
+               (:arguments 
+                  ( ("ws" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol arg-sub-list) [43946 43959])
+                    ("arrange" variable (:type "bool") (reparse-symbol arg-sub-list) [43960 43973]))                  
+                :type "void")
+                nil [43929 44633])
+            ("kill_ws" function
+               (:arguments 
+                  ( ("ws" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol arg-sub-list) [44737 44750]))                  
+                :type "void")
+                nil [44724 44881])
+            ("op_move_down" function
+               (:arguments 
+                  ( ("type" variable
+                       (:constant-flag t
+                        :type "unsigned int")
+                        (reparse-symbol arg-sub-list) [45067 45091])
+                    ("cnt" variable (:type "int") (reparse-symbol arg-sub-list) [45092 45100]))                  
+                :type "void")
+                nil [45049 45164])
+            ("op_move_up" function
+               (:arguments 
+                  ( ("type" variable
+                       (:constant-flag t
+                        :type "unsigned int")
+                        (reparse-symbol arg-sub-list) [45346 45370])
+                    ("cnt" variable (:type "int") (reparse-symbol arg-sub-list) [45371 45379]))                  
+                :type "void")
+                nil [45330 45442])
+            ("move_client" function
+               (:arguments 
+                  ( ("cnt" variable (:type "int") (reparse-symbol arg-sub-list) [45755 45763])
+                    ("up" variable (:type "bool") (reparse-symbol arg-sub-list) [45764 45772]))                  
+                :type "void")
+                nil [45738 46258])
+            ("move_current_down" function
+               (:arguments 
+                  ( ("arg" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("Arg" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [46357 46372]))                  
+                :type "void")
+                nil [46334 46419])
+            ("move_current_up" function
+               (:arguments 
+                  ( ("arg" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("Arg" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [46514 46529]))                  
+                :type "void")
+                nil [46493 46574])
+            ("client_to_ws" function
+               (:arguments 
+                  ( ("c" variable
+                       (:pointer 1
+                        :type ("Client" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [46753 46763])
+                    ("ws" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol arg-sub-list) [46764 46777])
+                    ("follow" variable (:type "bool") (reparse-symbol arg-sub-list) [46778 46790]))                  
+                :type "void")
+                nil [46735 47526])
+            ("current_to_ws" function
+               (:arguments 
+                  ( ("arg" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("Arg" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [47679 47694]))                  
+                :type "void")
+                nil [47660 47752])
+            ("correct_ws" function
+               (:arguments 
+                  ( ("ws" variable (:type "int") (reparse-symbol arg-sub-list) [48012 48019]))                  
+                :type "int")
+                nil [47997 48123])
+            ("focus_window" function
+               (:arguments 
+                  ( ("win" variable (:type ("xcb_window_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [48296 48313]))                  
+                :type "void")
+                nil [48278 48568])
+            ("op_focus_up" function
+               (:arguments 
+                  ( ("type" variable
+                       (:constant-flag t
+                        :type "unsigned int")
+                        (reparse-symbol arg-sub-list) [48763 48787])
+                    ("cnt" variable (:type "int") (reparse-symbol arg-sub-list) [48788 48796]))                  
+                :type "void")
+                nil [48746 48953])
+            ("op_focus_down" function
+               (:arguments 
+                  ( ("type" variable
+                       (:constant-flag t
+                        :type "unsigned int")
+                        (reparse-symbol arg-sub-list) [49152 49176])
+                    ("cnt" variable (:type "int") (reparse-symbol arg-sub-list) [49177 49185]))                  
+                :type "void")
+                nil [49133 49342])
+            ("configure_event" function
+               (:arguments 
+                  ( ("ev" variable
+                       (:pointer 1
+                        :type ("xcb_generic_event_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [49484 49508]))                  
+                :type "void")
+                nil [49463 50606])
+            ("unmap_event" function
+               (:arguments 
+                  ( ("ev" variable
+                       (:pointer 1
+                        :type ("xcb_generic_event_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [50758 50782]))                  
+                :type "void")
+                nil [50741 51065])
+            ("draw_clients" function
+               (:arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [51342 51347]))                  
+                :type "void")
+                nil [51324 52050])
+            ("change_client_geom" function
+               (:arguments 
+                  ( ("c" variable
+                       (:pointer 1
+                        :type ("Client" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [52376 52386])
+                    ("x" variable (:type ("uint16_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [52387 52398])
+                    ("y" variable (:type ("uint16_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [52399 52410])
+                    ("w" variable (:type ("uint16_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [52411 52422])
+                    ("h" variable (:type ("uint16_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [52423 52434]))                  
+                :type "void")
+                nil [52352 52614])
+            ("op_shrink_gaps" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("type" variable
+                       (:constant-flag t
+                        :type "unsigned int")
+                        (reparse-symbol arg-sub-list) [53072 53096])
+                    ("cnt" variable (:type "int") (reparse-symbol arg-sub-list) [53097 53105]))                  
+                :type "void")
+                nil [53045 53148])
+            ("op_grow_gaps" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("type" variable
+                       (:constant-flag t
+                        :type "unsigned int")
+                        (reparse-symbol arg-sub-list) [53602 53626])
+                    ("cnt" variable (:type "int") (reparse-symbol arg-sub-list) [53627 53635]))                  
+                :type "void")
+                nil [53577 53677])
+            ("change_client_gaps" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("c" variable
+                       (:pointer 1
+                        :type ("Client" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [53905 53915])
+                    ("size" variable (:type "int") (reparse-symbol arg-sub-list) [53916 53925]))                  
+                :type "void")
+                nil [53874 54158])
+            ("change_gaps" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("type" variable
+                       (:constant-flag t
+                        :type "unsigned int")
+                        (reparse-symbol arg-sub-list) [54501 54525])
+                    ("cnt" variable (:type "int") (reparse-symbol arg-sub-list) [54526 54534])
+                    ("size" variable (:type "int") (reparse-symbol arg-sub-list) [54535 54544]))                  
+                :type "void")
+                nil [54477 55060])
+            ("toggle_float" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("arg" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("Arg" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [55197 55212]))                  
+                :type "void")
+                nil [55172 55685])
+            ("resize_float_width" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("arg" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("Arg" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [55977 55992]))                  
+                :type "void")
+                nil [55946 56254])
+            ("resize_float_height" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("arg" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("Arg" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [56548 56563]))                  
+                :type "void")
+                nil [56516 56826])
+            ("move_float_y" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("arg" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("Arg" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [57074 57089]))                  
+                :type "void")
+                nil [57049 57307])
+            ("move_float_x" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("arg" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("Arg" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [57564 57579]))                  
+                :type "void")
+                nil [57539 57797])
+            ("teleport_client" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("arg" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("Arg" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [57969 57984]))                  
+                :type "void")
+                nil [57941 59340])
+            ("quit_howm" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("arg" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("Arg" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [59473 59488]))                  
+                :type "void")
+                nil [59451 59551])
+            ("cleanup" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [59730 59735]))                  
+                :type "void")
+                nil [59710 60256])
+            ("delete_win" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("win" variable (:type ("xcb_window_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [60370 60387]))                  
+                :type "void")
+                nil [60347 60784])
+            ("resize_master" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("arg" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("Arg" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [61060 61075]))                  
+                :type "void")
+                nil [61034 61523])
+            ("toggle_bar" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("arg" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("Arg" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [61635 61650]))                  
+                :type "void")
+                nil [61612 62140])
+            ("create_client" function
+               (:pointer 1
+                :arguments 
+                  ( ("w" variable (:type ("xcb_window_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [62339 62354]))                  
+                :type ("Client" type (:type "class") nil nil))
+                nil [62317 63061])
+            ("make_master" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("arg" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("Arg" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [63196 63211]))                  
+                :type "void")
+                nil [63172 63495])
+            ("setup_ewmh" function
+               (:arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [63628 63633]))                  
+                :type "void")
+                nil [63612 64985])
+            ("set_fullscreen" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("c" variable
+                       (:pointer 1
+                        :type ("Client" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [65262 65272])
+                    ("fscr" variable (:type "bool") (reparse-symbol arg-sub-list) [65273 65283]))                  
+                :type "void")
+                nil [65235 65853])
+            ("set_urgent" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("c" variable
+                       (:pointer 1
+                        :type ("Client" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [65878 65888])
+                    ("urg" variable (:type "bool") (reparse-symbol arg-sub-list) [65889 65898]))                  
+                :type "void")
+                nil [65855 66116])
+            ("toggle_fullscreen" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("arg" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("Arg" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [66242 66257]))                  
+                :type "void")
+                nil [66212 66373])
+            ("client_message_event" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("ev" variable
+                       (:pointer 1
+                        :type ("xcb_generic_event_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [66536 66560]))                  
+                :type "void")
+                nil [66503 67295])
+            ("save_last_ocm" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [67543 67553])
+                    ("type" variable
+                       (:constant-flag t
+                        :type "unsigned int")
+                        (reparse-symbol arg-sub-list) [67580 67604])
+                    ("cnt" variable (:type "int") (reparse-symbol arg-sub-list) [67605 67613]))                  
+                :type "void")
+                nil [67517 67726])
+            ("save_last_cmd" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [67967 67978])
+                    ("arg" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("Arg" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [67996 68011]))                  
+                :type "void")
+                nil [67941 68096])
+            ("replay" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("arg" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("Arg" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [68248 68263]))                  
+                :type "void")
+                nil [68229 68416])
+            ("restart_howm" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("arg" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("Arg" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [68500 68515]))                  
+                :type "void")
+                nil [68475 68594])
+            ("ewmh_process_wm_state" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("c" variable
+                       (:pointer 1
+                        :type ("Client" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [68946 68956])
+                    ("a" variable (:type ("xcb_atom_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [68957 68970])
+                    ("action" variable (:type "int") (reparse-symbol arg-sub-list) [68971 68982]))                  
+                :type "void")
+                nil [68912 69591])
+            ("stack_init" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("s" variable
+                       (:pointer 1
+                        :type ("stack" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [69876 69892]))                  
+                :type "void")
+                nil [69853 70039])
+            ("stack_free" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("s" variable
+                       (:pointer 1
+                        :type ("stack" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [70175 70191]))                  
+                :type "void")
+                nil [70152 70215])
+            ("stack_push" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("s" variable
+                       (:pointer 1
+                        :type ("stack" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [70438 70454])
+                    ("c" variable
+                       (:pointer 1
+                        :type ("Client" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [70455 70465]))                  
+                :type "void")
+                nil [70415 70652])
+            ("stack_pop" function
+               (:pointer 1
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("s" variable
+                       (:pointer 1
+                        :type ("stack" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [70904 70920]))                  
+                :type ("Client" type (:type "class") nil nil))
+                nil [70879 71090])
+            ("op_cut" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("type" variable
+                       (:constant-flag t
+                        :type "unsigned int")
+                        (reparse-symbol arg-sub-list) [71547 71571])
+                    ("cnt" variable (:type "int") (reparse-symbol arg-sub-list) [71572 71580]))                  
+                :type "void")
+                nil [71528 73257])
+            ("focus_urgent" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("arg" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("Arg" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [73367 73382]))                  
+                :type "void")
+                nil [73342 73655])
+            ("paste" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("arg" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("Arg" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [73830 73845]))                  
+                :type "void")
+                nil [73812 74700])
+            ("apply_rules" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("c" variable
+                       (:pointer 1
+                        :type ("Client" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [74906 74916]))                  
+                :type "void")
+                nil [74882 75441])
+            ("send_to_scratchpad" function
+               (:arguments 
+                  ( ("arg" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("Arg" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [75556 75571]))                  
+                :type "void")
+                nil [75532 76224])
+            ("get_from_scratchpad" function
+               (:arguments 
+                  ( ("arg" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("Arg" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [76398 76413]))                  
+                :type "void")
+                nil [76373 77159]))          
+    :file "howm.c"
+    :pointmax 77160
+    :fsize 77289
+    :lastmodtime '(21547 28101 967948 278000)
+    :unmatched-syntax '((semantic-list 67978 . 67994) (semantic-list 67972 . 67978) (semantic-list 67553 . 67578) (semantic-list 67548 . 67553) (punctuation 12659 . 12660) (semantic-list 12587 . 12659) (punctuation 12585 . 12586) (semantic-list 12578 . 12584) (semantic-list 12558 . 12577) (VOID 12554 . 12558) (STATIC 12547 . 12553) (punctuation 12544 . 12545) (semantic-list 12234 . 12544) (punctuation 12232 . 12233) (semantic-list 12208 . 12231) (semantic-list 12179 . 12207) (VOID 12175 . 12179) (STATIC 12168 . 12174) (semantic-list 11127 . 11140) (semantic-list 11121 . 11127) (semantic-list 11028 . 11053) (semantic-list 11022 . 11027) (punctuation 2348 . 2349) (CHAR 2343 . 2347) (CONST 2337 . 2342))
+    :lexical-table 
+        '(("UNUSED" (spp-arg-list ("x") 1271 . 1274) . ((semantic-list "(void)" 1275 . 1281) (semantic-list "(x)" 1281 . 1284)))
+          ("LOG_DEBUG" . ((number "1" 13866 . 13867)))
+          ("FFT" (spp-arg-list ("c") 1141 . 1144) . ((semantic-list "(c->is_transient || c->is_floating || c->is_fullscreen)" 1145 . 1200)))
+          ("LOG_WARN" . ((number "3" 13904 . 13905)))
+          ("LOG_ERR" . ((number "4" 13922 . 13923)))
+          ("log_err" (spp-arg-list ("M" "...") 14538 . 14546) . ((symbol "fprintf" 14547 . 14554) (semantic-list "(stderr, \"[ERROR] (%s:%d) \" M \"\\n\", __FILE__, __LINE__, ##__VA_ARGS__)" 14554 . 14624)))
+          ("_NET_WM_STATE_REMOVE" . ((number "0" 1315 . 1316)))
+          ("DEBUGP" (spp-arg-list ("x" "...") 13815 . 13823) . 
+              ((DO "do" 13824 . 13826) (semantic-list "{}" 13827 . 13829) (WHILE "while" 13830 . 13835) (semantic-list "(0)" 13836 . 13839)))
+          ("LOG_INFO" . ((number "2" 13885 . 13886)))
+          ("log_warn" (spp-arg-list ("M" "...") 14357 . 14365) . ((symbol "fprintf" 14366 . 14373) (semantic-list "(stderr, \"[WARN] (%s:%d) \" M \"\\n\", __FILE__, __LINE__, ##__VA_ARGS__)" 14373 . 14442)))
+          ("_NET_WM_STATE_ADD" . ((number "1" 1343 . 1344)))
+          ("LENGTH" (spp-arg-list ("x") 1016 . 1019) . ((semantic-list "(unsigned int)" 1020 . 1034) (semantic-list "(sizeof(x) / sizeof(*x))" 1034 . 1058)))
+          ("LOG_NONE" . ((number "5" 13941 . 13942)))
+          ("EQUALMODS" (spp-arg-list ("mask" "omask") 908 . 921) . ((semantic-list "(CLEANMASK(mask) == CLEANMASK(omask))" 922 . 959)))
+          ("log_info" (spp-arg-list ("M" "...") 14174 . 14182) . ((symbol "fprintf" 14183 . 14190) (semantic-list "(stderr, \"[INFO] (%s:%d) \" M \"\\n\", __FILE__, __LINE__, ##__VA_ARGS__)" 14190 . 14259)))
+          ("CLEANMASK" (spp-arg-list ("mask") 770 . 776) . ((semantic-list "(mask & ~(numlockmask | XCB_MOD_MASK_LOCK))" 777 . 820)))
+          ("DEBUG" (spp-arg-list ("x") 13774 . 13777) . 
+              ((DO "do" 13778 . 13780) (semantic-list "{}" 13781 . 13783) (WHILE "while" 13784 . 13789) (semantic-list "(0)" 13790 . 13793)))
+          ("MOVE_RESIZE_MASK" . ((semantic-list "(XCB_CONFIG_WINDOW_X | XCB_CONFIG_WINDOW_Y | \\
+			  XCB_CONFIG_WINDOW_WIDTH | XCB_CONFIG_WINDOW_HEIGHT)" 544 . 647)))
+          ("_NET_WM_STATE_TOGGLE" . ((number "2" 1374 . 1375)))
+          ("log_debug" (spp-arg-list ("x" "...") 14098 . 14106) . 
+              ((DO "do" 14107 . 14109) (semantic-list "{}" 14110 . 14112) (WHILE "while" 14113 . 14118) (semantic-list "(0)" 14119 . 14122)))
+          )
+
+    )
+   (semanticdb-table "config.h"
+    :major-mode 'c-mode
+    :tags 
+        '( ("CONFIG_H" variable (:constant-flag t) nil [26 34])
+            ("MODKEY" variable (:constant-flag t) nil [194 200])
+            ("COUNT_MOD" variable (:constant-flag t) nil [294 303])
+            ("OTHER_MOD" variable (:constant-flag t) nil [385 394])
+            ("WORKSPACES" variable (:constant-flag t) nil [441 451])
+            ("FOCUS_MOUSE" variable (:constant-flag t) nil [527 538])
+            ("FOCUS_MOUSE_CLICK" variable (:constant-flag t) nil [593 610])
+            ("FOLLOW_MOVE" variable (:constant-flag t) nil [714 725])
+            ("GAP" variable (:constant-flag t) nil [788 791])
+            ("DEBUG_ENABLE" variable (:constant-flag t) nil [833 845])
+            ("BORDER_PX" variable (:constant-flag t) nil [903 912])
+            ("BORDER_FOCUS" variable (:constant-flag t) nil [976 988])
+            ("BORDER_UNFOCUS" variable (:constant-flag t) nil [1062 1076])
+            ("BORDER_PREV_FOCUS" variable (:constant-flag t) nil [1149 1166])
+            ("BORDER_URGENT" variable (:constant-flag t) nil [1237 1250])
+            ("BAR_HEIGHT" variable (:constant-flag t) nil [1322 1332])
+            ("BAR_BOTTOM" variable (:constant-flag t) nil [1413 1423])
+            ("OP_GAP_SIZE" variable (:constant-flag t) nil [1531 1542])
+            ("CENTER_FLOATING" variable (:constant-flag t) nil [1621 1636])
+            ("ZOOM_GAP" variable (:constant-flag t) nil [1703 1711])
+            ("MASTER_RATIO" variable (:constant-flag t) nil [1806 1818])
+            ("LOG_LEVEL" variable (:constant-flag t) nil [2090 2099])
+            ("DEFAULT_WORKSPACE" variable (:constant-flag t) nil [2175 2192])
+            ("FLOAT_SPAWN_WIDTH" variable (:constant-flag t) nil [2338 2355])
+            ("FLOAT_SPAWN_HEIGHT" variable (:constant-flag t) nil [2504 2522])
+            ("HOWM_PATH" variable (:constant-flag t) nil [2650 2659])
+            ("DELETE_REGISTER_SIZE" variable (:constant-flag t) nil [2790 2810])
+            ("SCRATCHPAD_HEIGHT" variable (:constant-flag t) nil [2874 2891])
+            ("SCRATCHPAD_WIDTH" variable (:constant-flag t) nil [2956 2972])
+            ("term_cmd" variable
+               (:pointer 1
+                :dereference 1
+                :typemodifiers ("static")
+                :constant-flag t
+                :type "char")
+                nil [2978 3033])
+            ("dmenu_cmd" variable
+               (:pointer 1
+                :dereference 1
+                :typemodifiers ("static")
+                :constant-flag t
+                :type "char")
+                nil [3034 3170])
+            ("rules" variable
+               (:dereference 1
+                :typemodifiers ("static")
+                :constant-flag t
+                :type ("Rule" type (:type "class") nil nil))
+                nil [3233 3376])
+            ("keys" variable
+               (:dereference 1
+                :typemodifiers ("static")
+                :constant-flag t
+                :type ("Key" type (:type "class") nil nil))
+                nil [3503 7080])
+            ("operators" variable
+               (:dereference 1
+                :typemodifiers ("static")
+                :constant-flag t
+                :type ("Operator" type (:type "class") nil nil))
+                nil [7279 7653])
+            ("motions" variable
+               (:dereference 1
+                :typemodifiers ("static")
+                :constant-flag t
+                :type ("Motion" type (:type "class") nil nil))
+                nil [7861 8038])
+            ("wss" variable
+               (:dereference 1
+                :typemodifiers ("static")
+                :type ("Workspace" type (:type "class") nil nil))
+                nil [8164 8628])
+            ("_Static_assert" function
+               (:prototype-flag t
+                :type "int")
+                nil [8630 8726])
+            ("_Static_assert" function
+               (:prototype-flag t
+                :type "int")
+                nil [8727 8793])
+            ("_Static_assert" function
+               (:prototype-flag t
+                :type "int")
+                nil [8794 8922])
+            ("_Static_assert" function
+               (:prototype-flag t
+                :type "int")
+                nil [8923 8974])
+            ("_Static_assert" function
+               (:prototype-flag t
+                :type "int")
+                nil [8975 9038])
+            ("_Static_assert" function
+               (:prototype-flag t
+                :type "int")
+                nil [9039 9106])
+            ("_Static_assert" function
+               (:prototype-flag t
+                :type "int")
+                nil [9107 9172])
+            ("_Static_assert" function
+               (:prototype-flag t
+                :type "int")
+                nil [9173 9254])
+            ("_Static_assert" function
+               (:prototype-flag t
+                :type "int")
+                nil [9255 9334])
+            ("_Static_assert" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("LENGTH" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [9350 9361]))                  
+                :type "int")
+                nil [9335 9437])
+            ("_Static_assert" function
+               (:prototype-flag t
+                :type "int")
+                nil [9438 9515])
+            ("_Static_assert" function
+               (:prototype-flag t
+                :type "int")
+                nil [9516 9595]))          
+    :file "config.h"
+    :pointmax 9603
+    :fsize 9732
+    :lastmodtime '(21547 28101 966948 303000)
+    :unmatched-syntax '((string 9555 . 9593) (number 9552 . 9553) (punctuation 9550 . 9551) (punctuation 9549 . 9550) (number "500" 9531 . 9548) (string 9476 . 9513) (number 9473 . 9474) (punctuation 9471 . 9472) (punctuation 9470 . 9471) (number "500" 9453 . 9469) (string 9381 . 9435) (number 9378 . 9379) (punctuation 9376 . 9377) (number "5" 9365 . 9375) (punctuation 9363 . 9364) (punctuation 9362 . 9363) (semantic-list 9356 . 9361) (string 9294 . 9332) (number 9291 . 9292) (punctuation 9289 . 9290) (punctuation 9288 . 9289) (number "500" 9270 . 9287) (string 9213 . 9252) (number 9210 . 9211) (punctuation 9208 . 9209) (punctuation 9207 . 9208) (number "500" 9188 . 9206) (string 9139 . 9170) (number 9136 . 9137) (punctuation 9134 . 9135) (punctuation 9133 . 9134) (number "20" 9122 . 9132) (string 9072 . 9104) (number 9069 . 9070) (punctuation 9067 . 9068) (punctuation 9066 . 9067) (number "4" 9054 . 9065) (string 9006 . 9036) (number 9003 . 9004) (punctuation 9001 . 9002) (punctuation 9000 . 9001) (number "2" 8990 . 8999) (string 8948 . 8972) (number 8945 . 8946) (punctuation 8943 . 8944) (punctuation 8942 . 8943) (number "2" 8938 . 8941) (string 8867 . 8920) (number "5" 8855 . 8865) (punctuation 8853 . 8854) (punctuation 8852 . 8853) (number "1" 8834 . 8851) (punctuation 8832 . 8833) (punctuation 8831 . 8832) (number 8829 . 8830) (punctuation 8827 . 8828) (number "1" 8809 . 8826) (string 8759 . 8791) (number 8756 . 8757) (punctuation 8754 . 8755) (punctuation 8753 . 8754) (number "5" 8742 . 8752) (string 8683 . 8724) (number 8680 . 8681) (punctuation 8678 . 8679) (number "0.7" 8665 . 8677) (punctuation 8663 . 8664) (punctuation 8662 . 8663) (number 8660 . 8661) (punctuation 8658 . 8659) (number "0.7" 8645 . 8657))
+    :lexical-table 
+        '(("FOLLOW_MOVE" . ((symbol "true" 726 . 730)))
+          ("BAR_HEIGHT" . ((number "20" 1333 . 1335)))
+          ("FLOAT_SPAWN_WIDTH" . ((number "500" 2356 . 2359)))
+          ("BORDER_FOCUS" . ((string "\"#70898F\"" 989 . 998)))
+          ("BAR_BOTTOM" . ((symbol "true" 1424 . 1428)))
+          ("CENTER_FLOATING" . ((symbol "true" 1637 . 1641)))
+          ("MASTER_RATIO" . ((number "0.7" 1819 . 1822)))
+          ("SCRATCHPAD_HEIGHT" . ((number "500" 2892 . 2895)))
+          ("COUNT_MOD" . ((symbol "Mod1Mask" 304 . 312)))
+          ("FOCUS_MOUSE_CLICK" . ((symbol "true" 611 . 615)))
+          ("GAP" . ((number "2" 792 . 793)))
+          ("DEBUG_ENABLE" . ((symbol "false" 846 . 851)))
+          ("WORKSPACES" . ((number "5" 452 . 453)))
+          ("LOG_LEVEL" . ((symbol "LOG_INFO" 2100 . 2108)))
+          ("CONFIG_H")
+          ("MODKEY" . ((symbol "Mod4Mask" 201 . 209)))
+          ("FLOAT_SPAWN_HEIGHT" . ((number "500" 2523 . 2526)))
+          ("DELETE_REGISTER_SIZE" . ((number "5" 2811 . 2812)))
+          ("OTHER_MOD" . ((symbol "Mod1Mask" 395 . 403)))
+          ("FOCUS_MOUSE" . ((symbol "false" 539 . 544)))
+          ("BORDER_URGENT" . ((string "\"#FF0000\"" 1251 . 1260)))
+          ("OP_GAP_SIZE" . ((number "4" 1543 . 1544)))
+          ("HOWM_PATH" . ((string "\"/usr/bin/howm\"" 2660 . 2675)))
+          ("DEFAULT_WORKSPACE" . ((number "1" 2193 . 2194)))
+          ("BORDER_PX" . ((number "2" 913 . 914)))
+          ("BORDER_PREV_FOCUS" . ((string "\"#74718E\"" 1167 . 1176)))
+          ("ZOOM_GAP" . ((symbol "true" 1712 . 1716)))
+          ("SCRATCHPAD_WIDTH" . ((number "500" 2973 . 2976)))
+          ("BORDER_UNFOCUS" . ((string "\"#555555\"" 1077 . 1086)))
+          )
+
+    )
+   )
+  :file "!home!chz!Projects!CWork!howm!semantic.cache"
+  :semantic-tag-version "2.0"
+  :semanticdb-version "2.2"
+  )

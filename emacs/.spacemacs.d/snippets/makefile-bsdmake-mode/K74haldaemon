@@ -1,0 +1,1666 @@
+;; Object mtd/
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "mtd/"
+  :tables (list 
+   (semanticdb-table "mtd.h"
+    :major-mode 'c-mode
+    :tags 
+        '( ("__MTD_MTD_H__" variable (:constant-flag t) nil [829 842])
+            ("linux/types.h" include (:system-flag t) nil [844 868])
+            ("linux/module.h" include (:system-flag t) nil [869 894])
+            ("linux/uio.h" include (:system-flag t) nil [895 917])
+            ("linux/notifier.h" include (:system-flag t) nil [918 945])
+            ("linux/device.h" include (:system-flag t) nil [946 971])
+            ("mtd/mtd-abi.h" include (:system-flag t) nil [973 997])
+            ("asm/div64.h" include (:system-flag t) nil [999 1021])
+            ("MTD_CHAR_MAJOR" variable (:constant-flag t) nil [1031 1045])
+            ("MTD_BLOCK_MAJOR" variable (:constant-flag t) nil [1057 1072])
+            ("MTD_ERASE_PENDING" variable (:constant-flag t) nil [1085 1102])
+            ("MTD_ERASING" variable (:constant-flag t) nil [1122 1133])
+            ("MTD_ERASE_SUSPEND" variable (:constant-flag t) nil [1148 1165])
+            ("MTD_ERASE_DONE" variable (:constant-flag t) nil [1179 1193])
+            ("MTD_ERASE_FAILED" variable (:constant-flag t) nil [1216 1232])
+            ("MTD_FAIL_ADDR_UNKNOWN" variable (:constant-flag t) nil [1254 1275])
+            ("erase_info" type
+               (:members 
+                  ( ("mtd" variable
+                       (:pointer 1
+                        :type ("mtd_info" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol classsubparts) [1512 1533])
+                    ("addr" variable (:type ("uint64_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [1535 1549])
+                    ("len" variable (:type ("uint64_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [1551 1564])
+                    ("fail_addr" variable (:type ("uint64_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [1566 1585])
+                    ("time" variable (:type ("u_long" type (:type "class") nil nil)) (reparse-symbol classsubparts) [1587 1599])
+                    ("retries" variable (:type ("u_long" type (:type "class") nil nil)) (reparse-symbol classsubparts) [1601 1616])
+                    ("dev" variable (:type "unsigned int") (reparse-symbol classsubparts) [1618 1631])
+                    ("cell" variable (:type "unsigned int") (reparse-symbol classsubparts) [1633 1647])
+                    ("callback" variable
+                       (:functionpointer-flag t
+                        :type "void")
+                        (reparse-symbol classsubparts) [1649 1692])
+                    ("priv" variable (:type ("u_long" type (:type "class") nil nil)) (reparse-symbol classsubparts) [1694 1706])
+                    ("state" variable (:type ("u_char" type (:type "class") nil nil)) (reparse-symbol classsubparts) [1708 1721])
+                    ("next" variable
+                       (:pointer 1
+                        :type ("erase_info" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol classsubparts) [1723 1747]))                  
+                :type "struct")
+                nil [1491 1750])
+            ("mtd_erase_region_info" type
+               (:members 
+                  ( ("offset" variable (:type ("uint64_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [1784 1800])
+                    ("erasesize" variable (:type ("uint32_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [1869 1888])
+                    ("numblocks" variable (:type ("uint32_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [1913 1932])
+                    ("lockmap" variable
+                       (:pointer 1
+                        :type "unsigned long")
+                        (reparse-symbol classsubparts) [1986 2009]))                  
+                :type "struct")
+                nil [1752 2046])
+            ("mtd_oob_mode_t" type
+               (:typedef ("" type
+                     (:members 
+                        ( ("MTD_OOB_PLACE" variable
+                             (:constant-flag t
+                              :type "int")
+                              (reparse-symbol enumsubparts) [2334 2348])
+                          ("MTD_OOB_AUTO" variable
+                             (:constant-flag t
+                              :type "int")
+                              (reparse-symbol enumsubparts) [2350 2363])
+                          ("MTD_OOB_RAW" variable
+                             (:constant-flag t
+                              :type "int")
+                              (reparse-symbol enumsubparts) [2365 2377]))                        
+                      :type "enum")
+                      nil nil)
+                :type "typedef")
+                nil [2318 2395])
+            ("mtd_oob_ops" type
+               (:members 
+                  ( ("mode" variable (:type ("mtd_oob_mode_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [3052 3072])
+                    ("len" variable (:type ("size_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [3074 3086])
+                    ("retlen" variable (:type ("size_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [3088 3103])
+                    ("ooblen" variable (:type ("size_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [3105 3120])
+                    ("oobretlen" variable (:type ("size_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [3122 3140])
+                    ("ooboffs" variable (:type ("uint32_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [3142 3159])
+                    ("datbuf" variable
+                       (:pointer 1
+                        :type ("uint8_t" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [3161 3178])
+                    ("oobbuf" variable
+                       (:pointer 1
+                        :type ("uint8_t" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [3180 3197]))                  
+                :type "struct")
+                nil [3030 3200])
+            ("MTD_MAX_OOBFREE_ENTRIES_LARGE" variable (:constant-flag t) nil [3210 3239])
+            ("MTD_MAX_ECCPOS_ENTRIES_LARGE" variable (:constant-flag t) nil [3251 3279])
+            ("nand_ecclayout" type
+               (:members 
+                  ( ("eccbytes" variable (:type ("__u32" type (:type "class") nil nil)) (reparse-symbol classsubparts) [3609 3624])
+                    ("eccpos" variable
+                       (:dereference 1
+                        :type ("__u32" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [3626 3669])
+                    ("oobavail" variable (:type ("__u32" type (:type "class") nil nil)) (reparse-symbol classsubparts) [3671 3686])
+                    ("oobfree" variable
+                       (:dereference 1
+                        :type ("nand_oobfree" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol classsubparts) [3688 3747]))                  
+                :type "struct")
+                nil [3584 3750])
+            ("mtd_info" type
+               (:members 
+                  ( ("type" variable (:type ("u_char" type (:type "class") nil nil)) (reparse-symbol classsubparts) [3771 3783])
+                    ("flags" variable (:type ("uint32_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [3785 3800])
+                    ("size" variable (:type ("uint64_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [3802 3816])
+                    ("erasesize" variable (:type ("uint32_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [4022 4041])
+                    ("writesize" variable (:type ("uint32_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [4426 4445])
+                    ("writebufsize" variable (:type ("uint32_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [4913 4935])
+                    ("oobsize" variable (:type ("uint32_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [4938 4955])
+                    ("oobavail" variable (:type ("uint32_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [5001 5019])
+                    ("erasesize_shift" variable (:type "unsigned int") (reparse-symbol classsubparts) [5198 5227])
+                    ("writesize_shift" variable (:type "unsigned int") (reparse-symbol classsubparts) [5229 5258])
+                    ("erasesize_mask" variable (:type "unsigned int") (reparse-symbol classsubparts) [5318 5346])
+                    ("writesize_mask" variable (:type "unsigned int") (reparse-symbol classsubparts) [5348 5376])
+                    ("name" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol classsubparts) [5414 5431])
+                    ("index" variable (:type "int") (reparse-symbol classsubparts) [5433 5443])
+                    ("ecclayout" variable
+                       (:pointer 1
+                        :type ("nand_ecclayout" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol classsubparts) [5496 5529])
+                    ("numeraseregions" variable (:type "int") (reparse-symbol classsubparts) [5667 5687])
+                    ("eraseregions" variable
+                       (:pointer 1
+                        :type ("mtd_erase_region_info" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol classsubparts) [5689 5732])
+                    ("erase" variable
+                       (:functionpointer-flag t
+                        :type "int")
+                        (reparse-symbol classsubparts) [6033 6095])
+                    ("point" variable
+                       (:functionpointer-flag t
+                        :type "int")
+                        (reparse-symbol classsubparts) [6184 6300])
+                    ("unpoint" variable
+                       (:functionpointer-flag t
+                        :type "void")
+                        (reparse-symbol classsubparts) [6370 6434])
+                    ("get_unmapped_area" variable
+                       (:functionpointer-flag t
+                        :type "unsigned long")
+                        (reparse-symbol classsubparts) [6615 6762])
+                    ("backing_dev_info" variable
+                       (:pointer 1
+                        :type ("backing_dev_info" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol classsubparts) [6851 6893])
+                    ("read" variable
+                       (:functionpointer-flag t
+                        :type "int")
+                        (reparse-symbol classsubparts) [6897 6986])
+                    ("write" variable
+                       (:functionpointer-flag t
+                        :type "int")
+                        (reparse-symbol classsubparts) [6988 7082])
+                    ("panic_write" variable
+                       (:functionpointer-flag t
+                        :type "int")
+                        (reparse-symbol classsubparts) [7481 7581])
+                    ("read_oob" variable
+                       (:functionpointer-flag t
+                        :type "int")
+                        (reparse-symbol classsubparts) [7584 7665])
+                    ("write_oob" variable
+                       (:functionpointer-flag t
+                        :type "int")
+                        (reparse-symbol classsubparts) [7667 7747])
+                    ("get_fact_prot_info" variable
+                       (:functionpointer-flag t
+                        :type "int")
+                        (reparse-symbol classsubparts) [7924 8007])
+                    ("read_fact_prot_reg" variable
+                       (:functionpointer-flag t
+                        :type "int")
+                        (reparse-symbol classsubparts) [8009 8112])
+                    ("get_user_prot_info" variable
+                       (:functionpointer-flag t
+                        :type "int")
+                        (reparse-symbol classsubparts) [8114 8197])
+                    ("read_user_prot_reg" variable
+                       (:functionpointer-flag t
+                        :type "int")
+                        (reparse-symbol classsubparts) [8199 8302])
+                    ("write_user_prot_reg" variable
+                       (:functionpointer-flag t
+                        :type "int")
+                        (reparse-symbol classsubparts) [8304 8408])
+                    ("lock_user_prot_reg" variable
+                       (:functionpointer-flag t
+                        :type "int")
+                        (reparse-symbol classsubparts) [8410 8484])
+                    ("writev" variable
+                       (:functionpointer-flag t
+                        :type "int")
+                        (reparse-symbol classsubparts) [8632 8742])
+                    ("sync" variable
+                       (:functionpointer-flag t
+                        :type "void")
+                        (reparse-symbol classsubparts) [8757 8793])
+                    ("lock" variable
+                       (:functionpointer-flag t
+                        :type "int")
+                        (reparse-symbol classsubparts) [8833 8894])
+                    ("unlock" variable
+                       (:functionpointer-flag t
+                        :type "int")
+                        (reparse-symbol classsubparts) [8896 8959])
+                    ("is_locked" variable
+                       (:functionpointer-flag t
+                        :type "int")
+                        (reparse-symbol classsubparts) [8961 9027])
+                    ("suspend" variable
+                       (:functionpointer-flag t
+                        :type "int")
+                        (reparse-symbol classsubparts) [9064 9102])
+                    ("resume" variable
+                       (:functionpointer-flag t
+                        :type "void")
+                        (reparse-symbol classsubparts) [9104 9142])
+                    ("block_isbad" variable
+                       (:functionpointer-flag t
+                        :type "int")
+                        (reparse-symbol classsubparts) [9183 9237])
+                    ("block_markbad" variable
+                       (:functionpointer-flag t
+                        :type "int")
+                        (reparse-symbol classsubparts) [9239 9295])
+                    ("reboot_notifier" variable (:type ("notifier_block" type
+                         (:prototype t
+                          :type "struct")
+                          nil nil)) (reparse-symbol classsubparts) [9298 9336])
+                    ("ecc_stats" variable (:type ("mtd_ecc_stats" type
+                         (:prototype t
+                          :type "struct")
+                          nil nil)) (reparse-symbol classsubparts) [9403 9434])
+                    ("subpage_sft" variable (:type "int") (reparse-symbol classsubparts) [9464 9480])
+                    ("priv" variable
+                       (:pointer 1
+                        :type "void")
+                        (reparse-symbol classsubparts) [9483 9494])
+                    ("owner" variable
+                       (:pointer 1
+                        :type ("module" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol classsubparts) [9497 9518])
+                    ("dev" variable (:type ("device" type
+                         (:prototype t
+                          :type "struct")
+                          nil nil)) (reparse-symbol classsubparts) [9520 9538])
+                    ("usecount" variable (:type "int") (reparse-symbol classsubparts) [9540 9553])
+                    ("get_device" variable
+                       (:functionpointer-flag t
+                        :type "int")
+                        (reparse-symbol classsubparts) [9810 9851])
+                    ("put_device" variable
+                       (:functionpointer-flag t
+                        :type "void")
+                        (reparse-symbol classsubparts) [9853 9895]))                  
+                :type "struct")
+                nil [3752 9898])
+            ("dev_to_mtd" function
+               (:pointer 1
+                :typemodifiers ("static" "inline")
+                :arguments 
+                  ( ("dev" variable
+                       (:pointer 1
+                        :type ("device" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [9942 9961]))                  
+                :type ("mtd_info" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [9900 10008])
+            ("mtd_div_by_eb" function
+               (:typemodifiers ("static" "inline")
+                :arguments 
+                  ( ("sz" variable (:type ("uint64_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [10047 10059])
+                    ("mtd" variable
+                       (:pointer 1
+                        :type ("mtd_info" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [10060 10081]))                  
+                :type ("uint32_t" type (:type "class") nil nil))
+                nil [10010 10190])
+            ("mtd_mod_by_eb" function
+               (:typemodifiers ("static" "inline")
+                :arguments 
+                  ( ("sz" variable (:type ("uint64_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [10229 10241])
+                    ("mtd" variable
+                       (:pointer 1
+                        :type ("mtd_info" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [10242 10263]))                  
+                :type ("uint32_t" type (:type "class") nil nil))
+                nil [10192 10365])
+            ("mtd_div_by_ws" function
+               (:typemodifiers ("static" "inline")
+                :arguments 
+                  ( ("sz" variable (:type ("uint64_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [10404 10416])
+                    ("mtd" variable
+                       (:pointer 1
+                        :type ("mtd_info" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [10417 10438]))                  
+                :type ("uint32_t" type (:type "class") nil nil))
+                nil [10367 10547])
+            ("mtd_mod_by_ws" function
+               (:typemodifiers ("static" "inline")
+                :arguments 
+                  ( ("sz" variable (:type ("uint64_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [10586 10598])
+                    ("mtd" variable
+                       (:pointer 1
+                        :type ("mtd_info" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [10599 10620]))                  
+                :type ("uint32_t" type (:type "class") nil nil))
+                nil [10549 10722])
+            ("mtd_partition" type
+               (:prototype t
+                :type "struct")
+                nil [10762 10783])
+            ("mtd_device_register" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("master" variable
+                       (:pointer 1
+                        :type ("mtd_info" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [10816 10840])
+                    ("parts" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("mtd_partition" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [10851 10885])
+                    ("nr_parts" variable (:type "int") (reparse-symbol arg-sub-list) [10896 10909]))                  
+                :type "int")
+                nil [10785 10910])
+            ("mtd_device_unregister" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("master" variable
+                       (:pointer 1
+                        :type ("mtd_info" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [10944 10968]))                  
+                :type "int")
+                nil [10911 10969])
+            ("get_mtd_device" function
+               (:prototype-flag t
+                :pointer 1
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("mtd" variable
+                       (:pointer 1
+                        :type ("mtd_info" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [11009 11030])
+                    ("num" variable (:type "int") (reparse-symbol arg-sub-list) [11031 11039]))                  
+                :type ("mtd_info" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [10970 11040])
+            ("__get_mtd_device" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("mtd" variable
+                       (:pointer 1
+                        :type ("mtd_info" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [11069 11090]))                  
+                :type "int")
+                nil [11041 11091])
+            ("__put_mtd_device" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("mtd" variable
+                       (:pointer 1
+                        :type ("mtd_info" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [11121 11142]))                  
+                :type "void")
+                nil [11092 11143])
+            ("get_mtd_device_nm" function
+               (:prototype-flag t
+                :pointer 1
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("name" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [11186 11203]))                  
+                :type ("mtd_info" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [11144 11204])
+            ("put_mtd_device" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("mtd" variable
+                       (:pointer 1
+                        :type ("mtd_info" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [11232 11253]))                  
+                :type "void")
+                nil [11205 11254])
+            ("mtd_notifier" type
+               (:members 
+                  ( ("add" variable
+                       (:functionpointer-flag t
+                        :type "void")
+                        (reparse-symbol classsubparts) [11280 11314])
+                    ("remove" variable
+                       (:functionpointer-flag t
+                        :type "void")
+                        (reparse-symbol classsubparts) [11316 11353])
+                    ("list" variable (:type ("list_head" type
+                         (:prototype t
+                          :type "struct")
+                          nil nil)) (reparse-symbol classsubparts) [11355 11377]))                  
+                :type "struct")
+                nil [11257 11380])
+            ("register_mtd_user" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("" variable
+                       (:pointer 1
+                        :type ("mtd_notifier" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [11414 11438]))                  
+                :type "void")
+                nil [11383 11440])
+            ("unregister_mtd_user" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("old" variable
+                       (:pointer 1
+                        :type ("mtd_notifier" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [11473 11498]))                  
+                :type "int")
+                nil [11441 11499])
+            ("default_mtd_writev" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("mtd" variable
+                       (:pointer 1
+                        :type ("mtd_info" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [11524 11545])
+                    ("vecs" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("kvec" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [11546 11570])
+                    ("count" variable (:type "unsigned long") (reparse-symbol arg-sub-list) [11580 11600])
+                    ("to" variable (:type ("loff_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [11601 11611])
+                    ("retlen" variable
+                       (:pointer 1
+                        :type ("size_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [11612 11627]))                  
+                :type "int")
+                nil [11501 11628])
+            ("default_mtd_readv" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("mtd" variable
+                       (:pointer 1
+                        :type ("mtd_info" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [11652 11673])
+                    ("vecs" variable
+                       (:pointer 1
+                        :type ("kvec" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [11674 11692])
+                    ("count" variable (:type "unsigned long") (reparse-symbol arg-sub-list) [11701 11721])
+                    ("from" variable (:type ("loff_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [11722 11734])
+                    ("retlen" variable
+                       (:pointer 1
+                        :type ("size_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [11735 11750]))                  
+                :type "int")
+                nil [11630 11751])
+            ("mtd_kmalloc_up_to" function
+               (:prototype-flag t
+                :pointer 1
+                :arguments 
+                  ( ("mtd" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("mtd_info" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [11777 11804])
+                    ("size" variable
+                       (:pointer 1
+                        :type ("size_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [11805 11818]))                  
+                :type "void")
+                nil [11753 11819])
+            ("mtd_erase_callback" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("instr" variable
+                       (:pointer 1
+                        :type ("erase_info" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [11845 11870]))                  
+                :type "void")
+                nil [11821 11871])
+            ("MTD_DEBUG_LEVEL0" variable (:constant-flag t) nil [11919 11935])
+            ("MTD_DEBUG_LEVEL1" variable (:constant-flag t) nil [11962 11978])
+            ("MTD_DEBUG_LEVEL2" variable (:constant-flag t) nil [12005 12021])
+            ("MTD_DEBUG_LEVEL3" variable (:constant-flag t) nil [12048 12064])
+            ("DEBUG" variable (:constant-flag t) nil [12270 12275]))          
+    :file "mtd.h"
+    :pointmax 12422
+    :fsize 12423
+    :lastmodtime '(21468 9204 83426 607000)
+    :unmatched-syntax '((NEW 11435 . 11438))
+    :lexical-table 
+        '(("MTD_ERASE_FAILED" . ((number "0x10" 1240 . 1244)))
+          ("MTD_FAIL_ADDR_UNKNOWN" . ((punctuation "-" 1276 . 1277) (symbol "1LL" 1277 . 1280)))
+          ("MTD_ERASE_PENDING" . ((number "0x01" 1109 . 1113)))
+          ("MTD_DEBUG_LEVEL0" . ((semantic-list "(0)" 11936 . 11939)))
+          ("MTD_DEBUG_LEVEL1" . ((semantic-list "(1)" 11979 . 11982)))
+          ("MTD_BLOCK_MAJOR" . ((number "31" 1073 . 1075)))
+          ("MTD_DEBUG_LEVEL2" . ((semantic-list "(2)" 12022 . 12025)))
+          ("__MTD_MTD_H__")
+          ("MTD_DEBUG_LEVEL3" . ((semantic-list "(3)" 12065 . 12068)))
+          ("MTD_ERASING" . ((number "0x02" 1135 . 1139)))
+          ("MTD_ERASE_SUSPEND" . ((number "0x04" 1166 . 1170)))
+          ("MTD_ERASE_DONE" . ((number "0x08" 1203 . 1207)))
+          ("DEBUG" (spp-arg-list ("n" "args...") 12275 . 12287) . 
+              ((DO "do" 12294 . 12296) (semantic-list "{						\\
+		if (0)					\\
+			printk(KERN_INFO args);		\\
+	}" 12297 . 12353) (WHILE "while" 12354 . 12359) (semantic-list "(0)" 12359 . 12362)))
+          ("MTD_CHAR_MAJOR" . ((number "90" 1046 . 1048)))
+          ("MTD_MAX_OOBFREE_ENTRIES_LARGE" . ((number "32" 3240 . 3242)))
+          ("MTD_MAX_ECCPOS_ENTRIES_LARGE" . ((number "448" 3280 . 3283)))
+          )
+
+    )
+   (semanticdb-table "nand.h"
+    :major-mode 'c-mode
+    :tags 
+        '( ("__LINUX_MTD_NAND_H" variable (:constant-flag t) nil [566 584])
+            ("linux/wait.h" include (:system-flag t) nil [586 609])
+            ("linux/spinlock.h" include (:system-flag t) nil [610 637])
+            ("linux/mtd/mtd.h" include (:system-flag t) nil [638 664])
+            ("linux/mtd/flashchip.h" include (:system-flag t) nil [665 697])
+            ("linux/mtd/bbm.h" include (:system-flag t) nil [698 724])
+            ("mtd_info" type
+               (:prototype t
+                :type "struct")
+                nil [726 742])
+            ("nand_flash_dev" type
+               (:prototype t
+                :type "struct")
+                nil [743 765])
+            ("nand_scan" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("mtd" variable
+                       (:pointer 1
+                        :type ("mtd_info" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [825 846])
+                    ("max_chips" variable (:type "int") (reparse-symbol arg-sub-list) [847 861]))                  
+                :type "int")
+                nil [804 862])
+            ("nand_scan_ident" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("mtd" variable
+                       (:pointer 1
+                        :type ("mtd_info" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [1029 1050])
+                    ("max_chips" variable (:type "int") (reparse-symbol arg-sub-list) [1051 1065])
+                    ("table" variable
+                       (:pointer 1
+                        :type ("nand_flash_dev" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [1072 1101]))                  
+                :type "int")
+                nil [1002 1102])
+            ("nand_scan_tail" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("mtd" variable
+                       (:pointer 1
+                        :type ("mtd_info" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [1129 1150]))                  
+                :type "int")
+                nil [1103 1151])
+            ("nand_release" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("mtd" variable
+                       (:pointer 1
+                        :type ("mtd_info" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [1223 1244]))                  
+                :type "void")
+                nil [1198 1245])
+            ("nand_wait_ready" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("mtd" variable
+                       (:pointer 1
+                        :type ("mtd_info" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [1355 1376]))                  
+                :type "void")
+                nil [1327 1377])
+            ("nand_lock" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("mtd" variable
+                       (:pointer 1
+                        :type ("mtd_info" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [1446 1467])
+                    ("ofs" variable (:type ("loff_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [1468 1479])
+                    ("len" variable (:type ("uint64_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [1480 1493]))                  
+                :type "int")
+                nil [1425 1494])
+            ("nand_unlock" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("mtd" variable
+                       (:pointer 1
+                        :type ("mtd_info" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [1558 1579])
+                    ("ofs" variable (:type ("loff_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [1580 1591])
+                    ("len" variable (:type ("uint64_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [1592 1605]))                  
+                :type "int")
+                nil [1535 1606])
+            ("NAND_MAX_CHIPS" variable (:constant-flag t) nil [1667 1681])
+            ("NAND_MAX_OOBSIZE" variable (:constant-flag t) nil [1850 1866])
+            ("NAND_MAX_PAGESIZE" variable (:constant-flag t) nil [1879 1896])
+            ("NAND_NCE" variable (:constant-flag t) nil [2099 2107])
+            ("NAND_CLE" variable (:constant-flag t) nil [2176 2184])
+            ("NAND_ALE" variable (:constant-flag t) nil [2253 2261])
+            ("NAND_CTRL_CLE" variable (:constant-flag t) nil [2277 2290])
+            ("NAND_CTRL_ALE" variable (:constant-flag t) nil [2322 2335])
+            ("NAND_CTRL_CHANGE" variable (:constant-flag t) nil [2367 2383])
+            ("NAND_CMD_READ0" variable (:constant-flag t) nil [2437 2451])
+            ("NAND_CMD_READ1" variable (:constant-flag t) nil [2463 2477])
+            ("NAND_CMD_RNDOUT" variable (:constant-flag t) nil [2489 2504])
+            ("NAND_CMD_PAGEPROG" variable (:constant-flag t) nil [2516 2533])
+            ("NAND_CMD_READOOB" variable (:constant-flag t) nil [2547 2563])
+            ("NAND_CMD_ERASE1" variable (:constant-flag t) nil [2577 2592])
+            ("NAND_CMD_STATUS" variable (:constant-flag t) nil [2607 2622])
+            ("NAND_CMD_STATUS_MULTI" variable (:constant-flag t) nil [2637 2658])
+            ("NAND_CMD_SEQIN" variable (:constant-flag t) nil [2672 2686])
+            ("NAND_CMD_RNDIN" variable (:constant-flag t) nil [2701 2715])
+            ("NAND_CMD_READID" variable (:constant-flag t) nil [2730 2745])
+            ("NAND_CMD_ERASE2" variable (:constant-flag t) nil [2760 2775])
+            ("NAND_CMD_PARAM" variable (:constant-flag t) nil [2790 2804])
+            ("NAND_CMD_RESET" variable (:constant-flag t) nil [2819 2833])
+            ("NAND_CMD_LOCK" variable (:constant-flag t) nil [2849 2862])
+            ("NAND_CMD_UNLOCK1" variable (:constant-flag t) nil [2877 2893])
+            ("NAND_CMD_UNLOCK2" variable (:constant-flag t) nil [2907 2923])
+            ("NAND_CMD_READSTART" variable (:constant-flag t) nil [2985 3003])
+            ("NAND_CMD_RNDOUTSTART" variable (:constant-flag t) nil [3017 3037])
+            ("NAND_CMD_CACHEDPROG" variable (:constant-flag t) nil [3051 3070])
+            ("NAND_CMD_DEPLETE1" variable (:constant-flag t) nil [3395 3412])
+            ("NAND_CMD_DEPLETE2" variable (:constant-flag t) nil [3427 3444])
+            ("NAND_CMD_STATUS_MULTI" variable (:constant-flag t) nil [3458 3479])
+            ("NAND_CMD_STATUS_ERROR" variable (:constant-flag t) nil [3493 3514])
+            ("NAND_CMD_STATUS_ERROR0" variable (:constant-flag t) nil [3570 3592])
+            ("NAND_CMD_STATUS_ERROR1" variable (:constant-flag t) nil [3606 3628])
+            ("NAND_CMD_STATUS_ERROR2" variable (:constant-flag t) nil [3642 3664])
+            ("NAND_CMD_STATUS_ERROR3" variable (:constant-flag t) nil [3678 3700])
+            ("NAND_CMD_STATUS_RESET" variable (:constant-flag t) nil [3714 3735])
+            ("NAND_CMD_STATUS_CLEAR" variable (:constant-flag t) nil [3749 3770])
+            ("NAND_CMD_NONE" variable (:constant-flag t) nil [3785 3798])
+            ("NAND_STATUS_FAIL" variable (:constant-flag t) nil [3830 3846])
+            ("NAND_STATUS_FAIL_N1" variable (:constant-flag t) nil [3860 3879])
+            ("NAND_STATUS_TRUE_READY" variable (:constant-flag t) nil [3893 3915])
+            ("NAND_STATUS_READY" variable (:constant-flag t) nil [3929 3946])
+            ("NAND_STATUS_WP" variable (:constant-flag t) nil [3960 3974])
+            ("nand_ecc_modes_t" type
+               (:typedef ("" type
+                     (:members 
+                        ( ("NAND_ECC_NONE" variable
+                             (:constant-flag t
+                              :type "int")
+                              (reparse-symbol enumsubparts) [4032 4046])
+                          ("NAND_ECC_SOFT" variable
+                             (:constant-flag t
+                              :type "int")
+                              (reparse-symbol enumsubparts) [4048 4062])
+                          ("NAND_ECC_HW" variable
+                             (:constant-flag t
+                              :type "int")
+                              (reparse-symbol enumsubparts) [4064 4076])
+                          ("NAND_ECC_HW_SYNDROME" variable
+                             (:constant-flag t
+                              :type "int")
+                              (reparse-symbol enumsubparts) [4078 4099])
+                          ("NAND_ECC_HW_OOB_FIRST" variable
+                             (:constant-flag t
+                              :type "int")
+                              (reparse-symbol enumsubparts) [4101 4123])
+                          ("NAND_ECC_SOFT_BCH" variable
+                             (:constant-flag t
+                              :type "int")
+                              (reparse-symbol enumsubparts) [4125 4143]))                        
+                      :type "enum")
+                      nil nil)
+                :type "typedef")
+                nil [4016 4163])
+            ("NAND_ECC_READ" variable (:constant-flag t) nil [4244 4257])
+            ("NAND_ECC_WRITE" variable (:constant-flag t) nil [4304 4318])
+            ("NAND_ECC_READSYN" variable (:constant-flag t) nil [4395 4411])
+            ("NAND_GET_DEVICE" variable (:constant-flag t) nil [4475 4490])
+            ("NAND_NO_AUTOINCR" variable (:constant-flag t) nil [4625 4641])
+            ("NAND_BUSWIDTH_16" variable (:constant-flag t) nil [4686 4702])
+            ("NAND_NO_PADDING" variable (:constant-flag t) nil [4780 4795])
+            ("NAND_CACHEPRG" variable (:constant-flag t) nil [4854 4867])
+            ("NAND_COPYBACK" variable (:constant-flag t) nil [4922 4935])
+            ("NAND_IS_AND" variable (:constant-flag t) nil [5084 5095])
+            ("NAND_4PAGE_ARRAY" variable (:constant-flag t) nil [5213 5229])
+            ("BBT_AUTO_REFRESH" variable (:constant-flag t) nil [5445 5461])
+            ("NAND_NO_READRDY" variable (:constant-flag t) nil [5611 5626])
+            ("NAND_NO_SUBPAGE_WRITE" variable (:constant-flag t) nil [5688 5709])
+            ("NAND_BROKEN_XD" variable (:constant-flag t) nil [5802 5816])
+            ("NAND_ROM" variable (:constant-flag t) nil [5891 5899])
+            ("NAND_SAMSUNG_LP_OPTIONS" variable (:constant-flag t) nil [5972 5995])
+            ("NAND_CANAUTOINCR" variable (:constant-flag t) nil [6093 6109])
+            ("NAND_MUST_PAD" variable (:constant-flag t) nil [6162 6175])
+            ("NAND_HAS_CACHEPROG" variable (:constant-flag t) nil [6227 6245])
+            ("NAND_HAS_COPYBACK" variable (:constant-flag t) nil [6294 6311])
+            ("NAND_SUBPAGE_READ" variable (:constant-flag t) nil [6425 6442])
+            ("NAND_CHIPOPTIONS_MSK" variable (:constant-flag t) nil [6597 6617])
+            ("NAND_USE_FLASH_BBT" variable (:constant-flag t) nil [6839 6857])
+            ("NAND_SKIP_BBTSCAN" variable (:constant-flag t) nil [6937 6954])
+            ("NAND_OWN_BUFFERS" variable (:constant-flag t) nil [7099 7115])
+            ("NAND_SCAN_SILENT_NODEV" variable (:constant-flag t) nil [7191 7213])
+            ("NAND_USE_FLASH_BBT_NO_OOB" variable (:constant-flag t) nil [7334 7359])
+            ("NAND_CREATE_EMPTY_BBT" variable (:constant-flag t) nil [7456 7477])
+            ("NAND_CONTROLLER_ALLOC" variable (:constant-flag t) nil [7578 7599])
+            ("NAND_CI_CHIPNR_MSK" variable (:constant-flag t) nil [7646 7664])
+            ("NAND_CI_CELLTYPE_MSK" variable (:constant-flag t) nil [7678 7698])
+            ("nand_chip" type
+               (:prototype t
+                :type "struct")
+                nil [7726 7743])
+            ("nand_onfi_params" type
+               (:members 
+                  ( ("sig" variable
+                       (:dereference 1
+                        :type ("u8" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [7831 7841])
+                    ("revision" variable (:type ("__le16" type (:type "class") nil nil)) (reparse-symbol classsubparts) [7843 7859])
+                    ("features" variable (:type ("__le16" type (:type "class") nil nil)) (reparse-symbol classsubparts) [7861 7877])
+                    ("opt_cmd" variable (:type ("__le16" type (:type "class") nil nil)) (reparse-symbol classsubparts) [7879 7894])
+                    ("reserved" variable
+                       (:dereference 1
+                        :type ("u8" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [7896 7912])
+                    ("manufacturer" variable
+                       (:dereference 1
+                        :type "char")
+                        (reparse-symbol classsubparts) [7953 7975])
+                    ("model" variable
+                       (:dereference 1
+                        :type "char")
+                        (reparse-symbol classsubparts) [7977 7992])
+                    ("jedec_id" variable (:type ("u8" type (:type "class") nil nil)) (reparse-symbol classsubparts) [7994 8006])
+                    ("date_code" variable (:type ("__le16" type (:type "class") nil nil)) (reparse-symbol classsubparts) [8008 8025])
+                    ("reserved2" variable
+                       (:dereference 1
+                        :type ("u8" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [8027 8044])
+                    ("byte_per_page" variable (:type ("__le32" type (:type "class") nil nil)) (reparse-symbol classsubparts) [8080 8101])
+                    ("spare_bytes_per_page" variable (:type ("__le16" type (:type "class") nil nil)) (reparse-symbol classsubparts) [8103 8131])
+                    ("data_bytes_per_ppage" variable (:type ("__le32" type (:type "class") nil nil)) (reparse-symbol classsubparts) [8133 8161])
+                    ("spare_bytes_per_ppage" variable (:type ("__le16" type (:type "class") nil nil)) (reparse-symbol classsubparts) [8163 8192])
+                    ("pages_per_block" variable (:type ("__le32" type (:type "class") nil nil)) (reparse-symbol classsubparts) [8194 8217])
+                    ("blocks_per_lun" variable (:type ("__le32" type (:type "class") nil nil)) (reparse-symbol classsubparts) [8219 8241])
+                    ("lun_count" variable (:type ("u8" type (:type "class") nil nil)) (reparse-symbol classsubparts) [8243 8256])
+                    ("addr_cycles" variable (:type ("u8" type (:type "class") nil nil)) (reparse-symbol classsubparts) [8258 8273])
+                    ("bits_per_cell" variable (:type ("u8" type (:type "class") nil nil)) (reparse-symbol classsubparts) [8275 8292])
+                    ("bb_per_lun" variable (:type ("__le16" type (:type "class") nil nil)) (reparse-symbol classsubparts) [8294 8312])
+                    ("block_endurance" variable (:type ("__le16" type (:type "class") nil nil)) (reparse-symbol classsubparts) [8314 8337])
+                    ("guaranteed_good_blocks" variable (:type ("u8" type (:type "class") nil nil)) (reparse-symbol classsubparts) [8339 8365])
+                    ("guaranteed_block_endurance" variable (:type ("__le16" type (:type "class") nil nil)) (reparse-symbol classsubparts) [8367 8401])
+                    ("programs_per_page" variable (:type ("u8" type (:type "class") nil nil)) (reparse-symbol classsubparts) [8403 8424])
+                    ("ppage_attr" variable (:type ("u8" type (:type "class") nil nil)) (reparse-symbol classsubparts) [8426 8440])
+                    ("ecc_bits" variable (:type ("u8" type (:type "class") nil nil)) (reparse-symbol classsubparts) [8442 8454])
+                    ("interleaved_bits" variable (:type ("u8" type (:type "class") nil nil)) (reparse-symbol classsubparts) [8456 8476])
+                    ("interleaved_ops" variable (:type ("u8" type (:type "class") nil nil)) (reparse-symbol classsubparts) [8478 8497])
+                    ("reserved3" variable
+                       (:dereference 1
+                        :type ("u8" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [8499 8516])
+                    ("io_pin_capacitance_max" variable (:type ("u8" type (:type "class") nil nil)) (reparse-symbol classsubparts) [8553 8579])
+                    ("async_timing_mode" variable (:type ("__le16" type (:type "class") nil nil)) (reparse-symbol classsubparts) [8581 8606])
+                    ("program_cache_timing_mode" variable (:type ("__le16" type (:type "class") nil nil)) (reparse-symbol classsubparts) [8608 8641])
+                    ("t_prog" variable (:type ("__le16" type (:type "class") nil nil)) (reparse-symbol classsubparts) [8643 8657])
+                    ("t_bers" variable (:type ("__le16" type (:type "class") nil nil)) (reparse-symbol classsubparts) [8659 8673])
+                    ("t_r" variable (:type ("__le16" type (:type "class") nil nil)) (reparse-symbol classsubparts) [8675 8686])
+                    ("t_ccs" variable (:type ("__le16" type (:type "class") nil nil)) (reparse-symbol classsubparts) [8688 8701])
+                    ("src_sync_timing_mode" variable (:type ("__le16" type (:type "class") nil nil)) (reparse-symbol classsubparts) [8703 8731])
+                    ("src_ssync_features" variable (:type ("__le16" type (:type "class") nil nil)) (reparse-symbol classsubparts) [8733 8759])
+                    ("clk_pin_capacitance_typ" variable (:type ("__le16" type (:type "class") nil nil)) (reparse-symbol classsubparts) [8761 8792])
+                    ("io_pin_capacitance_typ" variable (:type ("__le16" type (:type "class") nil nil)) (reparse-symbol classsubparts) [8794 8824])
+                    ("input_pin_capacitance_typ" variable (:type ("__le16" type (:type "class") nil nil)) (reparse-symbol classsubparts) [8826 8859])
+                    ("input_pin_capacitance_max" variable (:type ("u8" type (:type "class") nil nil)) (reparse-symbol classsubparts) [8861 8890])
+                    ("driver_strenght_support" variable (:type ("u8" type (:type "class") nil nil)) (reparse-symbol classsubparts) [8892 8919])
+                    ("t_int_r" variable (:type ("__le16" type (:type "class") nil nil)) (reparse-symbol classsubparts) [8921 8936])
+                    ("t_ald" variable (:type ("__le16" type (:type "class") nil nil)) (reparse-symbol classsubparts) [8938 8951])
+                    ("reserved4" variable
+                       (:dereference 1
+                        :type ("u8" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [8953 8969])
+                    ("reserved5" variable
+                       (:dereference 1
+                        :type ("u8" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [8986 9003])
+                    ("crc" variable (:type ("__le16" type (:type "class") nil nil)) (reparse-symbol classsubparts) [9006 9017]))                  
+                :type "struct")
+                nil [7745 9044])
+            ("ONFI_CRC_BASE" variable (:constant-flag t) nil [9054 9067])
+            ("nand_hw_control" type
+               (:members 
+                  ( ("lock" variable (:type ("spinlock_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [9491 9507])
+                    ("active" variable
+                       (:pointer 1
+                        :type ("nand_chip" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol classsubparts) [9509 9534])
+                    ("wq" variable (:type ("wait_queue_head_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [9536 9557]))                  
+                :type "struct")
+                nil [9465 9560])
+            ("nand_ecc_ctrl" type
+               (:members 
+                  ( ("mode" variable (:type ("nand_ecc_modes_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [10762 10784])
+                    ("steps" variable (:type "int") (reparse-symbol classsubparts) [10786 10796])
+                    ("size" variable (:type "int") (reparse-symbol classsubparts) [10798 10807])
+                    ("bytes" variable (:type "int") (reparse-symbol classsubparts) [10809 10819])
+                    ("total" variable (:type "int") (reparse-symbol classsubparts) [10821 10831])
+                    ("prepad" variable (:type "int") (reparse-symbol classsubparts) [10833 10844])
+                    ("postpad" variable (:type "int") (reparse-symbol classsubparts) [10846 10858])
+                    ("layout" variable
+                       (:pointer 1
+                        :type ("nand_ecclayout" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol classsubparts) [10860 10890])
+                    ("priv" variable
+                       (:pointer 1
+                        :type "void")
+                        (reparse-symbol classsubparts) [10892 10903])
+                    ("hwctl" variable
+                       (:functionpointer-flag t
+                        :type "void")
+                        (reparse-symbol classsubparts) [10905 10951])
+                    ("calculate" variable
+                       (:functionpointer-flag t
+                        :type "int")
+                        (reparse-symbol classsubparts) [10953 11034])
+                    ("correct" variable
+                       (:functionpointer-flag t
+                        :type "int")
+                        (reparse-symbol classsubparts) [11036 11128])
+                    ("read_page_raw" variable
+                       (:functionpointer-flag t
+                        :type "int")
+                        (reparse-symbol classsubparts) [11130 11224])
+                    ("write_page_raw" variable
+                       (:functionpointer-flag t
+                        :type "void")
+                        (reparse-symbol classsubparts) [11226 11318])
+                    ("read_page" variable
+                       (:functionpointer-flag t
+                        :type "int")
+                        (reparse-symbol classsubparts) [11320 11410])
+                    ("read_subpage" variable
+                       (:functionpointer-flag t
+                        :type "int")
+                        (reparse-symbol classsubparts) [11412 11524])
+                    ("write_page" variable
+                       (:functionpointer-flag t
+                        :type "void")
+                        (reparse-symbol classsubparts) [11526 11614])
+                    ("read_oob" variable
+                       (:functionpointer-flag t
+                        :type "int")
+                        (reparse-symbol classsubparts) [11616 11703])
+                    ("write_oob" variable
+                       (:functionpointer-flag t
+                        :type "int")
+                        (reparse-symbol classsubparts) [11705 11781]))                  
+                :type "struct")
+                nil [10738 11784])
+            ("nand_buffers" type
+               (:members 
+                  ( ("ecccalc" variable
+                       (:dereference 1
+                        :type ("uint8_t" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [12101 12135])
+                    ("ecccode" variable
+                       (:dereference 1
+                        :type ("uint8_t" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [12137 12171])
+                    ("databuf" variable
+                       (:dereference 1
+                        :type ("uint8_t" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [12173 12227]))                  
+                :type "struct")
+                nil [12078 12230])
+            ("nand_chip" type
+               (:members 
+                  ( ("IO_ADDR_R" variable
+                       (:pointer 1
+                        :type ("__iomem" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [16216 16235])
+                    ("IO_ADDR_W" variable
+                       (:pointer 1
+                        :type ("__iomem" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [16242 16261])
+                    ("read_byte" variable
+                       (:functionpointer-flag t
+                        :type ("uint8_t" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [16264 16307])
+                    ("read_word" variable
+                       (:functionpointer-flag t
+                        :type ("u16" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [16309 16348])
+                    ("write_buf" variable
+                       (:functionpointer-flag t
+                        :type "void")
+                        (reparse-symbol classsubparts) [16350 16419])
+                    ("read_buf" variable
+                       (:functionpointer-flag t
+                        :type "void")
+                        (reparse-symbol classsubparts) [16421 16483])
+                    ("verify_buf" variable
+                       (:functionpointer-flag t
+                        :type "int")
+                        (reparse-symbol classsubparts) [16485 16554])
+                    ("select_chip" variable
+                       (:functionpointer-flag t
+                        :type "void")
+                        (reparse-symbol classsubparts) [16556 16608])
+                    ("block_bad" variable
+                       (:functionpointer-flag t
+                        :type "int")
+                        (reparse-symbol classsubparts) [16610 16674])
+                    ("block_markbad" variable
+                       (:functionpointer-flag t
+                        :type "int")
+                        (reparse-symbol classsubparts) [16676 16731])
+                    ("cmd_ctrl" variable
+                       (:functionpointer-flag t
+                        :type "void")
+                        (reparse-symbol classsubparts) [16733 16800])
+                    ("init_size" variable
+                       (:functionpointer-flag t
+                        :type "int")
+                        (reparse-symbol classsubparts) [16802 16881])
+                    ("dev_ready" variable
+                       (:functionpointer-flag t
+                        :type "int")
+                        (reparse-symbol classsubparts) [16883 16922])
+                    ("cmdfunc" variable
+                       (:functionpointer-flag t
+                        :type "void")
+                        (reparse-symbol classsubparts) [16924 17010])
+                    ("waitfunc" variable
+                       (:functionpointer-flag t
+                        :type "int")
+                        (reparse-symbol classsubparts) [17012 17073])
+                    ("erase_cmd" variable
+                       (:functionpointer-flag t
+                        :type "void")
+                        (reparse-symbol classsubparts) [17075 17125])
+                    ("scan_bbt" variable
+                       (:functionpointer-flag t
+                        :type "int")
+                        (reparse-symbol classsubparts) [17127 17165])
+                    ("errstat" variable
+                       (:functionpointer-flag t
+                        :type "int")
+                        (reparse-symbol classsubparts) [17167 17264])
+                    ("write_page" variable
+                       (:functionpointer-flag t
+                        :type "int")
+                        (reparse-symbol classsubparts) [17266 17384])
+                    ("chip_delay" variable (:type "int") (reparse-symbol classsubparts) [17387 17402])
+                    ("options" variable (:type "unsigned int") (reparse-symbol classsubparts) [17404 17425])
+                    ("page_shift" variable (:type "int") (reparse-symbol classsubparts) [17428 17443])
+                    ("phys_erase_shift" variable (:type "int") (reparse-symbol classsubparts) [17445 17466])
+                    ("bbt_erase_shift" variable (:type "int") (reparse-symbol classsubparts) [17468 17488])
+                    ("chip_shift" variable (:type "int") (reparse-symbol classsubparts) [17490 17505])
+                    ("numchips" variable (:type "int") (reparse-symbol classsubparts) [17507 17520])
+                    ("chipsize" variable (:type ("uint64_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [17522 17540])
+                    ("pagemask" variable (:type "int") (reparse-symbol classsubparts) [17542 17555])
+                    ("pagebuf" variable (:type "int") (reparse-symbol classsubparts) [17557 17569])
+                    ("subpagesize" variable (:type "int") (reparse-symbol classsubparts) [17571 17587])
+                    ("cellinfo" variable (:type ("uint8_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [17589 17606])
+                    ("badblockpos" variable (:type "int") (reparse-symbol classsubparts) [17608 17624])
+                    ("badblockbits" variable (:type "int") (reparse-symbol classsubparts) [17626 17643])
+                    ("onfi_version" variable (:type "int") (reparse-symbol classsubparts) [17646 17663])
+                    ("onfi_params" variable (:type ("nand_onfi_params" type
+                         (:prototype t
+                          :type "struct")
+                          nil nil)) (reparse-symbol classsubparts) [17665 17701])
+                    ("state" variable (:type ("flstate_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [17704 17720])
+                    ("oob_poi" variable
+                       (:pointer 1
+                        :type ("uint8_t" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [17723 17740])
+                    ("controller" variable
+                       (:pointer 1
+                        :type ("nand_hw_control" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol classsubparts) [17742 17777])
+                    ("ecclayout" variable
+                       (:pointer 1
+                        :type ("nand_ecclayout" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol classsubparts) [17779 17812])
+                    ("ecc" variable (:type ("nand_ecc_ctrl" type
+                         (:prototype t
+                          :type "struct")
+                          nil nil)) (reparse-symbol classsubparts) [17815 17840])
+                    ("buffers" variable
+                       (:pointer 1
+                        :type ("nand_buffers" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol classsubparts) [17842 17871])
+                    ("hwcontrol" variable (:type ("nand_hw_control" type
+                         (:prototype t
+                          :type "struct")
+                          nil nil)) (reparse-symbol classsubparts) [17873 17906])
+                    ("ops" variable (:type ("mtd_oob_ops" type
+                         (:prototype t
+                          :type "struct")
+                          nil nil)) (reparse-symbol classsubparts) [17909 17932])
+                    ("bbt" variable
+                       (:pointer 1
+                        :type ("uint8_t" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [17935 17948])
+                    ("bbt_td" variable
+                       (:pointer 1
+                        :type ("nand_bbt_descr" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol classsubparts) [17950 17980])
+                    ("bbt_md" variable
+                       (:pointer 1
+                        :type ("nand_bbt_descr" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol classsubparts) [17982 18012])
+                    ("badblock_pattern" variable
+                       (:pointer 1
+                        :type ("nand_bbt_descr" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol classsubparts) [18015 18055])
+                    ("priv" variable
+                       (:pointer 1
+                        :type "void")
+                        (reparse-symbol classsubparts) [18058 18069]))                  
+                :type "struct")
+                nil [16191 18072])
+            ("NAND_MFR_TOSHIBA" variable (:constant-flag t) nil [18125 18141])
+            ("NAND_MFR_SAMSUNG" variable (:constant-flag t) nil [18155 18171])
+            ("NAND_MFR_FUJITSU" variable (:constant-flag t) nil [18185 18201])
+            ("NAND_MFR_NATIONAL" variable (:constant-flag t) nil [18215 18232])
+            ("NAND_MFR_RENESAS" variable (:constant-flag t) nil [18246 18262])
+            ("NAND_MFR_STMICRO" variable (:constant-flag t) nil [18276 18292])
+            ("NAND_MFR_HYNIX" variable (:constant-flag t) nil [18306 18320])
+            ("NAND_MFR_MICRON" variable (:constant-flag t) nil [18335 18350])
+            ("NAND_MFR_AMD" variable (:constant-flag t) nil [18365 18377])
+            ("nand_flash_dev" type
+               (:members 
+                  ( ("name" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol classsubparts) [18874 18885])
+                    ("id" variable (:type "int") (reparse-symbol classsubparts) [18887 18894])
+                    ("pagesize" variable (:type "unsigned long") (reparse-symbol classsubparts) [18896 18919])
+                    ("chipsize" variable (:type "unsigned long") (reparse-symbol classsubparts) [18921 18944])
+                    ("erasesize" variable (:type "unsigned long") (reparse-symbol classsubparts) [18946 18970])
+                    ("options" variable (:type "unsigned long") (reparse-symbol classsubparts) [18972 18994]))                  
+                :type "struct")
+                nil [18849 18997])
+            ("nand_manufacturers" type
+               (:members 
+                  ( ("id" variable (:type "int") (reparse-symbol classsubparts) [19172 19179])
+                    ("name" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol classsubparts) [19181 19192]))                  
+                :type "struct")
+                nil [19143 19195])
+            ("nand_flash_ids" variable
+               (:dereference 1
+                :typemodifiers ("extern")
+                :type ("nand_flash_dev" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [19197 19243])
+            ("nand_manuf_ids" variable
+               (:dereference 1
+                :typemodifiers ("extern")
+                :type ("nand_manufacturers" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [19244 19294])
+            ("nand_scan_bbt" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("mtd" variable
+                       (:pointer 1
+                        :type ("mtd_info" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [19321 19342])
+                    ("bd" variable
+                       (:pointer 1
+                        :type ("nand_bbt_descr" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [19343 19369]))                  
+                :type "int")
+                nil [19296 19370])
+            ("nand_update_bbt" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("mtd" variable
+                       (:pointer 1
+                        :type ("mtd_info" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [19398 19419])
+                    ("offs" variable (:type ("loff_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [19420 19432]))                  
+                :type "int")
+                nil [19371 19433])
+            ("nand_default_bbt" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("mtd" variable
+                       (:pointer 1
+                        :type ("mtd_info" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [19462 19483]))                  
+                :type "int")
+                nil [19434 19484])
+            ("nand_isbad_bbt" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("mtd" variable
+                       (:pointer 1
+                        :type ("mtd_info" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [19511 19532])
+                    ("offs" variable (:type ("loff_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [19533 19545])
+                    ("allowbbt" variable (:type "int") (reparse-symbol arg-sub-list) [19546 19559]))                  
+                :type "int")
+                nil [19485 19560])
+            ("nand_erase_nand" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("mtd" variable
+                       (:pointer 1
+                        :type ("mtd_info" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [19588 19609])
+                    ("instr" variable
+                       (:pointer 1
+                        :type ("erase_info" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [19610 19635])
+                    ("allowbbt" variable (:type "int") (reparse-symbol arg-sub-list) [19642 19655]))                  
+                :type "int")
+                nil [19561 19656])
+            ("nand_do_read" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("mtd" variable
+                       (:pointer 1
+                        :type ("mtd_info" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [19681 19702])
+                    ("from" variable (:type ("loff_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [19703 19715])
+                    ("len" variable (:type ("size_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [19716 19727])
+                    ("retlen" variable
+                       (:pointer 1
+                        :type ("size_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [19731 19746])
+                    ("buf" variable
+                       (:pointer 1
+                        :type ("uint8_t" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [19747 19760]))                  
+                :type "int")
+                nil [19657 19761])
+            ("platform_nand_chip" type
+               (:members 
+                  ( ("nr_chips" variable (:type "int") (reparse-symbol classsubparts) [20352 20365])
+                    ("chip_offset" variable (:type "int") (reparse-symbol classsubparts) [20367 20383])
+                    ("nr_partitions" variable (:type "int") (reparse-symbol classsubparts) [20385 20403])
+                    ("partitions" variable
+                       (:pointer 1
+                        :type ("mtd_partition" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol classsubparts) [20405 20438])
+                    ("ecclayout" variable
+                       (:pointer 1
+                        :type ("nand_ecclayout" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol classsubparts) [20440 20473])
+                    ("chip_delay" variable (:type "int") (reparse-symbol classsubparts) [20475 20490])
+                    ("options" variable (:type "unsigned int") (reparse-symbol classsubparts) [20492 20513])
+                    ("part_probe_types" variable
+                       (:pointer 2
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol classsubparts) [20515 20545])
+                    ("set_parts" variable
+                       (:functionpointer-flag t
+                        :type "void")
+                        (reparse-symbol classsubparts) [20547 20613])
+                    ("priv" variable
+                       (:pointer 1
+                        :type "void")
+                        (reparse-symbol classsubparts) [20615 20626]))                  
+                :type "struct")
+                nil [20323 20629])
+            ("platform_device" type
+               (:prototype t
+                :type "struct")
+                nil [20652 20675])
+            ("platform_nand_ctrl" type
+               (:members 
+                  ( ("probe" variable
+                       (:functionpointer-flag t
+                        :type "int")
+                        (reparse-symbol classsubparts) [21465 21508])
+                    ("remove" variable
+                       (:functionpointer-flag t
+                        :type "void")
+                        (reparse-symbol classsubparts) [21510 21555])
+                    ("hwcontrol" variable
+                       (:functionpointer-flag t
+                        :type "void")
+                        (reparse-symbol classsubparts) [21557 21606])
+                    ("dev_ready" variable
+                       (:functionpointer-flag t
+                        :type "int")
+                        (reparse-symbol classsubparts) [21608 21647])
+                    ("select_chip" variable
+                       (:functionpointer-flag t
+                        :type "void")
+                        (reparse-symbol classsubparts) [21649 21701])
+                    ("cmd_ctrl" variable
+                       (:functionpointer-flag t
+                        :type "void")
+                        (reparse-symbol classsubparts) [21703 21770])
+                    ("write_buf" variable
+                       (:functionpointer-flag t
+                        :type "void")
+                        (reparse-symbol classsubparts) [21772 21841])
+                    ("read_buf" variable
+                       (:functionpointer-flag t
+                        :type "void")
+                        (reparse-symbol classsubparts) [21843 21905])
+                    ("priv" variable
+                       (:pointer 1
+                        :type "void")
+                        (reparse-symbol classsubparts) [21907 21918]))                  
+                :type "struct")
+                nil [21436 21921])
+            ("platform_nand_data" type
+               (:members 
+                  ( ("chip" variable (:type ("platform_nand_chip" type
+                         (:prototype t
+                          :type "struct")
+                          nil nil)) (reparse-symbol classsubparts) [22120 22151])
+                    ("ctrl" variable (:type ("platform_nand_ctrl" type
+                         (:prototype t
+                          :type "struct")
+                          nil nil)) (reparse-symbol classsubparts) [22153 22184]))                  
+                :type "struct")
+                nil [22091 22187])
+            ("get_platform_nandchip" function
+               (:pointer 1
+                :typemodifiers ("static" "inline")
+                :arguments 
+                  ( ("mtd" variable
+                       (:pointer 1
+                        :type ("mtd_info" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [22301 22322]))                  
+                :type ("platform_nand_chip" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [22238 22384]))          
+    :file "nand.h"
+    :pointmax 22418
+    :fsize 22418
+    :lastmodtime '(21468 9204 101426 181000)
+    :unmatched-syntax '((VOID 16237 . 16241) (VOID 16211 . 16215))
+    :lexical-table 
+        '(("NAND_CMD_PARAM" . ((number "0xec" 2806 . 2810)))
+          ("NAND_MUST_PAD" (spp-arg-list ("chip") 6175 . 6181) . ((semantic-list "(!(chip->options & NAND_NO_PADDING))" 6182 . 6218)))
+          ("NAND_SKIP_BBTSCAN" . ((number "0x00020000" 6955 . 6965)))
+          ("ONFI_CRC_BASE" . ((number "0x4F4E" 9068 . 9074)))
+          ("NAND_MFR_NATIONAL" . ((number "0x8f" 18233 . 18237)))
+          ("NAND_CMD_PAGEPROG" . ((number "0x10" 2534 . 2538)))
+          ("NAND_CMD_STATUS_ERROR0" . ((number "0x73" 3593 . 3597)))
+          ("NAND_CMD_STATUS_RESET" . ((number "0x7f" 3736 . 3740)))
+          ("NAND_STATUS_FAIL" . ((number "0x01" 3847 . 3851)))
+          ("NAND_STATUS_TRUE_READY" . ((number "0x20" 3916 . 3920)))
+          ("NAND_CACHEPRG" . ((number "0x00000008" 4869 . 4879)))
+          ("NAND_MFR_AMD" . ((number "0x01" 18379 . 18383)))
+          ("NAND_CLE" . ((number "0x02" 2186 . 2190)))
+          ("NAND_CMD_UNLOCK1" . ((number "0x23" 2894 . 2898)))
+          ("NAND_CMD_READSTART" . ((number "0x30" 3004 . 3008)))
+          ("NAND_CMD_CACHEDPROG" . ((number "0x15" 3071 . 3075)))
+          ("NAND_CMD_STATUS_ERROR1" . ((number "0x74" 3629 . 3633)))
+          ("NAND_BROKEN_XD" . ((number "0x00000400" 5818 . 5828)))
+          ("NAND_CANAUTOINCR" (spp-arg-list ("chip") 6109 . 6115) . ((semantic-list "(!(chip->options & NAND_NO_AUTOINCR))" 6116 . 6153)))
+          ("NAND_HAS_CACHEPROG" (spp-arg-list ("chip") 6245 . 6251) . ((semantic-list "((chip->options & NAND_CACHEPRG))" 6252 . 6285)))
+          ("NAND_SUBPAGE_READ" (spp-arg-list ("chip") 6442 . 6448) . ((semantic-list "((chip->ecc.mode == NAND_ECC_SOFT) \\
+					&& (chip->page_shift > 9))" 6449 . 6517)))
+          ("NAND_CI_CHIPNR_MSK" . ((number "0x03" 7665 . 7669)))
+          ("NAND_MFR_RENESAS" . ((number "0x07" 18263 . 18267)))
+          ("NAND_MAX_OOBSIZE" . ((number "576" 1867 . 1870)))
+          ("NAND_CMD_SEQIN" . ((number "0x80" 2688 . 2692)))
+          ("NAND_CMD_UNLOCK2" . ((number "0x24" 2924 . 2928)))
+          ("NAND_CMD_STATUS_ERROR2" . ((number "0x75" 3665 . 3669)))
+          ("NAND_ECC_READ" . ((number "0" 4259 . 4260)))
+          ("NAND_GET_DEVICE" . ((number "0x80" 4492 . 4496)))
+          ("NAND_NO_SUBPAGE_WRITE" . ((number "0x00000200" 5710 . 5720)))
+          ("NAND_USE_FLASH_BBT" . ((number "0x00010000" 6858 . 6868)))
+          ("NAND_MFR_STMICRO" . ((number "0x20" 18293 . 18297)))
+          ("NAND_CTRL_CLE" . ((semantic-list "(NAND_NCE | NAND_CLE)" 2292 . 2313)))
+          ("NAND_CMD_STATUS_ERROR3" . ((number "0x76" 3701 . 3705)))
+          ("NAND_NO_AUTOINCR" . ((number "0x00000001" 4642 . 4652)))
+          ("NAND_COPYBACK" . ((number "0x00000010" 4937 . 4947)))
+          ("NAND_4PAGE_ARRAY" . ((number "0x00000040" 5230 . 5240)))
+          ("NAND_MAX_CHIPS" . ((number "8" 1683 . 1684)))
+          ("NAND_CMD_STATUS_CLEAR" . ((number "0xff" 3771 . 3775)))
+          ("NAND_STATUS_FAIL_N1" . ((number "0x02" 3880 . 3884)))
+          ("NAND_STATUS_READY" . ((number "0x40" 3947 . 3951)))
+          ("NAND_NO_PADDING" . ((number "0x00000004" 4797 . 4807)))
+          ("NAND_CI_CELLTYPE_MSK" . ((number "0x0C" 7699 . 7703)))
+          ("NAND_CTRL_CHANGE" . ((number "0x80" 2384 . 2388)))
+          ("NAND_CMD_READ0" . ((number "0" 2453 . 2454)))
+          ("NAND_BUSWIDTH_16" . ((number "0x00000002" 4703 . 4713)))
+          ("BBT_AUTO_REFRESH" . ((number "0x00000080" 5462 . 5472)))
+          ("NAND_OWN_BUFFERS" . ((number "0x00040000" 7116 . 7126)))
+          ("NAND_MAX_PAGESIZE" . ((number "8192" 1897 . 1901)))
+          ("NAND_CMD_READ1" . ((number "1" 2479 . 2480)))
+          ("NAND_CMD_STATUS_ERROR" . ((number "0x72" 3515 . 3519)))
+          ("NAND_MFR_TOSHIBA" . ((number "0x98" 18142 . 18146)))
+          ("NAND_CMD_DEPLETE1" . ((number "0x100" 3413 . 3418)))
+          ("NAND_CHIPOPTIONS_MSK" . ((semantic-list "(0x0000ffff & ~NAND_NO_AUTOINCR)" 6618 . 6650)))
+          ("NAND_USE_FLASH_BBT_NO_OOB" . ((number "0x00800000" 7360 . 7370)))
+          ("NAND_CONTROLLER_ALLOC" . ((number "0x80000000" 7600 . 7610)))
+          ("NAND_MFR_MICRON" . ((number "0x2c" 18352 . 18356)))
+          ("NAND_NCE" . ((number "0x01" 2109 . 2113)))
+          ("NAND_CMD_RNDOUT" . ((number "5" 2506 . 2507)))
+          ("NAND_CMD_RNDIN" . ((number "0x85" 2717 . 2721)))
+          ("NAND_CMD_LOCK" . ((number "0x2a" 2864 . 2868)))
+          ("NAND_CMD_DEPLETE2" . ((number "0x38" 3445 . 3449)))
+          ("NAND_MFR_FUJITSU" . ((number "0x04" 18202 . 18206)))
+          ("__LINUX_MTD_NAND_H")
+          ("NAND_ALE" . ((number "0x04" 2263 . 2267)))
+          ("NAND_CMD_ERASE1" . ((number "0x60" 2594 . 2598)))
+          ("NAND_CMD_READID" . ((number "0x90" 2747 . 2751)))
+          ("NAND_CMD_RNDOUTSTART" . ((number "0xE0" 3038 . 3042)))
+          ("NAND_IS_AND" . ((number "0x00000020" 5097 . 5107)))
+          ("NAND_SAMSUNG_LP_OPTIONS" . ((semantic-list "(NAND_NO_PADDING | NAND_CACHEPRG | NAND_COPYBACK)" 5999 . 6048)))
+          ("NAND_CREATE_EMPTY_BBT" . ((number "0x01000000" 7479 . 7489)))
+          ("NAND_MFR_SAMSUNG" . ((number "0xec" 18172 . 18176)))
+          ("NAND_MFR_HYNIX" . ((number "0xad" 18322 . 18326)))
+          ("NAND_CMD_READOOB" . ((number "0x50" 2564 . 2568)))
+          ("NAND_CMD_ERASE2" . ((number "0xd0" 2777 . 2781)))
+          ("NAND_STATUS_WP" . ((number "0x80" 3976 . 3980)))
+          ("NAND_ECC_WRITE" . ((number "1" 4320 . 4321)))
+          ("NAND_ECC_READSYN" . ((number "2" 4412 . 4413)))
+          ("NAND_ROM" . ((number "0x00000800" 5901 . 5911)))
+          ("NAND_HAS_COPYBACK" (spp-arg-list ("chip") 6311 . 6317) . ((semantic-list "((chip->options & NAND_COPYBACK))" 6318 . 6351)))
+          ("NAND_CTRL_ALE" . ((semantic-list "(NAND_NCE | NAND_ALE)" 2337 . 2358)))
+          ("NAND_CMD_STATUS" . ((number "0x70" 2624 . 2628)))
+          ("NAND_CMD_STATUS_MULTI" . ((number "0x71" 3480 . 3484)))
+          ("NAND_CMD_RESET" . ((number "0xff" 2835 . 2839)))
+          ("NAND_CMD_NONE" . ((punctuation "-" 3800 . 3801) (number "1" 3801 . 3802)))
+          ("NAND_NO_READRDY" . ((number "0x00000100" 5628 . 5638)))
+          ("NAND_SCAN_SILENT_NODEV" . ((number "0x00080000" 7214 . 7224)))
+          )
+
+    )
+   (semanticdb-table "nand_ecc.h"
+    :major-mode 'c-mode
+    :tags 
+        '( ("__MTD_NAND_ECC_H__" variable (:constant-flag t) nil [481 499])
+            ("mtd_info" type
+               (:prototype t
+                :type "struct")
+                nil [501 517])
+            ("__nand_calculate_ecc" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("dat" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("u_char" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [604 622])
+                    ("eccsize" variable (:type "unsigned int") (reparse-symbol arg-sub-list) [623 644])
+                    ("ecc_code" variable
+                       (:pointer 1
+                        :type ("u_char" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [649 666]))                  
+                :type "void")
+                nil [578 667])
+            ("nand_calculate_ecc" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("mtd" variable
+                       (:pointer 1
+                        :type ("mtd_info" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [751 772])
+                    ("dat" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("u_char" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [773 791])
+                    ("ecc_code" variable
+                       (:pointer 1
+                        :type ("u_char" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [792 809]))                  
+                :type "int")
+                nil [728 810])
+            ("__nand_correct_data" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("dat" variable
+                       (:pointer 1
+                        :type ("u_char" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [902 914])
+                    ("read_ecc" variable
+                       (:pointer 1
+                        :type ("u_char" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [915 932])
+                    ("calc_ecc" variable
+                       (:pointer 1
+                        :type ("u_char" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [933 950])
+                    ("eccsize" variable (:type "unsigned int") (reparse-symbol arg-sub-list) [954 975]))                  
+                :type "int")
+                nil [878 976])
+            ("nand_correct_data" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("mtd" variable
+                       (:pointer 1
+                        :type ("mtd_info" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [1066 1087])
+                    ("dat" variable
+                       (:pointer 1
+                        :type ("u_char" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [1088 1100])
+                    ("read_ecc" variable
+                       (:pointer 1
+                        :type ("u_char" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [1101 1118])
+                    ("calc_ecc" variable
+                       (:pointer 1
+                        :type ("u_char" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [1119 1136]))                  
+                :type "int")
+                nil [1044 1137]))          
+    :file "nand_ecc.h"
+    :pointmax 1171
+    :fsize 1170
+    :lastmodtime '(21468 9204 128425 542000)
+    :unmatched-syntax 'nil
+    :lexical-table 
+        '(("__MTD_NAND_ECC_H__")
+          )
+
+    )
+   (semanticdb-table "flashchip.h"
+    :file "flashchip.h"
+    :fsize 3110
+    :lastmodtime '(21468 9204 13428 264000)
+    )
+   (semanticdb-table "bbm.h"
+    :file "bbm.h"
+    :fsize 5596
+    :lastmodtime '(21468 9203 954429 661000)
+    )
+   )
+  :file "!home!chz!linux-3.0.8!include!linux!mtd!semantic.cache"
+  :semantic-tag-version "2.0"
+  :semanticdb-version "2.2"
+  )

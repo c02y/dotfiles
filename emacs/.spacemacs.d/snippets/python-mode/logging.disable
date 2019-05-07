@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: logging.disable
+# key: logd
+# --
+${1:# disable logging feature, put this right after logging.basicConfig line}
+logging.disable(logging.${2:$$(yas-choose-value '("CRITICAL" "ERROR" "WARNING" "INFO" "DEBUG"))})
+$0

@@ -1,0 +1,302 @@
+;; Object crypto/
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "crypto/"
+  :tables (list 
+   (semanticdb-table "lrw.c"
+    :major-mode 'c-mode
+    :tags 
+        '( ("crypto/algapi.h" include (:system-flag t) nil [777 803])
+            ("linux/err.h" include (:system-flag t) nil [804 826])
+            ("linux/init.h" include (:system-flag t) nil [827 850])
+            ("linux/kernel.h" include (:system-flag t) nil [851 876])
+            ("linux/module.h" include (:system-flag t) nil [877 902])
+            ("linux/scatterlist.h" include (:system-flag t) nil [903 933])
+            ("linux/slab.h" include (:system-flag t) nil [934 957])
+            ("crypto/b128ops.h" include (:system-flag t) nil [959 986])
+            ("crypto/gf128mul.h" include (:system-flag t) nil [987 1015])
+            ("priv" type
+               (:members 
+                  ( ("child" variable
+                       (:pointer 1
+                        :type ("crypto_cipher" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol classsubparts) [1032 1060])
+                    ("table" variable
+                       (:pointer 1
+                        :type ("gf128mul_64k" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol classsubparts) [1307 1334])
+                    ("mulinc" variable
+                       (:dereference 1
+                        :type ("be128" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [1581 1599]))                  
+                :type "struct")
+                nil [1017 1602])
+            ("setbit128_bbe" function
+               (:typemodifiers ("static" "inline")
+                :arguments 
+                  ( ("b" variable
+                       (:pointer 1
+                        :type "void")
+                        (reparse-symbol arg-sub-list) [1637 1645])
+                    ("bit" variable (:type "int") (reparse-symbol arg-sub-list) [1646 1654]))                  
+                :type "void")
+                nil [1604 1762])
+            ("setkey" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("parent" variable
+                       (:pointer 1
+                        :type ("crypto_tfm" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [1782 1808])
+                    ("key" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("u8" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [1809 1823])
+                    ("keylen" variable (:type "unsigned int") (reparse-symbol arg-sub-list) [1828 1848]))                  
+                :type "int")
+                nil [1764 2728])
+            ("sinfo" type
+               (:members 
+                  ( ("t" variable (:type ("be128" type (:type "class") nil nil)) (reparse-symbol classsubparts) [2746 2754])
+                    ("tfm" variable
+                       (:pointer 1
+                        :type ("crypto_tfm" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol classsubparts) [2756 2779])
+                    ("fn" variable
+                       (:functionpointer-flag t
+                        :type "void")
+                        (reparse-symbol classsubparts) [2781 2831]))                  
+                :type "struct")
+                nil [2730 2834])
+            ("inc" function
+               (:typemodifiers ("static" "inline")
+                :arguments 
+                  ( ("iv" variable
+                       (:pointer 1
+                        :type ("be128" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [2859 2869]))                  
+                :type "void")
+                nil [2836 2939])
+            ("lrw_round" function
+               (:typemodifiers ("static" "inline")
+                :arguments 
+                  ( ("s" variable
+                       (:pointer 1
+                        :type ("sinfo" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [2970 2986])
+                    ("dst" variable
+                       (:pointer 1
+                        :type "void")
+                        (reparse-symbol arg-sub-list) [2987 2997])
+                    ("src" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "void")
+                        (reparse-symbol arg-sub-list) [2998 3014]))                  
+                :type "void")
+                nil [2941 3168])
+            ("get_index128" function
+               (:typemodifiers ("static" "inline")
+                :arguments 
+                  ( ("block" variable
+                       (:pointer 1
+                        :type ("be128" type (:type "class") nil nil))
+                        (reparse-symbol arg-sub-list) [3334 3347]))                  
+                :type "int")
+                nil [3303 3532])
+            ("crypt" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("d" variable
+                       (:pointer 1
+                        :type ("blkcipher_desc" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [3551 3576])
+                    ("w" variable
+                       (:pointer 1
+                        :type ("blkcipher_walk" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [3580 3605])
+                    ("ctx" variable
+                       (:pointer 1
+                        :type ("priv" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [3606 3623])
+                    ("" variable (:type "void") (reparse-symbol arg-sub-list) [3627 3637]))                  
+                :type "int")
+                nil [3534 4570])
+            ("encrypt" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("desc" variable
+                       (:pointer 1
+                        :type ("blkcipher_desc" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [4591 4619])
+                    ("dst" variable
+                       (:pointer 1
+                        :type ("scatterlist" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [4620 4644])
+                    ("src" variable
+                       (:pointer 1
+                        :type ("scatterlist" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [4650 4674])
+                    ("nbytes" variable (:type "unsigned int") (reparse-symbol arg-sub-list) [4675 4695]))                  
+                :type "int")
+                nil [4572 4904])
+            ("decrypt" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("desc" variable
+                       (:pointer 1
+                        :type ("blkcipher_desc" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [4925 4953])
+                    ("dst" variable
+                       (:pointer 1
+                        :type ("scatterlist" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [4954 4978])
+                    ("src" variable
+                       (:pointer 1
+                        :type ("scatterlist" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [4984 5008])
+                    ("nbytes" variable (:type "unsigned int") (reparse-symbol arg-sub-list) [5009 5029]))                  
+                :type "int")
+                nil [4906 5238])
+            ("init_tfm" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("tfm" variable
+                       (:pointer 1
+                        :type ("crypto_tfm" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [5260 5283]))                  
+                :type "int")
+                nil [5240 5733])
+            ("exit_tfm" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("tfm" variable
+                       (:pointer 1
+                        :type ("crypto_tfm" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [5756 5779]))                  
+                :type "void")
+                nil [5735 5907])
+            ("alloc" function
+               (:pointer 1
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("tb" variable
+                       (:pointer 2
+                        :type ("rtattr" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [5946 5965]))                  
+                :type ("crypto_instance" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [5909 7243])
+            ("free" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("inst" variable
+                       (:pointer 1
+                        :type ("crypto_instance" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [7262 7291]))                  
+                :type "void")
+                nil [7245 7356])
+            ("crypto_tmpl" variable
+               (:typemodifiers ("static")
+                :type ("crypto_template" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [7358 7478])
+            ("crypto_module_init" function
+               (:arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [7517 7522]))                  
+                :type ("__init" type (:type "class") nil nil))
+                nil [7491 7574])
+            ("crypto_module_exit" function
+               (:arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [7614 7619]))                  
+                :type ("__exit" type (:type "class") nil nil))
+                nil [7588 7666])
+            ("module_init" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("crypto_module_init" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [7680 7699]))                  
+                :type "int")
+                nil [7668 7700])
+            ("module_exit" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("crypto_module_exit" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [7713 7732]))                  
+                :type "int")
+                nil [7701 7733])
+            ("MODULE_LICENSE" function
+               (:prototype-flag t
+                :type "int")
+                nil [7735 7757])
+            ("MODULE_DESCRIPTION" function
+               (:prototype-flag t
+                :type "int")
+                nil [7758 7802]))          
+    :file "lrw.c"
+    :pointmax 7803
+    :fsize 7802
+    :lastmodtime '(21468 9007 901071 473000)
+    :unmatched-syntax '((string 7777 . 7800) (string 7750 . 7755) (VOID 7583 . 7587) (STATIC 7576 . 7582) (INT 7487 . 7490) (STATIC 7480 . 7486) (semantic-list 3637 . 3676) (semantic-list 3632 . 3637))
+    )
+   )
+  :file "!home!chz!linux-3.0.8!crypto!semantic.cache"
+  :semantic-tag-version "2.0"
+  :semanticdb-version "2.2"
+  )

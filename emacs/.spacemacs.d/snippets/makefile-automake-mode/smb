@@ -1,0 +1,648 @@
+;; Object nubus/
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "nubus/"
+  :tables (list 
+   (semanticdb-table "nubus.c"
+    :major-mode 'c-mode
+    :tags 
+        '( ("linux/types.h" include (:system-flag t) nil [168 192])
+            ("linux/kernel.h" include (:system-flag t) nil [193 218])
+            ("linux/string.h" include (:system-flag t) nil [219 244])
+            ("linux/nubus.h" include (:system-flag t) nil [245 269])
+            ("linux/errno.h" include (:system-flag t) nil [270 294])
+            ("linux/init.h" include (:system-flag t) nil [295 318])
+            ("linux/delay.h" include (:system-flag t) nil [319 343])
+            ("linux/module.h" include (:system-flag t) nil [344 369])
+            ("linux/slab.h" include (:system-flag t) nil [370 393])
+            ("asm/setup.h" include (:system-flag t) nil [394 416])
+            ("asm/system.h" include (:system-flag t) nil [417 440])
+            ("asm/page.h" include (:system-flag t) nil [441 462])
+            ("asm/hwtest.h" include (:system-flag t) nil [463 486])
+            ("linux/proc_fs.h" include (:system-flag t) nil [487 513])
+            ("asm/mac_via.h" include (:system-flag t) nil [514 538])
+            ("asm/mac_oss.h" include (:system-flag t) nil [539 563])
+            ("via_nubus_init" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [592 597]))                  
+                :type "void")
+                nil [565 598])
+            ("oss_nubus_init" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [626 631]))                  
+                :type "void")
+                nil [599 632])
+            ("FORMAT_BLOCK_SIZE" variable (:constant-flag t) nil [748 765])
+            ("ROM_DIR_OFFSET" variable (:constant-flag t) nil [777 791])
+            ("NUBUS_TEST_PATTERN" variable (:constant-flag t) nil [806 824])
+            ("nubus_devices" variable
+               (:pointer 1
+                :type ("nubus_dev" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [1111 1145])
+            ("nubus_boards" variable
+               (:pointer 1
+                :type ("nubus_board" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [1146 1179])
+            ("not_useful" function
+               (:typemodifiers ("static" "inline")
+                :arguments 
+                  ( ("p" variable
+                       (:pointer 1
+                        :type "void")
+                        (reparse-symbol arg-sub-list) [2171 2179])
+                    ("map" variable (:type "int") (reparse-symbol arg-sub-list) [2180 2188]))                  
+                :type "int")
+                nil [2142 2280])
+            ("nubus_get_rom" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("ptr" variable
+                       (:pointer 2
+                        :type "unsigned char")
+                        (reparse-symbol arg-sub-list) [2318 2338])
+                    ("len" variable (:type "int") (reparse-symbol arg-sub-list) [2339 2347])
+                    ("map" variable (:type "int") (reparse-symbol arg-sub-list) [2348 2356]))                  
+                :type "unsigned long")
+                nil [2283 2550])
+            ("nubus_rewind" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("ptr" variable
+                       (:pointer 2
+                        :type "unsigned char")
+                        (reparse-symbol arg-sub-list) [2577 2597])
+                    ("len" variable (:type "int") (reparse-symbol arg-sub-list) [2598 2606])
+                    ("map" variable (:type "int") (reparse-symbol arg-sub-list) [2607 2615]))                  
+                :type "void")
+                nil [2552 2814])
+            ("nubus_advance" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("ptr" variable
+                       (:pointer 2
+                        :type "unsigned char")
+                        (reparse-symbol arg-sub-list) [2842 2862])
+                    ("len" variable (:type "int") (reparse-symbol arg-sub-list) [2863 2871])
+                    ("map" variable (:type "int") (reparse-symbol arg-sub-list) [2872 2880]))                  
+                :type "void")
+                nil [2816 3053])
+            ("nubus_move" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("ptr" variable
+                       (:pointer 2
+                        :type "unsigned char")
+                        (reparse-symbol arg-sub-list) [3078 3098])
+                    ("len" variable (:type "int") (reparse-symbol arg-sub-list) [3099 3107])
+                    ("map" variable (:type "int") (reparse-symbol arg-sub-list) [3108 3116]))                  
+                :type "void")
+                nil [3055 3215])
+            ("nubus_expand32" function
+               (:typemodifiers ("static" "inline")
+                :arguments 
+                  ( ("foo" variable (:type "long") (reparse-symbol arg-sub-list) [3517 3526]))                  
+                :type "long")
+                nil [3483 3607])
+            ("nubus_rom_addr" function
+               (:pointer 1
+                :typemodifiers ("static" "inline")
+                :arguments 
+                  ( ("slot" variable (:type "int") (reparse-symbol arg-sub-list) [3644 3653]))                  
+                :type "void")
+                nil [3609 3818])
+            ("nubus_dirptr" function
+               (:pointer 1
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("nd" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("nubus_dirent" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [3855 3885]))                  
+                :type "unsigned char")
+                nil [3820 4106])
+            ("nubus_get_rsrc_mem" function
+               (:arguments 
+                  ( ("dest" variable
+                       (:pointer 1
+                        :type "void")
+                        (reparse-symbol arg-sub-list) [4254 4265])
+                    ("dirent" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("nubus_dirent" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [4266 4300])
+                    ("len" variable (:type "int") (reparse-symbol arg-sub-list) [4304 4312]))                  
+                :type "void")
+                nil [4230 4473])
+            ("EXPORT_SYMBOL" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("nubus_get_rsrc_mem" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [4488 4507]))                  
+                :type "int")
+                nil [4474 4508])
+            ("nubus_get_rsrc_str" function
+               (:arguments 
+                  ( ("dest" variable
+                       (:pointer 1
+                        :type "void")
+                        (reparse-symbol arg-sub-list) [4534 4545])
+                    ("dirent" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("nubus_dirent" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [4546 4580])
+                    ("len" variable (:type "int") (reparse-symbol arg-sub-list) [4584 4592]))                  
+                :type "void")
+                nil [4510 4771])
+            ("EXPORT_SYMBOL" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("nubus_get_rsrc_str" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [4786 4805]))                  
+                :type "int")
+                nil [4772 4806])
+            ("nubus_get_root_dir" function
+               (:arguments 
+                  ( ("board" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("nubus_board" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [4831 4863])
+                    ("dir" variable
+                       (:pointer 1
+                        :type ("nubus_dir" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [4873 4895]))                  
+                :type "int")
+                nil [4808 4995])
+            ("EXPORT_SYMBOL" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("nubus_get_root_dir" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [5010 5029]))                  
+                :type "int")
+                nil [4996 5030])
+            ("nubus_get_func_dir" function
+               (:arguments 
+                  ( ("dev" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("nubus_dev" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [5106 5134])
+                    ("dir" variable
+                       (:pointer 1
+                        :type ("nubus_dir" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [5144 5166]))                  
+                :type "int")
+                nil [5083 5269])
+            ("EXPORT_SYMBOL" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("nubus_get_func_dir" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [5284 5303]))                  
+                :type "int")
+                nil [5270 5304])
+            ("nubus_get_board_dir" function
+               (:arguments 
+                  ( ("board" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("nubus_board" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [5330 5362])
+                    ("dir" variable
+                       (:pointer 1
+                        :type ("nubus_dir" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [5366 5388]))                  
+                :type "int")
+                nil [5306 5702])
+            ("EXPORT_SYMBOL" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("nubus_get_board_dir" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [5717 5737]))                  
+                :type "int")
+                nil [5703 5738])
+            ("nubus_get_subdir" function
+               (:arguments 
+                  ( ("ent" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("nubus_dirent" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [5761 5792])
+                    ("dir" variable
+                       (:pointer 1
+                        :type ("nubus_dir" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [5800 5822]))                  
+                :type "int")
+                nil [5740 5920])
+            ("EXPORT_SYMBOL" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("nubus_get_subdir" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [5935 5952]))                  
+                :type "int")
+                nil [5921 5953])
+            ("nubus_readdir" function
+               (:arguments 
+                  ( ("nd" variable
+                       (:pointer 1
+                        :type ("nubus_dir" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [5973 5994])
+                    ("ent" variable
+                       (:pointer 1
+                        :type ("nubus_dirent" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [5995 6020]))                  
+                :type "int")
+                nil [5955 6555])
+            ("EXPORT_SYMBOL" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("nubus_readdir" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [6570 6584]))                  
+                :type "int")
+                nil [6556 6585])
+            ("nubus_rewinddir" function
+               (:arguments 
+                  ( ("dir" variable
+                       (:pointer 1
+                        :type ("nubus_dir" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [6607 6629]))                  
+                :type "int")
+                nil [6587 6667])
+            ("EXPORT_SYMBOL" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("nubus_rewinddir" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [6682 6698]))                  
+                :type "int")
+                nil [6668 6699])
+            ("nubus_find_device" function
+               (:pointer 1
+                :arguments 
+                  ( ("category" variable (:type "unsigned short") (reparse-symbol arg-sub-list) [6799 6823])
+                    ("type" variable (:type "unsigned short") (reparse-symbol arg-sub-list) [6828 6848])
+                    ("dr_hw" variable (:type "unsigned short") (reparse-symbol arg-sub-list) [6853 6874])
+                    ("dr_sw" variable (:type "unsigned short") (reparse-symbol arg-sub-list) [6879 6900])
+                    ("from" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("nubus_dev" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [6905 6934]))                  
+                :type ("nubus_dev" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [6763 7194])
+            ("EXPORT_SYMBOL" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("nubus_find_device" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [7209 7227]))                  
+                :type "int")
+                nil [7195 7228])
+            ("nubus_find_type" function
+               (:pointer 1
+                :arguments 
+                  ( ("category" variable (:type "unsigned short") (reparse-symbol arg-sub-list) [7264 7288])
+                    ("type" variable (:type "unsigned short") (reparse-symbol arg-sub-list) [7291 7311])
+                    ("from" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("nubus_dev" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [7314 7343]))                  
+                :type ("nubus_dev" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [7230 7543])
+            ("EXPORT_SYMBOL" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("nubus_find_type" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [7558 7574]))                  
+                :type "int")
+                nil [7544 7575])
+            ("nubus_find_slot" function
+               (:pointer 1
+                :arguments 
+                  ( ("slot" variable (:type "unsigned int") (reparse-symbol arg-sub-list) [7611 7629])
+                    ("from" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("nubus_dev" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [7632 7661]))                  
+                :type ("nubus_dev" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [7577 7833])
+            ("EXPORT_SYMBOL" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("nubus_find_slot" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [7848 7864]))                  
+                :type "int")
+                nil [7834 7865])
+            ("nubus_find_rsrc" function
+               (:arguments 
+                  ( ("dir" variable
+                       (:pointer 1
+                        :type ("nubus_dir" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [7887 7909])
+                    ("rsrc_type" variable (:type "unsigned char") (reparse-symbol arg-sub-list) [7910 7934])
+                    ("ent" variable
+                       (:pointer 1
+                        :type ("nubus_dirent" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [7937 7962]))                  
+                :type "int")
+                nil [7867 8066])
+            ("EXPORT_SYMBOL" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("nubus_find_rsrc" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [8081 8097]))                  
+                :type "int")
+                nil [8067 8098])
+            ("nubus_show_display_resource" function
+               (:arguments 
+                  ( ("dev" variable
+                       (:pointer 1
+                        :type ("nubus_dev" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [8565 8587])
+                    ("ent" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("nubus_dirent" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [8599 8630]))                  
+                :type ("__init" type (:type "class") nil nil))
+                nil [8530 9007])
+            ("nubus_show_network_resource" function
+               (:arguments 
+                  ( ("dev" variable
+                       (:pointer 1
+                        :type ("nubus_dev" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [9055 9077])
+                    ("ent" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("nubus_dirent" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [9089 9120]))                  
+                :type ("__init" type (:type "class") nil nil))
+                nil [9020 9524])
+            ("nubus_show_cpu_resource" function
+               (:arguments 
+                  ( ("dev" variable
+                       (:pointer 1
+                        :type ("nubus_dev" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [9568 9590])
+                    ("ent" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("nubus_dirent" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [9598 9629]))                  
+                :type ("__init" type (:type "class") nil nil))
+                nil [9537 10174])
+            ("nubus_show_private_resource" function
+               (:arguments 
+                  ( ("dev" variable
+                       (:pointer 1
+                        :type ("nubus_dev" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [10222 10244])
+                    ("ent" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("nubus_dirent" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [10256 10287]))                  
+                :type ("__init" type (:type "class") nil nil))
+                nil [10187 10653])
+            ("nubus_get_functional_resource" function
+               (:arguments 
+                  ( ("board" variable
+                       (:pointer 1
+                        :type ("nubus_board" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [10721 10747])
+                    ("slot" variable (:type "int") (reparse-symbol arg-sub-list) [10754 10763])
+                    ("parent" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("nubus_dirent" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [10770 10804]))                  
+                :type ("__init" type (:type "class") nil nil))
+                nil [10680 13248])
+            ("nubus_get_vidnames" function
+               (:arguments 
+                  ( ("board" variable
+                       (:pointer 1
+                        :type ("nubus_board" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [13307 13333])
+                    ("parent" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("nubus_dirent" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [13343 13377]))                  
+                :type ("__init" type (:type "class") nil nil))
+                nil [13281 14286])
+            ("nubus_get_icon" function
+               (:arguments 
+                  ( ("board" variable
+                       (:pointer 1
+                        :type ("nubus_board" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [14350 14376])
+                    ("ent" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("nubus_dirent" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [14382 14413]))                  
+                :type ("__init" type (:type "class") nil nil))
+                nil [14328 14935])
+            ("nubus_get_vendorinfo" function
+               (:arguments 
+                  ( ("board" variable
+                       (:pointer 1
+                        :type ("nubus_board" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [14976 15002])
+                    ("parent" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("nubus_dirent" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [15014 15048]))                  
+                :type ("__init" type (:type "class") nil nil))
+                nil [14948 15690])
+            ("nubus_get_board_resource" function
+               (:arguments 
+                  ( ("board" variable
+                       (:pointer 1
+                        :type ("nubus_board" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [15735 15761])
+                    ("slot" variable (:type "int") (reparse-symbol arg-sub-list) [15762 15771])
+                    ("parent" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type ("nubus_dirent" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [15780 15814]))                  
+                :type ("__init" type (:type "class") nil nil))
+                nil [15703 17865])
+            ("nubus_find_rom_dir" function
+               (:arguments 
+                  ( ("board" variable
+                       (:pointer 1
+                        :type ("nubus_board" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [18006 18032]))                  
+                :type ("__init" type (:type "class") nil nil))
+                nil [17980 20627])
+            ("nubus_add_board" function
+               (:arguments 
+                  ( ("slot" variable (:type "int") (reparse-symbol arg-sub-list) [20733 20742])
+                    ("bytelanes" variable (:type "int") (reparse-symbol arg-sub-list) [20743 20757]))                  
+                :type ("__init" type (:type "class") nil nil))
+                nil [20710 24284])
+            ("nubus_probe_slot" function
+               (:arguments 
+                  ( ("slot" variable (:type "int") (reparse-symbol arg-sub-list) [24315 24324]))                  
+                :type ("__init" type (:type "class") nil nil))
+                nil [24291 25150])
+            ("nubus_scan_bus" function
+               (:arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [26144 26149]))                  
+                :type ("__init" type (:type "class") nil nil))
+                nil [26122 26335])
+            ("nubus_init" function
+               (:arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [26366 26371]))                  
+                :type ("__init" type (:type "class") nil nil))
+                nil [26348 27001])
+            ("subsys_initcall" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("nubus_init" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [27019 27030]))                  
+                :type "int")
+                nil [27003 27031]))          
+    :file "nubus.c"
+    :pointmax 27032
+    :fsize 27031
+    :lastmodtime '(21468 9061 662798 596000)
+    :unmatched-syntax '((INT 26344 . 26347) (STATIC 26337 . 26343) (VOID 26117 . 26121) (VOID 24286 . 24290) (punctuation 20708 . 20709) (symbol 20697 . 20708) (STRUCT 20690 . 20696) (STATIC 20683 . 20689) (VOID 17975 . 17979) (STATIC 17968 . 17974) (INT 15699 . 15702) (STATIC 15692 . 15698) (INT 14944 . 14947) (STATIC 14937 . 14943) (INT 14324 . 14327) (STATIC 14317 . 14323) (INT 13277 . 13280) (STATIC 13270 . 13276) (punctuation 10678 . 10679) (symbol 10669 . 10678) (STRUCT 10662 . 10668) (STATIC 10655 . 10661) (INT 10183 . 10186) (STATIC 10176 . 10182) (INT 9533 . 9536) (STATIC 9526 . 9532) (INT 9016 . 9019) (STATIC 9009 . 9015) (INT 8526 . 8529) (STATIC 8519 . 8525))
+    :lexical-table 
+        '(("NUBUS_TEST_PATTERN" . ((number "0x5A932BC7" 825 . 835)))
+          ("ROM_DIR_OFFSET" . ((number "0x24" 792 . 796)))
+          ("FORMAT_BLOCK_SIZE" . ((number "20" 766 . 768)))
+          )
+
+    )
+   )
+  :file "!home!chz!linux-3.0.8!drivers!nubus!semantic.cache"
+  :semantic-tag-version "2.0"
+  :semanticdb-version "2.2"
+  )

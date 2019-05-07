@@ -1,0 +1,566 @@
+;; Object include/
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "include/"
+  :tables
+  (list
+    (semanticdb-table "SDNS_NVR_Recording.h"
+      :major-mode 'c-mode
+      :tags 
+        '( ("SDNS_NVR_RECORDING_H_2013_3_9" variable (:constant-flag t) nil [47 76])
+            ("NVR_Recording.h" include nil nil [78 104])
+            ("CSDNS_Recording" type
+               (:superclasses 
+                  ( ("CRecording" type
+                       (:protection "public"
+                        :type "class")
+                        nil nil))                  
+                :members 
+                  ( ("public" label nil (reparse-symbol classsubparts) [150 157])
+                    ("CSDNS_Recording" function
+                       (:prototype-flag t
+                        :constructor-flag t
+                        :type ("CSDNS_Recording" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [162 180])
+                    ("CSDNS_Recording" function
+                       (:prototype-flag t
+                        :destructor-flag t
+                        :typemodifiers ("virtual")
+                        :type "void")
+                        (reparse-symbol classsubparts) [185 212])
+                    ("vUpdate" function
+                       (:prototype-flag t
+                        :typemodifiers ("virtual")
+                        :arguments 
+                          ( ("p_tNotifyMessage" variable (:type ("sNotifyMessage" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [236 268]))                          
+                        :type "void")
+                        (reparse-symbol classsubparts) [215 269])
+                    ("iAddStartLogMessage" function
+                       (:prototype-flag t
+                        :typemodifiers ("virtual")
+                        :arguments 
+                          ( ("p_iChannel" variable (:type "int") (reparse-symbol arg-sub-list) [325 340])
+                            ("p_eType" variable (:type ("eEventType" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [341 360])
+                            ("p_tTime" variable (:type ("time_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [360 375])
+                            ("p_pParam" variable
+                               (:pointer 1
+                                :default-value "NULL"
+                                :type "void")
+                                (reparse-symbol arg-sub-list) [376 397]))                          
+                        :type "int")
+                        (reparse-symbol classsubparts) [293 399])
+                    ("iAddStopLogMessage" function
+                       (:prototype-flag t
+                        :typemodifiers ("virtual")
+                        :arguments 
+                          ( ("p_iChannel" variable (:type "int") (reparse-symbol arg-sub-list) [456 471])
+                            ("p_eType" variable (:type ("eEventType" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [472 491])
+                            ("p_tTime" variable (:type ("time_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [491 506])
+                            ("p_pParam" variable
+                               (:pointer 1
+                                :default-value "NULL"
+                                :type "void")
+                                (reparse-symbol arg-sub-list) [507 528]))                          
+                        :type "int")
+                        (reparse-symbol classsubparts) [425 530])
+                    ("iStartSensitiveRecord" function
+                       (:prototype-flag t
+                        :arguments 
+                          ( ("p_tNotifyMessage" variable (:type ("sNotifyMessage" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [582 614]))                          
+                        :type "int")
+                        (reparse-symbol classsubparts) [556 615])
+                    ("iStopSensitiveRecord" function
+                       (:prototype-flag t
+                        :arguments 
+                          ( ("p_tNotifyMessage" variable (:type ("sNotifyMessage" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [661 693]))                          
+                        :type "int")
+                        (reparse-symbol classsubparts) [636 694])
+                    ("iCheckSensitiveRecord" function
+                       (:prototype-flag t
+                        :arguments 
+                          ( ("p_tNotifyMessage" variable (:type ("sNotifyMessage" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [745 777]))                          
+                        :type "int")
+                        (reparse-symbol classsubparts) [719 778])
+                    ("vStopAllChannelRecord" function
+                       (:prototype-flag t
+                        :typemodifiers ("virtual")
+                        :type "void")
+                        (reparse-symbol classsubparts) [801 838])
+                    ("vStopChannelRecord" function
+                       (:prototype-flag t
+                        :typemodifiers ("virtual")
+                        :arguments 
+                          ( ("p_iChannelID" variable (:type "int") (reparse-symbol arg-sub-list) [875 892])
+                            ("p_RecordState" variable (:type "int") (reparse-symbol arg-sub-list) [893 911]))                          
+                        :type "void")
+                        (reparse-symbol classsubparts) [843 912])
+                    ("vRestartManullyRecord" function
+                       (:prototype-flag t
+                        :typemodifiers ("virtual")
+                        :type "void")
+                        (reparse-symbol classsubparts) [933 970])
+                    ("vRestartRecord" function
+                       (:prototype-flag t
+                        :typemodifiers ("virtual")
+                        :arguments 
+                          ( ("p_iChannelID" variable (:type "int") (reparse-symbol arg-sub-list) [1003 1020]))                          
+                        :type "void")
+                        (reparse-symbol classsubparts) [975 1021]))                  
+                :type "class")
+                nil [106 1026]))          
+      :file "SDNS_NVR_Recording.h"
+      :pointmax 1035
+      :fsize 1210
+      :lastmodtime '(22098 32679 837991 14000)
+      :unmatched-syntax nil
+      :lexical-table 
+        '(("SDNS_NVR_RECORDING_H_2013_3_9")
+          )
+)
+    (semanticdb-table "SDNS_NVR_MsgServer.h"
+      :major-mode 'c-mode
+      :tags 
+        '( ("string" include (:system-flag t) nil [1 18])
+            ("vector" include (:system-flag t) nil [19 36])
+            ("SDNS_NVR_DelayQueue.h" include nil nil [37 69])
+            ("NVR_MainDef.h" include nil nil [70 94])
+            ("SDNS_MSGSERVER_H" variable (:constant-flag t) nil [129 145])
+            ("MsgCallback" function
+               (:prototype-flag t
+                :function-pointer t
+                :arguments 
+                  ( ("p_strIP" variable (:type ("std::string" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [174 194])
+                    ("p_eType" variable (:type ("eNotifyEvent" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [195 216])
+                    ("p_pClientData" variable
+                       (:pointer 1
+                        :type "void")
+                        (reparse-symbol arg-sub-list) [217 238])
+                    ("p_pParam" variable
+                       (:pointer 1
+                        :type "void")
+                        (reparse-symbol arg-sub-list) [239 254]))                  
+                :type "void")
+                nil [154 255])
+            ("sdnsMsgWarn" type
+               (:members 
+                  ( ("teller" variable
+                       (:dereference 1
+                        :type "char")
+                        (reparse-symbol classsubparts) [287 303])
+                    ("terminal" variable
+                       (:dereference 1
+                        :type "char")
+                        (reparse-symbol classsubparts) [310 329])
+                    ("transactCode" variable
+                       (:dereference 1
+                        :type "char")
+                        (reparse-symbol classsubparts) [331 353])
+                    ("account1" variable
+                       (:dereference 1
+                        :type "char")
+                        (reparse-symbol classsubparts) [360 379])
+                    ("account2" variable
+                       (:dereference 1
+                        :type "char")
+                        (reparse-symbol classsubparts) [381 400])
+                    ("transactAmount" variable
+                       (:dereference 1
+                        :type "char")
+                        (reparse-symbol classsubparts) [402 427])
+                    ("ip" variable
+                       (:dereference 1
+                        :type "char")
+                        (reparse-symbol classsubparts) [429 442])
+                    ("teller_check" variable
+                       (:dereference 1
+                        :type "char")
+                        (reparse-symbol classsubparts) [444 466])
+                    ("placeholder" variable
+                       (:dereference 1
+                        :type "char")
+                        (reparse-symbol classsubparts) [475 496]))                  
+                :type "struct")
+                nil [265 499])
+            ("sdnsMsgATM" type
+               (:members 
+                  ( ("date" variable
+                       (:dereference 1
+                        :type "char")
+                        (reparse-symbol classsubparts) [532 547])
+                    ("account1" variable
+                       (:dereference 1
+                        :type "char")
+                        (reparse-symbol classsubparts) [574 593])
+                    ("transactCode" variable
+                       (:dereference 1
+                        :type "char")
+                        (reparse-symbol classsubparts) [595 617])
+                    ("ATMCode" variable
+                       (:dereference 1
+                        :type "char")
+                        (reparse-symbol classsubparts) [624 641])
+                    ("account2" variable
+                       (:dereference 1
+                        :type "char")
+                        (reparse-symbol classsubparts) [643 662])
+                    ("transactAmount" variable
+                       (:dereference 1
+                        :type "char")
+                        (reparse-symbol classsubparts) [664 689])
+                    ("terminal" variable
+                       (:dereference 1
+                        :type "char")
+                        (reparse-symbol classsubparts) [691 710])
+                    ("ip" variable
+                       (:dereference 1
+                        :type "char")
+                        (reparse-symbol classsubparts) [712 725])
+                    ("teller_check" variable
+                       (:dereference 1
+                        :type "char")
+                        (reparse-symbol classsubparts) [727 749])
+                    ("placeholder" variable
+                       (:dereference 1
+                        :type "char")
+                        (reparse-symbol classsubparts) [758 779]))                  
+                :type "struct")
+                nil [511 782])
+            ("sdnsEventArg" type
+               (:members 
+                  ( ("ip" variable
+                       (:dereference 1
+                        :type "char")
+                        (reparse-symbol classsubparts) [845 859]))                  
+                :type "struct")
+                nil [822 875])
+            ("eSDNSFieldType" type
+               (:members 
+                  ( ("ACCOUNT1" variable
+                       (:constant-flag t
+                        :default-value (909 910)
+                        :type "int")
+                        (reparse-symbol enumsubparts) [900 910])
+                    ("ACCOUNT2" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [913 922])
+                    ("TRANSACTCODE" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [924 937])
+                    ("TELLER" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [939 946])
+                    ("TRANSACTAMOUNT" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [948 963])
+                    ("TERMINAL" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [965 974])
+                    ("DATE" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [976 981])
+                    ("TIME" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [983 988])
+                    ("TRADE_FLAG" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [990 1001])
+                    ("PACKET_FLAG" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [1003 1015])
+                    ("IP" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [1017 1020])
+                    ("TELLER_CHECK" variable
+                       (:constant-flag t
+                        :type "int")
+                        (reparse-symbol enumsubparts) [1022 1036]))                  
+                :type "enum")
+                nil [877 1037])
+            ("sockActive" type
+               (:members 
+                  ( ("sock" variable (:type "int") (reparse-symbol classsubparts) [1060 1069])
+                    ("time" variable (:type ("timeval" type (:type "class") nil nil)) (reparse-symbol classsubparts) [1071 1084]))                  
+                :type "struct")
+                nil [1039 1087])
+            ("sdnsDelayQueue" type
+               (:prototype t
+                :type "class")
+                nil [1089 1110])
+            ("sdnsMsgServer" type
+               (:members 
+                  ( ("public" label nil (reparse-symbol classsubparts) [1180 1187])
+                    ("sdnsMsgServer" function
+                       (:prototype-flag t
+                        :constructor-flag t
+                        :type ("sdnsMsgServer" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [1189 1205])
+                    ("sdnsMsgServer" function
+                       (:prototype-flag t
+                        :destructor-flag t
+                        :type "void")
+                        (reparse-symbol classsubparts) [1207 1224])
+                    ("init" function
+                       (:prototype-flag t
+                        :arguments 
+                          ( ("port" variable (:type "unsigned short") (reparse-symbol arg-sub-list) [1332 1352])
+                            ("delay" variable (:type "int") (reparse-symbol arg-sub-list) [1353 1363])
+                            ("timeOut" variable (:type "int") (reparse-symbol arg-sub-list) [1364 1376])
+                            ("callback" variable (:type ("MsgCallback" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [1377 1398])
+                            ("clientData" variable
+                               (:pointer 1
+                                :type "void")
+                                (reparse-symbol arg-sub-list) [1399 1416]))                          
+                        :type "int")
+                        (reparse-symbol classsubparts) [1323 1417])
+                    ("unInit" function
+                       (:prototype-flag t
+                        :type "void")
+                        (reparse-symbol classsubparts) [1429 1443])
+                    ("setDelay" function
+                       (:prototype-flag t
+                        :arguments 
+                          ( ("delay" variable (:type "int") (reparse-symbol arg-sub-list) [1460 1470]))                          
+                        :type "bool")
+                        (reparse-symbol classsubparts) [1446 1471])
+                    ("setTimeOut" function
+                       (:prototype-flag t
+                        :arguments 
+                          ( ("timeOut" variable (:type "int") (reparse-symbol arg-sub-list) [1489 1501]))                          
+                        :type "bool")
+                        (reparse-symbol classsubparts) [1473 1502])
+                    ("setPort" function
+                       (:prototype-flag t
+                        :arguments 
+                          ( ("port" variable (:type "unsigned short") (reparse-symbol arg-sub-list) [1517 1537]))                          
+                        :type "int")
+                        (reparse-symbol classsubparts) [1504 1538])
+                    ("private" label nil (reparse-symbol classsubparts) [1540 1548])
+                    ("m_bInit" variable (:type "bool") (reparse-symbol classsubparts) [1550 1563])
+                    ("m_serverSock" variable (:type "int") (reparse-symbol classsubparts) [1582 1600])
+                    ("m_MaxSock" variable (:type "int") (reparse-symbol classsubparts) [1602 1617])
+                    ("m_clientSock" variable (:type ("std::vector" type
+                         (:template-specifier 
+                            ( ("sockActive" type nil nil nil))                            
+                          :type "class")
+                          nil nil)) (reparse-symbol classsubparts) [1619 1656])
+                    ("fReadfds" variable (:type ("fd_set" type (:type "class") nil nil)) (reparse-symbol classsubparts) [1658 1675])
+                    ("fExceptfds" variable (:type ("fd_set" type (:type "class") nil nil)) (reparse-symbol classsubparts) [1680 1698])
+                    ("id" variable (:type ("pthread_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [1701 1714])
+                    ("m_callback" variable (:type ("MsgCallback" type (:type "class") nil nil)) (reparse-symbol classsubparts) [1716 1739])
+                    ("m_clientData" variable
+                       (:pointer 1
+                        :type "void")
+                        (reparse-symbol classsubparts) [1741 1760])
+                    ("m_delay" variable (:type "int") (reparse-symbol classsubparts) [1762 1775])
+                    ("m_timeOut" variable (:type "int") (reparse-symbol classsubparts) [1777 1792])
+                    ("m_iStatus" variable (:type "int") (reparse-symbol classsubparts) [1794 1809])
+                    ("m_breakPipe" variable
+                       (:dereference 1
+                        :type "int")
+                        (reparse-symbol classsubparts) [1885 1905])
+                    ("m_recvBuf" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol classsubparts) [1910 1926])
+                    ("m_validSize" variable (:type "int") (reparse-symbol classsubparts) [1928 1945])
+                    ("m_delayHandle" variable
+                       (:pointer 1
+                        :type ("sdnsDelayQueue" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [1948 1978])
+                    ("threadFun" function
+                       (:prototype-flag t
+                        :pointer 1
+                        :typemodifiers ("static")
+                        :arguments 
+                          ( ("arg" variable
+                               (:pointer 1
+                                :type "void")
+                                (reparse-symbol arg-sub-list) [2012 2022]))                          
+                        :type "void")
+                        (reparse-symbol classsubparts) [1989 2023])
+                    ("singleSetup" function
+                       (:prototype-flag t
+                        :type "void")
+                        (reparse-symbol classsubparts) [2026 2045])
+                    ("handleSocket" function
+                       (:prototype-flag t
+                        :arguments 
+                          ( ("timeout" variable
+                               (:pointer 1
+                                :type ("timeval" type
+                                     (:prototype t
+                                      :type "struct")
+                                      nil nil))
+                                (reparse-symbol arg-sub-list) [2096 2120]))                          
+                        :type "int")
+                        (reparse-symbol classsubparts) [2078 2121])
+                    ("handleMsg" function
+                       (:prototype-flag t
+                        :arguments 
+                          ( ("data" variable
+                               (:pointer 1
+                                :type "char")
+                                (reparse-symbol arg-sub-list) [2160 2171])
+                            ("size" variable (:type "int") (reparse-symbol arg-sub-list) [2172 2181]))                          
+                        :type "int")
+                        (reparse-symbol classsubparts) [2145 2182])
+                    ("parseMsg" function
+                       (:prototype-flag t
+                        :arguments 
+                          ( ("data" variable
+                               (:pointer 1
+                                :type "char")
+                                (reparse-symbol arg-sub-list) [2199 2210])
+                            ("buf" variable
+                               (:pointer 1
+                                :type "char")
+                                (reparse-symbol arg-sub-list) [2211 2221])
+                            ("type" variable (:type ("eSDNSFieldType" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [2222 2242]))                          
+                        :type "bool")
+                        (reparse-symbol classsubparts) [2185 2243])
+                    ("handleEvent" function
+                       (:prototype-flag t
+                        :arguments 
+                          ( ("timeout" variable
+                               (:pointer 1
+                                :type ("timeval" type
+                                     (:prototype t
+                                      :type "struct")
+                                      nil nil))
+                                (reparse-symbol arg-sub-list) [2276 2300]))                          
+                        :type "int")
+                        (reparse-symbol classsubparts) [2259 2301])
+                    ("checkSock" function
+                       (:prototype-flag t
+                        :type "int")
+                        (reparse-symbol classsubparts) [2304 2321])
+                    ("getTime" function
+                       (:prototype-flag t
+                        :arguments 
+                          ( ("now" variable
+                               (:pointer 1
+                                :type ("timeval" type
+                                     (:prototype t
+                                      :type "struct")
+                                      nil nil))
+                                (reparse-symbol arg-sub-list) [2337 2357]))                          
+                        :type "bool")
+                        (reparse-symbol classsubparts) [2324 2358]))                  
+                :type "class")
+                nil [1158 2361])
+            ("sdnsAlarmHandle" type
+               (:superclasses 
+                  ( ("DelayQueueEntry" type
+                       (:protection "public"
+                        :type "class")
+                        nil nil))                  
+                :members 
+                  ( ("public" label nil (reparse-symbol classsubparts) [2467 2474])
+                    ("sdnsAlarmHandle" function
+                       (:prototype-flag t
+                        :constructor-flag t
+                        :arguments 
+                          ( ("event" variable (:type ("eNotifyEvent" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [2492 2511])
+                            ("callback" variable (:type ("MsgCallback" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [2512 2533])
+                            ("clientData" variable
+                               (:pointer 1
+                                :type "void")
+                                (reparse-symbol arg-sub-list) [2534 2551])
+                            ("m_arg" variable
+                               (:pointer 1
+                                :type ("sdnsEventArg" type (:type "class") nil nil))
+                                (reparse-symbol arg-sub-list) [2552 2572])
+                            ("delay" variable (:type ("DelayInterval" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [2573 2593]))                          
+                        :type ("sdnsAlarmHandle" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [2476 2594])
+                    ("getEvent" function (:type ("eNotifyEvent" type (:type "class") nil nil)) (reparse-symbol classsubparts) [2597 2637])
+                    ("handleTimeout" function
+                       (:prototype-flag t
+                        :type "void")
+                        (reparse-symbol classsubparts) [2640 2661])
+                    ("private" label nil (reparse-symbol classsubparts) [2662 2670])
+                    ("m_event" variable (:type ("eNotifyEvent" type (:type "class") nil nil)) (reparse-symbol classsubparts) [2672 2693])
+                    ("m_callback" variable (:type ("MsgCallback" type (:type "class") nil nil)) (reparse-symbol classsubparts) [2695 2719])
+                    ("m_clientData" variable
+                       (:pointer 1
+                        :type "void")
+                        (reparse-symbol classsubparts) [2721 2742])
+                    ("m_arg" variable (:type ("sdnsEventArg" type (:type "class") nil nil)) (reparse-symbol classsubparts) [2744 2763]))                  
+                :type "class")
+                nil [2418 2766])
+            ("token_terminal" type
+               (:members 
+                  ( ("token" variable (:type ("intptr_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [2793 2808])
+                    ("ip" variable
+                       (:dereference 1
+                        :type "char")
+                        (reparse-symbol classsubparts) [2810 2823])
+                    ("event" variable (:type ("eNotifyEvent" type (:type "class") nil nil)) (reparse-symbol classsubparts) [2825 2844]))                  
+                :type "struct")
+                nil [2768 2847])
+            ("sdnsDelayQueue" type
+               (:superclasses 
+                  ( ("DelayQueue" type
+                       (:protection "public"
+                        :type "class")
+                        nil nil))                  
+                :members 
+                  ( ("public" label nil (reparse-symbol classsubparts) [2892 2899])
+                    ("addEntry" function
+                       (:prototype-flag t
+                        :arguments 
+                          ( ("newEntry" variable
+                               (:pointer 1
+                                :type ("DelayQueueEntry" type (:type "class") nil nil))
+                                (reparse-symbol arg-sub-list) [2915 2941])
+                            ("ip" variable
+                               (:pointer 1
+                                :type "char")
+                                (reparse-symbol arg-sub-list) [2942 2951])
+                            ("event" variable (:type ("eNotifyEvent" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [2952 2971]))                          
+                        :type "void")
+                        (reparse-symbol classsubparts) [2901 2972])
+                    ("removeEntry" function
+                       (:prototype-flag t
+                        :pointer 1
+                        :arguments 
+                          ( ("ip" variable
+                               (:pointer 1
+                                :type "char")
+                                (reparse-symbol arg-sub-list) [3003 3012])
+                            ("event" variable (:type ("eNotifyEvent" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [3013 3032]))                          
+                        :type ("DelayQueueEntry" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [2974 3033])
+                    ("private" label nil (reparse-symbol classsubparts) [3060 3068])
+                    ("m_terminalmap" variable (:type ("std::vector" type
+                         (:template-specifier 
+                            ( ("token_terminal" type nil nil nil))                            
+                          :type "class")
+                          nil nil)) (reparse-symbol classsubparts) [3070 3112]))                  
+                :type "class")
+                nil [2849 3115]))          
+      :file "SDNS_NVR_MsgServer.h"
+      :pointmax 3123
+      :fsize 3436
+      :lastmodtime '(22098 32679 837991 14000)
+      :unmatched-syntax '((TYPEDEF 146 . 153))
+      :lexical-table 
+        '(("SDNS_MSGSERVER_H")
+          )
+)
+    (semanticdb-table "SDNS_NVR_DelayQueue.h"
+      :file "SDNS_NVR_DelayQueue.h"
+      :fsize 4676
+      :lastmodtime '(22098 32679 838991 14000)))
+  :file "!home!chz!ShunDeNongShang-test!main!include!semantic.cache"
+  :semantic-tag-version "2.0"
+  :semanticdb-version "2.2")

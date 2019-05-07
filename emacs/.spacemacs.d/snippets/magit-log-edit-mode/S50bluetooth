@@ -1,0 +1,764 @@
+;; Object net/
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "net/"
+  :tables (list 
+   (semanticdb-table "virtio_net.c"
+    :major-mode 'c-mode
+    :tags 
+        '( ("linux/netdevice.h" include (:system-flag t) nil [846 874])
+            ("linux/etherdevice.h" include (:system-flag t) nil [875 905])
+            ("linux/ethtool.h" include (:system-flag t) nil [906 932])
+            ("linux/module.h" include (:system-flag t) nil [933 958])
+            ("linux/virtio.h" include (:system-flag t) nil [959 984])
+            ("linux/virtio_net.h" include (:system-flag t) nil [985 1014])
+            ("linux/scatterlist.h" include (:system-flag t) nil [1015 1045])
+            ("linux/if_vlan.h" include (:system-flag t) nil [1046 1072])
+            ("linux/slab.h" include (:system-flag t) nil [1073 1096])
+            ("napi_weight" variable
+               (:typemodifiers ("static")
+                :type "int")
+                nil [1098 1127])
+            ("module_param" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("napi_weight" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [1141 1153])
+                    ("" variable (:type "int") (reparse-symbol arg-sub-list) [1154 1158]))                  
+                :type "int")
+                nil [1128 1165])
+            ("gso" variable
+               (:typemodifiers ("static")
+                :type "int")
+                nil [1167 1196])
+            ("csum" variable
+               (:typemodifiers ("static")
+                :type "int")
+                nil [1167 1196])
+            ("module_param" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("csum" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [1210 1215])
+                    ("" variable (:type "bool") (reparse-symbol arg-sub-list) [1216 1221]))                  
+                :type "int")
+                nil [1197 1228])
+            ("module_param" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("gso" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [1242 1246])
+                    ("" variable (:type "bool") (reparse-symbol arg-sub-list) [1247 1252]))                  
+                :type "int")
+                nil [1229 1259])
+            ("MAX_PACKET_LEN" variable (:constant-flag t) nil [1297 1311])
+            ("GOOD_COPY_LEN" variable (:constant-flag t) nil [1358 1371])
+            ("VIRTNET_SEND_COMMAND_SG_MAX" variable (:constant-flag t) nil [1385 1412])
+            ("virtnet_info" type
+               (:members 
+                  ( ("vdev" variable
+                       (:pointer 1
+                        :type ("virtio_device" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol classsubparts) [1442 1469])
+                    ("cvq" variable
+                       (:pointer 1
+                        :type ("virtqueue" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol classsubparts) [1471 1505])
+                    ("svq" variable
+                       (:pointer 1
+                        :type ("virtqueue" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol classsubparts) [1471 1505])
+                    ("rvq" variable
+                       (:pointer 1
+                        :type ("virtqueue" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol classsubparts) [1471 1505])
+                    ("dev" variable
+                       (:pointer 1
+                        :type ("net_device" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol classsubparts) [1507 1530])
+                    ("napi" variable (:type ("napi_struct" type
+                         (:prototype t
+                          :type "struct")
+                          nil nil)) (reparse-symbol classsubparts) [1532 1556])
+                    ("status" variable (:type "unsigned int") (reparse-symbol classsubparts) [1558 1578])
+                    ("max" variable (:type "unsigned int") (reparse-symbol classsubparts) [1637 1659])
+                    ("num" variable (:type "unsigned int") (reparse-symbol classsubparts) [1637 1659])
+                    ("big_packets" variable (:type "bool") (reparse-symbol classsubparts) [1709 1726])
+                    ("mergeable_rx_bufs" variable (:type "bool") (reparse-symbol classsubparts) [1801 1824])
+                    ("refill" variable (:type ("delayed_work" type
+                         (:prototype t
+                          :type "struct")
+                          nil nil)) (reparse-symbol classsubparts) [1885 1912])
+                    ("pages" variable
+                       (:pointer 1
+                        :type ("page" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol classsubparts) [1954 1973])
+                    ("rx_sg" variable
+                       (:dereference 1
+                        :type ("scatterlist" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol classsubparts) [2023 2067])
+                    ("tx_sg" variable
+                       (:dereference 1
+                        :type ("scatterlist" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol classsubparts) [2069 2113]))                  
+                :type "struct")
+                nil [1419 2116])
+            ("skb_vnet_hdr" type
+               (:members 
+                  ( ("" type
+                       (:members 
+                          ( ("hdr" variable (:type ("virtio_net_hdr" type
+                                 (:prototype t
+                                  :type "struct")
+                                  nil nil)) (reparse-symbol classsubparts) [2151 2177])
+                            ("mhdr" variable (:type ("virtio_net_hdr_mrg_rxbuf" type
+                                 (:prototype t
+                                  :type "struct")
+                                  nil nil)) (reparse-symbol classsubparts) [2180 2217]))                          
+                        :type "union")
+                        (reparse-symbol classsubparts) [2141 2221])
+                    ("num_sg" variable (:type "unsigned int") (reparse-symbol classsubparts) [2223 2243]))                  
+                :type "struct")
+                nil [2118 2246])
+            ("padded_vnet_hdr" type
+               (:members 
+                  ( ("hdr" variable (:type ("virtio_net_hdr" type
+                         (:prototype t
+                          :type "struct")
+                          nil nil)) (reparse-symbol classsubparts) [2274 2300])
+                    ("padding" variable
+                       (:dereference 1
+                        :type "char")
+                        (reparse-symbol classsubparts) [2518 2534]))                  
+                :type "struct")
+                nil [2248 2537])
+            ("skb_vnet_hdr" function
+               (:pointer 1
+                :typemodifiers ("static" "inline")
+                :arguments 
+                  ( ("skb" variable
+                       (:pointer 1
+                        :type ("sk_buff" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [2587 2607]))                  
+                :type ("skb_vnet_hdr" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [2539 2651])
+            ("give_pages" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("vi" variable
+                       (:pointer 1
+                        :type ("virtnet_info" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [2800 2824])
+                    ("page" variable
+                       (:pointer 1
+                        :type ("page" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [2825 2843]))                  
+                :type "void")
+                nil [2777 3053])
+            ("get_a_page" function
+               (:pointer 1
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("vi" variable
+                       (:pointer 1
+                        :type ("virtnet_info" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [3086 3110])
+                    ("gfp_mask" variable (:type ("gfp_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [3111 3126]))                  
+                :type ("page" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [3055 3330])
+            ("skb_xmit_done" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("svq" variable
+                       (:pointer 1
+                        :type ("virtqueue" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [3358 3380]))                  
+                :type "void")
+                nil [3332 3579])
+            ("set_skb_frag" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("skb" variable
+                       (:pointer 1
+                        :type ("sk_buff" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [3606 3626])
+                    ("page" variable
+                       (:pointer 1
+                        :type ("page" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [3627 3645])
+                    ("offset" variable (:type "unsigned int") (reparse-symbol arg-sub-list) [3650 3670])
+                    ("len" variable
+                       (:pointer 1
+                        :type "unsigned int")
+                        (reparse-symbol arg-sub-list) [3671 3689]))                  
+                :type "void")
+                nil [3581 3972])
+            ("page_to_skb" function
+               (:pointer 1
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("vi" variable
+                       (:pointer 1
+                        :type ("virtnet_info" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [4009 4033])
+                    ("page" variable
+                       (:pointer 1
+                        :type ("page" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [4041 4059])
+                    ("len" variable (:type "unsigned int") (reparse-symbol arg-sub-list) [4060 4077]))                  
+                :type ("sk_buff" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [3974 4924])
+            ("receive_mergeable" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("vi" variable
+                       (:pointer 1
+                        :type ("virtnet_info" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [4955 4979])
+                    ("skb" variable
+                       (:pointer 1
+                        :type ("sk_buff" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [4980 5000]))                  
+                :type "int")
+                nil [4926 5650])
+            ("receive_buf" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("dev" variable
+                       (:pointer 1
+                        :type ("net_device" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [5676 5699])
+                    ("buf" variable
+                       (:pointer 1
+                        :type "void")
+                        (reparse-symbol arg-sub-list) [5700 5710])
+                    ("len" variable (:type "unsigned int") (reparse-symbol arg-sub-list) [5711 5728]))                  
+                :type "void")
+                nil [5652 8061])
+            ("add_recvbuf_small" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("vi" variable
+                       (:pointer 1
+                        :type ("virtnet_info" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [8092 8116])
+                    ("gfp" variable (:type ("gfp_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [8117 8127]))                  
+                :type "int")
+                nil [8063 8566])
+            ("add_recvbuf_big" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("vi" variable
+                       (:pointer 1
+                        :type ("virtnet_info" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [8595 8619])
+                    ("gfp" variable (:type ("gfp_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [8620 8630]))                  
+                :type "int")
+                nil [8568 9754])
+            ("add_recvbuf_mergeable" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("vi" variable
+                       (:pointer 1
+                        :type ("virtnet_info" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [9789 9813])
+                    ("gfp" variable (:type ("gfp_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [9814 9824]))                  
+                :type "int")
+                nil [9756 10095])
+            ("try_fill_recv" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("vi" variable
+                       (:pointer 1
+                        :type ("virtnet_info" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [10179 10203])
+                    ("gfp" variable (:type ("gfp_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [10204 10214]))                  
+                :type "bool")
+                nil [10153 10601])
+            ("skb_recv_done" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("rvq" variable
+                       (:pointer 1
+                        :type ("virtqueue" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [10629 10651]))                  
+                :type "void")
+                nil [10603 10864])
+            ("virtnet_napi_enable" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("vi" variable
+                       (:pointer 1
+                        :type ("virtnet_info" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [10898 10922]))                  
+                :type "void")
+                nil [10866 11328])
+            ("refill_work" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("work" variable
+                       (:pointer 1
+                        :type ("work_struct" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [11354 11379]))                  
+                :type "void")
+                nil [11330 11756])
+            ("virtnet_poll" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("napi" variable
+                       (:pointer 1
+                        :type ("napi_struct" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [11782 11807])
+                    ("budget" variable (:type "int") (reparse-symbol arg-sub-list) [11808 11819]))                  
+                :type "int")
+                nil [11758 12474])
+            ("free_old_xmit_skbs" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("vi" variable
+                       (:pointer 1
+                        :type ("virtnet_info" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [12515 12539]))                  
+                :type "unsigned int")
+                nil [12476 12848])
+            ("xmit_skb" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("vi" variable
+                       (:pointer 1
+                        :type ("virtnet_info" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [12870 12894])
+                    ("skb" variable
+                       (:pointer 1
+                        :type ("sk_buff" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [12895 12915]))                  
+                :type "int")
+                nil [12850 14353])
+            ("start_xmit" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("skb" variable
+                       (:pointer 1
+                        :type ("sk_buff" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [14385 14405])
+                    ("dev" variable
+                       (:pointer 1
+                        :type ("net_device" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [14406 14429]))                  
+                :type ("netdev_tx_t" type (:type "class") nil nil))
+                nil [14355 15658])
+            ("virtnet_set_mac_address" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("dev" variable
+                       (:pointer 1
+                        :type ("net_device" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [15695 15718])
+                    ("p" variable
+                       (:pointer 1
+                        :type "void")
+                        (reparse-symbol arg-sub-list) [15719 15727]))                  
+                :type "int")
+                nil [15660 16060])
+            ("virtnet_open" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("dev" variable
+                       (:pointer 1
+                        :type ("net_device" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [16257 16280]))                  
+                :type "int")
+                nil [16233 16367])
+            ("virtnet_send_command" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("vi" variable
+                       (:pointer 1
+                        :type ("virtnet_info" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [16590 16614])
+                    ("" variable (:type ("u8" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [16615 16623])
+                    ("" variable (:type ("" type
+                         (:prototype t
+                          :type "class")
+                          nil nil)) (reparse-symbol arg-sub-list) [16618 16624])
+                    ("cmd" variable (:type ("u8" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [16625 16632])
+                    ("data" variable
+                       (:pointer 1
+                        :type ("scatterlist" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [16638 16663])
+                    ("out" variable (:type "int") (reparse-symbol arg-sub-list) [16664 16672])
+                    ("in" variable (:type "int") (reparse-symbol arg-sub-list) [16673 16680]))                  
+                :type "bool")
+                nil [16557 17623])
+            ("virtnet_close" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("dev" variable
+                       (:pointer 1
+                        :type ("net_device" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [17650 17673]))                  
+                :type "int")
+                nil [17625 17761])
+            ("virtnet_set_rx_mode" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("dev" variable
+                       (:pointer 1
+                        :type ("net_device" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [17795 17818]))                  
+                :type "void")
+                nil [17763 19875])
+            ("virtnet_vlan_rx_add_vid" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("dev" variable
+                       (:pointer 1
+                        :type ("net_device" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [19913 19936])
+                    ("vid" variable (:type ("u16" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [19937 19945]))                  
+                :type "void")
+                nil [19877 20214])
+            ("virtnet_vlan_rx_kill_vid" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("dev" variable
+                       (:pointer 1
+                        :type ("net_device" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [20253 20276])
+                    ("vid" variable (:type ("u16" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [20277 20285]))                  
+                :type "void")
+                nil [20216 20555])
+            ("virtnet_ethtool_ops" variable
+               (:typemodifiers ("static")
+                :constant-flag t
+                :type ("ethtool_ops" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [20557 20649])
+            ("MIN_MTU" variable (:constant-flag t) nil [20659 20666])
+            ("MAX_MTU" variable (:constant-flag t) nil [20678 20685])
+            ("virtnet_change_mtu" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("dev" variable
+                       (:pointer 1
+                        :type ("net_device" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [20723 20746])
+                    ("new_mtu" variable (:type "int") (reparse-symbol arg-sub-list) [20747 20759]))                  
+                :type "int")
+                nil [20693 20858])
+            ("virtnet_netdev" variable
+               (:typemodifiers ("static")
+                :constant-flag t
+                :type ("net_device_ops" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [20860 21389])
+            ("virtnet_update_status" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("vi" variable
+                       (:pointer 1
+                        :type ("virtnet_info" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [21425 21449]))                  
+                :type "void")
+                nil [21391 21937])
+            ("virtnet_config_changed" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("vdev" variable
+                       (:pointer 1
+                        :type ("virtio_device" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [21974 22001]))                  
+                :type "void")
+                nil [21939 22073])
+            ("virtnet_probe" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("vdev" variable
+                       (:pointer 1
+                        :type ("virtio_device" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [22100 22127]))                  
+                :type "int")
+                nil [22075 25986])
+            ("free_unused_bufs" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("vi" variable
+                       (:pointer 1
+                        :type ("virtnet_info" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [26017 26041]))                  
+                :type "void")
+                nil [25988 26385])
+            ("virtnet_remove" function
+               (:arguments 
+                  ( ("vdev" variable
+                       (:pointer 1
+                        :type ("virtio_device" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [26424 26451]))                  
+                :type ("__devexit" type (:type "class") nil nil))
+                nil [26399 26834])
+            ("id_table" variable
+               (:dereference 1
+                :typemodifiers ("static")
+                :type ("virtio_device_id" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [26836 26931])
+            ("features" variable
+               (:dereference 1
+                :typemodifiers ("static")
+                :type "unsigned int")
+                nil [26933 27362])
+            ("virtio_net_driver" variable
+               (:typemodifiers ("static")
+                :type ("virtio_driver" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [27364 27682])
+            ("init" function
+               (:arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [27707 27712]))                  
+                :type ("__init" type (:type "class") nil nil))
+                nil [27695 27768])
+            ("fini" function
+               (:arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [27794 27799]))                  
+                :type ("__exit" type (:type "class") nil nil))
+                nil [27782 27850])
+            ("module_init" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("init" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [27863 27868]))                  
+                :type "int")
+                nil [27851 27869])
+            ("module_exit" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("fini" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [27882 27887]))                  
+                :type "int")
+                nil [27870 27888])
+            ("MODULE_DEVICE_TABLE" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("virtio" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [27910 27917])
+                    ("" variable (:type ("id_table" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [27918 27927]))                  
+                :type "int")
+                nil [27890 27928])
+            ("MODULE_DESCRIPTION" function
+               (:prototype-flag t
+                :type "int")
+                nil [27929 27973])
+            ("MODULE_LICENSE" function
+               (:prototype-flag t
+                :type "int")
+                nil [27974 27996]))          
+    :file "virtio_net.c"
+    :pointmax 27997
+    :fsize 27996
+    :lastmodtime '(21468 9051 588037 129000)
+    :unmatched-syntax '((string 27989 . 27994) (string 27948 . 27971) (VOID 27777 . 27781) (STATIC 27770 . 27776) (INT 27691 . 27694) (STATIC 27684 . 27690) (VOID 26394 . 26398) (STATIC 26387 . 26393) (number 1253 . 1257) (number 1222 . 1226) (number 1159 . 1163))
+    :lexical-table 
+        '(("GOOD_COPY_LEN" . ((number "128" 1372 . 1375)))
+          ("MIN_MTU" . ((number "68" 20667 . 20669)))
+          ("MAX_PACKET_LEN" . ((semantic-list "(ETH_HLEN + VLAN_HLEN + ETH_DATA_LEN)" 1312 . 1349)))
+          ("VIRTNET_SEND_COMMAND_SG_MAX" . ((number "2" 1416 . 1417)))
+          ("MAX_MTU" . ((number "65535" 20686 . 20691)))
+          )
+
+    )
+   (semanticdb-table "3c515.c"
+    :major-mode 'c-mode
+    :tags nil
+    :file "3c515.c"
+    :pointmax 49690
+    :fsize 49689
+    :lastmodtime '(21468 9039 361326 612000)
+    :unmatched-syntax 'nil
+    :lexical-table 
+        '(("CORKSCREW_ID" . ((number "10" 3395 . 3397)))
+          ("EL3_STATUS" . ((number "0x0e" 5703 . 5707)))
+          ("DRV_NAME" . ((string "\"3c515\"" 694 . 701)))
+          ("TX_RING_SIZE" . ((number "16" 1813 . 1815)))
+          ("CORKSCREW" . ((number "1" 890 . 891)))
+          ("TX_TIMEOUT" . ((semantic-list "((4*HZ)/10)" 3052 . 3063)))
+          ("CORKSCREW_TOTAL_SIZE" . ((number "0x20" 3259 . 3263)))
+          ("DRV_VERSION" . ((string "\"0.99t-ac\"" 723 . 733)))
+          ("DRV_RELDATE" . ((string "\"28-Oct-2002\"" 755 . 768)))
+          ("PKT_BUF_SZ" . ((number "1536" 1860 . 1864)))
+          ("EL3WINDOW" (spp-arg-list ("win_num") 5604 . 5613) . ((symbol "outw" 5614 . 5618) (semantic-list "(SelectWindow + (win_num), ioaddr + EL3_CMD)" 5618 . 5662)))
+          ("EL3_CMD" . ((number "0x0e" 5679 . 5683)))
+          ("WAIT_TX_AVAIL" . ((number "200" 2969 . 2972)))
+          ("NEW_MULTICAST")
+          ("AUTOMEDIA" . ((number "1" 1397 . 1398)))
+          ("DRIVER_DEBUG" . ((number "1" 2716 . 2717)))
+          ("VORTEX_BUS_MASTER")
+          ("RX_RING_SIZE" . ((number "16" 1837 . 1839)))
+          ("MAX_UNITS" . ((number "8" 2410 . 2411)))
+          )
+
+    )
+   (semanticdb-table "3c59x.c"
+    :major-mode 'c-mode
+    :tags nil
+    :file "3c59x.c"
+    :pointmax 104863
+    :fsize 104862
+    :lastmodtime '(21468 9039 438324 789000)
+    :unmatched-syntax 'nil
+    )
+   )
+  :file "!home!chz!linux-3.0.8!drivers!net!semantic.cache"
+  :semantic-tag-version "2.0"
+  :semanticdb-version "2.2"
+  )

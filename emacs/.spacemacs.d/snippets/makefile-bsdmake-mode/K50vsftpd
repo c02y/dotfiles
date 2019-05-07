@@ -1,0 +1,40 @@
+;; Object asm/
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "asm/"
+  :tables (list 
+   (semanticdb-table "current.h"
+    :major-mode 'c-mode
+    :tags 
+        '( ("_CRIS_CURRENT_H" variable (:constant-flag t) nil [33 48])
+            ("linux/thread_info.h" include (:system-flag t) nil [50 80])
+            ("task_struct" type
+               (:prototype t
+                :type "struct")
+                nil [82 101])
+            ("get_current" function
+               (:pointer 1
+                :typemodifiers ("static" "inline")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [150 155]))                  
+                :type ("task_struct" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [103 203])
+            ("current" variable (:constant-flag t) nil [214 221]))          
+    :file "current.h"
+    :pointmax 269
+    :fsize 268
+    :lastmodtime '(21468 8928 874942 517000)
+    :unmatched-syntax 'nil
+    :lexical-table 
+        '(("_CRIS_CURRENT_H")
+          ("current" . ((symbol "get_current" 222 . 233) (semantic-list "()" 233 . 235)))
+          )
+
+    )
+   )
+  :file "!home!chz!linux-3.0.8!arch!cris!include!asm!semantic.cache"
+  :semantic-tag-version "2.0"
+  :semanticdb-version "2.2"
+  )

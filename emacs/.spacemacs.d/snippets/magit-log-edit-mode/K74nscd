@@ -1,0 +1,834 @@
+;; Object acpi/
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "acpi/"
+  :tables (list 
+   (semanticdb-table "acpi_bus.h"
+    :major-mode 'c-mode
+    :tags 
+        '( ("__ACPI_BUS_H__" variable (:constant-flag t) nil [1126 1140])
+            ("linux/device.h" include (:system-flag t) nil [1142 1167])
+            ("acpi/acpi.h" include (:system-flag t) nil [1169 1191])
+            ("ACPI_MAX_HANDLES" variable (:constant-flag t) nil [1225 1241])
+            ("acpi_handle_list" type
+               (:members 
+                  ( ("count" variable (:type ("u32" type (:type "class") nil nil)) (reparse-symbol classsubparts) [1272 1282])
+                    ("handles" variable
+                       (:dereference 1
+                        :type ("acpi_handle" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [1284 1322]))                  
+                :type "struct")
+                nil [1245 1325])
+            ("acpi_extract_package" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("package" variable
+                       (:pointer 1
+                        :type ("acpi_object" type (:type "union") nil nil))
+                        (reparse-symbol arg-sub-list) [1379 1406])
+                    ("format" variable
+                       (:pointer 1
+                        :type ("acpi_buffer" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [1414 1441])
+                    ("buffer" variable
+                       (:pointer 1
+                        :type ("acpi_buffer" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [1442 1469]))                  
+                :type ("acpi_status" type (:type "class") nil nil))
+                nil [1346 1470])
+            ("acpi_evaluate_integer" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("handle" variable (:type ("acpi_handle" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [1505 1524])
+                    ("pathname" variable (:type ("acpi_string" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [1533 1554])
+                    ("arguments" variable
+                       (:pointer 1
+                        :type ("acpi_object_list" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [1563 1598])
+                    ("data" variable
+                       (:pointer 1
+                        :type "unsigned long long")
+                        (reparse-symbol arg-sub-list) [1599 1624]))                  
+                :type ("acpi_status" type (:type "class") nil nil))
+                nil [1471 1625])
+            ("acpi_evaluate_reference" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("handle" variable (:type ("acpi_handle" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [1662 1681])
+                    ("pathname" variable (:type ("acpi_string" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [1685 1706])
+                    ("arguments" variable
+                       (:pointer 1
+                        :type ("acpi_object_list" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [1710 1745])
+                    ("list" variable
+                       (:pointer 1
+                        :type ("acpi_handle_list" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [1749 1779]))                  
+                :type ("acpi_status" type (:type "class") nil nil))
+                nil [1626 1780]))          
+    :file "acpi_bus.h"
+    :pointmax 11346
+    :fsize 11345
+    :lastmodtime '(21468 9183 433915 510000)
+    :unmatched-syntax 'nil
+    :lexical-table 
+        '(("ACPI_MAX_HANDLES" . ((number "10" 1242 . 1244)))
+          ("__ACPI_BUS_H__")
+          )
+
+    )
+   (semanticdb-table "acpi.h"
+    :file "acpi.h"
+    :fsize 3024
+    :lastmodtime '(21468 9183 397916 363000)
+    )
+   (semanticdb-table "processor.h"
+    :major-mode 'c-mode
+    :tags 
+        '( ("__ACPI_PROCESSOR_H" variable (:constant-flag t) nil [36 54])
+            ("linux/kernel.h" include (:system-flag t) nil [56 81])
+            ("linux/cpu.h" include (:system-flag t) nil [82 104])
+            ("linux/cpuidle.h" include (:system-flag t) nil [105 131])
+            ("linux/thermal.h" include (:system-flag t) nil [132 158])
+            ("asm/acpi.h" include (:system-flag t) nil [159 180])
+            ("ACPI_PROCESSOR_BUSY_METRIC" variable (:constant-flag t) nil [190 216])
+            ("ACPI_PROCESSOR_MAX_POWER" variable (:constant-flag t) nil [229 253])
+            ("ACPI_PROCESSOR_MAX_C2_LATENCY" variable (:constant-flag t) nil [264 293])
+            ("ACPI_PROCESSOR_MAX_C3_LATENCY" variable (:constant-flag t) nil [306 335])
+            ("ACPI_PROCESSOR_MAX_THROTTLING" variable (:constant-flag t) nil [350 379])
+            ("ACPI_PROCESSOR_MAX_THROTTLE" variable (:constant-flag t) nil [391 418])
+            ("ACPI_PROCESSOR_MAX_DUTY_WIDTH" variable (:constant-flag t) nil [441 470])
+            ("ACPI_PDC_REVISION_ID" variable (:constant-flag t) nil [482 502])
+            ("ACPI_PSD_REV0_REVISION" variable (:constant-flag t) nil [517 539])
+            ("ACPI_PSD_REV0_ENTRIES" variable (:constant-flag t) nil [589 610])
+            ("ACPI_TSD_REV0_REVISION" variable (:constant-flag t) nil [623 645])
+            ("ACPI_TSD_REV0_ENTRIES" variable (:constant-flag t) nil [695 716])
+            ("DOMAIN_COORD_TYPE_SW_ALL" variable (:constant-flag t) nil [833 857])
+            ("DOMAIN_COORD_TYPE_SW_ANY" variable (:constant-flag t) nil [871 895])
+            ("DOMAIN_COORD_TYPE_HW_ALL" variable (:constant-flag t) nil [909 933])
+            ("ACPI_CSTATE_SYSTEMIO" variable (:constant-flag t) nil [948 968])
+            ("ACPI_CSTATE_FFH" variable (:constant-flag t) nil [979 994])
+            ("ACPI_CSTATE_HALT" variable (:constant-flag t) nil [1006 1022])
+            ("ACPI_CX_DESC_LEN" variable (:constant-flag t) nil [1034 1050])
+            ("acpi_processor_cx" type
+               (:prototype t
+                :type "struct")
+                nil [1079 1104])
+            ("acpi_power_register" type
+               (:members 
+                  ( ("descriptor" variable (:type ("u8" type (:type "class") nil nil)) (reparse-symbol classsubparts) [1136 1150])
+                    ("length" variable (:type ("u16" type (:type "class") nil nil)) (reparse-symbol classsubparts) [1152 1163])
+                    ("space_id" variable (:type ("u8" type (:type "class") nil nil)) (reparse-symbol classsubparts) [1165 1177])
+                    ("bit_width" variable (:type ("u8" type (:type "class") nil nil)) (reparse-symbol classsubparts) [1179 1192])
+                    ("bit_offset" variable (:type ("u8" type (:type "class") nil nil)) (reparse-symbol classsubparts) [1194 1208])
+                    ("access_size" variable (:type ("u8" type (:type "class") nil nil)) (reparse-symbol classsubparts) [1210 1225])
+                    ("address" variable (:type ("u64" type (:type "class") nil nil)) (reparse-symbol classsubparts) [1227 1239]))                  
+                :type "struct")
+                nil [1106 1267])
+            ("acpi_processor_cx" type
+               (:members 
+                  ( ("valid" variable (:type ("u8" type (:type "class") nil nil)) (reparse-symbol classsubparts) [1297 1306])
+                    ("type" variable (:type ("u8" type (:type "class") nil nil)) (reparse-symbol classsubparts) [1308 1316])
+                    ("address" variable (:type ("u32" type (:type "class") nil nil)) (reparse-symbol classsubparts) [1318 1330])
+                    ("entry_method" variable (:type ("u8" type (:type "class") nil nil)) (reparse-symbol classsubparts) [1332 1348])
+                    ("index" variable (:type ("u8" type (:type "class") nil nil)) (reparse-symbol classsubparts) [1350 1359])
+                    ("latency" variable (:type ("u32" type (:type "class") nil nil)) (reparse-symbol classsubparts) [1361 1373])
+                    ("latency_ticks" variable (:type ("u32" type (:type "class") nil nil)) (reparse-symbol classsubparts) [1375 1393])
+                    ("power" variable (:type ("u32" type (:type "class") nil nil)) (reparse-symbol classsubparts) [1395 1405])
+                    ("usage" variable (:type ("u32" type (:type "class") nil nil)) (reparse-symbol classsubparts) [1407 1417])
+                    ("time" variable (:type ("u64" type (:type "class") nil nil)) (reparse-symbol classsubparts) [1419 1428])
+                    ("bm_sts_skip" variable (:type ("u8" type (:type "class") nil nil)) (reparse-symbol classsubparts) [1430 1445])
+                    ("desc" variable
+                       (:dereference 1
+                        :type "char")
+                        (reparse-symbol classsubparts) [1447 1475]))                  
+                :type "struct")
+                nil [1269 1478])
+            ("acpi_processor_power" type
+               (:members 
+                  ( ("dev" variable (:type ("cpuidle_device" type
+                         (:prototype t
+                          :type "struct")
+                          nil nil)) (reparse-symbol classsubparts) [1511 1537])
+                    ("state" variable
+                       (:pointer 1
+                        :type ("acpi_processor_cx" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol classsubparts) [1539 1571])
+                    ("bm_check_timestamp" variable (:type "unsigned long") (reparse-symbol classsubparts) [1573 1606])
+                    ("default_state" variable (:type ("u32" type (:type "class") nil nil)) (reparse-symbol classsubparts) [1608 1626])
+                    ("count" variable (:type "int") (reparse-symbol classsubparts) [1628 1638])
+                    ("states" variable
+                       (:dereference 1
+                        :type ("acpi_processor_cx" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol classsubparts) [1640 1698])
+                    ("timer_broadcast_on_state" variable (:type "int") (reparse-symbol classsubparts) [1700 1729]))                  
+                :type "struct")
+                nil [1480 1732])
+            ("acpi_psd_package" type
+               (:members 
+                  ( ("num_entries" variable (:type ("u64" type (:type "class") nil nil)) (reparse-symbol classsubparts) [1791 1807])
+                    ("revision" variable (:type ("u64" type (:type "class") nil nil)) (reparse-symbol classsubparts) [1809 1822])
+                    ("domain" variable (:type ("u64" type (:type "class") nil nil)) (reparse-symbol classsubparts) [1824 1835])
+                    ("coord_type" variable (:type ("u64" type (:type "class") nil nil)) (reparse-symbol classsubparts) [1837 1852])
+                    ("num_processors" variable (:type ("u64" type (:type "class") nil nil)) (reparse-symbol classsubparts) [1854 1873]))                  
+                :type "struct")
+                nil [1764 1901])
+            ("acpi_pct_register" type
+               (:members 
+                  ( ("descriptor" variable (:type ("u8" type (:type "class") nil nil)) (reparse-symbol classsubparts) [1931 1945])
+                    ("length" variable (:type ("u16" type (:type "class") nil nil)) (reparse-symbol classsubparts) [1947 1958])
+                    ("space_id" variable (:type ("u8" type (:type "class") nil nil)) (reparse-symbol classsubparts) [1960 1972])
+                    ("bit_width" variable (:type ("u8" type (:type "class") nil nil)) (reparse-symbol classsubparts) [1974 1987])
+                    ("bit_offset" variable (:type ("u8" type (:type "class") nil nil)) (reparse-symbol classsubparts) [1989 2003])
+                    ("reserved" variable (:type ("u8" type (:type "class") nil nil)) (reparse-symbol classsubparts) [2005 2017])
+                    ("address" variable (:type ("u64" type (:type "class") nil nil)) (reparse-symbol classsubparts) [2019 2031]))                  
+                :type "struct")
+                nil [1903 2059])
+            ("acpi_processor_px" type
+               (:members 
+                  ( ("core_frequency" variable (:type ("u64" type (:type "class") nil nil)) (reparse-symbol classsubparts) [2089 2108])
+                    ("power" variable (:type ("u64" type (:type "class") nil nil)) (reparse-symbol classsubparts) [2126 2136])
+                    ("transition_latency" variable (:type ("u64" type (:type "class") nil nil)) (reparse-symbol classsubparts) [2155 2178])
+                    ("bus_master_latency" variable (:type ("u64" type (:type "class") nil nil)) (reparse-symbol classsubparts) [2199 2222])
+                    ("control" variable (:type ("u64" type (:type "class") nil nil)) (reparse-symbol classsubparts) [2243 2255])
+                    ("status" variable (:type ("u64" type (:type "class") nil nil)) (reparse-symbol classsubparts) [2277 2288]))                  
+                :type "struct")
+                nil [2061 2315])
+            ("acpi_processor_performance" type
+               (:members 
+                  ( ("state" variable (:type "unsigned int") (reparse-symbol classsubparts) [2354 2373])
+                    ("platform_limit" variable (:type "unsigned int") (reparse-symbol classsubparts) [2375 2403])
+                    ("control_register" variable (:type ("acpi_pct_register" type
+                         (:prototype t
+                          :type "struct")
+                          nil nil)) (reparse-symbol classsubparts) [2405 2447])
+                    ("status_register" variable (:type ("acpi_pct_register" type
+                         (:prototype t
+                          :type "struct")
+                          nil nil)) (reparse-symbol classsubparts) [2449 2490])
+                    ("state_count" variable (:type "unsigned int") (reparse-symbol classsubparts) [2492 2517])
+                    ("states" variable
+                       (:pointer 1
+                        :type ("acpi_processor_px" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol classsubparts) [2519 2552])
+                    ("domain_info" variable (:type ("acpi_psd_package" type
+                         (:prototype t
+                          :type "struct")
+                          nil nil)) (reparse-symbol classsubparts) [2554 2590])
+                    ("shared_cpu_map" variable (:type ("cpumask_var_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [2592 2621])
+                    ("shared_type" variable (:type "unsigned int") (reparse-symbol classsubparts) [2623 2648]))                  
+                :type "struct")
+                nil [2317 2651])
+            ("acpi_tsd_package" type
+               (:members 
+                  ( ("num_entries" variable (:type ("u64" type (:type "class") nil nil)) (reparse-symbol classsubparts) [2706 2722])
+                    ("revision" variable (:type ("u64" type (:type "class") nil nil)) (reparse-symbol classsubparts) [2724 2737])
+                    ("domain" variable (:type ("u64" type (:type "class") nil nil)) (reparse-symbol classsubparts) [2739 2750])
+                    ("coord_type" variable (:type ("u64" type (:type "class") nil nil)) (reparse-symbol classsubparts) [2752 2767])
+                    ("num_processors" variable (:type ("u64" type (:type "class") nil nil)) (reparse-symbol classsubparts) [2769 2788]))                  
+                :type "struct")
+                nil [2679 2816])
+            ("acpi_ptc_register" type
+               (:members 
+                  ( ("descriptor" variable (:type ("u8" type (:type "class") nil nil)) (reparse-symbol classsubparts) [2846 2860])
+                    ("length" variable (:type ("u16" type (:type "class") nil nil)) (reparse-symbol classsubparts) [2862 2873])
+                    ("space_id" variable (:type ("u8" type (:type "class") nil nil)) (reparse-symbol classsubparts) [2875 2887])
+                    ("bit_width" variable (:type ("u8" type (:type "class") nil nil)) (reparse-symbol classsubparts) [2889 2902])
+                    ("bit_offset" variable (:type ("u8" type (:type "class") nil nil)) (reparse-symbol classsubparts) [2904 2918])
+                    ("reserved" variable (:type ("u8" type (:type "class") nil nil)) (reparse-symbol classsubparts) [2920 2932])
+                    ("address" variable (:type ("u64" type (:type "class") nil nil)) (reparse-symbol classsubparts) [2934 2946]))                  
+                :type "struct")
+                nil [2818 2974])
+            ("acpi_processor_tx_tss" type
+               (:members 
+                  ( ("freqpercentage" variable (:type ("u64" type (:type "class") nil nil)) (reparse-symbol classsubparts) [3008 3027])
+                    ("power" variable (:type ("u64" type (:type "class") nil nil)) (reparse-symbol classsubparts) [3035 3045])
+                    ("transition_latency" variable (:type ("u64" type (:type "class") nil nil)) (reparse-symbol classsubparts) [3064 3087])
+                    ("control" variable (:type ("u64" type (:type "class") nil nil)) (reparse-symbol classsubparts) [3108 3120])
+                    ("status" variable (:type ("u64" type (:type "class") nil nil)) (reparse-symbol classsubparts) [3142 3153]))                  
+                :type "struct")
+                nil [2976 3180])
+            ("acpi_processor_tx" type
+               (:members 
+                  ( ("power" variable (:type ("u16" type (:type "class") nil nil)) (reparse-symbol classsubparts) [3209 3219])
+                    ("performance" variable (:type ("u16" type (:type "class") nil nil)) (reparse-symbol classsubparts) [3221 3237]))                  
+                :type "struct")
+                nil [3181 3240])
+            ("acpi_processor" type
+               (:prototype t
+                :type "struct")
+                nil [3242 3264])
+            ("acpi_processor_throttling" type
+               (:members 
+                  ( ("state" variable (:type "unsigned int") (reparse-symbol classsubparts) [3301 3320])
+                    ("platform_limit" variable (:type "unsigned int") (reparse-symbol classsubparts) [3322 3350])
+                    ("control_register" variable (:type ("acpi_pct_register" type
+                         (:prototype t
+                          :type "struct")
+                          nil nil)) (reparse-symbol classsubparts) [3352 3394])
+                    ("status_register" variable (:type ("acpi_pct_register" type
+                         (:prototype t
+                          :type "struct")
+                          nil nil)) (reparse-symbol classsubparts) [3396 3437])
+                    ("state_count" variable (:type "unsigned int") (reparse-symbol classsubparts) [3439 3464])
+                    ("states_tss" variable
+                       (:pointer 1
+                        :type ("acpi_processor_tx_tss" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol classsubparts) [3466 3507])
+                    ("domain_info" variable (:type ("acpi_tsd_package" type
+                         (:prototype t
+                          :type "struct")
+                          nil nil)) (reparse-symbol classsubparts) [3509 3545])
+                    ("shared_cpu_map" variable (:type ("cpumask_var_t" type (:type "class") nil nil)) (reparse-symbol classsubparts) [3547 3576])
+                    ("acpi_processor_get_throttling" variable
+                       (:functionpointer-flag t
+                        :type "int")
+                        (reparse-symbol classsubparts) [3578 3644])
+                    ("acpi_processor_set_throttling" variable
+                       (:functionpointer-flag t
+                        :type "int")
+                        (reparse-symbol classsubparts) [3646 3746])
+                    ("address" variable (:type ("u32" type (:type "class") nil nil)) (reparse-symbol classsubparts) [3749 3761])
+                    ("duty_offset" variable (:type ("u8" type (:type "class") nil nil)) (reparse-symbol classsubparts) [3763 3778])
+                    ("duty_width" variable (:type ("u8" type (:type "class") nil nil)) (reparse-symbol classsubparts) [3780 3794])
+                    ("tsd_valid_flag" variable (:type ("u8" type (:type "class") nil nil)) (reparse-symbol classsubparts) [3796 3814])
+                    ("shared_type" variable (:type "unsigned int") (reparse-symbol classsubparts) [3816 3841])
+                    ("states" variable
+                       (:dereference 1
+                        :type ("acpi_processor_tx" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol classsubparts) [3843 3906]))                  
+                :type "struct")
+                nil [3265 3909])
+            ("acpi_processor_lx" type
+               (:members 
+                  ( ("px" variable (:type "int") (reparse-symbol classsubparts) [3962 3969])
+                    ("tx" variable (:type "int") (reparse-symbol classsubparts) [3997 4004]))                  
+                :type "struct")
+                nil [3934 4030])
+            ("acpi_processor_limit" type
+               (:members 
+                  ( ("state" variable (:type ("acpi_processor_lx" type
+                         (:prototype t
+                          :type "struct")
+                          nil nil)) (reparse-symbol classsubparts) [4063 4094])
+                    ("thermal" variable (:type ("acpi_processor_lx" type
+                         (:prototype t
+                          :type "struct")
+                          nil nil)) (reparse-symbol classsubparts) [4116 4149])
+                    ("user" variable (:type ("acpi_processor_lx" type
+                         (:prototype t
+                          :type "struct")
+                          nil nil)) (reparse-symbol classsubparts) [4171 4201]))                  
+                :type "struct")
+                nil [4032 4221])
+            ("acpi_processor_flags" type
+               (:members 
+                  ( ("power" variable
+                       (:suffix ":1"
+                        :type ("u8" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [4254 4265])
+                    ("performance" variable
+                       (:suffix ":1"
+                        :type ("u8" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [4267 4284])
+                    ("throttling" variable
+                       (:suffix ":1"
+                        :type ("u8" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [4286 4302])
+                    ("limit" variable
+                       (:suffix ":1"
+                        :type ("u8" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [4304 4315])
+                    ("bm_control" variable
+                       (:suffix ":1"
+                        :type ("u8" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [4317 4333])
+                    ("bm_check" variable
+                       (:suffix ":1"
+                        :type ("u8" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [4335 4349])
+                    ("has_cst" variable
+                       (:suffix ":1"
+                        :type ("u8" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [4351 4364])
+                    ("power_setup_done" variable
+                       (:suffix ":1"
+                        :type ("u8" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [4366 4388])
+                    ("bm_rld_set" variable
+                       (:suffix ":1"
+                        :type ("u8" type (:type "class") nil nil))
+                        (reparse-symbol classsubparts) [4390 4406]))                  
+                :type "struct")
+                nil [4223 4409])
+            ("acpi_processor" type
+               (:members 
+                  ( ("handle" variable (:type ("acpi_handle" type (:type "class") nil nil)) (reparse-symbol classsubparts) [4436 4455])
+                    ("acpi_id" variable (:type ("u32" type (:type "class") nil nil)) (reparse-symbol classsubparts) [4457 4469])
+                    ("id" variable (:type ("u32" type (:type "class") nil nil)) (reparse-symbol classsubparts) [4471 4478])
+                    ("pblk" variable (:type ("u32" type (:type "class") nil nil)) (reparse-symbol classsubparts) [4480 4489])
+                    ("performance_platform_limit" variable (:type "int") (reparse-symbol classsubparts) [4491 4522])
+                    ("throttling_platform_limit" variable (:type "int") (reparse-symbol classsubparts) [4524 4554])
+                    ("flags" variable (:type ("acpi_processor_flags" type
+                         (:prototype t
+                          :type "struct")
+                          nil nil)) (reparse-symbol classsubparts) [4599 4633])
+                    ("power" variable (:type ("acpi_processor_power" type
+                         (:prototype t
+                          :type "struct")
+                          nil nil)) (reparse-symbol classsubparts) [4635 4669])
+                    ("performance" variable
+                       (:pointer 1
+                        :type ("acpi_processor_performance" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol classsubparts) [4671 4718])
+                    ("throttling" variable (:type ("acpi_processor_throttling" type
+                         (:prototype t
+                          :type "struct")
+                          nil nil)) (reparse-symbol classsubparts) [4720 4764])
+                    ("limit" variable (:type ("acpi_processor_limit" type
+                         (:prototype t
+                          :type "struct")
+                          nil nil)) (reparse-symbol classsubparts) [4766 4800])
+                    ("cdev" variable
+                       (:pointer 1
+                        :type ("thermal_cooling_device" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol classsubparts) [4802 4838]))                  
+                :type "struct")
+                nil [4411 4841])
+            ("acpi_processor_errata" type
+               (:members 
+                  ( ("smp" variable (:type ("u8" type (:type "class") nil nil)) (reparse-symbol classsubparts) [4875 4882])
+                    ("piix4" variable (:type ("" type
+                         (:members 
+                            ( ("throttle" variable
+                                 (:suffix ":1"
+                                  :type ("u8" type (:type "class") nil nil))
+                                  (reparse-symbol classsubparts) [4895 4909])
+                              ("fdma" variable
+                                 (:suffix ":1"
+                                  :type ("u8" type (:type "class") nil nil))
+                                  (reparse-symbol classsubparts) [4912 4922])
+                              ("reserved" variable
+                                 (:suffix ":6"
+                                  :type ("u8" type (:type "class") nil nil))
+                                  (reparse-symbol classsubparts) [4925 4939])
+                              ("bmisx" variable (:type ("u32" type (:type "class") nil nil)) (reparse-symbol classsubparts) [4942 4952]))                            
+                          :type "struct")
+                          nil nil)) (reparse-symbol classsubparts) [4884 4962]))                  
+                :type "struct")
+                nil [4843 4965])
+            ("acpi_processor_preregister_performance" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("__percpu" variable (:type ("acpi_processor_performance" type
+                         (:prototype t
+                          :type "struct")
+                          nil nil)) (reparse-symbol arg-sub-list) [5017 5077])
+                    ("" variable (:type ("performance" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [5077 5089]))                  
+                :type "int")
+                nil [4967 5090])
+            ("acpi_processor_register_performance" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("performance" variable
+                       (:pointer 1
+                        :type ("acpi_processor_performance" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [5139 5198])
+                    ("cpu" variable (:type "unsigned int") (reparse-symbol arg-sub-list) [5199 5216]))                  
+                :type "int")
+                nil [5092 5217])
+            ("acpi_processor_unregister_performance" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("performance" variable
+                       (:pointer 1
+                        :type ("acpi_processor_performance" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [5268 5331])
+                    ("cpu" variable (:type "unsigned int") (reparse-symbol arg-sub-list) [5340 5357]))                  
+                :type "void")
+                nil [5218 5358])
+            ("acpi_processor_notify_smm" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("calling_module" variable
+                       (:pointer 1
+                        :type ("module" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [5521 5551]))                  
+                :type "int")
+                nil [5491 5552])
+            ("DECLARE_PER_CPU" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable
+                       (:pointer 1
+                        :type ("acpi_processor" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [5648 5672])
+                    ("" variable (:type ("processors" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [5673 5684]))                  
+                :type "int")
+                nil [5632 5685])
+            ("errata" variable
+               (:typemodifiers ("extern")
+                :type ("acpi_processor_errata" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [5686 5729])
+            ("acpi_processor_power_init_bm_check" function
+               (:typemodifiers ("static" "inline")
+                :arguments 
+                  ( ("flags" variable
+                       (:pointer 1
+                        :type ("acpi_processor_flags" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [6124 6183])
+                    ("cpu" variable (:type "unsigned int") (reparse-symbol arg-sub-list) [6184 6201]))                  
+                :type "void")
+                nil [6070 6236])
+            ("acpi_processor_ffh_cstate_probe" function
+               (:typemodifiers ("static" "inline")
+                :arguments 
+                  ( ("cpu" variable (:type "unsigned int") (reparse-symbol arg-sub-list) [6287 6304])
+                    ("cx" variable
+                       (:pointer 1
+                        :type ("acpi_processor_cx" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [6313 6342])
+                    ("reg" variable
+                       (:pointer 1
+                        :type ("acpi_power_register" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [6351 6391]))                  
+                :type "int")
+                nil [6237 6407])
+            ("acpi_processor_ffh_cstate_enter" function
+               (:typemodifiers ("static" "inline")
+                :arguments 
+                  ( ("cstate" variable
+                       (:pointer 1
+                        :type ("acpi_processor_cx" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [6459 6501]))                  
+                :type "void")
+                nil [6408 6514])
+            ("acpi_processor_ppc_init" function
+               (:typemodifiers ("static" "inline")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [6848 6853]))                  
+                :type "void")
+                nil [6805 6866])
+            ("acpi_processor_ppc_exit" function
+               (:typemodifiers ("static" "inline")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [6910 6915]))                  
+                :type "void")
+                nil [6867 6928])
+            ("acpi_processor_ppc_has_changed" function
+               (:typemodifiers ("static" "inline")
+                :arguments 
+                  ( ("pr" variable
+                       (:pointer 1
+                        :type ("acpi_processor" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [6978 7004])
+                    ("event_flag" variable (:type "int") (reparse-symbol arg-sub-list) [7013 7028]))                  
+                :type "int")
+                nil [6929 7308])
+            ("acpi_processor_get_bios_limit" function
+               (:typemodifiers ("static" "inline")
+                :arguments 
+                  ( ("cpu" variable (:type "int") (reparse-symbol arg-sub-list) [7357 7365])
+                    ("limit" variable
+                       (:pointer 1
+                        :type "unsigned int")
+                        (reparse-symbol arg-sub-list) [7366 7386]))                  
+                :type "int")
+                nil [7309 7407])
+            ("acpi_processor_set_pdc" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("handle" variable (:type ("acpi_handle" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [7496 7515]))                  
+                :type "void")
+                nil [7468 7516])
+            ("acpi_get_cpuid" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("" variable (:type ("acpi_handle" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [7536 7548])
+                    ("type" variable (:type "int") (reparse-symbol arg-sub-list) [7549 7558])
+                    ("acpi_id" variable (:type ("u32" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [7559 7571]))                  
+                :type "int")
+                nil [7517 7572])
+            ("acpi_processor_tstate_has_changed" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("pr" variable
+                       (:pointer 1
+                        :type ("acpi_processor" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [7644 7670]))                  
+                :type "int")
+                nil [7606 7671])
+            ("acpi_processor_get_throttling_info" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("pr" variable
+                       (:pointer 1
+                        :type ("acpi_processor" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [7711 7737]))                  
+                :type "int")
+                nil [7672 7738])
+            ("acpi_processor_set_throttling" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("pr" variable
+                       (:pointer 1
+                        :type ("acpi_processor" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [7780 7806])
+                    ("state" variable (:type "int") (reparse-symbol arg-sub-list) [7813 7823])
+                    ("force" variable (:type "bool") (reparse-symbol arg-sub-list) [7824 7835]))                  
+                :type "int")
+                nil [7739 7836])
+            ("acpi_processor_reevaluate_tstate" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("pr" variable
+                       (:pointer 1
+                        :type ("acpi_processor" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [8023 8049])
+                    ("action" variable (:type "unsigned long") (reparse-symbol arg-sub-list) [8053 8074]))                  
+                :type "void")
+                nil [7978 8075])
+            ("acpi_processor_throttling_fops" variable
+               (:typemodifiers ("extern")
+                :constant-flag t
+                :type ("file_operations" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [8076 8143])
+            ("acpi_processor_throttling_init" function
+               (:prototype-flag t
+                :typemodifiers ("extern")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [8187 8192]))                  
+                :type "void")
+                nil [8144 8193])
+            ("acpi_processor_power_init" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("pr" variable
+                       (:pointer 1
+                        :type ("acpi_processor" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [8250 8276])
+                    ("device" variable
+                       (:pointer 1
+                        :type ("acpi_device" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [8286 8313]))                  
+                :type "int")
+                nil [8220 8314])
+            ("acpi_processor_cst_has_changed" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("pr" variable
+                       (:pointer 1
+                        :type ("acpi_processor" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [8350 8376]))                  
+                :type "int")
+                nil [8315 8377])
+            ("acpi_processor_power_exit" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("pr" variable
+                       (:pointer 1
+                        :type ("acpi_processor" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [8408 8434])
+                    ("device" variable
+                       (:pointer 1
+                        :type ("acpi_device" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [8444 8471]))                  
+                :type "int")
+                nil [8378 8472])
+            ("acpi_processor_suspend" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("device" variable
+                       (:pointer 1
+                        :type ("acpi_device" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [8500 8528])
+                    ("state" variable (:type ("pm_message_t" type (:type "class") nil nil)) (reparse-symbol arg-sub-list) [8529 8548]))                  
+                :type "int")
+                nil [8473 8549])
+            ("acpi_processor_resume" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("device" variable
+                       (:pointer 1
+                        :type ("acpi_device" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [8576 8604]))                  
+                :type "int")
+                nil [8550 8605])
+            ("acpi_idle_driver" variable
+               (:typemodifiers ("extern")
+                :type ("cpuidle_driver" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [8606 8652])
+            ("acpi_processor_get_limit_info" function
+               (:prototype-flag t
+                :arguments 
+                  ( ("pr" variable
+                       (:pointer 1
+                        :type ("acpi_processor" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [8717 8743]))                  
+                :type "int")
+                nil [8683 8744])
+            ("processor_cooling_ops" variable
+               (:typemodifiers ("extern")
+                :type ("thermal_cooling_device_ops" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [8745 8808])
+            ("acpi_thermal_cpufreq_init" function
+               (:typemodifiers ("static" "inline")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [8959 8964]))                  
+                :type "void")
+                nil [8914 8977])
+            ("acpi_thermal_cpufreq_exit" function
+               (:typemodifiers ("static" "inline")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [9023 9028]))                  
+                :type "void")
+                nil [8978 9041]))          
+    :file "processor.h"
+    :pointmax 9057
+    :fsize 9056
+    :lastmodtime '(21468 9183 581912 7000)
+    :unmatched-syntax '((punctuation 5076 . 5077))
+    :lexical-table 
+        '(("DOMAIN_COORD_TYPE_SW_ANY" . ((number "0xfd" 896 . 900)))
+          ("__ACPI_PROCESSOR_H")
+          ("ACPI_TSD_REV0_ENTRIES" . ((number "5" 718 . 719)))
+          ("ACPI_PROCESSOR_MAX_THROTTLING" . ((number "16" 380 . 382)))
+          ("ACPI_PSD_REV0_REVISION" . ((number "0" 541 . 542)))
+          ("ACPI_PSD_REV0_ENTRIES" . ((number "5" 612 . 613)))
+          ("ACPI_PROCESSOR_MAX_C2_LATENCY" . ((number "100" 294 . 297)))
+          ("ACPI_PROCESSOR_MAX_C3_LATENCY" . ((number "1000" 336 . 340)))
+          ("ACPI_CSTATE_SYSTEMIO" . ((number "0" 969 . 970)))
+          ("ACPI_TSD_REV0_REVISION" . ((number "0" 647 . 648)))
+          ("ACPI_CSTATE_HALT" . ((number "2" 1023 . 1024)))
+          ("DOMAIN_COORD_TYPE_SW_ALL" . ((number "0xfc" 858 . 862)))
+          ("ACPI_CX_DESC_LEN" . ((number "32" 1051 . 1053)))
+          ("ACPI_PROCESSOR_MAX_POWER" . ((number "8" 254 . 255)))
+          ("ACPI_PROCESSOR_MAX_DUTY_WIDTH" . ((number "4" 471 . 472)))
+          ("ACPI_PDC_REVISION_ID" . ((number "0x1" 504 . 507)))
+          ("ACPI_PROCESSOR_BUSY_METRIC" . ((number "10" 217 . 219)))
+          ("ACPI_PROCESSOR_MAX_THROTTLE" . ((number "250" 419 . 422)))
+          ("DOMAIN_COORD_TYPE_HW_ALL" . ((number "0xfe" 934 . 938)))
+          ("ACPI_CSTATE_FFH" . ((number "1" 996 . 997)))
+          )
+
+    )
+   )
+  :file "!home!chz!linux-3.0.8!include!acpi!semantic.cache"
+  :semantic-tag-version "2.0"
+  :semanticdb-version "2.2"
+  )

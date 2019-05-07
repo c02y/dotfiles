@@ -1,0 +1,530 @@
+;; Object slub/
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "slub/"
+  :tables (list 
+   (semanticdb-table "slabinfo.c"
+    :major-mode 'c-mode
+    :tags 
+        '( ("stdio.h" include (:system-flag t) nil [142 160])
+            ("stdlib.h" include (:system-flag t) nil [161 180])
+            ("sys/types.h" include (:system-flag t) nil [181 203])
+            ("dirent.h" include (:system-flag t) nil [204 223])
+            ("strings.h" include (:system-flag t) nil [224 244])
+            ("string.h" include (:system-flag t) nil [245 264])
+            ("unistd.h" include (:system-flag t) nil [265 284])
+            ("stdarg.h" include (:system-flag t) nil [285 304])
+            ("getopt.h" include (:system-flag t) nil [305 324])
+            ("regex.h" include (:system-flag t) nil [325 343])
+            ("errno.h" include (:system-flag t) nil [344 362])
+            ("MAX_SLABS" variable (:constant-flag t) nil [372 381])
+            ("MAX_ALIASES" variable (:constant-flag t) nil [394 405])
+            ("MAX_NODES" variable (:constant-flag t) nil [418 427])
+            ("slabinfo" type
+               (:members 
+                  ( ("name" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol classsubparts) [453 464])
+                    ("alias" variable (:type "int") (reparse-symbol classsubparts) [466 476])
+                    ("refs" variable (:type "int") (reparse-symbol classsubparts) [478 487])
+                    ("destroy_by_rcu" variable (:type "int") (reparse-symbol classsubparts) [489 546])
+                    ("cpu_slabs" variable (:type "int") (reparse-symbol classsubparts) [489 546])
+                    ("cache_dma" variable (:type "int") (reparse-symbol classsubparts) [489 546])
+                    ("align" variable (:type "int") (reparse-symbol classsubparts) [489 546])
+                    ("aliases" variable (:type "int") (reparse-symbol classsubparts) [489 546])
+                    ("objs_per_slab" variable (:type "int") (reparse-symbol classsubparts) [548 594])
+                    ("object_size" variable (:type "int") (reparse-symbol classsubparts) [548 594])
+                    ("hwcache_align" variable (:type "int") (reparse-symbol classsubparts) [548 594])
+                    ("trace" variable (:type "int") (reparse-symbol classsubparts) [596 644])
+                    ("store_user" variable (:type "int") (reparse-symbol classsubparts) [596 644])
+                    ("slab_size" variable (:type "int") (reparse-symbol classsubparts) [596 644])
+                    ("sanity_checks" variable (:type "int") (reparse-symbol classsubparts) [596 644])
+                    ("red_zone" variable (:type "int") (reparse-symbol classsubparts) [646 691])
+                    ("reclaim_account" variable (:type "int") (reparse-symbol classsubparts) [646 691])
+                    ("poison" variable (:type "int") (reparse-symbol classsubparts) [646 691])
+                    ("order" variable (:type "int") (reparse-symbol classsubparts) [646 691])
+                    ("objects_total" variable (:type "unsigned long") (reparse-symbol classsubparts) [693 763])
+                    ("objects_partial" variable (:type "unsigned long") (reparse-symbol classsubparts) [693 763])
+                    ("slabs" variable (:type "unsigned long") (reparse-symbol classsubparts) [693 763])
+                    ("objects" variable (:type "unsigned long") (reparse-symbol classsubparts) [693 763])
+                    ("partial" variable (:type "unsigned long") (reparse-symbol classsubparts) [693 763])
+                    ("alloc_slowpath" variable (:type "unsigned long") (reparse-symbol classsubparts) [765 810])
+                    ("alloc_fastpath" variable (:type "unsigned long") (reparse-symbol classsubparts) [765 810])
+                    ("free_slowpath" variable (:type "unsigned long") (reparse-symbol classsubparts) [812 855])
+                    ("free_fastpath" variable (:type "unsigned long") (reparse-symbol classsubparts) [812 855])
+                    ("free_remove_partial" variable (:type "unsigned long") (reparse-symbol classsubparts) [857 922])
+                    ("free_add_partial" variable (:type "unsigned long") (reparse-symbol classsubparts) [857 922])
+                    ("free_frozen" variable (:type "unsigned long") (reparse-symbol classsubparts) [857 922])
+                    ("alloc_refill" variable (:type "unsigned long") (reparse-symbol classsubparts) [924 994])
+                    ("free_slab" variable (:type "unsigned long") (reparse-symbol classsubparts) [924 994])
+                    ("alloc_slab" variable (:type "unsigned long") (reparse-symbol classsubparts) [924 994])
+                    ("alloc_from_partial" variable (:type "unsigned long") (reparse-symbol classsubparts) [924 994])
+                    ("deactivate_empty" variable (:type "unsigned long") (reparse-symbol classsubparts) [996 1059])
+                    ("deactivate_full" variable (:type "unsigned long") (reparse-symbol classsubparts) [996 1059])
+                    ("cpuslab_flush" variable (:type "unsigned long") (reparse-symbol classsubparts) [996 1059])
+                    ("deactivate_to_tail" variable (:type "unsigned long") (reparse-symbol classsubparts) [1061 1114])
+                    ("deactivate_to_head" variable (:type "unsigned long") (reparse-symbol classsubparts) [1061 1114])
+                    ("order_fallback" variable (:type "unsigned long") (reparse-symbol classsubparts) [1116 1170])
+                    ("deactivate_remote_frees" variable (:type "unsigned long") (reparse-symbol classsubparts) [1116 1170])
+                    ("numa" variable
+                       (:dereference 1
+                        :type "int")
+                        (reparse-symbol classsubparts) [1172 1192])
+                    ("numa_partial" variable
+                       (:dereference 1
+                        :type "int")
+                        (reparse-symbol classsubparts) [1194 1222]))                  
+                :type "struct")
+                nil [434 1245])
+            ("slabinfo" variable
+               (:dereference 1
+                :type ("slabinfo" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [434 1245])
+            ("aliasinfo" type
+               (:members 
+                  ( ("name" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol classsubparts) [1267 1278])
+                    ("ref" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol classsubparts) [1280 1290])
+                    ("slab" variable
+                       (:pointer 1
+                        :type ("slabinfo" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol classsubparts) [1292 1314]))                  
+                :type "struct")
+                nil [1247 1340])
+            ("aliasinfo" variable
+               (:dereference 1
+                :type ("aliasinfo" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [1247 1340])
+            ("slabs" variable (:type "int") nil [1342 1356])
+            ("actual_slabs" variable (:type "int") nil [1357 1378])
+            ("aliases" variable (:type "int") nil [1379 1395])
+            ("alias_targets" variable (:type "int") nil [1396 1418])
+            ("highest_node" variable (:type "int") nil [1419 1440])
+            ("buffer" variable
+               (:dereference 1
+                :type "char")
+                nil [1442 1460])
+            ("show_empty" variable (:type "int") nil [1462 1481])
+            ("show_report" variable (:type "int") nil [1482 1502])
+            ("show_alias" variable (:type "int") nil [1503 1522])
+            ("show_slab" variable (:type "int") nil [1523 1541])
+            ("skip_zero" variable (:type "int") nil [1542 1560])
+            ("show_numa" variable (:type "int") nil [1561 1579])
+            ("show_track" variable (:type "int") nil [1580 1599])
+            ("show_first_alias" variable (:type "int") nil [1600 1625])
+            ("validate" variable (:type "int") nil [1626 1643])
+            ("shrink" variable (:type "int") nil [1644 1659])
+            ("show_inverted" variable (:type "int") nil [1660 1682])
+            ("show_single_ref" variable (:type "int") nil [1683 1707])
+            ("show_totals" variable (:type "int") nil [1708 1728])
+            ("sort_size" variable (:type "int") nil [1729 1747])
+            ("sort_active" variable (:type "int") nil [1748 1768])
+            ("set_debug" variable (:type "int") nil [1769 1787])
+            ("show_ops" variable (:type "int") nil [1788 1805])
+            ("show_activity" variable (:type "int") nil [1806 1828])
+            ("sanity" variable (:type "int") nil [1850 1865])
+            ("redzone" variable (:type "int") nil [1866 1882])
+            ("poison" variable (:type "int") nil [1883 1898])
+            ("tracking" variable (:type "int") nil [1899 1916])
+            ("tracing" variable (:type "int") nil [1917 1933])
+            ("page_size" variable (:type "int") nil [1935 1949])
+            ("pattern" variable (:type ("regex_t" type (:type "class") nil nil)) nil [1951 1967])
+            ("fatal" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("x" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [1987 2001])
+                    ("..." variable (:type "vararg") (reparse-symbol arg-sub-list) [2002 2006]))                  
+                :type "void")
+                nil [1969 2102])
+            ("usage" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [2122 2127]))                  
+                :type "void")
+                nil [2104 3485])
+            ("read_obj" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("name" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [3517 3534]))                  
+                :type "unsigned long")
+                nil [3487 3770])
+            ("get_obj" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("name" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [3845 3862]))                  
+                :type "unsigned long")
+                nil [3816 3923])
+            ("get_obj_and_str" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("name" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [3962 3979])
+                    ("x" variable
+                       (:pointer 2
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [3980 3989]))                  
+                :type "unsigned long")
+                nil [3925 4199])
+            ("set_obj" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("s" variable
+                       (:pointer 1
+                        :type ("slabinfo" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [4221 4240])
+                    ("name" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [4241 4258])
+                    ("n" variable (:type "int") (reparse-symbol arg-sub-list) [4259 4265]))                  
+                :type "void")
+                nil [4201 4439])
+            ("read_slab_obj" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("s" variable
+                       (:pointer 1
+                        :type ("slabinfo" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [4476 4495])
+                    ("name" variable
+                       (:pointer 1
+                        :constant-flag t
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [4496 4513]))                  
+                :type "unsigned long")
+                nil [4441 4750])
+            ("store_size" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("buffer" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [4812 4825])
+                    ("value" variable (:type "unsigned long") (reparse-symbol arg-sub-list) [4826 4846]))                  
+                :type "int")
+                nil [4790 5346])
+            ("decode_numa_list" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("numa" variable
+                       (:pointer 1
+                        :type "int")
+                        (reparse-symbol arg-sub-list) [5377 5387])
+                    ("t" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [5388 5396]))                  
+                :type "void")
+                nil [5348 5705])
+            ("slab_validate" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("s" variable
+                       (:pointer 1
+                        :type ("slabinfo" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [5733 5752]))                  
+                :type "void")
+                nil [5707 5827])
+            ("slab_shrink" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("s" variable
+                       (:pointer 1
+                        :type ("slabinfo" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [5853 5872]))                  
+                :type "void")
+                nil [5829 5945])
+            ("line" variable (:type "int") nil [5947 5960])
+            ("first_line" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [5985 5990]))                  
+                :type "void")
+                nil [5962 6210])
+            ("find_one_alias" function
+               (:pointer 1
+                :typemodifiers ("static")
+                :arguments 
+                  ( ("find" variable
+                       (:pointer 1
+                        :type ("slabinfo" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [6296 6318]))                  
+                :type ("aliasinfo" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [6256 6603])
+            ("slab_size" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("s" variable
+                       (:pointer 1
+                        :type ("slabinfo" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [6636 6655]))                  
+                :type "unsigned long")
+                nil [6605 6704])
+            ("slab_activity" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("s" variable
+                       (:pointer 1
+                        :type ("slabinfo" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [6741 6760]))                  
+                :type "unsigned long")
+                nil [6706 6852])
+            ("slab_numa" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("s" variable
+                       (:pointer 1
+                        :type ("slabinfo" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [6876 6895])
+                    ("mode" variable (:type "int") (reparse-symbol arg-sub-list) [6896 6905]))                  
+                :type "void")
+                nil [6854 7752])
+            ("show_tracking" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("s" variable
+                       (:pointer 1
+                        :type ("slabinfo" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [7780 7799]))                  
+                :type "void")
+                nil [7754 8252])
+            ("ops" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("s" variable
+                       (:pointer 1
+                        :type ("slabinfo" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [8270 8289]))                  
+                :type "void")
+                nil [8254 8564])
+            ("onoff" function
+               (:pointer 1
+                :typemodifiers ("static")
+                :constant-flag t
+                :arguments 
+                  ( ("x" variable (:type "int") (reparse-symbol arg-sub-list) [8591 8597]))                  
+                :type "char")
+                nil [8566 8640])
+            ("slab_stats" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("s" variable
+                       (:pointer 1
+                        :type ("slabinfo" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [8665 8684]))                  
+                :type "void")
+                nil [8642 10913])
+            ("report" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("s" variable
+                       (:pointer 1
+                        :type ("slabinfo" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [10934 10953]))                  
+                :type "void")
+                nil [10915 12583])
+            ("slabcache" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("s" variable
+                       (:pointer 1
+                        :type ("slabinfo" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [12607 12626]))                  
+                :type "void")
+                nil [12585 14145])
+            ("debug_opt_scan" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("opt" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [14242 14252]))                  
+                :type "int")
+                nil [14216 14900])
+            ("slab_empty" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("s" variable
+                       (:pointer 1
+                        :type ("slabinfo" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [14924 14943]))                  
+                :type "int")
+                nil [14902 15139])
+            ("slab_debug" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("s" variable
+                       (:pointer 1
+                        :type ("slabinfo" type
+                             (:prototype t
+                              :type "struct")
+                              nil nil))
+                        (reparse-symbol arg-sub-list) [15164 15183]))                  
+                :type "void")
+                nil [15141 16671])
+            ("totals" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [16692 16697]))                  
+                :type "void")
+                nil [16673 24618])
+            ("sort_slabs" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [24643 24648]))                  
+                :type "void")
+                nil [24620 25228])
+            ("sort_aliases" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [25255 25260]))                  
+                :type "void")
+                nil [25230 25745])
+            ("link_slabs" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [25770 25775]))                  
+                :type "void")
+                nil [25747 26087])
+            ("alias" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [26107 26112]))                  
+                :type "void")
+                nil [26089 26623])
+            ("rename_slabs" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [26651 26656]))                  
+                :type "void")
+                nil [26626 26954])
+            ("slab_mismatch" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("slab" variable
+                       (:pointer 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [26981 26992]))                  
+                :type "int")
+                nil [26956 27041])
+            ("read_slab_dir" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [27069 27074]))                  
+                :type "void")
+                nil [27043 30426])
+            ("output_slabs" function
+               (:typemodifiers ("static")
+                :arguments 
+                  ( ("" variable (:type "void") (reparse-symbol arg-sub-list) [30453 30458]))                  
+                :type "void")
+                nil [30428 30917])
+            ("opts" variable
+               (:dereference 1
+                :type ("option" type
+                     (:prototype t
+                      :type "struct")
+                      nil nil))
+                nil [30919 31465])
+            ("main" function
+               (:arguments 
+                  ( ("argc" variable (:type "int") (reparse-symbol arg-sub-list) [31476 31485])
+                    ("argv" variable
+                       (:pointer 1
+                        :dereference 1
+                        :type "char")
+                        (reparse-symbol arg-sub-list) [31486 31499]))                  
+                :type "int")
+                nil [31467 33160]))          
+    :file "slabinfo.c"
+    :pointmax 33161
+    :fsize 33160
+    :lastmodtime '(21468 9251 474304 568000)
+    :unmatched-syntax 'nil
+    :lexical-table 
+        '(("MAX_NODES" . ((number "1024" 428 . 432)))
+          ("MAX_ALIASES" . ((number "500" 406 . 409)))
+          ("MAX_SLABS" . ((number "500" 382 . 385)))
+          )
+
+    )
+   )
+  :file "!home!chz!linux-3.0.8!tools!slub!semantic.cache"
+  :semantic-tag-version "2.0"
+  :semanticdb-version "2.2"
+  )
