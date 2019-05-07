@@ -1834,8 +1834,7 @@ end
 # conda config --add channels your_new_channel, or these packages won't be updateed when `condau`
 #
 # The packages needed to be installed using conda are(only if you have no sudo permission or the offcial is old)
-# conda install -c conda-forge ncurses emacs w3m fish the_silver_searcher source-highlight
-# conda install -c ripl-org tmux
+# conda install -c conda-forge ncurses emacs w3m fish the_silver_searcher source-highlight tmux
 # conda install -c lebedov tig
 abbr condas 'binstar search -t conda' # [packagename]
 abbr condai 'conda install -c' # [channel] [packagename]
