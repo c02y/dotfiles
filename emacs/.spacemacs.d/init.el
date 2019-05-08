@@ -45,12 +45,7 @@ This function should only modify configuration layer settings."
                       auto-completion-enable-help-tooltip t)
      better-defaults
      emacs-lisp
-     (python :variables
-             comment-inline-offset 2
-             indent-tabs-mode nil
-             tab-width 4
-             )
-
+     python
      git
      helm
      ;; markdown
@@ -61,6 +56,8 @@ This function should only modify configuration layer settings."
      ;;        shell-default-position 'bottom)
      spell-checking
      syntax-checking
+     semantic
+     shell-scripts
      treemacs
      evil-commentary
      ;; version-control
@@ -71,14 +68,9 @@ This function should only modify configuration layer settings."
             c-c++-backend 'lsp-ccls
             ;; just get rid of the warning message
             c-c++-lsp-cache-dir "~/.emacs.d/.cache/lsp-ccls"
-            c-c++-enable-auto-newline t
-            c-set-style "linux"
-            tab-width 8
-            indent-tabs-mode t
-            c-basic-offset 8
             )
      lsp
-     ;; M-x dap-gdb-lldb-setup after packages are installed
+     ;; M-x dap-gdb-lldb-setup after packages are installed by dap layer
      dap
      )
 
@@ -91,6 +83,7 @@ This function should only modify configuration layer settings."
    ;; Also include the dependencies as they will not be resolved automatically.
    dotspacemacs-additional-packages '(
                                       highlight-indent-guides
+                                      electric-operator
                                       )
 
    ;; A list of packages that cannot be updated.
@@ -485,16 +478,60 @@ This function is called at the very end of Spacemacs startup, after layer
 configuration.
 Put your configuration code here, except for variables that should be set
 before packages are loaded."
-  ;; hide the spacemacs logo in *spacemacs* buffer
-  (setq dotspacemacs-startup-banner nil)
+  (setq
+   ;; open a link not prompt yes/no
+   vc-follow-symlinks nil
+   ;; hide the spacemacs logo in *spacemacs* buffer
+   dotspacemacs-startup-banner nil
+   ;; disable the warning message
+   python-spacemacs-indent-guess nil
+   ;; spacemacs change it to blank, change it to use last words if no thing-at-point
+   helm-swoop-pre-input-function
+   (lambda ()
+     (let (($pre-input (thing-at-point 'symbol)))
+       (if (eq (length $pre-input) 0)
+           (if (boundp 'helm-swoop-pattern)
+               helm-swoop-pattern ;; this variable keeps the last used words
+             "") ;; first time helm-swoop and no thing at point
+         $pre-input)))
+   )
 
   ;; format
-  (setq indent-tabs-mode t
-        tab-always-indent 'complete
-        tab-width 4
-        ;; disable the warning message
-        python-spacemacs-indent-guess nil)
-  (c-set-offset 'comment-intro 0)
+  (setq-default
+   ;; t -> use tab as tab, nil -> use space as tab
+   indent-tabs-mode t
+   tab-always-indent 'complete
+   ;; sometimes tab-width (4) will make the char's position different from turning on whitespace-mode
+   tab-width 4
+   ;; for C++
+   c-basic-offset 4
+   )
+  (add-hook 'emacs-lisp-mode-hook
+            (lambda ()
+              (setq indent-tabs-mode nil)))
+  (add-hook 'python-mode-hook
+            (lambda ()
+              (set (make-local-variable 'comment-inline-offset) 2) ; PEP8 two spaces
+              (setq indent-tabs-mode nil)
+              (setq tab-width 4)))
+  (add-hook 'c-mode-hook
+            (lambda ()
+              (c-set-style "linux")
+              (setq tab-width 8)
+              (setq indent-tabs-mode t) ;;default in linux kernel
+              (setq c-basic-offset 8)
+              ;; make comment aligned with the code block/line
+              (c-set-offset 'comment-intro 0)))
+  (add-hook 'c++-mode-hook
+            (lambda ()
+              (c-set-style "linux")
+              (setq tab-width 4)
+              (setq indent-tabs-mode t) ;;default in linux kernel
+              (setq c-basic-offset 4)
+              (c-set-offset 'comment-intro 0)))
+  (add-hook 'makefile-mode-hook
+            (lambda ()
+              (setq tab-width 8)))
 
   ;; make C-e in better-defaults work, not work if setting like README.org
   (define-key evil-insert-state-map (kbd "C-e") 'mwim-end-of-code-or-line)
@@ -508,6 +545,81 @@ before packages are loaded."
         highlight-indent-guides-method 'character
         ;; Indent character samples: | ┆ ┊ ⁞
         highlight-indent-guides-character ?\┆)
+
+  ;; electric-operator
+  (dolist (hook '(c-mode-common-hook org-mode-hook python-mode-hook inferior-python-mode-hook LaTeX-mode-hook plantuml-mode-hook))
+    (add-hook hook #'electric-operator-mode))
+  (with-eval-after-load 'electric-operator-mode
+    (electric-operator-add-rules-for-mode 'c++-mode
+     (cons "<>" "<> ")
+     (cons "<" " < ")
+     (cons ">" " > ")
+     (cons ";" "; ")
+     (cons "++" "++")
+     )
+    (electric-operator-add-rules-for-mode 'c-mode
+     (cons "<>" "<> ")
+     (cons "<" " < ")
+     (cons ">" " > ")
+     (cons ";" "; ")
+     (cons "++" "++")
+     )
+    (electric-operator-add-rules-for-mode 'org-mode
+     (cons "," ", ")
+     (cons "?" "? ")
+     (cons ";" "; ")
+     (cons "." ". ")
+     (cons ".c" ".c ")
+     (cons ".cpp" ".cpp ")
+     (cons ".org" ".org ")
+     (cons ".md" ".md ")
+     (cons ".el" ".el ")
+     (cons ".py" ".py ")
+     (cons "./" " ./")
+     (cons "/." "/.")
+     (cons "/" nil) ;; or change nil to "/"
+     )
+    (electric-operator-add-rules-for-mode 'inferior-python-mode
+     (cons "=" " = ")
+     (cons "==" ",== ")
+     (cons "," ", ")
+     )
+    (electric-operator-add-rules-for-mode 'plantuml-mode
+     (cons ":" " : ")
+     ;;
+     (cons "<->" " <-> ")
+     (cons "<->o" " <->o ")
+     (cons "->" " -> ")
+     (cons "->>" " ->> ")
+     (cons "->x" " ->x ")
+     (cons "->o" " ->o ")
+     ;;
+     ;; (cons "<-" " <- ")
+     ;; (cons "x<-" " x<- ")
+     ;; (cons "o<-" " o<- ")
+     ;;
+     (cons "-->>" " -->> ")
+     (cons "-->>" " -->> ")
+     ;; (cons "<<--" " <<-- ")
+     ;; (cons "<<--" " <<-- ")
+     ;;
+     ;; (cons "\-" " \- ")
+     ;; (cons "-\" " -\ ")
+     ;; (cons "\\--" " \\-- ")
+     (cons "--//" " --// ")
+     (cons "-/" " -/ ")
+     (cons "/-" " /- ")
+     (cons "//--" " //-- ")
+     ;; (cons "--\\" " --\\ ")
+     ;;
+     (cons "-->" " --> ")
+     (cons "-->o" " -->o ")
+     (cons "-->x" " -->x ")
+     ;; (cons "<--" " <-- ")
+     ;; (cons "x<--" " x<-- ")
+     ;; (cons "o<--" " o<-- ")
+     )
+    )
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
@@ -517,20 +629,20 @@ before packages are loaded."
 This is an auto-generated function, do not modify its content directly, use
 Emacs customize menu instead.
 This function is called at the very end of Spacemacs initialization."
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(delete-selection-mode nil)
- '(evil-want-Y-yank-to-eol nil)
- '(package-selected-packages
-   (quote
-    (dap-mode bui tree-mode lsp-ui lsp-treemacs helm-lsp cquery company-lsp ccls lsp-mode dash-functional highlight-indent-guides company-quickhelp helm-rtags google-c-style flycheck-rtags disaster company-rtags rtags company-c-headers clang-format evil-snipe markdown-toc mmm-mode markdown-mode gh-md emoji-cheat-sheet-plus company-emoji vimrc-mode dactyl-mode evil-commentary yapfify stickyfunc-enhance pytest pyenv-mode py-isort pippel pipenv pyvenv pip-requirements live-py-mode importmagic epc ctable concurrent deferred helm-pydoc helm-gtags helm-cscope xcscope ggtags cython-mode counsel-gtags company-anaconda blacken anaconda-mode pythonic yasnippet-snippets helm-company helm-c-yasnippet fuzzy company-statistics company auto-yasnippet yasnippet ac-ispell auto-complete unfill smeargle orgit mwim magit-svn magit-gitflow magit-popup helm-gitignore helm-git-grep gitignore-templates gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link flyspell-correct-helm flyspell-correct flycheck-pos-tip pos-tip evil-magit magit transient git-commit with-editor auto-dictionary org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-mime org-download org-brain htmlize helm-org-rifle gnuplot evil-org ws-butler writeroom-mode winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package treemacs-projectile treemacs-evil toc-org symon symbol-overlay string-inflection spaceline-all-the-icons restart-emacs request rainbow-delimiters popwin persp-mode pcre2el password-generator paradox overseer org-plus-contrib org-bullets open-junk-file nameless move-text macrostep lorem-ipsum link-hint indent-guide hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-xref helm-themes helm-swoop helm-purpose helm-projectile helm-mode-manager helm-make helm-flx helm-descbinds helm-ag google-translate golden-ratio font-lock+ flycheck-package flx-ido fill-column-indicator fancy-battery eyebrowse expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-textobj-line evil-surround evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-escape evil-ediff evil-cleverparens evil-args evil-anzu eval-sexp-fu elisp-slime-nav editorconfig dumb-jump dotenv-mode doom-modeline diminish define-word counsel-projectile column-enforce-mode clean-aindent-mode centered-cursor-mode auto-highlight-symbol auto-compile aggressive-indent ace-link ace-jump-helm-line))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
-)
+  (custom-set-variables
+   ;; custom-set-variables was added by Custom.
+   ;; If you edit it by hand, you could mess it up, so be careful.
+   ;; Your init file should contain only one such instance.
+   ;; If there is more than one, they won't work right.
+   '(delete-selection-mode nil)
+   '(evil-want-Y-yank-to-eol nil)
+   '(package-selected-packages
+     (quote
+      (electric-operator srefactor insert-shebang flycheck-bashate fish-mode company-shell dap-mode bui tree-mode lsp-ui lsp-treemacs helm-lsp cquery company-lsp ccls lsp-mode dash-functional highlight-indent-guides company-quickhelp helm-rtags google-c-style flycheck-rtags disaster company-rtags rtags company-c-headers clang-format evil-snipe markdown-toc mmm-mode markdown-mode gh-md emoji-cheat-sheet-plus company-emoji vimrc-mode dactyl-mode evil-commentary yapfify stickyfunc-enhance pytest pyenv-mode py-isort pippel pipenv pyvenv pip-requirements live-py-mode importmagic epc ctable concurrent deferred helm-pydoc helm-gtags helm-cscope xcscope ggtags cython-mode counsel-gtags company-anaconda blacken anaconda-mode pythonic yasnippet-snippets helm-company helm-c-yasnippet fuzzy company-statistics company auto-yasnippet yasnippet ac-ispell auto-complete unfill smeargle orgit mwim magit-svn magit-gitflow magit-popup helm-gitignore helm-git-grep gitignore-templates gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link flyspell-correct-helm flyspell-correct flycheck-pos-tip pos-tip evil-magit magit transient git-commit with-editor auto-dictionary org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-mime org-download org-brain htmlize helm-org-rifle gnuplot evil-org ws-butler writeroom-mode winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package treemacs-projectile treemacs-evil toc-org symon symbol-overlay string-inflection spaceline-all-the-icons restart-emacs request rainbow-delimiters popwin persp-mode pcre2el password-generator paradox overseer org-plus-contrib org-bullets open-junk-file nameless move-text macrostep lorem-ipsum link-hint indent-guide hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-xref helm-themes helm-swoop helm-purpose helm-projectile helm-mode-manager helm-make helm-flx helm-descbinds helm-ag google-translate golden-ratio font-lock+ flycheck-package flx-ido fill-column-indicator fancy-battery eyebrowse expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-textobj-line evil-surround evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-escape evil-ediff evil-cleverparens evil-args evil-anzu eval-sexp-fu elisp-slime-nav editorconfig dumb-jump dotenv-mode doom-modeline diminish define-word counsel-projectile column-enforce-mode clean-aindent-mode centered-cursor-mode auto-highlight-symbol auto-compile aggressive-indent ace-link ace-jump-helm-line))))
+  (custom-set-faces
+   ;; custom-set-faces was added by Custom.
+   ;; If you edit it by hand, you could mess it up, so be careful.
+   ;; Your init file should contain only one such instance.
+   ;; If there is more than one, they won't work right.
+   )
+  )
