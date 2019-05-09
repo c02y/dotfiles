@@ -27,23 +27,24 @@ print_usage()
 	cat <<EOF
 $(basename $0) -- emacs server and emacsclient manage script
 
-Usage: $(basename $0) [-h] [-k] [-r] [-C] [-d] [-e [file]] [-E] [-f] [-s] [-m [repo]] [-c] [-a] [-o [file]] [-q] [-x] [-t]...
+Usage: $(basename $0)
 	   -h to print this usage
-	   -k to kill emacs daemon
-	   -r to restart emacs daemon and start a emacsclient
+	   -a to start org-agenda-list
+	   -b to edit this bin/script using emacsclient
+	   -c to quickly add todo using org-capture
 	   -C to check the count of emacsclients
 	   -d to start emacs --debug-init
-	   -e to edit using emacs, default is init.el
+	   -e [file] to edit using emacs, default is init.el
 	   -E to edit init.el using emacsclient
 	   -f to edit config.fish using emacsclient
-	   -s to edit this script using emacsclient
-	   -m to start magit in a repo, default is ./
-	   -c to quickly add todo using org-capture
-	   -a to start org-agenda-list
-	   -o to start orgmode for a file, default is ~/Org/todo.org
+	   -k to kill emacs daemon
+	   -m [repo] to start magit in a repo, default is ./
+	   -o [org_file] to start orgmode for a file, default is ~/Org/todo.org
 	   -q to start emacs -q --no-splash
-	   -x to start emacs -nw --no-splash
+	   -r to restart emacs daemon and start a emacsclient
+	   -s to edit
 	   -t to time the startup of emacs
+	   -x to start emacs -nw --no-splash
 EOF
 	exit 0
 }
@@ -72,9 +73,8 @@ check_exists_emacsclient()
 		timeout 1 emacsclient -n -e "(length (frame-list))" >/dev/null
 		if [ "$?" -ne 0 ]; then
 			# emacsclient gets stuck #
-			read -n 1 -p 'Running emacsclient gets stuck, kill it? [Y/n]: '
+			read -e -n 1 -p 'Running emacsclient gets stuck, kill it? [Y/n]: '
 			if [ "$REPLY" == "y" ]; then
-				echo
 				return 1
 			else
 				exit
@@ -82,11 +82,10 @@ check_exists_emacsclient()
 		fi
 		emacsclient -n -e "(if (> (length (frame-list)) 1) 't)" | grep -q t >/dev/null
 		if [ "$?" -eq 0 ]; then # has emacsclient opened
-			read -n 1 -p 'Running emacsclient exists, kill(switch to emacs frame if unsaved)? [Y/n]: '
+			read -e -n 1 -p 'Running emacsclient exists, kill(switch to emacs frame if unsaved)? [Y/n]: '
 			if [ "$REPLY" == "y" ]; then
 				# Note that if modified buffers unsaved, you have to switch to the emacsclient to save manually
 				emacsclient -n -e "(save-some-buffers)" >/dev/null
-				echo
 			else
 				echo "Cancel and exit!"
 				exit
@@ -164,31 +163,36 @@ start_magit()
 repo="."
 file="~/.emacs.d/init.el"
 cmd=
-flag_k=0 # kill emacs daemon
-flag_r=0 # restart emacs daemon and start a emacsclient
+flag_a=0 # start org-agenda-list
+flag_b=0 # edit this script using emacsclient
+flag_c=0 # quickly add todo using org-capture
 flag_C=0 # check the count of emacsclients
 flag_d=0 # start emacs --debug-init
 flag_e=0 # edit using emacs, default is init.el
 flag_E=0 # edit init.el using emacsclient
 flag_f=0 # edit config.fish using emacsclient
-flag_s=0 # edit this script using emacsclient
+flag_k=0 # kill emacs daemon
 flag_m=0 # start magit in repo, default is ./
-flag_c=0 # quickly add todo using org-capture
-flag_a=0 # start org-agenda-list
 flag_o=0 # start org-mode for a file, default is ~/Org/todo.org
 flag_q=0 # start emacs -q --no-splash
-flag_x=0 # start emacs -nw --no-splash
+flag_r=0 # restart emacs daemon and start a emacsclient
+flag_s=0 # switch between spacemacs and stock emacs
 flag_t=0 # time the startup of emacs
-while getopts ":hkrCdeEfsmcaoqxt" args; do # prefix-: no warning for illegal option
+flag_x=0 # start emacs -nw --no-splash
+while getopts ":hkrCdeEfbsmcaoqxt" args; do # prefix-: no warning for illegal option
 	case "$args" in
 		h|\?)                   # \? for illegal option
 			print_usage
 			;;
-		k)
-			flag_k=1
+		a)
+			flag_a=1
 			;;
-		r)
-			flag_r=1
+		b)
+			flag_b=1
+			file="~/.local/bin/emm"
+			;;
+		c)
+			flag_c=1
 			;;
 		C)
 			flag_C=1
@@ -210,9 +214,8 @@ while getopts ":hkrCdeEfsmcaoqxt" args; do # prefix-: no warning for illegal opt
 			flag_f=1
 			file="~/.config/fish/config.fish"
 			;;
-		s)
-			flag_s=1
-			file="~/.local/bin/emm"
+		k)
+			flag_k=1
 			;;
 		m)
 			flag_m=1
@@ -220,12 +223,6 @@ while getopts ":hkrCdeEfsmcaoqxt" args; do # prefix-: no warning for illegal opt
 				repo=${@:$OPTIND}
 				OPTIND=$((OPTIND+1))
 			fi
-			;;
-		c)
-			flag_c=1
-			;;
-		a)
-			flag_a=1
 			;;
 		o)
 			flag_o=1
@@ -239,11 +236,17 @@ while getopts ":hkrCdeEfsmcaoqxt" args; do # prefix-: no warning for illegal opt
 		q)
 			flag_q=1
 			;;
-		x)
-			flag_x=1
+		r)
+			flag_r=1
+			;;
+		s)
+			flag_s=1
 			;;
 		t)
 			flag_t=1
+			;;
+		x)
+			flag_x=1
 			;;
 	esac
 done
@@ -255,15 +258,17 @@ else
 	flag_systemctl=0
 fi
 
-if [ "$flag_k" -eq 1 ]; then
-	check_exists_emacsclient
-	kill_emacs_server
-	exit 0
+if [ "$flag_a" -eq 1 ]; then
+	# cmd="-e '(org-agenda-list)'"
+	cmd="-e '(execute-kbd-macro (kbd \"C-c a a c\"))'"
 fi
 
-if [ "$flag_r" -eq 1 ]; then
-	check_exists_emacsclient
-	restart_emacs_server
+if [ "$flag_b" -eq 1 ] || [ "$flag_E" -eq 1 ] || [ "$flag_f" -eq 1 ]; then
+	cmd="$file"
+fi
+
+if [ "$flag_c" -eq 1 ]; then
+	cmd="-e '(org-capture)'"
 fi
 
 if [ "$flag_C" -eq 1 ]; then
@@ -273,16 +278,15 @@ if [ "$flag_C" -eq 1 ]; then
 		timeout 1 emacsclient -n -e "(if (> (length (frame-list)) 1) 't)" >/dev/null
 		if [ "$?" -ne 0 ]; then
 			# emacsclient gets stuck #
-			read -n 1 -p 'Running emacsclient gets stuck, kill it? [Y/n]: '
+			read -e -n 1 -p 'Running emacsclient gets stuck, kill it? [Y/n]: '
 			if [ "$REPLY" == "y" ]; then
-				echo
 				kill_emacs_server
 				exit 1
 			else
 				exit 0
 			fi
 		fi
-		echo Count of emacsclients:
+		echo "Count of emacsclients:"
 		emacsclient -n -e "(- (length (frame-list)) 1) "
 		exit 0
 	else
@@ -304,21 +308,14 @@ if [ "$flag_e" -eq 1 ]; then
 	exit 0
 fi
 
-if [ "$flag_E" -eq 1 ] || [ "$flag_f" -eq 1 ] || [ "$flag_s" -eq 1 ]; then
-	cmd="$file"
+if [ "$flag_k" -eq 1 ]; then
+	check_exists_emacsclient
+	kill_emacs_server
+	exit 0
 fi
 
 if [ "$flag_m" -eq 1 ]; then
 	start_magit $repo
-fi
-
-if [ "$flag_c" -eq 1 ]; then
-	cmd="-e '(org-capture)'"
-fi
-
-if [ "$flag_a" -eq 1 ]; then
-	# cmd="-e '(org-agenda-list)'"
-	cmd="-e '(execute-kbd-macro (kbd \"C-c a a c\"))'"
 fi
 
 if [ "$flag_o" -eq 1 ]; then
@@ -331,15 +328,59 @@ if [ "$flag_q" -eq 1 ]; then
 	exit 0
 fi
 
-if [ "$flag_x" -eq 1 ]; then
-	echo "Start emacs -nw --no-splash..."
-	emacs -nw --no-splash >/dev/null 2>&1
-	exit 0
+if [ "$flag_r" -eq 1 ]; then
+	check_exists_emacsclient
+	restart_emacs_server
+fi
+
+if [ "$flag_s" -eq 1 ]; then
+	echo "Switch between spacemacs and stock emacs..."
+	if [ -d ~/.emacs.d/core ]; then # check if directory exists
+		# -e in read - add newline after the the type in prompt, to avoid echo string after the prompt
+		# unnecessary to add an empty echo
+		read -e -n 1 -p "Currently using spacemacs, switch to stock emacs? [Y/n]: "
+		if [ "$REPLY" == "y" ] || [ "$REPLY" == " " ]; then
+			mv -vi ~/.emacs.d ~/.emacs.d.se
+			if [ -d ~/.emacs.d.st ]; then
+				mv -vi ~/.emacs.d.st ~/.emacs.d
+			else
+				echo "bak directory of stock emacs(~/.emacs.d.st) doesn't exist, exit!"
+				exit -1
+			fi
+		else
+			echo "Cancel and exit!"
+			exit 0
+		fi
+	elif [ -d ~/.emacs.d/lisp ]; then
+		read -e -n 1 -p "Currently using stock emacs, switch to spacemacs? [Y/n]: "
+		if [ "$REPLY" == "y" ] || [ "$REPLY" == " " ]; then
+			mv -vi ~/.emacs.d ~/.emacs.d.st
+			if [ -d ~/.emacs.d.se ]; then
+				mv -vi ~/.emacs.d.se ~/.emacs.d
+			else
+				echo "bak directory of spacemacs(~/.emacs.d.se) doesn't exist, exit!"
+				exit -1
+			fi
+		else
+			echo "Cancel and exit!"
+			exit 0
+		fi
+	else
+		echo "Both directories of spacemacs and stock emacs do not exist, exit!"
+		exit -1
+	fi
+	restart_emacs_server
 fi
 
 if [ "$flag_t" -eq 1 ]; then
 	echo "Time the startup of emacs..."
 	time emacs --debug-init -eval '(kill-emacs)'
+	exit 0
+fi
+
+if [ "$flag_x" -eq 1 ]; then
+	echo "Start emacs -nw --no-splash..."
+	emacs -nw --no-splash >/dev/null 2>&1
 	exit 0
 fi
 
