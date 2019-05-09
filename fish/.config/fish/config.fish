@@ -20,6 +20,9 @@ if not xhost | grep (whoami) ^/dev/null >/dev/null
     xhost +si:localuser:(whoami) ^/dev/null>/dev/null
 end
 
+# disable ksshaskpass pop window in KDE
+set -e SSH_ASKPASS
+
 # for ~/.linuxbrew/ (brew for linux to install programs)
 #set -gx LD_LIBRARY_PATH $LD_LIBRARY_PATH ~/.linuxbrew/Library
 
