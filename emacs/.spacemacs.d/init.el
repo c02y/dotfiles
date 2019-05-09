@@ -45,6 +45,7 @@ This function should only modify configuration layer settings."
                       auto-completion-enable-help-tooltip t)
      better-defaults
      emacs-lisp
+     ;; `pip install importmagic epc' after the python layer is installed
      python
      git
      helm
@@ -193,14 +194,14 @@ It should only modify the values of Spacemacs settings."
    ;; `recents' `bookmarks' `projects' `agenda' `todos'.
    ;; List sizes may be nil, in which case
    ;; `spacemacs-buffer-startup-lists-length' takes effect.
-   dotspacemacs-startup-lists '((recents . 5)
-                                (projects . 7))
+   dotspacemacs-startup-lists '((recents . 10)
+                                (projects . 10))
 
    ;; True if the home buffer should respond to resize events. (default t)
    dotspacemacs-startup-buffer-responsive t
 
    ;; Default major mode of the scratch buffer (default `text-mode')
-   dotspacemacs-scratch-mode 'text-mode
+   dotspacemacs-scratch-mode 'lisp-interaction-mode
 
    ;; Initial message in the scratch buffer, such as "Welcome to Spacemacs!"
    ;; (default nil)
@@ -478,6 +479,27 @@ This function is called at the very end of Spacemacs startup, after layer
 configuration.
 Put your configuration code here, except for variables that should be set
 before packages are loaded."
+  ;; encode system
+  ;; encode, the last line will be the highest priority
+  (set-language-environment 'UTF-8)
+  ;; this the current file is not utf-8, when saving it, it will prompt to select
+  ;; the coding system, use this following line to choose utf-8 always
+  (setq coding-system-for-write 'utf-8)
+  (setq-default path-coding-system 'utf-8)
+  (setq file-name-coding-system 'utf-8)
+  (prefer-coding-system 'cp950)
+  (prefer-coding-system 'gb2312)
+  (prefer-coding-system 'cp936)
+  (prefer-coding-system 'gb18030)
+  ;;(prefer-coding-system 'utf-16le-with-signature)
+  (prefer-coding-system 'utf-16)
+  (prefer-coding-system 'utf-8)
+
+  (add-hook 'after-init-hook 'global-company-mode)
+
+  (setq-default
+   ;; change the major mode of any file without extension to org-mode instead of fundamental-mode
+   major-mode 'org-mode)
   (setq
    ;; open a link not prompt yes/no
    vc-follow-symlinks nil
@@ -492,6 +514,9 @@ before packages are loaded."
                helm-swoop-pattern ;; this variable keeps the last used words
              "") ;; first time helm-swoop and no thing at point
          $pre-input)))
+   company-minimum-prefix-length 1
+   company-show-numbers t
+   company-tooltip-limit 20
    )
 
   ;; format
@@ -637,7 +662,7 @@ This function is called at the very end of Spacemacs initialization."
    '(evil-want-Y-yank-to-eol nil)
    '(package-selected-packages
      (quote
-      (electric-operator srefactor insert-shebang flycheck-bashate fish-mode company-shell dap-mode bui tree-mode lsp-ui lsp-treemacs helm-lsp cquery company-lsp ccls lsp-mode dash-functional highlight-indent-guides company-quickhelp helm-rtags google-c-style flycheck-rtags disaster company-rtags rtags company-c-headers clang-format evil-snipe markdown-toc mmm-mode markdown-mode gh-md emoji-cheat-sheet-plus company-emoji vimrc-mode dactyl-mode evil-commentary yapfify stickyfunc-enhance pytest pyenv-mode py-isort pippel pipenv pyvenv pip-requirements live-py-mode importmagic epc ctable concurrent deferred helm-pydoc helm-gtags helm-cscope xcscope ggtags cython-mode counsel-gtags company-anaconda blacken anaconda-mode pythonic yasnippet-snippets helm-company helm-c-yasnippet fuzzy company-statistics company auto-yasnippet yasnippet ac-ispell auto-complete unfill smeargle orgit mwim magit-svn magit-gitflow magit-popup helm-gitignore helm-git-grep gitignore-templates gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link flyspell-correct-helm flyspell-correct flycheck-pos-tip pos-tip evil-magit magit transient git-commit with-editor auto-dictionary org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-mime org-download org-brain htmlize helm-org-rifle gnuplot evil-org ws-butler writeroom-mode winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package treemacs-projectile treemacs-evil toc-org symon symbol-overlay string-inflection spaceline-all-the-icons restart-emacs request rainbow-delimiters popwin persp-mode pcre2el password-generator paradox overseer org-plus-contrib org-bullets open-junk-file nameless move-text macrostep lorem-ipsum link-hint indent-guide hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-xref helm-themes helm-swoop helm-purpose helm-projectile helm-mode-manager helm-make helm-flx helm-descbinds helm-ag google-translate golden-ratio font-lock+ flycheck-package flx-ido fill-column-indicator fancy-battery eyebrowse expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-textobj-line evil-surround evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-escape evil-ediff evil-cleverparens evil-args evil-anzu eval-sexp-fu elisp-slime-nav editorconfig dumb-jump dotenv-mode doom-modeline diminish define-word counsel-projectile column-enforce-mode clean-aindent-mode centered-cursor-mode auto-highlight-symbol auto-compile aggressive-indent ace-link ace-jump-helm-line))))
+      (electric-operator srefactor insert-shebang flycheck-bashate fish-mode company-shell dap-mode bui tree-mode lsp-ui lsp-treemacs helm-lsp cquery company-lsp ccls lsp-mode dash-functional highlight-indent-guides company-quickhelp helm-rtags flycheck-rtags disaster company-rtags rtags company-c-headers clang-format evil-snipe markdown-toc mmm-mode markdown-mode gh-md emoji-cheat-sheet-plus company-emoji vimrc-mode dactyl-mode evil-commentary yapfify stickyfunc-enhance pytest pyenv-mode py-isort pippel pipenv pyvenv pip-requirements live-py-mode importmagic epc ctable concurrent deferred helm-pydoc helm-gtags helm-cscope xcscope ggtags cython-mode counsel-gtags company-anaconda blacken anaconda-mode pythonic yasnippet-snippets helm-company helm-c-yasnippet fuzzy company-statistics company auto-yasnippet yasnippet ac-ispell auto-complete unfill smeargle orgit mwim magit-svn magit-gitflow magit-popup helm-gitignore helm-git-grep gitignore-templates gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link flyspell-correct-helm flyspell-correct flycheck-pos-tip pos-tip evil-magit magit transient git-commit with-editor auto-dictionary org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-mime org-download org-brain htmlize helm-org-rifle gnuplot evil-org ws-butler writeroom-mode winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package treemacs-projectile treemacs-evil toc-org symon symbol-overlay string-inflection spaceline-all-the-icons restart-emacs request rainbow-delimiters popwin persp-mode pcre2el password-generator paradox overseer org-plus-contrib org-bullets open-junk-file nameless move-text macrostep lorem-ipsum link-hint indent-guide hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-xref helm-themes helm-swoop helm-purpose helm-projectile helm-mode-manager helm-make helm-flx helm-descbinds helm-ag google-translate golden-ratio font-lock+ flycheck-package flx-ido fill-column-indicator fancy-battery eyebrowse expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-textobj-line evil-surround evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-escape evil-ediff evil-cleverparens evil-args evil-anzu eval-sexp-fu elisp-slime-nav editorconfig dumb-jump dotenv-mode doom-modeline diminish define-word counsel-projectile column-enforce-mode clean-aindent-mode centered-cursor-mode auto-highlight-symbol auto-compile aggressive-indent ace-link ace-jump-helm-line))))
   (custom-set-faces
    ;; custom-set-faces was added by Custom.
    ;; If you edit it by hand, you could mess it up, so be careful.
