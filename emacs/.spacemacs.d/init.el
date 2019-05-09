@@ -549,7 +549,8 @@ before packages are loaded."
   ;; electric-operator
   (dolist (hook '(c-mode-common-hook org-mode-hook python-mode-hook inferior-python-mode-hook LaTeX-mode-hook plantuml-mode-hook))
     (add-hook hook #'electric-operator-mode))
-  (with-eval-after-load 'electric-operator-mode
+  (with-eval-after-load "electric-operator"
+    (setq electric-operator-enable-in-docs t)
     (electric-operator-add-rules-for-mode 'c++-mode
      (cons "<>" "<> ")
      (cons "<" " < ")
