@@ -519,6 +519,9 @@ before packages are loaded."
    company-tooltip-limit 20
    )
 
+  (bind-keys*
+   ("M-z" . helm-for-files))
+
   ;; format
   (setq-default
    ;; t -> use tab as tab, nil -> use space as tab
