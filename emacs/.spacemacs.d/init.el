@@ -506,14 +506,14 @@ before packages are loaded."
    ;; disable the warning message
    python-spacemacs-indent-guess nil
    ;; spacemacs change it to blank, change it to use last words if no thing-at-point
-   helm-swoop-pre-input-function
-   (lambda ()
-     (let (($pre-input (thing-at-point 'symbol)))
-       (if (eq (length $pre-input) 0)
-           (if (boundp 'helm-swoop-pattern)
-               helm-swoop-pattern ;; this variable keeps the last used words
-             "") ;; first time helm-swoop and no thing at point
-         $pre-input)))
+   ;; helm-swoop-pre-input-function
+   ;; (lambda ()
+   ;;   (let (($pre-input (thing-at-point 'symbol)))
+   ;;     (if (eq (length $pre-input) 0)
+   ;;         (if (boundp 'helm-swoop-pattern)
+   ;;             helm-swoop-pattern ;; this variable keeps the last used words
+   ;;           "") ;; first time helm-swoop and no thing at point
+   ;;       $pre-input)))
    company-minimum-prefix-length 1
    company-show-numbers t
    company-tooltip-limit 20
