@@ -42,7 +42,9 @@ This function should only modify configuration layer settings."
      ;; ----------------------------------------------------------------
      (auto-completion :variables
                       auto-completion-enable-snippets-in-popup t
-                      auto-completion-enable-help-tooltip t)
+                      auto-completion-enable-help-tooltip t
+                      auto-completion-enable-sort-by-usage t
+                      )
      better-defaults
      emacs-lisp
      ;; `pip install importmagic epc' after the python layer is installed
@@ -518,6 +520,14 @@ before packages are loaded."
    company-show-numbers t
    company-tooltip-limit 20
    )
+
+  ;; show snippets in company list, don't know why auto-completion-enable-snippets-in-popup doesn't work
+  (defun autocomplete-show-snippets ()
+    "Show snippets in autocomplete popup."
+    (let ((backend (car company-backends)))
+      (unless (listp backend)
+        (setcar company-backends `(,backend :with company-yasnippet company-files)))))
+  (add-hook 'after-change-major-mode-hook 'autocomplete-show-snippets)
 
   (bind-keys*
    ("M-z" . helm-for-files))
