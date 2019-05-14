@@ -489,24 +489,24 @@ abbr rmc 'rsync --stats --progress -rhv --remove-source-files ' # this will not 
 abbr g 'grep -F -n --color=auto'
 
 function abbrc -d 'clean abbrs in `abbr --show` but not in $FISH_CONFIG_PATH'
-	if abbr --show | head -n1 | grep "abbr -a -U" ^/dev/null >/dev/null
+    if abbr --show | head -n1 | grep "abbr -a -U" ^/dev/null >/dev/null
         set abbr_show "abbr -a -U --"
     else
         set abbr_show "abbr"
     end
 
-	for abr in (abbr --show)
-		set abr_def (echo $abr | sed "s/$abbr_show//g" | awk '{print $1}')
-		# echo abr_def: $abr_def
-		set def_file $FISH_CONFIG_PATH
-		set num_line (grep -n "^abbr $abr_def " $def_file | cut -d: -f1)
-		if not test $num_line # empty
-			echo "$abr_def is an abbr in `abbr --show` but not defined in $FISH_CONFIG_PATH, may be defined temporally or in other file!"
-			abbr -e $abr_def
-			echo "$abr_def is erased!"
-			return
-		end
-	end
+    for abr in (abbr --show)
+        set abr_def (echo $abr | sed "s/$abbr_show//g" | awk '{print $1}')
+        # echo abr_def: $abr_def
+        set def_file $FISH_CONFIG_PATH
+        set num_line (grep -n "^abbr $abr_def " $def_file | cut -d: -f1)
+        if not test $num_line # empty
+            echo "$abr_def is an abbr in `abbr --show` but not defined in $FISH_CONFIG_PATH, may be defined temporally or in other file!"
+            abbr -e $abr_def
+            echo "$abr_def is erased!"
+            return
+        end
+    end
 end
 
 function fu -d 'fu command and prompt to ask to open it or not'
@@ -531,9 +531,9 @@ function fu -d 'fu command and prompt to ask to open it or not'
         # function may be `function func` and `function func -d ...`
         if test $found = 1 -a (echo (grep -w -E "^alias $argv |^function $argv |^function $argv\$" $FISH_CONFIG_PATH))
             echo "$argv is in both `type` and `abbr --list`, found definition in $FISH_CONFIG_PATH"
-			echo "Please clean the multiple definitions!"
-			abbrc
-			return
+            echo "Please clean the multiple definitions!"
+            abbrc
+            return
         else # only exists in `abbr --show`
             set found 1
             set result (abbr --show | grep "$abbr_show $argv ")
@@ -554,7 +554,7 @@ function fu -d 'fu command and prompt to ask to open it or not'
             end
 
             set num_line (grep -n -w -E "^alias $argv |^function $argv |^function $argv\$" $def_file | cut -d: -f1)
-			# NOTE: $num_line may contain more than one number, use "$num_line", or test will fail
+            # NOTE: $num_line may contain more than one number, use "$num_line", or test will fail
             if not test "$num_line" # empty
                echo "$argv is an alias/functions in `alias/functions` but not defined in $def_file, may be defined temporally or in other file!"
                 if test $def_file = $FISH_CONFIG_PATH
@@ -562,12 +562,12 @@ function fu -d 'fu command and prompt to ask to open it or not'
                     echo "$argv is erased!"
                 end
                 return
-			else if test (echo "$num_line" | grep " ") # $num_line contains more than one value
-				echo "$argv has multiple definitions(alias and function) in $FISH_CONFIG_PATH, please clean them!"
-				return
-			end
+            else if test (echo "$num_line" | grep " ") # $num_line contains more than one value
+                echo "$argv has multiple definitions(alias and function) in $FISH_CONFIG_PATH, please clean them!"
+                return
+            end
         else # 2. abbr
-			abbrc
+            abbrc
         end
 
         echo
