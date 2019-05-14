@@ -790,9 +790,9 @@ abbr lessem 'less ~/.local/bin/emm'
 # set -gx LESSOPEN '|pygmentize -g %s'
 # if pygmentize not working, use source-highlight instead
 # if less gets stuck when opening a file, comment out this LESSOPEN line
-set -gx LESSOPEN '| /usr/bin/src-hilite-lesspipe.sh %s'
+#set -gx LESSOPEN '| /usr/bin/src-hilite-lesspipe.sh %s'
 # set -gx LESSOPEN '| /usr/share/source-highlight/src-hilite-lesspipe.sh %s'
-# set -gx LESSOPEN '| eval $HOME/anaconda3/bin/src-hilite-lesspipe.sh %s'
+#set -gx LESSOPEN '| eval $HOME/anaconda3/bin/src-hilite-lesspipe.sh %s'
 # nums are explained at
 # http://www.tuxarena.com/2012/04/tutorial-colored-man-pages-how-it-works/
 set -gx LESS_TERMCAP_me \e'[0m' # turn off all appearance modes (mb, md, so, us)
@@ -1841,7 +1841,7 @@ end
 # conda install -c lebedov tig
 abbr condas 'binstar search -t conda' # [packagename]
 abbr condai 'conda install -c' # [channel] [packagename]
-abbr condau 'conda upgrade --all -vy; conda clean -avy'
+abbr condau 'conda upgrade --all -vy; and conda clean -avy'
 abbr condac 'conda clean -avy'
 abbr condaS 'anaconda show' # [channel/packagename]
 
