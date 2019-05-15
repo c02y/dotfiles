@@ -502,6 +502,8 @@ before packages are loaded."
   (add-hook 'after-init-hook 'global-company-mode)
 
   (setq-default
+   ;; always show trailing whitespace, spacemacs only it in prog-mode by default
+   ;; show-trailing-whitespace t
    ;; change the major mode of any file without extension to org-mode instead of fundamental-mode
    major-mode 'org-mode)
   (setq
@@ -521,6 +523,7 @@ before packages are loaded."
    company-minimum-prefix-length 1
    company-show-numbers t
    company-tooltip-limit 20
+   bookmark-default-file "~/.spacemacs.d/bookmarks"
    )
 
   ;; show snippets in company list, don't know why auto-completion-enable-snippets-in-popup doesn't work
@@ -532,7 +535,23 @@ before packages are loaded."
   (add-hook 'after-change-major-mode-hook 'autocomplete-show-snippets)
 
   (bind-keys*
-   ("M-z" . helm-for-files))
+   ("M-z" . helm-for-files)
+   ("C-h h" . helm-apropos)
+   ("C-x /" . helm-semantic-or-imenu))
+
+  ;; whitespace faces
+  (with-eval-after-load 'whitespace
+    (set-face-attribute 'whitespace-space-after-tab nil :background "red" :foreground "yellow")
+    (set-face-attribute 'whitespace-space-before-tab nil :background "red" :foreground "yellow")
+    (if indent-tabs-mode
+        (progn
+          (set-face-attribute 'whitespace-tab nil :background nil :foreground nil)
+          (set-face-attribute 'whitespace-indentation nil :background nil :foreground nil)
+          ))
+    (progn
+      (set-face-attribute 'whitespace-tab nil :background nil :foreground "yellow")
+      (set-face-attribute 'whitespace-indentation nil :background "red" :foreground "yellow")
+      ))
 
   ;; format
   (setq-default
@@ -570,6 +589,10 @@ before packages are loaded."
   (add-hook 'makefile-mode-hook
             (lambda ()
               (setq tab-width 8)))
+  (add-hook 'fish-mode-hook
+            (lambda ()
+              (setq indent-tabs-mode nil)))
+
 
   ;; make C-e in better-defaults work, not work if setting like README.org
   (define-key evil-insert-state-map (kbd "C-e") 'mwim-end-of-code-or-line)
