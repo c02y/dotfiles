@@ -176,7 +176,7 @@ flag_m=0 # start magit in repo, default is ./
 flag_o=0 # start org-mode for a file, default is ~/Org/todo.org
 flag_q=0 # start emacs -q --no-splash
 flag_r=0 # restart emacs daemon and start a emacsclient
-flag_s=0 # switch between spacemacs and stock emacs
+flag_s=0 # switch between spacemacs and vanilla emacs
 flag_t=0 # time the startup of emacs
 flag_x=0 # start emacs -nw --no-splash
 while getopts ":hkrCdeEfbsmcaoqxt" args; do # prefix-: no warning for illegal option
@@ -334,17 +334,17 @@ if [ "$flag_r" -eq 1 ]; then
 fi
 
 if [ "$flag_s" -eq 1 ]; then
-	echo "Switch between spacemacs and stock emacs..."
+	echo "Switch between spacemacs and vanilla emacs..."
 	if [ -d ~/.emacs.d/core ]; then # check if directory exists
 		# -e in read - add newline after the the type in prompt, to avoid echo string after the prompt
 		# unnecessary to add an empty echo
-		read -e -n 1 -p "Currently using spacemacs, switch to stock emacs? [Y/n]: "
+		read -e -n 1 -p "Currently using spacemacs, switch to vanilla emacs? [Y/n]: "
 		if [ "$REPLY" == "y" ] || [ "$REPLY" == " " ]; then
 			mv -vi ~/.emacs.d ~/.emacs.d.se
-			if [ -d ~/.emacs.d.st ]; then
-				mv -vi ~/.emacs.d.st ~/.emacs.d
+			if [ -d ~/.emacs.d.ve ]; then
+				mv -vi ~/.emacs.d.ve ~/.emacs.d
 			else
-				echo "bak directory of stock emacs(~/.emacs.d.st) doesn't exist, exit!"
+				echo "bak directory of vanilla emacs(~/.emacs.d.ve) doesn't exist, exit!"
 				exit -1
 			fi
 		else
@@ -352,9 +352,9 @@ if [ "$flag_s" -eq 1 ]; then
 			exit 0
 		fi
 	elif [ -d ~/.emacs.d/lisp ]; then
-		read -e -n 1 -p "Currently using stock emacs, switch to spacemacs? [Y/n]: "
+		read -e -n 1 -p "Currently using vanilla emacs, switch to spacemacs? [Y/n]: "
 		if [ "$REPLY" == "y" ] || [ "$REPLY" == " " ]; then
-			mv -vi ~/.emacs.d ~/.emacs.d.st
+			mv -vi ~/.emacs.d ~/.emacs.d.ve
 			if [ -d ~/.emacs.d.se ]; then
 				mv -vi ~/.emacs.d.se ~/.emacs.d
 			else
@@ -366,7 +366,7 @@ if [ "$flag_s" -eq 1 ]; then
 			exit 0
 		fi
 	else
-		echo "Both directories of spacemacs and stock emacs do not exist, exit!"
+		echo "Both directories of spacemacs and vanilla emacs do not exist, exit!"
 		exit -1
 	fi
 	restart_emacs_server
