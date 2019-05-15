@@ -15,9 +15,13 @@ set -gx MANPATH $HOME/anaconda3/share/man $MANPATH
 set -gx FISH_CONFIG_PATH ~/.config/fish/config.fish
 set -gx EMACS_EL ~/.emacs.d/init.el
 
-# fix the Display :0 can’t be opened problem
-if not xhost | grep (whoami) ^/dev/null >/dev/null
-    xhost +si:localuser:(whoami) ^/dev/null>/dev/null
+# fix the Display :0 can't be opened problem
+if test $DISPLAY
+    if xhost ^/dev/null >/dev/null
+        if not xhost | grep (whoami) ^/dev/null >/dev/null
+            xhost +si:localuser:(whoami) ^/dev/null >/dev/null
+        end
+    end
 end
 
 # disable ksshaskpass pop window in KDE
