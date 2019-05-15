@@ -1180,6 +1180,8 @@ abbr gitcp 'git checkout HEAD^1' # git checkout previous/old commit
 abbr gitcn 'git log --reverse --pretty=%H master | grep -A 1 (git rev-parse HEAD) | tail -n1 | xargs git checkout' # git checkout next/new commit
 abbr gitt 'git tag'
 abbr gitft 'git ls-files --error-unmatch' # Check if file/dir is git-tracked
+abbr gitrs 'git reset --soft HEAD~1' # undo last unpushed commit, keeps changes
+abbr gitrh 'git reset --hard HEAD~1' # undo last unpushed commit, delete changes
 function gitc -d 'git clone and cd into it'
     git clone -v $argv
     echo ---------------------------
