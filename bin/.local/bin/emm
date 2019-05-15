@@ -380,8 +380,12 @@ if [ "$flag_t" -eq 1 ]; then
 fi
 
 if [ "$flag_x" -eq 1 ]; then
-	echo "Start emacs -nw --no-splash..."
-	emacs -nw --no-splash $@ >/dev/null 2>&1
+	if ! ps -ef | grep -v grep | grep 'emacs' | grep 'daemon' >/dev/null; then
+		echo "Start emacs daemon..."
+		emacs --daemon >/dev/null 2>&1
+	fi
+	echo "Start emacsclient -a \"\" -t..."
+	emacsclient -a "" -t $@
 	exit 0
 fi
 
