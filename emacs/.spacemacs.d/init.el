@@ -534,6 +534,8 @@ before packages are loaded."
         (setcar company-backends `(,backend :with company-yasnippet company-files)))))
   (add-hook 'after-change-major-mode-hook 'autocomplete-show-snippets)
 
+  (spacemacs/set-leader-keys
+    "bc" 'whitespace-cleanup)
   (bind-keys*
    ("M-z" . helm-for-files)
    ("C-h h" . helm-apropos)
