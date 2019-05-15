@@ -252,7 +252,8 @@ while getopts ":hkrCdeEfbsmcaoqxt" args; do # prefix-: no warning for illegal op
 done
 shift $((OPTIND -1))            # remove options that have already been handled from $@
 
-if hash systemctl 2>/dev/null; then
+# even if systemctl command exists, `systemctl --user` may not work
+if systemctl --user status >/dev/null 2>&1; then
 	flag_systemctl=1
 else
 	flag_systemctl=0
