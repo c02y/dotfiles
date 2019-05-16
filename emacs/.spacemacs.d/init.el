@@ -508,7 +508,7 @@ before packages are loaded."
    major-mode 'org-mode)
   (setq
    ;; open a link not prompt yes/no
-   vc-follow-symlinks nil
+   vc-follow-symlinks t
    ;; disable the warning message
    python-spacemacs-indent-guess nil
    ;; spacemacs change it to blank, change it to use last words if no thing-at-point
