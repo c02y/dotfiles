@@ -44,7 +44,7 @@ Usage: $(basename $0)
 	   -r to restart emacs daemon and start a emacsclient
 	   -s to edit
 	   -t to time the startup of emacs
-	   -x to start emacs -nw --no-splash
+	   -x to start emacsclient in terminal even inside GUI DE
 EOF
 	exit 0
 }
@@ -178,7 +178,7 @@ flag_q=0 # start emacs -q --no-splash
 flag_r=0 # restart emacs daemon and start a emacsclient
 flag_s=0 # switch between spacemacs and vanilla emacs
 flag_t=0 # time the startup of emacs
-flag_x=0 # start emacs -nw --no-splash
+flag_x=0 # start emacsclient in terminal even inside GUI DE
 while getopts ":hkrCdeEfbsmcaoqxt" args; do # prefix-: no warning for illegal option
 	case "$args" in
 		h|\?)                   # \? for illegal option
