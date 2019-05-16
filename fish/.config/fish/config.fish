@@ -144,7 +144,6 @@ function fsr --description 'Reload your Fish config after configuration'
 end
 
 # tmux related
-abbr tl 'tmux ls'
 abbr tls 'tmux list-panes -s'
 function tk -d 'tmux kill-session all(default)/single(id)/multiple(id1 id2)/except(-e)/list(-l) sessions'
     if test (ps -ef | grep -v grep | grep -i tmux | wc -l ) = 0
