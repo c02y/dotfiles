@@ -390,7 +390,7 @@ if [ "$flag_x" -eq 1 ]; then
 fi
 
 if [ "$flag_systemctl" -eq 1 ]; then
-	if ! ps -ef | grep -v grep | grep 'emacs --fg-daemon' >/dev/null; then
+	if ! ps -ef | grep -v grep | grep 'emacs' | grep 'daemon' >/dev/null; then
 		copy_service
 		echo "Start emacs service..."
 		systemctl --user enable emacs.service
