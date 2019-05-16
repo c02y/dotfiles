@@ -341,11 +341,11 @@ if [ "$flag_s" -eq 1 ]; then
 		# unnecessary to add an empty echo
 		read -e -n 1 -p "Currently using spacemacs, switch to vanilla emacs? [Y/n]: "
 		if [ "$REPLY" == "y" ] || [ "$REPLY" == " " ]; then
-			mv -vi ~/.emacs.d ~/.emacs.d.se
-			if [ -d ~/.emacs.d.ve ]; then
-				mv -vi ~/.emacs.d.ve ~/.emacs.d
+			mv -vi ~/.emacs.d ~/se.emacs.d
+			if [ -d ~/ve.emacs.d ]; then
+				mv -vi ~/ve.emacs.d ~/.emacs.d
 			else
-				echo "bak directory of vanilla emacs(~/.emacs.d.ve) doesn't exist, exit!"
+				echo "bak directory of vanilla emacs(~/ve.emacs.d) doesn't exist, exit!"
 				exit -1
 			fi
 		else
@@ -355,11 +355,11 @@ if [ "$flag_s" -eq 1 ]; then
 	elif [ -d ~/.emacs.d/lisp ]; then
 		read -e -n 1 -p "Currently using vanilla emacs, switch to spacemacs? [Y/n]: "
 		if [ "$REPLY" == "y" ] || [ "$REPLY" == " " ]; then
-			mv -vi ~/.emacs.d ~/.emacs.d.ve
-			if [ -d ~/.emacs.d.se ]; then
-				mv -vi ~/.emacs.d.se ~/.emacs.d
+			mv -vi ~/.emacs.d ~/ve.emacs.d
+			if [ -d ~/se.emacs.d ]; then
+				mv -vi ~/se.emacs.d ~/.emacs.d
 			else
-				echo "bak directory of spacemacs(~/.emacs.d.se) doesn't exist, exit!"
+				echo "bak directory of spacemacs(~/se.emacs.d) doesn't exist, exit!"
 				exit -1
 			fi
 		else
