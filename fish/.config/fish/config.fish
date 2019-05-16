@@ -807,12 +807,17 @@ abbr lessv 'less ~/.vim/vimrc'
 abbr lessem 'less ~/.local/bin/emm'
 
 # color in less a code file
-# set -gx LESSOPEN '|pygmentize -g %s'
-# if pygmentize not working, use source-highlight instead
-# if less gets stuck when opening a file, comment out this LESSOPEN line
-#set -gx LESSOPEN '| /usr/bin/src-hilite-lesspipe.sh %s'
-# set -gx LESSOPEN '| /usr/share/source-highlight/src-hilite-lesspipe.sh %s'
-#set -gx LESSOPEN '| eval $HOME/anaconda3/bin/src-hilite-lesspipe.sh %s'
+if command -sq pygmentize # check if command pygmentize exists
+    set -gx LESSOPEN '|pygmentize -g %s'
+else if test -e /usr/bin/src-hilite-lesspipe
+    # if pygmentize not working, use source-highlight instead
+    # if less gets stuck when opening a file, comment out this LESSOPEN line
+    set -gx LESSOPEN '| /usr/bin/src-hilite-lesspipe.sh %s'
+else if test -e /usr/share/source-highlight/src-hilite-lesspipe.sh
+    set -gx LESSOPEN '| /usr/share/source-highlight/src-hilite-lesspipe.sh %s'
+else if test -e $HOME/anaconda3/bin/src-hilite-lesspipe.sh
+    set -gx LESSOPEN '| eval $HOME/anaconda3/bin/src-hilite-lesspipe.sh %s'
+end
 # nums are explained at
 # http://www.tuxarena.com/2012/04/tutorial-colored-man-pages-how-it-works/
 set -gx LESS_TERMCAP_me \e'[0m' # turn off all appearance modes (mb, md, so, us)
