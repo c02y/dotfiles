@@ -427,7 +427,7 @@ function pk --description 'kill processes containing a pattern or PID'
                             echo $arg2 is not in the index of the list.
                         else
                             # return
-                            if not kill -9 $pid_index # kill failed, $status != 0
+                            if not kill -9 $pid_of_index # kill failed, $status != 0
                                 psg $pid_of_index | ag $argv[1] # list the details of the process need to be sudo kill
                                 read -n 1 -p 'echo "Use sudo to kill it? [Y/n]: "' -l arg4
                                 if test $arg4 = "" -o "$arg4" = "y" -o "$arg4" = " "
@@ -808,7 +808,7 @@ abbr lessem 'less ~/.local/bin/emm'
 
 # color in less a code file
 if command -sq pygmentize # check if command pygmentize exists
-    set -gx LESSOPEN '|pygmentize -g %s'
+    set -gx LESSOPEN '| pygmentize -g %s'
 else if test -e /usr/bin/src-hilite-lesspipe
     # if pygmentize not working, use source-highlight instead
     # if less gets stuck when opening a file, comment out this LESSOPEN line
