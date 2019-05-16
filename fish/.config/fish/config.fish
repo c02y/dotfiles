@@ -507,7 +507,7 @@ function abbrc -d 'clean abbrs in `abbr --show` but not in $FISH_CONFIG_PATH'
             echo "$abr_def is an abbr in `abbr --show` but not defined in $FISH_CONFIG_PATH, may be defined temporally or in other file!"
             abbr -e $abr_def
             echo "$abr_def is erased!"
-            return
+            # return
         end
     end
 end
@@ -536,7 +536,7 @@ function fu -d 'fu command and prompt to ask to open it or not'
             echo "$argv is in both `type` and `abbr --list`, found definition in $FISH_CONFIG_PATH"
             echo "Please clean the multiple definitions!"
             abbrc
-            return
+            # return
         else # only exists in `abbr --show`
             set found 1
             set result (abbr --show | grep "$abbr_show $argv ")
