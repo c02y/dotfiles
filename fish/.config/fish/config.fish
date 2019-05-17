@@ -950,9 +950,9 @@ abbr wtt 'bash -c \'rm -rfv /tmp/Thun* 2>/dev/null\'; wget --connect-timeout=5 -
 abbr a2 'aria2c -c -x 5 --check-certificate=false --file-allocation=none '
 
 # rpm
-function rpm -d 'rpm file, install(i)/extract(x)/list(default)'
-    set -l options 'i' 'l' 'x'
-    argparse -n rpm $options -- $argv
+function rpms -d 'rpm file, install(i)/extract(x)/list(default)'
+    set -l options 'i' 'x'
+    argparse -n rpms $options -- $argv
     or return
 
     if set -q _flag_i           # install
@@ -965,9 +965,7 @@ function rpm -d 'rpm file, install(i)/extract(x)/list(default)'
         end
     else                        # default list
         for i in $argv
-            echo \<$i\>
-            echo -------------------
-            rpm -qlpv $i | less
+            rpm -qlpv $i
         end
     end
 end
