@@ -51,7 +51,7 @@ EOF
 
 check_socket_file()
 {
-	if [ "$flag_systemctl" -eq 1 ]; then
+	if [ "$flag_systemctl" == "1" ]; then
 		# this is only needed when using systemctl+emacs.service
 		# After emacs.service is started, it takes several seconds for the socket file to be created
 		# after that, emacsclient can be usable, or it will print "emacsclient: connect: Connection refused"
@@ -105,6 +105,8 @@ check_exists_emacsclient()
 
 copy_service()
 {
+	# emacs.service may exist in /usr/lib/systemd/user/emacs.service
+	# if so, copy_service won't do anything, systemctl command will link it into ~/.config/systemd/user/
 	if [ ! -f ~/.config/systemd/user/emacs.service ] && [ -f ~/anaconda3/lib/systemd/user/emacs.service ]; then
 		mkdir -p ~/.config/systemd/user
 		cp -rfv ~/anaconda3/lib/systemd/user/emacs.service ~/.config/systemd/user/
@@ -116,7 +118,7 @@ kill_emacs_server()
 	if check_daemon_status; then
 		# once you kill the process, it will restart automatically
 		ps -ef | grep -v grep | grep 'emacs' | grep 'daemon' | awk '{print $2}' | xargs kill -9
-		if [ "$flag_systemctl" -eq 1 ]; then
+		if [ "$flag_systemctl" == "1" ]; then
 			systemctl --user stop emacs.service
 		fi
 		echo "emacs server is killed!"
@@ -262,7 +264,8 @@ done
 shift $((OPTIND -1))            # remove options that have already been handled from $@
 
 # even if systemctl command exists, `systemctl --user` may not work
-if systemctl --user status >/dev/null 2>&1; then
+# `systemctl --user` may return 0 even it fails
+if systemctl --user -q >/dev/null 2>&1; then
 	flag_systemctl=1
 else
 	flag_systemctl=0
@@ -398,7 +401,7 @@ if [ "$flag_x" -eq 1 ]; then
 	exit 0
 fi
 
-if [ "$flag_systemctl" -eq 1 ]; then
+if [ "$flag_systemctl" == "1" ]; then
 	if ! check_daemon_status; then
 		copy_service
 		echo "Start emacs service..."
