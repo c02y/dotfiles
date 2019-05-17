@@ -64,9 +64,18 @@ check_socket_file()
 	fi
 }
 
+check_daemon_status()
+{
+	if ps -ef | grep -v grep | grep 'emacs' | grep 'daemon' >/dev/null; then
+		return 0
+	else
+		return 1
+	fi
+}
+
 check_exists_emacsclient()
 {
-	if [ "$flag_daemon_running" -eq 1 ]; then
+	if check_daemon_status; then
 		check_socket_file
 
 		# using emacsclient process won't work for GUI since no emacsclient process exists
@@ -104,7 +113,7 @@ copy_service()
 
 kill_emacs_server()
 {
-	if [ "$flag_daemon_running" -eq 1 ]; then # for both --daemon and --fg-daemon
+	if check_daemon_status; then
 		# once you kill the process, it will restart automatically
 		ps -ef | grep -v grep | grep 'emacs' | grep 'daemon' | awk '{print $2}' | xargs kill -9
 		if [ "$flag_systemctl" -eq 1 ]; then
@@ -118,7 +127,7 @@ kill_emacs_server()
 
 restart_emacs_server()
 {
-	if [ "$flag_daemon_running" -eq 1 ]; then # for both --daemon and --fg-daemon
+	if check_daemon_status; then
 		# systemctl --user restart emacs.service # systemctl takes too much time
 		# once you kill the process, it will restart automatically
 		ps -ef | grep -v grep | grep 'emacs' | grep 'daemon' | awk '{print $2}' | xargs kill -9
@@ -259,11 +268,6 @@ else
 	flag_systemctl=0
 fi
 
-flag_daemon_running=0
-if ps -ef | grep -v grep | grep 'emacs' | grep 'daemon' >/dev/null; then
-	flag_daemon_running=1
-fi
-
 if [ "$flag_a" -eq 1 ]; then
 	# cmd="-e '(org-agenda-list)'"
 	cmd="-e '(execute-kbd-macro (kbd \"C-c a a c\"))'"
@@ -278,7 +282,7 @@ if [ "$flag_c" -eq 1 ]; then
 fi
 
 if [ "$flag_C" -eq 1 ]; then
-	if [ "$flag_daemon_running" -eq 1 ]; then
+	if check_daemon_status; then
 		check_socket_file
 
 		timeout 1 emacsclient -n -e "(if (> (length (frame-list)) 1) 't)" >/dev/null
@@ -385,7 +389,7 @@ if [ "$flag_t" -eq 1 ]; then
 fi
 
 if [ "$flag_x" -eq 1 ]; then
-	if [ "$flag_daemon_running" -eq 0 ]; then
+	if ! check_daemon_status; then
 		echo "Start emacs daemon..."
 		emacs --daemon >/dev/null 2>&1
 	fi
@@ -395,19 +399,19 @@ if [ "$flag_x" -eq 1 ]; then
 fi
 
 if [ "$flag_systemctl" -eq 1 ]; then
-	if [ "$flag_daemon_running" -eq 0 ]; then
+	if ! check_daemon_status; then
 		copy_service
 		echo "Start emacs service..."
 		systemctl --user enable emacs.service
 		systemctl --user start emacs.service
 	fi
 else
-	if [ "$flag_daemon_running" -eq 0 ]; then
+	if ! check_daemon_status; then
 		echo "Start emacs daemon..."
 		emacs --daemon >/dev/null 2>&1
 	fi
 fi
-if [ "$flag_daemon_running" -eq 1 ]; then
+if check_daemon_status; then
 	check_socket_file
 	echo "Start emacsclient..."
 	if [ -z "$DISPLAY" ]; then      # empty, non-GUI
