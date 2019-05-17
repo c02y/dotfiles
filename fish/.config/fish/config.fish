@@ -1204,19 +1204,27 @@ function gitpa --description 'git pull all in dir using `fing dir`'
         echo
     end
 end
-function gitco -d 'git checkout -- for multiple files at once'
+function gitco -d 'git checkout -- for multiple files at once, default all files'
     # when you copy/paste using mouse, the strings you pasted are not seprated by space ACTUALLY, using ','
-    set -l files (echo $argv | tr ',' '\n')
-    for i in $files
-        echo 'git checkout -- for file' $i
-        git checkout -- $i
+    if set -q $argv # no given files
+        git checkout .
+    else
+        set -l files (echo $argv | tr ',' '\n')
+        for i in $files
+            echo 'git checkout -- for file' $i
+            git checkout -- $i
+        end
     end
 end
 function gita -d 'git add for multiple files at once'
-    set -l files (echo $argv | tr ',' '\n')
-    for i in $files
-        echo 'git add for file:' $i
-        git add $i
+    if set -q $argv # no given files
+        git add .
+    else
+        set -l files (echo $argv | tr ',' '\n')
+        for i in $files
+            echo 'git add for file:' $i
+            git add $i
+        end
     end
 end
 function gitrh -d 'git reset HEAD for multiple files'
