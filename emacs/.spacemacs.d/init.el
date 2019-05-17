@@ -599,6 +599,8 @@ before packages are loaded."
             (lambda ()
               (setq indent-tabs-mode nil)))
 
+  ;; insert mode by default in commit editing buffer
+  (add-hook 'with-editor-mode-hook 'evil-insert-state)
 
   ;; make C-e in better-defaults work, not work if setting like README.org
   (define-key evil-insert-state-map (kbd "C-e") 'mwim-end-of-code-or-line)
