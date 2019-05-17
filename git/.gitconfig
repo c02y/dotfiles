@@ -6,7 +6,7 @@
 	helper = cache --timeout 86400
 [core]
 	filemode = true
-	pager = diff-so-fancy | less -RM -TX -s
+	#pager = less -RM -TX -s
 [gui]
 	recentrepo = /home/chz/.emacs.d
 #[merge]
@@ -15,8 +15,24 @@
 	ui = true
 [github]
 	user = c02y
-	token = 
+	token =
 [push]
 	default = simple
 [http]
 	postBuffer = 524288000
+[pager]
+	log  = diff-highlight | less -RM -TX -s
+	show = diff-highlight | less -RM -TX -s
+	diff = diff-highlight | less -RM -TX -s
+[color "diff-highlight"]
+	oldNormal = red bold
+	oldHighlight = red bold 52
+	newNormal = green bold
+	newHighlight = green bold 22
+[color "diff"]
+	meta = yellow
+	frag = magenta bold
+	commit = yellow bold
+	old = red bold
+	new = green bold
+	whitespace = red reverse
