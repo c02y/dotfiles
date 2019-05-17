@@ -22,11 +22,11 @@ while getopts ":n" args; do
 			exit
 			;;
 		n)
-			tmux  # new
+			tmux -2  # new
 			exit
 			;;
 	esac
 done
 
 # attach a session if it exists, it failed, tmux a new one, if failed, echo message
-tmux attach 2>/dev/null || tmux 2>/dev/null || echo "Already inside a tmux session!"
+tmux attach 2>/dev/null || tmux -2 2>/dev/null || echo "Already inside a tmux session!"
