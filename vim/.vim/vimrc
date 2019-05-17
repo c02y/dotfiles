@@ -81,7 +81,13 @@ highlight Visual cterm=reverse ctermbg=NONE
 nmap q :q<CR>
 
 set nocompatible " be iMproved, required
-set number		 " line munber
+set number relativenumber " relative number, but hybrid one(absolute number for the current line)
+" use hybrid relative in normal mode, and normal relative in insert mode 
+augroup numbertoggle
+  autocmd!
+  autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
+  autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
+augroup END
 set showcmd		 " show command
 autocmd BufEnter * :syntax sync fromstart
 set backspace=eol,start,indent
