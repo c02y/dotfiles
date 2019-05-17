@@ -543,6 +543,8 @@ before packages are loaded."
    ("C-h h" . helm-apropos)
    ("C-x /" . helm-semantic-or-imenu))
 
+  ;; for terminal
+  (custom-set-faces (if (not window-system) '(default ((t (:background "nil"))))))
   ;; whitespace faces
   (with-eval-after-load 'whitespace
     (set-face-attribute 'whitespace-space-after-tab nil :background "red" :foreground "yellow")
