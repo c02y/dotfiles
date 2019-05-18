@@ -468,6 +468,7 @@ This function is called immediately after `dotspacemacs/init', before layer
 configuration.
 It is mostly for variables that should be set before packages are loaded.
 If you are unsure, try setting them in `dotspacemacs/user-config' first."
+  (add-hook 'focus-in-hook #'reset-default-font)
   )
 
 (defun dotspacemacs/user-load ()
@@ -498,6 +499,15 @@ before packages are loaded."
   ;;(prefer-coding-system 'utf-16le-with-signature)
   (prefer-coding-system 'utf-16)
   (prefer-coding-system 'utf-8)
+
+  ;; fix the problem that daemon/emacsclient won't load customized font anymore
+  ;; https://github.com/syl20bnr/spacemacs/issues/6197
+  (defun reset-default-font ()
+    (unless (spacemacs/set-default-font dotspacemacs-default-font)
+      (spacemacs-buffer/warning
+       "Cannot find any of the specified fonts (%s)! Font settings may not be correct."
+       (mapconcat 'car dotspacemacs-default-font ", ")))
+    (remove-hook 'focus-in-hook #'reset-default-font))
 
   ;; prevent package-selected-package list been created
   (defun package--save-selected-packages (&rest opt) nil)
