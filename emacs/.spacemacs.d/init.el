@@ -1,6 +1,8 @@
 ;; -*- mode: emacs-lisp; lexical-binding: t -*-
 ;; This file is loaded by Spacemacs at startup.
 ;; It must be stored in your home directory.
+;; and original template file is
+;; ~/.emacs.d/core/templates/.spacemacs.template
 
 (defun dotspacemacs/layers ()
   "Layer configuration:
@@ -232,8 +234,8 @@ It should only modify the values of Spacemacs settings."
 
    ;; Default font, or prioritized list of fonts. `powerline-scale' allows to
    ;; quickly tweak the mode-line size to make separators look not too crappy.
-   dotspacemacs-default-font '("PragmataPro"
-                               :size 17
+   dotspacemacs-default-font '("Source Code Pro"
+                               :size 13
                                :weight normal
                                :width normal)
 
@@ -468,7 +470,6 @@ This function is called immediately after `dotspacemacs/init', before layer
 configuration.
 It is mostly for variables that should be set before packages are loaded.
 If you are unsure, try setting them in `dotspacemacs/user-config' first."
-  (add-hook 'focus-in-hook #'reset-default-font)
   )
 
 (defun dotspacemacs/user-load ()
@@ -500,19 +501,13 @@ before packages are loaded."
   (prefer-coding-system 'utf-16)
   (prefer-coding-system 'utf-8)
 
-  ;; fix the problem that daemon/emacsclient won't load customized font anymore
-  ;; https://github.com/syl20bnr/spacemacs/issues/6197
-  (defun reset-default-font ()
-    (unless (spacemacs/set-default-font dotspacemacs-default-font)
-      (spacemacs-buffer/warning
-       "Cannot find any of the specified fonts (%s)! Font settings may not be correct."
-       (mapconcat 'car dotspacemacs-default-font ", ")))
-    (remove-hook 'focus-in-hook #'reset-default-font))
-
   ;; prevent package-selected-package list been created
   (defun package--save-selected-packages (&rest opt) nil)
   (add-hook 'after-init-hook 'global-company-mode)
 
+  ;; set the font, don't have touch dotspacemacs-default-font
+  ;; even touched without this following line, font may not work for daemon/emacsclient
+  (setq default-frame-alist '((font . "PragmataPro-15")))
   (setq-default
    ;; always show trailing whitespace, spacemacs only it in prog-mode by default
    ;; show-trailing-whitespace t
@@ -546,8 +541,17 @@ before packages are loaded."
         (setcar company-backends `(,backend :with company-yasnippet company-files)))))
   (add-hook 'after-change-major-mode-hook 'autocomplete-show-snippets)
 
+  ;; highlight-indent-guides
+  ;; TODO: uncomment his line when the character can be displayed correctly
+  ;; (add-hook 'prog-mode-hook 'highlight-indent-guides-mode)
+  (setq highlight-indent-guides-auto-enabled nil
+        highlight-indent-guides-method 'character
+        ;; Indent character samples: | ┆ ┊ ⁞
+        highlight-indent-guides-character ?\┆)
+
   (spacemacs/set-leader-keys
-    "bc" 'whitespace-cleanup)
+    "bc" 'whitespace-cleanup
+    "tG" 'highlight-indent-guides-mode)
   (bind-keys*
    ("M-z" . helm-for-files)
    ("C-h h" . helm-apropos)
@@ -617,13 +621,6 @@ before packages are loaded."
   (define-key evil-motion-state-map (kbd "C-e") 'mwim-end-of-code-or-line)
   (spacemacs/toggle-truncate-lines-on)
   (add-hook 'org-mode-hook 'spacemacs/toggle-visual-line-navigation-on)
-
-  ;; highlight-indent-guides
-  (add-hook 'prog-mode-hook 'highlight-indent-guides-mode)
-  (setq highlight-indent-guides-auto-enabled nil
-        highlight-indent-guides-method 'character
-        ;; Indent character samples: | ┆ ┊ ⁞
-        highlight-indent-guides-character ?\┆)
 
   ;; electric-operator
   (dolist (hook '(c-mode-common-hook org-mode-hook python-mode-hook inferior-python-mode-hook LaTeX-mode-hook plantuml-mode-hook))
