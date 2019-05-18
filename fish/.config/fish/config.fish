@@ -1144,6 +1144,14 @@ abbr vime 'vim $EMACS_EL'
 abbr vim2 'vim ~/Recentchange/TODO'
 abbr vimf 'vim $FISH_CONFIG_PATH'
 abbr vimt 'vim ~/.tmux.conf; tmux source-file ~/.tmux.conf; echo ~/.tmux.conf reloaded!'
+function vundles -d 'fix the :BundleUpdate error of conflicts problem'
+    for dir in ~/.vim/bundle/*
+        cd $dir
+        echo $PWD
+        gitco
+        echo
+    end
+end
 
 # emacs
 # -Q = -q --no-site-file --no-splash, which will not load something like emacs-googies
