@@ -65,7 +65,10 @@ This function should only modify configuration layer settings."
      shell-scripts
      treemacs
      evil-commentary
-     ;; version-control
+     (version-control :variables
+                      version-control-diff-tool 'git-gutter
+                      version-control-diff-side 'left
+                      )
      (evil-snipe :variables evil-snipe-enable-alternate-f-and-t-behaviors t)
      ;; install ccls binary first
      (c-c++ :variables
@@ -542,7 +545,8 @@ before packages are loaded."
       (magit-restore-window-configuration)
       (mapc #'kill-buffer buffers)))
   ;; `q' by default is bound to magit-mode-bury-buffer which doesn't kill buffers
-  (bind-key "q" #'mu-magit-kill-buffers magit-status-mode-map)
+  (with-eval-after-load 'magit
+    (bind-key "q" #'mu-magit-kill-buffers magit-status-mode-map))
 
   ;; show snippets in company list, don't know why auto-completion-enable-snippets-in-popup doesn't work
   (defun autocomplete-show-snippets ()
@@ -558,7 +562,7 @@ before packages are loaded."
   (setq highlight-indent-guides-auto-enabled nil
         highlight-indent-guides-method 'character
         ;; Indent character samples: | ┆ ┊ ⁞
-        highlight-indent-guides-character ?\┆)
+        highlight-indent-guides-character ?\┊)
 
   (spacemacs/set-leader-keys
     "bc" 'whitespace-cleanup
