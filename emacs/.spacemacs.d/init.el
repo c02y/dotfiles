@@ -533,6 +533,17 @@ before packages are loaded."
    bookmark-default-file "~/.spacemacs.d/bookmarks"
    )
 
+  ;; kill all magit buffers, do this in magit-status with `q'
+  ;; https://manuel-uberti.github.io/emacs/2018/02/17/magit-bury-buffer/
+  (defun mu-magit-kill-buffers ()
+    "Restore window configuration and kill all Magit buffers."
+    (interactive)
+    (let ((buffers (magit-mode-get-buffers)))
+      (magit-restore-window-configuration)
+      (mapc #'kill-buffer buffers)))
+  ;; `q' by default is bound to magit-mode-bury-buffer which doesn't kill buffers
+  (bind-key "q" #'mu-magit-kill-buffers magit-status-mode-map)
+
   ;; show snippets in company list, don't know why auto-completion-enable-snippets-in-popup doesn't work
   (defun autocomplete-show-snippets ()
     "Show snippets in autocomplete popup."
