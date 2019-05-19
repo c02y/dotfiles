@@ -504,6 +504,15 @@ before packages are loaded."
   (prefer-coding-system 'utf-16)
   (prefer-coding-system 'utf-8)
 
+  ;; disable scroll-bar-mode in newly created frame
+  ;; This also fix the bug when scroll bar still shows in daemon/emacsclient
+  (add-hook 'after-make-frame-functions
+            '(lambda (frame)
+               (modify-frame-parameters
+                frame
+                '((vertical-scroll-bars . nil)
+                  (horizontal-scroll-bars . nil)))))
+
   ;; prevent package-selected-package list been created
   (defun package--save-selected-packages (&rest opt) nil)
   (add-hook 'after-init-hook 'global-company-mode)
