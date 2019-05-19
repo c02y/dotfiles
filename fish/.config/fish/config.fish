@@ -256,13 +256,6 @@ function fish_user_key_bindings
 end
 abbr clr "echo -e '\033c\c'; path_prompt"
 
-function sudo -d 'make sudo accpet the defined alias/functions'
-    if functions -q $argv[1]
-        set argv fish -c "$argv"
-    end
-    command sudo $argv
-end
-
 abbr pm-sl 'sudo pm-suspend'   # 'Suspend to ram' in GUI buttom, power button to wake up
 abbr pm-hb 'sudo pm-hibernate' # not work in old CentOS6
 
