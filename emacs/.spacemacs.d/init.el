@@ -228,7 +228,7 @@ It should only modify the values of Spacemacs settings."
    ;; refer to the DOCUMENTATION.org for more info on how to create your own
    ;; spaceline theme. Value can be a symbol or list with additional properties.
    ;; (default '(spacemacs :separator wave :separator-scale 1.5))
-   ; dotspacemacs-mode-line-theme '(spacemacs :separator wave :separator-scale 1.5)
+   ;; dotspacemacs-mode-line-theme '(spacemacs :separator wave :separator-scale 1.5)
    dotspacemacs-mode-line-theme 'spacemacs
 
    ;; If non-nil the cursor color matches the state color in GUI Emacs.
@@ -564,10 +564,81 @@ before packages are loaded."
         ;; Indent character samples: | ┆ ┊ ⁞
         highlight-indent-guides-character ?\┊)
 
+  ;; reopen killed buffer
+  (defvar killed-buffers-list nil
+    "List of recently killed buffers.")
+  (defun add-file-to-killed-buffers-list ()
+    "If buffer is associated with a file name, add that file to the
+`killed-buffers-list' when killing the buffer."
+    (when buffer-file-name
+      (push buffer-file-name killed-buffers-list)))
+  (add-hook 'kill-buffer-hook #'add-file-to-killed-buffers-list)
+  (defun reopen-killed-buffer-fancy ()
+    "Pick a file to revisit from a list of files killed during this
+Emacs session."
+    (interactive)
+    (if killed-buffers-list
+        (let ((file
+               (completing-read "Reopen killed file: " killed-buffers-list
+                                nil nil nil nil (car killed-buffers-list))))
+          (when file
+            (setq killed-buffers-list
+                  (cl-delete file killed-buffers-list :test #'equal))
+            (find-file file)))
+      (error "No recently-killed files to reopen")))
   (spacemacs/set-leader-keys
+    "bU" 'reopen-killed-buffer-fancy
     "bc" 'whitespace-cleanup
     "tG" 'highlight-indent-guides-mode)
+
+  ;; M-^ delete Up to Non-Whitespace Character, 'delete-indentation, combine two lines
+  ;; M-Backspace delete to the previous word 'backword-kill-word
+  ;; M-\ delete kill _all_ spaces at point 'delete-horizontal-space
+  ;; Remove whitespaces around cursor to just one or none. If current line does
+  ;; have visible characters: shrink whitespace around cursor to just one space.
+  ;; If current line does not have visible chars, then shrink all neighboring
+  ;; blank lines to just one. Repeat the function will remove the remaining one
+  ;; space or blank line. If current line is a single space, remove that space.
+  ;; `shrink-whitespaces` combine `delete-blank-lines`, `just-one-space`,
+  ;; `fixup-whitespace`, `delete-horizontal-space`, and `cycle-spacing`(in emacs
+  ;; 24.4) into one.
+  (defun xah-shrink-whitespaces ()
+    "Remove whitespaces around cursor to just one or none.
+Call this command again to shrink more. 3 calls will remove all whitespaces.
+URL `http://ergoemacs.org/emacs/emacs_shrink_whitespace.html'
+Version 2016-12-18"
+    (interactive)
+    (let ((-p0 (point))
+          -line-has-char-p ; current line contains non-white space chars
+          -has-space-tab-neighbor-p
+          -space-or-tab-begin -space-or-tab-end
+          )
+      (save-excursion
+        (setq -has-space-tab-neighbor-p
+              (or (looking-at " \\|\t") (looking-back " \\|\t" 1)))
+        (beginning-of-line)
+        (setq -line-has-char-p (re-search-forward "[[:graph:]]" (line-end-position) t))
+        (goto-char -p0)
+        (skip-chars-backward "\t ")
+        (setq -space-or-tab-begin (point))
+        (goto-char -p0)
+        (skip-chars-forward "\t ")
+        (setq -space-or-tab-end (point)))
+      (if -line-has-char-p
+          (if -has-space-tab-neighbor-p
+              (let (-deleted-text)
+                ;; remove all whitespaces in the range
+                (setq -deleted-text
+                      (delete-and-extract-region -space-or-tab-begin -space-or-tab-end))
+                ;; insert a whitespace only if we have removed something different than a simple whitespace
+                (when (not (string= -deleted-text " "))
+                  (insert " ")))
+            (progn
+              (when (equal (char-before) 10) (delete-char -1))
+              (when (equal (char-after) 10) (delete-char 1))))
+        (progn (delete-blank-lines)))))
   (bind-keys*
+   ("C-x DEL" . xah-shrink-whitespaces)
    ("M-z" . helm-for-files)
    ("C-h h" . helm-apropos)
    ("C-x /" . helm-semantic-or-imenu))
