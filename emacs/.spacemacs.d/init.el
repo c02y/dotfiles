@@ -238,7 +238,7 @@ It should only modify the values of Spacemacs settings."
    ;; Default font, or prioritized list of fonts. `powerline-scale' allows to
    ;; quickly tweak the mode-line size to make separators look not too crappy.
    dotspacemacs-default-font '("PragmataPro"
-                               :size 15
+                               :size 14.5
                                :weight normal
                                :width normal)
 
@@ -519,7 +519,7 @@ before packages are loaded."
 
   ;; set the font, don't have touch dotspacemacs-default-font
   ;; even touched without this following line, font may not work for daemon/emacsclient
-  (setq default-frame-alist '((font . "PragmataPro-15")))
+  (setq default-frame-alist '((font . "PragmataPro-14.5")))
   (setq-default
    ;; always show trailing whitespace, spacemacs only it in prog-mode by default
    ;; show-trailing-whitespace t
@@ -543,6 +543,8 @@ before packages are loaded."
    company-show-numbers t
    company-tooltip-limit 20
    bookmark-default-file "~/.spacemacs.d/bookmarks"
+   ;; make cursor the width of the character it is under i.e. full width of a TAB
+   x-stretch-cursor t
    )
 
   ;; kill all magit buffers, do this in magit-status with `q'
@@ -595,10 +597,16 @@ Emacs session."
                   (cl-delete file killed-buffers-list :test #'equal))
             (find-file file)))
       (error "No recently-killed files to reopen")))
+  (spacemacs/declare-prefix "fY" "yasnippets")
   (spacemacs/set-leader-keys
     "bU" 'reopen-killed-buffer-fancy
     "bc" 'whitespace-cleanup
-    "tG" 'highlight-indent-guides-mode)
+    "tG" 'highlight-indent-guides-mode
+    "fYn" 'yas-new-snippet
+    "fYr" 'yas-reload-all
+    "fYi" 'yas-insert-snippet
+    "fYv" 'yas-visit-snippet-file
+    )
 
   ;; M-^ delete Up to Non-Whitespace Character, 'delete-indentation, combine two lines
   ;; M-Backspace delete to the previous word 'backword-kill-word
@@ -717,6 +725,41 @@ Version 2016-12-18"
   (add-hook 'fish-mode-hook
             (lambda ()
               (setq indent-tabs-mode nil)))
+
+  ;; make the code inside #if 0/#else/#endif the same color as comment
+  (defun c-mode-font-lock-if0 (limit)
+    (save-restriction
+      (widen)
+      (save-excursion
+        (goto-char (point-min))
+        (let ((depth 0) str start start-depth)
+          ;; Search #if/#else/#endif using regular expression.
+          (while (re-search-forward "^\\s-*#\\s-*\\(if\\|else\\|endif\\)" limit 'move)
+            (setq str (match-string 1))
+            ;; Handle #if.
+            (if (string= str "if")
+                (progn
+                  (setq depth (1+ depth))
+                  ;; Handle neariest 0.
+                  (when (and (null start) (looking-at "\\s-+0"))
+                    (setq start (match-end 0)
+                          start-depth depth)))
+              ;; Handle #else, here we can decorate #if 0->#else block using 'font-lock-comment-face'.
+              (when (and start (= depth start-depth))
+                (c-put-font-lock-face start (match-beginning 0) 'font-lock-comment-face)
+                (setq start nil))
+              ;; Handle #endif, return to upper block if possible.
+              (when (string= str "endif")
+                (setq depth (1- depth)))))
+          ;; Corner case when there are only #if 0 (May be you are coding now:))
+          (when (and start (> depth 0))
+            (c-put-font-lock-face start (point) 'font-lock-comment-face)))))
+    nil)
+  (defun my-c-mode-common-hook ()
+    (font-lock-add-keywords
+     nil
+     '((c-mode-font-lock-if0 (0 font-lock-comment-face prepend))) 'add-to-end))
+  (add-hook 'c-mode-common-hook 'my-c-mode-common-hook)
 
   ;; insert mode by default in commit editing buffer
   (add-hook 'with-editor-mode-hook 'evil-insert-state)
