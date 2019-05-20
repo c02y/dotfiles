@@ -32,7 +32,7 @@ Usage: $(basename $0)
 	   -a to start org-agenda-list
 	   -b to edit this bin/script using emacsclient
 	   -c to quickly add todo using org-capture
-	   -C to check the count of emacsclients
+	   -C to check the existence of daemon and the count of emacsclients
 	   -d to start emacs --debug-init
 	   -e [file] to edit using emacs, default is init.el
 	   -E to edit init.el using emacsclient
@@ -43,7 +43,6 @@ Usage: $(basename $0)
 	   -q to start emacs -q --no-splash
 	   -r to restart emacs daemon and start a emacsclient
 	   -s to switch between spacemacs and vanilla emacs
-	   -S search emacs process
 	   -t to time the startup of emacs
 	   -x to start emacsclient in terminal even inside GUI DE
 EOF
@@ -74,7 +73,46 @@ check_daemon_status()
 	fi
 }
 
-check_exists_emacsclient()
+kill_emacs_server()
+{
+	if check_daemon_status; then
+		# once you kill the process, it will restart automatically
+		ps -ef | grep -v grep | grep 'emacs' | grep 'daemon' | awk '{print $2}' | xargs kill -9
+		if [ "$flag_systemctl" == "1" ]; then
+			systemctl --user stop emacs.service
+		fi
+		echo "emacs server is killed!"
+	else
+		echo "No emacs daemon is running!"
+	fi
+}
+
+check_running_emacsclient()
+{
+	if check_daemon_status; then
+		check_socket_file
+
+		timeout 1 emacsclient -n -e "(if (> (length (frame-list)) 1) 't)" >/dev/null
+		if [ "$?" -ne 0 ]; then
+			# emacsclient gets stuck #
+			read -e -n 1 -p 'Running emacsclient gets stuck, kill it? [Y/n]: '
+			if [ "$REPLY" == "y" ]; then
+				kill_emacs_server
+				exit 1
+			else
+				exit 0
+			fi
+		fi
+		echo "Count of emacsclients:"
+		emacsclient -n -e "(- (length (frame-list)) 1) "
+		exit 0
+	else
+		echo "No emacs daemon is running!"
+		exit 0
+	fi
+}
+
+kill_running_emacsclient()
 {
 	if check_daemon_status; then
 		check_socket_file
@@ -111,20 +149,6 @@ copy_service()
 	if [ ! -f ~/.config/systemd/user/emacs.service ] && [ -f ~/anaconda3/lib/systemd/user/emacs.service ]; then
 		mkdir -p ~/.config/systemd/user
 		cp -rfv ~/anaconda3/lib/systemd/user/emacs.service ~/.config/systemd/user/
-	fi
-}
-
-kill_emacs_server()
-{
-	if check_daemon_status; then
-		# once you kill the process, it will restart automatically
-		ps -ef | grep -v grep | grep 'emacs' | grep 'daemon' | awk '{print $2}' | xargs kill -9
-		if [ "$flag_systemctl" == "1" ]; then
-			systemctl --user stop emacs.service
-		fi
-		echo "emacs server is killed!"
-	else
-		echo "No emacs daemon is running!"
 	fi
 }
 
@@ -175,99 +199,8 @@ start_magit()
 repo="."
 file="~/.emacs.d/init.el"
 cmd=
-flag_a=0 # start org-agenda-list
-flag_b=0 # edit this script using emacsclient
-flag_c=0 # quickly add todo using org-capture
-flag_C=0 # check the count of emacsclients
-flag_d=0 # start emacs --debug-init
-flag_e=0 # edit using emacs, default is init.el
-flag_E=0 # edit init.el using emacsclient
-flag_f=0 # edit config.fish using emacsclient
-flag_k=0 # kill emacs daemon
-flag_m=0 # start magit in repo, default is ./
-flag_o=0 # start org-mode for a file, default is ~/Org/todo.org
-flag_q=0 # start emacs -q --no-splash
-flag_r=0 # restart emacs daemon and start a emacsclient
 flag_s=0 # switch between spacemacs and vanilla emacs
-flag_S=0 # search the emacs process
-flag_t=0 # time the startup of emacs
 flag_x=0 # start emacsclient in terminal even inside GUI DE
-while getopts ":hkrCdeEfbsSmcaoqxt" args; do # prefix-: no warning for illegal option
-	case "$args" in
-		h|\?)                   # \? for illegal option
-			print_usage
-			;;
-		a)
-			flag_a=1
-			;;
-		b)
-			flag_b=1
-			file="~/.local/bin/emm"
-			;;
-		c)
-			flag_c=1
-			;;
-		C)
-			flag_C=1
-			;;
-		d)
-			flag_d=1
-			;;
-		e)
-			flag_e=1
-			if [ ! -z ${@:$OPTIND} ]; then # if no argv is given, using default
-				file=${@:$OPTIND}
-				OPTIND=$((OPTIND+1))
-			fi
-			;;
-		E)
-			flag_E=1
-			;;
-		f)
-			flag_f=1
-			file="~/.config/fish/config.fish"
-			;;
-		k)
-			flag_k=1
-			;;
-		m)
-			flag_m=1
-			if [ ! -z ${@:$OPTIND} ]; then # if no argv is given, using default
-				repo=${@:$OPTIND}
-				OPTIND=$((OPTIND+1))
-			fi
-			;;
-		o)
-			flag_o=1
-			if [ ! -z ${@:$OPTIND} ]; then # if no argv is given, using default
-				file=${@:$OPTIND}
-				OPTIND=$((OPTIND+1))
-			else
-				file="~/Org/todo.org"
-			fi
-			;;
-		q)
-			flag_q=1
-			;;
-		r)
-			flag_r=1
-			;;
-		s)
-			flag_s=1
-			;;
-		S)
-			ps -ef | grep -v grep | grep emacs
-			exit
-			;;
-		t)
-			flag_t=1
-			;;
-		x)
-			flag_x=1
-			;;
-	esac
-done
-shift $((OPTIND -1))            # remove options that have already been handled from $@
 
 # even if systemctl command exists, `systemctl --user` may not work
 # `systemctl --user` may return 0 even it fails
@@ -277,80 +210,92 @@ else
 	flag_systemctl=0
 fi
 
-if [ "$flag_a" -eq 1 ]; then
-	# cmd="-e '(org-agenda-list)'"
-	cmd="-e '(execute-kbd-macro (kbd \"C-c a a c\"))'"
-fi
-
-if [ "$flag_b" -eq 1 ] || [ "$flag_E" -eq 1 ] || [ "$flag_f" -eq 1 ]; then
-	cmd="$file"
-fi
-
-if [ "$flag_c" -eq 1 ]; then
-	cmd="-e '(org-capture)'"
-fi
-
-if [ "$flag_C" -eq 1 ]; then
-	if check_daemon_status; then
-		check_socket_file
-
-		timeout 1 emacsclient -n -e "(if (> (length (frame-list)) 1) 't)" >/dev/null
-		if [ "$?" -ne 0 ]; then
-			# emacsclient gets stuck #
-			read -e -n 1 -p 'Running emacsclient gets stuck, kill it? [Y/n]: '
-			if [ "$REPLY" == "y" ]; then
-				kill_emacs_server
-				exit 1
-			else
-				exit 0
+while getopts ":habcCdeEfkmoqrstx" args; do # prefix-: no warning for illegal option
+	case "$args" in
+		h|\?)                   # \? for illegal option
+			print_usage
+			;;
+		a)
+			# cmd="-e '(org-agenda-list)'"
+			cmd="-e '(execute-kbd-macro (kbd \"C-c a a c\"))'"
+			;;
+		b)
+			file="~/.local/bin/emm"
+			cmd="$file"
+			;;
+		c)
+			cmd="-e '(org-capture)'"
+			;;
+		C)
+			ps -ef | grep -v grep | grep emacs
+			check_running_emacsclient
+			;;
+		d)
+			echo "Start 'emacs --debug-init'"
+			rm ~/.emacs.d/init.elc >/dev/null 2>&1
+			emacs --no-splash --debug-init >/dev/null 2>&1
+			exit 0
+			;;
+		e)
+			if [ ! -z ${@:$OPTIND} ]; then # if no argv is given, using default
+				file=${@:$OPTIND}
+				OPTIND=$((OPTIND+1))
 			fi
-		fi
-		echo "Count of emacsclients:"
-		emacsclient -n -e "(- (length (frame-list)) 1) "
-		exit 0
-	else
-		echo "No emacs daemon is running!"
-		exit 0
-	fi
-fi
-
-if [ "$flag_d" -eq 1 ]; then
-	echo "Start 'emacs --debug-init'"
-	rm ~/.emacs.d/init.elc >/dev/null 2>&1
-	emacs --no-splash --debug-init >/dev/null 2>&1
-	exit 0
-fi
-
-if [ "$flag_e" -eq 1 ]; then
-	echo "Edit $file using emacs..."
-	emacs --no-splash $file >/dev/null 2>&1
-	exit 0
-fi
-
-if [ "$flag_k" -eq 1 ]; then
-	check_exists_emacsclient
-	kill_emacs_server
-	exit 0
-fi
-
-if [ "$flag_m" -eq 1 ]; then
-	start_magit $repo
-fi
-
-if [ "$flag_o" -eq 1 ]; then
-	cmd="$file"
-fi
-
-if [ "$flag_q" -eq 1 ]; then
-	echo "Start emacs -q --no-splash..."
-	emacs -q --no-splash >/dev/null 2>&1
-	exit 0
-fi
-
-if [ "$flag_r" -eq 1 ]; then
-	check_exists_emacsclient
-	restart_emacs_server
-fi
+			echo "Edit $file using emacs..."
+			emacs --no-splash $file >/dev/null 2>&1
+			exit 0
+			;;
+		E)
+			cmd="$file"
+			;;
+		f)
+			file="~/.config/fish/config.fish"
+			cmd="$file"
+			;;
+		k)
+			kill_running_emacsclient
+			kill_emacs_server
+			exit 0
+			;;
+		m)
+			if [ ! -z ${@:$OPTIND} ]; then # if no argv is given, using default
+				repo=${@:$OPTIND}
+				OPTIND=$((OPTIND+1))
+			fi
+			start_magit $repo
+			;;
+		o)
+			if [ ! -z ${@:$OPTIND} ]; then # if no argv is given, using default
+				file=${@:$OPTIND}
+				OPTIND=$((OPTIND+1))
+			else
+				file="~/Org/todo.org"
+			fi
+			cmd="$file"
+			;;
+		q)
+			echo "Start emacs -q --no-splash..."
+			emacs -q --no-splash >/dev/null 2>&1
+			exit 0
+			;;
+		r)
+			kill_running_emacsclient
+			restart_emacs_server
+			;;
+		s)
+			flag_s=1
+			;;
+		t)
+			echo "Time the startup of emacs..."
+			time emacs --debug-init -eval '(kill-emacs)'
+			exit 0
+			;;
+		x)
+			flag_x=1
+			;;
+	esac
+done
+shift $((OPTIND -1))            # remove options that have already been handled from $@
 
 if [ "$flag_s" -eq 1 ]; then
 	echo "Switch between spacemacs and vanilla emacs..."
@@ -359,6 +304,10 @@ if [ "$flag_s" -eq 1 ]; then
 		# unnecessary to add an empty echo
 		read -e -n 1 -p "Currently using spacemacs, switch to vanilla emacs? [Y/n]: "
 		if [ "$REPLY" == "y" ] || [ "$REPLY" == " " ]; then
+			if [ -d ~/se.emacs.d ]; then
+				echo "~/se.emacs.d already exists, exit!"
+				exit -1
+			fi
 			mv -vi ~/.emacs.d ~/se.emacs.d
 			if [ -d ~/ve.emacs.d ]; then
 				mv -vi ~/ve.emacs.d ~/.emacs.d
@@ -373,6 +322,10 @@ if [ "$flag_s" -eq 1 ]; then
 	elif [ -d ~/.emacs.d/lisp ]; then
 		read -e -n 1 -p "Currently using vanilla emacs, switch to spacemacs? [Y/n]: "
 		if [ "$REPLY" == "y" ] || [ "$REPLY" == " " ]; then
+			if [ -d ~/ve.emacs.d ]; then
+				echo "~/ve.emacs.d already exists, exit!"
+				exit -1
+			fi
 			mv -vi ~/.emacs.d ~/ve.emacs.d
 			if [ -d ~/se.emacs.d ]; then
 				mv -vi ~/se.emacs.d ~/.emacs.d
@@ -389,12 +342,6 @@ if [ "$flag_s" -eq 1 ]; then
 		exit -1
 	fi
 	restart_emacs_server
-fi
-
-if [ "$flag_t" -eq 1 ]; then
-	echo "Time the startup of emacs..."
-	time emacs --debug-init -eval '(kill-emacs)'
-	exit 0
 fi
 
 if [ "$flag_x" -eq 1 ]; then
