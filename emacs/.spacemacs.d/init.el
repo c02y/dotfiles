@@ -237,8 +237,8 @@ It should only modify the values of Spacemacs settings."
 
    ;; Default font, or prioritized list of fonts. `powerline-scale' allows to
    ;; quickly tweak the mode-line size to make separators look not too crappy.
-   dotspacemacs-default-font '("Source Code Pro"
-                               :size 13
+   dotspacemacs-default-font '("PragmataPro"
+                               :size 15
                                :weight normal
                                :width normal)
 
@@ -652,8 +652,18 @@ Version 2016-12-18"
    ("C-h h" . helm-apropos)
    ("C-x /" . helm-semantic-or-imenu))
 
-  ;; for terminal
-  (custom-set-faces (if (not window-system) '(default ((t (:background nil))))))
+  ;; for terminal emacs, change theme in the configuration of the terminal, such as solarized-dark
+  ;; if it doesn't work, comment out the following lines
+  ;; (when (not window-system)
+  ;;   (progn
+  ;;     ;; change the color or current highlighted line
+  ;;     (set-face-background 'hl-line "839496")
+  ;;     ;; change the color of selected item in helm list
+  ;;     (set-face-background 'region "black")
+  ;;     (set-face-attribute 'region nil :background "#666")
+  ;;     (with-eval-after-load 'helm
+  ;;       (set-face-background 'helm-selection "839496"))
+  ;;     ))
   ;; whitespace faces
   (with-eval-after-load 'whitespace
     (set-face-attribute 'whitespace-space-after-tab nil :background "red" :foreground "yellow")
@@ -722,21 +732,24 @@ Version 2016-12-18"
     (add-hook hook #'electric-operator-mode))
   (with-eval-after-load "electric-operator"
     (setq electric-operator-enable-in-docs t)
-    (electric-operator-add-rules-for-mode 'c++-mode
+    (electric-operator-add-rules-for-mode
+     'c++-mode
      (cons "<>" "<> ")
      (cons "<" " < ")
      (cons ">" " > ")
      (cons ";" "; ")
      (cons "++" "++")
      )
-    (electric-operator-add-rules-for-mode 'c-mode
+    (electric-operator-add-rules-for-mode
+     'c-mode
      (cons "<>" "<> ")
      (cons "<" " < ")
      (cons ">" " > ")
      (cons ";" "; ")
      (cons "++" "++")
      )
-    (electric-operator-add-rules-for-mode 'org-mode
+    (electric-operator-add-rules-for-mode
+     'org-mode
      (cons "," ", ")
      (cons "?" "? ")
      (cons ";" "; ")
@@ -751,12 +764,14 @@ Version 2016-12-18"
      (cons "/." "/.")
      (cons "/" nil) ;; or change nil to "/"
      )
-    (electric-operator-add-rules-for-mode 'inferior-python-mode
+    (electric-operator-add-rules-for-mode
+     'inferior-python-mode
      (cons "=" " = ")
      (cons "==" ",== ")
      (cons "," ", ")
      )
-    (electric-operator-add-rules-for-mode 'plantuml-mode
+    (electric-operator-add-rules-for-mode
+     'plantuml-mode
      (cons ":" " : ")
      ;;
      (cons "<->" " <-> ")
