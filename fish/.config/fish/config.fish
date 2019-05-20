@@ -1460,6 +1460,7 @@ function port -d 'list all the ports are used or check the process which are usi
         netstat -tulpn
     end
 end
+abbr px 'proxychains4'
 
 abbr lo 'locate -e'
 function lop --description 'locate the full/exact file'
