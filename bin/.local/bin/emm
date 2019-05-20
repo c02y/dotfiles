@@ -42,7 +42,8 @@ Usage: $(basename $0)
 	   -o [org_file] to start orgmode for a file, default is ~/Org/todo.org
 	   -q to start emacs -q --no-splash
 	   -r to restart emacs daemon and start a emacsclient
-	   -s to edit
+	   -s to switch between spacemacs and vanilla emacs
+	   -S search emacs process
 	   -t to time the startup of emacs
 	   -x to start emacsclient in terminal even inside GUI DE
 EOF
@@ -188,9 +189,10 @@ flag_o=0 # start org-mode for a file, default is ~/Org/todo.org
 flag_q=0 # start emacs -q --no-splash
 flag_r=0 # restart emacs daemon and start a emacsclient
 flag_s=0 # switch between spacemacs and vanilla emacs
+flag_S=0 # search the emacs process
 flag_t=0 # time the startup of emacs
 flag_x=0 # start emacsclient in terminal even inside GUI DE
-while getopts ":hkrCdeEfbsmcaoqxt" args; do # prefix-: no warning for illegal option
+while getopts ":hkrCdeEfbsSmcaoqxt" args; do # prefix-: no warning for illegal option
 	case "$args" in
 		h|\?)                   # \? for illegal option
 			print_usage
@@ -252,6 +254,10 @@ while getopts ":hkrCdeEfbsmcaoqxt" args; do # prefix-: no warning for illegal op
 			;;
 		s)
 			flag_s=1
+			;;
+		S)
+			ps -ef | grep -v grep | grep emacs
+			exit
 			;;
 		t)
 			flag_t=1
