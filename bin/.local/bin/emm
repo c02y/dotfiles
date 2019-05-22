@@ -341,7 +341,11 @@ if [ "$flag_s" -eq 1 ]; then
 		echo "Both directories of spacemacs and vanilla emacs do not exist, exit!"
 		exit -1
 	fi
-	restart_emacs_server
+	if [ -d ~/.emacs.d/lisp ]; then # start emacs directly without daemon
+		emacs $@
+		exit
+	fi
+	# else like normal emm command
 fi
 
 if [ "$flag_x" -eq 1 ]; then
