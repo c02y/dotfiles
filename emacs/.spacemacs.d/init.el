@@ -922,8 +922,7 @@ Version 2016-12-18"
 
   (defun keep-beginning-of-line (ARG)
     "Make `C-a` keep going to first non-whitespace character _and_then_ beginning of
-  next line(previous with C-u).
-It will not work as expected in comment block because of goddamn rebox2"
+  next line(previous with C-u)."
     (interactive "P")
     (when (bolp) (forward-line (if ARG -1 1)))
     (let ((orig-point (point)))
@@ -931,8 +930,7 @@ It will not work as expected in comment block because of goddamn rebox2"
       (when (= orig-point (point))
         (move-beginning-of-line 1))))
   (defun keep-end-of-line (ARG)
-    "Make `C-e` keep going to end of next line(previous with C-u).
-It will become normal in comment block because of goddamn rebox2"
+    "Make `C-e` keep going to end of next line(previous with C-u)."
     (interactive "P")
     (when (eolp) (forward-line (if ARG -1 1)))
     (move-end-of-line nil))
