@@ -1184,8 +1184,6 @@ abbr gitcn 'git log --reverse --pretty=%H master | grep -A 1 (git rev-parse HEAD
 abbr gitcm 'git commit -m'
 abbr gitt 'git tag'
 abbr gitft 'git ls-files --error-unmatch' # Check if file/dir is git-tracked
-abbr gitrs 'git reset --soft HEAD~1' # undo last unpushed commit, keeps changes
-abbr gitrh 'git reset --hard HEAD~1' # undo last unpushed commit, delete changes
 function gitc -d 'git clone and cd into it'
     git clone -v $argv
     echo ---------------------------
@@ -1229,13 +1227,22 @@ function gita -d 'git add for multiple files at once'
         end
     end
 end
-function gitrh -d 'git reset HEAD for multiple files'
-    set -l files (echo $argv | tr ',' '\n')
-    for i in $files
-        echo 'git reset HEAD for file:' $i
-        git reset HEAD $i
-    end
+function gitrh -d 'git reset HEAD for multiple files(file1 file2), soft(-s)/hard(-h) reset'
+    set -l options 's' 'h'
+    argparse -n gitrh $options -- $argv
+    or return
 
+    if set -q _flag_s # undo last unpushed commit, keeps changes
+        git reset --soft HEAD~1
+    else if set -q _flag_h # undo last unpushed commit, delete changes
+        git reset --hard HEAD~1
+    else
+        set -l files (echo $argv | tr ',' '\n')
+        for i in $files
+            echo 'git reset HEAD for file:' $i
+            git reset HEAD $i
+        end
+    end
 end
 
 function gitdl -d 'download several files from github'
