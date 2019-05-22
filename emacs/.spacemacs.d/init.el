@@ -81,7 +81,6 @@ This function should only modify configuration layer settings."
      lsp
      ;; M-x dap-gdb-lldb-setup after packages are installed by dap layer
      dap
-     rebox
      )
 
    ;; List of additional packages that will be installed without being
@@ -1156,20 +1155,6 @@ Version 2015-06-10"
              ;; delete the extra empty line
              (when (current-line-empty-p) (delete-blank-lines))
              (when (not (current-line-empty-p)) (indent-for-tab-command)))))
-
-  (setq rebox-min-fill-column 40)
-  (add-hook 'emacs-lisp-mode-hook
-            (lambda ()
-              (set (make-local-variable 'rebox-style-loop) '(21 25 111))
-              (rebox-mode 1)))
-  (add-hook 'c-mode-hook
-            (lambda ()
-              (set (make-local-variable 'rebox-style-loop) '(241 243 111))
-              (rebox-mode 1)))
-  (add-hook 'c++-mode-hook
-            (lambda ()
-              (set (make-local-variable 'rebox-style-loop) '(21 23 111))
-              (rebox-mode 1)))
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
