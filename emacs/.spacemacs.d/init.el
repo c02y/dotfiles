@@ -1022,6 +1022,7 @@ Also converts full stops to commas."
   (spacemacs|define-transient-state change-case
     :title "Change case transient state"
     :bindings
+    ("i" string-inflection-all-cycle "camelcase")
     ("x" xah-toggle-letter-case "loop")
     ("c" endless/capitalize "capitalize")
     ("l" endless/downcase "downcase")
