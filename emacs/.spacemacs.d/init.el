@@ -3,6 +3,7 @@
 ;; It must be stored in your home directory.
 ;; and original template file is
 ;; ~/.emacs.d/core/templates/.spacemacs.template
+;; diff them using `SPC f e D'
 
 (defun dotspacemacs/layers ()
   "Layer configuration:
@@ -54,7 +55,8 @@ This function should only modify configuration layer settings."
      git
      helm
      ;; markdown
-     multiple-cursors
+     ;; replace multiple-cursors with symbol-overlay
+     ;; multiple-cursors
      org
      ;; (shell :variables
      ;;        shell-default-height 30
@@ -64,7 +66,6 @@ This function should only modify configuration layer settings."
      semantic
      shell-scripts
      treemacs
-     evil-commentary
      (version-control :variables
                       version-control-diff-tool 'git-gutter
                       version-control-diff-side 'left
@@ -80,6 +81,7 @@ This function should only modify configuration layer settings."
      lsp
      ;; M-x dap-gdb-lldb-setup after packages are installed by dap layer
      dap
+     rebox
      )
 
    ;; List of additional packages that will be installed without being
@@ -92,6 +94,9 @@ This function should only modify configuration layer settings."
    dotspacemacs-additional-packages '(
                                       highlight-indent-guides
                                       electric-operator
+                                      syntax-subword
+                                      comment-dwim-2
+                                      (cool-moves :location (recipe :fetcher github :repo "mrbig033/cool-moves"))
                                       )
 
    ;; A list of packages that cannot be updated.
@@ -100,6 +105,7 @@ This function should only modify configuration layer settings."
    ;; A list of packages that will not be installed and loaded.
    dotspacemacs-excluded-packages '(
                                     google-c-style
+                                    auto-highlight-symbol
                                     )
 
    ;; Defines the behaviour of Spacemacs when installing packages.
@@ -545,6 +551,16 @@ before packages are loaded."
    bookmark-default-file "~/.spacemacs.d/bookmarks"
    ;; make cursor the width of the character it is under i.e. full width of a TAB
    x-stretch-cursor t
+   ;; which-key
+   which-key-show-remaining-keys t
+   which-key-highlighted-command-list
+   '("helm\\|toggle\\|projectile\\|describe"
+     ("\\(^cscope\\)\\|\\(^ggtags\\)" . warning)
+     ("register\\|transient" . success)
+     ("rectangle\\|goto\\|lsp" . error)
+     ("help\\|emacs\\|bookmarks" . highlight)
+     )
+   comment-dwim-2--inline-comment-behavior 'reindent-comment
    )
 
   ;; kill all magit buffers, do this in magit-status with `q'
@@ -568,7 +584,7 @@ before packages are loaded."
   (add-hook 'after-change-major-mode-hook 'autocomplete-show-snippets)
 
   ;; highlight-indent-guides
-  ;; TODO: uncomment his line when the character can be displayed correctly
+  ;; FIXME: uncomment his line when the character can be displayed correctly
   ;; (add-hook 'prog-mode-hook 'highlight-indent-guides-mode)
   (setq highlight-indent-guides-auto-enabled nil
         highlight-indent-guides-method 'character
@@ -598,6 +614,7 @@ Emacs session."
             (find-file file)))
       (error "No recently-killed files to reopen")))
   (spacemacs/declare-prefix "fY" "yasnippets")
+  (spacemacs/declare-prefix "X" "copy/cut/delete/move")
   (spacemacs/set-leader-keys
     "bU" 'reopen-killed-buffer-fancy
     "bc" 'whitespace-cleanup
@@ -606,7 +623,22 @@ Emacs session."
     "fYr" 'yas-reload-all
     "fYi" 'yas-insert-snippet
     "fYv" 'yas-visit-snippet-file
+    "bq" 'query-replace-from-top
+    "bf" 'flush-blank-lines
+    ;; default feR, still works
+    "fer" 'dotspacemacs/sync-configuration-layers
+    ;; default helm-find-files
+    "fF" 'find-alternate-file
+    "Xd" 'delete-line-or-region-or-buffer
+    "Xc" 'copy-line-or-region-or-buffer
+    "Xk" 'cut-line-or-region-or-buffer
+    "XC" 'spacemacs/change-case-transient-state/body
+    "Xm" 'spacemacs/cool-moves-transient-state/body
     )
+
+  ;; symbol-overlay replaces highlight-symbol
+  (dolist (hook '(prog-mode-hook org-mode-hook))
+    (add-hook hook #'symbol-overlay-mode))
 
   ;; M-^ delete Up to Non-Whitespace Character, 'delete-indentation, combine two lines
   ;; M-Backspace delete to the previous word 'backword-kill-word
@@ -656,9 +688,31 @@ Version 2016-12-18"
         (progn (delete-blank-lines)))))
   (bind-keys*
    ("C-x DEL" . xah-shrink-whitespaces)
+   ("M-%" . query-replace-from-top)
    ("M-z" . helm-for-files)
    ("C-h h" . helm-apropos)
-   ("C-x /" . helm-semantic-or-imenu))
+   ("C-x /" . helm-semantic-or-imenu)
+   ("C-s" . helm-occur)
+   ("C-a" . keep-beginning-of-line)
+   ("C-e" . keep-end-of-line)
+   ("M-;" . comment-dwim-2)
+   ;; switch the last visited buffer, repeated invocations toggle between the most recent two buffers
+   ;; this is different from SPC TAB, which switch the last buffer in this window
+   ("C-x x" . (lambda () (interactive) (switch-to-buffer (other-buffer (current-buffer) 1))))
+   ("M-n" . symbol-overlay-jump-next)
+   ("M-p" . symbol-overlay-jump-prev)
+   )
+  ;; disable follow in helm-occur (like helm-swoop) github-2152
+  (with-eval-after-load 'helm
+    (cl-defmethod helm-setup-user-source ((source helm-moccur-class))
+      (setf (slot-value source 'follow) -1))
+    ;; use <right> to search the whole word when using helm-occur
+    ;; FIXME: this doesn't work helm-occur in spacemacs
+    (defun helm-occur-insert-symbol-regexp ()
+      (interactive)
+      (helm-set-pattern (concat "\\_<" helm-input "\\_>")))
+    (define-key helm-occur-map (kbd "<right>") 'helm-occur-insert-symbol-regexp)
+    )
 
   ;; for terminal emacs, change theme in the configuration of the terminal, such as solarized-dark
   ;; if it doesn't work, comment out the following lines
@@ -850,6 +904,271 @@ Version 2016-12-18"
      ;; (cons "o<--" " o<-- ")
      )
     )
+
+  ;; set the query-replace from top
+  (defun query-replace-from-top ()
+    (interactive)
+    (let ((orig-point (point)))
+      (save-excursion
+        (goto-char (point-min))
+        (call-interactively 'query-replace))
+      (message "Back to old point.")
+      (goto-char orig-point)))
+
+  ;; flush blank lines
+  (defun flush-blank-lines (start end)
+    "Mark a block and delete all blank/empty lines inside it."
+    (interactive "r")
+    (flush-lines "^\\s-*$" start end nil))
+
+  (defun keep-beginning-of-line (ARG)
+    "Make `C-a` keep going to first non-whitespace character _and_then_ beginning of
+  next line(previous with C-u).
+It will not work as expected in comment block because of goddamn rebox2"
+    (interactive "P")
+    (when (bolp) (forward-line (if ARG -1 1)))
+    (let ((orig-point (point)))
+      (back-to-indentation)
+      (when (= orig-point (point))
+        (move-beginning-of-line 1))))
+  (defun keep-end-of-line (ARG)
+    "Make `C-e` keep going to end of next line(previous with C-u).
+It will become normal in comment block because of goddamn rebox2"
+    (interactive "P")
+    (when (eolp) (forward-line (if ARG -1 1)))
+    (move-end-of-line nil))
+
+  ;; needed for change-case functions
+  (global-syntax-subword-mode)
+  (defadvice endless/upcase (before upcase-word-advice activate)
+    (unless (looking-back "\\b")
+      (backward-word)))
+  (defadvice endless/downcase (before downcase-word-advice activate)
+    (unless (looking-back "\\b")
+      (backward-word)))
+  (defadvice endless/capitalize (before capitalize-word-advice activate)
+    (unless (looking-back "\\b")
+      (backward-word)))
+  ;; TODO: make the following function accept arg-num
+  (defun xah-toggle-letter-case ()
+    "Toggle the letter case of current word or text selection.
+Always cycle in this order: Init Caps, ALL CAPS, all lower.
+
+URL `http://ergoemacs.org/emacs/modernization_upcase-word.html'
+Version 2017-04-19"
+    (interactive)
+    (let (
+          (deactivate-mark nil)
+          $p1 $p2)
+      (if (use-region-p)
+          (setq $p1 (region-beginning)
+                $p2 (region-end))
+        (save-excursion
+          (skip-chars-backward "[:alnum:]-_")
+          (setq $p1 (point))
+          (skip-chars-forward "[:alnum:]-_")
+          (setq $p2 (point))))
+      (when (not (eq last-command this-command))
+        (put this-command 'state 0))
+      (cond
+       ((equal 0 (get this-command 'state))
+        (upcase-initials-region $p1 $p2)
+        (put this-command 'state 1))
+       ((equal 1	(get this-command 'state))
+        (upcase-region $p1 $p2)
+        (put this-command 'state 2))
+       ((equal 2 (get this-command 'state))
+        (downcase-region $p1 $p2)
+        (put this-command 'state 0)))))
+  ;; automatically convert the comma/dot once downcase/upcase next character
+  (defun endless/convert-punctuation (rg rp)
+    "Look for regexp RG around point, and replace with RP.
+Only applies to text-mode."
+    (let ((f "\\(%s\\)\\(%s\\)")
+          (space "?:[[:blank:]\n\r]*"))
+      ;; We obviously don't want to do this in prog-mode.
+      (if (and (derived-mode-p 'org-mode)
+               (or (looking-at (format f space rg))
+                   (looking-back (format f rg space))))
+          (replace-match rp nil nil nil 1))))
+  (defun endless/capitalize ()
+    "Capitalize region or word.
+Also converts commas to full stops, and kills
+extraneous space at beginning of line."
+    (interactive)
+    (endless/convert-punctuation "," ".")
+    (if (use-region-p)
+        (call-interactively 'capitalize-region)
+      ;; A single space at the start of a line:
+      (when (looking-at "^\\s-\\b")
+        ;; get rid of it!
+        (delete-char 1))
+      (call-interactively 'subword-capitalize)))
+  (defun endless/downcase ()
+    "Downcase region or word.
+Also converts full stops to commas."
+    (interactive)
+    (endless/convert-punctuation "\\." ",")
+    (if (use-region-p)
+        (call-interactively 'downcase-region)
+      (call-interactively 'subword-downcase)))
+  (defun endless/upcase ()
+    "Upcase region or word."
+    (interactive)
+    (if (use-region-p)
+        (call-interactively 'upcase-region)
+      (call-interactively 'subword-upcase)))
+  ;; this can also can be done simply using M-c/M-l/M-u
+  (spacemacs|define-transient-state change-case
+    :title "Change case transient state"
+    :bindings
+    ("x" xah-toggle-letter-case "loop")
+    ("c" endless/capitalize "capitalize")
+    ("l" endless/downcase "downcase")
+    ("u" endless/upcase "upcase")
+    ("z" undo-tree-undo "undo")
+    ("Z" undo-tree-redo "redo")
+    ("q" nil :exit t))
+
+  (require 'cool-moves)
+  (dolist (m (list prog-mode-map text-mode-map))
+    (bind-keys :map m
+               ("M-<up>" . cool-moves/line-backward)
+               ("M-<down>" . cool-moves/line-forward)
+               ("M-<left>" . cool-moves/sexp-backward)
+               ("M-<right>" . cool-moves/sexp-forward)))
+  (spacemacs|define-transient-state cool-moves
+    :title "Cool moves transient state"
+    :doc "
+ [_<down>_/_l_]: line ↓     [_<up>_/_L_]: line ↑
+ [_p_]: par  ↓             [_P_]: par  ↑
+ [_w_]: word →             [_W_]: word ←
+ [_c_]: char →             [_C_]: char ←
+ [_s_]: sentence →         [_S_]: sentence ←
+ [_<right>_/_x_]: sexp →   [_<left>_/_X_]: sexp ←
+ [_z_]: undo               [_Z_]: redo
+"
+    :bindings
+    ("l" cool-moves/line-forward)
+    ("<down>" cool-moves/line-forward)
+    ("L" cool-moves/line-backward)
+    ("<up>" cool-moves/line-backward)
+
+    ("p" cool-moves/paragraph-forward)
+    ("P" cool-moves/paragraph-backward)
+
+    ("w" cool-moves/word-forward)
+    ("W" cool-moves/word-backwards)
+
+    ("c" cool-moves/character-forward)
+    ("C" cool-moves/character-backward)
+
+    ("s" cool-moves/sentence-forward)
+    ("S" cool-moves/sentence-backward)
+
+    ("x" cool-moves/sexp-forward)
+    ("<right>" cool-moves/sexp-forward)
+    ("X" cool-moves/sexp-backward)
+    ("<left>" cool-moves/sexp-backward)
+
+    ("z" undo-tree-undo)
+    ("Z" undo-tree-redo)
+    ("q" nil :exit t))
+
+  ;; delete/copy/cut whole buffer without moving point
+  (defun current-line-empty-p ()
+    (save-excursion
+      (beginning-of-line)
+      (looking-at "[[:space:]]*$")))
+  (defun delete-line-or-region-or-buffer ()
+    "Delete current line, or text selection.
+When `universal-argument' is called first, delete whole buffer (respects `narrow-to-region')."
+    (interactive)
+    (if current-prefix-arg
+        (delete-region (point-min) (point-max))
+      (progn
+        (if (use-region-p)
+            (delete-region (region-beginning) (region-end))
+          (delete-region (line-beginning-position) (line-end-position)))
+        ;; delete the extra empty line
+        (when (current-line-empty-p) (delete-blank-lines))
+        (when (not (current-line-empty-p)) (indent-for-tab-command)))))
+  (defun copy-line-or-region-or-buffer ()
+    "Copy current line, or text selection.
+When called repeatedly, append copy subsequent lines.
+When `universal-argument' is called first, copy whole buffer (respects `narrow-to-region').
+URL `http://ergoemacs.org/emacs/emacs_copy_cut_current_line.html'
+Version 2016-06-18"
+    (interactive)
+    (let (-p1 -p2)
+      (if current-prefix-arg
+          (setq -p1 (point-min) -p2 (point-max))
+        (if (use-region-p)
+            (setq -p1 (region-beginning) -p2 (region-end))
+          ;; (setq -p1 (line-beginning-position) -p2 (line-end-position))))
+          ;; use non-white position
+          ;; -p1 is the position of beginning of line of non-whitespace
+          ;; -p2 is the position of end of line of non-whitespace
+          (setq -p1 (save-excursion (back-to-indentation) (point))
+                -p2 (save-excursion
+                      (end-of-line)
+                      (skip-syntax-backward "-")
+                      (point)))))
+      (if (eq last-command this-command)
+          (progn
+            (progn										   ; hack. exit if there's no more next line
+              (end-of-line)
+              (forward-char)
+              (backward-char))
+            ;; (push-mark (point) "NOMSG" "ACTIVATE")
+            (kill-append "\n" nil)
+            (kill-append (buffer-substring-no-properties (line-beginning-position) (line-end-position)) nil)
+            (message "Line copy appended"))
+        (progn
+          (kill-ring-save -p1 -p2)
+          (if current-prefix-arg
+              (message "Buffer text copied")
+            (message "Text copied"))))
+      ;; (end-of-line)
+      ;; (forward-char)
+      ))
+  (defun cut-line-or-region-or-buffer ()
+    "Cut current line, or text selection.
+When `universal-argument' is called first, cut whole buffer (respects `narrow-to-region').
+URL `http://ergoemacs.org/emacs/emacs_copy_cut_current_line.html'
+Version 2015-06-10"
+    (interactive)
+    (if current-prefix-arg
+        (progn ; not using kill-region because we don't want to include previous kill
+          (kill-new (buffer-string))
+          (delete-region (point-min) (point-max)))
+      (progn (if (use-region-p)
+                 (kill-region (region-beginning) (region-end) t)
+               ;; (kill-region (line-beginning-position) (line-end-position))
+               ;; use non-white position
+               (kill-region
+                (save-excursion (back-to-indentation) (point))
+                (save-excursion
+                  (end-of-line)
+                  (skip-syntax-backward "-")
+                  (point))))
+             ;; delete the extra empty line
+             (when (current-line-empty-p) (delete-blank-lines))
+             (when (not (current-line-empty-p)) (indent-for-tab-command)))))
+
+  (setq rebox-min-fill-column 40)
+  (add-hook 'emacs-lisp-mode-hook
+            (lambda ()
+              (set (make-local-variable 'rebox-style-loop) '(21 25 111))
+              (rebox-mode 1)))
+  (add-hook 'c-mode-hook
+            (lambda ()
+              (set (make-local-variable 'rebox-style-loop) '(241 243 111))
+              (rebox-mode 1)))
+  (add-hook 'c++-mode-hook
+            (lambda ()
+              (set (make-local-variable 'rebox-style-loop) '(21 23 111))
+              (rebox-mode 1)))
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
