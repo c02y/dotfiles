@@ -617,6 +617,8 @@ Emacs session."
   (spacemacs/set-leader-keys
     "bU" 'reopen-killed-buffer-fancy
     "bc" 'whitespace-cleanup
+    ;; overwrite the default bR
+    "bR" 'revert-buffer-without-asking
     "tG" 'highlight-indent-guides-mode
     "fYn" 'yas-new-snippet
     "fYr" 'yas-reload-all
@@ -634,6 +636,11 @@ Emacs session."
     "XC" 'spacemacs/change-case-transient-state/body
     "Xm" 'spacemacs/cool-moves-transient-state/body
     )
+
+  (defun revert-buffer-without-asking()
+    "Revert buffer without asking"
+    (interactive)
+    (revert-buffer nil t))
 
   ;; symbol-overlay replaces highlight-symbol
   (dolist (hook '(prog-mode-hook org-mode-hook))
