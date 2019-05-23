@@ -234,7 +234,7 @@ It should only modify the values of Spacemacs settings."
    ;; spaceline theme. Value can be a symbol or list with additional properties.
    ;; (default '(spacemacs :separator wave :separator-scale 1.5))
    ;; dotspacemacs-mode-line-theme '(spacemacs :separator wave :separator-scale 1.5)
-   dotspacemacs-mode-line-theme 'spacemacs
+   dotspacemacs-mode-line-theme 'custom
 
    ;; If non-nil the cursor color matches the state color in GUI Emacs.
    ;; (default t)
@@ -478,6 +478,63 @@ This function is called immediately after `dotspacemacs/init', before layer
 configuration.
 It is mostly for variables that should be set before packages are loaded.
 If you are unsure, try setting them in `dotspacemacs/user-config' first."
+  (setq evil-normal-state-tag "NORMAL")
+  (setq evil-emacs-state-tag "EMACS")
+  (setq evil-hybrid-state-tag "HYBRID")
+  (setq evil-insert-state-tag "INSERT")
+  (setq evil-visual-state-tag "VISUAL")
+  (setq evil-lisp-state-tag "LISP")
+  (setq evil-motion-state-tag "MOTION")
+  (setq evil-operator-state-tag "OPERATOR")
+  (setq evil-replace-state-tag "REPLACE")
+  (setq evil-evilified-state-tag "EVIL")
+
+  (defun spaceline-custom-theme (&rest additional-segments)
+    "My custom spaceline theme, just add state indicators line before window-number in the mode.
+https://github.com/syl20bnr/spacemacs/issues/12346"
+    (spaceline-compile
+      ;; left side
+      '(((evil-state
+          persp-name
+          workspace-number
+          window-number)
+         :fallback evil-state
+         :face highlight-face
+         :priority 100)
+        (anzu :priority 95)
+        auto-compile
+        ((buffer-modified buffer-size buffer-id remote-host)
+         :priority 98)
+        (major-mode :priority 79)
+        (process :when active)
+        ((flycheck-error flycheck-warning flycheck-info)
+         :when active
+         :priority 89)
+        (minor-modes :when active
+                     :priority 9)
+        (mu4e-alert-segment :when active)
+        (erc-track :when active)
+        (version-control :when active
+                         :priority 78)
+        (org-pomodoro :when active)
+        (org-clock :when active)
+        nyan-cat)
+      ;; right side
+      '(which-function
+        (python-pyvenv :fallback python-pyenv)
+        (purpose :priority 94)
+        (battery :when active)
+        (selection-info :priority 95)
+        input-method
+        ((buffer-encoding-abbrev
+          point-position
+          line-column)
+         :separator " | "
+         :priority 96)
+        (global :when active)
+        (buffer-position :priority 99)
+        (hud :priority 99)))
+    (setq-default mode-line-format '("%e" (:eval (spaceline-ml-main)))))
   )
 
 (defun dotspacemacs/user-load ()
