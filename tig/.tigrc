@@ -1,0 +1,97 @@
+# the default configuration file is https://github.com/jonas/tig/blob/master/tigrc
+
+#Commit
+bind generic C      !git commit
+bind refs    C      !git commit
+bind main    C      !git commit
+bind generic <Esc>u !git add -p %(file)
+bind generic <Esc>c !git commit --allow-empty
+bind generic +      !git commit --amend --allow-empty
+
+#Push
+bind generic P      ?git push -u %(remote) %(repo:head)
+bind generic <Esc>p ?git push -u -f %(remote) %(repo:head)
+
+#Pull
+bind generic U      ?git pull %(remote)
+
+#Fetch
+bind generic F      ?git fetch %(remote)
+bind main    F      ?git fetch %(remote)
+
+#Move cursol
+bind generic J move-page-down
+bind generic K move-page-up
+
+#Reflog
+bind generic L      !sh -c "git reflog --pretty=raw | tig --pretty=raw"
+bind generic _      ?git reset --hard HEAD@{"%(prompt Enter HEAD@{} number: )"}
+
+#Reset --hard
+bind main    H      ?git reset --hard %(commit)
+bind diff    H      ?git reset --hard %(commit)
+bind refs    H      ?git reset --hard %(branch)
+bind status  H      ?git reset --hard HEAD
+
+# Branch view
+bind generic    b      view-refs
+
+# Branch view
+bind generic    B      view-blame
+
+# Refresh
+bind generic    r      refresh
+
+#Checkout
+bind main    =      ?git checkout %(branch)
+bind refs    =      ?git checkout %(branch)
+bind main    <Esc>= ?git checkout %(commit)
+bind generic -      ?git checkout -
+
+#Merge
+bind main    M      ?git merge %(branch)
+bind diff    M      ?git merge %(branch)
+bind refs    M      ?git merge %(branch)
+bind main    <Esc>m ?git merge %(commit)
+bind diff    <Esc>m ?git merge %(commit)
+
+#Rebase
+bind main    R      ?git rebase %(branch)
+bind diff    R      ?git rebase %(branch)
+bind refs    R      ?git rebase %(branch)
+bind main    <Esc>r ?git rebase %(commit)
+bind diff    <Esc>r ?git rebase %(commit)
+
+#Rebase -i
+bind main    I      ?git rebase -i %(branch)
+bind diff    I      ?git rebase -i %(branch)
+bind refs    I      ?git rebase -i %(branch)
+bind main    <Esc>i ?git rebase -i %(commit)
+bind diff    <Esc>i ?git rebase -i %(commit)
+
+#Open to brouse
+bind main    ;      @hub browse -- commit/%(commit)
+bind blame   ;      @hub browse -- commit/%(commit)
+bind diff    ;      @hub browse -- commit/%(commit)
+bind tree    ;      @hub browse -- blob/%(branch)/%(file)
+bind blob    ;      @hub browse -- blob/%(branch)/%(file)
+bind grep    ;      @hub browse -- blob/%(branch)/%(file)
+bind tree    <Esc>; @hub browse -- blob/"%(prompt Enter branch name: )"/%(file)
+bind blob    <Esc>; @hub browse -- blob/"%(prompt Enter branch name: )"/%(file)
+bind grep    <Esc>; @hub browse -- blob/"%(prompt Enter branch name: )"/%(file)
+
+#Pull request
+bind main    w      @hub browse -- compare/%(branch)?expand=1
+bind diff    w      @hub browse -- compare/%(branch)?expand=1
+
+#diff
+bind refs    w      @hub browse -- compare/%(branch)?expand=1
+set diff-highlight = true
+
+#Refresh
+#set refresh-mode = auto
+set refresh-mode = periodic
+set refresh-interval = 5
+
+#Stash
+bind generic <Esc>s !git stash
