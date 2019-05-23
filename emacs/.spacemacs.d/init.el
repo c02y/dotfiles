@@ -637,7 +637,8 @@ before packages are loaded."
     (let ((backend (car company-backends)))
       (unless (listp backend)
         (setcar company-backends `(,backend :with company-yasnippet company-files)))))
-  (add-hook 'after-change-major-mode-hook 'autocomplete-show-snippets)
+  (with-eval-after-load 'company
+    '(add-hook 'after-change-major-mode-hook 'autocomplete-show-snippets))
 
   ;; highlight-indent-guides
   ;; FIXME: uncomment his line when the character can be displayed correctly
@@ -1001,16 +1002,6 @@ Version 2016-12-18"
 
   ;; needed for change-case functions
   (global-syntax-subword-mode)
-  (defadvice endless/upcase (before upcase-word-advice activate)
-    (unless (looking-back "\\b")
-      (backward-word)))
-  (defadvice endless/downcase (before downcase-word-advice activate)
-    (unless (looking-back "\\b")
-      (backward-word)))
-  (defadvice endless/capitalize (before capitalize-word-advice activate)
-    (unless (looking-back "\\b")
-      (backward-word)))
-  ;; TODO: make the following function accept arg-num
   (defun xah-toggle-letter-case ()
     "Toggle the letter case of current word or text selection.
 Always cycle in this order: Init Caps, ALL CAPS, all lower.
@@ -1035,7 +1026,7 @@ Version 2017-04-19"
        ((equal 0 (get this-command 'state))
         (upcase-initials-region $p1 $p2)
         (put this-command 'state 1))
-       ((equal 1	(get this-command 'state))
+       ((equal 1  (get this-command 'state))
         (upcase-region $p1 $p2)
         (put this-command 'state 2))
        ((equal 2 (get this-command 'state))
