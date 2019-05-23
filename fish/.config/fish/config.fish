@@ -204,7 +204,7 @@ function twp -d 'tmux swap-pane to current pane to the target pane'
     tmux swap-pane -s $num
 end
 
-alias check 'checkpatch.pl --ignore SPDX_LICENSE_TAG,CONST_STRUCT,AVOID_EXTERNS,NEW_TYPEDEFS --no-tree -f '
+alias check 'checkpatch.pl --ignore SPDX_LICENSE_TAG,CONST_STRUCT,AVOID_EXTERNS,NEW_TYPEDEFS --no-tree -f'
 
 # TODO: the following part will make fish print "No protocol specified" error line
 # source $HOME/.config/fish/functions/done.fish
@@ -341,9 +341,9 @@ alias lah 'lla --color=yes --sort=time -lh --time=ctime | head | nl -v 0'
 abbr lsc 'ls -all | wc -l'
 # valgrind
 # abbr va='valgrind -v --track-origins=yes'
-abbr va 'valgrind --track-origins=yes --leak-check=full '
+abbr va 'valgrind --track-origins=yes --leak-check=full'
 # more detail about time
-abbr vad 'valgrind --tool=callgrind --dump-instr=yes --simulate-cache=yes --collect-jumps=yes '
+abbr vad 'valgrind --tool=callgrind --dump-instr=yes --simulate-cache=yes --collect-jumps=yes'
 
 abbr im 'ristretto'
 abbr ds 'display'
@@ -478,8 +478,8 @@ end
 alias rm 'rm -vi'
 alias cp 'cp -vi'
 alias mv 'mv -vi'
-abbr rcp 'rsync --stats --progress -rhv '
-abbr rmc 'rsync --stats --progress -rhv --remove-source-files ' # this will not delte the src dir, only the contents
+abbr rcp 'rsync --stats --progress -rhv'
+abbr rmc 'rsync --stats --progress -rhv --remove-source-files' # this will not delte the src dir, only the contents
 
 # abbr grep='grep -nr --color=auto'
 abbr g 'grep -F -n --color=auto'
@@ -771,7 +771,7 @@ function watch -d 'wrap default watch to support aliases and functions'
         sleep 1; echo
     end
 end
-# abbr df '/bin/df -hT -x tmpfs -x devtmpfs '
+# abbr df '/bin/df -hT -x tmpfs -x devtmpfs'
 alias df 'df -Th | grep -v grep | grep -v tmpfs | grep -v boot | grep -v var | grep -v snapshots | grep -v opt | grep -v tmp | grep -v srv | grep -v usr | grep -v user'
 # stop less save search history into ~/.lesshst
 # or LESSHISTFILE=-
@@ -940,7 +940,7 @@ abbr wgets 'wget -c --mirror -p --html-extension --convert-links'
 abbr wt 'bash -c \'rm -rfv /tmp/Thun* 2>/dev/null\'; wget -c -P /tmp/ http://dl1sw.baidu.com/soft/9e/12351/ThunderMini_1.5.3.288.exe'
 abbr wtt 'bash -c \'rm -rfv /tmp/Thun* 2>/dev/null\'; wget --connect-timeout=5 -c -P /tmp/ http://dlsw.baidu.com/sw-search-sp/soft/ca/13442/Thunder_dl_V7.9.39.4994_setup.1438932968.exe'
 # curl -L -O -C - https://site.com/file.iso
-abbr a2 'aria2c -c -x 5 --check-certificate=false --file-allocation=none '
+abbr a2 'aria2c -c -x 5 --check-certificate=false --file-allocation=none'
 
 # rpm
 function rpms -d 'rpm file, install(i)/extract(x)/list(default)'
@@ -964,15 +964,15 @@ function rpms -d 'rpm file, install(i)/extract(x)/list(default)'
 end
 
 # yum
-abbr yum   'sudo yum -C --noplugins ' # not update cache
-abbr yumi  'sudo yum install '
+abbr yum   'sudo yum -C --noplugins' # not update cache
+abbr yumi  'sudo yum install'
 abbr yumiy 'sudo yum install -y'
-abbr yumr  'sudo yum remove '
+abbr yumr  'sudo yum remove'
 abbr yumri 'sudo yum reinstall -y'
 abbr yumca 'sudo yum clean all -v'
-abbr yumu  'sudo yum --exclude=kernel\* upgrade ' # this line will be '=kernel*' in bash
+abbr yumu  'sudo yum --exclude=kernel\* upgrade' # this line will be '=kernel*' in bash
 abbr yumuk 'sudo yum upgrade kernel\*'
-abbr yumue 'sudo yum update --exclude=kernel\* '
+abbr yumue 'sudo yum update --exclude=kernel\*'
 abbr yumul 'sudo yum history undo last'
 abbr yumhl 'sudo yum history list'
 abbr yumun 'sudo yum history undo'
@@ -981,7 +981,7 @@ abbr yumsa 'sudo yum search all'
 # dnf
 abbr dnfu 'sudo dnf update -v'
 abbr dnfU 'sudo dnf update --setopt exclude=kernel\* -v'
-abbr dnfu2 'sudo dnf update -y --disablerepo="*" --enablerepo="updates" '
+abbr dnfu2 'sudo dnf update -y --disablerepo="*" --enablerepo="updates"'
 abbr dnfc 'sudo dnf clean all'
 abbr dnfi 'sudo dnf install -v'
 abbr dnfr 'sudo dnf remove -v'
@@ -1015,8 +1015,8 @@ abbr apar 'sudo apt-get autoremove -V'
 abbr aps 'apt-cache search'
 
 # donnot show the other info on startup
-abbr gdb 'gdb -q '
-abbr gdbx 'gdb -q -n '         # with loading any .gdbinit file
+abbr gdb 'gdb -q'
+abbr gdbx 'gdb -q -n'         # with loading any .gdbinit file
 
 # systemd-analyze
 function sab --description 'systemd-analyze blame->time'
@@ -1117,15 +1117,15 @@ abbr rl 'readlink -f'
 
 abbr km 'sudo kermit'
 
-abbr dusc 'dus -c ~/.config/google-chrome ~/.cache/google-chrome ~/.mozilla ~/.cache/mozilla '
+abbr dusc 'dus -c ~/.config/google-chrome ~/.cache/google-chrome ~/.mozilla ~/.cache/mozilla'
 abbr gcp 'google-chrome --incognito'
 abbr ffp 'firefox -private-window'
 
-abbr cx 'chmod +x '
+abbr cx 'chmod +x'
 
 # netease-play, douban.fm
-abbr np 'netease-player '
-abbr db 'douban.fm '
+abbr np 'netease-player'
+abbr db 'douban.fm'
 
 #vim
 abbr V 'vim -u NONE'
@@ -1169,14 +1169,14 @@ abbr emtime "time emacs --debug-init -eval '(kill-emacs)'" # time emacs startup 
 abbr lic 'wget -q http://www.gnu.org/licenses/gpl.txt -O LICENSE'
 
 # git
-abbr gits 'git status ' # gs is original Ghostscript app
+abbr gits 'git status' # gs is original Ghostscript app
 abbr gitpl 'git pull -v'
 abbr gitpu 'git push -v'
 abbr gitl 'git log --stat'
 abbr gitd 'git diff'           # show unstaged local modification
 abbr gitdc 'git diff' --cached # show staged bu unpushed local modification
-abbr gitlp 'git log -p -- ' # [+ file] to how entire all/[file(even renamed)] history
-abbr gitsh 'git show ' # [+ COMMIT] to show the modifications in a last/[specific] commit
+abbr gitlp 'git log -p --' # [+ file] to how entire all/[file(even renamed)] history
+abbr gitsh 'git show' # [+ COMMIT] to show the modifications in a last/[specific] commit
 abbr gitlo 'git log --oneline'
 abbr gitb 'git branch'
 abbr gitcl 'git config -l'
@@ -1388,7 +1388,7 @@ end
 abbr ok 'bash -c "(nohup okular \"$argv\" </dev/null >/dev/null 2>&1 &)"'
 abbr ima 'bash -c "(nohup gwenview \"$argv\" </dev/null >/dev/null 2>&1 &)"'
 abbr op 'bash -c "(nohup xdg-open \"$argv\" </dev/null >/dev/null 2>&1 &)"'
-abbr fcg 'fc-list | ag '
+abbr fcg 'fc-list | ag'
 
 function wc
     if test (count $argv) -gt 1
@@ -1402,7 +1402,7 @@ abbr st 'stow -DRv'
 
 abbr ptp 'ptipython'
 # install pytest and pytest-pep8 first, to check if the code is following pep8 guidelines
-abbr pyp8 'py.test --pep8 '
+abbr pyp8 'py.test --pep8'
 
 # abbr rea 'sudo ~/.local/bin/reaver -i mon0 -b $argv[1] -vv'
 # function rea
@@ -1676,9 +1676,9 @@ function mo-bak
     end
 end
 
-abbr ytd 'youtube-dl -citw '
+abbr ytd 'youtube-dl -citw'
 
-function agr -d 'ag errno '
+function agr -d 'ag errno'
     for file in /usr/include/asm-generic/errno-base.h /usr/include/asm-generic/errno.h
         command ag -w $argv[1] $file
     end
