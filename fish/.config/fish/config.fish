@@ -1694,20 +1694,34 @@ function ag
         echo -e "\n...ag is not installed, use grep instead..."
     end
 end
-function age --description 'ag sth. in $EMACS_EL'
-    ag $argv[1] $EMACS_EL
-end
-function agf --description 'ag sth. in $FISH_CONFIG_PATH'
-    ag $argv[1] $FISH_CONFIG_PATH
-end
-function agt --description 'ag sth. in ~/.tmux.conf'
-    ag $argv[1] ~/.tmux.conf
-end
-function ag2 --description 'ag sth. in ~/Recentchange/TODO'
-    ag $argv[1] ~/Recentchange/TODO
-end
-function agv -d 'ag sth. in ~/.vim/vimrc'
-    ag $argv[1] ~/.vim/vimrc
+function ags -d 'ag sth in a init.el(-e)/config.fish(-f)/.tmux.conf(-t)/vimrc(-v), or use vim(-V)/emm(-E) to open the file'
+    set -l options 'e' 'E' 'f' 't' 'v' 'V'
+    argparse -n ags -N 1 $options -- $argv
+    or return
+
+    if set -q _flag_e
+        ag $argv[1] $EMACS_EL
+    else if set -q _flag_E
+        ag $argv[1] $argv[2]
+        echo
+        read -n 1 -p 'echo "Open it with emm? [Y/n]: "' -l answer
+        if test "$answer" = "y" -o "$answer" = " "
+            emm (command ag -l $argv[1] $argv[2] | fzf)
+        end
+    else if set -q _flag_f
+        ag $argv[1] $FISH_CONFIG_PATH
+    else if set -q _flag_t
+        ag $argv[1] ~/.tmux.conf
+    else if set -q _flag_v
+        ag $argv[1] ~/.vim/vimrc
+    else if set -q _flag_V
+        ag $argv[1] $argv[2]
+        echo
+        read -n 1 -p 'echo "Open it with vim? [Y/n]: "' -l answer
+        if test "$answer" = "y" -o "$answer" = " "
+            vim (command ag -l $argv[1] $argv[2] | fzf)
+        end
+    end
 end
 
 # ls; and ll -- if ls succeed then ll, if failed then don't ll
