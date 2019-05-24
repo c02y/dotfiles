@@ -619,6 +619,18 @@ before packages are loaded."
    comment-dwim-2--inline-comment-behavior 'reindent-comment
    )
 
+  ;; TODO: please remove this part if the author put this into comment-dwim-2 package
+  ;; useful for M-;(comment-dwim-2)
+  ;; replace tabs with spaces before comment and code even if indent-tabs-mode is t
+  ;; https://github.com/remyferre/comment-dwim-2/issues/6
+  (defadvice comment-indent (around comment-indent-with-spaces activate)
+    (let ((orig-indent-tabs-mode indent-tabs-mode))
+      (when orig-indent-tabs-mode
+        (setq indent-tabs-mode nil))
+      ad-do-it
+      (when orig-indent-tabs-mode
+        (setq indent-tabs-mode t))))
+
   ;; kill all magit buffers, do this in magit-status with `q'
   ;; https://manuel-uberti.github.io/emacs/2018/02/17/magit-bury-buffer/
   (defun mu-magit-kill-buffers ()
@@ -641,7 +653,7 @@ before packages are loaded."
     '(add-hook 'after-change-major-mode-hook 'autocomplete-show-snippets))
 
   ;; highlight-indent-guides
-  ;; FIXME: uncomment his line when the character can be displayed correctly
+  ;; TODO: uncomment his line when the character can be displayed correctly
   ;; (add-hook 'prog-mode-hook 'highlight-indent-guides-mode)
   (setq highlight-indent-guides-auto-enabled nil
         highlight-indent-guides-method 'character
