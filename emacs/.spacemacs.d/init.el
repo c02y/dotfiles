@@ -612,12 +612,96 @@ before packages are loaded."
    which-key-highlighted-command-list
    '("helm\\|toggle\\|projectile\\|describe"
      ("\\(^cscope\\)\\|\\(^ggtags\\)" . warning)
-     ("register\\|transient" . success)
-     ("rectangle\\|goto\\|lsp" . error)
+     ("register\\|transient\\|hydra" . success)
+     ("rectangle\\|goto\\|lsp\\|xah" . error)
      ("help\\|emacs\\|bookmarks" . highlight)
      )
    comment-dwim-2--inline-comment-behavior 'reindent-comment
    )
+
+  ;; Removing duplicated lines
+  ;; Note that the last line should contain the EOF
+  (defun delete-duplicated-lines-buffer-or-region (beg end)
+    "Unique lines in region.
+Called from a program, there are two arguments:
+BEG and END (region to sort)."
+    (interactive "r")
+    (save-excursion
+      (save-restriction
+        (narrow-to-region beg end)
+        (goto-char (point-min))
+        (while (not (eobp))
+          (kill-line 1)
+          (yank)
+          (let ((next-line (point)))
+            (while
+                (re-search-forward
+                 (format "^%s" (regexp-quote (car kill-ring))) nil t)
+              (replace-match "" nil nil))
+            (goto-char next-line))))))
+
+  (defun duplicate-line-or-region (&optional n)
+    "Duplicate current line, or region if active.
+With argument N, make N copies.
+With negative N, comment out original line and use the absolute value."
+    (interactive "*p")
+    (let ((use-region (use-region-p)))
+      (save-excursion
+        (let ((text (if use-region		;Get region if active, otherwise line
+                        (buffer-substring (region-beginning) (region-end))
+                      (prog1 (thing-at-point 'line)
+                        (end-of-line)
+                        (if (< 0 (forward-line 1)) ;Go to beginning of next line,
+                                        ;or make a new one
+                            (newline))))))
+          (dotimes (i (abs (or n 1)))			;Insert N times, or once if not
+                                        ;specified
+            (insert text))))
+      (if use-region nil		   ;Only if we're working with a line (not a region)
+        (let ((pos (- (point) (line-beginning-position)))) ;Save column
+          (if (> 0 n)						;Comment out original with negative arg
+              (comment-region (line-beginning-position) (line-end-position)))
+          (forward-line 1)
+          (forward-char pos)))))
+
+  ;; delete not kill it into kill-ring
+  ;; _based on_ http://ergoemacs.org/emacs/emacs_kill-ring.html
+  (defun delete-word (arg)
+    "Delete characters forward until encountering the end of a word.
+With argument, do this that many times.
+This command does not push text to `kill-ring'."
+    (interactive "p")
+    (delete-region
+     (point)
+     (progn
+       (forward-word arg)
+       (point))))
+  (defun delete-word-backward (arg)
+    "Delete(not kill) characters backward until encountering the beginning of the syntax-subword.
+With argument, do this that many times."
+    (interactive "p")
+    (delete-word (- arg)))
+  (defun delete-line-to-end (arg)
+    "Delete text from current position to end of line char.
+With argument, forward ARG lines."
+    (interactive "p")
+    (let (x1 x2)
+      (setq x1 (point))
+      (if (eolp) (forward-line arg) (forward-line (- arg 1)))
+      (move-end-of-line 1)
+      (setq x2 (point))
+      (delete-region x1 x2)
+      (when (bolp) (delete-char 1))))
+  (defun delete-line-backward (arg)
+    "Delete text between the beginning of the line to the cursor position.
+With argument, backward ARG lines."
+    (interactive "p")
+    (let (x1 x2)
+      (setq x1 (point))
+      (if (bolp) (forward-line (- arg)) (forward-line (- 1 arg)))
+      (move-beginning-of-line 1)
+      (setq x2 (point))
+      (delete-region x1 x2)))
 
   ;; TODO: please remove this part if the author put this into comment-dwim-2 package
   ;; useful for M-;(comment-dwim-2)
@@ -696,6 +780,8 @@ Emacs session."
     "fYv" 'yas-visit-snippet-file
     "bq" 'query-replace-from-top
     "bf" 'flush-blank-lines
+    ;; related one is default M-q
+    "bF" 'xah-fill-or-unfill
     ;; default feR, still works
     "fer" 'dotspacemacs/sync-configuration-layers
     ;; default helm-find-files
@@ -703,8 +789,9 @@ Emacs session."
     "Xd" 'delete-line-or-region-or-buffer
     "Xc" 'copy-line-or-region-or-buffer
     "Xk" 'cut-line-or-region-or-buffer
-    "XC" 'spacemacs/change-case-transient-state/body
-    "Xm" 'spacemacs/cool-moves-transient-state/body
+    "XC" 'hydra-change-case/body
+    "Xm" 'hydra-cool-moves/body
+    "Xr" 'hydra-rectangle/body
     )
 
   (defun revert-buffer-without-asking()
@@ -715,6 +802,40 @@ Emacs session."
   ;; symbol-overlay replaces highlight-symbol
   (dolist (hook '(prog-mode-hook org-mode-hook))
     (add-hook hook #'symbol-overlay-mode))
+
+  (defun xah-fill-or-unfill ()
+  "Reformat current paragraph or region to `fill-column', like `fill-paragraph' or “unfill”.
+When there is a text selection, act on the the selection, else, act on a text block separated by blank lines.
+URL `http://ergoemacs.org/emacs/modernization_fill-paragraph.html'
+Version 2016-07-13"
+  (interactive)
+  ;; This command symbol has a property “'compact-p”, the possible values are t and nil.
+  ;; This property is used to easily determine whether to compact or uncompact, when this command is called again
+  (let ( (-compact-p
+          (if (eq last-command this-command)
+              (get this-command 'compact-p)
+            (> (- (line-end-position) (line-beginning-position)) fill-column)))
+         (deactivate-mark nil)
+         (-blanks-regex "\n[ \t]*\n")
+         -p1 -p2
+         )
+    (if (use-region-p)
+        (progn (setq -p1 (region-beginning))
+               (setq -p2 (region-end)))
+      (save-excursion
+        (if (re-search-backward -blanks-regex nil "NOERROR")
+            (progn (re-search-forward -blanks-regex)
+                   (setq -p1 (point)))
+          (setq -p1 (point)))
+        (if (re-search-forward -blanks-regex nil "NOERROR")
+            (progn (re-search-backward -blanks-regex)
+                   (setq -p2 (point)))
+          (setq -p2 (point)))))
+    (if -compact-p
+        (fill-region -p1 -p2)
+      (let ((fill-column most-positive-fixnum ))
+        (fill-region -p1 -p2)))
+    (put this-command 'compact-p (not -compact-p))))
 
   ;; M-^ delete Up to Non-Whitespace Character, 'delete-indentation, combine two lines
   ;; M-Backspace delete to the previous word 'backword-kill-word
@@ -777,7 +898,18 @@ Version 2016-12-18"
    ("C-x x" . (lambda () (interactive) (switch-to-buffer (other-buffer (current-buffer) 1))))
    ("M-n" . symbol-overlay-jump-next)
    ("M-p" . symbol-overlay-jump-prev)
+   ("M-d" . delete-word)
+   ("<M-backspace>" . delete-word-backward)
+   ("C-k" . delete-line-to-end)
+   ("C-c k" . delete-line-backward)
+   ("C-c d" . duplicate-line-or-region)
+   ("C-c D" . delete-duplicated-lines-buffer-or-region)
+   ("M-RET" . Meta-return)
    )
+  (bind-keys :map evil-hybrid-state-map
+             ;; not put it into global, it goes wrong in helm mode
+             ("RET" . advanced-return)
+             )
   ;; disable follow in helm-occur (like helm-swoop) github-2152
   (with-eval-after-load 'helm
     (cl-defmethod helm-setup-user-source ((source helm-moccur-class))
@@ -1083,17 +1215,15 @@ Also converts full stops to commas."
         (call-interactively 'upcase-region)
       (call-interactively 'subword-upcase)))
   ;; this can also can be done simply using M-c/M-l/M-u
-  (spacemacs|define-transient-state change-case
-    :title "Change case transient state"
-    :bindings
-    ("i" string-inflection-all-cycle "camelcase")
+  (defhydra hydra-change-case (:hint nil)
+    ""
     ("x" xah-toggle-letter-case "loop")
     ("c" endless/capitalize "capitalize")
     ("l" endless/downcase "downcase")
     ("u" endless/upcase "upcase")
     ("z" undo-tree-undo "undo")
     ("Z" undo-tree-redo "redo")
-    ("q" nil :exit t))
+    ("q" nil))
 
   (require 'cool-moves)
   (dolist (m (list prog-mode-map text-mode-map))
@@ -1102,18 +1232,19 @@ Also converts full stops to commas."
                ("M-<down>" . cool-moves/line-forward)
                ("M-<left>" . cool-moves/sexp-backward)
                ("M-<right>" . cool-moves/sexp-forward)))
-  (spacemacs|define-transient-state cool-moves
-    :title "Cool moves transient state"
-    :doc "
- [_<down>_/_l_]: line ↓     [_<up>_/_L_]: line ↑
- [_p_]: par  ↓             [_P_]: par  ↑
- [_w_]: word →             [_W_]: word ←
- [_c_]: char →             [_C_]: char ←
- [_s_]: sentence →         [_S_]: sentence ←
- [_<right>_/_x_]: sexp →   [_<left>_/_X_]: sexp ←
- [_z_]: undo               [_Z_]: redo
+  (defhydra hydra-cool-moves (:color amaranth :hint nil :foreign-keys nil)
+    "
+ _<down>_/_l_: line ↓     _<up>_/_L_: line ↑
+ _p_: par  ↓             _P_: par  ↑
+ _w_: word →             _W_: word ←
+ _c_: char →             _C_: char ←
+ _s_: sentence →         _S_: sentence ←
+ _<right>_/_x_: sexp →   _<left>_/_X_: sexp ←
+ _z_: undo               _Z_: redo
 "
-    :bindings
+    ("<escape>" nil)
+    ("u" nil)
+
     ("l" cool-moves/line-forward)
     ("<down>" cool-moves/line-forward)
     ("L" cool-moves/line-backward)
@@ -1138,7 +1269,37 @@ Also converts full stops to commas."
 
     ("z" undo-tree-undo)
     ("Z" undo-tree-redo)
-    ("q" nil :exit t))
+    ("q" nil))
+
+  (bind-key* "C-c %"
+             (defhydra hydra-rectangle
+               (:body-pre (rectangle-mark-mode 1)
+                          :color pink
+                          :hint nil
+                          :post (deactivate-mark))
+               "
+  ^_k_^		  _w_ copy		_o_pen		 _N_umber-lines			   |\\	   -,,,--,,_
+_h_	  _l_	  _y_ank		_t_ype		 _e_xchange-point		   /,`.-'`'	  ..  \-;;,_
+  ^_j_^		  _d_ kill		_c_lear		 _r_eset-region-mark	  |,4-	) )_   .;.(	 `'-'
+^^^^		  _u_ndo		_g_ quit	 ^ ^					 '---''(./..)-'(_\_)
+"
+               ("k" rectangle-previous-line)
+               ("j" rectangle-next-line)
+               ("h" rectangle-backward-char)
+               ("l" rectangle-forward-char)
+               ("d" kill-rectangle)					 ;; C-x r k
+               ("y" yank-rectangle)					 ;; C-x r y
+               ("w" copy-rectangle-as-kill)			 ;; C-x r M-w
+               ("o" open-rectangle)					 ;; C-x r o
+               ("t" string-rectangle)					 ;; C-x r t
+               ("c" clear-rectangle)					 ;; C-x r c
+               ("e" rectangle-exchange-point-and-mark) ;; C-x C-x
+               ("N" rectangle-number-lines)			 ;; C-x r N
+               ("r" (if (region-active-p)
+                        (deactivate-mark)
+                      (rectangle-mark-mode 1)))
+               ("u" undo nil)
+               ("g" nil)))
 
   ;; delete/copy/cut whole buffer without moving point
   (defun current-line-empty-p ()
@@ -1220,6 +1381,36 @@ Version 2015-06-10"
              ;; delete the extra empty line
              (when (current-line-empty-p) (delete-blank-lines))
              (when (not (current-line-empty-p)) (indent-for-tab-command)))))
+
+  (defun advanced-return (&optional ARG)
+    "Customized return, more powerful.
+
+Default(without prefix), create a line, jump into it and indent(like C-e C-m)
+With prefix argument(C-u), it will create a new line, jump into it but no indent(like C-e C-o C-n).
+With negative prefix argument(C--), it will create a new line above the current
+line and jump into it(like C-a C-o)
+
+In comments, RET will automatically use C-M-j instead.
+In other non-comment situations, try C-M-j to split."
+    (interactive "P")
+    (if (equal ARG '-)
+        (progn
+          (beginning-of-line)
+          (open-line 1))
+      (if (equal ARG '(4))
+          (progn
+            (end-of-line)
+            (open-line 1)
+            (forward-line))
+        (progn
+          (end-of-line)
+          (newline-and-indent)))))
+  (defun Meta-return ()
+    (interactive)
+    (progn
+      ;; executing key in a function
+      (call-interactively (key-binding (kbd "C-M-j")))
+      (indent-according-to-mode)))
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
