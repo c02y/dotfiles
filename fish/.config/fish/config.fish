@@ -675,7 +675,7 @@ end
 # touch temporary files
 abbr tout 'touch ab~ .ab~ .\#ab .\#ab\# \#ab\# .ab.swp ab.swp'
 # find
-alias find 'find -L' # make find follow symlink dir/file by default
+# alias find 'find -L' # make find follow symlink dir/file by default
 function finds -d 'find a file/folder and view/edit using less/vim/emacs/emx/cd/readlink with fzf'
     set -l options 'l' 'v' 'e' 'x' 'c' 'p' 'g'
     argparse -n finds $options -- $argv
