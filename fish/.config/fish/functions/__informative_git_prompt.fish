@@ -13,15 +13,23 @@ set -g fish_color_git_conflicted red
 set -g fish_color_git_changed blue
 set -g fish_color_git_untracked $fish_color_normal
 
-set -g fish_prompt_git_remote_ahead_of "↑"
-set -g fish_prompt_git_remote_behind  "↓"
-
-set -g fish_prompt_git_status_staged "●"
-set -g fish_prompt_git_status_conflicted '✖'
-set -g fish_prompt_git_status_changed '✚'
-set -g fish_prompt_git_status_untracked "…"
-set -g fish_prompt_git_status_clean "✔"
-
+if test $DISPLAY
+    set -g fish_prompt_git_remote_ahead_of "↑"
+    set -g fish_prompt_git_remote_behind  "↓"
+    set -g fish_prompt_git_status_staged "●"
+    set -g fish_prompt_git_status_conflicted '✖'
+    set -g fish_prompt_git_status_changed '✚'
+    set -g fish_prompt_git_status_untracked "…"
+    set -g fish_prompt_git_status_clean "✔"
+else
+    set -g fish_prompt_git_remote_ahead_of "A"
+    set -g fish_prompt_git_remote_behind  "B"
+    set -g fish_prompt_git_status_staged "S"
+    set -g fish_prompt_git_status_conflicted 'C'
+    set -g fish_prompt_git_status_changed 'M'
+    set -g fish_prompt_git_status_untracked "N"
+    set -g fish_prompt_git_status_clean "OK"
+end
 set -g fish_prompt_git_show_count_staged "true"
 set -g fish_prompt_git_show_count_conflicted "true"
 set -g fish_prompt_git_show_count_changed "true"
