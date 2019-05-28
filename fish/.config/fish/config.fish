@@ -937,8 +937,8 @@ end
 
 alias wget 'wget -c --no-check-certificate'
 abbr wgets 'wget -c --mirror -p --html-extension --convert-links'
-abbr wt 'bash -c \'rm -rfv /tmp/Thun* 2>/dev/null\'; wget -c -P /tmp/ http://dl1sw.baidu.com/soft/9e/12351/ThunderMini_1.5.3.288.exe'
-abbr wtt 'bash -c \'rm -rfv /tmp/Thun* 2>/dev/null\'; wget --connect-timeout=5 -c -P /tmp/ http://dlsw.baidu.com/sw-search-sp/soft/ca/13442/Thunder_dl_V7.9.39.4994_setup.1438932968.exe'
+abbr wt 'bash -c \'rm -rf /tmp/XLN* 2>/dev/null\'; wget -c -P /tmp/ http://down.sandai.net/XLNetAcc/XLNetAccSetup.exe'
+abbr wtt 'bash -c \'rm -rf /tmp/XMPS* 2>/dev/null\'; wget --connect-timeout=5 -c -P /tmp/ http://xmp.down.sandai.net/xmp/XMPSetup_5.4.5.6478.exe'
 # curl -L -O -C - https://site.com/file.iso
 abbr a2 'aria2c -c -x 5 --check-certificate=false --file-allocation=none'
 
