@@ -15,7 +15,7 @@ if [ $(basename $SHELL) != "fish" ]; then
 	fi
 fi
 
-while getopts ":n" args; do
+while getopts ":nl" args; do
 	case "$args" in
 		\?)
 			echo "t or t -n"
@@ -23,6 +23,14 @@ while getopts ":n" args; do
 			;;
 		n)
 			tmux -2  # new
+			exit
+			;;
+		l)
+			tmux ls
+			if [ ! -z "$TMUX_PANE" ]; then
+				echo
+				echo "Already inside tmux session: $(tmux display-message -p '#S')"
+			fi
 			exit
 			;;
 	esac
