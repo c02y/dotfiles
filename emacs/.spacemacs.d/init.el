@@ -105,6 +105,9 @@ This function should only modify configuration layer settings."
    dotspacemacs-excluded-packages '(
                                     google-c-style
                                     auto-highlight-symbol
+                                    git-gutter+
+                                    git-gutter-fringe
+                                    git-gutter-fringe+
                                     )
 
    ;; Defines the behaviour of Spacemacs when installing packages.
