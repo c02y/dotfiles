@@ -57,7 +57,10 @@ This function should only modify configuration layer settings."
      ;; markdown
      ;; replace multiple-cursors with symbol-overlay
      ;; multiple-cursors
-     org
+     (org :variables
+          org-want-todo-bindings t
+          org-enable-epub-support t
+          org-enable-sticky-header t)
      ;; (shell :variables
      ;;        shell-default-height 30
      ;;        shell-default-position 'bottom)
@@ -107,6 +110,7 @@ This function should only modify configuration layer settings."
                                     google-c-style auto-highlight-symbol git-gutter+
                                     git-gutter-fringe git-gutter-fringe+ fancy-battery
                                     dactyl-mode lorem-ipsum uuidgen evil-tutor indent-guide
+                                    org-bullets
                                     )
 
    ;; Defines the behaviour of Spacemacs when installing packages.
@@ -568,6 +572,7 @@ before packages are loaded."
   (prefer-coding-system 'utf-16)
   (prefer-coding-system 'utf-8)
 
+  (add-to-list 'load-path "~/.spacemacs.d/lisp/")
   ;; disable scroll-bar-mode in newly created frame
   ;; This also fix the bug when scroll bar still shows in daemon/emacsclient
   (add-hook 'after-make-frame-functions
@@ -620,6 +625,7 @@ before packages are loaded."
      )
    comment-dwim-2--inline-comment-behavior 'reindent-comment
    git-gutter:modified-sign "!"
+   spaceline-org-clock-p t
    )
 
   ;; Removing duplicated lines
@@ -1416,6 +1422,191 @@ In other non-comment situations, try C-M-j to split."
       (indent-according-to-mode)))
 
   (add-hook 'smartparens-enabled-hook #'evil-smartparens-mode)
+
+  (with-eval-after-load 'org
+    ;; Resume clocking task when emacs is restarted
+    (org-clock-persistence-insinuate)
+    (setq org-list-allow-alphabetical t
+          ;; removes clocked tasks with 0:00 duration
+          org-clock-out-remove-zero-time-clocks t
+          ;; Save the running clock and all clock history when exiting Emacs, load it on startup
+          org-clock-persist t
+          ;; Do not prompt to resume an active clock
+          org-clock-persist-query-resume nil
+          ;; Include current clocking task in clock reports
+          org-clock-report-include-clocking-task t
+          ;; Overwrite the current window with the agenda
+          org-agenda-window-setup 'current-window
+          ;; search all items including archives
+          org-agenda-text-search-extra-files '(agenda-archives)
+          ;; mark all children DONE when mark parent DONE, FIXME: not working
+          org-enforce-todo-dependencies t
+          org-log-reschedule 'time
+          org-agenda-span 15
+          org-agenda-start-on-weekday nil
+          org-agenda-start-day "-7d"
+          ;; include all files in ~/Org as the source of org-agenda
+          ;; (setq org-agenda-files '("~/org/"))
+          org-agenda-files (list "~/org/todo.org"
+                                 ;; "~/org/home.org"
+                                 )
+          org-columns-default-format "%50ITEM(Task) %TODO %3PRIORITY %TAGS %10CLOCKSUM %16TIMESTAMP_IA"
+          org-log-into-drawer "LOGBOOK"
+          org-log-done 'time
+          org-tags-column 0
+          org-src-preserve-indentation t
+          ;; DO NOT end a org file with a newline, default is t(with newline)
+          ;; FIXME: The following line doesn't work, it is still t
+          require-final-newline nil
+          org-indent-indentation-per-level 3
+          ;; Prevents accidentally editing hidden text when the point is inside a folded region.
+          ;; use C-c C-r 'org-reveal to show where your point is
+          org-catch-invisible-edits 'error
+          ;; disable '_' to subscript or '^' to superscript export
+          org-export-with-sub-superscripts nil
+          ;; export org to html with checkbox like ☑ (ballot)
+          org-html-checkbox-type 'unicode
+          ;; remove the end part of the exported file such as `author, date, emacs and org-mode version`
+          org-html-postamble nil
+          ;; FIXME: meaning?
+          ;; before the star at the beginning of headline for all speed commands
+          org-use-speed-commands t
+          ;;
+          org-highlight-latex-and-related '(latex script entities)
+          org-list-demote-modify-bullet
+          '(("-" . "+") ("+" . "*") ("*" . "-") ("1." . "+") ("1)" . "+")
+            ("a." . "-") ("a)" . "-") ("A." . "-") ("A)" . "-"))
+          org-agenda-custom-commands
+          '(("c" "Simple agenda view"
+             ((tags "PRIORITY=\"A\""
+                    ((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))
+                     (org-agenda-overriding-header "High-priority unfinished tasks:")))
+              (alltodo "")
+              (agenda ""))))
+          org-capture-templates
+          '(("s" "Scheduled TODO node" entry (file "~/Org/todo.org")
+             "* TODO %?\nADDED: %U\nSCHEDULED: %t")
+            ("S" "STARTED TODO node" entry (file "~/Org/todo.org")
+             "* STARTED %?\nADDED: %U" :clock-in t :clock-keep t :clock-resume t)
+            ("t" "TODO list" checkitem (file "~/Org/todo.org")
+             "[ ] %?"))
+          org-todo-keywords
+          ;; !/@ meaning: https://orgmode.org/manual/Tracking-TODO-state-changes.html
+          '((sequence "TODO(t!)" "STARTED(s!)" "NEXT(n!)" "WAITING(w!)" "|" "DONE(d!)" "CANCELED(c@)")
+            ;; multiple sets for one file
+            ;; (sequence "REPORT(r)" "BUG(b)" "KNOWNCAUSE(k)""|" "FIXED(f)")
+            ;; (sequence "|" "CANCELED(c)")
+            )
+          ;; in org-mode buffer
+          org-emphasis-alist
+          '(
+            ("*" (:foreground "cyan" :weight bold))
+            ("/" (:foreground "cyan" :slant italic))
+            ("_" (:foreground "cyan" :underline t))
+            ("=" (:foreground "cyan" :weight bold))
+            ("~" (:foreground "cyan" :weight bold
+                              :box (:line-width 3 :color "#545454" :style released-button)))
+            ("+" (:foreground "cyan" :strike-through t)))
+          ;; in exported html file
+          org-html-text-markup-alist
+          '((bold . "<b>%s</b>")
+            (code . "<kbd>%s</kbd>")
+            (italic . "<i>%s</i>")
+            (strike-through . "<del>%s</del>")
+            (underline . "<span class=\"underline\">%s</span>")
+            (verbatim . "<code>%s</code>"))
+          ;; If you never use "plain" footnotes like [1] or p[1], you can adjust two variables
+          ;; to avoid org-mode wrongly interpreting square brackets as footnote
+          ;; Use styles at http://orgmode.org/manual/Footnotes.html such as [fn:1]
+          ;; C-c C-c to jump to/back definition/reference
+          org-footnote-re
+          (concat "\\[\\(?:"
+                  ;; Match inline footnotes.
+                  (org-re "fn:\\([-_[:word:]]+\\)?:\\|")
+                  ;; Match other footnotes. "\\(?:\\([0-9]+\\)\\]\\)\\|"
+                  (org-re "\\(fn:[-_[:word:]]+\\)")
+                  "\\)")
+          org-footnote-definition-re (org-re "^\\[\\(fn:[-_[:word:]]+\\)\\]")
+          )
+    ;; from https://github.com/svetlyak40wt/dot-emacs/blob/master/.emacs.d/lib/org-auto-clock.el
+    (defun wicked/org-clock-in-if-starting ()
+      "Clock in when the task is marked STARTED."
+      (when (and (string= org-state "STARTED")
+                 (not (string= org-last-state org-state)))
+        (org-clock-in)))
+    (add-hook 'org-after-todo-state-change-hook 'wicked/org-clock-in-if-starting)
+    (defadvice org-clock-in (after wicked activate)
+      "Set this task's status to 'STARTED' when clock-in."
+      (org-todo "STARTED"))
+    (defun wicked/org-clock-out-if-waiting ()
+      "Clock out when the task is marked WAITING or CANCELED."
+      (when (and (or (string= org-state "WAITING")
+                     (string= org-state "CANCELED"))
+                 (equal (marker-buffer org-clock-marker) (current-buffer))
+                 (< (point) org-clock-marker)
+                 (> (save-excursion (outline-next-heading) (point))
+                    org-clock-marker)
+                 (not (string= org-last-state org-state)))
+        (org-clock-out)))
+    (add-hook 'org-after-todo-state-change-hook 'wicked/org-clock-out-if-waiting)
+    ;; this is similar to org-enforce-todo-dependencies
+    (defun org-summary-todo (n-done n-not-done)
+      "Switch entry to DONE when all subentries are done, to TODO otherwise."
+      (let (org-log-done org-log-states)	; turn off logging
+        (org-todo (if (= n-not-done 0) "DONE" "TODO"))))
+    (add-hook 'org-after-todo-statistics-hook 'org-summary-todo)
+    ;;
+    (defun org-src-format ()
+      "Replace
+1. `C-c '` to call `org-edit-special`
+2. `C-x h` to mark all the source code
+3. `TAB` to format it
+into one step."
+      (interactive)
+      (when (org-in-src-block-p)
+        (org-edit-special)
+        (indent-region (point-min) (point-max))
+        (org-edit-src-exit)))
+    (bind-keys :map org-mode-map 
+               ("C-c C-<tab>" . org-src-format)
+               ;; C-tab(original 'org-force-cycle-archived) to show the element
+               ;; in another window(simpler version of org-panes.el)
+               ;; then M-PageUp/Down to scroll another window
+               ("C-<tab>" . org-tree-to-indirect-buffer)
+               )
+    ;;
+    ;; org-export stylesheet
+    (setq org-html-head-extra
+          "<link rel=\"stylesheet\" href=\"/home/chz/.spacemacs.d/lisp/org.css\" type=\"text/css\" />")
+    (defun my/org-inline-css-hook (exporter)
+      "Insert custom inline css to automatically set the
+background of code to whatever theme I'm using's background"
+      (when (eq exporter 'html)
+        (let* ((my-pre-bg (face-background 'default))
+               (my-pre-fg (face-foreground 'default)))
+          (setq
+           org-html-head-extra
+           (concat
+            org-html-head-extra
+            (format "<style type=\"text/css\">\n pre.src {background-color: %s; color: %s;}</style>\n"
+                    my-pre-bg my-pre-fg))))))
+    (add-hook 'org-export-before-processing-hook 'my/org-inline-css-hook)
+    ;; FIXME: use org-num from org-9.3(not released ye, download it from
+    ;; https://raw.githubusercontent.com/bzg/org-mode/300f15bcbbaf7a49c94e2cfca4f4335f0dc55fc8/lisp/org-num.elt)
+    ;; to replace org-numbers-overlay-mode which causex emacsclient fail to lanuch when using
+    ;; `-e (org-capture)` or `-e (org-agenda-list)`
+    (require 'org-num)
+    ;; org-sticky-header and org-table-sticky-header
+    (add-hook 'org-mode-hook
+              (lambda ()
+                ;; already in org lay variables part
+                ;; (org-sticky-header-mode)
+                ;; FIXME: not fond
+                ;; (org-table-sticky-header-mode)
+                (org-num-mode)))
+    ;; put this after org-mode config part, or flyspell-mode won't be enabled, even with-eval-after-load won't work
+    (add-hook 'org-mode-hook 'flyspell-mode)
+    )
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
