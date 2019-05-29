@@ -96,6 +96,7 @@ This function should only modify configuration layer settings."
                                       syntax-subword
                                       comment-dwim-2
                                       (cool-moves :location (recipe :fetcher github :repo "mrbig033/cool-moves"))
+                                      evil-smartparens
                                       )
 
    ;; A list of packages that cannot be updated.
@@ -1414,6 +1415,8 @@ In other non-comment situations, try C-M-j to split."
       ;; executing key in a function
       (call-interactively (key-binding (kbd "C-M-j")))
       (indent-according-to-mode)))
+
+  (add-hook 'smartparens-enabled-hook #'evil-smartparens-mode)
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
