@@ -104,11 +104,9 @@ This function should only modify configuration layer settings."
 
    ;; A list of packages that will not be installed and loaded.
    dotspacemacs-excluded-packages '(
-                                    google-c-style
-                                    auto-highlight-symbol
-                                    git-gutter+
-                                    git-gutter-fringe
-                                    git-gutter-fringe+
+                                    google-c-style auto-highlight-symbol git-gutter+
+                                    git-gutter-fringe git-gutter-fringe+ fancy-battery
+                                    dactyl-mode lorem-ipsum uuidgen evil-tutor indent-guide
                                     )
 
    ;; Defines the behaviour of Spacemacs when installing packages.
@@ -621,6 +619,7 @@ before packages are loaded."
      ("help\\|emacs\\|bookmarks" . highlight)
      )
    comment-dwim-2--inline-comment-behavior 'reindent-comment
+   git-gutter:modified-sign "!"
    )
 
   ;; Removing duplicated lines
