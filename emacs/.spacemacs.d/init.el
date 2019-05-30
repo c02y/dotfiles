@@ -734,7 +734,10 @@ With argument, backward ARG lines."
       (mapc #'kill-buffer buffers)))
   ;; `q' by default is bound to magit-mode-bury-buffer which doesn't kill buffers
   (with-eval-after-load 'magit
-    (bind-key "q" #'mu-magit-kill-buffers magit-status-mode-map))
+    (bind-key "q" #'mu-magit-kill-buffers magit-status-mode-map)
+    ;; turn this off in large repo since it may be slow
+    (add-hook 'after-save-hook 'magit-after-save-refresh-status t)
+    )
 
   ;; show snippets in company list, don't know why auto-completion-enable-snippets-in-popup doesn't work
   (defun autocomplete-show-snippets ()
@@ -1569,7 +1572,7 @@ into one step."
         (org-edit-special)
         (indent-region (point-min) (point-max))
         (org-edit-src-exit)))
-    (bind-keys :map org-mode-map 
+    (bind-keys :map org-mode-map
                ("C-c C-<tab>" . org-src-format)
                ;; C-tab(original 'org-force-cycle-archived) to show the element
                ;; in another window(simpler version of org-panes.el)
