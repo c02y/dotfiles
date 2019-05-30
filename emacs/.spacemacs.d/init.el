@@ -484,16 +484,16 @@ This function is called immediately after `dotspacemacs/init', before layer
 configuration.
 It is mostly for variables that should be set before packages are loaded.
 If you are unsure, try setting them in `dotspacemacs/user-config' first."
-  (setq evil-normal-state-tag "NORMAL")
-  (setq evil-emacs-state-tag "EMACS")
-  (setq evil-hybrid-state-tag "HYBRID")
-  (setq evil-insert-state-tag "INSERT")
-  (setq evil-visual-state-tag "VISUAL")
-  (setq evil-lisp-state-tag "LISP")
-  (setq evil-motion-state-tag "MOTION")
-  (setq evil-operator-state-tag "OPERATOR")
-  (setq evil-replace-state-tag "REPLACE")
-  (setq evil-evilified-state-tag "EVIL")
+  (setq evil-normal-state-tag "NORMAL"
+        evil-emacs-state-tag "EMACS"
+        evil-hybrid-state-tag "HYBRID"
+        evil-insert-state-tag "INSERT"
+        evil-visual-state-tag "VISUAL"
+        evil-lisp-state-tag "LISP"
+        evil-motion-state-tag "MOTION"
+        evil-operator-state-tag "OPERATOR"
+        evil-replace-state-tag "REPLACE"
+        evil-evilified-state-tag "EVIL")
 
   (defun spaceline-custom-theme (&rest additional-segments)
     "My custom spaceline theme, just add state indicators line before window-number in the mode.
@@ -921,7 +921,11 @@ Version 2016-12-18"
    ("C-c k" . delete-line-backward)
    ("C-c d" . duplicate-line-or-region)
    ("C-c D" . delete-duplicated-lines-buffer-or-region)
-   ("M-RET" . Meta-return)
+   ("M-RET" . (lambda ()
+                (interactive)
+                (if (equal major-mode 'org-mode)
+                    (org-meta-return)
+                  (Meta-return))))
    )
   (bind-keys :map evil-hybrid-state-map
              ;; not put it into global, it goes wrong in helm mode
@@ -985,22 +989,22 @@ Version 2016-12-18"
   (add-hook 'python-mode-hook
             (lambda ()
               (set (make-local-variable 'comment-inline-offset) 2) ; PEP8 two spaces
-              (setq indent-tabs-mode nil)
-              (setq tab-width 4)))
+              (setq indent-tabs-mode nil
+                    tab-width 4)))
   (add-hook 'c-mode-hook
             (lambda ()
               (c-set-style "linux")
-              (setq tab-width 8)
-              (setq indent-tabs-mode t) ;;default in linux kernel
-              (setq c-basic-offset 8)
+              (setq tab-width 8
+                    indent-tabs-mode t ;;default in linux kernel
+                    c-basic-offset 8)
               ;; make comment aligned with the code block/line
               (c-set-offset 'comment-intro 0)))
   (add-hook 'c++-mode-hook
             (lambda ()
               (c-set-style "linux")
-              (setq tab-width 4)
-              (setq indent-tabs-mode t) ;;default in linux kernel
-              (setq c-basic-offset 4)
+              (setq tab-width 4
+                    indent-tabs-mode t ;;default in linux kernel
+                    c-basic-offset 4)
               (c-set-offset 'comment-intro 0)))
   (add-hook 'makefile-mode-hook
             (lambda ()
