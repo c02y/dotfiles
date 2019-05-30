@@ -927,6 +927,10 @@ Version 2016-12-18"
              ;; not put it into global, it goes wrong in helm mode
              ("RET" . advanced-return)
              )
+  (bind-keys :map evil-normal-state-map
+             ("g r" . revert-buffer-without-asking)
+             )
+
   ;; disable follow in helm-occur (like helm-swoop) github-2152
   (with-eval-after-load 'helm
     (cl-defmethod helm-setup-user-source ((source helm-moccur-class))
