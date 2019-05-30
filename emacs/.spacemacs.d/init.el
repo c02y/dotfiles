@@ -628,6 +628,9 @@ before packages are loaded."
    spaceline-org-clock-p t
    )
 
+  ;; auto refresh git gutter info when status changes in magit status buffer
+  (add-hook 'magit-post-refresh-hook #'git-gutter:update-all-windows)
+
   ;; Removing duplicated lines
   ;; Note that the last line should contain the EOF
   (defun delete-duplicated-lines-buffer-or-region (beg end)
