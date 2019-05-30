@@ -785,6 +785,8 @@ Emacs session."
   (spacemacs/declare-prefix "X" "copy/cut/delete/move")
   (spacemacs/set-leader-keys
     "bU" 'reopen-killed-buffer-fancy
+    ;; whitespace-cleanup will also do untabify-it/tabify-it automatically
+    ;; according indent-tabs-mode, so the definitions of two functions are not needed
     "bc" 'whitespace-cleanup
     ;; overwrite the default bR
     "bR" 'revert-buffer-without-asking
