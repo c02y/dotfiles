@@ -897,6 +897,8 @@ Version 2016-12-18"
    ("M-%" . query-replace-from-top)
    ("M-z" . helm-for-files)
    ("C-h h" . helm-apropos)
+   ("C-h c" . helm-colors)
+   ("C-h C" . lazy-helm/spacemacs/helm-faces)
    ("C-x /" . helm-semantic-or-imenu)
    ("C-s" . helm-occur)
    ("C-a" . keep-beginning-of-line)
