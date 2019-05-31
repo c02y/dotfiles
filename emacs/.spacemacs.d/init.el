@@ -64,9 +64,11 @@ This function should only modify configuration layer settings."
      ;; (shell :variables
      ;;        shell-default-height 30
      ;;        shell-default-position 'bottom)
-     spell-checking
+     (spell-checking :variables
+                     enable-flyspell-auto-completion t)
      syntax-checking
      semantic
+     ;; install shellcheck
      shell-scripts
      treemacs
      (version-control :variables
@@ -74,7 +76,7 @@ This function should only modify configuration layer settings."
                       version-control-diff-side 'left
                       )
      (evil-snipe :variables evil-snipe-enable-alternate-f-and-t-behaviors t)
-     ;; install ccls binary first
+     ;; install ccls
      (c-c++ :variables
             c-c++-adopt-subprojects t
             c-c++-backend 'lsp-ccls
@@ -541,6 +543,25 @@ https://github.com/syl20bnr/spacemacs/issues/12346"
         (buffer-position :priority 99)
         (hud :priority 99)))
     (setq-default mode-line-format '("%e" (:eval (spaceline-ml-main)))))
+
+  ;; spell checking
+  (cond
+   ;; try hunspell at first
+   ;; if hunspell does NOT exist, use aspell
+   ;; NOTE: Using hunspell may produce the "Error enabling Flyspell mode: (stringp nil)" problem
+   ((executable-find "hunspell")
+    (setq ispell-program-name "hunspell")
+    (setq ispell-local-dictionary "en_US")
+    (setq ispell-local-dictionary-alist
+          ;; Please note the list `("-d" "en_US")` contains ACTUAL parameters passed to hunspell
+          ;; You could use `("-d" "en_US,en_US-med")` to check with multiple dictionaries
+          '(("en_US" "[[:alpha:]]" "[^[:alpha:]]" "[']" nil ("-d" "en_US") nil utf-8)
+            )))
+   ((executable-find "aspell")
+    (setq ispell-program-name "aspell")
+    ;; Please note ispell-extra-args contains ACTUAL parameters passed to aspell
+    (setq ispell-extra-args '("--sug-mode=ultra" "--lang=en_US"))
+    (message "hunspell not found, use aspell for spell-check!")))
   )
 
 (defun dotspacemacs/user-load ()
@@ -782,6 +803,7 @@ Emacs session."
             (find-file file)))
       (error "No recently-killed files to reopen")))
   (spacemacs/declare-prefix "fY" "yasnippets")
+  (spacemacs/declare-prefix "fx" "customized-files")
   (spacemacs/declare-prefix "X" "copy/cut/delete/move")
   (spacemacs/set-leader-keys
     "bU" 'reopen-killed-buffer-fancy
@@ -795,6 +817,12 @@ Emacs session."
     "fYr" 'yas-reload-all
     "fYi" 'yas-insert-snippet
     "fYv" 'yas-visit-snippet-file
+    ;; FIXME: the following lambdas don't show meanings in which-key
+    "fxf" (lambda () (interactive) (find-file "~/.config/fish/config.fish"))
+    "fxt" (lambda () (interactive) (find-file "~/.tmux.conf"))
+    "fxT" (lambda () (interactive) (find-file "~/.local/bin/t"))
+    "fxe" (lambda () (interactive) (find-file "~/.local/bin/emm"))
+    "fxE" (lambda () (interactive) (find-file "~/ve.emacs.d/init.el"))
     "bq" 'query-replace-from-top
     "bf" 'flush-blank-lines
     ;; related one is default M-q
@@ -806,9 +834,17 @@ Emacs session."
     "Xd" 'delete-line-or-region-or-buffer
     "Xc" 'copy-line-or-region-or-buffer
     "Xk" 'cut-line-or-region-or-buffer
+    ;; overwrite the default spacemacs/spell-checking-transient-state/body
+    "S." 'spacemacs/ispell-transient-state/body
     "XC" 'hydra-change-case/body
     "Xm" 'hydra-cool-moves/body
     "Xr" 'hydra-rectangle/body
+    "Ss" 'flyspell-correct-word-generic
+    "Sc" 'flyspell-correct-at-point
+    "Sw" 'flyspell-correct-wrapper
+    "Sn" 'flyspell-correct-next
+    "Sp" 'flyspell-correct-previous
+    "SN" 'flyspell-goto-next-error
     )
 
   (defun revert-buffer-without-asking()
@@ -1625,6 +1661,86 @@ background of code to whatever theme I'm using's background"
     ;; put this after org-mode config part, or flyspell-mode won't be enabled, even with-eval-after-load won't work
     (add-hook 'org-mode-hook 'flyspell-mode)
     )
+
+  ;; spell checking
+  ;; rewrite the default spell-checking transient state
+  (spacemacs|define-transient-state ispell
+        :title "Spell Checking Transient State"
+        :doc "
+[_b_] check whole buffer  [_B_] add word to dict (buffer)   [_t_] toggle spell check
+[_d_] change dictionary   [_G_] add word to dict (global)   [_q_] exit
+[_n_] correct next        [_S_] add word to dict (session)  [_Q_] exit and disable spell check
+[_p_] correct previous    [_s_] correct generic             [_N_] next spell error
+[_c_] correct at point    [_._] correct wrapper             [_i_] endless ispell
+"
+        :on-enter (flyspell-mode)
+        :bindings
+        ("B" spacemacs/add-word-to-dict-buffer)
+        ("b" flyspell-buffer)
+        ("d" spell-checking/change-dictionary)
+        ("G" spacemacs/add-word-to-dict-global)
+        ("s" flyspell-correct-word-generic)
+        ("c" flyspell-correct-at-point)
+        ("." flyspell-correct-wrapper)
+        ("n" flyspell-correct-next)
+        ("p" flyspell-correct-previous)
+        ("N" flyspell-goto-next-error)
+        ;; correct the wrong word with prefix+i, next time auto-correct it, defined bellow
+        ("i" endless/ispell-word-then-abbrev)
+        ("Q" flyspell-mode :exit t)
+        ("q" nil :exit t)
+        ("S" spacemacs/add-word-to-dict-session)
+        ("t" spacemacs/toggle-spelling-checking))
+  (add-hook 'ispell-initialize-spellchecker-hook
+            (lambda ()
+              (setq ispell-base-dicts-override-alist
+                    '((nil ; default
+                       "[A-Za-z]" "[^A-Za-z]" "[']" t
+                       ("-d" "en_US" "-i" "utf-8") nil utf-8)
+                      ("american" ; Yankee English
+                       "[A-Za-z]" "[^A-Za-z]" "[']" t
+                       ("-d" "en_US" "-i" "utf-8") nil utf-8)
+                      ("british" ; British English
+                       "[A-Za-z]" "[^A-Za-z]" "[']" t
+                       ("-d" "en_GB" "-i" "utf-8") nil utf-8)))))
+  ;; source: http://endlessparentheses.com/ispell-and-abbrev-the-perfect-auto-correct.html
+  (defun endless/simple-get-word ()
+    (car-safe (save-excursion (ispell-get-word nil))))
+  (defun endless/ispell-word-then-abbrev (p)
+    "Call `ispell-word', then create an abbrev for it.
+With prefix P, create local abbrev. Otherwise it will
+be global.
+If there's nothing wrong with the word at point, keep
+looking for a typo until the beginning of buffer. You can
+skip typos you don't want to fix with `SPC', and you can
+abort completely with `C-g'."
+    (interactive "P")
+    (let (bef aft)
+      (save-excursion
+        (while (if (setq bef (endless/simple-get-word))
+                   ;; Word was corrected or used quit.
+                   (if (ispell-word nil 'quiet)
+                       nil ; End the loop.
+                     ;; Also end if we reach `bob'.
+                     (not (bobp)))
+                 ;; If there's no word at point, keep looking
+                 ;; until `bob'.
+                 (not (bobp)))
+          (backward-word)
+          (backward-char))
+        (setq aft (endless/simple-get-word)))
+      (if (and aft bef (not (equal aft bef)))
+          (let ((aft (downcase aft))
+                (bef (downcase bef)))
+            (define-abbrev
+              (if p local-abbrev-table global-abbrev-table)
+              bef aft)
+            (message "\"%s\" now expands to \"%s\" %sally"
+                     bef aft (if p "loc" "glob")))
+        (user-error "No typo at or before point"))))
+  (setq save-abbrevs 'silently)
+  (setq-default abbrev-mode t)
+
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
