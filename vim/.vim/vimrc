@@ -25,8 +25,7 @@ nnoremap <Leader>v :e<Space>~/.vim/vimrc<CR>
 " use right click for menu
 set mousemodel=popup
 set mouse=a
-" Toggle spell checking on and off with `,s`
-nmap <silent> <leader>s :set spell!<CR>
+" nmap <silent> <leader>S :set spell!<CR>
 
 " short
 iab idate <c-r>=strftime("%H:%M:%S %Y-%m-%d")<CR>
@@ -299,6 +298,8 @@ Plugin 'pelodelfuego/vim-swoop'
 "vmap <C-S-s> :call SwoopMultiSelection()<CR>
 let g:defaultWinSwoopWidth = 60
 let g:defaultWinSwoopHeight = 12
+nmap <Leader>s :call Swoop()<CR>
+nmap <Leader>S :call SwoopSelection()<CR>
 nmap <Leader>m :let g:swoopWindowsVerticalLayout = 1<CR>
 nmap <Leader>n :let g:swoopWindowsVerticalLayout = 0<CR>
 
