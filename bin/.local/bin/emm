@@ -197,7 +197,7 @@ start_magit()
 }
 
 repo="."
-file="~/.emacs.d/init.el"
+file="$HOME/.emacs.d/init.el"
 cmd=
 flag_s=0 # switch between spacemacs and vanilla emacs
 flag_x=0 # start emacsclient in terminal even inside GUI DE
@@ -220,7 +220,7 @@ while getopts ":habcCdeEfkmoqrstx" args; do # prefix-: no warning for illegal op
 			cmd="-e '(execute-kbd-macro (kbd \"C-c a a c\"))'"
 			;;
 		b)
-			file="~/.local/bin/emm"
+			file="$HOME/.local/bin/emm"
 			cmd="$file"
 			;;
 		c)
@@ -249,7 +249,7 @@ while getopts ":habcCdeEfkmoqrstx" args; do # prefix-: no warning for illegal op
 			cmd="$file"
 			;;
 		f)
-			file="~/.config/fish/config.fish"
+			file="$HOME/.config/fish/config.fish"
 			cmd="$file"
 			;;
 		k)
@@ -269,7 +269,7 @@ while getopts ":habcCdeEfkmoqrstx" args; do # prefix-: no warning for illegal op
 				file=${@:$OPTIND}
 				OPTIND=$((OPTIND+1))
 			else
-				file="~/Org/todo.org"
+				file="$HOME/Org/todo.org"
 			fi
 			cmd="$file"
 			;;
@@ -305,15 +305,15 @@ if [ "$flag_s" -eq 1 ]; then
 		read -e -n 1 -p "Currently using spacemacs, switch to vanilla emacs? [Y/n]: "
 		if [ "$REPLY" == "y" ] || [ "$REPLY" == " " ]; then
 			if [ -d ~/se.emacs.d ]; then
-				echo "~/se.emacs.d already exists, exit!"
-				exit -1
+				echo "$HOME/se.emacs.d already exists, exit!"
+				exit 1
 			fi
 			mv -vi ~/.emacs.d ~/se.emacs.d
 			if [ -d ~/ve.emacs.d ]; then
 				mv -vi ~/ve.emacs.d ~/.emacs.d
 			else
 				echo "bak directory of vanilla emacs(~/ve.emacs.d) doesn't exist, exit!"
-				exit -1
+				exit 1
 			fi
 		else
 			echo "Cancel and exit!"
@@ -323,15 +323,15 @@ if [ "$flag_s" -eq 1 ]; then
 		read -e -n 1 -p "Currently using vanilla emacs, switch to spacemacs? [Y/n]: "
 		if [ "$REPLY" == "y" ] || [ "$REPLY" == " " ]; then
 			if [ -d ~/ve.emacs.d ]; then
-				echo "~/ve.emacs.d already exists, exit!"
-				exit -1
+				echo "$HOME/ve.emacs.d already exists, exit!"
+				exit 1
 			fi
 			mv -vi ~/.emacs.d ~/ve.emacs.d
 			if [ -d ~/se.emacs.d ]; then
 				mv -vi ~/se.emacs.d ~/.emacs.d
 			else
 				echo "bak directory of spacemacs(~/se.emacs.d) doesn't exist, exit!"
-				exit -1
+				exit 1
 			fi
 		else
 			echo "Cancel and exit!"
@@ -339,7 +339,7 @@ if [ "$flag_s" -eq 1 ]; then
 		fi
 	else
 		echo "Both directories of spacemacs and vanilla emacs do not exist, exit!"
-		exit -1
+		exit 1
 	fi
 	if [ -d ~/.emacs.d/lisp ]; then # start emacs directly without daemon
 		emacs $@
