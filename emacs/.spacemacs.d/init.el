@@ -624,7 +624,7 @@ before packages are loaded."
      ("help\\|emacs\\|bookmarks" . highlight)
      )
    comment-dwim-2--inline-comment-behavior 'reindent-comment
-   git-gutter:modified-sign "!"
+   git-gutter:modified-sign "*"
    spaceline-org-clock-p t
    )
 
