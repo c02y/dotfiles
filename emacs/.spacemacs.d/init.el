@@ -50,7 +50,7 @@ This function should only modify configuration layer settings."
                       )
      better-defaults
      emacs-lisp
-     ;; `pip install importmagic epc' after the python layer is installed
+     ;; NOTE: `pip install importmagic epc' after the python layer is installed
      python
      git
      helm
@@ -68,7 +68,7 @@ This function should only modify configuration layer settings."
                      enable-flyspell-auto-completion t)
      syntax-checking
      semantic
-     ;; install shellcheck
+     ;; NOTE: install shellcheck
      shell-scripts
      treemacs
      (version-control :variables
@@ -76,7 +76,7 @@ This function should only modify configuration layer settings."
                       version-control-diff-side 'left
                       )
      (evil-snipe :variables evil-snipe-enable-alternate-f-and-t-behaviors t)
-     ;; install ccls
+     ;; NOTE: install ccls and setup for a project before using it
      (c-c++ :variables
             c-c++-adopt-subprojects t
             c-c++-backend 'lsp-ccls
