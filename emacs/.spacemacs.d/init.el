@@ -1086,8 +1086,11 @@ Version 2016-12-18"
      '((c-mode-font-lock-if0 (0 font-lock-comment-face prepend))) 'add-to-end))
   (add-hook 'c-mode-common-hook 'my-c-mode-common-hook)
 
-  ;; insert mode by default in commit editing buffer
-  (add-hook 'with-editor-mode-hook 'evil-insert-state)
+  (add-hook 'with-editor-mode-hook
+            (lambda ()
+              ;; insert mode by default in commit editing buffer
+              (evil-insert-state)
+              (smartparens-mode)))
 
   ;; make C-e in better-defaults work, not work if setting like README.org
   (define-key evil-insert-state-map (kbd "C-e") 'mwim-end-of-code-or-line)
