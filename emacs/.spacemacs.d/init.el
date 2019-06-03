@@ -977,6 +977,10 @@ Version 2016-12-18"
              )
   (bind-keys :map evil-normal-state-map
              ("g r" . revert-buffer-without-asking)
+             ;; overwrite the default evil-scroll-down
+             ("C-d" . sp-delete-char)
+             ;; overwrite the default evil-scroll-up
+             ("C-u" . universal-argument)
              )
 
   ;; disable follow in helm-occur (like helm-swoop) github-2152
