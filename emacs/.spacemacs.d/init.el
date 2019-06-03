@@ -954,7 +954,7 @@ Version 2016-12-18"
   (bind-keys*
    ("C-x DEL" . xah-shrink-whitespaces)
    ("M-%" . query-replace-from-top)
-   ("M-z" . lazy-helm/helm-mini)                  ;; helm-for-files is slow
+   ("M-z" . helm-for-files)
    ("C-h h" . lazy-helm/helm-apropos)
    ("C-h c" . lazy-helm/helm-colors)
    ("C-h C-c" . lazy-helm/spacemacs/helm-faces)
