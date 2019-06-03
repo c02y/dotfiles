@@ -13,7 +13,7 @@ end
 set -gx MANPATH $HOME/anaconda3/share/man $MANPATH
 
 set -gx FISH_CONFIG_PATH ~/.config/fish/config.fish
-set -gx EMACS_EL ~/.emacs.d/init.el
+set -gx EMACS_EL ~/.spacemacs.d/init.el
 
 # fix the Display :0 can't be opened problem
 if test $DISPLAY
@@ -1022,6 +1022,7 @@ function .....; cd ../../../..; end
 abbr cdp 'cd ~/Public; and lss'
 abbr cdu 'cd /run/media/chz/UDISK/; and lss'
 
+# NOTE: this function is obsolete since using Spacemacs now
 function elpac -d 'print old packages in .emacs.d/elpa/, with any command, it will clean old ones'
     set -l elpa_path ~/.emacs.d/elpa
     # ls contains color which will affect the $pkg string, * part means only directories
