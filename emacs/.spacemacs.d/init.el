@@ -71,18 +71,23 @@ This function should only modify configuration layer settings."
      ;; NOTE: install shellcheck
      shell-scripts
      treemacs
+     ;; use `SPC g .' to use version control functions such as goto next hunk
      (version-control :variables
                       version-control-diff-tool 'git-gutter
                       version-control-diff-side 'left
                       )
      (evil-snipe :variables evil-snipe-enable-alternate-f-and-t-behaviors t)
-     ;; NOTE: install ccls and setup for a project before using it
+     ;; NOTE: install ccls
      (c-c++ :variables
             c-c++-adopt-subprojects t
             c-c++-backend 'lsp-ccls
             ;; just get rid of the warning message
             c-c++-lsp-cache-dir "~/.emacs.d/.cache/lsp-ccls"
             )
+     ;; NOTE: to generate compile_commands.json file for lsp before using lsp
+     ;; install Bear, use it like `bear <build_commands>' like `bear make'
+     ;; or pip install scan-build, use it like `intercept-build <build_commands>' like `intercept-build make'
+     ;; Read https://github.com/MaskRay/ccls/wiki/Project-Setup for project setup
      lsp
      ;; M-x dap-gdb-lldb-setup after packages are installed by dap layer
      dap
@@ -949,9 +954,9 @@ Version 2016-12-18"
   (bind-keys*
    ("C-x DEL" . xah-shrink-whitespaces)
    ("M-%" . query-replace-from-top)
-   ("M-z" . helm-for-files)
-   ("C-h h" . helm-apropos)
-   ("C-h c" . helm-colors)
+   ("M-z" . lazy-helm/helm-mini)                  ;; helm-for-files is slow
+   ("C-h h" . lazy-helm/helm-apropos)
+   ("C-h c" . lazy-helm/helm-colors)
    ("C-h C-c" . lazy-helm/spacemacs/helm-faces)
    ("C-x /" . helm-semantic-or-imenu)
    ("C-s" . helm-occur)
@@ -997,6 +1002,9 @@ Version 2016-12-18"
       (interactive)
       (helm-set-pattern (concat "\\_<" helm-input "\\_>")))
     (define-key helm-occur-map (kbd "<right>") 'helm-occur-insert-symbol-regexp)
+    ;; overwrite the default M-SPC(which is for WM) to activate transient-state in helm mode
+    (bind-keys :map helm-map
+               ("M-x" . spacemacs/helm-navigation-transient-state/body))
     )
 
   ;; for terminal emacs, change theme in the configuration of the terminal, such as solarized-dark
@@ -1501,7 +1509,7 @@ In other non-comment situations, try C-M-j to split."
           ;; removes clocked tasks with 0:00 duration
           org-clock-out-remove-zero-time-clocks t
           ;; Save the running clock and all clock history when exiting Emacs, load it on startup
-          org-clock-persist t
+          ;; org-clock-persist t
           ;; Do not prompt to resume an active clock
           org-clock-persist-query-resume nil
           ;; Include current clocking task in clock reports
