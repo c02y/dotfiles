@@ -851,6 +851,10 @@ Emacs session."
     "SN" 'flyspell-goto-next-error
     ;; correct the wrong word with prefix+i, next time auto-correct it, defined bellow
     "Ss" 'endless/ispell-word-then-abbrev
+    "xA" 'align-regexp
+    "xaA" 'align-regexp
+    "xaC" 'align-c-comments
+    "xaM" 'align-c-macros
     )
 
   (defun revert-buffer-without-asking()
@@ -1752,6 +1756,26 @@ abort completely with `C-g'."
   (setq save-abbrevs 'silently)
   (setq-default abbrev-mode t)
 
+  ;; align
+  ;; align-regexp with space instead tab
+  (defadvice align-regexp (around align-regexp-with-spaces activate)
+    (let ((indent-tabs-mode nil))
+      ad-do-it))
+  (defalias 'ar #'align-regexp)
+  (defadvice align (around align-with-spaces activate)
+    (let ((indent-tabs-mode nil))
+      ad-do-it))
+  (defun align-c-comments (beginning end)
+    "Align instances of // or /* */ within marked region."
+    (interactive "*r")
+    (let (indent-tabs-mode align-to-tab-stop)
+      (align-regexp beginning end "\\(\\s-*\\)[//|/*]")))
+  (defun align-c-macros (beginning end)
+    "Align macros within marked region"
+    (interactive "*r")
+    (progn
+      (align beginning end)
+      (untabify beginning end)))
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
