@@ -54,7 +54,6 @@ This function should only modify configuration layer settings."
      python
      git
      helm
-     ;; markdown
      ;; replace multiple-cursors with symbol-overlay
      ;; multiple-cursors
      (org :variables
@@ -65,7 +64,8 @@ This function should only modify configuration layer settings."
      ;;        shell-default-height 30
      ;;        shell-default-position 'bottom)
      (spell-checking :variables
-                     enable-flyspell-auto-completion t)
+                     ;; enable-flyspell-auto-completion t
+                     )
      syntax-checking
      semantic
      ;; NOTE: install shellcheck
@@ -115,7 +115,7 @@ This function should only modify configuration layer settings."
                                     org-bullets
                                     )
 
-   ;; Defines the behaviour of Spacemacs when installing packages.
+   ;; Defines the behavior of Spacemacs when installing packages.
    ;; Possible values are `used-only', `used-but-keep-unused' and `all'.
    ;; `used-only' installs only explicitly used packages and deletes any unused
    ;; packages as well as their unused dependencies. `used-but-keep-unused'
@@ -130,7 +130,7 @@ This function is called at the very beginning of Spacemacs startup,
 before layer configuration.
 It should only modify the values of Spacemacs settings."
   ;; This setq-default sexp is an exhaustive list of all the supported
-  ;; spacemacs settings.
+  ;; Spacemacs settings.
   (setq-default
    ;; If non-nil then enable support for the portable dumper. You'll need
    ;; to compile Emacs 27 from source following the instructions in file
@@ -545,6 +545,7 @@ https://github.com/syl20bnr/spacemacs/issues/12346"
     (setq-default mode-line-format '("%e" (:eval (spaceline-ml-main)))))
 
   ;; spell checking
+  ;; NOTE: install hunspell
   (cond
    ;; try hunspell at first
    ;; if hunspell does NOT exist, use aspell
@@ -562,6 +563,9 @@ https://github.com/syl20bnr/spacemacs/issues/12346"
     ;; Please note ispell-extra-args contains ACTUAL parameters passed to aspell
     (setq ispell-extra-args '("--sug-mode=ultra" "--lang=en_US"))
     (message "hunspell not found, use aspell for spell-check!")))
+  ;; NOTE: this file is for hunspell, aspell uses another file and format(~/.aspell.en.pws)
+  ;; FIXME: unable to merge them into one
+  (setq ispell-personal-dictionary "~/.spacemacs.d/ispell_en_US")
   )
 
 (defun dotspacemacs/user-load ()
@@ -839,12 +843,14 @@ Emacs session."
     "XC" 'hydra-change-case/body
     "Xm" 'hydra-cool-moves/body
     "Xr" 'hydra-rectangle/body
-    "Ss" 'flyspell-correct-word-generic
+    "Sg" 'flyspell-correct-word-generic
     "Sc" 'flyspell-correct-at-point
     "Sw" 'flyspell-correct-wrapper
     "Sn" 'flyspell-correct-next
     "Sp" 'flyspell-correct-previous
     "SN" 'flyspell-goto-next-error
+    ;; correct the wrong word with prefix+i, next time auto-correct it, defined bellow
+    "Ss" 'endless/ispell-word-then-abbrev
     )
 
   (defun revert-buffer-without-asking()
@@ -1674,7 +1680,7 @@ background of code to whatever theme I'm using's background"
 [_d_] change dictionary   [_G_] add word to dict (global)   [_q_] exit
 [_n_] correct next        [_S_] add word to dict (session)  [_Q_] exit and disable spell check
 [_p_] correct previous    [_s_] correct generic             [_N_] next spell error
-[_c_] correct at point    [_._] correct wrapper             [_i_] endless ispell
+[_c_] correct at point    [_._] correct wrapper
 "
         :on-enter (flyspell-mode)
         :bindings
@@ -1688,8 +1694,6 @@ background of code to whatever theme I'm using's background"
         ("n" flyspell-correct-next)
         ("p" flyspell-correct-previous)
         ("N" flyspell-goto-next-error)
-        ;; correct the wrong word with prefix+i, next time auto-correct it, defined bellow
-        ("i" endless/ispell-word-then-abbrev)
         ("Q" flyspell-mode :exit t)
         ("q" nil :exit t)
         ("S" spacemacs/add-word-to-dict-session)
