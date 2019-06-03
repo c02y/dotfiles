@@ -284,17 +284,6 @@ abbr gcca 'gcc -g -pedantic -Wall -W -Wconversion -Wshadow -Wcast-qual -Wwrite-s
 # gcc -Wall -W -Wextra -Wconversion -Wshadow -Wcast-qual -Wwrite-strings -Werror
 
 # User specific aliases and functions
-abbr sl 'ls'
-abbr l 'ls'
-alias ls 'ls --color=always'
-abbr lsd 'ls -d */' # only list unhidden directories
-alias ll 'ls -lh'
-abbr la 'ls -d .*' # only list the hidden dirs
-alias lla 'ls -lhA' # list all but not . ..
-abbr lsa 'ls -A'
-abbr lsf 'ls -A1' # list only filenames, same as `ls -A | sort
-abbr lsl 'ls -1' # list the names of content line by line without attributes
-abbr lsL 'ls -A1' # like lsl but including hiddens ones (no . or ..)
 function lsx -d 'cp the full path of a file/dir to sytem clipboard'
     if test $DISPLAY
         if test -f $argv -o -d $argv
@@ -319,26 +308,27 @@ function bxp -d 'pastebin service in command line'
     # eval $argv | curl -F 'sprunge=<-' http://sprunge.us
 end
 #
-function lst
-    ls --color=yes $argv --sort=time -lh --time=ctime | nl -v 0 | less
+function lss -d 'ls functions with options'
+    set -l options 't' 'T' 's' 'S' 'a' 'A'
+    argparse -n lss $options -- $argv
+    or return
+
+    if set -q _flag_t      # sort by last modification time
+        ls --color=yes $argv --sort=time -r -lh --time=ctime | nl -v 0
+    else if set -q _flag_T # like -t, but only show tail
+        ls --color=yes $argv --sort=time -r -lh --time=ctime | nl -v 0 | tail -20
+    else if set -q _flag_s # sort by size
+        ll --color=yes $argv --sort=size -r -lh | nl -v 0
+    else if set -q _flag_S # like -s, but show only tail
+        ll --color=yes $argv --sort=size -r -lh | nl -v 0 | tail -20
+    else if set -q _flag_a # list all include hidden but . and ..
+        ls -lhA
+    else if set -q _flag_A # like -a, but sort by last modification time
+        ls -lhA --color=yes $argv --sort=time -r -lh --time=ctime | nl -v 0 | tail -20
+    else                   # otherwise without option, works like -a, but sort by size
+        ll -lhA --color=yes $argv --sort=size -r -lh | nl -v 0
+    end
 end
-function lsh
-    ls --color=yes $argv --sort=time -lh --time=ctime | head | nl -v 0
-end
-function lsh2
-    ls --color=yes $argv --sort=time -lh --time=ctime | head -20 | nl -v 0
-end
-function lls
-    ll --color=yes $argv --sort=size -lh | less -R | nl -v 0
-end
-function llh
-    ll --color=yes $argv --sort=time -lh  --time=ctime | head | nl -v 0
-end
-abbr llt 'lla --color=yes --sort=time -lh --time=ctime | less -R | nl -v 0'
-abbr lat 'lla --color=yes --sort=time -lh --time=ctime | less -R | nl -v 0'
-alias lah 'lla --color=yes --sort=time -lh --time=ctime | head | nl -v 0'
-# count the number of the files in the dir(not sub.), use tree | wc -l for subdirs
-abbr lsc 'ls -all | wc -l'
 # valgrind
 # abbr va='valgrind -v --track-origins=yes'
 abbr va 'valgrind --track-origins=yes --leak-check=full'
@@ -1029,14 +1019,8 @@ function ..; cd ..; end
 function ...; cd ../..; end
 function ....; cd ../../..; end
 function .....; cd ../../../..; end
-abbr cdi 'cd /usr/include/'
-abbr cde 'cd ~/.emacs.d/elpa; and lah'
-abbr cdb 'cd ~/.vim/bundle'
-abbr cdp 'cd ~/Public; and lah'
-abbr cdc 'cd ~/Projects/CWork; and lah'
-abbr cds 'cd ~/Projects/CWork/snippets; and lah'
-abbr cdP 'cd ~/Projects'
-abbr cdu 'cd /run/media/chz/UDISK/; and lah'
+abbr cdp 'cd ~/Public; and lss'
+abbr cdu 'cd /run/media/chz/UDISK/; and lss'
 
 function elpac -d 'print old packages in .emacs.d/elpa/, with any command, it will clean old ones'
     set -l elpa_path ~/.emacs.d/elpa
