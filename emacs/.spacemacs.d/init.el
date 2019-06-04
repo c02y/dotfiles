@@ -1784,6 +1784,9 @@ abort completely with `C-g'."
     (progn
       (align beginning end)
       (untabify beginning end)))
+
+  ;; automatically save recentf before close emacs/emacsclient
+  (add-hook 'delete-terminal-functions (lambda (terminal) (recentf-save-list)))
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
