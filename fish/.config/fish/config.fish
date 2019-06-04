@@ -15,11 +15,12 @@ set -gx MANPATH $HOME/anaconda3/share/man $MANPATH
 set -gx FISH_CONFIG_PATH ~/.config/fish/config.fish
 set -gx EMACS_EL ~/.spacemacs.d/init.el
 
-if test "$LANG" != "en_US.UTF-8"
-    # This fixes a lot problems of displaying unicodes
-    # https://github.com/syl20bnr/spacemacs/issues/12257
-    set -gx LANG "en_US.UTF-8"
-end
+# Please put the following lines into ~/.bashrc, putting them in config.fish won't work
+# This fixes a lot problems of displaying unicodes
+# https://github.com/syl20bnr/spacemacs/issues/12257
+# export LC_ALL=en_US.UTF-8
+# export LANG=en_US.UTF-8
+# export LANGUAGE=en_US.UTF-8
 
 # fix the Display :0 can't be opened problem
 if test $DISPLAY
