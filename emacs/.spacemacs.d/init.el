@@ -107,6 +107,7 @@ This function should only modify configuration layer settings."
                                       comment-dwim-2
                                       (cool-moves :location (recipe :fetcher github :repo "mrbig033/cool-moves"))
                                       evil-smartparens
+                                      esup
                                       )
 
    ;; A list of packages that cannot be updated.
@@ -834,7 +835,7 @@ Emacs session."
     "fxT" (lambda () (interactive) (find-file "~/.local/bin/t"))
     "fxe" (lambda () (interactive) (find-file "~/.local/bin/emm"))
     "fxE" (lambda () (interactive) (find-file "~/ve.emacs.d/init.el"))
-    "bq" 'query-replace-from-top
+    "bq" 'query-replace-region-or-from-top
     "bf" 'flush-blank-lines
     ;; related one is default M-q
     "bF" 'xah-fill-or-unfill
@@ -862,6 +863,9 @@ Emacs session."
     "xaA" 'align-regexp
     "xaC" 'align-c-comments
     "xaM" 'align-c-macros
+    "hh" 'lazy-helm/helm-apropos
+    "hc" 'lazy-helm/helm-colors
+    "hC" 'lazy-helm/spacemacs/helm-faces
     )
 
   (defun revert-buffer-without-asking()
@@ -955,7 +959,7 @@ Version 2016-12-18"
         (progn (delete-blank-lines)))))
   (bind-keys*
    ("C-x DEL" . xah-shrink-whitespaces)
-   ("M-%" . query-replace-from-top)
+   ("M-%" . query-replace-region-or-from-top)
    ("M-z" . helm-for-files)
    ("C-h h" . lazy-helm/helm-apropos)
    ("C-h c" . lazy-helm/helm-colors)
@@ -1203,15 +1207,18 @@ Version 2016-12-18"
      )
     )
 
-  ;; set the query-replace from top
-  (defun query-replace-from-top ()
+  (defun query-replace-region-or-from-top ()
+    "If marked, query-replace for the region, else for the whole buffer (start from the top)"
     (interactive)
-    (let ((orig-point (point)))
-      (save-excursion
-        (goto-char (point-min))
-        (call-interactively 'query-replace))
-      (message "Back to old point.")
-      (goto-char orig-point)))
+    (progn
+      (let ((orig-point (point)))
+        (if (use-region-p)
+            (call-interactively 'query-replace)
+          (save-excursion
+            (goto-char (point-min))
+            (call-interactively 'query-replace)))
+        (message "Back to old point.")
+        (goto-char orig-point))))
 
   ;; flush blank lines
   (defun flush-blank-lines (start end)
