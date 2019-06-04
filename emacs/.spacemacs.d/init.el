@@ -656,6 +656,8 @@ before packages are loaded."
    comment-dwim-2--inline-comment-behavior 'reindent-comment
    git-gutter:modified-sign "*"
    spaceline-org-clock-p t
+   ;; sometimes emacs will unable to quit because of persp-auto-save
+   persp-auto-save-opt 0
    )
 
   ;; auto refresh git gutter info when status changes in magit status buffer
