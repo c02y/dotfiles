@@ -5,6 +5,14 @@ if ! hash tmux 2>/dev/null; then
 	return 1
 fi
 
+# This fixes a lot problems of displaying unicodes
+# https://github.com/syl20bnr/spacemacs/issues/12257
+if [ "$LANG" != "en_US.UTF-8" ]; then
+	export LC_ALL=en_US.UTF-8
+	# export LANG=en_US.UTF-8
+	# export LANGUAGE=en_US.UTF-8
+fi
+
 if [ $(basename $SHELL) != "fish" ]; then
 	if [ -f ~/anaconda3/bin/fish ]; then
 		export SHELL=~/anaconda3/bin/fish
