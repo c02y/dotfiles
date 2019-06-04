@@ -848,7 +848,7 @@ Emacs session."
     "Xk" 'cut-line-or-region-or-buffer
     ;; overwrite the default spacemacs/spell-checking-transient-state/body
     "S." 'spacemacs/ispell-transient-state/body
-    "XC" 'hydra-change-case/body
+    "XX" 'hydra-change-case/body
     "Xm" 'hydra-cool-moves/body
     "Xr" 'hydra-rectangle/body
     "Sg" 'flyspell-correct-word-generic
@@ -1311,15 +1311,30 @@ Also converts full stops to commas."
     (if (use-region-p)
         (call-interactively 'upcase-region)
       (call-interactively 'subword-upcase)))
-  ;; this can also can be done simply using M-c/M-l/M-u
+  ;; FIXME: the last line won't be displayed in the hint window
   (defhydra hydra-change-case (:hint nil)
-    ""
-    ("x" xah-toggle-letter-case "loop")
-    ("c" endless/capitalize "capitalize")
-    ("l" endless/downcase "downcase")
-    ("u" endless/upcase "upcase")
-    ("z" undo-tree-undo "undo")
-    ("Z" undo-tree-redo "redo")
+    "
+_x_: loop            _c_: capitalize
+_l_: downcase        _u_: upcase
+_z_: undo            _Z_: redo
+_h_/_<left>_: left   _l_/_<right>_: right
+_j_/_<down>_: down   _k_/_<up>_: up
+"
+
+    ("x" xah-toggle-letter-case)
+    ("c" endless/capitalize)
+    ("l" endless/downcase)
+    ("u" endless/upcase)
+    ("z" undo-tree-undo)
+    ("Z" undo-tree-redo)
+    ("h" evil-backward-char)
+    ("<left>" evil-backward-char)
+    ("l" evil-forward-char)
+    ("<right>" evil-forward-char)
+    ("j" evil-next-line)
+    ("<down>" evil-next-line)
+    ("k" evil-previous-line)
+    ("<up>" evil-previous-line)
     ("q" nil))
 
   (require 'cool-moves)
@@ -1329,6 +1344,7 @@ Also converts full stops to commas."
                ("M-<down>" . cool-moves/line-forward)
                ("M-<left>" . cool-moves/sexp-backward)
                ("M-<right>" . cool-moves/sexp-forward)))
+  ;; FIXME: the last line won't be displayed in the hint window
   (defhydra hydra-cool-moves (:color amaranth :hint nil :foreign-keys nil)
     "
  _<down>_/_l_: line ↓     _<up>_/_L_: line ↑
