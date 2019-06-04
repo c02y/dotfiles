@@ -315,25 +315,26 @@ function bxp -d 'pastebin service in command line'
     # eval $argv | curl -F 'sprunge=<-' http://sprunge.us
 end
 #
-function lss -d 'ls functions with options'
-    set -l options 't' 'T' 's' 'S' 'a' 'A'
-    argparse -n lss $options -- $argv
+function lls -d 'ls functions with options'
+    set -l options 't' 'T' 's' 'S'
+    argparse -n lls $options -- $argv
     or return
 
-    if set -q _flag_t      # sort by last modification time
-        ls --color=yes $argv --sort=time -r -lh --time=ctime | nl -v 0
-    else if set -q _flag_T # like -t, but only show tail
-        ls --color=yes $argv --sort=time -r -lh --time=ctime | nl -v 0 | tail -20
-    else if set -q _flag_s # sort by size
-        ll --color=yes $argv --sort=size -r -lh | nl -v 0
-    else if set -q _flag_S # like -s, but show only tail
-        ll --color=yes $argv --sort=size -r -lh | nl -v 0 | tail -20
-    else if set -q _flag_a # list all include hidden but . and ..
-        ls -lhA
-    else if set -q _flag_A # like -a, but sort by last modification time
-        ls -lhA --color=yes $argv --sort=time -r -lh --time=ctime | nl -v 0 | tail -20
-    else                   # otherwise without option, works like -a, but sort by size
-        ll -lhA --color=yes $argv --sort=size -r -lh | nl -v 0
+    if set -q $argv[1]          # no argument
+        set ARGV "."
+    else
+        set ARGV $argv
+    end
+    if set -q _flag_t      # sort by last modification time, only show tail
+        ls -lhA --color=yes $ARGV --sort=time -r -lh --time=ctime | nl -v 0 | tail -20
+    else if set -q _flag_T # like -t, but show the whole list
+        ls -lhA --color=yes $ARGV --sort=time -r -lh --time=ctime | nl -v 0
+    else if set -q _flag_s # sort by size, only show tail
+        ll -lhA --color=yes $ARGV --sort=size -r -lh | nl -v 0 | tail -20
+    else if set -q _flag_S # like -s, but show the whole list
+        ll -lhA --color=yes $ARGV --sort=size -r -lh | nl -v 0
+    else                   # otherwise without option, working like -t
+        ls -lhA --color=yes $ARGV --sort=time -r -lh --time=ctime | nl -v 0 | tail -20
     end
 end
 # valgrind
@@ -1026,8 +1027,8 @@ function ..; cd ..; end
 function ...; cd ../..; end
 function ....; cd ../../..; end
 function .....; cd ../../../..; end
-abbr cdp 'cd ~/Public; and lss'
-abbr cdu 'cd /run/media/chz/UDISK/; and lss'
+abbr cdp 'cd ~/Public; and lls'
+abbr cdu 'cd /run/media/chz/UDISK/; and lls'
 
 # NOTE: this function is obsolete since using Spacemacs now
 function elpac -d 'print old packages in .emacs.d/elpa/, with any command, it will clean old ones'
