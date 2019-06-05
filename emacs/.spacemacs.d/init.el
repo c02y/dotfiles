@@ -659,7 +659,18 @@ before packages are loaded."
    spaceline-org-clock-p t
    ;; sometimes emacs will unable to quit because of persp-auto-save
    persp-auto-save-opt 0
+   ;; https://emacs.stackexchange.com/questions/3358
+   ;; https://stackoverflow.com/questions/10474555
+   evil-want-fine-undo t
+   ;; Persistent undo, undo is usable for old history even restart Emacs
+   ;; https://github.com/syl20bnr/spacemacs/issues/774
+   undo-tree-auto-save-history t
+   undo-tree-history-directory-alist `(("." . ,(concat spacemacs-cache-directory "undo")))
    )
+
+  ;; NOTE: along with undo-tree-auto-save-history
+  (unless (file-exists-p (concat spacemacs-cache-directory "undo"))
+    (make-directory (concat spacemacs-cache-directory "undo")))
 
   ;; auto refresh git gutter info when status changes in magit status buffer
   (add-hook 'magit-post-refresh-hook #'git-gutter:update-all-windows)
