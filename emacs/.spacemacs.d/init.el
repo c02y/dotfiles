@@ -1007,6 +1007,8 @@ Version 2016-12-18"
              ("C-d" . sp-delete-char)
              ;; overwrite the default evil-scroll-up
              ("C-u" . universal-argument)
+             ;; record new macro is q, the default execute macro is @
+             ("Q" . evil-execute-macro)
              )
 
   ;; disable follow in helm-occur (like helm-swoop) github-2152
