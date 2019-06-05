@@ -570,7 +570,7 @@ https://github.com/syl20bnr/spacemacs/issues/12346"
     (setq ispell-extra-args '("--sug-mode=ultra" "--lang=en_US"))
     (message "hunspell not found, use aspell for spell-check!")))
   ;; NOTE: this file is for hunspell, aspell uses another file and format(~/.aspell.en.pws)
-  ;; FIXME: unable to merge them into one
+  ;; FIXME: unable to merge dictionaries for aspell and hunspell into one
   (setq ispell-personal-dictionary "~/.spacemacs.d/ispell_en_US")
   )
 
@@ -828,6 +828,11 @@ Emacs session."
   (spacemacs/declare-prefix "fY" "yasnippets")
   (spacemacs/declare-prefix "fx" "customized-files")
   (spacemacs/declare-prefix "X" "copy/cut/delete/move")
+  (spacemacs/declare-prefix "fxf" "config.fish")
+  (spacemacs/declare-prefix "fxt" ".tmux.conf")
+  (spacemacs/declare-prefix "fxT" "bin/t")
+  (spacemacs/declare-prefix "fxe" "bin/emm")
+  (spacemacs/declare-prefix "fxE" "ve.emacs.d/init.el")
   (spacemacs/set-leader-keys
     "bU" 'reopen-killed-buffer-fancy
     ;; whitespace-cleanup will also do untabify-it/tabify-it automatically
@@ -840,7 +845,7 @@ Emacs session."
     "fYr" 'yas-reload-all
     "fYi" 'yas-insert-snippet
     "fYv" 'yas-visit-snippet-file
-    ;; FIXME: the following lambdas don't show meanings in which-key
+    ;; NOTE: the hints for the following lambda functions are in spacemacs/declare-prefix
     "fxf" (lambda () (interactive) (find-file "~/.config/fish/config.fish"))
     "fxt" (lambda () (interactive) (find-file "~/.tmux.conf"))
     "fxT" (lambda () (interactive) (find-file "~/.local/bin/t"))
@@ -850,6 +855,7 @@ Emacs session."
     "bf" 'flush-blank-lines
     ;; related one is default M-q
     "bF" 'xah-fill-or-unfill
+    "bt" 'tabify-or-untabify
     ;; default feR, still works
     "fer" 'dotspacemacs/sync-configuration-layers
     ;; default helm-find-files
@@ -859,9 +865,10 @@ Emacs session."
     "Xk" 'cut-line-or-region-or-buffer
     ;; overwrite the default spacemacs/spell-checking-transient-state/body
     "S." 'spacemacs/ispell-transient-state/body
-    "XX" 'hydra-change-case/body
-    "Xm" 'hydra-cool-moves/body
+    "XX" 'spacemacs/change-case-transient-state/body
+    "Xm" 'spacemacs/cool-moves-transient-state/body
     "Xr" 'hydra-rectangle/body
+    "Xh" 'spacemacs/hl-todo-transient-state/body
     "Sg" 'flyspell-correct-word-generic
     "Sc" 'flyspell-correct-at-point
     "Sw" 'flyspell-correct-wrapper
@@ -890,7 +897,7 @@ Emacs session."
 
   (defun xah-fill-or-unfill ()
   "Reformat current paragraph or region to `fill-column', like `fill-paragraph' or “unfill”.
-When there is a text selection, act on the the selection, else, act on a text block separated by blank lines.
+When there is a text selection, act on the selection, else, act on a text block separated by blank lines.
 URL `http://ergoemacs.org/emacs/modernization_fill-paragraph.html'
 Version 2016-07-13"
   (interactive)
@@ -1324,19 +1331,18 @@ Also converts full stops to commas."
     (if (use-region-p)
         (call-interactively 'upcase-region)
       (call-interactively 'subword-upcase)))
-  ;; FIXME: the last line won't be displayed in the hint window
-  (defhydra hydra-change-case (:hint nil)
-    "
-_x_: loop            _c_: capitalize
-_l_: downcase        _u_: upcase
-_z_: undo            _Z_: redo
+  (spacemacs|define-transient-state change-case
+    :title "Change Case Transient State"
+    :doc "
+_x_: loop     _c_: capitalize     _d_: downcase
+_u_: upcase   _z_: undo           _Z_: redo
 _h_/_<left>_: left   _l_/_<right>_: right
 _j_/_<down>_: down   _k_/_<up>_: up
 "
-
+    :bindings
     ("x" xah-toggle-letter-case)
     ("c" endless/capitalize)
-    ("l" endless/downcase)
+    ("d" endless/downcase)
     ("u" endless/upcase)
     ("z" undo-tree-undo)
     ("Z" undo-tree-redo)
@@ -1357,20 +1363,18 @@ _j_/_<down>_: down   _k_/_<up>_: up
                ("M-<down>" . cool-moves/line-forward)
                ("M-<left>" . cool-moves/sexp-backward)
                ("M-<right>" . cool-moves/sexp-forward)))
-  ;; FIXME: the last line won't be displayed in the hint window
-  (defhydra hydra-cool-moves (:color amaranth :hint nil :foreign-keys nil)
-    "
- _<down>_/_l_: line ↓     _<up>_/_L_: line ↑
- _p_: par  ↓             _P_: par  ↑
- _w_: word →             _W_: word ←
- _c_: char →             _C_: char ←
- _s_: sentence →         _S_: sentence ←
- _<right>_/_x_: sexp →   _<left>_/_X_: sexp ←
- _z_: undo               _Z_: redo
+  (spacemacs|define-transient-state cool-moves
+    :title "Cool Moves Transient State"
+    :doc "
+_<down>_/_l_: line ↓    _<up>_/_L_: line ↑
+_<right>_/_x_: sexp →   _<left>_/_X_: sexp ←
+_p_: par ↓              _P_: par ↑
+_w_: word →             _W_: word ←
+_c_: char →             _C_: char ←
+_s_: sentence →         _S_: sentence ←
+_z_: undo               _Z_: redo
 "
-    ("<escape>" nil)
-    ("u" nil)
-
+    :bindings
     ("l" cool-moves/line-forward)
     ("<down>" cool-moves/line-forward)
     ("L" cool-moves/line-backward)
@@ -1397,35 +1401,35 @@ _j_/_<down>_: down   _k_/_<up>_: up
     ("Z" undo-tree-redo)
     ("q" nil))
 
-  (bind-key* "C-c %"
-             (defhydra hydra-rectangle
-               (:body-pre (rectangle-mark-mode 1)
-                          :color pink
-                          :hint nil
-                          :post (deactivate-mark))
-               "
-  ^_k_^		  _w_ copy		_o_pen		 _N_umber-lines			   |\\	   -,,,--,,_
-_h_	  _l_	  _y_ank		_t_ype		 _e_xchange-point		   /,`.-'`'	  ..  \-;;,_
-  ^_j_^		  _d_ kill		_c_lear		 _r_eset-region-mark	  |,4-	) )_   .;.(	 `'-'
-^^^^		  _u_ndo		_g_ quit	 ^ ^					 '---''(./..)-'(_\_)
+  (defhydra hydra-rectangle
+    (:body-pre (rectangle-mark-mode 1)
+               :color pink
+               :hint nil
+               :post (deactivate-mark))
+    "
+  ^_k_^       _w_ copy      _o_ open     _N_ number-lines
+_h_   _l_     _y_ yank      _t_ type     _e_ exchange-point
+  ^_j_^       _d_ kill      _c_ clear    _r_ reset-region-mark
+              _z_ undo      _Z_ redo     _q_ quit
 "
-               ("k" rectangle-previous-line)
-               ("j" rectangle-next-line)
-               ("h" rectangle-backward-char)
-               ("l" rectangle-forward-char)
-               ("d" kill-rectangle)					 ;; C-x r k
-               ("y" yank-rectangle)					 ;; C-x r y
-               ("w" copy-rectangle-as-kill)			 ;; C-x r M-w
-               ("o" open-rectangle)					 ;; C-x r o
-               ("t" string-rectangle)					 ;; C-x r t
-               ("c" clear-rectangle)					 ;; C-x r c
-               ("e" rectangle-exchange-point-and-mark) ;; C-x C-x
-               ("N" rectangle-number-lines)			 ;; C-x r N
-               ("r" (if (region-active-p)
-                        (deactivate-mark)
-                      (rectangle-mark-mode 1)))
-               ("u" undo nil)
-               ("g" nil)))
+    ("k" rectangle-previous-line)
+    ("j" rectangle-next-line)
+    ("h" rectangle-backward-char)
+    ("l" rectangle-forward-char)
+    ("d" kill-rectangle)                    ;; C-x r k
+    ("y" yank-rectangle)                    ;; C-x r y
+    ("w" copy-rectangle-as-kill)            ;; C-x r M-w
+    ("o" open-rectangle)                    ;; C-x r o
+    ("t" string-rectangle)                  ;; C-x r t
+    ("c" clear-rectangle)                   ;; C-x r c
+    ("e" rectangle-exchange-point-and-mark) ;; C-x C-x
+    ("N" rectangle-number-lines)            ;; C-x r N
+    ("r" (if (region-active-p)
+             (deactivate-mark)
+           (rectangle-mark-mode 1)))
+    ("z" undo-tree-undo)
+    ("Z" undo-tree-redo)
+    ("q" nil))
 
   ;; delete/copy/cut whole buffer without moving point
   (defun current-line-empty-p ()
@@ -1725,6 +1729,15 @@ background of code to whatever theme I'm using's background"
     (add-hook 'org-mode-hook 'flyspell-mode)
     )
 
+  (spacemacs|define-transient-state hl-todo
+    :title "hl-todo Transient State"
+    :bindings
+    ("n" hl-todo-next "next")
+    ("p" hl-todo-previous "prev")
+    ("l" hl-todo-occur "list")
+    ("a" hl-todo-insert "add")
+    ("q" nil)
+    )
   ;; spell checking
   ;; rewrite the default spell-checking transient state
   (spacemacs|define-transient-state ispell
@@ -1734,7 +1747,7 @@ background of code to whatever theme I'm using's background"
 [_d_] change dictionary   [_G_] add word to dict (global)   [_q_] exit
 [_n_] correct next        [_S_] add word to dict (session)  [_Q_] exit and disable spell check
 [_p_] correct previous    [_s_] correct generic             [_N_] next spell error
-[_c_] correct at point    [_._] correct wrapper
+[_c_] correct at point    [_._] correct wrapper             [_e_] endless ispell
 "
         :on-enter (flyspell-mode)
         :bindings
@@ -1748,8 +1761,9 @@ background of code to whatever theme I'm using's background"
         ("n" flyspell-correct-next)
         ("p" flyspell-correct-previous)
         ("N" flyspell-goto-next-error)
+        ("e" endless/ispell-word-then-abbrev)
         ("Q" flyspell-mode :exit t)
-        ("q" nil :exit t)
+        ("q" nil)
         ("S" spacemacs/add-word-to-dict-session)
         ("t" spacemacs/toggle-spelling-checking))
   (add-hook 'ispell-initialize-spellchecker-hook
@@ -1822,6 +1836,22 @@ abort completely with `C-g'."
     (progn
       (align beginning end)
       (untabify beginning end)))
+
+  ;; tabify only the leading whitespace, this will avoid the changes in c/macro and comments
+  (setq tabify-regexp "^\t* [ \t]+")
+  (defun tabify-or-untabify ()
+    "tabify/untabify(according to the value of indent-tabs-mode) the region if marked a region,
+ or else, tabify the whole buffer, then indent-buffer-safe"
+    (interactive)
+    (if (use-region-p)
+        (setq $p1 (region-beginning)
+              $p2 (region-end))
+      (setq $p1 (point-min)
+            $p2 (point-max)))
+    (if indent-tabs-mode
+        (tabify $p1 $p2)
+      (untabify $p1 $p2))
+    (indent-region $p1 $p2))
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
