@@ -1016,6 +1016,7 @@ Version 2016-12-18"
              ("C-u" . universal-argument)
              ;; record new macro is q, the default execute macro is @
              ("Q" . evil-execute-macro)
+             ("U" . undo-tree-visualize)
              )
 
   ;; disable follow in helm-occur (like helm-swoop) github-2152
