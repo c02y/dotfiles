@@ -854,7 +854,6 @@ Emacs session."
     "bq" 'query-replace-region-or-from-top
     "bf" 'flush-blank-lines
     ;; related one is default M-q
-    "bF" 'xah-fill-or-unfill
     "bt" 'tabify-or-untabify
     ;; default feR, still works
     "fer" 'dotspacemacs/sync-configuration-layers
@@ -894,40 +893,6 @@ Emacs session."
   ;; symbol-overlay replaces highlight-symbol
   (dolist (hook '(prog-mode-hook org-mode-hook))
     (add-hook hook #'symbol-overlay-mode))
-
-  (defun xah-fill-or-unfill ()
-  "Reformat current paragraph or region to `fill-column', like `fill-paragraph' or “unfill”.
-When there is a text selection, act on the selection, else, act on a text block separated by blank lines.
-URL `http://ergoemacs.org/emacs/modernization_fill-paragraph.html'
-Version 2016-07-13"
-  (interactive)
-  ;; This command symbol has a property “'compact-p”, the possible values are t and nil.
-  ;; This property is used to easily determine whether to compact or uncompact, when this command is called again
-  (let ( (-compact-p
-          (if (eq last-command this-command)
-              (get this-command 'compact-p)
-            (> (- (line-end-position) (line-beginning-position)) fill-column)))
-         (deactivate-mark nil)
-         (-blanks-regex "\n[ \t]*\n")
-         -p1 -p2
-         )
-    (if (use-region-p)
-        (progn (setq -p1 (region-beginning))
-               (setq -p2 (region-end)))
-      (save-excursion
-        (if (re-search-backward -blanks-regex nil "NOERROR")
-            (progn (re-search-forward -blanks-regex)
-                   (setq -p1 (point)))
-          (setq -p1 (point)))
-        (if (re-search-forward -blanks-regex nil "NOERROR")
-            (progn (re-search-backward -blanks-regex)
-                   (setq -p2 (point)))
-          (setq -p2 (point)))))
-    (if -compact-p
-        (fill-region -p1 -p2)
-      (let ((fill-column most-positive-fixnum ))
-        (fill-region -p1 -p2)))
-    (put this-command 'compact-p (not -compact-p))))
 
   ;; M-^ delete Up to Non-Whitespace Character, 'delete-indentation, combine two lines
   ;; M-Backspace delete to the previous word 'backword-kill-word
@@ -984,8 +949,6 @@ Version 2016-12-18"
    ("C-h C-c" . lazy-helm/spacemacs/helm-faces)
    ("C-x /" . helm-semantic-or-imenu)
    ("C-s" . helm-occur)
-   ("C-a" . keep-beginning-of-line)
-   ("C-e" . keep-end-of-line)
    ("M-;" . comment-dwim-2)
    ;; switch the last visited buffer, repeated invocations toggle between the most recent two buffers
    ;; this is different from SPC TAB, which switch the last buffer in this window
@@ -1007,6 +970,8 @@ Version 2016-12-18"
   (bind-keys :map evil-hybrid-state-map
              ;; not put it into global, it goes wrong in helm mode
              ("RET" . advanced-return)
+             ("C-a" . keep-beginning-of-code-or-line)
+             ("C-e" . keep-end-of-code-or-line)
              )
   (bind-keys :map evil-normal-state-map
              ("g r" . revert-buffer-without-asking)
@@ -1017,6 +982,8 @@ Version 2016-12-18"
              ;; record new macro is q, the default execute macro is @
              ("Q" . evil-execute-macro)
              ("U" . undo-tree-visualize)
+             ("C-a" . keep-beginning-of-code-or-line)
+             ("C-e" . keep-end-of-code-or-line)
              )
 
   ;; disable follow in helm-occur (like helm-swoop) github-2152
@@ -1141,9 +1108,6 @@ Version 2016-12-18"
               (evil-insert-state)
               (smartparens-mode)))
 
-  ;; make C-e in better-defaults work, not work if setting like README.org
-  (define-key evil-insert-state-map (kbd "C-e") 'mwim-end-of-code-or-line)
-  (define-key evil-motion-state-map (kbd "C-e") 'mwim-end-of-code-or-line)
   (spacemacs/toggle-truncate-lines-on)
   (add-hook 'org-mode-hook 'spacemacs/toggle-visual-line-navigation-on)
 
@@ -1247,20 +1211,19 @@ Version 2016-12-18"
     (interactive "r")
     (flush-lines "^\\s-*$" start end nil))
 
-  (defun keep-beginning-of-line (ARG)
-    "Make `C-a` keep going to first non-whitespace character _and_then_ beginning of
-  next line(previous with C-u)."
-    (interactive "P")
-    (when (bolp) (forward-line (if ARG -1 1)))
-    (let ((orig-point (point)))
-      (back-to-indentation)
-      (when (= orig-point (point))
-        (move-beginning-of-line 1))))
-  (defun keep-end-of-line (ARG)
-    "Make `C-e` keep going to end of next line(previous with C-u)."
-    (interactive "P")
-    (when (eolp) (forward-line (if ARG -1 1)))
-    (move-end-of-line nil))
+  (defun keep-beginning-of-code-or-line ()
+    "Based on mwim, goto the beginning of code, then beginning of line, then the previous line."
+    (interactive)
+    (when (bolp) (forward-line -1))
+    (mwim-beginning-of-code-or-line))
+  ;; eolp in emacs is not like $ in vim, $=eolp-1, use the following to make them the same
+  ;; or keep-end-of-code-or-line doesn't keep
+  (setq evil-move-beyond-eol t)
+  (defun keep-end-of-code-or-line ()
+    "Based on mwim, goto the end of code, then end of line, then the next line."
+    (interactive)
+    (when (eolp) (forward-line 1))
+    (mwim-end-of-code-or-line))
 
   ;; needed for change-case functions
   (global-syntax-subword-mode)
