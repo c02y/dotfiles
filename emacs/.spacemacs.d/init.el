@@ -883,6 +883,7 @@ Emacs session."
     "hh" 'lazy-helm/helm-apropos
     "hc" 'lazy-helm/helm-colors
     "hC" 'lazy-helm/spacemacs/helm-faces
+    "nn" 'narrow-or-widen-dwim
     )
 
   (defun revert-buffer-without-asking()
@@ -1816,6 +1817,29 @@ abort completely with `C-g'."
         (tabify $p1 $p2)
       (untabify $p1 $p2))
     (indent-region $p1 $p2))
+
+  ;; Use the following function to replace all the C-x n* functions
+  (defun narrow-or-widen-dwim (p)
+    " If the buffer is narrowed, it widens. Otherwise, it narrows intelligently.
+Intelligently means: region, org-src-block, org-subtree, or defun, whichever applies first.
+Narrowing to org-src-block actually calls `org-edit-src-code'.
+With prefix P, don't widen, just narrow even if buffer is already narrowed. "
+    (interactive "P")
+    (declare (interactive-only))
+    (cond ((and (buffer-narrowed-p) (not p))
+           (widen))
+          ((region-active-p)
+           (narrow-to-region (region-beginning) (region-end)))
+          ((and (boundp 'org-src-mode) org-src-mode (not p)) ; <-- Added
+           (org-edit-src-exit))
+          ((derived-mode-p 'org-mode)
+           (cond ((org-in-src-block-p)
+                  (org-edit-src-code))
+                 ((org-at-block-p)
+                  (org-narrow-to-block))
+                 (t (org-narrow-to-subtree))))
+          (t (narrow-to-defun))))
+
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
