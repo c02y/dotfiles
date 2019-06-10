@@ -538,6 +538,7 @@ function fu -d 'fu command and prompt to ask to open it or not'
     end
 
     set result_1 (printf '%s\n' $result | head -1)
+    set def_file $FISH_CONFIG_PATH
     if test (echo $result_1 | grep -E "$abbr_show $argv |is a function with definition") # defined in fish script
         if test (echo $result_1 | grep -E "is a function with definition")
             # 1. function or alias -- second line of output of fu ends with "$path @ line $num_line"
@@ -560,8 +561,9 @@ function fu -d 'fu command and prompt to ask to open it or not'
                 echo "$argv has multiple definitions(alias and function) in $FISH_CONFIG_PATH, please clean them!"
                 return
             end
-        else # 2. abbr
+        else # 2. abbr, only handle abbr defined in $FISH_CONFIG_PATH
             abbrc
+            set num_line (grep -n -w -E "^abbr $argv " $def_file | cut -d: -f1)
         end
 
         echo
