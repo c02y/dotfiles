@@ -36,7 +36,8 @@ This function should only modify configuration layer settings."
 
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
-   '(markdown
+   '(yaml
+     markdown
      vimscript
      ;; ----------------------------------------------------------------
      ;; Example of useful layers you may want to use right away.
