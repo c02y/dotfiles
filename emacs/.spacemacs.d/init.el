@@ -1038,6 +1038,9 @@ Version 2016-12-18"
    tab-width 4
    ;; for C++
    c-basic-offset 4
+   ;; DO NOT end a file with a newline, default is t(with newline)
+   ;; NOTE: it won't work if putting it in setq part, or setting require-final-newline
+   mode-require-final-newline nil
    )
   (add-hook 'emacs-lisp-mode-hook
             (lambda ()
@@ -1542,9 +1545,6 @@ In other non-comment situations, try C-M-j to split."
           org-log-done 'time
           org-tags-column 0
           org-src-preserve-indentation t
-          ;; DO NOT end a org file with a newline, default is t(with newline)
-          ;; FIXME: The following line doesn't work, it is still t
-          require-final-newline nil
           org-indent-indentation-per-level 3
           ;; Prevents accidentally editing hidden text when the point is inside a folded region.
           ;; use C-c C-r 'org-reveal to show where your point is
