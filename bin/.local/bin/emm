@@ -44,6 +44,7 @@ Usage: $(basename $0)
 	   -r to restart emacs daemon and start a emacsclient
 	   -s to switch between spacemacs and vanilla emacs
 	   -t to time the startup of emacs
+	   -u update all packages, only works for spacemacs
 	   -x to start emacsclient in terminal even inside GUI DE
 EOF
 	exit 0
@@ -210,7 +211,7 @@ else
 	flag_systemctl=0
 fi
 
-while getopts ":habcCdeEfkmoqrstx" args; do # prefix-: no warning for illegal option
+while getopts ":habcCdeEfkmoqrstux" args; do # prefix-: no warning for illegal option
 	case "$args" in
 		h|\?)                   # \? for illegal option
 			print_usage
@@ -288,6 +289,12 @@ while getopts ":habcCdeEfkmoqrstx" args; do # prefix-: no warning for illegal op
 		t)
 			echo "Time the startup of emacs..."
 			time emacs --debug-init -eval '(kill-emacs)'
+			exit 0
+			;;
+		u)
+			echo "update packages in CLI, only works for spacemacs..."
+			git -C ~/.emacs.d pull -v
+			emacs --batch -l ~/.emacs.d/init.el --eval="(configuration-layer/update-packages t)"
 			exit 0
 			;;
 		x)
