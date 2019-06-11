@@ -1039,9 +1039,6 @@ Version 2016-12-18"
    tab-width 4
    ;; for C++
    c-basic-offset 4
-   ;; DO NOT end a file with a newline, default is t(with newline)
-   ;; NOTE: it won't work if putting it in setq part, or setting require-final-newline
-   mode-require-final-newline nil
    )
   (add-hook 'emacs-lisp-mode-hook
             (lambda ()
