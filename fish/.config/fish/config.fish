@@ -590,7 +590,7 @@ end
 
 function fzfp -d 'check if fzf is existed, with any argument, fzf binary file will be upgraded'
     if command -sq fzf; and set -q $argv[1] # fzf is in $PATH, and no any argv is given, two conditions
-        echo "fzf is installed, use any extra to upgrade it!"
+        # echo "fzf is installed, use any extra to upgrade it!"
         return 0
     else
         # check internet connection
@@ -627,6 +627,7 @@ if test -e $Z_PATH/z.lua
 end
 function zp -d 'check exists of z.lua, with any given argument, update z.lua'
     if test -e $Z_PATH/z.lua; and set -q $argv[1] # z.lua file exists and no any argv is given, two conditions
+        # echo "z.lua is installed, use any extra to upgrade it!"
         return 0
     else
         if not curl https://raw.githubusercontent.com/skywind3000/z.lua/master/z.lua -o /tmp/z.lua
@@ -1292,7 +1293,7 @@ end
 
 function grvp -d 'check if grv exists, or without any argument, download the latest version'
     if command -sq grv; and set -q $argv[1] # grv is in $PATH, and no any argv is given, two conditions
-        echo "grv is installed, use any extra to upgrade it!"
+        # echo "grv is installed, use any extra to upgrade it!"
         return 0
     else
         # https://github.com/rgburke/grv/releases/download/v0.3.2/grv_v0.3.2_linux64
@@ -1315,7 +1316,7 @@ function grvp -d 'check if grv exists, or without any argument, download the lat
 end
 function sccp -d 'check if scc exists, or without any argument, download the latest version'
     if command -sq scc; and set -q $argv[1] # scc is in $PATH, and no any argv is given, two conditions
-        echo "scc is installed, use any extra to upgrade it!"
+        # echo "scc is installed, use any extra to upgrade it!"
         return 0
     else
         # https://github.com/boyter/scc/releases/download/v2.2.0/scc-2.2.0-x86_64-unknown-linux.zip

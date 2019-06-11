@@ -1,9 +1,20 @@
 # the default configuration file is https://github.com/jonas/tig/blob/master/tigrc
 
 # View Settings
-set main-view	= line-number:no,interval=5 id:yes date:default author:full commit-title:yes,graph,refs,overflow=no
-set main-view-date = custom
+set main-view             = line-number:no,interval=5 id:yes date:default author:full,width=0,maxwidth=10 commit-title:yes,graph,refs,overflow=no
+
+set main-view-date        = custom
 set main-view-date-format = "%Y-%m-%d %H:%M"
+set ignore-case           = yes
+set mouse = yes
+set mouse-scroll = 5
+
+
+
+bind generic E      !bash -c "vim ~/.tigrc"
+bind generic S view-stage
+bind status <Space> status-update # stage/unstage/track/untrack a file
+bind status u status-revert # revert changes in file
 
 #Commit
 bind generic C      !git commit
@@ -37,15 +48,6 @@ bind main    H      ?git reset --hard %(commit)
 bind diff    H      ?git reset --hard %(commit)
 bind refs    H      ?git reset --hard %(branch)
 bind status  H      ?git reset --hard HEAD
-
-# Branch view
-bind generic    b      view-refs
-
-# Branch view
-bind generic    B      view-blame
-
-# Refresh
-bind generic    r      refresh
 
 #Checkout
 bind main    =      ?git checkout %(branch)
