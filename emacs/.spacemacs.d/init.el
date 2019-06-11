@@ -55,7 +55,7 @@ This function should only modify configuration layer settings."
      python
      git
      helm
-     ;; replace multiple-cursors with symbol-overlay
+     ;; replace multiple-cursors with symbol-overlay(SPC s o)
      ;; multiple-cursors
      (org :variables
           org-want-todo-bindings t
@@ -877,6 +877,7 @@ Emacs session."
     "SN" 'flyspell-goto-next-error
     ;; correct the wrong word with prefix+i, next time auto-correct it, defined bellow
     "Ss" 'endless/ispell-word-then-abbrev
+    "SS" 'ispell-complete-word
     "xA" 'align-regexp
     "xaA" 'align-regexp
     "xaC" 'align-c-comments
@@ -1704,6 +1705,7 @@ background of code to whatever theme I'm using's background"
     ("a" hl-todo-insert "add")
     ("q" nil)
     )
+  (add-hook 'org-mode-hook 'hl-todo-mode)
   ;; spell checking
   ;; rewrite the default spell-checking transient state
   (spacemacs|define-transient-state ispell
