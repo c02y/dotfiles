@@ -1,28 +1,76 @@
 # the default configuration file is https://github.com/jonas/tig/blob/master/tigrc
 
-# View Settings
 set main-view             = line-number:no,interval=5 id:yes date:default author:full,width=0,maxwidth=10 commit-title:yes,graph,refs,overflow=no
-
 set main-view-date        = custom
 set main-view-date-format = "%Y-%m-%d %H:%M"
 set ignore-case           = yes
-set mouse = yes
-set mouse-scroll = 5
+set mouse                 = yes
+set mouse-scroll          = 5
+set diff-highlight        = true
+set refresh-mode          = auto # FIXME: not work
 
+# bindings priorities: view->generic->default
+bind generic    E    !bash -c "vim ~/.tigrc"
+bind generic    S    view-stage
+bind generic    g    none # disable single g
+bind generic    gs   view-grep
+bind generic    gp   !git pull
+bind generic    gP   !git pull %(remote)
+bind generic    gu   !git push
+bind generic    gU   !git push -u %(remote) %(repo:head)
+bind generic    gg   move-first-line
+bind generic    G    move-last-line
+bind generic    v    :source ~/.tigrc
+bind main       G    move-last-line # overwrite the default
+bind diff       [    :?^@@  # jump to the prev diff hunk
 
+bind status     c    >git commit
+bind stash      c    >git commit
+bind generic    +    ?>git commit --amend
 
-bind generic E      !bash -c "vim ~/.tigrc"
-bind generic S view-stage
-bind status <Space> status-update # stage/unstage/track/untrack a file
-bind status u status-revert # revert changes in file
+# NOTE: the ignore here only works for new untrcked files
+bind status     i    !>sh -c "echo '%(file)'>>.gitignore" # ignore files
+bind stage      i    !>sh -c "echo '%(file)'>>.gitignore" # ignore files
+
+bind status     <Space>    status-update # stage/unstage/track/untrack a file
+bind status     u          status-revert # revert changes in file
+
+bind stage      <Space>    status-update # stage/unstage/track/untrack a file
+bind stage      u          status-revert # revert changes in file
+bind stage      <Ctrl-f>   scroll-page-down
+bind stage      <Ctrl-b>   scroll-page-up
+
+bind diff       <Ctrl-f>   scroll-page-down
+bind diff       <Ctrl-b>   scroll-page-up
+
+bind generic    gS   ?>git stash
+bind stash      p    ?>git stash pop %(stash)
+bind stash      d    ?>git stash drop %(stash)
+
+bind generic    c    none # disable single c
+bind generic    cb   ?git checkout -b "%(prompt Enter new branch name: )"
+bind refs       cc   ?git checkout %(branch)
+
+bind diff       [    :?^@@  # jump to the prev diff hunk
+bind diff       ]    :/^@@  # jump to the next diff hunk
+bind diff       <LessThan> :?^diff --(git|cc) # jump to the prev diff header
+bind diff       >    :/^diff --(git|cc) # jump to the next diff header
+bind diff       {    :toggle diff-context -1	# Decrease the diff context
+bind diff       }    :toggle diff-context +1	# Increase the diff context
+
+bind stage      [    :?^@@  # jump to the prev diff hunk
+bind stage      ]    :/^@@  # jump to the next diff hunk
+bind stage      <LessThan> :?^diff --(git|cc) # jump to the prev diff header
+bind stage      >    :/^diff --(git|cc) # jump to the next diff header
+bind stage      {    :toggle diff-context -1	# Decrease the diff context
+bind stage      }    :toggle diff-context +1	# Increase the diff context
+
 
 #Commit
-bind generic C      !git commit
-bind refs    C      !git commit
-bind main    C      !git commit
+# bind generic C      !git commit
+# bind refs    C      !git commit
+# bind main    C      !git commit
 bind generic <Esc>u !git add -p %(file)
-bind generic <Esc>c !git commit --allow-empty
-bind generic +      !git commit --amend --allow-empty
 
 #Push
 bind generic P      ?git push -u %(remote) %(repo:head)
@@ -63,11 +111,11 @@ bind main    <Esc>m ?git merge %(commit)
 bind diff    <Esc>m ?git merge %(commit)
 
 #Rebase
-bind main    R      ?git rebase %(branch)
-bind diff    R      ?git rebase %(branch)
-bind refs    R      ?git rebase %(branch)
-bind main    <Esc>r ?git rebase %(commit)
-bind diff    <Esc>r ?git rebase %(commit)
+# bind main    R      ?git rebase %(branch)
+# bind diff    R      ?git rebase %(branch)
+# bind refs    R      ?git rebase %(branch)
+# bind main    <Esc>r ?git rebase %(commit)
+# bind diff    <Esc>r ?git rebase %(commit)
 
 #Rebase -i
 bind main    I      ?git rebase -i %(branch)
@@ -93,12 +141,3 @@ bind diff    w      @hub browse -- compare/%(branch)?expand=1
 
 #diff
 bind refs    w      @hub browse -- compare/%(branch)?expand=1
-set diff-highlight = true
-
-#Refresh
-#set refresh-mode = auto
-set refresh-mode = periodic
-set refresh-interval = 5
-
-#Stash
-bind generic <Esc>s !git stash
