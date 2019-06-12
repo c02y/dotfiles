@@ -34,6 +34,7 @@ bind generic    +    ?>git commit --verbose --amend
 # NOTE: the ignore here only works for new untrcked files
 bind status     i    !>sh -c "echo '%(file)'>>.gitignore" # ignore files
 bind stage      i    !>sh -c "echo '%(file)'>>.gitignore" # ignore files
+bind status     D    ?>sh -c "rm -rfv %(file)"
 
 bind status     <Space>    status-update # stage/unstage/track/untrack a file
 bind status     u          status-revert # revert changes in file
