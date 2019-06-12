@@ -629,6 +629,9 @@ before packages are loaded."
    ;; show-trailing-whitespace t
    ;; change the major mode of any file without extension to org-mode instead of fundamental-mode
    major-mode 'org-mode)
+  ;; disable loading the default theme for terminal emacs
+  (unless (display-graphic-p)
+    (disable-theme 'spacemacs-dark))
   (setq
    ;; open a link not prompt yes/no
    vc-follow-symlinks t
@@ -1007,18 +1010,6 @@ Version 2016-12-18"
                ("M-x" . spacemacs/helm-navigation-transient-state/body))
     )
 
-  ;; for terminal emacs, change theme in the configuration of the terminal, such as solarized-dark
-  ;; if it doesn't work, comment out the following lines
-  ;; (when (not window-system)
-  ;;   (progn
-  ;;     ;; change the color or current highlighted line
-  ;;     (set-face-background 'hl-line "839496")
-  ;;     ;; change the color of selected item in helm list
-  ;;     (set-face-background 'region "black")
-  ;;     (set-face-attribute 'region nil :background "#666")
-  ;;     (with-eval-after-load 'helm
-  ;;       (set-face-background 'helm-selection "839496"))
-  ;;     ))
   ;; whitespace faces
   (with-eval-after-load 'whitespace
     (set-face-attribute 'whitespace-space-after-tab nil :background "red" :foreground "yellow")
