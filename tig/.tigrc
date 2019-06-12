@@ -7,7 +7,8 @@ set ignore-case           = yes
 set mouse                 = yes
 set mouse-scroll          = 5
 set diff-highlight        = true
-set refresh-mode          = auto # FIXME: not work
+set refresh-mode          = periodic
+set refresh-interval      = 3
 
 # bindings priorities: view->generic->default
 bind generic    E    !>sh -c "vim ~/.tigrc"
@@ -23,6 +24,8 @@ bind generic    G    move-last-line
 bind generic    v    :source ~/.tigrc
 bind main       G    move-last-line # overwrite the default
 bind diff       [    :?^@@  # jump to the prev diff hunk
+bind generic    <Ctrl-f>   scroll-page-down
+bind generic    <Ctrl-b>   scroll-page-up
 
 bind status     c    >git commit --verbose
 bind stash      c    >git commit --verbose
@@ -38,12 +41,7 @@ bind status     C          ?>git checkout -- %(file) # delete changes on files i
 
 bind stage      <Space>    status-update # stage/unstage/track/untrack a file
 bind stage      u          status-revert # revert changes in file
-bind stage      <Ctrl-f>   scroll-page-down
-bind stage      <Ctrl-b>   scroll-page-up
 bind stage      C          ?>git checkout -- %(file) # delete changes on files in unstaged status
-
-bind diff       <Ctrl-f>   scroll-page-down
-bind diff       <Ctrl-b>   scroll-page-up
 
 bind generic    gS   ?>git stash
 bind stash      p    ?>git stash pop %(stash)
@@ -57,15 +55,15 @@ bind diff       [    :?^@@  # jump to the prev diff hunk
 bind diff       ]    :/^@@  # jump to the next diff hunk
 bind diff       <LessThan> :?^diff --(git|cc) # jump to the prev diff header
 bind diff       >    :/^diff --(git|cc) # jump to the next diff header
-bind diff       {    :toggle diff-context -1	# Decrease the diff context
-bind diff       }    :toggle diff-context +1	# Increase the diff context
+bind diff       {    :toggle diff-context -1  # Decrease the diff context
+bind diff       }    :toggle diff-context +1  # Increase the diff context
 
 bind stage      [    :?^@@  # jump to the prev diff hunk
 bind stage      ]    :/^@@  # jump to the next diff hunk
 bind stage      <LessThan> :?^diff --(git|cc) # jump to the prev diff header
 bind stage      >    :/^diff --(git|cc) # jump to the next diff header
-bind stage      {    :toggle diff-context -1	# Decrease the diff context
-bind stage      }    :toggle diff-context +1	# Increase the diff context
+bind stage      {    :toggle diff-context -1  # Decrease the diff context
+bind stage      }    :toggle diff-context +1  # Increase the diff context
 
 
 #Commit
