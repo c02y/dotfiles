@@ -45,4 +45,4 @@ while getopts ":nl" args; do
 done
 
 # attach a session if it exists, it failed, tmux a new one, if failed, echo message
-tmux attach 2>/dev/null || tmux -2 2>/dev/null || echo "Already inside a tmux session!"
+tmux -2 attach 2>/dev/null || tmux -2 2>/dev/null || echo "Already inside a tmux session!"
