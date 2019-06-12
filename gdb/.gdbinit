@@ -5,11 +5,9 @@ python
 # https://github.com/cyrus-and/gdb-dashboard
 
 import ast
-import fcntl
 import os
 import re
 import struct
-import termios
 import traceback
 import math
 
@@ -34,8 +32,18 @@ The list of all the available styles can be obtained with (from GDB itself):
     python from pygments.styles import get_all_styles as styles
     python for s in styles(): print(s)
 """,
-                'default': 'vim',
-                'type': str
+                'default': 'vim'
+            },
+            # values formatting
+            'compact_values': {
+                'doc': 'Display complex objects in a single line.',
+                'default': False,
+                'type': bool
+            },
+            'max_value_length': {
+                'doc': 'Maximum length for displayed values.',
+                'default': 0,
+                'type': int
             },
             # prompt
             'prompt': {
@@ -183,23 +191,35 @@ def to_string(value):
         value_string = str(value)
     except UnicodeEncodeError:
         value_string = unicode(value).encode('utf8')
+    except gdb.error as e:
+        value_string = ansi(e, R.style_error)
     return value_string
 
 def format_address(address):
     pointer_size = gdb.parse_and_eval('$pc').type.sizeof
     return ('0x{{:0{}x}}').format(pointer_size * 2).format(address)
 
-def format_value(value):
+def format_value(value, compact=None):
     # format references as referenced values
     # (TYPE_CODE_RVALUE_REF is not supported by old GDB)
     if value.type.code in (getattr(gdb, 'TYPE_CODE_REF', None),
                            getattr(gdb, 'TYPE_CODE_RVALUE_REF', None)):
         try:
-            return to_string(value.referenced_value())
+            out = to_string(value.referenced_value())
         except gdb.MemoryError:
-            return to_string(value)
+            out = to_string(value)
     else:
-        return to_string(value)
+        try:
+            out = to_string(value)
+        except gdb.MemoryError as e:
+            return ansi(e, R.style_error)
+    # compact the value
+    if compact is not None and compact or R.compact_values:
+        out = re.sub(r'$\s*', '', out, flags=re.MULTILINE)
+    # truncate the value
+    if R.max_value_length > 0 and len(out) > R.max_value_length:
+        out = out[0:R.max_value_length] + ansi('[...]', R.style_error)
+    return out
 
 class Beautifier():
     def __init__(self, filename, tab_size=4):
@@ -209,11 +229,11 @@ class Beautifier():
             return
         # attempt to set up Pygments
         try:
-            import pygments.lexers
-            import pygments.formatters
-            formatter_class = pygments.formatters.Terminal256Formatter
-            self.formatter = formatter_class(style=R.syntax_highlighting)
-            self.lexer = pygments.lexers.get_lexer_for_filename(filename)
+            import pygments
+            from pygments.lexers import get_lexer_for_filename
+            from pygments.formatters import Terminal256Formatter
+            self.formatter = Terminal256Formatter(style=R.syntax_highlighting)
+            self.lexer = get_lexer_for_filename(filename, stripnl=False)
             self.active = True
         except ImportError:
             # Pygments not available
@@ -320,15 +340,20 @@ class Dashboard(gdb.Command):
 
     def render(self, clear_screen, style_changed=False):
         # fetch module content and info
+        all_disabled = True
         display_map = dict()
         for module in self.modules:
-            if not module.enabled:
-                continue
             # fall back to the global value
             output = module.output or self.output
-            display_map.setdefault(output, []).append(module.instance)
+            # add the instance or None if disabled
+            if module.enabled:
+                all_disabled = False
+                instance = module.instance
+            else:
+                instance = None
+            display_map.setdefault(output, []).append(instance)
         # notify the user if the output is empty, on the main terminal
-        if not display_map:
+        if all_disabled:
             # write the error message
             width = Dashboard.get_term_width()
             gdb.write(divider(width, 'Error', True))
@@ -342,7 +367,7 @@ class Dashboard(gdb.Command):
             gdb.write(divider(width, primary=True))
             gdb.write('\n')
             gdb.flush()
-            return
+            # continue to allow separate terminals to update
         # process each display info
         for output, instances in display_map.items():
             try:
@@ -355,7 +380,7 @@ class Dashboard(gdb.Command):
                     fs.write(Dashboard.hide_cursor())
                 else:
                     fs = gdb
-                    fd = 1
+                    fd = 1  # stdout
                 # get the terminal width (default main terminal if either
                 # the output is not a file)
                 try:
@@ -366,10 +391,23 @@ class Dashboard(gdb.Command):
                 # auxiliary terminals are always cleared
                 if fs is not gdb or clear_screen:
                     fs.write(Dashboard.clear_screen())
+                # show message in separate terminals if all the modules are
+                # disabled
+                if output != self.output and not any(instances):
+                    fs.write('--- NO MODULE TO DISPLAY ---\n')
+                    continue
                 # process all the modules for that output
                 for n, instance in enumerate(instances, 1):
-                    # ask the module to generate the content
-                    lines = instance.lines(width, style_changed)
+                    # skip disabled modules
+                    if not instance:
+                        continue
+                    try:
+                        # ask the module to generate the content
+                        lines = instance.lines(width, style_changed)
+                    except Exception as e:
+                        # allow to continue on exceptions in modules
+                        stacktrace = traceback.format_exc().strip()
+                        lines = [ansi(stacktrace, R.style_error)]
                     # create the divider accordingly
                     div = divider(width, instance.label(), True, lines)
                     # write the data
@@ -378,8 +416,9 @@ class Dashboard(gdb.Command):
                     if n != len(instances) or fs is gdb:
                         fs.write('\n')
                 # write the final newline and the terminator only if it is the
-                # main terminal to allow the prompt to display correctly
-                if fs is gdb:
+                # main terminal to allow the prompt to display correctly (unless
+                # there are no modules to display)
+                if fs is gdb and not all_disabled:
                     fs.write(divider(width, primary=True))
                     fs.write('\n')
                 fs.flush()
@@ -388,7 +427,7 @@ class Dashboard(gdb.Command):
                 Dashboard.err('Cannot write the dashboard\n{}'.format(cause))
             finally:
                 # don't close gdb stream
-                if fs is not gdb:
+                if fs and fs is not gdb:
                     fs.close()
 
 # Utility methods --------------------------------------------------------------
@@ -411,10 +450,22 @@ class Dashboard(gdb.Command):
 
     @staticmethod
     def get_term_width(fd=1):  # defaults to the main terminal
-        # first 2 shorts (4 byte) of struct winsize
-        raw = fcntl.ioctl(fd, termios.TIOCGWINSZ, ' ' * 4)
-        height, width = struct.unpack('hh', raw)
-        return int(width)
+        if sys.platform == 'win32':
+            try:
+                import curses
+                # XXX always neglects the fd parameter
+                _, width = curses.initscr().getmaxyx()
+                curses.endwin()
+                return int(width)
+            except ImportError:
+                return 80  # hardcoded fallback value
+        else:
+            import termios
+            import fcntl
+            # first 2 shorts (4 byte) of struct winsize
+            raw = fcntl.ioctl(fd, termios.TIOCGWINSZ, ' ' * 4)
+            _, width = struct.unpack('hh', raw)
+            return int(width)
 
     @staticmethod
     def set_custom_prompt(dashboard):
@@ -646,6 +697,18 @@ dashboard will be printed."""
 
         def invoke(self, arg, from_tty):
             arg = Dashboard.parse_arg(arg)
+            # display a message in a separate terminal if released (note that
+            # the check if this is the last module to use the output is not
+            # performed since if that's not the case the message will be
+            # overwritten)
+            if self.obj.output:
+                try:
+                    with open(self.obj.output, 'w') as fs:
+                        fs.write(Dashboard.clear_screen())
+                        fs.write('--- RELEASED ---\n')
+                except:
+                    # just do nothing if the file is not writable
+                    pass
             # set or open the output file
             if arg == '':
                 self.obj.output = None
@@ -950,7 +1013,11 @@ instructions constituting the current statement are marked, if available."""
             # if it is not possible (stripped binary or the PC is not present in
             # the output of `disassemble` as per issue #31) start from PC and
             # end after twice the context
-            asm = disassemble(frame.pc(), count=2 * self.context + 1)
+            try:
+                asm = disassemble(frame.pc(), count=2 * self.context + 1)
+            except gdb.error as e:
+                msg = '{}'.format(e)
+                return [ansi(msg, R.style_error)]
         # fetch function start if available
         func_start = None
         if self.show_function and frame.name():
@@ -1000,18 +1067,19 @@ instructions constituting the current statement are marked, if available."""
                 if func_start:
                     offset = '{:+d}'.format(addr - func_start)
                     offset = offset.ljust(max_offset + 1)  # sign
-                    func_info = '{}{} '.format(frame.name(), offset)
+                    func_info = '{}{}'.format(frame.name(), offset)
                 else:
-                    func_info = '? '
+                    func_info = '?'
             else:
                 func_info = ''
             format_string = '{}{}{}{}{}'
             indicator = ' '
-            text = highlighter.process(text)
+            text = ' ' + highlighter.process(text)
             if addr == frame.pc():
                 if not R.ansi:
                     indicator = '>'
                 addr_str = ansi(addr_str, R.style_selected_1)
+                indicator = ansi(indicator, R.style_selected_1)
                 opcodes = ansi(opcodes, R.style_selected_1)
                 func_info = ansi(func_info, R.style_selected_1)
                 if not highlighter.active:
@@ -1020,6 +1088,7 @@ instructions constituting the current statement are marked, if available."""
                 if not R.ansi:
                     indicator = ':'
                 addr_str = ansi(addr_str, R.style_selected_2)
+                indicator = ansi(indicator, R.style_selected_2)
                 opcodes = ansi(opcodes, R.style_selected_2)
                 func_info = ansi(func_info, R.style_selected_2)
                 if not highlighter.active:
@@ -1088,16 +1157,14 @@ location, if available. Optionally list the frame arguments and locals too."""
             # fetch frame arguments and locals
             decorator = gdb.FrameDecorator.FrameDecorator(frame)
             separator = ansi(', ', R.style_low)
-            strip_newlines = re.compile(r'$\s*', re.MULTILINE)
             if self.show_arguments:
                 def prefix(line):
                     return Stack.format_line('arg', line)
                 frame_args = decorator.frame_args()
-                args_lines = Stack.fetch_frame_info(frame, frame_args)
+                args_lines = self.fetch_frame_info(frame, frame_args)
                 if args_lines:
                     if self.compact:
                         args_line = separator.join(args_lines)
-                        args_line = strip_newlines.sub('', args_line)
                         single_line = prefix(args_line)
                         frame_lines.append(single_line)
                     else:
@@ -1108,11 +1175,10 @@ location, if available. Optionally list the frame arguments and locals too."""
                 def prefix(line):
                     return Stack.format_line('loc', line)
                 frame_locals = decorator.frame_locals()
-                locals_lines = Stack.fetch_frame_info(frame, frame_locals)
+                locals_lines = self.fetch_frame_info(frame, frame_locals)
                 if locals_lines:
                     if self.compact:
                         locals_line = separator.join(locals_lines)
-                        locals_line = strip_newlines.sub('', locals_line)
                         single_line = prefix(locals_line)
                         frame_lines.append(single_line)
                     else:
@@ -1139,20 +1205,19 @@ location, if available. Optionally list the frame arguments and locals too."""
             lines.append('[{}]'.format(ansi('+', R.style_selected_2)))
         return lines
 
-    @staticmethod
-    def format_line(prefix, line):
-        prefix = ansi(prefix, R.style_low)
-        return '{} {}'.format(prefix, line)
-
-    @staticmethod
-    def fetch_frame_info(frame, data):
+    def fetch_frame_info(self, frame, data):
         lines = []
         for elem in data or []:
             name = elem.sym
             equal = ansi('=', R.style_low)
-            value = format_value(elem.sym.value(frame))
+            value = format_value(elem.sym.value(frame), self.compact)
             lines.append('{} {} {}'.format(name, equal, value))
         return lines
+
+    @staticmethod
+    def format_line(prefix, line):
+        prefix = ansi(prefix, R.style_low)
+        return '{} {}'.format(prefix, line)
 
     @staticmethod
     def get_pc_line(frame, style):
@@ -1241,6 +1306,61 @@ class History(Dashboard.Module):
 class Memory(Dashboard.Module):
     """Allow to inspect memory regions."""
 
+    class Region():
+        def __init__(self, address, length, module):
+            self.address = address
+            self.length = length
+            self.module = module
+            self.original = None
+            self.latest = None
+
+        def format(self):
+            # fetch the memory content
+            try:
+                inferior = gdb.selected_inferior()
+                memory = inferior.read_memory(self.address, self.length)
+                # set the original memory snapshot if needed
+                if not self.original:
+                    self.original = memory
+            except gdb.error:
+                msg = 'Cannot access {} bytes starting at {}'
+                msg = msg.format(self.length, format_address(self.address))
+                return [ansi(msg, R.style_error)]
+
+            # format the memory content
+            out = []
+            for i in range(0, len(memory), self.module.row_length):
+                region = memory[i:i + self.module.row_length]
+                pad = self.module.row_length - len(region)
+                address = format_address(self.address + i)
+                # compute changes
+                hexa = []
+                text = []
+                for j in range(len(region)):
+                    rel = i + j
+                    byte = memory[rel]
+                    hexa_byte = '{:02x}'.format(ord(byte))
+                    text_byte = Memory.format_byte(byte)
+                    # differences against the latest have the highest priority
+                    if self.latest and memory[rel] != self.latest[rel]:
+                        hexa_byte = ansi(hexa_byte, R.style_selected_1)
+                        text_byte = ansi(text_byte, R.style_selected_1)
+                    # cumulative changes if enabled
+                    elif (self.module.cumulative and
+                          memory[rel] != self.original[rel]):
+                        hexa_byte = ansi(hexa_byte, R.style_selected_2)
+                        text_byte = ansi(text_byte, R.style_selected_2)
+                    hexa.append(hexa_byte)
+                    text.append(text_byte)
+                # output the formatted line
+                out.append('{} {}{} {}{}'.format(
+                    ansi(address, R.style_low),
+                    ' '.join(hexa), ansi(pad * ' --', R.style_low),
+                    ''.join(text), ansi(pad * '.', R.style_low)))
+            # update the latest memory snapshot
+            self.latest = memory
+            return out
+
     @staticmethod
     def format_byte(byte):
         # `type(byte) is bytes` in Python 3
@@ -1260,35 +1380,13 @@ class Memory(Dashboard.Module):
         self.row_length = 16
         self.table = {}
 
-    def format_memory(self, start, memory):
-        out = []
-        for i in range(0, len(memory), self.row_length):
-            region = memory[i:i + self.row_length]
-            pad = self.row_length - len(region)
-            address = format_address(start + i)
-            hexa = (' '.join('{:02x}'.format(ord(byte)) for byte in region))
-            text = (''.join(Memory.format_byte(byte) for byte in region))
-            out.append('{} {}{} {}{}'.format(ansi(address, R.style_low),
-                                             hexa,
-                                             ansi(pad * ' --', R.style_low),
-                                             ansi(text, R.style_high),
-                                             ansi(pad * '.', R.style_low)))
-        return out
-
     def label(self):
         return 'Memory'
 
     def lines(self, term_width, style_changed):
         out = []
-        inferior = gdb.selected_inferior()
-        for address, length in sorted(self.table.items()):
-            try:
-                memory = inferior.read_memory(address, length)
-                out.extend(self.format_memory(address, memory))
-            except gdb.error:
-                msg = 'Cannot access {} bytes starting at {}'
-                msg = msg.format(length, format_address(address))
-                out.append(ansi(msg, R.style_error))
+        for address, region in sorted(self.table.items()):
+            out.extend(region.format())
             out.append(divider(term_width))
         # drop last divider
         if out:
@@ -1303,7 +1401,7 @@ class Memory(Dashboard.Module):
                 length = Memory.parse_as_address(length)
             else:
                 length = self.row_length
-            self.table[address] = length
+            self.table[address] = Memory.Region(address, length, self)
         else:
             raise Exception('Specify an address')
 
@@ -1335,6 +1433,15 @@ class Memory(Dashboard.Module):
             'clear': {
                 'action': self.clear,
                 'doc': 'Clear all the watched regions.'
+            }
+        }
+
+    def attributes(self):
+        return {
+            'cumulative': {
+                'doc': 'Highlight changes cumulatively, watch again to reset.',
+                'default': False,
+                'type': bool
             }
         }
 
@@ -1701,7 +1808,7 @@ end
 python Dashboard.start()
 
 # ------------------------------------------------------------------------------
-# Copyright (c) 2015-2017 Andrea Cardaci <cyrus.and@gmail.com>
+# Copyright (c) 2015-2019 Andrea Cardaci <cyrus.and@gmail.com>
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
