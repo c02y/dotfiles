@@ -24,9 +24,9 @@ bind generic    v    :source ~/.tigrc
 bind main       G    move-last-line # overwrite the default
 bind diff       [    :?^@@  # jump to the prev diff hunk
 
-bind status     c    >git commit
-bind stash      c    >git commit
-bind generic    +    ?>git commit --amend
+bind status     c    >git commit --verbose
+bind stash      c    >git commit --verbose
+bind generic    +    ?>git commit --verbose --amend
 
 # NOTE: the ignore here only works for new untrcked files
 bind status     i    !>sh -c "echo '%(file)'>>.gitignore" # ignore files
