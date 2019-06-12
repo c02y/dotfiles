@@ -518,7 +518,7 @@ https://github.com/syl20bnr/spacemacs/issues/12346"
          :priority 100)
         (anzu :priority 95)
         auto-compile
-        ((buffer-modified buffer-size buffer-id remote-host)
+        ((buffer-modified buffer-id remote-host line-column buffer-position)
          :priority 98)
         (major-mode :priority 79)
         (process :when active)
@@ -543,12 +543,15 @@ https://github.com/syl20bnr/spacemacs/issues/12346"
         input-method
         ((buffer-encoding-abbrev
           point-position
-          line-column)
+          ;; line-column
+          )
          :separator " | "
          :priority 96)
         (global :when active)
-        (buffer-position :priority 99)
-        (hud :priority 99)))
+        ;; (buffer-position :priority 99)
+        (buffer-size :priority 99)
+        ;; (hud :priority 99)
+        ))
     (setq-default mode-line-format '("%e" (:eval (spaceline-ml-main)))))
 
   ;; spell checking
