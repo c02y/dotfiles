@@ -1182,6 +1182,7 @@ abbr gitcl 'git config -l'
 abbr gitcp 'git checkout HEAD^1' # git checkout previous/old commit
 abbr gitcn 'git log --reverse --pretty=%H master | grep -A 1 (git rev-parse HEAD) | tail -n1 | xargs git checkout' # git checkout next/new commit
 abbr gitcm 'git commit -m'
+abbr gitcma 'git commit -amend -m'
 abbr gitt 'git tag'
 abbr gitft 'git ls-files --error-unmatch' # Check if file/dir is git-tracked
 function gitc -d 'git clone and cd into it'
