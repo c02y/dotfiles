@@ -1166,8 +1166,7 @@ abbr emtime "time emacs --debug-init -eval '(kill-emacs)'" # time emacs startup 
 abbr lic 'wget -q http://www.gnu.org/licenses/gpl.txt -O LICENSE'
 
 # git
-abbr gg 'grv'
-abbr lg 'lazygit'
+abbr gg 'tig'
 abbr gits 'git status' # gs is original Ghostscript app
 abbr gitpl 'git pull -v'
 abbr gitpu 'git push -v'
@@ -1925,7 +1924,7 @@ end
 # conda config --add channels your_new_channel, or these packages won't be updateed when `condau`
 #
 # The packages needed to be installed using conda are(only if you have no sudo permission or the offcial is old)
-# conda install -c conda-forge ncurses emacs w3m fish the_silver_searcher source-highlight tmux lazygit
+# conda install -c conda-forge ncurses emacs w3m fish the_silver_searcher source-highlight tmux
 # conda install -c lebedov tig
 abbr condas 'binstar search -t conda' # [packagename]
 abbr condai 'conda install -c' # [channel] [packagename]
