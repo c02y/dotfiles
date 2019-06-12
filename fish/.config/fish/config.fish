@@ -172,10 +172,10 @@ function tk -d 'tmux kill-session all(default)/single(id)/multiple(id1 id2)/exce
     if set -q $argv[1] # no arguments
         if set -q TMUX_PANE # check if running inside a tmux session
             echo Inside a tmux session!
-            read -n 1 -l -p 'echo "Kill all sessions include current running one? [y/N]"' answer
-            if test "$answer" = "y"
-                echo tmux kill-server        # kill all sessions include current one
-            end
+        end
+        read -n 1 -l -p 'echo "Kill all sessions? [y/N]"' answer
+        if test "$answer" = "y"
+            tmux kill-server        # kill all sessions
         end
         return
     end
