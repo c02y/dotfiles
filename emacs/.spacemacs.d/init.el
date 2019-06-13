@@ -891,6 +891,10 @@ Emacs session."
     "hh" 'lazy-helm/helm-apropos
     "hc" 'lazy-helm/helm-colors
     "hC" 'lazy-helm/spacemacs/helm-faces
+    "hv" 'lazy-helm/describe-variable
+    ;; overwrite the default SPC h f
+    "hf" 'lazy-helm/describe-function
+    "hb" 'lazy-helm/describe-bindings
     "nn" 'narrow-or-widen-dwim
     )
 
