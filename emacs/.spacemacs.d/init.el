@@ -896,6 +896,9 @@ Emacs session."
     "hf" 'lazy-helm/describe-function
     "hb" 'lazy-helm/describe-bindings
     "nn" 'narrow-or-widen-dwim
+    ;; overwrite the default SPC w -//
+    "w-" 'split-window-below-next-buffer
+    "w/" 'split-window-right-next-buffer
     )
 
   (defun revert-buffer-without-asking()
@@ -1838,6 +1841,20 @@ With prefix P, don't widen, just narrow even if buffer is already narrowed. "
                  (t (org-narrow-to-subtree))))
           (t (narrow-to-defun))))
 
+  (defun split-window-right-next-buffer ()
+    "Split the current window right, and switch the new window and load the next buffer in it."
+    (interactive)
+    (split-window-horizontally)
+    (other-window 1 nil)
+    (switch-to-next-buffer)
+    )
+  (defun split-window-below-next-buffer ()
+    "Split the current window below, and switch the new window and load the next buffer in it."
+    (interactive)
+    (split-window-vertically)
+    (other-window 1 nil)
+    (switch-to-next-buffer)
+    )
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
