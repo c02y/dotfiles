@@ -301,6 +301,8 @@ while getopts ":habcCdeEfkmopqrstux" args; do # prefix-: no warning for illegal 
 			echo "update packages in CLI, only works for spacemacs..."
 			git -C ~/.emacs.d pull -v
 			emacs --batch -l ~/.emacs.d/init.el --eval="(configuration-layer/update-packages t)"
+			echo
+			echo "!!!You may need to do it again, since some packages may be deleted!!!"
 			exit 0
 			;;
 		x)
