@@ -40,6 +40,7 @@ Usage: $(basename $0)
 	   -k to kill emacs daemon
 	   -m [repo] to start magit in a repo, default is ./
 	   -o [org_file] to start orgmode for a file, default is ~/Org/todo.org
+	   -p profile emacs(startup time, cpu and mem)
 	   -q to start emacs -q --no-splash
 	   -r to restart emacs daemon and start a emacsclient
 	   -s to switch between spacemacs and vanilla emacs
@@ -211,7 +212,7 @@ else
 	flag_systemctl=0
 fi
 
-while getopts ":habcCdeEfkmoqrstux" args; do # prefix-: no warning for illegal option
+while getopts ":habcCdeEfkmopqrstux" args; do # prefix-: no warning for illegal option
 	case "$args" in
 		h|\?)                   # \? for illegal option
 			print_usage
@@ -273,6 +274,11 @@ while getopts ":habcCdeEfkmoqrstux" args; do # prefix-: no warning for illegal o
 				file="$HOME/Org/todo.org"
 			fi
 			cmd="$file"
+			;;
+		p)
+			echo "Profile emacs, startup time, cpu and mem..."
+			emacs --debug-init --timed-requires --profile >/dev/null 2>&1
+			exit 0
 			;;
 		q)
 			echo "Start emacs -q --no-splash..."
