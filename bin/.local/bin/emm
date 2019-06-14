@@ -43,9 +43,9 @@ Usage: $(basename $0)
 	   -p profile emacs(startup time, cpu and mem)
 	   -q to start emacs -q --no-splash
 	   -r to restart emacs daemon and start a emacsclient
-	   -s to switch between spacemacs and vanilla emacs
+	   -s to switch between Spacemacs and Vanilla emacs
 	   -t to time the startup of emacs
-	   -u update all packages, only works for spacemacs
+	   -u update all packages, only works for Spacemacs
 	   -x to start emacsclient in terminal even inside GUI DE
 EOF
 	exit 0
@@ -201,7 +201,7 @@ start_magit()
 repo="."
 file="$HOME/.emacs.d/init.el"
 cmd=
-flag_s=0 # switch between spacemacs and vanilla emacs
+flag_s=0 # switch between Spacemacs and Vanilla emacs
 flag_x=0 # start emacsclient in terminal even inside GUI DE
 
 # even if systemctl command exists, `systemctl --user` may not work
@@ -298,7 +298,7 @@ while getopts ":habcCdeEfkmopqrstux" args; do # prefix-: no warning for illegal 
 			exit 0
 			;;
 		u)
-			echo "update packages in CLI, only works for spacemacs..."
+			echo "update packages in CLI, only works for Spacemacs..."
 			git -C ~/.emacs.d pull -v
 			emacs --batch -l ~/.emacs.d/init.el --eval="(configuration-layer/update-packages t)"
 			echo
@@ -313,11 +313,11 @@ done
 shift $((OPTIND -1))            # remove options that have already been handled from $@
 
 if [ "$flag_s" -eq 1 ]; then
-	echo "Switch between spacemacs and vanilla emacs..."
+	echo "Switch between Spacemacs and Vanilla emacs..."
 	if [ -d ~/.emacs.d/core ]; then # check if directory exists
 		# -e in read - add newline after the the type in prompt, to avoid echo string after the prompt
 		# unnecessary to add an empty echo
-		read -e -n 1 -p "Currently using spacemacs, switch to vanilla emacs? [Y/n]: "
+		read -e -n 1 -p "Currently using Spacemacs, switch to Vanilla emacs? [Y/SPC/n]: "
 		if [ "$REPLY" == "y" ] || [ "$REPLY" == " " ]; then
 			if [ -d ~/se.emacs.d ]; then
 				echo "$HOME/se.emacs.d already exists, exit!"
@@ -327,7 +327,7 @@ if [ "$flag_s" -eq 1 ]; then
 			if [ -d ~/ve.emacs.d ]; then
 				mv -vi ~/ve.emacs.d ~/.emacs.d
 			else
-				echo "bak directory of vanilla emacs(~/ve.emacs.d) doesn't exist, exit!"
+				echo "bak directory of Vanilla emacs(~/ve.emacs.d) doesn't exist, exit!"
 				exit 1
 			fi
 		else
@@ -335,7 +335,7 @@ if [ "$flag_s" -eq 1 ]; then
 			exit 0
 		fi
 	elif [ -d ~/.emacs.d/lisp ]; then
-		read -e -n 1 -p "Currently using vanilla emacs, switch to spacemacs? [Y/n]: "
+		read -e -n 1 -p "Currently using Vanilla emacs, switch to Spacemacs? [Y/SPC/n]: "
 		if [ "$REPLY" == "y" ] || [ "$REPLY" == " " ]; then
 			if [ -d ~/ve.emacs.d ]; then
 				echo "$HOME/ve.emacs.d already exists, exit!"
@@ -345,7 +345,7 @@ if [ "$flag_s" -eq 1 ]; then
 			if [ -d ~/se.emacs.d ]; then
 				mv -vi ~/se.emacs.d ~/.emacs.d
 			else
-				echo "bak directory of spacemacs(~/se.emacs.d) doesn't exist, exit!"
+				echo "bak directory of Spacemacs(~/se.emacs.d) doesn't exist, exit!"
 				exit 1
 			fi
 		else
@@ -353,14 +353,21 @@ if [ "$flag_s" -eq 1 ]; then
 			exit 0
 		fi
 	else
-		echo "Both directories of spacemacs and vanilla emacs do not exist, exit!"
+		echo "Both directories of Spacemacs and Vanilla emacs do not exist, exit!"
 		exit 1
 	fi
 	if [ -d ~/.emacs.d/lisp ]; then # start emacs directly without daemon
 		emacs $@
 		exit
+	elif [ -d ~/.emacs.d/core ]; then # ask if start Spacemacs
+		read -e -n 1 -p "Opening Spacemacs? [Y/SPC/n]: "
+		if [ "$REPLY" == "y" ] || [ "$REPLY" == " " ]; then
+			echo "Starting Spacemacs..."
+		else
+			echo "Cancel and exit!"
+			exit
+		fi
 	fi
-	# else like normal emm command
 fi
 
 if [ "$flag_x" -eq 1 ]; then
