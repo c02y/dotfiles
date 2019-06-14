@@ -88,8 +88,9 @@ This function should only modify configuration layer settings."
             c-c++-lsp-cache-dir "~/.emacs.d/.cache/lsp-ccls"
             )
      ;; NOTE: to generate compile_commands.json file for lsp before using lsp
-     ;; install Bear, use it like `bear <build_commands>' like `bear make'
-     ;; or pip install scan-build, use it like `intercept-build <build_commands>' like `intercept-build make'
+     ;; 1. `cmake -H. -BDebug -DCMAKE_BUILD_TYPE=Debug -DCMAKE_EXPORT_COMPILE_COMMANDS=YES; ln -s Debug/compile_commands.json'
+     ;; 2. install Bear, use it like `bear <build_commands>' like `bear make'
+     ;; 3. pip install scan-build, (NOTE: it is based on Bear), use it like `intercept-build <build_commands>' like `intercept-build make'
      ;; Read https://github.com/MaskRay/ccls/wiki/Project-Setup for project setup
      lsp
      ;; M-x dap-gdb-lldb-setup after packages are installed by dap layer
