@@ -61,9 +61,11 @@ This function should only modify configuration layer settings."
           org-want-todo-bindings t
           org-enable-epub-support t
           org-enable-sticky-header t)
-     ;; (shell :variables
-     ;;        shell-default-height 30
-     ;;        shell-default-position 'bottom)
+     (shell :variables
+            shell-default-shell 'eshell
+            shell-enable-smart-shell t
+            close-window-with-terminal t
+            )
      (spell-checking :variables
                      ;; enable-flyspell-auto-completion t
                      )
@@ -984,11 +986,7 @@ Version 2016-12-18"
    ("C-c k" . delete-line-backward)
    ("C-c d" . duplicate-line-or-region)
    ("C-c D" . delete-duplicated-lines-buffer-or-region)
-   ("M-RET" . (lambda ()
-                (interactive)
-                (if (equal major-mode 'org-mode)
-                    (org-meta-return)
-                  (Meta-return))))
+   ("M-RET" . Meta-return)
    )
   (bind-keys :map evil-hybrid-state-map
              ;; not put it into global, it goes wrong in helm mode
@@ -1507,15 +1505,22 @@ In other non-comment situations, try C-M-j to split."
             (end-of-line)
             (open-line 1)
             (forward-line))
-        (progn
-          (end-of-line)
-          (newline-and-indent)))))
+        ;; check if major-mode is one of ...
+        (if (derived-mode-p 'eshell-mode) ; other modes append to eshell-mode
+            (eshell-send-input)
+          (progn
+            (end-of-line)
+            (newline-and-indent))))))
   (defun Meta-return ()
     (interactive)
-    (progn
-      ;; executing key in a function
-      (call-interactively (key-binding (kbd "C-M-j")))
-      (indent-according-to-mode)))
+    (if (equal major-mode 'org-mode)
+        (org-meta-return)
+      (if (equal major-mode 'eshell-mode)
+          (eshell-queue-input)
+        (progn
+          ;; executing key in a function
+          (call-interactively (key-binding (kbd "C-M-j")))
+          (indent-according-to-mode)))))
 
   (add-hook 'smartparens-enabled-hook #'evil-smartparens-mode)
 
@@ -1862,6 +1867,12 @@ With prefix P, don't widen, just narrow even if buffer is already narrowed. "
     (other-window 1 nil)
     (switch-to-next-buffer)
     )
+
+  ;; functions for eshell
+  (defun eshell/x ()
+    "x in eshell prompt to exit eshell and close the eshell window."
+    (delete-window)
+    (eshell/exit))
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
