@@ -1172,7 +1172,7 @@ abbr gitpl 'git pull -v'
 abbr gitpu 'git push -v'
 abbr gitl 'git log --stat'
 abbr gitd 'git diff'           # show unstaged local modification
-abbr gitdc 'git diff' --cached # show staged bu unpushed local modification
+abbr gitdc 'git diff --cached' # show staged bu unpushed local modification
 abbr gitlp 'git log -p --' # [+ file] to how entire all/[file(even renamed)] history
 abbr gitsh 'git show' # [+ COMMIT] to show the modifications in a last/[specific] commit
 abbr gitlo 'git log --oneline'
