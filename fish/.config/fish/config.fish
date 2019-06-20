@@ -679,7 +679,7 @@ abbr tout 'touch ab~ .ab~ .\#ab .\#ab\# \#ab\# .ab.swp ab.swp'
 # find
 # alias find 'find -L' # make find follow symlink dir/file by default
 function finds -d 'find a file/folder and view/edit using less/vim/emacs/emx/cd/readlink with fzf'
-    set -l options 'l' 'v' 'e' 'x' 'c' 'p' 'g'
+    set -l options 'l' 'v' 'e' 'x' 'c' 'p' 'g' 'd'
     argparse -n finds $options -- $argv
     or return
 
@@ -710,7 +710,13 @@ function finds -d 'find a file/folder and view/edit using less/vim/emacs/emx/cd/
         else
             find $argv[1] -type d -iname .git | sort
         end
-    else
+    else if set -q _flag_d      # find directory
+        if set -q $argv[2]      # no argv[2]
+            find . -type d -iname "*$argv[1]*"
+        else
+            find -type d $argv[1] -iname "*$argv[2]*"
+        end
+    else                        # find file/directory
         if set -q $argv[2]      # no argv[2]
             find . -iname "*$argv[1]*"
         else
