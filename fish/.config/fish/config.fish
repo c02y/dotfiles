@@ -714,7 +714,7 @@ function finds -d 'find a file/folder and view/edit using less/vim/emacs/emx/cd/
         if set -q $argv[2]      # no argv[2]
             find . -type d -iname "*$argv[1]*"
         else
-            find -type d $argv[1] -iname "*$argv[2]*"
+            find $argv[1] -type d -iname "*$argv[2]*"
         end
     else                        # find file/directory
         if set -q $argv[2]      # no argv[2]
