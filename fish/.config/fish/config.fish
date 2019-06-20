@@ -1140,6 +1140,7 @@ abbr vime 'vim $EMACS_EL'
 abbr vim2 'vim ~/Recentchange/TODO'
 abbr vimf 'vim $FISH_CONFIG_PATH'
 abbr vimt 'vim ~/.tmux.conf; tmux source-file ~/.tmux.conf; echo ~/.tmux.conf reloaded!'
+abbr vimT 'vim ~/.tigrc``'
 function vundles -d 'fix the :BundleUpdate error of conflicts problem'
     for dir in ~/.vim/bundle/*
         cd $dir
