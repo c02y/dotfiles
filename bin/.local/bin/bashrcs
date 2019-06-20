@@ -52,7 +52,9 @@ alias gitdc='git diff --cached' # show staged bu unpushed local modification
 alias gitlp='git log -p --' # [+ file] to how entire all/[file(even renamed)] history
 alias gitsh='git show' # [+ COMMIT] to show the modifications in a last/[specific] commit
 alias gitlo='git log --oneline'
-alias gitb='git branch'
+alias gitb='git branch -vv'
+alias gitbl='git ls-remote'
+alias gitblg='git ls-remote | grep -i'
 alias gitcl='git config -l'
 alias gitcp='git checkout HEAD^1' # git checkout previous/old commit
 alias gitcn='git log --reverse --pretty=%H master | grep -A 1 (git rev-parse HEAD) | tail -n1 | xargs git checkout' # git checkout next/new commit
