@@ -684,37 +684,37 @@ function finds -d 'find a file/folder and view/edit using less/vim/emacs/emx/cd/
     or return
 
     if not fzfp # fzf doesn't exist, $status != 0
-        find $argv[1] -name "*$argv[2]*"
+        find $argv[1] -iname "*$argv[2]*"
         return
     end
 
     if set -q _flag_l           # find a file and view it using less
-        less (find $argv[1] -name "*$argv[2]*" | fzf)
+        less (find $argv[1] -iname "*$argv[2]*" | fzf)
     else if set -q _flag_v      # find a file and view it using vim
-        vim (find $argv[1] -name "*$argv[2]*" | fzf)
+        vim (find $argv[1] -iname "*$argv[2]*" | fzf)
     else if set -q _flag_e      # find a file and view it using emm
-        emm (find $argv[1] -name "*$argv[2]*" | fzf)
+        emm (find $argv[1] -iname "*$argv[2]*" | fzf)
     else if set -q _flag_x      # find a file and view it using emx
-        emx (find $argv[1] -name "*$argv[2]*" | fzf)
+        emx (find $argv[1] -iname "*$argv[2]*" | fzf)
     else if set -q _flag_c      # find a folder and try cd into it
-        cd (find $argv[1] -type d -name "*$argv[2]*" | fzf)
+        cd (find $argv[1] -type d -iname "*$argv[2]*" | fzf)
     else if set -q _flag_p      # find a file/folder and copy/echo its path
         if not test $DISPLAY
-            readlink -f (find $argv[1] -name "*$argv[2]*" | fzf)
+            readlink -f (find $argv[1] -iname "*$argv[2]*" | fzf)
         else
-            find $argv[1] -name "*$argv[2]*" | fzf | xc
+            find $argv[1] -iname "*$argv[2]*" | fzf | xc
         end
     else if set -q _flag_g      # find all the .git directory
         if set -q $argv[1]      # no argument
-            find . -type d -name .git | sort
+            find . -type d -iname .git | sort
         else
-            find $argv[1] -type d -name .git | sort
+            find $argv[1] -type d -iname .git | sort
         end
     else
         if set -q $argv[2]      # no argv[2]
-            find . -name "*$argv[1]*"
+            find . -iname "*$argv[1]*"
         else
-            find $argv[1] -name "*$argv[2]*"
+            find $argv[1] -iname "*$argv[2]*"
         end
     end
 end
@@ -729,21 +729,21 @@ function fts -d 'find the temporary files such as a~ or #a or .a~, and files for
         set ARGV $argv
     end
     if set -q _flag_c           # one level, not recursive, print
-        find $ARGV -maxdepth 1 \( -name "*~" -o -name "#?*#" -o -name ".#?*" -o -name "*.swp" \) | xargs -r ls -lhd | nl
+        find $ARGV -maxdepth 1 \( -iname "*~" -o -iname "#?*#" -o -iname ".#?*" -o -iname "*.swp" \) | xargs -r ls -lhd | nl
     else if set -q _flag_C      # one level, not recursive, remove
-        find $ARGV -maxdepth 1 \( -name "*~" -o -name "#?*#" -o -name ".#?*" -o -name "*.swp" \) | xargs rm -rfv
+        find $ARGV -maxdepth 1 \( -iname "*~" -o -iname "#?*#" -o -iname ".#?*" -o -iname "*.swp" \) | xargs rm -rfv
     else if set -q _flag_r      # recursive, print
-        find $ARGV \( -name "*~" -o -name "#?*#" -o -name ".#?*" -o -name "*.swp" \) | xargs -r ls -lhd | nl
+        find $ARGV \( -iname "*~" -o -iname "#?*#" -o -iname ".#?*" -o -iname "*.swp" \) | xargs -r ls -lhd | nl
     else if set -q _flag_R      # recursive, remove
-        find $ARGV \( -name "*~" -o -name "#?*#" -o -name ".#?*" -o -name "*.swp" \) | xargs rm -rfv
+        find $ARGV \( -iname "*~" -o -iname "#?*#" -o -iname ".#?*" -o -iname "*.swp" \) | xargs rm -rfv
     else if set -q _flag_l      # remove temporary files for latex
-        if not find $ARGV -maxdepth 1 -name "*.tex" | egrep '.*' # normal find returns 0 no matter what
+        if not find $ARGV -maxdepth 1 -iname "*.tex" | egrep '.*' # normal find returns 0 no matter what
             echo "$ARGV is not a LaTeX directory!"
             return
         end
         for EXT in ind ilg toc out idx aux fls log fdb_latexmk nav snm
             # ind ilg toc out idx aux fls log fdb_latexmk faq blg bbl brf nlo dvi ps lof pdfsync synctex.gz
-            find $ARGV -maxdepth 1 \( -name "*.$EXT"  -o -name "auto" \) | xargs -r rm -rv
+            find $ARGV -maxdepth 1 \( -iname "*.$EXT"  -o -iname "auto" \) | xargs -r rm -rv
         end
         fts -C
     end
@@ -1198,7 +1198,7 @@ function gitc -d 'git clone and cd into it'
     echo cd ./$project
 end
 function gitpa --description 'git pull all in dir using `fing dir`'
-    for i in (find $argv[1] -type d -name .git | sort | xargs realpath)
+    for i in (find $argv[1] -type d -iname .git | sort | xargs realpath)
         cd $i; cd ../
         pwd
         git pull -v;
