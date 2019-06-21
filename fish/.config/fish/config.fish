@@ -174,7 +174,7 @@ function tk -d 'tmux kill-session all(default)/single(id)/multiple(id1 id2)/exce
             echo Inside a tmux session!
         end
         read -n 1 -l -p 'echo "Kill all sessions? [y/N]"' answer
-        if test "$answer" = "y"
+        if test "$answer" = "y" -o "$answer" = " "
             tmux kill-server        # kill all sessions
         end
         return
