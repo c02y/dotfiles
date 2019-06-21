@@ -86,6 +86,15 @@ augroup numbertoggle
   autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
   autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
 augroup END
+" toggle relativenumber and no number at all
+function! NumberToggle()
+  if(&rnu == 1)
+    set nornu nonu
+  else
+    set number relativenumber
+  endif
+endfunc
+" nnoremap <C-l> :call NumberToggle()<cr>
 set showcmd		 " show command
 autocmd BufEnter * :syntax sync fromstart
 set backspace=eol,start,indent
