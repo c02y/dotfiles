@@ -260,7 +260,9 @@ function fish_user_key_bindings
         bind --erase \cx # or bind \cx ""
         bind --erase \cv # or bind \cv ""
     end
+    fzf_key_bindings            # C-s for file/dir, C-r for history, Tab for complete
 end
+set -gx FZF_TMUX_HEIGHT 100%
 abbr clr "echo -e '\033c\c'; path_prompt"
 
 abbr pm-sl 'sudo pm-suspend'   # 'Suspend to ram' in GUI buttom, power button to wake up
