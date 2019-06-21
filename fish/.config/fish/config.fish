@@ -688,40 +688,36 @@ function finds -d 'find a file/folder and view/edit using less/vim/emacs/emx/cd/
         return
     end
 
+    if set -q $argv[2]      # no argv[2]
+        set ARGV1 .
+        set ARGV2 $argv[1]
+    else
+        set ARGV1 $argv[1]
+        set ARGV2 $argv[2]
+    end
+
     if set -q _flag_l           # find a file and view it using less
-        less (find $argv[1] -iname "*$argv[2]*" | fzf)
+        less (find $ARGV1 -iname "*$ARGV2*" | fzf)
     else if set -q _flag_v      # find a file and view it using vim
-        vim (find $argv[1] -iname "*$argv[2]*" | fzf)
+        vim (find $ARGV1 -iname "*$ARGV2*" | fzf)
     else if set -q _flag_e      # find a file and view it using emm
-        emm (find $argv[1] -iname "*$argv[2]*" | fzf)
+        emm (find $ARGV1 -iname "*$ARGV2*" | fzf)
     else if set -q _flag_x      # find a file and view it using emx
-        emx (find $argv[1] -iname "*$argv[2]*" | fzf)
+        emx (find $ARGV1 -iname "*$argv[2]*" | fzf)
     else if set -q _flag_c      # find a folder and try cd into it
-        cd (find $argv[1] -type d -iname "*$argv[2]*" | fzf)
+        cd (find $ARGV1 -type d -iname "*$ARGV2*" | fzf)
     else if set -q _flag_p      # find a file/folder and copy/echo its path
         if not test $DISPLAY
-            readlink -f (find $argv[1] -iname "*$argv[2]*" | fzf)
+            readlink -f (find $ARGV1 -iname "*$ARGV2*" | fzf)
         else
-            find $argv[1] -iname "*$argv[2]*" | fzf | xc
+            find $ARGV1 -iname "*$ARGV2*" | fzf | xc
         end
     else if set -q _flag_g      # find all the .git directory
-        if set -q $argv[1]      # no argument
-            find . -type d -iname .git | sort
-        else
-            find $argv[1] -type d -iname .git | sort
-        end
+        find $ARGV1 -type d -iname .git | sort
     else if set -q _flag_d      # find directory
-        if set -q $argv[2]      # no argv[2]
-            find . -type d -iname "*$argv[1]*"
-        else
-            find $argv[1] -type d -iname "*$argv[2]*"
-        end
+        find $ARGV1 -type d -iname "*$ARGV2*"
     else                        # find file/directory
-        if set -q $argv[2]      # no argv[2]
-            find . -iname "*$argv[1]*"
-        else
-            find $argv[1] -iname "*$argv[2]*"
-        end
+        find $ARGV1 -iname "*$ARGV2*"
     end
 end
 function fts -d 'find the temporary files such as a~ or #a or .a~, and files for latex, if no argv is passed, use the current dir'
