@@ -11,13 +11,15 @@ set fileencodings=utf8,gb2312,gb18030,ucs-bom,latin1
 let mapleader = "\<Space>"
 
 " Reload vimrc without restarting vim
-" Source vim configuration upon save
+" Source vim configuration upon save, but it only works if editing vimrc inside vim
 if has ('autocmd') " Remain compatible with earlier versions
  augroup vimrc
     autocmd! BufWritePost $MYVIMRC source % | echom "Reloaded " . $MYVIMRC | redraw
     autocmd! BufWritePost $MYGVIMRC if has('gui_running') | so % | echom "Reloaded " . $MYGVIMRC | endif | redraw
   augroup END
 endif " has autocmd
+" reload vimrc manually, works when editing vimrc outside vim
+nnoremap <Leader>r :source $MYVIMRC<CR>
 
 " C-z to go into shell, use exit(int shell) to go back to vim
 nmap <C-Z> :shell<CR>
@@ -257,6 +259,8 @@ set timeoutlen=500
 
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
+nnoremap <Leader>B :BundleInstall<CR>
+nnoremap <Leader>U :BundleUpdate<CR>
 
 " nerdcommenter
 Plugin 'scrooloose/nerdcommenter'
@@ -264,7 +268,7 @@ filetype plugin on
 
 " unite, like Emacs's helm
 Plugin 'Shougo/unite.vim'
-nnoremap <leader>f :<C-u>Unite -start-insert file_rec<CR>
+" nnoremap <leader>f :<C-u>Unite -start-insert file_rec<CR>
 
 " rainbow parentheses
 Plugin 'luochen1990/rainbow'
@@ -342,6 +346,21 @@ Plugin 'airblade/vim-gitgutter'
 let g:gitgutter_sign_modified = '!'
 
 Plugin 'tpope/vim-unimpaired'
+
+" need ~/.fzf + fzf-binary + fzf.vim to work
+" silently git clone the fzf repo
+silent !git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf > /dev/null 2>&1
+set rtp+=~/.fzf
+Plugin 'junegunn/fzf.vim'
+" Overwrite the default Files command to include hidden files
+command! -bang -nargs=? -complete=dir Files
+  \ call fzf#vim#files(<q-args>, {'source': 'ag --hidden --ignore .git -g ""'}, <bang>0)
+nnoremap <Leader>f :Files<CR>
+nnoremap <Leader>F :GFiles<CR>
+nnoremap <Leader>b :Buffers<CR>
+nnoremap <Leader>g :Ag<CR>
+nnoremap <Leader>G :Rg<CR>
+
 
 """""""""""""""""""""plugin from http://vim-scripts.org/vim/scripts.html
 " Plugin 'L9'
