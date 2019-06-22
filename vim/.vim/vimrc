@@ -245,9 +245,34 @@ filetype on                   " required
 " this fix the errors(like Error detected while processing function) when using VundleInstall/Update
 set shell=/bin/bash
 
-" set the runtime path to include Vundle and initialize
-" `:set runtimepath` to check the value
-set rtp+=~/.vim/bundle/Vundle.vim
+" Install Vundle automatically
+" From https://github.com/VundleVim/Vundle.vim/issues/769#issue-188457119
+" START - Setting up Vundle - the vim plugin bundler
+let iCanHazVundle=1
+let vundle_readme=expand('~/.vim/bundle/Vundle.vim/README.md')
+if !filereadable(vundle_readme)
+  echo "Installing Vundle.."
+  echo ""
+  silent !mkdir -p ~/.vim/bundle
+  silent !git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+  let iCanHazVundle=0
+endif
+set rtp+=~/.vim/bundle/Vundle.vim/
+call vundle#rc()
+
+" let Vundle manage Vundle, required
+Plugin 'VundleVim/Vundle.vim'
+nnoremap <Leader>I :PluginInstall<CR>
+nnoremap <Leader>U :PluginUpdate<CR>
+if iCanHazVundle == 0
+  echo "Installing Bundles, please ignore key map error messages"
+  echo ""
+  :source $MYVIMRC
+  :PluginInstall
+endif
+" END - Setting up Vundle - the vim plugin bundler
+
+" Keep Plugin commands between vundle#begin/end.
 call vundle#begin()
 " alternatively, pass a path where Vundle should install plugins
 "call vundle#begin('~/some/path/here')
@@ -256,11 +281,6 @@ Plugin 'liuchengxu/vim-which-key'
 nnoremap <silent> <leader> :WhichKey '<leader>'<CR>
 " By default timeoutlen is 1000 ms
 set timeoutlen=500
-
-" let Vundle manage Vundle, required
-Plugin 'VundleVim/Vundle.vim'
-nnoremap <Leader>B :BundleInstall<CR>
-nnoremap <Leader>U :BundleUpdate<CR>
 
 " nerdcommenter
 Plugin 'scrooloose/nerdcommenter'
