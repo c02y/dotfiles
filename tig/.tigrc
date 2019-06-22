@@ -15,12 +15,13 @@ bind generic    E    !>sh -c "vim ~/.tigrc"
 bind generic    S    view-stage
 bind generic    g    none # disable single g
 bind generic    gs   view-grep
-bind generic    gl   !git pull
-bind generic    gL   !git pull %(remote)
-bind generic    gu   !<git push
-bind generic    gU   !<git push -u %(remote) %(repo:head)
 bind generic    gg   move-first-line
 bind generic    G    move-last-line
+bind generic    p    none # disable single p for pager(default)
+bind generic    pl   !git pull
+bind generic    pl   !git pull %(remote)
+bind generic    pu   !<git push
+bind generic    pU   !<git push -u %(remote) %(repo:head)
 bind generic    v    :source ~/.tigrc
 bind main       G    move-last-line # overwrite the default
 bind diff       [    :?^@@  # jump to the prev diff hunk
@@ -36,11 +37,12 @@ bind status     i    !>sh -c "echo '%(file)'>>.gitignore" # ignore files
 bind stage      i    !>sh -c "echo '%(file)'>>.gitignore" # ignore files
 bind status     D    ?>sh -c "rm -rfv %(file)"
 
-bind status     <Space>    status-update # stage/unstage/track/untrack a file
+# FIXME: Space to select/mark the file, currently it is not supported
+bind status     s          status-update # stage/unstage/track/untrack a file
 bind status     u          status-revert # revert changes in file
 bind status     C          ?>git checkout -- %(file) # delete changes on files in unstaged status
 
-bind stage      <Space>    status-update # stage/unstage/track/untrack a file
+bind stage      s          status-update # stage/unstage/track/untrack a file
 bind stage      u          status-revert # revert changes in file
 bind stage      C          ?>git checkout -- %(file) # delete changes on files in unstaged status
 
@@ -74,10 +76,6 @@ bind log        ]    :/"commit " # jump to the next commit
 # bind refs    C      !git commit
 # bind main    C      !git commit
 bind generic <Esc>u !git add -p %(file)
-
-#Push
-bind generic P      ?git push -u %(remote) %(repo:head)
-bind generic <Esc>p ?git push -u -f %(remote) %(repo:head)
 
 #Pull
 bind generic U      ?git pull %(remote)
