@@ -29,7 +29,7 @@ bind generic    <Ctrl-f>   scroll-page-down
 bind generic    <Ctrl-b>   scroll-page-up
 
 bind status     c    >git commit --verbose
-bind stash      c    >git commit --verbose
+bind stage      c    >git commit --verbose
 bind generic    +    ?>git commit --verbose --amend
 
 # NOTE: the ignore here only works for new untrcked files
@@ -38,13 +38,13 @@ bind stage      i    !>sh -c "echo '%(file)'>>.gitignore" # ignore files
 bind status     D    ?>sh -c "rm -rfv %(file)"
 
 # FIXME: Space to select/mark the file, currently it is not supported
-bind status     s          status-update # stage/unstage/track/untrack a file
-bind status     u          status-revert # revert changes in file
-bind status     C          ?>git checkout -- %(file) # delete changes on files in unstaged status
+bind status     s    status-update # stage/unstage/track/untrack a file
+bind status     u    status-revert # revert changes in file
+bind status     C    ?>git checkout -- %(file) # delete changes on files in unstaged status
 
-bind stage      s          status-update # stage/unstage/track/untrack a file
-bind stage      u          status-revert # revert changes in file
-bind stage      C          ?>git checkout -- %(file) # delete changes on files in unstaged status
+bind stage      s    status-update # stage/unstage/track/untrack a file
+bind stage      u    status-revert # revert changes in file
+bind stage      C    ?>git checkout -- %(file) # delete changes on files in unstaged status
 
 bind generic    gS   ?>git stash
 bind stash      p    ?>git stash pop %(stash)
@@ -68,8 +68,8 @@ bind stage      >    :/^diff --(git|cc) # jump to the next diff header
 bind stage      {    :toggle diff-context -1  # Decrease the diff context
 bind stage      }    :toggle diff-context +1  # Increase the diff context
 
-bind log        [    :?"commit " # jump to the prev commit  
-bind log        ]    :/"commit " # jump to the next commit  
+bind log        [    :?"commit " # jump to the prev commit
+bind log        ]    :/"commit " # jump to the next commit
 
 #Commit
 # bind generic C      !git commit
