@@ -1734,8 +1734,8 @@ function ag
         echo -e "\n...ag is not installed, use grep instead..."
     end
 end
-function ags -d 'ag(default)/rg(-r) sth in a init.el(-e)/config.fish(-f)/.tmux.conf(-t)/vimrc(-v), or use fzf(-F) to open the file, search multiple patterns(-m), case sensitive(-s)'
-    set -l options 'r' 'e' 'f' 'F' 't' 'v' 'm' 's'
+function ags -d 'ag(default)/rg(-r) sth in a init.el(-e)/config.fish(-f)/.tmux.conf(-t)/vimrc(-v), or use fzf(-F) to open the file, search multiple patterns(-m), case sensitive(-s), list(0l)'
+    set -l options 'r' 'e' 'f' 'F' 't' 'v' 'm' 's' 'l'
     argparse -n ags -N 1 $options -- $argv
     or return
 
@@ -1768,6 +1768,11 @@ function ags -d 'ag(default)/rg(-r) sth in a init.el(-e)/config.fish(-f)/.tmux.c
         set CASE_SENSITIVE -s
     end
 
+    set LIST ""
+    if set -q _flag_l
+        set LIST -l
+    end
+
     if set -q _flag_e
         set FILE $EMACS_EL
     else if set -q _flag_f
@@ -1788,7 +1793,7 @@ function ags -d 'ag(default)/rg(-r) sth in a init.el(-e)/config.fish(-f)/.tmux.c
 
     if test "$ARGV3" = ""
         set CMD eval $AG $argv[1] $FILE -l
-        eval $AG $CASE_SENSITIVE $argv[1] $FILE
+        eval $AG $CASE_SENSITIVE $LIST $argv[1] $FILE
     else
         set ARGV3 $FILE
         if set -q _flag_r
