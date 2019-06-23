@@ -212,6 +212,13 @@ else
 	flag_systemctl=0
 fi
 
+# use the new version of emacs
+if [ -f ~/anaconda3/bin/emacs ]; then
+    if [ $(which emacs) != "~/anaconda3/bin/emacs" ]; then
+        export PATH="~/anaconda3/bin/:$PATH"
+    fi
+fi
+
 while getopts ":habcCdeEfkmopqrstux" args; do # prefix-: no warning for illegal option
 	case "$args" in
 		h|\?)                   # \? for illegal option
