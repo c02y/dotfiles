@@ -268,7 +268,6 @@ abbr clr "echo -e '\033c\c'; path_prompt"
 abbr pm-sl 'sudo pm-suspend'   # 'Suspend to ram' in GUI buttom, power button to wake up
 abbr pm-hb 'sudo pm-hibernate' # not work in old CentOS6
 
-alias rg 'rg --no-heading --color always --line-number'
 abbr rgr 'ranger'
 abbr fpp '~/Public/PathPicker/fpp'
 abbr ga 'glances -t 1 --hide-kernel-threads -b --disable-irq --enable-process-extended'
@@ -553,7 +552,7 @@ function fu -d 'fu command and prompt to ask to open it or not'
             set num_line (grep -n -w -E "^alias $argv |^function $argv |^function $argv\$" $def_file | cut -d: -f1)
             # NOTE: $num_line may contain more than one number, use "$num_line", or test will fail
             if not test "$num_line" # empty
-               echo "$argv is an alias/functions in `alias/functions` but not defined in $def_file, may be defined temporally or in other file!"
+                echo "$argv is an alias/functions in `alias/functions` but not defined in $def_file, may be defined temporally or in other file!"
                 if test $def_file = $FISH_CONFIG_PATH
                     functions -e $argv
                     echo "$argv is erased!"
@@ -1723,6 +1722,7 @@ function agr -d 'ag errno'
         command ag -w $argv[1] $file
     end
 end
+abbr rg 'rg -p'
 # ag work with less with color and scrolling
 function ag
     #sed -i "s/.shell/\"$argv[1]\n.shell/g" ~/.lesshst
@@ -1734,32 +1734,81 @@ function ag
         echo -e "\n...ag is not installed, use grep instead..."
     end
 end
-function ags -d 'ag sth in a init.el(-e)/config.fish(-f)/.tmux.conf(-t)/vimrc(-v), or use vim(-V)/emm(-E) to open the file'
-    set -l options 'e' 'E' 'f' 't' 'v' 'V'
+function ags -d 'ag(default)/rg(-r) sth in a init.el(-e)/config.fish(-f)/.tmux.conf(-t)/vimrc(-v), or use fzf(-F) to open the file, search multiple patterns(-m), case sensitive(-s)'
+    set -l options 'r' 'e' 'f' 'F' 't' 'v' 'm' 's'
     argparse -n ags -N 1 $options -- $argv
     or return
 
-    if set -q _flag_e
-        ag $argv[1] $EMACS_EL
-    else if set -q _flag_E
-        ag $argv[1] $argv[2]
-        echo
-        read -n 1 -p 'echo "Open it with emm? [Y/n]: "' -l answer
-        if test "$answer" = "y" -o "$answer" = " "
-            emm (command ag -l $argv[1] $argv[2] | fzf)
+    set AG ag
+    if set -q _flag_r; and command -sq rg # if -r is given and rg is installed, use rg
+        set AG rg
+    else if not command -sq ag; and not command -sq rg
+        echo "Neither ag or rg is installed!"
+        return
+    end
+
+    set ARGV3 ""
+    if set -q _flag_m           # multiple patterns
+        set ARGV2 $argv[2]
+        if set -q $argv[3]      # no dir is given
+            set ARGV3 .
+        else
+            set ARGV3 $argv[3]
         end
+    else
+        if set -q $argv[2]      # no dir is given
+            set ARGV2 .
+        else
+            set ARGV2 $argv[2]
+        end
+    end
+
+    set CASE_SENSITIVE -i       # default, ignore case
+    if set -q _flag_s
+        set CASE_SENSITIVE -s
+    end
+
+    if set -q _flag_e
+        set FILE $EMACS_EL
     else if set -q _flag_f
-        ag $argv[1] $FISH_CONFIG_PATH
+        set FILE $FISH_CONFIG_PATH
     else if set -q _flag_t
-        ag $argv[1] ~/.tmux.conf
+        set FILE ~/.tmux.conf
     else if set -q _flag_v
-        ag $argv[1] ~/.vim/vimrc
-    else if set -q _flag_V
-        ag $argv[1] $argv[2]
-        echo
-        read -n 1 -p 'echo "Open it with vim? [Y/n]: "' -l answer
-        if test "$answer" = "y" -o "$answer" = " "
-            vim (command ag -l $argv[1] $argv[2] | fzf)
+        set FILE ~/.vim/vimrc
+    else
+        if set -q _flag_m
+            set FILE $ARGV3
+        else if set -q $argv[2] # no $argv[2]
+            set FILE .
+        else
+            set FILE $argv[2]
+        end
+    end
+
+    if test "$ARGV3" = ""
+        set CMD eval $AG $argv[1] $FILE -l
+        eval $AG $CASE_SENSITIVE $argv[1] $FILE
+    else
+        set ARGV3 $FILE
+        if set -q _flag_r
+            eval $AG --no-heading --color always --line-number $CASE_SENSITIVE $argv[1] $ARGV3 | eval $AG $CASE_SENSITIVE $ARGV2
+        else
+            eval $AG --color --noheading $CASE_SENSITIVE $argv[1] $ARGV3 | eval $AG $CASE_SENSITIVE $ARGV2
+        end
+    end
+
+    if not set -q _flag_m # FIXME: using fzf doesn't work with multiple patterns
+        if set -q _flag_F # search pattern(s) in dir/file, choose it using fzf, and open if using emm/vim
+            read -n 1 -p 'echo "Open it with emm? [_v_im/_e_mm]: "' -l answer
+            if test "$answer" = "v" -o "$answer" = " "
+                vim (eval $CMD | fzf)
+            else if test "$answer" = "e"
+                emm (eval $CMD | fzf)
+            else
+                echo "Canceled!"
+                return
+            end
         end
     end
 end
