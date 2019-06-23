@@ -268,7 +268,7 @@ abbr clr "echo -e '\033c\c'; path_prompt"
 abbr pm-sl 'sudo pm-suspend'   # 'Suspend to ram' in GUI buttom, power button to wake up
 abbr pm-hb 'sudo pm-hibernate' # not work in old CentOS6
 
-abbr rg 'rg -p'
+alias rg 'rg --no-heading --color always --line-number'
 abbr rgr 'ranger'
 abbr fpp '~/Public/PathPicker/fpp'
 abbr ga 'glances -t 1 --hide-kernel-threads -b --disable-irq --enable-process-extended'
