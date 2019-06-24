@@ -1762,7 +1762,7 @@ function ags -d 'ag(default)/rg(-r) sth in a init.el(-e)/config.fish(-f)/.tmux.c
     # $_flag_I means the value of option I, I has to be 'I=' in the beginning
     set -q _flag_I; and set IGNORE "--ignore={$flag_I}"; or set IGNORE ""
 
-    set -q _flag_G; and set FILES '-g $_flag_G'; or set FILES ""
+    set -q _flag_G; and set FILES "-G '$_flag_G'"; or set FILES ""
 
     if set -q _flag_e
         set FILE $EMACS_EL
