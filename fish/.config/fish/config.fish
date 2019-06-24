@@ -622,7 +622,7 @@ if test -e $Z_PATH/z.lua
     set -gx _ZL_CD cd
     set -gx _ZL_INT_SORT 1
     set -gx _ZL_FZF_HEIGHT 0 # 0 means fullscreen
-    set -gx FZF_DEFAULT_OPTS '-1 -0' # auto select the only match, auto exit if no match
+    set -gx FZF_DEFAULT_OPTS '-1 -0 --preview "less {}"' # auto select the only match, auto exit if no match
 end
 function zp -d 'check exists of z.lua, with any given argument, update z.lua'
     if test -e $Z_PATH/z.lua; and set -q $argv[1] # z.lua file exists and no any argv is given, two conditions
@@ -1762,6 +1762,7 @@ function ags -d 'ag(default)/rg(-r) sth in a init.el(-e)/config.fish(-f)/.tmux.c
     # $_flag_I means the value of option I, I has to be 'I=' in the beginning
     set -q _flag_I; and set IGNORE "--ignore={$flag_I}"; or set IGNORE ""
 
+    # FIXME: cannot make `rg string -g "*string*"` into -G option
     set -q _flag_G; and set FILES "-G '$_flag_G'"; or set FILES ""
 
     if set -q _flag_e
@@ -1784,7 +1785,7 @@ function ags -d 'ag(default)/rg(-r) sth in a init.el(-e)/config.fish(-f)/.tmux.c
 
     if test "$ARGV3" = ""
         set CMD eval $AG $argv[1] $FILE -l
-        eval $AG $CASE_SENSITIVE $LIST $WORD $IGNORE $FILES $argv[1] $FILE
+        eval $AG --heading $CASE_SENSITIVE $LIST $WORD $IGNORE $FILES $argv[1] $FILE
     else
         set ARGV3 $FILE
         if set -q _flag_r
