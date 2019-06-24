@@ -321,11 +321,9 @@ function lls -d 'ls functions with options'
     argparse -n lls $options -- $argv
     or return
 
-    if set -q $argv[1]          # no argument
-        set ARGV "."
-    else
-        set ARGV $argv
-    end
+    # no dir is given, assign it to .
+    set -q $argv[1]; and set ARGV .; or set ARGV $argv
+
     if set -q _flag_t      # sort by last modification time, only show tail
         ls -lhA --color=yes $ARGV --sort=time -r -lh --time=ctime | nl -v 0 | tail -20
     else if set -q _flag_T # like -t, but show the whole list
@@ -726,11 +724,9 @@ function fts -d 'find the temporary files such as a~ or #a or .a~, and files for
     argparse -n fts $options -- $argv
     or return
 
-    if set -q $argv[1]          # no ARGV
-        set ARGV "."
-    else
-        set ARGV $argv
-    end
+    # no dir is given, assign it to .
+    set -q $argv[1]; and set ARGV .; or set ARGV $argv
+
     if set -q _flag_c           # one level, not recursive, print
         find $ARGV -maxdepth 1 \( -iname "*~" -o -iname "#?*#" -o -iname ".#?*" -o -iname "*.swp" \) | xargs -r ls -lhd | nl
     else if set -q _flag_C      # one level, not recursive, remove
@@ -1750,44 +1746,23 @@ function ags -d 'ag(default)/rg(-r) sth in a init.el(-e)/config.fish(-f)/.tmux.c
     set ARGV3 ""
     if set -q _flag_m           # multiple patterns
         set ARGV2 $argv[2]
-        if set -q $argv[3]      # no dir is given
-            set ARGV3 .
-        else
-            set ARGV3 $argv[3]
-        end
+        # no dir is given, assign it to .
+        set -q $argv[3]; and set ARGV3 .; or set ARGV3 $argv[3]
     else
-        if set -q $argv[2]      # no dir is given
-            set ARGV2 .
-        else
-            set ARGV2 $argv[2]
-        end
+        # no dir is given, assign it to .
+        set -q $argv[2]; and set ARGV2 .; or set ARGV2 $argv[2]
     end
 
-    set CASE_SENSITIVE -i       # default, ignore case
-    if set -q _flag_s
-        set CASE_SENSITIVE -s
-    end
+    set -q _flag_s; and set CASE_SENSITIVE -s; or set CASE_SENSITIVE -i
 
-    set LIST ""
-    if set -q _flag_l
-        set LIST -l
-    end
+    set -q _flag_l; and set LIST -l; or set LIST ""
 
-    set WORD ""
-    if set -q _flag_w
-        set WORD -w
-    end
+    set -q _flag_w; and set WORD -w; or set WORD ""
 
-    set IGNORE ""
-    if set -q _flag_I
-        # $_flag_I means the value of option I, I has to be 'I=' in the beginning
-        set IGNORE "--ignore={$_flag_I}"
-    end
+    # $_flag_I means the value of option I, I has to be 'I=' in the beginning
+    set -q _flag_I; and set IGNORE "--ignore={$flag_I}"; or set IGNORE ""
 
-    set FILES ""
-    if set -q _flag_G
-        set FILES '-G $_flag_G'
-    end
+    set -q _flag_G; and set FILES '-g $_flag_G'; or set FILES ""
 
     if set -q _flag_e
         set FILE $EMACS_EL
@@ -1854,14 +1829,8 @@ function bkm -d 'backups manager: rename files/dirs from name to name.bak or bac
     argparse -n bkm -N 1 $options -- $argv
     or return
 
-    set -l backward 0 # 0(name->name.bak), 1(backward, name.bak->name)
-    set -l CMD cp -vr # 0(cp), 1(mv)
-    if set -q _flag_b
-        set backward 1
-    end
-    if set -q _flag_m
-        set CMD mv -v
-    end
+    set -q _flag_b; and set backward 1; or set backward 0 # 0(name->name.bak), 1(backward, name.bak->name)
+    set -q _flag_m; and set CMD mv -v; or set CMD cp -vr
 
     for name in $argv # support multiple arguments
         if test $backward = 1
