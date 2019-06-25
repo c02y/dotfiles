@@ -793,7 +793,7 @@ abbr mh 'm /etc/hosts'
 abbr m2 'm ~/Recentchange/TODO'
 abbr mf 'm $FISH_CONFIG_PATH'
 #
-alias less 'less -x4 -RM -s +Gg' # -x4 to set the tabwidth to 4 instead default 8
+alias less 'less -i -x4 -RM -s +Gg' # -x4 to set the tabwidth to 4 instead default 8
 abbr lesst 'less ~/.tmux.conf'
 abbr lessf 'less $FISH_CONFIG_PATH'
 abbr lesse 'less $EMACS_EL'
@@ -1724,7 +1724,7 @@ function ag
     #sed -i "s/.shell/\"$argv[1]\n.shell/g" ~/.lesshst
     echo "\"$argv[1]" >> ~/.lesshst
     if command -sq ag # check if ag command exists
-        command ag --ignore '*~' --ignore '#?*#' --ignore '.#?*' --ignore '*.swp' --ignore -s --pager='less -RM -FX -s' $argv
+        command ag --ignore '*~' --ignore '#?*#' --ignore '.#?*' --ignore '*.swp' --ignore -s --pager='less -i -RM -FX -s' $argv
     else
         grep -n --color=always $argv | more
         echo -e "\n...ag is not installed, use grep instead..."
@@ -1760,7 +1760,7 @@ function ags -d 'ag(default)/rg(-r) sth in a init.el(-e)/config.fish(-f)/.tmux.c
     set -q _flag_w; and set WORD -w; or set WORD ""
 
     # $_flag_I means the value of option I, I has to be 'I=' in the beginning
-    set -q _flag_I; and set IGNORE "--ignore={$flag_I}"; or set IGNORE ""
+    set -q _flag_I; and set IGNORE "--ignore={$_flag_I}"; or set IGNORE ""
 
     # FIXME: cannot make `rg string -g "*string*"` into -G option
     set -q _flag_G; and set FILES "-G '$_flag_G'"; or set FILES ""
