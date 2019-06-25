@@ -1171,7 +1171,7 @@ abbr ggl 'tig log'
 abbr ggs 'tig status'
 abbr ggr 'tig refs'
 abbr gits 'git status' # gs is original Ghostscript app
-abbr gitpl 'git pull -v'
+abbr gitpl 'git log -1; git pull -v'
 abbr gitpu 'git push -v'
 abbr gitl 'git log --stat'
 abbr gitd 'git diff'           # show unstaged local modification
