@@ -325,15 +325,15 @@ function lls -d 'ls functions with options'
     set -q $argv[1]; and set ARGV .; or set ARGV $argv
 
     if set -q _flag_t      # sort by last modification time, only show tail
-        ls -lhA --color=yes $ARGV --sort=time -r -lh --time=ctime | nl -v 0 | tail -20
+        ls -lhA --color=yes $ARGV --sort=time -lh --time=ctime | nl -v 0 | sort -nr | tail -20
     else if set -q _flag_T # like -t, but show the whole list
-        ls -lhA --color=yes $ARGV --sort=time -r -lh --time=ctime | nl -v 0
+        ls -lhA --color=yes $ARGV --sort=time -lh --time=ctime | nl -v 0 | sort -nr
     else if set -q _flag_s # sort by size, only show tail
-        ll -lhA --color=yes $ARGV --sort=size -r -lh | nl -v 0 | tail -20
+        ll -lhA --color=yes $ARGV --sort=size -lh | nl -v 0 | tail -20 | sort -nr
     else if set -q _flag_S # like -s, but show the whole list
-        ll -lhA --color=yes $ARGV --sort=size -r -lh | nl -v 0
+        ll -lhA --color=yes $ARGV --sort=size -lh | nl -v 0 | sort -nr
     else                   # otherwise without option, working like -t
-        ls -lhA --color=yes $ARGV --sort=time -r -lh --time=ctime | nl -v 0 | tail -20
+        ls -lhA --color=yes $ARGV --sort=time -lh --time=ctime | nl -v 0 | sort -nr | tail -20
     end
 end
 # valgrind
