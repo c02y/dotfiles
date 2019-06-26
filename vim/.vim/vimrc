@@ -97,6 +97,14 @@ function! NumberToggle()
   endif
 endfunc
 nnoremap <C-l> :call NumberToggle()<cr>
+function! ListToggle()
+	if(&list == 1)
+		set nolist
+	else
+		set list
+	end
+endfunc
+nnoremap <C-S-l> :call ListToggle()<cr>
 set showcmd		 " show command
 autocmd BufEnter * :syntax sync fromstart
 set backspace=eol,start,indent
