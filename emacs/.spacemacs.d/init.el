@@ -36,8 +36,7 @@ This function should only modify configuration layer settings."
 
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
-   '(php
-     yaml
+   '(yaml
      markdown
      vimscript
      ;; ----------------------------------------------------------------
@@ -889,7 +888,7 @@ Emacs session."
     "S." 'spacemacs/ispell-transient-state/body
     "XX" 'spacemacs/change-case-transient-state/body
     "Xm" 'spacemacs/cool-moves-transient-state/body
-    "Xr" 'hydra-rectangle/body
+    "Xr" 'spacemacs/rectangle-transient-state/body
     "Xh" 'spacemacs/hl-todo-transient-state/body
     "Sg" 'flyspell-correct-word-generic
     "Sc" 'flyspell-correct-at-point
@@ -1381,21 +1380,25 @@ _z_: undo               _Z_: redo
     ("Z" undo-tree-redo)
     ("q" nil))
 
-  (defhydra hydra-rectangle
-    (:body-pre (rectangle-mark-mode 1)
-               :color pink
-               :hint nil
-               :post (deactivate-mark))
-    "
+  (spacemacs|define-transient-state rectangle
+    :title "Rectangle"
+    :on-enter (rectangle-mark-mode 1)
+    :on-exit (deactivate-mark)
+    :doc "
   ^_k_^       _w_ copy      _o_ open     _N_ number-lines
 _h_   _l_     _y_ yank      _t_ type     _e_ exchange-point
   ^_j_^       _d_ kill      _c_ clear    _r_ reset-region-mark
-              _z_ undo      _Z_ redo     _q_ quit
+   ^^^^       _z_ undo      _Z_ redo     _q_ quit
 "
+    :bindings
     ("k" rectangle-previous-line)
+    ("<up>" rectangle-previous-line)
     ("j" rectangle-next-line)
+    ("<down>" rectangle-next-line)
     ("h" rectangle-backward-char)
+    ("<left>" rectangle-backward-char)
     ("l" rectangle-forward-char)
+    ("<right>" rectangle-forward-char)
     ("d" kill-rectangle)                    ;; C-x r k
     ("y" yank-rectangle)                    ;; C-x r y
     ("w" copy-rectangle-as-kill)            ;; C-x r M-w
@@ -1410,7 +1413,7 @@ _h_   _l_     _y_ yank      _t_ type     _e_ exchange-point
     ("z" undo-tree-undo)
     ("Z" undo-tree-redo)
     ("q" nil))
-
+  
   ;; delete/copy/cut whole buffer without moving point
   (defun current-line-empty-p ()
     (save-excursion
@@ -1704,6 +1707,10 @@ background of code to whatever theme I'm using's background"
     ;; org-sticky-header and org-table-sticky-header
     (add-hook 'org-mode-hook
               (lambda ()
+                ;; FIXME: `org-sticky-header-mode' in org-mode-hook has a bug that
+                ;; the last line of hint will not be displayed for defhydra
+                ;; https://github.com/abo-abo/hydra/issues/331
+                ;; but OK for spacemacs|define-transient-state, so avoid using defhydra
                 ;; already in org lay variables part
                 ;; (org-sticky-header-mode)
                 ;; FIXME: not fond
