@@ -119,12 +119,12 @@ function fzf_key_bindings
 
     bind \cs fzf-file-widget
     bind \cr fzf-history-widget
-    bind \t  fzf-complete
+    bind \cx  fzf-complete
 
     if bind -M insert > /dev/null 2>&1
         bind -M insert \cs fzf-file-widget
         bind -M insert \cr fzf-history-widget
-        bind -M insert \t  fzf-complete
+        bind -M insert \cx  fzf-complete
     end
 
     function __fzf_parse_commandline -d 'Parse the current command line token and return split of existing filepath and rest of token'
