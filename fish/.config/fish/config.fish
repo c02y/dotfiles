@@ -14,6 +14,7 @@ set -gx MANPATH $HOME/anaconda3/share/man $MANPATH
 
 set -gx FISH_CONFIG_PATH ~/.config/fish/config.fish
 set -gx EMACS_EL ~/.spacemacs.d/init.el
+test -e ~/.spacevim; and set -gx VIMRC ~/.spacevim; or set -gx ~/.vim/vimrc
 
 # Please put the following lines into ~/.bashrc, putting them in config.fish won't work
 # This fixes a lot problems of displaying unicodes
@@ -797,7 +798,7 @@ alias less 'less -i -x4 -RM -s +Gg' # -x4 to set the tabwidth to 4 instead defau
 abbr lesst 'less ~/.tmux.conf'
 abbr lessf 'less $FISH_CONFIG_PATH'
 abbr lesse 'less $EMACS_EL'
-abbr lessv 'less ~/.vim/vimrc'
+abbr lessv 'less $VIMRC'
 abbr lessem 'less ~/.local/bin/emm'
 
 # # color in less a code file
@@ -1127,7 +1128,7 @@ abbr db 'douban.fm'
 abbr V 'vim -u NONE'
 abbr vimc 'vim ~/.cgdb/cgdbrc'
 abbr vimm 'vim -u ~/.vim/vimrc.more'
-abbr vimv 'vim ~/.vim/vimrc'
+abbr vimv 'vim $VIMRC'
 abbr vimb 'vim ~/.bashrc'
 abbr vime 'vim $EMACS_EL'
 abbr vim2 'vim ~/Recentchange/TODO'
@@ -1154,7 +1155,7 @@ abbr eme 'emm $EMACS_EL'
 abbr emc 'emm ~/.cgdb/cgdbrc'
 abbr emf 'emm $FISH_CONFIG_PATH'
 abbr emt 'emm ~/.tmux.conf'
-abbr emv 'emm ~/.vimrc'
+abbr emv 'emm $VIMRC'
 abbr emb 'emm ~/.bashrc'
 abbr em2 'emm ~/Recentchange/TODO'
 abbr emtime "time emacs --debug-init -eval '(kill-emacs)'" # time emacs startup time
@@ -1772,7 +1773,7 @@ function ags -d 'ag(default)/rg(-r) sth in a init.el(-e)/config.fish(-f)/.tmux.c
     else if set -q _flag_t
         set FILE ~/.tmux.conf
     else if set -q _flag_v
-        set FILE ~/.vim/vimrc
+        set FILE $VIMRC
     else
         if set -q _flag_m
             set FILE $ARGV3
