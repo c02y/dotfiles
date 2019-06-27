@@ -921,6 +921,7 @@ Emacs session."
     ;; overwrite the default SPC w -//
     "w-" 'split-window-below-next-buffer
     "w/" 'split-window-right-next-buffer
+    "w\\" 'split-window-right-next-buffer
     )
 
   (defun revert-buffer-without-asking()
