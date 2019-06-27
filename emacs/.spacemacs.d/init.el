@@ -1062,6 +1062,9 @@ Version 2016-12-18"
   (add-hook 'emacs-lisp-mode-hook
             (lambda ()
               (setq indent-tabs-mode nil)))
+  (add-hook 'vimrc-mode-hook
+            (lambda ()
+              (setq indent-tabs-mode nil)))
   (add-hook 'python-mode-hook
             (lambda ()
               (set (make-local-variable 'comment-inline-offset) 2) ; PEP8 two spaces
