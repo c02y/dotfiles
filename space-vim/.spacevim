@@ -1,0 +1,106 @@
+" Comment the following line if you don't want Vim and NeoVim to share the
+" same plugin download directory.
+let g:spacevim_plug_home = '~/.vim/plugged'
+
+" Uncomment the following line to override the leader key. The default value is space key "<\Space>".
+" let g:spacevim_leader = "<\Space>"
+
+" Uncomment the following line to override the local leader key. The default value is comma ','.
+" let g:spacevim_localleader = ','
+
+" Enable the existing layers in space-vim.
+" Refer to https://github.com/liuchengxu/space-vim/blob/master/layers/LAYERS.md for all available layers.
+" The first three are the default enabled layers
+" TODO: dependencies should be install by the layers:
+" pip install flake8 yapf isort
+let g:spacevim_layers = [
+      \ 'fzf', 'better-defaults', 'which-key',
+      \ 'syntax-checking', 'auto-completion', 'deoplete', 'c-c++', 'markdown',
+      \ 'editing', 'code-snippets', 'formatting', 'formatting', 'file-manager',
+      \ 'git', 'better-motion', 'better-motion', 'ctrlp', 'airline'
+      \ ]
+
+" Uncomment the following line if your terminal(-emulator) supports true colors.
+" let g:spacevim_enable_true_color = 1
+
+" Uncomment the following if you have some nerd font installed.
+" let g:spacevim_nerd_fonts = 1
+
+" If you want to have more control over the layer, try using Layer command.
+" if g:spacevim.gui
+"   Layer 'airline'
+" endif
+
+" Manage your own plugins.
+" Refer to https://github.com/junegunn/vim-plug for more detials.
+function! UserInit()
+
+  " Add your own plugin via Plug command.
+
+  " rainbow parentheses
+  Plug 'luochen1990/rainbow'
+  let g:rainbow_active = 1
+  "0 if you want to enable it later via :RainbowToggle
+
+  " use +/- to expand/shrink selection
+  Plug 'terryma/vim-expand-region'
+
+  Plug 'chrisbra/NrrwRgn'
+
+endfunction
+
+" Override the default settings from space-vim as well as adding extras
+function! UserConfig()
+  " disable tabline
+  let g:airline#extensions#tabline#enabled = 0
+  " disable the git part in statusline
+  let g:airline_section_b = ""
+
+  " Adding extras.
+  " Uncomment the following line If you have installed the powerline fonts.
+  " It is good for airline layer.
+  " let g:airline_powerline_fonts = 1
+
+  " disable theme only in terminal vim
+  if !has("gui_running")
+     colorscheme default
+  endif
+
+  " show all whitespaces, use `:set list` to show
+  " Overwrite those provided by space-vim
+  set listchars=eol:$,tab:>-,trail:~,extends:>,precedes:<
+
+
+  " q to exit if no change
+  nmap q :q<CR>
+
+  " toggle relativenumber and no number at all
+  function! NumberToggle()
+    if(&rnu == 1)
+        set nornu nonu
+    else
+        set number relativenumber
+    endif
+  endfunc
+  function! ListToggle()
+    if(&list == 1)
+        set nolist
+    else
+        set list
+    end
+  endfunc
+
+  " add bindings for leader key
+  nnoremap <Leader>tt :call NumberToggle()<cr>
+  nnoremap <Leader>tl :call ListToggle()<cr>
+  "fzf
+  " Overwrite the default Files command to include hidden files
+  command! -bang -nargs=? -complete=dir Files
+  nnoremap <Leader>ff :Files<cr>
+  nnoremap <Leader>fF :GFiles<CR>
+  nnoremap <Leader>sg :Ag<CR>
+  nnoremap <Leader>sG :Rg<CR>
+  nnoremap <Leader>sS :call SwoopSelection()<CR>
+  nnoremap <Leader>nn :NR<CR>
+  nnoremap <Leader>nl :NRV<CR>
+endfunction
