@@ -1343,12 +1343,12 @@ _j_/_<down>_: down   _k_/_<up>_: up
     ("q" nil))
 
   (require 'cool-moves)
-  (dolist (m (list prog-mode-map text-mode-map))
-    (bind-keys :map m
-               ("M-<up>" . cool-moves/line-backward)
-               ("M-<down>" . cool-moves/line-forward)
-               ("M-<left>" . cool-moves/sexp-backward)
-               ("M-<right>" . cool-moves/sexp-forward)))
+  ;; bind-key except for org-mode
+  (bind-keys* :filter (not (derived-mode-p 'org-mode))
+              ("M-<up>" . cool-moves/line-backward)
+              ("M-<down>" . cool-moves/line-forward)
+              ("M-<left>" . cool-moves/sexp-backward)
+              ("M-<right>" . cool-moves/sexp-forward))
   (spacemacs|define-transient-state cool-moves
     :title "Cool Moves Transient State"
     :doc "
