@@ -17,7 +17,7 @@ let g:spacevim_layers = [
       \ 'fzf', 'better-defaults', 'which-key',
       \ 'syntax-checking', 'auto-completion', 'deoplete', 'c-c++', 'markdown',
       \ 'editing', 'code-snippets', 'formatting', 'formatting', 'file-manager',
-      \ 'git', 'better-motion', 'better-motion', 'ctrlp', 'airline'
+      \ 'better-motion', 'better-motion', 'ctrlp', 'airline'
       \ ]
 
 " Uncomment the following line if your terminal(-emulator) supports true colors.
@@ -48,6 +48,9 @@ function! UserInit()
   Plug 'terryma/vim-expand-region'
 
   Plug 'chrisbra/NrrwRgn'
+
+  Plug 'airblade/vim-gitgutter'
+  let g:gitgutter_sign_modified = '!'
 
 endfunction
 
@@ -98,7 +101,9 @@ function! UserConfig()
   "fzf
   " Overwrite the default Files command to include hidden files
   command! -bang -nargs=? -complete=dir Files
+    \ call fzf#vim#files(<q-args>, {'source': 'ag --hidden --ignore .git -g ""'}, <bang>0)
   nnoremap <Leader>ff :Files<cr>
+  nnoremap <Leader>fv :e ~/.spacevim<cr>
   nnoremap <Leader>fF :GFiles<CR>
   nnoremap <Leader>sg :Ag<CR>
   nnoremap <Leader>sG :Rg<CR>
