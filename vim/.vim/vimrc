@@ -259,8 +259,11 @@ endif
 " - Avoid using standard Vim directory names like 'plugin'
 call plug#begin('~/.vim/autoload')
 
-nnoremap <Leader>I :Plugstall<CR>
-nnoremap <Leader>U :PlugUpdate<CR>
+nnoremap <Leader>vi :PlugInstall<CR>
+nnoremap <Leader>vc :PlugClean<CR>
+nnoremap <Leader>vC :PlugClean!<CR>
+nnoremap <Leader>vu :PlugUpdate<CR>
+nnoremap <Leader>vU :PlugUpgrade<CR>
 
 Plug 'liuchengxu/vim-which-key'
 nnoremap <silent> <leader> :WhichKey '<leader>'<CR>
