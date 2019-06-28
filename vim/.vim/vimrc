@@ -243,95 +243,64 @@ autocmd BufRead,BufNewFile *.sh set expandtab tabstop=4 shiftwidth=4
 autocmd BufRead,BufNewFile *.fish,*.fishrc set expandtab tabstop=4 shiftwidth=4
 autocmd BufRead,BufNewFile *.c,*.cpp set noexpandtab tabstop=8 shiftwidth=8
 
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"""""""""""""" Vundle
-""""""""""""""https://github.com/gmarik/Vundle.vim
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set nocompatible              " be iMproved, required
-filetype on                   " required
-
 " this fix the errors(like Error detected while processing function) when using VundleInstall/Update
 set shell=/bin/bash
 
-" Install Vundle automatically
-" From https://github.com/VundleVim/Vundle.vim/issues/769#issue-188457119
-" START - Setting up Vundle - the vim plugin bundler
-let iCanHazVundle=1
-let vundle_readme=expand('~/.vim/bundle/Vundle.vim/README.md')
-if !filereadable(vundle_readme)
-  echo "Installing Vundle.."
-  echo ""
-  silent !mkdir -p ~/.vim/bundle
-  silent !git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
-  let iCanHazVundle=0
+"""""""""""""""""" junegunn/vim-plug: plugins manager """"""""""""""""""
+" Automatically install vim-plug
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
-set rtp+=~/.vim/bundle/Vundle.vim/
-call vundle#rc()
 
-" let Vundle manage Vundle, required
-Plugin 'VundleVim/Vundle.vim'
-nnoremap <Leader>I :PluginInstall<CR>
-nnoremap <Leader>U :PluginUpdate<CR>
-if iCanHazVundle == 0
-  echo "Installing Bundles, please ignore key map error messages"
-  echo ""
-  :source $MYVIMRC
-  :PluginInstall
-endif
-" END - Setting up Vundle - the vim plugin bundler
+" Specify a directory for plugins
+" - For Neovim: ~/.local/share/nvim/plugged
+" - Avoid using standard Vim directory names like 'plugin'
+call plug#begin('~/.vim/autoload')
 
-" Keep Plugin commands between vundle#begin/end.
-call vundle#begin()
-" alternatively, pass a path where Vundle should install plugins
-"call vundle#begin('~/some/path/here')
+nnoremap <Leader>I :Plugstall<CR>
+nnoremap <Leader>U :PlugUpdate<CR>
 
-Plugin 'liuchengxu/vim-which-key'
+Plug 'liuchengxu/vim-which-key'
 nnoremap <silent> <leader> :WhichKey '<leader>'<CR>
 " By default timeoutlen is 1000 ms
 set timeoutlen=500
 
 " nerdcommenter
-Plugin 'scrooloose/nerdcommenter'
+Plug 'scrooloose/nerdcommenter'
 filetype plugin on
 
 " unite, like Emacs's helm
-Plugin 'Shougo/unite.vim'
+Plug 'Shougo/unite.vim'
 " nnoremap <leader>f :<C-u>Unite -start-insert file_rec<CR>
 
 " rainbow parentheses
-Plugin 'luochen1990/rainbow'
+Plug 'luochen1990/rainbow'
 let g:rainbow_active = 1
 "0 if you want to enable it later via :RainbowToggle
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"" The following are examples of different formats supported.
-"" Keep Plugin commands between vundle#begin/end.
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-"""""""""""""""""""""plugin on GitHub repo""""""""""""""""""""""""""
-" Plugin 'tpope/vim-fugitive'
+" Plug 'tpope/vim-fugitive'
 
 " ctrlp
-Plugin 'kien/ctrlp.vim'
+Plug 'kien/ctrlp.vim'
 " `,,` bind to `CtrlP<CR>`
 nnoremap <Leader>, :CtrlP<CR>
 
 " ultisnips
-Plugin 'SirVer/ultisnips'
-Plugin 'honza/vim-snippets'
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
 " Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
 let g:UltiSnipsExpandTrigger="<c-space>"
 
 " YCM
-"Plugin 'Valloric/YouCompleteMe'
+"Plug 'Valloric/YouCompleteMe'
 " then in YouCompleteme dir: `./install.sh --clang-completer`
 "let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/YouCompleteMe/.ycm_extra_conf.py'
 "set completeopt=menu,menuone
 
 " vim-swoop
-Plugin 'pelodelfuego/vim-swoop'
+Plug 'pelodelfuego/vim-swoop'
 " Swoop current buffer
 " use the better default bindings <Leader>l, ml
 "nmap <C-s> :call Swoop()<CR>
@@ -347,41 +316,41 @@ nmap <Leader>m :let g:swoopWindowsVerticalLayout = 1<CR>
 nmap <Leader>n :let g:swoopWindowsVerticalLayout = 0<CR>
 
 " jedi -- auto completion for Python
-Plugin 'davidhalter/jedi-vim'
+Plug 'davidhalter/jedi-vim'
 let g:jedi#use_splits_not_buffers = "bottom"
 
 " auto-pairs
-Plugin 'jiangmiao/auto-pairs'
+Plug 'jiangmiao/auto-pairs'
 
 " AutoComplPop
-Plugin 'vim-scripts/AutoComplPop'
+Plug 'vim-scripts/AutoComplPop'
 
 " vim-multiple-cursors
-Plugin 'terryma/vim-multiple-cursors'
+Plug 'terryma/vim-multiple-cursors'
 
 " vim-expand-region
-Plugin 'terryma/vim-expand-region'
+Plug 'terryma/vim-expand-region'
 
 " python-mode
-Plugin 'klen/python-mode'
+Plug 'klen/python-mode'
 "default is python2
 "let g:pymode_python = 'python3'
 let g:pymode_options_colorcolumn = 0
 
-Plugin 'wellle/targets.vim'
+Plug 'wellle/targets.vim'
 
-Plugin 'tpope/vim-commentary'
+Plug 'tpope/vim-commentary'
 
-Plugin 'airblade/vim-gitgutter'
+Plug 'airblade/vim-gitgutter'
 let g:gitgutter_sign_modified = '!'
 
-Plugin 'tpope/vim-unimpaired'
+Plug 'tpope/vim-unimpaired'
 
 " need ~/.fzf + fzf-binary + fzf.vim to work
 " silently git clone the fzf repo
 silent !git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf > /dev/null 2>&1
 set rtp+=~/.fzf
-Plugin 'junegunn/fzf.vim'
+Plug 'junegunn/fzf.vim'
 " Overwrite the default Files command to include hidden files
 command! -bang -nargs=? -complete=dir Files
   \ call fzf#vim#files(<q-args>, {'source': 'ag --hidden --ignore .git -g ""'}, <bang>0)
@@ -391,38 +360,11 @@ nnoremap <Leader>b :Buffers<CR>
 nnoremap <Leader>g :Ag<CR>
 nnoremap <Leader>G :Rg<CR>
 
-Plugin 'chrisbra/NrrwRgn'
+Plug 'chrisbra/NrrwRgn'
 
-Plugin 'google/vim-searchindex'
-
-"""""""""""""""""""""plugin from http://vim-scripts.org/vim/scripts.html
-" Plugin 'L9'
-
-"""""""""""""""""""""Git plugin not hosted on GitHub"""""""""""""""""
-" Plugin 'git://git.wincent.com/command-t.git'
-
-"""""""""""""""""""""git repos on your local machine (i.e. when working on your own plugin)
-" Plugin 'file:///home/gmarik/path/to/plugin'
-
-" The sparkup vim script is in a subdirectory of this repo called vim.
-" Pass the path to set the runtimepath properly.
-" Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
-
-"""""""""""""""""""""Avoid a name conflict with L9
-" Plugin 'user/L9', {'name': 'newL9'}
+Plug 'google/vim-searchindex'
 
 
-"" All of your Plugins must be added before the following line
-call vundle#end()            " required
-filetype plugin indent on    " required
-"" To ignore plugin indent changes, instead use:
-""filetype plugin on
-""
-"" Brief help
-"" :PluginList       - lists configured plugins
-"" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
-"" :PluginSearch foo - searches for foo; append `!` to refresh local cache
-"" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
-""
-"" see :h vundle for more details or wiki for FAQ
-"" Put your non-Plugin stuff after this line
+" Put Plug parts between plug#begin() and plug #end()
+" Initialize plugin system
+call plug#end()
