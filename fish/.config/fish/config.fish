@@ -1192,10 +1192,9 @@ abbr gitpu 'git push -v'
 abbr gitpl 'git pull -v'
 function gitpll -d 'git pull and location it to previous commit id before git pull in git log'
     set COMMIT_ID (git rev-parse HEAD) # short version: `git rev-parse --short HEAD`
-    echo $COMMIT_ID
     git log -1                  # show the info of the current commit before git pull
     git pull -v
-    git log --stat | less -p$COMMIT_ID
+    git log --stat | command less -p$COMMIT_ID
 end
 function gitc -d 'git clone and cd into it'
     git clone -v $argv
