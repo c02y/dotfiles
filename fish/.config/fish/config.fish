@@ -1136,16 +1136,8 @@ abbr vimf 'vim $FISH_CONFIG_PATH'
 abbr vimt 'vim ~/.tmux.conf; tmux source-file ~/.tmux.conf; echo ~/.tmux.conf reloaded!'
 abbr vimT 'vim ~/.tigrc'
 function vimo -d 'use ~/Dotfiles.d/vim instead ~/.space-vim'
-    # The plugins are still installed inside ~/.vim/bundle/
+    # The plugins are still installed inside ~/.vim/autoload
     bash -c "vim --cmd \"set runtimepath^=$HOME/Dotfiles.d/vim/.vim\" -u $HOME/Dotfiles.d/vim/.vim/vimrc $argv"
-end
-function vundles -d 'fix the :BundleUpdate error of conflicts problem'
-    for dir in ~/.vim/bundle/*
-        cd $dir
-        echo $PWD
-        gitco
-        echo
-    end
 end
 
 # emacs
