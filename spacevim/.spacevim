@@ -42,7 +42,6 @@ let g:spacevim_disable_restore_cursor_position_on_open = 1
 " Manage your own plugins.
 " Refer to https://github.com/junegunn/vim-plug for more detials.
 function! UserInit()
-
   " Add your own plugin via Plug command.
 
   " rainbow parentheses
@@ -58,27 +57,13 @@ function! UserInit()
   Plug 'airblade/vim-gitgutter'
   let g:gitgutter_sign_modified = '!'
 
-  Plug 'Shougo/neocomplete.vim'
-  let g:neocomplete#enable_at_startup = 1
-
   Plug 'tpope/vim-commentary'
   Plug 'tpope/vim-unimpaired'
-  Plug 'vim-scripts/AutoComplPop'
 
 endfunction
 
 " Override the default settings from space-vim as well as adding extras
 function! UserConfig()
-
-  " Reload vimrc without restarting vim
-  " Source vim configuration upon save, but it only works if editing vimrc inside vim
-  if has ('autocmd') " Remain compatible with earlier versions
-  augroup vimrc
-      autocmd! BufWritePost $MYVIMRC source % | echom "Reloaded " . $MYVIMRC | redraw
-      autocmd! BufWritePost $MYGVIMRC if has('gui_running') | so % | echom "Reloaded " . $MYGVIMRC | endif | redraw
-    augroup END
-  endif " has autocmd
-
   " disable tabline
   let g:airline#extensions#tabline#enabled = 0
   " disable the git part in statusline
