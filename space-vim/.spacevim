@@ -15,7 +15,7 @@ let g:spacevim_plug_home = '~/.vim/plugged'
 " pip install flake8 yapf isort
 let g:spacevim_layers = [
       \ 'fzf', 'better-defaults', 'which-key',
-      \ 'syntax-checking', 'auto-completion', 'deoplete', 'c-c++', 'markdown',
+      \ 'syntax-checking', 'auto-completion', 'c-c++', 'markdown',
       \ 'editing', 'code-snippets', 'formatting', 'formatting', 'file-manager',
       \ 'better-motion', 'better-motion', 'ctrlp', 'airline'
       \ ]
@@ -31,7 +31,13 @@ let g:spacevim_layers = [
 "   Layer 'airline'
 " endif
 
-  let g:spacevim_disable_restore_cursor_position_on_open = 1
+let g:spacevim_disable_restore_cursor_position_on_open = 1
+
+" exclude a plugin from a layer
+" function! Layers()
+"     " excluding multiple plugins like: { 'exclude': ['plugin1', 'plugin2'] }
+"     Layer 'auto-completion',  { 'exclude': 'roxma/vim-hug-neovim-rpc' }
+" endfunction
 
 " Manage your own plugins.
 " Refer to https://github.com/junegunn/vim-plug for more detials.
@@ -52,10 +58,27 @@ function! UserInit()
   Plug 'airblade/vim-gitgutter'
   let g:gitgutter_sign_modified = '!'
 
+  Plug 'Shougo/neocomplete.vim'
+  let g:neocomplete#enable_at_startup = 1
+
+  Plug 'tpope/vim-commentary'
+  Plug 'tpope/vim-unimpaired'
+  Plug 'vim-scripts/AutoComplPop'
+
 endfunction
 
 " Override the default settings from space-vim as well as adding extras
 function! UserConfig()
+
+  " Reload vimrc without restarting vim
+  " Source vim configuration upon save, but it only works if editing vimrc inside vim
+  if has ('autocmd') " Remain compatible with earlier versions
+  augroup vimrc
+      autocmd! BufWritePost $MYVIMRC source % | echom "Reloaded " . $MYVIMRC | redraw
+      autocmd! BufWritePost $MYGVIMRC if has('gui_running') | so % | echom "Reloaded " . $MYGVIMRC | endif | redraw
+    augroup END
+  endif " has autocmd
+
   " disable tabline
   let g:airline#extensions#tabline#enabled = 0
   " disable the git part in statusline
@@ -70,11 +93,6 @@ function! UserConfig()
   if !has("gui_running")
      colorscheme default
   endif
-
-  " show all whitespaces, use `:set list` to show
-  " Overwrite those provided by space-vim
-  set listchars=eol:$,tab:>-,trail:~,extends:>,precedes:<
-
 
   " q to exit if no change
   nmap q :q<CR>
@@ -94,6 +112,10 @@ function! UserConfig()
         set list
     end
   endfunc
+
+  imap <C-a> <Home>
+  imap <C-e> <End>
+  imap <C-k> <c-o>d$
 
   " add bindings for leader key
   nnoremap <Leader>tt :call NumberToggle()<cr>
@@ -115,4 +137,11 @@ function! UserConfig()
   nnoremap <Leader>w<UP> <C-W>k<CR>
   nnoremap <Leader>w<DOWN> <C-W>j<CR>
   nnoremap <Leader>w<Bslash> <C-W>v<CR> " SPC w \ to split-window-right
+
+  " autocmd BufRead,BufNewFile *.sh,*.py syntax on
+  autocmd BufRead,BufNewFile *.py set ts=4 sw=4 autoindent smartindent expandtab cinwords=if,elif,else,for,while,with,try,except,finally,def,class
+  autocmd BufRead,BufNewFile *.sh set expandtab tabstop=4 shiftwidth=4
+  autocmd BufRead,BufNewFile *.fish,*.fishrc set expandtab tabstop=4 shiftwidth=4
+  autocmd BufRead,BufNewFile *.c,*.cpp set noexpandtab tabstop=8 shiftwidth=8
+
 endfunction
