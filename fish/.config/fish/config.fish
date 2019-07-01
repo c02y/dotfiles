@@ -301,7 +301,7 @@ function lsx -d 'cp the full path of a file/dir to sytem clipboard'
             echo \n---- Path Copied to Clipboard! ----
         end
     else
-        echo DISPLAY is not available!
+        readlink -f $argv
     end
 end
 function xcp -d 'paste the echo string into system clipper board'
@@ -1125,7 +1125,6 @@ end
 # xclip, get content into clipboard, echo file | xclip
 alias xc 'xclip -selection c'
 abbr xp 'xclip'
-abbr rl 'readlink -f'
 
 abbr km 'sudo kermit'
 
