@@ -922,6 +922,8 @@ Emacs session."
     "w-" 'split-window-below-next-buffer
     "w/" 'split-window-right-next-buffer
     "w\\" 'split-window-right-next-buffer
+    ;; the default bindings is SPC w +
+    "w SPC" 'spacemacs/window-layout-toggle
     )
 
   (defun revert-buffer-without-asking()
