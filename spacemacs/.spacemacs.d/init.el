@@ -870,6 +870,7 @@ Emacs session."
     "bR" 'revert-buffer-without-asking
     "tG" 'highlight-indent-guides-mode
     "tt" 'spacemacs/toggle-relative-line-numbers
+    "tT" 'spacemacs/toggle-line-numbers
     "fYn" 'yas-new-snippet
     "fYr" 'yas-reload-all
     "fYi" 'yas-insert-snippet
