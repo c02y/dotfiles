@@ -869,7 +869,7 @@ Emacs session."
     ;; overwrite the default bR
     "bR" 'revert-buffer-without-asking
     "tG" 'highlight-indent-guides-mode
-    "tt" 'spacemacs/toggle-visual-line-numbers
+    "tt" 'spacemacs/toggle-relative-line-numbers
     "fYn" 'yas-new-snippet
     "fYr" 'yas-reload-all
     "fYi" 'yas-insert-snippet
@@ -1250,6 +1250,8 @@ Version 2016-12-18"
     (interactive)
     (when (eolp) (forward-line 1))
     (mwim-end-of-code-or-line))
+
+  (add-to-list 'auto-mode-alist '(".spacevim\\'" . vimrc-mode))
 
   ;; needed for change-case functions
   (global-syntax-subword-mode)
