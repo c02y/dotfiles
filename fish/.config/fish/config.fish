@@ -452,7 +452,22 @@ function pk --description 'kill processes containing a pattern or PID'
     end
 end
 
-abbr epath 'varclear PATH; echo $PATH | tr " " "\n" | nl'
+function paths -d "function about PATH, list paths line by line(default), clean duplicated path(-c)"
+     set -l options 'c'
+     argparse -n paths $options -- $argv
+     or return
+
+     if set -q _flag_c
+         echo "Before: "
+         paths
+         echo "Cleaning PATH..."
+         varclear PATH
+         echo "After: "
+         paths
+     else
+         echo $PATH | tr " " "\n" | nl
+     end
+end
 function varclear --description 'Remove duplicates from environment varieble'
     if test (count $argv) = 1
         set -l newvar
