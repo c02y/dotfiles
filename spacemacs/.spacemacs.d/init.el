@@ -1035,8 +1035,9 @@ Version 2016-12-18"
       (interactive)
       (helm-set-pattern (concat "\\_<" helm-input "\\_>")))
     (define-key helm-occur-map (kbd "<right>") 'helm-occur-insert-symbol-regexp)
-    ;; overwrite the default M-SPC(which is for WM) to activate transient-state in helm mode
     (bind-keys :map helm-map
+               ;; In helm buffer, C-space to select buffers, M-S-d to delete selected buffers
+               ;; overwrite the default M-SPC(which is for WM) to activate transient-state in helm mode
                ("C-q" . spacemacs/helm-navigation-transient-state/body))
     )
 
@@ -1430,7 +1431,7 @@ _h_   _l_     _y_ yank      _t_ type     _e_ exchange-point
     ("z" undo-tree-undo)
     ("Z" undo-tree-redo)
     ("q" nil))
-  
+
   ;; delete/copy/cut whole buffer without moving point
   (defun current-line-empty-p ()
     (save-excursion
