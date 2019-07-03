@@ -113,6 +113,7 @@ This function should only modify configuration layer settings."
                                       (cool-moves :location (recipe :fetcher github :repo "mrbig033/cool-moves"))
                                       evil-smartparens
                                       esup
+                                      wgrep
                                       )
 
    ;; A list of packages that cannot be updated.
@@ -1036,7 +1037,7 @@ Version 2016-12-18"
     (define-key helm-occur-map (kbd "<right>") 'helm-occur-insert-symbol-regexp)
     ;; overwrite the default M-SPC(which is for WM) to activate transient-state in helm mode
     (bind-keys :map helm-map
-               ("M-x" . spacemacs/helm-navigation-transient-state/body))
+               ("C-q" . spacemacs/helm-navigation-transient-state/body))
     )
 
   ;; whitespace faces
@@ -1549,6 +1550,9 @@ In other non-comment situations, try C-M-j to split."
           (indent-according-to-mode)))))
 
   (add-hook 'smartparens-enabled-hook #'evil-smartparens-mode)
+  (require 'wgrep)
+  ;; C-x C-s to edit helm-occur bufer, C-c C-e to save the buffer
+  (add-hook 'helm-occur-mode-hook 'wgrep-change-to-wgrep-mode)
 
   (with-eval-after-load 'org
     ;; Resume clocking task when emacs is restarted
