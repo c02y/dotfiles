@@ -46,6 +46,7 @@ Usage: $(basename $0)
 	   -s to switch between Spacemacs and Vanilla emacs
 	   -t to time the startup of emacs
 	   -u update all packages, only works for Spacemacs
+	   -v edit VIMRC with emacsclient
 	   -x to start emacsclient in terminal even inside GUI DE
 EOF
 	exit 0
@@ -219,7 +220,7 @@ if [ -f ~/anaconda3/bin/emacs ]; then
     fi
 fi
 
-while getopts ":habcCdeEfkmopqrstux" args; do # prefix-: no warning for illegal option
+while getopts ":habcCdeEfkmopqrstuvx" args; do # prefix-: no warning for illegal option
 	case "$args" in
 		h|\?)                   # \? for illegal option
 			print_usage
@@ -311,6 +312,11 @@ while getopts ":habcCdeEfkmopqrstux" args; do # prefix-: no warning for illegal 
 			echo
 			echo "!!!You may need to do it again, since some packages may be deleted!!!"
 			exit 0
+			;;
+		v)
+			echo "Editing VIMRC"
+			file=$VIMRC
+			cmd=$file
 			;;
 		x)
 			flag_x=1
