@@ -862,6 +862,7 @@ Emacs session."
   (spacemacs/declare-prefix "fxT" "bin/t")
   (spacemacs/declare-prefix "fxe" "bin/emm")
   (spacemacs/declare-prefix "fxE" "ve.emacs.d/init.el")
+  (spacemacs/declare-prefix "=" "format/indent")
   (spacemacs/set-leader-keys
     "bU" 'reopen-killed-buffer-fancy
     ;; whitespace-cleanup will also do untabify-it/tabify-it automatically
@@ -882,6 +883,7 @@ Emacs session."
     "fxT" (lambda () (interactive) (find-file "~/.local/bin/t"))
     "fxe" (lambda () (interactive) (find-file "~/.local/bin/emm"))
     "fxE" (lambda () (interactive) (find-file "~/ve.emacs.d/init.el"))
+    "==" 'indent-buffer-or-region
     "bq" 'query-replace-region-or-from-top
     "bf" 'flush-blank-lines
     ;; related one is default M-q
@@ -933,6 +935,16 @@ Emacs session."
     (interactive)
     (revert-buffer nil t))
 
+  (defun indent-buffer-or-region ()
+    "Indent the region if marked, or else indent the whole buffer.
+Note that this function is almost the same as tabify-or-untabify except (un)tabify."
+    (interactive)
+    (if (use-region-p)
+        (setq $p1 (region-beginning)
+              $p2 (region-end))
+      (setq $p1 (point-min)
+            $p2 (point-max)))
+    (indent-region $p1 $p2))
   ;; symbol-overlay replaces highlight-symbol
   (dolist (hook '(prog-mode-hook org-mode-hook))
     (add-hook hook #'symbol-overlay-mode))
@@ -1754,31 +1766,31 @@ background of code to whatever theme I'm using's background"
   ;; spell checking
   ;; rewrite the default spell-checking transient state
   (spacemacs|define-transient-state ispell
-        :title "Spell Checking Transient State"
-        :doc "
+    :title "Spell Checking Transient State"
+    :doc "
 [_b_] check whole buffer  [_B_] add word to dict (buffer)   [_t_] toggle spell check
 [_d_] change dictionary   [_G_] add word to dict (global)   [_q_] exit
 [_n_] correct next        [_S_] add word to dict (session)  [_Q_] exit and disable spell check
 [_p_] correct previous    [_s_] correct generic             [_N_] next spell error
 [_c_] correct at point    [_._] correct wrapper             [_e_] endless ispell
 "
-        :on-enter (flyspell-mode)
-        :bindings
-        ("B" spacemacs/add-word-to-dict-buffer)
-        ("b" flyspell-buffer)
-        ("d" spell-checking/change-dictionary)
-        ("G" spacemacs/add-word-to-dict-global)
-        ("s" flyspell-correct-word-generic)
-        ("c" flyspell-correct-at-point)
-        ("." flyspell-correct-wrapper)
-        ("n" flyspell-correct-next)
-        ("p" flyspell-correct-previous)
-        ("N" flyspell-goto-next-error)
-        ("e" endless/ispell-word-then-abbrev)
-        ("Q" flyspell-mode :exit t)
-        ("q" nil)
-        ("S" spacemacs/add-word-to-dict-session)
-        ("t" spacemacs/toggle-spelling-checking))
+    :on-enter (flyspell-mode)
+    :bindings
+    ("B" spacemacs/add-word-to-dict-buffer)
+    ("b" flyspell-buffer)
+    ("d" spell-checking/change-dictionary)
+    ("G" spacemacs/add-word-to-dict-global)
+    ("s" flyspell-correct-word-generic)
+    ("c" flyspell-correct-at-point)
+    ("." flyspell-correct-wrapper)
+    ("n" flyspell-correct-next)
+    ("p" flyspell-correct-previous)
+    ("N" flyspell-goto-next-error)
+    ("e" endless/ispell-word-then-abbrev)
+    ("Q" flyspell-mode :exit t)
+    ("q" nil)
+    ("S" spacemacs/add-word-to-dict-session)
+    ("t" spacemacs/toggle-spelling-checking))
   (add-hook 'ispell-initialize-spellchecker-hook
             (lambda ()
               (setq ispell-base-dicts-override-alist
