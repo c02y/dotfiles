@@ -813,6 +813,14 @@ With argument, backward ARG lines."
     (bind-key "q" #'mu-magit-kill-buffers magit-status-mode-map)
     ;; turn this off in large repo since it may be slow
     (add-hook 'after-save-hook 'magit-after-save-refresh-status t)
+    ;; overwrite the default M-1/2/3/4 since they are used for winum like in other modes
+    ;; Use C-tab or S-tab to show section-cycle
+    (bind-keys :map magit-mode-map
+               ("M-1" . winum-select-window-1)
+               ("M-2" . winum-select-window-2)
+               ("M-3" . winum-select-window-3)
+               ("M-4" . winum-select-window-4)
+               )
     )
 
   ;; show snippets in company list, don't know why auto-completion-enable-snippets-in-popup doesn't work
