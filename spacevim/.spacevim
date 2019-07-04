@@ -153,22 +153,23 @@ function! UserConfig()
   nnoremap <Leader>sS :call SwoopSelection()<CR>
   nnoremap <Leader>nn :NR<CR>
   nnoremap <Leader>nl :NRV<CR>
-  nnoremap <Leader>w<LEFT> <C-W>h<CR>
-  nnoremap <Leader>w<RIGHT> <C-W>l<CR>
-  nnoremap <Leader>w<UP> <C-W>k<CR>
-  nnoremap <Leader>w<DOWN> <C-W>j<CR>
-  nnoremap <Leader>w<Bslash> <C-W>v<CR> " SPC w \ to split-window-right
+  nnoremap <Leader>w<LEFT> <C-W>h
+  nnoremap <Leader>w<RIGHT> <C-W>l
+  nnoremap <Leader>w<UP> <C-W>k
+  nnoremap <Leader>w<DOWN> <C-W>j
+  nnoremap <Leader>w<Bslash> <C-W>v " SPC w \ to split-window-right
   nnoremap <Leader>vi :PlugInstall<CR>
   nnoremap <Leader>vc :PlugClean<CR>
   nnoremap <Leader>vC :PlugClean!<CR>
   nnoremap <Leader>vu :PlugUpdate<CR>
   nnoremap <Leader>vU :PlugUpgrade<CR>
-  nnoremap <Leader>bi g<C-g><CR>
+  nnoremap <Leader>bi g<C-g>    " show the info the point and buffer
 
-  nnoremap <Leader>== gg=G<CR>
-  nnoremap <Leader>={ =i{<CR>
-  nnoremap <Leader>=( =i(<CR>
-  nnoremap <Leader>=[ =i[<CR>
+  " indent and jump back
+  nnoremap <Leader>== gg=G2<C-o>
+  nnoremap <Leader>={ =i{<C-o>
+  nnoremap <Leader>=( =i(<C-o>
+  nnoremap <Leader>=[ =i[<C-o>
 
   " autocmd BufRead,BufNewFile *.sh,*.py syntax on
   autocmd BufRead,BufNewFile *.py set ts=4 sw=4 autoindent smartindent expandtab cinwords=if,elif,else,for,while,with,try,except,finally,def,class
