@@ -67,15 +67,19 @@ fi
 
 # Duration and output file
 if [ $# -gt 0 ]; then
-	D="--duration=$@"
+	D="--duration=$@ $HOME/recorded.gif"
 else
 	echo Default recording duration 10s to $HOME/recorded.gif
 	D="--duration=10 $HOME/recorded.gif"
 fi
 
 if [ "$flag_r" -eq 1 ]; then
+	if ! hash xrectsel 2>/dev/null; then
+		echo "xrectsel program is not installed!(pip install xrectsel)"
+		exit 1
+	fi
 	# xrectsel from https://github.com/lolilolicon/xrectsel
-	ARGUMENTS=$(xrectsel "--x=%x --y=%y --width=%w --height=%h") || exit -1
+	ARGUMENTS=$(xrectsel -f "--x=%x --y=%y --width=%w --height=%h") || exit -1
 
 	echo Delaying $DELAY seconds. After that, byzanz will start
 	for (( i=$DELAY; i>0; --i )) ; do
@@ -89,6 +93,10 @@ if [ "$flag_r" -eq 1 ]; then
 fi
 
 if [ "$flag_w" -eq 1 ]; then
+	if ! hash xwininfo 2>/dev/null; then
+		echo "xwininfo program is not installed!"
+		exit 1
+	fi
 	XWININFO=$(xwininfo)
 	read X < <(awk -F: '/Absolute upper-left X/{print $2}' <<< "$XWININFO")
 	read Y < <(awk -F: '/Absolute upper-left Y/{print $2}' <<< "$XWININFO")
