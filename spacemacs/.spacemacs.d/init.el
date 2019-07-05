@@ -891,7 +891,8 @@ Emacs session."
     "fxT" (lambda () (interactive) (find-file "~/.local/bin/t"))
     "fxe" (lambda () (interactive) (find-file "~/.local/bin/emm"))
     "fxE" (lambda () (interactive) (find-file "~/ve.emacs.d/init.el"))
-    "==" 'indent-buffer-or-region
+    ;; the default binding is SPC j =
+    "==" 'spacemacs/indent-region-or-buffer
     "bq" 'query-replace-region-or-from-top
     "bf" 'flush-blank-lines
     ;; related one is default M-q
@@ -936,6 +937,9 @@ Emacs session."
     "w\\" 'split-window-right-next-buffer
     ;; the default bindings is SPC w +
     "w SPC" 'spacemacs/window-layout-toggle
+    ;; the default binding is SPC j b
+    "j SPC" 'avy-pop-mark
+    "j r" 'avy-resume
     )
 
   (defun revert-buffer-without-asking()
@@ -943,16 +947,6 @@ Emacs session."
     (interactive)
     (revert-buffer nil t))
 
-  (defun indent-buffer-or-region ()
-    "Indent the region if marked, or else indent the whole buffer.
-Note that this function is almost the same as tabify-or-untabify except (un)tabify."
-    (interactive)
-    (if (use-region-p)
-        (setq $p1 (region-beginning)
-              $p2 (region-end))
-      (setq $p1 (point-min)
-            $p2 (point-max)))
-    (indent-region $p1 $p2))
   ;; symbol-overlay replaces highlight-symbol
   (dolist (hook '(prog-mode-hook org-mode-hook))
     (add-hook hook #'symbol-overlay-mode))
