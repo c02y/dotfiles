@@ -582,22 +582,22 @@ https://github.com/syl20bnr/spacemacs/issues/12346"
    ;; try hunspell at first
    ;; if hunspell does NOT exist, use aspell
    ;; NOTE: Using hunspell may produce the "Error enabling Flyspell mode: (stringp nil)" problem
-   ((executable-find "hunspell")
-    (setq ispell-program-name "hunspell")
-    (setq ispell-local-dictionary "en_US")
-    (setq ispell-local-dictionary-alist
-          ;; Please note the list `("-d" "en_US")` contains ACTUAL parameters passed to hunspell
-          ;; You could use `("-d" "en_US,en_US-med")` to check with multiple dictionaries
-          '(("en_US" "[[:alpha:]]" "[^[:alpha:]]" "[']" nil ("-d" "en_US") nil utf-8)
-            )))
+   ;; FIXME: comment hunspell part out when the buf of hunspell 1.7.0 is fixed: https://www.reddit.com/r/emacs/comments/air595
+   ;; ((executable-find "hunspell")
+   ;;  (setq ispell-program-name "hunspell"
+   ;;        ;; NOTE: this file is for hunspell, aspell uses another file and format(~/.aspell.en.pws)
+   ;;        ;; FIXME: unable to merge dictionaries for aspell and hunspell into one
+   ;;        ispell-personal-dictionary "~/.spacemacs.d/ispell_en_US"))
    ((executable-find "aspell")
-    (setq ispell-program-name "aspell")
-    ;; Please note ispell-extra-args contains ACTUAL parameters passed to aspell
-    (setq ispell-extra-args '("--sug-mode=ultra" "--lang=en_US"))
+    (setq ispell-program-name "aspell"
+          ;; Please note ispell-extra-args contains ACTUAL parameters passed to aspell
+          ispell-extra-args '("--sug-mode=ultra" "--lang=en_US"))
     (message "hunspell not found, use aspell for spell-check!")))
-  ;; NOTE: this file is for hunspell, aspell uses another file and format(~/.aspell.en.pws)
-  ;; FIXME: unable to merge dictionaries for aspell and hunspell into one
-  (setq ispell-personal-dictionary "~/.spacemacs.d/ispell_en_US")
+  (setq ispell-local-dictionary "en_US"
+        ispell-local-dictionary-alist
+        ;; Please note the list `("-d" "en_US")` contains ACTUAL parameters passed to hunspell
+        ;; You could use `("-d" "en_US,en_US-med")` to check with multiple dictionaries
+        '(("en_US" "[[:alpha:]]" "[^[:alpha:]]" "[']" nil ("-d" "en_US") nil utf-8)))
   )
 
 (defun dotspacemacs/user-load ()
