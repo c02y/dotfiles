@@ -17,7 +17,7 @@ let g:spacevim_layers = [
       \ 'fzf', 'better-defaults', 'which-key',
       \ 'auto-completion', 'c-c++', 'markdown',
       \ 'editing', 'code-snippets', 'formatting', 'formatting', 'file-manager',
-      \ 'better-motion', 'better-motion', 'ctrlp', 'airline'
+      \ 'better-motion', 'better-motion', 'ctrlp', 'airline', 'cscope'
       \ ]
 
 " Uncomment the following line if your terminal(-emulator) supports true colors.
@@ -179,4 +179,8 @@ function! UserConfig()
   autocmd BufRead,BufNewFile *.sh set expandtab tabstop=4 shiftwidth=4
   autocmd BufRead,BufNewFile *.fish,*.fishrc set expandtab tabstop=4 shiftwidth=4
   autocmd BufRead,BufNewFile *.c,*.cpp set noexpandtab tabstop=8 shiftwidth=8
+
+  " cscope
+  autocmd BufNewFile,BufRead *.c,*.h,*.hpp,*.cpp,*.cc call spacevim#vim#cscope#Build()
+  autocmd BufNewFile,BufWritePost *.c,*.h,*.hpp,*.cpp,*.cc call spacevim#vim#cscope#UpdateDB()
 endfunction
