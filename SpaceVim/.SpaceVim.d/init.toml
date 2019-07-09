@@ -1,0 +1,61 @@
+#=============================================================================
+# dark_powered.toml --- dark powered configuration example for SpaceVim
+# Copyright (c) 2016-2017 Wang Shidong & Contributors
+# Author: Wang Shidong < wsdjeg at 163.com >
+# URL: https://spacevim.org
+# License: GPLv3
+#=============================================================================
+# https://spacevim.org/documentation/
+# Update SpaceVim using `:SPUpdate SpaceVim` in vim or `git -C ~/.SpaceVim pull` in terminal
+
+# All SpaceVim option below [option] section
+[options]
+    bootstrap_before = "myspacevim#before"
+    bootstrap_after = "myspacevim#after"
+
+    # set spacevim theme. by default colorscheme layer is not loaded,
+    # if you want to use more colorscheme, please load the colorscheme
+    # layer
+    colorscheme = ""
+    colorscheme_bg = ""
+    # Disable guicolors in basic mode, many terminal do not support 24bit
+    # true colors
+    enable_guicolors = false
+    # Disable statusline separator, if you want to use other value, please
+    # install nerd fonts
+    statusline_separator = "nil"
+    statusline_inactive_separator = "nil"
+    buffer_index_type = 4
+    enable_tabline_filetype_icon = false
+    enable_statusline_mode = true
+    statusline_unicode_symbols = false
+
+    # default is `s`
+    windows_leader = ""
+
+    # disable vimfiler window on the home page after startup
+    enable_vimfiler_welcome = 0
+
+
+# Enable autocomplete layer
+[[layers]]
+name = 'autocomplete'
+auto-completion-return-key-behavior = "complete"
+auto-completion-tab-key-behavior = "smart"
+
+name = "lang#c"
+
+# https://spacevim.org/layers/lang/python/
+# pip install flake8 isort yapf autoflake coverage
+name = "lang#python"
+
+name = "format"
+
+name = "denite"
+
+name = "tools"
+
+[[layers]]
+name = 'shell'
+default_position = 'top'
+default_height = 30
