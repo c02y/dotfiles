@@ -83,9 +83,10 @@ function! UserInit()
 
   Plug 'tpope/vim-repeat'
 
+  " NOTE: timeoutlen also affects the which-key popup delay
   " https://stackoverflow.com/a/15550787/1528712
   set timeout " Do time out on mappings and others
-  set timeoutlen=2000 " Wait {num} ms before timing out a mapping
+  set timeoutlen=500 " Wait {num} ms before timing out a mapping
   " When you’re pressing Escape to leave insert mode in the terminal, it will by
   " default take a second or another keystroke to leave insert mode completely
   " and update the statusline. This fixes that. I got this from:
@@ -95,7 +96,7 @@ function! UserInit()
       augroup FastEscape
           autocmd!
           au InsertEnter * set timeoutlen=0
-          au InsertLeave * set timeoutlen=1000
+          au InsertLeave * set timeoutlen=500
       augroup END
   endif
 endfunction
@@ -178,7 +179,4 @@ function! UserConfig()
   autocmd BufRead,BufNewFile *.sh set expandtab tabstop=4 shiftwidth=4
   autocmd BufRead,BufNewFile *.fish,*.fishrc set expandtab tabstop=4 shiftwidth=4
   autocmd BufRead,BufNewFile *.c,*.cpp set noexpandtab tabstop=8 shiftwidth=8
-
-  " for which-key popup delay
-  set timeoutlen=100
 endfunction
