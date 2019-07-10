@@ -330,9 +330,9 @@ function lls -d 'ls functions with options'
     else if set -q _flag_T # like -t, but show the whole list
         ls -lhA --color=yes $ARGV --sort=time -lh --time=ctime | nl -v 0 | sort -nr
     else if set -q _flag_s # sort by size, only show tail
-        ll -lhA --color=yes $ARGV --sort=size -lh | nl -v 0 | tail -20 | sort -nr
+        ls -lhA --color=yes $ARGV --sort=size -lh | nl -v 0 | sort -nr | tail -20
     else if set -q _flag_S # like -s, but show the whole list
-        ll -lhA --color=yes $ARGV --sort=size -lh | nl -v 0 | sort -nr
+        ls -lhA --color=yes $ARGV --sort=size -lh | nl -v 0 | sort -nr
     else                   # otherwise without option, working like -t
         ls -lhA --color=yes $ARGV --sort=time -lh --time=ctime | nl -v 0 | sort -nr | tail -20
     end
