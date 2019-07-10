@@ -591,7 +591,7 @@ function fu -d 'fu command and prompt to ask to open it or not'
             set num_line (grep -n -w -E "^alias $argv |^function $argv |^function $argv\$" $def_file | cut -d: -f1)
             # NOTE: $num_line may contain more than one number, use "$num_line", or test will fail
             if not test "$num_line" # empty
-                echo "$argv is an alias/functions in `alias/functions` defined in $def_file!"
+                echo "$argv is an alias/function defined in $def_file!"
                 if test $def_file = $FISH_CONFIG_PATH
                     functions -e $argv
                     echo "$argv is erased!"
