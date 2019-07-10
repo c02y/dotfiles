@@ -935,7 +935,7 @@ Emacs session."
     "w-" 'split-window-below-next-buffer
     "w/" 'split-window-right-next-buffer
     "w\\" 'split-window-right-next-buffer
-    ;; the default bindings is SPC w +
+    ;; the default binding is SPC w +
     "w SPC" 'spacemacs/window-layout-toggle
     ;; the default binding is SPC j b
     "j SPC" 'avy-pop-mark
@@ -1037,8 +1037,13 @@ Version 2016-12-18"
              ("U" . undo-tree-visualize)
              ("C-a" . keep-beginning-of-code-or-line)
              ("C-e" . keep-end-of-code-or-line)
-             ;; [/] h -> spacemacs/vcs-previous/next-hunk
-             ("[ u". spacemacs/vcs-revert-hunk)
+             ("[ u" . spacemacs/vcs-revert-hunk)
+             ("[ a" . spacemacs/vcs-stage-hunk)
+             ("[ d" . spacemacs/vcs-show-hunk)
+             ;; The default bindings are [/] h
+             ("[ n" . spacemacs/vcs-next-hunk)
+             ("[ N" . spacemacs/vcs-previous-hunk)
+             ("[ c" . spacemacs/vcs-transient-state/magit-commit-and-exit)
              )
 
   ;; disable follow in helm-occur (like helm-swoop) github-2152
