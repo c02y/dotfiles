@@ -577,8 +577,13 @@ function fu -d 'fu command and prompt to ask to open it or not'
     if test (echo $result_1 | grep -E "$abbr_show $argv |is a function with definition") # defined in fish script
         if test (echo $result_1 | grep -E "is a function with definition")
             # 1. function or alias -- second line of output of fu ends with "$path @ line $num_line"
-            set -l result_2 (printf '%s\n' $result | sed -n "2p")
-            set def_file (echo $result_2 | awk -v x=4 '{print $x}')
+            if test (printf '%s\n' $result | sed -n "2p" | grep -E "\# Defined in")
+                set -l result_2 (printf '%s\n' $result | sed -n "2p")
+                set def_file (echo $result_2 | awk -v x=4 '{print $x}')
+            else
+                echo "NOTE: Temporally definition from nowhere!"
+                return
+            end
             if test "$def_file" = "-" # alias, no definition file is printed
                 set def_file $FISH_CONFIG_PATH
             end
@@ -586,12 +591,14 @@ function fu -d 'fu command and prompt to ask to open it or not'
             set num_line (grep -n -w -E "^alias $argv |^function $argv |^function $argv\$" $def_file | cut -d: -f1)
             # NOTE: $num_line may contain more than one number, use "$num_line", or test will fail
             if not test "$num_line" # empty
-                echo "$argv is an alias/functions in `alias/functions` but not defined in $def_file, may be defined temporally or in other file!"
+                echo "$argv is an alias/functions in `alias/functions` defined in $def_file!"
                 if test $def_file = $FISH_CONFIG_PATH
                     functions -e $argv
                     echo "$argv is erased!"
+                    return
+                else
+                    set num_line 1
                 end
-                return
             else if test (echo "$num_line" | grep " ") # $num_line contains more than one value
                 echo "$argv has multiple definitions(alias and function) in $FISH_CONFIG_PATH, please clean them!"
                 return
