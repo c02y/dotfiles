@@ -178,9 +178,11 @@ vnoremap <silent> # :call VisualSearch('b')<CR>
 nn <C-J> :bn<cr>
 nn <C-K> :bp<cr>
 
-" C-e/a in inset mode
-imap <C-e> <END>
-imap <C-a> <HOME>
+noremap <C-a> <Home>
+noremap <C-e> <End>
+imap <C-a> <Home>
+imap <C-e> <End>              " FIXME: this doesn't work
+imap <C-k> <c-o>d$
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " emacs commands in insert mode
@@ -193,19 +195,12 @@ imap <C-f> <Right>
 imap ^[b   <S-Left>
 imap ^[f   <S-Right>
 
-imap <C-a> <Home>
-imap <C-e> <End>
-
 imap <C-d> <Del>
 imap <C-h> <BS>
 imap ^[d   <c-o>de
 imap <C-w> <c-o>db
 imap <C-u> <c-o>d^
-imap <C-k> <c-o>d$
 
-" C-e/a in insert mode
-imap <C-e> <END>
-imap <C-a> <HOME>
 imap <C-b> <Left>
 imap <C-f> <Right>
 imap ^[b <S-Left>
@@ -215,7 +210,6 @@ imap <C-h> <BS>
 imap ^[d <c-i>de
 imap <C-w> <c-o>db
 imap <C-u> <c-o>d^
-imap <C-k> <c-o>d$
 "imap <M-b> bi
 "imap <M-f> wi
 
