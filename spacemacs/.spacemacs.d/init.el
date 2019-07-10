@@ -1037,6 +1037,8 @@ Version 2016-12-18"
              ("U" . undo-tree-visualize)
              ("C-a" . keep-beginning-of-code-or-line)
              ("C-e" . keep-end-of-code-or-line)
+             ;; [/] h -> spacemacs/vcs-previous/next-hunk
+             ("[ u". spacemacs/vcs-revert-hunk)
              )
 
   ;; disable follow in helm-occur (like helm-swoop) github-2152
