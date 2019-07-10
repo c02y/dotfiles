@@ -1044,6 +1044,7 @@ Version 2016-12-18"
              ("[ n" . spacemacs/vcs-next-hunk)
              ("[ N" . spacemacs/vcs-previous-hunk)
              ("[ c" . spacemacs/vcs-transient-state/magit-commit-and-exit)
+             ("[ P" . spacemacs/vcs-transient-state/magit-push-and-exit)
              )
 
   ;; disable follow in helm-occur (like helm-swoop) github-2152
