@@ -318,23 +318,43 @@ function bxp -d 'pastebin service in command line'
 end
 #
 function lls -d 'ls functions with options'
-    set -l options 't' 'T' 's' 'S'
+    set -l options 't' 'T' 's' 'S' 'r'
     argparse -n lls $options -- $argv
     or return
 
     # no dir is given, assign it to .
     set -q $argv[1]; and set ARGV .; or set ARGV $argv
 
-    if set -q _flag_t      # sort by last modification time, only show tail
-        ls -lhA --color=yes $ARGV --sort=time -lh --time=ctime | nl -v 0 | sort -nr | tail -20
-    else if set -q _flag_T # like -t, but show the whole list
-        ls -lhA --color=yes $ARGV --sort=time -lh --time=ctime | nl -v 0 | sort -nr
-    else if set -q _flag_s # sort by size, only show tail
-        ls -lhA --color=yes $ARGV --sort=size -lh | nl -v 0 | sort -nr | tail -20
-    else if set -q _flag_S # like -s, but show the whole list
-        ls -lhA --color=yes $ARGV --sort=size -lh | nl -v 0 | sort -nr
-    else                   # otherwise without option, working like -t
-        ls -lhA --color=yes $ARGV --sort=time -lh --time=ctime | nl -v 0 | sort -nr | tail -20
+    if set -q _flag_t           # sort by last modification time, only show tail
+        if set -q _flag_r       # reverse
+            ls -lhA --color=yes $ARGV --sort=time -r --time=ctime | nl -v 0 | sort -nr | tail -20
+        else
+            ls -lhA --color=yes $ARGV --sort=time --time=ctime | nl -v 0 | sort -nr | tail -20
+        end
+    else if set -q _flag_T      # like -t, but show the whole list
+        if set -q _flag_r       # reverse
+            ls -lhA --color=yes $ARGV --sort=time -r --time=ctime | nl -v 0 | sort -nr
+        else
+            ls -lhA --color=yes $ARGV --sort=time --time=ctime | nl -v 0 | sort -nr
+        end
+    else if set -q _flag_s      # sort by size, only show tail
+        if set -q _flag_r       # reverse
+            ls -lhA --color=yes $ARGV --sort=size -r | nl -v 0 | sort -nr | tail -20
+        else
+            ls -lhA --color=yes $ARGV --sort=size | nl -v 0 | sort -nr | tail -20
+        end
+    else if set -q _flag_S      # like -s, but show the whole list
+        if set -q _flag_r       # reverse
+            ls -lhA --color=yes $ARGV --sort=size -r | nl -v 0 | sort -nr
+        else
+            ls -lhA --color=yes $ARGV --sort=size | nl -v 0 | sort -nr
+        end
+    else                        # otherwise without option, working like -t
+        if set -q _flag_r       # reverse
+            ls -lhA --color=yes $ARGV --sort=time -r --time=ctime | nl -v 0 | sort -nr | tail -20
+        else
+            ls -lhA --color=yes $ARGV --sort=time --time=ctime | nl -v 0 | sort -nr | tail -20
+        end
     end
 end
 # valgrind
