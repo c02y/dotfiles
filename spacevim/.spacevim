@@ -183,4 +183,16 @@ function! UserConfig()
   " cscope
   autocmd BufNewFile,BufRead *.c,*.h,*.hpp,*.cpp,*.cc call spacevim#vim#cscope#Build()
   autocmd BufNewFile,BufWritePost *.c,*.h,*.hpp,*.cpp,*.cc call spacevim#vim#cscope#UpdateDB()
+
+  " set pastetoggle=<F9>	 " paste from out-program under insert mode
+  " donnot have to type F9 before pasting from outside of Vim
+  let &t_SI .= "\<Esc>[?2004h"
+  let &t_EI .= "\<Esc>[?2004l"
+  inoremap <special> <expr> <Esc>[200~ XTermPasteBegin()
+  function! XTermPasteBegin()
+    set pastetoggle=<Esc>[201~
+    set paste
+    return ""
+  endfunction
+
 endfunction
