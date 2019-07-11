@@ -1732,7 +1732,6 @@ function agr -d 'ag errno'
         command ag -w $argv[1] $file
     end
 end
-abbr rg 'rg -p'
 # ag work with less with color and scrolling
 function ag
     #sed -i "s/.shell/\"$argv[1]\n.shell/g" ~/.lesshst
