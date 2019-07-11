@@ -33,6 +33,7 @@ if test $DISPLAY
 end
 
 # disable ksshaskpass pop window in KDE
+# if it does not always work, uninstall ksshaskpass package
 set -e SSH_ASKPASS
 
 # for ~/.linuxbrew/ (brew for linux to install programs)
