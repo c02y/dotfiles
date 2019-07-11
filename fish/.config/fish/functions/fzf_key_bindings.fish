@@ -24,7 +24,7 @@ function fzf_key_bindings
         -o -type l -print 2> /dev/null | sed 's@^\./@@'"
 
         begin
-            set -lx FZF_DEFAULT_OPTS "--height $FZF_TMUX_HEIGHT --reverse $FZF_DEFAULT_OPTS $FZF_CTRL_T_OPTS --preview 'less {}'"
+            set -lx FZF_DEFAULT_OPTS "--height $FZF_TMUX_HEIGHT --reverse $FZF_DEFAULT_OPTS $FZF_CTRL_T_OPTS"
             eval "$FZF_CTRL_T_COMMAND | "(__fzfcmd)' -m --query "'$fzf_query'"' | while read -l r; set result $result $r; end
         end
         if [ -z "$result" ]
