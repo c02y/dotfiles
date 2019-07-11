@@ -5,7 +5,6 @@
 # fzf-cd-widget is deleted
 # options of find command is changed
 # fzf-complete function is from https://github.com/junegunn/fzf/wiki/Examples-(fish)#completion
-# make it top-down layout instead down-top layout using --reverse
 function fzf_key_bindings
 
     # Store current token in $dir as root for the 'find' command
@@ -24,7 +23,7 @@ function fzf_key_bindings
         -o -type l -print 2> /dev/null | sed 's@^\./@@'"
 
         begin
-            set -lx FZF_DEFAULT_OPTS "--height $FZF_TMUX_HEIGHT --reverse $FZF_DEFAULT_OPTS $FZF_CTRL_T_OPTS"
+            set -lx FZF_DEFAULT_OPTS "--height $FZF_TMUX_HEIGHT $FZF_DEFAULT_OPTS $FZF_CTRL_T_OPTS"
             eval "$FZF_CTRL_T_COMMAND | "(__fzfcmd)' -m --query "'$fzf_query'"' | while read -l r; set result $result $r; end
         end
         if [ -z "$result" ]
@@ -52,7 +51,7 @@ function fzf_key_bindings
             # history's -z flag was added in fish 2.4.0, so don't use it for versions
             # before 2.4.0.
             if [ "$FISH_MAJOR" -gt 2 -o \( "$FISH_MAJOR" -eq 2 -a "$FISH_MINOR" -ge 4 \) ];
-                history -z | eval (__fzfcmd) --reverse --read0 -q '(commandline)' | perl -pe 'chomp if eof' | read -lz result
+                history -z | eval (__fzfcmd) --read0 -q '(commandline)' | perl -pe 'chomp if eof' | read -lz result
                 and commandline -- $result
             else
                 history | eval (__fzfcmd) -q '(commandline)' | read -l result
@@ -83,7 +82,7 @@ function fzf_key_bindings
 
 	    set -l complist (complete -C$cmd)
 	    set -l result
-	    string join -- \n $complist | sort | eval (__fzfcmd) --reverse -m --select-1 --exit-0 --header '(commandline)' | cut -f1 | while read -l r; set result $result $r; end
+	    string join -- \n $complist | sort | eval (__fzfcmd) -m --select-1 --exit-0 --header '(commandline)' | cut -f1 | while read -l r; set result $result $r; end
 
 	    set prefix (string sub -s 1 -l 1 -- (commandline -t))
 	    for i in (seq (count $result))
