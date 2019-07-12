@@ -245,6 +245,12 @@ au BufReadPost * if line("'\"") > 0|if line("'\"") <= line("$")|exe("norm '\"")|
 " bash indent "case"
 let g:sh_indent_case_labels=1
 
+" start insert when editing git commit message
+au FileType gitcommit 1 | startinsert
+
+" change PWD according to the buffer, this affect a lot of functions in vim
+autocmd BufEnter * silent! lcd %:p:h
+
 " turn pyton syntax on
 "syntax on
 "autocmd BufRead,BufNewFile *.sh,*.py syntax on
@@ -359,9 +365,6 @@ Plug 'airblade/vim-gitgutter'
 let g:gitgutter_sign_modified = '!'
 
 Plug 'tpope/vim-unimpaired'
-
-" change PWD according to the buffer, this affect a lot of functions in vim
-autocmd BufEnter * silent! lcd %:p:h
 
 " need ~/.fzf + fzf-binary + fzf.vim to work
 " silently git clone the fzf repo
