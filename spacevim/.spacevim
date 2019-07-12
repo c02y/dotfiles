@@ -157,6 +157,11 @@ function! UserConfig()
   " change PWD according to the buffer, this affect a lot of functions in vim
   autocmd BufEnter * silent! lcd %:p:h
 
+  " FIXME: vim-better-whitespace plugin in better-defaults layer doesn't work as expected
+  " use the following config to displayed trailing whitespace
+  highlight RedundantSpaces ctermbg=red guibg=red
+  match RedundantSpaces /\s\+$/
+
   "fzf
   " Overwrite the default Files command to include hidden files
   command! -bang -nargs=? -complete=dir Files
