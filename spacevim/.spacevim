@@ -17,7 +17,7 @@ let g:spacevim_layers = [
       \ 'fzf', 'better-defaults', 'which-key',
       \ 'auto-completion', 'c-c++', 'markdown',
       \ 'editing', 'code-snippets', 'formatting', 'formatting', 'file-manager',
-      \ 'better-motion', 'better-motion', 'airline', 'cscope'
+      \ 'better-motion', 'better-motion', 'airline', 'cscope', 'lsp',
       \ ]
 
 " Uncomment the following line if your terminal(-emulator) supports true colors.
@@ -125,6 +125,9 @@ function! UserConfig()
   " q to exit if no change
   nmap q :q<CR>
 
+  " start insert when editing git commit message
+  au FileType gitcommit 1 | startinsert
+  
   " toggle relativenumber and no number at all
   function! NumberToggle()
     if(&rnu == 1)
