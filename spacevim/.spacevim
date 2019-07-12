@@ -150,13 +150,12 @@ function! UserConfig()
   " add bindings for leader key
   nnoremap <Leader>tt :call NumberToggle()<cr>
   nnoremap <Leader>tl :call ListToggle()<cr>
+
   "fzf
-  " Overwrite the default Files command to include hidden files
-  command! -bang -nargs=? -complete=dir Files
-    \ call fzf#vim#files(<q-args>, {'source': 'ag --hidden --ignore .git -g ""'}, <bang>0)
-  nnoremap <Leader>ff :Files<cr>
+  " SPC ff is bound to files-in-home-direcotry by default
+  nnoremap <Leader>ff :GFiles<CR>
+  nnoremap <Leader>fF :GFiles --cached --others<CR>
   nnoremap <Leader>fv :e ~/.spacevim<cr>
-  nnoremap <Leader>fF :GFiles<CR>
   nnoremap <Leader>sg :Ag<CR>
   nnoremap <Leader>sG :Rg<CR>
   nnoremap <Leader>sS :call SwoopSelection()<CR>
