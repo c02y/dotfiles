@@ -301,11 +301,6 @@ let g:rainbow_active = 1
 
 " Plug 'tpope/vim-fugitive'
 
-" ctrlp
-Plug 'kien/ctrlp.vim'
-" `,,` bind to `CtrlP<CR>`
-nnoremap <Leader>, :CtrlP<CR>
-
 " ultisnips
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
@@ -329,10 +324,10 @@ Plug 'pelodelfuego/vim-swoop'
 "vmap <C-S-s> :call SwoopMultiSelection()<CR>
 let g:defaultWinSwoopWidth = 60
 let g:defaultWinSwoopHeight = 12
-nmap <Leader>s :call Swoop()<CR>
-nmap <Leader>S :call SwoopSelection()<CR>
-nmap <Leader>m :let g:swoopWindowsVerticalLayout = 1<CR>
-nmap <Leader>n :let g:swoopWindowsVerticalLayout = 0<CR>
+nmap <Leader>ss :call Swoop()<CR>
+nmap <Leader>sS :call SwoopSelection()<CR>
+nmap <Leader>sm :let g:swoopWindowsVerticalLayout = 1<CR>
+nmap <Leader>sn :let g:swoopWindowsVerticalLayout = 0<CR>
 
 " jedi -- auto completion for Python
 Plug 'davidhalter/jedi-vim'
@@ -365,6 +360,9 @@ let g:gitgutter_sign_modified = '!'
 
 Plug 'tpope/vim-unimpaired'
 
+" change PWD according to the buffer, this affect a lot of functions in vim
+autocmd BufEnter * silent! lcd %:p:h
+
 " need ~/.fzf + fzf-binary + fzf.vim to work
 " silently git clone the fzf repo
 silent !git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf > /dev/null 2>&1
@@ -373,11 +371,15 @@ Plug 'junegunn/fzf.vim'
 " Overwrite the default Files command to include hidden files
 command! -bang -nargs=? -complete=dir Files
   \ call fzf#vim#files(<q-args>, {'source': 'ag --hidden --ignore .git -g ""'}, <bang>0)
-nnoremap <Leader>f :Files<CR>
-nnoremap <Leader>F :GFiles<CR>
-nnoremap <Leader>b :Buffers<CR>
-nnoremap <Leader>g :Ag<CR>
-nnoremap <Leader>G :Rg<CR>
+nnoremap <Leader>ff :Files<CR>
+nnoremap <Leader>fF :Files<Space>
+nnoremap <Leader>fe :call feedkeys(":e \<Tab>", 'tn')<CR>
+nnoremap <Leader>fv :e ~/Dotfiles.d/vim/.vim/vimrc<CR>
+nnoremap <Leader>pf :GFiles --cached --others<CR>
+nnoremap <Leader>pF :GFiles<CR>
+nnoremap <Leader>bb :Buffers<CR>
+nnoremap <Leader>sg :Ag<CR>
+nnoremap <Leader>sG :Rg<CR>
 
 Plug 'chrisbra/NrrwRgn'
 

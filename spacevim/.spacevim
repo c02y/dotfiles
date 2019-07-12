@@ -17,7 +17,7 @@ let g:spacevim_layers = [
       \ 'fzf', 'better-defaults', 'which-key',
       \ 'auto-completion', 'c-c++', 'markdown',
       \ 'editing', 'code-snippets', 'formatting', 'formatting', 'file-manager',
-      \ 'better-motion', 'better-motion', 'ctrlp', 'airline', 'cscope'
+      \ 'better-motion', 'better-motion', 'airline', 'cscope'
       \ ]
 
 " Uncomment the following line if your terminal(-emulator) supports true colors.
@@ -151,10 +151,19 @@ function! UserConfig()
   nnoremap <Leader>tt :call NumberToggle()<cr>
   nnoremap <Leader>tl :call ListToggle()<cr>
 
+  " change PWD according to the buffer, this affect a lot of functions in vim
+  autocmd BufEnter * silent! lcd %:p:h
+
   "fzf
+  " Overwrite the default Files command to include hidden files
+  command! -bang -nargs=? -complete=dir Files
+    \ call fzf#vim#files(<q-args>, {'source': 'ag --hidden --ignore .git -g ""'}, <bang>0)
   " SPC ff is bound to files-in-home-direcotry by default
-  nnoremap <Leader>ff :GFiles<CR>
-  nnoremap <Leader>fF :GFiles --cached --others<CR>
+  nnoremap <Leader>ff :Files<CR>
+  nnoremap <Leader>fF :Files<Space>
+  nnoremap <Leader>fe :call feedkeys(":e \<Tab>", 'tn')<CR>
+  nnoremap <Leader>pf :GFiles --cached --others<CR>
+  nnoremap <Leader>pF :GFiles<CR>
   nnoremap <Leader>fv :e ~/.spacevim<cr>
   nnoremap <Leader>sg :Ag<CR>
   nnoremap <Leader>sG :Rg<CR>
