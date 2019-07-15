@@ -10,7 +10,7 @@ set fileencodings=utf8,gb2312,gb18030,ucs-bom,latin1
 " map SPC as leader key
 let mapleader = "\<Space>"
 
-let $MYVIMRC="$HOME/Dotfiles.d/vim/.vim/vimrc"
+let $MYVIMRC="$HOME/Dotfiles.d/vim/.vimrc"
 " Reload vimrc without restarting vim
 " Source vim configuration upon save, but it only works if editing vimrc inside vim
 if has ('autocmd') " Remain compatible with earlier versions

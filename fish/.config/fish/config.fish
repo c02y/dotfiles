@@ -14,7 +14,7 @@ set -gx MANPATH $HOME/anaconda3/share/man $MANPATH
 
 set -gx FISH_CONFIG_PATH ~/.config/fish/config.fish
 set -gx EMACS_EL ~/.spacemacs.d/init.el
-test -e ~/.spacevim; and set -gx VIMRC ~/.spacevim; or set -gx ~/.vim/vimrc
+test -e ~/.spacevim; and set -gx VIMRC ~/.spacevim; or set -gx ~/Dotfiles.d/vim/.vimrc
 
 # Please put the following lines into ~/.bashrc, putting them in config.fish won't work
 # This fixes a lot problems of displaying unicodes
@@ -1170,7 +1170,7 @@ abbr db 'douban.fm'
 #vim
 abbr V 'vim -u NONE'
 abbr vimc 'vim ~/.cgdb/cgdbrc'
-abbr vimm 'vim -u ~/.vim/vimrc.more'
+abbr vimm 'vim -u ~/Dotfiles.d/vim/vimrc.more'
 abbr vimv 'vim $VIMRC'
 abbr vimb 'vim ~/.bashrc'
 abbr vime 'vim $EMACS_EL'
@@ -1180,7 +1180,7 @@ abbr vimt 'vim ~/.tmux.conf; tmux source-file ~/.tmux.conf; echo ~/.tmux.conf re
 abbr vimT 'vim ~/.tigrc'
 function vimo -d 'use ~/Dotfiles.d/vim instead ~/.space-vim'
     # The plugins are still installed inside ~/.vim/autoload
-    bash -c "vim --cmd \"set runtimepath^=$HOME/Dotfiles.d/vim/.vim\" -u $HOME/Dotfiles.d/vim/.vim/vimrc $argv"
+    bash -c "vim --cmd \"set runtimepath^=$HOME/.vim\" -u $HOME/Dotfiles.d/vim/.vimrc $argv"
 end
 
 # emacs
