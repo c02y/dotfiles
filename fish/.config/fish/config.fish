@@ -1218,7 +1218,6 @@ function usertest -d 'add user test temporarily for one day, no passwd, and logi
     end
 
     if test -d /home/test       # directory exists
-        echo 111
         read -n 1 -p 'echo "User test already exists, delete it and its home directory? [y/N]: "' -l arg
         if test "$arg" = "y" -o "$arg" = "Y"
             sudo userdel -rfRZ test
@@ -1257,7 +1256,8 @@ abbr gitcp 'git checkout HEAD^1' # git checkout previous/old commit
 abbr gitcn 'git log --reverse --pretty=%H master | grep -A 1 (git rev-parse HEAD) | tail -n1 | xargs git checkout' # git checkout next/new commit
 abbr gitcm 'git commit -m'
 abbr gitcma 'git commit -amend -m'
-abbr gitrm 'git clean -f -d'    # clean untracked files/dirs
+abbr gitrm 'git clean -f -d --' # clean specific untracked files/dirs
+abbr gitrma 'git clean -f -d'   # clean all untracked files/dirs
 abbr gitt 'git tag'
 abbr gitft 'git ls-files --error-unmatch' # Check if file/dir is git-tracked
 abbr gitpu 'git push -v'
