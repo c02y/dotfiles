@@ -10,6 +10,7 @@ set -gx PATH $HOME/anaconda3/bin $HOME/.local/bin /usr/local/bin /bin /sbin /usr
 if test "$MANPATH" = ""
     set -gx MANPATH (manpath | string split ":")
 end
+# TODO: `pip install cppman ; cppman -c` to get manual for cpp
 set -gx MANPATH $HOME/anaconda3/share/man $MANPATH
 
 set -gx FISH_CONFIG_PATH ~/.config/fish/config.fish
@@ -1206,6 +1207,36 @@ abbr emtime "time emacs --debug-init -eval '(kill-emacs)'" # time emacs startup 
 # the gpl.txt can be gpl-2.0.txt or gpl-3.0.txt
 abbr lic 'wget -q http://www.gnu.org/licenses/gpl.txt -O LICENSE'
 
+function usertest -d 'add user test temporarily for one day, no passwd, and login into it, delete it(-d), by default add it in smart way'
+    set -l options 'd'
+    argparse -n usertest $options -- $argv
+    or return
+
+    if set -q _flag_d
+        sudo userdel -rfRZ test
+        return
+    end
+
+    if test -d /home/test       # directory exists
+        echo 111
+        read -n 1 -p 'echo "User test already exists, delete it and its home directory? [y/N]: "' -l arg
+        if test "$arg" = "y" -o "$arg" = "Y"
+            sudo userdel -rfRZ test
+        else
+            sudo su -s /bin/bash - test
+        end
+    else
+        sudo useradd -m -e (date -d "1 days" +"%Y-%m-%d") test -s /sbin/nologin
+        sudo su -s /bin/bash - test
+    end
+
+    echo
+    read -n 1 -p 'echo "After using it, delete it and its home directory? [Y/n]: "' -l arg
+    if test "$arg" = "y" -o "$arg" = "Y"
+        sudo userdel -rfRZ test
+    end
+end
+
 # git
 abbr gg 'tig'
 abbr ggl 'tig log'
@@ -1226,6 +1257,7 @@ abbr gitcp 'git checkout HEAD^1' # git checkout previous/old commit
 abbr gitcn 'git log --reverse --pretty=%H master | grep -A 1 (git rev-parse HEAD) | tail -n1 | xargs git checkout' # git checkout next/new commit
 abbr gitcm 'git commit -m'
 abbr gitcma 'git commit -amend -m'
+abbr gitrm 'git clean -f -d'    # clean untracked files/dirs
 abbr gitt 'git tag'
 abbr gitft 'git ls-files --error-unmatch' # Check if file/dir is git-tracked
 abbr gitpu 'git push -v'
