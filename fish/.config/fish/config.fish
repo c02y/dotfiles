@@ -632,6 +632,7 @@ function fu -d 'fu command and prompt to ask to open it or not'
     end
 end
 
+abbr fzfb "fzf --bind 'enter:execute:vim {} < /dev/tty'"
 function fzfp -d 'check if fzf is existed, with any argument, fzf binary file will be upgraded'
     if command -sq fzf; and set -q $argv[1] # fzf is in $PATH, and no any argv is given, two conditions
         # echo "fzf is installed, use any extra to upgrade it!"
@@ -741,9 +742,9 @@ function finds -d 'find a file/folder and view/edit using less/vim/emacs/emx/cd/
     end
 
     if set -q _flag_l           # find a file and view it using less
-        less (find $ARGV1 -iname "*$ARGV2*" | fzf)
+        find $ARGV1 -iname "*$ARGV2*" | fzf --bind 'enter:execute:less {} < /dev/tty'
     else if set -q _flag_v      # find a file and view it using vim
-        vim (find $ARGV1 -iname "*$ARGV2*" | fzf)
+        find $ARGV1 -iname "*$ARGV2*" | fzf --bind 'enter:execute:vim {} < /dev/tty'
     else if set -q _flag_e      # find a file and view it using emm
         emm (find $ARGV1 -iname "*$ARGV2*" | fzf)
     else if set -q _flag_x      # find a file and view it using emx
@@ -1814,7 +1815,7 @@ function ags -d 'ag(default)/rg(-r) sth in a init.el(-e)/config.fish(-f)/.tmux.c
         if set -q _flag_F # search pattern(s) in dir/file, choose it using fzf, and open if using emm/vim
             read -n 1 -p 'echo "Open it with emm? [_v_im/_e_mm]: "' -l answer
             if test "$answer" = "v" -o "$answer" = " "
-                vim (eval $CMD | fzf)
+                eval $CMD | fzf --bind 'enter:execute:vim {} < /dev/tty'
             else if test "$answer" = "e"
                 emm (eval $CMD | fzf)
             else
