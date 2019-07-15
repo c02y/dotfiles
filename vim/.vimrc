@@ -42,6 +42,11 @@ set vb t_vb=
 
 " show all whitespaces, use `:set list` to show
 set listchars=eol:$,tab:>-,trail:~,extends:>,precedes:<
+" use the following config to always display trailing whitespace
+highlight RedundantSpaces ctermbg=red guibg=red
+match RedundantSpaces /\s\+$/
+" remove trailing whitespaces
+nnoremap <Leader>bw :%s/\s\+$//e<CR>
 
 " normal mode in GUI
 nnoremap <C-DOWN> <C-W><C-J> "Ctrl-j to move down a split
