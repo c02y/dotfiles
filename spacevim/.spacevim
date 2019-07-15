@@ -158,9 +158,11 @@ function! UserConfig()
   autocmd BufEnter * silent! lcd %:p:h
 
   " FIXME: vim-better-whitespace plugin in better-defaults layer doesn't work as expected
-  " use the following config to displayed trailing whitespace
+  " use the following config to always display trailing whitespace
   highlight RedundantSpaces ctermbg=red guibg=red
   match RedundantSpaces /\s\+$/
+  " remove trailing whitespaces
+  nnoremap <Leader>bw :%s/\s\+$//e<CR>
 
   "fzf
   " Overwrite the default Files command to include hidden files
