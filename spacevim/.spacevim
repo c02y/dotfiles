@@ -20,10 +20,6 @@ let g:spacevim_layers = [
       \ 'better-motion', 'better-motion', 'airline', 'cscope', 'lsp',
       \ ]
 
-" issue#90
-" is.vim will disable hlsearch after moving cursor
-Layer 'better-defaults', { 'exclude': ['haya14busa/is.vim'] }
-
 " Uncomment the following line if your terminal(-emulator) supports true colors.
 " let g:spacevim_enable_true_color = 1
 
@@ -90,6 +86,17 @@ function! UserInit()
   Plug 'szw/vim-maximizer'
   nnoremap <silent><Leader>wm :MaximizerToggle<CR>
   nnoremap <silent><C-w>m :MaximizerToggle<CR>
+
+  Plug 'haya14busa/vim-asterisk'
+  map *   <Plug>(asterisk-*)
+  map #   <Plug>(asterisk-#)
+  map g*  <Plug>(asterisk-g*)
+  map g#  <Plug>(asterisk-g#)
+  map z*  <Plug>(asterisk-z*)
+  map gz* <Plug>(asterisk-gz*)
+  map z#  <Plug>(asterisk-z#)
+  map gz# <Plug>(asterisk-gz#)
+  let g:asterisk#keeppos = 1
 
   " NOTE: timeoutlen also affects the which-key popup delay
   " https://stackoverflow.com/a/15550787/1528712
