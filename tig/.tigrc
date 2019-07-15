@@ -41,10 +41,12 @@ bind status     D    ?>sh -c "rm -rfv %(file)"
 bind status     S    status-update # stage/unstage/track/untrack a file
 bind status     u    status-revert # revert changes in file
 bind status     C    ?>git checkout -- %(file) # delete changes on files in unstaged status
+bind status     X    ?>git clean -f -d -- %(file) # delete untracked files/dirs
 
 bind stage      S    status-update # stage/unstage/track/untrack a file
 bind stage      u    status-revert # revert changes in file
 bind stage      C    ?>git checkout -- %(file) # delete changes on files in unstaged status
+bind stage      X    ?>git clean -f -d -- %(file) # delete untracked files/dirs
 
 bind generic    gS   ?>git stash
 bind stash      p    ?>git stash pop %(stash)
