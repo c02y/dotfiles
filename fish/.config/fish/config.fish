@@ -1214,25 +1214,15 @@ function usertest -d 'add user test temporarily for one day, no passwd, and logi
 
     if set -q _flag_d
         sudo userdel -rfRZ test
+        ll /home/
         return
     end
 
     if test -d /home/test       # directory exists
-        read -n 1 -p 'echo "User test already exists, delete it and its home directory? [y/N]: "' -l arg
-        if test "$arg" = "y" -o "$arg" = "Y"
-            sudo userdel -rfRZ test
-        else
-            sudo su -s /bin/bash - test
-        end
+        sudo su -s /bin/bash - test
     else
         sudo useradd -m -e (date -d "1 days" +"%Y-%m-%d") test -s /sbin/nologin
         sudo su -s /bin/bash - test
-    end
-
-    echo
-    read -n 1 -p 'echo "After using it, delete it and its home directory? [Y/n]: "' -l arg
-    if test "$arg" = "y" -o "$arg" = "Y"
-        sudo userdel -rfRZ test
     end
 end
 
