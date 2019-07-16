@@ -639,6 +639,8 @@ before packages are loaded."
                 '((vertical-scroll-bars . nil)
                   (horizontal-scroll-bars . nil)))))
 
+  (add-hook 'before-save-hook 'whitespace-cleanup)
+
   ;; prevent package-selected-package list been created
   (defun package--save-selected-packages (&rest opt) nil)
   (add-hook 'after-init-hook 'global-company-mode)
