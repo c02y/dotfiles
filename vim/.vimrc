@@ -382,7 +382,7 @@ command! -bang -nargs=? -complete=dir Files
 nnoremap <Leader>ff :Files<CR>
 nnoremap <Leader>fF :Files<Space>
 nnoremap <Leader>fe :call feedkeys(":e \<Tab>", 'tn')<CR>
-nnoremap <Leader>fv :e ~/Dotfiles.d/vim/.vim/vimrc<CR>
+nnoremap <Leader>fv :e ~/Dotfiles.d/vim/.vimrc<CR>
 nnoremap <Leader>pf :GFiles --cached --others<CR>
 nnoremap <Leader>pF :GFiles<CR>
 nnoremap <Leader>bb :Buffers<CR>
