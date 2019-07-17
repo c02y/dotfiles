@@ -227,8 +227,8 @@ It should only modify the values of Spacemacs settings."
    ;; `recents' `bookmarks' `projects' `agenda' `todos'.
    ;; List sizes may be nil, in which case
    ;; `spacemacs-buffer-startup-lists-length' takes effect.
-   dotspacemacs-startup-lists '((recents . 0)
-                                (projects . 0))
+   dotspacemacs-startup-lists '((recents . 10)
+                                (projects . 5))
 
    ;; True if the home buffer should respond to resize events. (default t)
    dotspacemacs-startup-buffer-responsive t
@@ -1774,7 +1774,10 @@ background of code to whatever theme I'm using's background"
     ("a" hl-todo-insert "add")
     ("q" nil)
     )
-  (add-hook 'org-mode-hook 'hl-todo-mode)
+  ;; FIXME: global-hl-todo-mode doesn't work as expected, so use my-global-hl-todo-mode
+  (define-globalized-minor-mode my-global-hl-todo-mode hl-todo-mode
+    (lambda () (hl-todo-mode 1)))
+  (my-global-hl-todo-mode 1)
   ;; spell checking
   ;; rewrite the default spell-checking transient state
   (spacemacs|define-transient-state ispell
