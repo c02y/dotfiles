@@ -395,6 +395,11 @@ Plug 'google/vim-searchindex'
 
 Plug 'tpope/vim-repeat'
 
+Plug 'vim-scripts/YankRing.vim'
+nnoremap <Leader>ry :YRShow<CR>
+let g:yankring_min_element_length = 4
+let g:yankring_manage_numbered_reg = 1
+
 
 " Put Plug parts between plug#begin() and plug #end()
 " Initialize plugin system
