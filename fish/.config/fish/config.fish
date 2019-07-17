@@ -880,6 +880,8 @@ set -gx LESS_TERMCAP_us \e'[04;38;5;200m' # enter underline mode
 # Light Gray  0;37     White         1;37
 #########################################
 
+# TODO: pip install cppman; cppman -c # it will take a while
+abbr manp 'cppman'
 # color in man page
 set -gx MANPAGER 'less -s -M +Gg -i'
 # color in man page and less
@@ -1485,7 +1487,6 @@ abbr pyp8 'py.test --pep8'
 
 abbr epub 'ebook-viewer --detach'
 alias time 'time -p'
-abbr ex 'exit'
 abbr x 'exit'
 
 abbr sss 'ps -eo tty,command | grep -v grep | grep "sudo ssh "'
