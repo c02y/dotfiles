@@ -609,6 +609,9 @@ function fu -d 'fu command and prompt to ask to open it or not'
         else # 2. abbr, only handle abbr defined in $FISH_CONFIG_PATH
             abbrc
             set num_line (grep -n -w -E "^abbr $argv " $def_file | cut -d: -f1)
+            if not test "$num_line" # empty
+                return
+            end
         end
 
         echo
