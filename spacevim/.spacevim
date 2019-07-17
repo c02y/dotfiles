@@ -114,12 +114,12 @@ function! UserInit()
   " and update the statusline. This fixes that. I got this from:
   " https://powerline.readthedocs.org/en/latest/tipstricks.html#vim
   if !has('gui_running')
-      set ttimeoutlen=10
-      augroup FastEscape
-          autocmd!
-          au InsertEnter * set timeoutlen=0
-          au InsertLeave * set timeoutlen=500
-      augroup END
+    set ttimeoutlen=10
+    augroup FastEscape
+      autocmd!
+      au InsertEnter * set timeoutlen=0
+      au InsertLeave * set timeoutlen=500
+    augroup END
   endif
 endfunction
 
@@ -137,7 +137,7 @@ function! UserConfig()
 
   " disable theme only in terminal vim
   if !has("gui_running")
-     colorscheme default
+    colorscheme default
   endif
 
   " q to exit if no change
@@ -149,16 +149,16 @@ function! UserConfig()
   " toggle relativenumber and no number at all
   function! NumberToggle()
     if(&rnu == 1)
-        set nornu nonu
+      set nornu nonu
     else
-        set number relativenumber
+      set number relativenumber
     endif
   endfunc
   function! ListToggle()
     if(&list == 1)
-        set nolist
+      set nolist
     else
-        set list
+      set list
     end
   endfunc
 
@@ -185,14 +185,15 @@ function! UserConfig()
   "fzf
   " Overwrite the default Files command to include hidden files
   command! -bang -nargs=? -complete=dir Files
-    \ call fzf#vim#files(<q-args>, {'source': 'ag --hidden --ignore .git -g ""'}, <bang>0)
+        \ call fzf#vim#files(<q-args>, {'source': 'ag --hidden --ignore .git -g ""'}, <bang>0)
   " SPC ff is bound to files-in-home-direcotry by default
   nnoremap <Leader>ff :Files<CR>
   nnoremap <Leader>fF :Files<Space>
   nnoremap <Leader>fe :call feedkeys(":e \<Tab>", 'tn')<CR>
+  nnoremap <Leader>fh :History<CR>
+  nnoremap <Leader>fv :e ~/.spacevim<cr>
   nnoremap <Leader>pf :GFiles --cached --others<CR>
   nnoremap <Leader>pF :GFiles<CR>
-  nnoremap <Leader>fv :e ~/.spacevim<cr>
   nnoremap <Leader>sg :Ag<CR>
   nnoremap <Leader>sG :Rg<CR>
   nnoremap <Leader>sS :call SwoopSelection()<CR>
@@ -243,11 +244,11 @@ function! UserConfig()
 
   " Needed for tmux and vim to play nice when using A-array keys
   if &term =~ '^screen'
-      " tmux will send xterm-style keys when its xterm-keys option is on
-      execute "set <xUp>=\e[1;*A"
-      execute "set <xDown>=\e[1;*B"
-      execute "set <xRight>=\e[1;*C"
-      execute "set <xLeft>=\e[1;*D"
+    " tmux will send xterm-style keys when its xterm-keys option is on
+    execute "set <xUp>=\e[1;*A"
+    execute "set <xDown>=\e[1;*B"
+    execute "set <xRight>=\e[1;*C"
+    execute "set <xLeft>=\e[1;*D"
   endif
   " move current line up/down, and indent
   nnoremap <A-Down> :m .+1<CR>==
@@ -258,10 +259,10 @@ function! UserConfig()
   vnoremap <A-Up> :m '<-2<CR>gv=gv
 
   function! WindowNumber(...)
-      let builder = a:1
-      let context = a:2
-      call builder.add_section('airline_b', '%{tabpagewinnr(tabpagenr())}')
-      return 0
+    let builder = a:1
+    let context = a:2
+    call builder.add_section('airline_b', '%{tabpagewinnr(tabpagenr())}')
+    return 0
   endfunction
   call airline#add_statusline_func('WindowNumber')
   call airline#add_inactive_statusline_func('WindowNumber')
