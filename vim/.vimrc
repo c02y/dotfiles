@@ -116,6 +116,24 @@ nnoremap <Leader>tt :call NumberToggle()<CR>
 nnoremap <Leader>tl :call ListToggle()<CR>
 nnoremap <Leader>tn :set nonu nornu<CR>
 nnoremap <C-S-l> :call ListToggle()<CR>
+
+function! GotoClosedFold(dir)
+  let cmd = 'norm!z' . a:dir
+  let view = winsaveview()
+  let [l0, l, open] = [0, view.lnum, 1]
+  while l != l0 && open
+    exe cmd
+    let [l0, l] = [l, line('.')]
+    let open = foldclosed(l) < 0
+  endwhile
+  if open
+    call winrestview(view)
+  endif
+endfunction
+" default zj/k are for GotoOpenedFold, overwrite them
+nnoremap <silent> zj :call GotoClosedFold('j')<cr>
+nnoremap <silent> zk :call GotoClosedFold('k')<cr>
+
 set showcmd		 " show command
 autocmd BufEnter * :syntax sync fromstart
 set backspace=eol,start,indent

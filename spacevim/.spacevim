@@ -146,6 +146,13 @@ function! UserConfig()
   " start insert when editing git commit message
   au FileType gitcommit 1 | startinsert
 
+  " use hybrid relative in normal mode, and normal relative in insert mode
+  augroup numbertoggle
+    autocmd!
+    autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
+    autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
+  augroup END
+
   " toggle line number: relative+absolute-current->absolute->off
   function! NumberToggle()
     if(&rnu == 1 && &nu == 1)
@@ -166,6 +173,23 @@ function! UserConfig()
   nnoremap <Leader>tt :call NumberToggle()<CR>
   nnoremap <Leader>tl :call ListToggle()<CR>
   nnoremap <Leader>tn :set nonu nornu<CR>
+
+  function! GotoClosedFold(dir)
+    let cmd = 'norm!z' . a:dir
+    let view = winsaveview()
+    let [l0, l, open] = [0, view.lnum, 1]
+    while l != l0 && open
+      exe cmd
+      let [l0, l] = [l, line('.')]
+      let open = foldclosed(l) < 0
+    endwhile
+    if open
+      call winrestview(view)
+    endif
+  endfunction
+  " default zj/k are for GotoOpenedFold, overwrite them
+  nnoremap <silent> zj :call GotoClosedFold('j')<cr>
+  nnoremap <silent> zk :call GotoClosedFold('k')<cr>
 
   noremap <C-a> <Home>
   noremap <C-e> <End>
