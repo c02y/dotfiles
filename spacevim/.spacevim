@@ -146,9 +146,11 @@ function! UserConfig()
   " start insert when editing git commit message
   au FileType gitcommit 1 | startinsert
 
-  " toggle relativenumber and no number at all
+  " toggle line number: relative+absolute-current->absolute->off
   function! NumberToggle()
-    if(&rnu == 1)
+    if(&rnu == 1 && &nu == 1)
+      set nornu nu
+    elseif (&rnu != 1 && &nu == 1)
       set nornu nonu
     else
       set number relativenumber
@@ -161,16 +163,15 @@ function! UserConfig()
       set list
     end
   endfunc
+  nnoremap <Leader>tt :call NumberToggle()<CR>
+  nnoremap <Leader>tl :call ListToggle()<CR>
+  nnoremap <Leader>tn :set nonu nornu<CR>
 
   noremap <C-a> <Home>
   noremap <C-e> <End>
   imap <C-a> <Home>
   imap <C-e> <End>              " FIXME: this doesn't work
   imap <C-k> <c-o>d$
-
-  " add bindings for leader key
-  nnoremap <Leader>tt :call NumberToggle()<cr>
-  nnoremap <Leader>tl :call ListToggle()<cr>
 
   " change PWD according to the buffer, this affect a lot of functions in vim
   autocmd BufEnter * silent! lcd %:p:h

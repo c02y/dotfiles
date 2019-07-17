@@ -14,7 +14,7 @@ let $MYVIMRC="$HOME/Dotfiles.d/vim/.vimrc"
 " Reload vimrc without restarting vim
 " Source vim configuration upon save, but it only works if editing vimrc inside vim
 if has ('autocmd') " Remain compatible with earlier versions
- augroup vimrc
+  augroup vimrc
     autocmd! BufWritePost $MYVIMRC source % | echom "Reloaded " . $MYVIMRC | redraw
     autocmd! BufWritePost $MYGVIMRC if has('gui_running') | so % | echom "Reloaded " . $MYGVIMRC | endif | redraw
   augroup END
@@ -56,16 +56,16 @@ nnoremap <C-LEFT> <C-W><C-H> "Ctrl-h to move left a split
 
 " GUI client setting
 if has("gui_running")
-    " winpos 0 0
-    set guifont=PragmataPro\ 13
-    set lines=50 columns=80
-    set guioptions-=T	 " toolabr
-    set guioptions-=m	 " menubar
-    " remove the scrollbar on left/rignt/bottom
-    " cannot `set guioptions-=rlb`
-    set guioptions-=r
-    set guioptions-=l
-    set guioptions-=b
+  " winpos 0 0
+  set guifont=PragmataPro\ 13
+  set lines=50 columns=80
+  set guioptions-=T	 " toolabr
+  set guioptions-=m	 " menubar
+  " remove the scrollbar on left/rignt/bottom
+  " cannot `set guioptions-=rlb`
+  set guioptions-=r
+  set guioptions-=l
+  set guioptions-=b
 endif
 syntax on " syntax highlight
 set smartindent
@@ -95,23 +95,27 @@ augroup numbertoggle
   autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
   autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
 augroup END
-" toggle relativenumber and no number at all
+" toggle line number: relative+absolute-current->absolute->off
 function! NumberToggle()
-  if(&rnu == 1)
+  if(&rnu == 1 && &nu == 1)
+    set nornu nu
+  elseif (&rnu != 1 && &nu == 1)
     set nornu nonu
   else
     set number relativenumber
   endif
 endfunc
-nnoremap <C-l> :call NumberToggle()<cr>
 function! ListToggle()
-    if(&list == 1)
-        set nolist
-    else
-        set list
-    end
+  if(&list == 1)
+    set nolist
+  else
+    set list
+  end
 endfunc
-nnoremap <C-S-l> :call ListToggle()<cr>
+nnoremap <Leader>tt :call NumberToggle()<CR>
+nnoremap <Leader>tl :call ListToggle()<CR>
+nnoremap <Leader>tn :set nonu nornu<CR>
+nnoremap <C-S-l> :call ListToggle()<CR>
 set showcmd		 " show command
 autocmd BufEnter * :syntax sync fromstart
 set backspace=eol,start,indent
@@ -148,19 +152,19 @@ endfunction
 set laststatus=2 " always show status line
 highlight StatusLine cterm=bold ctermfg=black ctermbg=white
 function! CurDir()
-    let curdir = substitute(getcwd(), $HOME, "~", "g")
-    return curdir
+  let curdir = substitute(getcwd(), $HOME, "~", "g")
+  return curdir
 endfunction
 function! FileSize()
-    let bytes = getfsize(expand("%:p"))
-    if bytes <= 0
-        return ""
-    endif
-    if bytes < 1024
-        return bytes
-    else
-        return (bytes / 1024) . "KB"
-    endif
+  let bytes = getfsize(expand("%:p"))
+  if bytes <= 0
+    return ""
+  endif
+  if bytes < 1024
+    return bytes
+  else
+    return (bytes / 1024) . "KB"
+  endif
 endfunction
 function! ShowFileFormatFlag(var)
   if ( a:var == 'dos' )
@@ -220,11 +224,11 @@ imap <C-u> <c-o>d^
 
 " Needed for tmux and vim to play nice when using A-array keys
 if &term =~ '^screen'
-    " tmux will send xterm-style keys when its xterm-keys option is on
-    execute "set <xUp>=\e[1;*A"
-    execute "set <xDown>=\e[1;*B"
-    execute "set <xRight>=\e[1;*C"
-    execute "set <xLeft>=\e[1;*D"
+  " tmux will send xterm-style keys when its xterm-keys option is on
+  execute "set <xUp>=\e[1;*A"
+  execute "set <xDown>=\e[1;*B"
+  execute "set <xRight>=\e[1;*C"
+  execute "set <xLeft>=\e[1;*D"
 endif
 " move current line up/down, and indent
 nnoremap <A-Down> :m .+1<CR>==
@@ -271,7 +275,7 @@ set shell=/bin/bash
 " Automatically install vim-plug
 if empty(glob('~/.vim/autoload/plug.vim'))
   silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
-    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+        \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
@@ -378,7 +382,7 @@ set rtp+=~/.fzf
 Plug 'junegunn/fzf.vim'
 " Overwrite the default Files command to include hidden files
 command! -bang -nargs=? -complete=dir Files
-  \ call fzf#vim#files(<q-args>, {'source': 'ag --hidden --ignore .git -g ""'}, <bang>0)
+      \ call fzf#vim#files(<q-args>, {'source': 'ag --hidden --ignore .git -g ""'}, <bang>0)
 nnoremap <Leader>ff :Files<CR>
 nnoremap <Leader>fF :Files<Space>
 nnoremap <Leader>fe :call feedkeys(":e \<Tab>", 'tn')<CR>
