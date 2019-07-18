@@ -1056,7 +1056,6 @@ Version 2016-12-18"
              ("[ P" . spacemacs/vcs-transient-state/magit-push-and-exit)
              ("[ A" . git-gutter+-stage-and-commit)
              ("[ r" . git-gutter+-refresh)
-             ("[ U" . git-gutter+-publish-commit)
              )
 
   ;; disable follow in helm-occur (like helm-swoop) github-2152
