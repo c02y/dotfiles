@@ -1042,9 +1042,8 @@ Version 2016-12-18"
              ("[ u" . spacemacs/vcs-revert-hunk)
              ("[ a" . spacemacs/vcs-stage-hunk)
              ("[ d" . spacemacs/vcs-show-hunk)
-             ;; The default bindings are [/] h
-             ("[ n" . spacemacs/vcs-next-hunk)
-             ("[ N" . spacemacs/vcs-previous-hunk)
+             ;; The default binding is ] h
+             ("[ H" . spacemacs/vcs-next-hunk)
              ("[ c" . spacemacs/vcs-transient-state/magit-commit-and-exit)
              ("[ P" . spacemacs/vcs-transient-state/magit-push-and-exit)
              )
