@@ -95,14 +95,18 @@ augroup numbertoggle
   autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
   autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
 augroup END
-" toggle line number: relative+absolute-current->absolute->off
-function! NumberToggle()
-  if(&rnu == 1 && &nu == 1)
-    set nornu nu
-  elseif (&rnu != 1 && &nu == 1)
+function! RelativeToggle()
+  if(&rnu == 1)
     set nornu nonu
   else
     set number relativenumber
+  endif
+endfunc
+function! NumberToggle()
+  if(&nu == 1)
+    set nornu nonu
+  else
+    set number
   endif
 endfunc
 function! ListToggle()
@@ -112,10 +116,9 @@ function! ListToggle()
     set list
   end
 endfunc
-nnoremap <Leader>tt :call NumberToggle()<CR>
+nnoremap <Leader>tt :call RelativeToggle()<CR>
+nnoremap <Leader>tn :call NumberToggle()<CR>
 nnoremap <Leader>tl :call ListToggle()<CR>
-nnoremap <Leader>tn :set nonu nornu<CR>
-nnoremap <C-S-l> :call ListToggle()<CR>
 
 function! GotoClosedFold(dir)
   let cmd = 'norm!z' . a:dir
