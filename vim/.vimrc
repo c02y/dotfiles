@@ -130,6 +130,7 @@ function! GotoClosedFold(dir)
     call winrestview(view)
   endif
 endfunction
+" za to toggle current fold, zM/zR to fold/unfold the whole buffer
 " default zj/k are for GotoOpenedFold, overwrite them
 nnoremap <silent> zj :call GotoClosedFold('j')<cr>
 nnoremap <silent> zk :call GotoClosedFold('k')<cr>
@@ -285,6 +286,10 @@ autocmd BufRead,BufNewFile *.py set ts=4 sw=4 autoindent smartindent expandtab c
 autocmd BufRead,BufNewFile *.sh set expandtab tabstop=4 shiftwidth=4
 autocmd BufRead,BufNewFile *.fish,*.fishrc set expandtab tabstop=4 shiftwidth=4
 autocmd BufRead,BufNewFile *.c,*.cpp set noexpandtab tabstop=8 shiftwidth=8
+" set foldmethod for different file types
+autocmd BufRead,BufNewFile *.el set foldmethod=syntax
+autocmd BufRead,BufNewFile *.py set foldmethod=indent
+
 
 " this fix the errors(like Error detected while processing function) when using VundleInstall/Update
 set shell=/bin/bash
@@ -422,9 +427,6 @@ Plug 'vim-scripts/YankRing.vim'
 nnoremap <Leader>ry :YRShow<CR>
 let g:yankring_min_element_length = 4
 let g:yankring_manage_numbered_reg = 1
-
-" fold plug for python
-Plug 'tmhedberg/SimpylFold'
 
 " Put Plug parts between plug#begin() and plug #end()
 " Initialize plugin system

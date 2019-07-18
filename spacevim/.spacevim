@@ -105,9 +105,6 @@ function! UserInit()
   let g:yankring_min_element_length = 4
   let g:yankring_manage_numbered_reg = 1
 
-  " fold plug for python
-  Plug 'tmhedberg/SimpylFold'
-
   " NOTE: timeoutlen also affects the which-key popup delay
   " https://stackoverflow.com/a/15550787/1528712
   set timeout " Do time out on mappings and others
@@ -190,6 +187,7 @@ function! UserConfig()
       call winrestview(view)
     endif
   endfunction
+  " za to toggle current fold, zM/zR to fold/unfold the whole buffer
   " default zj/k are for GotoOpenedFold, overwrite them
   nnoremap <silent> zj :call GotoClosedFold('j')<cr>
   nnoremap <silent> zk :call GotoClosedFold('k')<cr>
@@ -254,6 +252,9 @@ function! UserConfig()
   autocmd BufRead,BufNewFile *.sh set expandtab tabstop=4 shiftwidth=4
   autocmd BufRead,BufNewFile *.fish,*.fishrc set expandtab tabstop=4 shiftwidth=4
   autocmd BufRead,BufNewFile *.c,*.cpp set noexpandtab tabstop=8 shiftwidth=8
+  " set foldmethod for different file types
+  autocmd BufRead,BufNewFile *.el set foldmethod=syntax
+  autocmd BufRead,BufNewFile *.py set foldmethod=indent
 
   " cscope
   autocmd BufNewFile,BufRead *.c,*.h,*.hpp,*.cpp,*.cc call spacevim#vim#cscope#Build()
