@@ -114,7 +114,7 @@ function! ListToggle()
     set nolist
   else
     set list
-  end
+  endif
 endfunction
 nnoremap <Leader>tt :call RelativeToggle()<CR>
 nnoremap <Leader>tn :call NumberToggle()<CR>
