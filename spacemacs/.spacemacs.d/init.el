@@ -77,7 +77,7 @@ This function should only modify configuration layer settings."
      treemacs
      ;; use `SPC g .' to use version control functions such as goto next hunk
      (version-control :variables
-                      version-control-diff-tool 'git-gutter
+                      version-control-diff-tool 'git-gutter+
                       version-control-diff-side 'left
                       )
      (evil-snipe :variables evil-snipe-enable-alternate-f-and-t-behaviors t)
@@ -121,7 +121,7 @@ This function should only modify configuration layer settings."
 
    ;; A list of packages that will not be installed and loaded.
    dotspacemacs-excluded-packages '(
-                                    google-c-style auto-highlight-symbol git-gutter+
+                                    google-c-style auto-highlight-symbol git-gutter
                                     git-gutter-fringe git-gutter-fringe+ fancy-battery
                                     dactyl-mode lorem-ipsum uuidgen evil-tutor indent-guide
                                     org-bullets
@@ -686,7 +686,8 @@ before packages are loaded."
      ("help\\|emacs\\|bookmarks" . highlight)
      )
    comment-dwim-2--inline-comment-behavior 'reindent-comment
-   git-gutter:modified-sign "*"
+   git-gutter+-modified-sign "*"
+   git-gutter+-diff-option ""
    spaceline-org-clock-p t
    ;; sometimes emacs will unable to quit because of persp-auto-save
    persp-auto-save-opt 0
@@ -703,8 +704,15 @@ before packages are loaded."
   (unless (file-exists-p (concat spacemacs-cache-directory "undo"))
     (make-directory (concat spacemacs-cache-directory "undo")))
 
-  ;; auto refresh git gutter info when status changes in magit status buffer
-  (add-hook 'magit-post-refresh-hook #'git-gutter:update-all-windows)
+  ;; auto refresh git-gutter+ info for all buffers when magit makes changes
+  ;; migrated from git-gutter:update-all-windows, git-gutter+ supports this for old magit
+  (add-hook 'magit-post-refresh-hook
+            (lambda ()
+              (dolist (win (window-list))
+                (let ((buf (window-buffer win)))
+                  (with-current-buffer buf
+                    (when git-gutter+-mode
+                      (git-gutter+-refresh)))))))
 
   ;; Removing duplicated lines
   ;; Note that the last line should contain the EOF
@@ -1046,6 +1054,9 @@ Version 2016-12-18"
              ("[ H" . spacemacs/vcs-next-hunk)
              ("[ c" . spacemacs/vcs-transient-state/magit-commit-and-exit)
              ("[ P" . spacemacs/vcs-transient-state/magit-push-and-exit)
+             ("[ A" . git-gutter+-stage-and-commit)
+             ("[ r" . git-gutter+-refresh)
+             ("[ U" . git-gutter+-publish-commit)
              )
 
   ;; disable follow in helm-occur (like helm-swoop) github-2152
