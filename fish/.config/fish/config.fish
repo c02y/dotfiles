@@ -1246,11 +1246,10 @@ abbr gitlo 'git log --oneline'
 abbr gitb 'git branch -vv'
 abbr gitbl 'git ls-remote'
 abbr gitblg 'git ls-remote | grep -i'
-abbr gitcl 'git config -l'
-abbr gitcp 'git checkout HEAD^1' # git checkout previous/old commit
-abbr gitcn 'git log --reverse --pretty=%H master | grep -A 1 (git rev-parse HEAD) | tail -n1 | xargs git checkout' # git checkout next/new commit
 abbr gitcm 'git commit -m'
 abbr gitcma 'git commit -amend -m'
+abbr gitcp 'git checkout HEAD^1' # git checkout previous/old commit
+abbr gitcn 'git log --reverse --pretty=%H master | grep -A 1 (git rev-parse HEAD) | tail -n1 | xargs git checkout' # git checkout next/new commit
 abbr gitrm 'git clean -f -d --' # clean specific untracked files/dirs
 abbr gitrma 'git clean -f -d'   # clean all untracked files/dirs
 abbr gitt 'git tag'
@@ -1263,8 +1262,16 @@ function gitpll -d 'git pull and location it to previous commit id before git pu
     git pull -v
     git log --stat | command less -p$COMMIT_ID
 end
-function gitc -d 'git clone and cd into it'
-    git clone -v $argv
+function gitcl -d 'git clone and cd into it, depth=1(-1)'
+    set -l options '1'
+    argparse -n gitcl $options -- $argv
+    or return
+
+    set DEPTH ""
+    if set -q _flag_1
+        set DEPTH "--depth=1"
+    end
+    git clone -v $argv $DEPTH
     echo ---------------------------
     if test (count $argv) -eq 2
         set project $argv[2]
