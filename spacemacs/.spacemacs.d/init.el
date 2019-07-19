@@ -300,7 +300,7 @@ It should only modify the values of Spacemacs settings."
    ;; and TAB or `C-m' and `RET'.
    ;; In the terminal, these pairs are generally indistinguishable, so this only
    ;; works in the GUI. (default nil)
-   dotspacemacs-distinguish-gui-tab nil
+   dotspacemacs-distinguish-gui-tab t
 
    ;; Name of the default layout (default "Default")
    dotspacemacs-default-layout-name "Default"
@@ -1047,8 +1047,6 @@ Version 2016-12-18"
              ("U" . undo-tree-visualize)
              ("C-a" . keep-beginning-of-code-or-line)
              ("C-e" . keep-end-of-code-or-line)
-             ;; C-i is bound for indent-for-tab-command by default in all states
-             ("C-i" . evil-jump-forward)
              ("[ u" . spacemacs/vcs-revert-hunk)
              ("[ a" . spacemacs/vcs-stage-hunk)
              ("[ d" . spacemacs/vcs-show-hunk)
