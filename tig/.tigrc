@@ -53,7 +53,7 @@ bind stage      X    ?>git clean -f -d -- %(file) # delete untracked files/dirs
 bind stage      D    ?>sh -c "rm -rfv %(file)"
 bind stage      d    view-stage
 
-bind generic    gS   >git stash
+bind generic    Y   >git stash -- %(file)
 bind stash      p    ?>git stash pop %(stash)
 bind stash      d    ?>git stash drop %(stash)
 
