@@ -106,4 +106,27 @@ export HISTCONTROL=ignoredups
 # or
 # export PATH=$PATH:~/.local/bin:~/anaconda3/bin
 
+function zz()
+{
+	if [ -f ~/.config/fish/functions/z.lua ]; then
+		eval "$(lua ~/.config/fish/functions/z.lua --init bash once echo fzf)"
+		if hash fzf 2>/dev/null; then
+			if [ $# -eq 0 ]; then
+				z -I .
+			else
+				z -I $@
+			fi
+		else
+			if [ $# -eq 0 ]; then
+				z -i .
+			else
+				z -i $@
+			fi
+		fi
+	else
+		echo "z.lua is not installed!"
+		exit
+fi
+}
+
 # #################### end of bashrcs
