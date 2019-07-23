@@ -7,18 +7,6 @@
 set -o ignoreeof # 10 times until exiting
 
 # User specific aliases and functions
-alias sl='ls'
-alias ls='ls --color=auto'
-alias lsp='readlink -f' # print the full path of a file
-alias lsd='ls -d */' 	# only list directories
-alias ll='ls -lh'
-alias la='ls -d .??*'
-alias lla='ls -lhA'
-alias l.='ls -A'
-alias lst='clear; ls --sort=time | less'
-alias llt='ll --sort=time | less'
-alias lat='la --sort=time | less'
-
 # alias ima='gwenview'
 alias ima='ristretto '
 alias ka='killall'
@@ -127,6 +115,37 @@ function zz()
 		echo "z.lua is not installed!"
 		exit
 fi
+}
+
+function lls()
+{
+	if [ $# -eq 0 ]; then
+		ls -lhA --color=yes . --sort=time --time=ctime | nl -v 0 | sort -nr | tail -20
+	else
+		ls -lhA --color=yes $@ --sort=time --time=ctime | nl -v 0 | sort -nr | tail -20
+	fi
+}
+
+function finds()
+{
+	if [ $# -eq 2 ]; then
+		find $1 -iname "*$2*"
+	else
+		find . -name "*$2*"
+	fi
+}
+
+function lsx()
+{
+	if test $DISPLAY; then
+		if [ -f $@ ] || [ -d $@ ]; then
+			readlink -fn $@ | xclip -selection c
+			readlink -f $@
+			echo ---- Path copied to Clipbaord! ----
+		fi
+	else
+		readlink -f $@
+	fi
 }
 
 # #################### end of bashrcs
