@@ -300,7 +300,7 @@ function lsx -d 'cp the full path of a file/dir to sytem clipboard'
     if test $DISPLAY
         if test -f $argv -o -d $argv
             readlink -fn $argv | xc
-            xc -o
+            readlink -f $argv
             echo \n---- Path Copied to Clipboard! ----
         end
     else
