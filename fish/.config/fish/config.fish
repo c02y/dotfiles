@@ -843,7 +843,7 @@ abbr mh 'm /etc/hosts'
 abbr m2 'm ~/Recentchange/TODO'
 abbr mf 'm $FISH_CONFIG_PATH'
 #
-alias less 'less -iXFR -x4' # -x4 to set the tabwidth to 4 instead default 8
+alias less 'less -iXFR -x4 -M' # -x4 to set the tabwidth to 4 instead default 8
 abbr lesst 'less ~/.tmux.conf'
 abbr lessf 'less $FISH_CONFIG_PATH'
 abbr lesse 'less $EMACS_EL'
