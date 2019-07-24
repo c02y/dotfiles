@@ -1243,19 +1243,25 @@ abbr gitdc 'git diff --cached' # show staged bu unpushed local modification
 abbr gitlp 'git log -p --' # [+ file] to how entire all/[file(even renamed)] history
 abbr gitsh 'git show' # [+ COMMIT] to show the modifications in a last/[specific] commit
 abbr gitlo 'git log --oneline'
-abbr gitb 'git branch -vv'
-abbr gitbl 'git ls-remote'
-abbr gitblg 'git ls-remote | grep -i'
 abbr gitcm 'git commit -m'
 abbr gitcma 'git commit -amend -m'
 abbr gitcp 'git checkout HEAD^1' # git checkout previous/old commit
 abbr gitcn 'git log --reverse --pretty=%H master | grep -A 1 (git rev-parse HEAD) | tail -n1 | xargs git checkout' # git checkout next/new commit
-abbr gitrm 'git clean -f -d --' # clean specific untracked files/dirs
-abbr gitrma 'git clean -f -d'   # clean all untracked files/dirs
 abbr gitt 'git tag'
 abbr gitft 'git ls-files --error-unmatch' # Check if file/dir is git-tracked
 abbr gitpu 'git push -v'
 abbr gitpl 'git pull -v'
+function gitrm -d 'clean untracked file/dirs(fileA fileB...), all by default)'
+    if set -q $argv             # no given argv
+        git clean -f -d
+    else
+        set files (string split \n -- $argv)
+        for i in $files
+            echo "remove untracked file/dir: " $i
+            git clean -f -d -- $i
+        end
+    end
+end
 function gitpll -d 'git pull and location it to previous commit id before git pull in git log'
     set COMMIT_ID (git rev-parse HEAD) # short version: `git rev-parse --short HEAD`
     git log -1                  # show the info of the current commit before git pull
@@ -1290,12 +1296,50 @@ function gitpa --description 'git pull all in dir using `fing dir`'
         echo
     end
 end
-function gitco -d 'git checkout -- for multiple files at once, default all files'
-    # when you copy/paste using mouse, the strings you pasted are not seprated by space ACTUALLY, using ','
+function gitbs -d 'branches, switch branch(by default, non-exists, create it), list branches(-l), remove branch(-r), info(-v), -w(add worktree), -w -l(list worktree), -w -r(remove worktree)'
+    set -l options 'b' 'w' 'l' 'r' 'v'
+    argparse -n gitbs $options -- $argv
+    or return
+
+    if set -q _flag_w
+        if set -q _flag_l
+            if set -q $argv
+                git worktree list
+            else
+                git worktree list | grep -i $argv
+            end
+        else if set -q _flag_r
+            git worktree remove $argv
+        else                    # add worktree by default
+            if test -d $argv
+                echo "Directory $argv already exists!"
+                return
+            else
+                git worktree add $argv
+                cd $argv
+            end
+        end
+    else                 # by default, for branch operations instead of worktree
+        if set -q _flag_l
+            if set -q $argv
+                git ls-remote
+            else
+                git ls-remote | grep -i $argv
+            end
+        else if set -q _flag_r
+            git branch -d $argv
+        else if set -q _flag_v
+            git branch -vv
+        else
+            git checkout $argv
+        end
+    end
+end
+function gitco -d 'git checkout -- for multiple files(filA fileB...) at once, all by default'
     if set -q $argv # no given files
         git checkout .
     else
-        set -l files (echo $argv | tr ',' '\n')
+        set files (string split \n -- $argv)
         for i in $files
             echo 'git checkout -- for file' $i
             git checkout -- $i
@@ -1833,18 +1877,18 @@ function ags -d 'ag(default)/rg(-r) sth in a init.el(-e)/config.fish(-f)/.tmux.c
     end
 
     if test "$ARGV3" = ""
-        set CMD eval $AG $argv[1] $FILE -l
-        eval $AG --heading $CASE_SENSITIVE $LIST $WORD $IGNORE $FILES $argv[1] $FILE
+        set CMD eval $AG \"$argv[1]\" $FILE -l
+        eval $AG --heading $CASE_SENSITIVE $LIST $WORD $IGNORE $FILES \"$argv[1]\" $FILE
     else
         set ARGV3 $FILE
         if set -q _flag_r
-            eval $AG --no-heading --color always --line-number $CASE_SENSITIVE $IGNORE $FILES $argv[1] $ARGV3 | eval $AG $CASE_SENSITIVE $ARGV2
+            eval $AG --no-heading --color always --line-number $CASE_SENSITIVE $IGNORE $FILES \"$argv[1]\" \"$ARGV3\" | eval $AG $CASE_SENSITIVE \"$ARGV2\"
         else
-            eval $AG --color --noheading $CASE_SENSITIVE $IGNORE $FILES $argv[1] $ARGV3 | eval $AG $CASE_SENSITIVE $ARGV2
+            eval $AG --color --noheading $CASE_SENSITIVE $IGNORE $FILES \"$argv[1]\" \"$ARGV3\" | eval $AG $CASE_SENSITIVE \"$ARGV2\"
         end
     end
 
-    if not set -q _flag_m # FIXME: using fzf doesn't work with multiple patterns
+    if not set -q _flag_m # FIXME: using fzf doesn't work with multiple patterns(-m)
         if set -q _flag_F # search pattern(s) in dir/file, choose it using fzf, and open if using emm/vim
             read -n 1 -p 'echo "Open it with emm? [_v_im/_e_mm]: "' -l answer
             if test "$answer" = "v" -o "$answer" = " "
