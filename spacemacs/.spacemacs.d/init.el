@@ -698,11 +698,16 @@ before packages are loaded."
    ;; https://github.com/syl20bnr/spacemacs/issues/774
    undo-tree-auto-save-history t
    undo-tree-history-directory-alist `(("." . ,(concat spacemacs-cache-directory "undo")))
+   ;; to cause the *compilation* buffer to automatically scroll to the end of new output
+   compilation-scroll-output t
    )
 
   ;; NOTE: along with undo-tree-auto-save-history
   (unless (file-exists-p (concat spacemacs-cache-directory "undo"))
     (make-directory (concat spacemacs-cache-directory "undo")))
+
+  ;; overwrite selected region when typing, yanking
+  (delete-selection-mode)
 
   ;; auto refresh git-gutter+ info for all buffers when magit makes changes
   ;; migrated from git-gutter:update-all-windows, git-gutter+ supports this for old magit
@@ -752,7 +757,7 @@ With negative N, comment out original line and use the absolute value."
           (dotimes (i (abs (or n 1)))			;Insert N times, or once if not
                                         ;specified
             (insert text))))
-      (if use-region nil		   ;Only if we're working with a line (not a region)
+      (if use-region nil       ;Only if we're working with a line (not a region)
         (let ((pos (- (point) (line-beginning-position)))) ;Save column
           (if (> 0 n)						;Comment out original with negative arg
               (comment-region (line-beginning-position) (line-end-position)))
@@ -1506,7 +1511,7 @@ Version 2016-06-18"
                       (point)))))
       (if (eq last-command this-command)
           (progn
-            (progn										   ; hack. exit if there's no more next line
+            (progn                     ; hack. exit if there's no more next line
               (end-of-line)
               (forward-char)
               (backward-char))
@@ -1958,8 +1963,7 @@ This function is called at the very end of Spacemacs initialization."
    ;; If you edit it by hand, you could mess it up, so be careful.
    ;; Your init file should contain only one such instance.
    ;; If there is more than one, they won't work right.
-   '(delete-selection-mode nil)
-   '(evil-want-Y-yank-to-eol nil))
+   )
   (custom-set-faces
    ;; custom-set-faces was added by Custom.
    ;; If you edit it by hand, you could mess it up, so be careful.
