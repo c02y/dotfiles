@@ -1786,12 +1786,14 @@ background of code to whatever theme I'm using's background"
     ("p" hl-todo-previous "prev")
     ("l" hl-todo-occur "list")
     ("a" hl-todo-insert "add")
+    ("t" hl-todo-mode "toggle")
     ("q" nil)
     )
   ;; FIXME: global-hl-todo-mode doesn't work as expected, so use my-global-hl-todo-mode
-  (define-globalized-minor-mode my-global-hl-todo-mode hl-todo-mode
-    (lambda () (hl-todo-mode 1)))
-  (my-global-hl-todo-mode 1)
+  ;; FIXME: Enabling the following line will disable magit-diff highlights
+  ;; (define-globalized-minor-mode my-global-hl-todo-mode hl-todo-mode
+  ;;   (lambda () (hl-todo-mode 1)))
+  ;; (my-global-hl-todo-mode 1)
   ;; spell checking
   ;; rewrite the default spell-checking transient state
   (spacemacs|define-transient-state ispell
