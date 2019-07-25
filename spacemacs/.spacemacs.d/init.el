@@ -896,6 +896,8 @@ Emacs session."
     "tG" 'highlight-indent-guides-mode
     "tt" 'spacemacs/toggle-relative-line-numbers
     "tT" 'spacemacs/toggle-line-numbers
+    ;; the default is for truncate-line
+    "tl" 'toggle-lsp
     "fYn" 'yas-new-snippet
     "fYr" 'yas-reload-all
     "fYi" 'yas-insert-snippet
@@ -957,10 +959,23 @@ Emacs session."
     "j r" 'avy-resume
     )
 
-  (defun revert-buffer-without-asking()
+  (defun revert-buffer-without-asking ()
     "Revert buffer without asking"
     (interactive)
     (revert-buffer nil t))
+
+  (defun toggle-lsp ()
+    (interactive)
+    (if (bound-and-true-p lsp-mode)
+        (progn
+          (lsp-mode -1)
+          (lsp-ui-mode -1)
+          (lsp--managed-mode -1))
+      (progn
+        (lsp-mode 1)
+        (lsp-ui-mode 1)
+        (lsp--managed-mode 1))
+      ))
 
   ;; symbol-overlay replaces highlight-symbol
   (dolist (hook '(prog-mode-hook org-mode-hook))
@@ -1011,7 +1026,7 @@ Version 2016-12-18"
             (progn
               (when (equal (char-before) 10) (delete-char -1))
               (when (equal (char-after) 10) (delete-char 1))))
-        (progn (delete-blank-lines)))))
+        (delete-blank-lines))))
   (bind-keys*
    ("C-x DEL" . xah-shrink-whitespaces)
    ("M-%" . query-replace-region-or-from-top)
