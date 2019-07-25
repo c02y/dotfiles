@@ -276,9 +276,6 @@ abbr rgr 'ranger'
 abbr fpp '~/Public/PathPicker/fpp'
 abbr ga 'glances -t 1 --hide-kernel-threads -b --disable-irq --enable-process-extended'
 abbr dst 'dstat -d -n'
-if command -sq htop
-    alias top 'htop -t'
-end
 
 # make the make and gcc/g++ color
 function make
