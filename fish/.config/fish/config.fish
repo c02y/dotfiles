@@ -1296,8 +1296,8 @@ function gitpa --description 'git pull all in dir using `fing dir`'
         echo
     end
 end
-function gitbs -d 'branches, switch branch(by default, non-exists, create it), list branches(-l), remove branch(-r), info(-v), -w(add worktree), -w -l(list worktree), -w -r(remove worktree)'
-    set -l options 'b' 'w' 'l' 'r' 'v'
+function gitbs -d 'branches, switch branch(by default, non-exists, create it), list branches(-l), list remote branches(-L), delete branch(-d), info(-v), add worktree(-w), list worktree(-w -l), delete worktree(-w -d)'
+    set -l options 'b' 'w' 'l' 'L' 'd' 'v'
     argparse -n gitbs $options -- $argv
     or return
 
@@ -1308,7 +1308,7 @@ function gitbs -d 'branches, switch branch(by default, non-exists, create it), l
             else
                 git worktree list | grep -i $argv
             end
-        else if set -q _flag_r
+        else if set -q _flag_d
             git worktree remove $argv
         else                    # add worktree by default
             if test -d $argv
@@ -1321,17 +1321,25 @@ function gitbs -d 'branches, switch branch(by default, non-exists, create it), l
         end
     else                 # by default, for branch operations instead of worktree
         if set -q _flag_l
+            git branch -l
+        else if set -q _flag_L
             if set -q $argv
-                git ls-remote
+                git branch -a -l
             else
-                git ls-remote | grep -i $argv
+                git branch -a -l | grep -i $argv
             end
-        else if set -q _flag_r
+        else if set -q _flag_d
             git branch -d $argv
         else if set -q _flag_v
             git branch -vv
         else
-            git checkout $argv
+            if git merge-base --is-ancestor $argv HEAD ^/dev/null
+                # $argv is commit id or branch name
+                git checkout $argv
+            else
+                git branch $argv
+                git checkout $argv
+            end
         end
     end
 end
