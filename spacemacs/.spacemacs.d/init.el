@@ -114,6 +114,7 @@ This function should only modify configuration layer settings."
                                       evil-smartparens
                                       esup
                                       wgrep
+                                      drag-stuff
                                       )
 
    ;; A list of packages that cannot be updated.
@@ -1053,6 +1054,11 @@ Version 2016-12-18"
   (bind-keys :map evil-hybrid-state-map
              ;; not put it into global, it goes wrong in helm mode
              ("RET" . advanced-return)
+             ;; don't put the following lines into global bind-keys, it won't work
+             ("C-a" . keep-beginning-of-code-or-line)
+             ("C-e" . keep-end-of-code-or-line)
+             )
+  (bind-keys :map evil-visual-state-map
              ("C-a" . keep-beginning-of-code-or-line)
              ("C-e" . keep-end-of-code-or-line)
              )
@@ -1409,8 +1415,8 @@ _j_/_<down>_: down   _k_/_<up>_: up
   (require 'cool-moves)
   ;; bind-key except for org-mode
   (bind-keys* :filter (not (derived-mode-p 'org-mode))
-              ("M-<up>" . cool-moves/line-backward)
-              ("M-<down>" . cool-moves/line-forward)
+              ("M-<up>" . drag-stuff-up)
+              ("M-<down>" . drag-stuff-down)
               ("M-<left>" . cool-moves/sexp-backward)
               ("M-<right>" . cool-moves/sexp-forward))
   (spacemacs|define-transient-state cool-moves
@@ -1425,10 +1431,10 @@ _s_: sentence →         _S_: sentence ←
 _z_: undo               _Z_: redo
 "
     :bindings
-    ("l" cool-moves/line-forward)
-    ("<down>" cool-moves/line-forward)
-    ("L" cool-moves/line-backward)
-    ("<up>" cool-moves/line-backward)
+    ("l" drag-stuff-down)
+    ("<down>" drag-stuff-down)
+    ("L" drag-stuff-up)
+    ("<up>" drag-stuff-up)
 
     ("p" cool-moves/paragraph-forward)
     ("P" cool-moves/paragraph-backward)
