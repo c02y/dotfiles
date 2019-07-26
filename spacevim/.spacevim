@@ -32,13 +32,13 @@ let g:spacevim_layers = [
 " endif
 
 let g:spacevim_enable_startify = 0
-let g:spacevim_enable_whitespace=1
 
 " exclude a plugin from a layer
 " function! Layers()
 "     " excluding multiple plugins like: { 'exclude': ['plugin1', 'plugin2'] }
 "     Layer 'auto-completion',  { 'exclude': 'roxma/vim-hug-neovim-rpc' }
 " endfunction
+let g:spacevim_excluded = ['ntpeters/vim-better-whitespace']
 
 let g:spacevim_speed_up_via_timer = 0
 
@@ -105,6 +105,11 @@ function! UserInit()
   nnoremap <Leader>ry :YRShow<CR>
   let g:yankring_min_element_length = 4
   let g:yankring_manage_numbered_reg = 1
+
+  Plug 'ntpeters/vim-better-whitespace'
+  let g:strip_whitespace_on_save=1
+  let g:strip_whitespace_confirm=0
+  let g:show_spaces_that_precede_tabs=1
 
   " NOTE: timeoutlen also affects the which-key popup delay
   " https://stackoverflow.com/a/15550787/1528712
@@ -207,10 +212,6 @@ function! UserConfig()
 
   " change PWD according to the buffer, this affect a lot of functions in vim
   autocmd BufEnter * silent! lcd %:p:h
-
-  let g:strip_whitespace_on_save=1
-  let g:strip_whitespace_confirm=0
-  let g:show_spaces_that_precede_tabs=1
 
   "fzf
   " Overwrite the default Files command to include hidden files
