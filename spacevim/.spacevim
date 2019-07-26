@@ -125,6 +125,9 @@ endfunction
 
 " Override the default settings from space-vim as well as adding extras
 function! UserConfig()
+  " be able to add/modify description for bindings under leader key
+  let g:spacevim#map#leader#desc = g:spacevim#map#leader#desc
+
   " disable tabline
   let g:airline#extensions#tabline#enabled = 0
   " disable the git part in statusline
@@ -208,8 +211,8 @@ function! UserConfig()
   " use the following config to always display trailing whitespace
   highlight RedundantSpaces ctermbg=red guibg=red
   match RedundantSpaces /\s\+$/
-  " remove trailing whitespaces
   nnoremap <Leader>bw :%s/\s\+$//e<CR>
+  let g:spacevim#map#leader#desc.b.w = 'Del-trailing-whitespaces'
 
   "fzf
   " Overwrite the default Files command to include hidden files
@@ -217,22 +220,34 @@ function! UserConfig()
         \ call fzf#vim#files(<q-args>, {'source': 'ag --hidden --ignore .git -g ""'}, <bang>0)
   " SPC ff is bound to files-in-home-direcotry by default
   nnoremap <Leader>ff :Files<CR>
+  let g:spacevim#map#leader#desc.f.f = 'Files-in-current-dir'
   nnoremap <Leader>fF :Files<Space>
+  let g:spacevim#map#leader#desc.f.F = 'Files-in-other-dir'
+  nnoremap <Leader>fp :GFiles --cached --others<CR>
+  let g:spacevim#map#leader#desc.f.p = 'Files-in-project-all'
+  nnoremap <Leader>fP :GFiles<CR>
+  let g:spacevim#map#leader#desc.f.P = 'Files-in-project'
   nnoremap <Leader>fe :call feedkeys(":e \<Tab>", 'tn')<CR>
+  let g:spacevim#map#leader#desc.f.e = 'Open-file'
   nnoremap <Leader>fh :History<CR>
   nnoremap <Leader>fv :e ~/.spacevim<cr>
   nnoremap <Leader>pf :GFiles --cached --others<CR>
+  let g:spacevim#map#leader#desc.p.f = 'Files-in-project-all'
   nnoremap <Leader>pF :GFiles<CR>
+  let g:spacevim#map#leader#desc.p.F = 'Files-in-project'
   nnoremap <Leader>sg :Ag<CR>
   nnoremap <Leader>sG :Rg<CR>
   nnoremap <Leader>sS :call SwoopSelection()<CR>
   nnoremap <Leader>nn :NR<CR>
   nnoremap <Leader>nl :NRV<CR>
+  " FIXME: special keys like <LEFT> cannot be parsed by add-description for bindings using
+  " let g:spacevim#map#leader#desc.f.f = 'Files-in-current-dir'
   nnoremap <Leader>w<LEFT> <C-W>h
   nnoremap <Leader>w<RIGHT> <C-W>l
   nnoremap <Leader>w<UP> <C-W>k
   nnoremap <Leader>w<DOWN> <C-W>j
-  nnoremap <Leader>w<Bslash> <C-W>v " SPC w \ to split-window-right
+  " SPC w \ to split-window-right
+  nnoremap <Leader>w<Bslash> <C-W>v
   nnoremap <Leader>vi :PlugInstall<CR>
   nnoremap <Leader>vc :PlugClean<CR>
   nnoremap <Leader>vC :PlugClean!<CR>
