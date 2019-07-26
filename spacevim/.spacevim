@@ -32,6 +32,7 @@ let g:spacevim_layers = [
 " endif
 
 let g:spacevim_enable_startify = 0
+let g:spacevim_enable_whitespace=1
 
 " exclude a plugin from a layer
 " function! Layers()
@@ -207,12 +208,9 @@ function! UserConfig()
   " change PWD according to the buffer, this affect a lot of functions in vim
   autocmd BufEnter * silent! lcd %:p:h
 
-  " FIXME: vim-better-whitespace plugin in better-defaults layer doesn't work as expected
-  " use the following config to always display trailing whitespace
-  highlight RedundantSpaces ctermbg=red guibg=red
-  match RedundantSpaces /\s\+$/
-  nnoremap <Leader>bw :%s/\s\+$//e<CR>
-  let g:spacevim#map#leader#desc.b.w = 'Del-trailing-whitespaces'
+  let g:strip_whitespace_on_save=1
+  let g:strip_whitespace_confirm=0
+  let g:show_spaces_that_precede_tabs=1
 
   "fzf
   " Overwrite the default Files command to include hidden files
@@ -246,8 +244,7 @@ function! UserConfig()
   nnoremap <Leader>w<RIGHT> <C-W>l
   nnoremap <Leader>w<UP> <C-W>k
   nnoremap <Leader>w<DOWN> <C-W>j
-  " SPC w \ to split-window-right
-  nnoremap <Leader>w<Bslash> <C-W>v
+  nnoremap <Leader>w<Bslash> <C-W>v " SPC w \ to split-window-right
   nnoremap <Leader>vi :PlugInstall<CR>
   nnoremap <Leader>vc :PlugClean<CR>
   nnoremap <Leader>vC :PlugClean!<CR>

@@ -42,11 +42,6 @@ set vb t_vb=
 
 " show all whitespaces, use `:set list` to show
 set listchars=eol:$,tab:>-,trail:~,extends:>,precedes:<
-" use the following config to always display trailing whitespace
-highlight RedundantSpaces ctermbg=red guibg=red
-match RedundantSpaces /\s\+$/
-" remove trailing whitespaces
-nnoremap <Leader>bw :%s/\s\+$//e<CR>
 
 " normal mode in GUI
 nnoremap <C-DOWN> <C-W><C-J> "Ctrl-j to move down a split
@@ -430,6 +425,11 @@ Plug 'vim-scripts/YankRing.vim'
 nnoremap <Leader>ry :YRShow<CR>
 let g:yankring_min_element_length = 4
 let g:yankring_manage_numbered_reg = 1
+
+Plug 'ntpeters/vim-better-whitespace'
+let g:strip_whitespace_on_save=1
+let g:strip_whitespace_confirm=0
+let g:show_spaces_that_precede_tabs=1
 
 " Put Plug parts between plug#begin() and plug #end()
 " Initialize plugin system
