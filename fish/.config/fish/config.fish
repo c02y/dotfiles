@@ -13,7 +13,7 @@ end
 # TODO: `pip install cppman ; cppman -c` to get manual for cpp
 set -gx MANPATH $HOME/anaconda3/share/man $MANPATH
 
-set -gx FISH_CONFIG_PATH ~/.config/fish/config.fish
+set -gx FISHRC ~/.config/fish/config.fish
 set -gx EMACS_EL ~/.spacemacs.d/init.el
 test -e ~/.spacevim; and set -gx VIMRC ~/.spacevim; or set -gx ~/Dotfiles.d/vim/.vimrc
 
@@ -67,12 +67,12 @@ end
 
 function auto-source --on-event fish_preexec -d 'auto source config.fish if gets modified!'
     if not set -q FISH_CONFIG_TIME # if FISH_CONFIG_TIME not set, status != 0
-        set -g FISH_CONFIG_TIME (date +%s -r $FISH_CONFIG_PATH)
+        set -g FISH_CONFIG_TIME (date +%s -r $FISHRC)
     else
-        set FISH_CONFIG_TIME_NEW (date +%s -r $FISH_CONFIG_PATH)
+        set FISH_CONFIG_TIME_NEW (date +%s -r $FISHRC)
         if test "$FISH_CONFIG_TIME" != "$FISH_CONFIG_TIME_NEW"
             fsr
-            set FISH_CONFIG_TIME (date +%s -r $FISH_CONFIG_PATH)
+            set FISH_CONFIG_TIME (date +%s -r $FISHRC)
         end
     end
 end
@@ -148,9 +148,9 @@ function fish_right_prompt -d "Write out the right prompt"
 end
 
 function fsr --description 'Reload your Fish config after configuration'
-    source $FISH_CONFIG_PATH # fsr
+    source $FISHRC # fsr
     varclear PATH
-    echo $FISH_CONFIG_PATH is reloaded!
+    echo $FISHRC is reloaded!
     path_prompt
 end
 
@@ -520,7 +520,7 @@ abbr rmc 'rsync --stats --progress -rhv --remove-source-files' # this will not d
 # abbr grep='grep -nr --color=auto'
 abbr g 'grep -F -n --color=auto'
 
-function abbrc -d 'clean abbrs in `abbr --show` but not in $FISH_CONFIG_PATH'
+function abbrc -d 'clean abbrs in `abbr --show` but not in $FISHRC'
     if abbr --show | head -n1 | grep "abbr -a -U" ^/dev/null >/dev/null
         set abbr_show "abbr -a -U --"
     else
@@ -530,10 +530,10 @@ function abbrc -d 'clean abbrs in `abbr --show` but not in $FISH_CONFIG_PATH'
     for abr in (abbr --show)
         set abr_def (echo $abr | sed "s/$abbr_show//g" | awk '{print $1}')
         # echo abr_def: $abr_def
-        set def_file $FISH_CONFIG_PATH
+        set def_file $FISHRC
         set num_line (grep -n "^abbr $abr_def " $def_file | cut -d: -f1)
         if not test $num_line # empty
-            echo "$abr_def is an abbr in `abbr --show` but not defined in $FISH_CONFIG_PATH, may be defined temporally or in other file!"
+            echo "$abr_def is an abbr in `abbr --show` but not defined in $FISHRC, may be defined temporally or in other file!"
             abbr -e $abr_def
             echo "$abr_def is erased!"
             # return
@@ -561,8 +561,8 @@ function fu -d 'fu command and prompt to ask to open it or not'
     if test $status = 0
         # in case $argv existes in both `type` and `abbr --show`
         # function may be `function func` and `function func -d ...`
-        if test $found = 1 -a (echo (grep -w -E "^alias $argv |^function $argv |^function $argv\$" $FISH_CONFIG_PATH))
-            echo "$argv is in both `type` and `abbr --list`, found definition in $FISH_CONFIG_PATH"
+        if test $found = 1 -a (echo (grep -w -E "^alias $argv |^function $argv |^function $argv\$" $FISHRC))
+            echo "$argv is in both `type` and `abbr --list`, found definition in $FISHRC"
             echo "Please clean the multiple definitions!"
             abbrc
             # return
@@ -576,7 +576,7 @@ function fu -d 'fu command and prompt to ask to open it or not'
     end
 
     set result_1 (printf '%s\n' $result | head -1)
-    set def_file $FISH_CONFIG_PATH
+    set def_file $FISHRC
     if test (echo $result_1 | grep -E "$abbr_show $argv |is a function with definition") # defined in fish script
         if test (echo $result_1 | grep -E "is a function with definition")
             # 1. function or alias -- second line of output of fu ends with "$path @ line $num_line"
@@ -588,14 +588,14 @@ function fu -d 'fu command and prompt to ask to open it or not'
                 return
             end
             if test "$def_file" = "-" # alias, no definition file is printed
-                set def_file $FISH_CONFIG_PATH
+                set def_file $FISHRC
             end
 
             set num_line (grep -n -w -E "^alias $argv |^function $argv |^function $argv\$" $def_file | cut -d: -f1)
             # NOTE: $num_line may contain more than one number, use "$num_line", or test will fail
             if not test "$num_line" # empty
                 echo "$argv is an alias/function defined in $def_file!"
-                if test $def_file = $FISH_CONFIG_PATH
+                if test $def_file = $FISHRC
                     functions -e $argv
                     echo "$argv is erased!"
                     return
@@ -603,10 +603,10 @@ function fu -d 'fu command and prompt to ask to open it or not'
                     set num_line 1
                 end
             else if test (echo "$num_line" | grep " ") # $num_line contains more than one value
-                echo "$argv has multiple definitions(alias and function) in $FISH_CONFIG_PATH, please clean them!"
+                echo "$argv has multiple definitions(alias and function) in $FISHRC, please clean them!"
                 return
             end
-        else # 2. abbr, only handle abbr defined in $FISH_CONFIG_PATH
+        else # 2. abbr, only handle abbr defined in $FISHRC
             abbrc
             set num_line (grep -n -w -E "^abbr $argv " $def_file | cut -d: -f1)
             if not test "$num_line" # empty
@@ -841,11 +841,11 @@ end
 abbr me 'm $EMACS_EL'
 abbr mh 'm /etc/hosts'
 abbr m2 'm ~/Recentchange/TODO'
-abbr mf 'm $FISH_CONFIG_PATH'
+abbr mf 'm $FISHRC'
 #
 alias less 'less -iXFR -x4 -M' # -x4 to set the tabwidth to 4 instead default 8
 abbr lesst 'less ~/.tmux.conf'
-abbr lessf 'less $FISH_CONFIG_PATH'
+abbr lessf 'less $FISHRC'
 abbr lesse 'less $EMACS_EL'
 abbr lessv 'less $VIMRC'
 abbr lessem 'less ~/.local/bin/emm'
@@ -1175,17 +1175,17 @@ abbr np 'netease-player'
 abbr db 'douban.fm'
 
 #vim
-abbr V 'vim -u NONE'
-abbr vimc 'vim ~/.cgdb/cgdbrc'
-abbr vimm 'vim -u ~/Dotfiles.d/vim/vimrc.more'
-abbr vimv 'vim $VIMRC'
-abbr vimb 'vim ~/.bashrc'
-abbr vime 'vim $EMACS_EL'
-abbr vim2 'vim ~/Recentchange/TODO'
-abbr vimf 'vim $FISH_CONFIG_PATH'
-abbr vimt 'vim ~/.tmux.conf; tmux source-file ~/.tmux.conf; echo ~/.tmux.conf reloaded!'
-abbr vimT 'vim ~/.tigrc'
-function vimo -d 'use ~/Dotfiles.d/vim instead ~/.space-vim'
+abbr viu 'vim -u NONE'
+abbr vic 'vim ~/.cgdb/cgdbrc'
+abbr viM 'vim -u ~/Dotfiles.d/vim/vimrc.more'
+abbr viv 'vim $VIMRC'
+abbr vib 'vim ~/.bashrc'
+abbr vie 'vim $EMACS_EL'
+abbr vi2 'vim ~/Recentchange/TODO'
+abbr vif 'vim $FISHRC'
+abbr vit 'vim ~/.tmux.conf; tmux source-file ~/.tmux.conf; echo ~/.tmux.conf reloaded!'
+abbr viT 'vim ~/.tigrc'
+function vio -d 'use ~/Dotfiles.d/vim instead ~/.space-vim'
     # The plugins are still installed inside ~/.vim/autoload
     bash -c "vim --cmd \"set runtimepath^=$HOME/.vim\" -u $HOME/Dotfiles.d/vim/.vimrc $argv"
 end
@@ -1199,14 +1199,14 @@ abbr eml 'emacs -q --no-splash --load' # load specific init.el
 abbr emn 'emacs --no-desktop'
 abbr eme 'emm $EMACS_EL'
 abbr emc 'emm ~/.cgdb/cgdbrc'
-abbr emf 'emm $FISH_CONFIG_PATH'
+abbr emf 'emm $FISHRC'
 abbr emt 'emm ~/.tmux.conf'
 abbr emv 'emm $VIMRC'
 abbr emb 'emm ~/.bashrc'
 abbr em2 'emm ~/Recentchange/TODO'
 abbr emtime "time emacs --debug-init -eval '(kill-emacs)'" # time emacs startup time
 
-# C-w to reload $FISH_CONFIG_PATH
+# C-w to reload $FISHRC
 #bind \cs fsr
 
 # the gpl.txt can be gpl-2.0.txt or gpl-3.0.txt
@@ -1861,7 +1861,7 @@ function ags -d 'ag(default)/rg(-r) sth in a init.el(-e)/config.fish(-f)/.tmux.c
     if set -q _flag_e
         set FILE $EMACS_EL
     else if set -q _flag_f
-        set FILE $FISH_CONFIG_PATH
+        set FILE $FISHRC
     else if set -q _flag_t
         set FILE ~/.tmux.conf
     else if set -q _flag_v

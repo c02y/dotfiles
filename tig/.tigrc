@@ -55,7 +55,10 @@ bind stage      d    view-stage
 
 bind generic    Y    >git stash push -m "%(prompt Msg: )" %(file)
 bind stash      p    ?>git stash pop %(stash)
+bind diff       p    ?>git stash pop %(stash)
 bind stash      d    ?>git stash drop %(stash)
+bind status     P    >git stash push -m "%(prompt Msg: )" -p %(file)
+bind stage      P    >git stash push -m "%(prompt Msg: )" -p %(file)
 
 bind generic    c    none # disable single c
 bind generic    cb   ?git checkout -b "%(prompt Enter new branch name: )"
