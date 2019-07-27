@@ -199,10 +199,21 @@ function! UserConfig()
       call winrestview(view)
     endif
   endfunction
-  " za to toggle current fold, zM/zR to fold/unfold the whole buffer
+  let $foldall=0
+  function ToggleFoldAll()
+    if $foldall==0
+      :exe "normal zM"
+      let $foldall=1
+    else
+      :exe "normal zR"
+      let $foldall=0
+    endif
+  endfunction
+  " za to toggle current fold, zm to toggle all fold
   " default zj/k are for GotoOpenedFold, overwrite them
   nnoremap <silent> zj :call GotoClosedFold('j')<cr>
   nnoremap <silent> zk :call GotoClosedFold('k')<cr>
+  nnoremap zm :call ToggleFoldAll()<CR>
 
   noremap <C-a> <Home>
   noremap <C-e> <End>
