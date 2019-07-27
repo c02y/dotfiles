@@ -1297,7 +1297,7 @@ function gitpa --description 'git pull all in dir using `fing dir`'
     end
 end
 function gitbs -d 'branches, switch branch(by default, non-exists, create it), list branches(-l), list remote branches(-L), delete branch(-d), info(-v), add worktree(-w), list worktree(-w -l), delete worktree(-w -d)'
-    set -l options 'b' 'w' 'l' 'L' 'd' 'v'
+    set -l options 'b' 'w' 'l' 'L' 'd' 'D' 'v'
     argparse -n gitbs $options -- $argv
     or return
 
@@ -1330,13 +1330,16 @@ function gitbs -d 'branches, switch branch(by default, non-exists, create it), l
             end
         else if set -q _flag_d
             git branch -d $argv
-        else if set -q _flag_v
+        else if set -q _flag_D
+            git branch -D $argv
+        lse if set -q _flag_v
             git branch -vv
         else
-            if git merge-base --is-ancestor $argv HEAD ^/dev/null
-                # $argv is commit id or branch name
+            if test (git branch --list $argv)
+                # branch $argv already exists
                 git checkout $argv
             else
+                # branch $argv doesn't exist, create and switch
                 git branch $argv
                 git checkout $argv
             end
@@ -1347,10 +1350,15 @@ function gitco -d 'git checkout -- for multiple files(filA fileB...) at once, al
     if set -q $argv # no given files
         git checkout .
     else
-        set files (string split \n -- $argv)
-        for i in $files
-            echo 'git checkout -- for file' $i
-            git checkout -- $i
+        # pass commit id
+        if git merge-base --is-ancestor $argv HEAD ^/dev/null
+            git checkout $argv
+        else
+            set files (string split \n -- $argv)
+            for i in $files
+                echo 'git checkout -- for file' $i
+                git checkout -- $i
+            end
         end
     end
 end
