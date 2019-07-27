@@ -1187,7 +1187,8 @@ abbr vit 'vim ~/.tmux.conf; tmux source-file ~/.tmux.conf; echo ~/.tmux.conf rel
 abbr viT 'vim ~/.tigrc'
 function vio -d 'use ~/Dotfiles.d/vim instead ~/.space-vim'
     # The plugins are still installed inside ~/.vim/autoload
-    bash -c "vim --cmd \"set runtimepath^=$HOME/.vim\" -u $HOME/Dotfiles.d/vim/.vimrc $argv"
+    set -q $argv; and set ARGV ~/Dotfiles.d/vim/.vimrc; or set ARGV $argv
+    bash -c "vim --cmd \"set runtimepath^=$HOME/.vim\" -u $HOME/Dotfiles.d/vim/.vimrc $ARGV"
 end
 
 # emacs
