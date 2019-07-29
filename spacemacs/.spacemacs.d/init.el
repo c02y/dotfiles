@@ -855,6 +855,78 @@ With argument, backward ARG lines."
         ;; Indent character samples: | ┆ ┊ ⁞
         highlight-indent-guides-character ?\┊)
 
+  (defun copy-name ()
+    "Copy the name (NOT full path) of current buffer file to the clipboard."
+    (interactive)
+    (let* ((filename (file-name-nondirectory buffer-file-name)))
+      (when filename
+        (kill-new filename)
+        (message "'%s' name copied!" filename))))
+  (defun copy-path-short ()
+    "Copy the path of current buffer file to the clipboard."
+    (interactive)
+    (let ((filename
+           (if (equal major-mode 'dired-mode)
+               default-directory
+             ;; abbreviate-file-name will replace /home/user with ~
+             ;; also works with directory
+             (if buffer-file-name
+                 (abbreviate-file-name buffer-file-name)
+               (user-error "Current buffer is not a file/directory in disk!" "exit")))))
+      (when filename
+        (kill-new filename)
+        (message "'%s' path copied!" filename))))
+  (defun copy-path ()
+    "Copy the full path of current buffer file to the clipboard."
+    (interactive)
+    (let ((filename
+           (if (equal major-mode 'dired-mode)
+               default-directory
+             (buffer-file-name))))
+      (if filename
+          (progn
+            (kill-new filename)
+            (message "'%s' path copied!" filename))
+        (message "Current buffer is not a file/directory in disk!"))))
+  (defun copy-path-html ()
+    "Copy the html of according to the current buffer, this is useful when exporting org file to html."
+    (interactive)
+    (let ((filename
+           (if (equal major-mode 'dired-mode)
+               default-directory
+             (buffer-file-name))))
+      (if filename
+          (progn
+            (kill-new filename)
+            (message "'%s' path copied!" filename))
+        ;; print error message and exit/return the function
+        (user-error "Current buffer is not a file in disk!" "exit")))
+    (let ((html-file (concat (file-name-sans-extension (buffer-file-name)) ".html")))
+      (if (file-exists-p html-file)
+          (progn
+            (kill-new html-file)
+            (message "'%s' path copied!" html-file))
+        (message "'%s' is not a file in disk!" html-file))))
+  (defun copy-path-pdf ()
+    "Copy the pdf of according to the current buffer, this is useful when exporting org file to html."
+    (interactive)
+    (let ((filename
+           (if (equal major-mode 'dired-mode)
+               default-directory
+             (buffer-file-name))))
+      (if filename
+          (progn
+            (kill-new filename)
+            (message "'%s' path copied!" filename))
+        ;; print error message and exit/return the function
+        (user-error "Current buffer is not a file in disk!" "exit")))
+    (let ((pdf-file (concat (file-name-sans-extension (buffer-file-name)) ".pdf")))
+      (if (file-exists-p pdf-file)
+          (progn
+            (kill-new pdf-file)
+            (message "'%s' path copied!" pdf-file))
+        (message "'%s' is not a file in disk!" pdf-file))))
+
   ;; reopen killed buffer
   (defvar killed-buffers-list nil
     "List of recently killed buffers.")
@@ -893,6 +965,10 @@ Emacs session."
     "bc" 'whitespace-cleanup
     ;; overwrite the default bR
     "bR" 'revert-buffer-without-asking
+    ;; there are extra several related functions: copy-name/path-short/path/html/pdf
+    "b SPC" 'copy-path
+    "bi" 'count-words
+    "bI" 'count-words-region
     "tG" 'highlight-indent-guides-mode
     "tt" 'spacemacs/toggle-relative-line-numbers
     "tT" 'spacemacs/toggle-line-numbers
