@@ -125,26 +125,18 @@ function fish_prompt --description 'Write out the prompt'
     echo -n '>>' # '➤➤ '  # ➢ ➣, ↩ ↪ ➥ ➦, ▶ ▷ ◀ ◁, ❥
     #echo -n '➤➤ '  # ➢ ➣, ↩ ↪ ➥ ➦, ▶ ▷ ◀ ◁, ❥
     set_color normal
+    measure_time
     echo ' '
 end
 function measure_time
-    # from joker plugin https://github.com/fisherman/joker
-    if test "$CMD_DURATION" -gt 1000 # 1s
-        set -l duration_copy $CMD_DURATION
-        set -l duration (echo $CMD_DURATION | humanize_duration)
-        printf (set_color red)"($duration)"(set_color normal)
+    if test $CMD_DURATION
+        if test $CMD_DURATION -gt (math "1000 * 1")
+            set secs (math "$CMD_DURATION / 1000")
+            printf (set_color red)" ($secs)"(set_color normal)
+        end
+        # clean, in case the old time is still printed in the next prompt
+        set CMD_DURATION 0
     end
-end
-function fish_right_prompt -d "Write out the right prompt"
-    # set_color -o black
-    measure_time
-    set_color -o normal
-    echo -n '['
-    echo -n (date +%T)
-    echo -n ']'
-
-    __informative_git_prompt
-    set_color $fish_color_normal
 end
 
 function fsr --description 'Reload your Fish config after configuration'
