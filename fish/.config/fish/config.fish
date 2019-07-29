@@ -132,7 +132,7 @@ function measure_time
     if test $CMD_DURATION
         if test $CMD_DURATION -gt (math "1000 * 1")
             set secs (math "$CMD_DURATION / 1000")
-            printf (set_color red)" ($secs)"(set_color normal)
+            printf (set_color red)" ($secs"s")"(set_color normal)
         end
         # clean, in case the old time is still printed in the next prompt
         set CMD_DURATION 0
