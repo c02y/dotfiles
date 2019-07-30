@@ -1337,7 +1337,7 @@ function gitbs -d 'branches, switch branch(by default, non-exists, create it), l
             git branch -d $argv
         else if set -q _flag_D
             git branch -D $argv
-            lse if set -q _flag_v
+            if set -q _flag_v
                 git branch -vv
             else
                 if test (git branch --list $argv)
@@ -1351,880 +1351,881 @@ function gitbs -d 'branches, switch branch(by default, non-exists, create it), l
             end
         end
     end
-    function gitco -d 'git checkout -- for multiple files(filA fileB...) at once, all by default'
-        if set -q $argv # no given files
-            git checkout .
+end
+function gitco -d 'git checkout -- for multiple files(filA fileB...) at once, all by default'
+    if set -q $argv # no given files
+        git checkout .
+    else
+        # pass commit id
+        if git merge-base --is-ancestor $argv HEAD ^/dev/null
+            git checkout $argv
         else
-            # pass commit id
-            if git merge-base --is-ancestor $argv HEAD ^/dev/null
-                git checkout $argv
-            else
-                set files (string split \n -- $argv)
-                for i in $files
-                    echo 'git checkout -- for file' $i
-                    git checkout -- $i
-                end
-            end
-        end
-    end
-    function gita -d 'git add for multiple files at once'
-        if set -q $argv # no given files
-            git add .
-        else
-            set -l files (echo $argv | tr ',' '\n')
+            set files (string split \n -- $argv)
             for i in $files
-                echo 'git add for file:' $i
-                git add $i
+                echo 'git checkout -- for file' $i
+                git checkout -- $i
             end
         end
     end
-    function gitrh -d 'git reset HEAD for multiple files(file1 file2), soft(-s)/hard(-h) reset'
-        set -l options 's' 'h'
-        argparse -n gitrh $options -- $argv
-        or return
-
-        if set -q _flag_s # undo last unpushed commit, keeps changes
-            git reset --soft HEAD~1
-        else if set -q _flag_h # undo last unpushed commit, delete changes
-            git reset --hard HEAD~1
-        else
-            set -l files (echo $argv | tr ',' '\n')
-            for i in $files
-                echo 'git reset HEAD for file:' $i
-                git reset HEAD $i
-            end
+end
+function gita -d 'git add for multiple files at once'
+    if set -q $argv # no given files
+        git add .
+    else
+        set -l files (echo $argv | tr ',' '\n')
+        for i in $files
+            echo 'git add for file:' $i
+            git add $i
         end
     end
+end
+function gitrh -d 'git reset HEAD for multiple files(file1 file2), soft(-s)/hard(-h) reset'
+    set -l options 's' 'h'
+    argparse -n gitrh $options -- $argv
+    or return
 
-    function gitdl -d 'download several files from github'
-        set -l options 'f' 's' 'z' 'h'
-        argparse -n gitdl $options -- $argv
-        or return
+    if set -q _flag_s # undo last unpushed commit, keeps changes
+        git reset --soft HEAD~1
+    else if set -q _flag_h # undo last unpushed commit, delete changes
+        git reset --hard HEAD~1
+    else
+        set -l files (echo $argv | tr ',' '\n')
+        for i in $files
+            echo 'git reset HEAD for file:' $i
+            git reset HEAD $i
+        end
+    end
+end
 
-        if set -q _flag_h
-            echo "gitdl [-f/-g/-z/-s/-h]"
-            echo "      no option --> once for all"
-            echo "      -f --> fzf"
-            echo "      -s --> scc"
-            echo "      -z --> z.lua"
-            echo "      -h --> usage"
-            return
-        else if set -q _flag_f
+function gitdl -d 'download several files from github'
+    set -l options 'f' 's' 'z' 'h'
+    argparse -n gitdl $options -- $argv
+    or return
+
+    if set -q _flag_h
+        echo "gitdl [-f/-g/-z/-s/-h]"
+        echo "      no option --> once for all"
+        echo "      -f --> fzf"
+        echo "      -s --> scc"
+        echo "      -z --> z.lua"
+        echo "      -h --> usage"
+        return
+    else if set -q _flag_f
+        echo "Update/Download fzf..."
+        fzfp u
+    else if set -q _flag_s
+        echo "Update/Download scc..."
+        sccp u
+    else if set -q _flag_z
+        echo "Update/Download z.lua..."
+        zp u
+    else                        # no option
+        read -n 1 -p 'echo "Update/Download all of fzf, scc, and z.lua from github? [Y/n]: "' -l arg
+        if test "$arg" = "" -o "$arg" = "y" -o "$arg" = " "
             echo "Update/Download fzf..."
             fzfp u
-        else if set -q _flag_s
+
             echo "Update/Download scc..."
             sccp u
-        else if set -q _flag_z
+
             echo "Update/Download z.lua..."
             zp u
-        else                        # no option
-            read -n 1 -p 'echo "Update/Download all of fzf, scc, and z.lua from github? [Y/n]: "' -l arg
-            if test "$arg" = "" -o "$arg" = "y" -o "$arg" = " "
-                echo "Update/Download fzf..."
-                fzfp u
-
-                echo "Update/Download scc..."
-                sccp u
-
-                echo "Update/Download z.lua..."
-                zp u
-            else
-                echo "Quit to update/download all of fzf, scc and z.lua from github!!!"
-            end
+        else
+            echo "Quit to update/download all of fzf, scc and z.lua from github!!!"
         end
     end
+end
 
-    function sccp -d 'check if scc exists, or without any argument, download the latest version'
-        if command -sq scc; and set -q $argv[1] # scc is in $PATH, and no any argv is given, two conditions
-            # echo "scc is installed, use any extra to upgrade it!"
+function sccp -d 'check if scc exists, or without any argument, download the latest version'
+    if command -sq scc; and set -q $argv[1] # scc is in $PATH, and no any argv is given, two conditions
+        # echo "scc is installed, use any extra to upgrade it!"
+        return 0
+    else
+        # https://github.com/boyter/scc/releases/download/v2.2.0/scc-2.2.0-x86_64-unknown-linux.zip
+        set tag_name (curl -s "https://api.github.com/repos/boyter/scc/releases/latest" | grep "tag_name" | cut -d : -f 2 | awk -F[\"\"] '{print $2}')
+        if not test $tag_name
+            echo "API rate limit exceeded, please input your password for your username!"
+            set tag_name (curl -u c02y -s "https://api.github.com/repos/boyter/scc/releases/latest" | grep "tag_name" | cut -d : -f 2 | awk -F[\"\"] '{print $2}')
+        end
+        set file_name (echo scc-(echo $tag_name | sed 's/^v//')-x86_64-unknown-linux.zip)
+        set file_link (echo https://github.com/boyter/scc/releases/download/$tag_name/$file_name)
+        wget $file_link -O /tmp/$file_name
+        if test -f /tmp/$file_name
+            unzip -e /tmp/$file_name -d ~/.local/bin/
             return 0
         else
-            # https://github.com/boyter/scc/releases/download/v2.2.0/scc-2.2.0-x86_64-unknown-linux.zip
-            set tag_name (curl -s "https://api.github.com/repos/boyter/scc/releases/latest" | grep "tag_name" | cut -d : -f 2 | awk -F[\"\"] '{print $2}')
-            if not test $tag_name
-                echo "API rate limit exceeded, please input your password for your username!"
-                set tag_name (curl -u c02y -s "https://api.github.com/repos/boyter/scc/releases/latest" | grep "tag_name" | cut -d : -f 2 | awk -F[\"\"] '{print $2}')
-            end
-            set file_name (echo scc-(echo $tag_name | sed 's/^v//')-x86_64-unknown-linux.zip)
-            set file_link (echo https://github.com/boyter/scc/releases/download/$tag_name/$file_name)
-            wget $file_link -O /tmp/$file_name
-            if test -f /tmp/$file_name
-                unzip -e /tmp/$file_name -d ~/.local/bin/
-                return 0
-            else
-                echo "scc doesn't exist and error occurs when downloading it!"
-                return 1
-            end
+            echo "scc doesn't exist and error occurs when downloading it!"
+            return 1
         end
     end
+end
 
-    # svn
-    abbr svnp 'svn update; and echo "---status---"; svn status'
-    abbr svnpn 'svn update ~/NVR.ori/Code'
-    abbr svns 'svn status'
-    abbr svnc 'svn commit -m'
-    abbr svnd 'svn diff | less'
-    abbr svnll 'svn log -v -l 10 | less'
-    function svncf -d 'view old version of a file'
-        svn cat -r $argv[1] $argv[2] | less
-    end
-    function svnl --description 'view the svn log with less, if arg not passed, using current dir'
-        svn log -v $argv[1] | /usr/bin/less
-    end
-    function svnlh
-        svn log -v $argv[1] | head -$argv[2]
-    end
-    function svndd --description 'show the svn diff detail'
-        # the revision of whole svn project
-        # set Revision (svn info | awk '/Revision/ {print $2}')
-        # the revision of current directory
-        set Revision (svn log | grep "^r[0-9]\+ | " | cut -d' ' -f1 | cut -c2- | sed -n "1p")
-        # TODO: check if argv is 1)integer, 2)number between $Revision and 1 if given
-        if test (echo $argv[1] | grep ':' -c) -eq 1
-            # if argv is like 1000:1010, then svn diff the two revisions
-            svn diff -r $argv[1] | less
-        else if test (count $argv) -eq 1
-            if test $argv[1] -gt 10
-                # if the argv is like 1000, then svn diff revision
-                svn diff -c $argv[1] | less
-            else
-                # if the argv is like 3, the svn diff the 3th commit to the last
-                # the PREV is 1
-                # if the list of revision is continuous
-                # set Rev (echo $Revision-$argv[1]+1 | bc)
-                # whether the list is continuous or not
-                set Rev (svn log | grep "^r[0-9]\+ | " | cut -d' ' -f1 | cut -c2- | sed -n "$argv[1]p")
-                svn diff -c $Rev | less
-            end
-        else if test (count $argv) = 0
-            if test (svn status | wc -l) != 0
-                # show the diff if local differs from server
-                svn status # in case there are new files
-                svn diff | less
-            else
-                # if no argv is given, and status is clean then svn diff the last commit
-                # equals to `svndd` == `svndd 1`
-                svn diff -r PREV | less
-            end
+# svn
+abbr svnp 'svn update; and echo "---status---"; svn status'
+abbr svnpn 'svn update ~/NVR.ori/Code'
+abbr svns 'svn status'
+abbr svnc 'svn commit -m'
+abbr svnd 'svn diff | less'
+abbr svnll 'svn log -v -l 10 | less'
+function svncf -d 'view old version of a file'
+    svn cat -r $argv[1] $argv[2] | less
+end
+function svnl --description 'view the svn log with less, if arg not passed, using current dir'
+    svn log -v $argv[1] | /usr/bin/less
+end
+function svnlh
+    svn log -v $argv[1] | head -$argv[2]
+end
+function svndd --description 'show the svn diff detail'
+    # the revision of whole svn project
+    # set Revision (svn info | awk '/Revision/ {print $2}')
+    # the revision of current directory
+    set Revision (svn log | grep "^r[0-9]\+ | " | cut -d' ' -f1 | cut -c2- | sed -n "1p")
+    # TODO: check if argv is 1)integer, 2)number between $Revision and 1 if given
+    if test (echo $argv[1] | grep ':' -c) -eq 1
+        # if argv is like 1000:1010, then svn diff the two revisions
+        svn diff -r $argv[1] | less
+    else if test (count $argv) -eq 1
+        if test $argv[1] -gt 10
+            # if the argv is like 1000, then svn diff revision
+            svn diff -c $argv[1] | less
         else
-            echo Arguments are wrong!!!
+            # if the argv is like 3, the svn diff the 3th commit to the last
+            # the PREV is 1
+            # if the list of revision is continuous
+            # set Rev (echo $Revision-$argv[1]+1 | bc)
+            # whether the list is continuous or not
+            set Rev (svn log | grep "^r[0-9]\+ | " | cut -d' ' -f1 | cut -c2- | sed -n "$argv[1]p")
+            svn diff -c $Rev | less
         end
-    end
-
-    abbr hs 'sudo cp -v ~/Public/hosts/hosts /etc/hosts'
-
-    # https://stackoverflow.com/questions/10408816/how-do-i-use-the-nohup-command-without-getting-nohup-out
-    function meld --description 'lanuch meld from terminal without block it'
-        # You could just use
-        # bash -c "(nohup /usr/bin/meld $argv </dev/null >/dev/null 2>&1 &)"
-        # But it will not work if the name of arguments contains space
-        # \"$argv\" like in `ok` does not work for multiple arguments even no space
-        set -l argc (count $argv)
-        switch $argc
-            case 0
-                /usr/bin/meld
-            case 1
-                echo "This is version control comparison, use `command meld file/dir`"
-            case 2
-                bash -c "(nohup /usr/bin/meld \"$argv[1]\" \"$argv[2]\" </dev/null >/dev/null 2>&1 &)"
-            case 3
-                bash -c "(nohup /usr/bin/meld \"$argv[1]\" \"$argv[2]\" \"$argv[3]\" </dev/null >/dev/null 2>&1 &)"
-            case '*'
-                echo Wrong arguments!!!
-        end
-        return
-    end
-    # okular
-    abbr ok 'bash -c "(nohup okular \"$argv\" </dev/null >/dev/null 2>&1 &)"'
-    abbr ima 'bash -c "(nohup gwenview \"$argv\" </dev/null >/dev/null 2>&1 &)"'
-    abbr op 'bash -c "(nohup xdg-open \"$argv\" </dev/null >/dev/null 2>&1 &)"'
-    abbr fcg 'fc-list | ag'
-
-    function wc
-        if test (count $argv) -gt 1
-            command wc $argv | sort -n
+    else if test (count $argv) = 0
+        if test (svn status | wc -l) != 0
+            # show the diff if local differs from server
+            svn status # in case there are new files
+            svn diff | less
         else
-            command wc $argv
+            # if no argv is given, and status is clean then svn diff the last commit
+            # equals to `svndd` == `svndd 1`
+            svn diff -r PREV | less
         end
+    else
+        echo Arguments are wrong!!!
     end
+end
 
-    abbr st 'stow -DRv'
+abbr hs 'sudo cp -v ~/Public/hosts/hosts /etc/hosts'
 
-    abbr ptp 'ptipython'
-    # install pytest and pytest-pep8 first, to check if the code is following pep8 guidelines
-    abbr pyp8 'py.test --pep8'
+# https://stackoverflow.com/questions/10408816/how-do-i-use-the-nohup-command-without-getting-nohup-out
+function meld --description 'lanuch meld from terminal without block it'
+    # You could just use
+    # bash -c "(nohup /usr/bin/meld $argv </dev/null >/dev/null 2>&1 &)"
+    # But it will not work if the name of arguments contains space
+    # \"$argv\" like in `ok` does not work for multiple arguments even no space
+    set -l argc (count $argv)
+    switch $argc
+        case 0
+            /usr/bin/meld
+        case 1
+            echo "This is version control comparison, use `command meld file/dir`"
+        case 2
+            bash -c "(nohup /usr/bin/meld \"$argv[1]\" \"$argv[2]\" </dev/null >/dev/null 2>&1 &)"
+        case 3
+            bash -c "(nohup /usr/bin/meld \"$argv[1]\" \"$argv[2]\" \"$argv[3]\" </dev/null >/dev/null 2>&1 &)"
+        case '*'
+            echo Wrong arguments!!!
+    end
+    return
+end
+# okular
+abbr ok 'bash -c "(nohup okular \"$argv\" </dev/null >/dev/null 2>&1 &)"'
+abbr ima 'bash -c "(nohup gwenview \"$argv\" </dev/null >/dev/null 2>&1 &)"'
+abbr op 'bash -c "(nohup xdg-open \"$argv\" </dev/null >/dev/null 2>&1 &)"'
+abbr fcg 'fc-list | ag'
 
-    # abbr rea 'sudo ~/.local/bin/reaver -i mon0 -b $argv[1] -vv'
-    # function rea
-    # sudo ~/.local/bin/reaver -i mon0 -b $argv
-    # end
+function wc
+    if test (count $argv) -gt 1
+        command wc $argv | sort -n
+    else
+        command wc $argv
+    end
+end
 
-    abbr epub 'ebook-viewer --detach'
-    alias time 'time -p'
-    abbr x 'exit'
+abbr st 'stow -DRv'
 
-    abbr sss 'ps -eo tty,command | grep -v grep | grep "sudo ssh "'
-    abbr p 'ping -c 5'
-    alias ping 'ping -c 5'
-    function po -d 'Test the connection of outside internet'
-        if not timeout 1 ping... # failed, $status != 0
+abbr ptp 'ptipython'
+# install pytest and pytest-pep8 first, to check if the code is following pep8 guidelines
+abbr pyp8 'py.test --pep8'
+
+# abbr rea 'sudo ~/.local/bin/reaver -i mon0 -b $argv[1] -vv'
+# function rea
+# sudo ~/.local/bin/reaver -i mon0 -b $argv
+# end
+
+abbr epub 'ebook-viewer --detach'
+alias time 'time -p'
+abbr x 'exit'
+
+abbr sss 'ps -eo tty,command | grep -v grep | grep "sudo ssh "'
+abbr p 'ping -c 5'
+alias ping 'ping -c 5'
+function po -d 'Test the connection of outside internet'
+    if not timeout 1 ping... # failed, $status != 0
+        echo Offline!
+    else
+        echo Online!
+    end
+end
+function pl -d 'Test the connection of inside internet'
+    if test (count $argv) -eq 1
+        if not timeout 1 ping -c 1 10.8.2.$argv ^/dev/null >/dev/null
+            echo Offline!
+        else
+            echo Online!
+        end
+    else
+        if not timeout 1 ping -c 1 10.0.4.4 ^/dev/null >/dev/null
             echo Offline!
         else
             echo Online!
         end
     end
-    function pl -d 'Test the connection of inside internet'
-        if test (count $argv) -eq 1
-            if not timeout 1 ping -c 1 10.8.2.$argv ^/dev/null >/dev/null
-                echo Offline!
-            else
-                echo Online!
-            end
-        else
-            if not timeout 1 ping -c 1 10.0.4.4 ^/dev/null >/dev/null
-                echo Offline!
-            else
-                echo Online!
-            end
-        end
+end
+function pv --description "ping vpn servers"
+    p p1.jp1.seejump.com | tail -n3
+    echo --------------------------------------------------------------
+    p p1.jp2.seejump.com | tail -n3
+    echo --------------------------------------------------------------
+    p p1.jp3.seejump.com | tail -n3
+    echo --------------------------------------------------------------
+    p p1.jp4.seejump.com | tail -n3
+    echo --------------------------------------------------------------
+    p p1.hk1.seejump.com | tail -n3
+    echo --------------------------------------------------------------
+    p p1.hk2.seejump.com | tail -n3
+    echo --------------------------------------------------------------
+    p p1.hk3.seejump.com | tail -n3
+    echo --------------------------------------------------------------
+end
+function ipl -d 'get the location of your public IP address'
+    if test (ps -ef | grep -v grep | grep -i shadow | awk '{ print $(NF-2)     }') # ssr is running
+        proxychains4 curl myip.ipip.net
+    else
+        curl myip.ipip.net
     end
-    function pv --description "ping vpn servers"
-        p p1.jp1.seejump.com | tail -n3
-        echo --------------------------------------------------------------
-        p p1.jp2.seejump.com | tail -n3
-        echo --------------------------------------------------------------
-        p p1.jp3.seejump.com | tail -n3
-        echo --------------------------------------------------------------
-        p p1.jp4.seejump.com | tail -n3
-        echo --------------------------------------------------------------
-        p p1.hk1.seejump.com | tail -n3
-        echo --------------------------------------------------------------
-        p p1.hk2.seejump.com | tail -n3
-        echo --------------------------------------------------------------
-        p p1.hk3.seejump.com | tail -n3
-        echo --------------------------------------------------------------
+end
+function port -d 'list all the ports are used or check the process which are using the port'
+    if test (count $argv) = 1
+        netstat -tulpn | grep $argv
+    else
+        netstat -tulpn
     end
-    function ipl -d 'get the location of your public IP address'
-        if test (ps -ef | grep -v grep | grep -i shadow | awk '{ print $(NF-2)     }') # ssr is running
-            proxychains4 curl myip.ipip.net
-        else
-            curl myip.ipip.net
-        end
-    end
-    function port -d 'list all the ports are used or check the process which are using the port'
-        if test (count $argv) = 1
-            netstat -tulpn | grep $argv
-        else
-            netstat -tulpn
-        end
-    end
-    abbr px 'proxychains4'
+end
+abbr px 'proxychains4'
 
-    abbr lo 'locate -e'
-    function lop --description 'locate the full/exact file'
-        locate -e -r "/$argv[1]\$"
-    end
-    function findn --description 'find the new files in the whole system, argv[1] is the last mins, argv[2] is the file name to search'
-        sudo find / -type f -mmin -$argv[1] | sudo ag $argv[2]
-    end
+abbr lo 'locate -e'
+function lop --description 'locate the full/exact file'
+    locate -e -r "/$argv[1]\$"
+end
+function findn --description 'find the new files in the whole system, argv[1] is the last mins, argv[2] is the file name to search'
+    sudo find / -type f -mmin -$argv[1] | sudo ag $argv[2]
+end
 
-    # bc -- calculator
-    function bc --description 'calculate in command line using bc non-interactive mode if needed, even convert binary/octual/hex'
-        if test (count $argv) -eq 0
-            /usr/bin/bc -ql
-        else
-            # TODO: fish won't recognize command like `bc 2*3`, you have to quote it or use `bc 2\*3`
-            for i in $argv
-                echo $i:
-                echo -ne "\t"
-                echo -e $i | /usr/bin/bc -l
-            end
+# bc -- calculator
+function bc --description 'calculate in command line using bc non-interactive mode if needed, even convert binary/octual/hex'
+    if test (count $argv) -eq 0
+        /usr/bin/bc -ql
+    else
+        # TODO: fish won't recognize command like `bc 2*3`, you have to quote it or use `bc 2\*3`
+        for i in $argv
+            echo $i:
+            echo -ne "\t"
+            echo -e $i | /usr/bin/bc -l
         end
     end
-    # more examples using bc
-    # http://www.basicallytech.com/blog/archive/23/command-line-calculations-using-bc/
-    #1 convert 255 from base 10 to base 16
-    # echo 'obase=16; 255' | bc
-    # use `bcc 'obase=16; 255'` directly
-    #2 convert hex FF (not ff) from base 16 to binary
-    # echo 'obase=2; FF' | bc
-    #3 convert binary 110 from binary to hex
-    # echo 'ibase=2;obase=A;110' | bc
-    # not 16 or a but A means hex
-    #4 convert from hexadecimal to decimal ; 3 and 4 are weird
-    # echo 'ibase=16;obase=A;FF' | bc
-    #5 convert hex to octual
-    # echo 'F' | bc
+end
+# more examples using bc
+# http://www.basicallytech.com/blog/archive/23/command-line-calculations-using-bc/
+#1 convert 255 from base 10 to base 16
+# echo 'obase=16; 255' | bc
+# use `bcc 'obase=16; 255'` directly
+#2 convert hex FF (not ff) from base 16 to binary
+# echo 'obase=2; FF' | bc
+#3 convert binary 110 from binary to hex
+# echo 'ibase=2;obase=A;110' | bc
+# not 16 or a but A means hex
+#4 convert from hexadecimal to decimal ; 3 and 4 are weird
+# echo 'ibase=16;obase=A;FF' | bc
+#5 convert hex to octual
+# echo 'F' | bc
 
-    function catt
-        if test (count $argv) -gt 1
-            for i in $argv
-                echo -e "\\033[0;31m"\<$i\>
-                echo -e ------------------------------------------------- "\\033[0;39m"
-                /bin/cat $i
-                echo
-            end
-        else
-            /bin/cat $argv
+function catt
+    if test (count $argv) -gt 1
+        for i in $argv
+            echo -e "\\033[0;31m"\<$i\>
+            echo -e ------------------------------------------------- "\\033[0;39m"
+            /bin/cat $i
+            echo
         end
+    else
+        /bin/cat $argv
     end
+end
 
-    function deff
-        echo "-1\n" | sdcv $argv | head -n 1 | grep ", similar to " ^/dev/null >/dev/null
-        if test $status = 0         # Found exact words or similar
-            echo "-1\n" | sdcv $argv | head -n 2 | tail -n 1 | grep "^-->" ^/dev/null >/dev/null
-            if test $status = 0     # Exact definition
-                sdcv $argv
-            else                    # similar
-                echo "-1\n" | sdcv $argv | head -n 1 | grep $argv
-                # 1th, send -1 to prompt; 3th, delete last line; 4th, delete first line;
-                # 5th, get last part after ">"; 5th & 6th, delete duplicates;
-                # 7th, combine and separate multiple lines (words) with ", "
-                # 8th, delete last ", "
-                echo "-1\n" | sdcv $argv | head -n -1 | tail -n +2 | cut -d ">" -f 2 | sort | uniq | awk 'ORS=", "' | sed 's/, $/\n/'
-            end
-        else                        # Nothing similar
+function deff
+    echo "-1\n" | sdcv $argv | head -n 1 | grep ", similar to " ^/dev/null >/dev/null
+    if test $status = 0         # Found exact words or similar
+        echo "-1\n" | sdcv $argv | head -n 2 | tail -n 1 | grep "^-->" ^/dev/null >/dev/null
+        if test $status = 0     # Exact definition
             sdcv $argv
+        else                    # similar
+            echo "-1\n" | sdcv $argv | head -n 1 | grep $argv
+            # 1th, send -1 to prompt; 3th, delete last line; 4th, delete first line;
+            # 5th, get last part after ">"; 5th & 6th, delete duplicates;
+            # 7th, combine and separate multiple lines (words) with ", "
+            # 8th, delete last ", "
+            echo "-1\n" | sdcv $argv | head -n -1 | tail -n +2 | cut -d ">" -f 2 | sort | uniq | awk 'ORS=", "' | sed 's/, $/\n/'
         end
-        # NOTE: double quotes in sed, single quotes does not work
-        sed -i "/\<$argv\>/d" ~/.sdcv_history # delete the word in ~/.sdcv_history
+    else                        # Nothing similar
+        sdcv $argv
     end
-    function SDCV
-        sdcv -u "WordNet" -u "牛津现代英汉双解词典" -u "朗道英汉字典5.0" $argv
-        sort -u -o ~/.sdcv_history ~/.sdcv_history # sort and unique them
-    end
-    function defc_new -d 'Check if the word is new in ~/.sdcv_history, if new add it'
-        grep -w $argv ~/.sdcv_history >> /dev/null
-        or begin # new, not searched the dict before, save
-            if not test -e ~/.sdcv_rem
-                touch ~/.sdcv_rem
-            end
-            echo ---------------------------------------------- >> ~/.sdcv_rem
-            echo -e \< $argv \> >> ~/.sdcv_rem
-            echo ---------------------------------------------- >> ~/.sdcv_rem
-            SDCV $argv >> ~/.sdcv_rem
-            echo ---------------------------------------------- >> ~/.sdcv_rem
-            echo >> ~/.sdcv_rem
+    # NOTE: double quotes in sed, single quotes does not work
+    sed -i "/\<$argv\>/d" ~/.sdcv_history # delete the word in ~/.sdcv_history
+end
+function SDCV
+    sdcv -u "WordNet" -u "牛津现代英汉双解词典" -u "朗道英汉字典5.0" $argv
+    sort -u -o ~/.sdcv_history ~/.sdcv_history # sort and unique them
+end
+function defc_new -d 'Check if the word is new in ~/.sdcv_history, if new add it'
+    grep -w $argv ~/.sdcv_history >> /dev/null
+    or begin # new, not searched the dict before, save
+        if not test -e ~/.sdcv_rem
+            touch ~/.sdcv_rem
         end
+        echo ---------------------------------------------- >> ~/.sdcv_rem
+        echo -e \< $argv \> >> ~/.sdcv_rem
+        echo ---------------------------------------------- >> ~/.sdcv_rem
+        SDCV $argv >> ~/.sdcv_rem
+        echo ---------------------------------------------- >> ~/.sdcv_rem
+        echo >> ~/.sdcv_rem
     end
-    function defc --description 'search the defnition of a word and save it into personal dict if it is the first time you search'
-        echo "-1\n" | SDCV $argv | head -n 1 | grep ", similar to " ^/dev/null >/dev/null
-        if test $status = 0         # Found exact words or similar
-            echo "-1\n" | SDCV $argv | head -n 2 | tail -n 1 | grep "^-->" ^/dev/null >/dev/null
-            if test $status = 0     # Exact definition
-                SDCV $argv
-                defc_new $argv
-            else                    # similar
-                echo "-1\n" | SDCV $argv | head -n 1 | grep $argv
-                echo "-1\n" | SDCV $argv | head -n -1 | tail -n +2 | cut -d ">" -f 2 | sort | uniq | awk 'ORS=", "' | sed 's/, $/\n/'
-                sed -i "/\<$argv\>/d" ~/.sdcv_history # delete the wrong word in ~/.sdcv_history
-            end
-        else                        # Nothing similar
+end
+function defc --description 'search the defnition of a word and save it into personal dict if it is the first time you search'
+    echo "-1\n" | SDCV $argv | head -n 1 | grep ", similar to " ^/dev/null >/dev/null
+    if test $status = 0         # Found exact words or similar
+        echo "-1\n" | SDCV $argv | head -n 2 | tail -n 1 | grep "^-->" ^/dev/null >/dev/null
+        if test $status = 0     # Exact definition
             SDCV $argv
+            defc_new $argv
+        else                    # similar
+            echo "-1\n" | SDCV $argv | head -n 1 | grep $argv
+            echo "-1\n" | SDCV $argv | head -n -1 | tail -n +2 | cut -d ">" -f 2 | sort | uniq | awk 'ORS=", "' | sed 's/, $/\n/'
             sed -i "/\<$argv\>/d" ~/.sdcv_history # delete the wrong word in ~/.sdcv_history
         end
+    else                        # Nothing similar
+        SDCV $argv
+        sed -i "/\<$argv\>/d" ~/.sdcv_history # delete the wrong word in ~/.sdcv_history
     end
+end
 
-    # count chars of lines of a file
-    # awk '{ print length }' | sort -n | uniq -c
+# count chars of lines of a file
+# awk '{ print length }' | sort -n | uniq -c
 
-    # note that there is no $argv[0], the $argv[1] is the first argv after the command name, so the argc of `command argument` is 1, not 2
-    function man
-        if test (count $argv) -eq 2
-            #sed -i "s/.shell/\"$argv[2]\n.shell/g" ~/.lesshst
-            echo "\"$argv[2]" >> ~/.lesshst
-        else
-            #sed -i "s/.shell/\"$argv[1]\n.shell/g" ~/.lesshst
-            echo "\"$argv[1]" >> ~/.lesshst
-        end
-        command man $argv
-    end
-    abbr ma 'man'
-
-    function wtp --description 'show the real definition of a type or struct in C code, you can find which file it is defined in around the result'
-        gcc -E ~/.local/bin/type.c -I$argv[1] > /tmp/result
-        if test (count $argv) -eq 2
-            if test (echo $argv[1] | grep struct)
-                ag -A $argv[2] "^$argv[1]" /tmp/result
-            else
-                ag -B $argv[2] $argv[1] /tmp/result
-            end
-        else
-            ag $argv[1] /tmp/result
-        end
-    end
-
-    # if usb0 is not connected or data sharing is not enabled:
-    # `ip link ls dev usb0` returns 255, else returns 0
-    # if usb0 is not connected to network:
-    # `ip link ls dev usb | grep UP` returns 1, else returns 0
-    # if returns 1, then kill dhclient and enabled dhclient again:
-    # sudo dhclient usb0
-    function ut -d 'toggle -- use data network sharing through Android device throught USB'
-        ip link ls dev usb0 ^/dev/null >/dev/null
-        if not ip link ls dev usb0 ^/dev/null >/dev/null0 # ()=255, not plugged or enabled in Android device
-            echo Android device is not plugged or data network sharing is not enabled!
-        else          # ()=0
-            # ip link ls dev usb0 | grep UP ^/dev/null >/dev/null
-            # if test $status != 0
-            if test 1 != 0
-                # echo Network on usb0 is off!
-                if test (pgrep dhclient | wc -l) != 0 # This will be useless since the latter kill
-                    echo dhclient is already running, Kill it!
-                    echo "      " | sudo -p "" -S pkill dhclient
-                end
-                echo Starting `dhclient usb0`
-                echo "      " | sudo -p "" -S dhclient usb0
-                # something it will fail, output error message like
-                # dhclient(26477) is already running - exiting....
-                if test $status != 0
-                    sudo dhclient -r
-                    sudo dhclient
-                    sudo pkill dhclient
-                end
-            else
-                # echo Network on usb0 is already on!
-            end
-            if test (pgrep dhclient | wc -l) != 0
-                sudo pkill dhclient  # this has no effect on the network, just make next usbt quicker
-            end
-        end
-    end
-
-    abbr um 'pumount /run/media/chz/UDISK'
-    abbr mo 'pmount /dev/sdb4 /run/media/chz/UDISK'
-    function mo-bak
-        set -l done 1
-        while test $done = 1
-            if not command df | grep -v grep | grep -i UDISK  ^/dev/null >/dev/null # no UDISK in df, new or unplug
-                set -l device
-                if test -b /dev/sdb4
-                    set device /dev/sdb4
-                else if test -b /dev/sdc4
-                    set device /dev/sdc4
-                else
-                    echo Please plug your USB drive!!!
-                    return
-                end
-                pmount $device /media/UDISK
-                df
-                return
-            else                        # UDISK is in df, right or not-umount old
-                set -l device (command df | grep -v grep | grep -i UDISK | awk '{print $1}')
-                if not test -b $device
-                    if not pumount /media/UDISK ^/dev/null >/dev/null
-                        echo $device -- /media/UDISK is busy.
-                        lsof | ag UDISK
-                        return
-                    end
-                else                    # right
-                    echo Device /dev/sdb4 is already mounted to /media/UDISK
-                    return
-                end
-            end
-        end
-    end
-
-    abbr ytd 'youtube-dl -citw'
-
-    function agr -d 'ag errno'
-        for file in /usr/include/asm-generic/errno-base.h /usr/include/asm-generic/errno.h
-            command ag -w $argv[1] $file
-        end
-    end
-    # ag work with less with color and scrolling
-    function ag
+# note that there is no $argv[0], the $argv[1] is the first argv after the command name, so the argc of `command argument` is 1, not 2
+function man
+    if test (count $argv) -eq 2
+        #sed -i "s/.shell/\"$argv[2]\n.shell/g" ~/.lesshst
+        echo "\"$argv[2]" >> ~/.lesshst
+    else
         #sed -i "s/.shell/\"$argv[1]\n.shell/g" ~/.lesshst
         echo "\"$argv[1]" >> ~/.lesshst
-        if command -sq ag # check if ag command exists
-            command ag --ignore '*~' --ignore '#?*#' --ignore '.#?*' --ignore '*.swp' --ignore -s --pager='less -i -RM -FX -s' $argv
+    end
+    command man $argv
+end
+abbr ma 'man'
+
+function wtp --description 'show the real definition of a type or struct in C code, you can find which file it is defined in around the result'
+    gcc -E ~/.local/bin/type.c -I$argv[1] > /tmp/result
+    if test (count $argv) -eq 2
+        if test (echo $argv[1] | grep struct)
+            ag -A $argv[2] "^$argv[1]" /tmp/result
         else
-            grep -n --color=always $argv | more
-            echo -e "\n...ag is not installed, use grep instead..."
+            ag -B $argv[2] $argv[1] /tmp/result
+        end
+    else
+        ag $argv[1] /tmp/result
+    end
+end
+
+# if usb0 is not connected or data sharing is not enabled:
+# `ip link ls dev usb0` returns 255, else returns 0
+# if usb0 is not connected to network:
+# `ip link ls dev usb | grep UP` returns 1, else returns 0
+# if returns 1, then kill dhclient and enabled dhclient again:
+# sudo dhclient usb0
+function ut -d 'toggle -- use data network sharing through Android device throught USB'
+    ip link ls dev usb0 ^/dev/null >/dev/null
+    if not ip link ls dev usb0 ^/dev/null >/dev/null0 # ()=255, not plugged or enabled in Android device
+        echo Android device is not plugged or data network sharing is not enabled!
+    else          # ()=0
+        # ip link ls dev usb0 | grep UP ^/dev/null >/dev/null
+        # if test $status != 0
+        if test 1 != 0
+            # echo Network on usb0 is off!
+            if test (pgrep dhclient | wc -l) != 0 # This will be useless since the latter kill
+                echo dhclient is already running, Kill it!
+                echo "      " | sudo -p "" -S pkill dhclient
+            end
+            echo Starting `dhclient usb0`
+            echo "      " | sudo -p "" -S dhclient usb0
+            # something it will fail, output error message like
+            # dhclient(26477) is already running - exiting....
+            if test $status != 0
+                sudo dhclient -r
+                sudo dhclient
+                sudo pkill dhclient
+            end
+        else
+            # echo Network on usb0 is already on!
+        end
+        if test (pgrep dhclient | wc -l) != 0
+            sudo pkill dhclient  # this has no effect on the network, just make next usbt quicker
         end
     end
-    function ags -d 'ag(default)/rg(-r) sth in a init.el(-e)/config.fish(-f)/.tmux.conf(-t)/vimrc(-v), or use fzf(-F) to open the file, search multiple patterns(-m), case sensitive(-s), list(-l), whole word(-w), ignore dir(-I), file pattern(-G)'
-        set -l options 'r' 'e' 'f' 'F' 't' 'v' 'm' 's' 'l' 'w' 'I=' 'G='
-        argparse -n ags -N 1 $options -- $argv
-        or return
+end
 
-        set AG ag
-        if set -q _flag_r; and command -sq rg # if -r is given and rg is installed, use rg
-            set AG rg
-        else if not command -sq ag; and not command -sq rg
-            echo "Neither ag or rg is installed!"
+abbr um 'pumount /run/media/chz/UDISK'
+abbr mo 'pmount /dev/sdb4 /run/media/chz/UDISK'
+function mo-bak
+    set -l done 1
+    while test $done = 1
+        if not command df | grep -v grep | grep -i UDISK  ^/dev/null >/dev/null # no UDISK in df, new or unplug
+            set -l device
+            if test -b /dev/sdb4
+                set device /dev/sdb4
+            else if test -b /dev/sdc4
+                set device /dev/sdc4
+            else
+                echo Please plug your USB drive!!!
+                return
+            end
+            pmount $device /media/UDISK
+            df
             return
-        end
-
-        set ARGV3 ""
-        if set -q _flag_m           # multiple patterns
-            set ARGV2 $argv[2]
-            # no dir is given, assign it to .
-            set -q $argv[3]; and set ARGV3 .; or set ARGV3 $argv[3]
-        else
-            # no dir is given, assign it to .
-            set -q $argv[2]; and set ARGV2 .; or set ARGV2 $argv[2]
-        end
-
-        set -q _flag_s; and set CASE_SENSITIVE -s; or set CASE_SENSITIVE -i
-
-        set -q _flag_l; and set LIST -l; or set LIST ""
-
-        set -q _flag_w; and set WORD -w; or set WORD ""
-
-        # $_flag_I means the value of option I, I has to be 'I=' in the beginning
-        set -q _flag_I; and set IGNORE "--ignore={$_flag_I}"; or set IGNORE ""
-
-        # FIXME: cannot make `rg string -g "*string*"` into -G option
-        set -q _flag_G; and set FILES "-G '$_flag_G'"; or set FILES ""
-
-        if set -q _flag_e
-            set FILE $EMACS_EL
-        else if set -q _flag_f
-            set FILE $FISHRC
-        else if set -q _flag_t
-            set FILE ~/.tmux.conf
-        else if set -q _flag_v
-            set FILE $VIMRC
-        else
-            if set -q _flag_m
-                set FILE $ARGV3
-            else if set -q $argv[2] # no $argv[2]
-                set FILE .
-            else
-                set FILE $argv[2]
-            end
-        end
-
-        if test "$ARGV3" = ""
-            set CMD eval $AG \"$argv[1]\" $FILE -l
-            eval $AG --heading $CASE_SENSITIVE $LIST $WORD $IGNORE $FILES \"$argv[1]\" $FILE
-        else
-            set ARGV3 $FILE
-            if set -q _flag_r
-                eval $AG --no-heading --color always --line-number $CASE_SENSITIVE $IGNORE $FILES \"$argv[1]\" \"$ARGV3\" | eval $AG $CASE_SENSITIVE \"$ARGV2\"
-            else
-                eval $AG --color --noheading $CASE_SENSITIVE $IGNORE $FILES \"$argv[1]\" \"$ARGV3\" | eval $AG $CASE_SENSITIVE \"$ARGV2\"
-            end
-        end
-
-        if not set -q _flag_m # FIXME: using fzf doesn't work with multiple patterns(-m)
-            if set -q _flag_F # search pattern(s) in dir/file, choose it using fzf, and open if using emm/vim
-                read -n 1 -p 'echo "Open it with emm? [_v_im/_e_mm]: "' -l answer
-                if test "$answer" = "v" -o "$answer" = " "
-                    eval $CMD | fzf --bind 'enter:execute:vim {} < /dev/tty'
-                else if test "$answer" = "e"
-                    emm (eval $CMD | fzf)
-                else
-                    echo "Canceled!"
+        else                        # UDISK is in df, right or not-umount old
+            set -l device (command df | grep -v grep | grep -i UDISK | awk '{print $1}')
+            if not test -b $device
+                if not pumount /media/UDISK ^/dev/null >/dev/null
+                    echo $device -- /media/UDISK is busy.
+                    lsof | ag UDISK
                     return
                 end
-            end
-        end
-    end
-
-    # ls; and ll -- if ls succeed then ll, if failed then don't ll
-    # ls; or ll -- if ls succeed then don't ll, if failed then ll
-
-    # such as:
-    # abbr sp 'svn update; and echo "---status---"; svn status'
-
-    # if test $status -eq 0; ... else ... # success
-    # to
-    # and begin ... end; or ...
-
-    # if test $status -eq 1; ... else ... # failure
-    # to
-    # or begin ... end; or ...
-
-    function bkm -d 'backups manager: rename files/dirs from name to name.bak or backwards(-b) using cp/mv(-m)'
-        # set optional options
-        set -l options 'b' 'm'
-        argparse -n bkm -N 1 $options -- $argv
-        or return
-
-        set -q _flag_b; and set backward 1; or set backward 0 # 0(name->name.bak), 1(backward, name.bak->name)
-        set -q _flag_m; and set CMD mv -v; or set CMD cp -vr
-
-        for name in $argv # support multiple arguments
-            if test $backward = 1
-                set -l result (echo (string split -r -m1 .bak $name)[1])
-                if test -e $result
-                    echo $result alread exists.
-                else
-                    eval $CMD $name $result
-                end
-            else
-                set old $name
-                if test "/" = (echo (string sub --start=-1 $name)) # for dir ending with "/"
-                    set old (echo (string split -r -m1 / $name)[1])
-                end
-                if test -e $old.bak
-                    echo $old.bak already exists.
-                    read -n 1 -l -p 'echo "Remove $old.bak first? [y/N]"' answer
-                    if test "$answer" = "y" -o "$answer" = " "
-                        rm -rfv $old.bak
-                    else
-                        continue
-                    end
-                end
-                eval $CMD $old{,.bak}
-            end
-        end
-    end
-
-    function d --description "Choose one from the list of recently visited dirs"
-        # this function is introduced into fish-shell release since v2.7b1, called `cdh` (mostly similar)
-        # See if we've been invoked with an argument. Presumably from the `cdh` completion script.
-        # If we have just treat it as `cd` to the specified directory.
-        if set -q argv[1]
-            cd $argv
-            return
-        end
-
-        if set -q argv[2]
-            echo (_ "d: Expected zero or one arguments") >&2
-            return 1
-        end
-
-
-        set -l all_dirs $dirprev $dirnext
-        if not set -q all_dirs[1]
-            echo (_ 'No previous directories to select. You have to cd at least once.') >&2
-            return 0
-        end
-
-        # Reverse the directories so the most recently visited is first in the list.
-        # Also, eliminate duplicates; i.e., we only want the most recent visit to a
-        # given directory in the selection list.
-        set -l uniq_dirs
-        for dir in $all_dirs[-1..1]
-            if not contains $dir $uniq_dirs
-                set uniq_dirs $uniq_dirs $dir
-            end
-        end
-
-        set -l letters - b c d e f h i j k l m n o p q r s t u v w x y z
-        set -l dirc (count $uniq_dirs)
-        if test $dirc -gt (count $letters)
-            set -l msg 'This should not happen. Have you changed the cd command?'
-            printf (_ "$msg\n")
-            set -l msg 'There are %s unique dirs in your history' \
-            'but I can only handle %s'
-            printf (_ "$msg\n") $dirc (count $letters)
-            return 1
-        end
-
-        # Print the recent directories, oldest to newest. Since we previously
-        # reversed the list, making the newest entry the first item in the array,
-        # we count down rather than up.
-        # already_pwd avoid always print the bottom line *pwd:...
-        set -l pwd_existed 0
-        for i in (seq $dirc -1 1)
-            set dir $uniq_dirs[$i]
-
-            if test $pwd_existed != 1
-                if test "$dir" = "$PWD"
-                    set pwd_existed 1
-                end
-            end
-
-            set -l home_dir (string match -r "$HOME(/.*|\$)" "$dir")
-            if set -q home_dir[2]
-                set dir "~$home_dir[2]"
-                # change dir from /home/user/path to ~/path
-                # dir is not PWD anymore
-            end
-
-            if test $pwd_existed = 1
-                printf '%s* %2d)  %s%s\n' (set_color red) $i $dir (set_color normal)
-                set pwd_existed 2 # to make the rest of current the dirprev not red
-            else if test $i = 1
-                printf '%s- %2d)  %s%s\n' (set_color cyan) $i $dir (set_color normal)
-            else if test $i != 1 -a $pwd_existed != 1
-                printf '%s %2d)  %s\n' $letters[$i] $i $dir
-
-            end
-        end
-        if test $pwd_existed = 0 # means the current dir is not in the $uniq_dirs
-            printf '%s* %2d)  %s%s\n' (set_color red) "0" $PWD (set_color normal)
-        end
-
-        echo '---------------------------'
-        read -n 1 -l -p 'echo "Goto: "' choice
-        if test "$choice" = ""
-            return 0
-        else if string match -q -r '^[\-|b-z]$' $choice
-            set choice (contains -i $choice $letters)
-        end
-
-        if string match -q -r '^\d+$' $choice
-            if test $choice -ge 1 -a $choice -le $dirc
-                cd $uniq_dirs[$choice]
-                set -l dir_short (string match -r "$HOME(/.*|\$)" "$uniq_dirs[$choice]")
-                set -l cd_dir "~$dir_short[2]"
-                echo cd $cd_dir
+            else                    # right
+                echo Device /dev/sdb4 is already mounted to /media/UDISK
                 return
-            else if test $choice -eq 0
-                echo You are already in directory `(pwd)`
+            end
+        end
+    end
+end
+
+abbr ytd 'youtube-dl -citw'
+
+function agr -d 'ag errno'
+    for file in /usr/include/asm-generic/errno-base.h /usr/include/asm-generic/errno.h
+        command ag -w $argv[1] $file
+    end
+end
+# ag work with less with color and scrolling
+function ag
+    #sed -i "s/.shell/\"$argv[1]\n.shell/g" ~/.lesshst
+    echo "\"$argv[1]" >> ~/.lesshst
+    if command -sq ag # check if ag command exists
+        command ag --ignore '*~' --ignore '#?*#' --ignore '.#?*' --ignore '*.swp' --ignore -s --pager='less -i -RM -FX -s' $argv
+    else
+        grep -n --color=always $argv | more
+        echo -e "\n...ag is not installed, use grep instead..."
+    end
+end
+function ags -d 'ag(default)/rg(-r) sth in a init.el(-e)/config.fish(-f)/.tmux.conf(-t)/vimrc(-v), or use fzf(-F) to open the file, search multiple patterns(-m), case sensitive(-s), list(-l), whole word(-w), ignore dir(-I), file pattern(-G)'
+    set -l options 'r' 'e' 'f' 'F' 't' 'v' 'm' 's' 'l' 'w' 'I=' 'G='
+    argparse -n ags -N 1 $options -- $argv
+    or return
+
+    set AG ag
+    if set -q _flag_r; and command -sq rg # if -r is given and rg is installed, use rg
+        set AG rg
+    else if not command -sq ag; and not command -sq rg
+        echo "Neither ag or rg is installed!"
+        return
+    end
+
+    set ARGV3 ""
+    if set -q _flag_m           # multiple patterns
+        set ARGV2 $argv[2]
+        # no dir is given, assign it to .
+        set -q $argv[3]; and set ARGV3 .; or set ARGV3 $argv[3]
+    else
+        # no dir is given, assign it to .
+        set -q $argv[2]; and set ARGV2 .; or set ARGV2 $argv[2]
+    end
+
+    set -q _flag_s; and set CASE_SENSITIVE -s; or set CASE_SENSITIVE -i
+
+    set -q _flag_l; and set LIST -l; or set LIST ""
+
+    set -q _flag_w; and set WORD -w; or set WORD ""
+
+    # $_flag_I means the value of option I, I has to be 'I=' in the beginning
+    set -q _flag_I; and set IGNORE "--ignore={$_flag_I}"; or set IGNORE ""
+
+    # FIXME: cannot make `rg string -g "*string*"` into -G option
+    set -q _flag_G; and set FILES "-G '$_flag_G'"; or set FILES ""
+
+    if set -q _flag_e
+        set FILE $EMACS_EL
+    else if set -q _flag_f
+        set FILE $FISHRC
+    else if set -q _flag_t
+        set FILE ~/.tmux.conf
+    else if set -q _flag_v
+        set FILE $VIMRC
+    else
+        if set -q _flag_m
+            set FILE $ARGV3
+        else if set -q $argv[2] # no $argv[2]
+            set FILE .
+        else
+            set FILE $argv[2]
+        end
+    end
+
+    if test "$ARGV3" = ""
+        set CMD eval $AG \"$argv[1]\" $FILE -l
+        eval $AG --heading $CASE_SENSITIVE $LIST $WORD $IGNORE $FILES \"$argv[1]\" $FILE
+    else
+        set ARGV3 $FILE
+        if set -q _flag_r
+            eval $AG --no-heading --color always --line-number $CASE_SENSITIVE $IGNORE $FILES \"$argv[1]\" \"$ARGV3\" | eval $AG $CASE_SENSITIVE \"$ARGV2\"
+        else
+            eval $AG --color --noheading $CASE_SENSITIVE $IGNORE $FILES \"$argv[1]\" \"$ARGV3\" | eval $AG $CASE_SENSITIVE \"$ARGV2\"
+        end
+    end
+
+    if not set -q _flag_m # FIXME: using fzf doesn't work with multiple patterns(-m)
+        if set -q _flag_F # search pattern(s) in dir/file, choose it using fzf, and open if using emm/vim
+            read -n 1 -p 'echo "Open it with emm? [_v_im/_e_mm]: "' -l answer
+            if test "$answer" = "v" -o "$answer" = " "
+                eval $CMD | fzf --bind 'enter:execute:vim {} < /dev/tty'
+            else if test "$answer" = "e"
+                emm (eval $CMD | fzf)
             else
-                echo Error: expected a number between 0 and $dirc, got \"$choice\"
-                return 1
+                echo "Canceled!"
+                return
+            end
+        end
+    end
+end
+
+# ls; and ll -- if ls succeed then ll, if failed then don't ll
+# ls; or ll -- if ls succeed then don't ll, if failed then ll
+
+# such as:
+# abbr sp 'svn update; and echo "---status---"; svn status'
+
+# if test $status -eq 0; ... else ... # success
+# to
+# and begin ... end; or ...
+
+# if test $status -eq 1; ... else ... # failure
+# to
+# or begin ... end; or ...
+
+function bkm -d 'backups manager: rename files/dirs from name to name.bak or backwards(-b) using cp/mv(-m)'
+    # set optional options
+    set -l options 'b' 'm'
+    argparse -n bkm -N 1 $options -- $argv
+    or return
+
+    set -q _flag_b; and set backward 1; or set backward 0 # 0(name->name.bak), 1(backward, name.bak->name)
+    set -q _flag_m; and set CMD mv -v; or set CMD cp -vr
+
+    for name in $argv # support multiple arguments
+        if test $backward = 1
+            set -l result (echo (string split -r -m1 .bak $name)[1])
+            if test -e $result
+                echo $result alread exists.
+            else
+                eval $CMD $name $result
             end
         else
-            echo Error: expected a number between 1 and $dirc or letter in that range, got \"$choice\"
-            return 1
+            set old $name
+            if test "/" = (echo (string sub --start=-1 $name)) # for dir ending with "/"
+                set old (echo (string split -r -m1 / $name)[1])
+            end
+            if test -e $old.bak
+                echo $old.bak already exists.
+                read -n 1 -l -p 'echo "Remove $old.bak first? [y/N]"' answer
+                if test "$answer" = "y" -o "$answer" = " "
+                    rm -rfv $old.bak
+                else
+                    continue
+                end
+            end
+            eval $CMD $old{,.bak}
+        end
+    end
+end
+
+function d --description "Choose one from the list of recently visited dirs"
+    # this function is introduced into fish-shell release since v2.7b1, called `cdh` (mostly similar)
+    # See if we've been invoked with an argument. Presumably from the `cdh` completion script.
+    # If we have just treat it as `cd` to the specified directory.
+    if set -q argv[1]
+        cd $argv
+        return
+    end
+
+    if set -q argv[2]
+        echo (_ "d: Expected zero or one arguments") >&2
+        return 1
+    end
+
+
+    set -l all_dirs $dirprev $dirnext
+    if not set -q all_dirs[1]
+        echo (_ 'No previous directories to select. You have to cd at least once.') >&2
+        return 0
+    end
+
+    # Reverse the directories so the most recently visited is first in the list.
+    # Also, eliminate duplicates; i.e., we only want the most recent visit to a
+    # given directory in the selection list.
+    set -l uniq_dirs
+    for dir in $all_dirs[-1..1]
+        if not contains $dir $uniq_dirs
+            set uniq_dirs $uniq_dirs $dir
         end
     end
 
-    # Download anaconda from https://mirrors.cloud.tencent.com/anaconda/archive/
-    # Check ~/.condarc for configuration
-    # https://www.piqizhu.com/tools/anaconda
-    #conda install -c binstar binstar # renamed to anaconda-client, so `conda install anaconda-client`
-    #binstar search -t conda packgename # get the channel(user) name
-    #conda install -c channel packagename
-    # After install package using `conda install -c CHANNEL PKG`, you have to manually
-    # conda config --add channels your_new_channel, or these packages won't be updateed when `condau`
-    #
-    # The packages needed to be installed using conda are(only if you have no sudo permission or the offcial is old)
-    # conda install -c conda-forge ncurses emacs w3m fish the_silver_searcher source-highlight tmux ripgrep
-    # conda install -c lebedov tig
-    abbr condas 'binstar search -t conda' # [packagename]
-    abbr condai 'conda install -c' # [channel] [packagename]
-    abbr condau 'conda upgrade --all -vy; and conda clean -avy'
-    abbr condac 'conda clean -avy'
-    abbr condaS 'anaconda show' # [channel/packagename]
-
-    #### ---------------- anaconda starts -----------------------
-    # anaconda
-    function condalist -d 'List conda environments.'
-        for dir in (ls $HOME/anaconda3/envs)
-            echo $dir
-        end
+    set -l letters - b c d e f h i j k l m n o p q r s t u v w x y z
+    set -l dirc (count $uniq_dirs)
+    if test $dirc -gt (count $letters)
+        set -l msg 'This should not happen. Have you changed the cd command?'
+        printf (_ "$msg\n")
+        set -l msg 'There are %s unique dirs in your history' \
+        'but I can only handle %s'
+        printf (_ "$msg\n") $dirc (count $letters)
+        return 1
     end
 
-    function condactivate -d 'Activate a conda environment' -a cenv
-        if test -z $cenv
-            echo 'Usage: condactivate <env name>'
-            return 1
+    # Print the recent directories, oldest to newest. Since we previously
+    # reversed the list, making the newest entry the first item in the array,
+    # we count down rather than up.
+    # already_pwd avoid always print the bottom line *pwd:...
+    set -l pwd_existed 0
+    for i in (seq $dirc -1 1)
+        set dir $uniq_dirs[$i]
+
+        if test $pwd_existed != 1
+            if test "$dir" = "$PWD"
+                set pwd_existed 1
+            end
         end
 
-        # condabin will be the path to the bin directory
-        # in the specified conda environment
-        set condabin $HOME/anaconda3/envs/$cenv/bin
-
-        # check whether the condabin directory actually exists and
-        # exit the function with an error status if it does not
-        if not test -d $condabin
-            echo 'Environment not found.'
-            return 1
+        set -l home_dir (string match -r "$HOME(/.*|\$)" "$dir")
+        if set -q home_dir[2]
+            set dir "~$home_dir[2]"
+            # change dir from /home/user/path to ~/path
+            # dir is not PWD anymore
         end
 
-        # deactivate an existing conda environment if there is one
-        if set -q __CONDA_ENV_ACTIVE
-            deactivate
-        end
+        if test $pwd_existed = 1
+            printf '%s* %2d)  %s%s\n' (set_color red) $i $dir (set_color normal)
+            set pwd_existed 2 # to make the rest of current the dirprev not red
+        else if test $i = 1
+            printf '%s- %2d)  %s%s\n' (set_color cyan) $i $dir (set_color normal)
+        else if test $i != 1 -a $pwd_existed != 1
+            printf '%s %2d)  %s\n' $letters[$i] $i $dir
 
-        # save the current path
-        set -xg DEFAULT_PATH $PATH
-
-        # put the condabin directory at the front of the PATH
-        set -xg PATH $condabin $PATH
-
-        # this is an undocumented environmental variable that influences
-        # how conda behaves when you don't specify an environment for it.
-        # https://github.com/conda/conda/issues/473
-        set -xg CONDA_DEFAULT_ENV $cenv
-
-        # set up the prompt so it has the env name in it
-        functions -e __original_fish_prompt
-        functions -c fish_prompt __original_fish_prompt
-        function fish_prompt
-            set_color blue
-            echo -n '('$CONDA_DEFAULT_ENV') '
-            set_color normal
-            __original_fish_prompt
-        end
-
-        # flag for whether a conda environment has been set
-        set -xg __CONDA_ENV_ACTIVE 'true'
-    end
-
-    function deactivate -d 'Deactivate a conda environment'
-        if set -q __CONDA_ENV_ACTIVE
-            # set PATH back to its default before activating the conda env
-            set -xg PATH $DEFAULT_PATH
-            set -e DEFAULT_PATH
-
-            # unset this so that conda behaves according to its default behavior
-            set -e CONDA_DEFAULT_ENV
-
-            # reset to the original prompt
-            functions -e fish_prompt
-            functions -c __original_fish_prompt fish_prompt
-            functions -e __original_fish_prompt
-            set -e __CONDA_ENV_ACTIVE
         end
     end
-
-    # aliases so condactivate and deactivate can have shorter names
-    function ca -d 'Activate a conda environment'
-        condactivate $argv
+    if test $pwd_existed = 0 # means the current dir is not in the $uniq_dirs
+        printf '%s* %2d)  %s%s\n' (set_color red) "0" $PWD (set_color normal)
     end
 
-    function cda -d 'Deactivate a conda environment'
-        deactivate $argv
+    echo '---------------------------'
+    read -n 1 -l -p 'echo "Goto: "' choice
+    if test "$choice" = ""
+        return 0
+    else if string match -q -r '^[\-|b-z]$' $choice
+        set choice (contains -i $choice $letters)
     end
 
-    # complete conda environment names when activating
-    complete -c condactivate -xA -a "(condalist)"
-    complete -c ca -xA -a "(condalist)"
-
-    function con --description 'Activate a conda environment.'
-        if test (count $argv) -eq 0
-            conda info -e
-            return 0
-        end
-
-        if test (count $argv) -ne 1
-            echo 'Too many args -- expected at most one conda environment name.'
+    if string match -q -r '^\d+$' $choice
+        if test $choice -ge 1 -a $choice -le $dirc
+            cd $uniq_dirs[$choice]
+            set -l dir_short (string match -r "$HOME(/.*|\$)" "$uniq_dirs[$choice]")
+            set -l cd_dir "~$dir_short[2]"
+            echo cd $cd_dir
+            return
+        else if test $choice -eq 0
+            echo You are already in directory `(pwd)`
+        else
+            echo Error: expected a number between 0 and $dirc, got \"$choice\"
             return 1
         end
-
-        set -l conda_env $argv[1]
-
-        if not command conda '..checkenv' fish $conda_env
-            return 1
-        end
-
-        # Deactivate the currently active environment if set.
-        if set -q CONDA_DEFAULT_ENV
-            coff
-        end
-
-        # Try to activate the environment.
-        set -l new_path (command conda '..activate' fish $conda_env)
-        or return $status
-
-        set -g CONDA_PATH_BACKUP $PATH
-        set -gx PATH $new_path $PATH
-        set -gx CONDA_DEFAULT_ENV $conda_env
+    else
+        echo Error: expected a number between 1 and $dirc or letter in that range, got \"$choice\"
+        return 1
     end
-    function coff --description 'Deactivate a conda environment.'
-        if set -q argv[1]
-            echo "Too many args -- expected no args, got: $argv" >&2
-            return 1
-        end
+end
 
-        if not set -q CONDA_DEFAULT_ENV
-            echo "There doesn't appear to be any conda env in effect." >&2
-            return 1
-        end
+# Download anaconda from https://mirrors.cloud.tencent.com/anaconda/archive/
+# Check ~/.condarc for configuration
+# https://www.piqizhu.com/tools/anaconda
+#conda install -c binstar binstar # renamed to anaconda-client, so `conda install anaconda-client`
+#binstar search -t conda packgename # get the channel(user) name
+#conda install -c channel packagename
+# After install package using `conda install -c CHANNEL PKG`, you have to manually
+# conda config --add channels your_new_channel, or these packages won't be updateed when `condau`
+#
+# The packages needed to be installed using conda are(only if you have no sudo permission or the offcial is old)
+# conda install -c conda-forge ncurses emacs w3m fish the_silver_searcher source-highlight tmux ripgrep
+# conda install -c lebedov tig
+abbr condas 'binstar search -t conda' # [packagename]
+abbr condai 'conda install -c' # [channel] [packagename]
+abbr condau 'conda upgrade --all -vy; and conda clean -avy'
+abbr condac 'conda clean -avy'
+abbr condaS 'anaconda show' # [channel/packagename]
 
-        # Deactivate the environment.
-        set -gx PATH $CONDA_PATH_BACKUP
-        set -e CONDA_PATH_BACKUP
+#### ---------------- anaconda starts -----------------------
+# anaconda
+function condalist -d 'List conda environments.'
+    for dir in (ls $HOME/anaconda3/envs)
+        echo $dir
+    end
+end
+
+function condactivate -d 'Activate a conda environment' -a cenv
+    if test -z $cenv
+        echo 'Usage: condactivate <env name>'
+        return 1
+    end
+
+    # condabin will be the path to the bin directory
+    # in the specified conda environment
+    set condabin $HOME/anaconda3/envs/$cenv/bin
+
+    # check whether the condabin directory actually exists and
+    # exit the function with an error status if it does not
+    if not test -d $condabin
+        echo 'Environment not found.'
+        return 1
+    end
+
+    # deactivate an existing conda environment if there is one
+    if set -q __CONDA_ENV_ACTIVE
+        deactivate
+    end
+
+    # save the current path
+    set -xg DEFAULT_PATH $PATH
+
+    # put the condabin directory at the front of the PATH
+    set -xg PATH $condabin $PATH
+
+    # this is an undocumented environmental variable that influences
+    # how conda behaves when you don't specify an environment for it.
+    # https://github.com/conda/conda/issues/473
+    set -xg CONDA_DEFAULT_ENV $cenv
+
+    # set up the prompt so it has the env name in it
+    functions -e __original_fish_prompt
+    functions -c fish_prompt __original_fish_prompt
+    function fish_prompt
+        set_color blue
+        echo -n '('$CONDA_DEFAULT_ENV') '
+        set_color normal
+        __original_fish_prompt
+    end
+
+    # flag for whether a conda environment has been set
+    set -xg __CONDA_ENV_ACTIVE 'true'
+end
+
+function deactivate -d 'Deactivate a conda environment'
+    if set -q __CONDA_ENV_ACTIVE
+        # set PATH back to its default before activating the conda env
+        set -xg PATH $DEFAULT_PATH
+        set -e DEFAULT_PATH
+
+        # unset this so that conda behaves according to its default behavior
         set -e CONDA_DEFAULT_ENV
+
+        # reset to the original prompt
+        functions -e fish_prompt
+        functions -c __original_fish_prompt fish_prompt
+        functions -e __original_fish_prompt
+        set -e __CONDA_ENV_ACTIVE
     end
-    #### ---------------- anaconda ends -----------------------
+end
+
+# aliases so condactivate and deactivate can have shorter names
+function ca -d 'Activate a conda environment'
+    condactivate $argv
+end
+
+function cda -d 'Deactivate a conda environment'
+    deactivate $argv
+end
+
+# complete conda environment names when activating
+complete -c condactivate -xA -a "(condalist)"
+complete -c ca -xA -a "(condalist)"
+
+function con --description 'Activate a conda environment.'
+    if test (count $argv) -eq 0
+        conda info -e
+        return 0
+    end
+
+    if test (count $argv) -ne 1
+        echo 'Too many args -- expected at most one conda environment name.'
+        return 1
+    end
+
+    set -l conda_env $argv[1]
+
+    if not command conda '..checkenv' fish $conda_env
+        return 1
+    end
+
+    # Deactivate the currently active environment if set.
+    if set -q CONDA_DEFAULT_ENV
+        coff
+    end
+
+    # Try to activate the environment.
+    set -l new_path (command conda '..activate' fish $conda_env)
+    or return $status
+
+    set -g CONDA_PATH_BACKUP $PATH
+    set -gx PATH $new_path $PATH
+    set -gx CONDA_DEFAULT_ENV $conda_env
+end
+function coff --description 'Deactivate a conda environment.'
+    if set -q argv[1]
+        echo "Too many args -- expected no args, got: $argv" >&2
+        return 1
+    end
+
+    if not set -q CONDA_DEFAULT_ENV
+        echo "There doesn't appear to be any conda env in effect." >&2
+        return 1
+    end
+
+    # Deactivate the environment.
+    set -gx PATH $CONDA_PATH_BACKUP
+    set -e CONDA_PATH_BACKUP
+    set -e CONDA_DEFAULT_ENV
+end
+#### ---------------- anaconda ends -----------------------
