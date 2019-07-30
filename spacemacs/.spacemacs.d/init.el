@@ -86,7 +86,7 @@ This function should only modify configuration layer settings."
             c-c++-adopt-subprojects t
             c-c++-backend 'lsp-ccls
             ;; just get rid of the warning message
-            c-c++-lsp-cache-dir "/tmp/lsp-ccls"
+            c-c++-lsp-cache-dir "/tmp/ccls"
             )
      ;; NOTE: to generate compile_commands.json file for lsp before using lsp
      ;; 1. `cmake -H. -BDebug -DCMAKE_BUILD_TYPE=Debug -DCMAKE_EXPORT_COMPILE_COMMANDS=YES; ln -s Debug/compile_commands.json'
