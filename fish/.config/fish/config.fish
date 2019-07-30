@@ -1254,8 +1254,8 @@ abbr gitcn 'git log --reverse --pretty=%H master | grep -A 1 (git rev-parse HEAD
 abbr gitt 'git tag'
 abbr gitft 'git ls-files --error-unmatch' # Check if file/dir is git-tracked
 abbr gitpu 'git push -v'
-abbr gitpl 'git pull -v'
-abbr gitpr 'git pull -v --rebase=interactive'
+abbr gitpl 'git pull'
+abbr gitpr 'git pull --rebase=interactive'
 function gitrm -d 'clean untracked file/dirs(fileA fileB...), all by default)'
     if set -q $argv             # no given argv
         git clean -f -d
@@ -1270,7 +1270,7 @@ end
 function gitpll -d 'git pull and location it to previous commit id before git pull in git log'
     set COMMIT_ID (git rev-parse HEAD) # short version: `git rev-parse --short HEAD`
     git log -1                  # show the info of the current commit before git pull
-    git pull -v
+    git pull
     git log --stat | command less -p$COMMIT_ID
 end
 function gitcl -d 'git clone and cd into it, depth=1(-1)'
@@ -1297,7 +1297,7 @@ function gitpa --description 'git pull all in dir using `fing dir`'
     for i in (find $argv[1] -type d -iname .git | sort | xargs realpath)
         cd $i; cd ../
         pwd
-        git pull -v;
+        git pull;
         echo -----------------------------
         echo
     end
