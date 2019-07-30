@@ -1281,6 +1281,7 @@ function gitcl -d 'git clone and cd into it, depth=1(-1)'
     set DEPTH ""
     if set -q _flag_1
         set DEPTH "--depth=1"
+        echo "Use 'git pull --unshallow' to pull all info."
     end
     git clone -v $argv $DEPTH
     echo ---------------------------
@@ -1301,8 +1302,8 @@ function gitpa --description 'git pull all in dir using `fing dir`'
         echo
     end
 end
-function gitbs -d 'branches, switch branch(by default, non-exists, create it), list branches(-l), list remote branches(-L), delete branch(-d), info(-v), add worktree(-w), list worktree(-w -l), delete worktree(-w -d)'
-    set -l options 'b' 'w' 'l' 'L' 'd' 'D' 'v'
+function gitbs -d 'branches, switch branch(by default, non-exists, create it, if no argv, list branches), list remote branches(-l, search argv if given), delete branch(-d), info(-v), add worktree(-w, if given argv, list worktree other wise), list worktree(-w -l, search argv if given), delete worktree(-w -d)'
+    set -l options 'b' 'w' 'l' 'd' 'D' 'v'
     argparse -n gitbs $options -- $argv
     or return
 
@@ -1315,8 +1316,10 @@ function gitbs -d 'branches, switch branch(by default, non-exists, create it), l
             end
         else if set -q _flag_d
             git worktree remove $argv
-        else                    # add worktree by default
-            if test -d $argv
+        else
+            if set -q $argv[1]  # no argument
+                git worktree list
+            else if test -d $argv
                 echo "Directory $argv already exists!"
                 return
             else
@@ -1326,8 +1329,6 @@ function gitbs -d 'branches, switch branch(by default, non-exists, create it), l
         end
     else                 # by default, for branch operations instead of worktree
         if set -q _flag_l
-            git branch -l
-        else if set -q _flag_L
             if set -q $argv
                 git branch -a -l
             else
@@ -1337,17 +1338,18 @@ function gitbs -d 'branches, switch branch(by default, non-exists, create it), l
             git branch -d $argv
         else if set -q _flag_D
             git branch -D $argv
-            if set -q _flag_v
-                git branch -vv
+        else if set -q _flag_v
+            git branch -vv
+        else
+            if set -q $argv[1]  # no argument
+                git branch -l
+            else if test (git branch --list "$argv")
+                # branch $argv already exists
+                git checkout $argv
             else
-                if test (git branch --list $argv)
-                    # branch $argv already exists
-                    git checkout $argv
-                else
-                    # branch $argv doesn't exist, create and switch
-                    git branch $argv
-                    git checkout $argv
-                end
+                # branch $argv doesn't exist, create and switch
+                git branch $argv
+                git checkout $argv
             end
         end
     end
@@ -1378,6 +1380,20 @@ function gita -d 'git add for multiple files at once'
             git add $i
         end
     end
+end
+function gitfs -d 'git forked repo sync'
+    git checkout master
+    if git remote -v | grep "$argv" | grep "upstream" ^/dev/null >/dev/null
+        echo "$argv is already set as remote upstream."
+    else
+        if not git remote add upstream $argv
+            echo
+            git remote -v
+            return
+        end
+    end
+    git fetch upstream
+    git rebase upstream/master
 end
 function gitrh -d 'git reset HEAD for multiple files(file1 file2), soft(-s)/hard(-h) reset'
     set -l options 's' 'h'
