@@ -416,3 +416,8 @@ if check_daemon_status; then
 		eval "emacsclient -a \"\" -n -c $cmd" $@ >/dev/null
 	fi
 fi
+if [ "$DISPLAY" ]; then      # using GUI
+	if xwininfo -id $WINDOWID | awk '/^xwin/ { print $NF }' | grep -i yakuake >/dev/null; then
+		xdotool key F12
+	fi
+fi
