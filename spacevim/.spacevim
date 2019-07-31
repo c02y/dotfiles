@@ -15,7 +15,7 @@ let g:spacevim_plug_home = '~/.vim/plugged'
 " pip install flake8 yapf isort
 let g:spacevim_layers = [
             \ 'fzf', 'better-defaults', 'which-key',
-            \ 'auto-completion', 'c-c++',
+            \ 'auto-completion', 'c-c++', 'git',
             \ 'editing', 'code-snippets', 'python',
             \ 'better-motion', 'airline', 'cscope', 'lsp',
             \ ]
@@ -56,7 +56,16 @@ function! UserInit()
     Plug 'chrisbra/NrrwRgn'
 
     Plug 'airblade/vim-gitgutter'
-    let g:gitgutter_sign_modified = '!'
+    let g:gitgutter_sign_modified = '*'
+    nmap [h <Plug>GitGutterPrevHunk
+    nmap ]h <Plug>GitGutterNextHunk
+    nmap [H <Plug>GitGutterNextHunk
+    nmap [a <Plug>GitGutterStageHunk
+    nmap [u <Plug>GitGutterUndoHunk
+    nmap <Leader>gn <Plug>GitGutterNextHunk
+    nmap <Leader>gN <Plug>GitGutterPrevHunk
+    nmap <Leader>ga <Plug>GitGutterStageHunk
+    nmap <Leader>gu <Plug>GitGutterUndoHunk
 
     Plug 'tpope/vim-commentary'
     Plug 'tpope/vim-unimpaired'
