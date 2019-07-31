@@ -14,11 +14,11 @@ let g:spacevim_plug_home = '~/.vim/plugged'
 " TODO: dependencies should be install by the layers:
 " pip install flake8 yapf isort
 let g:spacevim_layers = [
-      \ 'fzf', 'better-defaults', 'which-key',
-      \ 'auto-completion', 'c-c++',
-      \ 'editing', 'code-snippets', 'python',
-      \ 'better-motion', 'airline', 'cscope', 'lsp',
-      \ ]
+            \ 'fzf', 'better-defaults', 'which-key',
+            \ 'auto-completion', 'c-c++',
+            \ 'editing', 'code-snippets', 'python',
+            \ 'better-motion', 'airline', 'cscope', 'lsp',
+            \ ]
 
 " Uncomment the following line if your terminal(-emulator) supports true colors.
 " let g:spacevim_enable_true_color = 1
@@ -45,281 +45,288 @@ let g:spacevim_speed_up_via_timer = 0
 " Manage your own plugins.
 " Refer to https://github.com/junegunn/vim-plug for more detials.
 function! UserInit()
-  " Add your own plugin via Plug command.
+    " rainbow parentheses
+    Plug 'luochen1990/rainbow'
+    let g:rainbow_active = 1
+    "0 if you want to enable it later via :RainbowToggle
 
-  " rainbow parentheses
-  Plug 'luochen1990/rainbow'
-  let g:rainbow_active = 1
-  "0 if you want to enable it later via :RainbowToggle
+    " use +/- to expand/shrink selection
+    Plug 'terryma/vim-expand-region'
 
-  " use +/- to expand/shrink selection
-  Plug 'terryma/vim-expand-region'
+    Plug 'chrisbra/NrrwRgn'
 
-  Plug 'chrisbra/NrrwRgn'
+    Plug 'airblade/vim-gitgutter'
+    let g:gitgutter_sign_modified = '!'
 
-  Plug 'airblade/vim-gitgutter'
-  let g:gitgutter_sign_modified = '!'
+    Plug 'tpope/vim-commentary'
+    Plug 'tpope/vim-unimpaired'
 
-  Plug 'tpope/vim-commentary'
-  Plug 'tpope/vim-unimpaired'
+    " for syntax-checking layer, check https://github.com/liuchengxu/space-vim/issues/407
+    " Comment the following part out to enable ale plug
+    "
+    " Plug 'w0rp/ale'
+    " let g:ale_set_highlights = 0
+    " let g:ale_fix_on_save = 1
+    " let g:ale_echo_msg_format = '[#%linter%#] %s [%severity%]'
+    " let g:ale_statusline_format = ['E•%d', 'W•%d', 'OK']
+    " let g:ale_sign_error = '•'
+    " let g:ale_sign_warning = '•'
+    " let g:ale_echo_msg_error_str = g:spacevim.gui ? 'Error' : '✹ Error'
+    " let g:ale_echo_msg_warning_str = g:spacevim.gui ? 'Warning' : '⚠ Warning'
+    " let g:ale_completion_delay = 500
+    " let g:ale_echo_delay = 20
+    " let g:ale_lint_delay = 500
+    " let g:ale_lint_on_text_changed = 'normal'
+    " let g:ale_lint_on_insert_leave = 1
+    " nmap <Leader>en <Plug>(ale_next)
+    " nmap <Leader>ep <Plug>(ale_previous)
+    " nnoremap <Leader>ts :ALEToggle<CR>
 
-  " for syntax-checking layer, check https://github.com/liuchengxu/space-vim/issues/407
-  " Comment the following part out to enable ale plug
-  "
-  " Plug 'w0rp/ale'
-  " let g:ale_set_highlights = 0
-  " let g:ale_fix_on_save = 1
-  " let g:ale_echo_msg_format = '[#%linter%#] %s [%severity%]'
-  " let g:ale_statusline_format = ['E•%d', 'W•%d', 'OK']
-  " let g:ale_sign_error = '•'
-  " let g:ale_sign_warning = '•'
-  " let g:ale_echo_msg_error_str = g:spacevim.gui ? 'Error' : '✹ Error'
-  " let g:ale_echo_msg_warning_str = g:spacevim.gui ? 'Warning' : '⚠ Warning'
-  " let g:ale_completion_delay = 500
-  " let g:ale_echo_delay = 20
-  " let g:ale_lint_delay = 500
-  " let g:ale_lint_on_text_changed = 'normal'
-  " let g:ale_lint_on_insert_leave = 1
-  " nmap <Leader>en <Plug>(ale_next)
-  " nmap <Leader>ep <Plug>(ale_previous)
-  " nnoremap <Leader>ts :ALEToggle<CR>
+    Plug 'tpope/vim-repeat'
 
-  Plug 'tpope/vim-repeat'
+    Plug 'szw/vim-maximizer'
+    nnoremap <silent><Leader>wm :MaximizerToggle<CR>
+    nnoremap <silent><C-w>m :MaximizerToggle<CR>
 
-  Plug 'szw/vim-maximizer'
-  nnoremap <silent><Leader>wm :MaximizerToggle<CR>
-  nnoremap <silent><C-w>m :MaximizerToggle<CR>
+    Plug 'haya14busa/vim-asterisk'
+    map *   <Plug>(asterisk-*)
+    map #   <Plug>(asterisk-#)
+    map g*  <Plug>(asterisk-g*)
+    map g#  <Plug>(asterisk-g#)
+    map z*  <Plug>(asterisk-z*)
+    map gz* <Plug>(asterisk-gz*)
+    map z#  <Plug>(asterisk-z#)
+    map gz# <Plug>(asterisk-gz#)
+    let g:asterisk#keeppos = 1
 
-  Plug 'haya14busa/vim-asterisk'
-  map *   <Plug>(asterisk-*)
-  map #   <Plug>(asterisk-#)
-  map g*  <Plug>(asterisk-g*)
-  map g#  <Plug>(asterisk-g#)
-  map z*  <Plug>(asterisk-z*)
-  map gz* <Plug>(asterisk-gz*)
-  map z#  <Plug>(asterisk-z#)
-  map gz# <Plug>(asterisk-gz#)
-  let g:asterisk#keeppos = 1
+    Plug 'vim-scripts/YankRing.vim'
+    nnoremap <Leader>ry :YRShow<CR>
+    let g:yankring_min_element_length = 4
+    let g:yankring_manage_numbered_reg = 1
 
-  Plug 'vim-scripts/YankRing.vim'
-  nnoremap <Leader>ry :YRShow<CR>
-  let g:yankring_min_element_length = 4
-  let g:yankring_manage_numbered_reg = 1
+    Plug 'ntpeters/vim-better-whitespace'
+    let g:strip_whitespace_on_save=1
+    let g:strip_whitespace_confirm=0
+    let g:show_spaces_that_precede_tabs=1
 
-  Plug 'ntpeters/vim-better-whitespace'
-  let g:strip_whitespace_on_save=1
-  let g:strip_whitespace_confirm=0
-  let g:show_spaces_that_precede_tabs=1
+    Plug 'lifepillar/vim-mucomplete'
+    set completeopt+=noselect
+    let g:mucomplete#enable_auto_at_startup = 1
+    Plug 'wellle/targets.vim'
 
-  " NOTE: timeoutlen also affects the which-key popup delay
-  " https://stackoverflow.com/a/15550787/1528712
-  set timeout " Do time out on mappings and others
-  set timeoutlen=500 " Wait {num} ms before timing out a mapping
-  " When you’re pressing Escape to leave insert mode in the terminal, it will by
-  " default take a second or another keystroke to leave insert mode completely
-  " and update the statusline. This fixes that. I got this from:
-  " https://powerline.readthedocs.org/en/latest/tipstricks.html#vim
-  if !has('gui_running')
-    set ttimeoutlen=10
-    augroup FastEscape
-      autocmd!
-      au InsertEnter * set timeoutlen=0
-      au InsertLeave * set timeoutlen=500
-    augroup END
-  endif
+    " NOTE: timeoutlen also affects the which-key popup delay
+    " https://stackoverflow.com/a/15550787/1528712
+    set timeout " Do time out on mappings and others
+    set timeoutlen=500 " Wait {num} ms before timing out a mapping
+    " When you’re pressing Escape to leave insert mode in the terminal, it will by
+    " default take a second or another keystroke to leave insert mode completely
+    " and update the statusline. This fixes that. I got this from:
+    " https://powerline.readthedocs.org/en/latest/tipstricks.html#vim
+    if !has('gui_running')
+        set ttimeoutlen=10
+        augroup FastEscape
+            autocmd!
+            au InsertEnter * set timeoutlen=0
+            au InsertLeave * set timeoutlen=500
+        augroup END
+    endif
 endfunction
 
 " Override the default settings from space-vim as well as adding extras
 function! UserConfig()
-  " be able to add/modify description for bindings under leader key
-  let g:spacevim#map#leader#desc = g:spacevim#map#leader#desc
+    set shiftwidth=4
+    set tabstop=4
 
-  " disable tabline
-  let g:airline#extensions#tabline#enabled = 0
-  " disable the git part in statusline
-  let g:airline_section_b = ""
+    " be able to add/modify description for bindings under leader key
+    let g:spacevim#map#leader#desc = g:spacevim#map#leader#desc
 
-  " Adding extras.
-  " Uncomment the following line If you have installed the powerline fonts.
-  " It is good for airline layer.
-  " let g:airline_powerline_fonts = 1
+    " disable tabline
+    let g:airline#extensions#tabline#enabled = 0
+    " disable the git part in statusline
+    let g:airline_section_b = ""
 
-  " disable theme only in terminal vim
-  if !has("gui_running")
-    colorscheme default
-  endif
+    " Adding extras.
+    " Uncomment the following line If you have installed the powerline fonts.
+    " It is good for airline layer.
+    " let g:airline_powerline_fonts = 1
 
-  " q to exit if no change
-  nmap q :q<CR>
-
-  " start insert when editing git commit message
-  au FileType gitcommit 1 | startinsert
-
-  " use hybrid relative in normal mode, and normal relative in insert mode
-  augroup numbertoggle
-    autocmd!
-    autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
-    autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
-  augroup END
-  function! RelativeToggle()
-    if(&rnu == 1)
-      set nornu nonu
-    else
-      set number relativenumber
+    " disable theme only in terminal vim
+    if !has("gui_running")
+        colorscheme default
     endif
-  endfunction
-  function! NumberToggle()
-    if(&nu == 1)
-      set nornu nonu
-    else
-      set number
+
+    " q to exit if no change
+    nmap q :q<CR>
+
+    " start insert when editing git commit message
+    au FileType gitcommit 1 | startinsert
+
+    " use hybrid relative in normal mode, and normal relative in insert mode
+    augroup numbertoggle
+        autocmd!
+        autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
+        autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
+    augroup END
+    function! RelativeToggle()
+        if(&rnu == 1)
+            set nornu nonu
+        else
+            set number relativenumber
+        endif
+    endfunction
+    function! NumberToggle()
+        if(&nu == 1)
+            set nornu nonu
+        else
+            set number
+        endif
+    endfunction
+    function! ListToggle()
+        if(&list == 1)
+            set nolist
+        else
+            set list
+        endif
+    endfunction
+    nnoremap <Leader>tt :call RelativeToggle()<CR>
+    nnoremap <Leader>tn :call NumberToggle()<CR>
+    nnoremap <Leader>tl :call ListToggle()<CR>
+
+    function! GotoClosedFold(dir)
+        let cmd = 'norm!z' . a:dir
+        let view = winsaveview()
+        let [l0, l, open] = [0, view.lnum, 1]
+        while l != l0 && open
+            exe cmd
+            let [l0, l] = [l, line('.')]
+            let open = foldclosed(l) < 0
+        endwhile
+        if open
+            call winrestview(view)
+        endif
+    endfunction
+    let $foldall=0
+    function ToggleFoldAll()
+        if $foldall==0
+            :exe "normal zM"
+            let $foldall=1
+        else
+            :exe "normal zR"
+            let $foldall=0
+        endif
+    endfunction
+    " za to toggle current fold, zm to toggle all fold
+    " default zj/k are for GotoOpenedFold, overwrite them
+    nnoremap <silent> zj :call GotoClosedFold('j')<cr>
+    nnoremap <silent> zk :call GotoClosedFold('k')<cr>
+    nnoremap zm :call ToggleFoldAll()<CR>
+
+    noremap <C-a> <Home>
+    noremap <C-e> <End>
+    imap <C-a> <Home>
+    imap <C-e> <End>              " FIXME: this doesn't work
+    imap <C-k> <c-o>d$
+
+    " change PWD according to the buffer, this affect a lot of functions in vim
+    autocmd BufEnter * silent! lcd %:p:h
+
+    "fzf
+    " Overwrite the default Files command to include hidden files
+    command! -bang -nargs=? -complete=dir Files
+                \ call fzf#vim#files(<q-args>, {'source': 'ag --hidden --ignore .git -g ""'}, <bang>0)
+    " SPC ff is bound to files-in-home-direcotry by default
+    nnoremap <Leader>ff :Files<CR>
+    let g:spacevim#map#leader#desc.f.f = 'Files-in-current-dir'
+    nnoremap <Leader>fF :Files<Space>
+    let g:spacevim#map#leader#desc.f.F = 'Files-in-other-dir'
+    nnoremap <Leader>fp :GFiles --cached --others<CR>
+    let g:spacevim#map#leader#desc.f.p = 'Files-in-project-all'
+    nnoremap <Leader>fP :GFiles<CR>
+    let g:spacevim#map#leader#desc.f.P = 'Files-in-project'
+    nnoremap <Leader>fe :call feedkeys(":e \<Tab>", 'tn')<CR>
+    let g:spacevim#map#leader#desc.f.e = 'Open-file'
+    nnoremap <Leader>fh :History<CR>
+    nnoremap <Leader>fv :e ~/.spacevim<cr>
+    nnoremap <Leader>pf :GFiles --cached --others<CR>
+    let g:spacevim#map#leader#desc.p.f = 'Files-in-project-all'
+    nnoremap <Leader>pF :GFiles<CR>
+    let g:spacevim#map#leader#desc.p.F = 'Files-in-project'
+    nnoremap <Leader>sg :Ag<CR>
+    nnoremap <Leader>sG :Rg<CR>
+    nnoremap <Leader>sS :call SwoopSelection()<CR>
+    nnoremap <Leader>nn :NR<CR>
+    nnoremap <Leader>nl :NRV<CR>
+    " FIXME: special keys like <LEFT> cannot be parsed by add-description for bindings using
+    " let g:spacevim#map#leader#desc.f.f = 'Files-in-current-dir'
+    nnoremap <Leader>w<LEFT> <C-W>h
+    nnoremap <Leader>w<RIGHT> <C-W>l
+    nnoremap <Leader>w<UP> <C-W>k
+    nnoremap <Leader>w<DOWN> <C-W>j
+    nnoremap <Leader>w<Bslash> <C-W>v " SPC w \ to split-window-right
+    nnoremap <Leader>vi :PlugInstall<CR>
+    nnoremap <Leader>vc :PlugClean<CR>
+    nnoremap <Leader>vC :PlugClean!<CR>
+    nnoremap <Leader>vu :PlugUpdate<CR>
+    nnoremap <Leader>vU :PlugUpgrade<CR>
+    " show the info of point and buffer
+    nnoremap <Leader>bi g<C-g>
+    " show full path
+    nnoremap <Leader>b<Space> :echo expand('%:p')<CR>
+
+    " indent and jump back
+    nnoremap <Leader>== gg=G``
+    nnoremap <Leader>={ =i{<C-o>
+    nnoremap <Leader>=( =i(<C-o>
+    nnoremap <Leader>=[ =i[<C-o>
+    nnoremap <Leader>jg :call spacevim#util#GotoJump()<CR>
+
+    " autocmd BufRead,BufNewFile *.sh,*.py syntax on
+    autocmd BufRead,BufNewFile *.py set ts=4 sw=4 autoindent smartindent expandtab cinwords=if,elif,else,for,while,with,try,except,finally,def,class
+    autocmd BufRead,BufNewFile *.sh set expandtab tabstop=4 shiftwidth=4
+    autocmd BufRead,BufNewFile *.fish,*.fishrc set expandtab tabstop=4 shiftwidth=4
+    autocmd BufRead,BufNewFile *.c,*.h,*.cc,*.cpp set noexpandtab tabstop=8 shiftwidth=8
+    autocmd BufRead,BufNewFile *vimrc,*vim set expandtab tabstop=4 shiftwidth=4
+    " set foldmethod for different file types
+    autocmd BufRead,BufNewFile *.el set foldmethod=syntax
+    autocmd BufRead,BufNewFile *.py set foldmethod=indent
+
+    " cscope
+    autocmd BufNewFile,BufRead *.c,*.h,*.hpp,*.cpp,*.cc call spacevim#vim#cscope#Build()
+    autocmd BufNewFile,BufWritePost *.c,*.h,*.hpp,*.cpp,*.cc call spacevim#vim#cscope#UpdateDB()
+
+    " set pastetoggle=<F9>	 " paste from out-program under insert mode
+    " donnot have to type F9 before pasting from outside of Vim
+    let &t_SI .= "\<Esc>[?2004h"
+    let &t_EI .= "\<Esc>[?2004l"
+    inoremap <special> <expr> <Esc>[200~ XTermPasteBegin()
+    function! XTermPasteBegin()
+        set pastetoggle=<Esc>[201~
+        set paste
+        return ""
+    endfunction
+
+    " Needed for tmux and vim to play nice when using A-array keys
+    if &term =~ '^screen'
+        " tmux will send xterm-style keys when its xterm-keys option is on
+        execute "set <xUp>=\e[1;*A"
+        execute "set <xDown>=\e[1;*B"
+        execute "set <xRight>=\e[1;*C"
+        execute "set <xLeft>=\e[1;*D"
     endif
-  endfunction
-  function! ListToggle()
-    if(&list == 1)
-      set nolist
-    else
-      set list
-    endif
-  endfunction
-  nnoremap <Leader>tt :call RelativeToggle()<CR>
-  nnoremap <Leader>tn :call NumberToggle()<CR>
-  nnoremap <Leader>tl :call ListToggle()<CR>
+    " move current line up/down, and indent
+    nnoremap <A-Down> :m .+1<CR>==
+    nnoremap <A-Up> :m .-2<CR>==
+    inoremap <A-Down> <Esc>:m .+1<CR>==gi
+    inoremap <A-Up> <Esc>:m .-2<CR>==gi
+    vnoremap <A-Down> :m '>+1<CR>gv=gv
+    vnoremap <A-Up> :m '<-2<CR>gv=gv
 
-  function! GotoClosedFold(dir)
-    let cmd = 'norm!z' . a:dir
-    let view = winsaveview()
-    let [l0, l, open] = [0, view.lnum, 1]
-    while l != l0 && open
-      exe cmd
-      let [l0, l] = [l, line('.')]
-      let open = foldclosed(l) < 0
-    endwhile
-    if open
-      call winrestview(view)
-    endif
-  endfunction
-  let $foldall=0
-  function ToggleFoldAll()
-    if $foldall==0
-      :exe "normal zM"
-      let $foldall=1
-    else
-      :exe "normal zR"
-      let $foldall=0
-    endif
-  endfunction
-  " za to toggle current fold, zm to toggle all fold
-  " default zj/k are for GotoOpenedFold, overwrite them
-  nnoremap <silent> zj :call GotoClosedFold('j')<cr>
-  nnoremap <silent> zk :call GotoClosedFold('k')<cr>
-  nnoremap zm :call ToggleFoldAll()<CR>
-
-  noremap <C-a> <Home>
-  noremap <C-e> <End>
-  imap <C-a> <Home>
-  imap <C-e> <End>              " FIXME: this doesn't work
-  imap <C-k> <c-o>d$
-
-  " change PWD according to the buffer, this affect a lot of functions in vim
-  autocmd BufEnter * silent! lcd %:p:h
-
-  "fzf
-  " Overwrite the default Files command to include hidden files
-  command! -bang -nargs=? -complete=dir Files
-        \ call fzf#vim#files(<q-args>, {'source': 'ag --hidden --ignore .git -g ""'}, <bang>0)
-  " SPC ff is bound to files-in-home-direcotry by default
-  nnoremap <Leader>ff :Files<CR>
-  let g:spacevim#map#leader#desc.f.f = 'Files-in-current-dir'
-  nnoremap <Leader>fF :Files<Space>
-  let g:spacevim#map#leader#desc.f.F = 'Files-in-other-dir'
-  nnoremap <Leader>fp :GFiles --cached --others<CR>
-  let g:spacevim#map#leader#desc.f.p = 'Files-in-project-all'
-  nnoremap <Leader>fP :GFiles<CR>
-  let g:spacevim#map#leader#desc.f.P = 'Files-in-project'
-  nnoremap <Leader>fe :call feedkeys(":e \<Tab>", 'tn')<CR>
-  let g:spacevim#map#leader#desc.f.e = 'Open-file'
-  nnoremap <Leader>fh :History<CR>
-  nnoremap <Leader>fv :e ~/.spacevim<cr>
-  nnoremap <Leader>pf :GFiles --cached --others<CR>
-  let g:spacevim#map#leader#desc.p.f = 'Files-in-project-all'
-  nnoremap <Leader>pF :GFiles<CR>
-  let g:spacevim#map#leader#desc.p.F = 'Files-in-project'
-  nnoremap <Leader>sg :Ag<CR>
-  nnoremap <Leader>sG :Rg<CR>
-  nnoremap <Leader>sS :call SwoopSelection()<CR>
-  nnoremap <Leader>nn :NR<CR>
-  nnoremap <Leader>nl :NRV<CR>
-  " FIXME: special keys like <LEFT> cannot be parsed by add-description for bindings using
-  " let g:spacevim#map#leader#desc.f.f = 'Files-in-current-dir'
-  nnoremap <Leader>w<LEFT> <C-W>h
-  nnoremap <Leader>w<RIGHT> <C-W>l
-  nnoremap <Leader>w<UP> <C-W>k
-  nnoremap <Leader>w<DOWN> <C-W>j
-  nnoremap <Leader>w<Bslash> <C-W>v " SPC w \ to split-window-right
-  nnoremap <Leader>vi :PlugInstall<CR>
-  nnoremap <Leader>vc :PlugClean<CR>
-  nnoremap <Leader>vC :PlugClean!<CR>
-  nnoremap <Leader>vu :PlugUpdate<CR>
-  nnoremap <Leader>vU :PlugUpgrade<CR>
-  " show the info of point and buffer
-  nnoremap <Leader>bi g<C-g>
-  " show full path
-  nnoremap <Leader>b<Space> :echo expand('%:p')<CR>
-
-  " indent and jump back
-  nnoremap <Leader>== gg=G``
-  nnoremap <Leader>={ =i{<C-o>
-  nnoremap <Leader>=( =i(<C-o>
-  nnoremap <Leader>=[ =i[<C-o>
-  nnoremap <Leader>jg :call spacevim#util#GotoJump()<CR>
-
-  " autocmd BufRead,BufNewFile *.sh,*.py syntax on
-  autocmd BufRead,BufNewFile *.py set ts=4 sw=4 autoindent smartindent expandtab cinwords=if,elif,else,for,while,with,try,except,finally,def,class
-  autocmd BufRead,BufNewFile *.sh set expandtab tabstop=4 shiftwidth=4
-  autocmd BufRead,BufNewFile *.fish,*.fishrc set expandtab tabstop=4 shiftwidth=4
-  autocmd BufRead,BufNewFile *.c,*.cpp set noexpandtab tabstop=8 shiftwidth=8
-  " set foldmethod for different file types
-  autocmd BufRead,BufNewFile *.el set foldmethod=syntax
-  autocmd BufRead,BufNewFile *.py set foldmethod=indent
-
-  " cscope
-  autocmd BufNewFile,BufRead *.c,*.h,*.hpp,*.cpp,*.cc call spacevim#vim#cscope#Build()
-  autocmd BufNewFile,BufWritePost *.c,*.h,*.hpp,*.cpp,*.cc call spacevim#vim#cscope#UpdateDB()
-
-  " set pastetoggle=<F9>	 " paste from out-program under insert mode
-  " donnot have to type F9 before pasting from outside of Vim
-  let &t_SI .= "\<Esc>[?2004h"
-  let &t_EI .= "\<Esc>[?2004l"
-  inoremap <special> <expr> <Esc>[200~ XTermPasteBegin()
-  function! XTermPasteBegin()
-    set pastetoggle=<Esc>[201~
-    set paste
-    return ""
-  endfunction
-
-  " Needed for tmux and vim to play nice when using A-array keys
-  if &term =~ '^screen'
-    " tmux will send xterm-style keys when its xterm-keys option is on
-    execute "set <xUp>=\e[1;*A"
-    execute "set <xDown>=\e[1;*B"
-    execute "set <xRight>=\e[1;*C"
-    execute "set <xLeft>=\e[1;*D"
-  endif
-  " move current line up/down, and indent
-  nnoremap <A-Down> :m .+1<CR>==
-  nnoremap <A-Up> :m .-2<CR>==
-  inoremap <A-Down> <Esc>:m .+1<CR>==gi
-  inoremap <A-Up> <Esc>:m .-2<CR>==gi
-  vnoremap <A-Down> :m '>+1<CR>gv=gv
-  vnoremap <A-Up> :m '<-2<CR>gv=gv
-
-  function! WindowNumber(...)
-    let builder = a:1
-    let context = a:2
-    call builder.add_section('airline_b', '%{tabpagewinnr(tabpagenr())}')
-    return 0
-  endfunction
-  call airline#add_statusline_func('WindowNumber')
-  call airline#add_inactive_statusline_func('WindowNumber')
+    function! WindowNumber(...)
+        let builder = a:1
+        let context = a:2
+        call builder.add_section('airline_b', '%{tabpagewinnr(tabpagenr())}')
+        return 0
+    endfunction
+    call airline#add_statusline_func('WindowNumber')
+    call airline#add_inactive_statusline_func('WindowNumber')
 endfunction

@@ -14,10 +14,10 @@ let $MYVIMRC="$HOME/Dotfiles.d/vim/.vimrc"
 " Reload vimrc without restarting vim
 " Source vim configuration upon save, but it only works if editing vimrc inside vim
 if has ('autocmd') " Remain compatible with earlier versions
-	augroup vimrc
-		autocmd! BufWritePost $MYVIMRC source % | echom "Reloaded " . $MYVIMRC | redraw
-		autocmd! BufWritePost $MYGVIMRC if has('gui_running') | so % | echom "Reloaded " . $MYGVIMRC | endif | redraw
-	augroup END
+    augroup vimrc
+        autocmd! BufWritePost $MYVIMRC source % | echom "Reloaded " . $MYVIMRC | redraw
+        autocmd! BufWritePost $MYGVIMRC if has('gui_running') | so % | echom "Reloaded " . $MYGVIMRC | endif | redraw
+    augroup END
 endif " has autocmd
 " reload vimrc manually, works when editing vimrc outside vim
 nnoremap <Leader>r :source $MYVIMRC<CR>
@@ -51,16 +51,16 @@ nnoremap <C-LEFT> <C-W><C-H> "Ctrl-h to move left a split
 
 " GUI client setting
 if has("gui_running")
-	" winpos 0 0
-	set guifont=PragmataPro\ 13
-	set lines=50 columns=80
-	set guioptions-=T	 " toolabr
-	set guioptions-=m	 " menubar
-	" remove the scrollbar on left/rignt/bottom
-	" cannot `set guioptions-=rlb`
-	set guioptions-=r
-	set guioptions-=l
-	set guioptions-=b
+    " winpos 0 0
+    set guifont=PragmataPro\ 13
+    set lines=50 columns=80
+    set guioptions-=T	 " toolabr
+    set guioptions-=m	 " menubar
+    " remove the scrollbar on left/rignt/bottom
+    " cannot `set guioptions-=rlb`
+    set guioptions-=r
+    set guioptions-=l
+    set guioptions-=b
 endif
 syntax on " syntax highlight
 set smartindent
@@ -86,57 +86,57 @@ set nocompatible " be iMproved, required
 set number relativenumber " relative number, but hybrid one(absolute number for the current line)
 " use hybrid relative in normal mode, and normal relative in insert mode
 augroup numbertoggle
-	autocmd!
-	autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
-	autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
+    autocmd!
+    autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
+    autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
 augroup END
 function! RelativeToggle()
-	if(&rnu == 1)
-		set nornu nonu
-	else
-		set number relativenumber
-	endif
+    if(&rnu == 1)
+        set nornu nonu
+    else
+        set number relativenumber
+    endif
 endfunction
 function! NumberToggle()
-	if(&nu == 1)
-		set nornu nonu
-	else
-		set number
-	endif
+    if(&nu == 1)
+        set nornu nonu
+    else
+        set number
+    endif
 endfunction
 function! ListToggle()
-	if(&list == 1)
-		set nolist
-	else
-		set list
-	endif
+    if(&list == 1)
+        set nolist
+    else
+        set list
+    endif
 endfunction
 nnoremap <Leader>tt :call RelativeToggle()<CR>
 nnoremap <Leader>tn :call NumberToggle()<CR>
 nnoremap <Leader>tl :call ListToggle()<CR>
 
 function! GotoClosedFold(dir)
-	let cmd = 'norm!z' . a:dir
-	let view = winsaveview()
-	let [l0, l, open] = [0, view.lnum, 1]
-	while l != l0 && open
-		exe cmd
-		let [l0, l] = [l, line('.')]
-		let open = foldclosed(l) < 0
-	endwhile
-	if open
-		call winrestview(view)
-	endif
+    let cmd = 'norm!z' . a:dir
+    let view = winsaveview()
+    let [l0, l, open] = [0, view.lnum, 1]
+    while l != l0 && open
+        exe cmd
+        let [l0, l] = [l, line('.')]
+        let open = foldclosed(l) < 0
+    endwhile
+    if open
+        call winrestview(view)
+    endif
 endfunction
 let $foldall=0
 function ToggleFoldAll()
-	if $foldall==0
-		:exe "normal zM"
-		let $foldall=1
-	else
-		:exe "normal zR"
-		let $foldall=0
-	endif
+    if $foldall==0
+        :exe "normal zM"
+        let $foldall=1
+    else
+        :exe "normal zR"
+        let $foldall=0
+    endif
 endfunction
 " za to toggle current fold, zm to toggle all fold
 " default zj/k are for GotoOpenedFold, overwrite them
@@ -171,37 +171,37 @@ let &t_SI .= "\<Esc>[?2004h"
 let &t_EI .= "\<Esc>[?2004l"
 inoremap <special> <expr> <Esc>[200~ XTermPasteBegin()
 function! XTermPasteBegin()
-	set pastetoggle=<Esc>[201~
-	set paste
-	return ""
+    set pastetoggle=<Esc>[201~
+    set paste
+    return ""
 endfunction
 
 """""""""""""""""""" statusline""""""""""""""""""""""""""""""
 set laststatus=2 " always show status line
 highlight StatusLine cterm=bold ctermfg=black ctermbg=white
 function! CurDir()
-	let curdir = substitute(getcwd(), $HOME, "~", "g")
-	return curdir
+    let curdir = substitute(getcwd(), $HOME, "~", "g")
+    return curdir
 endfunction
 function! FileSize()
-	let bytes = getfsize(expand("%:p"))
-	if bytes <= 0
-		return ""
-	endif
-	if bytes < 1024
-		return bytes
-	else
-		return (bytes / 1024) . "KB"
-	endif
+    let bytes = getfsize(expand("%:p"))
+    if bytes <= 0
+        return ""
+    endif
+    if bytes < 1024
+        return bytes
+    else
+        return (bytes / 1024) . "KB"
+    endif
 endfunction
 function! ShowFileFormatFlag(var)
-	if ( a:var == 'dos' )
-		return '[dos]'
-	elseif ( a:var == 'mac' )
-		return '[mac]'
-	else
-		return ''
-	endif
+    if ( a:var == 'dos' )
+        return '[dos]'
+    elseif ( a:var == 'mac' )
+        return '[mac]'
+    else
+        return ''
+    endif
 endfunction
 set statusline=[%n]%1*%{ShowFileFormatFlag(&fileformat)}%*\ %f%m%r%h\ \|\ %{CurDir()}\ \|\ \|\ (%l,%v)(%p%%)%{FileSize()}\ \|\ %{&fileencoding?&fileencoding:&encoding}\ \|
 "set statusline=[%n]\ %f%m%r%h\ \|\ %{CurDir()}\ \|\ \|(%l,%c)(%p%%)%{FileSize()}\|\ %{((&fenc==\"\")?\"\":\"\".&fenc)}\ \|
@@ -252,11 +252,11 @@ imap <C-u> <c-o>d^
 
 " Needed for tmux and vim to play nice when using A-array keys
 if &term =~ '^screen'
-	" tmux will send xterm-style keys when its xterm-keys option is on
-	execute "set <xUp>=\e[1;*A"
-	execute "set <xDown>=\e[1;*B"
-	execute "set <xRight>=\e[1;*C"
-	execute "set <xLeft>=\e[1;*D"
+    " tmux will send xterm-style keys when its xterm-keys option is on
+    execute "set <xUp>=\e[1;*A"
+    execute "set <xDown>=\e[1;*B"
+    execute "set <xRight>=\e[1;*C"
+    execute "set <xLeft>=\e[1;*D"
 endif
 " move current line up/down, and indent
 nnoremap <A-Down> :m .+1<CR>==
@@ -294,7 +294,8 @@ autocmd BufEnter * silent! lcd %:p:h
 autocmd BufRead,BufNewFile *.py set ts=4 sw=4 autoindent smartindent expandtab cinwords=if,elif,else,for,while,with,try,except,finally,def,class
 autocmd BufRead,BufNewFile *.sh set expandtab tabstop=4 shiftwidth=4
 autocmd BufRead,BufNewFile *.fish,*.fishrc set expandtab tabstop=4 shiftwidth=4
-autocmd BufRead,BufNewFile *.c,*.cpp set noexpandtab tabstop=8 shiftwidth=8
+autocmd BufRead,BufNewFile *.c,*.h,*.cc,*.cpp set noexpandtab tabstop=8 shiftwidth=8
+autocmd BufRead,BufNewFile *vimrc,*vim set expandtab tabstop=4 shiftwidth=4
 " set foldmethod for different file types
 autocmd BufRead,BufNewFile *.el set foldmethod=syntax
 autocmd BufRead,BufNewFile *.py set foldmethod=indent
@@ -306,9 +307,9 @@ set shell=/bin/bash
 """""""""""""""""" junegunn/vim-plug: plugins manager """"""""""""""""""
 " Automatically install vim-plug
 if empty(glob('~/.vim/autoload/plug.vim'))
-	silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
-				\ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-	autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+    silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+                \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
 " Specify a directory for plugins
@@ -383,8 +384,10 @@ let g:jedi#use_splits_not_buffers = "bottom"
 " auto-pairs
 Plug 'jiangmiao/auto-pairs'
 
-" AutoComplPop
-Plug 'vim-scripts/AutoComplPop'
+" Plug 'ajh17/VimCompletesMe'
+Plug 'lifepillar/vim-mucomplete'
+set completeopt+=noselect
+let g:mucomplete#enable_auto_at_startup = 1
 
 " vim-multiple-cursors
 Plug 'terryma/vim-multiple-cursors'
@@ -414,7 +417,7 @@ set rtp+=~/.fzf
 Plug 'junegunn/fzf.vim'
 " Overwrite the default Files command to include hidden files
 command! -bang -nargs=? -complete=dir Files
-			\ call fzf#vim#files(<q-args>, {'source': 'ag --hidden --ignore .git -g ""'}, <bang>0)
+            \ call fzf#vim#files(<q-args>, {'source': 'ag --hidden --ignore .git -g ""'}, <bang>0)
 nnoremap <Leader>ff :Files<CR>
 nnoremap <Leader>fF :Files<Space>
 nnoremap <Leader>fe :call feedkeys(":e \<Tab>", 'tn')<CR>
