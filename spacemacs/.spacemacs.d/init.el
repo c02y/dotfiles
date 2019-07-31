@@ -52,8 +52,14 @@ This function should only modify configuration layer settings."
                       )
      better-defaults
      emacs-lisp
-     ;; NOTE: `pip install importmagic epc' after the python layer is installed
-     python
+     ;; NOTE: `pip install importmagic epc flake8 pytest nose autoflake "ptvsd>=4.2"
+     ;; if using lsp as backend: pip install python-language-server pyls-isort pyls-mypy'
+     (python :variables
+             python-backend 'lsp        ; the default is anaconda
+             python-test-runner '(pytest nose)
+             python-format-on-save t
+             python-sort-imports-on-save t
+             )
      git
      helm
      ;; replace multiple-cursors with symbol-overlay(SPC s o)
