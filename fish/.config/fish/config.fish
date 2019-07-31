@@ -15,7 +15,7 @@ set -gx MANPATH $HOME/anaconda3/share/man $MANPATH
 
 set -gx FISHRC ~/.config/fish/config.fish
 set -gx EMACS_EL ~/.spacemacs.d/init.el
-test -e ~/.spacevim; and set -gx VIMRC ~/.spacevim; or set -gx ~/Dotfiles.d/vim/.vimrc
+test -e ~/Dotfiles.d/spacevim/.spacevim; and set -gx VIMRC ~/Dotfiles.d/spacevim/.spacevim; or set -gx ~/Dotfiles.d/vim/.vimrc
 
 # Please put the following lines into ~/.bashrc, putting them in config.fish won't work
 # This fixes a lot problems of displaying unicodes
