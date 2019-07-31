@@ -334,7 +334,6 @@ nnoremap <silent> <leader> :WhichKey '<leader>'<CR>
 " By default timeoutlen is 1000 ms
 set timeoutlen=500
 
-" nerdcommenter
 Plug 'scrooloose/nerdcommenter'
 filetype plugin on
 
@@ -342,14 +341,12 @@ filetype plugin on
 Plug 'Shougo/unite.vim'
 " nnoremap <leader>f :<C-u>Unite -start-insert file_rec<CR>
 
-" rainbow parentheses
 Plug 'luochen1990/rainbow'
 let g:rainbow_active = 1
 "0 if you want to enable it later via :RainbowToggle
 
 " Plug 'tpope/vim-fugitive'
 
-" ultisnips
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 " Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
@@ -361,7 +358,6 @@ let g:UltiSnipsExpandTrigger="<c-space>"
 "let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/YouCompleteMe/.ycm_extra_conf.py'
 "set completeopt=menu,menuone
 
-" vim-swoop
 Plug 'pelodelfuego/vim-swoop'
 " Swoop current buffer
 " use the better default bindings <Leader>l, ml
@@ -381,21 +377,14 @@ nmap <Leader>sn :let g:swoopWindowsVerticalLayout = 0<CR>
 Plug 'davidhalter/jedi-vim'
 let g:jedi#use_splits_not_buffers = "bottom"
 
-" auto-pairs
 Plug 'jiangmiao/auto-pairs'
 
-" Plug 'ajh17/VimCompletesMe'
-Plug 'lifepillar/vim-mucomplete'
-set completeopt+=noselect
-let g:mucomplete#enable_auto_at_startup = 1
+Plug 'ajh17/VimCompletesMe'
 
-" vim-multiple-cursors
 Plug 'terryma/vim-multiple-cursors'
 
-" vim-expand-region
 Plug 'terryma/vim-expand-region'
 
-" python-mode
 Plug 'klen/python-mode'
 "default is python2
 "let g:pymode_python = 'python3'
