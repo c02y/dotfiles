@@ -113,7 +113,7 @@ function! ListToggle()
 endfunction
 nnoremap <Leader>tt :call RelativeToggle()<CR>
 nnoremap <Leader>tn :call NumberToggle()<CR>
-nnoremap <Leader>tl :call ListToggle()<CR>
+nnoremap <Leader>tw :call ListToggle()<CR>
 
 function! GotoClosedFold(dir)
     let cmd = 'norm!z' . a:dir
@@ -295,7 +295,10 @@ autocmd BufRead,BufNewFile *.py set ts=4 sw=4 autoindent smartindent expandtab c
 autocmd BufRead,BufNewFile *.sh set expandtab tabstop=4 shiftwidth=4
 autocmd BufRead,BufNewFile *.fish,*.fishrc set expandtab tabstop=4 shiftwidth=4
 autocmd BufRead,BufNewFile *.c,*.h,*.cc,*.cpp set noexpandtab tabstop=8 shiftwidth=8
+" NOTE: DO NOT replace the following line with second line, it is wrong
 autocmd BufRead,BufNewFile *vimrc,*vim set expandtab tabstop=4 shiftwidth=4
+" FIXME: expandtab will not be set using the following line
+" autocmd BufRead,BufNewFile * if (&ft == "vim") | set expandtab tabstop=4 shiftwidth=4 | endif
 " set foldmethod for different file types
 autocmd BufRead,BufNewFile *.el set foldmethod=syntax
 autocmd BufRead,BufNewFile *.py set foldmethod=indent

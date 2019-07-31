@@ -188,7 +188,7 @@ function! UserConfig()
     endfunction
     nnoremap <Leader>tt :call RelativeToggle()<CR>
     nnoremap <Leader>tn :call NumberToggle()<CR>
-    nnoremap <Leader>tl :call ListToggle()<CR>
+    nnoremap <Leader>tw :call ListToggle()<CR>
 
     function! GotoClosedFold(dir)
         let cmd = 'norm!z' . a:dir
@@ -279,14 +279,16 @@ function! UserConfig()
     nnoremap <Leader>jg :call spacevim#util#GotoJump()<CR>
 
     " autocmd BufRead,BufNewFile *.sh,*.py syntax on
-    autocmd BufRead,BufNewFile *.py set ts=4 sw=4 autoindent smartindent expandtab cinwords=if,elif,else,for,while,with,try,except,finally,def,class
-    autocmd BufRead,BufNewFile *.sh set expandtab tabstop=4 shiftwidth=4
+    " for python scripts with/without extension
+    autocmd BufRead,BufNewFile * if (&ft == "sh") | set ts=4 sw=4 autoindent smartindent expandtab foldmethod=syntax cinwords=if,elif,else,for,while,with,try,except,finally,def,class | endif
+    " for shell scripts with or without extension
+    " FIXME: shell script indent is not correct when using gg=G
+    autocmd BufRead,BufNewFile * if (&ft == "sh") | set noexpandtab tabstop=4 shiftwidth=4 | endif
     autocmd BufRead,BufNewFile *.fish,*.fishrc set expandtab tabstop=4 shiftwidth=4
     autocmd BufRead,BufNewFile *.c,*.h,*.cc,*.cpp set noexpandtab tabstop=8 shiftwidth=8
-    autocmd BufRead,BufNewFile *vimrc,*vim set expandtab tabstop=4 shiftwidth=4
+    autocmd BufRead,BufNewFile * if (&ft == "vim") | set expandtab tabstop=4 shiftwidth=4 | endif
     " set foldmethod for different file types
     autocmd BufRead,BufNewFile *.el set foldmethod=syntax
-    autocmd BufRead,BufNewFile *.py set foldmethod=indent
 
     " cscope
     autocmd BufNewFile,BufRead *.c,*.h,*.hpp,*.cpp,*.cc call spacevim#vim#cscope#Build()
