@@ -1238,15 +1238,16 @@ end
 # git
 abbr gg 'tig'
 abbr ggl 'tig log'
+abbr gglp 'tig log -p --'
 abbr ggs 'tig status'
 abbr ggr 'tig refs'
-abbr gits 'git status' # gs is original Ghostscript app
-abbr gitl 'git log --stat'
-abbr gitd 'git diff'           # show unstaged local modification
-abbr gitdc 'git diff --cached' # show staged bu unpushed local modification
+abbr gits 'git status'          # = tig status(ggs)
+abbr gitl 'git log --stat'      # = tig log(ggl)
+abbr gitlo 'git log --oneline'  # = tig(gg)
 abbr gitlp 'git log -p --' # [+ file] to how entire all/[file(even renamed)] history
+abbr gitd 'git diff'       # show unstaged modification
+abbr gitdc 'git diff --cached'  # show staged but unpushed local modification
 abbr gitsh 'git show' # [+ COMMIT] to show the modifications in a last/[specific] commit
-abbr gitlo 'git log --oneline'
 abbr gitcm 'git commit -m'
 abbr gitcma 'git commit -amend -m'
 abbr gitcp 'git checkout HEAD^1' # git checkout previous/old commit
