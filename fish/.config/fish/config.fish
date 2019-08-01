@@ -54,8 +54,7 @@ set -gx fish_color_host yellow
 set -g fish_color_search_match --background=blue
 
 # start fish without configuration
-abbr fi "sh -c 'env HOME=\$(mktemp -d) fish'"
-
+abbr fishtmp "sh -c 'env HOME=\$(mktemp -d) fish'"
 
 # do `h` in the new one after switching terminal session
 function h --on-process-exit %self
@@ -110,10 +109,7 @@ function fish_prompt --description 'Write out the prompt'
     h
     set -l last_status $status
 
-    # if the PWD is not the same as the PWD of previous prompt, print path part
-    if test "$OLDPWD" != "$PWD"
-        path_prompt
-    end
+    path_prompt
 
     if test $last_status != 0
         set_color $fish_color_error
@@ -154,7 +150,6 @@ function fsr --description 'Reload your Fish config after configuration'
     source $FISHRC # fsr
     varclear PATH
     echo $FISHRC is reloaded!
-    path_prompt
 end
 
 # tmux related
@@ -234,10 +229,6 @@ set -gx LS_COLORS 'ex=01;33:ln=96:*~=90:*.swp=90:*.bak=90:*.o=90:*#=90'
 if test "$TERM" = "dumb"
     function fish_title
     end
-end
-
-function dirp --on-event fish_preexec
-    set -g OLDPWD $PWD
 end
 
 function delete-or-ranger -d 'modified from delete-or-exit, delete one char if in command, execute ranger instead exiting the current terminal otherwise'
@@ -730,8 +721,8 @@ end
 abbr tout 'touch ab~ .ab~ .\#ab .\#ab\# \#ab\# .ab.swp ab.swp'
 # find
 # alias find 'find -L' # make find follow symlink dir/file by default
-function finds -d 'find a file/folder and view/edit using less/vim/emacs/emx/cd/readlink with fzf'
-    set -l options 'l' 'v' 'e' 'x' 'c' 'p' 'g' 'd'
+function finds -d 'find a file/folder and view/edit using less/vim/emacs/emx/cd/readlink with fzf, find longest path(-L)'
+    set -l options 'l' 'v' 'e' 'x' 'c' 'p' 'g' 'd' 'L'
     argparse -n finds $options -- $argv
     or return
 
@@ -768,6 +759,9 @@ function finds -d 'find a file/folder and view/edit using less/vim/emacs/emx/cd/
         find $ARGV1 -type d -iname .git | sort
     else if set -q _flag_d      # find directory
         find $ARGV1 -type d -iname "*$ARGV2*"
+    else if set -q _flag_L  # find the longest path of file/dir
+        # ARGV2 is the the type such as d or f
+        find $ARGV1 -type $ARGV2 -print | awk '{print length($0), $0}' | sort -n | tail
     else                        # find file/directory
         find $ARGV1 -iname "*$ARGV2*"
     end
