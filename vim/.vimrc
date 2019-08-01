@@ -41,7 +41,7 @@ iab iname Cody Chan
 set vb t_vb=
 
 " show all whitespaces, use `:set list` to show
-set listchars=eol:$,tab:>-,trail:~,extends:>,precedes:<
+set listchars=tab:»\ ,extends:›,precedes:‹,nbsp:·,trail:·,eol:$,space:·,conceal:·
 
 " normal mode in GUI
 nnoremap <C-DOWN> <C-W><C-J> "Ctrl-j to move down a split

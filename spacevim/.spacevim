@@ -42,6 +42,11 @@ let g:spacevim_excluded = ['ntpeters/vim-better-whitespace']
 
 let g:spacevim_speed_up_via_timer = 0
 
+" this variable is in ~/.vim/plugged/vim-better-default
+" Use the following variable to 'set noexpandtab' (use tab instead of spaces)
+let g:vim_better_default_tabs_as_spaces = 0
+let g:vim_better_default_persistent_undo = 1
+
 " Manage your own plugins.
 " Refer to https://github.com/junegunn/vim-plug for more detials.
 function! UserInit()
@@ -141,8 +146,10 @@ endfunction
 
 " Override the default settings from space-vim as well as adding extras
 function! UserConfig()
-    set shiftwidth=4
-    set tabstop=4
+    " this variable is in ~/.vim/plugged/vim-better-default
+    " Use the following format to overwrite configs in it
+    runtime! plugin/default.vim
+    set listchars=tab:»\ ,extends:›,precedes:‹,nbsp:·,trail:·,eol:$,space:·,conceal:·
 
     " be able to add/modify description for bindings under leader key
     let g:spacevim#map#leader#desc = g:spacevim#map#leader#desc
