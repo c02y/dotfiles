@@ -1249,7 +1249,7 @@ abbr gitd 'git diff'       # show unstaged modification
 abbr gitdc 'git diff --cached'  # show staged but unpushed local modification
 abbr gitsh 'git show' # [+ COMMIT] to show the modifications in a last/[specific] commit
 abbr gitcm 'git commit -m'
-abbr gitcma 'git commit -amend -m'
+abbr gitcma 'git commit --amend'
 abbr gitcp 'git checkout HEAD^1' # git checkout previous/old commit
 abbr gitcn 'git log --reverse --pretty=%H master | grep -A 1 (git rev-parse HEAD) | tail -n1 | xargs git checkout' # git checkout next/new commit
 abbr gitt 'git tag'
