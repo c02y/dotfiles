@@ -694,6 +694,7 @@ before packages are loaded."
    comment-dwim-2--inline-comment-behavior 'reindent-comment
    git-gutter+-modified-sign "*"
    git-gutter+-diff-option ""
+   git-commit-major-mode 'org-mode
    spaceline-org-clock-p t
    ;; sometimes emacs will unable to quit because of persp-auto-save
    persp-auto-save-opt 0
