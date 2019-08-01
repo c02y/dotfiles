@@ -1357,7 +1357,14 @@ function gitbs -d 'branches, switch branch(by default, non-exists, create it, if
 end
 function gitco -d 'git checkout -- for multiple files(filA fileB...) at once, all by default'
     if set -q $argv # no given files
-        git checkout .
+        # in case accidentally git checkout all unstaged files
+        read -n 1 -l -p 'echo "Checkout all unstaged files? [Y/n]"' answer
+        if test "$answer" = "y" -o "$answer" = " "
+            git checkout .
+        else
+            echo "Cancel and exit!"
+            return
+        end
     else
         # pass commit id
         if git merge-base --is-ancestor $argv HEAD ^/dev/null
