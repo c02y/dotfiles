@@ -78,9 +78,10 @@ highlight Cursor guibg=NONE guifg=blue
 " highlight Visual mode
 highlight Visual cterm=reverse ctermbg=NONE
 
-" q to exit if no change
+" q to exit if no change, Q quit without saving
 " NOTE: this doesn't work in vimo function in config.fish
 nmap q :q<CR>
+nmap Q :qa!<CR>
 
 set nocompatible " be iMproved, required
 set number relativenumber " relative number, but hybrid one(absolute number for the current line)
@@ -211,14 +212,8 @@ set statusline=[%n]%1*%{ShowFileFormatFlag(&fileformat)}%*\ %f%m%r%h\ \|\ %{CurD
 vnoremap <silent> * :call VisualSearch('f')<CR>
 vnoremap <silent> # :call VisualSearch('b')<CR>
 
-" C-J/K to switch buffers
-nn <C-J> :bn<cr>
-nn <C-K> :bp<cr>
-
 noremap <C-a> <Home>
 noremap <C-e> <End>
-imap <C-a> <Home>
-imap <C-e> <End>              " FIXME: this doesn't work
 imap <C-k> <c-o>d$
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -436,6 +431,12 @@ Plug 'ntpeters/vim-better-whitespace'
 let g:strip_whitespace_on_save=1
 let g:strip_whitespace_confirm=0
 let g:show_spaces_that_precede_tabs=1
+
+Plug 'liuchengxu/vim-better-default'
+" Use the following variable to 'set noexpandtab' (use tab instead of spaces)
+let g:vim_better_default_tabs_as_spaces = 0
+let g:vim_better_default_persistent_undo = 1
+let g:vim_better_default_basic_key_mapping = 1
 
 " Put Plug parts between plug#begin() and plug #end()
 " Initialize plugin system

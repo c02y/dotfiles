@@ -38,7 +38,7 @@ let g:spacevim_enable_startify = 0
 "     " excluding multiple plugins like: { 'exclude': ['plugin1', 'plugin2'] }
 "     Layer 'auto-completion',  { 'exclude': 'roxma/vim-hug-neovim-rpc' }
 " endfunction
-let g:spacevim_excluded = ['ntpeters/vim-better-whitespace']
+let g:spacevim_excluded = ['ntpeters/vim-better-whitespace', 'tpope/vim-rsi']
 
 let g:spacevim_speed_up_via_timer = 0
 
@@ -46,6 +46,7 @@ let g:spacevim_speed_up_via_timer = 0
 " Use the following variable to 'set noexpandtab' (use tab instead of spaces)
 let g:vim_better_default_tabs_as_spaces = 0
 let g:vim_better_default_persistent_undo = 1
+let g:vim_better_default_basic_key_mapping = 1
 
 " Manage your own plugins.
 " Refer to https://github.com/junegunn/vim-plug for more detials.
@@ -169,8 +170,9 @@ function! UserConfig()
         colorscheme default
     endif
 
-    " q to exit if no change
+    " q to exit if no change, Q quit without saving
     nmap q :q<CR>
+    nmap Q :qa!<CR>
 
     " start insert when editing git commit message
     au FileType gitcommit 1 | startinsert
@@ -237,8 +239,6 @@ function! UserConfig()
 
     noremap <C-a> <Home>
     noremap <C-e> <End>
-    imap <C-a> <Home>
-    imap <C-e> <End>              " FIXME: this doesn't work
     imap <C-k> <c-o>d$
 
     " change PWD according to the buffer, this affect a lot of functions in vim
