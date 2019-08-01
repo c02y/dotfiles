@@ -301,7 +301,8 @@ function! UserConfig()
     " FIXME: shell script indent is not correct when using gg=G
     autocmd BufRead,BufNewFile * if (&ft == "sh") | set noexpandtab tabstop=4 shiftwidth=4 | endif
     autocmd BufRead,BufNewFile *.fish,*.fishrc set expandtab tabstop=4 shiftwidth=4
-    autocmd BufRead,BufNewFile *.c,*.h,*.cc,*.cpp set noexpandtab tabstop=8 shiftwidth=8
+    autocmd BufRead,BufNewFile *.c,*.h set noexpandtab tabstop=8 shiftwidth=8
+    autocmd BufRead,BufNewFile *.cc,*.cpp set noexpandtab tabstop=4 shiftwidth=4
     autocmd BufRead,BufNewFile * if (&ft == "vim") | set expandtab tabstop=4 shiftwidth=4 | endif
     " set foldmethod for different file types
     autocmd BufRead,BufNewFile *.el set foldmethod=syntax

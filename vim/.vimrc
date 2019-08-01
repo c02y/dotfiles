@@ -289,7 +289,8 @@ autocmd BufEnter * silent! lcd %:p:h
 autocmd BufRead,BufNewFile *.py set ts=4 sw=4 autoindent smartindent expandtab cinwords=if,elif,else,for,while,with,try,except,finally,def,class
 autocmd BufRead,BufNewFile *.sh set expandtab tabstop=4 shiftwidth=4
 autocmd BufRead,BufNewFile *.fish,*.fishrc set expandtab tabstop=4 shiftwidth=4
-autocmd BufRead,BufNewFile *.c,*.h,*.cc,*.cpp set noexpandtab tabstop=8 shiftwidth=8
+autocmd BufRead,BufNewFile *.c,*.h set noexpandtab tabstop=8 shiftwidth=8
+autocmd BufRead,BufNewFile *.cc,*.cpp set noexpandtab tabstop=4 shiftwidth=4
 " NOTE: DO NOT replace the following line with second line, it is wrong
 autocmd BufRead,BufNewFile *vimrc,*vim set expandtab tabstop=4 shiftwidth=4
 " FIXME: expandtab will not be set using the following line
