@@ -1275,14 +1275,15 @@ function gitpll -d 'git pull and location it to previous commit id before git pu
     git pull
     git log --stat | command less -p$COMMIT_ID
 end
-function gitcl -d 'git clone and cd into it, depth=1(-1)'
-    set -l options '1'
+function gitcl -d 'git clone and cd into it, the default is --depth=1, full-clone(-f)'
+    set -l options 'f'
     argparse -n gitcl $options -- $argv
     or return
 
-    set DEPTH ""
-    if set -q _flag_1
-        set DEPTH "--depth=1"
+    set DEPTH "--depth=1"
+    if set -q _flag_f
+        set DEPTH ""
+    else
         echo "Use 'git pull --unshallow' to pull all info."
     end
     git clone -v $argv $DEPTH
