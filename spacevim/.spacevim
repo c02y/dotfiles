@@ -37,7 +37,7 @@ let g:spacevim_enable_startify = 0
 "     " excluding multiple plugins like: { 'exclude': ['plugin1', 'plugin2'] }
 "     Layer 'auto-completion',  { 'exclude': 'roxma/vim-hug-neovim-rpc' }
 " endfunction
-let g:spacevim_excluded = ['ntpeters/vim-better-whitespace', 'tpope/vim-rsi']
+let g:spacevim_excluded = ['ntpeters/vim-better-whitespace', 'tpope/vim-rsi', 'mhinz/vim-signify']
 
 let g:spacevim_speed_up_via_timer = 0
 
@@ -61,12 +61,18 @@ function! UserInit()
     Plug 'chrisbra/NrrwRgn'
 
     Plug 'airblade/vim-gitgutter'
+    " speedup the updates of the signs
+    set updatetime=100
     let g:gitgutter_sign_modified = '*'
+    " in case the sudden popup of signcolumn
+    set signcolumn=yes
     nmap [h <Plug>GitGutterPrevHunk
     nmap ]h <Plug>GitGutterNextHunk
     nmap [H <Plug>GitGutterNextHunk
     nmap [a <Plug>GitGutterStageHunk
     nmap [u <Plug>GitGutterUndoHunk
+    " <Leader>gd is already bound for :Gdiff
+    nmap [d :Gdiff<CR>
     nmap <Leader>gn <Plug>GitGutterNextHunk
     nmap <Leader>gN <Plug>GitGutterPrevHunk
     nmap <Leader>ga <Plug>GitGutterStageHunk
