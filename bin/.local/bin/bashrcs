@@ -95,6 +95,11 @@ export HISTCONTROL=ignoredups
 # or
 # export PATH=$PATH:~/.local/bin:~/anaconda3/bin
 
+vim_version=$(/bin/vim --version | head -1 | grep -o '[0-9]\.[0-9]')
+if [ $(echo "$vim_version >= 8.1" | bc -l) ]; then
+	alias vim='nvim'
+fi
+
 function zz()
 {
 	if [ -f ~/.config/fish/functions/z.lua ]; then
