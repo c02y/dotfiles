@@ -1172,6 +1172,7 @@ abbr np 'netease-player'
 abbr db 'douban.fm'
 
 #vim
+alias vim 'nvim'
 abbr viu 'vim -u NONE'
 abbr vic 'vim ~/.cgdb/cgdbrc'
 abbr viM 'vim -u ~/Dotfiles.d/vim/vimrc.more'
@@ -1418,15 +1419,16 @@ function gitrh -d 'git reset HEAD for multiple files(file1 file2), soft(-s)/hard
 end
 
 function gitdl -d 'download several files from github'
-    set -l options 'f' 's' 'z' 'h'
+    set -l options 'f' 's' 'v' 'z' 'h'
     argparse -n gitdl $options -- $argv
     or return
 
     if set -q _flag_h
-        echo "gitdl [-f/-g/-z/-s/-h]"
+        echo "gitdl [-f/-s/-v/-z/-h]"
         echo "      no option --> once for all"
         echo "      -f --> fzf"
         echo "      -s --> scc"
+        echo "      -v --> nvim"
         echo "      -z --> z.lua"
         echo "      -h --> usage"
         return
@@ -1436,11 +1438,14 @@ function gitdl -d 'download several files from github'
     else if set -q _flag_s
         echo "Update/Download scc..."
         sccp u
+    else if set -q _flag_v
+        echo "Update/Download nvim..."
+        nvimp u
     else if set -q _flag_z
         echo "Update/Download z.lua..."
         zp u
     else                        # no option
-        read -n 1 -p 'echo "Update/Download all of fzf, scc, and z.lua from github? [Y/n]: "' -l arg
+        read -n 1 -p 'echo "Update/Download all of fzf, scc, nvim and z.lua from github? [Y/n]: "' -l arg
         if test "$arg" = "" -o "$arg" = "y" -o "$arg" = " "
             echo "Update/Download fzf..."
             fzfp u
@@ -1448,15 +1453,32 @@ function gitdl -d 'download several files from github'
             echo "Update/Download scc..."
             sccp u
 
+            echo "Update/download nvim..."
+            nvimp u
+
             echo "Update/Download z.lua..."
             zp u
         else
-            echo "Quit to update/download all of fzf, scc and z.lua from github!!!"
+            echo "Quit to update/download all of fzf, scc, nvim and z.lua from github!!!"
         end
     end
 end
 
-function sccp -d 'check if scc exists, or without any argument, download the latest version'
+function nvimp -d 'check if nvim exists, or with any argument, download the nightly version'
+    if command -sq nvim; and set -q $argv[1]
+        return 0
+    else
+        curl -o ~/.local/bin/nvim -LO https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage
+        if test -f ~/.local/bin/nvim
+            chmod +x ~/.local/bin/nvim
+            return 0
+        else
+            return 1
+        end
+    end
+end
+
+function sccp -d 'check if scc exists, or with any argument, download the latest version'
     if command -sq scc; and set -q $argv[1] # scc is in $PATH, and no any argv is given, two conditions
         # echo "scc is installed, use any extra to upgrade it!"
         return 0
