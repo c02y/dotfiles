@@ -20,7 +20,7 @@ let g:spacevim_layers = [
             \ ]
 
 " Uncomment the following line if your terminal(-emulator) supports true colors.
-" let g:spacevim_enable_true_color = 1
+let g:spacevim_enable_true_color = 1
 
 " Uncomment the following if you have some nerd font installed.
 " let g:spacevim_nerd_fonts = 1
@@ -132,6 +132,18 @@ function! UserInit()
     Plug 'ajh17/VimCompletesMe'
     Plug 'wellle/targets.vim'
 
+    Plug 'machakann/vim-highlightedyank'
+    let g:highlightedyank_highlight_duration = 500
+
+    if has('nvim')
+        set inccommand=split
+
+        Plug 'vimlab/split-term.vim'
+        " the default <Leader>' is using full window
+        map <Leader>vv :VTerm<CR>
+        map <Leader>vs :Term<CR>
+    endif
+
     " NOTE: timeoutlen also affects the which-key popup delay
     " https://stackoverflow.com/a/15550787/1528712
     set timeout " Do time out on mappings and others
@@ -212,6 +224,9 @@ function! UserConfig()
     nnoremap <Leader>tt :call RelativeToggle()<CR>
     nnoremap <Leader>tn :call NumberToggle()<CR>
     nnoremap <Leader>tw :call ListToggle()<CR>
+
+    nnoremap <Leader>br :%s/\<<C-r><C-w>\>//gc<Left><Left><Left>
+    vnoremap <Leader>br :%s/\<<C-r><C-w>\>//gc<Left><Left><Left>
 
     function! GotoClosedFold(dir)
         let cmd = 'norm!z' . a:dir
