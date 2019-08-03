@@ -417,9 +417,8 @@ if check_daemon_status; then
 	fi
 fi
 if [ "$DISPLAY" ]; then      # using GUI
-	# Another method is:
-	# eval "$(xprop -notype -id "$WINDOWID" 32i '=$0' _NET_WM_PID)"; ps -o comm= -p "$_NET_WM_PID" | grep -i yakuake >/dev/null
-	if xwininfo -id $WINDOWID | awk '/^xwin/ { print $NF }' | grep -i yakuake >/dev/null; then
-		xdotool key F12
+	# if the focused window is not emacs, minimize it
+	if ! xdotool getwindowfocus getwindowname | grep -i emacs >/dev/null; then
+		xdotool getwindowfocus windowminimize
 	fi
 fi
