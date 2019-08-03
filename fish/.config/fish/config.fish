@@ -315,7 +315,7 @@ function bxp -d 'pastebin service in command line'
 end
 #
 function lls -d 'ls functions with options'
-    set -l options 't' 'T' 's' 'S' 'r'
+    set -l options 't' 'a' 's' 'A' 'r'
     argparse -n lls $options -- $argv
     or return
 
@@ -328,7 +328,7 @@ function lls -d 'ls functions with options'
         else
             ls -lhA --color=yes $ARGV --sort=time --time=ctime | nl -v 0 | sort -nr | tail -20
         end
-    else if set -q _flag_T      # like -t, but show the whole list
+    else if set -q _flag_a      # like -t, but show all
         if set -q _flag_r       # reverse
             ls -lhA --color=yes $ARGV --sort=time -r --time=ctime | nl -v 0 | sort -nr
         else
@@ -340,7 +340,7 @@ function lls -d 'ls functions with options'
         else
             ls -lhA --color=yes $ARGV --sort=size | nl -v 0 | sort -nr | tail -20
         end
-    else if set -q _flag_S      # like -s, but show the whole list
+    else if set -q _flag_A      # like -s, but show all
         if set -q _flag_r       # reverse
             ls -lhA --color=yes $ARGV --sort=size -r | nl -v 0 | sort -nr
         else
@@ -1388,17 +1388,22 @@ function gita -d 'git add for multiple files at once'
 end
 function gitfs -d 'git forked repo sync'
     git checkout master
-    if git remote -v | grep "$argv" | grep "upstream" ^/dev/null >/dev/null
-        echo "$argv is already set as remote upstream."
+    git remote -v | grep "upstream" ^/dev/null >/dev/null
+    set -l upstream_status $status
+    if test $upstream_status = 1; and set -q $argv[1]
+        echo "Remote upstream is not set, unable to sync!"
+        return
     else
-        if not git remote add upstream $argv
-            echo
-            git remote -v
-            return
+        if test $upstream_status != 0
+            if set -q $arv[1]       # given argument
+                git remote add upstream $argv
+            end
         end
+        # the upstream url may be wrong, `git fetch upstream` will prompt for user/psw
+        # use `git remote remove upstream` to remove the wrong upstream url
+        git fetch upstream
+        git rebase upstream/master
     end
-    git fetch upstream
-    git rebase upstream/master
 end
 function gitrh -d 'git reset HEAD for multiple files(file1 file2), soft(-s)/hard(-h) reset'
     set -l options 's' 'h'
