@@ -1301,19 +1301,29 @@ function gitpa --description 'git pull all in dir using `fing dir`'
         echo
     end
 end
-function gitbs -d 'branches, switch branch(by default, non-exists, create it, if no argv, list branches), list remote branches(-l, search argv if given), delete branch(-d), info(-v), add worktree(-w, if given argv, list worktree other wise), list worktree(-w -l, search argv if given), delete worktree(-w -d)'
-    set -l options 'b' 'w' 'l' 'd' 'D' 'v'
+function gitbs -d 'branches and worktrees'
+    set -l options 'c' 'd' 'l' 'w' 'v' 'h'
     argparse -n gitbs $options -- $argv
     or return
 
-    if set -q _flag_w
-        if set -q _flag_l
-            if set -q $argv
-                git worktree list
-            else
-                git worktree list | grep -i $argv
-            end
-        else if set -q _flag_d
+    if set -q _flag_h
+        echo "gitbs [-c/-d/-l/-w/-v/-h]"
+        echo "      -c       --> compare two branches or two commit of diff"
+        echo "      -c -d    --> compare two branches or two commit of diff, saved in diff file, open the file"
+        echo "      -c -l    --> compare two branches or two commit of log"
+        echo "      -c -l -d --> compare two branches or two commit of log , saved in diff file, open the file"
+        echo "      -l       --> list branches using git ls-remote --heads, $argv to search it"
+        echo "      -d       --> delete branch"
+        echo "      -v       --> show verbose info of branches"
+        echo "      no argv  --> list branches"
+        echo "      fzf      --> switch branch using fzf"
+        echo "      argv     --> if branch $argv exist, switch to it, if not, create and switch to it"
+        echo "      -w       --> add worktree if given argv and cd into it, if else list worktree"
+        echo "      -w -d    --> delete worktree"
+        echo "      -h       --> usage"
+        return
+    else if set -q _flag_w
+        if set -q _flag_d
             git worktree remove $argv
         else
             if set -q $argv[1]  # no argument
@@ -1323,32 +1333,59 @@ function gitbs -d 'branches, switch branch(by default, non-exists, create it, if
                 return
             else
                 git worktree add $argv
-                cd $argv
+                and cd $argv
             end
         end
     else                 # by default, for branch operations instead of worktree
-        if set -q _flag_l
+        if set -q _flag_c
+            if set -q _flag_l   # git log
+                # NOTE: .. and ... are different
+                # and are opposite meanings in diff and log
+                # https://stackoverflow.com/questions/7251477
+                # https://stackoverflow.com/questions/462974
+                # $argv[1]/$argv[2] can branch names or commit ids
+                if set -q _flag_d
+                    echo git log $argv[1]...$argv[2] > branches.log
+                    git log $argv[1]...$argv[2] >> branches.log
+                    vim branches.log
+                else
+                    git log $argv[1]...$argv[2]
+                end
+            else                # git diff by default
+                if set -q _flag_d
+                    echo git diff $argv[1]..$argv[2] > branches.diff
+                    git diff $argv[1]..$argv[2] >> branches.diff
+                    vim branches.diff
+                else
+                    git diff $argv[1]..$argv[2]
+                end
+            end
+        else if set -q _flag_l
             if set -q $argv
-                git branch -a -l
+                git ls-remote --heads
             else
-                git branch -a -l | grep -i $argv
+                git ls-remote --heads | grep -i $argv
             end
         else if set -q _flag_d
             git branch -d $argv
-        else if set -q _flag_D
-            git branch -D $argv
         else if set -q _flag_v
             git branch -vv
         else
             if set -q $argv[1]  # no argument
-                git branch -l
-            else if test (git branch --list "$argv")
-                # branch $argv already exists
-                git checkout $argv
+                git branch -a -l   # local branches
+            else if test "$argv" = "fzf" # use fzf to switch branch
+                # NOTE: if the branch is not in `git branch -a` but in `git ls-remote`, then
+                #
+                git branch -a -l | fzf | xargs git checkout
             else
-                # branch $argv doesn't exist, create and switch
-                git branch $argv
-                git checkout $argv
+                # create and switch branch
+                if test (git branch -a -l $argv) # make sure it doesn't exist
+                    git checkout $argv
+                else
+                    git branch $argv
+                    echo -e "\nNEW branch $argv based on the current branch is created...\n"
+                    git checkout $argv
+                end
             end
         end
     end
