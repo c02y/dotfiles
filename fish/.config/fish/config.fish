@@ -1379,15 +1379,8 @@ function gitbs -d 'branches and worktrees'
                 # NOTE: if the branch is not in `git branch -a` but in `git ls-remote`, then
                 #
                 git branch -a -l | fzf | xargs git checkout
-            else
-                # create and switch branch
-                if test (git branch -a -l $argv) # make sure it doesn't exist
-                    git checkout $argv
-                else
-                    git branch $argv
-                    echo -e "\nNEW branch $argv based on the current branch is created...\n"
-                    git checkout $argv
-                end
+            else                # checkout $argv branch if exists, else create it
+                git checkout -b $argv
             end
         end
     end
