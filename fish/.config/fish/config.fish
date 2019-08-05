@@ -884,6 +884,7 @@ set -gx LESS_TERMCAP_us \e'[04;38;5;200m' # enter underline mode
 abbr manp 'cppman'
 # color in man page
 set -gx MANPAGER 'less -s -M +Gg -i'
+set -gx PAGER 'less -iXFR -x4 -M'
 # color in man page and less
 # without this line, the LESS_TERMCAP_xxx won't work in Fedora
 set -gx GROFF_NO_SGR yes
