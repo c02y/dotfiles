@@ -1312,6 +1312,7 @@ function gitbs -d 'branches and worktrees'
         echo "gitbs [-c/-d/-l/-w/-v/-h]"
         echo "      -c       --> compare two branches or two commit of diff"
         echo "      -c -d    --> compare two branches or two commit of diff, saved in diff file, open the file"
+        echo "      -c -v    --> compare two branches or two commit of diff, only list changed files"
         echo "      -c -l    --> compare two branches or two commit of log"
         echo "      -c -l -d --> compare two branches or two commit of log , saved in diff file, open the file"
         echo "      -l       --> list branches using git ls-remote --heads, $argv to search it"
@@ -1359,7 +1360,11 @@ function gitbs -d 'branches and worktrees'
                     git diff $argv[1]..$argv[2] >> branches.diff
                     vim branches.diff
                 else
-                    git diff $argv[1]..$argv[2]
+                    if set -q _flag_v
+                        git diff --name-status $argv[1]..$argv[2]
+                    else
+                        git diff $argv[1]..$argv[2]
+                    end
                 end
             end
         else if set -q _flag_l
