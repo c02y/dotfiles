@@ -1121,35 +1121,15 @@ function elpac -d 'print old packages in .emacs.d/elpa/, with any command, it wi
     end
 end
 
-function diffs -d "all kinds of diff features"
-    set -l options 'f' 'w' 'l' 'L' 'W' 'h'
-    argparse -n diffs $options -- $argv
-    or return
-
-    if set -q _flag_h
-        echo "diffs [-f/-w/-l/-L/-W/-h]"
-        echo "      no option --> side by side, only diffs"
-        echo "      -f --> like no argument, but print whole files"
-        echo "      -w --> like no argument, but ignore all white spaces"
-        echo "      -l --> line by line, only diffs"
-        echo "      -L --> like -l, but print whole files"
-        echo "      -W --> like -l, but ignore all white spaces"
-        echo "      -h --> usage"
-        return
-    else if set -q _flag_f
-        diff -r -y -s -W $COLUMNS $argv | less
-    else if set -q _flag_w
-        diff -r -y -s --suppress-common-line -W $COLUMNS -w $argv | less
-    else if set -q _flag_l
-        diff -r -s --suppress-common-line -W $COLUMNS $argv | less
-    else if set -q _flag_L
-        diff -r -s -W $COLUMNS $argv | less
-    else if set -q _flag_W
-        diff -r -s --suppress-common-line -W $COLUMNS -w $argv | less
-    else                        # no option
-        diff -r -y -s --suppress-common-line -W $COLUMNS $argv | less
+function vimd -d 'diff files/dirs using vim'
+    if test -f $argv[1]
+        vim -d $argv[1] $argv[2]
+    else if test -d $argv[1]
+        vim -c "DirDiff $argv[1] $argv[2]"
     end
 end
+# TODO: `pip install git+https://github.com/jeffkaufman/icdiff.git`
+abbr diffs 'icdiff'
 
 function mkcd --description 'mkdir dir then cd dir'
     mkdir -p $argv
