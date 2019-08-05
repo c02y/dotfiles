@@ -1173,6 +1173,7 @@ abbr db 'douban.fm'
 
 #vim
 alias vim 'nvim'
+set -gx EDITOR 'nvim'
 abbr viu 'vim -u NONE'
 abbr vic 'vim ~/.cgdb/cgdbrc'
 abbr viM 'vim -u ~/Dotfiles.d/vim/vimrc.more'
