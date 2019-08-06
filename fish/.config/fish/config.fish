@@ -721,8 +721,8 @@ end
 abbr tout 'touch ab~ .ab~ .\#ab .\#ab\# \#ab\# .ab.swp ab.swp'
 # find
 # alias find 'find -L' # make find follow symlink dir/file by default
-function finds -d 'find a file/folder and view/edit using less/vim/emacs/emx/cd/readlink with fzf, find longest path(-L)'
-    set -l options 'l' 'v' 'e' 'x' 'c' 'p' 'g' 'd' 'L'
+function finds -d 'find a file/folder and view/edit using less/vim/emacs/emx/cd/readlink with fzf, find longest path(-L), find new file(-n, $argv1 is last $argv1 minutes, $argv2 is filename)'
+    set -l options 'l' 'v' 'e' 'x' 'c' 'p' 'g' 'd' 'L' 'n'
     argparse -n finds $options -- $argv
     or return
 
@@ -762,6 +762,8 @@ function finds -d 'find a file/folder and view/edit using less/vim/emacs/emx/cd/
     else if set -q _flag_L  # find the longest path of file/dir
         # ARGV2 is the the type such as d or f
         find $ARGV1 -type $ARGV2 -print | awk '{print length($0), $0}' | sort -n | tail
+    else if set -q _flag_n      # finds new files in whole system, $argv1 is the last mins, $argv2 is the file name to search
+        sudo find / -type f -mmin -$argv[1] | sudo ag $argv[2]
     else                        # find file/directory
         find $ARGV1 -iname "*$ARGV2*"
     end
@@ -794,8 +796,9 @@ function fts -d 'find the temporary files such as a~ or #a or .a~, and files for
         fts -C
     end
 end
-function findn --description 'find the new files in the whole system, argv[1] is the last mins, argv[2] is the file name to search'
-    sudo find / -type f -mmin -$argv[1] | sudo ag $argv[2]
+abbr lo 'locate -e'
+function lop --description 'locate the full/exact file'
+    locate -e -r "/$argv[1]\$"
 end
 
 # du
@@ -1686,14 +1689,6 @@ function port -d 'list all the ports are used or check the process which are usi
     end
 end
 abbr px 'proxychains4'
-
-abbr lo 'locate -e'
-function lop --description 'locate the full/exact file'
-    locate -e -r "/$argv[1]\$"
-end
-function findn --description 'find the new files in the whole system, argv[1] is the last mins, argv[2] is the file name to search'
-    sudo find / -type f -mmin -$argv[1] | sudo ag $argv[2]
-end
 
 # bc -- calculator
 function bc --description 'calculate in command line using bc non-interactive mode if needed, even convert binary/octual/hex'
