@@ -1357,7 +1357,11 @@ function gitbs -d 'branches and worktrees'
                 git ls-remote --heads | grep -i $argv
             end
         else if set -q _flag_d
-            git branch -d $argv
+            if set -q $argv[1]  # no argv
+                git branch -a | fzf | xargs git branch -d
+            else
+                git branch -d $argv
+            end
         else if set -q _flag_v
             git branch -vv
         else
@@ -1368,7 +1372,8 @@ function gitbs -d 'branches and worktrees'
                 #
                 git branch -a -l | fzf | xargs git checkout
             else                # checkout $argv branch if exists, else create it
-                git checkout -b $argv
+                git checkout $argv ^/dev/null
+                or git checkout -b $argv
             end
         end
     end
