@@ -1237,6 +1237,7 @@ abbr gitt 'git tag'
 abbr gitft 'git ls-files --error-unmatch' # Check if file/dir is git-tracked
 abbr gitpu 'git push -v'
 abbr gitpl 'git pull'
+abbr gitpld 'git -C ~/Dotfiles.d/ pull'
 abbr gitpr 'git pull --rebase=interactive'
 function gitrm -d 'clean untracked file/dirs(fileA fileB...), all by default)'
     if set -q $argv             # no given argv
