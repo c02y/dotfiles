@@ -1362,11 +1362,10 @@ function gitbs -d 'branches and worktrees'
             git branch -vv
         else
             if set -q $argv[1]  # no argument
-                git branch -a -l   # local branches
+                git branch      # list local branches
             else if test "$argv" = "fzf" # use fzf to switch branch
-                # NOTE: if the branch is not in `git branch -a` but in `git ls-remote`, then
-                #
-                git branch -a -l | fzf | xargs git checkout
+                # NOTE: if the branch is not in `git branch -a`, try `git ls-remote`
+                git branch -a | fzf | xargs git checkout
             else                # checkout $argv branch if exists, else create it
                 git checkout -b $argv
             end
@@ -1431,9 +1430,9 @@ function gitrh -d 'git reset HEAD for multiple files(file1 file2), soft(-s)/hard
     argparse -n gitrh $options -- $argv
     or return
 
-    if set -q _flag_s # undo last unpushed commit, keeps changes
+    if set -q _flag_s # undo last unpushed/pushed(unpulled) commit, keeps changes
         git reset --soft HEAD~1
-    else if set -q _flag_h # undo last unpushed commit, delete changes
+    else if set -q _flag_h # undo last unpushed/pushed(unpulled) commit, delete changes
         git reset --hard HEAD~1
     else
         set -l files (echo $argv | tr ',' '\n')
