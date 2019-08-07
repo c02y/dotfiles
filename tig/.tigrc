@@ -81,6 +81,8 @@ bind stage      }    :toggle diff-context +1  # Increase the diff context
 
 bind log        [    :?"^commit " # jump to the prev commit
 bind log        ]    :/"^commit " # jump to the next commit
+bind log        m    !git show -m %(commit) # use this when diff can not be displayed, such as for merge
+bind diff       m    !git show -m %(commit) # use this when diff can not be displayed, such as for merge
 
 #Commit
 # bind generic C      !git commit
