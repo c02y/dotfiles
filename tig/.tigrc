@@ -27,7 +27,6 @@ bind generic    pu   !<git push
 bind generic    pU   !<git push -u %(remote) %(repo:head)
 bind generic    v    :source ~/.tigrc
 bind main       G    move-last-line # overwrite the default
-bind diff       [    :?^@@  # jump to the prev diff hunk
 bind generic    <Ctrl-f>   scroll-page-down
 bind generic    <Ctrl-b>   scroll-page-up
 
@@ -46,6 +45,7 @@ bind status     C    ?>git checkout -- %(file) # delete changes on files in unst
 bind status     X    ?>git clean -f -d -- %(file) # delete untracked files/dirs
 bind status     D    ?>sh -c "rm -rfv %(file)"
 bind status     d    view-stage
+bind status     gS   !>sh -c "git diff HEAD > stage.diff" # save stage buffer into file
 
 bind stage      S    status-update # stage/unstage/track/untrack a file
 bind stage      u    status-revert # revert changes in file
@@ -60,6 +60,7 @@ bind diff       p    ?>git stash pop %(stash)
 bind stash      d    ?>git stash drop %(stash)
 bind status     P    >git stash push -m "%(prompt Msg: )" -p %(file)
 bind stage      P    >git stash push -m "%(prompt Msg: )" -p %(file)
+bind stage      gS   !>sh -c "git diff HEAD > stage.diff" # save stage buffer into file
 
 bind generic    c    none # disable single c
 bind generic    cb   ?git checkout -b "%(prompt Enter new branch name: )"
@@ -71,6 +72,7 @@ bind diff       <LessThan> :?^diff --(git|cc) # jump to the prev diff header
 bind diff       >    :/^diff --(git|cc) # jump to the next diff header
 bind diff       {    :toggle diff-context -1  # Decrease the diff context
 bind diff       }    :toggle diff-context +1  # Increase the diff context
+bind diff       gS   !>sh -c "git show %(commit) > %(commit).diff" # save diff buffer into file
 
 bind stage      [    :?^@@  # jump to the prev diff hunk
 bind stage      ]    :/^@@  # jump to the next diff hunk
