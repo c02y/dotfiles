@@ -1431,7 +1431,7 @@ function gitfs -d 'git forked repo sync'
         git rebase upstream/master
     end
 end
-function gitrh -d 'git reset HEAD for multiple files(file1 file2), soft(-s)/hard(-h) reset'
+function gitrh -d 'git reset HEAD for multiple files(file1 file2, all without argv), soft(-s)/hard(-h) reset'
     set -l options 's' 'h'
     argparse -n gitrh $options -- $argv
     or return
@@ -1441,10 +1441,21 @@ function gitrh -d 'git reset HEAD for multiple files(file1 file2), soft(-s)/hard
     else if set -q _flag_h # undo last unpushed/pushed(unpulled) commit, delete changes
         git reset --hard HEAD~1
     else
-        set -l files (echo $argv | tr ',' '\n')
-        for i in $files
-            echo 'git reset HEAD for file:' $i
-            git reset HEAD $i
+        if set -q $argv # no given files
+            # in case accidentally git reset all staged files
+            read -n 1 -l -p 'echo "Reset all staged files? [Y/n]"' answer
+            if test "$answer" = "y" -o "$answer" = " "
+                git reset
+            else
+                echo "Cancel and exit!"
+                return
+            end
+        else
+            set -l files (echo $argv | tr ',' '\n')
+            for i in $files
+                echo 'git reset HEAD for file:' $i
+                git reset HEAD $i
+            end
         end
     end
 end
