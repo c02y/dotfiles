@@ -9,8 +9,13 @@
 [core]
 	filemode = true
 	#pager = less -iXFR -x4 -M
-#[merge]
+[merge]
 #	tool = meld
+	tool = nvim
+[mergetool "nvim"]
+	# cmd = nvim -f -c \"Gvdiffsplit!\" \"$MERGED\"
+	# cmd = nvim -f -d \"$LOCAL\" \"$MERGED\" \"$REMOTE\"
+	cmd = nvim -d $LOCAL $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'
 [color]
 	ui = true
 [github]
