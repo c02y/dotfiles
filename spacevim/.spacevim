@@ -314,6 +314,20 @@ function! UserConfig()
     " show full path
     nnoremap <Leader>b<Space> :echo expand('%:p')<CR>
 
+    function! ToggleWindowSplit()
+        if !exists('t:splitType')
+            let t:splitType = 'vertical'
+        endif
+        if t:splitType == 'vertical' " is vertical switch to horizontal
+            windo wincmd K
+            let t:splitType = 'horizontal'
+        else " is horizontal switch to vertical
+            windo wincmd H
+            let t:splitType = 'vertical'
+        endif
+    endfunction
+    nnoremap <silent> <leader>wt :call ToggleWindowSplit()<cr>
+
     " indent and jump back
     nnoremap <Leader>== gg=G``
     nnoremap <Leader>={ =i{<C-o>

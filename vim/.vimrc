@@ -322,6 +322,20 @@ nnoremap <Leader>vC :PlugClean!<CR>
 nnoremap <Leader>vu :PlugUpdate<CR>
 nnoremap <Leader>vU :PlugUpgrade<CR>
 
+function! ToggleWindowSplit()
+    if !exists('t:splitType')
+        let t:splitType = 'vertical'
+    endif
+    if t:splitType == 'vertical' " is vertical switch to horizontal
+        windo wincmd K
+        let t:splitType = 'horizontal'
+    else " is horizontal switch to vertical
+        windo wincmd H
+        let t:splitType = 'vertical'
+    endif
+endfunction
+nnoremap <silent> <leader>wt :call ToggleWindowSplit()<cr>
+
 " indent and jump back
 nnoremap <Leader>== gg=G2<C-o>
 nnoremap <Leader>={ =i{<C-o>
