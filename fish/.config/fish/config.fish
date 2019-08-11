@@ -2015,10 +2015,10 @@ end
 # to
 # or begin ... end; or ...
 
-function bkm -d 'backups manager: rename files/dirs from name to name.bak or backwards(-b) using cp/mv(-m)'
+function cpb -d 'backups manager: rename files/dirs from name to name.bak or backwards(-b) using cp/mv(-m)'
     # set optional options
     set -l options 'b' 'm'
-    argparse -n bkm -N 1 $options -- $argv
+    argparse -n cpb -N 1 $options -- $argv
     or return
 
     set -q _flag_b; and set backward 1; or set backward 0 # 0(name->name.bak), 1(backward, name.bak->name)
