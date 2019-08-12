@@ -1126,7 +1126,7 @@ end
 
 function vimd -d 'diff files/dirs using vim'
     if test -f $argv[1]
-        vim -d $argv[1] $argv[2]
+        vim -d -o $argv[1] $argv[2]
     else if test -d $argv[1]
         vim -c "DirDiff $argv[1] $argv[2]"
     end
