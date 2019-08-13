@@ -82,8 +82,12 @@ function! UserInit()
     " d2o, d3o are used to obtain the hunks
     nmap <Leader>gD :Gvdiffsplit!<CR>
     if &diff
+        " jump to the next/previous difference
         map [[ [c
         map ]] ]c
+        " auto jump to the next difference after do/dp
+        map do do]]
+        map dp dp]]
     endif
 
     Plug 'tpope/vim-commentary'
