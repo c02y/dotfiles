@@ -121,6 +121,7 @@ This function should only modify configuration layer settings."
                                       esup
                                       wgrep
                                       drag-stuff
+                                      leetcode
                                       )
 
    ;; A list of packages that cannot be updated.
@@ -965,6 +966,7 @@ Emacs session."
   (spacemacs/declare-prefix "fxe" "bin/emm")
   (spacemacs/declare-prefix "fxE" "ve.emacs.d/init.el")
   (spacemacs/declare-prefix "=" "format/indent")
+  (spacemacs/declare-prefix "L" "leetcode")
   (spacemacs/set-leader-keys
     "bU" 'reopen-killed-buffer-fancy
     ;; whitespace-cleanup will also do untabify-it/tabify-it automatically
@@ -1040,6 +1042,12 @@ Emacs session."
     ;; the default binding is SPC j b
     "j SPC" 'avy-pop-mark
     "j r" 'avy-resume
+    ;; leetcode
+    "L l" 'leetcode
+    "L d" 'leetcode-show-description
+    "L r" 'leetcode-problems-refresh
+    "L t" 'leetcode-try
+    "L s" 'leetcode-submit
     )
 
   (defun revert-buffer-without-asking ()
@@ -1165,6 +1173,9 @@ Version 2016-12-18"
              ("[ A" . git-gutter+-stage-and-commit)
              ("[ r" . git-gutter+-refresh)
              )
+  (bind-keys :map leetcode--problems-mode-map
+             ("<return>" . leetcode-show-description))
+
 
   ;; disable follow in helm-occur (like helm-swoop) github-2152
   (with-eval-after-load 'helm
