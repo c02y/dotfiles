@@ -63,6 +63,7 @@ if [ -z "$1" ]; then
 else
 	emacs -q $gui \
 		  $(load_paths "${dependencies[@]}") -l magit \
-		  --eval "(local-set-key \"q\" #'kill-emacs)" --eval "(magit-status \"$1\")" \
+		  --eval "(magit-status \"$1\")" \
+		  --eval "(local-set-key \"q\" #'kill-emacs)" \
 		  -f delete-other-windows
 fi
