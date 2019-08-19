@@ -1620,10 +1620,6 @@ function meld --description 'lanuch meld from terminal without block it'
     end
     return
 end
-# okular
-abbr ok 'bash -c "(nohup okular \"$argv\" </dev/null >/dev/null 2>&1 &)"'
-abbr ima 'bash -c "(nohup gwenview \"$argv\" </dev/null >/dev/null 2>&1 &)"'
-abbr op 'bash -c "(nohup xdg-open \"$argv\" </dev/null >/dev/null 2>&1 &)"'
 abbr fcg 'fc-list | ag'
 
 function wc
