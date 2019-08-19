@@ -245,22 +245,6 @@ imap <C-u> <c-o>d^
 "imap <M-b> bi
 "imap <M-f> wi
 
-" Needed for tmux and vim to play nice when using A-array keys
-if &term =~ '^screen'
-    " tmux will send xterm-style keys when its xterm-keys option is on
-    execute "set <xUp>=\e[1;*A"
-    execute "set <xDown>=\e[1;*B"
-    execute "set <xRight>=\e[1;*C"
-    execute "set <xLeft>=\e[1;*D"
-endif
-" move current line up/down, and indent
-nnoremap <A-Down> :m .+1<CR>==
-nnoremap <A-Up> :m .-2<CR>==
-inoremap <A-Down> <Esc>:m .+1<CR>==gi
-inoremap <A-Up> <Esc>:m .-2<CR>==gi
-vnoremap <A-Down> :m '>+1<CR>gv=gv
-vnoremap <A-Up> :m '<-2<CR>gv=gv
-
 " normal mode, C-w c to close a window, :sp to split, :vsp ...
 nnoremap <C-DOWN> <C-W><C-J> "Ctrl-j to move down a split
 nnoremap <C-UP> <C-W><C-K> "Ctrl-k to move up a split
@@ -452,6 +436,12 @@ Plug 'liuchengxu/vim-better-default'
 let g:vim_better_default_tabs_as_spaces = 0
 let g:vim_better_default_persistent_undo = 1
 let g:vim_better_default_basic_key_mapping = 1
+
+Plug 'matze/vim-move'
+map <A-Down> <A-j>
+map <A-Up>   <A-k>
+map <A-Left> <A-h>
+map <A-Right> <A-l>
 
 " Put Plug parts between plug#begin() and plug #end()
 " Initialize plugin system

@@ -150,6 +150,12 @@ function! UserInit()
     Plug 'vim-scripts/DirDiff.vim'
     let g:DirDiffExcludes = "CVS,*.class,*.o,*.bak,*.git"
 
+    Plug 'matze/vim-move'
+    map <A-Down> <A-j>
+    map <A-Up>   <A-k>
+    map <A-Left> <A-h>
+    map <A-Right> <A-l>
+
     if has('nvim')
         set inccommand=split
 
@@ -370,22 +376,6 @@ function! UserConfig()
         set paste
         return ""
     endfunction
-
-    " Needed for tmux and vim to play nice when using A-array keys
-    if &term =~ '^screen'
-        " tmux will send xterm-style keys when its xterm-keys option is on
-        execute "set <xUp>=\e[1;*A"
-        execute "set <xDown>=\e[1;*B"
-        execute "set <xRight>=\e[1;*C"
-        execute "set <xLeft>=\e[1;*D"
-    endif
-    " move current line up/down, and indent
-    nnoremap <A-Down> :m .+1<CR>==
-    nnoremap <A-Up> :m .-2<CR>==
-    inoremap <A-Down> <Esc>:m .+1<CR>==gi
-    inoremap <A-Up> <Esc>:m .-2<CR>==gi
-    vnoremap <A-Down> :m '>+1<CR>gv=gv
-    vnoremap <A-Up> :m '<-2<CR>gv=gv
 
     function! WindowNumber(...)
         let builder = a:1
