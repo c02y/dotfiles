@@ -15,8 +15,7 @@ set -gx MANPATH $HOME/anaconda3/share/man $MANPATH
 
 set -gx FISHRC ~/.config/fish/config.fish
 set -gx EMACS_EL ~/.spacemacs.d/init.el
-test -e ~/Dotfiles.d/spacevim/.spacevim; and set -gx VIMRC ~/Dotfiles.d/spacevim/.spacevim; or set -gx ~/Dotfiles.d/vim/.vimrc
-
+test -f ~/.config/nvim/README.md; and set -gx VIMRC ~/.SpaceVim.d/autoload/myspacevim.vim; or set -gx VIMRC ~/.spacevim
 # Please put the following lines into ~/.bashrc, putting them in config.fish won't work
 # This fixes a lot problems of displaying unicodes
 # https://github.com/syl20bnr/spacemacs/issues/12257
@@ -1161,17 +1160,92 @@ set -gx EDITOR 'nvim'
 abbr viu 'vim -u NONE'
 abbr vic 'vim ~/.cgdb/cgdbrc'
 abbr viM 'vim -u ~/Dotfiles.d/vim/vimrc.more'
-abbr viv 'vim $VIMRC'
+function viv -d 'edit vimrc file with vim, $VIMRC(by default), the other(-o), vanilla vim(-v)'
+    set -l options 'v' 'o'
+    argparse -n viv $options -- $argv
+    or return
+
+    if set -q _flag_v
+        vim ~/Dotfiles.d/vim/.vimrc
+    else if set -q _flag_o
+        if test "$VIMRC" = "$HOME/.spacevim"
+            test -f ~/.SpaceVim.d/autoload/myspacevim.vim; and vim ~/.SpaceVim.d/autoload/myspacevim.vim
+        else
+            test -f ~/.spacevim; and vim ~/.spacevim
+        end
+    else
+        vim $VIMRC
+    end
+end
 abbr vib 'vim ~/.bashrc'
 abbr vie 'vim $EMACS_EL'
 abbr vi2 'vim ~/Recentchange/TODO'
 abbr vif 'vim $FISHRC'
 abbr vit 'vim ~/.tmux.conf; tmux source-file ~/.tmux.conf; echo ~/.tmux.conf reloaded!'
 abbr viT 'vim ~/.tigrc'
-function vio -d 'use ~/Dotfiles.d/vim instead ~/.space-vim'
-    # The plugins are still installed inside ~/.vim/autoload
-    set -q $argv; and set ARGV ~/Dotfiles.d/vim/.vimrc; or set ARGV $argv
-    bash -c "vim --cmd \"set runtimepath^=$HOME/.vim\" -u $HOME/Dotfiles.d/vim/.vimrc $ARGV"
+function vis -d 'switch between vanilla vim(-v) <-> SpaceVim or space-vim(the default)'
+    set -l options 'v'
+    argparse -n vis $options -- $argv
+    or return
+
+    if set -q _flag_v
+        # The plugins are still installed inside ~/.vim/autoload based on the vimrc
+        set -q $argv; and set ARGV ~/Dotfiles.d/vim/.vimrc; or set ARGV $argv
+        bash -c "vim --cmd \"set runtimepath^=$HOME/.vim\" -u $HOME/Dotfiles.d/vim/.vimrc $ARGV"
+    else
+        if ! test -d ~/.config/nvim # use neovim instead vim, so ignore vim
+            test -d ~/.vim; and cpb -m ~/.vim
+            read -n 1 -l -p 'echo "Neither SpaceVim or space-vim is installed! Which one do you want to install? (SpaceVim/space-vim[1]: "' answer
+            if test "$answer" = "1"
+                curl -fsSL https://git.io/vFUhE | bash
+                mkdir ~/.config/nvim; ln -s ~/.space-vim/init.vim ~/.config/nvim/init.vim
+            else
+                curl -sLf https://spacevim.org/install.sh | bash
+                test (ls -ld ~/.vim | awk '{print $11}') = "$HOME/.SpaceVim"; and rm -rf ~/.vim
+                test -d ~/.vim.bak; and cpb -m -b ~/.vim.bak
+            end
+            pip install neovim clang
+        end
+        if test (ls -ld ~/.config/nvim | awk '{print $11}') = "$HOME/.SpaceVim"
+            read -n 1 -l -p 'echo "Currently running SpaceVim, switch to space-vim? [Y/SPC/n]: "' answer
+            if test "$answer" = "y" -o "$answer" = " "
+                if ! test -d ~/.space-vim
+                    curl -fsSL https://git.io/vFUhE | bash
+                    pip install neovim clang
+                end
+                if ! test -f ~/.spacevim
+                    cd ~/Dotfiles.d/; stowsh -v spacevim; cd -
+                end
+                test -d ~/.config/nvim; and rm -rf ~/.config/nvim
+                mkdir ~/.config/nvim; ln -s ~/.space-vim/init.vim ~/.config/nvim/init.vim
+                set -gx VIMRC ~/.spacevim
+                vim $argv
+            else
+                echo "Cancel the switch..."
+            end
+        else if test (ls -ld ~/.config/nvim/init.vim | awk '{print $11}') = "$HOME/.space-vim/init.vim"
+            read -n 1 -l -p 'echo "Currently running space-vim, switch to SpaceVim? [Y/SPC/n]: "' answer
+            if test "$answer" = "y" -o "$answer" = " "
+                rm -rf ~/.config/nvim
+                if ! test -d ~/.SpaceVim.d
+                    cd ~/Dotfiles.d/
+                    stowsh -v SpaceVim
+                end
+                if test -d ~/.SpaceVim
+                    ln -s ~/.SpaceVim ~/.config/nvim
+                else
+                    test -d ~/.vim; and cpb -m ~/.vim
+                    curl -sLf https://spacevim.org/install.sh | bash
+                    test (ls -ld ~/.vim | awk '{print $11}') = "$HOME/.SpaceVim"; and rm -rf ~/.vim
+                    test -d ~/.vim.bak; and cpb -m -b ~/.vim.bak
+                end
+                set -gx VIMRC ~/.SpaceVim.d/autoload/myspacevim.vim
+                vim $argv
+            else
+                echo "Cancel the switch..."
+            end
+        end
+    end
 end
 
 # emacs
