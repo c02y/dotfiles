@@ -1194,6 +1194,11 @@ function vis -d 'switch between vanilla vim(-v) <-> SpaceVim or space-vim(the de
         bash -c "vim --cmd \"set runtimepath^=$HOME/.vim\" -u $HOME/Dotfiles.d/vim/.vimrc $ARGV"
     else
         if ! test -d ~/.config/nvim # use neovim instead vim, so ignore vim
+            if test -d ~/.SpaceVim; or test -d ~/.space-vim
+                echo "Neovim structure is broken, please fix if using command like `ln -s ~/.SpaceVim ~/.config/nvim`"
+                return -1
+            end
+
             test -d ~/.vim; and cpb -m ~/.vim
             read -n 1 -l -p 'echo "Neither SpaceVim or space-vim is installed! Which one do you want to install? (SpaceVim/space-vim[1]: "' answer
             if test "$answer" = "1"
