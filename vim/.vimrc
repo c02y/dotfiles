@@ -79,9 +79,11 @@ highlight Cursor guibg=NONE guifg=blue
 highlight Visual cterm=reverse ctermbg=NONE
 
 " q to exit if no change, Q quit without saving
-" NOTE: this doesn't work in vimo function in config.fish
-nmap q :q<CR>
-nmap Q :qa!<CR>
+" NOTE: this doesn't work in `vis -v` in config.fish
+" nmap q :q<CR>
+" nmap Q :qa!<CR>
+nmap q :q
+nmap Q :qa!
 
 set nocompatible " be iMproved, required
 set number relativenumber " relative number, but hybrid one(absolute number for the current line)

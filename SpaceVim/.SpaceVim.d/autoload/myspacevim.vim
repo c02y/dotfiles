@@ -12,6 +12,7 @@ function! myspacevim#before() abort
     " set foldmethod for different file types
     autocmd BufRead,BufNewFile *.el set foldmethod=syntax
 
+    set nomodeline " fix the error message about modeline
     " FIXME: not working
     " nnoremap <Leader>== gg=G``
     " call SpaceVim#custom#SPC('nnoremap', ['=', '='], 'echom "hello world"', 'test custom SPC', 1)
