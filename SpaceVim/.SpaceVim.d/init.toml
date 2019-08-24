@@ -10,32 +10,25 @@
 
 # All SpaceVim option below [option] section
 [options]
-    bootstrap_before = "myspacevim#before"
-    bootstrap_after = "myspacevim#after"
+bootstrap_before = "myspacevim#before"
+bootstrap_after = "myspacevim#after"
 
-    # set spacevim theme. by default colorscheme layer is not loaded,
-    # if you want to use more colorscheme, please load the colorscheme
-    # layer
-    colorscheme = ""
-    colorscheme_bg = ""
-    # Disable guicolors in basic mode, many terminal do not support 24bit
-    # true colors
-    enable_guicolors = false
-    default_indent = 4
-    # Disable statusline separator, if you want to use other value, please
-    # install nerd fonts
-    statusline_separator = "nil"
-    statusline_inactive_separator = "nil"
-    buffer_index_type = 4
-    enable_tabline_filetype_icon = false
-    enable_statusline_mode = true
-    statusline_unicode_symbols = false
+colorscheme = ""
+colorscheme_bg = ""
+default_indent = 4
+enable_statusline_bfpath = true
+info_symbol = 'i'
+statusline_separator = 'nil'
+warning_symbol = '!'
+windows_leader = ""
+expand_tab = false
+enable_tabline_filetype_icon = false
+enable_statusline_mode = true
+statusline_unicode_symbols = false
+commandline_prompt = "> "
 
-    # default is `s`
-    windows_leader = ""
-
-    # disable vimfiler window on the home page after startup
-    enable_vimfiler_welcome = 0
+# disable vimfiler window on the home page after startup
+enable_vimfiler_welcome = 0
 
 
 # Enable autocomplete layer
@@ -44,18 +37,30 @@ name = 'autocomplete'
 auto-completion-return-key-behavior = "complete"
 auto-completion-tab-key-behavior = "smart"
 
+# [[layers]]
+#     name = 'tools'
+
+[[layers]]
 name = "lang#c"
 
+[[layers]]
 # https://spacevim.org/layers/lang/python/
 # pip install flake8 isort yapf autoflake coverage
 name = "lang#python"
 
+[[layers]]
 name = "format"
 
-name = "denite"
+[[layers]]
+name = "fzf"
 
-name = "tools"
+[[layers]]
+name = "unite"
 
+[[layers]]
+name = "VersionControl"
+
+[[layers]]
 # FIXME: cscope doesn't work at all
 name = "cscope"
 
@@ -64,6 +69,11 @@ name = 'shell'
 default_position = 'top'
 default_height = 30
 
+# let g:spacevim_custom_plugins = [
+#             \ ['tpope/vim-commentary', {'merged' : 0}],
+#             \ ['tpope/vim-unimpaired', {'merged' : 0}],
+#             \ ['luochen1990/rainbow', {'merged' : 0}],
+#             \ ]
 [[custom_plugins]]
 name = 'tpope/vim-commentary'
 merged = 0
@@ -71,3 +81,7 @@ merged = 0
 [[custom_plugins]]
 name = 'tpope/vim-unimpaired'
 merged = 0
+
+# [[custom_plugins]]
+# name = 'luochen1990/rainbow'
+# m erged = 0

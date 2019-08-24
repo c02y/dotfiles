@@ -19,17 +19,39 @@ function! myspacevim#before() abort
 
     " disable startify banner/header
     let g:startify_custom_header = []
+    let g:spacevim_project_rooter_automatically = 0
+    " change PWD according to the buffer, this affect a lot of functions in vim
+    autocmd BufEnter * silent! lcd %:p:h
 
     " use airline to replace the default statusline theme
-    call SpaceVim#layers#disable('core#statusline')
+    " call SpaceVim#layers#disable('core#statusline')
+    " call SpaceVim#layers#disable('core#tabline')
     " let g:spacevim_enable_powerline_fonts = 0
 
-    call SpaceVim#custom#SPCGroupName(['='], '+Formats')
-    call SpaceVim#custom#SPC('nnoremap', ['=', '='], 'gg=G``', 'format-the-buffer', 1)
-    call SpaceVim#custom#SPC('nnoremap', ['=', '{'], '=i{<C-o>', 'format-in-{}', 1)
-    call SpaceVim#custom#SPC('nnoremap', ['=', '('], '=i(<C-o>', 'format-in-()', 1)
-    call SpaceVim#custom#SPC('nnoremap', ['=', '['], '=i[<C-o>', 'format-in-[]', 1)
+    " let g:spacevim_disabled_plugins = ['vim-foo', 'vim-bar']
+    let g:spacevim_custom_plugins = [
+              \ ['vimlab/split-term.vim'],
+              \ ]
 
+    call SpaceVim#custom#SPCGroupName(['='], '+Formats')
+    call SpaceVim#custom#SPC('nnoremap', ['=', '='], 'gg=G``', 'format-the-buffer', 0)
+    call SpaceVim#custom#SPC('nnoremap', ['=', '{'], '=i{<C-o>', 'format-in-{}', 0)
+    call SpaceVim#custom#SPC('nnoremap', ['=', '('], '=i(<C-o>', 'format-in-()', 0)
+    call SpaceVim#custom#SPC('nnoremap', ['=', '['], '=i[<C-o>', 'format-in-[]', 0)
+
+    call SpaceVim#custom#SPCGroupName('v', '+SPs/Terms')
+    call SpaceVim#custom#SPC('nnoremap', ['v', 'u'], ':SPUpdate', 'SPUpdate', 1)
+    call SpaceVim#custom#SPC('nnoremap', ['v', 'v'], ':e ~/.SpaceVim.d/autoload/myspacevim.vim', 'edit-my', 1)
+    call SpaceVim#custom#SPC('nnoremap', ['v', 'V'], ':SPConfig -l', 'edit-init.toml', 1)
+    " call SpaceVim#custom#SPC('nnoremap', ['v', 'r'], ':source ~/.SpaceVim.d/init.toml', 'source', 1)
+    call SpaceVim#custom#SPC('nnoremap', ['v', 'l'], ':SPRuntimeLog ', 'log', 1)
+    " for vimlab/split-term.vim
+    set inccommand=split
+    " the default <Leader>' is using full window
+    call SpaceVim#custom#SPC('nnoremap', ['v', '-'], ':Term ', 'Term--', 1)
+    call SpaceVim#custom#SPC('nnoremap', ['v', '\\'], ':VTerm ', 'Term-|', 1)
+    map <Leader>vv :VTerm<CR>
+    map <Leader>vs :Term<CR>
     function! GotoClosedFold(dir)
         let cmd = 'norm!z' . a:dir
         let view = winsaveview()
@@ -58,10 +80,13 @@ function! myspacevim#before() abort
     call SpaceVim#custom#SPC('nnoremap', ['z', 'k'], ':call GotoClosedFold(\'k\')<CR>', 'prev-closed-fold', 1)
     nnoremap zm :call ToggleFoldAll()<CR>
 
+    " call s:add_load_repo('luochen1990/rainbow')
+    " let g:rainbow_active = 1
 
 endfunction
 
 function! myspacevim#after() abort
+    let g:rainbow_active = 1
     " q to exit if no change
     nmap q :q<CR>
     nmap Q :qa!<CR>
