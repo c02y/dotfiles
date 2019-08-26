@@ -29,9 +29,9 @@ function! myspacevim#before() abort
     " let g:spacevim_enable_powerline_fonts = 0
 
     " let g:spacevim_disabled_plugins = ['vim-foo', 'vim-bar']
-    let g:spacevim_custom_plugins = [
-              \ ['vimlab/split-term.vim'],
-              \ ]
+    " let g:spacevim_custom_plugins = [
+    "           \ ['vimlab/split-term.vim'],
+    "           \ ]
 
     call SpaceVim#custom#SPCGroupName(['='], '+Formats')
     call SpaceVim#custom#SPC('nnoremap', ['=', '='], 'gg=G``', 'format-the-buffer', 0)
@@ -45,13 +45,6 @@ function! myspacevim#before() abort
     call SpaceVim#custom#SPC('nnoremap', ['v', 'V'], ':SPConfig -l', 'edit-init.toml', 1)
     " call SpaceVim#custom#SPC('nnoremap', ['v', 'r'], ':source ~/.SpaceVim.d/init.toml', 'source', 1)
     call SpaceVim#custom#SPC('nnoremap', ['v', 'l'], ':SPRuntimeLog ', 'log', 1)
-    " for vimlab/split-term.vim
-    set inccommand=split
-    " the default <Leader>' is using full window
-    call SpaceVim#custom#SPC('nnoremap', ['v', '-'], ':Term ', 'Term--', 1)
-    call SpaceVim#custom#SPC('nnoremap', ['v', '\\'], ':VTerm ', 'Term-|', 1)
-    map <Leader>vv :VTerm<CR>
-    map <Leader>vs :Term<CR>
     function! GotoClosedFold(dir)
         let cmd = 'norm!z' . a:dir
         let view = winsaveview()
@@ -78,6 +71,7 @@ function! myspacevim#before() abort
     call SpaceVim#custom#SPCGroupName(['z'], '+Folds')
     call SpaceVim#custom#SPC('nnoremap', ['z', 'j'], ':call GotoClosedFold(\'j\')<CR>', 'next-closed-fold', 1)
     call SpaceVim#custom#SPC('nnoremap', ['z', 'k'], ':call GotoClosedFold(\'k\')<CR>', 'prev-closed-fold', 1)
+    " FIXME: zm is not working
     nnoremap zm :call ToggleFoldAll()<CR>
 
     " call s:add_load_repo('luochen1990/rainbow')
