@@ -36,7 +36,9 @@ This function should only modify configuration layer settings."
 
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
-   '(rust
+   '(javascript                         ; TODO: need configuration
+     html                               ; TODO: need configuration
+     rust
      yaml
      markdown
      vimscript
@@ -1173,8 +1175,10 @@ Version 2016-12-18"
              ("[ A" . git-gutter+-stage-and-commit)
              ("[ r" . git-gutter+-refresh)
              )
-  (bind-keys :map leetcode--problems-mode-map
-             ("<return>" . leetcode-show-description))
+
+  (with-eval-after-load 'leetcode
+    (bind-keys :map leetcode--problems-mode-map
+             ("<return>" . leetcode-show-description)))
 
 
   ;; disable follow in helm-occur (like helm-swoop) github-2152
