@@ -204,9 +204,11 @@ function! UserConfig()
     " It is good for airline layer.
     " let g:airline_powerline_fonts = 1
 
-    " disable theme only in terminal vim
+    " disable theme in terminal vim
     if !has("gui_running")
         colorscheme default
+        " for which-key and floatwindow of fzf
+        highlight Pmenu guibg=#3A3A3A
     endif
 
     " q to exit if no change, Q quit without saving
