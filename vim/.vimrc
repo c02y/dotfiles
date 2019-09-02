@@ -20,11 +20,10 @@ if has ('autocmd') " Remain compatible with earlier versions
     augroup END
 endif " has autocmd
 " reload vimrc manually, works when editing vimrc outside vim
-nnoremap <Leader>r :source $MYVIMRC<CR>
+nnoremap <Leader>fr :source ~/Dotfiles.d/vim/.vimrc<CR>
 
 " C-z to go into shell, use exit(int shell) to go back to vim
 nmap <C-Z> :shell<CR>
-nnoremap <Leader>v :e $MYVIMRC<CR>
 " use right click for menu
 set mousemodel=popup
 set mouse=a
