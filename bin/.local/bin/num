@@ -2,7 +2,7 @@
 
 if (@ARGV < 2) {
   printf("Convert numbers among bin/oct/dec/hex\n");
-  printf("\nUsage: b2 2/8/10/16 num num2 ... \n");
+  printf("\nUsage: num 2/8/10/16 num num2 ... \n");
   exit;
 }
 
@@ -16,7 +16,7 @@ for ($i=1; $i<@ARGV; $i++) {
   } elsif ($ARGV[0] == 16) {
 	$num = hex($ARGV[$i]);
   } else {
-	printf("Usage: b2 2/8/10/16 num num2 ... \n");
+	printf("Usage: num 2/8/10/16 num num2 ... \n");
 	exit;
   }
   printf("0x%x\t = 0d%d\t = 0%o = 0b%b\n", $num, $num, $num, $num);
