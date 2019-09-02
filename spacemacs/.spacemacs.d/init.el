@@ -72,6 +72,7 @@ This function should only modify configuration layer settings."
      (shell :variables
             shell-default-shell 'eshell
             shell-enable-smart-shell t
+            shell-default-position 'right
             close-window-with-terminal t
             )
      (spell-checking :variables
@@ -715,6 +716,10 @@ before packages are loaded."
   ;; overwrite selected region when typing, yanking
   (delete-selection-mode)
 
+  (defadvice run-python (after run-python-buffer activate)
+    "Switch to *Python* buffer after C-c C-p in a python buffer."
+    (switch-to-buffer-other-window "*Python*"))
+
   ;; auto refresh git-gutter+ info for all buffers when magit makes changes
   ;; migrated from git-gutter:update-all-windows, git-gutter+ supports this for old magit
   (add-hook 'magit-post-refresh-hook
@@ -1123,7 +1128,7 @@ Version 2016-12-18"
    ("C-h h" . lazy-helm/helm-apropos)
    ("C-h c" . lazy-helm/helm-colors)
    ("C-h C-c" . lazy-helm/spacemacs/helm-faces)
-   ("C-x /" . helm-semantic-or-imenu)
+   ("C-x /" . helm-semantic-or-imenu)   ;; SPC j i
    ("C-s" . helm-occur)
    ("M-;" . comment-dwim-2)
    ;; switch the last visited buffer, repeated invocations toggle between the most recent two buffers
@@ -1174,8 +1179,7 @@ Version 2016-12-18"
 
   (with-eval-after-load 'leetcode
     (bind-keys :map leetcode--problems-mode-map
-             ("<return>" . leetcode-show-description)))
-
+               ("<return>" . leetcode-show-description)))
 
   ;; disable follow in helm-occur (like helm-swoop) github-2152
   (with-eval-after-load 'helm
