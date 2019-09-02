@@ -1159,7 +1159,7 @@ alias vim 'nvim'
 set -gx EDITOR 'nvim'
 abbr viu 'vim -u NONE'
 abbr vic 'vim ~/.cgdb/cgdbrc'
-abbr viM 'vim -u ~/Dotfiles.d/vim/vimrc.more'
+alias viM 'vim -u ~/Dotfiles.d/vim/vimrc.more'
 function viv -d 'edit vimrc file with vim, $VIMRC(by default), the other(-o), vanilla vim(-v)'
     set -l options 'v' 'o'
     argparse -n viv $options -- $argv
