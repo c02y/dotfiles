@@ -445,6 +445,10 @@ map <A-Up>   <A-k>
 map <A-Left> <A-h>
 map <A-Right> <A-l>
 
+Plug 'junegunn/vim-easy-align'
+xmap <Leader>xa <Plug>(EasyAlign)
+nmap <Leader>xa <Plug>(EasyAlign)
+
 " Put Plug parts between plug#begin() and plug #end()
 " Initialize plugin system
 call plug#end()
