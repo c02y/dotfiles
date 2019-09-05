@@ -59,9 +59,6 @@ abbr fishtmp "sh -c 'env HOME=\$(mktemp -d) fish'"
 function h --on-process-exit %self
     history --merge
 end
-function his
-    history | ag $argv[1]
-end
 
 function auto-source --on-event fish_preexec -d 'auto source config.fish if gets modified!'
     if not set -q FISH_CONFIG_TIME # if FISH_CONFIG_TIME not set, status != 0
