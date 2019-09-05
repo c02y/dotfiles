@@ -212,7 +212,7 @@ end
 alias check 'checkpatch.pl --ignore SPDX_LICENSE_TAG,CONST_STRUCT,AVOID_EXTERNS,NEW_TYPEDEFS --no-tree -f'
 
 # TODO: the following part will make fish print "No protocol specified" error line
-# source $HOME/.config/fish/functions/done.fish
+source $HOME/.config/fish/functions/done.fish
 # the following script will make fish v3.0.0 prompt hang
 # source $HOME/.config/fish/functions/__async_prompt.fish
 

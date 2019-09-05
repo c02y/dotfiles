@@ -20,9 +20,9 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-set -g __done_version 1.4.1
+set -g __done_version 1.8.1
 
-function __done_get_window_id
+function __done_get_focused_window_id
 	if type -q lsappinfo
 		lsappinfo info -only bundleID (lsappinfo front) | cut -d '"' -f4
 	else if type -q xprop
@@ -31,45 +31,90 @@ function __done_get_window_id
 	end
 end
 
+function __done_is_tmux_window_active
+	set -q fish_pid; or set -l fish_pid %self
+
+	not tmux list-panes -a -F "#{session_attached} #{window_active} #{pane_pid}" | string match -q "1 0 $fish_pid"
+end
+
+function __done_is_process_window_focused
+	# Return false if the window is not focused
+	if test $__done_initial_window_id != (__done_get_focused_window_id)
+		return 1
+	end
+	# If inside a tmux session, check if the tmux window is focused
+	if type -q tmux
+	and test -n "$TMUX"
+		__done_is_tmux_window_active
+		return $status
+	end
+
+	return 0
+end
+
 
 # verify that the system has graphical capabilites before initializing
 if test -z "$SSH_CLIENT"  # not over ssh
-and test -n __done_get_window_id  # is able to get window id
+and count (__done_get_focused_window_id) > /dev/null  # is able to get window id
 
 	set -g __done_initial_window_id ''
 	set -q __done_min_cmd_duration; or set -g __done_min_cmd_duration 5000
 	set -q __done_exclude; or set -g __done_exclude 'git (?!push|pull)'
 
 	function __done_started --on-event fish_preexec
-		set __done_initial_window_id (__done_get_window_id)
+		set __done_initial_window_id (__done_get_focused_window_id)
 	end
 
 	function __done_ended --on-event fish_prompt
 		set -l exit_status $status
 
-		if test $CMD_DURATION
-		and test $CMD_DURATION -gt $__done_min_cmd_duration # longer than notify_duration
-		and test $__done_initial_window_id != (__done_get_window_id)  # terminal or window not in foreground
+		# backwards compatibilty for fish < v3.0
+		set -q cmd_duration; or set -l cmd_duration $CMD_DURATION
+
+		if test $cmd_duration
+		and test $cmd_duration -gt $__done_min_cmd_duration # longer than notify_duration
+		and not __done_is_process_window_focused  # process pane or window not focused
 		and not string match -qr $__done_exclude $history[1] # don't notify on git commands which might wait external editor
 
 			# Store duration of last command
-			set duration (echo "$CMD_DURATION" | humanize_duration)
+			set -l humanized_duration (echo "$cmd_duration" | humanize_duration)
 
-			set -l title "Done in $duration"
-			set -l message "$history[1]"
+			set -l title "Done in $humanized_duration"
+			set -l wd (pwd | sed "s,^$HOME,~,")
+			set -l message "$wd/ $history[1]"
+			set -l sender $__done_initial_window_id
 
-			if test $exit_status -ne 0
-				set title "Exited ($exit_status) after $duration"
+			# workarout terminal notifier bug when sending notifications from inside tmux
+			# https://github.com/julienXX/terminal-notifier/issues/216
+			if test $TMUX
+				set sender "tmux"
 			end
 
-			if type -q terminal-notifier  # https://github.com/julienXX/terminal-notifier
-				terminal-notifier -message "$message" -title "$title" -sender "$__done_initial_window_id"
+			if test $exit_status -ne 0
+				set title "Failed ($exit_status) after $humanized_duration"
+			end
+
+			if set -q __done_notification_command
+				eval $__done_notification_command
+			else if type -q terminal-notifier  # https://github.com/julienXX/terminal-notifier
+				terminal-notifier -message "$message" -title "$title" -sender "$sender" -activate "$__done_initial_window_id"
 
 			else if type -q osascript  # AppleScript
 				osascript -e "display notification \"$message\" with title \"$title\""
 
 			else if type -q notify-send # Linux notify-send
-				notify-send --icon=terminal "$title" "$message"
+				set -l urgency
+				if test $exit_status -ne 0
+					set urgency "--urgency=critical"
+				end
+				notify-send $urgency --icon=terminal --app-name=fish "$title" "$message"
+
+			else if type -q notify-desktop # Linux notify-desktop
+				set -l urgency
+				if test $exit_status -ne 0
+					set urgency "--urgency=critical"
+				end
+				notify-desktop $urgency --icon=terminal --app-name=fish "$title" "$message"
 
 			else  # anything else
 				echo -e "\a" # bell sound
@@ -77,6 +122,17 @@ and test -n __done_get_window_id  # is able to get window id
 
 		end
 	end
+end
 
+function __done_uninstall -e done_uninstall
+  # Erase all __done_* functions
+  functions -e __done_ended
+  functions -e __done_started
+  functions -e __done_get_focused_window_id
+  functions -e __done_is_tmux_window_active
+  functions -e __done_is_process_window_focused
+
+  # Erase __done variables
+  set -e __done_version
 end
 
