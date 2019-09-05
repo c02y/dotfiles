@@ -1468,6 +1468,8 @@ function gitco -d 'git checkout -- for multiple files(filA fileB...) at once, al
         # pass commit id
         if git merge-base --is-ancestor $argv HEAD ^/dev/null
             git checkout $argv
+        else if test "$argv" = "-" # git switch to previous branch/commit
+            git checkout -
         else
             set files (string split \n -- $argv)
             for i in $files
