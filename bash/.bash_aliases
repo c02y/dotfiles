@@ -1,10 +1,50 @@
-# #################### start of bashrcs
+# alias/function definitions.
+# Make sure the following line is in ~/.bashrc to use this file
+# [ -f ~/.bash_aliases ] && . ~/.bash_aliases
 
-# bashrcs, contains aliases and functions defiend used by bash
-# cat ./bashrcs >> ~/.bashrc (or other bash config file)
+######################################## start
+# ingnore duplicates(continuous occurrences od a command) in history
+export HISTCONTROL=ignoredups
+# ignore some commands showing in history
+# export HISTIGNORE="pwd:ls:la:ll:kill:killall:more:cd:"
+# Enable huge history
+export HISTFILESIZE=9999999999
+export HISTSIZE=9999999999
+# Save timestamp info for every command
+export HISTTIMEFORMAT="[%F %T] ~~~ "
+# Dump the history file after every command
+shopt -s histappend
+export PROMPT_COMMAND="history -a;"
+# Preload the working directory history list from the directory history
+if type -t hd >/dev/null && type -t cd_func >/dev/null; then
+	for x in `hd 20` `pwd`; do cd_func $x ; done
+fi
+
+# export PATH=~/.local/bin:~/anaconda3/bin:$PATH
+# or
+export PATH=$PATH:~/.local/bin:~/anaconda3/bin
 
 # disable Ctrl-d to EXIT
 set -o ignoreeof # 10 times until exiting
+
+alias x='exit'
+# User specific aliases and functions
+alias sl='ls'
+alias ls='ls --color=auto'
+alias lsp='readlink -f' # print the full path of a file
+alias lsd='ls -d */' 	# only list directories
+alias ll='ls -lh'
+alias la='ls -d .??*'
+alias lla='ls -lhA'
+alias l.='ls -A'
+alias lst='clear; ls --sort=time | less'
+alias llt='ll --sort=time | less'
+alias lat='la --sort=time | less'
+
+#cdls, cdll, cdla
+function cdls () { cd "$@" ; eval ls "\"\$$#\"";}
+function cdll () { cd "$@" ; eval ll "\"\$$#\"";}
+function cdla () { cd "$@" ; eval la "\"\$$#\"";}
 
 # User specific aliases and functions
 # alias ima='gwenview'
@@ -67,9 +107,9 @@ alias emd='rm -rf ~/.emacs.elc && emacs --debug-init'
 alias emn='emacs --no-desktop'
 
 # j for .bz2, z for .gz, J for xz, a for auto determine
-alias t-ta='tar tvfa' # the above three can just use this one to auto choose the right one
-alias t-xa='tar xvfa' # the above three can jsut use this one to auto choose the right one
-alias t-ca='tar cvfa' # the above three can just use this one to auto choose the right one
+alias t-ta='tar tvfa' # show the content
+alias t-xa='tar xvfa' # extract the content
+alias t-ca='tar cvfa' # create a tar.xxx
 
 alias wgets='wget --mirror -p --html-extension --convert-links'
 alias wt='wget -P /tmp/  http://softdownload.hao123.com/hao123-soft-online-bcs/soft/Q/2013-11-01_QQ2013SP4.exe'
@@ -77,23 +117,11 @@ alias wt='wget -P /tmp/  http://softdownload.hao123.com/hao123-soft-online-bcs/s
 # systemd-analyze
 alias sab='systemd-analyze blame; systemd-analyze time'
 
-alias x='exit'
-
-# function mkcd to mkdir a directory and then cd it
 function mkcd () { mkdir -p "$@" ; eval cd "\"\$$#\"";}
 
 alias diff-s='diff -y --suppress-common-line '
 # function diff-s () { diff -s --suppress-common-line "$@" | more -N;}
 function diff-y () { diff -y "$@" | more -N;}
-
-# ingnore duplicates(continuous occurrences od a command) in history
-export HISTCONTROL=ignoredups
-# ignore some commands showing in history
-# export HISTIGNORE="pwd:ls:la:ll:kill:killall:more:cd:"
-
-# export PATH=~/.local/bin:~/anaconda3/bin:$PATH
-# or
-# export PATH=$PATH:~/.local/bin:~/anaconda3/bin
 
 vim_version=$(/bin/vim --version | head -1 | grep -o '[0-9]\.[0-9]')
 if [ $(echo "$vim_version >= 8.1" | bc -l) ]; then
@@ -120,7 +148,7 @@ function zz()
 	else
 		echo "z.lua is not installed!"
 		exit
-fi
+	fi
 }
 
 function lls()
@@ -154,4 +182,4 @@ function lsx()
 	fi
 }
 
-# #################### end of bashrcs
+######################################## end
