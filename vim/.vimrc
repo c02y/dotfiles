@@ -252,6 +252,12 @@ nnoremap <C-UP> <C-W><C-K> "Ctrl-k to move up a split
 nnoremap <C-RIGHT> <C-W><C-L> "Ctrl-l to move right a split
 nnoremap <C-LEFT> <C-W><C-H> "Ctrl-h to move left a split
 
+nnoremap <Leader>w<LEFT> <C-W>h
+nnoremap <Leader>w<RIGHT> <C-W>l
+nnoremap <Leader>w<UP> <C-W>k
+nnoremap <Leader>w<DOWN> <C-W>j
+nnoremap <Leader>w<Bslash> <C-W>v " SPC w \ to split-window-right
+
 " M-Backspace to delete word in insert-mode, this following does not work in terminal vim
 imap <A-BS> <C-W>
 
