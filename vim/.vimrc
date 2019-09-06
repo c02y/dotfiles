@@ -100,9 +100,11 @@ function! RelativeToggle()
     endif
 endfunction
 function! NumberToggle()
-    if(&nu == 1)
-        set nornu nonu
-    else
+    if(&rnu == 1 && &nu == 1)
+        set nornu nu
+    elseif (&rnu == 0 && &nu ==1)
+        set nonu
+    elseif (&rnu == 0 && &nu == 0)
         set number
     endif
 endfunction
