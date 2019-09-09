@@ -607,7 +607,7 @@ function fu -d 'fu command and prompt to ask to open it or not'
         echo
         read -n 1 -p 'echo "Open the file containing the definition? [y/N]: "' -l answer
         if test "$answer" = "y" -o "$answer" = " "
-            vim $def_file +$num_line
+            $EDITOR $def_file +$num_line
         end
     else if test (echo $result_1 | grep -i "is a builtin")
         # 3. $argv in builtin like if
@@ -620,7 +620,7 @@ function fu -d 'fu command and prompt to ask to open it or not'
             echo
             read -n 1 -p 'echo "Open the file for editing?[y/N]: "' -l answer
             if test "$answer" = "y" -o "$answer" = " "
-                vim $file_path
+                $EDITOR $file_path
             end
         end
     end
