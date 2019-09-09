@@ -1013,7 +1013,7 @@ function rpms -d 'rpm file, install(i)/extract(x)/list(default)'
     end
 end
 
-# yum
+# yum for fedora/redhat/centos/...
 abbr yum   'sudo yum -C --noplugins' # not update cache
 abbr yumi  'sudo yum install'
 abbr yumiy 'sudo yum install -y'
@@ -1028,7 +1028,7 @@ abbr yumhl 'sudo yum history list'
 abbr yumun 'sudo yum history undo'
 abbr yums  'sudo yum search'
 abbr yumsa 'sudo yum search all'
-# dnf
+# dnf for fedora/redhat/centos/...
 abbr dnfu 'sudo dnf update -v'
 abbr dnfU 'sudo dnf update --setopt exclude=kernel\* -v'
 abbr dnfu2 'sudo dnf update -y --disablerepo="*" --enablerepo="updates"'
@@ -1039,8 +1039,7 @@ abbr dnfl 'dnf list installed| less'
 abbr dnfs 'sudo dnf search'
 abbr dnfsa 'sudo dnf search all'
 abbr dnful 'sudo dnf history undo last'
-
-# zypper for openSUSE
+# zypper for openSUSE/...
 abbr zppi 'sudo zypper install --details'
 abbr zppiy 'sudo zypper install -y -v --details'
 abbr zppif 'sudo zypper info'
@@ -1056,13 +1055,38 @@ abbr zppu 'sudo zypper update --details'
 abbr zppud 'sudo zypper dist-upgrade -l --details'
 abbr zppdup 'sudo zypper dist-upgrade -l --details --no-recommends'
 abbr zppca 'sudo zypper clean --all'
-
-# apt
+# apt for ubuntu/debian/...
 abbr api 'sudo apt-get install -V'
 abbr apu 'sudo apt-get update; sudo apt-get upgrade -V'
 abbr apr 'sudo apt-get remove -V'
 abbr apar 'sudo apt-get autoremove -V'
 abbr aps 'apt-cache search'
+# pacman/yay for manjaro/arch/...
+abbr paci 'sudo pacman -Syu' # -S to install a package, -Syu pkg to ensure the system is update to date then install the package
+abbr pacil 'sudo pacman -U' # install package from a local .pkg.tar.xz/link file
+abbr pacs 'pacman -Ss'      # search for package to install
+abbr pacl 'pacman -Ql'
+abbr pacls 'pacman -Qs'         # search for local installed packages
+abbr pacr 'sudo pacman -Rsun'   # remove a package and its unneeded dependencies, and clean configs
+abbr pacd 'sudo pacman -Sw'     # download package without installing
+abbr pacc 'sudo pacman -Sc'     # clean packages cache
+abbr pacC 'paccache -rvk2'      # remove old package cache files is to remove all packages except for the latest 2 package versions
+abbr pacrc 'sudo pacman -Rsu'   # like pacr, but don't clean configs
+abbr pacu 'sudo pacman -Syu'    # update the database and update the system
+abbr pacuu 'sudo pacman -Syyu' # force a full refresh of database and update the system, must do this when switching branches/mirrors
+abbr pacuU 'sudo pacman -Syyuu' # like pacuu, but allow downgrade, only needed when switch to old branch like testing->stable
+abbr paco 'pacman -Qdt'         # To list all orphans, installed packages that are not used by anything else and should no longer be needed
+abbr pacor 'sudo pacman -Rsun (pacman -Qdtq)' # remove package and its configs in paco
+function pacsh -d 'search info about package, first search installed then search in repo'
+    pacman -Qi $argv
+    or pacman -Si $argv
+end
+# yay, install it first
+# git clone https://aur.archlinux.org/yay.git; cd yay; makepkg -si
+abbr yayi 'yay -S'
+abbr yays 'yay -Ss'
+abbr yayc 'yay Yc'
+# check yay --help for more
 
 # donnot show the other info on startup
 abbr gdb 'gdb -q'
