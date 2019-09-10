@@ -531,6 +531,7 @@ function abbrc -d 'clean abbrs in `abbr --show` but not in $FISHRC'
     end
 end
 
+abbr wh 'which'
 function fu -d 'fu command and prompt to ask to open it or not'
     # $argv could be builtin keyword, function, alias, file(bin/script) in $PATH, abbr
     # And they all could be defined in script or temporally (could be found in any file)
@@ -1063,6 +1064,7 @@ abbr apar 'sudo apt-get autoremove -V'
 abbr aps 'apt-cache search'
 # pacman/yay for manjaro/arch/...
 abbr paci 'sudo pacman -Syu --needed' # -S to install a package, -Syu pkg to ensure the system is update to date then install the package
+abbr paciy 'sudo pacman -Syu --needed --noconfirm'
 abbr pacil 'sudo pacman -U' # install package from a local .pkg.tar.xz/link file
 abbr pacs 'pacman -Ss'      # search for package to install
 abbr pacl 'pacman -Ql'
