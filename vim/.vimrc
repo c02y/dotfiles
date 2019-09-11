@@ -115,9 +115,17 @@ function! ListToggle()
         set list
     endif
 endfunction
+function! WrapLineToggle()
+    if(&wrap == 1)
+        set nowrap
+    else
+        set wrap
+    endif
+endfunction
 nnoremap <Leader>tt :call RelativeToggle()<CR>
 nnoremap <Leader>tn :call NumberToggle()<CR>
 nnoremap <Leader>tw :call ListToggle()<CR>
+nnoremap <Leader>tl :call WrapLineToggle()<CR>
 
 function! GotoClosedFold(dir)
     let cmd = 'norm!z' . a:dir
