@@ -1042,6 +1042,8 @@ Emacs session."
     "w\\" 'split-window-right-next-buffer
     ;; the default binding is SPC w +
     "w SPC" 'spacemacs/window-layout-toggle
+    ;; the default is other-frame
+    "w o" 'spacemacs/window-split-single-column
     ;; the default binding is SPC j b
     "j SPC" 'avy-pop-mark
     "j r" 'avy-resume
