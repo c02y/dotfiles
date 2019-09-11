@@ -92,13 +92,6 @@ augroup numbertoggle
     autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
     autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
 augroup END
-function! RelativeToggle()
-    if(&rnu == 1)
-        set nornu nonu
-    else
-        set number relativenumber
-    endif
-endfunction
 function! NumberToggle()
     if(&rnu == 1 && &nu == 1)
         set nornu nu
@@ -108,24 +101,10 @@ function! NumberToggle()
         set number
     endif
 endfunction
-function! ListToggle()
-    if(&list == 1)
-        set nolist
-    else
-        set list
-    endif
-endfunction
-function! WrapLineToggle()
-    if(&wrap == 1)
-        set nowrap
-    else
-        set wrap
-    endif
-endfunction
-nnoremap <Leader>tt :call RelativeToggle()<CR>
+nnoremap <Leader>tt :set number! relativenumber!<CR>
 nnoremap <Leader>tn :call NumberToggle()<CR>
-nnoremap <Leader>tw :call ListToggle()<CR>
-nnoremap <Leader>tl :call WrapLineToggle()<CR>
+nnoremap <Leader>tw :set list!<CR>
+nnoremap <Leader>tl :set wrap!<CR>
 
 function! GotoClosedFold(dir)
     let cmd = 'norm!z' . a:dir
