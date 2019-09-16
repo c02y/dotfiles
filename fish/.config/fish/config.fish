@@ -1339,8 +1339,35 @@ abbr gitt 'git tag'
 abbr gitft 'git ls-files --error-unmatch' # Check if file/dir is git-tracked
 abbr gitpu 'git push -v'
 abbr gitpl 'git pull'
-abbr gitpld 'git -C ~/Dotfiles.d/ pull'
 abbr gitpr 'git pull --rebase=interactive'
+function gitpls -d 'git pull another repo from current dir, ~/.emacs.d(-e), ~/.space-vim(-v), ~/Dotfiles.d(by default), all(-a), or add argument'
+    set -l options 'e' 'v' 'a'
+    argparse -n gitpls $options -- $argv
+    or return
+
+    if set -q _flag_a
+        echo "git pull in ~/.emacs.d..."
+        git -C ~/.emacs.d pull
+        echo "git pull in ~/.space-vim..."
+        git -C ~/.space-vim pull
+        echo "git pull in ~/.Dotfiles.d..."
+        git -C ~/Dotfiles.d pull
+    else if set -q _flag_e
+        echo "git pull in ~/.emacs.d..."
+        git -C ~/.emacs.d pull
+    else if set -q _flag_s
+        echo "git pull in ~/.space-vim..."
+        git -C ~/.space-vim pull
+    else
+        if set -q $argv
+            echo "git pull in ~/.Dotfiles.d..."
+            git -C ~/Dotfiles.d pull
+        else
+            echo "git pull in $argv..."
+            git -C $argv pull
+        end
+    end
+end
 function gitrm -d 'clean untracked file/dirs(fileA fileB...), all by default)'
     if set -q $argv             # no given argv
         git clean -f -d
