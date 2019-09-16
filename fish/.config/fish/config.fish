@@ -1076,15 +1076,14 @@ abbr pacC 'paccache -rvk2'      # remove old package cache files is to remove al
 abbr pacrc 'sudo pacman -Rsu'   # like pacr, but don't clean configs
 abbr pacu 'yay' # update the database and update the system, pacman only updates from repo, yay updates from both repo and aur
 abbr pacuu 'yay -Syyu' # force a full refresh of database and update the system, must do this when switching branches/mirrors
-abbr pacuU 'sudo pacman -Syyuu' # like pacuu, but allow downgrade, only needed when switch to old branch like testing->stable
+abbr pacuU 'yay -Syyuu' # like pacuu, but allow downgrade, needed when switch to old branch like testing->stable or you seen local xxx is newer than xxx
 abbr paco 'pacman -Qdt' # To list all orphans, installed packages that are not used by anything else and should no longer be needed
 abbr pacor 'sudo pacman -Rsun (pacman -Qdtq)' # remove package and its configs in paco
 function pacsh -d 'search info about package, first search installed then search in repo'
     pacman -Qi $argv
     or pacman -Si $argv
 end
-# yay, install it first
-# git clone https://aur.archlinux.org/yay.git; cd yay; makepkg -si
+# yay, install it first using `paci yay`
 abbr yayi 'yay -S'
 abbr yays 'yay -Ss'
 abbr yayc 'yay -Yc'
