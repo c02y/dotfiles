@@ -1782,6 +1782,25 @@ abbr st 'stow -DRv'
 abbr ptp 'ptipython'
 # install pytest and pytest-pep8 first, to check if the code is following pep8 guidelines
 abbr pyp8 'py.test --pep8'
+function penv -d 'python3 -m venv in fish'
+    if not test -d $argv
+        python3 -m venv $argv
+    else if not test -f $argv/bin/activate.fish
+        echo "$argv exists but it is not python venv"
+        return -1
+    end
+    . $argv/bin/activate.fish
+end
+# abbr x 'exit'
+function x -d 'exit or deactivate in python env'
+    if test -n "$VIRTUAL_ENV"
+        # TODO: since sth. is wrong with the deactivate function in $argv/bin/activate.fish
+        deactivate ^/dev/null >/dev/null
+        source $FISHRC
+    else
+        exit
+    end
+end
 
 # abbr rea 'sudo ~/.local/bin/reaver -i mon0 -b $argv[1] -vv'
 # function rea
@@ -1790,7 +1809,6 @@ abbr pyp8 'py.test --pep8'
 
 abbr epub 'ebook-viewer --detach'
 alias time 'time -p'
-abbr x 'exit'
 
 abbr sss 'ps -eo tty,command | grep -v grep | grep "sudo ssh "'
 abbr p 'ping -c 5'
