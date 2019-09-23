@@ -1789,13 +1789,15 @@ function penv -d 'python3 -m venv in fish'
         echo "$argv exists but it is not python venv"
         return -1
     end
-    . $argv/bin/activate.fish
+    cd $argv
+    . ./bin/activate.fish
 end
 # abbr x 'exit'
 function x -d 'exit or deactivate in python env'
     if test -n "$VIRTUAL_ENV"
         # TODO: since sth. is wrong with the deactivate function in $argv/bin/activate.fish
         deactivate ^/dev/null >/dev/null
+        cd -
         source $FISHRC
     else
         exit
