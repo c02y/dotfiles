@@ -1063,22 +1063,21 @@ abbr apr 'sudo apt-get remove -V'
 abbr apar 'sudo apt-get autoremove -V'
 abbr aps 'apt-cache search'
 # pacman/yay for manjaro/arch/...
-# powerpill is a wraper of pacman to use aria2 to download packages concurrency
-abbr paci 'sudo powerpill -Syu --needed' # -S to install a package, -Syu pkg to ensure the system is update to date then install the package
-abbr paciy 'sudo powerpill -Syu --needed --noconfirm'
+abbr paci 'sudo pacman -Syu --needed' # -S to install a package, -Syu pkg to ensure the system is update to date then install the package
+abbr paciy 'sudo pacman -Syu --needed --noconfirm'
 abbr pacil 'sudo pacman -U' # install package from a local .pkg.tar.xz/link file
 abbr pacs 'pacman -Ss'      # search for package to install
 abbr pacl 'pacman -Ql'
 abbr pacls 'pacman -Qs'         # search for local installed packages
 abbr pacr 'yay -Rsun' # remove a package and its unneeded dependencies, and clean configs
 abbr pacrc 'yay -Rsu' # like pacr, but don't clean configs
-abbr pacrd 'yay -Rscn'          # like dependencies and their configs
+abbr pacrd 'yay -Rscn'          # do not remove dependencies and their configs
 abbr pacd 'sudo pacman -Sw'     # download package without installing
 abbr pacc 'sudo pacman -Sc'     # clean packages cache
 abbr pacC 'paccache -rvk2'      # remove old package cache files is to remove all packages except for the latest 2 package versions
-abbr pacu 'sudo powerpill -Syu' # update the database and update the system, pacman only updates from repo, yay updates from both repo and aur
-abbr pacuu 'sudo powerpill -Syyu' # force a full refresh of database and update the system, must do this when switching branches/mirrors
-abbr pacud 'sudo powerpill -Syyuu' # like pacuu, but allow downgrade, needed when switch to old branch like testing->stable or you seen local xxx is newer than xxx
+abbr pacu 'yay -Syu' # update the database and update the system, pacman only updates from repo, yay updates from both repo and aur
+abbr pacuu 'yay -Syyu' # force a full refresh of database and update the system, must do this when switching branches/mirrors
+abbr pacud 'yay -Syyuu' # like pacuu, but allow downgrade, needed when switch to old branch like testing->stable or you seen local xxx is newer than xxx
 abbr paco 'pacman -Qdt' # To list all orphans, installed packages that are not used by anything else and should no longer be needed
 abbr pacor 'sudo pacman -Rsun (pacman -Qdtq)' # remove package and its configs in paco
 function pacsh -d 'search info about package, first search installed then search in repo'
