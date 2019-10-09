@@ -61,6 +61,8 @@ This function should only modify configuration layer settings."
              python-format-on-save t
              python-sort-imports-on-save t
              )
+     ;; NOTE: `pip install jupyter', then run `jupyter notebook'
+     ipython-notebook
      git
      helm
      ;; replace multiple-cursors with symbol-overlay(SPC s o)
