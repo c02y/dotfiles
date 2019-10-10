@@ -846,6 +846,16 @@ abbr lessf 'less $FISHRC'
 abbr lesse 'less $EMACS_EL'
 abbr lessv 'less $VIMRC'
 abbr lessem 'less ~/.local/bin/emm'
+# NOTE: there is a package called mdv, don't use it
+function mdv -d 'markdown viewer in terminal'
+    if command -sq mdcat
+        mdcat $argv | less
+    else if command -sq pandoc; and command -sq lynx
+        pandoc $argv | lynx --stdin
+    else
+        echo "Please make sure pandoc+lynx or mdcat are installed!"
+    end
+end
 
 # # color in less a code file
 # if command -sq pygmentize # check if command pygmentize exists
