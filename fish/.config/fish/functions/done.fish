@@ -20,11 +20,14 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-set -g __done_version 1.8.1
+set -g __done_version 1.9.0
 
 function __done_get_focused_window_id
 	if type -q lsappinfo
 		lsappinfo info -only bundleID (lsappinfo front) | cut -d '"' -f4
+	else if test $SWAYSOCK
+	and type -q jq
+		swaymsg --type get_tree | jq '.. | objects | select(.focused == true) | .id'
 	else if type -q xprop
 	and test $DISPLAY
 		xprop -root 32x '\t$0' _NET_ACTIVE_WINDOW | cut -f 2
@@ -84,12 +87,6 @@ and count (__done_get_focused_window_id) > /dev/null  # is able to get window id
 			set -l message "$wd/ $history[1]"
 			set -l sender $__done_initial_window_id
 
-			# workarout terminal notifier bug when sending notifications from inside tmux
-			# https://github.com/julienXX/terminal-notifier/issues/216
-			if test $TMUX
-				set sender "tmux"
-			end
-
 			if test $exit_status -ne 0
 				set title "Failed ($exit_status) after $humanized_duration"
 			end
@@ -97,7 +94,7 @@ and count (__done_get_focused_window_id) > /dev/null  # is able to get window id
 			if set -q __done_notification_command
 				eval $__done_notification_command
 			else if type -q terminal-notifier  # https://github.com/julienXX/terminal-notifier
-				terminal-notifier -message "$message" -title "$title" -sender "$sender" -activate "$__done_initial_window_id"
+				terminal-notifier -message "$message" -title "$title" -sender "$__done_initial_window_id"
 
 			else if type -q osascript  # AppleScript
 				osascript -e "display notification \"$message\" with title \"$title\""
