@@ -600,7 +600,8 @@ https://github.com/syl20bnr/spacemacs/issues/12346"
     (setq ispell-program-name "aspell"
           ;; Please note ispell-extra-args contains ACTUAL parameters passed to aspell
           ispell-extra-args '("--sug-mode=ultra" "--lang=en_US"))
-    (message "hunspell not found, use aspell for spell-check!")))
+    ;; (message "hunspell not found, use aspell for spell-check!")
+    ))
   (setq ispell-local-dictionary "en_US"
         ispell-local-dictionary-alist
         ;; Please note the list `("-d" "en_US")` contains ACTUAL parameters passed to hunspell
