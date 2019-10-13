@@ -996,13 +996,6 @@ function deb -d 'deb package, list(default)/extract(x)'
     end
 end
 
-alias wget 'wget -c --no-check-certificate'
-abbr wgets 'wget -c --mirror -p --html-extension --convert-links'
-abbr wt 'bash -c \'rm -rf /tmp/XLN* 2>/dev/null\'; wget -c -P /tmp/ http://down.sandai.net/XLNetAcc/XLNetAccSetup.exe'
-abbr wtt 'bash -c \'rm -rf /tmp/XMPS* 2>/dev/null\'; wget --connect-timeout=5 -c -P /tmp/ http://xmp.down.sandai.net/xmp/XMPSetup_5.4.5.6478.exe'
-# curl -L -O -C - https://site.com/file.iso
-abbr a2 'aria2c -c -x 5 --check-certificate=false --file-allocation=none'
-
 # rpm
 function rpms -d 'rpm file, install(i)/extract(x)/list(default)'
     set -l options 'i' 'x'
@@ -1876,7 +1869,18 @@ function port -d 'list all the ports are used or check the process which are usi
         netstat -tulpn
     end
 end
+
 abbr px 'proxychains4'
+alias pxw 'proxychains4 wget -c --no-check-certificate'
+alias pxa 'proxychains4 aria2c -c -x 5 --check-certificate=false --file-allocation=none'
+alias pxc 'proxychains4 curl -L -O -C -'
+alias wget 'wget -c --no-check-certificate'
+alias wgets 'wget -c --mirror -p --html-extension --convert-links'
+alias curls 'curl -L -O -C -'
+# curl -L -O -C - https://site.com/file.iso
+alias aria2 'aria2c -c -x 5 --check-certificate=false --file-allocation=none'
+abbr wt 'bash -c \'rm -rf /tmp/XLN* 2>/dev/null\'; wget -c -P /tmp/ http://down.sandai.net/XLNetAcc/XLNetAccSetup.exe'
+abbr wtt 'bash -c \'rm -rf /tmp/XMPS* 2>/dev/null\'; wget --connect-timeout=5 -c -P /tmp/ http://xmp.down.sandai.net/xmp/XMPSetup_5.4.5.6478.exe'
 
 # bc -- calculator
 function bc --description 'calculate in command line using bc non-interactive mode if needed, even convert binary/octual/hex'
