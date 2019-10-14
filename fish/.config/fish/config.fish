@@ -824,7 +824,7 @@ function dfs -d 'df(-l), ncdu(-i), du(by default)'
         if test (count $argv) -gt 1 # $argv contains /* at the end of path
             du -cs $argv | sort -h
         else
-            du -cs .
+            du -cs $argv
         end
     end
 end
