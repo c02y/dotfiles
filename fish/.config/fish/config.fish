@@ -734,9 +734,19 @@ function finds -d 'find a file/folder and view/edit using less/vim/emacs/emx/cd/
     end
 
     if set -q _flag_l           # find a file and view it using less
-        find $ARGV1 -iname "*$ARGV2*" | fzf --bind 'enter:execute:less {} < /dev/tty'
+        if test (find $ARGV1 -iname "*$ARGV2*" | wc -l) = 1
+            find $ARGV1 -iname "*$ARGV2*" | xargs less
+        else
+            # fzf part cannot handle when result is only one file
+            find $ARGV1 -iname "*$ARGV2*" | fzf --bind 'enter:execute:command less {} < /dev/tty'
+        end
     else if set -q _flag_v      # find a file and view it using vim
-        find $ARGV1 -iname "*$ARGV2*" | fzf --bind 'enter:execute:vim {} < /dev/tty'
+        if test (find $ARGV1 -iname "*$ARGV2*" | wc -l) = 1
+            find $ARGV1 -iname "*$ARGV2*" | xargs nvim
+        else
+            # fzf part cannot handle when result is only one file
+            find $ARGV1 -iname "*$ARGV2*" | fzf --bind 'enter:execute:vim {} < /dev/tty'
+        end
     else if set -q _flag_e      # find a file and view it using emm
         emm (find $ARGV1 -iname "*$ARGV2*" | fzf)
     else if set -q _flag_x      # find a file and view it using emx
