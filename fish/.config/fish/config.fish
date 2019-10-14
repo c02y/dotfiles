@@ -356,14 +356,11 @@ abbr va 'valgrind --track-origins=yes --leak-check=full'
 # more detail about time
 abbr vad 'valgrind --tool=callgrind --dump-instr=yes --simulate-cache=yes --collect-jumps=yes'
 
-abbr im 'ristretto'
-abbr ds 'display'
-
-abbr ka 'killall -9'
+abbr kill9 'killall -9'
 # If Emacs hangs and won't response to C-g, use this to force it to stop whatever it's doing
 # Note that do not use this if you got more than one instances of Emacs running
 # Use `pkill -SIGUSR2 PID` to kill the PID, send SIGUSR2 to emacs will turn on `toggle-debug-on-quit`, turn it off once emacs is alive again
-abbr ke 'pkill -SIGUSR2 emacs'
+abbr kille 'pkill -SIGUSR2 emacs'
 # get the pid of a gui program using mouse
 abbr pid 'xprop | grep -i pid | grep -Po "[0-9]+"'
 function psg -d 'pgrep process'
@@ -798,29 +795,10 @@ function lop --description 'locate the full/exact file'
     locate -e -r "/$argv[1]\$"
 end
 
-# du
+# df+du+ncdu
 alias du 'du -h --apparent-size'
-abbr dul 'sudo du --summarize -h -c /var/log/* | sort -h'
-function dus
-    if test (count $argv) -gt 1 # $argv contains /* at the end of path
-        du -cs $argv | sort -h
-    else
-        du -cs $argv
-    end
-end
-function duss --description 'list and sort all the files recursively by size'
-    du -ah $argv | grep -v "/\$" | sort -rh
-end
-
-abbr watd 'watch -d du --summarize'
-function watch -d 'wrap default watch to support aliases and functions'
-    while test 1
-        date; eval $argv
-        sleep 1; echo
-    end
-end
-function dfs -d 'df or ncdu(-i)'
-    set -l options 'i'
+function dfs -d 'df(-l), ncdu(-i), du(by default)'
+    set -l options 'i' 'l'
     argparse -n dfs $options -- $argv
     or return
 
@@ -830,8 +808,22 @@ function dfs -d 'df or ncdu(-i)'
         else
             echo "ncdu is not installed!"
         end
-    else
+    else if set -q _flag_l
         df -Th | grep -v grep | grep -v tmpfs | grep -v boot | grep -v var | grep -v snapshots | grep -v opt | grep -v tmp | grep -v srv | grep -v usr | grep -v user
+    else
+        if test (count $argv) -gt 1 # $argv contains /* at the end of path
+            du -cs $argv | sort -h
+        else
+            du -cs .
+        end
+    end
+end
+
+abbr watd 'watch -d du --summarize'
+function watch -d 'wrap default watch to support aliases and functions'
+    while test 1
+        date; eval $argv
+        sleep 1; echo
     end
 end
 # stop less save search history into ~/.lesshst
