@@ -819,8 +819,21 @@ function watch -d 'wrap default watch to support aliases and functions'
         sleep 1; echo
     end
 end
-# abbr df '/bin/df -hT -x tmpfs -x devtmpfs'
-alias df 'df -Th | grep -v grep | grep -v tmpfs | grep -v boot | grep -v var | grep -v snapshots | grep -v opt | grep -v tmp | grep -v srv | grep -v usr | grep -v user'
+function dfs -d 'df or ncdu(-i)'
+    set -l options 'i'
+    argparse -n dfs $options -- $argv
+    or return
+
+    if set -q _flag_i
+        if command -sq ncdu
+            ncdu --color dark $argv
+        else
+            echo "ncdu is not installed!"
+        end
+    else
+        df -Th | grep -v grep | grep -v tmpfs | grep -v boot | grep -v var | grep -v snapshots | grep -v opt | grep -v tmp | grep -v srv | grep -v usr | grep -v user
+    end
+end
 # stop less save search history into ~/.lesshst
 # or LESSHISTFILE=-
 # set -gx LESSHISTFILE /dev/null $LESSHISTFILE
