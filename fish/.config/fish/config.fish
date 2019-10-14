@@ -1651,25 +1651,39 @@ function gitdl -d 'download several files from github'
     end
 end
 
-function nvimp -d 'check if nvim exists, or with any argument, download the latest stable/nightly version'
+function nvimp -d 'check if nvim exists, or with any argument, download the latest stable/nightly(-n) version'
+    set -l options 'n'
+    argparse -n nvimp $options -- $argv
+    or return
+
     if command -sq nvim; and set -q $argv[1] # nvim is in $PATH, and no any argv is given, two conditions
         return 0
     else
-        # https://github.com/neovim/neovim/releases/download/v0.4.2/nvim.appimage
-        set tag_name (curl -s "https://api.github.com/repos/neovim/neovim/releases/latest" | grep "tag_name" | cut -d : -f 2 | awk -F[\"\"] '{print $2}')
-        if not test $tag_name
-            echo "API rate limit exceeded, please input your password for your username!"
-            set tag_name (curl -u c02y -s "https://api.github.com/repos/neovim/neovim/releases/latest" | grep "tag_name" | cut -d : -f 2 | awk -F[\"\"] '{print $2}')
-        end
-        set file_name (echo nvim.appimage)
-        set file_link (echo https://github.com/neovim/neovim/releases/download/$tag_name/$file_name)
-        wget $file_link -O /tmp/$file_name
-        if test -f /tmp/$file_name
-            install -m 755 /tmp/$file_name ~/.local/bin/nvim
-            return 0
+        if set -q _flag_n
+            curl -o ~/.local/bin/nvim -LO https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage
+            if test -f ~/.local/bin/nvim
+                chmod +x ~/.local/bin/nvim
+                return 0
+            else
+                return 1
+            end
         else
-            echo "nvim doesn't exist and error occurs when downloading it!"
-            return 1
+            # https://github.com/neovim/neovim/releases/download/v0.4.2/nvim.appimage
+            set tag_name (curl -s "https://api.github.com/repos/neovim/neovim/releases/latest" | grep "tag_name" | cut -d : -f 2 | awk -F[\"\"] '{print $2}')
+            if not test $tag_name
+                echo "API rate limit exceeded, please input your password for your username!"
+                set tag_name (curl -u c02y -s "https://api.github.com/repos/neovim/neovim/releases/latest" | grep "tag_name" | cut -d : -f 2 | awk -F[\"\"] '{print $2}')
+            end
+            set file_name (echo nvim.appimage)
+            set file_link (echo https://github.com/neovim/neovim/releases/download/$tag_name/$file_name)
+            wget $file_link -O /tmp/$file_name
+            if test -f /tmp/$file_name
+                install -m 755 /tmp/$file_name ~/.local/bin/nvim
+                return 0
+            else
+                echo "nvim doesn't exist and error occurs when downloading it!"
+                return 1
+            end
         end
     end
 end
