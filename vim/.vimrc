@@ -42,6 +42,14 @@ set vb t_vb=
 " show all whitespaces, use `:set list` to show
 set listchars=tab:»\ ,extends:›,precedes:‹,nbsp:·,trail:·,eol:$,space:·,conceal:·
 
+" specll checking
+set spell spelllang=en_us
+set complete+=kspell
+" C-x+C-l for completing the whole line, C-x+C-] for tag
+" C-x+C-n for keywords in the current file, C-x+C-f for file name
+" C-x+s for spelling suggestions
+" check for ':h ins-completion' for more shortcuts for completion
+"
 " normal mode in GUI
 nnoremap <C-DOWN> <C-W><C-J> "Ctrl-j to move down a split
 nnoremap <C-UP> <C-W><C-K> "Ctrl-k to move up a split
@@ -442,6 +450,9 @@ map <A-Right> <A-l>
 Plug 'junegunn/vim-easy-align'
 xmap <Leader>xa <Plug>(EasyAlign)
 nmap <Leader>xa <Plug>(EasyAlign)
+
+Plug 'mbbill/undotree'
+nnoremap <Leader>ru :UndotreeToggle<cr>
 
 " Put Plug parts between plug#begin() and plug #end()
 " Initialize plugin system

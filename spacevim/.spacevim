@@ -195,6 +195,9 @@ function! UserInit()
     map <A-Left> <A-h>
     map <A-Right> <A-l>
 
+    Plug 'mbbill/undotree'
+    nnoremap <Leader>ru :UndotreeToggle<cr>
+
     set nomodeline " fix the error message about modeline
     if has('nvim')
         set inccommand=split
@@ -229,6 +232,14 @@ function! UserConfig()
     " Use the following format to overwrite configs in it
     runtime! plugin/default.vim
     set listchars=tab:»\ ,extends:›,precedes:‹,nbsp:·,trail:·,eol:$,space:·,conceal:·
+
+    " specll checking
+    set spell spelllang=en_us
+    set complete+=kspell
+    " C-x+C-l for completing the whole line, C-x+C-] for tag
+    " C-x+C-n for keywords in the current file, C-x+C-f for file name
+    " C-x+s for spelling suggestions
+    " check for ':h ins-completion' for more shortcuts for completion
 
     " be able to add/modify description for bindings under leader key
     let g:spacevim#map#leader#desc = g:spacevim#map#leader#desc
