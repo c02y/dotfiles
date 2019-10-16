@@ -98,6 +98,8 @@ This function should only modify configuration layer settings."
             ;; just get rid of the warning message
             c-c++-lsp-cache-dir "/tmp/ccls"
             )
+     ;; NOTE: install cscope, pip install pycscope
+     cscope
      ;; NOTE: to generate compile_commands.json file for lsp before using lsp
      ;; 1. `cmake -H. -BDebug -DCMAKE_BUILD_TYPE=Debug -DCMAKE_EXPORT_COMPILE_COMMANDS=YES; ln -s Debug/compile_commands.json'
      ;; 2. install Bear, use it like `bear <build_commands>' like `bear make'
