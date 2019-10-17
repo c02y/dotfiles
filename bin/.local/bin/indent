@@ -1,0 +1,9 @@
+#!/bin/bash
+
+[[ -d $1 ]] && cd "$1"
+
+# nvim -es -c 'args ~/Public/ncdu.bak/**/*.[ch] | argdo execute "normal gg=G" | update'
+nvim -es -c 'args ./**/*.[ch] | argdo execute "normal gg=G" | update'
+nvim -es -c 'args ./**/*.cpp | argdo execute "normal gg=G" | update'
+
+[[ -d $1 ]] && cd --
