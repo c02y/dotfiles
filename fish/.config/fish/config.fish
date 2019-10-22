@@ -1058,6 +1058,7 @@ abbr dnfl 'dnf list installed| less'
 abbr dnfs 'sudo dnf search'
 abbr dnfsa 'sudo dnf search all'
 abbr dnful 'sudo dnf history undo last'
+
 # zypper for openSUSE/...
 abbr zppi 'sudo zypper install --details'
 abbr zppiy 'sudo zypper install -y -v --details'
@@ -1074,12 +1075,14 @@ abbr zppu 'sudo zypper update --details'
 abbr zppud 'sudo zypper dist-upgrade -l --details'
 abbr zppdup 'sudo zypper dist-upgrade -l --details --no-recommends'
 abbr zppca 'sudo zypper clean --all'
+
 # apt for ubuntu/debian/...
 abbr api 'sudo apt-get install -V'
 abbr apu 'sudo apt-get update; sudo apt-get upgrade -V'
 abbr apr 'sudo apt-get remove -V'
 abbr apar 'sudo apt-get autoremove -V'
 abbr aps 'apt-cache search'
+
 # pacman/yay for manjaro/arch/...
 abbr paci 'sudo pacman -Syu --needed' # -S to install a package, -Syu pkg to ensure the system is update to date then install the package
 abbr paciy 'sudo pacman -Syu --needed --noconfirm'
@@ -1106,13 +1109,20 @@ function yaysh -d 'search info about package, first search installed then search
     yay -Qi $argv
     or yay -Si $argv
 end
-# yay, install it first using `paci yay`
-abbr yayi 'yay -S'
-abbr yays 'yay -Ss'
+# yay, install it first
 abbr yayc 'yay -Yc'
-abbr yayu 'yay -Syu'            # yay == yay -Syu
+abbr yayu 'yay -Syu'  # yay == yay -Syu
 abbr yayr 'yay -Rsun'
 # check yay --help for more
+# pacui, depending on yay, install it first
+abbr pui 'pacui'
+abbr puii 'pacui i'
+abbr puid 'pacui d'   # downgrade a package
+abbr puil 'pacui s'   # list files in a package
+abbr puila 'pacui la' # list packages installed from aur
+abbr puils 'pacui ls' # list installed packages by size
+abbr puir 'pacui r'
+# check pacui h/help for more
 
 # donnot show the other info on startup
 abbr gdb 'gdb -q'
