@@ -886,10 +886,11 @@ end
 # end
 # nums are explained at
 # http://www.tuxarena.com/2012/04/tutorial-colored-man-pages-how-it-works/
+# https://unix.stackexchange.com/questions/108699/documentation-on-less-termcap-variables
 set -gx LESS_TERMCAP_me \e'[0m' # turn off all appearance modes (mb, md, so, us)
 set -gx LESS_TERMCAP_se \e'[0m' # leave standout mode
 set -gx LESS_TERMCAP_ue \e'[0m' # leave underline mode
-set -gx LESS_TERMCAP_so \e'[01;44m' # standout-mode – info
+set -gx LESS_TERMCAP_so \e'[30;44m' # standout-mode – info
 set -gx LESS_TERMCAP_mb \e'[01;31m' # enter blinking mode
 set -gx LESS_TERMCAP_md \e'[01;38;5;75m' # enter double-bright mode
 set -gx LESS_TERMCAP_us \e'[04;38;5;200m' # enter underline mode
