@@ -138,23 +138,23 @@ function! UserInit()
     " for syntax-checking layer, check https://github.com/liuchengxu/space-vim/issues/407
     " Comment the following part out to enable ale plug
     "
-    " Plug 'w0rp/ale'
-    " let g:ale_set_highlights = 0
-    " let g:ale_fix_on_save = 1
-    " let g:ale_echo_msg_format = '[#%linter%#] %s [%severity%]'
-    " let g:ale_statusline_format = ['E•%d', 'W•%d', 'OK']
-    " let g:ale_sign_error = '•'
-    " let g:ale_sign_warning = '•'
-    " let g:ale_echo_msg_error_str = g:spacevim.gui ? 'Error' : '✹ Error'
-    " let g:ale_echo_msg_warning_str = g:spacevim.gui ? 'Warning' : '⚠ Warning'
-    " let g:ale_completion_delay = 500
-    " let g:ale_echo_delay = 20
-    " let g:ale_lint_delay = 500
-    " let g:ale_lint_on_text_changed = 'normal'
-    " let g:ale_lint_on_insert_leave = 1
-    " nmap <Leader>en <Plug>(ale_next)
-    " nmap <Leader>ep <Plug>(ale_previous)
-    " nnoremap <Leader>ts :ALEToggle<CR>
+    Plug 'w0rp/ale'
+    let g:ale_set_highlights = 0
+    let g:ale_fix_on_save = 1
+    let g:ale_echo_msg_format = '[#%linter%#] %s [%severity%]'
+    let g:ale_statusline_format = ['E•%d', 'W•%d', 'OK']
+    let g:ale_sign_error = '•'
+    let g:ale_sign_warning = '•'
+    let g:ale_echo_msg_error_str = g:spacevim.gui ? 'Error' : '✹ Error'
+    let g:ale_echo_msg_warning_str = g:spacevim.gui ? 'Warning' : '⚠ Warning'
+    let g:ale_completion_delay = 500
+    let g:ale_echo_delay = 20
+    let g:ale_lint_delay = 500
+    let g:ale_lint_on_text_changed = 'normal'
+    let g:ale_lint_on_insert_leave = 1
+    nmap <Leader>en <Plug>(ale_next)
+    nmap <Leader>ep <Plug>(ale_previous)
+    nnoremap <Leader>ts :ALEToggle<CR>
 
     Plug 'tpope/vim-repeat'
 
@@ -433,4 +433,21 @@ function! UserConfig()
     endfunction
     call airline#add_statusline_func('WindowNumber')
     call airline#add_inactive_statusline_func('WindowNumber')
+
+    " Follow symlinks when opening a file
+    " Sources:
+    "  - https://github.com/tpope/vim-fugitive/issues/147#issuecomment-7572351
+    "  - http://www.reddit.com/r/vim/comments/yhsn6/is_it_possible_to_work_around_the_symlink_bug/c5w91qw
+    " Echoing a warning does not appear to work:
+    "   echohl WarningMsg | echo "Resolving symlink." | echohl None |
+    function! MyFollowSymlink(...)
+        let fname = a:0 ? a:1 : expand('%')
+        if getftype(fname) != 'link'
+            return
+        endif
+        let resolvedfile = fnameescape(resolve(fname))
+        exec 'file ' . resolvedfile
+    endfunction
+    command! FollowSymlink call MyFollowSymlink()
+    autocmd BufReadPost * call MyFollowSymlink(expand('<afile>'))
 endfunction
