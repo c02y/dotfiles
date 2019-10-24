@@ -742,7 +742,7 @@ function finds -d 'find a file/folder and view/edit using less/vim/emacs/emx/cd/
         end
     else if set -q _flag_v      # find a file and view it using vim
         if test (find $ARGV1 -iname "*$ARGV2*" | wc -l) = 1
-            find $ARGV1 -iname "*$ARGV2*" | xargs nvim
+            find $ARGV1 -iname "*$ARGV2*" | xargs vim
         else
             # fzf part cannot handle when result is only one file
             find $ARGV1 -iname "*$ARGV2*" | fzf --bind 'enter:execute:vim {} < /dev/tty'
@@ -1227,8 +1227,7 @@ abbr np 'netease-player'
 abbr db 'douban.fm'
 
 #vim
-alias vim 'nvim'
-set -gx EDITOR 'nvim'
+set -gx EDITOR 'vim'
 abbr viu 'vim -u NONE'
 abbr vic 'vim ~/.cgdb/cgdbrc'
 alias viM 'vim -u ~/Dotfiles.d/vim/vimrc.more'
@@ -1695,9 +1694,9 @@ function nvimp -d 'check if nvim exists, or with any argument, download the late
         return 0
     else
         if set -q _flag_n
-            curl -o ~/.local/bin/nvim -LO https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage
-            if test -f ~/.local/bin/nvim
-                chmod +x ~/.local/bin/nvim
+            curl -o ~/.local/bin/vim -LO https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage
+            if test -f ~/.local/bin/vim
+                chmod +x ~/.local/bin/vim
                 return 0
             else
                 return 1
@@ -1713,7 +1712,7 @@ function nvimp -d 'check if nvim exists, or with any argument, download the late
             set file_link (echo https://github.com/neovim/neovim/releases/download/$tag_name/$file_name)
             wget $file_link -O /tmp/$file_name
             if test -f /tmp/$file_name
-                install -m 755 /tmp/$file_name ~/.local/bin/nvim
+                install -m 755 /tmp/$file_name ~/.local/bin/vim
                 return 0
             else
                 echo "nvim doesn't exist and error occurs when downloading it!"
