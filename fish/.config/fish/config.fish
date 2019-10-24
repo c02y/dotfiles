@@ -1112,6 +1112,7 @@ function pacch -d 'check if package is owned by others, if not, delete it'
     # "xxx existed in filesystem"
     # After executing this function with xxx one by one, execute the update command again
     # https://wiki.archlinux.org/index.php/Pacman#.22Failed_to_commit_transaction_.28conflicting_files.29.22_error
+    # NOTE: this can be also used to check what package provides the file/command/package
     for file in $argv
         if not pacman -Q -o $file
             sudo rm -rfv $file
