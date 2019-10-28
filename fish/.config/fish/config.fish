@@ -1077,12 +1077,13 @@ abbr zppud 'sudo zypper dist-upgrade -l --details'
 abbr zppdup 'sudo zypper dist-upgrade -l --details --no-recommends'
 abbr zppca 'sudo zypper clean --all'
 
-# apt for ubuntu/debian/...
-abbr api 'sudo apt-get install -V'
-abbr apu 'sudo apt-get update; sudo apt-get upgrade -V'
-abbr apr 'sudo apt-get remove -V'
-abbr apar 'sudo apt-get autoremove -V'
-abbr aps 'apt-cache search'
+# apt for ubuntu/debian/kali...
+abbr api 'sudo apt install -V'
+abbr apu 'sudo apt update; sudo apt full-upgrade -V'
+abbr apr 'sudo apt remove -V'
+abbr apar 'sudo apt autoremove -V'
+abbr aps 'apt search'
+abbr apd 'apt depends'
 
 # pacman/yay for manjaro/arch/...
 abbr paci 'sudo pacman -Syu --needed' # -S to install a package, -Syu pkg to ensure the system is update to date then install the package
