@@ -211,6 +211,32 @@ end
 
 alias check 'checkpatch.pl --ignore SPDX_LICENSE_TAG,CONST_STRUCT,AVOID_EXTERNS,NEW_TYPEDEFS --no-tree -f'
 
+function tag -d 'clean and create(with any arg) tags files for non-linux-kernel projects'
+    # delete existed tags files
+    rm -rf GPATH GTAGS GSYMS GRTAGS
+    rm -rf cscope.files cscope.in.out cscope.out cscope.po.out
+    rm -rf include_sys
+    echo Old files deleted!!
+
+    if not set -q $argv             # given any argv
+        # gtags > GPATH, GTAGS, GSYMS, GRTAGS
+        ln -s /usr/include include_sys
+        gtags -v
+        echo gtags done!!
+
+        # cscope > cscope.files, cscope.in.out cscope.out, cscope.po.out
+        find . -name "*.[ch]" -print > cscope.files
+        find /usr/include/* -name "*.[ch]" >> cscope.files
+        cscope -b -R -q
+        echo cscope done!!
+    end
+end
+
+function utf8 -d 'convert encoding(argv[1]) file(argv[2]) to UTF-8 file'
+    iconv -f $argv[1] -t UTF-8 $argv[2] > "$argv[2]".tmp
+    rm -fv $argv[2]
+    mv -v $argv[2]{.tmp,}
+end
 # TODO: the following part will make fish print "No protocol specified" error line
 source $HOME/.config/fish/functions/done.fish
 # the following script will make fish v3.0.0 prompt hang
@@ -925,7 +951,6 @@ abbr nh 'sudo nethogs wlp5s0'
 # =ifconfig= is obsolete! For replacement check =ip addr= and =ip link=. For statistics use =ip -s link=.
 # abbr ipp 'ip -4 -o address'
 abbr ipp 'ip addr'
-abbr tf 'traff wlan0'
 abbr m-c 'minicom --color=on'
 function tree
     if test -f /usr/bin/tree
@@ -1145,9 +1170,18 @@ abbr gdb 'gdb -q'
 abbr gdbx 'gdb -q -n'         # with loading any .gdbinit file
 
 # systemd-analyze
-function sab --description 'systemd-analyze blame->time'
-    systemd-analyze blame | head -40
-    systemd-analyze time
+function sab --description 'systemd-analyze blame->time, with any argv, open the result graphic'
+    if set -q $argv             # no given argv
+        systemd-analyze blame | head -40
+        systemd-analyze time
+    else
+        # more verbose version:
+        systemd-analyze blame > boottime
+        systemd-analyze time  >> boottime
+        systemd-analyze plot  >> boottime.svg
+        # open boottime.svg
+        gwenview boottime.svg
+    end
 end
 
 # cd
@@ -2145,7 +2179,7 @@ function ag
     #sed -i "s/.shell/\"$argv[1]\n.shell/g" ~/.lesshst
     echo "\"$argv[1]" >> ~/.lesshst
     if command -sq ag # check if ag command exists
-        command ag --ignore '*~' --ignore '#?*#' --ignore '.#?*' --ignore '*.swp' --ignore -s --pager='less -i -RM -FX -s' $argv
+        command ag --hidden --ignore '*~' --ignore '#?*#' --ignore '.#?*' --ignore '*.swp' --ignore -s --pager='less -i -RM -FX -s' $argv
     else
         grep -n --color=always $argv | more
         echo -e "\n...ag is not installed, use grep instead..."
