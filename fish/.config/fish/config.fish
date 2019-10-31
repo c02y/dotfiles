@@ -1729,9 +1729,9 @@ function nvimp -d 'check if nvim exists, or with any argument, download the late
         return 0
     else
         if set -q _flag_n
-            curl -o ~/.local/bin/nvim.appimage -LO https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage
-            if test -f ~/.local/bin/nvim.appimage
-                chmod +x ~/.local/bin/nvim.appimage
+            curl -o ~/.local/bin/nvim -LO https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage
+            if test -f ~/.local/bin/nvim
+                chmod +x ~/.local/bin/nvim
                 return 0
             else
                 return 1
@@ -1747,7 +1747,7 @@ function nvimp -d 'check if nvim exists, or with any argument, download the late
             set file_link (echo https://github.com/neovim/neovim/releases/download/$tag_name/$file_name)
             wget $file_link -O /tmp/$file_name
             if test -f /tmp/$file_name
-                install -m 755 /tmp/$file_name ~/.local/bin/nvim.appimage
+                install -m 755 /tmp/$file_name ~/.local/bin/nvim
                 return 0
             else
                 echo "nvim doesn't exist and error occurs when downloading it!"
