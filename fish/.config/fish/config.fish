@@ -679,7 +679,7 @@ function fzfp -d 'check if fzf is existed, with any argument, fzf binary file wi
     end
 end
 
-set -gx Z_PATH ~/.config/fish/functions/
+set -gx Z_PATH ~/.config/fish/functions
 if test -e $Z_PATH/z.lua
     source (lua $Z_PATH/z.lua --init fish once echo | psub)
     # z.lua using built-in cd which won't affect the cd stack of fish shell, use fish's cd so you can use `cd -`
@@ -693,9 +693,11 @@ function zp -d 'check exists of z.lua, with any given argument, update z.lua'
         # echo "z.lua is installed, use any extra to upgrade it!"
         return 0
     else
-        if not curl https://raw.githubusercontent.com/skywind3000/z.lua/master/z.lua -o /tmp/z.lua
-            echo "Failed to install/update z.lua due to Internet issue!"
-            return 1
+        if not curl https://raw.githubusercontent.com/skywind3000/z.lua/master/z.lua -o /tmp/z.lua --max-time 5
+            if not pxw https://raw.githubusercontent.com/skywind3000/z.lua/master/z.lua -O /tmp/z.lua
+                echo "Failed to install/update z.lua due to Internet issue!"
+                return 1
+            end
         else
             mv /tmp/z.lua $Z_PATH/z.lua
             return 0
@@ -704,7 +706,7 @@ function zp -d 'check exists of z.lua, with any given argument, update z.lua'
 end
 abbr zb 'z -b' # Bonus: zb .. equals to cd .., zb ... equals to cd ../.. and
 # zb .... equals to cd ../../.., and so on. Finally, zb ..20 equals to cd (..)x20.
-function zz -d 'z\'s interactive selection mode'
+function zz -d 'z interactive selection mode'
     if not zp
         echo "Failed to install z.lua!"
         return
@@ -1428,23 +1430,23 @@ function gitpls -d 'git pull another repo from current dir, ~/.emacs.d(-e), ~/.s
     argparse -n gitpls $options -- $argv
     or return
 
+    set dirs ~/.emacs.d ~/.space-vim ~/Dotfiles.d/
     if set -q _flag_a
-        echo "git pull in ~/.emacs.d..."
-        git -C ~/.emacs.d pull
-        echo "git pull in ~/.space-vim..."
-        git -C ~/.space-vim pull
-        echo "git pull in ~/.Dotfiles.d..."
-        git -C ~/Dotfiles.d pull
+        for dir in $dirs
+            echo "git pull in $dir..."
+            git -C $dir pull
+            echo -e "===================\n"
+        end
     else if set -q _flag_e
-        echo "git pull in ~/.emacs.d..."
-        git -C ~/.emacs.d pull
+        echo "git pull in $dirs[1]..."
+        git -C $dirs[1] pull
     else if set -q _flag_s
-        echo "git pull in ~/.space-vim..."
-        git -C ~/.space-vim pull
+        echo "git pull in $dirs[2]..."
+        git -C $dirs[2] pull
     else
         if set -q $argv
-            echo "git pull in ~/.Dotfiles.d..."
-            git -C ~/Dotfiles.d pull
+            echo "git pull in $dirs[3]..."
+            git -C $dirs[3] pull
         else
             echo "git pull in $argv..."
             git -C $argv pull
@@ -1679,43 +1681,42 @@ function gitdl -d 'download several files from github'
     argparse -n gitdl $options -- $argv
     or return
 
+    set bins fzf scc nvim z.lua
+    set funs fzfp sccp nvimp zp
     if set -q _flag_h
         echo "gitdl [-f/-s/-v/-z/-h]"
         echo "      no option --> once for all"
-        echo "      -f --> fzf"
-        echo "      -s --> scc"
-        echo "      -v --> nvim"
-        echo "      -z --> z.lua"
+        echo "      -f --> $bins[1]"
+        echo "      -s --> $bins[2]"
+        echo "      -v --> $bins[3]"
+        echo "      -z --> $bins[4]"
         echo "      -h --> usage"
         return
     else if set -q _flag_f
-        echo "Update/Download fzf..."
-        fzfp u
+        echo "Update/Download $bins[1]..."
+        eval $funs[1] u
     else if set -q _flag_s
-        echo "Update/Download scc..."
-        sccp u
+        echo "Update/Download $bins[2]..."
+        eval $funs[2] u
     else if set -q _flag_v
-        echo "Update/Download nvim..."
-        nvimp u
+        echo "Update/Download $bins[3]..."
+        eval $funs[3] u
     else if set -q _flag_z
-        echo "Update/Download z.lua..."
-        zp u
+        echo "Update/Download $bins[4]..."
+        eval $funs[4] u
     else                        # no option
-        read -n 1 -p 'echo "Update/Download all of fzf, scc, nvim and z.lua from github? [Y/n]: "' -l arg
+        read -n 1 -p 'echo "Update/Download all of $bins from github? [Y/n]: "' -l arg
         if test "$arg" = "" -o "$arg" = "y" -o "$arg" = " "
-            echo "Update/Download fzf..."
-            fzfp u
-
-            echo "Update/Download scc..."
-            sccp u
-
-            echo "Update/download nvim..."
-            nvimp u
-
-            echo "Update/Download z.lua..."
-            zp u
+            # dictionary/hash copied from fish-shell/issues/390#issuecomment-360259983
+            for key in $bins
+                if set -l index (contains -i -- $key $bins)
+                    echo "Update/Download $bins[$index]"
+                    eval $funs[$index] u
+                    echo -e "===================\n"
+                end
+            end
         else
-            echo "Quit to update/download all of fzf, scc, nvim and z.lua from github!!!"
+            echo "Quit to update/download all of $bins from github!!!"
         end
     end
 end
