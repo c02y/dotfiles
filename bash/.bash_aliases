@@ -24,6 +24,8 @@ fi
 # or
 export PATH=$PATH:~/.local/bin:~/anaconda3/bin
 
+export PAGER='less -iXFR -x4 -M'
+export EDITOR='vim'
 # disable Ctrl-d to EXIT
 set -o ignoreeof # 10 times until exiting
 
