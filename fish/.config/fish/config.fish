@@ -1677,33 +1677,37 @@ function gitrh -d 'git reset HEAD for multiple files(file1 file2, all without ar
 end
 
 function gitdl -d 'download several files from github'
-    set -l options 'f' 's' 'v' 'z' 'h'
+    set -l options 'f' 'g' 's' 'v' 'z' 'h'
     argparse -n gitdl $options -- $argv
     or return
 
-    set bins fzf scc nvim z.lua
-    set funs fzfp sccp nvimp zp
+    set bins fzf gitmux scc nvim z.lua
+    set funs fzfp gitmuxp sccp nvimp zp
     if set -q _flag_h
         echo "gitdl [-f/-s/-v/-z/-h]"
         echo "      no option --> once for all"
         echo "      -f --> $bins[1]"
-        echo "      -s --> $bins[2]"
-        echo "      -v --> $bins[3]"
-        echo "      -z --> $bins[4]"
+        echo "      -g --> $bins[2]"
+        echo "      -s --> $bins[3]"
+        echo "      -v --> $bins[4]"
+        echo "      -z --> $bins[5]"
         echo "      -h --> usage"
         return
     else if set -q _flag_f
         echo "Update/Download $bins[1]..."
         eval $funs[1] u
-    else if set -q _flag_s
+    else if set -q _flag_g
         echo "Update/Download $bins[2]..."
         eval $funs[2] u
-    else if set -q _flag_v
+    else if set -q _flag_s
         echo "Update/Download $bins[3]..."
         eval $funs[3] u
-    else if set -q _flag_z
+    else if set -q _flag_v
         echo "Update/Download $bins[4]..."
         eval $funs[4] u
+    else if set -q _flag_z
+        echo "Update/Download $bins[5]..."
+        eval $funs[5] u
     else                        # no option
         read -n 1 -p 'echo "Update/Download all of $bins from github? [Y/n]: "' -l arg
         if test "$arg" = "" -o "$arg" = "y" -o "$arg" = " "
@@ -1721,6 +1725,30 @@ function gitdl -d 'download several files from github'
     end
 end
 
+function gitmuxp -d 'check if gitmux exists, or with any argument, download the latest version'
+    if command -sq gitmux; and set -q $argv[1] # gitmux is in $PATH, and no any argv is given, two conditions
+        # echo "gitmux is installed, use any extra to upgrade it!"
+        return 0
+    else
+        # https://github.com/boyter/scc/releases/download/v2.2.0/scc-2.2.0-x86_64-unknown-linux.zip
+        set tag_name (curl -s "https://api.github.com/repos/arl/gitmux/releases/latest" | grep "tag_name" | cut -d : -f 2 | awk -F[\"\"] '{print $2}')
+        if not test $tag_name
+            echo "API rate limit exceeded, please input your password for your username!"
+            set tag_name (curl -u c02y -s "https://api.github.com/repos/arl/gitmux/releases/latest" | grep "tag_name" | cut -d : -f 2 | awk -F[\"\"] '{print $2}')
+        end
+        set file_name (echo gitmux_(echo $tag_name | sed 's/^v//')_linux_amd64.tar.gz)
+        set file_link (echo https://github.com/arl/gitmux/releases/download/$tag_name/$file_name)
+        wget $file_link -O /tmp/$file_name
+        if test -f /tmp/$file_name
+            tar xvfa /tmp/$file_name -C ~/.local/bin/
+            return 0
+        else
+            echo "gitmux doesn't exist and error occurs when downloading it!"
+            return 1
+        end
+    end
+
+end
 function nvimp -d 'check if nvim exists, or with any argument, download the latest stable/nightly(-n) version'
     set -l options 'n'
     argparse -n nvimp $options -- $argv
