@@ -15,7 +15,7 @@ set -gx MANPATH $HOME/anaconda3/share/man $MANPATH
 
 set -gx FISHRC ~/.config/fish/config.fish
 set -gx EMACS_EL ~/.spacemacs.d/init.el
-test -f ~/.config/nvim/README.md; and set -gx VIMRC ~/.SpaceVim.d/autoload/myspacevim.vim; or set -gx VIMRC ~/.spacevim
+test -f ~/.config/nvim/README.md; and set -gx VIMRC ~/.SpaceVim.d/autoload/myspacevim.vim; or set -gx VIMRC (readlink -f ~/.spacevim)
 # Please put the following lines into ~/.bashrc, putting them in config.fish won't work
 # This fixes a lot problems of displaying unicodes
 # https://github.com/syl20bnr/spacemacs/issues/12257
@@ -1289,8 +1289,8 @@ abbr vib 'vim ~/.bashrc'
 abbr vie 'vim $EMACS_EL'
 abbr vi2 'vim ~/Recentchange/TODO'
 abbr vif 'vim $FISHRC'
-abbr vit 'vim ~/.tmux.conf; tmux source-file ~/.tmux.conf; echo ~/.tmux.conf reloaded!'
-abbr viT 'vim ~/.tigrc'
+abbr vit 'vim (readlink -f ~/.tmux.conf); tmux source-file ~/.tmux.conf; echo ~/.tmux.conf reloaded!'
+abbr viT 'vim (readlink -f ~/.tigrc)'
 function vis -d 'switch between vanilla vim(-v) <-> SpaceVim or space-vim(the default)'
     set -l options 'v'
     argparse -n vis $options -- $argv
