@@ -693,15 +693,9 @@ function zp -d 'check exists of z.lua, with any given argument, update z.lua'
         # echo "z.lua is installed, use any extra to upgrade it!"
         return 0
     else
-        if not curl https://raw.githubusercontent.com/skywind3000/z.lua/master/z.lua -o /tmp/z.lua --max-time 5
-            if not pxw https://raw.githubusercontent.com/skywind3000/z.lua/master/z.lua -O /tmp/z.lua
-                echo "Failed to install/update z.lua due to Internet issue!"
-                return 1
-            end
-        else
-            mv /tmp/z.lua $Z_PATH/z.lua
-            return 0
-        end
+        eval $PXY curl -L -C - https://raw.githubusercontent.com/skywind3000/z.lua/master/z.lua -o /tmp/z.lua
+        mv -f /tmp/z.lua $Z_PATH/z.lua
+        return 0
     end
 end
 abbr zb 'z -b' # Bonus: zb .. equals to cd .., zb ... equals to cd ../.. and
@@ -1725,6 +1719,12 @@ function gitdl -d 'download several files from github'
     end
 end
 
+if test (ps -ef | grep -v grep | grep -i shadow | awk '{ print $(NF-2)     }') # ssr is running
+    set -g PXY proxychains4
+else
+    set -g PXY
+end
+
 function gitmuxp -d 'check if gitmux exists, or with any argument, download the latest version'
     if command -sq gitmux; and set -q $argv[1] # gitmux is in $PATH, and no any argv is given, two conditions
         # echo "gitmux is installed, use any extra to upgrade it!"
@@ -1738,7 +1738,7 @@ function gitmuxp -d 'check if gitmux exists, or with any argument, download the 
         end
         set file_name (echo gitmux_(echo $tag_name | sed 's/^v//')_linux_amd64.tar.gz)
         set file_link (echo https://github.com/arl/gitmux/releases/download/$tag_name/$file_name)
-        wget $file_link -O /tmp/$file_name
+        eval $PXY wget -c $file_link -O /tmp/$file_name
         if test -f /tmp/$file_name
             tar xvfa /tmp/$file_name -C ~/.local/bin/
             return 0
@@ -1758,7 +1758,7 @@ function nvimp -d 'check if nvim exists, or with any argument, download the late
         return 0
     else
         if set -q _flag_n
-            curl -o ~/.local/bin/nvim -LO https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage
+            eval $PXY curl  -o ~/.local/bin/nvim -LOC https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage
             if test -f ~/.local/bin/nvim
                 chmod +x ~/.local/bin/nvim
                 return 0
@@ -1774,7 +1774,7 @@ function nvimp -d 'check if nvim exists, or with any argument, download the late
             end
             set file_name (echo nvim.appimage)
             set file_link (echo https://github.com/neovim/neovim/releases/download/$tag_name/$file_name)
-            wget $file_link -O /tmp/$file_name
+            eval $PXY wget -c $file_link -O /tmp/$file_name
             if test -f /tmp/$file_name
                 install -m 755 /tmp/$file_name ~/.local/bin/nvim
                 return 0
@@ -1799,9 +1799,9 @@ function sccp -d 'check if scc exists, or with any argument, download the latest
         end
         set file_name (echo scc-(echo $tag_name | sed 's/^v//')-x86_64-unknown-linux.zip)
         set file_link (echo https://github.com/boyter/scc/releases/download/$tag_name/$file_name)
-        wget $file_link -O /tmp/$file_name
+        eval $PXY wget -c $file_link -O /tmp/$file_name
         if test -f /tmp/$file_name
-            unzip -e /tmp/$file_name -d ~/.local/bin/
+            unzip -o -e /tmp/$file_name -d ~/.local/bin/
             return 0
         else
             echo "scc doesn't exist and error occurs when downloading it!"
