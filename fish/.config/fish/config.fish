@@ -1111,15 +1111,15 @@ abbr paci 'sudo pacman -Syu --needed' # -S to install a package, -Syu pkg to ens
 abbr pacii 'sudo pacman -Syu --needed --noconfirm'
 abbr pacil 'sudo pacman -U' # install package from a local .pkg.tar.xz/link file
 abbr pacs 'pacman -Ss'      # search for package to install
-abbr pacl 'pacman -Ql'
+abbr pacl 'pacman -Ql'      # list files in package
 abbr pacls 'pacman -Qs'         # search for local installed packages
 abbr pacr 'yay -Rsun' # remove a package and its unneeded dependencies, and clean configs
 abbr pacrr 'yay -Rsc' # using this if pacr doesn't not uninstall a pacakge
 abbr pacrc 'yay -Rsu' # like pacr, but don't clean configs
 abbr pacrd 'yay -Rscn'          # do not remove dependencies and their configs
 abbr pacd 'sudo pacman -Sw'     # download package without installing
-abbr pacc 'sudo pacman -Sc'     # clean packages cache
-abbr pacC 'paccache -rvk2' # remove old package cache files is to remove all packages except for the latest 2 package versions
+abbr pacc 'sudo pacman -Sc --noconfirm'     # clean packages cache
+abbr pacC 'paccache -rvk2 --noconfirm' # remove old package cache files is to remove all packages except for the latest 2 package versions
 abbr pacu 'yay -Syu' # update the database and update the system, pacman only updates from repo, yay updates from both repo and aur
 abbr pacuu 'yay -Syyu' # force a full refresh of database and update the system, must do this when switching branches/mirrors
 abbr pacud 'yay -Syyuu' # like pacuu, but allow downgrade, needed when switch to old branch like testing->stable or you seen local xxx is newer than xxx
