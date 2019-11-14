@@ -668,7 +668,7 @@ function fzfp -d 'check if fzf is existed, with any argument, fzf binary file wi
         end
         set file_name (echo fzf-$tag_name-linux_amd64.tgz)
         set file_link (echo https://github.com/junegunn/fzf-bin/releases/download/$tag_name/$file_name)
-        wget $file_link -O /tmp/$file_name
+        eval $PXY wget $file_link -O /tmp/$file_name
         if test -f /tmp/$file_name
             tar -xvzf /tmp/$file_name -C ~/.local/bin
             return 0
