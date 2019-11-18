@@ -1,9 +1,10 @@
 ### you can use `fish_config` to config a lot of things in WYSIWYG way in browser
 
-#set -gx GOPATH $GOPATH ~/GoPro
+set -gx GOPATH $GOPATH ~/go
+set -gx GOPROXY https://goproxy.cn
 # set -gx PATH $HOME/anaconda3/bin ~/.local/share/arm-linux/bin ~/.local/bin ~/.linuxbrew/bin $GOPATH/bin ~/bin $PATH
 #set -gx PATH $HOME/anaconda3/bin $HOME/.local/bin $GOPATH/bin /usr/local/bin /usr/local/liteide/bin /bin /sbin /usr/bin /usr/sbin $PATH
-set -gx PATH $HOME/anaconda3/bin $HOME/.local/bin /usr/local/bin /bin /sbin /usr/bin /usr/sbin $PATH
+set -gx PATH $HOME/anaconda3/bin $HOME/.local/bin $GOPATH/bin /usr/local/bin /bin /sbin /usr/bin /usr/sbin $PATH
 
 # By default, MANPATH variable is unset, so set MANPATH to the result of `manpath` according to
 # /etc/man.config and add the customized man path to MANPATH
@@ -803,13 +804,13 @@ function fts -d 'find the temporary files such as a~ or #a or .a~, and files for
     set -q $argv[1]; and set ARGV .; or set ARGV $argv
 
     if set -q _flag_c           # one level, not recursive, print
-        find $ARGV -maxdepth 1 \( -iname "*~" -o -iname "#?*#" -o -iname ".#?*" -o -iname "*.swp" \) | xargs -r ls -lhd | nl
+        find $ARGV -maxdepth 1 \( -iname "*~" -o -iname "#?*#" -o -iname ".#?*" -o -iname "*.swp*" \) | xargs -r ls -lhd | nl
     else if set -q _flag_C      # one level, not recursive, remove
-        find $ARGV -maxdepth 1 \( -iname "*~" -o -iname "#?*#" -o -iname ".#?*" -o -iname "*.swp" \) | xargs rm -rfv
+        find $ARGV -maxdepth 1 \( -iname "*~" -o -iname "#?*#" -o -iname ".#?*" -o -iname "*.swp*" \) | xargs rm -rfv
     else if set -q _flag_r      # recursive, print
-        find $ARGV \( -iname "*~" -o -iname "#?*#" -o -iname ".#?*" -o -iname "*.swp" \) | xargs -r ls -lhd | nl
+        find $ARGV \( -iname "*~" -o -iname "#?*#" -o -iname ".#?*" -o -iname "*.swp*" \) | xargs -r ls -lhd | nl
     else if set -q _flag_R      # recursive, remove
-        find $ARGV \( -iname "*~" -o -iname "#?*#" -o -iname ".#?*" -o -iname "*.swp" \) | xargs rm -rfv
+        find $ARGV \( -iname "*~" -o -iname "#?*#" -o -iname ".#?*" -o -iname "*.swp*" \) | xargs rm -rfv
     else if set -q _flag_l      # remove temporary files for latex
         if not find $ARGV -maxdepth 1 -iname "*.tex" | egrep '.*' # normal find returns 0 no matter what
             echo "$ARGV is not a LaTeX directory!"
@@ -1414,7 +1415,7 @@ abbr gitcm 'git commit -m'
 abbr gitcma 'git commit --amend'
 abbr gitcp 'git checkout HEAD^1' # git checkout previous/old commit
 abbr gitcn 'git log --reverse --pretty=%H master | grep -A 1 (git rev-parse HEAD) | tail -n1 | xargs git checkout' # git checkout next/new commit
-abbr gitt 'git tag'
+abbr gitt 'git tag --sort=-taggerdate'    # sort tag by date, new tag first
 abbr gitft 'git ls-files --error-unmatch' # Check if file/dir is git-tracked
 abbr gitpu 'git push -v'
 abbr gitpl 'git pull'
@@ -2208,7 +2209,7 @@ function ag
     #sed -i "s/.shell/\"$argv[1]\n.shell/g" ~/.lesshst
     echo "\"$argv[1]" >> ~/.lesshst
     if command -sq ag # check if ag command exists
-        command ag --hidden --ignore '*~' --ignore '#?*#' --ignore '.#?*' --ignore '*.swp' --ignore -s --pager='less -i -RM -FX -s' $argv
+        command ag --hidden --ignore '*~' --ignore '#?*#' --ignore '.#?*' --ignore '*.swp*' --ignore -s --pager='less -i -RM -FX -s' $argv
     else
         grep -n --color=always $argv | more
         echo -e "\n...ag is not installed, use grep instead..."
