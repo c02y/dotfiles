@@ -722,6 +722,9 @@ before packages are loaded."
    undo-tree-history-directory-alist `(("." . ,(concat spacemacs-cache-directory "undo")))
    ;; to cause the *compilation* buffer to automatically scroll to the end of new output
    compilation-scroll-output t
+   ;; TODO: delete it until the recentf issue is fixed
+   ;; spacemacs/issues/5186#issuecomment-312867664
+   recentf-save-file (format "/tmp/recentf.%s" (emacs-pid))
    )
 
   ;; NOTE: along with undo-tree-auto-save-history
