@@ -35,24 +35,30 @@ This function should only modify configuration layer settings."
 
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
-   '(javascript                         ; TODO: need configuration
-     html                               ; TODO: need configuration
-     rust
-     yaml
-     markdown
-     vimscript
+   '(
      ;; ----------------------------------------------------------------
      ;; Example of useful layers you may want to use right away.
      ;; Uncomment some layer names and press `SPC f e R' (Vim style) or
      ;; `M-m f e R' (Emacs style) to install them.
      ;; ----------------------------------------------------------------
+     better-defaults
+     syntax-checking
+     git
+     helm
+     emacs-lisp
+     markdown
+     vimscript
+     rust
+     yaml
+     semantic
+     treemacs
+     ;; NOTE: install shellcheck
+     shell-scripts
      (auto-completion :variables
                       auto-completion-enable-snippets-in-popup t
                       auto-completion-enable-help-tooltip t
                       auto-completion-enable-sort-by-usage t
                       )
-     better-defaults
-     emacs-lisp
      ;; NOTE: `pip install importmagic epc flake8 pytest nose autoflake "ptvsd>=4.2"
      ;; if using lsp as backend: pip install python-language-server pyls-isort pyls-mypy'
      (python :variables
@@ -63,8 +69,15 @@ This function should only modify configuration layer settings."
              )
      ;; NOTE: `pip install jupyter', then run `jupyter notebook'
      ipython-notebook
-     git
-     helm
+     ;; TODO: Check layer/go for packages to install
+     (go :variables
+         ;; if not given and lsp layer is used, lsp will be used as go-backend
+         ;; go-backend 'go-mode
+         go-tab-width 4
+         go-format-before-save t
+         go-use-golangci-lint t
+         godoc-at-point-function 'godoc-gogetdoc
+         )
      ;; replace multiple-cursors with symbol-overlay(SPC s o)
      ;; multiple-cursors
      (org :variables
@@ -80,11 +93,6 @@ This function should only modify configuration layer settings."
      (spell-checking :variables
                      ;; enable-flyspell-auto-completion t
                      )
-     syntax-checking
-     semantic
-     ;; NOTE: install shellcheck
-     shell-scripts
-     treemacs
      ;; use `SPC g .' to use version control functions such as goto next hunk
      (version-control :variables
                       version-control-diff-tool 'git-gutter+
@@ -108,6 +116,8 @@ This function should only modify configuration layer settings."
      lsp
      ;; M-x dap-gdb-lldb-setup after packages are installed by dap layer
      dap
+     javascript                         ; TODO: need configuration
+     html                               ; TODO: need configuration
      )
 
    ;; List of additional packages that will be installed without being
@@ -2078,6 +2088,16 @@ With prefix P, don't widen, just narrow even if buffer is already narrowed. "
     "x in eshell prompt to exit eshell and close the eshell window."
     (delete-window)
     (eshell/exit))
+
+  ;; NOTE: fix the bug in layer/go
+  ;; spacemacs/issues/12263#issuecomment-490131508
+  (use-package lsp-mode
+    :commands lsp
+    :config
+    (lsp-register-client
+     (make-lsp-client :new-connection (lsp-stdio-connection "gopls")
+                      :major-modes '(go-mode)
+                      :server-id 'gopls)))
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
