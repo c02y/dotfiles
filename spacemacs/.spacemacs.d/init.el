@@ -1763,6 +1763,11 @@ In other non-comment situations, try C-M-j to split."
           org-log-done 'time
           org-tags-column 0
           org-src-preserve-indentation t
+          org-src-ask-before-returning-to-edit-buffer nil
+          org-src-window-setup 'other-window
+          ;; fix the issue of org-src buffer
+          ;; spacemacs/issues/12967
+          org-src-tab-acts-natively nil
           org-indent-indentation-per-level 3
           ;; Prevents accidentally editing hidden text when the point is inside a folded region.
           ;; use C-c C-r 'org-reveal to show where your point is
