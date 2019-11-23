@@ -2,9 +2,13 @@
 
 set -gx GOPATH $GOPATH ~/go
 set -gx GOPROXY https://goproxy.cn
+# electron/node, for `npm install -g xxx`, default place is /usr
+set -gx NPMS $HOME/.npms
+set -gx NODE_PATH $NPMS/lib/node_modules
+
 # set -gx PATH $HOME/anaconda3/bin ~/.local/share/arm-linux/bin ~/.local/bin ~/.linuxbrew/bin $GOPATH/bin ~/bin $PATH
 #set -gx PATH $HOME/anaconda3/bin $HOME/.local/bin $GOPATH/bin /usr/local/bin /usr/local/liteide/bin /bin /sbin /usr/bin /usr/sbin $PATH
-set -gx PATH $HOME/anaconda3/bin $HOME/.local/bin $GOPATH/bin /usr/local/bin /bin /sbin /usr/bin /usr/sbin $PATH
+set -gx PATH $HOME/anaconda3/bin $HOME/.local/bin $GOPATH/bin $NPMS/bin /usr/local/bin /bin /sbin /usr/bin /usr/sbin $PATH
 
 # By default, MANPATH variable is unset, so set MANPATH to the result of `manpath` according to
 # /etc/man.config and add the customized man path to MANPATH
@@ -12,7 +16,7 @@ if test "$MANPATH" = ""
     set -gx MANPATH (manpath | string split ":")
 end
 # TODO: `pip install cppman ; cppman -c` to get manual for cpp
-set -gx MANPATH $HOME/anaconda3/share/man $MANPATH
+set -gx MANPATH $HOME/anaconda3/share/man $NPMS/share/man $MANPATH
 
 set -gx FISHRC ~/.config/fish/config.fish
 set -gx EMACS_EL ~/.spacemacs.d/init.el
