@@ -87,7 +87,6 @@ This function should only modify configuration layer settings."
      (shell :variables
             shell-default-shell 'eshell
             shell-enable-smart-shell t
-            shell-default-position 'right
             close-window-with-terminal t
             )
      (spell-checking :variables
@@ -116,8 +115,29 @@ This function should only modify configuration layer settings."
      lsp
      ;; M-x dap-gdb-lldb-setup after packages are installed by dap layer
      dap
-     javascript                         ; TODO: need configuration
-     html                               ; TODO: need configuration
+     ;; TODO: npm install -g prettier
+     prettier
+     ;; TODO: npm install -g import-js
+     import-js
+     ;; TODO: npm install -g tern
+     tern
+     ;; TODO: npm install -g import-js eslint typescript typescript-language-server
+     (javascript :variables
+                 javascript-import-tool 'import-js
+                 javascript-fmt-tool 'prettier
+                 javascript-fmt-on-save t
+                 ;; the default backend is lsp
+                 javascript-backend 'tern
+                 ;; for json
+                 js-indent-level 2
+                 ;; for javascript
+                 js2-basic-offset 2
+                 js2-include-node-externs t
+                 node-add-moduels-path t
+                 )
+     (json :variables
+           json-fmt-tool 'prettier
+           json-fmt-on-save t)
      )
 
    ;; List of additional packages that will be installed without being
