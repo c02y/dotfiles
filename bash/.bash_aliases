@@ -126,7 +126,7 @@ alias diff-s='diff -y --suppress-common-line '
 function diff-y () { diff -y "$@" | more -N;}
 
 vim_version=$(/bin/vim --version | head -1 | grep -o '[0-9]\.[0-9]')
-if [ $(echo "$vim_version >= 8.1" | bc -l) ]; then
+if [ 1 -eq "$(echo "${vim_version} >= 8" | bc)" ]; then
 	alias vim='nvim'
 fi
 
