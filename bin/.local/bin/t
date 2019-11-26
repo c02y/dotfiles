@@ -14,9 +14,7 @@ if [ "$LANG" != "en_US.UTF-8" ]; then
 fi
 
 if [ $(basename $SHELL) != "fish" ]; then
-	if [ -f ~/anaconda3/bin/fish ]; then
-		export SHELL=~/anaconda3/bin/fish
-	elif hash fish 2>/dev/null; then
+	if hash fish 2>/dev/null; then
 		export SHELL=$(which fish)
 	else
 		echo "No fish is installed, using old $SHELL as SHELL!"
