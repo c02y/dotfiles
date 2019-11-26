@@ -38,7 +38,7 @@ alias x='exit'
 alias sl='ls'
 alias ls='ls --color=auto'
 alias lsp='readlink -f' # print the full path of a file
-alias lsd='ls -d */' 	# only list directories
+alias lsd='ls -d */'	# only list directories
 alias ll='ls -lh'
 alias la='ls -d .??*'
 alias lla='ls -lhA'
@@ -128,11 +128,6 @@ function mkcd () { mkdir -p "$@" ; eval cd "\"\$$#\"";}
 alias diff-s='diff -y --suppress-common-line '
 # function diff-s () { diff -s --suppress-common-line "$@" | more -N;}
 function diff-y () { diff -y "$@" | more -N;}
-
-vim_version=$(/bin/vim --version | head -1 | grep -o '[0-9]\.[0-9]')
-if [ 1 -eq "$(echo "${vim_version} >= 8" | bc)" ]; then
-	alias vim='nvim'
-fi
 
 function zz()
 {
