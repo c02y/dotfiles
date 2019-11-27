@@ -1114,7 +1114,7 @@ abbr zppca 'sudo zypper clean --all'
 abbr api 'sudo apt install -V'
 abbr apu 'sudo apt update; sudo apt full-upgrade -V'
 abbr apr 'sudo apt remove -V'
-abbr apar 'sudo apt autoremove -V'
+abbr apar 'sudo apt autoremove -Vy'
 abbr aps 'apt search'
 abbr apd 'apt depends'
 
