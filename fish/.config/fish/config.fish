@@ -13,7 +13,7 @@ if test "$MANPATH" = ""
 end
 
 # Use different PATH/MANPATH for different distro since anaconda may affect system tools
-if test (lsb_release -i | grep -i manjaro) # not manjaro
+if test (lsb_release -i | grep -i -E 'manjaro|opensuse') # not manjaro/opensuse
     # set -gx PATH $HOME/anaconda3/bin ~/.local/share/arm-linux/bin ~/.local/bin ~/.linuxbrew/bin $GOPATH/bin ~/bin $PATH
     #set -gx PATH $HOME/anaconda3/bin $HOME/.local/bin $GOPATH/bin /usr/local/bin /usr/local/liteide/bin /bin /sbin /usr/bin /usr/sbin $PATH
     set -gx PATH  $HOME/.local/bin $GOPATH/bin $NPMS/bin /usr/local/bin /bin /sbin /usr/bin /usr/sbin $PATH

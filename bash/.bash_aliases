@@ -20,7 +20,7 @@ if type -t hd >/dev/null && type -t cd_func >/dev/null; then
 	for x in `hd 20` `pwd`; do cd_func $x ; done
 fi
 
-if [[ $(lsb_release -i | grep -i manjaro) ]]; then
+if [[ $(lsb_release -i | grep -i -E 'manjaro|opensuse') ]]; then
 	# export PATH=~/.local/bin:~/anaconda3/bin:$PATH
 	# or
 	export PATH=$PATH:~/.local/bin
