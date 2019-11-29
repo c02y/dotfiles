@@ -743,9 +743,10 @@ before packages are loaded."
    ;; to cause the *compilation* buffer to automatically scroll to the end of new output
    compilation-scroll-output t
    ;; TODO: delete it until the recentf issue is fixed
-   ;; workaround by changing emacs.service: spacemacs/issues/12873#issuecomment-558252242
    ;; spacemacs/issues/5186#issuecomment-31286766
-   ;; recentf-save-file (format "/tmp/recentf.%s" (emacs-pid))
+   ;; NOTE: recentf issue also causes the problem of 2 mins of delay for reboot/shutdown
+   ;; workaround by changing emacs.service: spacemacs/issues/12873#issuecomment-558252242
+   recentf-save-file (format "/tmp/recentf.%s" (emacs-pid))
    )
 
   ;; NOTE: along with undo-tree-auto-save-history
