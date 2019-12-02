@@ -2463,20 +2463,20 @@ end
 # Download anaconda from https://mirrors.cloud.tencent.com/anaconda/archive/
 # Check ~/.condarc for configuration
 # https://www.piqizhu.com/tools/anaconda
-#conda install -c binstar binstar # renamed to anaconda-client, so `conda install anaconda-client`
-#binstar search -t conda packgename # get the channel(user) name
-#conda install -c channel packagename
+# ~/anaconda3/bin/conda install -c binstar binstar # renamed to anaconda-client, so `conda install anaconda-client`
+# ~/anaconda3/bin/binstar search -t conda packgename # get the channel(user) name
+# ~/anaconda3/bin/conda install -c channel packagename
 # After install package using `conda install -c CHANNEL PKG`, you have to manually
-# conda config --add channels your_new_channel, or these packages won't be updateed when `condau`
+# ~/anaconda3/bin/conda config --add channels your_new_channel, or these packages won't be updateed when `condau`
 #
 # The packages needed to be installed using conda are(only if you have no sudo permission or the offcial is old)
-# conda install -c conda-forge ncurses emacs w3m fish the_silver_searcher source-highlight tmux ripgrep
-# conda install -c lebedov tig
-abbr condas 'binstar search -t conda' # [packagename]
-abbr condai 'conda install -c' # [channel] [packagename]
-abbr condau 'conda upgrade --all -vy; and conda clean -avy'
-abbr condac 'conda clean -avy'
-abbr condaS 'anaconda show' # [channel/packagename]
+# ~/anaconda3/bin/conda install -c conda-forge ncurses emacs w3m fish the_silver_searcher source-highlight tmux ripgrep
+# ~/anaconda3/bin/conda install -c lebedov tig
+abbr condas '~/anaconda3/bin/binstar search -t conda' # [packagename]
+abbr condai '~/anaconda3/bin/conda install -c' # [channel] [packagename]
+abbr condau '~/anaconda3/bin/conda upgrade --all -vy; and ~/anaconda3/bin/conda clean -avy'
+abbr condac '~/anaconda3/bin/conda clean -avy'
+abbr condaS '~/anaconda3/bin/anaconda show' # [channel/packagename]
 
 #### ---------------- anaconda starts -----------------------
 # anaconda
@@ -2565,7 +2565,7 @@ complete -c ca -xA -a "(condalist)"
 
 function con --description 'Activate a conda environment.'
     if test (count $argv) -eq 0
-        conda info -e
+       ~/anaconda3/bin/conda info -e
         return 0
     end
 
@@ -2576,7 +2576,7 @@ function con --description 'Activate a conda environment.'
 
     set -l conda_env $argv[1]
 
-    if not command conda '..checkenv' fish $conda_env
+    if not command ~/anaconda3/bin/conda '..checkenv' fish $conda_env
         return 1
     end
 
@@ -2586,7 +2586,7 @@ function con --description 'Activate a conda environment.'
     end
 
     # Try to activate the environment.
-    set -l new_path (command conda '..activate' fish $conda_env)
+    set -l new_path (command ~/anaconda3/bin/conda '..activate' fish $conda_env)
     or return $status
 
     set -g CONDA_PATH_BACKUP $PATH
