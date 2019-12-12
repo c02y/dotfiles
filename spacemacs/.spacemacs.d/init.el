@@ -694,7 +694,7 @@ before packages are loaded."
    ;; show-trailing-whitespace t
    ;; change the major mode of any file without extension to org-mode instead of fundamental-mode
    ;; NOTE: The following line will affect the with-editor-mode-hook of evil-insert-state
-   ;; but this comment-out is not reliable, sometimes it is will normal-state in git-commit-mode
+   ;; but this comment-out is not reliable, sometimes it is normal-state in git-commit-mode
    ;; major-mode 'org-mode
    )
   ;; disable loading the default theme for terminal emacs

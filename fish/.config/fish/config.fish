@@ -500,42 +500,36 @@ function pk --description 'kill processes containing a pattern or PID'
     end
 end
 
-function paths -d "function about PATH, list paths line by line(default), clean duplicated path(-c)"
-    set -l options 'c'
-    argparse -n paths $options -- $argv
+function vars -d "list item in var line by line, PATH(by default), -m(MANPATH), -c(clean duplicated var)"
+    set -l options 'm' 'c'
+    argparse -n vars $options -- $argv
     or return
 
-    if set -q _flag_c
-        echo "Before: "
-        paths
-        echo "Cleaning PATH..."
-        varclear PATH
-        echo "After: "
-        paths
+    if set -q _flag_m
+        echo $MANPATH | tr " " "\n" | nl
+    else if set -q _flag_c
+        for var in PATH MANPATH
+            echo "$var Before:"
+            echo $$var | tr " " "\n" | nl
+            set -l newvar
+            set -l count 0
+            for v in $$var
+                if contains -- $v $newvar
+                    set count (math $count+1)
+                else
+                    set newvar $newvar $v
+                end
+            end
+            set $var $newvar
+            test $count -gt 0
+            echo "After:"
+            echo $$var | tr " " "\n" | nl
+            echo
+        end
     else
         echo $PATH | tr " " "\n" | nl
     end
 end
-function varclear --description 'Remove duplicates from environment varieble'
-    if test (count $argv) = 1
-        set -l newvar
-        set -l count 0
-        for v in $$argv
-            if contains -- $v $newvar
-                set count (math $count+1)
-            else
-                set newvar $newvar $v
-            end
-        end
-        set $argv $newvar
-        test $count -gt 0
-    else
-        for a in $argv
-            varclear $a
-        end
-    end
-end
-
 alias rm 'rm -vi'
 alias cp 'cp -vi'
 alias mv 'mv -vi'
@@ -1246,7 +1240,39 @@ function vimd -d 'diff files/dirs using vim'
     end
 end
 # TODO: `pip install git+https://github.com/jeffkaufman/icdiff.git`
-abbr diffs 'icdiff'
+function diffs -d "all kinds of diff features"
+    if command -sq icdiff
+        icdiff $argv
+    else
+        set -l options 'f' 'w' 'l' 'L' 'W' 'h'
+        argparse -n diffs $options -- $argv
+        or return
+
+        if set -q _flag_h
+            echo "diffs [-f/-w/-l/-L/-W/-h]"
+            echo "      no option --> side by side, only diffs"
+            echo "      -f --> like no argument, but print whole files"
+            echo "      -w --> like no argument, but ignore all white spaces"
+            echo "      -l --> line by line, only diffs"
+            echo "      -L --> like -l, but print whole files"
+            echo "      -W --> like -l, but ignore all white spaces"
+            echo "      -h --> usage"
+            return
+        else if set -q _flag_f
+            diff -r -y -s -W $COLUMNS $argv | less
+        else if set -q _flag_w
+            diff -r -y -s --suppress-common-line -W $COLUMNS -w $argv | less
+        else if set -q _flag_l
+            diff -r -s --suppress-common-line -W $COLUMNS $argv | less
+        else if set -q _flag_L
+            diff -r -s -W $COLUMNS $argv | less
+        else if set -q _flag_W
+            diff -r -s --suppress-common-line -W $COLUMNS -w $argv | less
+        else                        # no option
+            diff -r -y -s --suppress-common-line -W $COLUMNS $argv | less
+        end
+    end
+end
 
 function mkcd --description 'mkdir dir then cd dir'
     mkdir -p $argv
