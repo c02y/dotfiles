@@ -693,7 +693,10 @@ before packages are loaded."
    ;; always show trailing whitespace, spacemacs only it in prog-mode by default
    ;; show-trailing-whitespace t
    ;; change the major mode of any file without extension to org-mode instead of fundamental-mode
-   major-mode 'org-mode)
+   ;; NOTE: The following line will affect the with-editor-mode-hook of evil-insert-state
+   ;; but this comment-out is not reliable, sometimes it is will normal-state in git-commit-mode
+   ;; major-mode 'org-mode
+   )
   ;; disable loading the default theme for terminal emacs
   (unless (display-graphic-p)
     (disable-theme 'spacemacs-dark))
