@@ -44,7 +44,7 @@ This function should only modify configuration layer settings."
      better-defaults
      syntax-checking
      git
-     helm
+     (ivy :variables ivy-enable-advanced-buffer-information t)
      emacs-lisp
      markdown
      vimscript
@@ -705,15 +705,6 @@ before packages are loaded."
    vc-follow-symlinks t
    ;; disable the warning message
    python-spacemacs-indent-guess nil
-   ;; spacemacs change it to blank, change it to use last words if no thing-at-point
-   ;; helm-swoop-pre-input-function
-   ;; (lambda ()
-   ;;   (let (($pre-input (thing-at-point 'symbol)))
-   ;;     (if (eq (length $pre-input) 0)
-   ;;         (if (boundp 'helm-swoop-pattern)
-   ;;             helm-swoop-pattern ;; this variable keeps the last used words
-   ;;           "") ;; first time helm-swoop and no thing at point
-   ;;       $pre-input)))
    company-minimum-prefix-length 1
    company-show-numbers t
    company-tooltip-limit 20
@@ -723,7 +714,7 @@ before packages are loaded."
    ;; which-key
    which-key-show-remaining-keys t
    which-key-highlighted-command-list
-   '("helm\\|toggle\\|projectile\\|describe"
+   '("helm\\|counsel\\|ivy\\|swiper\\|toggle\\|projectile\\|describe"
      ("\\(^cscope\\)\\|\\(^ggtags\\)" . warning)
      ("register\\|transient\\|hydra" . success)
      ("rectangle\\|goto\\|lsp\\|xah" . error)
@@ -1047,7 +1038,6 @@ Emacs session."
     "bt" 'tabify-or-untabify
     ;; default feR, still works
     "fer" 'dotspacemacs/sync-configuration-layers
-    ;; default helm-find-files
     "fF" 'find-alternate-file
     "Xd" 'delete-line-or-region-or-buffer
     "Xc" 'copy-line-or-region-or-buffer
@@ -1071,13 +1061,19 @@ Emacs session."
     "xaA" 'align-regexp
     "xaC" 'align-c-comments
     "xaM" 'align-c-macros
-    "hh" 'lazy-helm/helm-apropos
-    "hc" 'lazy-helm/helm-colors
-    "hC" 'lazy-helm/spacemacs/helm-faces
-    "hv" 'lazy-helm/describe-variable
-    ;; overwrite the default SPC h f
-    "hf" 'lazy-helm/describe-function
-    "hb" 'lazy-helm/describe-bindings
+    ;; The original binding is SPC h d a
+    "hh" 'counsel-apropos
+    ;; The original binding is SPC C e
+    ;; There is another function counsel-colors-web
+    "hc" 'counsel-colors-emacs
+    ;; The original binding is SPC C f
+    "hC" 'counsel-faces
+    ;; The original binding is SPC h d v
+    "hv" 'counsel-describe-variable
+    ;; The original binding is SPC h d f
+    "hf" 'counsel-describe-function
+    ;; The original binding is SPC h d b
+    "hb" 'counsel-descbinds
     "nn" 'narrow-or-widen-dwim
     ;; overwrite the default SPC w -//
     "w-" 'split-window-below-next-buffer
@@ -1169,12 +1165,12 @@ Version 2016-12-18"
   (bind-keys*
    ("C-x DEL" . xah-shrink-whitespaces)
    ("M-%" . query-replace-region-or-from-top)
-   ("M-z" . helm-for-files)
-   ("C-h h" . lazy-helm/helm-apropos)
-   ("C-h c" . lazy-helm/helm-colors)
-   ("C-h C-c" . lazy-helm/spacemacs/helm-faces)
-   ("C-x /" . helm-semantic-or-imenu)   ;; SPC j i
-   ("C-s" . helm-occur)
+   ;; no alternate from ivy for helm-for-files
+   ;; ("M-z" . helm-for-files)
+   ("C-h h" . counsel-apropos)
+   ("C-h c" . counsel-colors-emacs)
+   ("C-h C-c" . counsel-faces)
+   ("C-x /" . counsel-semantic-or-imenu)   ;; SPC j i
    ("M-;" . comment-dwim-2)
    ;; switch the last visited buffer, repeated invocations toggle between the most recent two buffers
    ;; this is different from SPC TAB, which switch the last buffer in this window
@@ -1226,21 +1222,9 @@ Version 2016-12-18"
     (bind-keys :map leetcode--problems-mode-map
                ("<return>" . leetcode-show-description)))
 
-  ;; disable follow in helm-occur (like helm-swoop) github-2152
-  (with-eval-after-load 'helm
-    (cl-defmethod helm-setup-user-source ((source helm-moccur-class))
-      (setf (slot-value source 'follow) -1))
-    ;; use <right> to search the whole word when using helm-occur
-    ;; FIXME: this doesn't work helm-occur in spacemacs
-    (defun helm-occur-insert-symbol-regexp ()
-      (interactive)
-      (helm-set-pattern (concat "\\_<" helm-input "\\_>")))
-    (define-key helm-occur-map (kbd "<right>") 'helm-occur-insert-symbol-regexp)
-    (bind-keys :map helm-map
-               ;; In helm buffer, C-space to select buffers, M-S-d to delete selected buffers
-               ;; overwrite the default M-SPC(which is for WM) to activate transient-state in helm mode
-               ("C-q" . spacemacs/helm-navigation-transient-state/body))
-    )
+  (with-eval-after-load 'ivy
+    (setq ivy-count-format "(%d/%d) "
+          ivy-initial-inputs-alist nil))
 
   ;; whitespace faces
   (with-eval-after-load 'whitespace
@@ -1752,9 +1736,6 @@ In other non-comment situations, try C-M-j to split."
           (indent-according-to-mode)))))
 
   (add-hook 'smartparens-enabled-hook #'evil-smartparens-mode)
-  (require 'wgrep)
-  ;; C-x C-s to edit helm-occur bufer, C-c C-e to save the buffer
-  (add-hook 'helm-occur-mode-hook 'wgrep-change-to-wgrep-mode)
 
   (with-eval-after-load 'org
     ;; Resume clocking task when emacs is restarted
