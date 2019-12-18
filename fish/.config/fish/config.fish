@@ -156,8 +156,8 @@ end
 
 function fsr --description 'Reload your Fish config after configuration'
     source $FISHRC # fsr
-    varclear PATH
     echo $FISHRC is reloaded!
+    vars -c ^/dev/null >/dev/null
 end
 
 # tmux related
@@ -1502,17 +1502,17 @@ function gitpll -d 'git pull and location it to previous commit id before git pu
     git pull
     git log --stat | command less -p$COMMIT_ID
 end
-function gitcl -d 'git clone and cd into it, full-clone(-f)'
-    set -l options 'f'
+function gitcl -d 'git clone and cd into it, full-clone(by default), simple-clone(-s)'
+    set -l options 's'
     argparse -n gitcl $options -- $argv
     or return
 
     # https://stackoverflow.com/questions/57335936
-    set DEPTH "--depth=1 --no-single-branch"
-    if set -q _flag_f
-        set DEPTH ""
-    else
+    if set -q _flag_s
+        set DEPTH "--depth=1 --no-single-branch"
         echo "Use 'git pull --unshallow' to pull all info."
+    else
+        set DEPTH ""
     end
     eval git clone -v $argv $DEPTH
     echo ---------------------------
