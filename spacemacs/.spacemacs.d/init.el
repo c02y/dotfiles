@@ -1223,7 +1223,7 @@ Version 2016-12-18"
                ("<return>" . leetcode-show-description)))
 
   (with-eval-after-load 'ivy
-    (setq ivy-count-format "(%d/%d) "
+    (setq ivy-count-format "%d/%d> "
           ivy-initial-inputs-alist nil))
 
   ;; whitespace faces
