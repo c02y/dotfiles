@@ -1334,7 +1334,7 @@ Version 2016-12-18"
   (add-hook 'org-mode-hook 'spacemacs/toggle-visual-line-navigation-on)
 
   ;; electric-operator
-  (dolist (hook '(c-mode-common-hook org-mode-hook python-mode-hook inferior-python-mode-hook LaTeX-mode-hook plantuml-mode-hook))
+  (dolist (hook '(c-mode-common-hook org-mode-hook python-mode-hook inferior-python-mode-hook LaTeX-mode-hook plantuml-mode-hook js2-mode))
     (add-hook hook #'electric-operator-mode))
   (with-eval-after-load "electric-operator"
     (setq electric-operator-enable-in-docs t)
@@ -1369,6 +1369,14 @@ Version 2016-12-18"
      (cons "./" " ./")
      (cons "/." "/.")
      (cons "/" nil) ;; or change nil to "/"
+     )
+    (electric-operator-add-rules-for-mode
+     'js2-mode
+     (cons "=" " = ")
+     (cons "==" ",== ")
+     (cons "," ", ")
+     (cons ":" ": ")
+     (cons "+" " + ")
      )
     (electric-operator-add-rules-for-mode
      'inferior-python-mode
