@@ -1334,7 +1334,7 @@ Version 2016-12-18"
   (add-hook 'org-mode-hook 'spacemacs/toggle-visual-line-navigation-on)
 
   ;; electric-operator
-  (dolist (hook '(c-mode-common-hook org-mode-hook python-mode-hook inferior-python-mode-hook LaTeX-mode-hook plantuml-mode-hook js2-mode))
+  (dolist (hook '(c-mode-common-hook org-mode-hook python-mode-hook inferior-python-mode-hook LaTeX-mode-hook plantuml-mode-hook js2-mode-hook css-mode))
     (add-hook hook #'electric-operator-mode))
   (with-eval-after-load "electric-operator"
     (setq electric-operator-enable-in-docs t)
@@ -1377,6 +1377,11 @@ Version 2016-12-18"
      (cons "," ", ")
      (cons ":" ": ")
      (cons "+" " + ")
+     )
+    (electric-operator-add-rules-for-mode
+     'js2-mode
+     (cons "," ", ")
+     (cons ":" ": ")
      )
     (electric-operator-add-rules-for-mode
      'inferior-python-mode
@@ -1750,6 +1755,8 @@ In other non-comment situations, try C-M-j to split."
           (indent-according-to-mode)))))
 
   (add-hook 'smartparens-enabled-hook #'evil-smartparens-mode)
+  (dolist (hook '(css-mode-hook))
+    (add-hook hook #'smartparens-mode))
 
   (with-eval-after-load 'org
     ;; Resume clocking task when emacs is restarted
