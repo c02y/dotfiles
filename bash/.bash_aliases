@@ -20,6 +20,10 @@ if type -t hd >/dev/null && type -t cd_func >/dev/null; then
 	for x in `hd 20` `pwd`; do cd_func $x ; done
 fi
 
+export LC_ALL=en_US.UTF-8
+export LANG=en_US.UTF-8
+export LANGUAGE=en_US.UTF-8
+
 if [[ $(lsb_release -i | grep -i -E 'manjaro|opensuse') ]]; then
 	# export PATH=~/.local/bin:~/anaconda3/bin:$PATH
 	# or
