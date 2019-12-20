@@ -1397,7 +1397,7 @@ end
 # -Q = -q --no-site-file --no-splash, which will not load something like emacs-googies
 alias emx 'emacs -nw -q --no-splash --eval "(setq find-file-visit-truename t)"'
 abbr emq 'emacs -q --no-splash'
-abbr emd 'rm -rfv ~/.emacs.d/init.elc; emacs --debug-init'
+abbr emd 'emacs --debug-init'
 abbr eml 'emacs -q --no-splash --load' # load specific init.el
 abbr emn 'emacs --no-desktop'
 abbr eme 'emm $EMACS_EL'
