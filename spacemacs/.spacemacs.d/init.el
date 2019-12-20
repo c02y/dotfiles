@@ -139,11 +139,7 @@ This function should only modify configuration layer settings."
            json-fmt-tool 'prettier
            json-fmt-on-save t)
      (html :variables
-           web-fmt-tool 'web-beautify
-           css-enable-lsp t
-           less-enable-lsp t
-           scss-enable-lsp t
-           html-enable-lsp t)
+           web-fmt-tool 'web-beautify)
      )
 
    ;; List of additional packages that will be installed without being
