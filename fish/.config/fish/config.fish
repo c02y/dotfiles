@@ -1940,13 +1940,15 @@ abbr ptp 'ptipython'
 # install pytest and pytest-pep8 first, to check if the code is following pep8 guidelines
 abbr pyp8 'py.test --pep8'
 function penv -d 'python3 -m venv in fish'
-    if not test -d $argv
-        python3 -m venv $argv
-    else if not test -f $argv/bin/activate.fish
-        echo "$argv exists but it is not python venv"
+    set -q $argv; and set ARGV venv; or set ARGV $argv
+
+    if not test -d $ARGV
+        python3 -m venv $ARGV
+    else if not test -f $ARGV/bin/activate.fish
+        echo "$ARGV exists but it is not python venv"
         return -1
     end
-    . $argv/bin/activate.fish
+    . $ARGV/bin/activate.fish
 end
 # abbr x 'exit'
 function x -d 'exit or deactivate in python env'
