@@ -1758,7 +1758,7 @@ function gitdl -d 'download several files from github'
 end
 
 if test (ps -ef | grep -v grep | grep -i shadow | awk '{ print $(NF-2)     }') # ssr is running
-    set -g PXY proxychains4
+    set -g PXY 'proxychains4 -q'
 else
     set -g PXY
 end
@@ -2012,7 +2012,7 @@ function pv --description "ping vpn servers"
 end
 function ipl -d 'get the location of your public IP address'
     if test (ps -ef | grep -v grep | grep -i shadow | awk '{ print $(NF-2)     }') # ssr is running
-        proxychains4 curl myip.ipip.net
+        proxychains4 -q curl myip.ipip.net
     else
         curl myip.ipip.net
     end
@@ -2025,10 +2025,10 @@ function port -d 'list all the ports are used or check the process which are usi
     end
 end
 
-abbr px 'proxychains4'
-alias pxw 'proxychains4 wget -c --no-check-certificate'
-alias pxa 'proxychains4 aria2c -c -x 5 --check-certificate=false --file-allocation=none'
-alias pxc 'proxychains4 curl -L -O -C -'
+abbr px 'proxychains4 -q'
+alias pxw 'proxychains4 -q wget -c --no-check-certificate'
+alias pxa 'proxychains4 -q aria2c -c -x 5 --check-certificate=false --file-allocation=none'
+alias pxc 'proxychains4 -q curl -L -O -C -'
 alias wget 'wget -c --no-check-certificate'
 alias wgets 'wget -c --mirror -p --html-extension --convert-links'
 alias curls 'curl -L -O -C -'
