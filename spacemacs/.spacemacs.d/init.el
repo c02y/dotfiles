@@ -519,7 +519,7 @@ It should only modify the values of Spacemacs settings."
    ;; %z - mnemonics of buffer, terminal, and keyboard coding systems
    ;; %Z - like %z, but including the end-of-line format
    ;; (default "%I@%S")
-   dotspacemacs-frame-title-format "%b:%p @%S"
+   dotspacemacs-frame-title-format "\"%a [%t]\" : %p"
 
    ;; Format specification for setting the icon title format
    ;; (default nil - same as frame-title-format)
@@ -1095,6 +1095,9 @@ Emacs session."
     "L t" 'leetcode-try
     "L s" 'leetcode-submit
     )
+
+   (spacemacs/set-leader-keys-for-minor-mode 'lsp-mode
+     "gD" #'xref-find-definitions-other-window)
 
   (defun revert-buffer-without-asking ()
     "Revert buffer without asking"
