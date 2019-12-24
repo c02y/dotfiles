@@ -1905,6 +1905,10 @@ abbr hs 'sudo cp -v ~/Public/hosts/hosts /etc/hosts'
 
 # https://stackoverflow.com/questions/10408816/how-do-i-use-the-nohup-command-without-getting-nohup-out
 function meld --description 'lanuch meld from terminal without block it'
+    if not command -sq meld
+        echo "meld is not installed"
+        return -1
+    end
     # You could just use
     # bash -c "(nohup /usr/bin/meld $argv </dev/null >/dev/null 2>&1 &)"
     # But it will not work if the name of arguments contains space
