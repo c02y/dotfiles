@@ -277,22 +277,34 @@ function! UserConfig()
     au FileType gitcommit 1 | startinsert
 
     " use hybrid relative in normal mode, and normal relative in insert mode
-    augroup numbertoggle
+    augroup numberinitial
         autocmd!
-        autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
-        autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
+        autocmd BufEnter,FocusGained * set relativenumber
+        autocmd BufLeave,FocusLost * set norelativenumber
     augroup END
-    function! NumberToggle()
-        if(&rnu == 1 && &nu == 1)
-            set nornu nu
-        elseif (&rnu == 0 && &nu ==1)
-            set nonu
-        elseif (&rnu == 0 && &nu == 0)
-            set number
+    let g:number_lock = 0
+    function! NumberNext()
+        if (&nu == 1 && &rnu == 1)
+            let g:number_lock = 1
+            set nu nornu
+        elseif (&nu == 1 && &rnu == 0)
+            set nu rnu
         endif
     endfunction
-    nnoremap <Leader>tt :set number! relativenumber!<CR>
-    nnoremap <Leader>tn :call NumberToggle()<CR>
+    function! NumberToggle()
+        if (&rnu == 1 && &nu == 1)
+            let g:number_lock = 0
+            set nornu nonu
+        elseif (&rnu == 0 && &nu == 1)
+            set nornu nonu
+        elseif (&rnu == 0 && &nu == 0 && g:number_lock == 1)
+            set nornu nu
+        elseif (&rnu == 0 && &nu == 0 && g:number_lock == 0)
+            set rnu nu
+        endif
+    endfunction
+    nnoremap <Leader>tt :call NumberToggle()<CR>
+    nnoremap <Leader>tn :call NumberNext()<CR>
     nnoremap <Leader>tw :set list!<CR>
     nnoremap <Leader>tl :set wrap!<CR>
 
