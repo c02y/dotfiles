@@ -902,6 +902,24 @@ With argument, backward ARG lines."
         ;; Indent character samples: | ┆ ┊ ⁞
         highlight-indent-guides-character ?\┊)
 
+  (defun rename-this-buffer-and-file ()
+    "Renames current buffer and file it is visiting."
+    (interactive)
+    (let ((name (buffer-name))
+          (filename (buffer-file-name)))
+      (if (not (and filename (file-exists-p filename)))
+          (error "Buffer '%s' is not visiting a file!" name)
+        (let ((new-name (read-file-name "New name: " filename)))
+          (cond ((get-buffer new-name)
+                 (error "A buffer named '%s' already exists!" new-name))
+                (t
+                 (rename-file filename new-name 1)
+                 (rename-buffer new-name)
+                 (set-visited-file-name new-name)
+                 (set-buffer-modified-p nil)
+                 (message "File '%s' successfully renamed to '%s'" name
+                          (file-name-nondirectory new-name))))))))
+
   (defun copy-name ()
     "Copy the name (NOT full path) of current buffer file to the clipboard."
     (interactive)
@@ -1011,8 +1029,10 @@ Emacs session."
     ;; whitespace-cleanup will also do untabify-it/tabify-it automatically
     ;; according indent-tabs-mode, so the definitions of two functions are not needed
     "bc" 'whitespace-cleanup
+    ;; overwrite the default br
+    "br" 'revert-buffer-without-asking
     ;; overwrite the default bR
-    "bR" 'revert-buffer-without-asking
+    "bR" 'rename-this-buffer-and-file
     ;; there are extra several related functions: copy-name/path-short/path/html/pdf
     "b SPC" 'copy-path
     "bi" 'count-words
