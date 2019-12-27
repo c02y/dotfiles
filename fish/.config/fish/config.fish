@@ -1128,7 +1128,7 @@ abbr pacc 'sudo pacman -Sc --noconfirm'     # clean packages cache
 abbr pacC 'paccache -rvk2 --noconfirm' # remove old package cache files is to remove all packages except for the latest 2 package versions
 abbr pacu 'yay -Syu' # update the database and update the system, pacman only updates from repo, yay updates from both repo and aur
 abbr pacuu 'yay -Syyu' # force a full refresh of database and update the system, must do this when switching branches/mirrors
-abbr pacud 'yay -Syyuu' # like pacuu, but allow downgrade, needed when switch to old branch like testing->stable or you seen local xxx is newer than xxx
+abbr pacud 'yay -Syuu' # like pacu, but allow downgrade, needed when switch to old branch like testing->stable or you seen local xxx is newer than xxx
 abbr paco 'pacman -Qdt' # To list all orphans, installed packages that are not used by anything else and should no longer be needed
 abbr pacor 'sudo pacman -Rsun (pacman -Qdtq)' # remove package and its configs in paco
 function pacsh -d 'search info about package, first search installed then search in repo'
