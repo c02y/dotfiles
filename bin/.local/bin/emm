@@ -405,7 +405,7 @@ if check_daemon_status; then
 		eval emacsclient -a "" -n -c $cmd $@
 	else
 		# "" here forces the GUI running without holding the terminal, like &
-		eval "emacsclient -a \"\" -n -c $cmd" $@ >/dev/null
+		eval "emacsclient -a \"\" -n -F \"'(fullscreen . maximized)\" -c $cmd" $@ >/dev/null
 	fi
 fi
 if [ "$DISPLAY" ]; then      # using GUI
