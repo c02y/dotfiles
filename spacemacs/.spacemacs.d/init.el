@@ -1249,7 +1249,9 @@ Version 2016-12-18"
 
   (with-eval-after-load 'ivy
     (setq ivy-count-format "%d/%d> "
-          ivy-initial-inputs-alist nil))
+          ivy-initial-inputs-alist nil
+          ivy-magic-tilde nil
+          ))
 
   ;; whitespace faces
   (with-eval-after-load 'whitespace
