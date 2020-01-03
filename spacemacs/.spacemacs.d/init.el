@@ -1814,7 +1814,7 @@ In other non-comment situations, try C-M-j to split."
           org-tags-column 0
           org-src-preserve-indentation t
           org-src-ask-before-returning-to-edit-buffer nil
-          org-src-window-setup 'other-window
+          org-src-window-setup 'split-window-below
           ;; fix the issue of org-src buffer
           ;; spacemacs/issues/12967
           org-src-tab-acts-natively nil
