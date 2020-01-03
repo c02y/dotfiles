@@ -698,6 +698,8 @@ before packages are loaded."
    ;; NOTE: The following line will affect the with-editor-mode-hook of evil-insert-state
    ;; but this comment-out is not reliable, sometimes it is normal-state in git-commit-mode
    ;; major-mode 'org-mode
+   ;; wrap long lines
+   global-visual-line-mode t
    )
   ;; disable loading the default theme for terminal emacs
   (unless (display-graphic-p)
