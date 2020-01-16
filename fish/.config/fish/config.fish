@@ -1319,7 +1319,7 @@ function viv -d 'edit vimrc file with vim, $VIMRC(by default), the other(-o), va
 end
 abbr vib 'vim ~/.bashrc'
 abbr vie 'vim $EMACS_EL'
-abbr vi2 'vim ~/Recentchange/TODO'
+abbr vi2 'vim ~/Dotfiles.d/todo.org'
 abbr vif 'vim $FISHRC'
 abbr vit 'vim (readlink -f ~/.tmux.conf); tmux source-file ~/.tmux.conf; echo ~/.tmux.conf reloaded!'
 abbr viT 'vim (readlink -f ~/.tigrc)'
@@ -1941,6 +1941,7 @@ end
 abbr st 'stow -DRv'
 
 abbr ptp 'ptipython'
+abbr pdb 'pudb3'
 # install pytest and pytest-pep8 first, to check if the code is following pep8 guidelines
 abbr pyp8 'py.test --pep8'
 function penv -d 'python3 -m venv in fish'
