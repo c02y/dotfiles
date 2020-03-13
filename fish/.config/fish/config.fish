@@ -1773,7 +1773,7 @@ function brootp -d 'check if broot exists, or with any argument, download the la
         return 0
     else
         set br_path ~/.local/bin/broot
-        eval $PXY curl -o $br_path -LOC - https://dystroy.org/broot/download/x86_64-linux/broot
+        eval $PXY curl -o $br_path -LO https://dystroy.org/broot/download/x86_64-linux/broot
         if test -f $br_path
             chmod +x $br_path
             return 0
