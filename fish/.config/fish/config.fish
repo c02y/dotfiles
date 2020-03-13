@@ -216,9 +216,9 @@ abbr tsr 'tmux source-file ~/.tmux.conf; echo ~/.tmux.conf reloaded!'
 # this line will make the indentation of lines below it wrong, TODO: weird
 # abbr tt 'tmux switch-client -t'
 function twp -d 'tmux swap-pane to current pane to the target pane'
-    tmux display-panes "'%%'"
-    read -n 1 -p 'echo "Target pane number? "' -l num
-    tmux swap-pane -s $num
+    # tmux display-panes "'%%'"
+    # read -n 1 -p 'echo "Target pane number? "' -l num
+    tmux swap-pane -s $argv
 end
 
 alias check 'checkpatch.pl --ignore SPDX_LICENSE_TAG,CONST_STRUCT,AVOID_EXTERNS,NEW_TYPEDEFS --no-tree -f'
