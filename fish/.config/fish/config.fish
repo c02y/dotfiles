@@ -293,6 +293,8 @@ function fish_user_key_bindings
         bind --erase \cv # or bind \cv ""
     end
     fzf_key_bindings            # C-s for file/dir, C-r for history, Tab for complete
+    bind --erase \cb
+    bind \cb br
 end
 set -gx FZF_TMUX_HEIGHT 100%
 abbr clr "echo -e '\033c\c'; path_prompt"
