@@ -1972,7 +1972,7 @@ end
 # end
 
 abbr epub 'ebook-viewer --detach'
-alias time 'time -p'
+# alias time 'time -p'
 
 abbr sss 'ps -eo tty,command | grep -v grep | grep "sudo ssh "'
 abbr p 'ping -c 5'
