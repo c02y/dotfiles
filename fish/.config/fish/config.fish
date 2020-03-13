@@ -1709,37 +1709,41 @@ function gitrh -d 'git reset HEAD for multiple files(file1 file2, all without ar
 end
 
 function gitdl -d 'download several files from github'
-    set -l options 'f' 'g' 's' 'v' 'z' 'h'
+    set -l options 'b' 'f' 'g' 's' 'v' 'z' 'h'
     argparse -n gitdl $options -- $argv
     or return
 
-    set bins fzf gitmux scc nvim z.lua
-    set funs fzfp gitmuxp sccp nvimp zp
+    set bins broot fzf gitmux scc nvim z.lua
+    set funs brootp fzfp gitmuxp sccp nvimp zp
     if set -q _flag_h
-        echo "gitdl [-f/-s/-v/-z/-h]"
+        echo "gitdl [-b/-f/-s/-v/-z/-h]"
         echo "      no option --> once for all"
-        echo "      -f --> $bins[1]"
-        echo "      -g --> $bins[2]"
-        echo "      -s --> $bins[3]"
-        echo "      -v --> $bins[4]"
-        echo "      -z --> $bins[5]"
+        echo "      -b --> $bins[1]"
+        echo "      -f --> $bins[2]"
+        echo "      -g --> $bins[3]"
+        echo "      -s --> $bins[4]"
+        echo "      -v --> $bins[5]"
+        echo "      -z --> $bins[6]"
         echo "      -h --> usage"
         return
-    else if set -q _flag_f
+    else if set -q _flag_b
         echo "Update/Download $bins[1]..."
         eval $funs[1] u
-    else if set -q _flag_g
+    else if set -q _flag_f
         echo "Update/Download $bins[2]..."
         eval $funs[2] u
-    else if set -q _flag_s
+    else if set -q _flag_g
         echo "Update/Download $bins[3]..."
         eval $funs[3] u
-    else if set -q _flag_v
+    else if set -q _flag_s
         echo "Update/Download $bins[4]..."
         eval $funs[4] u
-    else if set -q _flag_z
+    else if set -q _flag_v
         echo "Update/Download $bins[5]..."
         eval $funs[5] u
+    else if set -q _flag_z
+        echo "Update/Download $bins[6]..."
+        eval $funs[6] u
     else                        # no option
         read -n 1 -p 'echo "Update/Download all of $bins from github? [Y/n]: "' -l arg
         if test "$arg" = "" -o "$arg" = "y" -o "$arg" = " "
@@ -1761,6 +1765,23 @@ if test (ps -ef | grep -v grep | grep -i shadow | awk '{ print $(NF-2)     }') #
     set -g PXY 'proxychains4 -q'
 else
     set -g PXY
+end
+
+function brootp -d 'check if broot exists, or with any argument, download the latest version'
+    if command -sq broot; and set -q $argv[1] # gitmux is in $PATH, and no any argv is given, two conditions
+        # echo "broot is installed, use any extra to upgrade it!"
+        return 0
+    else
+        set br_path ~/.local/bin/broot
+        eval $PXY curl -o $br_path -LOC - https://dystroy.org/broot/download/x86_64-linux/broot
+        if test -f $br_path
+            chmod +x $br_path
+            return 0
+        else
+            echo "scc doesn't exist and error occurs when downloading it!"
+            return 1
+        end
+    end
 end
 
 function gitmuxp -d 'check if gitmux exists, or with any argument, download the latest version'
@@ -1785,7 +1806,6 @@ function gitmuxp -d 'check if gitmux exists, or with any argument, download the 
             return 1
         end
     end
-
 end
 function nvimp -d 'check if nvim exists, or with any argument, download the latest stable/nightly(-n) version'
     set -l options 'n'
@@ -1796,7 +1816,7 @@ function nvimp -d 'check if nvim exists, or with any argument, download the late
         return 0
     else
         if set -q _flag_n
-            eval $PXY curl  -o ~/.local/bin/nvim -LOC https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage
+            eval $PXY curl -o ~/.local/bin/nvim -LOC - https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage
             if test -f ~/.local/bin/nvim
                 chmod +x ~/.local/bin/nvim
                 return 0
