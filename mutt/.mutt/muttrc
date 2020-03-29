@@ -1,0 +1,274 @@
+# basic options
+set wait_key = no
+set mbox_type = Maildir
+set timeout    = 10
+set sleep_time = 0
+set mail_check = 5
+set mail_check_stats
+set mail_check_stats_interval = 60
+set delete
+set quit
+set thorough_search
+set imap_keepalive = 900
+unset confirmappend
+unset move
+unset mark_old
+unset beep_new
+
+# compose View Options
+set envelope_from                    # which from?
+set edit_headers                     # show headers when composing
+set fast_reply                       # skip to compose when replying
+set askcc                            # ask for CC:
+set fcc_attach                       # save attachments with the body
+set forward_format = "Fwd: %s"       # format of subject when forwarding
+set forward_decode                   # decode when forwarding
+set attribution = "On %d, %n wrote:" # format of quoting header
+set reply_to                         # reply to Reply to: field
+set reverse_name                     # reply as whomever it was to
+set include                          # include message in replies
+set forward_quote                    # include message in forwards
+set editor = "nvim"
+set text_flowed
+unset sig_dashes                     # no dashes before sig
+unset mime_forward                   # forward attachments as part of body
+set rfc2047_parameters = yes         # utf-8 in attachment
+
+# status bar, date format, finding stuff etc.
+set status_chars = " *%A"
+# set status_format = "[Folder: %f] [%r%m messages%?n? (%n new)?%?d? (%d to delete)?%?t? (%t tagged)? ]%>─%?p?( %p postponed )?"
+set status_format='-%r-NeoMutt: %f [Msgs:%?M?%M/?%m%?n? New:%n?%?o? Old:%o?%?d? Del:%d?%?F? \
+Flag:%F?%?t? Tag:%t?%?p? Post:%p?%?b? Inc:%b?%?l?]-(%l?, %P)-%>--'
+set date_format = "%d.%m.%Y %H:%M"
+# date part: https://neomutt.org/feature/cond-date
+# BUG:
+# show color or symbol for email with attachment has bug for size part:
+# in index_format:
+# %?X?A&-?
+# color:
+# color index yellow default "~X 1-"
+set index_format = '%4C %Z %<[y?%<[m?%<[d?%[%H:%M]&%[%m/%d]>&%[%m/%d]>&%[%y-%m]> %-20.20L (%?l?%4l&%4c?) %s'
+set sort = threads
+set sort_aux = reverse-last-date-received
+set uncollapse_jump
+set sort_re
+set reply_regexp = "^(([Rr][Ee]?(\[[0-9]+\])?: *)?(\[[^]]+\] *)?)*"
+set quote_regexp = "^( {0,4}[>|:#%]| {0,4}[a-z0-9]+[>|]+)+"
+set send_charset = "utf-8:iso-8859-1:us-ascii"
+set charset = "utf-8"
+
+# when composing emails, use this command to get addresses from
+# the addressbook with khard first, and everything else from mu index
+# set query_command = "( khard email --parsable '%s' | sed -n '1!p'; mu cfind --format=mutt-ab '%s' )"
+
+# Pager View Options
+set pager_index_lines = 10
+set pager_context = 3
+set pager_stop
+set menu_scroll
+set tilde
+unset markers
+
+# view web
+auto_view text/html
+alternative_order text/enriched text/plain text/html text
+# put the following lines into /etc/mailcap
+# text/html; w3m %s;     nametemplate=%s.html;       needsterminal
+# text/html; w3m -v -F -T text/html -dump %s;        copiousoutput
+
+# email headers and attachments
+ignore *
+unignore from: to: cc: bcc: date: subject:
+unhdr_order *
+hdr_order from: to: cc: bcc: date: subject:
+alternative_order text/plain text/enriched text/html
+auto_view text/html
+
+# GPG/PGP
+# set pgp_sign_as = 2F283D0D
+# set crypt_use_gpgme = yes
+# set crypt_autosign = no
+# set crypt_verify_sig = yes
+# set crypt_replysign = yes
+# set crypt_replyencrypt = yes
+# set crypt_replysignencrypted = yes
+
+# sidebar patch config
+set sidebar_visible
+set sidebar_short_path = yes
+set sidebar_folder_indent = yes
+set sidebar_width = 28
+set sidebar_divider_char = '| '
+set sidebar_indent_string = "  '"
+# set sidebar_format = "%B %* [%?N?%N / ?%S]"
+set sidebar_format = "%B%?F? [%F]?%> [%?N?%N/?%S]"
+
+# Mailboxes to show in the sidebar.
+# mailboxes = mailbox
+# mailboxes =INBOX =archive =sent =drafts =junk =trash
+# mailboxes = "==================="
+# mailboxes = ch
+# mailboxes = ch/INBOX =ch/archive =ch/sent =ch/drafts =ch/junk =ch/trash
+
+# And finally the account config for multiple accounts
+#############################################################
+
+# by default, use mailbox
+# set spoolfile = "+mailbox/INBOX"
+# source ~/.mutt/accounts/mailbox
+
+# when changing into other mailboxes, use different adresses etc.
+# folder-hook mailbox/* source ~/.mutt/accounts/mailbox
+# folder-hook ch/* source ~/.mutt/accounts/ch
+
+
+## colors
+# basic colors ---------------------------------------------------------
+color normal        white           default
+color error         red             default
+color tilde         black           default
+color message       cyan            default
+color markers       red             white
+color attachment    white           default
+color search        brightmagenta   default
+color indicator     brightblack     yellow
+color tree          green           default
+# sidebar
+color sidebar_indicator default color17
+color sidebar_new   red default
+color sidebar_highlight blue default
+# index ----------------------------------------------------------------
+color index         red             default    "~A"    # all messages
+color index         brightred       default    "~E"    # expired messages
+color index         blue            default    "~N"    # new messages
+color index         blue            default    "~O"    # old messages
+color index         brightmagenta   default    "~Q"    # messages that have been replied to
+color index         brightwhite     default    "~R"    # read messages
+color index         blue            default    "~U"    # unread messages
+color index         brightyellow    default    "~v"    # messages part of a collapsed thread
+color index         brightyellow    default    "~P"    # messages from me
+color index         red             default    "~F"    # flagged messages
+color index         black           red        "~D"    # deleted messages
+# message headers ------------------------------------------------------
+color hdrdefault    brightgreen     default
+color header        brightyellow    default    "^(From)"
+color header        blue            default    "^(Subject)"
+# body -----------------------------------------------------------------
+color quoted        blue            default
+color quoted1       cyan            default
+color quoted2       yellow          default
+color quoted3       red             default
+color quoted4       brightred       default
+color signature     brightblack     default
+color bold          black           default
+color underline     black           default
+color normal        default         default
+# status
+# Highlight New, Deleted, or Flagged emails
+color status blue default '(New|Del|Flag):[0-9]+'
+# Highlight the mailbox
+color status yellow default 'NeoMutt: ([^ ]+)' 1
+## end of colors
+
+
+## keybindings
+# some sane vim-like keybindings
+bind index,pager k previous-entry
+bind index,pager j next-entry
+bind index,pager K half-up
+bind index,pager J half-down
+bind index,pager g noop
+bind index,pager gr imap-fetch-mail
+bind index,pager gs sync-mailbox
+bind index,pager \Cu half-up
+bind index,pager \Cd half-down
+bind index,pager <backtab> previous-new-then-unread
+bind pager gg top
+bind index gg first-entry
+bind pager G bottom
+bind index G last-entry
+# Sidebar Navigation
+bind index,pager \Cp sidebar-prev
+bind index,pager \Cn sidebar-next
+bind index,pager \Co sidebar-open
+bind index,pager \Ct sidebar-toggle-visible
+bind index,pager <left> sidebar-toggle-visible
+bind index,pager <right> sidebar-open
+
+# index and pager shortcuts
+bind index,pager @ compose-to-sender
+bind index,pager R group-reply
+bind index <space> collapse-thread
+# Save all attachments
+# macro index,pager S "<pipe-message>ripmime -i - -d ~/Downloads && rm ~/Downloads/textfile*" "Save all non-text attachments using ripmime"
+# opening urls with urlscan
+# macro index,pager \cb "<pipe-message>urlscan<enter>" "call urlscan to extract URLs out of a message"
+# Sync all email
+# macro index,pager O "<shell-escape>mbsync -a<enter>" "run mbsync to sync all mail"
+# View attachments properly.
+# bind attach <return> view-mailcap
+# Drafts
+bind compose P postpone-message
+bind index p recall-message
+# finding stuff
+bind editor <tab> complete-query
+# bind editor Esc <BackSpace> kill-word
+# macro index F "<shell-escape>mu find --clearlinks --format=links --linksdir=~/.mu/results " "mu find"
+# macro index \cf "<change-folder-readonly>~/.mu/results<enter>" "mu find results"
+## end of keybindings
+
+
+## Performance
+# use very high $read_inc to speed up reading hcache'd maildirs
+folder-hook . 'set read_inc=1000'
+# use lower value for reading slower remote IMAP folders
+# folder-hook ^imap 'set read_inc=100'
+# use even lower value for reading even slower remote POP folders
+# folder-hook ^pop 'set read_inc=1'
+
+# Account
+set imap_user = "cody.chan.cz@gmail.com"
+set smtp_url = "smtps://cody.chan.cz@smtp.gmail.com:587"
+set smtp_authenticators = "plain"
+set ssl_force_tls = yes
+# passwords
+# https://smalldata.tech/blog/2016/09/10/gmail-with-mutt
+# # the following creates a /home/user/.mutt/passwords.gpg file using a passphrase
+# gpg -r your.email@example.com -c ~/.mutt/passwords
+# shred ~/.mutt/passwords
+# rm ~/.mutt/passwords
+source "gpg -d ~/.mutt/passwords.gpg |"
+
+set folder = "imaps://imap.gmail.com/"
+# set spoolfile = "imaps://imap.gmail.com/INBOX"
+set spoolfile = "+INBOX"
+set trash = "+[Gmail].Trash"
+set postponed = "+[Gmail].Drafts"
+set record = ""
+# path
+set header_cache = "~/.mutt/cache/headers"
+set message_cachedir = "~/.mutt/cache/bodies"
+set certificate_file = ~/.mutt/certificates
+# set mailcap_path = ~/.mutt/mailcap
+set tmpdir = ~/.mutt/tmp
+# sidebar lists
+named-mailboxes "Inbox" =INBOX
+named-mailboxes "Starred" =[Gmail].Starred
+named-mailboxes "Important" =[Gmail].Important
+named-mailboxes "Sent" ="[Gmail].Sent Mail"
+named-mailboxes "Drafts" =[Gmail].Drafts
+named-mailboxes "All Mail" ="[Gmail].All Mail"
+named-mailboxes "Spam" =[Gmail].Spam
+named-mailboxes "Trash" =[Gmail].Trash
+
+# Mailing list
+# the subscribe lines don't affect sidebar, it only affects the flag part in index
+subscribe linux-kernel@vger.kernel.org linux-newbie@vger.kernel.org linux-api@@vger.kernel.org
+subscribe kernelnewbies@kernelnewbies.org
+subscribe python-announce-list@python.org python-list@python.org
+subscribe tmux-users@googlegroups.com
+# sideber mailing lists
+named-mailboxes "kernel_mls" =kernel_mls
+named-mailboxes "kernelnewbies_ml" =kernelnewbies_ml
+named-mailboxes "python_mls"       =python_mls
+named-mailboxes "tmux_ml"          =tmux_ml
