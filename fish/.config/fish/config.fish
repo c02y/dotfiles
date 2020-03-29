@@ -1107,12 +1107,13 @@ abbr zppdup 'sudo zypper dist-upgrade -l --details --no-recommends'
 abbr zppca 'sudo zypper clean --all'
 
 # apt for ubuntu/debian/kali...
-abbr api 'sudo apt install -V'
-abbr apu 'sudo apt update; sudo apt full-upgrade -V'
-abbr apr 'sudo apt remove -V'
-abbr apar 'sudo apt autoremove -Vy'
-abbr aps 'apt search'
-abbr apd 'apt depends'
+abbr appi 'sudo apt install -V'
+abbr appu 'sudo apt update; sudo apt full-upgrade -V'
+abbr appr 'sudo apt remove -V'
+abbr appc 'sudo apt clean'
+abbr appar 'sudo apt autoremove -Vy'
+abbr apps 'apt search'
+abbr appd 'apt depends'
 
 # pacman/yay for manjaro/arch/...
 abbr paci 'sudo pacman -Syu --needed' # -S to install a package, -Syu pkg to ensure the system is update to date then install the package
