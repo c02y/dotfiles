@@ -306,6 +306,17 @@ abbr rgr 'ranger'
 abbr fpp '~/Public/PathPicker/fpp'
 abbr ga 'glances -t 1 --hide-kernel-threads -b --disable-irq --enable-process-extended'
 abbr dst 'dstat -d -n'
+function ml -d 'mutt/neomutt'
+    if command -sq neomutt
+        set MUTT neomutt
+    else if command -sq mutt
+        set MUTT mutt
+    else
+        echo "mutt/neomutt is not installed!"
+        return -1
+    end
+    eval $PXY $MUTT
+end
 
 # make the make and gcc/g++ color
 function make
@@ -1960,9 +1971,10 @@ function wc
     end
 end
 
-abbr st 'stow -DRv'
+abbr st '~/Dotfiles.d/bin/.local/bin/stowsh -v'
 
-abbr ptp 'ptipython'
+# abbr ipy 'ptipython'
+abbr ipy 'bpython'
 abbr pdb 'pudb3'
 # install pytest and pytest-pep8 first, to check if the code is following pep8 guidelines
 abbr pyp8 'py.test --pep8'
