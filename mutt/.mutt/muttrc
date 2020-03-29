@@ -1,6 +1,6 @@
 # basic options
-set wait_key = no
-set mbox_type = Maildir
+set wait_key   = no
+set mbox_type  = Maildir
 set timeout    = 10
 set sleep_time = 0
 set mail_check = 5
@@ -16,7 +16,10 @@ unset mark_old
 unset beep_new
 
 # compose View Options
-set envelope_from                    # which from?
+set use_from      = yes
+set from          = "cody.chan.cz@gmail.com"
+set realname      = "Cody Chan"
+set envelope_from = yes               # which from?
 set edit_headers                     # show headers when composing
 set fast_reply                       # skip to compose when replying
 set askcc                            # ask for CC:
@@ -48,14 +51,14 @@ set date_format = "%d.%m.%Y %H:%M"
 # color:
 # color index yellow default "~X 1-"
 set index_format = '%4C %Z %<[y?%<[m?%<[d?%[%H:%M]&%[%m/%d]>&%[%m/%d]>&%[%y-%m]> %-20.20L (%?l?%4l&%4c?) %s'
-set sort = threads
-set sort_aux = reverse-last-date-received
+set sort         = threads
+set sort_aux     = reverse-last-date-received
 set uncollapse_jump
 set sort_re
 set reply_regexp = "^(([Rr][Ee]?(\[[0-9]+\])?: *)?(\[[^]]+\] *)?)*"
 set quote_regexp = "^( {0,4}[>|:#%]| {0,4}[a-z0-9]+[>|]+)+"
 set send_charset = "utf-8:iso-8859-1:us-ascii"
-set charset = "utf-8"
+set charset      = "utf-8"
 
 # when composing emails, use this command to get addresses from
 # the addressbook with khard first, and everything else from mu index
@@ -63,7 +66,7 @@ set charset = "utf-8"
 
 # Pager View Options
 set pager_index_lines = 10
-set pager_context = 3
+set pager_context     = 3
 set pager_stop
 set menu_scroll
 set tilde
@@ -85,23 +88,23 @@ alternative_order text/plain text/enriched text/html
 auto_view text/html
 
 # GPG/PGP
-# set pgp_sign_as = 2F283D0D
-# set crypt_use_gpgme = yes
-# set crypt_autosign = no
-# set crypt_verify_sig = yes
-# set crypt_replysign = yes
-# set crypt_replyencrypt = yes
+# set pgp_sign_as              = 2F283D0D
+# set crypt_use_gpgme          = yes
+# set crypt_autosign           = no
+# set crypt_verify_sig         = yes
+# set crypt_replysign          = yes
+# set crypt_replyencrypt       = yes
 # set crypt_replysignencrypted = yes
 
 # sidebar patch config
 set sidebar_visible
-set sidebar_short_path = yes
+set sidebar_short_path    = yes
 set sidebar_folder_indent = yes
-set sidebar_width = 28
-set sidebar_divider_char = '| '
+set sidebar_width         = 28
+set sidebar_divider_char  = '| '
 set sidebar_indent_string = "  '"
-# set sidebar_format = "%B %* [%?N?%N / ?%S]"
-set sidebar_format = "%B%?F? [%F]?%> [%?N?%N/?%S]"
+# set sidebar_format      = "%B %* [%?N?%N / ?%S]"
+set sidebar_format        = "%B%?F? [%F]?%> [%?N?%N/?%S]"
 
 # Mailboxes to show in the sidebar.
 # mailboxes = mailbox
@@ -227,10 +230,10 @@ folder-hook . 'set read_inc=1000'
 # folder-hook ^pop 'set read_inc=1'
 
 # Account
-set imap_user = "cody.chan.cz@gmail.com"
-set smtp_url = "smtps://cody.chan.cz@smtp.gmail.com:587"
+set imap_user           = "cody.chan.cz@gmail.com"
+set smtp_url            = "smtp://cody.chan.cz@smtp.gmail.com:587"
 set smtp_authenticators = "plain"
-set ssl_force_tls = yes
+set ssl_force_tls       = yes
 # passwords
 # https://smalldata.tech/blog/2016/09/10/gmail-with-mutt
 # # the following creates a /home/user/.mutt/passwords.gpg file using a passphrase
@@ -239,36 +242,39 @@ set ssl_force_tls = yes
 # rm ~/.mutt/passwords
 source "gpg -d ~/.mutt/passwords.gpg |"
 
-set folder = "imaps://imap.gmail.com/"
+set folder      = "imaps://imap.gmail.com/"
 # set spoolfile = "imaps://imap.gmail.com/INBOX"
-set spoolfile = "+INBOX"
-set trash = "+[Gmail].Trash"
-set postponed = "+[Gmail].Drafts"
-set record = ""
+set spoolfile   = "+INBOX"
+set trash       = "+[Gmail].Trash"
+set postponed   = "+[Gmail].Drafts"
+set record      = ""
 # path
-set header_cache = "~/.mutt/cache/headers"
+set header_cache     = "~/.mutt/cache/headers"
 set message_cachedir = "~/.mutt/cache/bodies"
 set certificate_file = ~/.mutt/certificates
-# set mailcap_path = ~/.mutt/mailcap
-set tmpdir = ~/.mutt/tmp
+# set mailcap_path   = ~/.mutt/mailcap
+set tmpdir           = ~/.mutt/tmp
 # sidebar lists
-named-mailboxes "Inbox" =INBOX
-named-mailboxes "Starred" =[Gmail].Starred
+named-mailboxes "Inbox"     =INBOX
+named-mailboxes "Sent"      ="[Gmail].Sent Mail"
+named-mailboxes "All Mail"  ="[Gmail].All Mail"
+named-mailboxes "Starred"   =[Gmail].Starred
 named-mailboxes "Important" =[Gmail].Important
-named-mailboxes "Sent" ="[Gmail].Sent Mail"
-named-mailboxes "Drafts" =[Gmail].Drafts
-named-mailboxes "All Mail" ="[Gmail].All Mail"
-named-mailboxes "Spam" =[Gmail].Spam
-named-mailboxes "Trash" =[Gmail].Trash
+named-mailboxes "Drafts"    =[Gmail].Drafts
+named-mailboxes "Spam"      =[Gmail].Spam
+named-mailboxes "Trash"     =[Gmail].Trash
+
+# separator in sidebar
+named-mailboxes "----Mailing lists----" ="----"
 
 # Mailing list
 # the subscribe lines don't affect sidebar, it only affects the flag part in index
-subscribe linux-kernel@vger.kernel.org linux-newbie@vger.kernel.org linux-api@@vger.kernel.org
+subscribe linux-kernel@vger.kernel.org linux-newbie@vger.kernel.org linux-api@@vger.kernel.org linux-man@vger.kernel.org linux-doc@vger.kernel.org
 subscribe kernelnewbies@kernelnewbies.org
 subscribe python-announce-list@python.org python-list@python.org
 subscribe tmux-users@googlegroups.com
 # sideber mailing lists
-named-mailboxes "kernel_mls" =kernel_mls
+named-mailboxes "kernel_mls"       =kernel_mls
 named-mailboxes "kernelnewbies_ml" =kernelnewbies_ml
 named-mailboxes "python_mls"       =python_mls
 named-mailboxes "tmux_ml"          =tmux_ml
