@@ -100,10 +100,11 @@ This function should only modify configuration layer settings."
      (evil-snipe :variables evil-snipe-enable-alternate-f-and-t-behaviors t)
      ;; NOTE: install ccls
      (c-c++ :variables
+            ;; default backend will be lsp-clangd,
+            ;; lsp-ccls will stuck emacs for a little while after opening a simple c/c++ file
+            ;; c-c++-backend 'lsp-ccls
             c-c++-adopt-subprojects t
-            c-c++-backend 'lsp-ccls
-            ;; just get rid of the warning message
-            c-c++-lsp-cache-dir "/tmp/ccls"
+            c-c++-enable-auto-newline t
             )
      ;; NOTE: install cscope, pip install pycscope
      cscope
@@ -112,7 +113,8 @@ This function should only modify configuration layer settings."
      ;; 2. install Bear, use it like `bear <build_commands>' like `bear make'
      ;; 3. pip install scan-build, (NOTE: it is based on Bear), use it like `intercept-build <build_commands>' like `intercept-build make'
      ;; Read https://github.com/MaskRay/ccls/wiki/Project-Setup for project setup
-     lsp
+     ;; lsp-enable-indentation -> spacemacs/issues/10051#issuecomment-605979333
+     (lsp :variables lsp-enable-indentation nil)
      ;; M-x dap-gdb-lldb-setup after packages are installed by dap layer
      dap
      ;; TODO: npm install -g prettier
@@ -180,7 +182,7 @@ This function should only modify configuration layer settings."
    ;; installs only the used packages but won't delete unused ones. `all'
    ;; installs *all* packages supported by Spacemacs and never uninstalls them.
    ;; (default is `used-only')
-   dotspacemacs-install-packages 'used-only))
+   dotspacemacs-install-packages 'used-but-keep-unused))
 
 (defun dotspacemacs/init ()
   "Initialization:
@@ -744,6 +746,7 @@ before packages are loaded."
    ;; spacemacs/issues/5186#issuecomment-31286766
    ;; NOTE: recentf issue also causes the problem of 2 mins of delay for reboot/shutdown
    ;; workaround by changing emacs.service: spacemacs/issues/12873#issuecomment-558252242
+   ;; reddit.com/r/emacs/comments/do67z3/emacsservice_will_delay_2_mins_before/flm97pm
    recentf-save-file (format "/tmp/recentf.%s" (emacs-pid))
    )
 
