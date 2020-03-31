@@ -1977,6 +1977,8 @@ abbr st '~/Dotfiles.d/bin/.local/bin/stowsh -v'
 # abbr ipy 'ptipython'
 abbr ipy 'bpython'
 abbr pdb 'pudb3'
+# when using default pip install is slow, use repo from the following url to install
+abbr pipi 'pip install -i https://pypi.tuna.tsinghua.edu.cn/simple'
 # install pytest and pytest-pep8 first, to check if the code is following pep8 guidelines
 abbr pyp8 'py.test --pep8'
 function penv -d 'python3 -m venv in fish'
