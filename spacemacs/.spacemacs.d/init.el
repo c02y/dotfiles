@@ -532,7 +532,7 @@ It should only modify the values of Spacemacs settings."
    ;; `trailing' to delete only the whitespace at end of lines, `changed' to
    ;; delete only whitespace for changed lines or `nil' to disable cleanup.
    ;; (default nil)
-   dotspacemacs-whitespace-cleanup nil
+   dotspacemacs-whitespace-cleanup 'changed
 
    ;; Either nil or a number of seconds. If non-nil zone out after the specified
    ;; number of seconds. (default nil)
@@ -683,8 +683,6 @@ before packages are loaded."
                 frame
                 '((vertical-scroll-bars . nil)
                   (horizontal-scroll-bars . nil)))))
-
-  (add-hook 'before-save-hook 'whitespace-cleanup)
 
   ;; prevent package-selected-package list been created
   (defun package--save-selected-packages (&rest opt) nil)
@@ -2159,6 +2157,10 @@ With prefix P, don't widen, just narrow even if buffer is already narrowed. "
      (make-lsp-client :new-connection (lsp-stdio-connection "gopls")
                       :major-modes '(go-mode)
                       :server-id 'gopls)))
+
+  ;; fix the issue that the ipynb file won't be saved(Text is read-only)
+  (add-hook 'ein:notebook-multilang-mode-hook
+            #'(lambda () (spacemacs/toggle-whitespace-cleanup-off)))
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
