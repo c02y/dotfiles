@@ -1122,6 +1122,15 @@ Emacs session."
    (spacemacs/set-leader-keys-for-minor-mode 'lsp-mode
      "gD" #'xref-find-definitions-other-window)
 
+   (spacemacs/set-leader-keys-for-minor-mode 'ein:notebook-mode
+     "r" #'ein:worksheet-execute-all-cells-below
+     "R" #'ein:worksheet-execute-all-cell
+     "C-S-r" #'ein:worksheet-execute-all-cells-above
+     )
+   ;; fix the issue that the ipynb file won't be saved(Text is read-only)
+   (add-hook 'ein:notebook-multilang-mode-hook
+             #'(lambda () (spacemacs/toggle-whitespace-cleanup-off)))
+
   (defun revert-buffer-without-asking ()
     "Revert buffer without asking"
     (interactive)
@@ -2158,9 +2167,6 @@ With prefix P, don't widen, just narrow even if buffer is already narrowed. "
                       :major-modes '(go-mode)
                       :server-id 'gopls)))
 
-  ;; fix the issue that the ipynb file won't be saved(Text is read-only)
-  (add-hook 'ein:notebook-multilang-mode-hook
-            #'(lambda () (spacemacs/toggle-whitespace-cleanup-off)))
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
