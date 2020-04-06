@@ -1528,7 +1528,7 @@ function gitcl -d 'git clone and cd into it, full-clone(by default), simple-clon
     else
         set DEPTH ""
     end
-    eval git clone -v $argv $DEPTH
+    eval $PXY git clone -v $argv $DEPTH
     echo ---------------------------
     if test (count $argv) -eq 2
         set project $argv[2]
