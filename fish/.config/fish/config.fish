@@ -1977,8 +1977,32 @@ abbr st '~/Dotfiles.d/bin/.local/bin/stowsh -v'
 # abbr ipy 'ptipython'
 abbr ipy 'bpython'
 abbr pdb 'pudb3'
-# when using default pip install is slow, use repo from the following url to install
-abbr pipi 'pip install -i https://pypi.tuna.tsinghua.edu.cn/simple'
+function pips -d 'pip related functions, default(install), -i(sudo install), -c(check outdated), -u(update all outdated packages), -U(upgrade specific packages)'
+    set -l options 'i' 'c' 'u' 'U'
+    argparse -n pips $options -- $argv
+    or return
+
+    if set -q _flag_c
+        echo "Outdated packages:"
+        # echo "pip:"
+        pip list --outdated
+        # echo "sudo pip:"
+        # sudo pip list --outdated
+    else if set -q _flag_u
+        echo "Updating pip packages"
+        # when using default pip install is slow, use repo from the following url to install
+        # pip install -i https://pypi.tuna.tsinghua.edu.cn/simple -U (pip list --outdated | awk 'NR>2 {print $1}')
+        # echo "Updating sudo pip packages"
+        sudo pip install -i https://pypi.tuna.tsinghua.edu.cn/simple -U (pip list --outdated | awk 'NR>2 {print $1}')
+    else if set -q _flag_U
+        sudo pip install -i https://pypi.tuna.tsinghua.edu.cn/simple -U $argv
+    else if set -q _flag_i
+        sudo pip install -i https://pypi.tuna.tsinghua.edu.cn/simple $argv
+    else
+        pip install -i https://pypi.tuna.tsinghua.edu.cn/simple $argv
+    end
+end
+
 # install pytest and pytest-pep8 first, to check if the code is following pep8 guidelines
 abbr pyp8 'py.test --pep8'
 function penv -d 'python3 -m venv in fish'
@@ -2438,7 +2462,6 @@ function d --description "Choose one from the list of recently visited dirs"
         return 1
     end
 
-
     set -l all_dirs $dirprev $dirnext
     if not set -q all_dirs[1]
         echo (_ 'No previous directories to select. You have to cd at least once.') >&2
@@ -2461,7 +2484,7 @@ function d --description "Choose one from the list of recently visited dirs"
         set -l msg 'This should not happen. Have you changed the cd command?'
         printf (_ "$msg\n")
         set -l msg 'There are %s unique dirs in your history' \
-        'but I can only handle %s'
+            'but I can only handle %s'
         printf (_ "$msg\n") $dirc (count $letters)
         return 1
     end
