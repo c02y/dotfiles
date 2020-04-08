@@ -100,9 +100,7 @@ This function should only modify configuration layer settings."
      (evil-snipe :variables evil-snipe-enable-alternate-f-and-t-behaviors t)
      ;; NOTE: install ccls
      (c-c++ :variables
-            ;; default backend will be lsp-clangd,
-            ;; lsp-ccls will stuck emacs for a little while after opening a simple c/c++ file
-            ;; c-c++-backend 'lsp-ccls
+            c-c++-backend 'lsp-ccls
             c-c++-adopt-subprojects t
             c-c++-enable-auto-newline t
             )
@@ -113,8 +111,24 @@ This function should only modify configuration layer settings."
      ;; 2. install Bear, use it like `bear <build_commands>' like `bear make'
      ;; 3. pip install scan-build, (NOTE: it is based on Bear), use it like `intercept-build <build_commands>' like `intercept-build make'
      ;; Read https://github.com/MaskRay/ccls/wiki/Project-Setup for project setup
-     ;; lsp-enable-indentation -> spacemacs/issues/10051#issuecomment-605979333
-     (lsp :variables lsp-enable-indentation nil)
+     ;; NOTE: if the file containing the definitions are/were opened(current Emacs session), ccls will not find the definitions
+     (lsp :variables
+          ;; https://github.com/emacs-lsp/lsp-mode#performance
+          lsp-file-watch-threshold nil
+          read-process-output-max (* 1024 1024 3)
+          lsp-prefer-capf t
+          lsp-idle-delay 0.500
+          ;; Collect lsp-log data
+          ;; lsp-print-performance t
+          lsp-log-io t
+          lsp-auto-guess-root t
+          lsp-ui-doc-delay 0.5
+          ;; lsp-enable-file-watchers nil
+          ccls-initialization-options '(:index (:comments 2) :completion (:detailedLabel t))
+          ccls-sem-highlight-method 'font-lock
+          ;; spacemacs/issues/10051#issuecomment-605979333
+          lsp-enable-indentation nil
+          )
      ;; M-x dap-gdb-lldb-setup after packages are installed by dap layer
      dap
      ;; TODO: npm install -g prettier
