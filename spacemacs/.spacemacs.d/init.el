@@ -107,10 +107,8 @@ This function should only modify configuration layer settings."
      ;; NOTE: install cscope, pip install pycscope
      cscope
      ;; NOTE: to generate compile_commands.json file for lsp before using lsp
-     ;; 1. `cmake -H. -BDebug -DCMAKE_BUILD_TYPE=Debug -DCMAKE_EXPORT_COMPILE_COMMANDS=YES; ln -s Debug/compile_commands.json'
-     ;; 2. install Bear, use it like `bear <build_commands>' like `bear make'
-     ;; 3. pip install scan-build, (NOTE: it is based on Bear), use it like `intercept-build <build_commands>' like `intercept-build make'
-     ;; Read https://github.com/MaskRay/ccls/wiki/Project-Setup for project setup
+	 ;; https://sarcasm.github.io/notes/dev/compilation-database.html
+     ;; Read https://github.com/MaskRay/ccls/wiki/Project-Setup for project setup like .ccls
      ;; NOTE: if the file containing the definitions are/were opened(current Emacs session), ccls will not find the definitions
      (lsp :variables
           ;; https://github.com/emacs-lsp/lsp-mode#performance
@@ -124,7 +122,7 @@ This function should only modify configuration layer settings."
           lsp-auto-guess-root t
           lsp-ui-doc-delay 0.5
           ;; lsp-enable-file-watchers nil
-          ccls-initialization-options '(:index (:comments 2) :completion (:detailedLabel t))
+          ccls-initialization-options '(:index (:comments 2) :completion (:detailedLabel t) :cache (:directory "/tmp/ccls"))
           ccls-sem-highlight-method 'font-lock
           ;; spacemacs/issues/10051#issuecomment-605979333
           lsp-enable-indentation nil
