@@ -16,7 +16,7 @@ let g:spacevim_plug_home = '~/.vim/plugged'
 let g:spacevim_layers = [
             \ 'fzf', 'better-defaults', 'which-key',
             \ 'auto-completion', 'c-c++', 'git', 'editing', 'python',
-            \ 'better-motion', 'airline', 'cscope', 'lsp', 'text-align',
+            \ 'better-motion', 'airline', 'lsp', 'text-align',
             \ ]
 
 " Uncomment the following line if your terminal(-emulator) supports true colors.
@@ -238,6 +238,8 @@ function! UserConfig()
     runtime! plugin/default.vim
     set listchars=tab:»\ ,extends:›,precedes:‹,nbsp:·,trail:·,eol:$,space:·,conceal:·
 
+    set nofixeol
+
     " specll checking
     set spell spelllang=en_us
     set complete+=kspell
@@ -389,6 +391,32 @@ function! UserConfig()
     nnoremap <Leader>bi g<C-g>
     " show full path
     nnoremap <Leader>b<Space> :echo expand('%:p')<CR>
+    " coc, add more, replace the default
+    " TODO: :CocInstall coc-python for python
+    " https://github.com/neoclide/coc.nvim/wiki/Language-servers#python
+    " gd == goto definition in current window
+    let g:coc_config_home = "~/.local/bin/"
+    nmap gG :call CocAction('jumpDefinition', 'split')<CR>
+    nmap gv :call CocAction('jumpDefinition', 'vsplit')<CR>
+    nmap gh :call spacevim#plug#coc#show_documentation()<CR>
+    nmap gt <Plug>(coc-type-definition)
+    nmap gi <Plug>(coc-implementation)
+    nmap gr <Plug>(coc-references)
+    nmap <silent> gR <Plug>(coc-rename)
+    nnoremap <Leader>lg :call CocAction('jumpDefinition', 'split')<CR>
+    nnoremap <Leader>lv :call CocAction('jumpDefinition', 'vsplit')<CR>
+    " K == show doc == <Leader>lh
+    nnoremap <Leader>ld :call spacevim#lang#util#Definition()<CR>
+    nnoremap <Leader>li <Plug>(coc-implementation)
+    nnoremap <Leader>lt <Plug>(coc-type-definition)
+    nnoremap <Leader>ll :CocOpenLog<CR>
+    nnoremap <Leader>lI :CocInfo<CR>
+    nnoremap <Leader>lc  :<C-u>CocListResume<CR>
+    nnoremap <Leader>lC  :CocConfig<CR>
+    " all functions/variables/etc/
+    nnoremap <Leader>lm :CocList -I symbols<CR>
+    " like imenu
+    nnoremap <Leader>l/ :CocList outline<CR>
 
     function! ToggleWindowSplit()
         if !exists('t:splitType')
@@ -423,10 +451,6 @@ function! UserConfig()
     autocmd BufRead,BufNewFile * if (&ft == "vim") | set expandtab tabstop=4 shiftwidth=4 | endif
     " set foldmethod for different file types
     autocmd BufRead,BufNewFile *.el set foldmethod=syntax
-
-    " cscope
-    autocmd BufNewFile,BufRead *.c,*.h,*.hpp,*.cpp,*.cc call spacevim#vim#cscope#Build()
-    autocmd BufNewFile,BufWritePost *.c,*.h,*.hpp,*.cpp,*.cc call spacevim#vim#cscope#UpdateDB()
 
     " set pastetoggle=<F9>	 " paste from out-program under insert mode
     " donnot have to type F9 before pasting from outside of Vim
