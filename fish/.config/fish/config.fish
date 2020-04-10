@@ -2018,10 +2018,10 @@ function penv -d 'python3 -m venv in fish'
 end
 # abbr x 'exit'
 function x -d 'exit or deactivate in python env'
-    if test -n "$VIRTUAL_ENV"
-        # TODO: since sth. is wrong with the deactivate function in $argv/bin/activate.fish
-        deactivate ^/dev/null >/dev/null
-        source $FISHRC
+    if not set -q $VIRTUAL_ENV # running in python virtual env
+        deactivate
+    else if not set -q $CONDA_DEFAULT_ENV # running in conda virtual env
+        cons -x
     else
         exit
     end
@@ -2563,141 +2563,61 @@ end
 # The packages needed to be installed using conda are(only if you have no sudo permission or the offcial is old)
 # ~/anaconda3/bin/conda install -c conda-forge ncurses emacs w3m fish the_silver_searcher source-highlight tmux ripgrep
 # ~/anaconda3/bin/conda install -c lebedov tig
+source $HOME/anaconda3/etc/fish/conf.d/conda.fish >/dev/null ^/dev/null
 abbr condas '~/anaconda3/bin/binstar search -t conda' # [packagename]
 abbr condai '~/anaconda3/bin/conda install -c' # [channel] [packagename]
 abbr condau '~/anaconda3/bin/conda upgrade --all -vy; and ~/anaconda3/bin/conda clean -avy'
 abbr condac '~/anaconda3/bin/conda clean -avy'
 abbr condaS '~/anaconda3/bin/anaconda show' # [channel/packagename]
 
-#### ---------------- anaconda starts -----------------------
-# anaconda
-function condalist -d 'List conda environments.'
-    for dir in (ls $HOME/anaconda3/envs)
-        echo $dir
+function cons -d 'conda virtual environments related functions -i(install package in env, -x(exit the env), -l(list envs), -L(list pkgs in env), -r(remove env and its pkgs)), default(enter or create new env)'
+    set -l options 'i' 'x' 'l' 'L' 'r'
+    argparse -n cons $options -- $argv
+    or return
+
+    if set -q _flag_x
+        if not set -q $CONDA_DEFAULT_ENV # running in conda env
+            conda deactivate
+            echo "Exit conda env"
+        else
+            echo "Not in conda env"
+        end
+    else if set -q _flag_i
+        conda install -n $CONDA_DEFAULT_ENV $argv
+    else if set -q _flag_l
+        conda env list
+    else if set -q _flag_L
+        if not set -q $CONDA_DEFAULT_ENV; and set -q $argv # running in conda env and no argv, too conditions
+            conda list
+        else if set -q $CONDA_DEFAULT_ENV; and set -q $argv
+            conda list
+        else if test "$CONDA_DEFAULT_ENV" != "$argv"
+            conda list -n $argv
+        end
+    else if set -q _flag_r
+        # 1. not in env, remove argv
+        # 2. in env, another env given as argv, remove the argv
+        # 3. in env and (no argv, or argv=current env), deactivate and remove current env
+        if set -q $CONDA_DEFAULT_ENV; or not set -q $CONDA_DEFAULT_ENV; and test "$CONDA_DEFAULT_ENV" != "$argv"
+            conda remove -n $argv --all
+        else if not set -q $CONDA_DEFAULT_ENV; and set -q $argv; or test "$CONDA_DEFAULT_ENV" = "$argv"
+            set -q $argv; and set $ARGV $CONDA_DEFAULT_ENV; or set ARGV $CONDA_DEFAULT_ENV
+            conda deactivate
+            echo "Exit conda env"
+            conda remove -n $ARGV --all
+        end
+    else
+        if set -q $argv         # no argv
+            conda env list
+            read -l -p 'echo "Which conda env to: "' answer
+            conda activate $answer
+        else
+            if conda env list | awk '{ print $1 }' | grep -w $argv > /dev/null ^/dev/null
+                conda activate $argv
+            else
+                conda create -n $argv
+                conda activate $argv >/dev/null ^/dev/null; and echo "conda env switched to $argv ..."
+            end
+        end
     end
 end
-
-function condactivate -d 'Activate a conda environment' -a cenv
-    if test -z $cenv
-        echo 'Usage: condactivate <env name>'
-        return 1
-    end
-
-    # condabin will be the path to the bin directory
-    # in the specified conda environment
-    set condabin $HOME/anaconda3/envs/$cenv/bin
-
-    # check whether the condabin directory actually exists and
-    # exit the function with an error status if it does not
-    if not test -d $condabin
-        echo 'Environment not found.'
-        return 1
-    end
-
-    # deactivate an existing conda environment if there is one
-    if set -q __CONDA_ENV_ACTIVE
-        deactivate
-    end
-
-    # save the current path
-    set -xg DEFAULT_PATH $PATH
-
-    # put the condabin directory at the front of the PATH
-    set -xg PATH $condabin $PATH
-
-    # this is an undocumented environmental variable that influences
-    # how conda behaves when you don't specify an environment for it.
-    # https://github.com/conda/conda/issues/473
-    set -xg CONDA_DEFAULT_ENV $cenv
-
-    # set up the prompt so it has the env name in it
-    functions -e __original_fish_prompt
-    functions -c fish_prompt __original_fish_prompt
-    function fish_prompt
-        set_color blue
-        echo -n '('$CONDA_DEFAULT_ENV') '
-        set_color normal
-        __original_fish_prompt
-    end
-
-    # flag for whether a conda environment has been set
-    set -xg __CONDA_ENV_ACTIVE 'true'
-end
-
-function deactivate -d 'Deactivate a conda environment'
-    if set -q __CONDA_ENV_ACTIVE
-        # set PATH back to its default before activating the conda env
-        set -xg PATH $DEFAULT_PATH
-        set -e DEFAULT_PATH
-
-        # unset this so that conda behaves according to its default behavior
-        set -e CONDA_DEFAULT_ENV
-
-        # reset to the original prompt
-        functions -e fish_prompt
-        functions -c __original_fish_prompt fish_prompt
-        functions -e __original_fish_prompt
-        set -e __CONDA_ENV_ACTIVE
-    end
-end
-
-# aliases so condactivate and deactivate can have shorter names
-function ca -d 'Activate a conda environment'
-    condactivate $argv
-end
-
-function cda -d 'Deactivate a conda environment'
-    deactivate $argv
-end
-
-# complete conda environment names when activating
-complete -c condactivate -xA -a "(condalist)"
-complete -c ca -xA -a "(condalist)"
-
-function con --description 'Activate a conda environment.'
-    if test (count $argv) -eq 0
-       ~/anaconda3/bin/conda info -e
-        return 0
-    end
-
-    if test (count $argv) -ne 1
-        echo 'Too many args -- expected at most one conda environment name.'
-        return 1
-    end
-
-    set -l conda_env $argv[1]
-
-    if not command ~/anaconda3/bin/conda '..checkenv' fish $conda_env
-        return 1
-    end
-
-    # Deactivate the currently active environment if set.
-    if set -q CONDA_DEFAULT_ENV
-        coff
-    end
-
-    # Try to activate the environment.
-    set -l new_path (command ~/anaconda3/bin/conda '..activate' fish $conda_env)
-    or return $status
-
-    set -g CONDA_PATH_BACKUP $PATH
-    set -gx PATH $new_path $PATH
-    set -gx CONDA_DEFAULT_ENV $conda_env
-end
-function coff --description 'Deactivate a conda environment.'
-    if set -q argv[1]
-        echo "Too many args -- expected no args, got: $argv" >&2
-        return 1
-    end
-
-    if not set -q CONDA_DEFAULT_ENV
-        echo "There doesn't appear to be any conda env in effect." >&2
-        return 1
-    end
-
-    # Deactivate the environment.
-    set -gx PATH $CONDA_PATH_BACKUP
-    set -e CONDA_PATH_BACKUP
-    set -e CONDA_DEFAULT_ENV
-end
-#### ---------------- anaconda ends -----------------------
