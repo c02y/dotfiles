@@ -2318,8 +2318,8 @@ function ag
         echo -e "\n...ag is not installed, use grep instead..."
     end
 end
-function ags -d 'ag(default)/rg(-r) sth in a init.el(-e)/config.fish(-f)/.tmux.conf(-t)/vimrc(-v), or use fzf(-F) to open the file, search multiple patterns(-m), case sensitive(-s), list(-l), whole word(-w), ignore dir(-I), file pattern(-G)'
-    set -l options 'r' 'e' 'f' 'F' 't' 'v' 'm' 's' 'l' 'w' 'I=' 'G='
+function ags -d 'ag(default)/rg(-r) sth in a init.el(-e)/config.fish(-f)/.tmux.conf(-t)/vimrc(-v), or use fzf(-F) to open the file, search multiple patterns(-m), case sensitive(-s), list(-l), whole word(-w), ignore dir(-I), git repo(-g), file pattern(-G)'
+    set -l options 'r' 'e' 'f' 'F' 'g' 't' 'v' 'm' 's' 'l' 'w' 'I' 'G'
     argparse -n ags -N 1 $options -- $argv
     or return
 
@@ -2357,6 +2357,8 @@ function ags -d 'ag(default)/rg(-r) sth in a init.el(-e)/config.fish(-f)/.tmux.c
         set FILE $EMACS_EL
     else if set -q _flag_f
         set FILE $FISHRC
+    else if set -q _flag_g
+        git grep "$argv" (git rev-list --all)
     else if set -q _flag_t
         set FILE ~/.tmux.conf
     else if set -q _flag_v
