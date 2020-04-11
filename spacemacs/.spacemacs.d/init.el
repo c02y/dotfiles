@@ -764,10 +764,6 @@ before packages are loaded."
   ;; overwrite selected region when typing, yanking
   (delete-selection-mode)
 
-  (defadvice run-python (after run-python-buffer activate)
-    "Switch to *Python* buffer after C-c C-p in a python buffer."
-    (switch-to-buffer-other-window "*Python*"))
-
   ;; auto refresh git-gutter+ info for all buffers when magit makes changes
   ;; migrated from git-gutter:update-all-windows, git-gutter+ supports this for old magit
   (add-hook 'magit-post-refresh-hook
@@ -1065,6 +1061,7 @@ Emacs session."
     "fxT" (lambda () (interactive) (find-file "~/.local/bin/t"))
     "fxe" (lambda () (interactive) (find-file "~/.local/bin/emm"))
     "fxE" (lambda () (interactive) (find-file "~/ve.emacs.d/init.el"))
+    "fp" 'run-python
     ;; the default binding is SPC j =
     "==" 'spacemacs/indent-region-or-buffer
     "bq" 'query-replace-region-or-from-top
