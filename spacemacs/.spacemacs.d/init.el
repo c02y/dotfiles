@@ -754,7 +754,7 @@ before packages are loaded."
    ;; NOTE: recentf issue also causes the problem of 2 mins of delay for reboot/shutdown
    ;; workaround by changing emacs.service: spacemacs/issues/12873#issuecomment-558252242
    ;; reddit.com/r/emacs/comments/do67z3/emacsservice_will_delay_2_mins_before/flm97pm
-   recentf-save-file (format "/tmp/recentf.%s" (emacs-pid))
+   ;; recentf-save-file (format "/tmp/recentf.%s" (emacs-pid))
    )
 
   ;; NOTE: along with undo-tree-auto-save-history
