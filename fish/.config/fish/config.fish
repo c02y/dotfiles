@@ -2567,7 +2567,8 @@ end
 # ~/anaconda3/bin/conda install -c lebedov tig
 source $HOME/anaconda3/etc/fish/conf.d/conda.fish >/dev/null ^/dev/null
 abbr condas '~/anaconda3/bin/binstar search -t conda' # [packagename]
-abbr condai '~/anaconda3/bin/conda install -c' # [channel] [packagename]
+abbr condai '~/anaconda3/bin/conda install' # [packagename]
+abbr condaic '~/anaconda3/bin/conda install -c' # [channel] [packagename]
 abbr condau '~/anaconda3/bin/conda upgrade --all -vy; and ~/anaconda3/bin/conda clean -avy'
 abbr condac '~/anaconda3/bin/conda clean -avy'
 abbr condaS '~/anaconda3/bin/anaconda show' # [channel/packagename]
@@ -2600,26 +2601,28 @@ function cons -d 'conda virtual environments related functions -i(install packag
         # 1. not in env, remove argv
         # 2. in env, another env given as argv, remove the argv
         # 3. in env and (no argv, or argv=current env), deactivate and remove current env
-        if set -q $CONDA_DEFAULT_ENV; or not set -q $CONDA_DEFAULT_ENV; and test "$CONDA_DEFAULT_ENV" != "$argv"
+        if set -q $CONDA_DEFAULT_ENV # not in conda env
             conda remove -n $argv --all
-        else if not set -q $CONDA_DEFAULT_ENV; and set -q $argv; or test "$CONDA_DEFAULT_ENV" = "$argv"
-            set -q $argv; and set $ARGV $CONDA_DEFAULT_ENV; or set ARGV $CONDA_DEFAULT_ENV
-            conda deactivate
-            echo "Exit conda env"
-            conda remove -n $ARGV --all
+        else if not set -q $CONDA_DEFAULT_ENV # in env
+            if not set -q $argv ; and test "$CONDA_DEFAULT_ENV" != "$argv" # given another argv
+                conda remove -n $argv --all
+            else                # no argv or argv=current env
+                set argv $CONDA_DEFAULT_ENV
+                conda deactivate
+                echo "Exit the conda env..."
+                conda remove -n $argv --all
+            end
         end
     else
         if set -q $argv         # no argv
             conda env list
-            read -l -p 'echo "Which conda env to: "' answer
-            conda activate $answer
+            read -p 'echo "Which conda env switching to: "' argv
+        end
+        if conda env list | awk '{ print $1 }' | grep -w $argv > /dev/null ^/dev/null
+            conda activate $argv
         else
-            if conda env list | awk '{ print $1 }' | grep -w $argv > /dev/null ^/dev/null
-                conda activate $argv
-            else
-                conda create -n $argv
-                conda activate $argv >/dev/null ^/dev/null; and echo "conda env switched to $argv ..."
-            end
+            conda create -n $argv
+            conda activate $argv >/dev/null ^/dev/null; and echo "conda env switched to $argv ..."
         end
     end
 end
