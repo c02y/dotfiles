@@ -67,8 +67,6 @@ This function should only modify configuration layer settings."
              python-format-on-save t
              python-sort-imports-on-save t
              )
-     ;; NOTE: `pip install jupyter', then run `jupyter notebook'
-     ipython-notebook
      ;; TODO: Check layer/go for packages to install
      (go :variables
          ;; if not given and lsp layer is used, lsp will be used as go-backend
@@ -906,7 +904,8 @@ With argument, backward ARG lines."
       (unless (listp backend)
         (setcar company-backends `(,backend :with company-yasnippet company-files)))))
   (with-eval-after-load 'company
-    '(add-hook 'after-change-major-mode-hook 'autocomplete-show-snippets))
+    (add-hook 'after-change-major-mode-hook 'autocomplete-show-snippets)
+    (add-to-list 'company-backends 'company-anaconda))
 
   ;; highlight-indent-guides
   ;; TODO: uncomment his line when the character can be displayed correctly
@@ -1132,15 +1131,6 @@ Emacs session."
 
    (spacemacs/set-leader-keys-for-minor-mode 'lsp-mode
      "gD" #'xref-find-definitions-other-window)
-
-   (spacemacs/set-leader-keys-for-minor-mode 'ein:notebook-mode
-     "r" #'ein:worksheet-execute-all-cells-below
-     "R" #'ein:worksheet-execute-all-cell
-     "C-S-r" #'ein:worksheet-execute-all-cells-above
-     )
-   ;; fix the issue that the ipynb file won't be saved(Text is read-only)
-   (add-hook 'ein:notebook-multilang-mode-hook
-             #'(lambda () (spacemacs/toggle-whitespace-cleanup-off)))
 
   (defun revert-buffer-without-asking ()
     "Revert buffer without asking"
