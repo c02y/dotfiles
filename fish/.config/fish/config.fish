@@ -1974,8 +1974,7 @@ end
 
 abbr st '~/Dotfiles.d/bin/.local/bin/stowsh -v'
 
-# abbr ipy 'ptipython'
-abbr ipy 'bpython'
+abbr ipy 'ipython' # other alternatives are btpython, ptpython, ptipython
 abbr pdb 'pudb3'
 function pips -d 'pip related functions, default(install), -i(sudo install), -c(check outdated), -u(update all outdated packages), -U(upgrade specific packages)'
     set -l options 'i' 'c' 'u' 'U'
@@ -2019,7 +2018,9 @@ end
 # abbr x 'exit'
 function x -d 'exit or deactivate in python env'
     if not set -q $VIRTUAL_ENV # running in python virtual env
-        deactivate
+        # TODO: since sth. is wrong with the deactivate function in $argv/bin/activate.fish
+        deactivate ^/dev/null >/dev/null
+        source $FISHRC
     else if not set -q $CONDA_DEFAULT_ENV # running in conda virtual env
         cons -x
     else
@@ -2573,8 +2574,8 @@ abbr condau '~/anaconda3/bin/conda upgrade --all -vy; and ~/anaconda3/bin/conda 
 abbr condac '~/anaconda3/bin/conda clean -avy'
 abbr condaS '~/anaconda3/bin/anaconda show' # [channel/packagename]
 
-function cons -d 'conda virtual environments related functions -i(install package in env, -x(exit the env), -l(list envs), -L(list pkgs in env), -r(remove env and its pkgs)), default(enter or create new env)'
-    set -l options 'i' 'x' 'l' 'L' 'r'
+function cons -d 'conda virtual environments related functions -i(install package in env, -x(exit the env), -l(list envs), -L(list pkgs in env), -r(remove env and its pkgs)), default(enter or create new env, -b to create new env based on base)'
+    set -l options 'b' 'i' 'x' 'l' 'L' 'r'
     argparse -n cons $options -- $argv
     or return
 
@@ -2621,8 +2622,24 @@ function cons -d 'conda virtual environments related functions -i(install packag
         if conda env list | awk '{ print $1 }' | grep -w $argv > /dev/null ^/dev/null
             conda activate $argv
         else
-            conda create -n $argv
-            conda activate $argv >/dev/null ^/dev/null; and echo "conda env switched to $argv ..."
+            if test (count $argv) -gt 1
+                set ARGV $argv[1]
+                set PKG $argv[2..(count $argv)] # PKG to install, array slice in fish shell
+            else
+                set ARGV $argv
+            end
+            if set -q _flag_b
+                # "--clone base" will include all packages in base including ipython
+                conda create -y -n $ARGV --clone base
+            else
+                # only pip/python included
+                conda create -y -n $ARGV python
+            end
+            # null part: in case Ctrl-c to cancel
+            conda activate $ARGV >/dev/null ^/dev/null; and echo "conda env switched to $ARGV ..."
+            if not set -q $PKG
+                pip install $PKG
+            end
         end
     end
 end
