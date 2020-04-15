@@ -108,7 +108,7 @@ This function should only modify configuration layer settings."
      ;; NOTE: install cscope, pip install pycscope
      cscope
      ;; NOTE: to generate compile_commands.json file for lsp before using lsp
-	 ;; https://sarcasm.github.io/notes/dev/compilation-database.html
+     ;; https://sarcasm.github.io/notes/dev/compilation-database.html
      ;; Read https://github.com/MaskRay/ccls/wiki/Project-Setup for project setup like .ccls
      (lsp :variables
           ;; https://github.com/emacs-lsp/lsp-mode#performance
@@ -1125,18 +1125,33 @@ Emacs session."
     "L s" 'leetcode-submit
     )
 
-   (spacemacs/set-leader-keys-for-minor-mode 'lsp-mode
-     "gD" #'xref-find-definitions-other-window)
-
-   (with-eval-after-load 'ein-notebook
-   (spacemacs/set-leader-keys-for-minor-mode 'ein:notebook-mode
-     "q" #'ein:stop
-     "," #'ein:worksheet-execute-all-cells-below
-     "R" #'ein:worksheet-execute-all-cell
-     "C-S-r" #'ein:worksheet-execute-all-cells-above))
-   ;; fix the issue that the ipynb file won't be saved(Text is read-only)
-   (add-hook 'ein:notebook-multilang-mode-hook
-             #'(lambda () (spacemacs/toggle-whitespace-cleanup-off)))
+  (defun switch-to-ein-notebooklist-buffer ()
+    (interactive)
+    (loop for buffer in (buffer-list)
+          do (if
+                 ;; if a buffer name starts with patter
+                 (string-match-p "\\*ein:notebooklist" (buffer-name buffer))
+                 (switch-to-buffer buffer))))
+  (defadvice ein:run (after run activate)
+    "After hitting ein:run key, hit RET instead waiting in prompt"
+    (execute-kbd-macro (kbd "RET")))
+  (with-eval-after-load 'ein-notebook
+    (spacemacs/set-leader-keys-for-minor-mode 'ein:notebook-mode
+      ;; switch to ein:notebooklist buffer
+      "a" #'switch-to-ein-notebooklist-buffer
+      "n" #'ein:notebooklist-new-notebook-with-name
+      "q" #'ein:stop
+      "," #'ein:worksheet-execute-all-cells-below
+      "R" #'ein:worksheet-execute-all-cell
+      "C-S-r" #'ein:worksheet-execute-all-cells-above)
+    (bind-keys :map ein:notebooklist-mode-map
+               ("C-c q" . ein:stop)
+               ("C-c C-n" . ein:notebooklist-new-notebook-with-name)
+               )
+    (spacemacs|add-company-backends
+      :backends company-anaconda
+      :modes ein:notebook-mode)
+    )
 
   (defun revert-buffer-without-asking ()
     "Revert buffer without asking"
@@ -1202,10 +1217,8 @@ Version 2016-12-18"
    ("C-h c" . counsel-colors-emacs)
    ("C-h C-c" . counsel-faces)
    ("C-x /" . counsel-semantic-or-imenu)   ;; SPC j i
+   ("C-x x" . switch-to-prev-visited-buffer)
    ("M-;" . comment-dwim-2)
-   ;; switch the last visited buffer, repeated invocations toggle between the most recent two buffers
-   ;; this is different from SPC TAB, which switch the last buffer in this window
-   ("C-x x" . (lambda () (interactive) (switch-to-buffer (other-buffer (current-buffer) 1))))
    ("M-n" . symbol-overlay-jump-next)
    ("M-p" . symbol-overlay-jump-prev)
    ("M-d" . delete-word)
@@ -1315,6 +1328,14 @@ Version 2016-12-18"
   (add-hook 'fish-mode-hook
             (lambda ()
               (setq indent-tabs-mode nil)))
+
+  (defun switch-to-prev-visited-buffer ()
+    "Switch to the prev visited buffer, repeated invocations toggle between
+ the most recent two buffers, this is different from SPC TAB,
+which switch the last buffer in this window."
+    (interactive)
+    (switch-to-buffer
+     (other-buffer (current-buffer) 1)))
 
   ;; make the code inside #if 0/#else/#endif the same color as comment
   (defun c-mode-font-lock-if0 (limit)
