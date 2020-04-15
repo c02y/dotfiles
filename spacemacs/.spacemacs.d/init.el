@@ -68,7 +68,8 @@ This function should only modify configuration layer settings."
              python-sort-imports-on-save t
              )
      ;; NOTE: `pip install jupyter', then run `jupyter notebook'
-     ipython-notebook
+     (ipython-notebook :variables
+                       ein:jupyter-default-notebook-directory "~/ipynb")
      ;; TODO: Check layer/go for packages to install
      (go :variables
          ;; if not given and lsp layer is used, lsp will be used as go-backend
