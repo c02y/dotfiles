@@ -1131,11 +1131,12 @@ Emacs session."
    (spacemacs/set-leader-keys-for-minor-mode 'lsp-mode
      "gD" #'xref-find-definitions-other-window)
 
+   (with-eval-after-load 'ein-notebook
    (spacemacs/set-leader-keys-for-minor-mode 'ein:notebook-mode
-     "r" #'ein:worksheet-execute-all-cells-below
+     "q" #'ein:stop
+     "," #'ein:worksheet-execute-all-cells-below
      "R" #'ein:worksheet-execute-all-cell
-     "C-S-r" #'ein:worksheet-execute-all-cells-above
-     )
+     "C-S-r" #'ein:worksheet-execute-all-cells-above))
    ;; fix the issue that the ipynb file won't be saved(Text is read-only)
    (add-hook 'ein:notebook-multilang-mode-hook
              #'(lambda () (spacemacs/toggle-whitespace-cleanup-off)))
