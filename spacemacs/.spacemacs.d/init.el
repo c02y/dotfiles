@@ -62,7 +62,7 @@ This function should only modify configuration layer settings."
      ;; NOTE: `pip install importmagic epc flake8 pytest nose autoflake "ptvsd>=4.2"
      ;; if using lsp as backend: pip install python-language-server pyls-isort pyls-mypy'
      (python :variables
-             python-backend 'lsp        ; the default is anaconda
+             python-backend 'anaconda        ; the default is anaconda
              python-test-runner '(pytest nose)
              python-format-on-save t
              python-sort-imports-on-save t
@@ -697,7 +697,6 @@ before packages are loaded."
 
   ;; prevent package-selected-package list been created
   (defun package--save-selected-packages (&rest opt) nil)
-  (add-hook 'after-init-hook 'global-company-mode)
 
   ;; set the font, don't have touch dotspacemacs-default-font
   ;; even touched without this following line, font may not work for daemon/emacsclient
@@ -902,8 +901,7 @@ With argument, backward ARG lines."
       (unless (listp backend)
         (setcar company-backends `(,backend :with company-yasnippet company-files)))))
   (with-eval-after-load 'company
-    (add-hook 'after-change-major-mode-hook 'autocomplete-show-snippets)
-    (add-to-list 'company-backends 'company-anaconda))
+    (add-hook 'after-change-major-mode-hook 'autocomplete-show-snippets))
 
   ;; highlight-indent-guides
   ;; TODO: uncomment his line when the character can be displayed correctly
@@ -1051,8 +1049,6 @@ Emacs session."
     "tG" 'highlight-indent-guides-mode
     "tt" 'spacemacs/toggle-relative-line-numbers
     "tT" 'spacemacs/toggle-line-numbers
-    ;; the default is for truncate-line
-    "tl" 'toggle-lsp
     "fYn" 'yas-new-snippet
     "fYr" 'yas-reload-all
     "fYi" 'yas-insert-snippet
@@ -1145,19 +1141,6 @@ Emacs session."
     "Revert buffer without asking"
     (interactive)
     (revert-buffer nil t))
-
-  (defun toggle-lsp ()
-    (interactive)
-    (if (bound-and-true-p lsp-mode)
-        (progn
-          (lsp-mode -1)
-          (lsp-ui-mode -1)
-          (lsp--managed-mode -1))
-      (progn
-        (lsp-mode 1)
-        (lsp-ui-mode 1)
-        (lsp--managed-mode 1))
-      ))
 
   ;; symbol-overlay replaces highlight-symbol
   (dolist (hook '(prog-mode-hook org-mode-hook))
