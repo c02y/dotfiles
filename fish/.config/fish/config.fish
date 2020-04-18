@@ -2574,8 +2574,8 @@ abbr condau '~/anaconda3/bin/conda upgrade --all -vy; and ~/anaconda3/bin/conda 
 abbr condac '~/anaconda3/bin/conda clean -avy'
 abbr condaS '~/anaconda3/bin/anaconda show' # [channel/packagename]
 
-function cons -d 'conda virtual environments related functions -i(install package in env, -x(exit the env), -l(list envs), -L(list pkgs in env), -r(remove env and its pkgs)), default(enter or create new env, -b to create new env based on base)'
-    set -l options 'b' 'i' 'x' 'l' 'L' 'r'
+function cons -d 'conda virtual environments related functions -i(install package in env, -x(exit the env), -l(list envs), -L(list pkgs in env), -r(remove env and its pkgs)), default(switch or pip install argv based on base env), -n(new env with python/pip installed, -b to create new one based on base env)'
+    set -l options 'b' 'i' 'n' 'x' 'l' 'L' 'r'
     argparse -n cons $options -- $argv
     or return
 
@@ -2603,8 +2603,16 @@ function cons -d 'conda virtual environments related functions -i(install packag
         # 2. in env, another env given as argv, remove the argv
         # 3. in env and (no argv, or argv=current env), deactivate and remove current env
         if set -q $CONDA_DEFAULT_ENV # not in conda env
+            if test $argv = "base"
+                echo "!!!Donnot remove base env!!!"
+                return -1
+            end
             conda remove -n $argv --all
         else if not set -q $CONDA_DEFAULT_ENV # in env
+            if test $CONDA_DEFAULT_ENV = "base"
+                echo "!!!base env here, do not remove it!!!"
+                return -1
+            end
             if not set -q $argv ; and test "$CONDA_DEFAULT_ENV" != "$argv" # given another argv
                 conda remove -n $argv --all
             else                # no argv or argv=current env
@@ -2614,32 +2622,53 @@ function cons -d 'conda virtual environments related functions -i(install packag
                 conda remove -n $argv --all
             end
         end
-    else
+    else if set -q _flag_n      # new env, at least one argv
+        if set -q $argv         # no argv
+            echo "argv is needed!"
+            return -1
+        else
+            if conda env list | awk '{ print $1 }' | grep -w $argv[1] > /dev/null ^/dev/null
+                # already in conda env list
+                echo "env $arv[1] already exists!!!"
+                return -1
+            else
+                if set -q _flag_b
+                    # "--clone base" will include all packages in base including ipython
+                    conda create -y -n $argv[1] --clone base
+                else
+                    # only pip/python included
+                    conda create -y -n $argv[1] python
+                end
+                conda activate $argv[1] >/dev/null ^/dev/null; and echo "conda env switched to $argv[1]"
+                if test (count $argv) -gt 1
+                    pip install $argv[2..(count $argv)] # array slice in fish shell
+                end
+            end
+        end
+    else                        # no option, switch env or pip install based on base env
         if set -q $argv         # no argv
             conda env list
             read -p 'echo "Which conda env switching to: "' argv
+            if test "$argv" = "" # still no argv, just enter("", not " ") for read prompt
+                return -1
+            else if test (echo $argv[1] | grep ' ' -c) -eq 1
+                # contains space in read argv
+                echo "$argv[1]: error format!"
+                return -1
+            end
         end
-        if conda env list | awk '{ print $1 }' | grep -w $argv > /dev/null ^/dev/null
-            conda activate $argv
-        else
+        if conda env list | awk '{ print $1 }' | grep -w $argv[1] > /dev/null ^/dev/null
+            conda activate $argv[1]
+            echo "Switched to $argv[1] env..."
+            # $argv may contain the env name and extra packages
             if test (count $argv) -gt 1
-                set ARGV $argv[1]
-                set PKG $argv[2..(count $argv)] # PKG to install, array slice in fish shell
-            else
-                set ARGV $argv
+                pip install $argv[2..(count $argv)]
             end
-            if set -q _flag_b
-                # "--clone base" will include all packages in base including ipython
-                conda create -y -n $ARGV --clone base
-            else
-                # only pip/python included
-                conda create -y -n $ARGV python
-            end
-            # null part: in case Ctrl-c to cancel
-            conda activate $ARGV >/dev/null ^/dev/null; and echo "conda env switched to $ARGV ..."
-            if not set -q $PKG
-                pip install $PKG
-            end
+        else
+            echo "No such env exists, use `cons -n env_name [pkg_name]` to create new!"
+            conda activate base
+            echo "Switched to base env..."
+            pip install $argv
         end
     end
 end
