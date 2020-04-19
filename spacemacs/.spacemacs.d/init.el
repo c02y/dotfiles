@@ -154,6 +154,9 @@ This function should only modify configuration layer settings."
            json-fmt-on-save t)
      (html :variables
            web-fmt-tool 'web-beautify)
+     (lua :variables
+          lua-backend nil
+          )
      )
 
    ;; List of additional packages that will be installed without being
@@ -544,7 +547,7 @@ It should only modify the values of Spacemacs settings."
    ;; `trailing' to delete only the whitespace at end of lines, `changed' to
    ;; delete only whitespace for changed lines or `nil' to disable cleanup.
    ;; (default nil)
-   dotspacemacs-whitespace-cleanup 'changed
+   dotspacemacs-whitespace-cleanup 'trailing
 
    ;; Either nil or a number of seconds. If non-nil zone out after the specified
    ;; number of seconds. (default nil)
@@ -1132,9 +1135,12 @@ Emacs session."
                  ;; if a buffer name starts with patter
                  (string-match-p "\\*ein:notebooklist" (buffer-name buffer))
                  (switch-to-buffer buffer))))
-  (defadvice ein:run (after run activate)
-    "After hitting ein:run key, hit RET instead waiting in prompt"
-    (execute-kbd-macro (kbd "RET")))
+  ;; when opening an existed ipynb file, start jupyter notebook server automatically
+  (add-hook 'find-file-hook
+            (lambda ()
+              (when (eq major-mode 'ein:ipynb-mode)
+                (call-interactively #'ein:process-find-file-callback)
+                )))
   (with-eval-after-load 'ein-notebook
     (spacemacs/set-leader-keys-for-minor-mode 'ein:notebook-mode
       ;; switch to ein:notebooklist buffer
@@ -1142,7 +1148,7 @@ Emacs session."
       "n" #'ein:notebooklist-new-notebook-with-name
       "q" #'ein:stop
       "," #'ein:worksheet-execute-all-cells-below
-      "R" #'ein:worksheet-execute-all-cell
+      "R" #'ein:worksheet-execute-all-cells
       "C-S-r" #'ein:worksheet-execute-all-cells-above)
     (bind-keys :map ein:notebooklist-mode-map
                ("C-c q" . ein:stop)
