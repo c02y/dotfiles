@@ -2297,7 +2297,7 @@ end
 define q
     print "Use quit to quit!!!"
 end
-defin exit
+define exit
     exit
 end
 
