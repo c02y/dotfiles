@@ -70,6 +70,8 @@ This function should only modify configuration layer settings."
      ;; NOTE: `pip install jupyter', then run `jupyter notebook'
      (ipython-notebook :variables
                        ein:jupyter-default-notebook-directory "~/ipynb")
+     (conda :variables
+            conda-anaconda-home "~/anaconda3")
      ;; TODO: Check layer/go for packages to install
      (go :variables
          ;; if not given and lsp layer is used, lsp will be used as go-backend
@@ -103,7 +105,7 @@ This function should only modify configuration layer settings."
      (c-c++ :variables
             c-c++-backend 'lsp-ccls
             c-c++-adopt-subprojects t
-            c-c++-enable-auto-newline t
+            ;; c-c++-enable-auto-newline t
             )
      ;; NOTE: install cscope, pip install pycscope
      cscope
@@ -157,6 +159,7 @@ This function should only modify configuration layer settings."
      (lua :variables
           lua-backend nil
           )
+     cmake
      )
 
    ;; List of additional packages that will be installed without being
@@ -177,6 +180,7 @@ This function should only modify configuration layer settings."
                                       wgrep
                                       drag-stuff
                                       leetcode
+                                      smart-compile
                                       )
 
    ;; A list of packages that cannot be updated.
@@ -633,6 +637,21 @@ https://github.com/syl20bnr/spacemacs/issues/12346"
         ;; (buffer-size :priority 99)
         ;; (hud :priority 99)
         ))
+    (with-eval-after-load 'spaceline
+      ;; Hijacks existing segment.  Should add cases for both envs.
+      (spaceline-define-segment python-pyenv
+        "The current python env.  Works with `conda'."
+        (when (and active
+                   ;; TODO: Consider not restricting to `python-mode', because
+                   ;; conda envs can apply to more than just python operations
+                   ;; (e.g. libraries, executables).
+                   ;; (eq 'python-mode major-mode)
+                   ;; TODO: Display `conda-project-env-name' instead?  It's buffer-local.
+                   (boundp 'conda-env-current-name)
+                   (stringp conda-env-current-name))
+          (propertize conda-env-current-name 'face 'spaceline-python-venv
+                      'help-echo "Virtual environment (via conda)")))
+      (spaceline-compile))
     (setq-default mode-line-format '("%e" (:eval (spaceline-ml-main)))))
 
   ;; spell checking
@@ -760,6 +779,26 @@ before packages are loaded."
    ;; workaround by changing emacs.service: spacemacs/issues/12873#issuecomment-558252242
    ;; reddit.com/r/emacs/comments/do67z3/emacsservice_will_delay_2_mins_before/flm97pm
    ;; recentf-save-file (format "/tmp/recentf.%s" (emacs-pid))
+   ;; compile
+   compilation-last-buffer nil
+   ;; save all modified buffers without asking before compilation
+   compilation-ask-about-save nil
+   compilation-auto-jump-to-first-error t
+   ;; create a new small frame to show the compilation info
+   ;; will be auto closed if no error
+   ;; special-display-buffer-names `(("*compilation*" .
+   ;;                                 ((name . "*compilation*")
+   ;;                                  ,@default-frame-alist
+   ;;                                  (left . (- 1))
+   ;;                                  (top . 0))))
+   compilation-finish-functions (lambda (buf str)
+                                  (if (null (string-match ".*exited abnormally.*" str))
+                                    ;; no errors, make the compilation window go away in a few seconds
+                                    (progn
+                                      (run-at-time
+                                       "0 sec" nil 'delete-windows-on
+                                       (get-buffer-create "*compilation*"))
+                                      (message "No Compilation Errors!"))))
    )
 
   ;; NOTE: along with undo-tree-auto-save-history
@@ -1050,6 +1089,8 @@ Emacs session."
     "b SPC" 'copy-path
     "bi" 'count-words
     "bI" 'count-words-region
+    ;; the default cc is for compile
+    "cc" 'compile-again
     "tG" 'highlight-indent-guides-mode
     "tt" 'spacemacs/toggle-relative-line-numbers
     "tT" 'spacemacs/toggle-line-numbers
@@ -2188,6 +2229,17 @@ With prefix P, don't widen, just narrow even if buffer is already narrowed. "
                       :major-modes '(go-mode)
                       :server-id 'gopls)))
 
+  (defun compile-again (ARG)
+    "Run the same compile as the last time.
+With a prefix argument or no last time, this acts like M-x compile,
+and you can reconfigure the compile args."
+    (interactive "p")
+    ;; the following two lines create bug: split a new window every time
+    ;; (if (not (get-buffer-window "*compilation*"))
+    ;;	  (split-window-vertically -10))
+    (if (and (eq ARG 1) compilation-last-buffer)
+        (recompile)
+      (call-interactively 'smart-compile)))
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
