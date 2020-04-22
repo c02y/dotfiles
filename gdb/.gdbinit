@@ -6,7 +6,7 @@ python
 
 # License ----------------------------------------------------------------------
 
-# Copyright (c) 2015-2019 Andrea Cardaci <cyrus.and@gmail.com>
+# Copyright (c) 2015-2020 Andrea Cardaci <cyrus.and@gmail.com>
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -1340,7 +1340,10 @@ The instructions constituting the current statement are marked, if available.'''
             try:
                 extra_start = 0
                 extra_end = 0
-                asm = self.fetch_asm(frame.pc(), height, True, highlighter)
+                # allow to scroll down nevertheless
+                clamped_offset = min(self.offset, 0)
+                asm = self.fetch_asm(frame.pc(), height - clamped_offset, True, highlighter)
+                asm = asm[-clamped_offset:]
             except gdb.error as e:
                 msg = '{}'.format(e)
                 return [ansi(msg, R.style_error)]
@@ -1486,7 +1489,7 @@ class Variables(Dashboard.Module):
 
     def lines(self, term_width, term_height, style_changed):
         return Variables.format_frame(
-            gdb.selected_frame(), self.show_arguments, self.show_locals, self.compact, self.align)
+            gdb.selected_frame(), self.show_arguments, self.show_locals, self.compact, self.align, self.sort)
 
     def attributes(self):
         return {
@@ -1511,11 +1514,16 @@ class Variables(Dashboard.Module):
                 'doc': 'Align variables in column flag (only if not compact).',
                 'default': False,
                 'type': bool
+            },
+            'sort': {
+                'doc': 'Sort variables by name.',
+                'default': False,
+                'type': bool
             }
         }
 
     @staticmethod
-    def format_frame(frame, show_arguments, show_locals, compact, align):
+    def format_frame(frame, show_arguments, show_locals, compact, align, sort):
         out = []
         # fetch frame arguments and locals
         decorator = gdb.FrameDecorator.FrameDecorator(frame)
@@ -1524,7 +1532,7 @@ class Variables(Dashboard.Module):
             def prefix(line):
                 return Stack.format_line('arg', line)
             frame_args = decorator.frame_args()
-            args_lines = Variables.fetch(frame, frame_args, compact, align)
+            args_lines = Variables.fetch(frame, frame_args, compact, align, sort)
             if args_lines:
                 if compact:
                     args_line = separator.join(args_lines)
@@ -1536,7 +1544,7 @@ class Variables(Dashboard.Module):
             def prefix(line):
                 return Stack.format_line('loc', line)
             frame_locals = decorator.frame_locals()
-            locals_lines = Variables.fetch(frame, frame_locals, compact, align)
+            locals_lines = Variables.fetch(frame, frame_locals, compact, align, sort)
             if locals_lines:
                 if compact:
                     locals_line = separator.join(locals_lines)
@@ -1547,7 +1555,7 @@ class Variables(Dashboard.Module):
         return out
 
     @staticmethod
-    def fetch(frame, data, compact, align):
+    def fetch(frame, data, compact, align, sort):
         lines = []
         name_width = 0
         if align and not compact:
@@ -1557,6 +1565,8 @@ class Variables(Dashboard.Module):
             equal = ansi('=', R.style_low)
             value = format_value(elem.sym.value(frame), compact)
             lines.append('{} {} {}'.format(name, equal, value))
+        if sort:
+            lines.sort()
         return lines
 
 class Stack(Dashboard.Module):
@@ -1593,7 +1603,8 @@ Optionally list the frame arguments and locals too.'''
             frame_lines = []
             frame_lines.append('[{}] {}'.format(frame_id, info))
             # add frame arguments and locals
-            variables = Variables.format_frame(frame, self.show_arguments, self.show_locals, self.compact, self.align)
+            variables = Variables.format_frame(
+                frame, self.show_arguments, self.show_locals, self.compact, self.align, self.sort)
             frame_lines.extend(variables)
             # add frame
             frames.append(frame_lines)
@@ -1644,6 +1655,11 @@ Optionally list the frame arguments and locals too.'''
                 'doc': 'Align variables in column flag (only if not compact).',
                 'default': False,
                 'type': bool
+            },
+            'sort': {
+                'doc': 'Sort variables by name.',
+                'default': False,
+                'type': bool
             }
         }
 
@@ -1656,11 +1672,17 @@ Optionally list the frame arguments and locals too.'''
     def get_pc_line(frame, style):
         frame_pc = ansi(format_address(frame.pc()), style)
         info = 'from {}'.format(frame_pc)
+        # if a frame function symbol is available then use it to fetch the
+        # current function name and address, otherwise fall back relying on the
+        # frame name
         if frame.function():
             name = ansi(frame.function(), style)
             func_start = to_unsigned(frame.function().value())
             offset = ansi(str(frame.pc() - func_start), style)
             info += ' in {}+{}'.format(name, offset)
+        elif frame.name():
+            name = ansi(frame.name(), style)
+            info += ' in {}'.format(name)
         sal = frame.find_sal()
         if sal and sal.symtab:
             file_name = ansi(sal.symtab.filename, style)
@@ -1882,8 +1904,7 @@ class Registers(Dashboard.Module):
         if self.register_list:
             register_list = self.register_list.split()
         else:
-            register_list = list(map(lambda line: line.split(None, 1)[0],
-                                     run('info registers').strip().split('\n')))
+            register_list = Registers.fetch_register_list()
         # fetch registers status
         registers = []
         for name in register_list:
@@ -1963,6 +1984,22 @@ The empty list (default) causes to show all the available registers.''',
             # convert to unsigned but preserve code and flags information
             pass
         return str(value)
+
+    @staticmethod
+    def fetch_register_list(*match_groups):
+        names = []
+        for line in run('maintenance print register-groups').split('\n'):
+            fields = line.split()
+            if len(fields) != 7:
+                continue
+            name, _, _, _, _, _, groups = fields
+            if not re.match('\w', name):
+                continue
+            for group in groups.split(','):
+                if group in (match_groups or ('general',)):
+                    names.append(name)
+                    break
+        return names
 
 class Threads(Dashboard.Module):
     '''List the currently available threads.'''
