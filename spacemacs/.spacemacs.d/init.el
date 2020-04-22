@@ -916,15 +916,15 @@ With argument, backward ARG lines."
 
   ;; kill all magit buffers, do this in magit-status with `q'
   ;; https://manuel-uberti.github.io/emacs/2018/02/17/magit-bury-buffer/
-  (defun mu-magit-kill-buffers ()
+  (defun mu-magit-kill-buffers (param)
     "Restore window configuration and kill all Magit buffers."
-    (interactive)
+    ;; (interactive)
     (let ((buffers (magit-mode-get-buffers)))
       (magit-restore-window-configuration)
       (mapc #'kill-buffer buffers)))
-  ;; `q' by default is bound to magit-mode-bury-buffer which doesn't kill buffers
   (with-eval-after-load 'magit
-    (bind-key "q" #'mu-magit-kill-buffers magit-status-mode-map)
+    ;; default value of magit-bury-buffer-function only hide magit related buffers
+    (setq magit-bury-buffer-function #'mu-magit-kill-buffers)
     ;; turn this off in large repo since it may be slow
     (add-hook 'after-save-hook 'magit-after-save-refresh-status t)
     ;; overwrite the default M-1/2/3/4 since they are used for winum like in other modes
