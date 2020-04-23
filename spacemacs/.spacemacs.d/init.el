@@ -1368,7 +1368,9 @@ Version 2016-12-18"
               (setq tab-width 4
                     indent-tabs-mode t ;;default in linux kernel
                     c-basic-offset 4)
-              (c-set-offset 'comment-intro 0)))
+              ;; the indent level for method in class
+              ;; https://stackoverflow.com/a/14668848/1528712
+              (c-set-offset 'inline-open 0)))
   (add-hook 'makefile-mode-hook
             (lambda ()
               (setq tab-width 8)))
