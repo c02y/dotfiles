@@ -1127,8 +1127,8 @@ abbr apps 'apt search'
 abbr appd 'apt depends'
 
 # pacman/yay for manjaro/arch/...
-abbr paci 'sudo pacman -Syu --needed' # -S to install a package, -Syu pkg to ensure the system is update to date then install the package
-abbr pacI 'sudo pacman -S --needed'   # install packages directly without updating the system first
+abbr paci 'sudo pacman -S --needed'   # install packages directly without updating the system first
+abbr pacI 'sudo pacman -Syu --needed' # -S to install a package, -Syu pkg to ensure the system is update to date then install the package
 abbr pacii 'sudo pacman -Syu --needed --noconfirm'
 abbr pacil 'sudo pacman -U' # install package from a local .pkg.tar.xz/link file
 abbr pacs 'pacman -Ss'      # search for package to install
