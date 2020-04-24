@@ -107,6 +107,8 @@ This function should only modify configuration layer settings."
             c-c++-adopt-subprojects t
             ;; c-c++-enable-auto-newline t
             )
+     (cmake :variables
+            cmake-enable-cmake-ide-support t)
      ;; NOTE: install cscope, pip install pycscope
      cscope
      ;; NOTE: to generate compile_commands.json file for lsp before using lsp
@@ -159,7 +161,6 @@ This function should only modify configuration layer settings."
      (lua :variables
           lua-backend nil
           )
-     cmake
      )
 
    ;; List of additional packages that will be installed without being
@@ -1308,6 +1309,8 @@ Version 2016-12-18"
              ("[ A" . git-gutter+-stage-and-commit)
              ("[ r" . git-gutter+-refresh)
              )
+  ;; by default, f11 is bound to toggle-frame-fullscreen, but it easy to affect f12
+  (unbind-key "<f11>" global-map)
 
   (with-eval-after-load 'leetcode
     (bind-keys :map leetcode--problems-mode-map
