@@ -69,7 +69,9 @@ This function should only modify configuration layer settings."
              )
      ;; NOTE: `pip install jupyter', then run `jupyter notebook'
      (ipython-notebook :variables
-                       ein:jupyter-default-notebook-directory "~/ipynb")
+                       ein:jupyter-default-notebook-directory "~/ipynb"
+                       ;; display inline image inside emacs instead of external tool
+                       ein:output-area-inlined-images t)
      (conda :variables
             conda-anaconda-home "~/anaconda3")
      ;; TODO: Check layer/go for packages to install
@@ -2245,6 +2247,12 @@ and you can reconfigure the compile args."
     (if (and (eq ARG 1) compilation-last-buffer)
         (recompile)
       (call-interactively 'smart-compile)))
+
+  ;; fix the compatibility of smartparens and yasnippet
+  ;; the configs in .emacs.d/layers/+completion/auto-completion/packages.el
+  ;; are not reliable, it will disable smartparens-mode after a period
+  (add-hook 'yas-before-expand-snippet-hook (lambda () (smartparens-mode 1)))
+  (add-hook 'yas-after-exit-snippet-hook (lambda () (smartparens-mode 1)))
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
