@@ -1,0 +1,25 @@
+# -*- mode: snippet -*-
+# name: timer
+# key: timer
+# --
+#include <chrono>
+
+class ${1:Timer}
+{
+private:
+	std::chrono::time_point<std::chrono::high_resolution_clock> start, end;
+	std::chrono::duration<float> duration;
+public:
+	$1()
+	{
+		start = std::chrono::high_resolution_clock::now();
+	}
+	~$1()
+	{
+		end = std::chrono::high_resolution_clock::now();
+		duration = end - start;
+
+		float ms = duration.count() * 1000.0f;
+		std::cout << "Time took: " << ms << "ms" << std::endl;
+	}
+}; // Using '$1 timer' in a block of code
