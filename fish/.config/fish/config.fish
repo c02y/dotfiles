@@ -1536,8 +1536,10 @@ function gitcl -d 'git clone and cd into it, full-clone(by default), simple-clon
     else
         set project (basename $argv .git) # this works when $argv contains or not contains .git
     end
-    cd $project
-    echo cd ./$project
+    if test -d $project
+        cd $project
+        echo cd ./$project
+    end
 end
 function gitpa --description 'git pull all in dir using `fing dir`'
     for i in (find $argv[1] -type d -iname .git | sort | xargs realpath)
