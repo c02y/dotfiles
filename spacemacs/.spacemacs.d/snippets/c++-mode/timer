@@ -7,19 +7,29 @@
 class ${1:Timer}
 {
 private:
-	std::chrono::time_point<std::chrono::high_resolution_clock> start, end;
-	std::chrono::duration<float> duration;
+	const char*m_Name;
+	std::chrono::time_point<std::chrono::high_resolution_clock> m_StartTimepoint;
+	bool m_Stopped;
 public:
-	$1()
+	$1(const char*name)
+		:m_Name(name), m_Stopped(false)
 	{
-		start = std::chrono::high_resolution_clock::now();
+		m_StartTimepoint = std::chrono::high_resolution_clock::now();
+	}
+
+	void Stop()
+	{
+		auto endTimepoint = std::chrono::high_resolution_clock::now();
+
+		long long start = std::chrono::time_point_cast<std::chrono::milliseconds>(m_StartTimepoint).time_since_epoch().count();
+long long end = std::chrono::time_point_cast<std::chrono::milliseconds>(endTimepoint).time_since_epoch().count();
+
+		std::cout << m_Name << ": " << (end - start) << "ms" << std::endl;
+m_Stopped = true;
 	}
 	~$1()
 	{
-		end = std::chrono::high_resolution_clock::now();
-		duration = end - start;
-
-		float ms = duration.count() * 1000.0f;
-		std::cout << "Time took: " << ms << "ms" << std::endl;
+		if(!m_Stopped)
+			Stop();
 	}
-}; // Using '$1 timer' in a block of code
+}; // Using '$1 timer("msg")' in a block of code
