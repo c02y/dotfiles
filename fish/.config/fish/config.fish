@@ -2322,40 +2322,15 @@ function ag
         echo -e "\n...ag is not installed, use grep instead..."
     end
 end
-function ags -d 'ag(default)/rg(-r) sth in a init.el(-e)/config.fish(-f)/.tmux.conf(-t)/vimrc(-v), or use fzf(-F) to open the file, search multiple patterns(-m), case sensitive(-s), list(-l), whole word(-w), ignore dir(-I), git repo(-g), file pattern(-G)'
-    set -l options 'r' 'e' 'f' 'F' 'g' 't' 'v' 'm' 's' 'l' 'w' 'I' 'G'
+function ags -d 'ag sth in init.el(-e)/config.fish(-f)/.tmux.conf(-t)/vimrc(-v), or use fzf(-F) to open the file, git repo(-g)'
+    set -l options 'e' 'f' 'F' 'g' 't' 'v'
     argparse -n ags -N 1 $options -- $argv
     or return
 
-    set AG ag
-    if set -q _flag_r; and command -sq rg # if -r is given and rg is installed, use rg
-        set AG rg
-    else if not command -sq ag; and not command -sq rg
-        echo "Neither ag or rg is installed!"
+    if not command -sq ag
+        echo "ag is installed!"
         return
     end
-
-    set ARGV3 ""
-    if set -q _flag_m           # multiple patterns
-        set ARGV2 $argv[2]
-        # no dir is given, assign it to .
-        set -q $argv[3]; and set ARGV3 .; or set ARGV3 $argv[3]
-    else
-        # no dir is given, assign it to .
-        set -q $argv[2]; and set ARGV2 .; or set ARGV2 $argv[2]
-    end
-
-    set -q _flag_s; and set CASE_SENSITIVE -s; or set CASE_SENSITIVE -i
-
-    set -q _flag_l; and set LIST -l; or set LIST ""
-
-    set -q _flag_w; and set WORD -w; or set WORD ""
-
-    # $_flag_I means the value of option I, I has to be 'I=' in the beginning
-    set -q _flag_I; and set IGNORE "--ignore={$_flag_I}"; or set IGNORE ""
-
-    # FIXME: cannot make `rg string -g "*string*"` into -G option
-    set -q _flag_G; and set FILES "-G '$_flag_G'"; or set FILES ""
 
     if set -q _flag_e
         set FILE $EMACS_EL
@@ -2368,38 +2343,21 @@ function ags -d 'ag(default)/rg(-r) sth in a init.el(-e)/config.fish(-f)/.tmux.c
     else if set -q _flag_v
         set FILE $VIMRC
     else
-        if set -q _flag_m
-            set FILE $ARGV3
-        else if set -q $argv[2] # no $argv[2]
+        if set -q $argv[2] # no $argv[2]
             set FILE .
         else
             set FILE $argv[2]
         end
     end
 
-    if test "$ARGV3" = ""
-        set CMD eval $AG \"$argv[1]\" $FILE -l
-        eval $AG --heading $CASE_SENSITIVE $LIST $WORD $IGNORE $FILES \"$argv[1]\" $FILE
-    else
-        set ARGV3 $FILE
-        if set -q _flag_r
-            eval $AG --no-heading --color always --line-number $CASE_SENSITIVE $IGNORE $FILES \"$argv[1]\" \"$ARGV3\" | eval $AG $CASE_SENSITIVE \"$ARGV2\"
-        else
-            eval $AG --color --noheading $CASE_SENSITIVE $IGNORE $FILES \"$argv[1]\" \"$ARGV3\" | eval $AG $CASE_SENSITIVE \"$ARGV2\"
-        end
-    end
+    ag $argv[1] $FILE
 
-    if not set -q _flag_m # FIXME: using fzf doesn't work with multiple patterns(-m)
-        if set -q _flag_F # search pattern(s) in dir/file, choose it using fzf, and open if using emm/vim
-            read -n 1 -p 'echo "Open it with emm? [_v_im/_e_mm]: "' -l answer
-            if test "$answer" = "v" -o "$answer" = " "
-                eval $CMD | fzf --bind 'enter:execute:vim {} < /dev/tty'
-            else if test "$answer" = "e"
-                emm (eval $CMD | fzf)
-            else
-                echo "Canceled!"
-                return
-            end
+    if set -q _flag_F # search pattern(s) in dir/file, open if using vim
+        read -n 1 -p 'echo "Open it with vim? [Y/n]: "' -l answer
+        if test "$answer" = "y" -o "$answer" = " "
+            ag $argv[1] $FILE -l | fzf --bind 'enter:execute:vim {} < /dev/tty'
+        else
+            echo "Canceled!"
         end
     end
 end
