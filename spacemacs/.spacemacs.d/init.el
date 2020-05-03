@@ -1139,8 +1139,8 @@ Emacs session."
     "xaA" 'align-regexp
     "xaC" 'align-c-comments
     "xaM" 'align-c-macros
-    ;; The original binding is SPC h d a
-    "hh" 'counsel-apropos
+    ;; The original binding is f1-o, C-h o
+    "hh" 'counsel-describe-symbol
     ;; The original binding is SPC C e
     ;; There is another function counsel-colors-web
     "hc" 'counsel-colors-emacs
@@ -1263,7 +1263,7 @@ Version 2016-12-18"
    ("M-%" . query-replace-region-or-from-top)
    ;; no alternate from ivy for helm-for-files
    ;; ("M-z" . helm-for-files)
-   ("C-h h" . counsel-apropos)
+   ("C-h h" . counsel-describe-symbol)
    ("C-h c" . counsel-colors-emacs)
    ("C-h C-c" . counsel-faces)
    ("C-x /" . counsel-semantic-or-imenu)   ;; SPC j i
