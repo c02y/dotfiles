@@ -1,0 +1,21 @@
+# -*- mode: snippet -*-
+# name: BigEndianSmallEndiam
+# key: bese
+# --
+#include <stdio.h>
+/*
+x86(Intel, AMD), MOS Technology 6502, Z80, VAX, PDP-11: Small Endian
+Motorola 6800, Motorola 68000, PowerPC 970, System/370, SPARC(except V9): Big Endian
+ARM(Small Endian by default), PowerPC(except PowerPC 970), DEC Alpha, SPARC V9, MIPS, PA-RISC and IA64: configurable
+*/
+int main()
+{
+	int i = 0x12345678;
+
+	if (*((char*)&i) == 0x12)
+		printf("大端\n");
+	else
+		printf("小端\n");
+
+	return 0;
+}
