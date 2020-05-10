@@ -20,6 +20,9 @@
 # Categories=
 #
 # 2. config your shortcut to this file in System Settings
+# 3. the default emacs.service(~/.config/systemd/user/emacs.service or ~/anaconda3/lib/systemd/user/emacs.service)
+#    may not work for emacsclient, replace the ExecStop with the following line
+# ExecStop=/usr/bin/emacsclient --eval "(let (kill-emacs-hook)(kill-emacs))"
 
 print_usage()
 {
