@@ -319,9 +319,9 @@ function ml -d 'mutt/neomutt'
 end
 
 # make the make and gcc/g++ color
-function make
-    /usr/bin/make -B $argv 2>&1 | grep --color -iP "\^|warning:|error:|undefined|"
-end
+# function make
+#     /usr/bin/make -B $argv 2>&1 | grep --color -iP "\^|warning:|error:|undefined|"
+# end
 function gcc
     /usr/bin/gcc $argv 2>&1 | grep --color -iP "\^|warning:|error:|undefined|"
 end
