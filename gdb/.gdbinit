@@ -2337,23 +2337,10 @@ Usage: pa array
 NOTE: the output contains a lot of extra info
 end
 define pl
-    if $argc == 1
-        print $arg0
-    end
-    if $argc == 2
-        print $arg0
-        print $arg1
-    end
-    if $argc == 3
-        print $arg0
-        print $arg1
-        print $arg2
-    end
-    if $argc == 4
-        print $arg0
-        print $arg1
-        print $arg2
-        print $arg3
+    set $i = 0
+    while $i < $argc
+        eval "print $arg%d", $i
+        set $i = $i + 1
     end
 end
 document pl
@@ -2369,23 +2356,10 @@ define ib
     info breakpoints
 end
 define bm
-    if $argc == 1
-        break $arg0
-    end
-    if $argc == 2
-        break $arg0
-        break $arg1
-    end
-    if $argc == 3
-        break $arg0
-        break $arg1
-        break $arg2
-    end
-    if $argc == 4
-        break $arg0
-        break $arg1
-        break $arg2
-        break $arg3
+    set $i = 0
+    while $i < $argc
+        eval "break $arg%d", $i
+        set $i = $i + 1
     end
 end
 document bm
@@ -2403,7 +2377,7 @@ end
 define timeme
     python import time
     python starttime=time.time()
-	n
+    n
     python print("Previous takes: " + (str)(time.time()-starttime) + "s")
 end
 document timeme
