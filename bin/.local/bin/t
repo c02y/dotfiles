@@ -43,15 +43,19 @@ while getopts ":nl" args; do
 done
 
 # attach a session if it exists, it failed, tmux a new one, if failed, echo message
-if [ $(tmux ls | wc -l) -gt 1 ]; then
-	tmux ls
-	if [ ! -z "$TMUX_PANE" ]; then
-		echo
-		echo "Already inside tmux session: $(tmux display-message -p '#S'), unable to attach!"
-		exit
+if tmux has-session 2>/dev/null; then # has tmux session running
+	if [ $(tmux ls | wc -l) -gt 1 ]; then # 2 or more sessions running
+		tmux ls
+		if [ ! -z "$TMUX_PANE" ]; then
+			echo
+			echo "Already inside tmux session: $(tmux display-message -p '#S'), unable to attach!"
+			exit
+		fi
+		read -e -n 1 -p 'Which one to attach? '
+		tmux -2 attach -t $REPLY || tmux -2 # type any wrong index to create new tmux session
+	else
+		tmux -2 attach 2>/dev/null || tmux -2 2>/dev/null || echo "Already inside a tmux session!"
 	fi
-	read -e -n 1 -p 'Which one to attach? '
-	tmux -2 attach -t $REPLY
-else
-	tmux -2 attach 2>/dev/null || tmux -2 2>/dev/null || echo "Already inside a tmux session!"
+else                            # no tmux running
+	tmux -2
 fi
