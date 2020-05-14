@@ -2337,16 +2337,16 @@ document pa
 	NOTE: the output contains a lot of extra info
 end
 
-define pl
+define p
   set $i = 0
   while $i < $argc
 	eval "print $arg%d", $i
 	set $i = $i + 1
   end
 end
-document pl
-	Print values of arg list
-	Usage: pl a1 a2 a3...
+document p
+	Override default p, to print values of a single arg or arg list
+	Usage: pl a1 [a2] [a3]...
 	Check `info locals` for info
 end
 
