@@ -297,7 +297,6 @@ function fish_user_key_bindings
     bind \cb br
 end
 set -gx FZF_TMUX_HEIGHT 100%
-abbr clr "echo -e '\033c\c'; path_prompt"
 
 abbr pm-sl 'sudo pm-suspend'   # 'Suspend to ram' in GUI buttom, power button to wake up
 abbr pm-hb 'sudo pm-hibernate' # not work in old CentOS6
@@ -548,6 +547,7 @@ alias cp 'cp -vi'
 alias mv 'mv -vi'
 abbr rcp 'rsync --stats --progress -rhv'
 abbr rmc 'rsync --stats --progress -rhv --remove-source-files' # this will not delte the src dir, only the contents
+alias clr 'clear; tmux clear-history'
 
 # abbr grep='grep -nr --color=auto'
 abbr g 'grep -F -n --color=auto'
