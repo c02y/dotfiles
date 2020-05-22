@@ -110,6 +110,11 @@ See the `prompt` attribute. This value is used as a Python format string.''',
                 'default': '\[\e[1;30m\]>>>\[\e[0m\]'
             },
             # divider
+            'omit_divider': {
+                'doc': 'Omit the divider in external outputs when only one module is displayed.',
+                'default': False,
+                'type': bool
+            },
             'divider_fill_char_primary': {
                 'doc': 'Filler around the label for primary dividers',
                 'default': '─'
@@ -407,7 +412,9 @@ class Dashboard(gdb.Command):
     def on_continue(self, _):
         # try to contain the GDB messages in a specified area unless the
         # dashboard is printed to a separate file (dashboard -output ...)
-        if self.is_running() and not self.output:
+        # or there are no modules to display in the main terminal
+        enabled_modules = list(filter(lambda m: not m.output and m.enabled, self.modules))
+        if self.is_running() and not self.output and len(enabled_modules) > 0:
             width, _ = Dashboard.get_term_size()
             gdb.write(Dashboard.clear_screen())
             gdb.write(divider(width, 'Output/messages', True))
@@ -509,6 +516,9 @@ class Dashboard(gdb.Command):
                     buf += Dashboard.clear_screen()
                 # show message if all the modules in this output are disabled
                 if not any(instances):
+                    # skip the main terminal
+                    if fs is gdb:
+                        continue
                     # write the error message
                     buf += divider(width, 'Warning', True)
                     buf += '\n'
@@ -535,10 +545,12 @@ class Dashboard(gdb.Command):
                         # allow to continue on exceptions in modules
                         stacktrace = traceback.format_exc().strip()
                         lines = [ansi(stacktrace, R.style_error)]
-                    # create the divider accordingly
-                    div = divider(width, instance.label(), True, lines)
+                    # create the divider if needed
+                    div = []
+                    if not R.omit_divider or len(instances) > 1 or fs is gdb:
+                        div = [divider(width, instance.label(), True, lines)]
                     # write the data
-                    buf += '\n'.join([div] + lines)
+                    buf += '\n'.join(div + lines)
                     # write the newline for all but last unless main terminal
                     if n != len(instances) or fs is gdb:
                         buf += '\n'
@@ -2345,7 +2357,7 @@ define p
   end
 end
 document p
-	Override default p, to print values of a single arg or arg list
+	Override the default p to print values of a single arg or arg list
 	Usage: pl a1 [a2] [a3]...
 	Check `info locals` for info
 end
@@ -2359,17 +2371,17 @@ define ib
   info breakpoints
 end
 
-define bm
+define b
   set $i = 0
   while $i < $argc
 	eval "break $arg%d", $i
 	set $i = $i + 1
   end
 end
-document bm
-	Set multiple breakpoints in one line
+document b
+	Override the default b to set multiple breakpoints in one line
 	Delete multiple breakpoints in one line can use builtin `del N1 N2...`
-Usage: bm a1 a2 a3...
+Usage: b a1 a2 a3...
 end
 
 define wai
