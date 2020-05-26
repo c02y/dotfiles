@@ -321,15 +321,20 @@ end
 # function make
 #     /usr/bin/make -B $argv 2>&1 | grep --color -iP "\^|warning:|error:|undefined|"
 # end
-function gcc
-    /usr/bin/gcc $argv 2>&1 | grep --color -iP "\^|warning:|error:|undefined|"
-end
+# function gcc
+#     /usr/bin/gcc $argv 2>&1 | grep --color -iP "\^|warning:|error:|undefined|"
+# end
 function gcc-a
     set BIN (echo (string split .c $argv) | awk '{print $1;}')
     /usr/bin/gcc -Wall -W -g -o $BIN $argv 2>&1 | grep --color -iP "\^|warning:|error:|undefined|"
 end
-function g++
-    /usr/bin/g++ $argv 2>&1 | grep --color -iP "\^|warning:|error:|Undefined|"
+# function g++
+#     /usr/bin/g++ $argv 2>&1 | grep --color -iP "\^|warning:|error:|Undefined|"
+# end
+#
+function g++-a
+    set BIN (echo (string split .c $argv) | awk '{print $1;}')
+    /usr/bin/g++ -Wall -W -g -o $BIN $argv 2>&1 | grep --color -iP "\^|warning:|error:|undefined|"
 end
 abbr gcc-w 'gcc -g -Wall -W -Wsign-conversion'
 abbr gcca 'gcc -g -pedantic -Wall -W -Wconversion -Wshadow -Wcast-qual -Wwrite-strings -Wmissing-prototypes  -Wno-sign-compare -Wno-unused-parameter'
@@ -1795,7 +1800,7 @@ function brootp -d 'check if broot exists, or with any argument, download the la
             chmod +x $br_path
             return 0
         else
-            echo "scc doesn't exist and error occurs when downloading it!"
+            echo "broot doesn't exist and error occurs when downloading it!"
             return 1
         end
     end
