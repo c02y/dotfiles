@@ -1324,6 +1324,9 @@ Version 2016-12-18"
           ivy-magic-tilde nil
           ))
 
+  (with-eval-after-load 'yasnippet
+    (setq yas-snippet-dirs (remq 'yasnippet-snippets-dir yas-snippet-dirs)))
+
   ;; whitespace faces
   (with-eval-after-load 'whitespace
     (set-face-attribute 'whitespace-space-after-tab nil :background "red" :foreground "yellow")
