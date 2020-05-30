@@ -685,16 +685,17 @@ function fzfp -d 'check if fzf is existed, with any argument, fzf binary file wi
             echo "fzf doesn't exist and error occurs when downloading it!"
             return 1
         end
-        set tag_name (curl -s "https://api.github.com/repos/junegunn/fzf-bin/releases/latest" | grep "tag_name" | cut -d : -f 2 | awk -F[\"\"] '{print $2}')
+        set tag_name (eval $PXY curl -s "https://api.github.com/repos/junegunn/fzf-bin/releases/latest" | grep "tag_name" | cut -d : -f 2 | awk -F[\"\"] '{print $2}')
         if not test $tag_name
             echo "API rate limit exceeded, please input your password for your username!"
-            set tag_name (curl -u c02y -s "https://api.github.com/repos/junegunn/fzf-bin/releases/latest" | grep "tag_name" | cut -d : -f 2 | awk -F[\"\"] '{print $2}')
+            set tag_name (eval $PXY curl -u c02y -s "https://api.github.com/repos/junegunn/fzf-bin/releases/latest" | grep "tag_name" | cut -d : -f 2 | awk -F[\"\"] '{print $2}')
         end
         set file_name (echo fzf-$tag_name-linux_amd64.tgz)
         set file_link (echo https://github.com/junegunn/fzf-bin/releases/download/$tag_name/$file_name)
         eval $PXY wget $file_link -O /tmp/$file_name
         if test -f /tmp/$file_name
             tar -xvzf /tmp/$file_name -C ~/.local/bin
+            echo -e "\n====fzf installed...====\n"
             return 0
         else
             echo "fzf doesn't exist and error occurs when downloading it!"
@@ -712,20 +713,26 @@ if test -e $Z_PATH/z.lua
     set -gx _ZL_FZF_HEIGHT 0 # 0 means fullscreen
     set -gx FZF_DEFAULT_OPTS '-1 -0 --reverse' # auto select the only match, auto exit if no match
 end
-function zp -d 'check exists of z.lua, with any given argument, update z.lua'
+function zlp -d 'check exists of z.lua, with any given argument, update z.lua'
     if test -e $Z_PATH/z.lua; and set -q $argv[1] # z.lua file exists and no any argv is given, two conditions
         # echo "z.lua is installed, use any extra to upgrade it!"
         return 0
     else
         eval $PXY curl -L -C - https://raw.githubusercontent.com/skywind3000/z.lua/master/z.lua -o /tmp/z.lua
-        mv -f /tmp/z.lua $Z_PATH/z.lua
+        if test -f /tmp/z.lua
+            mv -f /tmp/z.lua $Z_PATH/z.lua
+            echo -e "\n====z.lua installed...====\n"
+        else
+            echo "Failed to download z.lua!!!"
+            return 1
+        end
         return 0
     end
 end
 abbr zb 'z -b' # Bonus: zb .. equals to cd .., zb ... equals to cd ../.. and
 # zb .... equals to cd ../../.., and so on. Finally, zb ..20 equals to cd (..)x20.
 function zz -d 'z interactive selection mode'
-    if not zp
+    if not zlp
         echo "Failed to install z.lua!"
         return
     end
@@ -741,7 +748,7 @@ function zz -d 'z interactive selection mode'
     end
 end
 function zh -d 'z\'s cd into the cd history'
-    if not zp
+    if not zlp
         echo "Failed to install z.lua!"
         return
     end
@@ -1731,50 +1738,53 @@ function gitrh -d 'git reset HEAD for multiple files(file1 file2, all without ar
 end
 
 function gitdl -d 'download several files from github'
-    set -l options 'b' 'f' 'g' 's' 'v' 'z' 'h'
+    set -l options 'b' 'B' 'f' 'g' 's' 'v' 'z' 'h'
     argparse -n gitdl $options -- $argv
     or return
 
-    set bins broot fzf gitmux scc nvim z.lua
-    set funs brootp fzfp gitmuxp sccp nvimp zp
+    set bins bat broot fzf gitmux scc nvim z.lua
+    set funs batp brootp fzfp gitmuxp sccp nvimp zlp
     if set -q _flag_h
-        echo "gitdl [-b/-f/-s/-v/-z/-h]"
+        echo "gitdl [-b/-B/-f/-s/-v/-z/-h]"
         echo "      no option --> once for all"
         echo "      -b --> $bins[1]"
-        echo "      -f --> $bins[2]"
-        echo "      -g --> $bins[3]"
-        echo "      -s --> $bins[4]"
-        echo "      -v --> $bins[5]"
-        echo "      -z --> $bins[6]"
+        echo "      -B --> $bins[2]"
+        echo "      -f --> $bins[3]"
+        echo "      -g --> $bins[4]"
+        echo "      -s --> $bins[5]"
+        echo "      -v --> $bins[6]"
+        echo "      -z --> $bins[7]"
         echo "      -h --> usage"
         return
     else if set -q _flag_b
         echo "Update/Download $bins[1]..."
         eval $funs[1] u
-    else if set -q _flag_f
+    else if set -q _flag_B
         echo "Update/Download $bins[2]..."
         eval $funs[2] u
-    else if set -q _flag_g
+    else if set -q _flag_f
         echo "Update/Download $bins[3]..."
         eval $funs[3] u
-    else if set -q _flag_s
+    else if set -q _flag_g
         echo "Update/Download $bins[4]..."
         eval $funs[4] u
-    else if set -q _flag_v
+    else if set -q _flag_s
         echo "Update/Download $bins[5]..."
         eval $funs[5] u
-    else if set -q _flag_z
+    else if set -q _flag_v
         echo "Update/Download $bins[6]..."
         eval $funs[6] u
+    else if set -q _flag_z
+        echo "Update/Download $bins[7]..."
+        eval $funs[7] u
     else                        # no option
         read -n 1 -p 'echo "Update/Download all of $bins from github? [Y/n]: "' -l arg
         if test "$arg" = "" -o "$arg" = "y" -o "$arg" = " "
             # dictionary/hash copied from fish-shell/issues/390#issuecomment-360259983
             for key in $bins
                 if set -l index (contains -i -- $key $bins)
-                    echo "Update/Download $bins[$index]"
                     eval $funs[$index] u
-                    echo -e "===================\n"
+                    echo -e "\n=======================================================\n"
                 end
             end
         else
@@ -1789,8 +1799,35 @@ else
     set -g PXY
 end
 
+function batp -d 'check if bat exists, or with any argument, download the latest version'
+    if command -sq bat; and set -q $argv[1] # bat is in $PATH, and no any argv is given, two conditions
+        # echo "bat is installed, use any extra to upgrade it!"
+        return 0
+    else
+        set tag_name (eval $PXY curl -s "https://api.github.com/repos/sharkdp/bat/releases/latest" | grep "tag_name" | cut -d : -f 2 | awk -F[\"\"] '{print $2}')
+        if not test $tag_name
+            echo "API rate limit exceeded, please input your password for your username!"
+            set tag_name (eval $PXY curl -u c02y -s "https://api.github.com/repos/sharkdp/bat/releases/latest" | grep "tag_name" | cut -d : -f 2 | awk -F[\"\"] '{print $2}')
+        end
+        set file_name (echo bat-$tag_name-x86_64-unknown-linux-gnu.tar.gz)
+
+        set file_link (echo https://github.com/sharkdp/bat/releases/download/$tag_name/$file_name)
+        eval $PXY wget $file_link -O /tmp/$file_name
+        if test -f /tmp/$file_name
+            tar xvfa /tmp/$file_name -C /tmp
+            install -m 755 /tmp/bat-$tag_name-x86_64-unknown-linux-gnu/bat ~/.local/bin/bat
+            echo -e "\n====bat installed...====\n"
+            return 0
+        else
+            echo "fzf doesn't exist and error occurs when downloading it!"
+            return 1
+        end
+
+    end
+end
+
 function brootp -d 'check if broot exists, or with any argument, download the latest version'
-    if command -sq broot; and set -q $argv[1] # gitmux is in $PATH, and no any argv is given, two conditions
+    if command -sq broot; and set -q $argv[1] # broot is in $PATH, and no any argv is given, two conditions
         # echo "broot is installed, use any extra to upgrade it!"
         return 0
     else
@@ -1798,6 +1835,7 @@ function brootp -d 'check if broot exists, or with any argument, download the la
         eval $PXY curl -o $br_path -LO https://dystroy.org/broot/download/x86_64-linux/broot
         if test -f $br_path
             chmod +x $br_path
+            echo -e "\n====broot installed...====\n"
             return 0
         else
             echo "broot doesn't exist and error occurs when downloading it!"
@@ -1812,16 +1850,17 @@ function gitmuxp -d 'check if gitmux exists, or with any argument, download the 
         return 0
     else
         # https://github.com/boyter/scc/releases/download/v2.2.0/scc-2.2.0-x86_64-unknown-linux.zip
-        set tag_name (curl -s "https://api.github.com/repos/arl/gitmux/releases/latest" | grep "tag_name" | cut -d : -f 2 | awk -F[\"\"] '{print $2}')
+        set tag_name (eval $PXY curl -s "https://api.github.com/repos/arl/gitmux/releases/latest" | grep "tag_name" | cut -d : -f 2 | awk -F[\"\"] '{print $2}')
         if not test $tag_name
             echo "API rate limit exceeded, please input your password for your username!"
-            set tag_name (curl -u c02y -s "https://api.github.com/repos/arl/gitmux/releases/latest" | grep "tag_name" | cut -d : -f 2 | awk -F[\"\"] '{print $2}')
+            set tag_name (eval $PXY curl -u c02y -s "https://api.github.com/repos/arl/gitmux/releases/latest" | grep "tag_name" | cut -d : -f 2 | awk -F[\"\"] '{print $2}')
         end
         set file_name (echo gitmux_(echo $tag_name | sed 's/^v//')_linux_amd64.tar.gz)
         set file_link (echo https://github.com/arl/gitmux/releases/download/$tag_name/$file_name)
         eval $PXY wget -c $file_link -O /tmp/$file_name
         if test -f /tmp/$file_name
             tar xvfa /tmp/$file_name -C ~/.local/bin/
+            echo -e "\n====gitmux installed...====\n"
             return 0
         else
             echo "gitmux doesn't exist and error occurs when downloading it!"
@@ -1847,16 +1886,17 @@ function nvimp -d 'check if nvim exists, or with any argument, download the late
             end
         else
             # https://github.com/neovim/neovim/releases/download/v0.4.2/nvim.appimage
-            set tag_name (curl -s "https://api.github.com/repos/neovim/neovim/releases/latest" | grep "tag_name" | cut -d : -f 2 | awk -F[\"\"] '{print $2}')
+            set tag_name (eval $PXY curl -s "https://api.github.com/repos/neovim/neovim/releases/latest" | grep "tag_name" | cut -d : -f 2 | awk -F[\"\"] '{print $2}')
             if not test $tag_name
                 echo "API rate limit exceeded, please input your password for your username!"
-                set tag_name (curl -u c02y -s "https://api.github.com/repos/neovim/neovim/releases/latest" | grep "tag_name" | cut -d : -f 2 | awk -F[\"\"] '{print $2}')
+                set tag_name (eval $PXY curl -u c02y -s "https://api.github.com/repos/neovim/neovim/releases/latest" | grep "tag_name" | cut -d : -f 2 | awk -F[\"\"] '{print $2}')
             end
             set file_name (echo nvim.appimage)
             set file_link (echo https://github.com/neovim/neovim/releases/download/$tag_name/$file_name)
             eval $PXY wget -c $file_link -O /tmp/$file_name
             if test -f /tmp/$file_name
                 install -m 755 /tmp/$file_name ~/.local/bin/nvim
+                echo -e "\n====nvim installed...====\n"
                 return 0
             else
                 echo "nvim doesn't exist and error occurs when downloading it!"
@@ -1872,16 +1912,17 @@ function sccp -d 'check if scc exists, or with any argument, download the latest
         return 0
     else
         # https://github.com/boyter/scc/releases/download/v2.2.0/scc-2.2.0-x86_64-unknown-linux.zip
-        set tag_name (curl -s "https://api.github.com/repos/boyter/scc/releases/latest" | grep "tag_name" | cut -d : -f 2 | awk -F[\"\"] '{print $2}')
+        set tag_name (eval $PXY curl -s "https://api.github.com/repos/boyter/scc/releases/latest" | grep "tag_name" | cut -d : -f 2 | awk -F[\"\"] '{print $2}')
         if not test $tag_name
             echo "API rate limit exceeded, please input your password for your username!"
-            set tag_name (curl -u c02y -s "https://api.github.com/repos/boyter/scc/releases/latest" | grep "tag_name" | cut -d : -f 2 | awk -F[\"\"] '{print $2}')
+            set tag_name (eval $PXY curl -u c02y -s "https://api.github.com/repos/boyter/scc/releases/latest" | grep "tag_name" | cut -d : -f 2 | awk -F[\"\"] '{print $2}')
         end
         set file_name (echo scc-(echo $tag_name | sed 's/^v//')-x86_64-unknown-linux.zip)
         set file_link (echo https://github.com/boyter/scc/releases/download/$tag_name/$file_name)
         eval $PXY wget -c $file_link -O /tmp/$file_name
         if test -f /tmp/$file_name
             unzip -o -e /tmp/$file_name -d ~/.local/bin/
+            echo -e "\n====scc installed...====\n"
             return 0
         else
             echo "scc doesn't exist and error occurs when downloading it!"
