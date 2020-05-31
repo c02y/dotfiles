@@ -1484,6 +1484,7 @@ abbr gitft 'git ls-files --error-unmatch' # Check if file/dir is git-tracked
 abbr gitpu 'git push -v'
 abbr gitpl 'git pull'
 abbr gitpr 'git pull --rebase=interactive'
+abbr gitup 'tig log origin/master..HEAD' # list unpushed commits using tig
 function gitpls -d 'git pull another repo from current dir, ~/.emacs.d(-e), ~/.space-vim(-v), ~/Dotfiles.d(by default), all(-a), or add argument'
     set -l options 'e' 'v' 'a'
     argparse -n gitpls $options -- $argv
@@ -1799,6 +1800,7 @@ else
     set -g PXY
 end
 
+abbr bb 'bat'
 function batp -d 'check if bat exists, or with any argument, download the latest version'
     if command -sq bat; and set -q $argv[1] # bat is in $PATH, and no any argv is given, two conditions
         # echo "bat is installed, use any extra to upgrade it!"
@@ -2150,8 +2152,8 @@ alias wgets 'wget -c --mirror -p --html-extension --convert-links'
 alias curls 'curl -L -O -C -'
 # curl -L -O -C - https://site.com/file.iso
 alias aria2 'aria2c -c -x 5 --check-certificate=false --file-allocation=none'
-abbr wt 'bash -c \'rm -rf /tmp/XLN* 2>/dev/null\'; wget -c -P /tmp/ http://down.sandai.net/XLNetAcc/XLNetAccSetup.exe'
-abbr wtt 'bash -c \'rm -rf /tmp/XMPS* 2>/dev/null\'; wget --connect-timeout=5 -c -P /tmp/ http://xmp.down.sandai.net/xmp/XMPSetup_5.4.5.6478.exe'
+abbr wt 'bash -c \'rm -rf /tmp/Baidu* 2>/dev/null\'; wget -c -P /tmp/ https://speedxbu.baidu.com/shurufa/ime/setup/BaiduWubiSetup_1.2.0.67.exe'
+abbr wtt 'bash -c \'rm -rf /tmp/Baidu* 2>/dev/null\'; wget --connect-timeout=5 -c -P /tmp/ https://speedxbu.baidu.com/shurufa/ime/setup/BaiduPinyinSetup_5.5.5063.0.exe'
 
 # bc -- calculator
 function bc --description 'calculate in command line using bc non-interactive mode if needed, even convert binary/octual/hex'
