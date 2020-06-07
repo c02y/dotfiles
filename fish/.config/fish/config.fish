@@ -67,7 +67,10 @@ set -g fish_color_search_match --background=blue
 # start fish without configuration
 abbr fishtmp "sh -c 'env HOME=\$(mktemp -d) fish'"
 
-# do `h` in the new one after switching terminal session
+# This will save history before create new fish instance(such as tmux pane)
+# Remove h in fish_prompt function to be executed in every new fish_prompt
+# which will break the command order in current instance when using UP/DOWN
+# function hisave --on-event fish_preexec
 function h --on-process-exit %self
     history --merge
 end
@@ -114,7 +117,6 @@ function path_prompt
     end
 end
 function fish_prompt --description 'Write out the prompt'
-    h
     set -l last_status $status
 
     path_prompt
@@ -860,8 +862,8 @@ end
 
 # df+du+ncdu
 alias du 'du -h --apparent-size'
-function dfs -d 'df(-l), ncdu(-i), du(by default)'
-    set -l options 'i' 'l'
+function dfs -d 'df(-l), ncdu(-i), du(by default), cache dir of Firefox/Chrome'
+    set -l options 'i' 'l' 'c'
     argparse -n dfs $options -- $argv
     or return
 
@@ -873,6 +875,8 @@ function dfs -d 'df(-l), ncdu(-i), du(by default)'
         end
     else if set -q _flag_l
         df -Th | grep -v grep | grep -v tmpfs | grep -v boot | grep -v var | grep -v snapshots | grep -v opt | grep -v tmp | grep -v srv | grep -v usr | grep -v user
+    else if set -q _flag_c
+        du -cs ~/.mozilla ~/.cache/mozilla ~/.config/google-chrome ~/.cache/google-chrome
     else
         if test (count $argv) -gt 1 # $argv contains /* at the end of path
             du -cs $argv | sort -h
@@ -1312,7 +1316,6 @@ abbr xp 'xclip'
 
 abbr km 'sudo kermit'
 
-abbr dusc 'dus -c ~/.config/google-chrome ~/.cache/google-chrome ~/.mozilla ~/.cache/mozilla'
 abbr gcp 'google-chrome --incognito'
 abbr ffp 'firefox -private-window'
 
@@ -2154,6 +2157,11 @@ alias curls 'curl -L -O -C -'
 alias aria2 'aria2c -c -x 5 --check-certificate=false --file-allocation=none'
 abbr wt 'bash -c \'rm -rf /tmp/Baidu* 2>/dev/null\'; wget -c -P /tmp/ https://speedxbu.baidu.com/shurufa/ime/setup/BaiduWubiSetup_1.2.0.67.exe'
 abbr wtt 'bash -c \'rm -rf /tmp/Baidu* 2>/dev/null\'; wget --connect-timeout=5 -c -P /tmp/ https://speedxbu.baidu.com/shurufa/ime/setup/BaiduPinyinSetup_5.5.5063.0.exe'
+function wgetr -d 'for wget that get stuck in middle of downloads'
+    while true
+        command wget -c --no-check-certificate -T 5 -c $argv; and break
+    end
+end
 
 # bc -- calculator
 function bc --description 'calculate in command line using bc non-interactive mode if needed, even convert binary/octual/hex'
