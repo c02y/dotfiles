@@ -303,6 +303,8 @@ It should only modify the values of Spacemacs settings."
    ;; Default major mode for a new empty buffer. Possible values are mode
    ;; names such as `text-mode'; and `nil' to use Fundamental mode.
    ;; (default `text-mode')
+   ;; NOTE: this value is used for `SPC b N n', not anything else
+   ;; anything else uses `setq-default major-mode ...'
    dotspacemacs-new-empty-buffer-major-mode 'org-mode
 
    ;; Default major mode of the scratch buffer (default `text-mode')
