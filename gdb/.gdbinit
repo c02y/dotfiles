@@ -2301,23 +2301,33 @@ define dcl
   dashboard $arg0 -style context $arg1
 end
 # stack and history use limit
-define dll
-  dashboard $arg0 -style limit $arg1
-end
+#define dll
+#  dashboard $arg0 -style limit $arg1
+#end
 
 # TODO:Find a better way to disable the default q for quit
 define q
   print "Use quit to quit!!!"
 end
 define exit
-  exit
+  quit
 end
 
-define its
-  info threads
-end
 define it
-  info thread $arg0
+  if $argc == 0
+	info threads
+  else
+	set $i = 0
+	while $i < $argc
+	  eval "info thread $arg%d", $i
+	  set $i = $i + 1
+	end
+  end
+end
+document it
+	List all threads using `it`
+	or check the info of one or more threads using
+	`it t0 t1 ...`
 end
 
 # check https://gist.github.com/CocoaBeans/1879270 for more info about how to use gdb
@@ -2350,18 +2360,25 @@ document pa
 end
 
 define p
-  set $i = 0
-  while $i < $argc
-	eval "print $arg%d", $i
-	set $i = $i + 1
+  if $argc == 0
+	display
+  else
+	undisplay
+	set $i = 0
+	while $i < $argc
+	  # used display instead of print here to print the variable name as well
+	  # https://stackoverflow.com/a/62054300/1528712
+	  eval "display $arg%d", $i
+	  set $i = $i + 1
+	end
+	display
   end
 end
 document p
 	Override the default p to print values of a single arg or arg list
-	Usage: pl a1 [a2] [a3]...
-	Check `info locals` for info
+	Usage: p a1 [a2] [a3]...
+	Use p again the print the variable in the display list
 end
-
 
 define bl
   info breakpoints
@@ -3002,6 +3019,37 @@ document pwstring
 	pwstring s - Prints content, size/length, capacity and ref-count of wstring s
 end
 
+define get-program-name
+  set logging file tmp.gdb
+  set logging overwrite on
+  set logging redirect on
+  set logging on
+  python print("set $programname = \"%s\"" % os.path.basename(gdb.current_progspace().filename))
+  set logging off
+  set logging redirect off
+  set logging overwrite off
+  source tmp.gdb
+  eval "shell rm -f tmp.gdb >/dev/null"
+end
+define rr
+  get-program-name
+  # NOTE: the make line may not work
+  eval "make %s", $programname
+  # if shell command make failed, do not execute the rest
+  if !$_shell_exitcode
+	python gdb.execute("file " + gdb.current_progspace().filename)
+	run
+  end
+end
+document rr
+	make the binary again and file it and run
+	NOTE the make line may not work, besides if it make fails, it will not file and run
+end
+
+# TODO: pip install gdb-tools, https://github.com/vuvova/gdb-tools
+# check https://github.com/vuvova/gdb-tools for usage
+# or check `dl help` or `dl longhelp` for help
+py import duel
 
 # -------- end --------
 # Start ------------------------------------------------------------------------
