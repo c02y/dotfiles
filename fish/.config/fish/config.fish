@@ -1148,7 +1148,6 @@ abbr pacI 'sudo pacman -Syu --needed' # -S to install a package, -Syu pkg to ens
 abbr pacii 'sudo pacman -Syu --needed --noconfirm'
 abbr pacil 'sudo pacman -U' # install package from a local .pkg.tar.xz/link file
 abbr pacs 'pacman -Ss'      # search for package to install
-abbr pacl 'pacman -Ql'      # list files in package
 abbr pacls 'pacman -Qs'         # search for local installed packages
 abbr pacr 'yay -Rsun' # remove a package and its unneeded dependencies, and clean configs
 abbr pacrr 'yay -Rsc' # using this if pacr doesn't not uninstall a pacakge
@@ -1165,6 +1164,10 @@ abbr pacor 'sudo pacman -Rsun (pacman -Qdtq)' # remove package and its configs i
 function pacsh -d 'search info about package, first search installed then search in repo'
     pacman -Qi $argv
     or pacman -Si $argv
+end
+function pacl -d 'list files in a package'
+    pacman -Ql $argv
+    or pamac list --files $argv
 end
 function pacch -d 'check if package is owned by others, if not, delete it'
     # This is used when the following errors occur after executing update command:
@@ -1201,6 +1204,11 @@ abbr puir 'pacui r'
 # donnot show the other info on startup
 abbr gdb 'gdb -q'
 abbr gdbx 'gdb -q -n'         # with loading any .gdbinit file
+# debug the core dump binary and file, by default the core dump file is
+# located in /var/lib/systemd/coredump (Arch Linux) or in current running dir
+# if it is lz4, decompress it, and `gdb ./file core-file`
+# Using the following abbr to debug the latest core dump binary
+abbr gdbc 'coredumpctl gdb -1'
 
 # systemd-analyze
 function sab --description 'systemd-analyze blame->time, with any argv, open the result graphic'
@@ -2146,20 +2154,34 @@ function port -d 'list all the ports are used or check the process which are usi
     end
 end
 
-abbr px 'proxychains4 -q'
-alias pxw 'proxychains4 -q wget -c --no-check-certificate'
-alias pxa 'proxychains4 -q aria2c -c -x 5 --check-certificate=false --file-allocation=none'
-alias pxc 'proxychains4 -q curl -L -O -C -'
 alias wget 'wget -c --no-check-certificate'
 alias wgets 'wget -c --mirror -p --html-extension --convert-links'
 alias curls 'curl -L -O -C -'
 # curl -L -O -C - https://site.com/file.iso
 alias aria2 'aria2c -c -x 5 --check-certificate=false --file-allocation=none'
+abbr sky 'curl wttr.in'
 abbr wt 'bash -c \'rm -rf /tmp/Baidu* 2>/dev/null\'; wget -c -P /tmp/ https://speedxbu.baidu.com/shurufa/ime/setup/BaiduWubiSetup_1.2.0.67.exe'
 abbr wtt 'bash -c \'rm -rf /tmp/Baidu* 2>/dev/null\'; wget --connect-timeout=5 -c -P /tmp/ https://speedxbu.baidu.com/shurufa/ime/setup/BaiduPinyinSetup_5.5.5063.0.exe'
 function wgetr -d 'for wget that get stuck in middle of downloads'
     while true
         command wget -c --no-check-certificate -T 5 -c $argv; and break
+    end
+end
+function pxs -d 'multiple commands using proxychains4'
+    set -l options 'a' 'c' 'g' 'w'
+    argparse -n pxs $options -- $argv
+    or return
+
+    if set -q _flag_a
+        proxychains4 -q aria2c -c -x 5 --check-certificate=false --file-allocation=none $argv
+    else if set -q _flag_c
+        proxychains4 -q curl -L -O -C - $argv
+    else if set -q _flag_w
+        proxychains4 -q wget -c --no-check-certificate $argv
+    else if set -q _flag_g
+        proxychains4 -q git clone $argv
+    else
+        proxychains4 -q $argv
     end
 end
 
