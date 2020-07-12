@@ -1896,7 +1896,11 @@ In other non-comment situations, try C-M-j to split."
           org-log-into-drawer "LOGBOOK"
           org-log-done 'time
           org-tags-column 0
-          org-src-preserve-indentation t
+          ;; about the org-src block format
+          ;; https://emacs.stackexchange.com/a/51690
+          org-src-preserve-indentation nil
+          org-edit-src-content-indentation 0
+          ;;
           org-src-ask-before-returning-to-edit-buffer nil
           org-src-window-setup 'split-window-below
           ;; fix the issue of org-src buffer
@@ -2258,6 +2262,12 @@ and you can reconfigure the compile args."
   ;; are not reliable, it will disable smartparens-mode after a period
   (add-hook 'yas-before-expand-snippet-hook (lambda () (smartparens-mode 1)))
   (add-hook 'yas-after-exit-snippet-hook (lambda () (smartparens-mode 1)))
+
+  ;; fix the issue: Warning (emacs): recentf mode: Non-character input-event
+  ;; syl20bnr/spacemacs/issues/5554#issuecomment-369262669
+  (defun ask-user-about-lock (file other-user)
+    "A value of t says to grab the lock on the file."
+    t)
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
