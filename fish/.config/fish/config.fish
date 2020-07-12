@@ -368,7 +368,7 @@ function bxp -d 'pastebin service in command line'
 end
 #
 function lls -d 'ls functions with options'
-    set -l options 't' 'a' 's' 'A' 'r'
+    set -l options 't' 'T' 's' 'S' 'r'
     argparse -n lls $options -- $argv
     or return
 
@@ -381,7 +381,7 @@ function lls -d 'ls functions with options'
         else
             ls -lhA --color=yes $ARGV --sort=time --time=ctime | nl -v 0 | sort -nr | tail -20
         end
-    else if set -q _flag_a      # like -t, but show all
+    else if set -q _flag_T      # like -t, but show all
         if set -q _flag_r       # reverse
             ls -lhA --color=yes $ARGV --sort=time -r --time=ctime | nl -v 0 | sort -nr
         else
@@ -393,7 +393,7 @@ function lls -d 'ls functions with options'
         else
             ls -lhA --color=yes $ARGV --sort=size | nl -v 0 | sort -nr | tail -20
         end
-    else if set -q _flag_A      # like -s, but show all
+    else if set -q _flag_S      # like -s, but show all
         if set -q _flag_r       # reverse
             ls -lhA --color=yes $ARGV --sort=size -r | nl -v 0 | sort -nr
         else
@@ -993,8 +993,8 @@ function tree
 end
 
 # j for .bz2, z for .gz, J for xz, a for auto determine
-function tars -d 'tar extract(x)/list(l)/create(l, add extra arg to include .git dir), or others using dtrx(d)'
-    set -l options 'x' 'l' 'c' 'd'
+function tars -d 'tar extract(x)/list(l)/create(l, add extra arg to include .git dir), or others using extr(o)'
+    set -l options 'x' 'l' 'c' 'o'
     argparse -n tars $options -- $argv
     or return
 
@@ -1010,11 +1010,9 @@ function tars -d 'tar extract(x)/list(l)/create(l, add extra arg to include .git
         else
             tar cvfa $ARGV.tar.xz $ARGV
         end
-    else if set -q _flag_d
-        if command -sq dtrx
-            dtrx -v $argv
-        else
-            echo "dtrx command is not installed!"
+    else if set -q _flag_o
+        if command -sq extr
+            extr $argv
         end
     end
 end
@@ -1204,6 +1202,7 @@ abbr puir 'pacui r'
 # donnot show the other info on startup
 abbr gdb 'gdb -q'
 abbr gdbx 'gdb -q -n'         # with loading any .gdbinit file
+abbr gdbd 'sudo gdb -batch -ex "thread apply all bt" -p' # -p $PID to check the deadlock issue, or `sudo strace -s 99 -ffp $PID`
 # debug the core dump binary and file, by default the core dump file is
 # located in /var/lib/systemd/coredump (Arch Linux) or in current running dir
 # if it is lz4, decompress it, and `gdb ./file core-file`
