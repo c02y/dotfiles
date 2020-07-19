@@ -1031,7 +1031,7 @@ function zips -d 'zip to list(l)/extract(x)/create(c)'
         else if set -q _flag_L      # list Chinese characters
             zips.py -l $a
         else if set -q _flag_x
-            unzip -e $a
+            unar $a
         else if set -q _flag_X      # extract Chinese characters
             zips.py -x $a
         else if set -q _flag_c
