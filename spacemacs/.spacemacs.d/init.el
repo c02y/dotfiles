@@ -48,7 +48,12 @@ This function should only modify configuration layer settings."
      emacs-lisp
      markdown
      vimscript
-     rust
+     ;; TODO: system install rust-analyzer binary
+     ;; `cargo install cargo-edit cargo-audit'
+     ;; `rustup component add clippy rustfmt'
+     (rust :variables
+           rust-format-on-save t
+           lsp-rust-server 'rust-analyzer)
      yaml
      semantic
      treemacs
@@ -1381,6 +1386,9 @@ Version 2016-12-18"
               ;; the indent level for method in class
               ;; https://stackoverflow.com/a/14668848/1528712
               (c-set-offset 'inline-open 0)))
+  (add-hook 'rust-mode-hook
+            (lambda ()
+              (setq indent-tabs-mode nil)))
   (add-hook 'makefile-mode-hook
             (lambda ()
               (setq tab-width 8)))
@@ -1441,7 +1449,7 @@ which switch the last buffer in this window."
   (add-hook 'org-mode-hook 'spacemacs/toggle-visual-line-navigation-on)
 
   ;; electric-operator
-  (dolist (hook '(c-mode-common-hook org-mode-hook python-mode-hook inferior-python-mode-hook LaTeX-mode-hook plantuml-mode-hook js2-mode-hook css-mode))
+  (dolist (hook '(c-mode-common-hook org-mode-hook python-mode-hook inferior-python-mode-hook LaTeX-mode-hook plantuml-mode-hook js2-mode-hook css-mode-hook rust-mode-hook))
     (add-hook hook #'electric-operator-mode))
   (with-eval-after-load "electric-operator"
     (setq electric-operator-enable-in-docs t)
@@ -2230,6 +2238,7 @@ With prefix P, don't widen, just narrow even if buffer is already narrowed. "
     )
 
   ;; functions for eshell
+  (exec-path-from-shell-initialize)
   (defun eshell/x ()
     "x in eshell prompt to exit eshell and close the eshell window."
     (delete-window)
