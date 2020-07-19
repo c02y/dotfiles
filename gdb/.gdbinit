@@ -2295,6 +2295,11 @@ end
 define btf
   backtrace full
 end
+# use bta to debug deadlock issue
+# https://www.ibm.com/developerworks/cn/linux/l-cn-deadlock/
+define bta
+  thread apply all bt
+end
 
 # source and assembly use context
 define dcl
