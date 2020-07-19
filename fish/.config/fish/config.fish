@@ -16,7 +16,7 @@ end
 if test (lsb_release -i | grep -i -E 'manjaro|opensuse') # not manjaro/opensuse
     # set -gx PATH $HOME/anaconda3/bin ~/.local/share/arm-linux/bin ~/.local/bin ~/.linuxbrew/bin $GOPATH/bin ~/bin $PATH
     #set -gx PATH $HOME/anaconda3/bin $HOME/.local/bin $GOPATH/bin /usr/local/bin /usr/local/liteide/bin /bin /sbin /usr/bin /usr/sbin $PATH
-    set -gx PATH  $HOME/.local/bin $GOPATH/bin $NPMS/bin /usr/local/bin /bin /sbin /usr/bin /usr/sbin $PATH
+    set -gx PATH  $HOME/.local/bin $GOPATH/bin $NPMS/bin ~/.cargo/bin /usr/local/bin /bin /sbin /usr/bin /usr/sbin $PATH
 
     # TODO: `pip install cppman ; cppman -c` to get manual for cpp
     set -gx MANPATH $NPMS/share/man $MANPATH
@@ -1020,7 +1020,7 @@ end
 # if the code is not working, try GBK or GB18030
 # unzip zip if it is archived in Windows and messed up characters with normal unzip
 abbr unzipc 'unzip -O CP936'
-function zips -d 'zip to list(l)/extract(x)/create(c)'
+function zips -d 'zip to list(l, default)/extract(x)/create(c)'
     set -l options 'l' 'L' 'c' 'x' 'X'
     argparse -n zips $options -- $argv
     or return
@@ -1038,6 +1038,8 @@ function zips -d 'zip to list(l)/extract(x)/create(c)'
             # remove the end slash in argv
             set ARGV (echo $a | sed 's:/*$::')
             zip -r $ARGV.zip $ARGV
+        else
+            unzip -l $a
         end
     end
 end
@@ -1203,6 +1205,7 @@ abbr puir 'pacui r'
 abbr gdb 'gdb -q'
 abbr gdbx 'gdb -q -n'         # with loading any .gdbinit file
 abbr gdbd 'sudo gdb -batch -ex "thread apply all bt" -p' # -p $PID to check the deadlock issue, or `sudo strace -s 99 -ffp $PID`
+abbr gdbu 'gdbgui --gdb-args="-q -n"'
 # debug the core dump binary and file, by default the core dump file is
 # located in /var/lib/systemd/coredump (Arch Linux) or in current running dir
 # if it is lz4, decompress it, and `gdb ./file core-file`
@@ -2166,6 +2169,7 @@ function wgetr -d 'for wget that get stuck in middle of downloads'
         command wget -c --no-check-certificate -T 5 -c $argv; and break
     end
 end
+abbr pxx 'proxychains4 -q'
 function pxs -d 'multiple commands using proxychains4'
     set -l options 'a' 'c' 'g' 'w'
     argparse -n pxs $options -- $argv
