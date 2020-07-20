@@ -1348,6 +1348,9 @@ Version 2016-12-18"
       (set-face-attribute 'whitespace-indentation nil :background "red" :foreground "yellow")
       ))
 
+  ;; highlight selected, to fix the issue that when the expr is already highlight(multiple occurs), no color for selected region
+  (set-face-attribute 'region nil :background "white")
+
   ;; format
   (setq-default
    ;; t -> use tab as tab, nil -> use space as tab
@@ -2277,6 +2280,12 @@ and you can reconfigure the compile args."
   (defun ask-user-about-lock (file other-user)
     "A value of t says to grab the lock on the file."
     t)
+
+  (defun hide-ctrl-M ()
+    "Hides the disturbing '^M' showing up in files containing mixed UNIX and DOS line endings."
+    (interactive)
+    (setq buffer-display-table (make-display-table))
+    (aset buffer-display-table ?\^M []))
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
