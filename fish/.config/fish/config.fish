@@ -296,7 +296,7 @@ function fish_user_key_bindings
     end
     fzf_key_bindings            # C-s for file/dir, C-r for history, Tab for complete
     bind --erase \cb
-    bind \cb br
+    bind \cb broot
 end
 set -gx FZF_TMUX_HEIGHT 100%
 
@@ -408,10 +408,11 @@ function lls -d 'ls functions with options'
     end
 end
 # valgrind
+# TODO: pip install colour-valgrind
 # abbr va='valgrind -v --track-origins=yes'
-abbr va 'valgrind --track-origins=yes --leak-check=full'
+abbr va 'colour-valgrind --track-origins=yes --leak-check=full'
 # more detail about time
-abbr vad 'valgrind --tool=callgrind --dump-instr=yes --simulate-cache=yes --collect-jumps=yes'
+abbr vad 'colour-valgrind --tool=callgrind --dump-instr=yes --simulate-cache=yes --collect-jumps=yes'
 
 abbr kill9 'killall -9'
 # If Emacs hangs and won't response to C-g, use this to force it to stop whatever it's doing
@@ -422,6 +423,14 @@ abbr kille 'pkill -SIGUSR2 emacs'
 abbr pid 'xprop | grep -i pid | grep -Po "[0-9]+"'
 function psg -d 'pgrep process'
     ps -ef | grep -v grep | grep -i $argv[1] | nl
+    if test (ps -ef | grep -v grep | grep -i $argv[1] | nl | wc -l) = 1
+        set pid (pgrep -if $argv[1])
+        echo -e "\nPID: " $pid
+        if test $DISPLAY
+            echo $pid | xc
+            echo ---- PID Copied to Clipboard! ----
+        end
+    end
 end
 # pkill will not kill processes matching pattern, you have to kill the PID
 function pk --description 'kill processes containing a pattern or PID'
@@ -1021,17 +1030,26 @@ end
 # unzip zip if it is archived in Windows and messed up characters with normal unzip
 abbr unzipc 'unzip -O CP936'
 function zips -d 'zip to list(l, default)/extract(x)/create(c)'
+    # NOTE: if unarchiver is installed(lsar+unar), the $argv can be zip/rar/tar.xxx
     set -l options 'l' 'L' 'c' 'x' 'X'
     argparse -n zips $options -- $argv
     or return
 
     for a in $argv
         if set -q _flag_l           # list
-            unzip -l $a
+            if command -sq lsar
+                lsar $a
+            else
+                unzip -l $a
+            end
         else if set -q _flag_L      # list Chinese characters
             zips.py -l $a
         else if set -q _flag_x
-            unar $a
+            if command -sq unar
+                unar $a
+            else
+                unzip $a
+            end
         else if set -q _flag_X      # extract Chinese characters
             zips.py -x $a
         else if set -q _flag_c
@@ -1147,19 +1165,19 @@ abbr paci 'sudo pacman -S --needed'   # install packages directly without updati
 abbr pacI 'sudo pacman -Syu --needed' # -S to install a package, -Syu pkg to ensure the system is update to date then install the package
 abbr pacii 'sudo pacman -Syu --needed --noconfirm'
 abbr pacil 'sudo pacman -U' # install package from a local .pkg.tar.xz/link file
-abbr pacs 'pacman -Ss'      # search for package to install
-abbr pacls 'pacman -Qs'         # search for local installed packages
+abbr pacs 'pacman -Ss --color=always'  # search for package to install
+abbr pacls 'pacman -Qs --color=always' # search for local installed packages
 abbr pacr 'yay -Rsun' # remove a package and its unneeded dependencies, and clean configs
 abbr pacrr 'yay -Rsc' # using this if pacr doesn't not uninstall a pacakge
 abbr pacrc 'yay -Rsu' # like pacr, but don't clean configs
 abbr pacrd 'yay -Rscn'          # do not remove dependencies and their configs
 abbr pacd 'sudo pacman -Sw'     # download package without installing
-abbr pacc 'sudo pacman -Sc --noconfirm'     # clean packages cache
+abbr pacc 'sudo pacman -Sc --noconfirm' # clean packages cache
 abbr pacC 'paccache -rvk2 --noconfirm' # remove old package cache files is to remove all packages except for the latest 2 package versions
 abbr pacu 'yay -Syu' # update the database and update the system, pacman only updates from repo, yay updates from both repo and aur
 abbr pacuu 'yay -Syyu' # force a full refresh of database and update the system, must do this when switching branches/mirrors
 abbr pacud 'yay -Syuu' # like pacu, but allow downgrade, needed when switch to old branch like testing->stable or you seen local xxx is newer than xxx
-abbr paco 'pacman -Qdt' # To list all orphans, installed packages that are not used by anything else and should no longer be needed
+abbr paco 'pacman -Qdt --color=always' # To list all orphans, installed packages that are not used by anything else and should no longer be needed
 abbr pacor 'sudo pacman -Rsun (pacman -Qdtq)' # remove package and its configs in paco
 function pacsh -d 'search info about package, first search installed then search in repo'
     pacman -Qi $argv
@@ -1808,7 +1826,7 @@ function gitdl -d 'download several files from github'
     end
 end
 
-if test (ps -ef | grep -v grep | grep -i shadow | awk '{ print $(NF-2)     }') # ssr is running
+if test (ps -ef | grep -v grep | grep -i shadowsocks | awk '{ print $(NF-2)     }') # ssr is running
     set -g PXY 'proxychains4 -q'
 else
     set -g PXY
