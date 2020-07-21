@@ -1329,6 +1329,11 @@ Version 2016-12-18"
     (setq ivy-count-format "%d/%d> "
           ivy-initial-inputs-alist nil
           ivy-magic-tilde nil
+          ;; set ivy-height to 1/2 frame instead the fixed 15
+          ivy-height-alist
+          '((t
+             lambda (_caller)
+             (/ (frame-height) 2)))
           ))
 
   (with-eval-after-load 'yasnippet
