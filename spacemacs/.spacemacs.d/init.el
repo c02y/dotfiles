@@ -2249,8 +2249,8 @@ With prefix P, don't widen, just narrow even if buffer is already narrowed. "
   (exec-path-from-shell-initialize)
   (defun eshell/x ()
     "x in eshell prompt to exit eshell and close the eshell window."
-    (delete-window)
-    (eshell/exit))
+    (eshell/exit)
+    (delete-window))
 
   ;; NOTE: fix the bug in layer/go
   ;; spacemacs/issues/12263#issuecomment-490131508
