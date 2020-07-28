@@ -303,7 +303,7 @@ set -gx FZF_TMUX_HEIGHT 100%
 abbr pm-sl 'sudo pm-suspend'   # 'Suspend to ram' in GUI buttom, power button to wake up
 abbr pm-hb 'sudo pm-hibernate' # not work in old CentOS6
 
-abbr rgr 'ranger'
+abbr rrr 'ranger'
 abbr fpp '~/Public/PathPicker/fpp'
 abbr ga 'glances -t 1 --hide-kernel-threads -b --disable-irq --enable-process-extended'
 abbr dst 'dstat -d -n'
@@ -2059,8 +2059,8 @@ abbr st '~/Dotfiles.d/bin/.local/bin/stowsh -v'
 
 abbr ipy 'ipython' # other alternatives are btpython, ptpython, ptipython
 abbr pdb 'pudb3'
-function pips -d 'pip related functions, default(install), -i(sudo install), -c(check outdated), -u(update all outdated packages), -U(upgrade specific packages)'
-    set -l options 'i' 'c' 'u' 'U'
+function pips -d 'pip related functions, default(install), -i(sudo install), -c(check outdated), -r(remove/uninstall), -s(search), -u(update all outdated packages), -U(upgrade specific packages)'
+    set -l options 'i' 'c' 'r' 's' 'u' 'U'
     argparse -n pips $options -- $argv
     or return
 
@@ -2076,6 +2076,11 @@ function pips -d 'pip related functions, default(install), -i(sudo install), -c(
         # pip install -i https://pypi.tuna.tsinghua.edu.cn/simple -U (pip list --outdated | awk 'NR>2 {print $1}')
         # echo "Updating sudo pip packages"
         sudo pip install -i https://pypi.tuna.tsinghua.edu.cn/simple -U (pip list --outdated | awk 'NR>2 {print $1}')
+    else if set -q _flag_r
+        pip uninstall $argv
+        or sudo pip uninstall $argv
+    else if set -q _flag_s
+        pip search $argv
     else if set -q _flag_U
         sudo pip install -i https://pypi.tuna.tsinghua.edu.cn/simple -U $argv
     else if set -q _flag_i
