@@ -421,7 +421,10 @@ abbr kill9 'killall -9'
 abbr kille 'pkill -SIGUSR2 emacs'
 # get the pid of a gui program using mouse
 abbr pid 'xprop | grep -i pid | grep -Po "[0-9]+"'
-function psg -d 'pgrep process'
+function psgs -d 'pgrep process, used in script'
+    ps -ef | grep -v grep | grep -i $argv[1] | nl
+end
+function psg -d 'pgrep process, used in command line'
     ps -ef | grep -v grep | grep -i $argv[1] | nl
     if test (ps -ef | grep -v grep | grep -i $argv[1] | nl | wc -l) = 1
         set pid (pgrep -if $argv[1])
@@ -434,13 +437,13 @@ function psg -d 'pgrep process'
 end
 # pkill will not kill processes matching pattern, you have to kill the PID
 function pk --description 'kill processes containing a pattern or PID'
-    set result (psg $argv[1] | wc -l)
+    set result (psgs $argv[1] | wc -l)
     if test $result = 0
         echo "No '$argv[1]' process is running!"
     else if test $result = 1
-        set -l pid (psg $argv[1] | awk '{print $3}')
+        set -l pid (psgs $argv[1] | awk '{print $3}')
         if not kill -9 $pid # failed to kill, $status != 0
-            psg $pid | ag $argv[1] # list the details of the process need to be sudo kill
+            psgs $pid | ag $argv[1] # list the details of the process need to be sudo kill
             read -n 1 -p 'echo "Use sudo to kill it? [Y/n]: "' -l arg
             if test "$arg" = "" -o "$arg" = "y" -o "$arg" = " "
                 sudo kill -9 $pid
@@ -448,18 +451,18 @@ function pk --description 'kill processes containing a pattern or PID'
         end
     else
         while test 1
-            psg $argv[1]
-            if test (psg $argv[1] | wc -l) = 0
+            psgs $argv[1]
+            if test (psgs $argv[1] | wc -l) = 0
                 return
             end
             read -p 'echo "Kill all of them or specific PID? [y/N/index/pid/m_ouse]: "' -l arg2
             if test $arg2       # it is not Enter directly
                 if not string match -q -r '^\d+$' $arg2 # if it is not integer
                     if test "$arg2" = "y" -o "$arg2" = " "
-                        set -l pids (psg $argv[1] | awk '{print $3}')
+                        set -l pids (psgs $argv[1] | awk '{print $3}')
                         for i in $pids
                             if not kill -9 $i # failed to kill, $status != 0
-                                psg $i | ag $argv[1]
+                                psgs $i | ag $argv[1]
                                 read -n 1 -p 'echo "Use sudo to kill it? [Y/n]: "' -l arg3
                                 if test "$arg3" = "" -o "$arg3" = "y" -o "$arg3" = " "
                                     sudo kill -9 $i
@@ -475,7 +478,7 @@ function pk --description 'kill processes containing a pattern or PID'
                         # kill -SIGUSR2 (xprop | grep -i pid | grep -Po "[0-9]+")
                         set -l pid_m (xprop | grep -i pid | grep -Po "[0-9]+")
                         echo Pid is: $pid_m
-                        if test (psg $pid_m | grep -i emacs)
+                        if test (psgs $pid_m | grep -i emacs)
                             kill -SIGUSR2 $pid_m
                         else
                             kill -9 $pid_m
@@ -489,13 +492,13 @@ function pk --description 'kill processes containing a pattern or PID'
                 else  # if it is digital/integer
                     if test $arg2 -lt 20 # index number, means lines of searching result
                         # The "" around $arg2 is in case of situations like 10 in 1002
-                        set -l pid_of_index (psg $argv[1] | awk 'NR == n' n=" $arg2 " | awk '{print $3}')
+                        set -l pid_of_index (psgs $argv[1] | awk 'NR == n' n=" $arg2 " | awk '{print $3}')
                         if not test $pid_of_index
                             echo $arg2 is not in the index of the list.
                         else
                             # return
                             if not kill -9 $pid_of_index # kill failed, $status != 0
-                                psg $pid_of_index | ag $argv[1] # list the details of the process need to be sudo kill
+                                psgs $pid_of_index | ag $argv[1] # list the details of the process need to be sudo kill
                                 read -n 1 -p 'echo "Use sudo to kill it? [Y/n]: "' -l arg4
                                 if test $arg4 = "" -o "$arg4" = "y" -o "$arg4" = " "
                                     # the first condition is to check Return key
@@ -505,10 +508,10 @@ function pk --description 'kill processes containing a pattern or PID'
                         end
                     else        # pid
                         # The $arg2 here can be part of the real pid, such as typing only 26 means 126
-                        if test (psg $argv[1] | awk '{print $3}' | grep -i $arg2)
-                            set -l pid_part (psg $argv[1] | awk '{print $3}' | grep -i $arg2)
+                        if test (psgs $argv[1] | awk '{print $3}' | grep -i $arg2)
+                            set -l pid_part (psgs $argv[1] | awk '{print $3}' | grep -i $arg2)
                             if not kill -9 $pid_part # kill failed, $status != 0
-                                psg $pid_part | ag $argv[1] # list the details of the process need to be sudo kill
+                                psgs $pid_part | ag $argv[1] # list the details of the process need to be sudo kill
                                 read -n 1 -p 'echo "Use sudo to kill it? [Y/n]: "' -l arg5
                                 if test $arg5 = "" -o "$arg5" = "y" -o "$arg5" = " "
                                     sudo kill -9 $pid_part
