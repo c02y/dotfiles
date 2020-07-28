@@ -1015,9 +1015,9 @@ function tars -d 'tar extract(x)/list(l)/create(l, add extra arg to include .git
         # remove the end slash in argv
         set ARGV (echo $argv[1] | sed 's:/*$::')
         if test (count $argv) = 1
-            tar cvfa $ARGV.tar.xz $ARGV --exclude-vcs
+            tar cvfa $ARGV.tar.zst $ARGV --exclude-vcs
         else
-            tar cvfa $ARGV.tar.xz $ARGV
+            tar cvfa $ARGV.tar.zst $ARGV
         end
     else if set -q _flag_o
         if command -sq extr
