@@ -43,6 +43,7 @@ This function should only modify configuration layer settings."
      ;; ----------------------------------------------------------------
      better-defaults
      syntax-checking
+     colors
      git
      (ivy :variables ivy-enable-advanced-buffer-information t)
      emacs-lisp
@@ -803,12 +804,12 @@ before packages are loaded."
    ;;                                  (top . 0))))
    compilation-finish-functions (lambda (buf str)
                                   (if (null (string-match ".*exited abnormally.*" str))
-                                    ;; no errors, make the compilation window go away in a few seconds
-                                    (progn
-                                      (run-at-time
-                                       "0 sec" nil 'delete-windows-on
-                                       (get-buffer-create "*compilation*"))
-                                      (message "No Compilation Errors!"))))
+                                      ;; no errors, make the compilation window go away in a few seconds
+                                      (progn
+                                        (run-at-time
+                                         "0 sec" nil 'delete-windows-on
+                                         (get-buffer-create "*compilation*"))
+                                        (message "No Compilation Errors!"))))
    )
 
   ;; NOTE: along with undo-tree-auto-save-history
@@ -1121,6 +1122,7 @@ Emacs session."
     "bf" 'flush-blank-lines
     ;; related one is default M-q
     "bt" 'tabify-or-untabify
+    "bM" 'hide-ctrl-M
     ;; default feR, still works
     "fer" 'dotspacemacs/sync-configuration-layers
     "fF" 'find-alternate-file
@@ -1142,6 +1144,7 @@ Emacs session."
     ;; correct the wrong word with prefix+i, next time auto-correct it, defined bellow
     "Ss" 'endless/ispell-word-then-abbrev
     "SS" 'ispell-complete-word
+    "tC" 'rainbow-mode
     "xA" 'align-regexp
     "xaA" 'align-regexp
     "xaC" 'align-c-comments
@@ -1354,7 +1357,9 @@ Version 2016-12-18"
       ))
 
   ;; highlight selected, to fix the issue that when the expr is already highlight(multiple occurs), no color for selected region
-  (set-face-attribute 'region nil :background "white")
+  (add-hook 'after-change-major-mode-hook
+            (lambda ()
+              (set-face-attribute 'region nil :background "white")))
 
   ;; format
   (setq-default
