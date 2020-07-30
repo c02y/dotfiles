@@ -16,6 +16,11 @@ fi
 if [ $(basename $SHELL) != "fish" ]; then
 	if hash fish 2>/dev/null; then
 		export SHELL=$(which fish)
+		# the above line won't make tmux start with fish in the following platforms
+		if [ -n "$(uname -a | grep Ubuntu)" ]; then
+			tmux set -g default-command $(which fish) 2>/dev/null 
+			tmux set -g default-shell $(which fish) 2>/dev/null 
+		fi
 	else
 		echo "No fish is installed, using old $SHELL as SHELL!"
 	fi
