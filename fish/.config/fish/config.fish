@@ -1156,11 +1156,15 @@ abbr zppca 'sudo zypper clean --all'
 
 # apt for ubuntu/debian/kali...
 abbr appi 'sudo apt install -V'
-abbr appu 'sudo apt update; sudo apt full-upgrade -V'
+abbr appu 'sudo apt update'
+abbr appuu 'sudo apt update; sudo apt full-upgrade -V'
 abbr appr 'sudo apt remove -V'
 abbr appc 'sudo apt clean'
 abbr appar 'sudo apt autoremove -Vy'
 abbr apps 'apt search'
+abbr appsh 'apt show'
+abbr appl 'apt list --installed | ag'
+abbr applu 'apt list --upgradable'
 abbr appd 'apt depends'
 
 # pacman/yay for manjaro/arch/...
