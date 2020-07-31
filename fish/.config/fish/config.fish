@@ -1524,7 +1524,7 @@ abbr gitpu 'git push -v'
 abbr gitpl 'git pull'
 abbr gitpr 'git pull --rebase=interactive'
 abbr gitup 'tig log origin/master..HEAD' # list unpushed commits using tig
-abbr gitunp 'git config --global --unset http.proxy; git config --global --unset https.proxy'
+abbr gitunp 'git config --global --unset http.proxy; git config --global --unset https.proxy; git config --global --unset https.https://github.com.proxy'
 function gitpls -d 'git pull another repo from current dir, ~/.emacs.d(-e), ~/.space-vim(-v), ~/Dotfiles.d(by default), all(-a), or add argument'
     set -l options 'e' 'v' 'a'
     argparse -n gitpls $options -- $argv
