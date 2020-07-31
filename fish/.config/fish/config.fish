@@ -886,7 +886,7 @@ function dfs -d 'df(-l), ncdu(-i), du(by default), cache dir of Firefox/Chrome'
             echo "ncdu is not installed!"
         end
     else if set -q _flag_l
-        df -Th | grep -v grep | grep -v tmpfs | grep -v boot | grep -v var | grep -v snapshots | grep -v opt | grep -v tmp | grep -v srv | grep -v usr | grep -v user
+        df -Th | grep -v -E -- 'grep|tmpfs|boot|var|snap|opt|tmp|srv|usr|user'
     else if set -q _flag_c
         du -cs ~/.mozilla ~/.cache/mozilla ~/.config/google-chrome ~/.cache/google-chrome
     else
