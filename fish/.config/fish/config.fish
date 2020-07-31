@@ -1161,7 +1161,7 @@ abbr appuu 'sudo apt update; sudo apt full-upgrade -V'
 abbr appr 'sudo apt remove -V'
 abbr appc 'sudo apt clean'
 abbr appar 'sudo apt autoremove -Vy'
-abbr apps 'apt search'
+abbr apps 'apt-cache search' # apt will search in a lof of extra info which is not useful
 abbr appsh 'apt show'
 abbr appl 'apt list --installed | ag'
 abbr applu 'apt list --upgradable'
