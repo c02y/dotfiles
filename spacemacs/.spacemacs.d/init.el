@@ -739,11 +739,6 @@ before packages are loaded."
    ;; always show trailing whitespace, spacemacs only it in prog-mode by default
    ;; show-trailing-whitespace t
    ;; change the major mode of any file without extension to org-mode instead of fundamental-mode
-   ;; NOTE: The following line will affect the with-editor-mode-hook of evil-insert-state
-   ;; but this comment-out is not reliable, sometimes it is normal-state in git-commit-mode
-   ;; major-mode 'org-mode
-   ;; wrap long lines
-   global-visual-line-mode t
    )
   ;; disable loading the default theme for terminal emacs
   (unless (display-graphic-p)
@@ -946,6 +941,7 @@ With argument, backward ARG lines."
                ("M-3" . winum-select-window-3)
                ("M-4" . winum-select-window-4)
                )
+    (add-hook 'magit-diff-mode-hook (lambda () (setq truncate-lines nil)))
     )
 
   ;; show snippets in company list, don't know why auto-completion-enable-snippets-in-popup doesn't work
@@ -1458,8 +1454,9 @@ which switch the last buffer in this window."
               (evil-insert-state)
               (smartparens-mode)))
 
-  (spacemacs/toggle-truncate-lines-on)
-  (add-hook 'org-mode-hook 'spacemacs/toggle-visual-line-navigation-on)
+  ;; wrap long line from the margin, not break, just visually wrap lone line
+  (spacemacs/toggle-truncate-lines-off)
+  (add-hook 'org-mode-hook 'spacemacs/toggle-truncate-lines-off)
 
   ;; electric-operator
   (dolist (hook '(c-mode-common-hook org-mode-hook python-mode-hook inferior-python-mode-hook LaTeX-mode-hook plantuml-mode-hook js2-mode-hook css-mode-hook rust-mode-hook))
