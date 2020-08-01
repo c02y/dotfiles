@@ -200,7 +200,7 @@ This function should only modify configuration layer settings."
                                     google-c-style auto-highlight-symbol git-gutter
                                     git-gutter-fringe git-gutter-fringe+ fancy-battery
                                     dactyl-mode lorem-ipsum uuidgen evil-tutor indent-guide
-                                    org-bullets
+                                    org-superstar
                                     )
 
    ;; Defines the behaviour of Spacemacs when installing packages.
