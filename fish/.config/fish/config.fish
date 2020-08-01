@@ -1834,6 +1834,26 @@ function gitdl -d 'download several files from github'
     end
 end
 
+# docker related
+abbr docksi 'docker search'     # search a image
+abbr dockp 'docker pull'        # pull image +name:tag
+# create container example: `docker run -it -v ~/Public/tig:/Public/tig ubuntu:xenial /bin/bash`
+abbr dock2 'docker run -it'     # create a container
+abbr dockr 'docker rm'          # remove container +ID
+abbr dockri 'docker rmi'        # remove image +repo
+abbr docks 'docker start -i'    # start existed container
+abbr dockl 'docker ps -a'       # list all created containers
+abbr dockli 'docker image ls'   # list all pulled images
+function docklt -d 'list the first 10 tags for a docker image'
+    curl https://registry.hub.docker.com/v2/repositories/library/$argv[1]/tags/ | jq '."results"[]["name"]'
+    and echo -e "\nThese are the first 10 tags!\nPlease use `dockp $argv[1]:tag` to pull the image!"
+end
+function docklta -d 'list all tags for a docker image'
+    echo "Wait..."
+    wget -q https://registry.hub.docker.com/v1/repositories/$argv[1]/tags -O -  | sed -e 's/[][]//g' -e 's/"//g' -e 's/ //g' | tr '}' '\n'  | awk -F: '{print $3}'
+    and echo -e "\nThese are all the tags!\nPlease use `dockp $argv[1]:tag` to pull the image!"
+end
+
 if test (ps -ef | grep -v grep | grep -i shadowsocks | awk '{ print $(NF-2)     }') # ssr is running
     set -g PXY 'proxychains4 -q'
 else
