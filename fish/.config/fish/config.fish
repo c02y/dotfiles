@@ -1851,7 +1851,7 @@ function dock2 -d 'start an existed container, first list all the container, the
 end
 function docklt -d 'list the first 10 tags for a docker image'
     curl https://registry.hub.docker.com/v2/repositories/library/$argv[1]/tags/ | jq '."results"[]["name"]'
-    and echo -e "\nThese are the first 10 tags!\nPlease use `dockp $argv[1]:tag` to pull the image!"
+    and echo -e "\nThese are the first 10 tags, use `docklta` to list all tags!\nPlease use `dockp $argv[1]:tag` to pull the image!"
 end
 function docklta -d 'list all tags for a docker image'
     echo "Wait..."
