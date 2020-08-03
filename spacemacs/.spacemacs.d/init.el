@@ -1462,7 +1462,6 @@ which switch the last buffer in this window."
   (dolist (hook '(c-mode-common-hook org-mode-hook python-mode-hook inferior-python-mode-hook LaTeX-mode-hook plantuml-mode-hook js2-mode-hook css-mode-hook rust-mode-hook))
     (add-hook hook #'electric-operator-mode))
   (with-eval-after-load "electric-operator"
-    (setq electric-operator-enable-in-docs t)
     (electric-operator-add-rules-for-mode
      'c++-mode
      (cons "<>" "<> ")
@@ -1484,16 +1483,6 @@ which switch the last buffer in this window."
      (cons "," ", ")
      (cons "?" "? ")
      (cons ";" "; ")
-     (cons "." ". ")
-     (cons ".c" ".c ")
-     (cons ".cpp" ".cpp ")
-     (cons ".org" ".org ")
-     (cons ".md" ".md ")
-     (cons ".el" ".el ")
-     (cons ".py" ".py ")
-     (cons "./" " ./")
-     (cons "/." "/.")
-     (cons "/" nil) ;; or change nil to "/"
      )
     (electric-operator-add-rules-for-mode
      'js2-mode
@@ -1502,11 +1491,6 @@ which switch the last buffer in this window."
      (cons "," ", ")
      (cons ":" ": ")
      (cons "+" " + ")
-     )
-    (electric-operator-add-rules-for-mode
-     'js2-mode
-     (cons "," ", ")
-     (cons ":" ": ")
      )
     (electric-operator-add-rules-for-mode
      'inferior-python-mode
