@@ -341,8 +341,8 @@ It should only modify the values of Spacemacs settings."
    dotspacemacs-colorize-cursor-according-to-state t
 
    ;; Default font or prioritized list of fonts.
-   dotspacemacs-default-font '("PragmataPro"
-                               :size 14.5
+   dotspacemacs-default-font '("Cascadia Code PL"
+                               :size 13.5
                                :weight normal
                                :width normal)
 
@@ -734,7 +734,7 @@ before packages are loaded."
 
   ;; set the font, don't have touch dotspacemacs-default-font
   ;; even touched without this following line, font may not work for daemon/emacsclient
-  (setq default-frame-alist '((font . "PragmataPro-14.5")))
+  (setq default-frame-alist '((font . "Cascadia Code PL-13.5")))
   (setq-default
    ;; always show trailing whitespace, spacemacs only it in prog-mode by default
    ;; show-trailing-whitespace t
