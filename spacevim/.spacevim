@@ -173,10 +173,9 @@ function! UserInit()
     map gz# <Plug>(asterisk-gz#)
     let g:asterisk#keeppos = 1
 
-    Plug 'vim-scripts/YankRing.vim'
-    nnoremap <Leader>ry :YRShow<CR>
-    let g:yankring_min_element_length = 4
-    let g:yankring_manage_numbered_reg = 1
+    Plug 'Shougo/unite.vim'
+    Plug 'Shougo/neoyank.vim'
+    nnoremap <Leader>ry :Unite history/yank -default-action=append<CR>
 
     Plug 'ntpeters/vim-better-whitespace'
     let g:strip_whitespace_on_save=1
