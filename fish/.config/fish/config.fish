@@ -1527,7 +1527,9 @@ abbr gitpun 'git push -v -n'    # simulate git push
 abbr gitpl 'git pull'
 abbr gitpr 'git pull --rebase=interactive'
 abbr gitup 'tig log origin/master..HEAD' # list unpushed commits using tig
-abbr gitunp 'git config --global --unset http.proxy; git config --global --unset https.proxy; git config --global --unset https.https://github.com.proxy'
+set -l SSR socks5://127.0.0.1:1080
+abbr gitpx "git config --global http.proxy $SSR; git config --global https.proxy $SSR; git config --global https.https://github.com.proxy $SSR"
+abbr gitupx 'git config --global --unset http.proxy; git config --global --unset https.proxy; git config --global --unset https.https://github.com.proxy'
 function gitpls -d 'git pull another repo from current dir, ~/.emacs.d(-e), ~/.space-vim(-v), ~/Dotfiles.d(by default), all(-a), or add argument'
     set -l options 'e' 'v' 'a'
     argparse -n gitpls $options -- $argv
@@ -1687,8 +1689,12 @@ function gitbs -d 'branches and worktrees'
         else
             if set -q $argv[1]  # no argument
                 git branch      # list local branches
+                # get the current branch name
+                echo "Current branch name:"
+                git name-rev --name-only HEAD
             else if test "$argv" = "fzf" # use fzf to switch branch
                 # NOTE: if the branch is not in `git branch -a`, try `git ls-remote`
+                git fetch
                 git branch -a | fzf | xargs git checkout
             else                # checkout $argv branch if exists, else create it
                 git checkout $argv ^/dev/null
