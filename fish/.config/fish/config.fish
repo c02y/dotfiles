@@ -1017,8 +1017,9 @@ function tars -d 'tar extract(x)/list(l)/create(l, add extra arg to include .git
     else if set -q _flag_c      # create archive
         # remove the end slash in argv
         set ARGV (echo $argv[1] | sed 's:/*$::')
-        if test (count $argv) = 1
-            tar cvfa $ARGV.tar.zst $ARGV --exclude-vcs
+        if test (count $argv) = 1 -a -d $ARGV/.git
+            tar cvfa $ARGV.tar.zst --exclude-vcs $ARGV
+            echo -e "\nUse `tars -c $ARGV g` to include .git directory!"
         else
             tar cvfa $ARGV.tar.zst $ARGV
         end
@@ -1510,7 +1511,8 @@ abbr gits 'git status'          # = tig status(ggs)
 abbr gitl 'git log --stat'      # = tig log(ggl)
 abbr gitlo 'git log --oneline'  # = tig(gg)
 abbr gitlp 'git log -p --' # [+ file] to how entire all/[file(even renamed)] history
-abbr gitd 'git diff'       # show unstaged modification
+abbr ggd 'git diff'        # show unstaged modification
+abbr ggdd 'git difftool' # show unstaged modification using external tool such as vim
 abbr gitdc 'git diff --cached'  # show staged but unpushed local modification
 abbr gitsh 'git show' # [+ COMMIT] to show the modifications in a last/[specific] commit
 abbr gitcm 'git commit -m'
@@ -1521,6 +1523,7 @@ abbr gitcn 'git log --reverse --pretty=%H master | grep -A 1 (git rev-parse HEAD
 abbr gitt 'git tag --sort=-taggerdate'    # sort tag by date, new tag first
 abbr gitft 'git ls-files --error-unmatch' # Check if file/dir is git-tracked
 abbr gitpu 'git push -v'
+abbr gitpun 'git push -v -n'    # simulate git push
 abbr gitpl 'git pull'
 abbr gitpr 'git pull --rebase=interactive'
 abbr gitup 'tig log origin/master..HEAD' # list unpushed commits using tig
@@ -1582,7 +1585,7 @@ function gitcl -d 'git clone and cd into it, full-clone(by default), simple-clon
     else
         set DEPTH ""
     end
-    eval $PXY git clone -v $argv $DEPTH
+    git clone -v $argv $DEPTH
     echo ---------------------------
     if test (count $argv) -eq 2
         set project $argv[2]
@@ -2237,7 +2240,7 @@ function wgetr -d 'for wget that get stuck in middle of downloads'
 end
 abbr pxx 'proxychains4 -q'
 function pxs -d 'multiple commands using proxychains4'
-    set -l options 'a' 'c' 'g' 'w'
+    set -l options 'a' 'c' 'w'
     argparse -n pxs $options -- $argv
     or return
 
@@ -2247,8 +2250,6 @@ function pxs -d 'multiple commands using proxychains4'
         proxychains4 -q curl -L -O -C - $argv
     else if set -q _flag_w
         proxychains4 -q wget -c --no-check-certificate $argv
-    else if set -q _flag_g
-        proxychains4 -q git clone $argv
     else
         proxychains4 -q $argv
     end
