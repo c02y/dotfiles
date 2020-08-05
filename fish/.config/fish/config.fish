@@ -1,5 +1,6 @@
 ### you can use `fish_config` to config a lot of things in WYSIWYG way in browser
 
+set -gx TERM screen-256color
 set -gx GOPATH $GOPATH ~/go
 set -gx GOPROXY https://goproxy.cn
 # electron/node, for `npm install -g xxx`, default place is /usr
