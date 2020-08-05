@@ -707,7 +707,7 @@ function fzfp -d 'check if fzf is existed, with any argument, fzf binary file wi
         set file_name (echo fzf-$tag_name-linux_amd64.tgz)
         set file_link (echo https://github.com/junegunn/fzf-bin/releases/download/$tag_name/$file_name)
         eval $PXY wget $file_link -O /tmp/$file_name
-        if test -f /tmp/$file_name
+        if test -s /tmp/$file_name
             tar -xvzf /tmp/$file_name -C ~/.local/bin
             echo -e "\n====fzf installed...====\n"
             return 0
@@ -733,7 +733,7 @@ function zlp -d 'check exists of z.lua, with any given argument, update z.lua'
         return 0
     else
         eval $PXY curl -L -C - https://raw.githubusercontent.com/skywind3000/z.lua/master/z.lua -o /tmp/z.lua
-        if test -f /tmp/z.lua
+        if test -s /tmp/z.lua
             mv -f /tmp/z.lua $Z_PATH/z.lua
             echo -e "\n====z.lua installed...====\n"
         else
@@ -1898,7 +1898,7 @@ function batp -d 'check if bat exists, or with any argument, download the latest
 
         set file_link (echo https://github.com/sharkdp/bat/releases/download/$tag_name/$file_name)
         eval $PXY wget $file_link -O /tmp/$file_name
-        if test -f /tmp/$file_name
+        if test -s /tmp/$file_name
             tar xvfa /tmp/$file_name -C /tmp
             install -m 755 /tmp/bat-$tag_name-x86_64-unknown-linux-gnu/bat ~/.local/bin/bat
             echo -e "\n====bat installed...====\n"
@@ -1918,7 +1918,7 @@ function brootp -d 'check if broot exists, or with any argument, download the la
     else
         set br_path ~/.local/bin/broot
         eval $PXY curl -o $br_path -LO https://dystroy.org/broot/download/x86_64-linux/broot
-        if test -f $br_path
+        if test -s $br_path
             chmod +x $br_path
             echo -e "\n====broot installed...====\n"
             return 0
@@ -1943,7 +1943,7 @@ function gitmuxp -d 'check if gitmux exists, or with any argument, download the 
         set file_name (echo gitmux_(echo $tag_name | sed 's/^v//')_linux_amd64.tar.gz)
         set file_link (echo https://github.com/arl/gitmux/releases/download/$tag_name/$file_name)
         eval $PXY wget -c $file_link -O /tmp/$file_name
-        if test -f /tmp/$file_name
+        if test -s /tmp/$file_name
             tar xvfa /tmp/$file_name -C ~/.local/bin/
             echo -e "\n====gitmux installed...====\n"
             return 0
@@ -1963,7 +1963,7 @@ function nvimp -d 'check if nvim exists, or with any argument, download the late
     else
         if set -q _flag_n
             eval $PXY curl -o ~/.local/bin/nvim -LOC - https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage
-            if test -f ~/.local/bin/nvim
+            if test -s ~/.local/bin/nvim
                 chmod +x ~/.local/bin/nvim
                 return 0
             else
@@ -1979,7 +1979,7 @@ function nvimp -d 'check if nvim exists, or with any argument, download the late
             set file_name (echo nvim.appimage)
             set file_link (echo https://github.com/neovim/neovim/releases/download/$tag_name/$file_name)
             eval $PXY wget -c $file_link -O /tmp/$file_name
-            if test -f /tmp/$file_name
+            if test -s /tmp/$file_name # check if file exists and not empty
                 install -m 755 /tmp/$file_name ~/.local/bin/nvim
                 echo -e "\n====nvim installed...====\n"
                 return 0
@@ -2005,7 +2005,7 @@ function sccp -d 'check if scc exists, or with any argument, download the latest
         set file_name (echo scc-(echo $tag_name | sed 's/^v//')-x86_64-unknown-linux.zip)
         set file_link (echo https://github.com/boyter/scc/releases/download/$tag_name/$file_name)
         eval $PXY wget -c $file_link -O /tmp/$file_name
-        if test -f /tmp/$file_name
+        if test -s /tmp/$file_name
             unzip -o -e /tmp/$file_name -d ~/.local/bin/
             echo -e "\n====scc installed...====\n"
             return 0
