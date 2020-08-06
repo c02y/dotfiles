@@ -1854,10 +1854,29 @@ abbr dockr 'docker rm'          # remove container +ID
 abbr dockri 'docker rmi'        # remove image +repo
 abbr dockl 'docker ps -a'       # list all created containers
 abbr dockli 'docker image ls'   # list all pulled images
-function dock2 -d 'start an existed container, first list all the container, then input the ID'
+function dock2 -d 'start an existed container(or session), first list all the container, then input the ID'
     docker ps -a
-    read -p 'echo -e "\nType the container ID: "' -l arg
-    docker start -i $arg
+    set -l docker_cnt (docker ps -a | wc -l)
+    set -l ID
+    if test $docker_cnt = 2
+        set ID (docker ps -a | tail -1 | awk '{print $1}')
+    else if test $docker_cnt -gt 2
+        read -p 'echo -e "\nType the container ID: "' -l arg
+        set ID $arg
+    else if test $docker_cnt -lt 2
+        echo "No available container!"
+        return
+    end
+
+    docker inspect --format="{{.State.Running}}" $ID | grep true ^/dev/null >/dev/null
+    if test $status = 0
+        # if the ID is already running, exec it,
+        # meaning: start another session on the same running container
+        echo -e "\nNOTE: the container is already running in another session...\n"
+        docker exec -it $ID bash
+    else
+        docker start -i $ID
+    end
 end
 function docklt -d 'list the first 10 tags for a docker image'
     curl https://registry.hub.docker.com/v2/repositories/library/$argv[1]/tags/ | jq '."results"[]["name"]'
