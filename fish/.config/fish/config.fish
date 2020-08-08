@@ -26,9 +26,9 @@ else
     set -gx MANPATH $HOME/anaconda3/share/man $NPMS/share/man $MANPATH
 end
 
-set -gx FISHRC ~/.config/fish/config.fish
-set -gx EMACS_EL ~/.spacemacs.d/init.el
-test -f ~/.config/nvim/README.md; and set -gx VIMRC ~/.SpaceVim.d/autoload/myspacevim.vim; or set -gx VIMRC (readlink -f ~/.spacevim)
+set -gx FISHRC (readlink -f ~/.config/fish/config.fish)
+set -gx EMACS_EL (readlink -f ~/.spacemacs.d/init.el)
+test -f ~/.config/nvim/README.md; and set -gx VIMRC (readlink -f ~/.SpaceVim.d/autoload/myspacevim.vim); or set -gx VIMRC (readlink -f ~/.spacevim)
 # Please put the following lines into ~/.bashrc, putting them in config.fish won't work
 # This fixes a lot problems of displaying unicodes
 # https://github.com/syl20bnr/spacemacs/issues/12257
