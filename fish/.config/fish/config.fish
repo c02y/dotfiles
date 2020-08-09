@@ -1006,7 +1006,7 @@ function tree
 end
 
 # j for .bz2, z for .gz, J for xz, a for auto determine
-function tars -d 'tar extract(x)/list(l)/create(l, add extra arg to include .git dir), or others using extr(o)'
+function tars -d 'tar extract(x)/list(l, by default)/create(c, add extra arg to include .git dir), or others using extr(o)'
     set -l options 'x' 'l' 'c' 'o'
     argparse -n tars $options -- $argv
     or return
@@ -1028,6 +1028,8 @@ function tars -d 'tar extract(x)/list(l)/create(l, add extra arg to include .git
         if command -sq extr
             extr $argv
         end
+    else
+        tar tvfa $argv
     end
 end
 # using unar -- https://unarchiver.c3.cx/unarchiver is available
