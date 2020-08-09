@@ -1241,6 +1241,8 @@ abbr gdbu 'gdbgui --gdb-args="-q -n"'
 # Using the following abbr to debug the latest core dump binary
 abbr gdbc 'coredumpctl gdb -1'
 abbr cclsc 'cmake -H. -BDebug -DCMAKE_BUILD_TYPE=Debug -DCMAKE_EXPORT_COMPILE_COMMANDS=YES && ln -s Debug/compile_commands.json .'
+# .clang-format file used by C/Cpp projects by Emacs
+abbr cppf 'ln -s ~/Dotfiles.d/spacemacs/.spacemacs.d/lisp/clang-format-c-cpp ./.clang-format'
 
 # systemd-analyze
 function sab --description 'systemd-analyze blame->time, with any argv, open the result graphic'

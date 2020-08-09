@@ -70,6 +70,7 @@ This function should only modify configuration layer settings."
      (python :variables
              python-backend 'anaconda        ; the default is anaconda
              python-test-runner '(pytest nose)
+             python-formatter 'black
              python-format-on-save t
              python-sort-imports-on-save t
              )
@@ -110,11 +111,21 @@ This function should only modify configuration layer settings."
                       )
      (evil-snipe :variables evil-snipe-enable-alternate-f-and-t-behaviors t)
      ;; NOTE: install ccls
-     (c-c++ :variables
-            c-c++-backend 'lsp-ccls
-            c-c++-adopt-subprojects t
-            ;; c-c++-enable-auto-newline t
-            )
+     (c-c++
+      :variables
+      c-c++-backend 'lsp-ccls
+      c-c++-adopt-subprojects t
+      ;; c-c++-enable-auto-newline t
+      c-c++-lsp-enable-semantic-highlight t
+      c++-enable-organize-includes-on-save t
+      ;; clang-format-style: https://clang.llvm.org/docs/ClangFormat.html
+      ;; `clang-format -style=LLVM -dump-config > .clang-format`
+      ;; Both C and Cpp projects can share the same .clang-format
+      ;; ln -s ~/Dotfiles.d/spacemacs/.spacemacs.d/lisp/clang-format-c-cpp .clang-format
+      ;; In Cpp project:
+      ;;
+      c-c++-enable-clang-format-on-save t
+      )
      (cmake :variables
             cmake-enable-cmake-ide-support t)
      ;; NOTE: install cscope, pip install pycscope
@@ -122,23 +133,24 @@ This function should only modify configuration layer settings."
      ;; NOTE: to generate compile_commands.json file for lsp before using lsp
      ;; https://sarcasm.github.io/notes/dev/compilation-database.html
      ;; Read https://github.com/MaskRay/ccls/wiki/Project-Setup for project setup like .ccls
-     (lsp :variables
-          ;; https://github.com/emacs-lsp/lsp-mode#performance
-          lsp-file-watch-threshold nil
-          read-process-output-max (* 1024 1024 3)
-          lsp-prefer-capf t
-          lsp-idle-delay 0.500
-          ;; Collect lsp-log data
-          ;; lsp-print-performance t
-          lsp-log-io t
-          lsp-auto-guess-root t
-          lsp-ui-doc-delay 0.5
-          ;; lsp-enable-file-watchers nil
-          ccls-initialization-options '(:index (:comments 2) :completion (:detailedLabel t) :cache (:directory "/tmp/ccls"))
-          ccls-sem-highlight-method 'font-lock
-          ;; spacemacs/issues/10051#issuecomment-605979333
-          lsp-enable-indentation nil
-          )
+     (lsp
+      :variables
+      ;; https://github.com/emacs-lsp/lsp-mode#performance
+      lsp-file-watch-threshold nil
+      read-process-output-max (* 1024 1024 3)
+      lsp-prefer-capf t
+      lsp-idle-delay 0.500
+      ;; Collect lsp-log data
+      ;; lsp-print-performance t
+      lsp-log-io t
+      lsp-auto-guess-root t
+      lsp-ui-doc-delay 0.5
+      ;; lsp-enable-file-watchers nil
+      ccls-initialization-options '(:index (:comments 2) :completion (:detailedLabel t) :cache (:directory "/tmp/ccls"))
+      ccls-sem-highlight-method 'font-lock
+      ;; spacemacs/issues/10051#issuecomment-605979333
+      lsp-enable-indentation nil
+      )
      ;; M-x dap-gdb-lldb-setup after packages are installed by dap layer
      dap
      ;; TODO: npm install -g prettier
@@ -148,19 +160,20 @@ This function should only modify configuration layer settings."
      ;; TODO: npm install -g tern
      tern
      ;; TODO: npm install -g import-js eslint typescript typescript-language-server
-     (javascript :variables
-                 javascript-import-tool 'import-js
-                 javascript-fmt-tool 'prettier
-                 javascript-fmt-on-save t
-                 ;; the default backend is lsp
-                 javascript-backend 'tern
-                 ;; for json
-                 js-indent-level 2
-                 ;; for javascript
-                 js2-basic-offset 2
-                 js2-include-node-externs t
-                 node-add-moduels-path t
-                 )
+     (javascript
+      :variables
+      javascript-import-tool 'import-js
+      javascript-fmt-tool 'prettier
+      javascript-fmt-on-save t
+      ;; the default backend is lsp
+      javascript-backend 'tern
+      ;; for json
+      js-indent-level 2
+      ;; for javascript
+      js2-basic-offset 2
+      js2-include-node-externs t
+      node-add-moduels-path t
+      )
      (json :variables
            json-fmt-tool 'prettier
            json-fmt-on-save t)
