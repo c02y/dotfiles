@@ -117,7 +117,7 @@ This function should only modify configuration layer settings."
       c-c++-adopt-subprojects t
       ;; c-c++-enable-auto-newline t
       c-c++-lsp-enable-semantic-highlight t
-      c++-enable-organize-includes-on-save t
+      ;; c++-enable-organize-includes-on-save t
       ;; clang-format-style: https://clang.llvm.org/docs/ClangFormat.html
       ;; `clang-format -style=LLVM -dump-config > .clang-format`
       ;; Both C and Cpp projects can share the same .clang-format
