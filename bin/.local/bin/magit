@@ -1,5 +1,11 @@
 #!/bin/bash
-# original version: https://gist.github.com/alphapapa/ca1ea75675a826e572bced86f69f51b6
+
+# Copyright (C) 2020  Adam Porter
+
+# Author: Adam Porter <adam@alphapapa.net>
+# URL: https://github.com/alphapapa/magit.sh
+
+# * Commentary:
 
 # Run a standalone Magit editor!  To improve startup speed, this
 # script ignores the user's Emacs init files and only loads the Emacs
@@ -7,6 +13,23 @@
 
 # Note that this does NOT install any packages.  Magit and its
 # dependencies must already be installed in ~/.emacs.d.
+
+# * License:
+
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+# * Code:
 
 dependencies=(magit async dash with-editor git-commit transient)
 
@@ -26,6 +49,9 @@ function load_paths {
 function usage {
 	cat <<EOF
 It's Magit!
+
+magit.sh [OPTIONS] [PATH]
+
 Options:
   -h, --help  This.
   -x, --no-x  Display in terminal instead of in a GUI window.
@@ -54,16 +80,16 @@ while true; do
 done
 
 # * Main
-if [ -z "$1" ]; then
-	emacs -q $gui \
-		  $(load_paths "${dependencies[@]}") \
-		  -l magit -f magit-status \
-		  --eval "(local-set-key \"q\" #'kill-emacs)" \
-		  -f delete-other-windows
-else
-	emacs -q $gui \
-		  $(load_paths "${dependencies[@]}") -l magit \
-		  --eval "(magit-status \"$1\")" \
-		  --eval "(local-set-key \"q\" #'kill-emacs)" \
-		  -f delete-other-windows
-fi
+
+OLDPWD=$pwd
+[[ -d $1 ]] && cd "$1"
+
+emacs -q $gui \
+	  $(load_paths "${dependencies[@]}") \
+	  -l magit -f magit-status \
+	  --eval "(local-set-key \"q\" #'kill-emacs)" \
+	  -f delete-other-windows -mm \
+	  --eval "(progn (scroll-bar-mode -1)(tool-bar-mode -1))" \
+	  --eval "(set-face-attribute 'default nil :height 115)"
+
+cd $OLDPWD
