@@ -818,6 +818,7 @@ before packages are loaded."
                                          "0 sec" nil 'delete-windows-on
                                          (get-buffer-create "*compilation*"))
                                         (message "No Compilation Errors!"))))
+   find-file-visit-truename t
    )
 
   ;; NOTE: along with undo-tree-auto-save-history
@@ -1470,6 +1471,7 @@ which switch the last buffer in this window."
   ;; wrap long line from the margin, not break, just visually wrap lone line
   (spacemacs/toggle-truncate-lines-off)
   (add-hook 'org-mode-hook 'spacemacs/toggle-truncate-lines-off)
+  (spacemacs/toggle-highlight-long-lines-globally-on)
 
   ;; electric-operator
   (dolist (hook '(c-mode-common-hook org-mode-hook python-mode-hook inferior-python-mode-hook LaTeX-mode-hook plantuml-mode-hook js2-mode-hook css-mode-hook rust-mode-hook))
