@@ -75,6 +75,9 @@ abbr fishtmp "sh -c 'env HOME=\$(mktemp -d) fish'"
 function h --on-process-exit %self
     history --merge
 end
+function save_history --on-event fish_preexec
+    history --save
+end
 
 function auto-source --on-event fish_preexec -d 'auto source config.fish if gets modified!'
     if not set -q FISH_CONFIG_TIME # if FISH_CONFIG_TIME not set, status != 0
@@ -1242,7 +1245,7 @@ abbr gdbu 'gdbgui --gdb-args="-q -n"'
 abbr gdbc 'coredumpctl gdb -1'
 abbr cclsc 'cmake -H. -BDebug -DCMAKE_BUILD_TYPE=Debug -DCMAKE_EXPORT_COMPILE_COMMANDS=YES ; and ln -s Debug/compile_commands.json . ; or cp Debug/compile_commands.json .'
 # .clang-format file used by C/Cpp projects by Emacs
-abbr cppf 'ln -s ~/Dotfiles.d/spacemacs/.spacemacs.d/lisp/clang-format-c-cpp ./.clang-format'
+abbr cppf 'ln -s ~/Dotfiles.d/spacemacs/.spacemacs.d/lisp/clang-format-c-cpp .clang-format; or cp ~/Dotfiles.d/spacemacs/.spacemacs.d/lisp/clang-format-c-cpp .clang-format'
 
 # systemd-analyze
 function sab --description 'systemd-analyze blame->time, with any argv, open the result graphic'
