@@ -1472,6 +1472,9 @@ Version 2016-12-18"
   (add-hook 'fish-mode-hook
             (lambda ()
               (setq indent-tabs-mode nil)))
+  (dolist (hook '(fish-mode-hook emacs-lisp-mode-hook))
+    (add-hook hook (lambda ()
+                     (add-hook 'before-save-hook 'spacemacs/indent-region-or-buffer))))
 
   (defun switch-to-prev-visited-buffer ()
     "Switch to the prev visited buffer, repeated invocations toggle between
