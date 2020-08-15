@@ -1592,7 +1592,7 @@ function gitcl -d 'git clone and cd into it, full-clone(by default), simple-clon
         set DEPTH "--depth=1 --no-single-branch"
         echo "Use 'git pull --unshallow' to pull all info."
     else
-        set DEPTH ""
+        set DEPTH
     end
     git clone -v $argv $DEPTH
     echo ---------------------------
