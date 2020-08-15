@@ -17,7 +17,7 @@ end
 if test (lsb_release -i | rg -i -e 'manjaro|opensuse') # not manjaro/opensuse
     # set -gx PATH $HOME/anaconda3/bin ~/.local/share/arm-linux/bin ~/.local/bin ~/.linuxbrew/bin $GOPATH/bin ~/bin $PATH
     #set -gx PATH $HOME/anaconda3/bin $HOME/.local/bin $GOPATH/bin /usr/local/bin /usr/local/liteide/bin /bin /sbin /usr/bin /usr/sbin $PATH
-    set -gx PATH  $HOME/.local/bin $GOPATH/bin $NPMS/bin ~/.cargo/bin /usr/local/bin /bin /sbin /usr/bin /usr/sbin $PATH
+    set -gx PATH $HOME/.local/bin $GOPATH/bin $NPMS/bin ~/.cargo/bin /usr/local/bin /bin /sbin /usr/bin /usr/sbin $PATH
 
     # TODO: `pip install cppman ; cppman -c` to get manual for cpp
     set -gx MANPATH $NPMS/share/man $MANPATH
@@ -191,7 +191,7 @@ function tk -d 'tmux kill-session all(default)/single(id)/multiple(id1 id2)/exce
         end
         read -n 1 -l -p 'echo "Kill all sessions? [y/N]"' answer
         if test "$answer" = "y" -o "$answer" = " "
-            tmux kill-server        # kill all sessions
+            tmux kill-server # kill all sessions
         end
         return
     end
@@ -236,22 +236,22 @@ function tag -d 'clean and create(with any arg) tags files for non-linux-kernel 
     rm -rf include_sys
     echo Old files deleted!!
 
-    if not set -q $argv             # given any argv
+    if not set -q $argv # given any argv
         # gtags > GPATH, GTAGS, GSYMS, GRTAGS
         ln -s /usr/include include_sys
         gtags -v
         echo gtags done!!
 
         # cscope > cscope.files, cscope.in.out cscope.out, cscope.po.out
-        find . -name "*.[ch]" -print > cscope.files
-        find /usr/include/* -name "*.[ch]" >> cscope.files
+        find . -name "*.[ch]" -print >cscope.files
+        find /usr/include/* -name "*.[ch]" >>cscope.files
         cscope -b -R -q
         echo cscope done!!
     end
 end
 
 function utf8 -d 'convert encoding(argv[1]) file(argv[2]) to UTF-8 file'
-    iconv -f $argv[1] -t UTF-8 $argv[2] > "$argv[2]".tmp
+    iconv -f $argv[1] -t UTF-8 $argv[2] >"$argv[2]".tmp
     rm -fv $argv[2]
     mv -v $argv[2]{.tmp,}
 end
@@ -298,13 +298,13 @@ function fish_user_key_bindings
         bind --erase \cx # or bind \cx ""
         bind --erase \cv # or bind \cv ""
     end
-    fzf_key_bindings            # C-s for file/dir, C-r for history, Tab for complete
+    fzf_key_bindings # C-s for file/dir, C-r for history, Tab for complete
     bind --erase \cb
     bind \cb broot
 end
 set -gx FZF_TMUX_HEIGHT 100%
 
-abbr pm-sl 'sudo pm-suspend'   # 'Suspend to ram' in GUI buttom, power button to wake up
+abbr pm-sl 'sudo pm-suspend' # 'Suspend to ram' in GUI buttom, power button to wake up
 abbr pm-hb 'sudo pm-hibernate' # not work in old CentOS6
 
 abbr rgr 'ranger'
@@ -369,32 +369,32 @@ function lls -d 'ls functions with options'
     # no dir is given, assign it to .
     set -q $argv[1]; and set ARGV .; or set ARGV $argv
 
-    if set -q _flag_t           # sort by last modification time, only show tail
-        if set -q _flag_r       # reverse
+    if set -q _flag_t # sort by last modification time, only show tail
+        if set -q _flag_r # reverse
             ls -lhA --color=yes $ARGV --sort=time -r --time=ctime | nl -v 0 | sort -nr | tail -20
         else
             ls -lhA --color=yes $ARGV --sort=time --time=ctime | nl -v 0 | sort -nr | tail -20
         end
-    else if set -q _flag_T      # like -t, but show all
-        if set -q _flag_r       # reverse
+    else if set -q _flag_T # like -t, but show all
+        if set -q _flag_r # reverse
             ls -lhA --color=yes $ARGV --sort=time -r --time=ctime | nl -v 0 | sort -nr
         else
             ls -lhA --color=yes $ARGV --sort=time --time=ctime | nl -v 0 | sort -nr
         end
-    else if set -q _flag_s      # sort by size, only show tail
-        if set -q _flag_r       # reverse
+    else if set -q _flag_s # sort by size, only show tail
+        if set -q _flag_r # reverse
             ls -lhA --color=yes $ARGV --sort=size -r | nl -v 0 | sort -nr | tail -20
         else
             ls -lhA --color=yes $ARGV --sort=size | nl -v 0 | sort -nr | tail -20
         end
-    else if set -q _flag_S      # like -s, but show all
-        if set -q _flag_r       # reverse
+    else if set -q _flag_S # like -s, but show all
+        if set -q _flag_r # reverse
             ls -lhA --color=yes $ARGV --sort=size -r | nl -v 0 | sort -nr
         else
             ls -lhA --color=yes $ARGV --sort=size | nl -v 0 | sort -nr
         end
-    else                        # otherwise without option, working like -t
-        if set -q _flag_r       # reverse
+    else # otherwise without option, working like -t
+        if set -q _flag_r # reverse
             ls -lhA --color=yes $ARGV --sort=time -r --time=ctime | nl -v 0 | sort -nr | tail -20
         else
             ls -lhA --color=yes $ARGV --sort=time --time=ctime | nl -v 0 | sort -nr | tail -20
@@ -450,7 +450,7 @@ function pk --description 'kill processes containing a pattern or PID'
                 return
             end
             read -p 'echo "Kill all of them or specific PID? [y/N/index/pid/m_ouse]: "' -l arg2
-            if test $arg2       # it is not Enter directly
+            if test $arg2 # it is not Enter directly
                 if not string match -q -r '^\d+$' $arg2 # if it is not integer
                     if test "$arg2" = "y" -o "$arg2" = " "
                         set -l pids (psgs $argv[1] | awk '{print $3}')
@@ -483,7 +483,7 @@ function pk --description 'kill processes containing a pattern or PID'
                     else
                         echo Wrong Argument!
                     end
-                else  # if it is digital/integer
+                else # if it is digital/integer
                     if test $arg2 -lt 20 # index number, means lines of searching result
                         # The "" around $arg2 is in case of situations like 10 in 1002
                         set -l pid_of_index (psgs $argv[1] | awk 'NR == n' n=" $arg2 " | awk '{print $3}')
@@ -500,7 +500,7 @@ function pk --description 'kill processes containing a pattern or PID'
                                 end
                             end
                         end
-                    else        # pid
+                    else # pid
                         # The $arg2 here can be part of the real pid, such as typing only 26 means 126
                         if test (psgs $argv[1] | awk '{print $3}' | rg -i $arg2)
                             set -l pid_part (psgs $argv[1] | awk '{print $3}' | rg -i $arg2)
@@ -748,7 +748,7 @@ function zz -d 'z interactive selection mode'
     if test (count $argv) = 0
         eval $z_cmd .
     else
-        eval $z_cmd  $argv
+        eval $z_cmd $argv
     end
 end
 function zh -d 'z\'s cd into the cd history'
@@ -781,7 +781,7 @@ function finds -d 'find a file/folder and view/edit using less/vim/emacs/emx/cd/
         return
     end
 
-    if set -q $argv[2]      # no argv[2]
+    if set -q $argv[2] # no argv[2]
         set ARGV1 .
         set ARGV2 $argv[1]
     else
@@ -789,40 +789,40 @@ function finds -d 'find a file/folder and view/edit using less/vim/emacs/emx/cd/
         set ARGV2 $argv[2]
     end
 
-    if set -q _flag_l           # find a file and view it using less
+    if set -q _flag_l # find a file and view it using less
         if test (find $ARGV1 -iname "*$ARGV2*" | wc -l) = 1
             find $ARGV1 -iname "*$ARGV2*" | xargs less
         else
             # fzf part cannot handle when result is only one file
             find $ARGV1 -iname "*$ARGV2*" | fzf --bind 'enter:execute:command less {} < /dev/tty'
         end
-    else if set -q _flag_v      # find a file and view it using vim
+    else if set -q _flag_v # find a file and view it using vim
         if test (find $ARGV1 -iname "*$ARGV2*" | wc -l) = 1
             find $ARGV1 -iname "*$ARGV2*" | xargs vim
         else
             # fzf part cannot handle when result is only one file
             find $ARGV1 -iname "*$ARGV2*" | fzf --bind 'enter:execute:vim {} < /dev/tty'
         end
-    else if set -q _flag_e      # find a file and view it using emm
+    else if set -q _flag_e # find a file and view it using emm
         emm (find $ARGV1 -iname "*$ARGV2*" | fzf)
-    else if set -q _flag_x      # find a file and view it using emx
+    else if set -q _flag_x # find a file and view it using emx
         emx (find $ARGV1 -iname "*$argv[2]*" | fzf)
-    else if set -q _flag_c      # find a folder and try cd into it
+    else if set -q _flag_c # find a folder and try cd into it
         cd (find $ARGV1 -type d -iname "*$ARGV2*" | fzf)
-    else if set -q _flag_p      # find a file/folder and copy/echo its path
+    else if set -q _flag_p # find a file/folder and copy/echo its path
         if not test $DISPLAY
             readlink -f (find $ARGV1 -iname "*$ARGV2*" | fzf)
         else
             find $ARGV1 -iname "*$ARGV2*" | fzf | xc
         end
-    else if set -q _flag_g      # find all the .git directory
+    else if set -q _flag_g # find all the .git directory
         find $ARGV1 -type d -iname .git | sort
-    else if set -q _flag_d      # find directory
+    else if set -q _flag_d # find directory
         find $ARGV1 -type d -iname "*$ARGV2*"
-    else if set -q _flag_L  # find the longest path of file/dir
+    else if set -q _flag_L # find the longest path of file/dir
         # ARGV2 is the the type such as d or f
         find $ARGV1 -type $ARGV2 -print | awk '{print length($0), $0}' | sort -n | tail
-    else                        # find file/directory
+    else # find file/directory
         find $ARGV1 -iname "*$ARGV2*"
     end
 end
@@ -834,22 +834,22 @@ function fts -d 'find the temporary files such as a~ or #a or .a~, and files for
     # no dir is given, assign it to .
     set -q $argv[1]; and set ARGV .; or set ARGV $argv
 
-    if set -q _flag_c           # one level, not recursive, print
+    if set -q _flag_c # one level, not recursive, print
         find $ARGV -maxdepth 1 \( -iname "*~" -o -iname "#?*#" -o -iname ".#?*" -o -iname "*.swp*" \) | xargs -r ls -lhd | nl
-    else if set -q _flag_C      # one level, not recursive, remove
+    else if set -q _flag_C # one level, not recursive, remove
         find $ARGV -maxdepth 1 \( -iname "*~" -o -iname "#?*#" -o -iname ".#?*" -o -iname "*.swp*" \) | xargs rm -rfv
-    else if set -q _flag_r      # recursive, print, default action without option
+    else if set -q _flag_r # recursive, print, default action without option
         find $ARGV \( -iname "*~" -o -iname "#?*#" -o -iname ".#?*" -o -iname "*.swp*" \) | xargs -r ls -lhd | nl
-    else if set -q _flag_R      # recursive, remove
+    else if set -q _flag_R # recursive, remove
         find $ARGV \( -iname "*~" -o -iname "#?*#" -o -iname ".#?*" -o -iname "*.swp*" \) | xargs rm -rfv
-    else if set -q _flag_l      # remove temporary files for latex
+    else if set -q _flag_l # remove temporary files for latex
         if not find $ARGV -maxdepth 1 -iname "*.tex" | rg '.*' # normal find returns 0 no matter what
             echo "$ARGV is not a LaTeX directory!"
             return
         end
         for EXT in ind ilg toc out idx aux fls log fdb_latexmk nav snm
             # ind ilg toc out idx aux fls log fdb_latexmk faq blg bbl brf nlo dvi ps lof pdfsync synctex.gz
-            find $ARGV -maxdepth 1 \( -iname "*.$EXT"  -o -iname "auto" \) | xargs -r rm -rv
+            find $ARGV -maxdepth 1 \( -iname "*.$EXT" -o -iname "auto" \) | xargs -r rm -rv
         end
         fts -C
     else
@@ -891,8 +891,10 @@ end
 abbr watd 'watch -d du --summarize'
 function watch -d 'wrap default watch to support aliases and functions'
     while test 1
-        date; eval $argv
-        sleep 1; echo
+        date
+        eval $argv
+        sleep 1
+        echo
     end
 end
 # stop less save search history into ~/.lesshst
@@ -1000,11 +1002,11 @@ function tars -d 'tar extract(x)/list(l, by default)/create(c, add extra arg to 
     argparse -n tars $options -- $argv
     or return
 
-    if set -q _flag_x           # extract
+    if set -q _flag_x # extract
         tar xvfa $argv
-    else if set -q _flag_l      # list contents
+    else if set -q _flag_l # list contents
         tar tvfa $argv
-    else if set -q _flag_c      # create archive
+    else if set -q _flag_c # create archive
         # remove the end slash in argv
         set ARGV (echo $argv[1] | sed 's:/*$::')
         if test (count $argv) = 1 -a -d $ARGV/.git
@@ -1032,13 +1034,13 @@ function zips -d 'zip to list(l, default)/extract(x)/create(c)'
     or return
 
     for a in $argv
-        if set -q _flag_l           # list
+        if set -q _flag_l # list
             if command -sq lsar
                 lsar $a
             else
                 unzip -l $a
             end
-        else if set -q _flag_L      # list Chinese characters
+        else if set -q _flag_L # list Chinese characters
             zips.py -l $a
         else if set -q _flag_x
             if command -sq unar
@@ -1046,7 +1048,7 @@ function zips -d 'zip to list(l, default)/extract(x)/create(c)'
             else
                 unzip $a
             end
-        else if set -q _flag_X      # extract Chinese characters
+        else if set -q _flag_X # extract Chinese characters
             zips.py -x $a
         else if set -q _flag_c
             # remove the end slash in argv
@@ -1062,7 +1064,7 @@ function deb -d 'deb package, list(default)/extract(x)'
     argparse -n deb $options -- $argv
     or return
 
-    if set -q _flag_x           # extract
+    if set -q _flag_x # extract
         set pkgname (basename $argv[1] .deb)
         mkdir -v $pkgname
         if command -sq dpkg # check if dpkg command exists, replace which
@@ -1077,7 +1079,7 @@ function deb -d 'deb package, list(default)/extract(x)'
             end
         end
         echo ----in $pkgname ----
-    else                        # default, list
+    else # default, list
         dpkg -c $argv
     end
 end
@@ -1088,15 +1090,15 @@ function rpms -d 'rpm file, install(i)/extract(x)/list(default)'
     argparse -n rpms $options -- $argv
     or return
 
-    if set -q _flag_i           # install
+    if set -q _flag_i # install
         sudo rpm -Uvh $argv
-    else if set -q _flag_x      # extract
+    else if set -q _flag_x # extract
         for i in $argv
             echo \<$i\>
             echo -------------------
             rpm2cpio $i | cpio -idmv
         end
-    else                        # default list
+    else # default list
         for i in $argv
             rpm -qlpv $i
         end
@@ -1104,19 +1106,19 @@ function rpms -d 'rpm file, install(i)/extract(x)/list(default)'
 end
 
 # yum for fedora/redhat/centos/...
-abbr yum   'sudo yum -C --noplugins' # not update cache
-abbr yumi  'sudo yum install'
+abbr yum 'sudo yum -C --noplugins' # not update cache
+abbr yumi 'sudo yum install'
 abbr yumiy 'sudo yum install -y'
-abbr yumr  'sudo yum remove'
+abbr yumr 'sudo yum remove'
 abbr yumri 'sudo yum reinstall -y'
 abbr yumca 'sudo yum clean all -v'
-abbr yumu  'sudo yum --exclude=kernel\* upgrade' # this line will be '=kernel*' in bash
+abbr yumu 'sudo yum --exclude=kernel\* upgrade' # this line will be '=kernel*' in bash
 abbr yumuk 'sudo yum upgrade kernel\*'
 abbr yumue 'sudo yum update --exclude=kernel\*'
 abbr yumul 'sudo yum history undo last'
 abbr yumhl 'sudo yum history list'
 abbr yumun 'sudo yum history undo'
-abbr yums  'sudo yum search'
+abbr yums 'sudo yum search'
 abbr yumsa 'sudo yum search all'
 # dnf for fedora/redhat/centos/...
 abbr dnfu 'sudo dnf update -v'
@@ -1161,17 +1163,17 @@ abbr applu 'apt list --upgradable'
 abbr appd 'apt depends'
 
 # pacman/yay for manjaro/arch/...
-abbr paci 'sudo pacman -S --needed'   # install packages directly without updating the system first
+abbr paci 'sudo pacman -S --needed' # install packages directly without updating the system first
 abbr pacI 'sudo pacman -Syu --needed' # -S to install a package, -Syu pkg to ensure the system is update to date then install the package
 abbr pacii 'sudo pacman -Syu --needed --noconfirm'
 abbr pacil 'sudo pacman -U' # install package from a local .pkg.tar.xz/link file
-abbr pacs 'pacman -Ss --color=always'  # search for package to install
+abbr pacs 'pacman -Ss --color=always' # search for package to install
 abbr pacls 'pacman -Qs --color=always' # search for local installed packages
 abbr pacr 'yay -Rsun' # remove a package and its unneeded dependencies, and clean configs
 abbr pacrr 'yay -Rsc' # using this if pacr doesn't not uninstall a pacakge
 abbr pacrc 'yay -Rsu' # like pacr, but don't clean configs
-abbr pacrd 'yay -Rscn'          # do not remove dependencies and their configs
-abbr pacd 'sudo pacman -Sw'     # download package without installing
+abbr pacrd 'yay -Rscn' # do not remove dependencies and their configs
+abbr pacd 'sudo pacman -Sw' # download package without installing
 abbr pacc 'sudo pacman -Sc --noconfirm' # clean packages cache
 abbr pacC 'paccache -rvk2 --noconfirm' # remove old package cache files is to remove all packages except for the latest 2 package versions
 abbr pacu 'yay -Syu' # update the database and update the system, pacman only updates from repo, yay updates from both repo and aur
@@ -1206,14 +1208,14 @@ function yaysh -d 'search info about package, first search installed then search
 end
 # yay, install it first
 abbr yayc 'yay -Yc'
-abbr yayu 'yay -Syu'  # yay == yay -Syu
+abbr yayu 'yay -Syu' # yay == yay -Syu
 abbr yayr 'yay -Rsun'
 # check yay --help for more
 # pacui, depending on yay, install it first
 abbr pui 'pacui'
 abbr puii 'pacui i'
-abbr puid 'pacui d'   # downgrade a package
-abbr puil 'pacui s'   # list files in a package
+abbr puid 'pacui d' # downgrade a package
+abbr puil 'pacui s' # list files in a package
 abbr puila 'pacui la' # list packages installed from aur
 abbr puils 'pacui ls' # list installed packages by size
 abbr puir 'pacui r'
@@ -1221,7 +1223,7 @@ abbr puir 'pacui r'
 
 # donnot show the other info on startup
 abbr gdb 'gdb -q'
-abbr gdbx 'gdb -q -n'         # with loading any .gdbinit file
+abbr gdbx 'gdb -q -n' # with loading any .gdbinit file
 abbr gdbd 'sudo gdb -batch -ex "thread apply all bt" -p' # -p $PID to check the deadlock issue, or `sudo strace -s 99 -ffp $PID`
 abbr gdbu 'gdbgui --gdb-args="-q -n"'
 # debug the core dump binary and file, by default the core dump file is
@@ -1235,24 +1237,32 @@ abbr cppf 'ln -s ~/Dotfiles.d/spacemacs/.spacemacs.d/lisp/clang-format-c-cpp .cl
 
 # systemd-analyze
 function sab --description 'systemd-analyze blame->time, with any argv, open the result graphic'
-    if set -q $argv             # no given argv
+    if set -q $argv # no given argv
         systemd-analyze blame | head -40
         systemd-analyze time
     else
         # more verbose version:
-        systemd-analyze blame > boottime
-        systemd-analyze time  >> boottime
-        systemd-analyze plot  >> boottime.svg
+        systemd-analyze blame >boottime
+        systemd-analyze time >>boottime
+        systemd-analyze plot >>boottime.svg
         # open boottime.svg
         gwenview boottime.svg
     end
 end
 
 # cd
-function ..; cd ..; end
-function ...; cd ../..; end
-function ....; cd ../../..; end
-function .....; cd ../../../..; end
+function ..
+    cd ..
+end
+function ...
+    cd ../..
+end
+function ....
+    cd ../../..
+end
+function .....
+    cd ../../../..
+end
 abbr cdp 'cd ~/Public; and lls'
 abbr cdu 'cd /run/media/chz/UDISK/; and lls'
 
@@ -1292,7 +1302,7 @@ function diffs -d "all kinds of diff features"
             diff -r -s -W $COLUMNS $argv | less
         else if set -q _flag_W
             diff -r -s --suppress-common-line -W $COLUMNS -w $argv | less
-        else                        # no option
+        else # no option
             diff -r -y -s --suppress-common-line -W $COLUMNS $argv | less
         end
     end
@@ -1366,7 +1376,8 @@ function vis -d 'switch between vanilla vim(-v) <-> SpaceVim or space-vim(the de
             read -n 1 -l -p 'echo "Neither SpaceVim or space-vim is installed! Which one do you want to install? (SpaceVim/space-vim[1]: "' answer
             if test "$answer" = "1"
                 curl -fsSL https://git.io/vFUhE | bash
-                mkdir ~/.config/nvim; ln -s ~/.space-vim/init.vim ~/.config/nvim/init.vim
+                mkdir ~/.config/nvim
+                ln -s ~/.space-vim/init.vim ~/.config/nvim/init.vim
             else
                 curl -sLf https://spacevim.org/install.sh | bash
                 test (ls -ld ~/.vim | awk '{print $11}') = "$HOME/.SpaceVim"; and rm -rf ~/.vim
@@ -1382,10 +1393,13 @@ function vis -d 'switch between vanilla vim(-v) <-> SpaceVim or space-vim(the de
                     pip install neovim clang
                 end
                 if ! test -f ~/.spacevim
-                    cd ~/Dotfiles.d/; stowsh -v spacevim; cd -
+                    cd ~/Dotfiles.d/
+                    stowsh -v spacevim
+                    cd -
                 end
                 test -d ~/.config/nvim; and rm -rf ~/.config/nvim
-                mkdir ~/.config/nvim; ln -s ~/.space-vim/init.vim ~/.config/nvim/init.vim
+                mkdir ~/.config/nvim
+                ln -s ~/.space-vim/init.vim ~/.config/nvim/init.vim
                 set -gx VIMRC ~/.spacevim
                 vim $argv
             else
@@ -1449,7 +1463,7 @@ function usertest -d 'add user test temporarily for one day, no passwd, and logi
         return
     end
 
-    if test -d /home/test       # directory exists
+    if test -d /home/test # directory exists
         sudo su -s /bin/bash - test
     else
         sudo useradd -m -e (date -d "1 days" +"%Y-%m-%d") test -s /sbin/nologin
@@ -1463,23 +1477,23 @@ abbr ggl 'tig log'
 abbr gglp 'tig log -p --'
 abbr ggs 'tig status'
 abbr ggr 'tig refs'
-abbr gits 'git status'          # = tig status(ggs)
-abbr gitl 'git log --stat'      # = tig log(ggl)
-abbr gitlo 'git log --oneline'  # = tig(gg)
+abbr gits 'git status' # = tig status(ggs)
+abbr gitl 'git log --stat' # = tig log(ggl)
+abbr gitlo 'git log --oneline' # = tig(gg)
 abbr gitlp 'git log -p --' # [+ file] to how entire all/[file(even renamed)] history
-abbr ggd 'git diff'        # show unstaged modification
+abbr ggd 'git diff' # show unstaged modification
 abbr ggdd 'git difftool' # show unstaged modification using external tool such as vim
-abbr gitdc 'git diff --cached'  # show staged but unpushed local modification
+abbr gitdc 'git diff --cached' # show staged but unpushed local modification
 abbr gitsh 'git show' # [+ COMMIT] to show the modifications in a last/[specific] commit
 abbr gitcm 'git commit -m'
 # amend last pushed commit message with gitcma; then `git push --force-with-lease [origin master]` to push it
 abbr gitcma 'git commit --amend'
 abbr gitcp 'git checkout HEAD^1' # git checkout previous/old commit
 abbr gitcn 'git log --reverse --pretty=%H master | rg -A 1 (git rev-parse HEAD) | tail -n1 | xargs git checkout' # git checkout next/new commit
-abbr gitt 'git tag --sort=-taggerdate'    # sort tag by date, new tag first
+abbr gitt 'git tag --sort=-taggerdate' # sort tag by date, new tag first
 abbr gitft 'git ls-files --error-unmatch' # Check if file/dir is git-tracked
 abbr gitpu 'git push -v'
-abbr gitpun 'git push -v -n'    # simulate git push
+abbr gitpun 'git push -v -n' # simulate git push
 abbr gitpl 'git pull'
 abbr gitpr 'git pull --rebase=interactive'
 abbr gitup 'tig log origin/master..HEAD' # list unpushed commits using tig
@@ -1515,7 +1529,7 @@ function gitpls -d 'git pull another repo from current dir, ~/.emacs.d(-e), ~/.s
     end
 end
 function gitrm -d 'clean untracked file/dirs(fileA fileB...), all by default)'
-    if set -q $argv             # no given argv
+    if set -q $argv # no given argv
         git clean -f -d
     else
         set files (string split \n -- $argv)
@@ -1527,7 +1541,7 @@ function gitrm -d 'clean untracked file/dirs(fileA fileB...), all by default)'
 end
 function gitpll -d 'git pull and location it to previous commit id before git pull in git log'
     set COMMIT_ID (git rev-parse HEAD) # short version: `git rev-parse --short HEAD`
-    git log -1                  # show the info of the current commit before git pull
+    git log -1 # show the info of the current commit before git pull
     git pull
     git log --stat | command less -p$COMMIT_ID
 end
@@ -1557,9 +1571,10 @@ function gitcl -d 'git clone and cd into it, full-clone(by default), simple-clon
 end
 function gitpa --description 'git pull all in dir using `fing dir`'
     for i in (find $argv[1] -type d -iname .git | sort | xargs realpath)
-        cd $i; cd ../
+        cd $i
+        cd ../
         pwd
-        git pull;
+        git pull
         echo -----------------------------
         echo
     end
@@ -1590,7 +1605,7 @@ function gitbs -d 'branches and worktrees'
         if set -q _flag_d
             git worktree remove $argv
         else
-            if set -q $argv[1]  # no argument
+            if set -q $argv[1] # no argument
                 git worktree list
             else if test -d $argv
                 echo "Directory $argv already exists!"
@@ -1600,25 +1615,25 @@ function gitbs -d 'branches and worktrees'
                 and cd $argv
             end
         end
-    else                 # by default, for branch operations instead of worktree
+    else # by default, for branch operations instead of worktree
         if set -q _flag_c
-            if set -q _flag_l   # git log
+            if set -q _flag_l # git log
                 # NOTE: .. and ... are different
                 # and are opposite meanings in diff and log
                 # https://stackoverflow.com/questions/7251477
                 # https://stackoverflow.com/questions/462974
                 # $argv[1]/$argv[2] can branch names or commit ids
                 if set -q _flag_d
-                    echo git log $argv[1]...$argv[2] > branches.log
-                    git log $argv[1]...$argv[2] >> branches.log
+                    echo git log $argv[1]...$argv[2] >branches.log
+                    git log $argv[1]...$argv[2] >>branches.log
                     vim branches.log
                 else
                     git log $argv[1]...$argv[2]
                 end
-            else                # git diff by default
+            else # git diff by default
                 if set -q _flag_d
-                    echo git diff $argv[1]..$argv[2] > branches.diff
-                    git diff $argv[1]..$argv[2] >> branches.diff
+                    echo git diff $argv[1]..$argv[2] >branches.diff
+                    git diff $argv[1]..$argv[2] >>branches.diff
                     vim branches.diff
                 else
                     if set -q _flag_v
@@ -1635,7 +1650,7 @@ function gitbs -d 'branches and worktrees'
                 git ls-remote --heads | rg -i $argv
             end
         else if set -q _flag_d
-            if set -q $argv[1]  # no argv
+            if set -q $argv[1] # no argv
                 git branch -a | fzf | xargs git branch -d
             else
                 git branch -d $argv
@@ -1643,8 +1658,8 @@ function gitbs -d 'branches and worktrees'
         else if set -q _flag_v
             git branch -vv
         else
-            if set -q $argv[1]  # no argument
-                git branch      # list local branches
+            if set -q $argv[1] # no argument
+                git branch # list local branches
                 # get the current branch name
                 echo "Current branch name:"
                 git name-rev --name-only HEAD
@@ -1652,7 +1667,7 @@ function gitbs -d 'branches and worktrees'
                 # NOTE: if the branch is not in `git branch -a`, try `git ls-remote`
                 git fetch
                 git branch -a | fzf | xargs git checkout
-            else                # checkout $argv branch if exists, else create it
+            else # checkout $argv branch if exists, else create it
                 git checkout $argv ^/dev/null
                 or git checkout -b $argv
             end
@@ -1704,7 +1719,7 @@ function gitfs -d 'git forked repo sync'
         return
     else
         if test $upstream_status != 0
-            if set -q $arv[1]       # given argument
+            if set -q $arv[1] # given argument
                 git remote add upstream $argv
             end
         end
@@ -1783,7 +1798,7 @@ function gitdl -d 'download several files from github'
     else if set -q _flag_z
         echo "Update/Download $bins[7]..."
         eval $funs[7] u
-    else                        # no option
+    else # no option
         read -n 1 -p 'echo "Update/Download all of $bins from github? [Y/n]: "' -l arg
         if test "$arg" = "" -o "$arg" = "y" -o "$arg" = " "
             # dictionary/hash copied from fish-shell/issues/390#issuecomment-360259983
@@ -1800,15 +1815,15 @@ function gitdl -d 'download several files from github'
 end
 
 # docker related
-abbr docksi 'docker search'     # search a image
-abbr dockp 'docker pull'        # pull image +name:tag
+abbr docksi 'docker search' # search a image
+abbr dockp 'docker pull' # pull image +name:tag
 # create container example:
 # docker run -it -v ~/Public/tig:/Public/tig -net host --name new_name ubuntu:xenial /bin/bash
-abbr dockrun 'docker run -it'   # create a container
-abbr dockr 'docker rm'          # remove container +ID
-abbr dockri 'docker rmi'        # remove image +repo
-abbr dockl 'docker ps -a'       # list all created containers
-abbr dockli 'docker image ls'   # list all pulled images
+abbr dockrun 'docker run -it' # create a container
+abbr dockr 'docker rm' # remove container +ID
+abbr dockri 'docker rmi' # remove image +repo
+abbr dockl 'docker ps -a' # list all created containers
+abbr dockli 'docker image ls' # list all pulled images
 function dock2 -d 'start an existed container(or session), first list all the container, then input the ID'
     docker ps -a
     set -l docker_cnt (docker ps -a | wc -l)
@@ -1839,7 +1854,7 @@ function docklt -d 'list the first 10 tags for a docker image'
 end
 function docklta -d 'list all tags for a docker image'
     echo "Wait..."
-    wget -q https://registry.hub.docker.com/v1/repositories/$argv[1]/tags -O -  | sed -e 's/[][]//g' -e 's/"//g' -e 's/ //g' | tr '}' '\n'  | awk -F: '{print $3}'
+    wget -q https://registry.hub.docker.com/v1/repositories/$argv[1]/tags -O - | sed -e 's/[][]//g' -e 's/"//g' -e 's/ //g' | tr '}' '\n' | awk -F: '{print $3}'
     and echo -e "\nThese are all the tags!\nPlease use `dockp $argv[1]:tag` to pull the image!"
 end
 function docksh -d 'add a share folder to existed container'
@@ -2276,11 +2291,11 @@ end
 
 function deff -d 'find definition in dictionary'
     echo "-1\n" | sdcv $argv | head -n 1 | rg ", similar to " ^/dev/null >/dev/null
-    if test $status = 0         # Found exact words or similar
+    if test $status = 0 # Found exact words or similar
         echo "-1\n" | sdcv $argv | head -n 2 | tail -n 1 | rg "^-->" ^/dev/null >/dev/null
-        if test $status = 0     # Exact definition
+        if test $status = 0 # Exact definition
             sdcv $argv
-        else                    # similar
+        else # similar
             echo "-1\n" | sdcv $argv | head -n 1 | rg $argv
             # 1th, send -1 to prompt; 3th, delete last line; 4th, delete first line;
             # 5th, get last part after ">"; 5th & 6th, delete duplicates;
@@ -2288,7 +2303,7 @@ function deff -d 'find definition in dictionary'
             # 8th, delete last ", "
             echo "-1\n" | sdcv $argv | head -n -1 | tail -n +2 | cut -d ">" -f 2 | sort | uniq | awk 'ORS=", "' | sed 's/, $/\n/'
         end
-    else                        # Nothing similar
+    else # Nothing similar
         sdcv $argv
     end
     # NOTE: double quotes in sed, single quotes does not work
@@ -2299,32 +2314,32 @@ function SDCV
     sort -u -o ~/.sdcv_history ~/.sdcv_history # sort and unique them
 end
 function defc_new -d 'Check if the word is new in ~/.sdcv_history, if new add it'
-    rg -w $argv ~/.sdcv_history >> /dev/null
+    rg -w $argv ~/.sdcv_history >>/dev/null
     or begin # new, not searched the dict before, save
         if not test -e ~/.sdcv_rem
             touch ~/.sdcv_rem
         end
-        echo ---------------------------------------------- >> ~/.sdcv_rem
-        echo -e \< $argv \> >> ~/.sdcv_rem
-        echo ---------------------------------------------- >> ~/.sdcv_rem
-        SDCV $argv >> ~/.sdcv_rem
-        echo ---------------------------------------------- >> ~/.sdcv_rem
-        echo >> ~/.sdcv_rem
+        echo ---------------------------------------------- >>~/.sdcv_rem
+        echo -e \< $argv \> >>~/.sdcv_rem
+        echo ---------------------------------------------- >>~/.sdcv_rem
+        SDCV $argv >>~/.sdcv_rem
+        echo ---------------------------------------------- >>~/.sdcv_rem
+        echo >>~/.sdcv_rem
     end
 end
 function defc --description 'search the defnition of a word and save it into personal dict if it is the first time you search'
     echo "-1\n" | SDCV $argv | head -n 1 | rg ", similar to " ^/dev/null >/dev/null
-    if test $status = 0         # Found exact words or similar
+    if test $status = 0 # Found exact words or similar
         echo "-1\n" | SDCV $argv | head -n 2 | tail -n 1 | rg "^-->" ^/dev/null >/dev/null
-        if test $status = 0     # Exact definition
+        if test $status = 0 # Exact definition
             SDCV $argv
             defc_new $argv
-        else                    # similar
+        else # similar
             echo "-1\n" | SDCV $argv | head -n 1 | rg $argv
             echo "-1\n" | SDCV $argv | head -n -1 | tail -n +2 | cut -d ">" -f 2 | sort | uniq | awk 'ORS=", "' | sed 's/, $/\n/'
             sed -i "/\<$argv\>/d" ~/.sdcv_history # delete the wrong word in ~/.sdcv_history
         end
-    else                        # Nothing similar
+    else # Nothing similar
         SDCV $argv
         sed -i "/\<$argv\>/d" ~/.sdcv_history # delete the wrong word in ~/.sdcv_history
     end
@@ -2337,17 +2352,17 @@ end
 function man
     if test (count $argv) -eq 2
         #sed -i "s/.shell/\"$argv[2]\n.shell/g" ~/.lesshst
-        echo "\"$argv[2]" >> ~/.lesshst
+        echo "\"$argv[2]" >>~/.lesshst
     else
         #sed -i "s/.shell/\"$argv[1]\n.shell/g" ~/.lesshst
-        echo "\"$argv[1]" >> ~/.lesshst
+        echo "\"$argv[1]" >>~/.lesshst
     end
     command man $argv
 end
 abbr ma 'man'
 
 function wtp --description 'show the real definition of a type or struct in C code, you can find which file it is defined in around the result'
-    gcc -E ~/.local/bin/type.c -I$argv[1] > /tmp/result
+    gcc -E ~/.local/bin/type.c -I$argv[1] >/tmp/result
     if test (count $argv) -eq 2
         if test (echo $argv[1] | rg struct)
             rg -A $argv[2] "^$argv[1]" /tmp/result
@@ -2369,7 +2384,7 @@ function ut -d 'toggle -- use data network sharing through Android device throug
     ip link ls dev usb0 ^/dev/null >/dev/null
     if not ip link ls dev usb0 ^/dev/null >/dev/null0 # ()=255, not plugged or enabled in Android device
         echo Android device is not plugged or data network sharing is not enabled!
-    else          # ()=0
+    else # ()=0
         # ip link ls dev usb0 | rg UP ^/dev/null >/dev/null
         # if test $status != 0
         if test 1 != 0
@@ -2391,7 +2406,7 @@ function ut -d 'toggle -- use data network sharing through Android device throug
             # echo Network on usb0 is already on!
         end
         if test (pgrep dhclient | wc -l) != 0
-            sudo pkill dhclient  # this has no effect on the network, just make next usbt quicker
+            sudo pkill dhclient # this has no effect on the network, just make next usbt quicker
         end
     end
 end
@@ -2401,7 +2416,7 @@ abbr mo 'pmount /dev/sdb4 /run/media/chz/UDISK'
 function mo-bak
     set -l done 1
     while test $done = 1
-        if not command df | rg -v rg | rg -i UDISK  ^/dev/null >/dev/null # no UDISK in df, new or unplug
+        if not command df | rg -v rg | rg -i UDISK ^/dev/null >/dev/null # no UDISK in df, new or unplug
             set -l device
             if test -b /dev/sdb4
                 set device /dev/sdb4
@@ -2414,7 +2429,7 @@ function mo-bak
             pmount $device /media/UDISK
             df
             return
-        else                        # UDISK is in df, right or not-umount old
+        else # UDISK is in df, right or not-umount old
             set -l device (command df | rg -v rg | rg -i UDISK | awk '{print $1}')
             if not test -b $device
                 if not pumount /media/UDISK ^/dev/null >/dev/null
@@ -2422,7 +2437,7 @@ function mo-bak
                     lsof | rg UDISK
                     return
                 end
-            else                    # right
+            else # right
                 echo Device /dev/sdb4 is already mounted to /media/UDISK
                 return
             end
@@ -2452,7 +2467,7 @@ function rgs -d 'rg sth in init.el(-e)/errno(-E)/config.fish(-f)/.tmux.conf(-t)/
         set FILE ~/.tmux.conf
     else if set -q _flag_v
         set FILE $VIMRC
-    else                        # without options
+    else # without options
         if set -q $argv[2] # no $argv[2]
             set FILE .
         else
@@ -2460,7 +2475,7 @@ function rgs -d 'rg sth in init.el(-e)/errno(-E)/config.fish(-f)/.tmux.conf(-t)/
         end
     end
 
-    echo "\"$argv[1]" >> ~/.lesshst
+    echo "\"$argv[1]" >>~/.lesshst
     rg --hidden -p $argv[1] $FILE | less -i -RM -FX -s
 
     if set -q _flag_F # search pattern(s) in dir/file, open if using vim
@@ -2685,21 +2700,21 @@ function cons -d 'conda virtual environments related functions -i(install packag
                 echo "!!!base env here, do not remove it!!!"
                 return -1
             end
-            if not set -q $argv ; and test "$CONDA_DEFAULT_ENV" != "$argv" # given another argv
+            if not set -q $argv; and test "$CONDA_DEFAULT_ENV" != "$argv" # given another argv
                 conda remove -n $argv --all
-            else                # no argv or argv=current env
+            else # no argv or argv=current env
                 set argv $CONDA_DEFAULT_ENV
                 conda deactivate
                 echo "Exit the conda env..."
                 conda remove -n $argv --all
             end
         end
-    else if set -q _flag_n      # new env, at least one argv
-        if set -q $argv         # no argv
+    else if set -q _flag_n # new env, at least one argv
+        if set -q $argv # no argv
             echo "argv is needed!"
             return -1
         else
-            if conda env list | awk '{ print $1 }' | rg -w $argv[1] > /dev/null ^/dev/null
+            if conda env list | awk '{ print $1 }' | rg -w $argv[1] >/dev/null ^/dev/null
                 # already in conda env list
                 echo "env $arv[1] already exists!!!"
                 return -1
@@ -2717,8 +2732,8 @@ function cons -d 'conda virtual environments related functions -i(install packag
                 end
             end
         end
-    else                        # no option, switch env or pip install based on base env
-        if set -q $argv         # no argv
+    else # no option, switch env or pip install based on base env
+        if set -q $argv # no argv
             conda env list
             read -p 'echo "Which conda env switching to: "' argv
             if test "$argv" = "" # still no argv, just enter("", not " ") for read prompt
@@ -2729,7 +2744,7 @@ function cons -d 'conda virtual environments related functions -i(install packag
                 return -1
             end
         end
-        if conda env list | awk '{ print $1 }' | rg -w $argv[1] > /dev/null ^/dev/null
+        if conda env list | awk '{ print $1 }' | rg -w $argv[1] >/dev/null ^/dev/null
             conda activate $argv[1]
             echo "Switched to $argv[1] env..."
             # $argv may contain the env name and extra packages
