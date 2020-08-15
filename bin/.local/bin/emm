@@ -24,8 +24,7 @@
 #    may not work for emacsclient, replace the ExecStop with the following line
 # ExecStop=/usr/bin/emacsclient --eval "(let (kill-emacs-hook)(kill-emacs))"
 
-print_usage()
-{
+print_usage() {
 	cat <<EOF
 $(basename $0) -- emacs server and emacsclient manage script
 
@@ -54,14 +53,13 @@ EOF
 	exit 0
 }
 
-check_socket_file()
-{
+check_socket_file() {
 	if [ "$flag_systemctl" == "1" ]; then
 		# this is only needed when using systemctl+emacs.service
 		# After emacs.service is started, it takes several seconds for the socket file to be created
 		# after that, emacsclient can be usable, or it will print "emacsclient: connect: Connection refused"
 		# so keep checking the exists of the socket
-		while [ -z "$(lsof -w -c emacs | grep 'server type' | tr -s " " | cut -d' ' -f8)" ] ; do # empty
+		while [ -z "$(lsof -w -c emacs | grep 'server type' | tr -s " " | cut -d' ' -f8)" ]; do # empty
 			sleep 0.5
 		done
 	else
@@ -69,8 +67,7 @@ check_socket_file()
 	fi
 }
 
-check_daemon_status()
-{
+check_daemon_status() {
 	if ps -ef | grep -v grep | grep 'emacs' | grep 'daemon' >/dev/null; then
 		return 0
 	else
@@ -78,8 +75,7 @@ check_daemon_status()
 	fi
 }
 
-kill_emacs_server()
-{
+kill_emacs_server() {
 	if check_daemon_status; then
 		# once you kill the process, it will restart automatically
 		ps -ef | grep -v grep | grep 'emacs' | grep 'daemon' | awk '{print $2}' | xargs kill -9
@@ -92,8 +88,7 @@ kill_emacs_server()
 	fi
 }
 
-check_running_emacsclient()
-{
+check_running_emacsclient() {
 	if check_daemon_status; then
 		check_socket_file
 
@@ -117,8 +112,7 @@ check_running_emacsclient()
 	fi
 }
 
-kill_running_emacsclient()
-{
+kill_running_emacsclient() {
 	if check_daemon_status; then
 		check_socket_file
 
@@ -147,8 +141,7 @@ kill_running_emacsclient()
 	fi
 }
 
-copy_service()
-{
+copy_service() {
 	# emacs.service may exist in /usr/lib/systemd/user/emacs.service
 	# if so, copy_service won't do anything, systemctl command will link it into ~/.config/systemd/user/
 	if [ ! -f ~/.config/systemd/user/emacs.service ] && [ -f ~/anaconda3/lib/systemd/user/emacs.service ]; then
@@ -157,8 +150,7 @@ copy_service()
 	fi
 }
 
-restart_emacs_server()
-{
+restart_emacs_server() {
 	if check_daemon_status; then
 		# systemctl --user restart emacs.service # systemctl takes too much time
 		# once you kill the process, it will restart automatically
@@ -167,8 +159,7 @@ restart_emacs_server()
 	fi
 }
 
-start_magit()
-{
+start_magit() {
 	pwd_old=$PWD
 	if [ -d $1 ]; then
 		if [ "$1" != "." ]; then
@@ -217,107 +208,107 @@ fi
 
 while getopts ":habcCdeEfkmopqrstuvx" args; do # prefix-: no warning for illegal option
 	case "$args" in
-		h|\?)                   # \? for illegal option
-			print_usage
-			;;
-		a)
-			# cmd="-e '(org-agenda-list)'"
-			cmd="-e '(execute-kbd-macro (kbd \"C-c a a c\"))'"
-			;;
-		b)
-			file="$HOME/.local/bin/emm"
-			cmd="$file"
-			;;
-		c)
-			cmd="-e '(org-capture)'"
-			;;
-		C)
-			ps -ef | grep -v grep | grep emacs
-			check_running_emacsclient
-			;;
-		d)
-			echo "Start 'emacs --debug-init'"
-			rm ~/.emacs.d/init.elc >/dev/null 2>&1
-			emacs --no-splash --debug-init >/dev/null 2>&1
-			exit 0
-			;;
-		e)
-			if [ ! -z ${@:$OPTIND} ]; then # if no argv is given, using default
-				file=${@:$OPTIND}
-				OPTIND=$((OPTIND+1))
-			fi
-			echo "Edit $file using emacs..."
-			emacs --no-splash $file >/dev/null 2>&1
-			exit 0
-			;;
-		E)
-			cmd="$file"
-			;;
-		f)
-			file="$HOME/.config/fish/config.fish"
-			cmd="$file"
-			;;
-		k)
-			kill_running_emacsclient
-			kill_emacs_server
-			exit 0
-			;;
-		m)
-			if [ ! -z ${@:$OPTIND} ]; then # if no argv is given, using default
-				repo=${@:$OPTIND}
-				OPTIND=$((OPTIND+1))
-			fi
-			start_magit $repo
-			;;
-		o)
-			if [ ! -z ${@:$OPTIND} ]; then # if no argv is given, using default
-				file=${@:$OPTIND}
-				OPTIND=$((OPTIND+1))
-			else
-				file="$HOME/Org/todo.org"
-			fi
-			cmd="$file"
-			;;
-		p)
-			echo "Profile emacs, startup time, cpu and mem..."
-			emacs --debug-init --timed-requires --profile >/dev/null 2>&1
-			exit 0
-			;;
-		q)
-			echo "Start emacs -q --no-splash..."
-			emacs -q --no-splash >/dev/null 2>&1
-			exit 0
-			;;
-		r)
-			kill_running_emacsclient
-			restart_emacs_server
-			;;
-		s)
-			flag_s=1
-			;;
-		t)
-			echo "Time the startup of emacs..."
-			time emacs --debug-init -eval '(kill-emacs)'
-			exit 0
-			;;
-		u)
-			echo "update packages in CLI, only works for Spacemacs..."
-			git -C ~/.emacs.d pull -v
-			emacs --batch -l ~/.emacs.d/init.el --eval="(configuration-layer/update-packages t)"
-			emacs --batch -l ~/.emacs.d/init.el --eval="(configuration-layer/update-packages t)"
-			exit 0
-			;;
-		v)
-			echo "Editing VIMRC"
-			file=$VIMRC
-			cmd=$file
-			;;
-		x)
-			flag_x=1
-			;;
+	h | \?) # \? for illegal option
+		print_usage
+		;;
+	a)
+		# cmd="-e '(org-agenda-list)'"
+		cmd="-e '(execute-kbd-macro (kbd \"C-c a a c\"))'"
+		;;
+	b)
+		file="$HOME/.local/bin/emm"
+		cmd="$file"
+		;;
+	c)
+		cmd="-e '(org-capture)'"
+		;;
+	C)
+		ps -ef | grep -v grep | grep emacs
+		check_running_emacsclient
+		;;
+	d)
+		echo "Start 'emacs --debug-init'"
+		rm ~/.emacs.d/init.elc >/dev/null 2>&1
+		emacs --no-splash --debug-init >/dev/null 2>&1
+		exit 0
+		;;
+	e)
+		if [ ! -z ${@:$OPTIND} ]; then # if no argv is given, using default
+			file=${@:$OPTIND}
+			OPTIND=$((OPTIND + 1))
+		fi
+		echo "Edit $file using emacs..."
+		emacs --no-splash $file >/dev/null 2>&1
+		exit 0
+		;;
+	E)
+		cmd="$file"
+		;;
+	f)
+		file="$HOME/.config/fish/config.fish"
+		cmd="$file"
+		;;
+	k)
+		kill_running_emacsclient
+		kill_emacs_server
+		exit 0
+		;;
+	m)
+		if [ ! -z ${@:$OPTIND} ]; then # if no argv is given, using default
+			repo=${@:$OPTIND}
+			OPTIND=$((OPTIND + 1))
+		fi
+		start_magit $repo
+		;;
+	o)
+		if [ ! -z ${@:$OPTIND} ]; then # if no argv is given, using default
+			file=${@:$OPTIND}
+			OPTIND=$((OPTIND + 1))
+		else
+			file="$HOME/Org/todo.org"
+		fi
+		cmd="$file"
+		;;
+	p)
+		echo "Profile emacs, startup time, cpu and mem..."
+		emacs --debug-init --timed-requires --profile >/dev/null 2>&1
+		exit 0
+		;;
+	q)
+		echo "Start emacs -q --no-splash..."
+		emacs -q --no-splash >/dev/null 2>&1
+		exit 0
+		;;
+	r)
+		kill_running_emacsclient
+		restart_emacs_server
+		;;
+	s)
+		flag_s=1
+		;;
+	t)
+		echo "Time the startup of emacs..."
+		time emacs --debug-init -eval '(kill-emacs)'
+		exit 0
+		;;
+	u)
+		echo "update packages in CLI, only works for Spacemacs..."
+		git -C ~/.emacs.d pull -v
+		emacs --batch -l ~/.emacs.d/init.el --eval="(configuration-layer/update-packages t)"
+		emacs --batch -l ~/.emacs.d/init.el --eval="(configuration-layer/update-packages t)"
+		exit 0
+		;;
+	v)
+		echo "Editing VIMRC"
+		file=$VIMRC
+		cmd=$file
+		;;
+	x)
+		flag_x=1
+		;;
 	esac
 done
-shift $((OPTIND -1))            # remove options that have already been handled from $@
+shift $((OPTIND - 1)) # remove options that have already been handled from $@
 
 if [ "$flag_s" -eq 1 ]; then
 	echo "Switch between Spacemacs and Vanilla emacs..."
@@ -403,7 +394,7 @@ fi
 if check_daemon_status; then
 	check_socket_file
 	echo "Start emacsclient..."
-	if [ -z "$DISPLAY" ]; then      # empty, non-GUI
+	if [ -z "$DISPLAY" ]; then # empty, non-GUI
 		# use eval since $cmd is string(command) in variable
 		eval emacsclient -a "" -n -c $cmd $@
 	else
@@ -411,7 +402,7 @@ if check_daemon_status; then
 		eval "emacsclient -a \"\" -n -F \"'(fullscreen . maximized)\" -c $cmd" $@ >/dev/null
 	fi
 fi
-if [ "$DISPLAY" ]; then      # using GUI
+if [ "$DISPLAY" ]; then # using GUI
 	# if the focused window is not emacs, minimize it
 	if ! xdotool getwindowfocus getwindowname | grep -i emacs >/dev/null; then
 		xdotool getwindowfocus windowminimize

@@ -18,8 +18,8 @@ if [ $(basename $SHELL) != "fish" ]; then
 		export SHELL=$(which fish)
 		# the above line won't make tmux start with fish in the following platforms
 		if [ -n "$(uname -a | grep Ubuntu)" ]; then
-			tmux set -g default-command $(which fish) 2>/dev/null 
-			tmux set -g default-shell $(which fish) 2>/dev/null 
+			tmux set -g default-command $(which fish) 2>/dev/null
+			tmux set -g default-shell $(which fish) 2>/dev/null
 		fi
 	else
 		echo "No fish is installed, using old $SHELL as SHELL!"
@@ -28,27 +28,27 @@ fi
 
 while getopts ":nl" args; do
 	case "$args" in
-		\?)
-			echo "t or t -n"
-			exit
-			;;
-		n)
-			tmux -2  # new
-			exit
-			;;
-		l)
-			tmux ls
-			if [ ! -z "$TMUX_PANE" ]; then
-				echo
-				echo "Already inside tmux session: $(tmux display-message -p '#S')"
-			fi
-			exit
-			;;
+	\?)
+		echo "t or t -n"
+		exit
+		;;
+	n)
+		tmux -2 # new
+		exit
+		;;
+	l)
+		tmux ls
+		if [ ! -z "$TMUX_PANE" ]; then
+			echo
+			echo "Already inside tmux session: $(tmux display-message -p '#S')"
+		fi
+		exit
+		;;
 	esac
 done
 
 # attach a session if it exists, it failed, tmux a new one, if failed, echo message
-if tmux has-session 2>/dev/null; then # has tmux session running
+if tmux has-session 2>/dev/null; then  # has tmux session running
 	if [ $(tmux ls | wc -l) -gt 1 ]; then # 2 or more sessions running
 		tmux ls
 		if [ ! -z "$TMUX_PANE" ]; then
@@ -61,6 +61,6 @@ if tmux has-session 2>/dev/null; then # has tmux session running
 	else
 		tmux -2 attach 2>/dev/null || tmux -2 2>/dev/null || echo "Already inside a tmux session!"
 	fi
-else                            # no tmux running
+else # no tmux running
 	tmux -2
 fi
