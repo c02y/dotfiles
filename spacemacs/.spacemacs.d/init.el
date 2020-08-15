@@ -1357,10 +1357,15 @@ Version 2016-12-18"
              ("C-a" . keep-beginning-of-code-or-line)
              ("C-e" . keep-end-of-code-or-line)
              ("[ u" . spacemacs/vcs-revert-hunk)
+             ("] u" . spacemacs/vcs-revert-hunk)
              ("[ a" . spacemacs/vcs-stage-hunk)
+             ("] a" . spacemacs/vcs-stage-hunk)
              ("[ d" . spacemacs/vcs-show-hunk)
+             ("] d" . spacemacs/vcs-show-hunk)
+             ;; The default binding is [ h
+             ("[ '" . spacemacs/vcs-previous-hunk)
              ;; The default binding is ] h
-             ("[ H" . spacemacs/vcs-next-hunk)
+             ("] '" . spacemacs/vcs-next-hunk)
              ("[ c" . spacemacs/vcs-transient-state/magit-commit-and-exit)
              ("[ P" . spacemacs/vcs-transient-state/magit-push-and-exit)
              ("[ A" . git-gutter+-stage-and-commit)
@@ -1401,10 +1406,24 @@ Version 2016-12-18"
       (set-face-attribute 'whitespace-indentation nil :background "red" :foreground "yellow")
       ))
 
+  ;; colors of swiper result in buffer
+  (custom-set-faces
+   '(swiper-match-face-1
+     ((t :background "red")))
+   '(swiper-match-face-2
+     ((t :background "yellow")))
+   '(swiper-match-face-3
+     ((t :background "blue")))
+   '(swiper-match-face-4
+     ((t :background "white"))))
+
   ;; highlight selected, to fix the issue that when the expr is already highlight(multiple occurs), no color for selected region
   (add-hook 'after-change-major-mode-hook
             (lambda ()
-              (set-face-attribute 'region nil :background "white")))
+              (set-face-attribute 'region nil :background "white")
+              ;; always display the color of code or name, use SPC c t to disable it
+              (rainbow-mode)
+              ))
 
   ;; format
   (setq-default
