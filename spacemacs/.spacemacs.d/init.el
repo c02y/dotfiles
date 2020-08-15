@@ -49,12 +49,15 @@ This function should only modify configuration layer settings."
      emacs-lisp
      markdown
      vimscript
-     ;; TODO: system install rust-analyzer binary
-     ;; `cargo install cargo-edit cargo-audit'
-     ;; `rustup component add clippy rustfmt'
+     ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/%2Blang/rust
+     ;; TODO:
+     ;; rustup component add rls rust-analysis rust-src
+     ;; rustup component add clippy rustfmt
+     ;; cargo install cargo-edit cargo-audit
      (rust :variables
-           rust-format-on-save t
-           lsp-rust-server 'rust-analyzer)
+           ;; rust-format-on-save t
+           lsp-rust-server 'rls         ; the default
+           )
      yaml
      semantic
      treemacs
@@ -71,7 +74,7 @@ This function should only modify configuration layer settings."
              python-backend 'anaconda        ; the default is anaconda
              python-test-runner '(pytest nose)
              python-formatter 'black
-             python-format-on-save t
+             ;; python-format-on-save t
              python-sort-imports-on-save t
              )
      ;; NOTE: `pip install jupyter', then run `jupyter notebook'
@@ -85,8 +88,8 @@ This function should only modify configuration layer settings."
      (go :variables
          ;; if not given and lsp layer is used, lsp will be used as go-backend
          ;; go-backend 'go-mode
-         go-tab-width 4
-         go-format-before-save t
+         ;; go-tab-width 4
+         ;; go-format-before-save t
          go-use-golangci-lint t
          godoc-at-point-function 'godoc-gogetdoc
          )
@@ -123,9 +126,11 @@ This function should only modify configuration layer settings."
       ;; Both C and Cpp projects can share the same .clang-format
       ;; ln -s ~/Dotfiles.d/spacemacs/.spacemacs.d/lisp/clang-format-c-cpp .clang-format
       ;; In Cpp project:
-      ;;
-      c-c++-enable-clang-format-on-save t
+      ;; the following config is replaced by format-all package and config
+      ;; c-c++-enable-clang-format-on-save t
       )
+     ;; TODO: pip install cmake-language-server
+     ;; will provide lsp and cmake-format for cmake
      (cmake :variables
             cmake-enable-cmake-ide-support t)
      ;; NOTE: install cscope, pip install pycscope
@@ -164,19 +169,15 @@ This function should only modify configuration layer settings."
       :variables
       javascript-import-tool 'import-js
       javascript-fmt-tool 'prettier
-      javascript-fmt-on-save t
+      ;; javascript-fmt-on-save t
       ;; the default backend is lsp
       javascript-backend 'tern
-      ;; for json
-      js-indent-level 2
       ;; for javascript
       js2-basic-offset 2
       js2-include-node-externs t
       node-add-moduels-path t
       )
-     (json :variables
-           json-fmt-tool 'prettier
-           json-fmt-on-save t)
+     json
      (html :variables
            web-fmt-tool 'web-beautify)
      (lua :variables
@@ -203,6 +204,7 @@ This function should only modify configuration layer settings."
                                       drag-stuff
                                       leetcode
                                       smart-compile
+                                      format-all
                                       )
 
    ;; A list of packages that cannot be updated.
@@ -1472,9 +1474,24 @@ Version 2016-12-18"
   (add-hook 'fish-mode-hook
             (lambda ()
               (setq indent-tabs-mode nil)))
-  (dolist (hook '(fish-mode-hook emacs-lisp-mode-hook))
-    (add-hook hook (lambda ()
-                     (add-hook 'before-save-hook 'spacemacs/indent-region-or-buffer))))
+
+  ;; format-all package and the following config replaces all the format-on-save variables
+  ;; provided or not-yet-provided by spacemacs
+  (defvar my-auto-format-modes '(c-mode c++-mode cmake-mode emacs-lisp-mode
+                                        fish-mode go-mode json-mode lua-mode
+                                        markdown-mode python-mode rust-mode
+                                        sh-mode toml-mode yaml-mode))
+  (defvar my-auto-format-dirs '("" ""))
+  (defun my-auto-format-buffer-p ()
+    (and (member major-mode my-auto-format-modes)
+         (buffer-file-name)
+         (save-match-data
+           (let ((dir (file-name-directory (buffer-file-name))))
+             (cl-some (lambda (regexp) (string-match regexp dir))
+                      my-auto-format-dirs)))))
+  (defun format-buffer-before-save ()
+    (format-all-mode (if (my-auto-format-buffer-p) 1 0)))
+  (add-hook 'after-change-major-mode-hook 'format-buffer-before-save)
 
   (defun switch-to-prev-visited-buffer ()
     "Switch to the prev visited buffer, repeated invocations toggle between
