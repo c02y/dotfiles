@@ -14,7 +14,7 @@ if test "$MANPATH" = ""
 end
 
 # Use different PATH/MANPATH for different distro since anaconda may affect system tools
-if test (lsb_release -i | grep -i -E 'manjaro|opensuse') # not manjaro/opensuse
+if test (lsb_release -i | rg -i -e 'manjaro|opensuse') # not manjaro/opensuse
     # set -gx PATH $HOME/anaconda3/bin ~/.local/share/arm-linux/bin ~/.local/bin ~/.linuxbrew/bin $GOPATH/bin ~/bin $PATH
     #set -gx PATH $HOME/anaconda3/bin $HOME/.local/bin $GOPATH/bin /usr/local/bin /usr/local/liteide/bin /bin /sbin /usr/bin /usr/sbin $PATH
     set -gx PATH  $HOME/.local/bin $GOPATH/bin $NPMS/bin ~/.cargo/bin /usr/local/bin /bin /sbin /usr/bin /usr/sbin $PATH
@@ -39,7 +39,7 @@ test -f ~/.config/nvim/README.md; and set -gx VIMRC (readlink -f ~/.SpaceVim.d/a
 # fix the Display :0 can't be opened problem
 if test $DISPLAY
     if xhost ^/dev/null >/dev/null
-        if not xhost | grep (whoami) ^/dev/null >/dev/null
+        if not xhost | rg (whoami) ^/dev/null >/dev/null
             xhost +si:localuser:(whoami) ^/dev/null >/dev/null
         end
     end
@@ -169,7 +169,7 @@ end
 # tmux related
 abbr tls 'tmux list-panes -s'
 function tk -d 'tmux kill-session all(default)/single(id)/multiple(id1 id2)/except(-e)/list(-l) sessions'
-    if test (ps -ef | grep -v grep | grep -i tmux | wc -l ) = 0
+    if test (ps -ef | rg -v rg | rg -i tmux | wc -l ) = 0
         echo "No tmux server is running!!!"
         return
     end
@@ -325,22 +325,22 @@ end
 
 # make the make and gcc/g++ color
 # function make
-#     /usr/bin/make -B $argv 2>&1 | grep --color -iP "\^|warning:|error:|undefined|"
+#     /usr/bin/make -B $argv 2>&1 | rg --color -iP "\^|warning:|error:|undefined|"
 # end
 # function gcc
-#     /usr/bin/gcc $argv 2>&1 | grep --color -iP "\^|warning:|error:|undefined|"
+#     /usr/bin/gcc $argv 2>&1 | rg --color -iP "\^|warning:|error:|undefined|"
 # end
 function gcc-a
     set BIN (echo (string split .c $argv) | awk '{print $1;}')
-    /usr/bin/gcc -Wall -W -g -o $BIN $argv 2>&1 | grep --color -iP "\^|warning:|error:|undefined|"
+    /usr/bin/gcc -Wall -W -g -o $BIN $argv 2>&1 | rg --color -iP "\^|warning:|error:|undefined|"
 end
 # function g++
-#     /usr/bin/g++ $argv 2>&1 | grep --color -iP "\^|warning:|error:|Undefined|"
+#     /usr/bin/g++ $argv 2>&1 | rg --color -iP "\^|warning:|error:|Undefined|"
 # end
 #
 function g++-a
     set BIN (echo (string split .c $argv) | awk '{print $1;}')
-    /usr/bin/g++ -Wall -W -g -o $BIN $argv 2>&1 | grep --color -iP "\^|warning:|error:|undefined|"
+    /usr/bin/g++ -Wall -W -g -o $BIN $argv 2>&1 | rg --color -iP "\^|warning:|error:|undefined|"
 end
 abbr gcc-w 'gcc -g -Wall -W -Wsign-conversion'
 abbr gcca 'gcc -g -pedantic -Wall -W -Wconversion -Wshadow -Wcast-qual -Wwrite-strings -Wmissing-prototypes  -Wno-sign-compare -Wno-unused-parameter'
@@ -424,13 +424,13 @@ abbr kill9 'killall -9'
 # Use `pkill -SIGUSR2 PID` to kill the PID, send SIGUSR2 to emacs will turn on `toggle-debug-on-quit`, turn it off once emacs is alive again
 abbr kille 'pkill -SIGUSR2 emacs'
 # get the pid of a gui program using mouse
-abbr pid 'xprop | grep -i pid | grep -Po "[0-9]+"'
+abbr pid 'xprop | rg -i pid | rg -Po "[0-9]+"'
 function psgs -d 'pgrep process, used in script'
-    ps -ef | grep -v grep | grep -i $argv[1] | nl
+    ps -ef | rg -v rg | rg -i $argv[1] | nl
 end
 function psg -d 'pgrep process, used in command line'
-    ps -ef | grep -v grep | grep -i $argv[1] | nl
-    if test (ps -ef | grep -v grep | grep -i $argv[1] | nl | wc -l) = 1
+    ps -ef | rg -v rg | rg -i $argv[1] | nl
+    if test (ps -ef | rg -v rg | rg -i $argv[1] | nl | wc -l) = 1
         set pid (pgrep -if $argv[1])
         echo -e "\nPID: " $pid
         if test $DISPLAY
@@ -447,7 +447,7 @@ function pk --description 'kill processes containing a pattern or PID'
     else if test $result = 1
         set -l pid (psgs $argv[1] | awk '{print $3}')
         if not kill -9 $pid # failed to kill, $status != 0
-            psgs $pid | ag $argv[1] # list the details of the process need to be sudo kill
+            psgs $pid | rg $argv[1] # list the details of the process need to be sudo kill
             read -n 1 -p 'echo "Use sudo to kill it? [Y/n]: "' -l arg
             if test "$arg" = "" -o "$arg" = "y" -o "$arg" = " "
                 sudo kill -9 $pid
@@ -466,7 +466,7 @@ function pk --description 'kill processes containing a pattern or PID'
                         set -l pids (psgs $argv[1] | awk '{print $3}')
                         for i in $pids
                             if not kill -9 $i # failed to kill, $status != 0
-                                psgs $i | ag $argv[1]
+                                psgs $i | rg $argv[1]
                                 read -n 1 -p 'echo "Use sudo to kill it? [Y/n]: "' -l arg3
                                 if test "$arg3" = "" -o "$arg3" = "y" -o "$arg3" = " "
                                     sudo kill -9 $i
@@ -478,11 +478,11 @@ function pk --description 'kill processes containing a pattern or PID'
                         # This may be used for frozen emacs specifically, -usr2 or -SIGUSR2
                         # will turn on `toggle-debug-on-quit`, turn it off once emacs is alive again
                         # Test on next frozen Emacs
-                        # kill -usr2 (xprop | grep -i pid | grep -Po "[0-9]+")
-                        # kill -SIGUSR2 (xprop | grep -i pid | grep -Po "[0-9]+")
-                        set -l pid_m (xprop | grep -i pid | grep -Po "[0-9]+")
+                        # kill -usr2 (xprop | rg -i pid | rg -Po "[0-9]+")
+                        # kill -SIGUSR2 (xprop | rg -i pid | rg -Po "[0-9]+")
+                        set -l pid_m (xprop | rg -i pid | rg -Po "[0-9]+")
                         echo Pid is: $pid_m
-                        if test (psgs $pid_m | grep -i emacs)
+                        if test (psgs $pid_m | rg -i emacs)
                             kill -SIGUSR2 $pid_m
                         else
                             kill -9 $pid_m
@@ -502,7 +502,7 @@ function pk --description 'kill processes containing a pattern or PID'
                         else
                             # return
                             if not kill -9 $pid_of_index # kill failed, $status != 0
-                                psgs $pid_of_index | ag $argv[1] # list the details of the process need to be sudo kill
+                                psgs $pid_of_index | rg $argv[1] # list the details of the process need to be sudo kill
                                 read -n 1 -p 'echo "Use sudo to kill it? [Y/n]: "' -l arg4
                                 if test $arg4 = "" -o "$arg4" = "y" -o "$arg4" = " "
                                     # the first condition is to check Return key
@@ -512,10 +512,10 @@ function pk --description 'kill processes containing a pattern or PID'
                         end
                     else        # pid
                         # The $arg2 here can be part of the real pid, such as typing only 26 means 126
-                        if test (psgs $argv[1] | awk '{print $3}' | grep -i $arg2)
-                            set -l pid_part (psgs $argv[1] | awk '{print $3}' | grep -i $arg2)
+                        if test (psgs $argv[1] | awk '{print $3}' | rg -i $arg2)
+                            set -l pid_part (psgs $argv[1] | awk '{print $3}' | rg -i $arg2)
                             if not kill -9 $pid_part # kill failed, $status != 0
-                                psgs $pid_part | ag $argv[1] # list the details of the process need to be sudo kill
+                                psgs $pid_part | rg $argv[1] # list the details of the process need to be sudo kill
                                 read -n 1 -p 'echo "Use sudo to kill it? [Y/n]: "' -l arg5
                                 if test $arg5 = "" -o "$arg5" = "y" -o "$arg5" = " "
                                     sudo kill -9 $pid_part
@@ -572,11 +572,8 @@ abbr rcp 'rsync --stats --info=progress2 -rh -avz'
 abbr rmv 'rsync --stats --info=progress2 -rh -avz --remove-source-files' # this will not delte the src dir, only the contents
 alias clr 'clear; tmux clear-history'
 
-# abbr grep='grep -nr --color=auto'
-abbr g 'grep -F -n --color=auto'
-
 function abbrc -d 'clean abbrs in `abbr --show` but not in $FISHRC'
-    if abbr --show | head -n1 | grep "abbr -a -U" ^/dev/null >/dev/null
+    if abbr --show | head -n1 | rg "abbr -a -U" ^/dev/null >/dev/null
         set abbr_show "abbr -a -U --"
     else
         set abbr_show "abbr"
@@ -586,7 +583,7 @@ function abbrc -d 'clean abbrs in `abbr --show` but not in $FISHRC'
         set abr_def (echo $abr | sed "s/$abbr_show//g" | awk '{print $1}')
         # echo abr_def: $abr_def
         set def_file $FISHRC
-        set num_line (grep -n "^abbr $abr_def " $def_file | cut -d: -f1)
+        set num_line (rg -n "^abbr $abr_def " $def_file | cut -d: -f1)
         if not test $num_line # empty
             echo "$abr_def is an abbr in `abbr --show` but not defined in $FISHRC, may be defined temporally or in other file!"
             abbr -e $abr_def
@@ -607,24 +604,24 @@ function fu -d 'fu command and prompt to ask to open it or not'
         set result (type $argv)
     end
 
-    if abbr --show | head -n1 | grep "abbr -a -U" ^/dev/null >/dev/null
+    if abbr --show | head -n1 | rg "abbr -a -U" ^/dev/null >/dev/null
         set abbr_show "abbr -a -U --"
     else
         set abbr_show "abbr"
     end
     # NOTE: $argv may also be defined as an abbr like rm command
-    abbr --show | grep "$abbr_show $argv " # Space to avoid the extra abbr starting with $ARGV
+    abbr --show | rg "$abbr_show $argv " # Space to avoid the extra abbr starting with $ARGV
     if test $status = 0
         # in case $argv existes in both `type` and `abbr --show`
         # function may be `function func` and `function func -d ...`
-        if test $found = 1 -a (echo (grep -w -E "^alias $argv |^function $argv |^function $argv\$" $FISHRC))
+        if test $found = 1 -a (echo (rg -w -e "^alias $argv |^function $argv |^function $argv\$" $FISHRC))
             echo "$argv is in both `type` and `abbr --list`, found definition in $FISHRC"
             echo "Please clean the multiple definitions!"
             abbrc
             # return
         else # only exists in `abbr --show`
             set found 1
-            set result (abbr --show | grep "$abbr_show $argv ")
+            set result (abbr --show | rg "$abbr_show $argv ")
         end
     else if test $status != 0 -a $found != 1
         echo "$argv is not a thing!"
@@ -633,10 +630,10 @@ function fu -d 'fu command and prompt to ask to open it or not'
 
     set result_1 (printf '%s\n' $result | head -1)
     set def_file $FISHRC
-    if test (echo $result_1 | grep -E "$abbr_show $argv |is a function with definition") # defined in fish script
-        if test (echo $result_1 | grep -E "is a function with definition")
+    if test (echo $result_1 | rg -e "$abbr_show $argv |is a function with definition") # defined in fish script
+        if test (echo $result_1 | rg -e "is a function with definition")
             # 1. function or alias -- second line of output of fu ends with "$path @ line $num_line"
-            if test (printf '%s\n' $result | sed -n "2p" | grep -E "\# Defined in")
+            if test (printf '%s\n' $result | sed -n "2p" | rg -e "\# Defined in")
                 set -l result_2 (printf '%s\n' $result | sed -n "2p")
                 set def_file (echo $result_2 | awk -v x=4 '{print $x}')
             else
@@ -647,7 +644,7 @@ function fu -d 'fu command and prompt to ask to open it or not'
                 set def_file $FISHRC
             end
 
-            set num_line (grep -n -w -E "^alias $argv |^function $argv |^function $argv\$" $def_file | cut -d: -f1)
+            set num_line (rg -n -w -e "^alias $argv |^function $argv |^function $argv\$" $def_file | cut -d: -f1)
             # NOTE: $num_line may contain more than one number, use "$num_line", or test will fail
             if not test "$num_line" # empty
                 echo "$argv is an alias/function defined in $def_file!"
@@ -658,13 +655,13 @@ function fu -d 'fu command and prompt to ask to open it or not'
                 else
                     set num_line 1
                 end
-            else if test (echo "$num_line" | grep " ") # $num_line contains more than one value
+            else if test (echo "$num_line" | rg " ") # $num_line contains more than one value
                 echo "$argv has multiple definitions(alias and function) in $FISHRC, please clean them!"
                 return
             end
         else # 2. abbr, only handle abbr defined in $FISHRC
             abbrc
-            set num_line (grep -n -w -E "^abbr $argv " $def_file | cut -d: -f1)
+            set num_line (rg -n -w -e "^abbr $argv " $def_file | cut -d: -f1)
             if not test "$num_line" # empty
                 return
             end
@@ -675,14 +672,14 @@ function fu -d 'fu command and prompt to ask to open it or not'
         if test "$answer" = "y" -o "$answer" = " "
             $EDITOR $def_file +$num_line
         end
-    else if test (echo $result_1 | grep -i "is a builtin")
+    else if test (echo $result_1 | rg -i "is a builtin")
         # 3. $argv in builtin like if
         return
     else # 4. $argv is a file in $PATH
         set -l file_path (echo $result_1 | awk 'NF>1{print $NF}')
-        file $file_path | grep "symbolic link" # print only $argv is symbolic link
-        file (readlink -f $file_path) | grep -E "ELF|script|executable" # highlight
-        if test (file (readlink -f $file_path) | grep "script") # script can be open
+        file $file_path | rg "symbolic link" # print only $argv is symbolic link
+        file (readlink -f $file_path) | rg -e "ELF|script|executable" # highlight
+        if test (file (readlink -f $file_path) | rg "script") # script can be open
             echo
             read -n 1 -p 'echo "Open the file for editing?[y/N]: "' -l answer
             if test "$answer" = "y" -o "$answer" = " "
@@ -703,10 +700,10 @@ function fzfp -d 'check if fzf is existed, with any argument, fzf binary file wi
             echo "fzf doesn't exist and error occurs when downloading it!"
             return 1
         end
-        set tag_name (eval $PXY curl -s "https://api.github.com/repos/junegunn/fzf-bin/releases/latest" | grep "tag_name" | cut -d : -f 2 | awk -F[\"\"] '{print $2}')
+        set tag_name (eval $PXY curl -s "https://api.github.com/repos/junegunn/fzf-bin/releases/latest" | rg "tag_name" | cut -d : -f 2 | awk -F[\"\"] '{print $2}')
         if not test $tag_name
             echo "API rate limit exceeded, please input your password for your username!"
-            set tag_name (eval $PXY curl -u c02y -s "https://api.github.com/repos/junegunn/fzf-bin/releases/latest" | grep "tag_name" | cut -d : -f 2 | awk -F[\"\"] '{print $2}')
+            set tag_name (eval $PXY curl -u c02y -s "https://api.github.com/repos/junegunn/fzf-bin/releases/latest" | rg "tag_name" | cut -d : -f 2 | awk -F[\"\"] '{print $2}')
         end
         set file_name (echo fzf-$tag_name-linux_amd64.tgz)
         set file_link (echo https://github.com/junegunn/fzf-bin/releases/download/$tag_name/$file_name)
@@ -838,7 +835,7 @@ function finds -d 'find a file/folder and view/edit using less/vim/emacs/emx/cd/
         # ARGV2 is the the type such as d or f
         find $ARGV1 -type $ARGV2 -print | awk '{print length($0), $0}' | sort -n | tail
     else if set -q _flag_n      # finds new files in whole system, $argv1 is the last mins, $argv2 is the file name to search
-        sudo find / -type f -mmin -$argv[1] | sudo ag $argv[2]
+        sudo find / -type f -mmin -$argv[1] | sudo rg $argv[2]
     else                        # find file/directory
         find $ARGV1 -iname "*$ARGV2*"
     end
@@ -890,7 +887,7 @@ function dfs -d 'df(-l), ncdu(-i), du(by default), cache dir of Firefox/Chrome'
             echo "ncdu is not installed!"
         end
     else if set -q _flag_l
-        df -Th | grep -v -E -- 'grep|tmpfs|boot|var|snap|opt|tmp|srv|usr|user'
+        df -Th | rg -v -e -- 'rg|tmpfs|boot|var|snap|opt|tmp|srv|usr|user'
     else if set -q _flag_c
         du -cs ~/.mozilla ~/.cache/mozilla ~/.config/google-chrome ~/.cache/google-chrome
     else
@@ -1082,7 +1079,7 @@ function deb -d 'deb package, list(default)/extract(x)'
         if command -sq dpkg # check if dpkg command exists, replace which
             dpkg -x $argv[1] $pkgname
         else
-            set dataname (ar t $argv[1] | ag data)
+            set dataname (ar t $argv[1] | rg data)
             if not ar p $argv[1] $dataname | tar Jxv -C $pkgname ^/dev/null # failed, $status != 0
                 if not ar p $argv[1] $dataname | tar zxv -C $pkgname ^/dev/null # failed, $status != 0
                     rm -rfv $pkgname
@@ -1275,15 +1272,15 @@ function elpac -d 'print old packages in .emacs.d/elpa/, with any command, it wi
     set -l elpa_path ~/.emacs.d/elpa
     # ls contains color which will affect the $pkg string, * part means only directories
     for pkg in (command ls $elpa_path)
-        if echo $pkg | grep -q '[0-9]' # check if pkg $contains version number, $status = 0
+        if echo $pkg | rg -q '[0-9]' # check if pkg $contains version number, $status = 0
             set -l pkg_ver (echo $pkg | sed 's!.*-!!')
             set -l pkg_name (echo $pkg | sed 's/[0-9.]*$//g')
 
             set pkg_com (echo $pkg_name(echo $pkg_ver | cut -c1))
-            if test (command ls $elpa_path | grep "^$pkg_com" | wc -l) -gt 1
-                set first (command ls $elpa_path | grep "^$pkg_com" | head -1 | sed "s/$pkg_com//g")
-                set second (command ls $elpa_path | grep "^$pkg_com" | sed -n "2p" | sed "s/$pkg_com//g")
-                if echo $first$second | grep -q '[a-zA-Z]'
+            if test (command ls $elpa_path | rg "^$pkg_com" | wc -l) -gt 1
+                set first (command ls $elpa_path | rg "^$pkg_com" | head -1 | sed "s/$pkg_com//g")
+                set second (command ls $elpa_path | rg "^$pkg_com" | sed -n "2p" | sed "s/$pkg_com//g")
+                if echo $first$second | rg -q '[a-zA-Z]'
                     continue # files/dirs like let-alias-1.0.5 and let-alias-1.0.5.signed
                 end
                 # echo pkg: $pkg, first: $first, second:$second
@@ -1527,7 +1524,7 @@ abbr gitcm 'git commit -m'
 # amend last pushed commit message with gitcma; then `git push --force-with-lease [origin master]` to push it
 abbr gitcma 'git commit --amend'
 abbr gitcp 'git checkout HEAD^1' # git checkout previous/old commit
-abbr gitcn 'git log --reverse --pretty=%H master | grep -A 1 (git rev-parse HEAD) | tail -n1 | xargs git checkout' # git checkout next/new commit
+abbr gitcn 'git log --reverse --pretty=%H master | rg -A 1 (git rev-parse HEAD) | tail -n1 | xargs git checkout' # git checkout next/new commit
 abbr gitt 'git tag --sort=-taggerdate'    # sort tag by date, new tag first
 abbr gitft 'git ls-files --error-unmatch' # Check if file/dir is git-tracked
 abbr gitpu 'git push -v'
@@ -1684,7 +1681,7 @@ function gitbs -d 'branches and worktrees'
             if set -q $argv
                 git ls-remote --heads
             else
-                git ls-remote --heads | grep -i $argv
+                git ls-remote --heads | rg -i $argv
             end
         else if set -q _flag_d
             if set -q $argv[1]  # no argv
@@ -1749,7 +1746,7 @@ function gita -d 'git add for multiple files at once'
 end
 function gitfs -d 'git forked repo sync'
     git checkout master
-    git remote -v | grep "upstream" ^/dev/null >/dev/null
+    git remote -v | rg "upstream" ^/dev/null >/dev/null
     set -l upstream_status $status
     if test $upstream_status = 1; and set -q $argv[1]
         echo "Remote upstream is not set, unable to sync!"
@@ -1875,7 +1872,7 @@ function dock2 -d 'start an existed container(or session), first list all the co
         return
     end
 
-    docker inspect --format="{{.State.Running}}" $ID | grep true ^/dev/null >/dev/null
+    docker inspect --format="{{.State.Running}}" $ID | rg true ^/dev/null >/dev/null
     if test $status = 0
         # if the ID is already running, exec it,
         # meaning: start another session on the same running container
@@ -1904,7 +1901,7 @@ function docksh -d 'add a share folder to existed container'
     docker run -ti -v $share_src:$share_dst $new_name /bin/bash
 end
 
-if test (ps -ef | grep -v grep | grep -i shadowsocks | awk '{ print $(NF-2)     }') # ssr is running
+if test (ps -ef | rg -v rg | rg -i shadowsocks | awk '{ print $(NF-2)     }') # ssr is running
     set -g PXY 'proxychains4 -q'
 else
     set -g PXY
@@ -1916,10 +1913,10 @@ function batp -d 'check if bat exists, or with any argument, download the latest
         # echo "bat is installed, use any extra to upgrade it!"
         return 0
     else
-        set tag_name (eval $PXY curl -s "https://api.github.com/repos/sharkdp/bat/releases/latest" | grep "tag_name" | cut -d : -f 2 | awk -F[\"\"] '{print $2}')
+        set tag_name (eval $PXY curl -s "https://api.github.com/repos/sharkdp/bat/releases/latest" | rg "tag_name" | cut -d : -f 2 | awk -F[\"\"] '{print $2}')
         if not test $tag_name
             echo "API rate limit exceeded, please input your password for your username!"
-            set tag_name (eval $PXY curl -u c02y -s "https://api.github.com/repos/sharkdp/bat/releases/latest" | grep "tag_name" | cut -d : -f 2 | awk -F[\"\"] '{print $2}')
+            set tag_name (eval $PXY curl -u c02y -s "https://api.github.com/repos/sharkdp/bat/releases/latest" | rg "tag_name" | cut -d : -f 2 | awk -F[\"\"] '{print $2}')
         end
         set file_name (echo bat-$tag_name-x86_64-unknown-linux-gnu.tar.gz)
 
@@ -1962,10 +1959,10 @@ function gitmuxp -d 'check if gitmux exists, or with any argument, download the 
         return 0
     else
         # https://github.com/boyter/scc/releases/download/v2.2.0/scc-2.2.0-x86_64-unknown-linux.zip
-        set tag_name (eval $PXY curl -s "https://api.github.com/repos/arl/gitmux/releases/latest" | grep "tag_name" | cut -d : -f 2 | awk -F[\"\"] '{print $2}')
+        set tag_name (eval $PXY curl -s "https://api.github.com/repos/arl/gitmux/releases/latest" | rg "tag_name" | cut -d : -f 2 | awk -F[\"\"] '{print $2}')
         if not test $tag_name
             echo "API rate limit exceeded, please input your password for your username!"
-            set tag_name (eval $PXY curl -u c02y -s "https://api.github.com/repos/arl/gitmux/releases/latest" | grep "tag_name" | cut -d : -f 2 | awk -F[\"\"] '{print $2}')
+            set tag_name (eval $PXY curl -u c02y -s "https://api.github.com/repos/arl/gitmux/releases/latest" | rg "tag_name" | cut -d : -f 2 | awk -F[\"\"] '{print $2}')
         end
         set file_name (echo gitmux_(echo $tag_name | sed 's/^v//')_linux_amd64.tar.gz)
         set file_link (echo https://github.com/arl/gitmux/releases/download/$tag_name/$file_name)
@@ -1998,10 +1995,10 @@ function nvimp -d 'check if nvim exists, or with any argument, download the late
             end
         else
             # https://github.com/neovim/neovim/releases/download/v0.4.2/nvim.appimage
-            set tag_name (eval $PXY curl -s "https://api.github.com/repos/neovim/neovim/releases/latest" | grep "tag_name" | cut -d : -f 2 | awk -F[\"\"] '{print $2}')
+            set tag_name (eval $PXY curl -s "https://api.github.com/repos/neovim/neovim/releases/latest" | rg "tag_name" | cut -d : -f 2 | awk -F[\"\"] '{print $2}')
             if not test $tag_name
                 echo "API rate limit exceeded, please input your password for your username!"
-                set tag_name (eval $PXY curl -u c02y -s "https://api.github.com/repos/neovim/neovim/releases/latest" | grep "tag_name" | cut -d : -f 2 | awk -F[\"\"] '{print $2}')
+                set tag_name (eval $PXY curl -u c02y -s "https://api.github.com/repos/neovim/neovim/releases/latest" | rg "tag_name" | cut -d : -f 2 | awk -F[\"\"] '{print $2}')
             end
             set file_name (echo nvim.appimage)
             set file_link (echo https://github.com/neovim/neovim/releases/download/$tag_name/$file_name)
@@ -2024,10 +2021,10 @@ function sccp -d 'check if scc exists, or with any argument, download the latest
         return 0
     else
         # https://github.com/boyter/scc/releases/download/v2.2.0/scc-2.2.0-x86_64-unknown-linux.zip
-        set tag_name (eval $PXY curl -s "https://api.github.com/repos/boyter/scc/releases/latest" | grep "tag_name" | cut -d : -f 2 | awk -F[\"\"] '{print $2}')
+        set tag_name (eval $PXY curl -s "https://api.github.com/repos/boyter/scc/releases/latest" | rg "tag_name" | cut -d : -f 2 | awk -F[\"\"] '{print $2}')
         if not test $tag_name
             echo "API rate limit exceeded, please input your password for your username!"
-            set tag_name (eval $PXY curl -u c02y -s "https://api.github.com/repos/boyter/scc/releases/latest" | grep "tag_name" | cut -d : -f 2 | awk -F[\"\"] '{print $2}')
+            set tag_name (eval $PXY curl -u c02y -s "https://api.github.com/repos/boyter/scc/releases/latest" | rg "tag_name" | cut -d : -f 2 | awk -F[\"\"] '{print $2}')
         end
         set file_name (echo scc-(echo $tag_name | sed 's/^v//')-x86_64-unknown-linux.zip)
         set file_link (echo https://github.com/boyter/scc/releases/download/$tag_name/$file_name)
@@ -2063,9 +2060,9 @@ function svndd --description 'show the svn diff detail'
     # the revision of whole svn project
     # set Revision (svn info | awk '/Revision/ {print $2}')
     # the revision of current directory
-    set Revision (svn log | grep "^r[0-9]\+ | " | cut -d' ' -f1 | cut -c2- | sed -n "1p")
+    set Revision (svn log | rg "^r[0-9]\+ | " | cut -d' ' -f1 | cut -c2- | sed -n "1p")
     # TODO: check if argv is 1)integer, 2)number between $Revision and 1 if given
-    if test (echo $argv[1] | grep ':' -c) -eq 1
+    if test (echo $argv[1] | rg ':' -c) -eq 1
         # if argv is like 1000:1010, then svn diff the two revisions
         svn diff -r $argv[1] | less
     else if test (count $argv) -eq 1
@@ -2078,7 +2075,7 @@ function svndd --description 'show the svn diff detail'
             # if the list of revision is continuous
             # set Rev (echo $Revision-$argv[1]+1 | bc)
             # whether the list is continuous or not
-            set Rev (svn log | grep "^r[0-9]\+ | " | cut -d' ' -f1 | cut -c2- | sed -n "$argv[1]p")
+            set Rev (svn log | rg "^r[0-9]\+ | " | cut -d' ' -f1 | cut -c2- | sed -n "$argv[1]p")
             svn diff -c $Rev | less
         end
     else if test (count $argv) = 0
@@ -2202,7 +2199,7 @@ end
 abbr epub 'ebook-viewer --detach'
 # alias time 'time -p'
 
-abbr sss 'ps -eo tty,command | grep -v grep | grep "sudo ssh "'
+abbr sss 'ps -eo tty,command | rg -v rg | rg "sudo ssh "'
 abbr p 'ping -c 5'
 alias ping 'ping -c 5'
 function po -d 'Test the connection of outside internet'
@@ -2244,7 +2241,7 @@ function pv --description "ping vpn servers"
     echo --------------------------------------------------------------
 end
 function ipl -d 'get the location of your public IP address'
-    if test (ps -ef | grep -v grep | grep -i shadow | awk '{ print $(NF-2)     }') # ssr is running
+    if test (ps -ef | rg -v rg | rg -i shadow | awk '{ print $(NF-2)     }') # ssr is running
         proxychains4 -q curl myip.ipip.net
     else
         curl myip.ipip.net
@@ -2252,7 +2249,7 @@ function ipl -d 'get the location of your public IP address'
 end
 function port -d 'list all the ports are used or check the process which are using the port'
     if test (count $argv) = 1
-        netstat -tulpn | grep $argv
+        netstat -tulpn | rg $argv
     else
         netstat -tulpn
     end
@@ -2330,13 +2327,13 @@ function catt
 end
 
 function deff
-    echo "-1\n" | sdcv $argv | head -n 1 | grep ", similar to " ^/dev/null >/dev/null
+    echo "-1\n" | sdcv $argv | head -n 1 | rg ", similar to " ^/dev/null >/dev/null
     if test $status = 0         # Found exact words or similar
-        echo "-1\n" | sdcv $argv | head -n 2 | tail -n 1 | grep "^-->" ^/dev/null >/dev/null
+        echo "-1\n" | sdcv $argv | head -n 2 | tail -n 1 | rg "^-->" ^/dev/null >/dev/null
         if test $status = 0     # Exact definition
             sdcv $argv
         else                    # similar
-            echo "-1\n" | sdcv $argv | head -n 1 | grep $argv
+            echo "-1\n" | sdcv $argv | head -n 1 | rg $argv
             # 1th, send -1 to prompt; 3th, delete last line; 4th, delete first line;
             # 5th, get last part after ">"; 5th & 6th, delete duplicates;
             # 7th, combine and separate multiple lines (words) with ", "
@@ -2354,7 +2351,7 @@ function SDCV
     sort -u -o ~/.sdcv_history ~/.sdcv_history # sort and unique them
 end
 function defc_new -d 'Check if the word is new in ~/.sdcv_history, if new add it'
-    grep -w $argv ~/.sdcv_history >> /dev/null
+    rg -w $argv ~/.sdcv_history >> /dev/null
     or begin # new, not searched the dict before, save
         if not test -e ~/.sdcv_rem
             touch ~/.sdcv_rem
@@ -2368,14 +2365,14 @@ function defc_new -d 'Check if the word is new in ~/.sdcv_history, if new add it
     end
 end
 function defc --description 'search the defnition of a word and save it into personal dict if it is the first time you search'
-    echo "-1\n" | SDCV $argv | head -n 1 | grep ", similar to " ^/dev/null >/dev/null
+    echo "-1\n" | SDCV $argv | head -n 1 | rg ", similar to " ^/dev/null >/dev/null
     if test $status = 0         # Found exact words or similar
-        echo "-1\n" | SDCV $argv | head -n 2 | tail -n 1 | grep "^-->" ^/dev/null >/dev/null
+        echo "-1\n" | SDCV $argv | head -n 2 | tail -n 1 | rg "^-->" ^/dev/null >/dev/null
         if test $status = 0     # Exact definition
             SDCV $argv
             defc_new $argv
         else                    # similar
-            echo "-1\n" | SDCV $argv | head -n 1 | grep $argv
+            echo "-1\n" | SDCV $argv | head -n 1 | rg $argv
             echo "-1\n" | SDCV $argv | head -n -1 | tail -n +2 | cut -d ">" -f 2 | sort | uniq | awk 'ORS=", "' | sed 's/, $/\n/'
             sed -i "/\<$argv\>/d" ~/.sdcv_history # delete the wrong word in ~/.sdcv_history
         end
@@ -2404,20 +2401,20 @@ abbr ma 'man'
 function wtp --description 'show the real definition of a type or struct in C code, you can find which file it is defined in around the result'
     gcc -E ~/.local/bin/type.c -I$argv[1] > /tmp/result
     if test (count $argv) -eq 2
-        if test (echo $argv[1] | grep struct)
-            ag -A $argv[2] "^$argv[1]" /tmp/result
+        if test (echo $argv[1] | rg struct)
+            rg -A $argv[2] "^$argv[1]" /tmp/result
         else
-            ag -B $argv[2] $argv[1] /tmp/result
+            rg -B $argv[2] $argv[1] /tmp/result
         end
     else
-        ag $argv[1] /tmp/result
+        rg $argv[1] /tmp/result
     end
 end
 
 # if usb0 is not connected or data sharing is not enabled:
 # `ip link ls dev usb0` returns 255, else returns 0
 # if usb0 is not connected to network:
-# `ip link ls dev usb | grep UP` returns 1, else returns 0
+# `ip link ls dev usb | rg UP` returns 1, else returns 0
 # if returns 1, then kill dhclient and enabled dhclient again:
 # sudo dhclient usb0
 function ut -d 'toggle -- use data network sharing through Android device throught USB'
@@ -2425,7 +2422,7 @@ function ut -d 'toggle -- use data network sharing through Android device throug
     if not ip link ls dev usb0 ^/dev/null >/dev/null0 # ()=255, not plugged or enabled in Android device
         echo Android device is not plugged or data network sharing is not enabled!
     else          # ()=0
-        # ip link ls dev usb0 | grep UP ^/dev/null >/dev/null
+        # ip link ls dev usb0 | rg UP ^/dev/null >/dev/null
         # if test $status != 0
         if test 1 != 0
             # echo Network on usb0 is off!
@@ -2456,7 +2453,7 @@ abbr mo 'pmount /dev/sdb4 /run/media/chz/UDISK'
 function mo-bak
     set -l done 1
     while test $done = 1
-        if not command df | grep -v grep | grep -i UDISK  ^/dev/null >/dev/null # no UDISK in df, new or unplug
+        if not command df | rg -v rg | rg -i UDISK  ^/dev/null >/dev/null # no UDISK in df, new or unplug
             set -l device
             if test -b /dev/sdb4
                 set device /dev/sdb4
@@ -2470,11 +2467,11 @@ function mo-bak
             df
             return
         else                        # UDISK is in df, right or not-umount old
-            set -l device (command df | grep -v grep | grep -i UDISK | awk '{print $1}')
+            set -l device (command df | rg -v rg | rg -i UDISK | awk '{print $1}')
             if not test -b $device
                 if not pumount /media/UDISK ^/dev/null >/dev/null
                     echo $device -- /media/UDISK is busy.
-                    lsof | ag UDISK
+                    lsof | rg UDISK
                     return
                 end
             else                    # right
@@ -2487,34 +2484,18 @@ end
 
 abbr ytd 'youtube-dl -citw'
 
-function agr -d 'ag errno'
-    for file in /usr/include/asm-generic/errno-base.h /usr/include/asm-generic/errno.h
-        command ag -w $argv[1] $file
-    end
-end
-# ag work with less with color and scrolling
-function ag
-    #sed -i "s/.shell/\"$argv[1]\n.shell/g" ~/.lesshst
-    echo "\"$argv[1]" >> ~/.lesshst
-    if command -sq ag # check if ag command exists
-        command ag --hidden --ignore '*~' --ignore '#?*#' --ignore '.#?*' --ignore '*.swp*' --ignore -s --pager='less -i -RM -FX -s' $argv
-    else
-        grep -n --color=always $argv | more
-        echo -e "\n...ag is not installed, use grep instead..."
-    end
-end
-function ags -d 'ag sth in init.el(-e)/config.fish(-f)/.tmux.conf(-t)/vimrc(-v), or use fzf(-F) to open the file, git repo(-g)'
-    set -l options 'e' 'f' 'F' 'g' 't' 'v'
-    argparse -n ags -N 1 $options -- $argv
+function rgs -d 'rg sth in init.el(-e)/errno(-E)/config.fish(-f)/.tmux.conf(-t)/vimrc(-v), or use fzf(-F) to open the file, git repo(-g)'
+    set -l options 'e' 'E' 'f' 'F' 'g' 't' 'v'
+    argparse -n rgs -N 1 $options -- $argv
     or return
-
-    if not command -sq ag
-        echo "ag is installed!"
-        return
-    end
 
     if set -q _flag_e
         set FILE $EMACS_EL
+    else if set -q _flag_E
+        for file in /usr/include/asm-generic/errno-base.h /usr/include/asm-generic/errno.h
+            rg -i $argv[1] $file
+        end
+        return
     else if set -q _flag_f
         set FILE $FISHRC
     else if set -q _flag_g
@@ -2523,7 +2504,7 @@ function ags -d 'ag sth in init.el(-e)/config.fish(-f)/.tmux.conf(-t)/vimrc(-v),
         set FILE ~/.tmux.conf
     else if set -q _flag_v
         set FILE $VIMRC
-    else
+    else                        # without options
         if set -q $argv[2] # no $argv[2]
             set FILE .
         else
@@ -2531,12 +2512,13 @@ function ags -d 'ag sth in init.el(-e)/config.fish(-f)/.tmux.conf(-t)/vimrc(-v),
         end
     end
 
-    ag $argv[1] $FILE
+    echo "\"$argv[1]" >> ~/.lesshst
+    rg --hidden -p $argv[1] $FILE | less -i -RM -FX -s
 
     if set -q _flag_F # search pattern(s) in dir/file, open if using vim
         read -n 1 -p 'echo "Open it with vim? [Y/n]: "' -l answer
         if test "$answer" = "y" -o "$answer" = " "
-            ag $argv[1] $FILE -l | fzf --bind 'enter:execute:vim {} < /dev/tty'
+            rg --hidden --color never $argv[1] $FILE -l | fzf --bind 'enter:execute:vim {} < /dev/tty'
         else
             echo "Canceled!"
         end
@@ -2769,7 +2751,7 @@ function cons -d 'conda virtual environments related functions -i(install packag
             echo "argv is needed!"
             return -1
         else
-            if conda env list | awk '{ print $1 }' | grep -w $argv[1] > /dev/null ^/dev/null
+            if conda env list | awk '{ print $1 }' | rg -w $argv[1] > /dev/null ^/dev/null
                 # already in conda env list
                 echo "env $arv[1] already exists!!!"
                 return -1
@@ -2793,13 +2775,13 @@ function cons -d 'conda virtual environments related functions -i(install packag
             read -p 'echo "Which conda env switching to: "' argv
             if test "$argv" = "" # still no argv, just enter("", not " ") for read prompt
                 return -1
-            else if test (echo $argv[1] | grep ' ' -c) -eq 1
+            else if test (echo $argv[1] | rg ' ' -c) -eq 1
                 # contains space in read argv
                 echo "$argv[1]: error format!"
                 return -1
             end
         end
-        if conda env list | awk '{ print $1 }' | grep -w $argv[1] > /dev/null ^/dev/null
+        if conda env list | awk '{ print $1 }' | rg -w $argv[1] > /dev/null ^/dev/null
             conda activate $argv[1]
             echo "Switched to $argv[1] env..."
             # $argv may contain the env name and extra packages
