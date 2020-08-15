@@ -834,7 +834,7 @@ function finds -d 'find a file/folder and view/edit using less/vim/emacs/emx/cd/
         # ARGV2 is the the type such as d or f
         find $ARGV1 -type $ARGV2 -print | awk '{print length($0), $0}' | sort -n | tail
     else if set -q _flag_n      # finds new files in whole system, $argv1 is the last mins, $argv2 is the file name to search
-        sudo find / -type f -mmin -$argv[1] | sudo rg $argv[2]
+        sudo find / -type f -mmin -$argv[1] | sudo grep $argv[2]
     else                        # find file/directory
         find $ARGV1 -iname "*$ARGV2*"
     end
@@ -851,7 +851,7 @@ function fts -d 'find the temporary files such as a~ or #a or .a~, and files for
         find $ARGV -maxdepth 1 \( -iname "*~" -o -iname "#?*#" -o -iname ".#?*" -o -iname "*.swp*" \) | xargs -r ls -lhd | nl
     else if set -q _flag_C      # one level, not recursive, remove
         find $ARGV -maxdepth 1 \( -iname "*~" -o -iname "#?*#" -o -iname ".#?*" -o -iname "*.swp*" \) | xargs rm -rfv
-    else if set -q _flag_r      # recursive, print
+    else if set -q _flag_r      # recursive, print, default action without option
         find $ARGV \( -iname "*~" -o -iname "#?*#" -o -iname ".#?*" -o -iname "*.swp*" \) | xargs -r ls -lhd | nl
     else if set -q _flag_R      # recursive, remove
         find $ARGV \( -iname "*~" -o -iname "#?*#" -o -iname ".#?*" -o -iname "*.swp*" \) | xargs rm -rfv
@@ -865,7 +865,10 @@ function fts -d 'find the temporary files such as a~ or #a or .a~, and files for
             find $ARGV -maxdepth 1 \( -iname "*.$EXT"  -o -iname "auto" \) | xargs -r rm -rv
         end
         fts -C
+    else
+        find $ARGV \( -iname "*~" -o -iname "#?*#" -o -iname ".#?*" -o -iname "*.swp*" \) | xargs -r ls -lhd | nl
     end
+
 end
 abbr lo 'locate -e'
 function lop --description 'locate the full/exact file'
@@ -2492,7 +2495,7 @@ function rgs -d 'rg sth in init.el(-e)/errno(-E)/config.fish(-f)/.tmux.conf(-t)/
         set FILE $EMACS_EL
     else if set -q _flag_E
         for file in /usr/include/asm-generic/errno-base.h /usr/include/asm-generic/errno.h
-            grep -i $argv[1] $file
+            rg -i $argv[1] $file
         end
         return
     else if set -q _flag_f
