@@ -1256,44 +1256,6 @@ function .....; cd ../../../..; end
 abbr cdp 'cd ~/Public; and lls'
 abbr cdu 'cd /run/media/chz/UDISK/; and lls'
 
-# NOTE: this function is obsolete since using Spacemacs now
-function elpac -d 'print old packages in .emacs.d/elpa/, with any command, it will clean old ones'
-    set -l elpa_path ~/.emacs.d/elpa
-    # ls contains color which will affect the $pkg string, * part means only directories
-    for pkg in (command ls $elpa_path)
-        if echo $pkg | grep -q '[0-9]' # check if pkg $contains version number, $status = 0
-            set -l pkg_ver (echo $pkg | sed 's!.*-!!')
-            set -l pkg_name (echo $pkg | sed 's/[0-9.]*$//g')
-
-            set pkg_com (echo $pkg_name(echo $pkg_ver | cut -c1))
-            if test (command ls $elpa_path | grep "^$pkg_com" | wc -l) -gt 1
-                set first (command ls $elpa_path | grep "^$pkg_com" | head -1 | sed "s/$pkg_com//g")
-                set second (command ls $elpa_path | grep "^$pkg_com" | sed -n "2p" | sed "s/$pkg_com//g")
-                if echo $first$second | grep -q '[a-zA-Z]'
-                    continue # files/dirs like let-alias-1.0.5 and let-alias-1.0.5.signed
-                end
-                # echo pkg: $pkg, first: $first, second:$second
-                set first_num (echo $first | sed -e 's/\.//g') # get rid of . in version number
-                set second_num (echo $second | sed -e 's/\.//g')
-                if test $firstnum -le $secondnum
-                    echo $pkg_com$first is le
-                    echo $pkg_com$second
-                    set old $first
-                else
-                    echo $pkg_com$first is gt
-                    echo $pkg_com$second
-                    set old $second
-                end
-                if not set -q $argv[1]
-                    command rm -rf $elpa_path/$pkg_com$old
-                    echo $elpa_path/$pkg_com$old is deleted!
-                end
-                echo
-            end
-        end
-    end
-end
-
 function vimd -d 'diff files/dirs using vim'
     if test -f $argv[1]
         vim -d -o $argv[1] $argv[2]
