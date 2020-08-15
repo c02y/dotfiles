@@ -395,7 +395,11 @@ It should only modify the values of Spacemacs settings."
    ;; (default "C-M-m" for terminal mode, "<M-return>" for GUI mode).
    ;; Thus M-RET should work as leader key in both GUI and terminal modes.
    ;; C-M-m also should work in terminal mode, but not in GUI mode.
-   dotspacemacs-major-mode-emacs-leader-key (if window-system "<M-return>" "C-M-m")
+   ;; NOTE: When setting like templage file: GUI mode use M-return as leader key
+   ;; weird thing is, emacsclient still uses Meta-return, to make it consistent:
+   ;; M-return is bound to Meta-return for both GUI mode and emacsclient
+   ;; delete M-return here
+   dotspacemacs-major-mode-emacs-leader-key "C-M-m"
 
    ;; These variables control whether separate commands are bound in the GUI to
    ;; the key pairs `C-i', `TAB' and `C-m', `RET'.
