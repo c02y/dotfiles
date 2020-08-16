@@ -56,7 +56,7 @@ This function should only modify configuration layer settings."
      ;; cargo install cargo-edit cargo-audit
      (rust :variables
            ;; rust-format-on-save t
-           lsp-rust-server 'rls         ; the default
+           lsp-rust-server 'rust-analyzer
            )
      yaml
      semantic
