@@ -131,6 +131,8 @@ This function should only modify configuration layer settings."
       )
      ;; TODO: pip install cmake-language-server
      ;; will provide lsp and cmake-format for cmake
+     ;; But cmake-format provided by cmake-language-server seems broken, so
+     ;; pip install cmake_format
      (cmake :variables
             cmake-enable-cmake-ide-support t)
      ;; NOTE: install cscope, pip install pycscope
