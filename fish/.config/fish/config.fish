@@ -1231,9 +1231,26 @@ abbr gdbu 'gdbgui --gdb-args="-q -n"'
 # if it is lz4, decompress it, and `gdb ./file core-file`
 # Using the following abbr to debug the latest core dump binary
 abbr gdbc 'coredumpctl gdb -1'
-abbr cclsc 'cmake -H. -BDebug -DCMAKE_BUILD_TYPE=Debug -DCMAKE_EXPORT_COMPILE_COMMANDS=YES ; and ln -s Debug/compile_commands.json . ; or cp Debug/compile_commands.json .'
-# .clang-format file used by C/Cpp projects by Emacs
-abbr cppf 'ln -s ~/Dotfiles.d/spacemacs/.spacemacs.d/lisp/clang-format-c-cpp .clang-format; or cp ~/Dotfiles.d/spacemacs/.spacemacs.d/lisp/clang-format-c-cpp .clang-format'
+
+function fmts -d "ccls(-c), clang-format(-l), cmake-format(-m)"
+    set -l options 'c' 'l' 'm'
+    argparse -n fmct -N 1 $options -- $argv
+    or return
+
+    if set -q _flag_c
+        # generate compile_commands.json file for C/C++ files used by ccls/lsp
+        cmake -H. -BDebug -DCMAKE_BUILD_TYPE=Debug -DCMAKE_EXPORT_COMPILE_COMMANDS=YES
+        and ln -s Debug/compile_commands.json .; or cp Debug/compile_commands.json .
+    else if set -q _flag_l
+        # .clang-format file for C/Cpp projects used by clang-format
+        ln -s ~/Dotfiles.d/spacemacs/.spacemacs.d/lisp/clang-format-c-cpp .clang-format
+        or cp ~/Dotfiles.d/spacemacs/.spacemacs.d/lisp/clang-format-c-cpp .clang-format
+    else if set -q _flag_m
+        # .cmake-format.json file for CMakeLists.txt used by cmake-format
+        ln -s ~/Dotfiles.d/spacemacs/.spacemacs.d/lisp/cmake-format.json .cmake-format.json
+        or cp ~/Dotfiles.d/spacemacs/.spacemacs.d/lisp/cmake-format.json .cmake-format.json
+    end
+end
 
 # systemd-analyze
 function sab --description 'systemd-analyze blame->time, with any argv, open the result graphic'
