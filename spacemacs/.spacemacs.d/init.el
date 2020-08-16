@@ -1197,6 +1197,8 @@ Emacs session."
     ;; correct the wrong word with prefix+i, next time auto-correct it, defined bellow
     "Ss" 'endless/ispell-word-then-abbrev
     "SS" 'ispell-complete-word
+    ;; replace swiper with swiper-isearch since swiper doen't refresh ivy-resume list
+    "ss" 'swiper-isearch
     "tC" 'rainbow-mode
     "xA" 'align-regexp
     "xaA" 'align-regexp
