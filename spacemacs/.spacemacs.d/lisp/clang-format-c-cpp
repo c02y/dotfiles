@@ -1,6 +1,7 @@
 # SPDX-License-Identifier: GPL-2.0
 #
-# clang-format configuration file. Intended for clang-format >= 4.
+# clang-format configuration file. Intended for clang-format = 10.
+# https://releases.llvm.org/10.0.0/tools/clang/docs/ClangFormatStyleOptions.html
 #
 # For more information, see:
 #
@@ -10,62 +11,87 @@
 #
 # Based on https://github.com/torvalds/linux/blob/master/.clang-format
 ---
+# Cpp is used for C and C++
 Language: Cpp
+# BasedOnStyle:
 AccessModifierOffset: -4
-AlignAfterOpenBracket: Align
-AlignConsecutiveAssignments: false
+# TODO, align
+AlignAfterOpenBracket: AlwaysBreak
+AlignConsecutiveAssignments: true
+# AlignConsecutiveBitFields: true
 AlignConsecutiveDeclarations: false
-#AlignEscapedNewlines: Left # Unknown to clang-format-4.0
+AlignConsecutiveMacros: true
+AlignEscapedNewlines: Left
+# TODO, align
 AlignOperands: true
-AlignTrailingComments: false
-AllowAllParametersOfDeclarationOnNextLine: false
-AllowShortBlocksOnASingleLine: false
+AlignTrailingComments: true
+# TODO, align
+AllowAllArgumentsOnNextLine: true
+AllowAllConstructorInitializersOnNextLine: true
+AllowAllParametersOfDeclarationOnNextLine: true
+# TODO, not work
+AllowShortBlocksOnASingleLine: Empty
 AllowShortCaseLabelsOnASingleLine: false
-AllowShortFunctionsOnASingleLine: None
-AllowShortIfStatementsOnASingleLine: false
+# AllowShortEnumsOnASingleLine: false
+# TODO, not work, or conflict
+# AllowShortFunctionsOnASingleLine: All
+AllowShortIfStatementsOnASingleLine: Never
+# TODO, conficted
+# AllowShortLambdasOnASingleLine: Inline
 AllowShortLoopsOnASingleLine: false
-AlwaysBreakAfterDefinitionReturnType: None
 AlwaysBreakAfterReturnType: None
 AlwaysBreakBeforeMultilineStrings: false
-AlwaysBreakTemplateDeclarations: false
-BinPackArguments: true
-BinPackParameters: true
+AlwaysBreakTemplateDeclarations: No
+# TODO, the following two do not work
+BinPackArguments: false
+BinPackParameters: false
+# BitFieldColonSpacing: After
+# BrraceWrapping only works when BreakBeforeBraces: Custom
+# So the following configs are ignored
 BraceWrapping:
-  AfterClass: false
-  AfterControlStatement: false
+  AfterCaseLabel: false
+  AfterClass: true
+  AfterControlStatement: Never
   AfterEnum: false
   AfterFunction: true
   AfterNamespace: true
   AfterObjCDeclaration: false
   AfterStruct: false
   AfterUnion: false
-  #AfterExternBlock: false # Unknown to clang-format-5.0
+  AfterExternBlock: false
   BeforeCatch: false
   BeforeElse: false
+#  BeforeLambdaBody: false
+#  BeforeWhile: false
   IndentBraces: false
-  #SplitEmptyFunction: true # Unknown to clang-format-4.0
-  #SplitEmptyRecord: true # Unknown to clang-format-4.0
-  #SplitEmptyNamespace: true # Unknown to clang-format-4.0
-BreakBeforeBinaryOperators: None
-BreakBeforeBraces: Custom
-#BreakBeforeInheritanceComma: false # Unknown to clang-format-4.0
-BreakBeforeTernaryOperators: false
-BreakConstructorInitializersBeforeComma: false
-#BreakConstructorInitializers: BeforeComma # Unknown to clang-format-4.0
+  # TODO, the following three do not work
+  SplitEmptyFunction: true
+  SplitEmptyRecord: true
+  SplitEmptyNamespace: true
+#
 BreakAfterJavaFieldAnnotations: false
+BreakBeforeBinaryOperators: None
+BreakBeforeBraces: Linux
+BreakBeforeTernaryOperators: true
+BreakConstructorInitializers: BeforeColon
+BreakInheritanceList: BeforeColon
 BreakStringLiterals: false
+# ColumnLimit: 0 -> no limit
 ColumnLimit: 0
+# TODO?
 CommentPragmas: '^ IWYU pragma:'
-#CompactNamespaces: false # Unknown to clang-format-4.0
+CompactNamespaces: false
 ConstructorInitializerAllOnOneLineOrOnePerLine: false
 ConstructorInitializerIndentWidth: 8
 ContinuationIndentWidth: 8
 Cpp11BracedListStyle: false
+DeriveLineEnding: true
 DerivePointerAlignment: false
 DisableFormat: false
 ExperimentalAutoDetectBinPacking: false
-#FixNamespaceComments: false # Unknown to clang-format-4.0
+FixNamespaceComments: false
 
+# TODO?
 # Taken from:
 #   git grep -h '^#define [^[:space:]]*for_each[^[:space:]]*(' include/ \
 #   | sed "s,^#define \([^[:space:]]*for_each[^[:space:]]*\)(.*$,  - '\1'," \
@@ -480,13 +506,26 @@ ForEachMacros:
   - 'xbc_node_for_each_key_value'
   - 'zorro_for_each_dev'
 
-#IncludeBlocks: Preserve # Unknown to clang-format-5.0
+# TODO, not work
+IncludeBlocks: Regroup
 IncludeCategories:
-  - Regex: '.*'
-    Priority: 1
+  - Regex:           '^"(llvm|llvm-c|clang|clang-c)/'
+    Priority:        2
+    SortPriority:    2
+  - Regex:           '^(<|"(gtest|gmock|isl|json)/)'
+    Priority:        3
+  - Regex:           '<[[:alnum:].]+>'
+    Priority:        4
+  - Regex:           '.*'
+    Priority:        1
+    SortPriority:    0
 IncludeIsMainRegex: '(Test)?$'
+# IncludeIsMainSourceRegex:
+# IndentCaseBlocks: false
 IndentCaseLabels: false
-#IndentPPDirectives: None # Unknown to clang-format-5.0
+# IndentExternBlock: Indent
+IndentGotoLabels: false
+IndentPPDirectives: None
 IndentWidth: 8
 IndentWrappedFunctionNames: false
 JavaScriptQuotes: Leave
@@ -495,14 +534,14 @@ KeepEmptyLinesAtTheStartOfBlocks: false
 MacroBlockBegin: ''
 MacroBlockEnd: ''
 MaxEmptyLinesToKeep: 1
-NamespaceIndentation: None
-#ObjCBinPackProtocolList: Auto # Unknown to clang-format-5.0
+NamespaceIndentation: All
+ObjCBinPackProtocolList: Auto
 ObjCBlockIndentWidth: 8
 ObjCSpaceAfterProperty: true
 ObjCSpaceBeforeProtocolList: true
 
 # Taken from git's rules
-#PenaltyBreakAssignment: 10 # Unknown to clang-format-4.0
+PenaltyBreakAssignment: 10
 PenaltyBreakBeforeFirstCallParameter: 30
 PenaltyBreakComment: 10
 PenaltyBreakFirstLessLess: 0
@@ -513,22 +552,33 @@ PenaltyReturnTypeOnItsOwnLine: 60
 PointerAlignment: Right
 ReflowComments: false
 SortIncludes: false
-#SortUsingDeclarations: false # Unknown to clang-format-4.0
+SortUsingDeclarations: false
 SpaceAfterCStyleCast: false
+SpaceAfterLogicalNot: false
 SpaceAfterTemplateKeyword: true
 SpaceBeforeAssignmentOperators: true
-#SpaceBeforeCtorInitializerColon: true # Unknown to clang-format-5.0
-#SpaceBeforeInheritanceColon: true # Unknown to clang-format-5.0
+SpaceBeforeCpp11BracedList: false
+SpaceBeforeCtorInitializerColon: true
+SpaceBeforeInheritanceColon: true
 SpaceBeforeParens: ControlStatements
-#SpaceBeforeRangeBasedForLoopColon: true # Unknown to clang-format-5.0
+SpaceBeforeRangeBasedForLoopColon: true
+SpaceBeforeSquareBrackets: false
+SpaceInEmptyBlock: false
 SpaceInEmptyParentheses: false
-SpacesBeforeTrailingComments: 1
+SpacesBeforeTrailingComments: 4
 SpacesInAngles: false
-SpacesInContainerLiterals: false
 SpacesInCStyleCastParentheses: false
+SpacesInConditionalStatement: false
+SpacesInContainerLiterals: false
 SpacesInParentheses: false
 SpacesInSquareBrackets: false
+# StatementMacros
 Standard: c++11
+# NOTE, alredy set different values for C and C++ in emacs init.el
 TabWidth: 8
-UseTab: Always
+# TypenameMacros
+# UseCRLF is used with DeriveLineEnding
+# UseCRLF: true
+UseTab: ForContinuationAndIndentation
+# WhitespaceSensitiveMacros
 ...
