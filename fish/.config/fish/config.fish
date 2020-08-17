@@ -1511,7 +1511,6 @@ abbr gitt 'git tag --sort=-taggerdate' # sort tag by date, new tag first
 abbr gitft 'git ls-files --error-unmatch' # Check if file/dir is git-tracked
 abbr gitpu 'git push -v'
 abbr gitpun 'git push -v -n' # simulate git push
-abbr gitpl 'git pull'
 abbr gitpr 'git pull --rebase=interactive'
 abbr gitup 'tig log origin/master..HEAD' # list unpushed commits using tig
 set -l SSR socks5://127.0.0.1:1080
@@ -1556,7 +1555,8 @@ function gitrm -d 'clean untracked file/dirs(fileA fileB...), all by default)'
         end
     end
 end
-function gitpll -d 'git pull and location it to previous commit id before git pull in git log'
+abbr gitpll 'git pull'
+function gitpl -d 'git pull and location it to previous commit id before git pull in git log'
     set COMMIT_ID (git rev-parse HEAD) # short version: `git rev-parse --short HEAD`
     git log -1 # show the info of the current commit before git pull
     git pull
