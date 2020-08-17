@@ -1234,21 +1234,21 @@ abbr gdbc 'coredumpctl gdb -1'
 
 function fmts -d "ccls(-c), clang-format(-l), cmake-format(-m)"
     set -l options 'c' 'l' 'm'
-    argparse -n fmct -N 1 $options -- $argv
+    argparse -n fmts $options -- $argv
     or return
 
     if set -q _flag_c
         # generate compile_commands.json file for C/C++ files used by ccls/lsp
         cmake -H. -BDebug -DCMAKE_BUILD_TYPE=Debug -DCMAKE_EXPORT_COMPILE_COMMANDS=YES
-        and ln -s Debug/compile_commands.json .; or cp Debug/compile_commands.json .
+        and ln -vs Debug/compile_commands.json .; or cp Debug/compile_commands.json .
     else if set -q _flag_l
         # .clang-format file for C/Cpp projects used by clang-format
-        ln -s ~/Dotfiles.d/spacemacs/.spacemacs.d/lisp/clang-format-c-cpp .clang-format
-        or cp ~/Dotfiles.d/spacemacs/.spacemacs.d/lisp/clang-format-c-cpp .clang-format
+        ln -vs ~/Dotfiles.d/spacemacs/.spacemacs.d/lisp/clang-format-c-cpp .clang-format
+        or cp -v ~/Dotfiles.d/spacemacs/.spacemacs.d/lisp/clang-format-c-cpp .clang-format
     else if set -q _flag_m
         # .cmake-format.json file for CMakeLists.txt used by cmake-format
-        ln -s ~/Dotfiles.d/spacemacs/.spacemacs.d/lisp/cmake-format.json .cmake-format.json
-        or cp ~/Dotfiles.d/spacemacs/.spacemacs.d/lisp/cmake-format.json .cmake-format.json
+        ln -ns ~/Dotfiles.d/spacemacs/.spacemacs.d/lisp/cmake-format.json .cmake-format.json
+        or cp -v ~/Dotfiles.d/spacemacs/.spacemacs.d/lisp/cmake-format.json .cmake-format.json
     end
 end
 
