@@ -16,7 +16,7 @@ Language: Cpp
 # BasedOnStyle:
 AccessModifierOffset: -4
 # TODO, align
-AlignAfterOpenBracket: AlwaysBreak
+AlignAfterOpenBracket: Align
 AlignConsecutiveAssignments: true
 # AlignConsecutiveBitFields: true
 AlignConsecutiveDeclarations: false
@@ -26,9 +26,9 @@ AlignEscapedNewlines: Left
 AlignOperands: true
 AlignTrailingComments: true
 # TODO, align
-AllowAllArgumentsOnNextLine: true
-AllowAllConstructorInitializersOnNextLine: true
-AllowAllParametersOfDeclarationOnNextLine: true
+AllowAllArgumentsOnNextLine: false
+AllowAllConstructorInitializersOnNextLine: false
+AllowAllParametersOfDeclarationOnNextLine: false
 # TODO, not work
 AllowShortBlocksOnASingleLine: Empty
 AllowShortCaseLabelsOnASingleLine: false
@@ -43,8 +43,8 @@ AlwaysBreakAfterReturnType: None
 AlwaysBreakBeforeMultilineStrings: false
 AlwaysBreakTemplateDeclarations: No
 # TODO, the following two do not work
-BinPackArguments: false
-BinPackParameters: false
+BinPackArguments: true
+BinPackParameters: true
 # BitFieldColonSpacing: After
 # BrraceWrapping only works when BreakBeforeBraces: Custom
 # So the following configs are ignored
@@ -78,7 +78,7 @@ BreakInheritanceList: BeforeColon
 BreakStringLiterals: false
 # ColumnLimit: 0 -> no limit
 ColumnLimit: 0
-# TODO?
+# TODO, what is it
 CommentPragmas: '^ IWYU pragma:'
 CompactNamespaces: false
 ConstructorInitializerAllOnOneLineOrOnePerLine: false
@@ -91,7 +91,7 @@ DisableFormat: false
 ExperimentalAutoDetectBinPacking: false
 FixNamespaceComments: false
 
-# TODO?
+# TODO, what is it
 # Taken from:
 #   git grep -h '^#define [^[:space:]]*for_each[^[:space:]]*(' include/ \
 #   | sed "s,^#define \([^[:space:]]*for_each[^[:space:]]*\)(.*$,  - '\1'," \
