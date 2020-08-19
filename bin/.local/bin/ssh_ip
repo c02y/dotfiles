@@ -11,7 +11,7 @@ pane_tty=$(tmux display-message -p '#{pane_tty}' | cut -c 6-)
 #ip_addr=$(ps -ef | grep -v grep | grep "sudo ssh " | grep $pane_tty | awk '{$1=$2=$3=$4=$5=$6=$7=""}1' | awk 'NF>1{print $NF}')
 #ip_addr=$(ps -eo tty,command| grep -v grep | grep "sudo ssh " | grep $pane_tty | awk 'NF>1{print $NF}')
 #ip_addr=$(ps -o command -t $pane_tty | grep "sudo ssh " | awk 'NF>1{print $NF}')
-ip_addr=$(pgrep -t $pane_tty -l -f "sudo ssh " | awk 'NF>1{print $NF}')
+ip_addr=$(ps -ef | grep $pane_tty | grep "ssh " | grep -v grep | awk 'NF>1{print $NF}')
 
 if [[ "$ip_addr" != "" ]]; then
     echo "<$ip_addr>"
