@@ -1432,13 +1432,11 @@ Version 2016-12-18"
    '(swiper-match-face-4
      ((t :background "white"))))
 
-  ;; highlight selected, to fix the issue that when the expr is already highlight(multiple occurs), no color for selected region
+  ;; highlight selected, to fix the issue that when the expr is already
+  ;; highlighted(word occurs), no color for selected region
   (add-hook 'after-change-major-mode-hook
             (lambda ()
-              (set-face-attribute 'region nil :background "white")
-              ;; always display the color of code or name, use SPC c t to disable it
-              (rainbow-mode)
-              ))
+              (set-face-attribute 'region nil :background "white")))
 
   ;; format
   (setq-default
