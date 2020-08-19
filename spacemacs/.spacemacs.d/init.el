@@ -1215,6 +1215,8 @@ Emacs session."
     "hv" 'counsel-describe-variable
     ;; The original binding is SPC h d f
     "hf" 'counsel-describe-function
+    ;; The original binding is SPC h d F
+    "hF" 'counsel-describe-face
     ;; The original binding is SPC h d b
     "hb" 'counsel-descbinds
     "nn" 'narrow-or-widen-dwim
@@ -1331,6 +1333,7 @@ Version 2016-12-18"
    ("C-h h" . counsel-describe-symbol)
    ("C-h c" . counsel-colors-emacs)
    ("C-h C-c" . counsel-faces)
+   ("C-h F" . counsel-describe-face)
    ("C-x /" . counsel-semantic-or-imenu)   ;; SPC j i
    ("C-x x" . switch-to-prev-visited-buffer)
    ("M-;" . comment-dwim-2)
@@ -1404,7 +1407,9 @@ Version 2016-12-18"
 
   ;; whitespace faces
   (with-eval-after-load 'whitespace
-    (set-face-attribute 'whitespace-space-after-tab nil :background "red" :foreground "yellow")
+    ;; (set-face-attribute 'whitespace-space-after-tab nil :background "red" :foreground "yellow")
+    ;; for clang-format, don't highlight the spaces use by alignment
+    (set-face-attribute 'whitespace-space-after-tab nil :background nil :foreground nil)
     (set-face-attribute 'whitespace-space-before-tab nil :background "red" :foreground "yellow")
     (if indent-tabs-mode
         (progn
