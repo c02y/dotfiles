@@ -398,13 +398,20 @@ if check_daemon_status; then
 		# use eval since $cmd is string(command) in variable
 		eval emacsclient -a "" -n -c $cmd $@
 	else
-		# "" here forces the GUI running without holding the terminal, like &
-		eval "emacsclient -a \"\" -n -F \"'(fullscreen . maximized)\" -c $cmd" $@ >/dev/null
-	fi
-fi
-if [ "$DISPLAY" ]; then # using GUI
-	# if the focused window is not emacs, minimize it
-	if ! xdotool getwindowfocus getwindowname | grep -i emacs >/dev/null; then
-		xdotool getwindowfocus windowminimize
+		# find all existing frames
+		frameslist=$(emacsclient -a '' --eval '(frame-list)' 2>/dev/null | egrep -o '(frame)+')
+		if [ "$(echo "$frameslist" | sed -n '$=')" -ge 2 ]; then
+			# prevent creating another X frame if there is at least one present.
+			# "" here forces the GUI running without holding the terminal, like &
+			eval "emacsclient -a \"\" -n -F \"'(fullscreen . maximized)\" $cmd" $@ >/dev/null
+		else
+			# "" here forces the GUI running without holding the terminal, like &
+			# Create one if there is no X window yet.
+			eval "emacsclient -a \"\" -n -F \"'(fullscreen . maximized)\" -c $cmd" $@ >/dev/null
+		fi
+		# if the focused window is not emacs, minimize it
+		if ! xdotool getwindowfocus getwindowname | grep -i emacs >/dev/null; then
+			xdotool getwindowfocus windowminimize
+		fi
 	fi
 fi
