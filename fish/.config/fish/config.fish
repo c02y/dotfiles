@@ -1685,7 +1685,7 @@ function gitbs -d 'branches and worktrees'
                 git branch # list local branches
                 # get the current branch name
                 echo "Current branch name:"
-                git name-rev --name-only HEAD
+                git rev-parse --symbolic-full-name --abbrev-ref HEAD
             else if test "$argv" = "fzf" # use fzf to switch branch
                 # NOTE: if the branch is not in `git branch -a`, try `git ls-remote`
                 git fetch
