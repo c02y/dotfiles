@@ -2467,10 +2467,17 @@ end
 
 abbr ytd 'youtube-dl -citw'
 
-function rgs -d 'rg sth in init.el(-e)/errno(-E)/config.fish(-f)/.tmux.conf(-t)/vimrc(-v), or use fzf(-F) to open the file, git repo(-g)'
-    set -l options 'e' 'E' 'f' 'F' 'g' 't' 'v'
+function rgs -d 'rg sth in -e(init.el)/-E(errno)/-f(config.fish)/-t(.tmux.conf)/-v(vimrc), or use -F(fzf) to open the file, -g(git repo), -w(whole word), -V(exclude pattern), -l(list files)'
+    set -l options 'e' 'E' 'f' 't' 'v' 'F' 'g' 'w' 'V=' 'l'
     argparse -n rgs -N 1 $options -- $argv
     or return
+
+    set OPT "--hidden"
+    set -q _flag_w; and set OPT $OPT "-w"
+    set -q _flag_l; and set OPT $OPT "-l"
+    # NOTE -V require an argument, so put "V=" line for argparse
+    # and $_flag_V is the argument for for -V
+    set -q _flag_V; and set OPT $OPT -g !$_flag_V
 
     if set -q _flag_e
         set FILE $EMACS_EL
@@ -2481,12 +2488,12 @@ function rgs -d 'rg sth in init.el(-e)/errno(-E)/config.fish(-f)/.tmux.conf(-t)/
         return
     else if set -q _flag_f
         set FILE $FISHRC
-    else if set -q _flag_g
-        git grep "$argv" (git rev-list --all)
     else if set -q _flag_t
         set FILE ~/.tmux.conf
     else if set -q _flag_v
         set FILE $VIMRC
+    else if set -q _flag_g
+        git grep "$argv" (git rev-list --all)
     else # without options
         if set -q $argv[2] # no $argv[2]
             set FILE .
@@ -2496,12 +2503,12 @@ function rgs -d 'rg sth in init.el(-e)/errno(-E)/config.fish(-f)/.tmux.conf(-t)/
     end
 
     echo "\"$argv[1]" >>~/.lesshst
-    rg --hidden -p $argv[1] $FILE | less -i -RM -FX -s
+    rg $OPT -p $argv[1] $FILE | less -i -RM -FX -s
 
     if set -q _flag_F # search pattern(s) in dir/file, open if using vim
         read -n 1 -p 'echo "Open it with vim? [Y/n]: "' -l answer
         if test "$answer" = "y" -o "$answer" = " "
-            rg --hidden --color never $argv[1] $FILE -l | fzf --bind 'enter:execute:vim {} < /dev/tty'
+            rg $OPT --color never $argv[1] $FILE -l | fzf --bind 'enter:execute:vim {} < /dev/tty'
         else
             echo "Canceled!"
         end
