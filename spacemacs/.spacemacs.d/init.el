@@ -1394,6 +1394,7 @@ Version 2016-12-18"
    ("C-c d" . duplicate-line-or-region)
    ("C-c D" . delete-duplicated-lines-buffer-or-region)
    ("M-RET" . Meta-return)
+   ("<C-return>" . Ctrl-return)         ; NOTE C-RET doesn't work as expected
    )
   (bind-keys :map evil-hybrid-state-map
              ;; not put it into global, it goes wrong in helm mode
@@ -2010,6 +2011,15 @@ In other non-comment situations, try C-M-j to split."
           ;; executing key in a function
           (call-interactively (key-binding (kbd "C-M-j")))
           (indent-according-to-mode)))))
+  (defun Ctrl-return ()
+    "Newline(split line) and indent, move the new spited line up, the opposite of Meta-return
+1. move comment from the end of the line to the above line,
+2. OR open a new line above the current and jump to it like O(evil mode)"
+    (interactive)
+    (Meta-return)
+    (transpose-lines 1)
+    (previous-line 2)
+    (indent-according-to-mode))
 
   (add-hook 'smartparens-enabled-hook #'evil-smartparens-mode)
   (dolist (hook '(css-mode-hook))
