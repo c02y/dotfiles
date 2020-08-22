@@ -1558,11 +1558,11 @@ function gitrm -d 'clean untracked file/dirs(fileA fileB...), all by default)'
         end
     end
 end
-abbr gitpll 'git pull'
+abbr gitpl 'git pull'
 # https://ask.xiaolee.net/questions/1061863
 # fix the merge issue from git pull when pushing to remote
 abbr gitplr 'git pull --rebase'
-function gitpl -d 'git pull and location it to previous commit id before git pull in git log'
+function gitpll -d 'git pull and location it to previous commit id before git pull in git log'
     set COMMIT_ID (git rev-parse HEAD) # short version: `git rev-parse --short HEAD`
     git log -1 # show the info of the current commit before git pull
     git pull
