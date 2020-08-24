@@ -783,7 +783,11 @@ before packages are loaded."
                (modify-frame-parameters
                 frame
                 '((vertical-scroll-bars . nil)
-                  (horizontal-scroll-bars . nil)))))
+                  (horizontal-scroll-bars . nil)))
+               (select-frame frame)
+               (spacemacs/toggle-maximize-frame-on)
+               (delete-other-windows)
+               ))
 
   ;; prevent package-selected-package list been created
   (defun package--save-selected-packages (&rest opt) nil)
