@@ -1215,7 +1215,7 @@ abbr yayr 'yay -Rsun'
 # check yay --help for more
 # pacui, depending on yay, install it first
 abbr pui 'pacui'
-abbr puii 'pacui i'
+abbr puii 'proxychains4 -q pacui i'
 abbr puid 'pacui d' # downgrade a package
 abbr puil 'pacui s' # list files in a package
 abbr puila 'pacui la' # list packages installed from aur
