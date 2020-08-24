@@ -1395,6 +1395,7 @@ Version 2016-12-18"
    ("C-c D" . delete-duplicated-lines-buffer-or-region)
    ("M-RET" . Meta-return)
    ("<C-return>" . Ctrl-return)         ; NOTE C-RET doesn't work as expected
+   ("M-`" . other-window)
    )
   (bind-keys :map evil-hybrid-state-map
              ;; not put it into global, it goes wrong in helm mode
