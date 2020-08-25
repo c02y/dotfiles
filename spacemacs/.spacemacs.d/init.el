@@ -1053,8 +1053,6 @@ With argument, backward ARG lines."
                ("M-2" . winum-select-window-2)
                ("M-3" . winum-select-window-3)
                ("M-4" . winum-select-window-4)
-               ;; the default is for treemacs-select-window
-               ("M-0" . spacemacs/switch-to-minibuffer-window)
                )
     (add-hook 'magit-diff-mode-hook (lambda () (setq truncate-lines nil)))
     )
@@ -1296,6 +1294,7 @@ Emacs session."
     "L t" 'leetcode-try
     "L s" 'leetcode-submit
     ;; the default is for treemacs-select-window
+    ;; the other bindings for treemacs-select-window are M-0/C-x w 0
     "0" 'spacemacs/switch-to-minibuffer-window
     )
 
@@ -1408,9 +1407,6 @@ Version 2016-12-18"
    ("M-RET" . Meta-return)
    ("<C-return>" . Ctrl-return)         ; NOTE C-RET doesn't work as expected
    ("M-`" . other-window)
-   ;; the default is for treemacs-select-window
-   ("M-0" . spacemacs/switch-to-minibuffer-window)
-   ("C-x w 0" . spacemacs/switch-to-minibuffer-window)
    )
   (bind-keys :map evil-hybrid-state-map
              ;; not put it into global, it goes wrong in helm mode
