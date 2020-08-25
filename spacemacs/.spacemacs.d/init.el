@@ -218,6 +218,7 @@ This function should only modify configuration layer settings."
                                     git-gutter-fringe git-gutter-fringe+ fancy-battery
                                     dactyl-mode lorem-ipsum uuidgen evil-tutor indent-guide
                                     org-superstar
+                                    evil-escape
                                     )
 
    ;; Defines the behaviour of Spacemacs when installing packages.
