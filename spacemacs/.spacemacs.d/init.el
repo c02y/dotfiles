@@ -914,6 +914,7 @@ before packages are loaded."
                                          (get-buffer-create "*compilation*"))
                                         (message "No Compilation Errors!"))))
    find-file-visit-truename t
+   winum-auto-assign-0-to-minibuffer t
    )
 
   ;; NOTE: along with undo-tree-auto-save-history
@@ -1049,6 +1050,8 @@ With argument, backward ARG lines."
                ("M-2" . winum-select-window-2)
                ("M-3" . winum-select-window-3)
                ("M-4" . winum-select-window-4)
+               ;; the default is for treemacs-select-window
+               ("M-0" . spacemacs/switch-to-minibuffer-window)
                )
     (add-hook 'magit-diff-mode-hook (lambda () (setq truncate-lines nil)))
     )
@@ -1289,6 +1292,8 @@ Emacs session."
     "L r" 'leetcode-problems-refresh
     "L t" 'leetcode-try
     "L s" 'leetcode-submit
+    ;; the default is for treemacs-select-window
+    "0" 'spacemacs/switch-to-minibuffer-window
     )
 
   (defun switch-to-ein-notebooklist-buffer ()
@@ -1400,6 +1405,9 @@ Version 2016-12-18"
    ("M-RET" . Meta-return)
    ("<C-return>" . Ctrl-return)         ; NOTE C-RET doesn't work as expected
    ("M-`" . other-window)
+   ;; the default is for treemacs-select-window
+   ("M-0" . spacemacs/switch-to-minibuffer-window)
+   ("C-x w 0" . spacemacs/switch-to-minibuffer-window)
    )
   (bind-keys :map evil-hybrid-state-map
              ;; not put it into global, it goes wrong in helm mode
