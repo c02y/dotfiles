@@ -103,6 +103,8 @@ This function should only modify configuration layer settings."
             shell-default-shell 'eshell
             shell-enable-smart-shell t
             close-window-with-terminal t
+            ;; not the full width, but just split the current window
+            shell-default-full-span nil
             )
      (spell-checking :variables
                      ;; enable-flyspell-auto-completion t
