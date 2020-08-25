@@ -60,7 +60,13 @@ This function should only modify configuration layer settings."
            )
      yaml
      semantic
-     treemacs
+     (treemacs :variables
+               treemacs-position 'right
+               treemacs-no-png-images t
+               treemacs-use-scope-type 'Perspectives
+               treemacs-display-in-side-window nil
+               treemacs-show-cursor t
+               )
      ;; NOTE: install shellcheck
      shell-scripts
      (auto-completion :variables
