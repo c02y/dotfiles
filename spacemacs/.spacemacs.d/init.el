@@ -142,7 +142,8 @@ This function should only modify configuration layer settings."
      ;; But cmake-format provided by cmake-language-server seems broken, so
      ;; pip install cmake_format
      (cmake :variables
-            cmake-enable-cmake-ide-support t)
+            cmake-enable-cmake-ide-support t
+            cmake-backend 'lsp)
      ;; NOTE: install cscope, pip install pycscope
      cscope
      ;; NOTE: to generate compile_commands.json file for lsp before using lsp
@@ -456,7 +457,7 @@ It should only modify the values of Spacemacs settings."
 
    ;; Which-key delay in seconds. The which-key buffer is the popup listing
    ;; the commands bound to the current keystroke sequence. (default 0.4)
-   dotspacemacs-which-key-delay 0.3
+   dotspacemacs-which-key-delay 0.4
 
    ;; Which-key frame position. Possible values are `right', `bottom' and
    ;; `right-then-bottom'. right-then-bottom tries to display the frame to the
@@ -615,15 +616,12 @@ It should only modify the values of Spacemacs settings."
    ;; (default t)
    dotspacemacs-use-clean-aindent-mode nil
 
-   ;; If non-nil activate `snoopy-mode' which shifts your number row
-   ;; to match the set of signs given in `dotspacemacs-snoopy-keyrow'
-   ;; in programming modes (insert-mode only). (default nil)
-   dotspacemacs-use-snoopy-mode nil
-
-   ;; Text of shifted values from your
-   ;; keyboard's number row. (default '!@#$%^&*()')
-   dotspacemacs-snoopy-keyrow "!@#$%^&*()"
-
+   ;; If non-nil shift your number row to match the entered keyboard layout
+   ;; (only in insert state). Currently supported keyboard layouts are:
+   ;; `qwerty-us', `qwertz-de' and `querty-ca-fr'.
+   ;; New layouts can be added in `spacemacs-editing' layer.
+   ;; (default nil)
+   dotspacemacs-swap-number-row nil
 
    ;; Either nil or a number of seconds. If non-nil zone out after the specified
    ;; number of seconds. (default nil)
