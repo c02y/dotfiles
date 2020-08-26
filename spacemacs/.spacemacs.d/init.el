@@ -750,7 +750,9 @@ https://github.com/syl20bnr/spacemacs/issues/12346"
         ispell-local-dictionary-alist
         ;; Please note the list `("-d" "en_US")` contains ACTUAL parameters passed to hunspell
         ;; You could use `("-d" "en_US,en_US-med")` to check with multiple dictionaries
-        '(("en_US" "[[:alpha:]]" "[^[:alpha:]]" "[']" nil ("-d" "en_US") nil utf-8)))
+        '(("en_US" "[[:alpha:]]" "[^[:alpha:]]" "[']" nil ("-d" "en_US") nil utf-8))
+        ;; number of windows is independent in multiple frames
+        winum-scope 'frame-local)
   )
 
 (defun dotspacemacs/user-load ()
@@ -921,8 +923,6 @@ before packages are loaded."
                                          (get-buffer-create "*compilation*"))
                                         (message "No Compilation Errors!"))))
    find-file-visit-truename t
-   ;; number of windows is independent in multiple frames
-   winum-scope 'frame-local
    )
 
   ;; NOTE: along with undo-tree-auto-save-history
