@@ -921,7 +921,8 @@ before packages are loaded."
                                          (get-buffer-create "*compilation*"))
                                         (message "No Compilation Errors!"))))
    find-file-visit-truename t
-   winum-auto-assign-0-to-minibuffer t
+   ;; number of windows is independent in multiple frames
+   winum-scope 'frame-local
    )
 
   ;; NOTE: along with undo-tree-auto-save-history
