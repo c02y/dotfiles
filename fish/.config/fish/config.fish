@@ -2312,6 +2312,7 @@ function catt
     end
 end
 
+abbr dic 'trans :zh'
 function deff -d 'find definition in dictionary'
     echo "-1\n" | sdcv $argv | head -n 1 | rg ", similar to " ^/dev/null >/dev/null
     if test $status = 0 # Found exact words or similar
