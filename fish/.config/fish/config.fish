@@ -1496,8 +1496,8 @@ abbr ggl 'tig log'
 abbr gglp 'tig log -p --'
 abbr ggs 'tig status'
 abbr ggr 'tig refs'
-abbr gits 'git status' # = tig status(ggs)
-abbr gitl 'git log --stat' # = tig log(ggl)
+abbr gits 'git status'
+abbr gitl 'tig log'
 abbr gitlo 'git log --oneline' # = tig(gg)
 abbr gitlp 'git log -p --' # [+ file] to how entire all/[file(even renamed)] history
 abbr gitls 'git diff --name-only --cached' # list staged files to be commited
