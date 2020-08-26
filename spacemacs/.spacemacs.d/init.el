@@ -57,6 +57,7 @@ This function should only modify configuration layer settings."
      (rust :variables
            ;; rust-format-on-save t
            lsp-rust-server 'rust-analyzer
+           cargo-process--open-file-after-new t
            )
      yaml
      semantic
