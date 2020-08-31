@@ -36,6 +36,9 @@ test -f ~/.config/nvim/README.md; and set -gx VIMRC (readlink -f ~/.SpaceVim.d/a
 # export LANG=en_US.UTF-8
 # export LANGUAGE=en_US.UTF-8
 
+# change keyboard auto repeat, this improves keyboard experience, such as the scroll in Emacs
+xset r rate 200 50
+
 # fix the Display :0 can't be opened problem
 if test $DISPLAY
     if xhost ^/dev/null >/dev/null
