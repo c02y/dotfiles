@@ -2269,8 +2269,8 @@ function pxs -d 'multiple commands using proxychains4'
         proxychains4 -q curl -L -O -C - $argv
     else if set -q _flag_w
         proxychains4 -q wget -c --no-check-certificate $argv
-    else
-        proxychains4 -q $argv
+    else # default = -w
+        proxychains4 -q wget -c --no-check-certificate $argv
     end
 end
 
