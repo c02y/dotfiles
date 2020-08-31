@@ -481,6 +481,9 @@ function! UserConfig()
     call airline#add_statusline_func('WindowNumber')
     call airline#add_inactive_statusline_func('WindowNumber')
 
+    " after using n/N, auto highlight search even without using n/N
+    map n <Plug>(anzu-n-with-echo)
+    map N <Plug>(anzu-N-with-echo)
     " toggle hlsearch, highlight search result
     nnoremap <expr> <Leader>th (&hls && v:hlsearch ? ':nohls' : ':set hls')."\n"
 endfunction
