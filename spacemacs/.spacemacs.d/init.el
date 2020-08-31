@@ -1203,6 +1203,10 @@ Emacs session."
   (spacemacs/declare-prefix "=" "format/indent")
   (spacemacs/declare-prefix "L" "leetcode")
   (spacemacs/set-leader-keys
+    ;; the default binding is counsel-switch-buffer
+    "bb" 'counsel-ibuffer
+    ;; overwrite the default bB
+    "bB" 'counsel-buffer-or-recentf
     "bU" 'reopen-killed-buffer-fancy
     ;; whitespace-cleanup will also do untabify-it/tabify-it automatically
     ;; according indent-tabs-mode, so the definitions of two functions are not needed
