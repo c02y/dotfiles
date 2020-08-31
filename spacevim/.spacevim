@@ -353,7 +353,7 @@ function! UserConfig()
     "fzf
     " Overwrite the default Files command to include hidden files
     command! -bang -nargs=? -complete=dir Files
-                \ call fzf#vim#files(<q-args>, {'source': 'ag --hidden --ignore .git -g ""'}, <bang>0)
+                \ call fzf#vim#files(<q-args>, {'source': 'rg --hidden --files -g !.git'}, <bang>0)
     " SPC ff is bound to files-in-home-direcotry by default
     nnoremap <Leader>ff :Files<CR>
     let g:spacevim#map#leader#desc.f.f = 'Files-in-current-dir'
@@ -371,8 +371,8 @@ function! UserConfig()
     let g:spacevim#map#leader#desc.p.f = 'Files-in-project-all'
     nnoremap <Leader>pF :GFiles<CR>
     let g:spacevim#map#leader#desc.p.F = 'Files-in-project'
-    nnoremap <Leader>sg :Ag<CR>
-    nnoremap <Leader>sG :Rg<CR>
+    nnoremap <Leader>sg :Rg<CR>
+    nnoremap <Leader>sG :Ag<CR>
     nnoremap <Leader>sS :call SwoopSelection()<CR>
     nnoremap <Leader>hc :Commands<CR>
     nnoremap <Leader>hb :Maps<CR>

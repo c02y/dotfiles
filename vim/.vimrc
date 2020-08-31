@@ -407,7 +407,7 @@ set rtp+=~/.fzf
 Plug 'junegunn/fzf.vim'
 " Overwrite the default Files command to include hidden files
 command! -bang -nargs=? -complete=dir Files
-            \ call fzf#vim#files(<q-args>, {'source': 'ag --hidden --ignore .git -g ""'}, <bang>0)
+            \ call fzf#vim#files(<q-args>, {'source': 'rg --hidden --files -g !.git'}, <bang>0)
 nnoremap <Leader>ff :Files<CR>
 nnoremap <Leader>fF :Files<Space>
 nnoremap <Leader>fe :call feedkeys(":e \<Tab>", 'tn')<CR>
@@ -416,8 +416,8 @@ nnoremap <Leader>fv :e ~/Dotfiles.d/vim/.vimrc<CR>
 nnoremap <Leader>pf :GFiles --cached --others<CR>
 nnoremap <Leader>pF :GFiles<CR>
 nnoremap <Leader>bb :Buffers<CR>
-nnoremap <Leader>sg :Ag<CR>
-nnoremap <Leader>sG :Rg<CR>
+nnoremap <Leader>sg :Rg<CR>
+nnoremap <Leader>sG :Ag<CR>
 
 Plug 'chrisbra/NrrwRgn'
 
