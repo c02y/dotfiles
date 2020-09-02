@@ -486,4 +486,9 @@ function! UserConfig()
     map N <Plug>(anzu-N-with-echo)
     " toggle hlsearch, highlight search result
     nnoremap <expr> <Leader>th (&hls && v:hlsearch ? ':nohls' : ':set hls')."\n"
+
+    " search the whole word
+    nnoremap <Leader>/ /\<\><left><left>
+    " search and list all the result of current word
+    nnoremap <Leader>sl :vimgrep /<c-r>=expand("<cword>")<cr>/ %<cr>:copen<cr>
 endfunction
