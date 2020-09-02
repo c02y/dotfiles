@@ -175,7 +175,7 @@ end
 # tmux related
 abbr tls 'tmux list-panes -s'
 function tk -d 'tmux kill-session all(default)/single(id)/multiple(id1 id2)/except(-e)/list(-l) sessions'
-    if test (ps -ef | rg -v rg | rg tmux | wc -l ) = 0
+    if test (ps -ef | rg -w -v rg | rg tmux | wc -l ) = 0
         echo "No tmux server is running!!!"
         return
     end
@@ -316,7 +316,6 @@ abbr pm-hb 'sudo pm-hibernate' # not work in old CentOS6
 abbr rgr 'ranger'
 abbr fpp '~/Public/PathPicker/fpp'
 abbr ga 'glances -t 1 --hide-kernel-threads -b --disable-irq --enable-process-extended'
-abbr dst 'dstat -d -n'
 function ml -d 'mutt/neomutt'
     if command -sq neomutt
         set MUTT neomutt
@@ -422,11 +421,11 @@ abbr kille 'pkill -SIGUSR2 emacs'
 # get the pid of a gui program using mouse
 abbr pid 'xprop | rg -i pid | rg -Po "[0-9]+"'
 function psgs -d 'pgrep process, used in script'
-    ps -ef | rg -v rg | rg -i $argv[1] | nl
+    ps -ef | rg -w -v rg | rg -i $argv[1] | nl
 end
 function psg -d 'pgrep process, used in command line'
-    ps -ef | rg -v rg | rg -i $argv[1] | nl
-    if test (ps -ef | rg -v rg | rg -i $argv[1] | nl | wc -l) = 1
+    ps aux | rg -w -v rg | rg -i $argv[1] | nl
+    if test (ps aux | rg -w -v rg | rg -i $argv[1] | nl | wc -l) = 1
         set pid (pgrep -if $argv[1])
         echo -e "\nPID: " $pid
         if test $DISPLAY
@@ -1896,7 +1895,7 @@ function docksh -d 'add a share folder to existed container'
     docker run -ti -v $share_src:$share_dst $new_name /bin/bash
 end
 
-if test (ps -ef | rg -v rg | rg -e 'shadowsocks|v2ray ' | awk '{ print $(NF-2) }') # ssr/v2ray is running
+if test (ps -ef | rg -w -v rg | rg -e 'shadowsocks|v2ray ' | awk '{ print $(NF-2) }') # ssr/v2ray is running
     set -g PXY 'proxychains4 -q'
 else
     set -g PXY
@@ -2233,7 +2232,7 @@ function pv --description "ping vpn servers"
     echo --------------------------------------------------------------
 end
 function ipl -d 'get the location of your public IP address'
-    if test (ps -ef | rg -v rg | rg -i shadow | awk '{ print $(NF-2)     }') # ssr is running
+    if test (ps -ef | rg -w -v rg | rg -i shadow | awk '{ print $(NF-2) }') # ssr is running
         proxychains4 -q curl myip.ipip.net
     else
         curl myip.ipip.net
@@ -2260,6 +2259,29 @@ function wgetr -d 'for wget that get stuck in middle of downloads'
         command wget -c --no-check-certificate -T 5 -c $argv; and break
     end
 end
+abbr dst 'dstat -d -n' # check the networ/disk io status
+function iotest -d 'test the io speed of disk'
+    # src: https://www.shellhacks.com/disk-speed-test-read-write-hdd-ssd-perfomance-linux/
+    # You can use tool like hdparm(need sudo) to test the stats such as
+    # sudo hdparm -Th /dev/sdb
+    if set -q $argv[1]
+        set ARGV /tmp/file
+    else
+        set ARGV $argv[1]
+    end
+    sync
+    echo "--------Disk write speed--------"
+    time dd if=/dev/zero of=$ARGV bs=100k count=30k
+    sync
+    # You may need to clear the cache, otherwise its read speed is much
+    # higher than the real read speed directly from the disk, but need sudo:
+    # sudo /sbin/sysctl -w vm.drop_caches=3
+    echo "--------Disk read speed--------"
+    time dd if=$ARGV of=/dev/null bs=100k count=30k
+    command rm -rf $ARGV
+    sync
+end
+
 abbr pxx 'proxychains4 -q'
 function pxs -d 'multiple commands using proxychains4'
     set -l options 'a' 'c' 'w'
@@ -2446,7 +2468,7 @@ abbr mo 'pmount /dev/sdb4 /run/media/chz/UDISK'
 function mo-bak
     set -l done 1
     while test $done = 1
-        if not command df | rg -v rg | rg -i UDISK ^/dev/null >/dev/null # no UDISK in df, new or unplug
+        if not command df | rg -w -v rg | rg -i UDISK ^/dev/null >/dev/null # no UDISK in df, new or unplug
             set -l device
             if test -b /dev/sdb4
                 set device /dev/sdb4
@@ -2460,7 +2482,7 @@ function mo-bak
             df
             return
         else # UDISK is in df, right or not-umount old
-            set -l device (command df | rg -v rg | rg -i UDISK | awk '{print $1}')
+            set -l device (command df | rg -w -v rg | rg -i UDISK | awk '{print $1}')
             if not test -b $device
                 if not pumount /media/UDISK ^/dev/null >/dev/null
                     echo $device -- /media/UDISK is busy.
