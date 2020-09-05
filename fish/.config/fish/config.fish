@@ -1002,23 +1002,31 @@ function tree
 end
 
 # j for .bz2, z for .gz, J for xz, a for auto determine
-function tars -d 'tar extract(x)/list(l, by default)/create(c, add extra arg to include .git dir), or others using extr(o)'
-    set -l options 'x' 'l' 'c' 'o'
+function tars -d 'tar extract(x)/list(l, by default)/create(c, add extra arg to exclude .git dir), fastest(C, add extra arg to exclude .git)or others using extr(o)'
+    set -l options 'x' 'l' 'c' 'C' 'o'
     argparse -n tars $options -- $argv
     or return
+
+    # remove the end slash in argv[1] if it is a directory
+    test -d $argv[1]; and set ARGV (echo $argv[1] | sed 's:/*$::')
 
     if set -q _flag_x # extract
         tar xvfa $argv
     else if set -q _flag_l # list contents
         tar tvfa $argv
-    else if set -q _flag_c # create archive
-        # remove the end slash in argv
-        set ARGV (echo $argv[1] | sed 's:/*$::')
-        if test (count $argv) = 1 -a -d $ARGV/.git
-            tar cvfa $ARGV.tar.zst --exclude-vcs $ARGV
-            echo -e "\nUse `tars -c $ARGV g` to include .git directory!"
+    else if set -q _flag_c # create archive, smaller size
+        if test (count $argv) = 1
+            tar cvf - $ARGV | zstd -c -T0 --ultra -22 >$ARGV.tar.zst
         else
-            tar cvfa $ARGV.tar.zst $ARGV
+            tar cvf - $ARGV --exclude-vcs | zstd -c -T0 --ultra -22 >$ARGV.tar.zst
+            echo -e "\nUse `tars -c $ARGV g` to include .git directory!"
+        end
+    else if set -q _flag_C # create archive, faster speed
+        if test (count $argv) = 1
+            tar cvf - $ARGV | zstd -c -T0 --fast >$ARGV.tar.zst
+        else
+            tar cvf - $ARGV --exclude-vcs | zstd -c -T0 --fast >$ARGV.tar.zst
+            echo -e "\nUse `tars -C $ARGV g` to include .git directory!"
         end
     else if set -q _flag_o
         if command -sq extr
