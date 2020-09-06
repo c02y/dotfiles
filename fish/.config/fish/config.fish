@@ -1267,7 +1267,7 @@ function fmts -d "ccls(-c), clang-format(-l), cmake-format(-m)"
     if set -q _flag_c
         # generate compile_commands.json file for C/C++ files used by ccls/lsp
         cmake -H. -BDebug -DCMAKE_BUILD_TYPE=Debug -DCMAKE_EXPORT_COMPILE_COMMANDS=YES
-        and ln -vs Debug/compile_commands.json .; or cp Debug/compile_commands.json .
+        and {ln -vs Debug/compile_commands.json ; or cp Debug/compile_commands.json .}
     else if set -q _flag_l
         # .clang-format file for C/Cpp projects used by clang-format
         ln -vs ~/Dotfiles.d/spacemacs/.spacemacs.d/lisp/clang-format-c-cpp .clang-format
