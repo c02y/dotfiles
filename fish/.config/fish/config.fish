@@ -126,8 +126,20 @@ function path_prompt
         echo
     end
 end
+function dirp --on-event fish_preexec
+    set -g OLDPWD $PWD
+end
 function fish_prompt --description 'Write out the prompt'
     set -l last_status $status
+
+    # if the PWD is not the same as the PWD of previous prompt, print path part
+    if set -q OLDPWD
+        if test "$OLDPWD" != "$PWD"
+            set_color -o green
+            echo "---- Switch from dir $OLDPWD to $PWD ----"
+            set_color normal
+        end
+    end
 
     path_prompt
 
