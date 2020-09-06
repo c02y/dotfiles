@@ -1026,11 +1026,11 @@ function tars -d 'tar extract(x)/list(l, by default)/create(c, add extra arg to 
         tar xvfa $argv
     else if set -q _flag_l # list contents
         tar tvfa $argv
-    else if set -q _flag_c # create archive, smaller size
+    else if set -q _flag_c # create archive, smaller size, extremely slow for big dir
         if test (count $argv) = 1
-            tar cvf - $ARGV | zstd -c -T0 --ultra -22 >$ARGV.tar.zst
+            tar cvfa $ARGV.tar.xz $ARGV
         else
-            tar cvf - $ARGV --exclude-vcs | zstd -c -T0 --ultra -22 >$ARGV.tar.zst
+            tar cvfa $ARGV.tar.xz $ARGV --exclude-vcs
             echo -e "\nUse `tars -c $ARGV g` to include .git directory!"
         end
     else if set -q _flag_C # create archive, faster speed
