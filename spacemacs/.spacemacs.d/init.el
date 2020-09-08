@@ -2453,17 +2453,17 @@ and you can reconfigure the compile args."
     (setq buffer-display-table (make-display-table))
     (aset buffer-display-table ?\^M []))
 
-  ;; TODO: wait for the improvement from the issue page of swiper repo
   (defun swiper-whole-word ()
     "Search the whole word using swiper-isearch"
     (interactive)
-    (let ((input (read-string "Search whole word: ")))
-      (swiper-isearch (concat "\\_<" input "\\_>"))))
+    (let ((unread-command-events '(?\C-b ?\C-b ?\C-b)))
+      (swiper-isearch "\\_<\\_>")))
   (defun spacemacs/swiper-region-or-symbol-whole-word ()
     "Run `swiper-isearch' with the selected region or the symbol
 around point as the initial input."
     (interactive)
-    (let ((input (spacemacs//counsel-current-region-or-symbol)))
+    (let ((input (spacemacs//counsel-current-region-or-symbol))
+          (unread-command-events '(?\C-b ?\C-b ?\C-b)))
       (swiper-isearch (concat "\\_<" input "\\_>"))))
   )
 
