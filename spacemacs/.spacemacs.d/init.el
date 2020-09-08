@@ -1265,6 +1265,8 @@ Emacs session."
     "SS" 'ispell-complete-word
     ;; replace swiper with swiper-isearch since swiper doen't refresh ivy-resume list
     "ss" 'swiper-isearch
+    "sw" 'swiper-whole-word
+    "sW" 'spacemacs/swiper-region-or-symbol-whole-word
     "tC" 'rainbow-mode
     "xA" 'align-regexp
     "xaA" 'align-regexp
@@ -1293,16 +1295,16 @@ Emacs session."
     ;; the default binding is SPC w +
     "w SPC" 'spacemacs/window-layout-toggle
     ;; the default is other-frame
-    "w o" 'spacemacs/window-split-single-column
+    "wo" 'spacemacs/window-split-single-column
     ;; the default binding is SPC j b
     "j SPC" 'avy-pop-mark
-    "j r" 'avy-resume
+    "jr" 'avy-resume
     ;; leetcode
-    "L l" 'leetcode
-    "L d" 'leetcode-show-description
-    "L r" 'leetcode-problems-refresh
-    "L t" 'leetcode-try
-    "L s" 'leetcode-submit
+    "Ll" 'leetcode
+    "Ld" 'leetcode-show-description
+    "Lr" 'leetcode-problems-refresh
+    "Lt" 'leetcode-try
+    "Ls" 'leetcode-submit
     ;; the default is for treemacs-select-window
     ;; the other bindings for treemacs-select-window are M-0/C-x w 0
     "0" 'spacemacs/switch-to-minibuffer-window
@@ -2450,6 +2452,19 @@ and you can reconfigure the compile args."
     (interactive)
     (setq buffer-display-table (make-display-table))
     (aset buffer-display-table ?\^M []))
+
+  ;; TODO: wait for the improvement from the issue page of swiper repo
+  (defun swiper-whole-word ()
+    "Search the whole word using swiper-isearch"
+    (interactive)
+    (let ((input (read-string "Search whole word: ")))
+      (swiper-isearch (concat "\\_<" input "\\_>"))))
+  (defun spacemacs/swiper-region-or-symbol-whole-word ()
+    "Run `swiper-isearch' with the selected region or the symbol
+around point as the initial input."
+    (interactive)
+    (let ((input (spacemacs//counsel-current-region-or-symbol)))
+      (swiper-isearch (concat "\\_<" input "\\_>"))))
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
