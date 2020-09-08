@@ -1716,7 +1716,7 @@ function gitbs -d 'branches and worktrees'
             else if test "$argv" = "fzf" # use fzf to switch branch
                 # NOTE: if the branch is not in `git branch -a`, try `git ls-remote`
                 git fetch
-                git branch -a | fzf | xargs git checkout
+                git branch -a | fzf | awk '{ print $1}' | sed 's#^remotes/[^/]*/##' | xargs git checkout
             else # checkout $argv branch if exists, else create it
                 git checkout $argv ^/dev/null
                 or git checkout -b $argv
