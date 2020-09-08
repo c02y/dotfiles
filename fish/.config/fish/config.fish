@@ -1259,16 +1259,25 @@ abbr gdbu 'gdbgui --gdb-args="-q -n"'
 # Using the following abbr to debug the latest core dump binary
 abbr gdbc 'coredumpctl gdb -1'
 
-function fmts -d "ccls(-c), clang-format(-l), cmake-format(-m)"
+function fmts -d "compile_commands.json(-c), clang-format(-l), cmake-format(-m)"
     set -l options 'c' 'l' 'm'
     argparse -n fmts $options -- $argv
     or return
 
     if set -q _flag_c
         # generate compile_commands.json file for C/C++ files used by ccls/lsp
-        cmake -H. -BDebug -DCMAKE_BUILD_TYPE=Debug -DCMAKE_EXPORT_COMPILE_COMMANDS=YES
-        and if ! ln -vs Debug/compile_commands.json # if ln status wrong(failed, such as Linux->Windows)
-            cp Debug/compile_commands.json .
+        if test -f CMakeLists.txt
+            cmake -H. -BDebug -DCMAKE_BUILD_TYPE=Debug -DCMAKE_EXPORT_COMPILE_COMMANDS=YES
+            and if ! ln -vs Debug/compile_commands.json # if ln status wrong(failed, such as Linux->Windows)
+                cp Debug/compile_commands.json .
+            end
+        else if test -f Makefile
+            if command -sq bear
+                bear make
+            else
+                make --always-make --dry-run | grep -wE 'gcc|g++' | grep -w '\-c' \
+                    | jq -nR '[inputs|{directory:".", command:., file: match(" [^ ]+$").string[1:]}]' >compile_commands.json
+            end
         end
     else if set -q _flag_l
         # .clang-format file for C/Cpp projects used by clang-format
