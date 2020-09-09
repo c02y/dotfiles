@@ -1385,32 +1385,43 @@ abbr db 'douban.fm'
 
 #vim
 set -gx EDITOR 'vim'
-abbr viu 'vim -u NONE'
-abbr vic 'vim ~/.cgdb/cgdbrc'
-alias viM 'vim -u ~/Dotfiles.d/vim/vimrc.more'
-function viv -d 'edit vimrc file with vim, $VIMRC(by default), the other(-o), vanilla vim(-v)'
-    set -l options 'v' 'o'
-    argparse -n viv $options -- $argv
+function vims -d 'vim different targets'
+    set -l options '2' 'b' 'B' 'e' 'f' 't' 'T' 'a' 'k' 's' 'u' 'm' 'v' 'o'
+    argparse -n vims $options -- $argv
     or return
 
-    if set -q _flag_v
-        vim ~/Dotfiles.d/vim/.vimrc
+    if set -q _flag_2
+        vim ~/Dotfiles.d/todo.org
+    else if set -q _flag_b
+        vim ~/.bashrc
+    else if set -q _flag_B
+        vim ~/.bash_aliases
+    else if set -q _flag_e
+        vim $EMACS_EL
+    else if set -q _flag_f
+        vim $FISHRC
+    else if set -q _flag_t
+        vim ~/.tmux.conf
+        tmux source-file ~/.tmux.conf
+        echo ~/.tmux.conf reloaded!
+    else if set -q _flag_T
+        vim readlink -f ~/.tigrc
+    else if set -q _flag_a
+        vim ~/.config/alacritty/alacritty.yml
+    else if set -q _flag_k
+        vim ~/.config/kitty/kitty.conf
+    else if set -q _flag_s
+        vim ~/.config/sxhkd/sxhkdrc
+    else if set -q _flag_u
+        vim -u NONE
+    else if set -q _flag_m
+        vim -u ~/Dotfiles.d/vim/vimrc.more
+    else if set -q _flag_v
+        vim ~/.spacevim
     else if set -q _flag_o
-        if test "$VIMRC" = "$HOME/.spacevim"
-            test -f ~/.SpaceVim.d/autoload/myspacevim.vim; and vim ~/.SpaceVim.d/autoload/myspacevim.vim
-        else
-            test -f ~/.spacevim; and vim ~/.spacevim
-        end
-    else
-        vim $VIMRC
+        vim ~/Dotfiles.d/vim/.vimrc
     end
 end
-abbr vib 'vim ~/.bashrc'
-abbr vie 'vim $EMACS_EL'
-abbr vi2 'vim ~/Dotfiles.d/todo.org'
-abbr vif 'vim $FISHRC'
-abbr vit 'vim (readlink -f ~/.tmux.conf); tmux source-file ~/.tmux.conf; echo ~/.tmux.conf reloaded!'
-abbr viT 'vim (readlink -f ~/.tigrc)'
 function vis -d 'switch between vanilla vim(-v) <-> SpaceVim or space-vim(the default)'
     set -l options 'v'
     argparse -n vis $options -- $argv
