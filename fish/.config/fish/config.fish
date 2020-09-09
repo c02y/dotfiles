@@ -1385,9 +1385,9 @@ abbr db 'douban.fm'
 
 #vim
 set -gx EDITOR 'vim'
-function vims -d 'vim different targets'
+function vis -d 'vim different targets'
     set -l options '2' 'b' 'B' 'e' 'f' 't' 'T' 'a' 'k' 's' 'u' 'm' 'v' 'o'
-    argparse -n vims $options -- $argv
+    argparse -n vis $options -- $argv
     or return
 
     if set -q _flag_2
@@ -1422,9 +1422,9 @@ function vims -d 'vim different targets'
         vim ~/Dotfiles.d/vim/.vimrc
     end
 end
-function vis -d 'switch between vanilla vim(-v) <-> SpaceVim or space-vim(the default)'
+function vims -d 'switch between vanilla vim(-v) <-> SpaceVim or space-vim(the default)'
     set -l options 'v'
-    argparse -n vis $options -- $argv
+    argparse -n vims $options -- $argv
     or return
 
     if set -q _flag_v
