@@ -14,20 +14,21 @@ set tab-size              = 4
 set status-show-untracked-dirs = false
 
 # bindings priorities: view->generic->default
+bind main       G    move-last-line # overwrite the default
+bind generic    G    move-last-line
 bind generic    E    !>sh -c "vim ~/.tigrc"
 bind generic    S    view-stage
 bind generic    g    none # disable single g
 bind generic    gs   view-grep
 bind generic    gg   move-first-line
 bind generic    gr   refresh # R is the original one
-bind generic    G    move-last-line
 bind generic    p    none # disable single p for pager(default)
 bind generic    pl   !git pull
 bind generic    pl   !git pull %(remote)
 bind generic    pu   !<git push
 bind generic    pU   !<git push -u %(remote) %(repo:head)
 bind generic    v    :source ~/.tigrc
-bind main       G    move-last-line # overwrite the default
+bind generic    w<Space>   :toggle vertical-split
 bind generic    <Ctrl-f>   scroll-page-down
 bind generic    <Ctrl-b>   scroll-page-up
 
