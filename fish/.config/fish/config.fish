@@ -1425,6 +1425,8 @@ function vis -d 'vim different targets'
         vim ~/.spacevim
     else if set -q _flag_o
         vim ~/Dotfiles.d/vim/.vimrc
+    else
+        vim $argv
     end
 end
 function vims -d 'switch between vanilla vim(-v) <-> SpaceVim or space-vim(the default)'
