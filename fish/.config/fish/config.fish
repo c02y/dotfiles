@@ -136,7 +136,7 @@ function fish_prompt --description 'Write out the prompt'
     if set -q OLDPWD
         if test "$OLDPWD" != "$PWD"
             set_color -o green
-            echo "---- Switch from dir $OLDPWD to $PWD ----"
+            echo "-- $OLDPWD ==> $PWD --" | sed "s#$HOME#~#g"
             set_color normal
         end
     end
