@@ -428,7 +428,8 @@ abbr vad 'colour-valgrind --tool=callgrind --dump-instr=yes --simulate-cache=yes
 abbr kill9 'killall -9'
 # If Emacs hangs and won't response to C-g, use this to force it to stop whatever it's doing
 # Note that do not use this if you got more than one instances of Emacs running
-# Use `pkill -SIGUSR2 PID` to kill the PID, send SIGUSR2 to emacs will turn on `toggle-debug-on-quit`, turn it off once emacs is alive again
+# Use `pkill -SIGUSR2 PID` to kill the PID, send SIGUSR2 to emacs will turn on
+# `toggle-debug-on-quit`, turn it off once emacs is alive again
 abbr kille 'pkill -SIGUSR2 emacs'
 # get the pid of a gui program using mouse
 abbr pid 'xprop | rg -i pid | rg -Po "[0-9]+"'
@@ -436,13 +437,23 @@ function psgs -d 'pgrep process, used in script'
     ps -ef | rg -w -v rg | rg -i $argv[1] | nl
 end
 function psg -d 'pgrep process, used in command line'
-    ps aux | rg -w -v rg | rg -i $argv[1] | nl
-    if test (ps aux | rg -w -v rg | rg -i $argv[1] | nl | wc -l) = 1
-        set pid (pgrep -if $argv[1])
-        echo -e "\nPID: " $pid
-        if test $DISPLAY
-            echo $pid | xc
-            echo ---- PID Copied to Clipboard! ----
+    set -l options 'h'
+    argparse -n psg $options -- $argv
+    or return
+
+    set -g PSG 'ps -e -o "user pid ppid pcpu pmem vsz rssize tty stat start time command" | rg -w -v rg'
+    if set -q _flag_h
+        eval $PSG | head -2
+    else
+        # ps aux | rg -w -v rg | rg -i $argv[1] | nl
+        eval $PSG | rg -i $argv[1] | nl
+        if test (eval $PSG | rg -i $argv[1] | nl | wc -l) = 1
+            set pid (pgrep -if $argv[1])
+            echo -e "\nPID: " $pid
+            if test $DISPLAY
+                echo $pid | xc
+                echo ---- PID Copied to Clipboard! ----
+            end
         end
     end
 end
