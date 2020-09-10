@@ -1207,6 +1207,7 @@ Emacs session."
     "bb" 'counsel-ibuffer
     ;; overwrite the default bB
     "bB" 'counsel-buffer-or-recentf
+    "bl" 'counsel-switch-buffer
     "bU" 'reopen-killed-buffer-fancy
     ;; whitespace-cleanup will also do untabify-it/tabify-it automatically
     ;; according indent-tabs-mode, so the definitions of two functions are not needed
