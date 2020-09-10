@@ -1421,7 +1421,7 @@ function vis -d 'vim different targets'
         tmux source-file ~/.tmux.conf
         echo ~/.tmux.conf reloaded!
     else if set -q _flag_T
-        vim readlink -f ~/.tigrc
+        vim ~/.tigrc
     else if set -q _flag_a
         vim ~/.config/alacritty/alacritty.yml
     else if set -q _flag_k
