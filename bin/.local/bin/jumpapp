@@ -1,0 +1,446 @@
+#!/usr/bin/env bash
+
+show_usage() {
+    local cmd=$(basename "${BASH_SOURCE[0]}")
+    echo "Usage: $cmd [OPTION]... COMMAND [ARG]...
+
+Jump to (focus) the first open window for an application, if it's running.
+Otherwise, launch COMMAND (with opitonal ARGs) to start the application.
+
+Options:
+  -r -- cycle through windows in reverse order
+  -f -- force COMMAND to launch if process found but no windows found
+  -m -- if a single window is already open and in focus - minimize it
+  -n -- do not fork into background when launching COMMAND
+  -p -- always launch COMMAND when ARGs passed
+        (see Argument Passthrough in man page)
+  -L -- list matching windows for COMMAND and quit
+  -t NAME -- process window has to have NAME as the window title
+  -c NAME -- find window using NAME as WM_CLASS (instead of COMMAND)
+  -i NAME -- find process using NAME as the command name (instead of COMMAND)
+  -w -- only find the applications in the current workspace
+  -R -- bring the application to the current workspace when raising
+        (the default behaviour is to switch to the workspace that the
+        application is currently on)
+  -C -- center cursor when raising application"
+}
+
+main() {
+    local classid cmdid force fork=1 list passthrough focusOrMinimize in_reverse matching_title workspace_filter mouse_center
+
+    local OPTIND
+    while getopts c:fhi:Lmnprt:wRC opt; do
+        case "$opt" in
+            c) classid="$OPTARG" ;;
+            f) force=1 ;;
+            h) show_usage; exit 0 ;;
+            i) cmdid="$OPTARG" ;;
+            L) list=1 ;;
+            m) focusOrMinimize=1 ;;
+            n) fork='' ;;
+            p) passthrough=1; force=1 ;; # passthrough implies force
+            r) in_reverse=1 ;;
+            t) matching_title="$OPTARG"; force=1 ;;
+            w) workspace_filter="$(get_active_workspace)"; force=1 ;;
+            R) keep_workspace=1 ;;
+            C) mouse_center=1 ;;
+        esac
+    done
+    shift $(( OPTIND - 1 ))
+
+    if (( ! $# )); then
+        show_usage
+        exit 0
+    fi
+
+    local cmd=$1
+    shift
+
+    check_for_prerequisites &&
+    jumpapp "$@"
+}
+
+check_for_prerequisites() {
+    if ! has_command wmctrl; then
+        die 'Error: wmctrl(1) can not be found. Please install it to continue.'
+    fi &&
+
+    if [[ -n "$mouse_center" ]] && ! has_command xdotool; then
+        die 'Error: xdotool(1) can not be found. Please install it to use "-C".'
+    fi
+}
+
+jumpapp() {
+    if [[ -z "$cmdid" ]]; then
+        local cmdid=$(basename "$cmd")
+    fi
+
+    if [[ -z "$classid" ]]; then
+        local classid=$cmdid
+    fi
+
+    local pids=( $(list_pids_for_command "$cmdid") )
+    local windowids=(
+      $(list_matching_windows "$classid" "${pids[@]}" | select_windowid)
+    )
+
+    if [[ -n "$list" ]]; then
+      printf 'Matched Windows [%d]\n' ${#windowids[@]}
+      list_matching_windows "$classid" "${pids[@]}" | print_windows
+    elif [[ -n "$focusOrMinimize" ]] && [[ ${#windowids[@]} -eq "1" ]] \
+         && [[ "$(get_active_windowid)" -eq "${windowids[0]}" ]]; then
+        minimize_active_window
+    elif (( ${#windowids[@]} )) && ! needs_passthrough "$@"; then
+        local window=$(get_subsequent_window "${windowids[@]}")
+        if [[ -n "$keep_workspace" ]]; then
+            keep_workspace_activate_window "$window" ||
+                die "Error: unable to focus window for '$cmdid'"
+        else
+            change_workspace_activate_window "$window" ||
+                die "Error: unable to focus window for '$cmdid'"
+        fi
+
+        if [[ -n "$mouse_center" ]]; then
+            center_cursor "$window"
+        fi
+    else
+        if (( ${#pids[@]} )) && [[ -z "$force" ]]; then
+            die "Error: found running process for '$cmdid', but found no window to jump to"
+        else
+            launch_command "$@"
+        fi
+    fi
+}
+
+needs_passthrough() {
+    [[ "$passthrough" ]] && (( $# ))
+}
+
+list_matching_windows() {
+    list_windows |
+        where_title_matches "$matching_title" |
+        where_class_or_pid_matches "$@" |
+        where_workspace_matches |
+        where_normal_window   # spawns `xprop` process per-id, so do it last
+}
+
+where_workspace_matches() {
+    while read -r windowid hostname pid workspace class title; do
+        if [[ -z "$workspace_filter" ]] || [[ "$workspace_filter" == "$workspace" ]] || [[ "$workspace" -lt 0 ]]; then
+            printf '%s\n' "$windowid $hostname $pid $workspace $class $title"
+        fi
+    done
+}
+
+where_title_matches() {
+    while read -r windowid hostname pid workspace class title; do
+      if [[ "$matching_title" == '' || "$title" =~ $matching_title ]]; then
+          printf '%s\n' "$windowid $hostname $pid $workspace $class $title"
+      fi
+    done
+}
+
+where_class_or_pid_matches() {
+    local target_class=$1
+    shift
+
+    local local_hostname=$(get_hostname)
+
+    local windowid hostname pid workspace class title
+    while read -r windowid hostname pid workspace class title; do
+        if equals_case_insensitive "$class" "$target_class"; then
+            printf '%s\n' "$windowid $hostname $pid $workspace $class $title"
+            continue
+        fi
+        if equals_case_insensitive "$hostname" "$local_hostname" || [[ "$hostname" == "N/A" ]]; then
+            for target_pid in "$@"; do
+                if (( pid == target_pid )); then
+                    printf '%s\n' "$windowid $hostname $pid $workspace $class $title"
+                    continue 2
+                fi
+            done
+        fi
+    done
+}
+
+where_normal_window() {
+    local windowid rest
+    while read -r windowid rest; do
+        case "$(get_window_types "$windowid")" in \
+            *_NET_WM_WINDOW_TYPE_DESKTOP* |       \
+            *_NET_WM_WINDOW_TYPE_DOCK* |          \
+            *_NET_WM_WINDOW_TYPE_TOOLBAR* |       \
+            *_NET_WM_WINDOW_TYPE_MENU* |          \
+            *_NET_WM_WINDOW_TYPE_UTILITY* |       \
+            *_NET_WM_WINDOW_TYPE_SPLASH* |        \
+            *_NET_WM_WINDOW_TYPE_DROPDOWN_MENU* | \
+            *_NET_WM_WINDOW_TYPE_POPUP_MENU* |    \
+            *_NET_WM_WINDOW_TYPE_TOOLTIP* |       \
+            *_NET_WM_WINDOW_TYPE_NOTIFICATION* |  \
+            *_NET_WM_WINDOW_TYPE_COMBO* |         \
+            *_NET_WM_WINDOW_TYPE_DND*)
+                ;;
+            *)
+                printf '%s\n' "$windowid $rest"
+                ;;
+        esac
+    done
+}
+
+select_windowid() {
+    local windowid rest
+    while read -r windowid rest; do
+        printf '%s\n' "$windowid"
+    done
+}
+
+print_windows() {
+    local windowid hostname pid workspace class title
+    while read -r windowid hostname pid workspace class title; do
+        printf '%s: %s\n' "$windowid $hostname $pid $workspace $class" "$title"
+    done
+}
+
+get_subsequent_window() {
+    _get_subsequent_window "$@" | head -1
+}
+
+_get_subsequent_window() {
+    local active_window=$(get_active_windowid)
+
+    if ! is_num_in_array "$active_window" "$@"; then
+        if [[ -n $in_reverse ]]; then
+            get_oldest_focused_window "$@"
+        else
+            get_most_recently_focused_window "$@"
+        fi
+    fi
+
+    # always return a window here too in case the window manager doesn't return stacking order
+    if [[ -n $in_reverse ]]; then
+        get_prev_window "$active_window" "$@"
+    else
+        get_next_window "$active_window" "$@"
+    fi
+}
+
+get_oldest_focused_window() {
+    local windows_in_stacking_order=($(list_stacking_order))
+
+    for window in ${windows_in_stacking_order[@]}; do
+        get_matching_window_from_list $window "$@"
+    done
+}
+
+get_most_recently_focused_window() {
+    local windows_in_stacking_order=($(list_stacking_order | reverse_words))
+
+    for window in ${windows_in_stacking_order[@]}; do
+        get_matching_window_from_list $window "$@"
+    done
+}
+
+get_matching_window_from_list() {
+    local window_to_search_for=$1
+    local window_list=${@:2}
+
+    for window in ${window_list[@]}; do
+        if [[ $window_to_search_for -eq $window ]]; then
+            printf '%s\n' $window
+            return
+        fi
+    done
+}
+
+reverse_words() {
+    local i words
+    IFS=' ' read -ra words
+    for ((i=${#words[@]}; i>=0; i--)); do
+        printf '%s ' "${words[i]}"
+    done
+}
+
+get_prev_window() {
+    local active=$1 prev
+    shift
+
+    if (( $1 == active )); then
+        shift $(( $# - 1 ))
+        printf '%s\n' "$1"
+    else
+        while [[ "$1" ]] && (( $1 != active )); do
+            prev=$1
+            shift
+        done
+
+        printf '%s\n' "$prev"
+    fi
+}
+
+get_next_window() {
+    local active=$1
+    shift
+
+    local first=$1
+
+    while [[ "$1" ]] && (( $1 != active )); do
+        shift
+    done
+    shift # get windowid *after* active
+
+    if [[ "$1" ]]; then
+        printf '%s\n' "$1"
+    else
+        printf '%s\n' "$first"
+    fi
+}
+
+launch_command() {
+    has_command "$cmd" || die "Error: unable to find command '$cmd'"
+
+    printf 'Launching: %s\n' "$cmd $*"
+
+    if [[ "$fork" ]]; then
+        fork_command "$cmd" "$@"
+    else
+        exec_command "$cmd" "$@"
+    fi
+}
+
+basename() {
+    printf '%s\n' "${1##*/}"
+}
+
+is_num_in_array() {
+    local element num=$1
+    shift
+
+    for element; do
+        if [[ $num -eq $element ]]; then
+            return 0
+        fi
+    done
+
+    return 1
+}
+
+equals_case_insensitive() {
+    [[ "${1^^}" == "${2^^}" ]]
+}
+
+
+##### External Interfaces #####
+
+# list_pids_for_command -- list all pids that have a matching argv[0]
+#     A note on argv[0]: it's just a convention, not a kernel enforced value!
+#     Programs are free to set it as they want, and so of course they do, ugh.
+#     Some include the full path, others just the program name. Some
+#     confusingly include all arguments in argv[0] (I'm looking at you
+#     chromium-browser).
+list_pids_for_command() {
+    if has_command pgrep; then
+        list_pids_for_command_with_pgrep "$@"
+    else
+        list_pids_for_command_from_procfs "$@"
+    fi
+}
+
+list_pids_for_command_with_pgrep() {
+    pgrep -f "^(/.*/)?$1\b"
+}
+
+list_pids_for_command_from_procfs() {
+    local cmd_argv0
+    for path in /proc/*/cmdline; do
+        read -rd '' cmd_argv0 <"$path"
+        local cmd=${cmd_argv0##*/} # substring removal in-lined for performance
+        if [[ "$cmd" == "$1"* ]]; then
+            basename "${path%/cmdline}"
+        fi
+    done
+}
+
+# list_windows() -- list windowids with associated information
+#   Column spec: windowid hostname pid workspace class
+#   Where 'class' is the second WM_CLASS string (http://tronche.com/gui/x/icccm/sec-4.html#WM_CLASS)
+list_windows() {
+    local windowid workspace pid wm_class hostname title
+    while read -r windowid workspace pid wm_class hostname title; do
+        printf '%s\n' "$windowid $hostname $pid $workspace ${wm_class##*.} $title"
+    done < <(wmctrl -lpx)
+}
+
+get_active_windowid() {
+    local name windowid
+    read name windowid < <(xprop -root ' $0\n' _NET_ACTIVE_WINDOW)
+    printf '%s\n' "$windowid"
+}
+
+list_stacking_order() {
+    local name ids
+    read -r name ids < <(xprop -root ' $0+\n' _NET_CLIENT_LIST_STACKING)
+    printf '%s\n' "$ids" | tr ',' ' '
+}
+
+get_window_types() {
+    local name window_types
+    read -r name window_types < <(xprop -id "$1" ' $0+\n' _NET_WM_WINDOW_TYPE)
+    if [[ "$window_types" != 'not found.' ]]; then
+        printf '%s\n' "$window_types"
+    fi
+}
+
+get_active_workspace() {
+    local workspace flag rest
+    while read -r workspace flag rest; do
+        if [[ "$flag" == "*" ]]; then
+            printf '%s\n' "$workspace"
+        fi
+    done < <(wmctrl -d)
+}
+
+change_workspace_activate_window() {
+    wmctrl -i -a "$1"
+}
+
+keep_workspace_activate_window() {
+    wmctrl -i -R "$1"
+}
+
+center_cursor() {
+    xdotool mousemove -w "$1" $(wmctrl -lG | grep "$1" | awk '{ print $5/2 " " $6/2 }')
+}
+
+minimize_active_window() {
+    xdotool getactivewindow windowminimize
+}
+
+has_command() {
+    hash "$1" 2>/dev/null
+}
+
+fork_command() {
+    ("$@" >/dev/null 2>&1) &
+}
+
+exec_command() {
+    exec "$@"
+}
+
+get_hostname() {
+    hostname
+}
+
+die() {
+    printf '%s\n' "$1" >&2
+    exit 1
+}
+
+is_script_executed() {
+    [[ "${BASH_SOURCE[0]}" == "$0" ]]
+}
+
+
+if is_script_executed; then
+    main "$@"
+fi
