@@ -2559,17 +2559,18 @@ end
 
 abbr ytd 'youtube-dl -citw'
 
-function rgs -d 'rg sth in -e(init.el)/-E(errno)/-f(config.fish)/-t(.tmux.conf)/-v(vimrc), or use -F(fzf) to open the file, -g(git repo), -w(whole word), -V(exclude pattern), -l(list files)'
-    set -l options 'e' 'E' 'f' 't' 'v' 'F' 'g' 'w' 'V=' 'l'
+function rgs -d 'rg sth in -e(init.el)/-E(errno)/-f(config.fish)/-t(.tmux.conf)/-v(vimrc), or use -F(fzf) to open the file, -g(git repo), -w(whole word), -V(exclude pattern), -l(list files) -s(sort)'
+    # NOTE -V require an argument, so put "V=" line for argparse
+    set -l options 'e' 'E' 'f' 't' 'v' 'F' 'g' 'w' 'V=' 'l' 's'
     argparse -n rgs -N 1 $options -- $argv
     or return
 
     set OPT "--hidden"
     set -q _flag_w; and set OPT $OPT "-w"
     set -q _flag_l; and set OPT $OPT "-l"
-    # NOTE -V require an argument, so put "V=" line for argparse
     # and $_flag_V is the argument for for -V
     set -q _flag_V; and set OPT $OPT -g !$_flag_V
+    set -q _flag_s; and set OPT $OPT --sort path
 
     if set -q _flag_e
         set FILE $EMACS_EL
