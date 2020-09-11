@@ -44,6 +44,7 @@ Usage: $(basename $0)
 	   -p profile emacs(startup time, cpu and mem)
 	   -q to start emacs -q --no-splash
 	   -r to restart emacs daemon and start a emacsclient
+	   -R to restart emacs daemon and only
 	   -s to switch between Spacemacs and Vanilla emacs
 	   -t to time the startup of emacs
 	   -u update all packages, only works for Spacemacs
@@ -151,6 +152,8 @@ copy_service() {
 }
 
 restart_emacs_server() {
+	pidof emacsd | xargs kill -9
+	sleep 1
 	if check_daemon_status; then
 		# systemctl --user restart emacs.service # systemctl takes too much time
 		# once you kill the process, it will restart automatically
@@ -206,7 +209,7 @@ else
 	flag_systemctl=0
 fi
 
-while getopts ":habcCdeEfkmopqrstuvx" args; do # prefix-: no warning for illegal option
+while getopts ":habcCdeEfkmopqrRstuvx" args; do # prefix-: no warning for illegal option
 	case "$args" in
 	h | \?) # \? for illegal option
 		print_usage
@@ -280,8 +283,13 @@ while getopts ":habcCdeEfkmopqrstuvx" args; do # prefix-: no warning for illegal
 		exit 0
 		;;
 	r)
-		kill_running_emacsclient
+		# kill_running_emacsclient
 		restart_emacs_server
+		;;
+	R)
+		# kill_running_emacsclient
+		restart_emacs_server
+		exit 0
 		;;
 	s)
 		flag_s=1
