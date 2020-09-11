@@ -162,6 +162,8 @@ This function should only modify configuration layer settings."
       lsp-log-io t
       lsp-auto-guess-root t
       lsp-ui-doc-delay 1
+      lsp-ui-sideline-show-hover t
+      lsp-ui-sideline-delay 1
       ;; lsp-enable-file-watchers nil
       ccls-initialization-options '(:index (:comments 2) :completion (:detailedLabel t) :cache (:directory "/tmp/ccls"))
       ccls-sem-highlight-method 'font-lock
