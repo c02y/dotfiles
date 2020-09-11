@@ -2657,7 +2657,32 @@ function cpb -d 'backups manager: rename files/dirs from name to name.bak or bac
     end
 end
 
-function d --description "Choose one from the list of recently visited dirs"
+# this function is a copy of _halostatue_fish_fzf_cdhist_widget function
+# from https://github.com/halostatue/fish-fzf/blob/master/conf.d/halostatue_fish_fzf.fish
+# to replace the original d function which is now d2 function
+function d -d 'cd to one of the previously visited locations'
+    # Clear non-existent folders from cdhist.
+    set -l buf
+    for i in (seq 1 (count $dirprev))
+        set -l dir $dirprev[$i]
+        if test -d $dir
+            set buf $buf $dir
+        end
+    end
+
+    set dirprev $buf
+    string join \n $dirprev | tail | sed 1d | \
+        eval (__fzfcmd) +m --tiebreak=index --toggle-sort=ctrl-r $FZF_CDHIST_OPTS | \
+        read -l result
+
+    test -z $result
+    or cd $result
+
+    commandline -f repaint
+end
+
+# this function is deprecated, use d instead
+function d2 --description "Choose one from the list of recently visited dirs"
     # this function is introduced into fish-shell release since v2.7b1, called `cdh` (mostly similar)
     # See if we've been invoked with an argument. Presumably from the `cdh` completion script.
     # If we have just treat it as `cd` to the specified directory.
