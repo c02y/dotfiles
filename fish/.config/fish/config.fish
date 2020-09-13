@@ -13,17 +13,15 @@ if test "$MANPATH" = ""
     set -gx MANPATH (manpath | string split ":")
 end
 
+# set -gx PATH $HOME/anaconda3/bin ~/.local/share/arm-linux/bin ~/.local/bin ~/.linuxbrew/bin $GOPATH/bin ~/bin $PATH
+#set -gx PATH $HOME/anaconda3/bin $HOME/.local/bin $GOPATH/bin /usr/local/bin /usr/local/liteide/bin /bin /sbin /usr/bin /usr/sbin $PATH
+set -gx PATH $HOME/.local/bin $GOPATH/bin $NPMS/bin ~/.cargo/bin /usr/local/bin /bin /sbin /usr/bin /usr/sbin $PATH
+# TODO: `pip install cppman ; cppman -c` to get manual for cpp
+set -gx MANPATH $NPMS/share/man $MANPATH
 # Use different PATH/MANPATH for different distro since anaconda may affect system tools
-if test (lsb_release -i | rg -i -e 'manjaro|opensuse') # not manjaro/opensuse
-    # set -gx PATH $HOME/anaconda3/bin ~/.local/share/arm-linux/bin ~/.local/bin ~/.linuxbrew/bin $GOPATH/bin ~/bin $PATH
-    #set -gx PATH $HOME/anaconda3/bin $HOME/.local/bin $GOPATH/bin /usr/local/bin /usr/local/liteide/bin /bin /sbin /usr/bin /usr/sbin $PATH
-    set -gx PATH $HOME/.local/bin $GOPATH/bin $NPMS/bin ~/.cargo/bin /usr/local/bin /bin /sbin /usr/bin /usr/sbin $PATH
-
-    # TODO: `pip install cppman ; cppman -c` to get manual for cpp
-    set -gx MANPATH $NPMS/share/man $MANPATH
-else
-    set -gx PATH $HOME/anaconda3/bin $HOME/.local/bin $GOPATH/bin $NPMS/bin /usr/local/bin /bin /sbin /usr/bin /usr/sbin $PATH
-    set -gx MANPATH $HOME/anaconda3/share/man $NPMS/share/man $MANPATH
+if not test (lsb_release -i | rg -i -e 'manjaro|opensuse') # not manjaro/opensuse
+    set -gx PATH $HOME/anaconda3/bin $PATH
+    set -gx MANPATH $HOME/anaconda3/share/man $MANPATH
 end
 
 set -gx FISHRC (readlink -f ~/.config/fish/config.fish)
