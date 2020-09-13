@@ -950,7 +950,9 @@ abbr lessv 'less $VIMRC'
 abbr lessem 'less ~/.local/bin/emm'
 # NOTE: there is a package called mdv, don't use it
 function mdv -d 'markdown viewer in terminal'
-    if command -sq mdcat
+    if command -sq glow
+        glow $argv
+    else if command -sq mdcat
         mdcat $argv | less
     else if command -sq pandoc; and command -sq lynx
         pandoc $argv | lynx --stdin
