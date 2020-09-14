@@ -2441,7 +2441,7 @@ and you can reconfigure the compile args."
   ;; fix the compatibility of smartparens and yasnippet
   ;; the configs in .emacs.d/layers/+completion/auto-completion/packages.el
   ;; are not reliable, it will disable smartparens-mode after a period
-  (add-hook 'yas-before-expand-snippet-hook (lambda () (smartparens-mode 1)))
+  (add-hook 'yas-before-expand-snippet-hook (lambda () (smartparens-mode -1)))
   (add-hook 'yas-after-exit-snippet-hook (lambda () (smartparens-mode 1)))
 
   ;; fix the issue: Warning (emacs): recentf mode: Non-character input-event
