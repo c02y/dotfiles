@@ -1319,13 +1319,6 @@ end
 abbr cdp 'cd ~/Public; and lls'
 abbr cdu 'cd /run/media/chz/UDISK/; and lls'
 
-function vimd -d 'diff files/dirs using vim'
-    if test -f $argv[1]
-        vim -d -o $argv[1] $argv[2]
-    else if test -d $argv[1]
-        vim -c "DirDiff $argv[1] $argv[2]"
-    end
-end
 # TODO: `pip install git+https://github.com/jeffkaufman/icdiff.git`
 function diffs -d "all kinds of diff features"
     if command -sq icdiff
@@ -1384,7 +1377,7 @@ abbr db 'douban.fm'
 #vim
 set -gx EDITOR 'vim'
 function vis -d 'vim different targets'
-    set -l options '2' 'b' 'B' 'e' 'f' 't' 'T' 'a' 'k' 's' 'u' 'm' 'v' 'o'
+    set -l options '2' 'b' 'B' 'd' 'e' 'f' 't' 'T' 'a' 'k' 's' 'u' 'm' 'v' 'o'
     argparse -n vis $options -- $argv
     or return
 
@@ -1394,6 +1387,12 @@ function vis -d 'vim different targets'
         vim ~/.bashrc
     else if set -q _flag_B
         vim ~/.bash_aliases
+    else if set -q _flag_d # vim diff
+        if test -f $argv[1]
+            vim -d -o $argv[1] $argv[2]
+        else if test -d $argv[1]
+            vim -c "DirDiff $argv[1] $argv[2]"
+        end
     else if set -q _flag_e
         vim $EMACS_EL
     else if set -q _flag_f
