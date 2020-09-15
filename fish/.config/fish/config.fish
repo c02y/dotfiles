@@ -20,12 +20,17 @@ set -gx PATH $HOME/.local/bin $GOPATH/bin $NPMS/bin ~/.cargo/bin /usr/local/bin 
 set -gx MANPATH $NPMS/share/man $MANPATH
 # Use different PATH/MANPATH for different distro since anaconda may affect system tools
 # for Windows and Linux compatible
-if command -sq uname; and test (uname) = "Linux"
-    if command -sq lsb_release
-        if not test (lsb_release -i | rg -i -e 'manjaro|opensuse') # not manjaro/opensuse
-            set -gx PATH $HOME/anaconda3/bin $PATH
-            set -gx MANPATH $HOME/anaconda3/share/man $MANPATH
+if command -sq uname
+    if test (uname) = "Linux"
+        if command -sq lsb_release
+            if not test (lsb_release -i | rg -i -e 'manjaro|opensuse') # not manjaro/opensuse
+                set -gx PATH $HOME/anaconda3/bin $PATH
+                set -gx MANPATH $HOME/anaconda3/share/man $MANPATH
+            end
         end
+    else
+        # Windows
+        set -gx PATH /mingw64/bin /c/Program\ Files/CMake/bin $PATH
     end
 end
 
