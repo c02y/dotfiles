@@ -98,29 +98,20 @@ end
 function path_prompt
     # check if tmux is running in current terminal/tty
     if test $TMUX
+        # if the PWD is not the same as the PWD of previous prompt,
+        # print the directory changing message
+        if set -q OLDPWD
+            if test "$OLDPWD" != "$PWD"
+                set_color -o green
+                echo "-- $OLDPWD ==> $PWD --" | sed "s#$HOME#~#g"
+                set_color normal
+            end
+        end
         return
     else
-        set_color -ru
-        # User
-        set_color $fish_color_user
-        echo -n $USER
-        # set_color normal
-
-        echo -n '@'
-
-        # Host
-        set_color $fish_color_host
-        echo -n (hostname -s)
-        # set_color normal
-
-        echo -n ':'
-
-        # PWD
-        #set_color $fish_color_cwd
         set_color -o yellow
         echo -n (prompt_pwd)
         set_color normal
-
         echo
     end
 end
@@ -129,15 +120,6 @@ function dirp --on-event fish_preexec
 end
 function fish_prompt --description 'Write out the prompt'
     set -l last_status $status
-
-    # if the PWD is not the same as the PWD of previous prompt, print path part
-    if set -q OLDPWD
-        if test "$OLDPWD" != "$PWD"
-            set_color -o green
-            echo "-- $OLDPWD ==> $PWD --" | sed "s#$HOME#~#g"
-            set_color normal
-        end
-    end
 
     path_prompt
 
