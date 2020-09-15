@@ -1668,7 +1668,7 @@ function gitpa --description 'git pull all in dir using `fing dir`'
     end
 end
 function gitbs -d 'branches and worktrees'
-    set -l options 'c' 'd' 'l' 'w' 'v' 'h'
+    set -l options 'c' 'd' 'f' 'l' 'w' 'v' 'h'
     argparse -n gitbs $options -- $argv
     or return
 
@@ -1681,9 +1681,9 @@ function gitbs -d 'branches and worktrees'
         echo "      -c -l -d --> compare two branches or two commit of log , saved in diff file, open the file"
         echo "      -l       --> list branches using git ls-remote --heads, $argv to search it"
         echo "      -d       --> delete branch"
+        echo "      -f       --> switch branch using fzf"
         echo "      -v       --> show verbose info of branches"
         echo "      no argv  --> list branches"
-        echo "      fzf      --> switch branch using fzf"
         echo "      argv     --> if branch $argv exist, switch to it, if not, create and switch to it"
         echo "      -w       --> add worktree if given argv and cd into it, if else list worktree"
         echo "      -w -d    --> delete worktree"
@@ -1731,17 +1731,21 @@ function gitbs -d 'branches and worktrees'
                     end
                 end
             end
-        else if set -q _flag_l
-            if set -q $argv
-                git ls-remote --heads
-            else
-                git ls-remote --heads | rg -i $argv
-            end
         else if set -q _flag_d
             if set -q $argv[1] # no argv
                 git branch -a | fzf | xargs git branch -d
             else
                 git branch -d $argv
+            end
+        else if set -q _flag_f # use fzf to switch branch
+            # NOTE: if the branch is not in `git branch -a`, try `git ls-remote`
+            git fetch
+            git branch -a | fzf | awk '{ print $1}' | sed 's#^remotes/[^/]*/##' | xargs git checkout
+        else if set -q _flag_l
+            if set -q $argv
+                git ls-remote --heads
+            else
+                git ls-remote --heads | rg -i $argv
             end
         else if set -q _flag_v
             git branch -vv
@@ -1751,10 +1755,6 @@ function gitbs -d 'branches and worktrees'
                 # get the current branch name
                 echo "Current branch name:"
                 git rev-parse --symbolic-full-name --abbrev-ref HEAD
-            else if test "$argv" = "fzf" # use fzf to switch branch
-                # NOTE: if the branch is not in `git branch -a`, try `git ls-remote`
-                git fetch
-                git branch -a | fzf | awk '{ print $1}' | sed 's#^remotes/[^/]*/##' | xargs git checkout
             else # checkout $argv branch if exists, else create it
                 git checkout $argv ^/dev/null
                 or git checkout -b $argv
