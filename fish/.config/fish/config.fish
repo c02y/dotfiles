@@ -115,7 +115,8 @@ function path_prompt
         if set -q OLDPWD
             if test "$OLDPWD" != "$PWD"
                 set_color -o green
-                echo "-- $OLDPWD ==> $PWD --" | sed "s#$HOME#~#g"
+                set msg (echo "-- $OLDPWD ==> $PWD --" | sed "s#$HOME#~#g")
+                echo $msg
                 set_color normal
             end
         end
@@ -140,8 +141,7 @@ function fish_prompt --description 'Write out the prompt'
     end
     # http://unicode-table.com/en/sets/arrows-symbols/
     # http://en.wikipedia.org/wiki/Arrow_(symbol)
-    set_color -o yellow
-    set_color -u
+    set_color -o yellow -u
     echo -n '>>' # '➤➤ '  # ➢ ➣, ↩ ↪ ➥ ➦, ▶ ▷ ◀ ◁, ❥
     #echo -n '➤➤ '  # ➢ ➣, ↩ ↪ ➥ ➦, ▶ ▷ ◀ ◁, ❥
     set_color normal
