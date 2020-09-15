@@ -19,9 +19,14 @@ set -gx PATH $HOME/.local/bin $GOPATH/bin $NPMS/bin ~/.cargo/bin /usr/local/bin 
 # TODO: `pip install cppman ; cppman -c` to get manual for cpp
 set -gx MANPATH $NPMS/share/man $MANPATH
 # Use different PATH/MANPATH for different distro since anaconda may affect system tools
-if not test (lsb_release -i | rg -i -e 'manjaro|opensuse') # not manjaro/opensuse
-    set -gx PATH $HOME/anaconda3/bin $PATH
-    set -gx MANPATH $HOME/anaconda3/share/man $MANPATH
+# for Windows and Linux compatible
+if command -sq uname; and test (uname) = "Linux"
+    if command -sq lsb_release
+        if not test (lsb_release -i | rg -i -e 'manjaro|opensuse') # not manjaro/opensuse
+            set -gx PATH $HOME/anaconda3/bin $PATH
+            set -gx MANPATH $HOME/anaconda3/share/man $MANPATH
+        end
+    end
 end
 
 set -gx FISHRC (readlink -f ~/.config/fish/config.fish)
@@ -38,7 +43,9 @@ test -f ~/.config/nvim/README.md; and set -gx VIMRC (readlink -f ~/.SpaceVim.d/a
 # Check default value and result using `xset -q`
 # 200=auto repeat delay, given in milliseconds
 # 50=repeat rate, is the number of repeats per second
-xset r rate 200 50
+if command -sq uname; and test (uname) = "Linux"
+    xset r rate 200 50
+end
 
 # fix the Display :0 can't be opened problem
 if test $DISPLAY
