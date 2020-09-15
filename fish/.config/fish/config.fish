@@ -718,7 +718,7 @@ end
 
 set -gx Z_PATH ~/.config/fish/functions
 if test -e $Z_PATH/z.lua
-    source (lua5.3 $Z_PATH/z.lua --init fish once echo | psub)
+    source (lua $Z_PATH/z.lua --init fish once echo | psub)
     # z.lua using built-in cd which won't affect the cd stack of fish shell, use fish's cd so you can use `cd -`
     set -gx _ZL_CD cd
     set -gx _ZL_INT_SORT 1
