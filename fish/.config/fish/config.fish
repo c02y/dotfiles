@@ -236,7 +236,7 @@ function tag -d 'clean and create(with any arg) tags files for non-linux-kernel 
 
     if not set -q $argv # given any argv
         # gtags > GPATH, GTAGS, GSYMS, GRTAGS
-        ln -s /usr/include include_sys
+        ln -nsv /usr/include include_sys
         gtags -v
         echo gtags done!!
 
@@ -1261,7 +1261,7 @@ function fmts -d "compile_commands.json(-c), clang-format(-l), cmake-format(-m)"
         # generate compile_commands.json file for C/C++ files used by ccls/lsp
         if test -f CMakeLists.txt
             cmake -H. -BDebug -DCMAKE_BUILD_TYPE=Debug -DCMAKE_EXPORT_COMPILE_COMMANDS=YES
-            and if ! ln -ns Debug/compile_commands.json # if ln status wrong(failed, such as Linux->Windows)
+            and if ! ln -nsfv Debug/compile_commands.json # if ln status wrong(failed, such as Linux->Windows)
                 cp Debug/compile_commands.json .
             end
         else if test -f scripts/gen_compile_commands.py # Linux kernel
@@ -1279,11 +1279,11 @@ function fmts -d "compile_commands.json(-c), clang-format(-l), cmake-format(-m)"
         end
     else if set -q _flag_l
         # .clang-format file for C/Cpp projects used by clang-format
-        ln -ns ~/Dotfiles.d/spacemacs/.spacemacs.d/lisp/clang-format-c-cpp .clang-format
+        ln -nsfv ~/Dotfiles.d/spacemacs/.spacemacs.d/lisp/clang-format-c-cpp .clang-format
         or cp -v ~/Dotfiles.d/spacemacs/.spacemacs.d/lisp/clang-format-c-cpp .clang-format
     else if set -q _flag_m
         # .cmake-format.json file for CMakeLists.txt used by cmake-format
-        ln -ns ~/Dotfiles.d/spacemacs/.spacemacs.d/lisp/cmake-format.json .cmake-format.json
+        ln -nsfv ~/Dotfiles.d/spacemacs/.spacemacs.d/lisp/cmake-format.json .cmake-format.json
         or cp -v ~/Dotfiles.d/spacemacs/.spacemacs.d/lisp/cmake-format.json .cmake-format.json
     end
 end
