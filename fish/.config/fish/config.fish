@@ -115,7 +115,9 @@ function path_prompt
         if set -q OLDPWD
             if test "$OLDPWD" != "$PWD"
                 set_color -o green
-                set msg (echo "-- $OLDPWD ==> $PWD --" | sed "s#$HOME#~#g")
+                set msg (echo "--- $OLDPWD" | sed "s#$HOME#~#g")
+                echo $msg
+                set msg (echo "==> $PWD" | sed "s#$HOME#~#g")
                 echo $msg
                 set_color normal
             end
