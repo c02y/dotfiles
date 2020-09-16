@@ -138,12 +138,12 @@ function fish_prompt --description 'Write out the prompt'
 
     path_prompt
 
-    if test $last_status != 0
-        set_color $fish_color_error
-    end
+    test $last_status != 0
+    and set_color $fish_color_error
+    or set_color -o yellow -u
+
     # http://unicode-table.com/en/sets/arrows-symbols/
     # http://en.wikipedia.org/wiki/Arrow_(symbol)
-    set_color -o yellow -u
     echo -n '>>' # '➤➤ '  # ➢ ➣, ↩ ↪ ➥ ➦, ▶ ▷ ◀ ◁, ❥
     #echo -n '➤➤ '  # ➢ ➣, ↩ ↪ ➥ ➦, ▶ ▷ ◀ ◁, ❥
     set_color normal
