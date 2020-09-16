@@ -1276,7 +1276,7 @@ function fmts -d "compile_commands.json(-c), clang-format(-l), cmake-format(-m)"
         if test -f CMakeLists.txt
             cmake -H. -BDebug -DCMAKE_BUILD_TYPE=Debug -DCMAKE_EXPORT_COMPILE_COMMANDS=YES
             and if ! ln -nsfv Debug/compile_commands.json # if ln status wrong(failed, such as Linux->Windows)
-                cp Debug/compile_commands.json .
+                command cp -v Debug/compile_commands.json .
             end
         else if test -f scripts/gen_compile_commands.py # Linux kernel
             make defconfig
