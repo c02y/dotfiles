@@ -1747,9 +1747,6 @@ function gitbs -d 'branches and worktrees'
         else
             if set -q $argv[1] # no argument
                 git branch # list local branches
-                # get the current branch name
-                echo "Current branch name:"
-                git rev-parse --symbolic-full-name --abbrev-ref HEAD
             else # checkout $argv branch if exists, else create it
                 git checkout $argv ^/dev/null
                 or git checkout -b $argv
