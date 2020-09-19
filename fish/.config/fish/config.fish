@@ -44,16 +44,16 @@ test -f ~/.config/nvim/README.md; and set -gx VIMRC (readlink -f ~/.SpaceVim.d/a
 # export LANG=en_US.UTF-8
 # export LANGUAGE=en_US.UTF-8
 
-# change keyboard auto repeat, this improves keyboard experience, such as the scroll in Emacs
-# Check default value and result using `xset -q`
-# 200=auto repeat delay, given in milliseconds
-# 50=repeat rate, is the number of repeats per second
-if command -sq uname; and test (uname) = "Linux"
-    xset r rate 200 50
-end
-
-# fix the Display :0 can't be opened problem
 if test $DISPLAY
+    # change keyboard auto repeat, this improves keyboard experience, such as the scroll in Emacs
+    # Check default value and result using `xset -q`
+    # 200=auto repeat delay, given in milliseconds
+    # 50=repeat rate, is the number of repeats per second
+    if command -sq uname; and test (uname) = "Linux"
+        xset r rate 200 50
+    end
+
+    # fix the Display :0 can't be opened problem
     if xhost ^/dev/null >/dev/null
         if not xhost | rg (whoami) ^/dev/null >/dev/null
             xhost +si:localuser:(whoami) ^/dev/null >/dev/null
