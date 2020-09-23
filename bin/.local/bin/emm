@@ -152,7 +152,7 @@ copy_service() {
 }
 
 restart_emacs_server() {
-	pidof emacsd | xargs kill -9
+	pidof emacs | xargs kill -9
 	sleep 1
 	if check_daemon_status; then
 		# systemctl --user restart emacs.service # systemctl takes too much time
