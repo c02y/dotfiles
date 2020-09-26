@@ -39,6 +39,7 @@ Usage: $(basename $0)
 	   -E to edit init.el using emacsclient
 	   -f to edit config.fish using emacsclient
 	   -k to kill emacs daemon
+	   -K to kill hung emacs
 	   -m [repo] to start magit in a repo, default is ./
 	   -o [org_file] to start orgmode for a file, default is ~/Org/todo.org
 	   -p profile emacs(startup time, cpu and mem)
@@ -209,7 +210,7 @@ else
 	flag_systemctl=0
 fi
 
-while getopts ":habcCdeEfkmopqrRstuvx" args; do # prefix-: no warning for illegal option
+while getopts ":habcCdeEfkKmopqrRstuvx" args; do # prefix-: no warning for illegal option
 	case "$args" in
 	h | \?) # \? for illegal option
 		print_usage
@@ -254,6 +255,14 @@ while getopts ":habcCdeEfkmopqrRstuvx" args; do # prefix-: no warning for illega
 	k)
 		kill_running_emacsclient
 		kill_emacs_server
+		exit 0
+		;;
+	K)
+		# If Emacs hangs and won't response to C-g, use this to force it to stop whatever it's doing
+		# Note that do not use this if you got more than one instances of Emacs running
+		# Use `pkill -SIGUSR2 PID` to kill the PID, send SIGUSR2 to emacs will turn on
+		# `toggle-debug-on-quit`, turn it off once emacs is alive again
+		pkill -SIGUSR2 emacs
 		exit 0
 		;;
 	m)

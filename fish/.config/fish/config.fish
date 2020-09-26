@@ -420,11 +420,6 @@ abbr va 'colour-valgrind --track-origins=yes --leak-check=full'
 abbr vad 'colour-valgrind --tool=callgrind --dump-instr=yes --simulate-cache=yes --collect-jumps=yes'
 
 abbr kill9 'killall -9'
-# If Emacs hangs and won't response to C-g, use this to force it to stop whatever it's doing
-# Note that do not use this if you got more than one instances of Emacs running
-# Use `pkill -SIGUSR2 PID` to kill the PID, send SIGUSR2 to emacs will turn on
-# `toggle-debug-on-quit`, turn it off once emacs is alive again
-abbr kille 'pkill -SIGUSR2 emacs'
 # get the pid of a gui program using mouse
 abbr pid 'xprop | rg -i pid | rg -Po "[0-9]+"'
 function psgs -d 'pgrep process, used in script'
