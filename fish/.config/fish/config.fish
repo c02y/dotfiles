@@ -1657,8 +1657,8 @@ function gitpa --description 'git pull all in dir using `fing dir`'
         echo
     end
 end
-function gitbs -d 'branches and worktrees'
-    set -l options 'c' 'd' 'f' 'l' 'w' 'v' 'h'
+function gitbs -d 'branches, tags and worktrees'
+    set -l options 'c' 'd' 'f' 'l' 't' 'T' 'w' 'v' 'h'
     argparse -n gitbs $options -- $argv
     or return
 
@@ -1672,6 +1672,8 @@ function gitbs -d 'branches and worktrees'
         echo "      -l       --> list branches using git ls-remote --heads, $argv to search it"
         echo "      -d       --> delete branch"
         echo "      -f       --> switch branch using fzf"
+        echo "      -t       --> list all tags, with tag arg, switch to the tag"
+        echo "      -T       --> switch tag using fzf"
         echo "      -v       --> show verbose info of branches"
         echo "      no argv  --> list branches"
         echo "      argv     --> if branch $argv exist, switch to it, if not, create and switch to it"
@@ -1730,13 +1732,25 @@ function gitbs -d 'branches and worktrees'
         else if set -q _flag_f # use fzf to switch branch
             # NOTE: if the branch is not in `git branch -a`, try `git ls-remote`
             git fetch
-            git branch -a | fzf | awk '{ print $1}' | sed 's#^remotes/[^/]*/##' | xargs git checkout
+            git branch -a | fzf | awk '{print $1}' | sed 's#^remotes/[^/]*/##' | xargs git checkout
         else if set -q _flag_l
             if set -q $argv
                 git ls-remote --heads
             else
                 git ls-remote --heads | rg -i $argv
             end
+        else if set -q _flag_t # list all tags, with arg, switch the the tag
+            # use the following command the fetch all remote tags in there is any
+            # git fetch --all --tags
+            if set -q $argv
+                git tag -ln
+                echo -e "------------\nCurrent tag:"
+                git describe --tags
+            else
+                git checkout tags/$argv
+            end
+        else if set -q _flag_T # switch tag with fzf
+            echo tags/(git tag -ln | fzf | awk '{print $1}') | xargs git checkout
         else if set -q _flag_v
             git branch -vv
         else
