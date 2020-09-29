@@ -153,14 +153,15 @@ copy_service() {
 }
 
 restart_emacs_server() {
-	pidof emacs | xargs kill -9
-	sleep 1
 	if check_daemon_status; then
 		# systemctl --user restart emacs.service # systemctl takes too much time
 		# once you kill the process, it will restart automatically
 		ps -ef | grep -v grep | grep 'emacs' | grep 'daemon' | awk '{print $2}' | xargs kill -9
-		echo "emacs server is restarted!"
+		sleep 1
+	else # if emacs daemon is not running
+		systemctl --user restart emacs.service
 	fi
+	echo "emacs server is restarted!"
 }
 
 start_magit() {
