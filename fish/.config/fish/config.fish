@@ -2544,7 +2544,25 @@ function mo-bak
     end
 end
 
-abbr ytd 'youtube-dl -citw'
+function ytd -d 'youtube-dl functions'
+    set -l options 'l' 'a' 'f' 'p' 'P'
+    argparse -n ytd -N 1 $options -- $argv
+    or return
+
+    if set -q _flag_l # list all formats
+        eval $PXY youtube-dl -F \"$argv\"
+    else if set -q _flag_f # choose the num from the list
+        eval $PXY youtube-dl -f $argv[1] \"$argv[2]\"
+    else if set -q _flag_a # only download best audio into mp3
+        eval $PXY youtube-dl -ciw --extract-audio --audio-format mp3 --audio-quality 0 --output "%(title)s.%(ext)s" \"$argv\"
+    else if set -q _flag_p # download playlist
+        eval $PXY youtube-dl --download-archive downloaded.txt --no-overwrites -ict --yes-playlist --socket-timeout 5 \"$argv\"
+    else if set -q _flag_P # download playlist into audio
+        eval $PXY youtube-dl --download-archive downloaded.txt --no-overwrites -ict --yes-playlist --extract-audio --audio-format mp3 --audio-quality 0 --socket-timeout 5 \"$argv\"
+    else # download video
+        eval $PXY youtube-dl -ciw \"$argv\"
+    end
+end
 
 function rgs -d 'rg sth in -e(init.el)/-E(errno)/-f(config.fish)/-t(.tmux.conf)/-v(vimrc), or use -F(fzf) to open the file, -g(git repo), -w(whole word), -V(exclude pattern), -l(list files) -s(sort)'
     # NOTE -V require an argument, so put "V=" line for argparse
