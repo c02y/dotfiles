@@ -2568,7 +2568,7 @@ function ytd -d 'youtube-dl functions'
     else if set -q _flag_f # choose the num from the list
         eval $PXY youtube-dl -f $argv[1] \"$argv[2]\"
     else if set -q _flag_a # only download best audio into mp3
-        eval $PXY youtube-dl -ciw --extract-audio --audio-format mp3 --audio-quality 0 --output "%(title)s.%(ext)s" \"$argv\"
+        eval $PXY youtube-dl -ciw --extract-audio --audio-format mp3 --audio-quality 0 \"$argv\"
     else if set -q _flag_p # download playlist
         eval $PXY youtube-dl --download-archive downloaded.txt --no-overwrites -ict --yes-playlist --socket-timeout 5 \"$argv\"
     else if set -q _flag_P # download playlist into audio
