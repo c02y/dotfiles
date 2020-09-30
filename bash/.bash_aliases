@@ -42,7 +42,6 @@ alias x='exit'
 alias sl='ls'
 alias ls='ls --color=auto'
 alias lsp='readlink -f' # print the full path of a file
-alias lsd='ls -d */'	# only list directories
 alias ll='ls -lh'
 alias la='ls -d .??*'
 alias lla='ls -lhA'
