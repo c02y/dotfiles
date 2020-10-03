@@ -1279,11 +1279,16 @@ function fmts -d "compile_commands.json(-c), clang-format(-l), cmake-format(-m)"
                 scripts/gen_compile_commands.py
             end
         else if test -f Makefile
-            if command -sq bear
-                bear make
+            make clean
+            if command -sq intercept-build # pip install scan-build
+                intercept-build make
+            else if command -sq compiledb
+                # NOTE: don't have to `make clean`, but may be error message
+                compiledb -n make
+            else if command -sq bear
+                bear -- make
             else
-                make --always-make --dry-run | grep -wE 'gcc|g++' | grep -w '\-c' \
-                    | jq -nR '[inputs|{directory:".", command:., file: match(" [^ ]+$").string[1:]}]' >compile_commands.json
+                echo "None of scan-build/compiledb/bear is not installed!"
             end
         end
     else if set -q _flag_l
