@@ -1424,9 +1424,9 @@ function vis -d 'vim different targets'
     else if set -q _flag_s
         vim ~/.config/sxhkd/sxhkdrc
     else if set -q _flag_u
-        vim -u NONE
+        vim -u NONE $argv
     else if set -q _flag_m
-        vim -u ~/Dotfiles.d/vim/vimrc.more
+        vim -u ~/Dotfiles.d/vim/vimrc.more $argv
     else if set -q _flag_v
         vim ~/.spacevim
     else if set -q _flag_o
