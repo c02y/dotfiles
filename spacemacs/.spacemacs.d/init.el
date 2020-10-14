@@ -2468,6 +2468,41 @@ around point as the initial input."
     (let ((input (spacemacs//counsel-current-region-or-symbol))
           (unread-command-events '(?\C-b ?\C-b ?\C-b)))
       (swiper-isearch (concat "\\_<" input "\\_>"))))
+
+  (defun inside-comment-p ()
+    "Returns non-nil if inside comment, else nil.
+Result depends on syntax table's comment character.
+http://ergoemacs.org/emacs/elisp_determine_cursor_inside_string_or_comment.html"
+    (interactive)
+    (let ((result (nth 4 (syntax-ppss))))
+      (message "%s" result)
+      result))
+  (defun inside-string-p ()
+    "Returns non-nil if inside string, else nil.
+Result depends on syntax table's string quote character.
+http://ergoemacs.org/emacs/elisp_determine_cursor_inside_string_or_comment.html"
+    (interactive)
+    (let ((result (nth 3 (syntax-ppss))))
+      (message "%s" result)
+      result))
+
+  (defun insert-indent-brace ()
+    "Insert {}, add new line and indent.
+https://stackoverflow.com/a/22114743/1528712"
+    (interactive)
+    (if (not (or (inside-string-p) (inside-comment-p)))
+        (progn
+          (insert "{\n\n}")
+          (indent-according-to-mode)
+          (forward-line -1)
+          (indent-according-to-mode))
+      (progn
+        (insert "{}")
+        (forward-char -1))))
+  (add-hook 'c-mode-common-hook
+            (lambda () (define-key c-mode-base-map "{" 'insert-indent-brace)))
+  (add-hook 'rust-mode-hook
+            (lambda () (define-key rust-mode-map "{" 'insert-indent-brace)))
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
