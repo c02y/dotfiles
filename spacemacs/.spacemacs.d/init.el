@@ -55,9 +55,11 @@ This function should only modify configuration layer settings."
      ;; rustup component add clippy rustfmt
      ;; cargo install cargo-edit cargo-audit
      (rust :variables
-           ;; rust-format-on-save t
-           lsp-rust-server 'rust-analyzer
            cargo-process--open-file-after-new t
+           cargo-process--enable-rust-backtrace t
+           ;; rustup component add rls rust-analysis rust-src
+           ;; install rust-racer for auto completion with rls
+           lsp-rust-server 'rls
            )
      yaml
      semantic
