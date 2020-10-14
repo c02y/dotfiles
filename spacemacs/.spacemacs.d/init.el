@@ -814,7 +814,7 @@ before packages are loaded."
     :init
     (defvar composition-ligature-table (make-char-table nil))
     :hook
-    (((prog-mode conf-mode nxml-mode markdown-mode help-mode)
+    (((prog-mode conf-mode nxml-mode markdown-mode help-mode org-mode)
       . (lambda () (setq-local composition-function-table composition-ligature-table))))
     :config
     ;; support ligatures, some toned down to prevent hang
