@@ -385,7 +385,7 @@ It should only modify the values of Spacemacs settings."
    dotspacemacs-colorize-cursor-according-to-state t
 
    ;; Default font or prioritized list of fonts.
-   dotspacemacs-default-font '("Cascadia Code PL"
+   dotspacemacs-default-font '("Delugia Nerd Font"
                                :size 13.5
                                :weight normal
                                :width normal)
@@ -808,7 +808,7 @@ before packages are loaded."
 
   ;; set the font, don't have touch dotspacemacs-default-font
   ;; even touched without this following line, font may not work for daemon/emacsclient
-  (setq default-frame-alist '((font . "Cascadia Code PL-13.5")))
+  (setq default-frame-alist '((font . "Delugia Nerd Font-13.5")))
   ;; cascadia-code/issues/153#issuecomment-548622886
   ;; Emacs Ligatures for Cascadia Code font
   (use-package composite
