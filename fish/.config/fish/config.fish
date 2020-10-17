@@ -2564,9 +2564,9 @@ function mo-bak
     end
 end
 
-function ytd -d 'youtube-dl functions'
+function yous -d 'youtube-dl functions'
     set -l options 'l' 'a' 'f' 'p' 'P'
-    argparse -n ytd -N 1 $options -- $argv
+    argparse -n yous -N 1 $options -- $argv
     or return
 
     if set -q _flag_l # list all formats
