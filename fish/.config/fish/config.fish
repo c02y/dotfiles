@@ -1246,6 +1246,9 @@ function fmts -d "compile_commands.json(-c), clang-format(-l), cmake-format(-m)"
     or return
 
     if set -q _flag_c
+        test -f Debug/compile_commands.json; and command rm -rf Debug
+        test -f compile_commands.json; and command rm -rf compile_commands.json
+
         # generate compile_commands.json file for C/C++ files used by ccls/lsp
         if test -f CMakeLists.txt
             cmake -H. -BDebug -DCMAKE_BUILD_TYPE=Debug -DCMAKE_EXPORT_COMPILE_COMMANDS=YES
