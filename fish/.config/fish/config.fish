@@ -680,18 +680,13 @@ function fzfp -d 'check if fzf is existed, with any argument, fzf binary file wi
         # echo "fzf is installed, use any extra to upgrade it!"
         return 0
     else
-        # check internet connection
-        if not wget -q --spider http://www.baidu.com # failed, $status != 0
-            echo "fzf doesn't exist and error occurs when downloading it!"
-            return 1
-        end
-        set tag_name (eval $PXY curl -s "https://api.github.com/repos/junegunn/fzf-bin/releases/latest" | rg "tag_name" | cut -d : -f 2 | awk -F[\"\"] '{print $2}')
+        set tag_name (eval $PXY curl -s "https://api.github.com/repos/junegunn/fzf/releases/latest" | rg "tag_name" | cut -d : -f 2 | awk -F[\"\"] '{print $2}')
         if not test $tag_name
             echo "API rate limit exceeded, please input your password for your username!"
-            set tag_name (eval $PXY curl -u c02y -s "https://api.github.com/repos/junegunn/fzf-bin/releases/latest" | rg "tag_name" | cut -d : -f 2 | awk -F[\"\"] '{print $2}')
+            set tag_name (eval $PXY curl -u c02y -s "https://api.github.com/repos/junegunn/fzf/releases/latest" | rg "tag_name" | cut -d : -f 2 | awk -F[\"\"] '{print $2}')
         end
-        set file_name (echo fzf-$tag_name-linux_amd64.tgz)
-        set file_link (echo https://github.com/junegunn/fzf-bin/releases/download/$tag_name/$file_name)
+        set file_name (echo fzf-$tag_name-linux_amd64.tar.gz)
+        set file_link (echo https://github.com/junegunn/fzf/releases/download/$tag_name/$file_name)
         eval $PXY wget $file_link -O /tmp/$file_name
         if test -s /tmp/$file_name
             tar -xvzf /tmp/$file_name -C ~/.local/bin
