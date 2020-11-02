@@ -1258,6 +1258,7 @@ Emacs session."
     "XX" 'spacemacs/change-case-transient-state/body
     "Xm" 'spacemacs/cool-moves-transient-state/body
     "Xr" 'spacemacs/rectangle-transient-state/body
+    "XR" 'recover-this-file
     "Xh" 'spacemacs/hl-todo-transient-state/body
     "Sg" 'flyspell-correct-word-generic
     "Sc" 'flyspell-correct-at-point
