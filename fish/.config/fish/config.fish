@@ -1235,12 +1235,12 @@ abbr gdbu 'gdbgui --gdb-args="-q -n"'
 # Using the following abbr to debug the latest core dump binary
 abbr gdbc 'coredumpctl gdb -1'
 
-function fmts -d "compile_commands.json(-c), clang-format(-l), cmake-format(-m)"
-    set -l options 'c' 'l' 'm'
+function fmts -d "compile_commands.json(-l), clang-format(-f), cmake-format(-m)"
+    set -l options 'f' 'l' 'm'
     argparse -n fmts $options -- $argv
     or return
 
-    if set -q _flag_c
+    if set -q _flag_l
         test -f Debug/compile_commands.json; and command rm -rf Debug
         test -f compile_commands.json; and command rm -rf compile_commands.json
 
@@ -1268,14 +1268,20 @@ function fmts -d "compile_commands.json(-c), clang-format(-l), cmake-format(-m)"
                 echo "None of scan-build/compiledb/bear is not installed!"
             end
         end
-    else if set -q _flag_l
+    end
+
+    if set -q _flag_f
         # .clang-format file for C/Cpp projects used by clang-format
         ln -nsfv ~/Dotfiles.d/spacemacs/.spacemacs.d/lisp/clang-format-c-cpp .clang-format
         or cp -v ~/Dotfiles.d/spacemacs/.spacemacs.d/lisp/clang-format-c-cpp .clang-format
-    else if set -q _flag_m
-        # .cmake-format.json file for CMakeLists.txt used by cmake-format
-        ln -nsfv ~/Dotfiles.d/spacemacs/.spacemacs.d/lisp/cmake-format.json .cmake-format.json
-        or cp -v ~/Dotfiles.d/spacemacs/.spacemacs.d/lisp/cmake-format.json .cmake-format.json
+    end
+
+    if set -q _flag_m
+        if test -f CMakeLists.txt
+            # .cmake-format.json file for CMakeLists.txt used by cmake-format
+            ln -nsfv ~/Dotfiles.d/spacemacs/.spacemacs.d/lisp/cmake-format.json .cmake-format.json
+            or cp -v ~/Dotfiles.d/spacemacs/.spacemacs.d/lisp/cmake-format.json .cmake-format.json
+        end
     end
 end
 
