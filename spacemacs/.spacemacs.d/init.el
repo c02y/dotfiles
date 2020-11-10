@@ -1746,7 +1746,8 @@ which switch the last buffer in this window."
     "Based on mwim, goto the end of code, then end of line, then the next line."
     (interactive)
     (when (eolp) (forward-line 1))
-    (mwim-end-of-code-or-line))
+    (if (inside-comment-p) (end-of-line)
+      (mwim-end-of-code-or-line)))
 
   (add-to-list 'auto-mode-alist '(".spacevim\\'" . vimrc-mode))
 
