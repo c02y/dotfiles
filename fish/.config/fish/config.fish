@@ -2334,20 +2334,19 @@ end
 
 abbr pxx 'proxychains4 -q'
 function pxs -d 'multiple commands using proxychains4'
-    set -l options 'a' 'c' 'n' 'w'
+    set -l options 'a' 'c' 'p'
     argparse -n pxs $options -- $argv
     or return
 
+    # -p to use proxy
+    set -q _flag_p; and set CMD $PXY; or set CMD
+
     if set -q _flag_a
-        proxychains4 -q aria2c -c -x 5 --check-certificate=false --file-allocation=none $argv
+        eval $CMD aria2c -c -x 5 --check-certificate=false --file-allocation=none $argv
     else if set -q _flag_c
-        proxychains4 -q curl -L -O -C - $argv
-    else if set -q _flag_w
-        proxychains4 -q wget -c --no-check-certificate $argv
-    else if set -q _flag_w
-        wget -c --no-check-certificate $argv
-    else # default = -w
-        proxychains4 -q wget -c --no-check-certificate $argv
+        eval $CMD curl -L -O -C - $argv
+    else # default using wget
+        eval $CMD wget -c --no-check-certificate $argv
     end
 end
 
