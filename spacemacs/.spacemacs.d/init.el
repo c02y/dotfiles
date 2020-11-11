@@ -2230,11 +2230,6 @@ background of code to whatever theme I'm using's background"
             (format "<style type=\"text/css\">\n pre.src {background-color: %s; color: %s;}</style>\n"
                     my-pre-bg my-pre-fg))))))
     (add-hook 'org-export-before-processing-hook 'my/org-inline-css-hook)
-    ;; FIXME: use org-num from org-9.3(not released ye, download it from
-    ;; https://raw.githubusercontent.com/bzg/org-mode/300f15bcbbaf7a49c94e2cfca4f4335f0dc55fc8/lisp/org-num.elt)
-    ;; to replace org-numbers-overlay-mode which causex emacsclient fail to lanuch when using
-    ;; `-e (org-capture)` or `-e (org-agenda-list)`
-    (require 'org-num)
     ;; org-sticky-header and org-table-sticky-header
     (add-hook 'org-mode-hook
               (lambda ()
