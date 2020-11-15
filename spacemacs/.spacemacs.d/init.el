@@ -221,6 +221,7 @@ This function should only modify configuration layer settings."
                                       leetcode
                                       smart-compile
                                       format-all
+                                      (translate-shell :location (recipe :fetcher github :repo "xuchunyang/translate-shell.el"))
                                       )
 
    ;; A list of packages that cannot be updated.
@@ -928,6 +929,11 @@ before packages are loaded."
                                          (get-buffer-create "*compilation*"))
                                         (message "No Compilation Errors!"))))
    find-file-visit-truename t
+   ;; using translate-shell cli tool, which is trans binary in bin
+   ;; translate-shell-command "proxychains4 -q trans -t en %s"
+   ;; translate-shell-brief-command "proxychains4 -q trans -brief -t zh %s"
+   translate-shell-command "trans :zh -d -show-dictionary Y -v -no-ansi %s"
+   translate-shell-brief-command "trans -brief -t zh %s"
    )
 
   ;; NOTE: along with undo-tree-auto-save-history
@@ -1269,6 +1275,8 @@ Emacs session."
     ;; correct the wrong word with prefix+i, next time auto-correct it, defined bellow
     "Ss" 'endless/ispell-word-then-abbrev
     "SS" 'ispell-complete-word
+    "ST" 'translate-shell-brief
+    "St" 'translate-shell
     ;; replace swiper with swiper-isearch since swiper doen't refresh ivy-resume list
     "ss" 'swiper-isearch
     "sw" 'swiper-whole-word
