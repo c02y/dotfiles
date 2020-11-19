@@ -138,7 +138,7 @@ function! UserInit()
     " for syntax-checking layer, check https://github.com/liuchengxu/space-vim/issues/407
     " Comment the following part out to enable ale plug
     "
-    Plug 'w0rp/ale'
+    Plug 'dense-analysis/ale'
     let g:ale_set_highlights = 0
     let g:ale_fix_on_save = 1
     let g:ale_echo_msg_format = '[#%linter%#] %s [%severity%]'
@@ -152,6 +152,11 @@ function! UserInit()
     let g:ale_lint_delay = 500
     let g:ale_lint_on_text_changed = 'normal'
     let g:ale_lint_on_insert_leave = 1
+    " ale uses clang to generate ./.cache dir -- keep it that way
+    " also uses ccls to generate ./.ccls-cache dir -- use the following configs
+    " to override it, NOTE that coc generates .ccls-cache too, dealt with it already
+    let g:ale_cpp_ccls_init_options = {'diagnostics': {'onOpen': 1, 'onChange': 1, 'onSave': 1}, 'cache': {'directory': '/tmp/ccls'}, 'compilationDatabaseDirectory': '.'}
+    let g:ale_c_ccls_init_options = {'diagnostics': {'onOpen': 1, 'onChange': 1, 'onSave': 1}, 'cache': {'directory': '/tmp/ccls'}, 'compilationDatabaseDirectory': '.'}
     nmap <Leader>en <Plug>(ale_next)
     nmap <Leader>ep <Plug>(ale_previous)
     nnoremap <Leader>ts :ALEToggle<CR>
@@ -406,6 +411,7 @@ function! UserConfig()
     " TODO: :CocInstall coc-python for python
     " https://github.com/neoclide/coc.nvim/wiki/Language-servers#python
     " gd == goto definition in current window
+    " do not comment the following line out, coc commands rely on the file
     let g:coc_config_home = "~/.local/bin/"
     nmap gG :call CocAction('jumpDefinition', 'split')<CR>
     nmap gv :call CocAction('jumpDefinition', 'vsplit')<CR>
