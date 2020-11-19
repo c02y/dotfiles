@@ -1090,6 +1090,15 @@ With argument, backward ARG lines."
         ;; Indent character samples: | ┆ ┊ ⁞
         highlight-indent-guides-character ?\┊)
 
+  ;; highlight TODO:/NOTE:/FIXME:/BUG: keywords
+  (dolist (hook '(prog-mode-hook org-mode-hook))
+    (add-hook hook
+              (lambda ()
+                (font-lock-add-keywords
+                 nil
+                 '(("\\<\\(TODO:\\|NOTE:\\|FIXME:\\|BUG:\\|WARNING:\\)" 1
+                    '(:background "yellow") t))))))
+
   (defun rename-this-buffer-and-file ()
     "Renames current buffer and file it is visiting."
     (interactive)
