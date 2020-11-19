@@ -1182,8 +1182,21 @@ abbr pacuu 'yay -Syyu' # force a full refresh of database and update the system,
 abbr pacud 'yay -Syuu' # like pacu, but allow downgrade, needed when switch to old branch like testing->stable or you seen local xxx is newer than xxx
 abbr paco 'pacman -Qdt --color=always' # To list all orphans, installed packages that are not used by anything else and should no longer be needed
 abbr pacor 'sudo pacman -Rsun (pacman -Qdtq)' # remove package and its configs in paco
-abbr pacmc 'sudo pacman-mirrors -c China'
-abbr pacmf 'sudo pacman-mirrors -f 3'
+function pacms -d 'pacman-mirrors functions, default(China), -f(fastest 5), -g(Germany), -s(status)'
+    set -l options 'f' 'g' 's'
+    argparse -n pacms $options -- $argv
+    or return
+
+    if set -q _flag_f
+        sudo pacman-mirrors -f 3
+    else if set -q _flag_g
+        sudo pacman-mirrors -c Germany
+    else if set -q _flag_s
+        pacman-mirrors --status
+    else
+        sudo pacman-mirrors -c China
+    end
+end
 function pacsh -d 'search info about package, first search installed then search in repo'
     pacman -Qi $argv
     or pacman -Si $argv
