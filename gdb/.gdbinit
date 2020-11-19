@@ -3073,6 +3073,10 @@ py import duel
 
 python Dashboard.start()
 
+# change the color of prompt and greyish text to red(1;31) and blue(1;34)
+dashboard -style prompt_not_running '\[\e[1;31m\]>>>\[\e[0m\]'
+dashboard -style style_low '1;34'
+
 # File variables ---------------------------------------------------------------
 
 # vim: filetype=python
