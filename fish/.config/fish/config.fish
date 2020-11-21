@@ -1390,7 +1390,7 @@ abbr db 'douban.fm'
 #vim
 set -gx EDITOR 'vim'
 function vis -d 'vim different targets'
-    set -l options '2' 'b' 'B' 'd' 'e' 'f' 't' 'T' 'a' 'k' 's' 'u' 'm' 'v' 'o'
+    set -l options '2' 'b' 'B' 'c' 'd' 'e' 'f' 't' 'T' 'a' 'k' 's' 'u' 'm' 'M' 'v' 'o'
     argparse -n vis $options -- $argv
     or return
 
@@ -1406,6 +1406,8 @@ function vis -d 'vim different targets'
         else if test -d $argv[1]
             vim -c "DirDiff $argv[1] $argv[2]"
         end
+    else if set -q _flag_c
+        vim ~/Dotfiles.d/spacemacs/.spacemacs.d/lisp/clang-format-c-cpp
     else if set -q _flag_e
         vim $EMACS_EL
     else if set -q _flag_f
@@ -1426,6 +1428,8 @@ function vis -d 'vim different targets'
         vim -u NONE $argv
     else if set -q _flag_m
         vim -u ~/Dotfiles.d/vim/vimrc.more $argv
+    else if set -q _flag_M
+        vim ~/Dotfiles.d/spacemacs/.spacemacs.d/lisp/cmake-format.json
     else if set -q _flag_v
         vim ~/.spacevim
     else if set -q _flag_o
