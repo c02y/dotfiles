@@ -199,6 +199,8 @@ This function should only modify configuration layer settings."
      (lua :variables
           lua-backend nil
           )
+     (pdf :variables
+          pdf-view-display-size 'fit-height)
      )
 
    ;; List of additional packages that will be installed without being
