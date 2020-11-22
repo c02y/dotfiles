@@ -1261,10 +1261,11 @@ function fmts -d "compile_commands.json(-l), clang-format(-f), cmake-format(-m)"
         # generate compile_commands.json file for C/C++ files used by ccls/lsp
         if test -f CMakeLists.txt
             cmake -H. -B build -DCMAKE_BUILD_TYPE=Debug -DCMAKE_EXPORT_COMPILE_COMMANDS=YES
-            and if ! ln -nsfv build/compile_commands.json # if ln status wrong(failed, such as Linux->Windows)
-                command cp -v build/compile_commands.json .
-            else
+            if test $status != 0 -o ! -f build/compile_commands.json
                 echo -e "\nGenerating build/compile_commands.json failed!!!"
+            else if ! ln -nsfv build/compile_commands.json
+                # if ln fails(failed, such as Linux->Windows), cp directly
+                command cp -v build/compile_commands.json .
             end
         else if test -f scripts/gen_compile_commands.py # Linux kernel
             make defconfig
@@ -1286,15 +1287,13 @@ function fmts -d "compile_commands.json(-l), clang-format(-f), cmake-format(-m)"
         end
     end
 
-    if set -q _flag_f
-        # .clang-format file for C/Cpp projects used by clang-format
+    if set -q _flag_f # .clang-format file for C/Cpp projects used by clang-format
         ln -nsfv ~/Dotfiles.d/spacemacs/.spacemacs.d/lisp/clang-format-c-cpp .clang-format
         or cp -v ~/Dotfiles.d/spacemacs/.spacemacs.d/lisp/clang-format-c-cpp .clang-format
     end
 
-    if set -q _flag_m
-        if test -f CMakeLists.txt
-            # .cmake-format.json file for CMakeLists.txt used by cmake-format
+    if set -q _flag_m # .cmake-format.json file for CMakeLists.txt used by cmake-format
+        if test -f CMakeLists.txt # TODO: combine the two conditions
             ln -nsfv ~/Dotfiles.d/spacemacs/.spacemacs.d/lisp/cmake-format.json .cmake-format.json
             or cp -v ~/Dotfiles.d/spacemacs/.spacemacs.d/lisp/cmake-format.json .cmake-format.json
         end
