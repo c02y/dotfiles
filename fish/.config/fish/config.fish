@@ -2262,44 +2262,6 @@ abbr epub 'ebook-viewer --detach'
 abbr sss 'ps -eo tty,command | rg -v rg | rg "sudo ssh "'
 abbr p 'ping -c 5'
 alias ping 'ping -c 5'
-function po -d 'Test the connection of outside internet'
-    if not timeout 1 ping... # failed, $status != 0
-        echo Offline!
-    else
-        echo Online!
-    end
-end
-function pl -d 'Test the connection of inside internet'
-    if test (count $argv) -eq 1
-        if not timeout 1 ping -c 1 10.8.2.$argv ^/dev/null >/dev/null
-            echo Offline!
-        else
-            echo Online!
-        end
-    else
-        if not timeout 1 ping -c 1 10.0.4.4 ^/dev/null >/dev/null
-            echo Offline!
-        else
-            echo Online!
-        end
-    end
-end
-function pv --description "ping vpn servers"
-    p p1.jp1.seejump.com | tail -n3
-    echo --------------------------------------------------------------
-    p p1.jp2.seejump.com | tail -n3
-    echo --------------------------------------------------------------
-    p p1.jp3.seejump.com | tail -n3
-    echo --------------------------------------------------------------
-    p p1.jp4.seejump.com | tail -n3
-    echo --------------------------------------------------------------
-    p p1.hk1.seejump.com | tail -n3
-    echo --------------------------------------------------------------
-    p p1.hk2.seejump.com | tail -n3
-    echo --------------------------------------------------------------
-    p p1.hk3.seejump.com | tail -n3
-    echo --------------------------------------------------------------
-end
 function ipl -d 'get the location of your public IP address'
     if test (ps -ef | rg -w -v rg | rg -i shadow | awk '{ print $(NF-2) }') # ssr is running
         proxychains4 -q curl myip.ipip.net
