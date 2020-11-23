@@ -2428,7 +2428,7 @@ With prefix P, don't widen, just narrow even if buffer is already narrowed. "
     )
 
   ;; functions for eshell
-  (exec-path-from-shell-initialize)
+  ;; (exec-path-from-shell-initialize)
   (defun eshell/x ()
     "x in eshell prompt to exit eshell and close the eshell window."
     (eshell/exit)
