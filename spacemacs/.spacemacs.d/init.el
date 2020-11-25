@@ -1258,7 +1258,8 @@ Emacs session."
     "fxE" (lambda () (interactive) (find-file "~/ve.emacs.d/init.el"))
     "fp" 'run-python
     ;; the default binding is SPC j =
-    "==" 'spacemacs/indent-region-or-buffer
+    "=b" 'spacemacs/indent-region-or-buffer
+    "==" 'format-all-buffer
     "bq" 'query-replace-region-or-from-top
     "bf" 'flush-blank-lines
     ;; related one is default M-q
