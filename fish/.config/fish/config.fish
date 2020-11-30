@@ -1247,6 +1247,13 @@ abbr gdbu 'gdbgui --gdb-args="-q -n"'
 # if it is lz4, decompress it, and `gdb ./file core-file`
 # Using the following abbr to debug the latest core dump binary
 abbr gdbc 'coredumpctl gdb -1'
+function gdbt -d "using gdb with tmux panes"
+    set -l id (tmux split-pane -hPF "#D" "tail -f /dev/null")
+    tmux last-pane
+    set -l tty (tmux display-message -p -t "$id" '#{pane_tty}')
+    gdb -q -ex "dashboard source -output $tty" "$argv"
+    tmux kill-pane -t $id
+end
 alias makei 'make $argv && ./$argv'
 
 function fmts -d "compile_commands.json(-l), clang-format(-f), cmake-format(-m)"
