@@ -2293,11 +2293,27 @@ set history save
 define dod
   dashboard -output /dev/pts/$arg0
 end
+# you can also use gdbt directly from shell to start gdb
 define dos
+  # check if only one pane in current window, if yes, create one
+  # do not change any symbol in the following line
+  shell echo -e set \$window_panes=(tmux display -p '#{window_panes}') > /tmp/tty_panes
+  source /tmp/tty_panes
+  if $window_panes == 1
+    shell eval (tmux split-window -h && tmux select-pane -L)
+  end
+  # get the tty of the other tty of the current tmux window
+  # do not change any symbol in the following line
+  shell echo -e set \$tty_other_pane=\"(tmux select-pane -R; tmux display -p '#{pane_tty}'; tmux select-pane -L)\" > /tmp/tty_panes
+  source /tmp/tty_panes
   # make the full size of the terminal for source
   dashboard source -style height 0
   # dashboard assembly -style height 0
-  dashboard source -output /dev/pts/$arg0
+  eval "dashboard source -output %s", $tty_other_pane
+end
+document dos
+	before debugging, use dos to outout the source part into
+	the side pane created by tmux
 end
 
 define dsl
@@ -2435,6 +2451,19 @@ end
 document timeme
 	Measure executing time of next function
 	Usage: timeme or ti
+end
+
+define J
+  dashboard source scroll 10
+end
+document J
+	scroll source part to down 10 lines
+end
+define K
+  dashboard source scroll -10
+end
+document K
+	scroll source part to up 10 lines
 end
 
 # https://www.quora.com/What-is-a-way-to-see-the-contents-of-STL-containers-in-C++-while-debugging
@@ -3076,6 +3105,10 @@ python Dashboard.start()
 # change the color of prompt and greyish text to red(1;31) and blue(1;34)
 dashboard -style prompt_not_running '\[\e[1;31m\]>>>\[\e[0m\]'
 dashboard -style style_low '1;34'
+# being able to scroll back to the history output
+dashboard -style discard_scrollback False
+# auto start dos function
+dos
 
 # File variables ---------------------------------------------------------------
 
