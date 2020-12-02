@@ -1279,7 +1279,7 @@ function fmts -d "compile_commands.json(-l), clang-format(-f), cmake-format(-m)"
             and if make
                 scripts/gen_compile_commands.py
             end
-        else if test -f Makefile
+        else if test -f Makefile -o -f makefile
             make clean
             if command -sq intercept-build # pip install scan-build
                 intercept-build make
