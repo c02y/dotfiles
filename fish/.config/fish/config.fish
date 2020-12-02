@@ -982,7 +982,7 @@ abbr ipp 'ip addr'
 abbr m-c 'minicom --color=on'
 function tree
     if test -f /usr/bin/tree
-        command tree -Cshf $argv
+        command tree -Cashf $argv
     else
         find $argv
         echo -e "\n...tree is not installed, use find instead..."
