@@ -7,6 +7,11 @@ set -gx GOPROXY https://goproxy.cn
 set -gx NPMS $HOME/.npms
 set -gx NODE_PATH $NPMS/lib/node_modules
 
+# fix the error: "manpath: can't set the locale; make sure $LC_* and $LANG are correct"
+set -gx LC_ALL en_US.UTF-8
+set -gx LANG en_US.UTF-8
+set -gx LANGUAGE en_US.UTF-8
+
 # By default, MANPATH variable is unset, so set MANPATH to the result of `manpath` according to
 # /etc/man.config and add the customized man path to MANPATH
 if test "$MANPATH" = ""
