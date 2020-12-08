@@ -1260,7 +1260,18 @@ function gdbt -d "using gdb with tmux panes"
     gdb -q -ex "dashboard source -output $tty" "$argv"
     tmux kill-pane -t $id
 end
-alias makei 'make $argv && ./$argv'
+function mkk -d "check if target exist, it not, cmake .. and then make and run the target, if no argv, cmake .. and make all"
+    if not set -q $argv
+        make -q $argv
+        # if make pass or make error, status=1
+        # if no given target, status=2
+        if test $status = 1; or cmake ..
+            make $argv ; and ./$argv
+        end
+    else
+        cmake ..; and make
+    end
+end
 
 function fmts -d "compile_commands.json(-l), clang-format(-f), cmake-format(-m)"
     set -l options 'f' 'l' 'm'
