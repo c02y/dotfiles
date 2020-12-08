@@ -1092,13 +1092,13 @@ With argument, backward ARG lines."
         ;; Indent character samples: | ┆ ┊ ⁞
         highlight-indent-guides-character ?\┊)
 
-  ;; highlight TODO:/NOTE:/FIXME:/BUG: keywords
+  ;; highlight TODO:/NOTE:/FIXME:/FIX:/BUG:/WARNING: keywords
   (dolist (hook '(prog-mode-hook org-mode-hook))
     (add-hook hook
               (lambda ()
                 (font-lock-add-keywords
                  nil
-                 '(("\\<\\(TODO:\\|NOTE:\\|FIXME:\\|BUG:\\|WARNING:\\)" 1
+                 '(("\\<\\(TODO:\\|NOTE:\\|FIXME:\\|FIX:\\|BUG:\\|WARNING:\\)" 1
                     '(:background "yellow") t))))))
 
   (defun rename-this-buffer-and-file ()
@@ -1498,7 +1498,7 @@ Version 2016-12-18"
           ivy-height-alist
           '((t
              lambda (_caller)
-             (/ (frame-height) 2)))
+             (/ (frame-height) 3)))
           ))
 
   (with-eval-after-load 'yasnippet
@@ -2480,6 +2480,17 @@ and you can reconfigure the compile args."
     (interactive)
     (let ((unread-command-events '(?\C-b ?\C-b ?\C-b)))
       (swiper-isearch "\\_<\\_>")))
+  ;; This function is deleted in spacemacs repo, now put is here since it used
+  (defun spacemacs//counsel-current-region-or-symbol ()
+    "Return contents of the region or symbol at point.
+
+If region is active, mark will be deactivated in order to prevent region
+expansion when jumping around the buffer with counsel. See `deactivate-mark'."
+    (if (region-active-p)
+        (prog1
+            (buffer-substring-no-properties (region-beginning) (region-end))
+          (deactivate-mark))
+      (thing-at-point 'symbol t)))
   (defun spacemacs/swiper-region-or-symbol-whole-word ()
     "Run `swiper-isearch' with the selected region or the symbol
 around point as the initial input."
@@ -2487,7 +2498,6 @@ around point as the initial input."
     (let ((input (spacemacs//counsel-current-region-or-symbol))
           (unread-command-events '(?\C-b ?\C-b ?\C-b)))
       (swiper-isearch (concat "\\_<" input "\\_>"))))
-
   (defun inside-comment-p ()
     "Returns non-nil if inside comment, else nil.
 Result depends on syntax table's comment character.
