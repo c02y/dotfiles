@@ -1174,7 +1174,7 @@ abbr pacI 'sudo pacman -Syu --needed' # -S to install a package, -Syu pkg to ens
 abbr pacii 'sudo pacman -Syu --needed --noconfirm'
 abbr pacil 'sudo pacman -U' # install package from a local .pkg.tar.xz/link file
 abbr pacs 'pacman -Ss --color=always' # search for package to install
-abbr pacS 'proxychains4 -q pacui i'   # the same as puii abbr
+abbr pacS 'proxychains4 -q pacui i' # the same as puii abbr
 abbr pacls 'pacman -Qs --color=always' # search for local installed packages
 abbr pacr 'yay -Rsun' # remove a package and its unneeded dependencies, and clean configs
 abbr pacrr 'yay -Rsc' # using this if pacr doesn't not uninstall a pacakge
@@ -1260,16 +1260,26 @@ function gdbt -d "using gdb with tmux panes"
     gdb -q -ex "dashboard source -output $tty" "$argv"
     tmux kill-pane -t $id
 end
-function mkk -d "check if target exist, it not, cmake .. and then make and run the target, if no argv, cmake .. and make all"
-    if not set -q $argv
-        make -q $argv
-        # if make pass or make error, status=1
-        # if no given target, status=2
-        if test $status = 1; or cmake ..
-            make $argv ; and ./$argv
+function mkk -d "cmake and make"
+    if test -f ../CMakeLists.txt # inside build dir
+        if not set -q $argv
+            make -q $argv
+            # if make pass or make error, status=1
+            # if no given target, status=2
+            if test $status = 1; or cmake ..
+                make $argv; and ./$argv
+            end
+        else
+            cmake ..; and make
         end
+    else if test -f ./Makefile -o -f makefile # not cmake
+        make
+    else if test -f ./CMakeLists.txt # no build dir
+        not test -d build; and mkdir build
+        cd build && cmake .. && make
+        not set -q $argv; and ./$argv
     else
-        cmake ..; and make
+        echo "No CMakeLists.txt or not inside build or no Makefile/makefile..."
     end
 end
 
