@@ -2395,6 +2395,9 @@ end
 define p
   if $argc == 0
 	display
+	# info args -- list arguments of the current stack
+	# info variables --  list all global and static variable
+	info locals
   else
 	undisplay
 	set $i = 0
