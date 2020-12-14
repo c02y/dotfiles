@@ -271,7 +271,7 @@ It should only modify the values of Spacemacs settings."
    ;; To load it when starting Emacs add the parameter `--dump-file'
    ;; when invoking Emacs 27.1 executable on the command line, for instance:
    ;;   ./emacs --dump-file=$HOME/.emacs.d/.cache/dumps/spacemacs-27.1.pdmp
-   ;; (default spacemacs-27.1.pdmp)
+   ;; (default (format "spacemacs-%s.pdmp" emacs-version))
    dotspacemacs-emacs-dumper-dump-file (format "spacemacs-%s.pdmp" emacs-version)
 
    ;; If non-nil ELPA repositories are contacted via HTTPS whenever it's
@@ -301,7 +301,9 @@ It should only modify the values of Spacemacs settings."
 
    ;; If non-nil then Spacelpa repository is the primary source to install
    ;; a locked version of packages. If nil then Spacemacs will install the
-   ;; latest version of packages from MELPA. (default nil)
+   ;; latest version of packages from MELPA. Spacelpa is currently in
+   ;; experimental state please use only for testing purposes.
+   ;; (default nil)
    dotspacemacs-use-spacelpa nil
 
    ;; If non-nil then verify the signature for downloaded Spacelpa archives.
@@ -363,6 +365,14 @@ It should only modify the values of Spacemacs settings."
    ;; Default major mode of the scratch buffer (default `text-mode')
    dotspacemacs-scratch-mode 'lisp-interaction-mode
 
+   ;; If non-nil, *scratch* buffer will be persistent. Things you write down in
+   ;; *scratch* buffer will be saved and restored automatically.
+   dotspacemacs-scratch-buffer-persistent nil
+
+   ;; If non-nil, `kill-buffer' on *scratch* buffer
+   ;; will bury it instead of killing.
+   dotspacemacs-scratch-buffer-unkillable t
+
    ;; Initial message in the scratch buffer, such as "Welcome to Spacemacs!"
    ;; (default nil)
    dotspacemacs-initial-scratch-message nil
@@ -387,7 +397,9 @@ It should only modify the values of Spacemacs settings."
    ;; (default t)
    dotspacemacs-colorize-cursor-according-to-state t
 
-   ;; Default font or prioritized list of fonts.
+   ;; Default font or prioritized list of fonts. The `:size' can be specified as
+   ;; a non-negative integer (pixel size), or a floating-point (point size).
+   ;; Point size is recommended, because it's device independent. (default 10.0)
    dotspacemacs-default-font '("Delugia Nerd Font"
                                :size 13.5
                                :weight normal
@@ -549,7 +561,7 @@ It should only modify the values of Spacemacs settings."
    ;; (default nil)
    dotspacemacs-line-numbers t
 
-   ;; Code folding method. Possible values are `evil' and `origami'.
+   ;; Code folding method. Possible values are `evil', `origami' and `vimish'.
    ;; (default 'evil)
    dotspacemacs-folding-method 'evil
 
@@ -1587,21 +1599,9 @@ Version 2016-12-18"
 
   ;; format-all package and the following config replaces all the format-on-save variables
   ;; provided or not-yet-provided by spacemacs
-  (defvar my-auto-format-modes '(c-mode c++-mode cmake-mode emacs-lisp-mode
-                                        fish-mode go-mode json-mode lua-mode
-                                        markdown-mode python-mode rust-mode
-                                        sh-mode toml-mode yaml-mode))
-  (defvar my-auto-format-dirs '("" ""))
-  (defun my-auto-format-buffer-p ()
-    (and (member major-mode my-auto-format-modes)
-         (buffer-file-name)
-         (save-match-data
-           (let ((dir (file-name-directory (buffer-file-name))))
-             (cl-some (lambda (regexp) (string-match regexp dir))
-                      my-auto-format-dirs)))))
-  (defun format-buffer-before-save ()
-    (format-all-mode (if (my-auto-format-buffer-p) 1 0)))
-  (add-hook 'after-change-major-mode-hook 'format-buffer-before-save)
+  (add-hook 'prog-mode-hook 'format-all-mode)
+  (with-eval-after-load 'format-all
+    (add-hook 'prog-mode-hook 'format-all-ensure-formatter))
 
   (defun switch-to-prev-visited-buffer ()
     "Switch to the prev visited buffer, repeated invocations toggle between
