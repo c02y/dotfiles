@@ -1,8 +1,30 @@
 # -*- mode: snippet -*-
 # name: BigEndianSmallEndiam
-# key: bese
+# key: endian
 # --
 #include <stdio.h>
+#if 1
+
+/* https://www.nowcoder.com/ta/review-c/review?tpId=22&tqId=21067&query=&asc=true&order=&page=18 */
+int checkCPU()
+{
+union w {
+int a;
+char b;
+} c;
+c.a = 1;
+return (c.b == 1);
+}
+
+int main()
+{
+printf(checkCPU() ? "Little-endian\n" : "Big-endian\n");
+
+return 0;
+}
+
+#else
+
 /*
 x86(Intel, AMD), MOS Technology 6502, Z80, VAX, PDP-11: Small Endian
 Motorola 6800, Motorola 68000, PowerPC 970, System/370, SPARC(except V9): Big Endian
@@ -10,12 +32,14 @@ ARM(Small Endian by default), PowerPC(except PowerPC 970), DEC Alpha, SPARC V9, 
 */
 int main()
 {
-	int i = 0x12345678;
+int i = 0x12345678;
 
-	if (*((char*)&i) == 0x12)
-		printf("大端\n");
-	else
-		printf("小端\n");
+if (*((char *)&i) == 0x12)
+printf("大端\n");
+else
+printf("小端\n");
 
-	return 0;
+return 0;
 }
+
+#endif

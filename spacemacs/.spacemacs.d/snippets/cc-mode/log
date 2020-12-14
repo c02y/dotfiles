@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# name: log
+# key: log
+# --
+#define LOG(fmt, args...)                                                   \
+do {                                                                            \
+std::cout << __TIME__<< " - "<< __FILE__ << ":"<<__LINE__<< " - "<< __PRETTY_FUNCTION__<<std::endl;                  \
+printf(fmt, ##args);                                                       \
+} while(0)

@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# name: log
+# key: log
+# --
+#define LOG(fmt, args...)                                                   \
+do {                                                                            \
+printf("%s - %s:%d - %s()> ", __TIME__, __FILE__, __LINE__, __FUNCTION__);                  \
+printf(fmt, ##args);                                                       \
+} while(0)
