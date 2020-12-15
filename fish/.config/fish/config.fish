@@ -1830,6 +1830,22 @@ function gitco -d 'git checkout -- for multiple files(filA fileB...) at once, al
         end
     end
 end
+function scc -d 'count lines of code from a local git repo or a github url'
+    if set -q $argv -a (git -C . rev-parse ^/dev/null >/dev/null)
+        # no argv is given, scc for the current dir
+        # and check if . is git repo
+        command scc
+    else if git -C $argv rev-parse ^/dev/null >/dev/null # check if argv is local git repo
+        command scc $argv
+    else if echo $argv | rg "https://github.com" ^/dev/null >/dev/null
+        # or use website directly: https://codetabs.com/count-loc/count-loc-online.html
+        set -l username_repo (echo $argv | cut -c20-)
+        curl "https://api.codetabs.com/v1/loc/?github=$username_repo" | jq -r '(["Files", "Lines", "Blanks", "Comments", "LinesOfCode", "Language"] | (., map(length*"-"))), (.[] | [.files, .lines, .blanks, .comments, .linesOfCode, .language]) | @tsv' | column -t
+    else
+        echo "Wrong argv!"
+    end
+end
+abbr gitsc "scc"
 function gita -d 'git add for multiple files at once'
     if set -q $argv # no given files
         git add .
