@@ -2925,17 +2925,13 @@ function cons -d 'conda virtual environments related functions -i(install packag
     else # no option, switch env or pip install based on base env
         if set -q $argv # no argv
             conda env list
-            read -p 'echo "Which conda env switching to: "' argv
-            if test "$argv" = "" # still no argv, just enter("", not " ") for read prompt
-                return -1
-            else if test (echo $argv[1] | rg ' ' -c) -eq 1
-                # contains space in read argv
-                echo "$argv[1]: error format!"
-                return -1
-            end
+            read -p 'echo "Which conda env switching to: [base?] "' argv
         end
         if conda env list | awk '{ print $1 }' | rg -w $argv[1] >/dev/null ^/dev/null
-            conda activate $argv[1]
+            if test "$argv" = "" # just enter when `read`, these three are unnecessary
+                set argv base
+            end
+            conda activate $argv[1] # if $argv[1] is null, it will be base automatically
             echo "Switched to $argv[1] env..."
             # $argv may contain the env name and extra packages
             if test (count $argv) -gt 1
