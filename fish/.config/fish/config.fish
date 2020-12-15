@@ -2599,9 +2599,9 @@ function yous -d 'youtube-dl functions'
     end
 end
 
-function rgs -d 'rg sth in -e(init.el)/-E(errno)/-f(config.fish)/-t(.tmux.conf)/-v(vimrc), or use -F(fzf) to open the file, -g(git repo), -w(whole word), -V(exclude pattern), -l(list files), -s(sort), -n(no ignore), -S(smart case, otherwise ignore case)'
+function rgs -d 'rg sth in -e(init.el)/-E(errno)/-f(config.fish)/-t(.tmux.conf)/-v(vimrc), or use -F(fzf) to open the file, -g(git repo), -w(whole word), -V(exclude pattern), -l(list files), -s(sort), -n(no ignore), -S(smart case, otherwise ignore case), -2(todo.org)'
     # NOTE -V require an argument, so put "V=" line for argparse
-    set -l options 'e' 'E' 'f' 't' 'v' 'F' 'g' 'n' 'w' 'V=' 'l' 's' 'S'
+    set -l options 'e' 'E' 'f' 't' 'v' 'F' 'g' 'n' 'w' 'V=' 'l' 's' 'S' '2'
     argparse -n rgs -N 1 $options -- $argv
     or return
 
@@ -2629,6 +2629,8 @@ function rgs -d 'rg sth in -e(init.el)/-E(errno)/-f(config.fish)/-t(.tmux.conf)/
         set FILE $VIMRC
     else if set -q _flag_g
         git grep "$argv" (git rev-list --all)
+    else if set -q _flag_2
+        set FILE ~/Dotfiles.d/todo.org
     else # without options
         if set -q $argv[2] # no $argv[2]
             set FILE .
