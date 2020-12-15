@@ -340,19 +340,6 @@ function ml -d 'mutt/neomutt'
     eval $PXY $MUTT
 end
 
-# make the make and gcc/g++ color
-function gcc-a
-    set BIN (echo (string split .c $argv) | awk '{print $1;}')
-    /usr/bin/gcc -Wall -W -g -o $BIN $argv 2>&1 | rg --color always -iP "\^|warning:|error:|undefined|"
-end
-function g++-a
-    set BIN (echo (string split .c $argv) | awk '{print $1;}')
-    /usr/bin/g++ -Wall -W -g -o $BIN $argv 2>&1 | rg --color always -iP "\^|warning:|error:|undefined|"
-end
-abbr gcc-w 'gcc -g -Wall -W -Wsign-conversion'
-abbr gcca 'gcc -g -pedantic -Wall -W -Wconversion -Wshadow -Wcast-qual -Wwrite-strings -Wmissing-prototypes  -Wno-sign-compare -Wno-unused-parameter'
-# gcc -Wall -W -Wextra -Wconversion -Wshadow -Wcast-qual -Wwrite-strings -Werror
-
 # User specific aliases and functions
 function lsx -d 'cp the full path of a file/dir to sytem clipboard'
     if test $DISPLAY
@@ -1261,7 +1248,36 @@ function gdbt -d "using gdb with tmux panes"
     gdb -q -ex "dashboard source -output $tty" "$argv"
     tmux kill-pane -t $id
 end
-function mkk -d "cmake and make"
+
+# make the make and gcc/g++ color
+function gcc-a
+    set BIN (echo (string split .c $argv) | awk '{print $1;}')
+    /usr/bin/gcc -Wall -W -g -o $BIN $argv 2>&1 | rg --color always -iP "\^|warning:|error:|undefined|"
+end
+function g++-a
+    set BIN (echo (string split .c $argv) | awk '{print $1;}')
+    /usr/bin/g++ -Wall -W -g -o $BIN $argv 2>&1 | rg --color always -iP "\^|warning:|error:|undefined|"
+end
+abbr gcc-w 'gcc -g -Wall -W -Wsign-conversion'
+abbr gcca 'gcc -g -pedantic -Wall -W -Wconversion -Wshadow -Wcast-qual -Wwrite-strings -Wmissing-prototypes  -Wno-sign-compare -Wno-unused-parameter'
+# gcc -Wall -W -Wextra -Wconversion -Wshadow -Wcast-qual -Wwrite-strings -Werror
+function mkk -d "gcc, g++, cmake and make"
+    # gcc/g++ for simple C/Cpp file
+    if ! set -q $argv[1] # given arguments
+        set -l DIR (dirname $argv)
+        set -l BIN (string split -r -m1 . (basename $argv))[1] # get the binary name
+        set -l EXT (string split -r -m1 . (basename $argv))[2] # get the extension name
+        if ! set -q $EXT # extension is not empty, argv is c/cpp file
+            if test $EXT = "cpp" -o $EXT = "cc"
+                g++ -Wall -W -g $argv -o $DIR/$BIN && $DIR/$BIN
+                return
+            else if test $EXT = "c"
+                gcc -Wall -W -g $argv -o $DIR/$BIN && $DIR/$BIN
+                return
+            end
+        end
+    end
+
     if test -f ../CMakeLists.txt # inside build dir
         if not set -q $argv
             make -q $argv
