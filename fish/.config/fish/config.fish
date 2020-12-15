@@ -306,6 +306,7 @@ function fish_user_key_bindings
     #bind \cl ""
     #bind \cl "tput reset; commandline -f repaint; path_prompt"
     bind \cd delete-or-ranger
+    bind \cq 'tig status'
     # if Alt-backword doesn't work, use this
     # TODO: delete it if fish-shell itself fix it
     bind \e\b backward-kill-word
