@@ -1187,8 +1187,14 @@ function pacms -d 'pacman-mirrors functions, default(China), -f(fastest 5), -g(G
         sudo pacman-mirrors -c Germany
     else if set -q _flag_s
         pacman-mirrors --status
+    else if set -q _flag_i
+        sudo pacman-mirrors -i -d
     else
-        sudo pacman-mirrors -c China
+        if ! set -q $argv[1] # given arguments
+            sudo pacman-mirrors -c $argv
+        else
+            sudo pacman-mirrors -c China
+        end
     end
 end
 function pacsh -d 'search info about package, first search installed then search in repo'
