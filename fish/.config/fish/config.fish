@@ -2288,7 +2288,9 @@ function pips -d 'pip related functions, default(install), -i(sudo install), -c(
         pip uninstall $argv
         or sudo pip uninstall $argv
     else if set -q _flag_s
-        pip search $argv
+        # pip search $argv
+        # if `pip search` fails, then `sudo pip install pip_search` first
+        pip_search search $argv
     else if set -q _flag_U
         sudo pip install -i https://pypi.tuna.tsinghua.edu.cn/simple -U $argv
     else if set -q _flag_i
