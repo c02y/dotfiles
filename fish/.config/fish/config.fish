@@ -2306,6 +2306,7 @@ function penv -d 'python3 -m venv in fish'
     . $ARGV/bin/activate.fish
 end
 # abbr x 'exit'
+alias q 'x'
 function x -d 'exit or deactivate in python env'
     if not set -q $VIRTUAL_ENV # running in python virtual env
         # TODO: since sth. is wrong with the deactivate function in $argv/bin/activate.fish
