@@ -699,6 +699,7 @@ if test -e $Z_PATH/z.lua
     set -gx _ZL_CD cd
     set -gx _ZL_INT_SORT 1
     set -gx _ZL_FZF_HEIGHT 0 # 0 means fullscreen
+    set -gx _ZL_HYPHEN 1
     set -gx FZF_DEFAULT_OPTS '-1 -0 --reverse' # auto select the only match, auto exit if no match
 end
 function zlp -d 'check exists of z.lua, with any given argument, update z.lua'
