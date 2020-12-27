@@ -1162,7 +1162,7 @@ abbr paci 'sudo pacman -S --needed' # install packages directly without updating
 abbr pacI 'sudo pacman -Syu --needed' # -S to install a package, -Syu pkg to ensure the system is update to date then install the package
 abbr pacii 'sudo pacman -Syu --needed --noconfirm'
 abbr pacil 'sudo pacman -U' # install package from a local .pkg.tar.xz/link file
-abbr pacs 'pacman -Ss --color=always' # search for package to install
+# abbr pacs 'pacman -Ss --color=always' # search for package to install
 abbr pacS 'proxychains4 -q pacui i' # the same as puii abbr
 abbr pacls 'pacman -Qs --color=always' # search for local installed packages
 abbr pacr 'yay -Rsun' # remove a package and its unneeded dependencies, and clean configs
@@ -1177,6 +1177,10 @@ abbr pacuu 'yay -Syyu' # force a full refresh of database and update the system,
 abbr pacud 'yay -Syuu' # like pacu, but allow downgrade, needed when switch to old branch like testing->stable or you seen local xxx is newer than xxx
 abbr paco 'pacman -Qdt --color=always' # To list all orphans, installed packages that are not used by anything else and should no longer be needed
 abbr pacor 'sudo pacman -Rsun (pacman -Qdtq)' # remove package and its configs in paco
+function pacs -d 'search pkgs using pacman, if failed, search it using pacui/yay'
+    pacman -Ss --color=always $argv
+    or proxychains4 -q pacui i $argv
+end
 function pacms -d 'pacman-mirrors functions, default(China), -f(fastest 5), -s(status), -i(interactive)'
     set -l options 'f' 's' 'i'
     argparse -n pacms $options -- $argv
