@@ -1856,13 +1856,13 @@ function gitco -d 'git checkout -- for multiple files(filA fileB...) at once, al
         end
     end
 end
-function scc -d 'count lines of code from a local code dir or a github url'
+function sss -d 'count lines of code from a local code dir or a github url'
     if echo $argv | rg "https://github.com" ^/dev/null >/dev/null
         # or use website directly: https://codetabs.com/count-loc/count-loc-online.html
         set -l username_repo (echo $argv | cut -c20-)
         curl "https://api.codetabs.com/v1/loc/?github=$username_repo" | jq -r '(["Files", "Lines", "Blanks", "Comments", "LinesOfCode", "Language"] | (., map(length*"-"))), (.[] | [.files, .lines, .blanks, .comments, .linesOfCode, .language]) | @tsv' | column -t
     else
-        command scc -c --no-cocomo $argv
+        scc -c --no-cocomo $argv
     end
 end
 abbr gitsc "scc"
@@ -2332,7 +2332,7 @@ end
 abbr epub 'ebook-viewer --detach'
 # alias time 'time -p'
 
-abbr sss 'ps -eo tty,command | rg -v rg | rg "sudo ssh "'
+# abbr sss 'ps -eo tty,command | rg -v rg | rg "sudo ssh "'
 abbr p 'ping -c 5'
 alias ping 'ping -c 5'
 function ipl -d 'get the location of your public IP address'
