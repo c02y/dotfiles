@@ -1163,6 +1163,7 @@ abbr pacI 'sudo pacman -Syu --needed' # -S to install a package, -Syu pkg to ens
 abbr pacii 'sudo pacman -Syu --needed --noconfirm'
 abbr pacil 'sudo pacman -U' # install package from a local .pkg.tar.xz/link file
 # abbr pacs 'pacman -Ss --color=always' # search for package to install
+abbr pacss 'pacman -Slq | rg' # search only in package names
 abbr pacS 'proxychains4 -q pacui i' # the same as puii abbr
 abbr pacls 'pacman -Qs --color=always' # search for local installed packages
 abbr pacr 'yay -Rsun' # remove a package and its unneeded dependencies, and clean configs
