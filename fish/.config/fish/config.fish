@@ -1312,6 +1312,11 @@ function mkk -d "gcc, g++, cmake and make"
         echo "No CMakeLists.txt or not inside build or no Makefile/makefile..."
     end
 end
+# static code analyzer, another tool is from clang-analyzer which is scan-build
+# https://clang-analyzer.llvm.org/scan-build.html
+# https://clang.llvm.org/extra/clang-tidy/
+# scan-build make or scan-build gcc file.c or clang --analyze file.c or clang-tidy file.c
+abbr cppc 'cppcheck --enable=all --inconclusive'
 
 function fmts -d "compile_commands.json(-l), clang-format(-f), cmake-format(-m)"
     set -l options 'f' 'l' 'm'
