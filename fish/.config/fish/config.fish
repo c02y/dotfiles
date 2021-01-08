@@ -28,7 +28,7 @@ set -gx MANPATH $NPMS/share/man $MANPATH
 if command -sq uname
     if test (uname) = "Linux"
         if command -sq lsb_release
-            if not test (lsb_release -i | rg -i -e 'manjaro|opensuse') # not manjaro/opensuse
+            if not test (lsb_release -i | rg -i -e 'manjaro|arch|opensuse') # not manjaro/arch/opensuse
                 set -gx PATH $HOME/anaconda3/bin $PATH
                 set -gx MANPATH $HOME/anaconda3/share/man $MANPATH
             end
@@ -1181,8 +1181,8 @@ function pacs -d 'search pkgs using pacman, if failed, search it using pacui/yay
     pacman -Ss --color=always $argv
     or proxychains4 -q pacui i $argv
 end
-function pacms -d 'pacman-mirrors functions, default(China), -f(fastest 5), -s(status), -i(interactive)'
-    set -l options 'f' 's' 'i'
+function pacms -d 'pacman-mirrors functions, default(China), -f(fastest 5), -s(status), -i(interactive), -r(reflector)'
+    set -l options 'f' 's' 'i' 'r'
     argparse -n pacms $options -- $argv
     or return
 
@@ -1192,6 +1192,9 @@ function pacms -d 'pacman-mirrors functions, default(China), -f(fastest 5), -s(s
         pacman-mirrors --status
     else if set -q _flag_i
         sudo pacman-mirrors -i -d
+    else if set -q _flag_r
+        set -q $argv; and set ARGV China; or set ARGV $argv
+        sudo reflector --country $ARGV --verbose --latest 6 --sort rate --save /etc/pacman.d/mirrorlist
     else
         if ! set -q $argv[1] # given arguments
             sudo pacman-mirrors -c $argv
