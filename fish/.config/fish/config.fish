@@ -1874,7 +1874,17 @@ function sss -d 'count lines of code from a local code dir or a github url'
         scc -c --no-cocomo $argv
     end
 end
-abbr gitsc "scc"
+abbr gitsc "sss"
+function gitsr -d "get the url of a git repo"
+    set -q $argv[1]; and set -l ARGV .; or set -l ARGV $argv
+    if test -d $ARGV
+        cd $ARGV && git config --get remote.origin.url | xc && xc -o
+        ! set -q $argv[1]; and cd -
+        echo \n---- Path Copied to Clipboard! ----
+    else
+        echo Error: $ARGV is not valid!
+    end
+end
 function gita -d 'git add for multiple files at once'
     if set -q $argv # no given files
         git add .
@@ -2372,27 +2382,10 @@ function wgetr -d 'for wget that get stuck in middle of downloads'
         command wget -c --no-check-certificate -T 5 -c $argv; and break
     end
 end
-abbr dst 'dstat -d -n' # check the networ/disk io status
 function iotest -d 'test the io speed of disk'
-    # src: https://www.shellhacks.com/disk-speed-test-read-write-hdd-ssd-perfomance-linux/
-    # You can use tool like hdparm(need sudo) to test the stats such as
-    # sudo hdparm -Th /dev/sdb
-    if set -q $argv[1]
-        set ARGV /tmp/file
-    else
-        set ARGV $argv[1]
-    end
-    sync
-    echo "--------Disk write speed--------"
-    time dd if=/dev/zero of=$ARGV bs=100k count=30k
-    sync
-    # You may need to clear the cache, otherwise its read speed is much
-    # higher than the real read speed directly from the disk, but need sudo:
-    # sudo /sbin/sysctl -w vm.drop_caches=3
-    echo "--------Disk read speed--------"
-    time dd if=$ARGV of=/dev/null bs=100k count=30k
-    command rm -rf $ARGV
-    sync
+    # check the current io speed, using command like
+    # `dstat -d -n`
+    sudo hdparm -Tt $argv # $argv is device like /dev/sda1
 end
 
 abbr pxx 'proxychains4 -q'
