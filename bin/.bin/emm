@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# 0. put this script into ~/.local/bin/
+# 0. put this script into ~/.bin/
 # 1. Create a emacsclient.desktop in ~/.local/share/applications/emacsclient.desktop
 # 1.1 if you are using non-GUI or launcher is unnecessary, omit this step including the next
 # 1.2 if you are using an OS without systemctl installed, omit this step including the next
@@ -14,7 +14,7 @@
 # Name=emacsclient
 # Comment=Emacs daemon/client
 # Type=Application
-# Exec=/home/chz/.local/bin/emm
+# Exec=/home/chz/.bin/emm
 # Terminal=false
 # StartupNofity=true
 # Categories=
@@ -221,7 +221,7 @@ while getopts ":habcCdeEfkKmopqrRstuvx" args; do # prefix-: no warning for illeg
 		cmd="-e '(execute-kbd-macro (kbd \"C-c a a c\"))'"
 		;;
 	b)
-		file="$HOME/.local/bin/emm"
+		file="$HOME/.bin/emm"
 		cmd="$file"
 		;;
 	c)

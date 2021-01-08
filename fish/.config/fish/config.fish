@@ -18,9 +18,9 @@ if test "$MANPATH" = ""
     set -gx MANPATH (manpath | string split ":")
 end
 
-# set -gx PATH $HOME/anaconda3/bin ~/.local/share/arm-linux/bin ~/.local/bin ~/.linuxbrew/bin $GOPATH/bin ~/bin $PATH
-#set -gx PATH $HOME/anaconda3/bin $HOME/.local/bin $GOPATH/bin /usr/local/bin /usr/local/liteide/bin /bin /sbin /usr/bin /usr/sbin $PATH
-set -gx PATH $HOME/.local/bin $GOPATH/bin $NPMS/bin ~/.cargo/bin /usr/local/bin /bin /sbin /usr/bin /usr/sbin $PATH
+# set -gx PATH $HOME/anaconda3/bin ~/.bin ~/.local/share/arm-linux/bin ~/.local/bin ~/.linuxbrew/bin $GOPATH/bin ~/bin $PATH
+#set -gx PATH $HOME/anaconda3/bin $HOME/.bin $HOME/.local/bin $GOPATH/bin /usr/local/bin /usr/local/liteide/bin /bin /sbin /usr/bin /usr/sbin $PATH
+set -gx PATH $HOME/.bin $HOME/.local/bin $GOPATH/bin $NPMS/bin ~/.cargo/bin /usr/local/bin /bin /sbin /usr/bin /usr/sbin $PATH
 # TODO: `pip install cppman ; cppman -c` to get manual for cpp
 set -gx MANPATH $NPMS/share/man $MANPATH
 # Use different PATH/MANPATH for different distro since anaconda may affect system tools
@@ -682,7 +682,7 @@ function fzfp -d 'check if fzf is existed, with any argument, fzf binary file wi
         set file_link (echo https://github.com/junegunn/fzf/releases/download/$tag_name/$file_name)
         eval $PXY wget $file_link -O /tmp/$file_name
         if test -s /tmp/$file_name
-            tar -xvzf /tmp/$file_name -C ~/.local/bin
+            tar -xvzf /tmp/$file_name -C ~/.bin
             echo -e "\n====fzf installed...====\n"
             return 0
         else
@@ -906,7 +906,7 @@ abbr lesst 'less ~/.tmux.conf'
 abbr lessf 'less $FISHRC'
 abbr lesse 'less $EMACS_EL'
 abbr lessv 'less $VIMRC'
-abbr lessem 'less ~/.local/bin/emm'
+abbr lessem 'less ~/.bin/emm'
 # NOTE: there is a package called mdv, don't use it
 function mdv -d 'markdown viewer in terminal'
     if command -sq glow
@@ -2057,7 +2057,7 @@ function batp -d 'check if bat exists, or with any argument, download the latest
         eval $PXY wget $file_link -O /tmp/$file_name
         if test -s /tmp/$file_name
             tar xvfa /tmp/$file_name -C /tmp
-            install -m 755 /tmp/bat-$tag_name-x86_64-unknown-linux-gnu/bat ~/.local/bin/bat
+            install -m 755 /tmp/bat-$tag_name-x86_64-unknown-linux-gnu/bat ~/.bin/bat
             echo -e "\n====bat installed...====\n"
             return 0
         else
@@ -2073,7 +2073,7 @@ function brootp -d 'check if broot exists, or with any argument, download the la
         # echo "broot is installed, use any extra to upgrade it!"
         return 0
     else
-        set br_path ~/.local/bin/broot
+        set br_path ~/.bin/broot
         eval $PXY curl -o $br_path -LO https://dystroy.org/broot/download/x86_64-linux/broot
         if test -s $br_path
             chmod +x $br_path
@@ -2101,7 +2101,7 @@ function gitmuxp -d 'check if gitmux exists, or with any argument, download the 
         set file_link (echo https://github.com/arl/gitmux/releases/download/$tag_name/$file_name)
         eval $PXY wget -c $file_link -O /tmp/$file_name
         if test -s /tmp/$file_name
-            tar xvfa /tmp/$file_name -C ~/.local/bin/
+            tar xvfa /tmp/$file_name -C ~/.bin/
             echo -e "\n====gitmux installed...====\n"
             return 0
         else
@@ -2119,9 +2119,9 @@ function nvimp -d 'check if nvim exists, or with any argument, download the late
         return 0
     else
         if set -q _flag_n
-            eval $PXY curl -o ~/.local/bin/nvim -LOC - https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage
-            if test -s ~/.local/bin/nvim
-                chmod +x ~/.local/bin/nvim
+            eval $PXY curl -o ~/.bin/nvim -LOC - https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage
+            if test -s ~/.bin/nvim
+                chmod +x ~/.bin/nvim
                 return 0
             else
                 return 1
@@ -2137,7 +2137,7 @@ function nvimp -d 'check if nvim exists, or with any argument, download the late
             set file_link (echo https://github.com/neovim/neovim/releases/download/$tag_name/$file_name)
             eval $PXY wget -c $file_link -O /tmp/$file_name
             if test -s /tmp/$file_name # check if file exists and not empty
-                install -m 755 /tmp/$file_name ~/.local/bin/nvim
+                install -m 755 /tmp/$file_name ~/.bin/nvim
                 echo -e "\n====nvim installed...====\n"
                 return 0
             else
@@ -2163,7 +2163,7 @@ function sccp -d 'check if scc exists, or with any argument, download the latest
         set file_link (echo https://github.com/boyter/scc/releases/download/$tag_name/$file_name)
         eval $PXY wget -c $file_link -O /tmp/$file_name
         if test -s /tmp/$file_name
-            unzip -o -e /tmp/$file_name -d ~/.local/bin/
+            unzip -o -e /tmp/$file_name -d ~/.bin/
             echo -e "\n====scc installed...====\n"
             return 0
         else
@@ -2324,9 +2324,9 @@ function x -d 'exit or deactivate in python env'
     end
 end
 
-# abbr rea 'sudo ~/.local/bin/reaver -i mon0 -b $argv[1] -vv'
+# abbr rea 'sudo ~/.bin/reaver -i mon0 -b $argv[1] -vv'
 # function rea
-# sudo ~/.local/bin/reaver -i mon0 -b $argv
+# sudo ~/.bin/reaver -i mon0 -b $argv
 # end
 
 abbr epub 'ebook-viewer --detach'
@@ -2519,7 +2519,7 @@ end
 abbr ma 'man'
 
 function wtp --description 'show the real definition of a type or struct in C code, you can find which file it is defined in around the result'
-    gcc -E ~/.local/bin/type.c -I$argv[1] >/tmp/result
+    gcc -E ~/.bin/type.c -I$argv[1] >/tmp/result
     if test (count $argv) -eq 2
         if test (echo $argv[1] | rg struct)
             rg -A $argv[2] "^$argv[1]" /tmp/result

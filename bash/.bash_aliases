@@ -25,11 +25,11 @@ export LANG=en_US.UTF-8
 export LANGUAGE=en_US.UTF-8
 
 if [[ $(lsb_release -i | grep -i -E 'manjaro|opensuse') ]]; then
-	# export PATH=~/.local/bin:~/anaconda3/bin:$PATH
+	# export PATH=~/.bin:~/.local/bin:~/anaconda3/bin:$PATH
 	# or
-	export PATH=~/.local/bin:~/.cargo/bin:~/.npms/bin:$PATH
+	export PATH=~/.bin:~/.local/bin:~/.cargo/bin:~/.npms/bin:$PATH
 else
-	export PATH=~/.local/bin:~/anaconda3/bin:~/.cargo/bin:~/.npms/bin:$PATH
+	export PATH=~/.bin:~/.local/bin:~/anaconda3/bin:~/.cargo/bin:~/.npms/bin:$PATH
 fi
 
 export PAGER='less -iXFR -x4 -M'
