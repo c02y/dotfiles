@@ -1204,9 +1204,26 @@ function pacms -d 'pacman-mirrors functions, default(China), -f(fastest 5), -s(s
         end
     end
 end
-function pacsh -d 'search info about package, first search installed then search in repo'
-    pacman -Qi $argv
-    or pacman -Si $argv
+function pacsh -d 'show info about package, first search installed then search in repo'
+    set -l options 'l'
+    argparse -n pacsh $options -- $argv
+    or return
+
+    if ! set -q $argv # given $argv
+        for file in $argv
+            if set -q _flag_l # get URL info and send it to clipper
+                if pacman -Q $file ^/dev/null >/dev/null
+                    pacman -Qi $file | rg URL | awk '{print $3}' | xc && xc -o
+                else
+                    pacman -Si $file | rg URL | awk '{print $3}' | xc && xc -o
+                end
+            else
+                pacman -Qi $file
+                or pacman -Si $file
+            end
+        end
+    end
+    # without args, it will print info of all the intalled packages
 end
 function pacl -d 'list files in a package'
     pacman -Ql $argv
