@@ -1475,7 +1475,7 @@ abbr db 'douban.fm'
 #vim
 set -gx EDITOR 'vim'
 function vis -d 'vim different targets'
-    set -l options '2' 'b' 'B' 'c' 'd' 'e' 'f' 't' 'T' 'a' 'k' 's' 'u' 'm' 'M' 'v' 'o'
+    set -l options '2' 'b' 'B' 'c' 'd' 'e' 'f' 't' 'T' 'a' 'k' 's' 'u' 'm' 'M' 'v' 'o' 'r'
     argparse -n vis $options -- $argv
     or return
 
@@ -1519,6 +1519,9 @@ function vis -d 'vim different targets'
         vim ~/.spacevim
     else if set -q _flag_o
         vim ~/Dotfiles.d/vim/.vimrc
+    else if set -q _flag_r # replace `sudo vim`
+        # can also use `sudoedit`, they will be local vim config + sudo vim
+        sudo -e $argv
     else
         vim $argv
     end
