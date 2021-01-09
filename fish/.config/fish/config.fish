@@ -2394,8 +2394,12 @@ function pxs -d 'multiple commands using proxychains4'
     argparse -n pxs $options -- $argv
     or return
 
-    # -p to use proxy
-    set -q _flag_p; and set CMD $PXY; or set CMD
+    # two conditions, one or another
+    if test (echo $argv | rg github); or set -q _flag_p
+        set CMD $PXY
+    else
+        set CMD
+    end
 
     if set -q _flag_a
         eval $CMD aria2c -c -x 5 --check-certificate=false --file-allocation=none $argv
