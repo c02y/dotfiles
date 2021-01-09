@@ -1,35 +1,39 @@
+- Guide of Building Developing Environment on Manjaro
+
 * Packages to be installed
 ** non-GUI
-   fish tmux tig proxychains-ng vim clang cppcheck nload wget aria2 transmission-cli ctags cscope hunspell xclip xsel atool zip
-   unzip source-highlight htop ranger mediainfo ncdu lua nodejs npm trash-cli ccls global neomutt
-   unarchiver aspell-en libmythes mythes-en languagetool w3m jq sxhkd moreutils poppler
+   alacritty aria2 fish gdb git kitty mpv neomutt npm proxychains ranger tig tmux vim
+
+   base base-devel clang cppcheck nload wget transmission-cli hunspell xclip xsel atool zip unzip source-highlight 
+   htop mediainfo ncdu lua nodejs ccls global unarchiver aspell-en libmythes mythes-en languagetool 
+   w3m jq moreutils poppler yay pacui emacs-git bear youtube-dl sxiv pip
 
    xorg-xhost xdotool xorg-xev xorg-xwininfo xorg-xrandr wmctrl
-
-   emacs yay pacui bear
+   
+   rust (`curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh`)
 
 ** GUI
-   mpv vlc meld baobab imagemagick fuse fuse-exfat exfat-utils file-roller darktable krita krita-plugin-gmic youtube-dl sxiv
+   vlc meld baobab imagemagick fuse fuse-exfat exfat-utils file-roller darktable krita krita-plugin-gmic
 
    pandoc (depends on a lot of haskell)
 
-   umlet
+   umlet pycharm-community-edition
 
 * Installed using pip
-  # sudp pip3 install ...
-  sudo pip install wheel pynvim rope ropemacs pep8 pylint ptpython pygments icdiff pudb codespell gdb-tools colour-valgrind scan-build compiledb
+  # pip install ...
+  ipython wheel pynvim rope ropemacs pep8 pylint ptpython pygments icdiff pudb codespell gdb-tools colour-valgrind scan-build compiledb
 
 ** for spacemacs
    # change /etc/pip.conf so you can install these packages using in system-wide
-   sudo pip install importmagic epc flake8 pytest nose autoflake pycscope black mypy cmake-language-server cmake_format
+   pip install importmagic epc flake8 pytest nose autoflake pycscope black mypy cmake-language-server cmake_format
 
-   // if lsp-backend = pyls
+   // if python-backend = pyls
    // python-language-server pyls-isort pyls-mypy pyls-black
 
    npm install -g prettier import-js eslint typescript typescript-language-server tern lua-fmt prettier-plugin-toml vscode-json-languageserver pyright
 
 ** for space-vim
-   sudo pip install 'python-language-server[all]'
+   pip install 'python-language-server[all]'
 
 * Actions to be done for KDE
 ** Disable/uninstall **baloo** (can be replaced by fsearch/angrysearch(GUI) or just locate(CLI))
