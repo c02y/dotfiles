@@ -1157,15 +1157,16 @@ abbr appl 'apt list --installed | rg'
 abbr applu 'apt list --upgradable'
 abbr appd 'apt depends'
 
-# pacman/yay for manjaro/arch/...
-abbr paci 'sudo pacman -S --needed' # install packages directly without updating the system first
-abbr pacI 'sudo pacman -Syu --needed' # -S to install a package, -Syu pkg to ensure the system is update to date then install the package
-abbr pacii 'sudo pacman -Syu --needed --noconfirm'
-abbr pacil 'sudo pacman -U' # install package from a local .pkg.tar.xz/link file
-# abbr pacs 'pacman -Ss --color=always' # search for package to install
-abbr pacss 'pacman -Slq | rg' # search only in package names
-abbr pacS 'proxychains4 -q pacui i' # the same as puii abbr
-abbr pacls 'pacman -Qs --color=always' # search for local installed packages
+# TODO: archlinuxcn repo
+# append the follwing lines into /etc/pacman.conf and install "archlinuxcn-keyring"
+# [archlinuxcn]
+# SigLevel = Optional TrustedOnly
+# Server = https://mirrors.tuna.tsinghua.edu.cn/archlinuxcn/$arch
+# Server = https://mirrors.ustc.edu.cn/archlinuxcn/$arch
+#
+# NOTE: yay: generate ~/.confif/yay/config.json
+test -f ~/.config/yay/config.json; or yay --sudoloop --aururl "https://aur.tuna.tsinghua.edu.cn" --combinedupgrade --save
+#
 abbr pacr 'yay -Rsun' # remove a package and its unneeded dependencies, and clean configs
 abbr pacrr 'yay -Rsc' # using this if pacr doesn't not uninstall a pacakge
 abbr pacrc 'yay -Rsu' # like pacr, but don't clean configs
@@ -1176,11 +1177,37 @@ abbr pacC 'paccache -rvk2 --noconfirm' # remove old package cache files is to re
 abbr pacu 'yay -Syu' # update the database and update the system, pacman only updates from repo, yay updates from both repo and aur
 abbr pacuu 'yay -Syyu' # force a full refresh of database and update the system, must do this when switching branches/mirrors
 abbr pacud 'yay -Syuu' # like pacu, but allow downgrade, needed when switch to old branch like testing->stable or you seen local xxx is newer than xxx
-abbr paco 'pacman -Qdt --color=always' # To list all orphans, installed packages that are not used by anything else and should no longer be needed
-abbr pacor 'sudo pacman -Rsun (pacman -Qdtq)' # remove package and its configs in paco
-function pacs -d 'search pkgs using pacman, if failed, search it using pacui/yay'
-    pacman -Ss --color=always $argv
-    or proxychains4 -q pacui i $argv
+abbr paco 'yay -Qdt --color=always' # To list all orphans, installed packages that are not used by anything else and should no longer be needed
+abbr pacor 'yay -Rsun (yay -Qdtq)' # remove package and its configs in paco
+function paci -d 'pacman/yay install function, -y(noconfirm), -u(update first), -r(reinstall), -l(local install), -i(interactive)'
+    set -l options 'y' 'u' 'r' 'l' 'i'
+    argparse -n paci $options -- $argv
+    or return
+
+    set -q _flag_i; and proxychains4 -q pacui i $argv && return # install package interactively using pacui
+    set -q _flag_l; and yay -U $argv && return # install package from a local .pkg.tar.xz/link file
+
+    # -S to install a package, -Syu pkg to ensure the system is update to date then install the package
+    set -q _flag_u; and set OPT $OPT -Syu; or set OPT $OPT -S
+
+    set -q _flag_y; and set OPT $OPT --noconfirm # noconfirm, without asking for y/n
+    set -q _flag_r; and set OPT $OPT; or set OPT $OPT --needed
+
+    eval yay $OPT $argv
+end
+function pacs -d 'pacman/yay search, -a(all using yay), -i(interactive using pacui), -n(only names), -l(search in installed pacakge)'
+    set -l options 'a' 'i' 'n' 'l'
+    argparse -n pacs $options -- $argv
+    or return
+
+    # interactively search using pacui i
+    set -q _flag_i; and proxychains4 -q pacui i $argv && return
+
+    set -q _flag_l; and pacman -Qs --color=always $argv && return # check if a pacakge is installed
+
+    set -q _flag_a; and set CMD yay; or set CMD pacman
+    set -q _flag_n; and eval $CMD -Slq | rg $argv && return # search only in package names
+    eval $CMD -Ss --color=always $argv
 end
 function pacms -d 'pacman-mirrors functions, default(China), -f(fastest 5), -s(status), -i(interactive), -r(reflector)'
     set -l options 'f' 's' 'i' 'r'
