@@ -438,10 +438,10 @@ function pk --description 'kill processes containing a pattern or PID'
             if test (psgs $argv[1] | wc -l) = 0
                 return
             end
-            read -p 'echo "Kill all of them or specific PID? [y/N/index/pid/m_ouse]: "' -l arg2
+            read -p 'echo "Kill all of them or specific PID? [a/y/N/index/pid/m_ouse]: "' -l arg2
             if test $arg2 # it is not Enter directly
                 if not string match -q -r '^\d+$' $arg2 # if it is not integer
-                    if test "$arg2" = "y" -o "$arg2" = " "
+                    if test "$arg2" = "y" -o "$arg2" = "a" -o "$arg2" = " "
                         set -l pids (psgs $argv[1] | awk '{print $3}')
                         for i in $pids
                             if not kill -9 $i # failed to kill, $status != 0
