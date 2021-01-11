@@ -108,6 +108,7 @@ clearwid=false
 cancel_auto_show=true
 auto_detect_wm=false
 monitor_aware=false
+monitor=
 pointer_monitor_detection=false
 wm=
 user_set_wm=false
@@ -172,6 +173,7 @@ do
 				auto-detect-wm) auto_detect_wm=true;;
 				monitor-aware) monitor_aware=true;;
 				pointer-monitor-detection) pointer_monitor_detection=true;;
+				monitor) monitor=$OPTARG;;
 				wm) wm=$OPTARG
 					user_set_wm=true;;
 				class) class=$OPTARG;;
@@ -281,7 +283,9 @@ update_geometry_settings_for_monitor() {
 	# it is conceivable that a user may want to use -m but not -a, so
 	# get the wm from within this function
 	local current_monitor
-	if [[ $wm == bspwm ]]; then
+	if [[ -n $monitor ]]; then
+		current_monitor=$monitor
+	elif [[ $wm == bspwm ]]; then
 		current_monitor=$(bspc query --names --monitors --monitor)
 	elif [[ $wm == i3 ]]; then
 		# TODO use jq if installed
@@ -418,6 +422,8 @@ set_class() {
 			error "--class is required with flatpak but was not given."
 		elif [[ $program == current ]]; then
 			class=$(cat "$MUTDROP_PATH"/current"$num"_class  2> /dev/null)
+		elif [[ $program == brave ]]; then
+			class=brave-browser
 		else
 			class=$program
 		fi
@@ -584,6 +590,8 @@ create_win_return_wid() {
 		pid=$(pgrep -xa chromium-browse | gawk '!/--type/ {print $1}')
 	elif [[ $program =~ ^google-chrome ]]; then
 		pid=$(pgrep -xa chrome | gawk '!/--type/ {print $1}')
+	elif [[ $program == firefox ]]; then
+		blacklist=$(xdotool search --name firefox)
 	elif [[ $program =~ ^emacsclient ]]; then
 		blacklist=$(xdotool search --classname emacs)
 	fi
@@ -608,13 +616,15 @@ create_win_return_wid() {
 		if [[ $program == discord ]]; then
 			wids=$(xdotool search --classname discord)
 			blacklist=
-		elif [[ $program == qutebrowser ]]; then
+		elif [[ $program =~ ^(qutebrowser|brave)$ ]]; then
 			# one pid, but can't use for getting wids with xdotool
-			wids=$(xdotool search --classname qutebrowser)
+			wids=$(xdotool search --classname "$program")
 		elif [[ $program =~ ^emacsclient ]]; then
 			wids=$(xdotool search --classname emacs)
 		elif [[ $program == flatpak ]]; then
 			wids=$(xdotool search --classname "$class")
+		elif [[ $program == firefox ]]; then
+			wids=$(xdotool search --name firefox)
 		else
 			wids=$(xdotool search --pid "$pid")
 		fi
@@ -671,7 +681,7 @@ program_start() {
 		elif [[ $program == kitty ]]; then
 			program_command+=(bash -c "$tmux_command")
 		else
-			program_command+=(-e "\"bash -c $tmux_command\"")
+			program_command+=(-e "bash -c $tmux_command")
 		fi
 	fi
 	wid=$(create_win_return_wid "${program_command[@]}")
@@ -707,7 +717,7 @@ wid_toggle() {
 	# deal with percentages/negatives when no -m
 	if ! $monitor_aware; then
 		local total_geo total_width total_height
-		total_geo=$(xwininfo -root | gawk '/geometry/ {gsub("+*",""); print $2}')
+		total_geo=$(xwininfo -root | gawk '/geometry/ {gsub("+.*",""); print $2}')
 		# total_width=$(echo "$total_geo" | gawk -F 'x' '{print $1}')
 		total_width=${total_geo%x*}
 		# total_height=$(echo "$total_geo" | gawk -F 'x' '{print $2}')
