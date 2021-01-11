@@ -1206,8 +1206,14 @@ function pacs -d 'pacman/yay search, -a(all using yay), -i(interactive using pac
     set -q _flag_l; and pacman -Qs --color=always $argv && return # check if a pacakge is installed
 
     set -q _flag_a; and set CMD yay; or set CMD pacman
-    set -q _flag_n; and eval $CMD -Slq | rg $argv && return # search only in package names
-    eval $CMD -Ss --color=always $argv
+    if set -q _flag_n # search only in package names
+        eval $CMD -Slq | rg $argv
+        # if failed with pacman, using yay directly (yay including aur is slow)
+        or yay -Slq | rg $argv
+        return
+    end
+    # if failed with pacman, using yay directly (yay including aur is slow)
+    eval $CMD -Ss --color=always $argv; or yay -Ss --color=always $argv
 end
 function pacms -d 'pacman-mirrors functions, default(China), -f(fastest 5), -s(status), -i(interactive), -r(reflector)'
     set -l options 'f' 's' 'i' 'r'
