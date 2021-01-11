@@ -2655,6 +2655,9 @@ function mo-bak
     end
 end
 
+# interactively(choose format and resolution) stream video using mpv+youtube-dl+fzf
+# https://github.com/seanbreckenridge/mpvf/
+alias mpvs 'proxychains4 -q mpvf'
 function yous -d 'youtube-dl functions'
     set -l options 'l' 'a' 'f' 'p' 'P'
     argparse -n yous -N 1 $options -- $argv
