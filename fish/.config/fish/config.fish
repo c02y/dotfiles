@@ -1245,14 +1245,14 @@ function pacsh -d 'show info about package, first search installed then search i
     if ! set -q $argv # given $argv
         for file in $argv
             if set -q _flag_l # get URL info and send it to clipper
-                if pacman -Q $file ^/dev/null >/dev/null
-                    pacman -Qi $file | rg URL | awk '{print $3}' | xc && xc -o
+                if yay -Q $file ^/dev/null >/dev/null
+                    yay -Qi $file | rg URL | awk '{print $3}' | xc && xc -o
                 else
-                    pacman -Si $file | rg URL | awk '{print $3}' | xc && xc -o
+                    yay -Si $file | rg URL | awk '{print $3}' | xc && xc -o
                 end
             else
-                pacman -Qi $file
-                or pacman -Si $file
+                yay -Qi $file
+                or yay -Si $file
             end
         end
     end
