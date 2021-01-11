@@ -1203,7 +1203,7 @@ function pacs -d 'pacman/yay search, -a(all using yay), -i(interactive using pac
     # interactively search using pacui i
     set -q _flag_i; and proxychains4 -q pacui i $argv && return
 
-    set -q _flag_l; and pacman -Qs --color=always $argv && return # check if a pacakge is installed
+    set -q _flag_l; and yay -Qs --color=always $argv && return # check if a pacakge is installed
 
     set -q _flag_a; and set CMD yay; or set CMD pacman
     if set -q _flag_n # search only in package names
