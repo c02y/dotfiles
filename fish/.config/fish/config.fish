@@ -1246,9 +1246,9 @@ function pacsh -d 'show info about package, first search installed then search i
         for file in $argv
             if set -q _flag_l # get URL info and send it to clipper
                 if yay -Q $file ^/dev/null >/dev/null
-                    yay -Qi $file | rg URL | awk '{print $3}' | xc && xc -o
+                    yay -Qi $file | rg "^URL" | awk '{print $3}' | xc && xc -o
                 else
-                    yay -Si $file | rg URL | awk '{print $3}' | xc && xc -o
+                    yay -Si $file | rg "^URL" | awk '{print $3}' | xc && xc -o
                 end
             else
                 yay -Qi $file
