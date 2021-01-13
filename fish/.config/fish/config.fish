@@ -1425,8 +1425,8 @@ function fmts -d "compile_commands.json(-l), clang-format(-f), cmake-format(-m)"
     end
 end
 
-function syss -d 'systemctl functions, -e(enable), -d(disable), -s(start), -r(restart), -S(stop), -l(list), -L(log), -u(user), -t(time), -R(daemon-reload), -q(query)'
-    set -l options 'e' 'd' 's' 'r' 'S' 'l' 'L' 'u' 't' 'R' 'q'
+function syss -d 'systemctl functions, -e(enable), -d(disable), -s(start), -r(restart), -S(stop), -l(list), -L(log), -u(user), -t(time), -R(daemon-reload)'
+    set -l options 'e' 'd' 's' 'r' 'S' 'l' 'L' 'u' 't' 'R'
     argparse -n syss $options -- $argv
     or return
 
@@ -1454,13 +1454,17 @@ function syss -d 'systemctl functions, -e(enable), -d(disable), -s(start), -r(re
     set -q _flag_s; and set CMD start
     set -q _flag_r; and set CMD restart
     set -q _flag_S; and set CMD stop
-    set -q _flag_l; and set CMD list-units --type service --all
     set -q _flag_L; and journalctl -xe && return
     set -q _flag_R; and sudo systemctl daemon-reload && return
 
-    if set -q _flag_q
-        systemctl list-units --type service --all | rg $argv
-        or systemctl --user list-units --type service --all | rg $argv
+    if set -q _flag_l
+        set CMD list-units --type service --all
+        if set -q $argv # no given argv
+            eval $PRI $CMD
+        else
+            systemctl list-units --type service --all | rg $argv
+            or systemctl --user list-units --type service --all | rg $argv
+        end
         return
     end
 
