@@ -14,7 +14,7 @@ pane_tty=$(tmux display-message -p '#{pane_tty}' | cut -c 6-)
 ip_addr=$(ps -ef | grep $pane_tty | grep "ssh " | grep -v grep | awk 'NF>1{print $NF}')
 
 if [[ "$ip_addr" != "" ]]; then
-    echo "<$ip_addr>"
+    echo "<$ip_addr> "
 else
     echo # localhost
 fi
