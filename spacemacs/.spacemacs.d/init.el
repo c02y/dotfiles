@@ -1267,8 +1267,8 @@ Emacs session."
     ;; NOTE: the hints for the following lambda functions are in spacemacs/declare-prefix
     "fxf" (lambda () (interactive) (find-file "~/.config/fish/config.fish"))
     "fxt" (lambda () (interactive) (find-file "~/.tmux.conf"))
-    "fxT" (lambda () (interactive) (find-file "~/.bin/t"))
-    "fxe" (lambda () (interactive) (find-file "~/.bin/emm"))
+    "fxT" (lambda () (interactive) (find-file "~/.local/bin/t"))
+    "fxe" (lambda () (interactive) (find-file "~/.local/bin/emm"))
     "fxE" (lambda () (interactive) (find-file "~/ve.emacs.d/init.el"))
     "fp" 'run-python
     ;; the default binding is SPC j =
