@@ -73,7 +73,7 @@ alias findt='find ./* -name "*~"; find ./* -name "\#*"'
 alias ftr='find ./* -name "*~" | xargs rm -rfv; find ./* -name "\#*" | xargs rm -rfv'
 
 # ps
-alias psg='ps -ef | grep -v grep | grep '
+alias pss='ps -ef | grep -v grep | grep '
 
 alias du='du -h'
 alias dus='du --summarize'
