@@ -232,11 +232,12 @@ This function should only modify configuration layer settings."
    dotspacemacs-frozen-packages '()
 
    ;; A list of packages that will not be installed and loaded.
+   ;; TODO: org-download package cause error, remove it from the list once fixed
    dotspacemacs-excluded-packages '(
                                     google-c-style auto-highlight-symbol git-gutter
                                     git-gutter-fringe git-gutter-fringe+ fancy-battery
                                     dactyl-mode lorem-ipsum uuidgen evil-tutor indent-guide
-                                    org-superstar
+                                    org-superstar org-download
                                     evil-escape
                                     )
 
