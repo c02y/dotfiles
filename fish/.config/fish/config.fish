@@ -1394,7 +1394,7 @@ function fmts -d "compile_commands.json(-l), clang-format(-f), cmake-format(-m)"
             end
         else if test -f scripts/gen_compile_commands.py # Linux kernel
             make defconfig
-            and if make
+            if test $status = 0; and make
                 scripts/gen_compile_commands.py
             end
         else if test -f Makefile -o -f makefile
@@ -2537,7 +2537,7 @@ function SDCV
 end
 function defc_new -d 'Check if the word is new in ~/.sdcv_history, if new add it'
     rg -w $argv ~/.sdcv_history >>/dev/null
-    or begin # new, not searched the dict before, save
+    if test $status != 0 # new, not searched the dict before, save
         if not test -e ~/.sdcv_rem
             touch ~/.sdcv_rem
         end
@@ -2808,8 +2808,8 @@ function d -d 'cd to one of the previously visited locations'
 
     set dirprev $buf
     string join \n $dirprev | tail | sed 1d | \
-        eval (__fzfcmd) +m --tiebreak=index --toggle-sort=ctrl-r $FZF_CDHIST_OPTS | \
-        read -l result
+       eval (__fzfcmd) +m --tiebreak=index --toggle-sort=ctrl-r $FZF_CDHIST_OPTS | \
+       read -l result
 
     test -z $result
     or cd $result
@@ -2854,7 +2854,7 @@ function d2 --description "Choose one from the list of recently visited dirs"
         set -l msg 'This should not happen. Have you changed the cd command?'
         printf (_ "$msg\n")
         set -l msg 'There are %s unique dirs in your history' \
-            'but I can only handle %s'
+           'but I can only handle %s'
         printf (_ "$msg\n") $dirc (count $letters)
         return 1
     end
