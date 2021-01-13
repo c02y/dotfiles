@@ -2412,7 +2412,6 @@ abbr epub 'ebook-viewer --detach'
 
 # abbr sss 'ps -eo tty,command | rg -v rg | rg "sudo ssh "'
 abbr p 'ping -c 5'
-alias ping 'ping -c 5'
 function ipl -d 'get the location of your public IP address'
     if test (ps -ef | rg -w -v rg | rg -i shadow | awk '{ print $(NF-2) }') # ssr is running
         proxychains4 -q curl myip.ipip.net
