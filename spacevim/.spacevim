@@ -222,6 +222,14 @@ function! UserInit()
 
     Plug 'blankname/vim-fish'
 
+    Plug 'dkarter/bullets.vim'
+    let g:bullets_enabled_file_types = [
+                \ 'markdown',
+                \ 'text',
+                \ 'gitcommit',
+                \ 'scratch'
+                \]
+
     " NOTE: timeoutlen also affects the which-key popup delay
     " https://stackoverflow.com/a/15550787/1528712
     set timeout " Do time out on mappings and others
@@ -505,4 +513,7 @@ function! UserConfig()
     nnoremap <Leader>/ /\<\><left><left>
     " search and list all the result of current word
     nnoremap <Leader>sl :vimgrep /<c-r>=expand("<cword>")<cr>/ %<cr>:copen<cr>
+
+    " set default filetype to markdown
+    autocmd BufEnter * if &filetype == "" | setlocal ft=markdown | endif
 endfunction
