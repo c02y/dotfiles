@@ -1425,19 +1425,47 @@ function fmts -d "compile_commands.json(-l), clang-format(-f), cmake-format(-m)"
     end
 end
 
-# systemd-analyze
-function sab --description 'systemd-analyze blame->time, with any argv, open the result graphic'
-    if set -q $argv # no given argv
-        systemd-analyze blame | head -40
-        systemd-analyze time
-    else
-        # more verbose version:
-        systemd-analyze blame >boottime
-        systemd-analyze time >>boottime
-        systemd-analyze plot >>boottime.svg
-        # open boottime.svg
-        gwenview boottime.svg
+function syss -d 'systemctl functions, -e(enable), -d(disable), -s(start), -r(restart), -S(stop), -l(list), -L(log), -u(user), -t(time), -R(daemon-reload), -q(query)'
+    set -l options 'e' 'd' 's' 'r' 'S' 'l' 'L' 'u' 't' 'R' 'q'
+    argparse -n syss $options -- $argv
+    or return
+
+    if set -q _flag_t # list the boot time of all services
+        if set -q $argv # no given argv
+            systemd-analyze blame | head -40
+            systemd-analyze time
+        else
+            # more verbose version:
+            systemd-analyze blame >boottime
+            systemd-analyze time >>boottime
+            systemd-analyze plot >>boottime.svg
+            echo "file: ./boottime + ./boottime.svg"
+            # open boottime.svg, display is from imagemagick
+            display boottime.svg
+        end
+        return
     end
+
+    set -q _flag_u; and set PRI systemctl --user; or set PRI sudo systemctl
+
+    set CMD status # default action: status
+    set -q _flag_e; and set CMD enable
+    set -q _flag_d; and set CMD disable
+    set -q _flag_s; and set CMD start
+    set -q _flag_r; and set CMD restart
+    set -q _flag_S; and set CMD stop
+    set -q _flag_l; and set CMD list-units --type service --all
+    set -q _flag_L; and journalctl -xe && return
+    set -q _flag_R; and sudo systemctl daemon-reload && return
+
+    if set -q _flag_q
+        systemctl list-units --type service --all | rg $argv
+        or systemctl --user list-units --type service --all | rg $argv
+        return
+    end
+
+    # without argv and opt, show all the status of services under user
+    eval $PRI $CMD $argv
 end
 
 # cd
@@ -2807,8 +2835,8 @@ function d -d 'cd to one of the previously visited locations'
 
     set dirprev $buf
     string join \n $dirprev | tail | sed 1d | \
-       eval (__fzfcmd) +m --tiebreak=index --toggle-sort=ctrl-r $FZF_CDHIST_OPTS | \
-       read -l result
+        eval (__fzfcmd) +m --tiebreak=index --toggle-sort=ctrl-r $FZF_CDHIST_OPTS | \
+        read -l result
 
     test -z $result
     or cd $result
@@ -2853,7 +2881,7 @@ function d2 --description "Choose one from the list of recently visited dirs"
         set -l msg 'This should not happen. Have you changed the cd command?'
         printf (_ "$msg\n")
         set -l msg 'There are %s unique dirs in your history' \
-           'but I can only handle %s'
+            'but I can only handle %s'
         printf (_ "$msg\n") $dirc (count $letters)
         return 1
     end
