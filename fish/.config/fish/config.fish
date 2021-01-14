@@ -55,8 +55,9 @@ if test $DISPLAY
     # Check default value and result using `xset -q`
     # 200=auto repeat delay, given in milliseconds
     # 50=repeat rate, is the number of repeats per second
+    # or uncomment the following part and use System Preference
     if command -sq uname; and test (uname) = "Linux"
-        xset r rate 200 50
+        xset r rate 200 100
     end
 
     # fix the Display :0 can't be opened problem
