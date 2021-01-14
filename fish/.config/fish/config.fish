@@ -1169,8 +1169,8 @@ abbr appd 'apt depends'
 # NOTE: yay: generate ~/.confif/yay/config.json
 test -f ~/.config/yay/config.json; or yay --sudoloop --aururl "https://aur.tuna.tsinghua.edu.cn" --combinedupgrade --save
 #
-abbr pacr 'yay -Rsun' # remove a package and its unneeded dependencies, and clean configs
-abbr pacrr 'yay -Rsc' # using this if pacr doesn't not uninstall a pacakge
+alias pacr 'yay -Rsun' # remove a package and its unneeded dependencies, and clean configs
+alias pacrr 'yay -Rsc' # using this if pacr doesn't not uninstall a pacakge
 abbr pacrc 'yay -Rsu' # like pacr, but don't clean configs
 abbr pacrd 'yay -Rscn' # do not remove dependencies and their configs
 abbr pacd 'sudo pacman -Sw' # download package without installing
