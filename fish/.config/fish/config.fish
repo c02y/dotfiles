@@ -1426,8 +1426,30 @@ function fmts -d "compile_commands.json(-l), clang-format(-f), cmake-format(-m)"
     end
 end
 
-function syss -d 'systemctl functions, -e(enable), -d(disable), -s(start), -r(restart), -S(stop), -l(list), -L(log), -u(user), -t(time), -R(daemon-reload)'
-    set -l options 'e' 'd' 's' 'r' 'S' 'l' 'L' 'u' 't' 'R'
+function ddiso -d 'burn ISO file to drive(such as USB as LIVE USB)'
+    if file $argv[1] | rg -i "ISO" ^/dev/null >/dev/null
+        if echo $argv[2] | rg -i "dev" ^/dev/null >/dev/null
+            set FILE (readlink -f $argv[1])
+            set DEV $argv[2]
+            lsblk -l
+            echo
+            set CMD "sudo dd if=$FILE of=$DEV bs=4M status=progress oflag=sync"
+            echo $CMD
+            read -n 1 -l -p 'echo "Really run above command? [Y/n]"' answer
+            if test "$answer" = "y" -o "$answer" = "" -o "$answer" = ""
+                eval $CMD
+            end
+        else
+            echo $argv[2] is not a /dev/sxx
+            return
+        end
+    else
+        echo $argv[1] is not an ISO file!
+    end
+end
+
+function syss -d 'systemctl functions, -e(enable), -d(disable), -R(reenable) -s(start), -r(restart), -S(stop), -l(list), -L(log), -u(user), -t(time), -D(daemon-reload)'
+    set -l options 'e' 'd' 's' 'r' 'R' 'S' 'l' 'L' 'u' 't' 'D'
     argparse -n syss $options -- $argv
     or return
 
@@ -1452,11 +1474,12 @@ function syss -d 'systemctl functions, -e(enable), -d(disable), -s(start), -r(re
     set CMD status # default action: status
     set -q _flag_e; and set CMD enable
     set -q _flag_d; and set CMD disable
+    set -q _flag_R; and set CMD reenable
     set -q _flag_s; and set CMD start
     set -q _flag_r; and set CMD restart
     set -q _flag_S; and set CMD stop
     set -q _flag_L; and journalctl -xe && return
-    set -q _flag_R; and sudo systemctl daemon-reload && return
+    set -q _flag_D; and sudo systemctl daemon-reload && return
 
     if set -q _flag_l
         set CMD list-units --type service --all
