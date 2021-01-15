@@ -1448,8 +1448,8 @@ function ddiso -d 'burn ISO file to drive(such as USB as LIVE USB)'
     end
 end
 
-function syss -d 'systemctl functions, -e(enable), -d(disable), -R(reenable) -s(start), -r(restart), -S(stop), -l(list), -L(log), -u(user), -t(time), -D(daemon-reload)'
-    set -l options 'e' 'd' 's' 'r' 'R' 'S' 'l' 'L' 'u' 't' 'D'
+function syss -d 'systemctl functions, -e(enable), -d(disable), -R(reenable) -s(start), -r(restart), -S(stop), -l(list), -L(log), -u(user), -t(time), -D(daemon-reload) -f(list failed)'
+    set -l options 'e' 'd' 's' 'r' 'R' 'S' 'l' 'L' 'u' 't' 'D' 'f'
     argparse -n syss $options -- $argv
     or return
 
@@ -1469,6 +1469,10 @@ function syss -d 'systemctl functions, -e(enable), -d(disable), -R(reenable) -s(
         return
     end
 
+    set -q _flag_L; and journalctl -xe && return
+    set -q _flag_D; and sudo systemctl daemon-reload && return
+    set -q _flag_f; and systemctl --failed && return
+
     set -q _flag_u; and set PRI systemctl --user; or set PRI sudo systemctl
 
     set CMD status # default action: status
@@ -1478,8 +1482,6 @@ function syss -d 'systemctl functions, -e(enable), -d(disable), -R(reenable) -s(
     set -q _flag_s; and set CMD start
     set -q _flag_r; and set CMD restart
     set -q _flag_S; and set CMD stop
-    set -q _flag_L; and journalctl -xe && return
-    set -q _flag_D; and sudo systemctl daemon-reload && return
 
     if set -q _flag_l
         set CMD list-units --type service --all
