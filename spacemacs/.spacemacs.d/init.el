@@ -226,6 +226,7 @@ This function should only modify configuration layer settings."
                                       smart-compile
                                       format-all
                                       (translate-shell :location (recipe :fetcher github :repo "xuchunyang/translate-shell.el"))
+                                      exec-path-from-shell
                                       )
 
    ;; A list of packages that cannot be updated.
@@ -2432,7 +2433,8 @@ With prefix P, don't widen, just narrow even if buffer is already narrowed. "
     )
 
   ;; functions for eshell
-  ;; (exec-path-from-shell-initialize)
+  (when (daemonp)
+    (exec-path-from-shell-initialize))
   (defun eshell/x ()
     "x in eshell prompt to exit eshell and close the eshell window."
     (eshell/exit)
