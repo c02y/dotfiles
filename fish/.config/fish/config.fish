@@ -1449,10 +1449,53 @@ function ddiso -d 'burn ISO file to drive(such as USB as LIVE USB)'
     end
 end
 
-function syss -d 'systemctl functions, -e(enable), -d(disable), -R(reenable) -s(start), -r(restart), -S(stop), -l(list), -L(log), -u(user), -t(time), -D(daemon-reload) -f(list failed)'
-    set -l options 'e' 'd' 's' 'r' 'R' 'S' 'l' 'L' 'u' 't' 'D' 'f'
+function syss
+    set -l options 'u' 'e' 'd' 'R' 'r' 's' 'S' 'l' 'D' 'f' 'c' 'L' 't' 'h'
     argparse -n syss $options -- $argv
     or return
+
+    if set -q _flag_h; and ! set -q _flag_c
+        echo "syss [-u/-e/-d/-R/-s/-S/-l/-D/-f/-c -s/-c -h/-c -S/-c -r/-c -p/-L/-t/-h]"
+        echo "      no option --> check all the services of the user if no argv, argv for the argv.service"
+        echo "      -u --> current user or using default sudo"
+        echo "      -e --> systemctl enable name.service"
+        echo "      -d --> systemctl disable name.service"
+        echo "      -R --> systemctl reenable name.service"
+        echo "      -r --> systemctl restart name.service"
+        echo "      -s --> systemctl start name.service"
+        echo "      -S --> systemctl stop name.service"
+        echo "      -l --> systemctl list-units --type service --all, arg to search"
+        echo "      -D --> systemctl daemon-reload"
+        echo "      -f --> systemctl --failed"
+        echo "      -c -s --> suspend"
+        echo "      -c -h --> hibernate"
+        echo "      -c -S --> hibernate-sleep"
+        echo "      -c -r --> reboot"
+        echo "      -c -p --> power/shutdown"
+        echo "      -L --> journalctrl -xe, the log"
+        echo "      -t --> systemd-analyze for boo time analyze, any argv for saving to file and view"
+        echo "      -h --> print this usage message"
+        return
+    end
+
+    if set -q _flag_c
+        if set -q _flag_s
+            systemctl suspend
+        else if set -q _flag_h
+            systemctl hibernate
+        else if set -q _flag_S
+            systemctl hybrid-sleep
+        else if set -q _flag_r
+            # or simplily `reboot`
+            systemctl reboot
+        else if set -q _flag_p
+            # or simplily `poweroff`
+            systemctl poweroff
+        else
+            syss -h
+        end
+        return
+    end
 
     if set -q _flag_t # list the boot time of all services
         if set -q $argv # no given argv
