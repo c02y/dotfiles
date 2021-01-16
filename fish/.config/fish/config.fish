@@ -1163,6 +1163,7 @@ abbr appd 'apt depends'
 # append the follwing lines into /etc/pacman.conf and install "archlinuxcn-keyring"
 # [archlinuxcn]
 # SigLevel = Optional TrustedOnly
+# Server = https://mirrors.sjtug.sjtu.edu.cn/archlinux-cn/$arch
 # Server = https://mirrors.tuna.tsinghua.edu.cn/archlinuxcn/$arch
 # Server = https://mirrors.ustc.edu.cn/archlinuxcn/$arch
 #
