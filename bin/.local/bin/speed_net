@@ -1,5 +1,14 @@
 #!/bin/bash
 
+# when in ssh-remote mode, some characters are not correctly displayed
+if [[ -z $DISPLAY ]]; then
+	DOWN='Rx'
+	UP='Tx'
+else
+	DOWN='⬇'
+	UP='⬆'
+fi
+
 while true; do
 	RXB=0
 	TXB=0
@@ -30,15 +39,6 @@ while true; do
 
 	RXDIF=$(echo $((RXBN - RXB)))
 	TXDIF=$(echo $((TXBN - TXB)))
-
-	# when in ssh-remote mode, some characters are not correctly displayed
-	if [[ -z $DISPLAY ]]; then
-		DOWN='Rx'
-		UP='Tx'
-	else
-		DOWN='⬇'
-		UP='⬆'
-	fi
 
 	if [ "$RXDIF" -lt 10240 ]; then
 		echo "<NO SPEED> "
