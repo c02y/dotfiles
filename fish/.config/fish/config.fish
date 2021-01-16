@@ -2512,6 +2512,16 @@ end
 abbr epub 'ebook-viewer --detach'
 # alias time 'time -p'
 
+function ssh -d 'show ssh info for current tmux window'
+    if set -q TMUX
+        # you can see this new name in choose-tree list
+        tmux rename-window "ssh $argv"
+        command ssh "$argv"
+    else
+        command ssh "$argv"
+    end
+end
+
 # abbr sss 'ps -eo tty,command | rg -v rg | rg "sudo ssh "'
 abbr p 'ping -c 5'
 function ipl -d 'get the location of your public IP address'
