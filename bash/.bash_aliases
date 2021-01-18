@@ -24,6 +24,9 @@ export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 export LANGUAGE=en_US.UTF-8
 
+# Dir = cd Dir, cd into a dir without using cd
+shopt -s autocd
+
 if [[ $(lsb_release -i | grep -i -E 'manjaro|opensuse') ]]; then
 	# export PATH=~/.local/bin:~/anaconda3/bin:$PATH
 	# or
