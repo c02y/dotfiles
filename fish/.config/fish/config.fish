@@ -1258,6 +1258,7 @@ function pacsh -d 'show info about package, first search installed then search i
                 else
                     yay -Si $file | rg "^URL" | awk '{print $3}' | xc && xc -o
                 end
+                open (xc -o)
             else
                 yay -Qi $file
                 or yay -Si $file
