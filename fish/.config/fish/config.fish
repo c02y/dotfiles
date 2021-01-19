@@ -373,7 +373,8 @@ function lls -d 'ls functions with options'
     or return
 
     # no dir is given, assign it to .
-    set -q $argv[1]; and set ARGV .; or set ARGV $argv
+    # the single quote in `'$argv'` is for directories with space like `~/VirtualBox VMs/`
+    set -q $argv[1]; and set ARGV .; or set ARGV '$argv'
     set OPT -lhA --color=yes $ARGV
 
     # reverse order(-r) or not
