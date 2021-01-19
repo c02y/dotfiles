@@ -368,7 +368,7 @@ function bxp -d 'pastebin service in command line'
 end
 #
 function lls -d 'ls functions with options'
-    set -l options 'a' 's' 'r'
+    set -l options 'a' 's' 'r' 'e'
     argparse -n lls $options -- $argv
     or return
 
@@ -378,6 +378,8 @@ function lls -d 'ls functions with options'
 
     # reverse order(-r) or not
     set -q _flag_r; and set OPT $OPT -r
+    # list and sort by extension, and directories first
+    set -q _flag_e; and eval ls $OPT -X --group-directories-first $ARGV && return
     # list all(-a) or not
     set -q _flag_a; and set PIP "| nl -v 0 | sort -nr"; or set PIP "| nl -v 0 | sort -nr | tail -20"
     # sort by size(-s) or sort by last modification time
