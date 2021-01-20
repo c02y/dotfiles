@@ -2537,6 +2537,10 @@ https://stackoverflow.com/a/22114743/1528712"
             (lambda () (define-key c-mode-base-map "{" 'insert-indent-brace)))
   (add-hook 'rust-mode-hook
             (lambda () (define-key rust-mode-map "{" 'insert-indent-brace)))
+
+  ;; using sock5 proxy, useful for installing packages
+  (setq url-gateway-method 'socks)
+  (setq socks-server '("Default server" "127.0.0.1" 1080 5))
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
