@@ -368,14 +368,15 @@ function bxp -d 'pastebin service in command line'
 end
 #
 function lls -d 'ls functions with options'
-    set -l options 'a' 's' 'r' 'e' 'l'
+    set -l options 'a' 's' 'r' 'e' 'l' 'A'
     argparse -n lls $options -- $argv
     or return
 
     # no dir is given, assign it to .
     # the single quote in `'$argv'` is for directories with space like `~/VirtualBox VMs/`
     set -q $argv[1]; and set ARGV .; or set ARGV '$argv'
-    set OPT -A --color=yes $ARGV
+    # using -A to not show hidden files/dirs
+    ! set -q _flag_A; and set OPT -A --color=yes $ARGV; or set OPT --color=yes
 
     # -l means to disable -l in ls
     set -q _flag_l; or set OPT $OPT -lh
