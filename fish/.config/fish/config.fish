@@ -1468,7 +1468,7 @@ function ddiso -d 'burn ISO file to drive(such as USB as LIVE USB)'
 end
 
 function syss
-    set -l options 'u' 'e' 'd' 'R' 'r' 's' 'S' 'l' 'D' 'f' 'c' 'L' 't' 'h'
+    set -l options 'u' 'e' 'd' 'R' 'r' 's' 'S' 'l' 'D' 'f' 'c' 'p' 'L' 't' 'h'
     argparse -n syss $options -- $argv
     or return
 
