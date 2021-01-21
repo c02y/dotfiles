@@ -1382,6 +1382,18 @@ end
 # scan-build make or scan-build gcc file.c or clang --analyze file.c or clang-tidy file.c
 abbr cppc 'cppcheck --enable=all --inconclusive'
 
+function o -d 'open file or directory'
+    if set -q $argv[1] # without argv
+        open . ^/dev/null >/dev/null
+    else
+        if test -d $argv[1]
+            open $argv ^/dev/null >/dev/null
+        else
+            open $argv
+        end
+    end
+end
+
 function fmts -d "compile_commands.json(-l), clang-format(-f), cmake-format(-m)"
     set -l options 'f' 'l' 'm'
     argparse -n fmts $options -- $argv
