@@ -1221,7 +1221,7 @@ function pacs -d 'pacman/yay search, -a(all using yay), -i(interactive using pac
 
     set -q _flag_a; and set CMD yay; or set CMD pacman
     if set -q _flag_n # search only in package names
-        eval $CMD -Slq | rg $argv
+        eval $CMD -Slq | sort | rg $argv
         # if failed with pacman, using yay directly (yay including aur is slow)
         or yay -Slq | rg $argv
         return
