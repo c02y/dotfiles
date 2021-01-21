@@ -1489,7 +1489,7 @@ function syss
         echo "      -c -h --> hibernate"
         echo "      -c -S --> hibernate-sleep"
         echo "      -c -r --> reboot"
-        echo "      -c -p --> power/shutdown"
+        echo "      -c -p --> poweroff/shutdown"
         echo "      -L --> journalctrl -xe, the log"
         echo "      -t --> systemd-analyze for boo time analyze, any argv for saving to file and view"
         echo "      -h --> print this usage message"
