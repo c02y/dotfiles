@@ -1204,13 +1204,23 @@ function paci -d 'pacman/yay install function, -y(noconfirm), -u(update first), 
 
     eval yay $OPT $argv
 end
-function pacs -d 'pacman/yay search, -a(all using yay), -i(interactive using pacui), -n(only names), -l(search in installed pacakge)'
-    set -l options 'a' 'i' 'n' 'l'
+function pacs -d 'pacman/yay search, -a(all using yay), -i(interactive using pacui), -n(only names), -l(search in installed pacakge), -g(list packages in a group)'
+    set -l options 'a' 'i' 'n' 'l' 'g'
     argparse -n pacs $options -- $argv
     or return
 
     if set -q _flag_i # interactively search using pacui i
         proxychains4 -q pacui i $argv
+        return
+    end
+
+    if set -q _flag_g # list packages in a groupadd
+        # available groups(not all) and their packages: https://archlinux.org/groups/
+        if set -q _flag_l # list all installed groups and packages
+            yay -Qg
+        else
+            yay -Sg $argv
+        end
         return
     end
 
@@ -1228,28 +1238,6 @@ function pacs -d 'pacman/yay search, -a(all using yay), -i(interactive using pac
     end
     # if failed with pacman, using yay directly (yay including aur is slow)
     eval $CMD -Ss --color=always $argv; or yay -Ss --color=always $argv
-end
-function pacms -d 'pacman-mirrors functions, default(China), -f(fastest 5), -s(status), -i(interactive), -r(reflector)'
-    set -l options 'f' 's' 'i' 'r'
-    argparse -n pacms $options -- $argv
-    or return
-
-    if set -q _flag_f
-        sudo pacman-mirrors -f 3
-    else if set -q _flag_s
-        pacman-mirrors --status
-    else if set -q _flag_i
-        sudo pacman-mirrors -i -d
-    else if set -q _flag_r
-        set -q $argv; and set ARGV China; or set ARGV $argv
-        sudo reflector --country $ARGV --verbose --latest 6 --sort rate --save /etc/pacman.d/mirrorlist
-    else
-        if ! set -q $argv[1] # given arguments
-            sudo pacman-mirrors -c $argv
-        else
-            sudo pacman-mirrors -c China
-        end
-    end
 end
 function pacsh -d 'show info about package, first search installed then search in repo'
     set -l options 'l'
@@ -1276,6 +1264,28 @@ end
 function pacl -d 'list files in a package'
     pacman -Ql $argv
     or pamac list --files $argv
+end
+function pacms -d 'pacman-mirrors functions, default(China), -f(fastest 5), -s(status), -i(interactive), -r(reflector)'
+    set -l options 'f' 's' 'i' 'r'
+    argparse -n pacms $options -- $argv
+    or return
+
+    if set -q _flag_f
+        sudo pacman-mirrors -f 3
+    else if set -q _flag_s
+        pacman-mirrors --status
+    else if set -q _flag_i
+        sudo pacman-mirrors -i -d
+    else if set -q _flag_r
+        set -q $argv; and set ARGV China; or set ARGV $argv
+        sudo reflector --country $ARGV --verbose --latest 6 --sort rate --save /etc/pacman.d/mirrorlist
+    else
+        if ! set -q $argv[1] # given arguments
+            sudo pacman-mirrors -c $argv
+        else
+            sudo pacman-mirrors -c China
+        end
+    end
 end
 function pacch -d 'check if package is owned by others, if not, delete it'
     # This is used when the following errors occur after executing update command:
