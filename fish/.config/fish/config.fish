@@ -2587,10 +2587,14 @@ function wgetr -d 'for wget that get stuck in middle of downloads'
         command wget -c --no-check-certificate -T 5 -c $argv; and break
     end
 end
-function iotest -d 'test the io speed of disk'
+function ios -d 'io stat'
     # check the current io speed, using command like
     # `dstat -d -n`
-    sudo hdparm -Tt $argv # $argv is device like /dev/sda1
+    if set -q argv[1]
+        sudo hdparm -Tt $argv # $argv is device like /dev/sda1
+    else
+        dstat -d -n -m -s -c --nocolor
+    end
 end
 
 abbr pxx 'proxychains4 -q'
