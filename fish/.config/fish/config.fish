@@ -1240,17 +1240,21 @@ function pacs -d 'pacman/yay search, -a(all using yay), -i(interactive using pac
     eval $CMD -Ss --color=always $argv; or yay -Ss --color=always $argv
 end
 function pacsh -d 'show info about package, first search installed then search in repo'
-    set -l options 'l'
+    set -l options 'l' 'a'
     argparse -n pacsh $options -- $argv
     or return
 
     if ! set -q $argv # given $argv
         for file in $argv
             if set -q _flag_l # get URL info and send it to clipper
-                if yay -Q $file ^/dev/null >/dev/null
-                    yay -Qi $file | rg "^URL" | awk '{print $3}' | xc && xc -o
+                if set -q _flag_a # get AUR URL info and send it to clipper
+                    yay -Si $file | rg "AUR URL" | awk '{print $4}' | xc && xc -o
                 else
-                    yay -Si $file | rg "^URL" | awk '{print $3}' | xc && xc -o
+                    if yay -Q $file ^/dev/null >/dev/null
+                        yay -Qi $file | rg "^URL" | awk '{print $3}' | xc && xc -o
+                    else
+                        yay -Si $file | rg "^URL" | awk '{print $3}' | xc && xc -o
+                    end
                 end
                 open (xc -o)
             else
@@ -1258,8 +1262,10 @@ function pacsh -d 'show info about package, first search installed then search i
                 or yay -Si $file
             end
         end
+    else
+        # without args, it will print info of all the intalled packages
+        echo "Need argv[s]!"
     end
-    # without args, it will print info of all the intalled packages
 end
 function pacl -d 'list files in a package'
     pacman -Ql $argv
