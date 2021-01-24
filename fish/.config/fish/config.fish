@@ -1552,7 +1552,7 @@ function syss
     set -q _flag_D; and sudo systemctl daemon-reload && return
     set -q _flag_f; and systemctl --failed && return
 
-    set -q _flag_u; and set PRI systemctl --user; or set PRI sudo systemctl
+    set -q _flag_u; and set PRI systemctl --user; or set PRI systemctl
 
     set CMD status # default action: status
     set -q _flag_e; and set CMD enable
