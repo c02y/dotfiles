@@ -378,8 +378,7 @@ function lls -d 'ls functions with options'
     # using -A to not show hidden files/dirs
     ! set -q _flag_A; and set OPT -A --color=yes $ARGV; or set OPT --color=yes
 
-    # -l means to disable -l in ls
-    set -q _flag_l; or set OPT $OPT -lh
+    set -q _flag_l; and set OPT $OPT -lh
     # reverse order(-r) or not
     set -q _flag_r; and set OPT $OPT -r
     # list and sort by extension, and directories first
