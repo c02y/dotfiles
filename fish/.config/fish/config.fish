@@ -1256,7 +1256,7 @@ function pacsh -d 'show info about package, first search installed then search i
                         yay -Si $file | rg "^URL" | awk '{print $3}' | xc && xc -o
                     end
                 end
-                open (xc -o)
+                open (xc -o) ^/dev/null >/dev/null
             else
                 yay -Qi $file
                 or yay -Si $file
@@ -1400,15 +1400,9 @@ end
 abbr cppc 'cppcheck --enable=all --inconclusive'
 
 function o -d 'open file or directory'
-    if set -q $argv[1] # without argv
-        open . ^/dev/null >/dev/null
-    else
-        if test -d $argv[1]
-            open $argv ^/dev/null >/dev/null
-        else
-            open $argv
-        end
-    end
+    set -q $argv; and set ARGV .; or set ARGV $argv
+
+    open $ARGV ^/dev/null >/dev/null
 end
 
 function fmts -d "compile_commands.json(-l), clang-format(-f), cmake-format(-m)"
