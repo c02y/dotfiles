@@ -173,6 +173,8 @@ This function should only modify configuration layer settings."
       ccls-sem-highlight-method 'font-lock
       ;; spacemacs/issues/10051#issuecomment-605979333
       lsp-enable-indentation nil
+	  ;; https://emacs-lsp.github.io/lsp-mode/tutorials/how-to-turn-off/
+      lsp-headerline-breadcrumb-enable nil
       )
      ;; M-x dap-gdb-lldb-setup after packages are installed by dap layer
      dap
