@@ -1584,7 +1584,6 @@ function .....
     cd ../../../..
 end
 abbr cdp 'cd ~/Public; and lls'
-abbr cdu 'cd /run/media/chz/UDISK/; and lls'
 
 # TODO: `pip install git+https://github.com/jeffkaufman/icdiff.git`
 function diffs -d "all kinds of diff features"
