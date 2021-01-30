@@ -426,6 +426,23 @@ function pss -d 'pgrep process, used in command line'
 end
 # pkill will not kill processes matching pattern, you have to kill the PID
 function pk --description 'kill processes containing a pattern or PID'
+    if set -q $argv
+        # this part of using fzf is from
+        # https://github.com/SidOfc/dotfiles/blob/e94b96b908479950186e42a3709511a0afe300e4/.config/fish/functions/kp.fish
+        set -l __kp__pid (ps -ef | sed 1d | eval "fzf $FZF_DEFAULT_OPTS -m --header='[kill:process]'" | awk '{print $2}')
+        set -l __kp__kc $argv[1]
+
+        if test "x$__kp__pid" != "x"
+            if test "x$argv[1]" != "x"
+                echo $__kp__pid | xargs kill $argv[1]
+            else
+                echo $__kp__pid | xargs kill -9
+            end
+            pk
+        end
+        return
+    end
+
     set result (psss $argv[1] | wc -l)
     if test $result = 0
         echo "No '$argv[1]' process is running!"
