@@ -320,7 +320,6 @@ function fish_user_key_bindings
     end
     fzf_key_bindings # C-s for file/dir, C-r for history, Tab for complete
     bind --erase \cb
-    bind \cb broot
 end
 set -gx FZF_TMUX_HEIGHT 100%
 
@@ -2137,8 +2136,8 @@ function gitdl -d 'download several files from github'
     argparse -n gitdl $options -- $argv
     or return
 
-    set bins bat broot fzf gitmux scc nvim z.lua
-    set funs batp brootp fzfp gitmuxp sccp nvimp zlp
+    set bins bat fzf gitmux scc nvim z.lua
+    set funs batp fzfp gitmuxp sccp nvimp zlp
     if set -q _flag_h
         echo "gitdl [-b/-B/-f/-s/-v/-z/-h]"
         echo "      no option --> once for all"
@@ -2272,24 +2271,6 @@ function batp -d 'check if bat exists, or with any argument, download the latest
             return 1
         end
 
-    end
-end
-
-function brootp -d 'check if broot exists, or with any argument, download the latest version'
-    if command -sq broot; and set -q $argv[1] # broot is in $PATH, and no any argv is given, two conditions
-        # echo "broot is installed, use any extra to upgrade it!"
-        return 0
-    else
-        set br_path $LBIN/broot
-        eval $PXY curl -o $br_path -LO https://dystroy.org/broot/download/x86_64-linux/broot
-        if test -s $br_path
-            chmod +x $br_path
-            echo -e "\n====broot installed...====\n"
-            return 0
-        else
-            echo "broot doesn't exist and error occurs when downloading it!"
-            return 1
-        end
     end
 end
 
