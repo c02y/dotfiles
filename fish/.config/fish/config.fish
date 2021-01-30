@@ -551,9 +551,9 @@ function vars -d "list item in var line by line, PATH(by default), -m(MANPATH), 
         echo $PATH | tr " " "\n" | nl
     end
 end
-alias rm 'rm -vi'
-alias cp 'cp -vi'
-alias mv 'mv -vi'
+# alias rm 'rm -vi'
+# alias cp 'cp -vi'
+# alias mv 'mv -vi'
 abbr rcp 'rsync --stats --info=progress2 -rh -avz'
 abbr rmv 'rsync --stats --info=progress2 -rh -avz --remove-source-files' # this will not delte the src dir, only the contents
 alias clr 'clear; tmux clear-history'
