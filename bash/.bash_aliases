@@ -66,9 +66,9 @@ alias his='history'
 # alias bw='ssh -qTfnN -D 7070 -p 443 hei1000@216.194.70.6'
 alias bw='ssh -qTfnN -D 7070 hei1000@216.194.70.6'
 
-alias rm='rm -vir'
-alias cp='cp -vi'
-alias mv='mv -vi'
+# alias rm='rm -vir'
+# alias cp='cp -vi'
+# alias mv='mv -vi'
 
 alias less='less -iXFR -x4 -M'
 alias grep='grep --color=auto'
