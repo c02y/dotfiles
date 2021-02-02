@@ -887,7 +887,7 @@ function dfs -d 'df(-l), ncdu(-i), du(by default), cache dir of Firefox/Chrome'
     else if set -q _flag_l
         df -Th | rg -v -e 'rg|tmpfs|boot|var|snap|opt|tmp|srv|usr|user'
     else if set -q _flag_c
-        du -cs ~/.cache/google-chrome ~/.config/google-chrome ~/.cache/mozilla ~/.mozilla ~/.cache/yay /var/cache/pacman/pkg
+        du -cs ~/.cache/google-chrome ~/.config/google-chrome ~/.cache/vivaldi ~/.config/vivaldi ~/.cache/mozilla ~/.mozilla ~/.cache/yay /var/cache/pacman/pkg
     else
         if test (count $argv) -gt 1 # $argv contains /* at the end of path
             du -cs $argv | sort -h
