@@ -295,8 +295,9 @@ function delete-or-ranger -d 'modified from delete-or-exit, delete one char if i
 
     switch "$cmd"
         case ''
+            # BUG: ranger will get stuck on the final step of cw(bulkrename)
+            # it works fine if running ranger without binding in fish
             ranger
-
         case '*'
             commandline -f delete-char
     end
@@ -307,7 +308,7 @@ function fish_user_key_bindings
     #bind \cl 'clear; commandline -f repaint; path_prompt'
     #bind \cl ""
     #bind \cl "tput reset; commandline -f repaint; path_prompt"
-    bind \cd delete-or-ranger
+    bind \cd delete-or-ranger # check the BUG part in the function
     bind \cq 'tig status'
     # if Alt-backword doesn't work, use this
     # TODO: delete it if fish-shell itself fix it
