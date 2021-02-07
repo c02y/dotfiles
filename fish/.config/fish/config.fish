@@ -278,6 +278,7 @@ end
 source $HOME/.config/fish/functions/done.fish
 # the following script will make fish v3.0.0 prompt hang
 # source $HOME/.config/fish/functions/__async_prompt.fish
+source $HOME/.config/fish/functions/autopair.fish
 
 # LS_COLORS, color for ls command
 # http://linux-sxs.org/housekeeping/lscolors.html
