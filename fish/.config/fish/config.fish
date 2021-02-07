@@ -1355,13 +1355,9 @@ abbr yayu 'yay -Syu' # yay == yay -Syu
 abbr yayr 'yay -Rsun'
 # check yay --help for more
 # pacui, depending on yay, install it first
-abbr pui 'pacui'
-abbr puii 'proxychains4 -q pacui i'
-abbr puid 'pacui d' # downgrade a package
-abbr puil 'pacui s' # list files in a package
-abbr puila 'pacui la' # list packages installed from aur
-abbr puils 'pacui ls' # list installed packages by size
-abbr puir 'pacui r'
+abbr pacf 'proxychains4 -q pacui i'
+abbr pacla 'pacui la' # list packages installed from aur
+abbr pacls 'pacui ls' # list installed packages by size
 # check pacui h/help for more
 
 # donnot show the other info on startup
