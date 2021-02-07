@@ -870,9 +870,20 @@ function fts -d 'find the temporary files such as a~ or #a or .a~, and files for
     end
 
 end
-abbr lo 'locate -e'
-function lop --description 'locate the full/exact file'
-    locate -e -r "/$argv[1]\$"
+# NOTE: you need to disable updatedb.service and delete /var/lib/mlocate/mlocate.db file first
+function loo -d 'locate functions'
+    set -l options 'u' 'f'
+    argparse -n loo $options -- $argv
+    or return
+
+    if set -q _flag_u; or not test -f /tmp/mlocate.db # two conditions, A or B
+        updatedb --require-visibility 0 -o /tmp/mlocate.db
+    end
+    if set -q _flag_f # locate the full/exact file
+        locate -e --database=/tmp/mlocate.db -r "/$argv[1]\$"
+    else
+        locate -e --database=/tmp/mlocate.db $argv
+    end
 end
 
 # df+du+ncdu
