@@ -873,17 +873,24 @@ function fts -d 'find the temporary files such as a~ or #a or .a~, and files for
 end
 # NOTE: you need to disable updatedb.service and delete /var/lib/mlocate/mlocate.db file first
 function loo -d 'locate functions'
-    set -l options 'u' 'f'
+    set -l options 'u' 'f' 'c' 'C'
     argparse -n loo $options -- $argv
     or return
 
     if set -q _flag_u; or not test -f /tmp/mlocate.db # two conditions, A or B
         updatedb --require-visibility 0 -o /tmp/mlocate.db
     end
+
+    set -q $argv; and return
+
     if set -q _flag_f # locate the full/exact file
-        locate -e --database=/tmp/mlocate.db -r "/$argv[1]\$"
+        locate -e -i --database=/tmp/mlocate.db -r "/$argv[1]\$"
+    else if set -q _flag_c # check for left config/cace file/dir for uninstalled package
+        locate -e -i --database=/tmp/mlocate.db $argv | rg home | rg $USER | rg -i $argv
+    else if set -q _flag_C # delete for -c using fzf
+        locate -e -i --database=/tmp/mlocate.db $argv | rg home | rg $USER | rg -i $argv | fzf | xargs rm -rfv
     else
-        locate -e --database=/tmp/mlocate.db $argv
+        locate -e -i --database=/tmp/mlocate.db $argv
     end
 end
 
