@@ -538,8 +538,8 @@ function pk --description 'kill processes containing a pattern or PID'
     end
 end
 
-function vars -d "list item in var line by line, PATH(by default), -m(MANPATH), -c(clean duplicated var)"
-    set -l options 'm' 'c'
+function vars -d "list item in var line by line, all envs(by default), -m(MANPATH), -c(clean duplicated var), -p(PATH), var name(print value or var)"
+    set -l options 'm' 'c' 'p'
     argparse -n vars $options -- $argv
     or return
 
@@ -564,8 +564,12 @@ function vars -d "list item in var line by line, PATH(by default), -m(MANPATH), 
             echo $$var | tr " " "\n" | nl
             echo
         end
-    else
+    else if set -q _flag_p
         echo $PATH | tr " " "\n" | nl
+    else if not set -q $argv # given any argv
+        echo $$var | tr " " "\n" | nl
+    else
+        env
     end
 end
 # alias rm 'rm -vi'
