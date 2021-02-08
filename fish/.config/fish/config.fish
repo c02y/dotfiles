@@ -885,37 +885,34 @@ function loo -d 'locate functions'
 
     if set -q _flag_f # locate the full/exact file
         locate -e -i --database=/tmp/mlocate.db -r "/$argv[1]\$"
-    else if set -q _flag_c # check for left config/cace file/dir for uninstalled package
-        locate -e -i --database=/tmp/mlocate.db $argv | rg home | rg $USER | rg -i $argv
     else if set -q _flag_C # delete for -c using fzf
         locate -e -i --database=/tmp/mlocate.db $argv | rg home | rg $USER | rg -i $argv | fzf | xargs rm -rfv
+    else if set -q _flag_c # check for left config/cace file/dir for uninstalled package
+        locate -e -i --database=/tmp/mlocate.db $argv | rg home | rg $USER | rg -i $argv
     else
         locate -e -i --database=/tmp/mlocate.db $argv
     end
 end
 
-# df+du+ncdu
-alias du 'du -h --apparent-size'
-function dfs -d 'df(-l), ncdu(-i), du(by default), cache dir of Firefox/Chrome'
-    set -l options 'i' 'l' 'c'
+# df+du+dua
+function dfs -d 'df(-l, -L for full list), dua(-i), du(by default), cache/config dir of Firefox/Chrome/Vivaldi/yay/pacman'
+    set -l options 'i' 'l' 'L' 'c' 'h'
     argparse -n dfs $options -- $argv
     or return
 
     if set -q _flag_i
-        if command -sq ncdu
-            ncdu --color dark $argv
-        else
-            echo "ncdu is not installed!"
-        end
+        dua -f binary i $argv/* # NOTE: even if argv is empty, this works too
     else if set -q _flag_l
         df -Th | rg -v -e 'rg|tmpfs|boot|var|snap|opt|tmp|srv|usr|user'
+    else if set -q _flag_L
+        df -Th
     else if set -q _flag_c
-        du -cs ~/.cache/google-chrome ~/.config/google-chrome ~/.cache/vivaldi ~/.config/vivaldi ~/.cache/mozilla ~/.mozilla ~/.cache/yay /var/cache/pacman/pkg
+        du -csh ~/.cache/google-chrome ~/.config/google-chrome ~/.cache/vivaldi ~/.config/vivaldi ~/.cache/mozilla ~/.mozilla ~/.cache/yay /var/cache/pacman/pkg
     else
         if test (count $argv) -gt 1 # $argv contains /* at the end of path
-            du -cs $argv | sort -h
+            du -csh $argv | sort -h
         else
-            du -cs $argv
+            du -csh $argv
         end
     end
 end
