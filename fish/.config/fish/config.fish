@@ -872,8 +872,8 @@ function fts -d 'find the temporary files such as a~ or #a or .a~, and files for
 
 end
 # NOTE: you need to disable updatedb.service and delete /var/lib/mlocate/mlocate.db file first
-function loo -d 'locate functions, -a(under /), -v(video), -d(only dir), -o(open), -x(copy), -r(remove)'
-    set -l options 'u' 'a' 'o' 'x' 'v' 'r' 'd'
+function loo -d 'locate functions, -a(under /), -v(video), -o(open), -x(copy), -r(remove)'
+    set -l options 'u' 'a' 'o' 'x' 'v' 'r'
     argparse -n loo $options -- $argv
     or return
 
@@ -884,7 +884,7 @@ function loo -d 'locate functions, -a(under /), -v(video), -d(only dir), -o(open
     set -q $argv; and return
 
     set -q _flag_a; and set LOCATE 'locate -e -i --database=/tmp/mlocate.db $argv'; or set LOCATE 'locate -e -i --database=/tmp/mlocate.db $argv | rg home/$USER'
-    if set -q _flag_a # check file/dir in /
+    if set -q _flag_a # search file/dir in /
         if set -q _flag_o
             eval $LOCATE | fzf | xargs xdg-open
         else if set -q _flag_x # copy it using fzf
@@ -900,13 +900,6 @@ function loo -d 'locate functions, -a(under /), -v(video), -d(only dir), -o(open
             eval $LOCATE | fzf | xc && xc -o
         else
             eval $LOCATE | rg -i $argv
-        end
-    else if set -q _flag_d # search only dirs
-        set LOCATE 'locate -e -i --database=/tmp/mlocate.db -r "$argv\$"'
-        if set -q _flag_x # copy it using fzf
-            eval $LOCATE | fzf | xc && xc -o
-        else
-            eval $LOCATE
         end
     else # search file/dir in home dir
         if set -q _flag_o # open it using fzf
