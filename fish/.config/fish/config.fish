@@ -872,8 +872,8 @@ function fts -d 'find the temporary files such as a~ or #a or .a~, and files for
 
 end
 # NOTE: you need to disable updatedb.service and delete /var/lib/mlocate/mlocate.db file first
-function loo -d 'locate functions'
-    set -l options 'u' 'f' 'c' 'C'
+function loo -d 'locate functions, -a(under /), -v(video), -d(only dir), -o(open), -x(copy), -r(remove)'
+    set -l options 'u' 'a' 'o' 'x' 'v' 'r' 'd'
     argparse -n loo $options -- $argv
     or return
 
@@ -883,14 +883,41 @@ function loo -d 'locate functions'
 
     set -q $argv; and return
 
-    if set -q _flag_f # locate the full/exact file
-        locate -e -i --database=/tmp/mlocate.db -r "/$argv[1]\$"
-    else if set -q _flag_C # delete for -c using fzf
-        locate -e -i --database=/tmp/mlocate.db $argv | rg home | rg $USER | rg -i $argv | fzf | xargs rm -rfv
-    else if set -q _flag_c # check for left config/cace file/dir for uninstalled package
-        locate -e -i --database=/tmp/mlocate.db $argv | rg home | rg $USER | rg -i $argv
-    else
-        locate -e -i --database=/tmp/mlocate.db $argv
+    set -q _flag_a; and set LOCATE 'locate -e -i --database=/tmp/mlocate.db $argv'; or set LOCATE 'locate -e -i --database=/tmp/mlocate.db $argv | rg home/$USER'
+    if set -q _flag_a # check file/dir in /
+        if set -q _flag_o
+            eval $LOCATE | fzf | xargs xdg-open
+        else if set -q _flag_x # copy it using fzf
+            eval $LOCATE | fzf | xc && xc -o
+        else
+            eval $LOCATE | rg -i $argv
+        end
+    else if set -q _flag_v # search all video/audio files in home
+        set LOCATE 'locate -e -i --database=/tmp/mlocate.db $argv | rg home/$USER | rg -i -P ".mp4\$|.mkv\$|.avi\$|.webm\$|.mov\$|.rmvb\$"'
+        if set -q _flag_o # open it using fzf
+            eval $LOCATE | fzf | xargs xdg-open
+        else if set -q _flag_x # copy it using fzf
+            eval $LOCATE | fzf | xc && xc -o
+        else
+            eval $LOCATE | rg -i $argv
+        end
+    else if set -q _flag_d # search only dirs
+        set LOCATE 'locate -e -i --database=/tmp/mlocate.db -r "$argv\$"'
+        if set -q _flag_x # copy it using fzf
+            eval $LOCATE | fzf | xc && xc -o
+        else
+            eval $LOCATE
+        end
+    else # search file/dir in home dir
+        if set -q _flag_o # open it using fzf
+            eval $LOCATE | fzf | xargs xdg-open
+        else if set -q _flag_r # remove it using fzf
+            eval $LOCATE | fzf | xargs rm -rfv
+        else if set -q _flag_x # copy the result using fzf
+            eval $LOCATE | fzf | xc && xc -o
+        else
+            eval $LOCATE | rg -i $argv
+        end
     end
 end
 
