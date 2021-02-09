@@ -1284,12 +1284,12 @@ function pacsh -d 'show info about package, first search installed then search i
         for file in $argv
             if set -q _flag_l # get URL info and send it to clipper
                 if set -q _flag_a # get AUR URL info and send it to clipper
-                    yay -Si $file | rg "AUR URL" | awk '{print $4}' | tr -d '\n' | xc && xc -o
+                    yay -Si $file | rg "AUR URL" | awk '{print $4}' | xc && xc -o
                 else
                     if yay -Q $file ^/dev/null >/dev/null
-                        yay -Qi $file | rg "^URL" | awk '{print $3}' | tr -d '\n' | xc && xc -o
+                        yay -Qi $file | rg "^URL" | awk '{print $3}' | xc && xc -o
                     else
-                        yay -Si $file | rg "^URL" | awk '{print $3}' | tr -d '\n' | xc && xc -o
+                        yay -Si $file | rg "^URL" | awk '{print $3}' | xc && xc -o
                     end
                 end
                 open (xc -o) ^/dev/null >/dev/null
@@ -1659,7 +1659,7 @@ function mkcd --description 'mkdir dir then cd dir'
 end
 
 # xclip, get content into clipboard, echo file | xclip
-alias xc 'xclip -selection c'
+alias xc 'xclip -r -selection c'
 abbr xp 'xclip'
 
 abbr km 'sudo kermit'
@@ -2099,7 +2099,7 @@ abbr gitsc "sss"
 function gitsr -d "get the url of a git repo"
     set -q $argv[1]; and set -l ARGV .; or set -l ARGV $argv
     if test -d $ARGV
-        cd $ARGV && git config --get remote.origin.url | tr -d '\n' | xc && xc -o
+        cd $ARGV && git config --get remote.origin.url | xc && xc -o
         ! set -q $argv[1]; and cd -
         echo \n---- Path Copied to Clipboard! ----
     else
