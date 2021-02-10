@@ -322,6 +322,7 @@ function fish_user_key_bindings
     end
     fzf_key_bindings # C-s for file/dir, C-r for history, Tab for complete
     bind --erase \cb
+    bind \cf zz
 end
 set -gx FZF_TMUX_HEIGHT 100%
 
@@ -721,66 +722,73 @@ function fzfp -d 'check if fzf is existed, with any argument, fzf binary file wi
     end
 end
 
-set -gx Z_PATH ~/.config/fish/functions
-if test -e $Z_PATH/z.lua
-    source (lua $Z_PATH/z.lua --init fish once echo | psub)
-    # z.lua using built-in cd which won't affect the cd stack of fish shell, use fish's cd so you can use `cd -`
-    set -gx _ZL_CD cd
-    set -gx _ZL_INT_SORT 1
-    set -gx _ZL_FZF_HEIGHT 0 # 0 means fullscreen
-    set -gx _ZL_HYPHEN 1
-    set -gx FZF_DEFAULT_OPTS '-1 -0 --reverse' # auto select the only match, auto exit if no match
-end
-function zlp -d 'check exists of z.lua, with any given argument, update z.lua'
-    if test -e $Z_PATH/z.lua; and set -q $argv[1] # z.lua file exists and no any argv is given, two conditions
-        # echo "z.lua is installed, use any extra to upgrade it!"
-        return 0
-    else
-        eval $PXY curl -L -C - https://raw.githubusercontent.com/skywind3000/z.lua/master/z.lua -o /tmp/z.lua
-        if test -s /tmp/z.lua
-            mv -f /tmp/z.lua $Z_PATH/z.lua
-            echo -e "\n====z.lua installed...====\n"
-        else
-            echo "Failed to download z.lua!!!"
-            return 1
-        end
-        return 0
-    end
-end
-abbr zb 'z -b' # Bonus: zb .. equals to cd .., zb ... equals to cd ../.. and
-# zb .... equals to cd ../../.., and so on. Finally, zb ..20 equals to cd (..)x20.
-function zz -d 'z interactive selection mode'
-    if not zlp
-        echo "Failed to install z.lua!"
-        return
-    end
-    if fzfp # fzf exists, $status = 0
-        set z_cmd z -I
-    else
-        set z_cmd z -i
-    end
-    if test (count $argv) = 0
-        eval $z_cmd .
-    else
-        eval $z_cmd $argv
-    end
-end
-function zh -d 'z\'s cd into the cd history'
-    if not zlp
-        echo "Failed to install z.lua!"
-        return
-    end
-    if fzfp # fzf exists, $status = 0
-        set z_cmd z -I -t
-    else
-        set z_cmd z -i -t
-    end
-    if test (count $argv) -eq 0
-        eval $z_cmd .
-    else
-        eval $z_cmd $argv
-    end
-end
+# set -gx Z_PATH ~/.config/fish/functions
+# if test -e $Z_PATH/z.lua
+#     source (lua $Z_PATH/z.lua --init fish once echo | psub)
+#     # z.lua using built-in cd which won't affect the cd stack of fish shell, use fish's cd so you can use `cd -`
+#     set -gx _ZL_CD cd
+#     set -gx _ZL_INT_SORT 1
+#     set -gx _ZL_FZF_HEIGHT 0 # 0 means fullscreen
+#     set -gx _ZL_HYPHEN 1
+#     set -gx FZF_DEFAULT_OPTS '-1 -0 --reverse' # auto select the only match, auto exit if no match
+# end
+# function zlp -d 'check exists of z.lua, with any given argument, update z.lua'
+#     if test -e $Z_PATH/z.lua; and set -q $argv[1] # z.lua file exists and no any argv is given, two conditions
+#         # echo "z.lua is installed, use any extra to upgrade it!"
+#         return 0
+#     else
+#         eval $PXY curl -L -C - https://raw.githubusercontent.com/skywind3000/z.lua/master/z.lua -o /tmp/z.lua
+#         if test -s /tmp/z.lua
+#             mv -f /tmp/z.lua $Z_PATH/z.lua
+#             echo -e "\n====z.lua installed...====\n"
+#         else
+#             echo "Failed to download z.lua!!!"
+#             return 1
+#         end
+#         return 0
+#     end
+# end
+# abbr zb 'z -b' # Bonus: zb .. equals to cd .., zb ... equals to cd ../.. and
+# # zb .... equals to cd ../../.., and so on. Finally, zb ..20 equals to cd (..)x20.
+# function zz -d 'z interactive selection mode'
+#     if not zlp
+#         echo "Failed to install z.lua!"
+#         return
+#     end
+#     if fzfp # fzf exists, $status = 0
+#         set z_cmd z -I
+#     else
+#         set z_cmd z -i
+#     end
+#     if test (count $argv) = 0
+#         eval $z_cmd .
+#     else
+#         eval $z_cmd $argv
+#     end
+# end
+# function zh -d 'z\'s cd into the cd history'
+#     if not zlp
+#         echo "Failed to install z.lua!"
+#         return
+#     end
+#     if fzfp # fzf exists, $status = 0
+#         set z_cmd z -I -t
+#     else
+#         set z_cmd z -i -t
+#     end
+#     if test (count $argv) -eq 0
+#         eval $z_cmd .
+#     else
+#         eval $z_cmd $argv
+#     end
+# end
+
+zoxide init fish | source
+alias zz 'zi'
+set -gx _ZO_FZF_OPTS "-1 -0 --reverse"
+set -gx FZF_DEFAULT_OPTS '-0 --reverse' # auto select the only match, auto exit if no match
+# set -gx FZF_DEFAULT_OPTS '-1 -0 --reverse' # auto select the only match, auto exit if no match
+
 # touch temporary files
 abbr tout 'touch ab~ .ab~ .\#ab .\#ab\# \#ab\# .ab.swp ab.swp'
 # find
@@ -2186,12 +2194,12 @@ function gitrh -d 'git reset HEAD for multiple files(file1 file2, all without ar
 end
 
 function gitdl -d 'download several files from github'
-    set -l options 'b' 'B' 'f' 'g' 's' 'v' 'z' 'h'
+    set -l options 'b' 'B' 'f' 'g' 's' 'v' 'h'
     argparse -n gitdl $options -- $argv
     or return
 
-    set bins bat fzf gitmux scc nvim z.lua
-    set funs batp fzfp gitmuxp sccp nvimp zlp
+    set bins bat fzf gitmux scc nvim
+    set funs batp fzfp gitmuxp sccp nvimp
     if set -q _flag_h
         echo "gitdl [-b/-B/-f/-s/-v/-z/-h]"
         echo "      no option --> once for all"
@@ -2201,7 +2209,6 @@ function gitdl -d 'download several files from github'
         echo "      -g --> $bins[4]"
         echo "      -s --> $bins[5]"
         echo "      -v --> $bins[6]"
-        echo "      -z --> $bins[7]"
         echo "      -h --> usage"
         return
     else if set -q _flag_b
@@ -2222,9 +2229,6 @@ function gitdl -d 'download several files from github'
     else if set -q _flag_v
         echo "Update/Download $bins[6]..."
         eval $funs[6] u
-    else if set -q _flag_z
-        echo "Update/Download $bins[7]..."
-        eval $funs[7] u
     else # no option
         read -n 1 -p 'echo "Update/Download all of $bins from github? [Y/n]: "' -l arg
         if test "$arg" = "" -o "$arg" = "y" -o "$arg" = " "
