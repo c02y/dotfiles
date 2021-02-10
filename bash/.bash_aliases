@@ -14,11 +14,13 @@ export HISTSIZE=9999999999
 export HISTTIMEFORMAT="[%F %T] ~~~ "
 # Dump the history file after every command
 shopt -s histappend
-export PROMPT_COMMAND="history -a;"
 # Preload the working directory history list from the directory history
 if type -t hd >/dev/null && type -t cd_func >/dev/null; then
 	for x in `hd 20` `pwd`; do cd_func $x ; done
 fi
+
+eval "$(zoxide init bash)"
+alias zz='zi'
 
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
