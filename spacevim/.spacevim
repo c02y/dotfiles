@@ -256,6 +256,12 @@ function! UserConfig()
     set listchars=tab:»\ ,extends:›,precedes:‹,nbsp:·,trail:·,eol:$,space:·,conceal:·
     " automatically strip trailing spaces on save
     autocmd BufWritePre * :%s/\s\+$//e
+    " set in  ~/.vim/plugged/vim-better-default/plugin/default.vim
+    " which will crate %home%xxx file in /tmp
+    " now they will be placed in ~/.local/share/nvim/ which is their default values
+    set directory=~/.local/share/nvim/swap
+    set backupdir=~/.local/share/nvim/backup
+    set undodir=~/.local/share/nvim/undo
 
     set nofixeol
     " enable mouse action such as moving point or choosing window
