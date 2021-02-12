@@ -321,6 +321,7 @@ function fish_user_key_bindings
     fzf_key_bindings # C-s for file/dir, C-r for history, Tab for complete
     bind --erase \cb
     bind \cf zz
+    bind \ch htop
 end
 set -gx FZF_TMUX_HEIGHT 100%
 
