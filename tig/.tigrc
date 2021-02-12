@@ -88,7 +88,7 @@ bind log        ]    :/"^commit " # jump to the next commit
 bind log        gm   !git show -m %(commit) # use this when diff can not be displayed, such as for merge
 bind diff       gm   !git show -m %(commit) # use this when diff can not be displayed, such as for merge
 bind stage      gm   !git show -m %(commit) # use this when diff can not be displayed, such as for merge
-bind log        P    !<tig log origin/master..HEAD
+bind log        L    !<tig log origin/master..HEAD
 
 #Commit
 # bind generic C      !git commit
@@ -108,7 +108,7 @@ bind generic J move-page-down
 bind generic K move-page-up
 
 #Reflog
-bind generic L      !sh -c "git reflog --pretty=raw | tig --pretty=raw"
+bind log     l      !<sh -c "git reflog --pretty=raw | tig --pretty=raw"
 bind generic _      ?git reset --hard HEAD@{"%(prompt Enter HEAD@{} number: )"}
 
 #Reset --hard
