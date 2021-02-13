@@ -1584,10 +1584,9 @@ function .....
 end
 abbr cdp 'cd ~/Public; and lls'
 
-# TODO: `pip install git+https://github.com/jeffkaufman/icdiff.git`
 function diffs -d "all kinds of diff features"
-    if command -sq icdiff
-        icdiff $argv
+    if command -sq ydiff
+        ydiff $argv
     else
         set -l options 'f' 'w' 'l' 'L' 'W' 'h'
         argparse -n diffs $options -- $argv
