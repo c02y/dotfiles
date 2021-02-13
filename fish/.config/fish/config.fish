@@ -308,7 +308,7 @@ function fish_user_key_bindings
     #bind \cl ""
     #bind \cl "tput reset; commandline -f repaint; path_prompt"
     bind \cd delete-or-ranger # check the BUG part in the function
-    bind \cq 'tig status'
+    bind \cq lazygit
     # if Alt-backword doesn't work, use this
     # TODO: delete it if fish-shell itself fix it
     bind \e\b backward-kill-word
@@ -1808,18 +1808,17 @@ function usertest -d 'add user test temporarily for one day, no passwd, and logi
 end
 
 # git
-abbr gg 'tig'
-abbr ggl 'tig log'
-abbr gglp 'tig log -p --'
-abbr ggs 'tig status'
-abbr ggr 'tig refs'
+abbr gg 'lazygit'
+abbr ggl 'git log'
+abbr gglp 'git log -p --'
+abbr ggs 'git status'
 abbr gits 'git status'
-abbr gitl 'tig log'
-abbr gitlo 'git log --oneline' # = tig(gg)
+abbr gitl 'git log'
+abbr gitlo 'git log --oneline'
 abbr gitlp 'git log -p --' # [+ file] to how entire all/[file(even renamed)] history
 abbr gitls 'git diff --name-only --cached' # list staged files to be commited
-abbr gitd 'git diff' # show unstaged modification
-abbr ggd 'git diff' # show unstaged modification
+abbr gitd 'ydiff' # show unstaged modification
+abbr ggd 'ydiff' # show unstaged modification
 abbr ggdd 'git difftool' # show unstaged modification using external tool such as vim
 abbr gitdc 'git diff --cached' # show staged but unpushed local modification
 abbr gitsh 'git show' # [+ COMMIT] to show the modifications in a last/[specific] commit
@@ -1833,7 +1832,7 @@ abbr gitft 'git ls-files --error-unmatch' # Check if file/dir is git-tracked
 abbr gitpu 'git push -v'
 abbr gitpun 'git push -v -n' # simulate git push
 abbr gitpr 'git pull --rebase=interactive'
-abbr gitup 'tig log origin/master..HEAD' # list unpushed commits using tig
+abbr gitup 'git log origin/master..HEAD' # list unpushed commits
 set -l SSR socks5://127.0.0.1:1080
 abbr gitpx "git config --global http.proxy $SSR; git config --global https.proxy $SSR; git config --global http.https://github.com.proxy $SSR"
 abbr gitupx 'git config --global --unset http.proxy; git config --global --unset https.proxy; git config --global --unset http.https://github.com.proxy'
@@ -3050,7 +3049,6 @@ end
 #
 # The packages needed to be installed using conda are(only if you have no sudo permission or the offcial is old)
 # ~/anaconda3/bin/conda install -c conda-forge ncurses emacs w3m fish the_silver_searcher source-highlight tmux ripgrep
-# ~/anaconda3/bin/conda install -c lebedov tig
 source $HOME/anaconda3/etc/fish/conf.d/conda.fish >/dev/null ^/dev/null
 abbr condas '~/anaconda3/bin/binstar search -t conda' # [packagename]
 abbr condai '~/anaconda3/bin/conda install' # [packagename]
