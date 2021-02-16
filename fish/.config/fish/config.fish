@@ -2,6 +2,7 @@
 
 set -gx TERM screen-256color
 set -gx GOPATH $GOPATH ~/.go
+set -gx GO111MODULE on
 set -gx GOPROXY https://goproxy.cn
 # electron/node, for `npm install -g xxx`, default place is /usr
 set -gx NPMS $HOME/.npms
