@@ -41,6 +41,11 @@ This function should only modify configuration layer settings."
      ;; Uncomment some layer names and press `SPC f e R' (Vim style) or
      ;; `M-m f e R' (Emacs style) to install them.
      ;; ----------------------------------------------------------------
+     (auto-completion :variables
+                      auto-completion-enable-snippets-in-popup t
+                      auto-completion-enable-help-tooltip t
+                      auto-completion-enable-sort-by-usage t
+                      )
      better-defaults
      syntax-checking
      colors
@@ -72,11 +77,6 @@ This function should only modify configuration layer settings."
                )
      ;; NOTE: install shellcheck
      shell-scripts
-     (auto-completion :variables
-                      auto-completion-enable-snippets-in-popup t
-                      auto-completion-enable-help-tooltip t
-                      auto-completion-enable-sort-by-usage t
-                      )
      ;; NOTE: `pip install importmagic epc flake8 pytest nose autoflake "ptvsd>=4.2"
      ;; if using lsp as backend: pip install python-language-server pyls-isort pyls-mypy'
      (python :variables
@@ -207,12 +207,13 @@ This function should only modify configuration layer settings."
           pdf-view-display-size 'fit-height)
      )
 
-   ;; List of additional packages that will be installed without being
-   ;; wrapped in a layer. If you need some configuration for these
-   ;; packages, then consider creating a layer. You can also put the
-   ;; configuration in `dotspacemacs/user-config'.
-   ;; To use a local version of a package, use the `:location' property:
-   ;; '(your-package :location "~/path/to/your-package/")
+   ;; List of additional packages that will be installed without being wrapped
+   ;; in a layer (generally the packages are installed only and should still be
+   ;; loaded using load/require/use-package in the user-config section below in
+   ;; this file). If you need some configuration for these packages, then
+   ;; consider creating a layer. You can also put the configuration in
+   ;; `dotspacemacs/user-config'. To use a local version of a package, use the
+   ;; `:location' property: '(your-package :location "~/path/to/your-package/")
    ;; Also include the dependencies as they will not be resolved automatically.
    dotspacemacs-additional-packages '(
                                       highlight-indent-guides
@@ -352,9 +353,13 @@ It should only modify the values of Spacemacs settings."
    ;; List of items to show in startup buffer or an association list of
    ;; the form `(list-type . list-size)`. If nil then it is disabled.
    ;; Possible values for list-type are:
-   ;; `recents' `bookmarks' `projects' `agenda' `todos'.
+   ;; `recents' `recents-by-project' `bookmarks' `projects' `agenda' `todos'.
    ;; List sizes may be nil, in which case
    ;; `spacemacs-buffer-startup-lists-length' takes effect.
+   ;; The exceptional case is `recents-by-project', where list-type must be a
+   ;; pair of numbers, e.g. `(recents-by-project . (7 .  5))', where the first
+   ;; number is the project limit and the second the limit on the recent files
+   ;; within a project.
    dotspacemacs-startup-lists '((recents . 10)
                                 (projects . 5))
 
@@ -660,7 +665,10 @@ It should only modify the values of Spacemacs settings."
 
    ;; If nil the home buffer shows the full path of agenda items
    ;; and todos. If non nil only the file name is shown.
-   dotspacemacs-home-shorten-agenda-source nil))
+   dotspacemacs-home-shorten-agenda-source nil
+
+   ;; If non-nil then byte-compile some of Spacemacs files.
+   dotspacemacs-byte-compile t))
 
 (defun dotspacemacs/user-env ()
   "Environment variables setup.
