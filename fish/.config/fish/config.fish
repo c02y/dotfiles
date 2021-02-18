@@ -818,7 +818,7 @@ function fts -d 'find the temporary files such as a~ or #a or .a~, and files for
     end
 
 end
-# NOTE: you need to disable updatedb.service and delete /var/lib/mlocate/mlocate.db file first
+# NOTE: you need to mask updatedb.service and delete /var/lib/mlocate/mlocate.db file first
 function loo -d 'locate functions, -a(under /), -v(video), -o(open), -x(copy), -r(remove)'
     set -l options 'u' 'a' 'o' 'x' 'v' 'r'
     argparse -n loo $options -- $argv
