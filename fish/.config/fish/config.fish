@@ -1592,7 +1592,7 @@ abbr cdp 'cd ~/Public; and lls'
 
 function diffs -d "all kinds of diff features"
     if command -sq ydiff
-        ydiff $argv
+        diff -u $argv | ydiff -s -w 0 --wrap
     else
         set -l options 'f' 'w' 'l' 'L' 'W' 'h'
         argparse -n diffs $options -- $argv
