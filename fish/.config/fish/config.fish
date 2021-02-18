@@ -1477,33 +1477,34 @@ function ddiso -d 'burn ISO file to drive(such as USB as LIVE USB)'
     end
 end
 
-function syss
-    set -l options 'u' 'e' 'd' 'm' 'R' 'r' 's' 'S' 'l' 'D' 'f' 'c' 'p' 'L' 't' 'h'
+function syss -d 'systemctl related functions'
+    set -l options 'u' 'e' 'd' 'D' 'm' 'M' 'r' 's' 'S' 'l' 'R' 'f' 'c' 'p' 'L' 't' 'h'
     argparse -n syss $options -- $argv
     or return
 
     if set -q _flag_h; and ! set -q _flag_c
-        echo "syss [-u/-e/-d/-m/-R/-s/-S/-l/-D/-f/-c -s/-c -h/-c -S/-c -r/-c -p/-L/-t/-h]"
-        echo "      no option --> check all the services of the user if no argv, argv for the argv.service"
-        echo "      -u --> current user or using default sudo"
-        echo "      -e --> systemctl enable name.service"
-        echo "      -d --> systemctl disable name.service"
-        echo "      -m --> systemctl mask name.service"
-        echo "      -R --> systemctl reenable name.service"
-        echo "      -r --> systemctl restart name.service"
-        echo "      -s --> systemctl start name.service"
-        echo "      -S --> systemctl stop name.service"
-        echo "      -l --> systemctl list-units --type service --all, arg to search"
-        echo "      -D --> systemctl daemon-reload"
-        echo "      -f --> systemctl --failed"
-        echo "      -c -s --> suspend"
-        echo "      -c -h --> hibernate"
-        echo "      -c -S --> hibernate-sleep"
-        echo "      -c -r --> reboot"
-        echo "      -c -p --> poweroff/shutdown"
-        echo "      -L --> journalctrl -xe, the log"
-        echo "      -t --> systemd-analyze for boo time analyze, any argv for saving to file and view"
-        echo "      -h --> print this usage message"
+        echo "syss [-u/-e/-d/-D/-m/-M/-r/-s/-S/-l/-R/-f/-c -s/-c -h/-c -S/-c -r/-c -p/-L/-t/-h]"
+        echo "     --> check all the services of the user if no argv, argv for the argv.service"
+        echo "     -u --> current user or using default sudo"
+        echo "     -e --> systemctl enable name.service"
+        echo "     -d --> systemctl disable name.service"
+        echo "     -D --> systemctl reenable name.service"
+        echo "     -m --> systemctl mask name.service"
+        echo "     -M --> systemctl unmask name.service"
+        echo "     -r --> systemctl restart name.service"
+        echo "     -s --> systemctl start name.service"
+        echo "     -S --> systemctl stop name.service"
+        echo "     -l --> systemctl list-units --type service --all, arg to search"
+        echo "     -R --> systemctl daemon-reload"
+        echo "     -f --> systemctl --failed"
+        echo "     -c -s --> suspend"
+        echo "     -c -h --> hibernate"
+        echo "     -c -S --> hibernate-sleep"
+        echo "     -c -r --> reboot"
+        echo "     -c -p --> poweroff/shutdown"
+        echo "     -L --> journalctrl -xe, the log"
+        echo "     -t --> systemd-analyze for boo time analyze, any argv for saving to file and view"
+        echo "     -h --> print this usage message"
         return
     end
 
@@ -1543,7 +1544,7 @@ function syss
     end
 
     set -q _flag_L; and journalctl -xe && return
-    set -q _flag_D; and sudo systemctl daemon-reload && return
+    set -q _flag_R; and sudo systemctl daemon-reload && return
     set -q _flag_f; and systemctl --failed && return
 
     set -q _flag_u; and set PRI systemctl --user; or set PRI systemctl
@@ -1551,7 +1552,9 @@ function syss
     set CMD status # default action: status
     set -q _flag_e; and set CMD enable
     set -q _flag_d; and set CMD disable
+    set -q _flag_D; and set CMD reenable
     set -q _flag_m; and set CMD mask
+    set -q _flag_M; and set CMD unmask
     set -q _flag_R; and set CMD reenable
     set -q _flag_s; and set CMD start
     set -q _flag_r; and set CMD restart
