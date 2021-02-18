@@ -830,8 +830,10 @@ function loo -d 'locate functions, -a(under /), -v(video), -o(open), -x(copy), -
 
     set -q $argv; and return
 
-    set -q _flag_a; and set LOCATE 'locate -e -i --database=/tmp/mlocate.db $argv'; or set LOCATE 'locate -e -i --database=/tmp/mlocate.db $argv | rg home/$USER'
+    set -q _flag_a; or updatedb --require-visibility 0 -U /home/$USER -o /tmp/mlocate-home.db
+
     if set -q _flag_a # search file/dir in /
+        set LOCATE 'locate -e -i -d /tmp/mlocate.db $argv'
         if set -q _flag_o
             eval $LOCATE | fzf | xargs xdg-open
         else if set -q _flag_x # copy it using fzf
@@ -840,7 +842,7 @@ function loo -d 'locate functions, -a(under /), -v(video), -o(open), -x(copy), -
             eval $LOCATE | rg -i $argv
         end
     else if set -q _flag_v # search all video/audio files in home
-        set LOCATE 'locate -e -i --database=/tmp/mlocate.db $argv | rg home/$USER | rg -i -P ".mp4\$|.mkv\$|.avi\$|.webm\$|.mov\$|.rmvb\$"'
+        set LOCATE 'locate -e -i -d /tmp/mlocate-home.db $argv | rg -i -P ".mp4\$|.mkv\$|.avi\$|.webm\$|.mov\$|.rmvb\$"'
         if set -q _flag_o # open it using fzf
             eval $LOCATE | fzf | xargs xdg-open
         else if set -q _flag_x # copy it using fzf
@@ -849,6 +851,7 @@ function loo -d 'locate functions, -a(under /), -v(video), -o(open), -x(copy), -
             eval $LOCATE | rg -i $argv
         end
     else # search file/dir in home dir
+        set LOCATE 'locate -e -i -d /tmp/mlocate-home.db $argv'
         if set -q _flag_o # open it using fzf
             eval $LOCATE | fzf | xargs xdg-open
         else if set -q _flag_r # remove it using fzf
