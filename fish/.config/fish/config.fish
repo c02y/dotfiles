@@ -724,8 +724,8 @@ end
 
 zoxide init fish | source
 alias zz 'zi'
-set -gx _ZO_FZF_OPTS "-1 -0 --reverse"
-set -gx FZF_DEFAULT_OPTS '-0 --reverse' # auto select the only match, auto exit if no match
+set -gx _ZO_FZF_OPTS "-1 -0 --reverse --print0"
+set -gx FZF_DEFAULT_OPTS '-0 --reverse --print0' # auto select the only match, auto exit if no match
 # set -gx FZF_DEFAULT_OPTS '-1 -0 --reverse' # auto select the only match, auto exit if no match
 
 # touch temporary files
@@ -834,33 +834,22 @@ function loo -d 'locate functions, -a(under /), -v(video), -o(open), -x(copy), -
 
     if set -q _flag_a # search file/dir in /
         set LOCATE 'locate -e -i -d /tmp/mlocate.db $argv'
-        if set -q _flag_o
-            eval $LOCATE | fzf | xargs xdg-open
-        else if set -q _flag_x # copy it using fzf
-            eval $LOCATE | fzf | xc && xc -o
-        else
-            eval $LOCATE | rg -i $argv
-        end
     else if set -q _flag_v # search all video/audio files in home
         set LOCATE 'locate -e -i -d /tmp/mlocate-home.db $argv | rg -i -P ".mp4\$|.mkv\$|.avi\$|.webm\$|.mov\$|.rmvb\$"'
-        if set -q _flag_o # open it using fzf
-            eval $LOCATE | fzf | xargs xdg-open
-        else if set -q _flag_x # copy it using fzf
-            eval $LOCATE | fzf | xc && xc -o
-        else
-            eval $LOCATE | rg -i $argv
-        end
     else # search file/dir in home dir
         set LOCATE 'locate -e -i -d /tmp/mlocate-home.db $argv'
-        if set -q _flag_o # open it using fzf
-            eval $LOCATE | fzf | xargs xdg-open
-        else if set -q _flag_r # remove it using fzf
-            eval $LOCATE | fzf | xargs rm -rfv
-        else if set -q _flag_x # copy the result using fzf
-            eval $LOCATE | fzf | xc && xc -o
-        else
-            eval $LOCATE | rg -i $argv
-        end
+    end
+
+    if set -q _flag_o # open it using fzf
+        # NOTE: the -0 + --print0 in fzf to be able to work with file/dir with spaces
+        # -r in xargs is --no-run-if-empty
+        eval $LOCATE | fzf | xargs -0 -r xdg-open
+    else if set -q _flag_x # copy the result using fzf
+        eval $LOCATE | fzf | xc && xc -o
+    else if set -q _flag_r # remove it using fzf
+        eval $LOCATE | fzf | xargs -0 -r rm -rfv
+    else
+        eval $LOCATE | rg -i $argv
     end
 end
 
