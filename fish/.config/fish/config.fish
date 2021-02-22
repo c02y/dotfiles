@@ -862,6 +862,7 @@ function dfs -d 'df(-l, -L for full list), gua(-i), du(by default), cache/config
     if set -q _flag_i
         gdu $argv
     else if set -q _flag_l
+        # NOTE: if /tmp is out of space, use `sudo mount -o remount,size=20G,noatime /tmp` to temporally resize /tmp
         df -Th | rg -v -e 'rg|tmpfs|boot|var|snap|opt|tmp|srv|usr|user'
     else if set -q _flag_L
         df -Th
@@ -2525,11 +2526,7 @@ end
 # abbr sss 'ps -eo tty,command | rg -v rg | rg "sudo ssh "'
 abbr p 'ping -c 5'
 function ipl -d 'get the location of your public IP address'
-    if test (ps -ef | rg -w -v rg | rg -i shadow | awk '{ print $(NF-2) }') # ssr is running
-        proxychains4 -q curl myip.ipip.net
-    else
-        curl myip.ipip.net
-    end
+    eval $PXY curl myip.ipip.net
 end
 function port -d 'list all the ports are used or check the process which are using the port'
     if test (count $argv) = 1
