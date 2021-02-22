@@ -725,7 +725,7 @@ end
 zoxide init fish | source
 alias zz 'zi'
 set -gx _ZO_FZF_OPTS "-1 -0 --reverse --print0"
-set -gx FZF_DEFAULT_OPTS '-0 --reverse --print0' # auto select the only match, auto exit if no match
+set -gx FZF_DEFAULT_OPTS '-m -0 --reverse --print0' # -m to mult-select using Tab/S-Tab, auto select the only match, auto exit if no match
 # set -gx FZF_DEFAULT_OPTS '-1 -0 --reverse' # auto select the only match, auto exit if no match
 
 # touch temporary files
