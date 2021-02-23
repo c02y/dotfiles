@@ -89,6 +89,9 @@ bind log        gm   !git show -m %(commit) # use this when diff can not be disp
 bind diff       gm   !git show -m %(commit) # use this when diff can not be displayed, such as for merge
 bind stage      gm   !git show -m %(commit) # use this when diff can not be displayed, such as for merge
 bind log        L    !<tig log origin/master..HEAD
+bind main       R    >?git revert %(commit)
+bind log        R    >?git revert %(commit)
+bind main       gr   refresh # R is the original one
 
 #Commit
 # bind generic C      !git commit
