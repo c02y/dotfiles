@@ -819,8 +819,8 @@ function fts -d 'find the temporary files such as a~ or #a or .a~, and files for
 
 end
 # NOTE: you need to mask updatedb.service and delete /var/lib/mlocate/mlocate.db file first
-function loo -d 'locate functions, -a(under /), -v(video), -o(open), -x(copy), -r(remove)'
-    set -l options 'u' 'a' 'o' 'x' 'v' 'r'
+function loo -d 'locate functions, -a(undr /), -v(video), -m(audio), -o(open), -x(copy), -r(remove)'
+    set -l options 'a' 'v' 'm' 'o' 'x' 'r'
     argparse -n loo $options -- $argv
     or return
 
@@ -834,8 +834,10 @@ function loo -d 'locate functions, -a(under /), -v(video), -o(open), -x(copy), -
 
     if set -q _flag_a # search file/dir in /
         set LOCATE 'locate -e -i -d /tmp/mlocate.db $argv'
-    else if set -q _flag_v # search all video/audio files in home
+    else if set -q _flag_v # search all video files in home
         set LOCATE 'locate -e -i -d /tmp/mlocate-home.db $argv | rg -i -P ".mp4\$|.mkv\$|.avi\$|.webm\$|.mov\$|.rmvb\$"'
+    else if set -q _flag_m # serach all audio files in home
+        set LOCATE 'locate -e -i -d /tmp/mlocate-home.db $argv | rg -i -P ".mp3\$|.flac\$|.ape\$|.wav\$|.w4a\$|.dsf\$|.dff\$"'
     else # search file/dir in home dir
         set LOCATE 'locate -e -i -d /tmp/mlocate-home.db $argv'
     end
