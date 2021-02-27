@@ -29,12 +29,13 @@ export LANGUAGE=en_US.UTF-8
 # Dir = cd Dir, cd into a dir without using cd
 shopt -s autocd
 
+export GOPATH=~/.go
 if [[ $(lsb_release -i | grep -i -E 'manjaro|opensuse') ]]; then
 	# export PATH=~/.local/bin:~/anaconda3/bin:$PATH
 	# or
-	export PATH=~/.local/bin:~/.cargo/bin:~/.npms/bin:$PATH
+	export PATH=$GOPATH/bin:~/.cargo/bin:~/.npms/bin:~/.local/bin:$PATH
 else
-	export PATH=~/.local/bin:~/anaconda3/bin:~/.cargo/bin:~/.npms/bin:$PATH
+	export PATH=$GOPATH/bin:~/anaconda3/bin:~/.cargo/bin:~/.npms/bin:~/.local/bin:$PATH
 fi
 
 export PAGER='less -iXFR -x4 -M'
