@@ -813,8 +813,8 @@ function fts -d 'find the temporary files such as a~ or #a or .a~, and files for
 
 end
 # NOTE: you need to mask updatedb.service and delete /var/lib/mlocate/mlocate.db file first
-function loo -d 'locate functions, -a(undr /), -v(video), -m(audio), -o(open), -x(copy), -r(remove)'
-    set -l options 'a' 'v' 'm' 'o' 'x' 'r'
+function loo -d 'locate functions, -a(undr /), -v(video), -m(audio), -d(dir), -o(open), -x(copy), -r(remove)'
+    set -l options 'a' 'v' 'm' 'd' 'o' 'x' 'r'
     argparse -n loo $options -- $argv
     or return
 
@@ -832,6 +832,9 @@ function loo -d 'locate functions, -a(undr /), -v(video), -m(audio), -o(open), -
         set LOCATE 'locate -e -i -d /tmp/mlocate-home.db $argv | rg -i -P ".mp4\$|.mkv\$|.avi\$|.webm\$|.mov\$|.rmvb\$"'
     else if set -q _flag_m # serach all audio files in home
         set LOCATE 'locate -e -i -d /tmp/mlocate-home.db $argv | rg -i -P ".mp3\$|.flac\$|.ape\$|.wav\$|.w4a\$|.dsf\$|.dff\$"'
+    else if set -q _flag_d
+        # NOTE: the \'\' here is for dealing with directory containing space
+        set LOCATE 'locate -e -i -d /tmp/mlocate-home.db --regex --basename $argv | xargs -I \'%\' sh -c "test -d \'%\' && echo \'%\'"'
     else # search file/dir in home dir
         set LOCATE 'locate -e -i -d /tmp/mlocate-home.db $argv'
     end
