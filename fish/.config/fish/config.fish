@@ -115,6 +115,9 @@ function auto-source --on-event fish_preexec -d 'auto source config.fish if gets
     end
 end
 
+function dirp --on-event fish_preexec
+    set -g OLDPWD $PWD
+end
 function path_prompt
     # check if tmux is running in current terminal/tty
     if test $TMUX
@@ -138,26 +141,18 @@ function path_prompt
         echo
     end
 end
-function dirp --on-event fish_preexec
-    set -g OLDPWD $PWD
-end
 function fish_prompt --description 'Write out the prompt'
-    set -l last_status $status
+    set -l last_pipestatus $pipestatus
 
     path_prompt
 
-    test $last_status != 0
-    and set_color $fish_color_error
-    or set_color -o yellow -u
+    # Write pipestatus
+    set -l prompt_status (__fish_print_pipestatus "[" "]" "|" (set_color $fish_color_status) (set_color --bold $fish_color_status) $last_pipestatus)
+    echo -n -s (set_color -o yellow) $prompt_status ">> " (set_color normal)
 
-    # http://unicode-table.com/en/sets/arrows-symbols/
-    # http://en.wikipedia.org/wiki/Arrow_(symbol)
-    echo -n '>>' # '➤➤ '  # ➢ ➣, ↩ ↪ ➥ ➦, ▶ ▷ ◀ ◁, ❥
-    #echo -n '➤➤ '  # ➢ ➣, ↩ ↪ ➥ ➦, ▶ ▷ ◀ ◁, ❥
-    set_color normal
     measure_time
-    echo ' '
 end
+
 set -gx MEASURE_TIME 0
 function tg_mt -d 'Toggle to enable/disable measure_time'
     if test $MEASURE_TIME = 0
