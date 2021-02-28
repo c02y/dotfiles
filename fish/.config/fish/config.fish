@@ -397,7 +397,7 @@ abbr vad 'colour-valgrind --tool=callgrind --dump-instr=yes --simulate-cache=yes
 
 abbr kill9 'killall -9'
 # get the pid of a gui program using mouse
-abbr pid 'xprop | rg -i pid | rg -Po "[0-9]+"'
+abbr pid 'xprop | rg -i pid | rg -oe "[0-9]+"'
 function psss -d 'pgrep process, used in script'
     ps -ef | rg -w -v rg | rg -i $argv[1] | nl
 end
@@ -478,9 +478,9 @@ function pk --description 'kill processes containing a pattern or PID'
                         # This may be used for frozen emacs specifically, -usr2 or -SIGUSR2
                         # will turn on `toggle-debug-on-quit`, turn it off once emacs is alive again
                         # Test on next frozen Emacs
-                        # kill -usr2 (xprop | rg -i pid | rg -Po "[0-9]+")
-                        # kill -SIGUSR2 (xprop | rg -i pid | rg -Po "[0-9]+")
-                        set -l pid_m (xprop | rg -i pid | rg -Po "[0-9]+")
+                        # kill -usr2 (xprop | rg -i pid | rg -oe "[0-9]+")
+                        # kill -SIGUSR2 (xprop | rg -i pid | rg -oe "[0-9]+")
+                        set -l pid_m (xprop | rg -i pid | rg -oe "[0-9]+")
                         echo Pid is: $pid_m
                         if test (psss $pid_m | rg -i emacs)
                             kill -SIGUSR2 $pid_m
@@ -829,9 +829,9 @@ function loo -d 'locate functions, -a(undr /), -v(video), -m(audio), -d(dir), -o
     if set -q _flag_a # search file/dir in /
         set LOCATE 'locate -e -i -d /tmp/mlocate.db $argv'
     else if set -q _flag_v # search all video files in home
-        set LOCATE 'locate -e -i -d /tmp/mlocate-home.db $argv | rg -i -P ".mp4\$|.mkv\$|.avi\$|.webm\$|.mov\$|.rmvb\$"'
+        set LOCATE 'locate -e -i -d /tmp/mlocate-home.db $argv | rg -ie ".mp4\$|.mkv\$|.avi\$|.webm\$|.mov\$|.rmvb\$"'
     else if set -q _flag_m # serach all audio files in home
-        set LOCATE 'locate -e -i -d /tmp/mlocate-home.db $argv | rg -i -P ".mp3\$|.flac\$|.ape\$|.wav\$|.w4a\$|.dsf\$|.dff\$"'
+        set LOCATE 'locate -e -i -d /tmp/mlocate-home.db $argv | rg -ie ".mp3\$|.flac\$|.ape\$|.wav\$|.w4a\$|.dsf\$|.dff\$"'
     else if set -q _flag_d
         # NOTE: the \'\' here is for dealing with directory containing space
         set LOCATE 'locate -e -i -d /tmp/mlocate-home.db --regex --basename $argv | xargs -I \'%\' sh -c "test -d \'%\' && echo \'%\'"'
