@@ -148,7 +148,7 @@ function fish_prompt --description 'Write out the prompt'
 
     # Write pipestatus
     set -l prompt_status (__fish_print_pipestatus "[" "]" "|" (set_color $fish_color_status) (set_color --bold $fish_color_status) $last_pipestatus)
-    echo -n -s (set_color -o yellow) $prompt_status ">> " (set_color normal)
+    echo -n -s $prompt_status (set_color -o yellow) ">> " (set_color normal)
 
     measure_time
 end
