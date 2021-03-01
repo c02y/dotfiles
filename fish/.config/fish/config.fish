@@ -848,7 +848,6 @@ function dfs -d 'df(-l, -L for full list), dua(-i), du(by default), cache/config
     end
 end
 
-abbr watd 'watch -d du --summarize'
 function watch -d 'wrap default watch to support aliases and functions'
     while test 1
         date
