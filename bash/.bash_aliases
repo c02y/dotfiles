@@ -38,7 +38,17 @@ else
 	export PATH=$GOPATH/bin:~/anaconda3/bin:~/.cargo/bin:~/.npms/bin:~/.local/bin:$PATH
 fi
 
+export LESS_TERMCAP_me=$'\e[0m' # turn off all appearance modes (mb, md, so, us)
+export LESS_TERMCAP_se=$'\e[0m' # leave standout mode
+export LESS_TERMCAP_ue=$'\e[0m' # leave underline mode
+export LESS_TERMCAP_so=$'\e[30;44m' # standout-mode – info
+export LESS_TERMCAP_mb=$'\e[01;31m' # enter blinking mode
+export LESS_TERMCAP_md=$'\e[01;38;5;75m' # enter double-bright mode
+export LESS_TERMCAP_us=$'\e[04;38;5;200m' # enter underline mode
+# color man page
+export MANPAGER='less -s -M +Gg -i'
 export PAGER='less -iXFR -x4 -M'
+export GROFF_NO_SGR yes
 export EDITOR='vim'
 # disable Ctrl-d to EXIT
 set -o ignoreeof # 10 times until exiting
