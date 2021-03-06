@@ -272,7 +272,6 @@ function utf8 -d 'convert encoding(argv[1]) file(argv[2]) to UTF-8 file'
 end
 # TODO: the following part will make fish print "No protocol specified" error line
 source $HOME/.config/fish/functions/done.fish
-source $HOME/.config/fish/functions/autopair.fish
 
 # LS_COLORS, color for ls command
 # http://linux-sxs.org/housekeeping/lscolors.html
@@ -2625,6 +2624,7 @@ function rgs -d 'rg sth in -e(init.el)/-E(errno)/-f(config.fish)/-t(.tmux.conf)/
     if set -q _flag_e
         set FILE $EMACS_EL
     else if set -q _flag_E
+        # errno command can be used instead
         for file in /usr/include/asm-generic/errno-base.h /usr/include/asm-generic/errno.h
             rg -i $argv[1] $file
         end
