@@ -2,8 +2,7 @@
 # ------------
 # this file is modified from https://github.com/junegunn/fzf/blob/master/shell/key-bindings.fish
 # binding for fzf-file-widget is changed
-# fzf-cd-widget is deleted
-# options of find command is changed
+# options of find command in fzf-file-widget and fzf-cd-widget is changed
 # fzf-complete function is from https://github.com/junegunn/fzf/wiki/Examples-(fish)#completion
 function fzf_key_bindings
 
@@ -15,13 +14,14 @@ function fzf_key_bindings
 
         # "-path \$dir'*/\\.*'" matches hidden files/folders inside $dir but not
         # $dir itself, even if hidden.
-        # "-path \$dir'*/\\.git*'" not search .git, if you need file in .git, use vim .git<Ctrl-t>
-        set -q FZF_CTRL_T_COMMAND; or set -l FZF_CTRL_T_COMMAND "
+        test -n "$FZF_CTRL_T_COMMAND"; or set -l FZF_CTRL_T_COMMAND "
+        # "-path \$dir'*/\\.git*'" not search .git, if you need file in .git, use vim .git<Ctrl-s>
         command find -L \$dir -mindepth 1 \\( -path \$dir'*/\\.git*' -o -fstype 'sysfs' -o -fstype 'devfs' -o -fstype 'devtmpfs' \\) -prune \
-        -o -type f -print \
-        -o -type d -print \
-        -o -type l -print 2> /dev/null | sed 's@^\./@@'"
+           -o -type f -print \
+           -o -type d -print \
+           -o -type l -print 2> /dev/null | sed 's@^\./@@'"
 
+        test -n "$FZF_TMUX_HEIGHT"; or set FZF_TMUX_HEIGHT 40%
         begin
             set -lx FZF_DEFAULT_OPTS "--height $FZF_TMUX_HEIGHT $FZF_DEFAULT_OPTS $FZF_CTRL_T_OPTS"
             eval "$FZF_CTRL_T_COMMAND | "(__fzfcmd)' -m --query "'$fzf_query'"' | while read -l r; set result $result $r; end
@@ -41,6 +41,7 @@ function fzf_key_bindings
     end
 
     function fzf-history-widget -d "Show command history"
+        test -n "$FZF_TMUX_HEIGHT"; or set FZF_TMUX_HEIGHT 40%
         begin
             set -lx FZF_DEFAULT_OPTS "--height $FZF_TMUX_HEIGHT $FZF_DEFAULT_OPTS --tiebreak=index --bind=ctrl-r:toggle-sort $FZF_CTRL_R_OPTS +m"
 
@@ -58,6 +59,31 @@ function fzf_key_bindings
                 and commandline -- $result
             end
         end
+        commandline -f repaint
+    end
+
+    function fzf-cd-widget -d "Change directory"
+        set -l commandline (__fzf_parse_commandline)
+        set -l dir $commandline[1]
+        set -l fzf_query $commandline[2]
+
+        test -n "$FZF_ALT_C_COMMAND"; or set -l FZF_ALT_C_COMMAND "
+        # change \$dir to $dir/ to include hidden dirs, replace \$dir'*/\\.*' with $dir to include deeper hidden dirs
+        command find -L $dir/ -mindepth 1 \\( -path $dir/ -o -fstype 'sysfs' -o -fstype 'devfs' -o -fstype 'devtmpfs' \\) -prune \
+           -o -type d -print 2> /dev/null | sed 's@^\./@@'"
+        test -n "$FZF_TMUX_HEIGHT"; or set FZF_TMUX_HEIGHT 40%
+        begin
+            set -lx FZF_DEFAULT_OPTS "--height $FZF_TMUX_HEIGHT --reverse --bind=ctrl-z:ignore $FZF_DEFAULT_OPTS $FZF_ALT_C_OPTS"
+            eval "$FZF_ALT_C_COMMAND | "(__fzfcmd)' +m --query "'$fzf_query'"' | read -l result
+
+            if [ -n "$result" ]
+                cd $result
+
+                # Remove last token from commandline.
+                commandline -t ""
+            end
+        end
+
         commandline -f repaint
     end
 
@@ -108,9 +134,12 @@ function fzf_key_bindings
     end
 
     function __fzfcmd
-        set -q FZF_TMUX; or set FZF_TMUX 0
-        if [ $FZF_TMUX -eq 1 ]
-            echo "fzf-tmux -d$FZF_TMUX_HEIGHT"
+        test -n "$FZF_TMUX"; or set FZF_TMUX 0
+        test -n "$FZF_TMUX_HEIGHT"; or set FZF_TMUX_HEIGHT 40%
+        if [ -n "$FZF_TMUX_OPTS" ]
+            echo "fzf-tmux $FZF_TMUX_OPTS -- "
+        else if [ $FZF_TMUX -eq 1 ]
+            echo "fzf-tmux -d$FZF_TMUX_HEIGHT -- "
         else
             echo "fzf"
         end
@@ -118,11 +147,13 @@ function fzf_key_bindings
 
     bind \cs fzf-file-widget
     bind \cr fzf-history-widget
+    bind \cw fzf-cd-widget
     bind \cx  fzf-complete
 
     if bind -M insert > /dev/null 2>&1
         bind -M insert \cs fzf-file-widget
         bind -M insert \cr fzf-history-widget
+        bind -M insert \cw fzf-cd-widget
         bind -M insert \cx  fzf-complete
     end
 
@@ -137,12 +168,12 @@ function fzf_key_bindings
         else
             set dir (__fzf_get_dir $commandline)
 
-            if [ "$dir" = "." -a (string sub -l 1 $commandline) != '.' ]
+            if [ "$dir" = "." -a (string sub -l 1 -- $commandline) != '.' ]
                 # if $dir is "." but commandline is not a relative path, this means no file path found
                 set fzf_query $commandline
             else
                 # Also remove trailing slash after dir, to "split" input properly
-                set fzf_query (string replace -r "^$dir/?" '' "$commandline")
+                set fzf_query (string replace -r "^$dir/?" -- '' "$commandline")
             end
         end
 
@@ -154,18 +185,17 @@ function fzf_key_bindings
         set dir $argv
 
         # Strip all trailing slashes. Ignore if $dir is root dir (/)
-        if [ (string length $dir) -gt 1 ]
-            set dir (string replace -r '/*$' '' $dir)
+        if [ (string length -- $dir) -gt 1 ]
+            set dir (string replace -r '/*$' -- '' $dir)
         end
 
         # Iteratively check if dir exists and strip tail end of path
         while [ ! -d "$dir" ]
             # If path is absolute, this can keep going until ends up at /
             # If path is relative, this can keep going until entire input is consumed, dirname returns "."
-            set dir (dirname "$dir")
+            set dir (dirname -- "$dir")
         end
 
         echo $dir
     end
-
 end
