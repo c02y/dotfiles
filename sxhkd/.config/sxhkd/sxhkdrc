@@ -1,5 +1,21 @@
 super + Escape
 	pkill -USR1 -x sxhkd && notify-send "[sxhkd] reloaded"
+super + F12
+	wmctrl_window above
+super + 3
+	wmctrl_window vert
+super + 4
+	wmctrl_window horz
+super + F11
+	wmctrl_window max
+super + Left
+	wmctrl_window left
+super + Right
+	wmctrl_window right
+super + y
+	wmctrl_window center
+super + w
+	wmctrl_window desktop
 F12
 	tdrop -ma -w 100% -h 90% alacritty
 super + k
@@ -20,8 +36,6 @@ super + b
 	jumpapp -m calibre
 super + r
 	jumpapp -m kitty ranger
-super + F12
-    wmctrl -r :ACTIVE: -b toggle,above
 super + q
 	rofi -show-icons -combi-modi window,drun,ssh,power -show combi -modi combi,window,drun,run,ssh,power:rofi-power-menu -matching fuzzy \
 	-drun-match-fields all -theme /usr/share/rofi/themes/solarized_alternate.rasi -terminal kitty -font "DejaVu Sans Mono 14" -normal-window
