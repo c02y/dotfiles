@@ -823,14 +823,14 @@ function loo -d 'locate functions, -a(undr /), -v(video), -m(audio), -d(dir), -o
     end
 end
 
-# df+du+dua
-function dfs -d 'df(-l, -L for full list), dua(-i), du(by default), cache/config dir of Firefox/Chrome/Vivaldi/yay/pacman'
+# df+du+gdu
+function dfs -d 'df(-l, -L for full list), gua(-i), du(by default), cache/config dir of Firefox/Chrome/Vivaldi/yay/pacman'
     set -l options 'i' 'l' 'L' 'c' 'h'
     argparse -n dfs $options -- $argv
     or return
 
     if set -q _flag_i
-        dua -f binary i $argv/* # NOTE: even if argv is empty, this works too
+        gdu $argv
     else if set -q _flag_l
         # NOTE: if /tmp is out of space, use `sudo mount -o remount,size=20G,noatime /tmp` to temporally resize /tmp
         df -Th | rg -v -e 'rg|tmpfs|boot|var|snap|opt|tmp|srv|usr|user'
