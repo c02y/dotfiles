@@ -24,7 +24,7 @@ set -gx LBIN (readlink -f ~/.local/bin)
 #set -gx PATH $HOME/anaconda3/bin $LBIN $GOPATH/bin /usr/local/bin /usr/local/liteide/bin /bin /sbin /usr/bin /usr/sbin $PATH
 set -gx PATH $GOPATH/bin $NPMS/bin $HOME/.cargo/bin $LBIN /usr/local/bin /bin /sbin /usr/bin /usr/sbin $PATH
 # TODO: `pip install cppman ; cppman -c` to get manual for cpp
-set -gx MANPATH $NPMS/share/man $MANPATH
+set -gx MANPATH $NPMS/share/man ~/.local/share/man $MANPATH
 # Use different PATH/MANPATH for different distro since anaconda may affect system tools
 # for Windows and Linux compatible
 if command -sq uname
