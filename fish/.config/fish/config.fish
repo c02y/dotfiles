@@ -798,15 +798,15 @@ function loo -d 'locate functions, -a(undr /), -v(video), -m(audio), -d(dir), -o
     set -q _flag_a; or updatedb --require-visibility 0 -U /home/$USER -o /tmp/mlocate-home.db
 
     if set -q _flag_a # search file/dir in /
-        set LOCATE 'locate -e -i -d /tmp/mlocate.db $argv'
+        set LOCATE 'locate -i -d /tmp/mlocate.db $argv'
     else if set -q _flag_v # search all video files in home
-        set LOCATE 'locate -e -i -d /tmp/mlocate-home.db $argv | rg -ie ".mp4\$|.mkv\$|.avi\$|.webm\$|.mov\$|.rmvb\$"'
+        set LOCATE 'locate -i -d /tmp/mlocate-home.db $argv | rg -ie ".mp4\$|.mkv\$|.avi\$|.webm\$|.mov\$|.rmvb\$"'
     else if set -q _flag_m # serach all audio files in home
-        set LOCATE 'locate -e -i -d /tmp/mlocate-home.db $argv | rg -ie ".mp3\$|.flac\$|.ape\$|.wav\$|.w4a\$|.dsf\$|.dff\$"'
+        set LOCATE 'locate -i -d /tmp/mlocate-home.db $argv | rg -ie ".mp3\$|.flac\$|.ape\$|.wav\$|.w4a\$|.dsf\$|.dff\$"'
     else if set -q _flag_d
-        set LOCATE 'locate -e -i -d /tmp/mlocate-home.db --null -b $argv | xargs -r0 sh -c \'for i do [ -d "$i" ] && printf "%s\n" "$i"; done\' sh {} + '
+        set LOCATE 'locate -i -d /tmp/mlocate-home.db --null -b $argv | xargs -r0 sh -c \'for i do [ -d "$i" ] && printf "%s\n" "$i"; done\' sh {} + '
     else # search file/dir in home dir
-        set LOCATE 'locate -e -i -d /tmp/mlocate-home.db $argv'
+        set LOCATE 'locate -i -d /tmp/mlocate-home.db $argv'
     end
 
     if set -q _flag_o # open it using fzf
