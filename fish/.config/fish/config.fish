@@ -1168,8 +1168,8 @@ function paci -d 'pacman/yay install function, -y(noconfirm), -u(update first), 
 
     eval yay $OPT $argv
 end
-function pacs -d 'pacman/yay search, -a(all using yay), -i(interactive using pacui), -n(only names), -l(search in installed pacakge), -g(list packages in a group)'
-    set -l options 'a' 'i' 'n' 'l' 'g'
+function pacs -d 'pacman/yay search, -i(interactive using pacui), -n(only names), -L(list content), -g(list packages in a group), -s(show info)'
+    set -l options 'a' 'i' 'n' 'l' 'L' 'g' 's'
     argparse -n pacs $options -- $argv
     or return
 
@@ -1188,8 +1188,46 @@ function pacs -d 'pacman/yay search, -a(all using yay), -i(interactive using pac
         return
     end
 
+    if set -q _flag_s
+        if ! set -q $argv # given $argv
+            for file in $argv
+                if set -q _flag_l # get URL info and send it to clipper
+                    if set -q _flag_a # get AUR URL info and send it to clipper
+                        yay -Si $file | rg "AUR URL" | awk '{print $4}' | xc && xc -o
+                    else
+                        if yay -Q $file ^/dev/null >/dev/null
+                            yay -Qi $file | rg "^URL" | awk '{print $3}' | xc && xc -o
+                        else
+                            yay -Si $file | rg "^URL" | awk '{print $3}' | xc && xc -o
+                        end
+                    end
+                    open (xc -o) ^/dev/null >/dev/null
+                else
+                    yay -Qi $file
+                    or yay -Si $file
+                end
+            end
+        else
+            # without args, it will print info of all the intalled packages
+            echo "Need argv[s]!"
+        end
+        return
+    end
+
     if set -q _flag_l # list installed pcakges containing the keyword(including description)
-        yay -Qs --color=always $argv
+        if set -q _flag_L # list installed packages by size
+            pacui ls
+        else if set -q _flag_a # list packages installed from AUR
+            pacui la
+        else
+            yay -Qs --color=always $argv
+        end
+        return
+    end
+
+    if set -q _flag_L # list content in a pacakge
+        pacman -Ql $argv
+        or pamac list --files $argv
         return
     end
 
@@ -1202,38 +1240,6 @@ function pacs -d 'pacman/yay search, -a(all using yay), -i(interactive using pac
     end
     # if failed with pacman, using yay directly (yay including aur is slow)
     eval $CMD -Ss --color=always $argv; or yay -Ss --color=always $argv
-end
-function pacsh -d 'show info about package, first search installed then search in repo'
-    set -l options 'l' 'a'
-    argparse -n pacsh $options -- $argv
-    or return
-
-    if ! set -q $argv # given $argv
-        for file in $argv
-            if set -q _flag_l # get URL info and send it to clipper
-                if set -q _flag_a # get AUR URL info and send it to clipper
-                    yay -Si $file | rg "AUR URL" | awk '{print $4}' | xc && xc -o
-                else
-                    if yay -Q $file ^/dev/null >/dev/null
-                        yay -Qi $file | rg "^URL" | awk '{print $3}' | xc && xc -o
-                    else
-                        yay -Si $file | rg "^URL" | awk '{print $3}' | xc && xc -o
-                    end
-                end
-                open (xc -o) ^/dev/null >/dev/null
-            else
-                yay -Qi $file
-                or yay -Si $file
-            end
-        end
-    else
-        # without args, it will print info of all the intalled packages
-        echo "Need argv[s]!"
-    end
-end
-function pacl -d 'list files in a package'
-    pacman -Ql $argv
-    or pamac list --files $argv
 end
 function pacms -d 'pacman-mirrors functions, default(China), -f(fastest 5), -s(status), -i(interactive), -r(reflector)'
     set -l options 'f' 's' 'i' 'r'
@@ -1281,8 +1287,6 @@ abbr yayr 'yay -Rsun'
 # check yay --help for more
 # pacui, depending on yay, install it first
 abbr pacf 'proxychains4 -q pacui i'
-abbr pacla 'pacui la' # list packages installed from aur
-abbr pacls 'pacui ls' # list installed packages by size
 # check pacui h/help for more
 
 # donnot show the other info on startup
