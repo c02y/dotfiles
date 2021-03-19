@@ -51,6 +51,9 @@ test -f ~/.config/nvim/README.md; and set -gx VIMRC (readlink -f ~/.SpaceVim.d/a
 # export LANG=en_US.UTF-8
 # export LANGUAGE=en_US.UTF-8
 
+# show key code and key name using xev used for other programs such as sxhkd
+abbr key "xev | awk -F'[ )]+' '/^KeyPress/ { a[NR+2] } NR in a { printf \"%-3s %s\n\", \$5, \$8 }'"
+
 if test $DISPLAY
     # change keyboard auto repeat, this improves keyboard experience, such as the scroll in Emacs
     # Check default value and result using `xset -q`
