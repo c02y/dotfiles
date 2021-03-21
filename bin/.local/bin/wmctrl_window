@@ -40,6 +40,8 @@ elif [[ $1 = 'horz' ]]; then
 	wmctrl -r :ACTIVE: -b toggle,maximized_horz
 elif [[ $1 == 'max' ]]; then
 	wmctrl -r :ACTIVE: -b toggle,maximized_vert,maximized_horz
+elif [[ $1 == 'min' ]]; then
+	xdotool windowminimize $(xdotool getactivewindow)
 fi
 
 exit 0
