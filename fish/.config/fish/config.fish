@@ -932,7 +932,8 @@ function tars -d 'tar extract(x)/list(l, by default)/create(c, add extra arg to 
     test -d $argv[1]; and set ARGV (echo $argv[1] | sed 's:/*$::')
 
     if set -q _flag_x # extract
-        tar xvfa $argv
+        # extract into dir based on the tar file
+        tar xvfa $argv --one-top-level
     else if set -q _flag_l # list contents
         tar tvfa $argv
     else if set -q _flag_c # create archive, smaller size, extremely slow for big dir
