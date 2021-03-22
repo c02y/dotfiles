@@ -895,49 +895,13 @@ function mdv -d 'markdown viewer in terminal'
     end
 end
 
-# # color in less a code file
-# if command -sq pygmentize # check if command pygmentize exists
-#     set -gx LESSOPEN '| pygmentize -g %s'
-# else if test -e /usr/bin/src-hilite-lesspipe
-#     # if pygmentize not working, use source-highlight instead
-#     # if less gets stuck when opening a file, comment out this LESSOPEN line
-#     set -gx LESSOPEN '| /usr/bin/src-hilite-lesspipe.sh %s'
-# else if test -e /usr/share/source-highlight/src-hilite-lesspipe.sh
-#     set -gx LESSOPEN '| /usr/share/source-highlight/src-hilite-lesspipe.sh %s'
-# else if test -e $HOME/anaconda3/bin/src-hilite-lesspipe.sh
-#     set -gx LESSOPEN '| eval $HOME/anaconda3/bin/src-hilite-lesspipe.sh %s'
-# end
-# nums are explained at
-# http://www.tuxarena.com/2012/04/tutorial-colored-man-pages-how-it-works/
-# https://unix.stackexchange.com/questions/108699/documentation-on-less-termcap-variables
-set -gx LESS_TERMCAP_me \e'[0m' # turn off all appearance modes (mb, md, so, us)
-set -gx LESS_TERMCAP_se \e'[0m' # leave standout mode
-set -gx LESS_TERMCAP_ue \e'[0m' # leave underline mode
-set -gx LESS_TERMCAP_so \e'[30;44m' # standout-mode – info
-set -gx LESS_TERMCAP_mb \e'[01;31m' # enter blinking mode
-set -gx LESS_TERMCAP_md \e'[01;38;5;75m' # enter double-bright mode
-set -gx LESS_TERMCAP_us \e'[04;38;5;200m' # enter underline mode
-#########################################
-# Colorcodes:
-# Black           0;30     Dark Gray     1;30
-# Red         0;31     Light Red     1;31
-# Green           0;32     Light Green   1;32
-# Brown           0;33     Yellow        1;33
-# Blue        0;34     Light Blue    1;34
-# Purple      0;35     Light Purple      1;35
-# Cyan        0;36     Light Cyan    1;36
-# Light Gray  0;37     White         1;37
-#########################################
-
 # TODO: pip install cppman; cppman -c # it will take a while
 abbr manp 'cppman'
+
 # color in man page
-set -gx MANPAGER 'less -s -M +Gg -i'
+# K jump link inside vim man page
+set -gx MANPAGER 'vim +Man! --cmd "let g:spacevim_enable_startify = 0" -c "set signcolumn=no"'
 set -gx PAGER 'less -iXFR -x4 -M'
-# color in man page and less
-# without this line, the LESS_TERMCAP_xxx won't work in Fedora
-set -gx GROFF_NO_SGR yes
-# other major details goto the end of the this file
 
 abbr ifw 'ifconfig wlp5s0'
 abbr mpp "ip route get 1.2.3.4 | cut -d' ' -f8 | head -1"
