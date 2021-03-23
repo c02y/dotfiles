@@ -825,26 +825,28 @@ function loo -d 'locate functions, -a(undr /), -v(video), -m(audio), -d(dir), -o
     end
 end
 
-# df+du+gdu
-function dfs -d 'df(-l, -L for full list), gua(-i), du(by default), cache/config dir of Firefox/Chrome/Vivaldi/yay/pacman'
-    set -l options 'i' 'l' 'L' 'c' 'h'
+# df+du+gdu/dua
+function dfs -d 'df(-l, -L for full list), gua(-i), dua(-I), du(by default), cache/config dir of Firefox/Chrome/Vivaldi/yay/pacman'
+    set -l options 'i' 'I' 'l' 'L' 'c' 'h'
     argparse -n dfs $options -- $argv
     or return
 
     if set -q _flag_i
         gdu $argv
+    else if set -q _flag_I
+        dua -f binary i $argv/* # NOTE: even if argv is empty, this works too
     else if set -q _flag_l
         # NOTE: if /tmp is out of space, use `sudo mount -o remount,size=20G,noatime /tmp` to temporally resize /tmp
         df -Th | rg -v -e 'rg|tmpfs|boot|var|snap|opt|tmp|srv|usr|user'
     else if set -q _flag_L
         df -Th
     else if set -q _flag_c
-        du -csh ~/.cache/google-chrome ~/.config/google-chrome ~/.cache/vivaldi ~/.config/vivaldi ~/.cache/mozilla ~/.mozilla ~/.cache/yay /var/cache/pacman/pkg
+        dua -f binary a --no-sort ~/.cache/google-chrome ~/.config/google-chrome ~/.cache/vivaldi ~/.config/vivaldi ~/.cache/mozilla ~/.mozilla ~/.cache/yay /var/cache/pacman/pkg
     else
-        if test (count $argv) -gt 1 # $argv contains /* at the end of path
-            du -csh $argv | sort -h
+        if set -q $argv # no given argv
+            dua -f binary .
         else
-            du -csh $argv
+            dua -f binary $argv
         end
     end
 end
