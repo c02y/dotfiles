@@ -17,7 +17,6 @@ set status-show-untracked-dirs = false
 bind main       G    move-last-line # overwrite the default
 bind generic    G    move-last-line
 bind generic    E    !>sh -c "vim ~/.tigrc"
-bind generic    S    view-stage
 bind generic    g    none # disable single g
 bind generic    gs   view-grep
 bind generic    gg   move-first-line
@@ -113,6 +112,7 @@ bind generic K move-page-up
 #Reflog
 bind log     l      !<sh -c "git reflog --pretty=raw | tig --pretty=raw"
 bind generic _      ?git reset --hard HEAD@{"%(prompt Enter HEAD@{} number: )"}
+bind generic S      ?git reset --soft HEAD~1
 
 #Reset --hard
 bind main    H      ?git reset --hard %(commit)
