@@ -10,3 +10,19 @@ git:
   paging:
     colorArg: never
     pager: ydiff -p cat
+customCommands:
+  - key: 'G'
+    prompts:
+      - type: 'menu'
+        title: 'undo the last unpushed commit'
+        options:
+          - name: 'soft reset'
+            description: 'keeps changes'
+            value: 'soft'
+          - name: 'hard reset'
+            description: 'discard changes'
+            value: 'hard'
+    command: "git reset --{{index .PromptResponses 0}} HEAD~1"
+    context: 'global'
+    loadingText: 'reset last unpushed commit'
+
