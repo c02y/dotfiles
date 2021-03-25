@@ -2143,7 +2143,7 @@ function docksh -d 'add a share folder to existed container'
     docker run -ti -v $share_src:$share_dst $new_name /bin/bash
 end
 
-if test (ps -ef | rg -w -v rg | rg -e 'shadowsocks|v2ray ' | awk '{ print $(NF-2) }') # ssr/v2ray is running
+if test (ps -ef | rg -w -v rg | rg -e 'shadowsocks|v2ray' | wc -l) != 0 # ssr/v2ray is running
     set -g PXY 'proxychains4 -q'
 else
     set -g PXY
