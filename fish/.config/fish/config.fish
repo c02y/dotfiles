@@ -788,28 +788,43 @@ function fts -d 'find the temporary files such as a~ or #a or .a~, and files for
 end
 # NOTE: you need to mask updatedb.service and delete /var/lib/mlocate/mlocate.db file first
 function loo -d 'locate functions, -a(undr /), -v(video), -m(audio), -d(dir), -o(open), -x(copy), -r(remove)'
-    set -l options 'u' 'a' 'v' 'm' 'd' 'o' 'x' 'r'
+    set -l options 'a' 'v' 'm' 'd' 'o' 'x' 'r'
     argparse -n loo $options -- $argv
     or return
 
-    if set -q _flag_u; or not test -f /tmp/mlocate.db # two conditions, A or B
-        updatedb --require-visibility 0 -o /tmp/mlocate.db
-    end
-
     set -q $argv; and return
 
-    set -q _flag_a; or updatedb --require-visibility 0 -U /home/$USER -o /tmp/mlocate-home.db
+    set -l UPDATEDB 0
+    set -l UPDATEDB_CMD "updatedb --require-visibility 0 -o /tmp/mlocate.db"
+    set -l UPDATEDB_HOME 0
+    set -l UPDATEDB_HOME_CMD "updatedb --require-visibility 0 -U /home/$USER -o /tmp/mlocate-home.db"
+
+    if set -q _flag_a
+        not test -f /tmp/mlocate.db; and set UPDATEDB 1
+    else
+        not test -f /tmp/mlocate-home.db; and set UPDATEDB_HOME 1
+    end
+
+    test $UPDATEDB -eq 1; and eval $UPDATEDB_CMD
+    test $UPDATEDB_HOME -eq 1; and eval $UPDATEDB_HOME_CMD
 
     if set -q _flag_a # search file/dir in /
-        set LOCATE 'locate -i -d /tmp/mlocate.db $argv'
+        set LOCATE 'locate -e -i -d /tmp/mlocate.db $argv'
     else if set -q _flag_v # search all video files in home
-        set LOCATE 'locate -i -d /tmp/mlocate-home.db $argv | rg -ie ".mp4\$|.mkv\$|.avi\$|.webm\$|.mov\$|.rmvb\$"'
+        set LOCATE 'locate -e -i -d /tmp/mlocate-home.db $argv | rg -ie ".mp4\$|.mkv\$|.avi\$|.webm\$|.mov\$|.rmvb\$"'
     else if set -q _flag_m # serach all audio files in home
-        set LOCATE 'locate -i -d /tmp/mlocate-home.db $argv | rg -ie ".mp3\$|.flac\$|.ape\$|.wav\$|.w4a\$|.dsf\$|.dff\$"'
+        set LOCATE 'locate -e -i -d /tmp/mlocate-home.db $argv | rg -ie ".mp3\$|.flac\$|.ape\$|.wav\$|.w4a\$|.dsf\$|.dff\$"'
     else if set -q _flag_d
-        set LOCATE 'locate -i -d /tmp/mlocate-home.db --null -b $argv | xargs -r0 sh -c \'for i do [ -d "$i" ] && printf "%s\n" "$i"; done\' sh {} + '
+        set LOCATE 'locate -e -i -d /tmp/mlocate-home.db --null -b $argv | xargs -r0 sh -c \'for i do [ -d "$i" ] && printf "%s\n" "$i"; done\' sh {} + '
     else # search file/dir in home dir
-        set LOCATE 'locate -i -d /tmp/mlocate-home.db $argv'
+        set LOCATE 'locate -e -i -d /tmp/mlocate-home.db $argv'
+    end
+
+    # if not found at the first time, maybe the db is not updated, update the db once
+    if not eval $LOCATE ^/dev/null >/dev/null
+        set -q _flag_a; and set UPDATEDB 1; or set UPDATEDB_HOME 1
+        test $UPDATEDB -eq 1; and eval $UPDATEDB_CMD
+        test $UPDATEDB_HOME -eq 1; and eval $UPDATEDB_HOME_CMD
     end
 
     if set -q _flag_o # open it using fzf
@@ -822,6 +837,11 @@ function loo -d 'locate functions, -a(undr /), -v(video), -m(audio), -d(dir), -o
         eval $LOCATE | fzf | xargs -0 -r rm -rfv
     else
         eval $LOCATE | rg -i $argv
+    end
+
+    # update db if -r(remove) option is given
+    if set -q _flag_r
+        set -q _flag_a; and eval $UPDATEDB_CMD; or eval $UPDATEDB_HOME_CMD
     end
 end
 
