@@ -21,6 +21,9 @@ fi
 
 eval "$(zoxide init bash)"
 alias zz='zi'
+export _ZO_FZF_OPTS="-1 -0 --reverse --print0"
+export FZF_DEFAULT_OPTS='+s -e -m -0 --reverse --print0'
+export FZF_TMUX_HEIGHT=100%
 
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
