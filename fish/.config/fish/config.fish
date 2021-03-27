@@ -321,7 +321,6 @@ function fish_user_key_bindings
     bind \cf zz
     bind \ch htop
 end
-set -gx FZF_TMUX_HEIGHT 100%
 
 abbr pm-sl 'sudo pm-suspend' # 'Suspend to ram' in GUI buttom, power button to wake up
 abbr pm-hb 'sudo pm-hibernate' # not work in old CentOS6
@@ -700,6 +699,7 @@ zoxide init fish | source
 alias zz 'zi'
 set -gx _ZO_FZF_OPTS "-1 -0 --reverse --print0"
 set -gx FZF_DEFAULT_OPTS '+s -e -m -0 --reverse --print0' # -m to mult-select using Tab/S-Tab, auto select the only match, auto exit if no match
+set -gx FZF_TMUX_HEIGHT 100%
 
 # touch temporary files
 abbr tout 'touch ab~ .ab~ .\#ab .\#ab\# \#ab\# .ab.swp ab.swp'
@@ -1284,7 +1284,7 @@ abbr pacf 'proxychains4 -q pacui i'
 # check pacui h/help for more
 
 # donnot show the other info on startup
-abbr gdb 'gdb -q'
+abbr gdbi 'gdb -q -x ~/Dotfiles.d/gdb/.gdbinit'
 abbr gdbx 'gdb -q -n' # with loading any .gdbinit file
 abbr gdbd 'sudo gdb -batch -ex "thread apply all bt" -p' # -p $PID to check the deadlock issue, or `sudo strace -s 99 -ffp $PID`
 abbr gdbu 'gdbgui --gdb-args="-q -n"'
@@ -1297,7 +1297,7 @@ function gdbt -d "using gdb with tmux panes"
     set -l id (tmux split-pane -hPF "#D" "tail -f /dev/null")
     tmux last-pane
     set -l tty (tmux display-message -p -t "$id" '#{pane_tty}')
-    gdb -q -ex "dashboard source -output $tty" "$argv"
+    gdb -q -x ~/Dotfiles.d/gdb/.gdbinit -ex "dashboard source -output $tty" "$argv"
     tmux kill-pane -t $id
 end
 
