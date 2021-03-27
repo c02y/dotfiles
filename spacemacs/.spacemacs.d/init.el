@@ -139,7 +139,7 @@ This function should only modify configuration layer settings."
       ;; Both C and Cpp projects can share the same .clang-format
       ;; ln -s ~/Dotfiles.d/spacemacs/.spacemacs.d/lisp/clang-format-c-cpp .clang-format
       ;; In Cpp project:
-      ;; the following config is replaced by format-all package and config
+      ;; NOTE: the following config is replaced by format-all package and config
       ;; c-c++-enable-clang-format-on-save t
       )
      ;; TODO: pip install cmake-language-server
@@ -176,8 +176,9 @@ This function should only modify configuration layer settings."
 	  ;; https://emacs-lsp.github.io/lsp-mode/tutorials/how-to-turn-off/
       lsp-headerline-breadcrumb-enable nil
       )
-     ;; M-x dap-gdb-lldb-setup after packages are installed by dap layer
-     dap
+     ;; M-x dap-cpptools-setup after packages are installed by dap layer
+     (dap :variables
+          dap-ui-locals-expand-depth 3)
      ;; TODO: npm install -g prettier
      prettier
      ;; TODO: npm install -g import-js
