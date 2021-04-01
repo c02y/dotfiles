@@ -1592,17 +1592,6 @@ end
 alias xc 'xclip -r -selection c'
 abbr xp 'xclip'
 
-abbr km 'sudo kermit'
-
-abbr gcp 'google-chrome --incognito'
-abbr ffp 'firefox -private-window'
-
-abbr cx 'chmod +x'
-
-# netease-play, douban.fm
-abbr np 'netease-player'
-abbr db 'douban.fm'
-
 #vim
 set -gx EDITOR 'vim'
 function vis -d 'vim different targets'
@@ -2494,7 +2483,6 @@ function man
     end
     command man $argv
 end
-abbr ma 'man'
 
 function wtp --description 'show the real definition of a type or struct in C code, you can find which file it is defined in around the result'
     gcc -E $LBIN/type.c -I$argv[1] >/tmp/result
