@@ -28,7 +28,7 @@ set -gx MANPATH $NPMS/share/man ~/.local/share/man $MANPATH
 # Use different PATH/MANPATH for different distro since anaconda may affect system tools
 # for Windows and Linux compatible
 if command -sq uname
-    if test (uname) = "Linux"
+    if test (uname) = Linux
         if command -sq lsb_release
             if not test (lsb_release -i | rg -i -e 'manjaro|arch|opensuse') # not manjaro/arch/opensuse
                 set -gx PATH $HOME/anaconda3/bin $PATH
@@ -60,7 +60,7 @@ if test $DISPLAY
     # 200=auto repeat delay, given in milliseconds
     # 50=repeat rate, is the number of repeats per second
     # or uncomment the following part and use System Preference
-    if command -sq uname; and test (uname) = "Linux"
+    if command -sq uname; and test (uname) = Linux
         xset r rate 200 100
     end
 
@@ -191,7 +191,7 @@ function tk -d 'tmux kill-session all(default)/single(id)/multiple(id1 id2)/exce
         echo "No tmux server is running!!!"
         return
     end
-    set -l options 'e' 'l'
+    set -l options e l
     argparse -n tk $options -- $argv
     or return
 
@@ -208,7 +208,7 @@ function tk -d 'tmux kill-session all(default)/single(id)/multiple(id1 id2)/exce
             echo Inside a tmux session!
         end
         read -n 1 -l -p 'echo "Kill all sessions? [y/N]"' answer
-        if test "$answer" = "y" -o "$answer" = " "
+        if test "$answer" = y -o "$answer" = " "
             tmux kill-server # kill all sessions
         end
         return
@@ -282,7 +282,7 @@ source $HOME/.config/fish/functions/done.fish
 set -gx LS_COLORS 'ex=01;33:ln=96:*~=90:*.swp=90:*.bak=90:*.o=90:*#=90'
 
 # fix the `^[]0;fish  /home/chz^G` message in shell of Emacs
-if test "$TERM" = "dumb"
+if test "$TERM" = dumb
     function fish_title
     end
 end
@@ -325,10 +325,10 @@ end
 abbr pm-sl 'sudo pm-suspend' # 'Suspend to ram' in GUI buttom, power button to wake up
 abbr pm-hb 'sudo pm-hibernate' # not work in old CentOS6
 
-abbr rgr 'ranger'
+abbr rgr ranger
 abbr fpp '~/Public/PathPicker/fpp'
 abbr ga 'glances -t 1 --hide-kernel-threads -b --disable-irq --enable-process-extended'
-function ml -d 'mutt/neomutt'
+function ml -d 'mutt or neomutt'
     if command -sq neomutt
         set MUTT neomutt
     else if command -sq mutt
@@ -366,7 +366,7 @@ function bxp -d 'pastebin service in command line'
 end
 #
 function lls -d 'ls functions with options'
-    set -l options 'a' 's' 'r' 'e' 'l' 'A'
+    set -l options a s r e l A
     argparse -n lls $options -- $argv
     or return
 
@@ -403,7 +403,7 @@ function psss -d 'pgrep process, used in script'
     ps -ef | rg -w -v rg | rg -i $argv[1] | nl
 end
 function pss -d 'pgrep process, used in command line'
-    set -l options 'h'
+    set -l options h
     argparse -n pss $options -- $argv
     or return
 
@@ -431,8 +431,8 @@ function pk --description 'kill processes containing a pattern or PID'
         set -l __kp__pid (ps -ef | sed 1d | eval "fzf $FZF_DEFAULT_OPTS -m --header='[kill:process]'" | awk '{print $2}')
         set -l __kp__kc $argv[1]
 
-        if test "x$__kp__pid" != "x"
-            if test "x$argv[1]" != "x"
+        if test "x$__kp__pid" != x
+            if test "x$argv[1]" != x
                 echo $__kp__pid | xargs kill $argv[1]
             else
                 echo $__kp__pid | xargs kill -9
@@ -450,7 +450,7 @@ function pk --description 'kill processes containing a pattern or PID'
         if not kill -9 $pid # failed to kill, $status != 0
             psss $pid | rg $argv[1] # list the details of the process need to be sudo kill
             read -n 1 -p 'echo "Use sudo to kill it? [Y/n]: "' -l arg
-            if test "$arg" = "" -o "$arg" = "y" -o "$arg" = " "
+            if test "$arg" = "" -o "$arg" = y -o "$arg" = " "
                 sudo kill -9 $pid
             end
         end
@@ -463,19 +463,19 @@ function pk --description 'kill processes containing a pattern or PID'
             read -p 'echo "Kill all of them or specific PID? [a/y/N/index/pid/m_ouse]: "' -l arg2
             if test $arg2 # it is not Enter directly
                 if not string match -q -r '^\d+$' $arg2 # if it is not integer
-                    if test "$arg2" = "y" -o "$arg2" = "a" -o "$arg2" = " "
+                    if test "$arg2" = y -o "$arg2" = a -o "$arg2" = " "
                         set -l pids (psss $argv[1] | awk '{print $3}')
                         for i in $pids
                             if not kill -9 $i # failed to kill, $status != 0
                                 psss $i | rg $argv[1]
                                 read -n 1 -p 'echo "Use sudo to kill it? [Y/n]: "' -l arg3
-                                if test "$arg3" = "" -o "$arg3" = "y" -o "$arg3" = " "
+                                if test "$arg3" = "" -o "$arg3" = y -o "$arg3" = " "
                                     sudo kill -9 $i
                                 end
                             end
                         end
                         return
-                    else if test "$arg2" = "m" # Use mouse the click the opened window
+                    else if test "$arg2" = m # Use mouse the click the opened window
                         # This may be used for frozen emacs specifically, -usr2 or -SIGUSR2
                         # will turn on `toggle-debug-on-quit`, turn it off once emacs is alive again
                         # Test on next frozen Emacs
@@ -489,7 +489,7 @@ function pk --description 'kill processes containing a pattern or PID'
                             kill -9 $pid_m
                         end
                         return
-                    else if test "$arg2" = "n"
+                    else if test "$arg2" = n
                         return
                     else
                         echo Wrong Argument!
@@ -505,7 +505,7 @@ function pk --description 'kill processes containing a pattern or PID'
                             if not kill -9 $pid_of_index # kill failed, $status != 0
                                 psss $pid_of_index | rg $argv[1] # list the details of the process need to be sudo kill
                                 read -n 1 -p 'echo "Use sudo to kill it? [Y/n]: "' -l arg4
-                                if test $arg4 = "" -o "$arg4" = "y" -o "$arg4" = " "
+                                if test $arg4 = "" -o "$arg4" = y -o "$arg4" = " "
                                     # the first condition is to check Return key
                                     sudo kill -9 $pid_of_index
                                 end
@@ -518,7 +518,7 @@ function pk --description 'kill processes containing a pattern or PID'
                             if not kill -9 $pid_part # kill failed, $status != 0
                                 psss $pid_part | rg $argv[1] # list the details of the process need to be sudo kill
                                 read -n 1 -p 'echo "Use sudo to kill it? [Y/n]: "' -l arg5
-                                if test $arg5 = "" -o "$arg5" = "y" -o "$arg5" = " "
+                                if test $arg5 = "" -o "$arg5" = y -o "$arg5" = " "
                                     sudo kill -9 $pid_part
                                 end
                             end
@@ -537,7 +537,7 @@ function pk --description 'kill processes containing a pattern or PID'
 end
 
 function vars -d "list item in var line by line, all envs(by default), -m(MANPATH), -c(clean duplicated var), -p(PATH), var name(print value or var)"
-    set -l options 'm' 'c' 'p'
+    set -l options m c p
     argparse -n vars $options -- $argv
     or return
 
@@ -593,7 +593,7 @@ function abbrc -d 'clean abbrs in `abbr --show` but not in $FISHRC'
     end
 end
 
-abbr wh 'which'
+abbr wh which
 function fu -d 'fu command and prompt to ask to open it or not'
     # $argv could be builtin keyword, function, alias, file(bin/script) in $PATH, abbr
     # And they all could be defined in script or temporally (could be found in any file)
@@ -636,7 +636,7 @@ function fu -d 'fu command and prompt to ask to open it or not'
                 echo "NOTE: Temporally definition from nowhere!"
                 return
             end
-            if test "$def_file" = "-" # alias, no definition file is printed
+            if test "$def_file" = - # alias, no definition file is printed
                 set def_file $FISHRC
             end
 
@@ -665,7 +665,7 @@ function fu -d 'fu command and prompt to ask to open it or not'
 
         echo
         read -n 1 -p 'echo "Open the file containing the definition? [y/N]: "' -l answer
-        if test "$answer" = "y" -o "$answer" = " "
+        if test "$answer" = y -o "$answer" = " "
             $EDITOR $def_file +$num_line
         end
     else if test (echo $result_1 | rg -i "is a builtin")
@@ -678,7 +678,7 @@ function fu -d 'fu command and prompt to ask to open it or not'
         if test (file (readlink -f $file_path) | rg "script") # script can be open
             echo
             read -n 1 -p 'echo "Open the file for editing?[y/N]: "' -l answer
-            if test "$answer" = "y" -o "$answer" = " "
+            if test "$answer" = y -o "$answer" = " "
                 $EDITOR $file_path
             end
         end
@@ -688,7 +688,7 @@ end
 abbr fzfb "fzf --bind 'enter:execute:vim {} < /dev/tty'"
 
 zoxide init fish | source
-alias zz 'zi'
+alias zz zi
 set -gx _ZO_FZF_OPTS "-1 -0 --reverse --print0"
 set -gx FZF_DEFAULT_OPTS '+s -e -m -0 --reverse --print0' # -m to mult-select using Tab/S-Tab, auto select the only match, auto exit if no match
 set -gx FZF_TMUX_HEIGHT 100%
@@ -698,7 +698,7 @@ abbr tout 'touch ab~ .ab~ .\#ab .\#ab\# \#ab\# .ab.swp ab.swp'
 # find
 # alias find 'find -L' # make find follow symlink dir/file by default
 function finds -d 'find a file/folder and view/edit using less/vim/emacs/emx/cd/readlink with fzf, find longest path(-L)'
-    set -l options 'l' 'v' 'e' 'x' 'c' 'p' 'g' 'd' 'L'
+    set -l options l v e x c p g d L
     argparse -n finds $options -- $argv
     or return
 
@@ -748,7 +748,7 @@ function finds -d 'find a file/folder and view/edit using less/vim/emacs/emx/cd/
     end
 end
 function fts -d 'find the temporary files such as a~ or #a or .a~, and files for latex, if no argv is passed, use the current dir'
-    set -l options 'c' 'C' 'r' 'R' 'l'
+    set -l options c C r R l
     argparse -n fts $options -- $argv
     or return
 
@@ -770,7 +770,7 @@ function fts -d 'find the temporary files such as a~ or #a or .a~, and files for
         end
         for EXT in ind ilg toc out idx aux fls log fdb_latexmk nav snm
             # ind ilg toc out idx aux fls log fdb_latexmk faq blg bbl brf nlo dvi ps lof pdfsync synctex.gz
-            find $ARGV -maxdepth 1 \( -iname "*.$EXT" -o -iname "auto" \) | xargs -r rm -rv
+            find $ARGV -maxdepth 1 \( -iname "*.$EXT" -o -iname auto \) | xargs -r rm -rv
         end
         fts -C
     else
@@ -780,7 +780,7 @@ function fts -d 'find the temporary files such as a~ or #a or .a~, and files for
 end
 # NOTE: you need to mask updatedb.service and delete /var/lib/mlocate/mlocate.db file first
 function loo -d 'locate functions, -u(update db) -a(undr /), -v(video), -m(audio), -d(dir), -o(open), -x(copy), -r(remove)'
-    set -l options 'u' 'a' 'v' 'm' 'd' 'o' 'x' 'r'
+    set -l options u a v m d o x r
     argparse -n loo $options -- $argv
     or return
 
@@ -843,7 +843,7 @@ end
 
 # df+du+gdu/dua
 function dfs -d 'df(-l, -L for full list), gua(-i), dua(-I), du(by default), cache/config dir of Firefox/Chrome/Vivaldi/yay/pacman'
-    set -l options 'i' 'I' 'l' 'L' 'c' 'h'
+    set -l options i I l L c h
     argparse -n dfs $options -- $argv
     or return
 
@@ -914,7 +914,7 @@ function mdv -d 'markdown viewer in terminal'
 end
 
 # TODO: pip install cppman; cppman -c # it will take a while
-abbr manp 'cppman'
+abbr manp cppman
 
 # color in man page
 # K jump link inside vim man page
@@ -942,7 +942,7 @@ end
 
 # j for .bz2, z for .gz, J for xz, a for auto determine
 function tars -d 'tar extract(x)/list(l, by default)/create(c, add extra arg to exclude .git dir), fastest(C, add extra arg to exclude .git)or others using extr(o)'
-    set -l options 'x' 'l' 'c' 'C' 'o'
+    set -l options x l c C o
     argparse -n tars $options -- $argv
     or return
 
@@ -982,7 +982,7 @@ end
 abbr unzipc 'unzip -O CP936'
 function zips -d 'zip to list(l, default)/extract(x)/create(c)'
     # NOTE: if unarchiver is installed(lsar+unar), the $argv can be zip/rar/tar.xxx
-    set -l options 'l' 'L' 'c' 'x' 'X'
+    set -l options l L c x X
     argparse -n zips $options -- $argv
     or return
 
@@ -1013,7 +1013,7 @@ function zips -d 'zip to list(l, default)/extract(x)/create(c)'
     end
 end
 function deb -d 'deb package, list(default)/extract(x)'
-    set -l options 'x'
+    set -l options x
     argparse -n deb $options -- $argv
     or return
 
@@ -1039,7 +1039,7 @@ end
 
 # rpm
 function rpms -d 'rpm file, install(i)/extract(x)/list(default)'
-    set -l options 'i' 'x'
+    set -l options i x
     argparse -n rpms $options -- $argv
     or return
 
@@ -1139,7 +1139,7 @@ abbr pacud 'yay -Syuu' # like pacu, but allow downgrade, needed when switch to o
 abbr paco 'yay -Qdt --color=always' # To list all orphans, installed packages that are not used by anything else and should no longer be needed
 abbr pacor 'yay -Rsun (yay -Qdtq)' # remove package and its configs in paco
 function paci -d 'pacman/yay install function, -y(noconfirm), -u(update first), -r(reinstall), -l(local install), -i(interactive)'
-    set -l options 'y' 'u' 'r' 'l' 'i'
+    set -l options y u r l i
     argparse -n paci $options -- $argv
     or return
 
@@ -1155,7 +1155,7 @@ function paci -d 'pacman/yay install function, -y(noconfirm), -u(update first), 
     eval yay $OPT $argv
 end
 function pacs -d 'pacman/yay search, -i(interactive using pacui), -n(only names), -L(list content), -g(list packages in a group), -s(show info)'
-    set -l options 'a' 'i' 'n' 'l' 'L' 'g' 's'
+    set -l options a i n l L g s
     argparse -n pacs $options -- $argv
     or return
 
@@ -1228,7 +1228,7 @@ function pacs -d 'pacman/yay search, -i(interactive using pacui), -n(only names)
     eval $CMD -Ss --color=always $argv; or yay -Ss --color=always $argv
 end
 function pacms -d 'pacman-mirrors functions, default(China), -f(fastest 5), -s(status), -i(interactive), -r(reflector)'
-    set -l options 'f' 's' 'i' 'r'
+    set -l options f s i r
     argparse -n pacms $options -- $argv
     or return
 
@@ -1312,10 +1312,10 @@ function mkk -d "gcc, g++, cmake and make"
         set -l BIN (string split -r -m1 . (basename $argv))[1] # get the binary name
         set -l EXT (string split -r -m1 . (basename $argv))[2] # get the extension name
         if ! set -q $EXT # extension is not empty, argv is c/cpp file
-            if test $EXT = "cpp" -o $EXT = "cc"
+            if test $EXT = cpp -o $EXT = cc
                 g++ -Wall -W -g $argv -o $DIR/$BIN && $DIR/$BIN
                 return
-            else if test $EXT = "c"
+            else if test $EXT = c
                 gcc -Wall -W -g $argv -o $DIR/$BIN && $DIR/$BIN
                 return
             end
@@ -1356,7 +1356,7 @@ function o -d 'open file or directory'
 end
 
 function fmts -d "compile_commands.json(-l), clang-format(-f), cmake-format(-m)"
-    set -l options 'f' 'l' 'm'
+    set -l options f l m
     argparse -n fmts $options -- $argv
     or return
 
@@ -1407,8 +1407,8 @@ function fmts -d "compile_commands.json(-l), clang-format(-f), cmake-format(-m)"
 end
 
 function ddiso -d 'burn ISO file to drive(such as USB as LIVE USB)'
-    if file $argv[1] | rg -i "ISO" ^/dev/null >/dev/null
-        if echo $argv[2] | rg -i "dev" ^/dev/null >/dev/null
+    if file $argv[1] | rg -i ISO ^/dev/null >/dev/null
+        if echo $argv[2] | rg -i dev ^/dev/null >/dev/null
             set FILE (readlink -f $argv[1])
             set DEV $argv[2]
             lsblk -l
@@ -1416,7 +1416,7 @@ function ddiso -d 'burn ISO file to drive(such as USB as LIVE USB)'
             set CMD "sudo dd if=$FILE of=$DEV bs=4M status=progress oflag=sync"
             echo $CMD
             read -n 1 -l -p 'echo "Really run above command? [Y/n]"' answer
-            if test "$answer" = "y" -o "$answer" = "" -o "$answer" = ""
+            if test "$answer" = y -o "$answer" = "" -o "$answer" = ""
                 eval $CMD
             end
         else
@@ -1429,7 +1429,7 @@ function ddiso -d 'burn ISO file to drive(such as USB as LIVE USB)'
 end
 
 function syss -d 'systemctl related functions'
-    set -l options 'u' 'e' 'd' 'D' 'm' 'M' 'r' 's' 'S' 'l' 'R' 'f' 'c' 'p' 'L' 't' 'h'
+    set -l options u e d D m M r s S l R f c p L t h
     argparse -n syss $options -- $argv
     or return
 
@@ -1545,7 +1545,7 @@ function diffs -d "all kinds of diff features"
     if command -sq ydiff
         diff -u $argv | ydiff -s -w 0 --wrap
     else
-        set -l options 'f' 'w' 'l' 'L' 'W' 'h'
+        set -l options f w l L W h
         argparse -n diffs $options -- $argv
         or return
 
@@ -1582,12 +1582,12 @@ end
 
 # xclip, get content into clipboard, echo file | xclip
 alias xc 'xclip -r -selection c'
-abbr xp 'xclip'
+abbr xp xclip
 
 #vim
-set -gx EDITOR 'vim'
+set -gx EDITOR vim
 function vis -d 'vim different targets'
-    set -l options '2' 'b' 'B' 'c' 'd' 'e' 'f' 't' 'T' 'a' 'k' 's' 'u' 'm' 'M' 'v' 'o' 'r'
+    set -l options 2 b B c d e f t T a k s u m M v o r
     argparse -n vis $options -- $argv
     or return
 
@@ -1639,7 +1639,7 @@ function vis -d 'vim different targets'
     end
 end
 function vims -d 'switch between vanilla vim(-v) <-> SpaceVim or space-vim(the default)'
-    set -l options 'v'
+    set -l options v
     argparse -n vims $options -- $argv
     or return
 
@@ -1656,7 +1656,7 @@ function vims -d 'switch between vanilla vim(-v) <-> SpaceVim or space-vim(the d
 
             test -d ~/.vim; and cpb -m ~/.vim
             read -n 1 -l -p 'echo "Neither SpaceVim or space-vim is installed! Which one do you want to install? (SpaceVim/space-vim[1]: "' answer
-            if test "$answer" = "1"
+            if test "$answer" = 1
                 curl -fsSL https://git.io/vFUhE | bash
                 mkdir ~/.config/nvim
                 ln -s ~/.space-vim/init.vim ~/.config/nvim/init.vim
@@ -1669,7 +1669,7 @@ function vims -d 'switch between vanilla vim(-v) <-> SpaceVim or space-vim(the d
         end
         if test (ls -ld ~/.config/nvim | awk '{print $11}') = "$HOME/.SpaceVim"
             read -n 1 -l -p 'echo "Currently running SpaceVim, switch to space-vim? [Y/SPC/n]: "' answer
-            if test "$answer" = "y" -o "$answer" = " "
+            if test "$answer" = y -o "$answer" = " "
                 if ! test -d ~/.space-vim
                     curl -fsSL https://git.io/vFUhE | bash
                     pip install neovim clang
@@ -1689,7 +1689,7 @@ function vims -d 'switch between vanilla vim(-v) <-> SpaceVim or space-vim(the d
             end
         else if test (ls -ld ~/.config/nvim/init.vim | awk '{print $11}') = "$HOME/.space-vim/init.vim"
             read -n 1 -l -p 'echo "Currently running space-vim, switch to SpaceVim? [Y/SPC/n]: "' answer
-            if test "$answer" = "y" -o "$answer" = " "
+            if test "$answer" = y -o "$answer" = " "
                 rm -rf ~/.config/nvim
                 if ! test -d ~/.SpaceVim.d
                     cd ~/Dotfiles.d/
@@ -1735,7 +1735,7 @@ abbr emtime "time emacs --debug-init -eval '(kill-emacs)'" # time emacs startup 
 abbr lic 'wget -q http://www.gnu.org/licenses/gpl.txt -O LICENSE'
 
 function usertest -d 'add user test temporarily for one day, no passwd, and login into it, delete it(-d), by default add it in smart way'
-    set -l options 'd'
+    set -l options d
     argparse -n usertest $options -- $argv
     or return
 
@@ -1754,7 +1754,7 @@ function usertest -d 'add user test temporarily for one day, no passwd, and logi
 end
 
 # git
-abbr gg 'lazygit'
+abbr gg lazygit
 abbr ggl 'git log'
 abbr gglp 'git log -p --'
 abbr ggs 'git status'
@@ -1763,8 +1763,8 @@ abbr gitl 'git log'
 abbr gitlo 'git log --oneline'
 abbr gitlp 'git log -p --' # [+ file] to how entire all/[file(even renamed)] history
 abbr gitls 'git diff --name-only --cached' # list staged files to be commited
-abbr gitd 'ydiff' # show unstaged modification
-abbr ggd 'ydiff' # show unstaged modification
+abbr gitd ydiff # show unstaged modification
+abbr ggd ydiff # show unstaged modification
 abbr ggdd 'git difftool' # show unstaged modification using external tool such as vim
 abbr gitdc 'git diff --cached' # show staged but unpushed local modification
 abbr gitsh 'git show' # [+ COMMIT] to show the modifications in a last/[specific] commit
@@ -1783,7 +1783,7 @@ set -l SSR socks5://127.0.0.1:1080
 abbr gitpx "git config --global http.proxy $SSR; git config --global https.proxy $SSR; git config --global http.https://github.com.proxy $SSR"
 abbr gitupx 'git config --global --unset http.proxy; git config --global --unset https.proxy; git config --global --unset http.https://github.com.proxy'
 function gitpls -d 'git pull another repo from current dir, ~/.emacs.d(-e), ~/.space-vim(-v), ~/Dotfiles.d(by default), all(-a), or add argument'
-    set -l options 'e' 'v' 'a'
+    set -l options e v a
     argparse -n gitpls $options -- $argv
     or return
 
@@ -1832,7 +1832,7 @@ function gitpll -d 'git pull and location it to previous commit id before git pu
     git log --stat | command less -p$COMMIT_ID
 end
 function gitcl -d 'git clone and cd into it, full-clone(by default), simple-clone(-s)'
-    set -l options 's'
+    set -l options s
     argparse -n gitcl $options -- $argv
     or return
 
@@ -1866,7 +1866,7 @@ function gitpa --description 'git pull all in dir using `fing dir`'
     end
 end
 function gitbs -d 'branches, tags and worktrees'
-    set -l options 'c' 'd' 'f' 'l' 't' 'T' 'w' 'v' 'h'
+    set -l options c d f l t T w v h
     argparse -n gitbs $options -- $argv
     or return
 
@@ -1975,7 +1975,7 @@ function gitco -d 'git checkout -- for multiple files(filA fileB...) at once, al
     if set -q $argv # no given files
         # in case accidentally git checkout all unstaged files
         read -n 1 -l -p 'echo "Checkout all unstaged files? [Y/n]"' answer
-        if test "$answer" = "y" -o "$answer" = " "
+        if test "$answer" = y -o "$answer" = " "
             git checkout .
         else
             echo "Cancel and exit!"
@@ -1985,7 +1985,7 @@ function gitco -d 'git checkout -- for multiple files(filA fileB...) at once, al
         # pass commit id
         if git merge-base --is-ancestor $argv HEAD ^/dev/null
             git checkout $argv
-        else if test "$argv" = "-" # git switch to previous branch/commit
+        else if test "$argv" = - # git switch to previous branch/commit
             git checkout -
         else
             set files (string split \n -- $argv)
@@ -2005,7 +2005,7 @@ function sss -d 'count lines of code from a local code dir or a github url'
         scc -c --no-cocomo $argv
     end
 end
-abbr gitsc "sss"
+abbr gitsc sss
 function gitsr -d "get the url of a git repo"
     set -q $argv[1]; and set -l ARGV .; or set -l ARGV $argv
     if test -d $ARGV
@@ -2029,7 +2029,7 @@ function gita -d 'git add for multiple files at once'
 end
 function gitfs -d 'git forked repo sync'
     git checkout master
-    git remote -v | rg "upstream" ^/dev/null >/dev/null
+    git remote -v | rg upstream ^/dev/null >/dev/null
     set -l upstream_status $status
     if test $upstream_status = 1; and set -q $argv[1]
         echo "Remote upstream is not set, unable to sync!"
@@ -2047,7 +2047,7 @@ function gitfs -d 'git forked repo sync'
     end
 end
 function gitrh -d 'git reset HEAD for multiple files(file1 file2, all without argv), soft(-s)/hard(-h) reset'
-    set -l options 's' 'h'
+    set -l options s h
     argparse -n gitrh $options -- $argv
     or return
 
@@ -2059,7 +2059,7 @@ function gitrh -d 'git reset HEAD for multiple files(file1 file2, all without ar
         if set -q $argv # no given files
             # in case accidentally git reset all staged files
             read -n 1 -l -p 'echo "Reset all staged files? [Y/n]"' answer
-            if test "$answer" = "y" -o "$answer" = " "
+            if test "$answer" = y -o "$answer" = " "
                 git reset
             else
                 echo "Cancel and exit!"
@@ -2134,7 +2134,7 @@ else
     set -g PXY
 end
 
-abbr bb 'bat'
+abbr bb bat
 
 # svn
 abbr svnp 'svn update; and echo "---status---"; svn status'
@@ -2225,10 +2225,10 @@ function wc
     end
 end
 
-abbr ipy 'ipython' # other alternatives are btpython, ptpython, ptipython
-abbr pdb 'pudb3'
+abbr ipy ipython # other alternatives are btpython, ptpython, ptipython
+abbr pdb pudb3
 function pips -d 'pip related functions, default(install), -i(sudo install), -c(check outdated), -r(remove/uninstall), -s(search), -u(update all outdated packages), -U(upgrade specific packages)'
-    set -l options 'i' 'c' 'r' 's' 'u' 'U'
+    set -l options i c r s u U
     argparse -n pips $options -- $argv
     or return
 
@@ -2274,7 +2274,7 @@ function penv -d 'python3 -m venv in fish'
     . $ARGV/bin/activate.fish
 end
 # abbr x 'exit'
-alias q 'x'
+alias q x
 function x -d 'exit or deactivate in python env'
     if not set -q $VIRTUAL_ENV # running in python virtual env
         # TODO: since sth. is wrong with the deactivate function in $argv/bin/activate.fish
@@ -2334,6 +2334,8 @@ end
 function ios -d 'io stat'
     # check the current io speed, using command like
     # `dstat -d -n`
+    # Check the health issue of disk using smartmontools
+    # `sudo smartctl --all /dev/nvme0n1`
     if set -q argv[1]
         sudo hdparm -Tt $argv # $argv is device like /dev/sda1
     else
@@ -2343,7 +2345,7 @@ end
 
 abbr pxx 'proxychains4 -q'
 function pxs -d 'multiple commands using proxychains4'
-    set -l options 'w' 'c' 'p'
+    set -l options w c p
     argparse -n pxs $options -- $argv
     or return
 
@@ -2509,7 +2511,7 @@ end
 # https://github.com/seanbreckenridge/mpvf/
 alias mpvs 'proxychains4 -q mpvf'
 function yous -d 'youtube-dl functions'
-    set -l options 'l' 'a' 'f' 'p' 'P'
+    set -l options l a f p P
     argparse -n yous -N 1 $options -- $argv
     or return
 
@@ -2530,13 +2532,13 @@ end
 
 function rgs -d 'rg sth in -e(init.el)/-E(errno)/-f(config.fish)/-t(.tmux.conf)/-v(vimrc), or use -F(fzf) to open the file, -g(git repo), -w(whole word), -V(exclude pattern), -l(list files), -s(sort), -n(no ignore), -S(smart case, otherwise ignore case), -2(todo.org)'
     # NOTE -V require an argument, so put "V=" line for argparse
-    set -l options 'e' 'E' 'f' 't' 'v' 'F' 'g' 'n' 'w' 'V=' 'l' 's' 'S' '2'
+    set -l options e E f t v F g n w 'V=' l s S 2
     argparse -n rgs -N 1 $options -- $argv
     or return
 
-    set OPT "--hidden"
-    set -q _flag_w; and set OPT $OPT "-w"
-    set -q _flag_l; and set OPT $OPT "-l"
+    set OPT --hidden
+    set -q _flag_w; and set OPT $OPT -w
+    set -q _flag_l; and set OPT $OPT -l
     # and $_flag_V is the argument for for -V
     set -q _flag_V; and set OPT $OPT -g !$_flag_V
     set -q _flag_s; and set OPT $OPT --sort path
@@ -2574,7 +2576,7 @@ function rgs -d 'rg sth in -e(init.el)/-E(errno)/-f(config.fish)/-t(.tmux.conf)/
 
     if set -q _flag_F # search pattern(s) in dir/file, open if using vim
         read -n 1 -p 'echo "Open it with vim? [Y/n]: "' -l answer
-        if test "$answer" = "y" -o "$answer" = " "
+        if test "$answer" = y -o "$answer" = " "
             rg $OPT --color never $argv[1] $FILE -l | fzf --bind 'enter:execute:vim {} < /dev/tty'
         else
             echo "Canceled!"
@@ -2598,7 +2600,7 @@ end
 
 function cpb -d 'backups manager: rename files/dirs from name to name.bak or backwards(-b) using cp/mv(-m)'
     # set optional options
-    set -l options 'b' 'm'
+    set -l options b m
     argparse -n cpb -N 1 $options -- $argv
     or return
 
@@ -2615,13 +2617,13 @@ function cpb -d 'backups manager: rename files/dirs from name to name.bak or bac
             end
         else
             set old $name
-            if test "/" = (echo (string sub --start=-1 $name)) # for dir ending with "/"
+            if test / = (echo (string sub --start=-1 $name)) # for dir ending with "/"
                 set old (echo (string split -r -m1 / $name)[1])
             end
             if test -e $old.bak
                 echo $old.bak already exists.
                 read -n 1 -l -p 'echo "Remove $old.bak first? [y/N]"' answer
-                if test "$answer" = "y" -o "$answer" = " "
+                if test "$answer" = y -o "$answer" = " "
                     rm -rfv $old.bak
                 else
                     continue
@@ -2652,7 +2654,7 @@ abbr condac '~/anaconda3/bin/conda clean -avy'
 abbr condaS '~/anaconda3/bin/anaconda show' # [channel/packagename]
 
 function cons -d 'conda virtual environments related functions -i(install package in env, -x(exit the env), -l(list envs), -L(list pkgs in env), -r(remove env and its pkgs)), default(switch or pip install argv based on base env), -n(new env with python/pip installed, -b to create new one based on base env)'
-    set -l options 'b' 'i' 'n' 'x' 'l' 'L' 'r'
+    set -l options b i n x l L r
     argparse -n cons $options -- $argv
     or return
 
@@ -2680,13 +2682,13 @@ function cons -d 'conda virtual environments related functions -i(install packag
         # 2. in env, another env given as argv, remove the argv
         # 3. in env and (no argv, or argv=current env), deactivate and remove current env
         if set -q $CONDA_DEFAULT_ENV # not in conda env
-            if test $argv = "base"
+            if test $argv = base
                 echo "!!!Donnot remove base env!!!"
                 return -1
             end
             conda remove -n $argv --all
         else if not set -q $CONDA_DEFAULT_ENV # in env
-            if test $CONDA_DEFAULT_ENV = "base"
+            if test $CONDA_DEFAULT_ENV = base
                 echo "!!!base env here, do not remove it!!!"
                 return -1
             end
