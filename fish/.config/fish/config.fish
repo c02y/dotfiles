@@ -578,11 +578,7 @@ abbr rmv 'rsync --stats --info=progress2 -rh -avz --remove-source-files' # this 
 alias clr 'clear; tmux clear-history'
 
 function abbrc -d 'clean abbrs in `abbr --show` but not in $FISHRC'
-    if abbr --show | head -n1 | rg "abbr -a -U" ^/dev/null >/dev/null
-        set abbr_show "abbr -a -U --"
-    else
-        set abbr_show "abbr"
-    end
+    set abbr_show "abbr -a -U --"
 
     for abr in (abbr --show)
         set abr_def (echo $abr | sed "s/$abbr_show//g" | awk '{print $1}')
@@ -608,11 +604,7 @@ function fu -d 'fu command and prompt to ask to open it or not'
         set result (type $argv)
     end
 
-    if abbr --show | head -n1 | rg "abbr -a -U" ^/dev/null >/dev/null
-        set abbr_show "abbr -a -U --"
-    else
-        set abbr_show "abbr"
-    end
+    set abbr_show "abbr -a -U --"
     # NOTE: $argv may also be defined as an abbr like rm command
     abbr --show | rg "$abbr_show $argv " # Space to avoid the extra abbr starting with $ARGV
     if test $status = 0
