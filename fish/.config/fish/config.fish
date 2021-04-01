@@ -598,55 +598,58 @@ function fu -d 'fu command and prompt to ask to open it or not'
     # $argv could be builtin keyword, function, alias, file(bin/script) in $PATH, abbr
     # And they all could be defined in script or temporally (could be found in any file)
     set found 0
-    # Check `type` output, NOTE: `type` doesn't support abbr
+    set abbr_show "abbr -a -U --"
+
+    # Case1: abbr
+    if abbr --show | rg "$abbr_show $argv " ^/dev/null # Space to avoid the extra abbr starting with $ARGV
+        set found 1
+        set result (abbr --show | rg "$abbr_show $argv ")
+    end
+
+    # Case2: alias or function, or executable file
     if type $argv ^/dev/null # omit the result once error(abbr or not-a-thing) returned, $status = 0
-        set found 1 # for not-a-thing
+        if test $found = 1 -a (echo (rg -e "^alias $argv |^function $argv |^function $argv\$" $FISHRC))
+            # Case3: both abbr and alias/function, duplicated definitions
+            # function may be `function func` and `function func -d ...`
+            abbrc
+            # return
+        end
+        # only alias or function
+        set found 1
         set result (type $argv)
     end
 
-    set abbr_show "abbr -a -U --"
-    # NOTE: $argv may also be defined as an abbr like rm command
-    abbr --show | rg "$abbr_show $argv " # Space to avoid the extra abbr starting with $ARGV
-    if test $status = 0
-        # in case $argv existes in both `type` and `abbr --show`
-        # function may be `function func` and `function func -d ...`
-        if test $found = 1 -a (echo (rg -w -e "^alias $argv |^function $argv |^function $argv\$" $FISHRC))
-            echo "$argv is in both `type` and `abbr --list`, found definition in $FISHRC"
-            echo "Please clean the multiple definitions!"
-            abbrc
-            # return
-        else # only exists in `abbr --show`
-            set found 1
-            set result (abbr --show | rg "$abbr_show $argv ")
-        end
-    else if test $status != 0 -a $found != 1
+    if test $found = 0
         echo "$argv is not a thing!"
         return
     end
 
     set result_1 (printf '%s\n' $result | head -1)
-    set def_file $FISHRC
     if test (echo $result_1 | rg -e "$abbr_show $argv |is a function with definition") # defined in fish script
-        if test (echo $result_1 | rg "is a function with definition")
-            # 1. function or alias -- second line of output of fu ends with "$path @ line $num_line"
+        # Case2
+        if test (echo $result_1 | rg "is a function with definition") # alias/function
+            # function or alias -- second line of output of fu ends with "$path @ line $num_line"
             if test (printf '%s\n' $result | sed -n "2p" | rg -e "\# Defined in")
                 set -l result_2 (printf '%s\n' $result | sed -n "2p")
                 set def_file (echo $result_2 | awk -v x=4 '{print $x}')
-            else
-                echo "NOTE: Temporally definition from nowhere!"
+            else # alias in $FISHRC
+                set num_line (rg -n -e "^alias $argv " $FISHRC | cut -d: -f1)
+                if test "$num_line"
+                    set def_file $FISHRC
+                end
+            end
+            if set -q $def_file # def_file is not set
+                echo "NOTE: definition file is not found!"
                 return
             end
-            if test "$def_file" = - # alias, no definition file is printed
-                set def_file $FISHRC
-            end
 
-            set num_line (rg -n -w -e "^alias $argv |^function $argv |^function $argv\$" $def_file | cut -d: -f1)
+            set num_line (rg -n -e "^alias $argv |^function $argv |^function $argv\$" $def_file | cut -d: -f1)
             # NOTE: $num_line may contain more than one number, use "$num_line", or test will fail
-            if not test "$num_line" # empty
+            if not test "$num_line" # empty, defined but removed, not cleaned
                 echo "$argv is an alias/function defined in $def_file!"
                 if test $def_file = $FISHRC
                     functions -e $argv
-                    echo "$argv is erased!"
+                    echo "$argv is not defined inside $FISHRC anymore, erased!"
                     return
                 else
                     set num_line 1
@@ -655,11 +658,13 @@ function fu -d 'fu command and prompt to ask to open it or not'
                 echo "$argv has multiple definitions(alias and function) in $FISHRC, please clean them!"
                 return
             end
-        else # 2. abbr, only handle abbr defined in $FISHRC
+        else # Case1, only handle abbr defined in $FISHRC
             # abbrc
-            set num_line (rg -n -w -e "^abbr $argv " $def_file | cut -d: -f1)
+            set num_line (rg -n -e "^abbr $argv " $FISHRC | cut -d: -f1)
             if not test "$num_line" # empty
                 return
+            else
+                set def_file $FISHRC
             end
         end
 
@@ -669,9 +674,9 @@ function fu -d 'fu command and prompt to ask to open it or not'
             $EDITOR $def_file +$num_line
         end
     else if test (echo $result_1 | rg -i "is a builtin")
-        # 3. $argv in builtin like if
+        # Case3: $argv in builtin like if
         return
-    else # 4. $argv is a file in $PATH
+    else # Case4: $argv is a file in $PATH
         set -l file_path (echo $result_1 | awk 'NF>1{print $NF}')
         file $file_path | rg "symbolic link" # print only $argv is symbolic link
         file (readlink -f $file_path) | rg -e "ELF|script|executable" # highlight
