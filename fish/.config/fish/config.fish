@@ -787,11 +787,11 @@ function loo -d 'locate functions, -u(update db), -a(under /), -v(video), -m(aud
     argparse -n loo $options -- $argv
     or return
 
-    # check xdgs function
+    # check o function
     if not cmp --silent ~/.local/bin/mimeapps.list ~/.config/mimeapps.list
         diffs ~/.local/bin/mimeapps.list ~/.config/mimeapps.list
         echo
-        echo 'Need to update mimeapps.list, check xdgs function'
+        echo 'Need to update mimeapps.list, check o function'
         return
     end
 
@@ -851,26 +851,6 @@ function loo -d 'locate functions, -u(update db), -a(under /), -v(video), -m(aud
     # update db if -r(remove) option is given
     if set -q _flag_r
         set -q _flag_a; and eval $UPDATEDB_CMD; or eval $UPDATEDB_HOME_CMD
-    end
-end
-
-# mimeapps.list, the default program to open by a file
-# 1. xdg-mime query filetype thefile  -- to show the mimetype of a file
-# 2. xdg-mime query default image/jpeg -- image/jpeg is the result of 1
-# 3. get the desktop file you need
-# 4. xdg-mime default program.desktop image/jpeg
-function xdgs -d 'xdg related commands, and update mimeapps.list file'
-    set -l options s u
-    argparse -n xdgs $options -- $argv
-    or return
-
-    if set -q _flag_s # show the mimetype of the argv file the default program for opening $argv file
-        xdg-mime query filetype $argv
-    else if set -q _flag_u # update mimeapps.list for this $argv file, argv is the desktop file for the program to open the file
-        xdg-mime default $argv[1] (xdg-mime query filetype $argv[2])
-        cp ~/.config/mimeapps.list ~/.local/bin/mimeapps.list
-    else # show the default program for opening the $argv file
-        xdg-mime query default (xdg-mime query filetype $argv)
     end
 end
 
@@ -1382,10 +1362,28 @@ end
 # scan-build make or scan-build gcc file.c or clang --analyze file.c or clang-tidy file.c
 abbr cppc 'cppcheck --enable=all --inconclusive'
 
-function o -d 'open file or directory'
-    set -q $argv; and set ARGV .; or set ARGV $argv
+function o -d 'open/xdg-open/xdg-utils, without option(open it), -s(show mimetype), -u(update mimeapps.list), -p(show default program for the file)'
+    set -l options s u p
+    argparse -n xdgs $options -- $argv
+    or return
 
-    open $ARGV ^/dev/null >/dev/null
+    if set -q _flag_s # show the mimetype of the argv file the default program for opening $argv file
+        xdg-mime query filetype $argv
+    else if set -q _flag_u # update mimeapps.list for this $argv file
+        # $argv[1] is the desktop file for the program to open the file
+        # $argv[2] is the file to be opened
+        xdg-mime default $argv[1] (xdg-mime query filetype $argv[2])
+        cp ~/.config/mimeapps.list ~/.local/bin/mimeapps.list
+    else if set -q _flag_p # show the default program for opening the $argv file
+        xdg-mime query default (xdg-mime query filetype $argv)
+    else
+        set -q $argv; and set ARGV .; or set ARGV $argv
+        if test -d $ARGV
+            ranger $ARGV
+        else
+            open $ARGV ^/dev/null >/dev/null
+        end
+    end
 end
 
 function fmts -d "compile_commands.json(-l), clang-format(-f), cmake-format(-m)"
