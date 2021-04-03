@@ -856,6 +856,26 @@ function loo -d 'locate functions, -u(update db) -a(undr /), -v(video), -m(audio
     end
 end
 
+# mimeapps.list, the default program to open by a file
+# 1. xdg-mime query filetype thefile  -- to show the mimetype of a file
+# 2. xdg-mime query default image/jpeg -- image/jpeg is the result of 1
+# 3. get the desktop file you need
+# 4. xdg-mime default program.desktop image/jpeg
+function xdgs -d 'xdg related commands, and update mimeapps.list file'
+    set -l options s u
+    argparse -n xdgs $options -- $argv
+    or return
+
+    if set -q _flag_s # show the mimetype of the argv file the default program for opening $argv file
+        xdg-mime query filetype $argv
+    else if set -q _flag_u # update mimeapps.list for this $argv file, argv is the desktop file for the program to open the file
+        xdg-mime default $argv[1] (xdg-mime query filetype $argv[2])
+        cp ~/.config/mimeapps.list ~/.local/bin/mimeapps.list
+    else # show the default program for opening the $argv file
+        xdg-mime query default (xdg-mime query filetype $argv)
+    end
+end
+
 # df+du+gdu/dua
 function dfs -d 'df(-l, -L for full list), gua(-i), dua(-I), du(by default), cache/config dir of Firefox/Chrome/Vivaldi/yay/pacman'
     set -l options i I l L c h
