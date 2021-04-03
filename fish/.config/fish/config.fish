@@ -787,6 +787,18 @@ function loo -d 'locate functions, -u(update db) -a(undr /), -v(video), -m(audio
     argparse -n loo $options -- $argv
     or return
 
+    # mimeapps.list, the default program to open by a file
+    # 1. xdg-mime query filetype thefile  -- to check the mimetype
+    # 2. xdg-mime query default image/jpeg -- image/jpeg is the result of 1
+    # 3. get the desktop file you need
+    # 4. xdg-mime default program.desktop image/jpeg
+    if not cmp --silent ~/.local/bin/mimeapps.list ~/.config/mimeapps.list
+        diffs ~/.local/bin/mimeapps.list ~/.config/mimeapps.list
+        echo
+        echo Need to update mimeapps.list
+        return
+    end
+
     set -q $argv; and return
 
     set -l UPDATEDB 0
