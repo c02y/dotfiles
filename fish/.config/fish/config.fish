@@ -787,14 +787,6 @@ function loo -d 'locate functions, -u(update db), -a(under /), -v(video), -m(aud
     argparse -n loo $options -- $argv
     or return
 
-    # check o function
-    if not cmp --silent ~/.local/bin/mimeapps.list ~/.config/mimeapps.list
-        diffs ~/.local/bin/mimeapps.list ~/.config/mimeapps.list
-        echo
-        echo 'Need to update mimeapps.list, check o function'
-        return
-    end
-
     set -q $argv; and return
 
     set -l UPDATEDB 0
@@ -838,20 +830,24 @@ function loo -d 'locate functions, -u(update db), -a(under /), -v(video), -m(aud
         # NOTE: the -0 + --print0 in fzf to be able to work with file/dir with spaces
         # -r in xargs is --no-run-if-empty
         eval $LOCATE | fzf | xargs -0 -r xdg-open
+
+        # check o function
+        if not cmp --silent ~/.local/bin/mimeapps.list ~/.config/mimeapps.list
+            diffs ~/.local/bin/mimeapps.list ~/.config/mimeapps.list
+            echo
+            echo 'Need to update mimeapps.list, check o function'
+        end
     else if set -q _flag_x # copy the result using fzf
         eval $LOCATE | fzf | xc && xc -o
     else if set -q _flag_r # remove it using fzf
         eval $LOCATE | fzf | xargs -0 -r rm -rfv
+        set -q _flag_a; and eval $UPDATEDB_CMD; or eval $UPDATEDB_HOME_CMD
     else if set -q _flag_e # open it with editor
         eval $LOCATE | fzf | xargs -0 -r vim --
     else
         eval $LOCATE | rg -i $argv
     end
 
-    # update db if -r(remove) option is given
-    if set -q _flag_r
-        set -q _flag_a; and eval $UPDATEDB_CMD; or eval $UPDATEDB_HOME_CMD
-    end
 end
 
 # df+du+gdu/dua
