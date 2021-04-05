@@ -866,6 +866,7 @@ function dfs -d 'df(-l, -L for full list), gua(-i), dua(-I), du(by default), cac
         dua -f binary i $argv/* # NOTE: even if argv is empty, this works too
     else if set -q _flag_l
         # NOTE: if /tmp is out of space, use `sudo mount -o remount,size=20G,noatime /tmp` to temporally resize /tmp
+        # NOTE: if "/tmp/.mount_xx Transport endpoint is not connected", do `fusermount -zu /tmp/.mount_xxx; rm -rfv /tmp/.mount_xxx`
         df -Th | rg -v -e 'rg|tmpfs|boot|var|snap|opt|tmp|srv|usr|user'
     else if set -q _flag_L
         df -Th
@@ -1240,8 +1241,8 @@ function pacs -d 'pacman/yay search, -i(interactive using pacui), -n(only names)
     # if failed with pacman, using yay directly (yay including aur is slow)
     eval $CMD -Ss --color=always $argv; or yay -Ss --color=always $argv
 end
-function pacms -d 'pacman-mirrors functions, default(China), -f(fastest 5), -s(status), -i(interactive), -r(reflector)'
-    set -l options f s i r
+function pacms -d 'pacman-mirrors functions, default(China), -f(fastest 5), -s(status), -i(interactive), -r(reflector), -l(list config)'
+    set -l options f s i r l
     argparse -n pacms $options -- $argv
     or return
 
@@ -1254,6 +1255,8 @@ function pacms -d 'pacman-mirrors functions, default(China), -f(fastest 5), -s(s
     else if set -q _flag_r
         set -q $argv; and set ARGV China; or set ARGV $argv
         sudo reflector --country $ARGV --verbose --latest 6 --sort rate --save /etc/pacman.d/mirrorlist
+    else if set -q _flag_l
+        cat /etc/pacman.d/mirrorlist
     else
         if ! set -q $argv[1] # given arguments
             sudo pacman-mirrors -c $argv
