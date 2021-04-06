@@ -20,7 +20,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-set -g __done_version 1.15.0
+set -g __done_version 1.16.0
 
 function __done_run_powershell_script
     set -l powershell_exe (command --search "powershell.exe")
@@ -245,6 +245,9 @@ if set -q __done_enabled
                 # override user-defined urgency level if non-zero exitstatus
                 if test $exit_status -ne 0
                     set urgency "critical"
+                    if set -q __done_notification_urgency_level_failure
+                        set urgency "$__done_notification_urgency_level_failure"
+                    end
                 end
 
                 notify-send --urgency=$urgency --icon=utilities-terminal --app-name=fish "$title" "$message"
