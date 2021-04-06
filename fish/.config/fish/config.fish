@@ -957,7 +957,7 @@ function tars -d 'tar extract(x)/list(l, by default)/create(c, add extra arg to 
     or return
 
     # remove the end slash in argv[1] if it is a directory
-    test -d $argv[1]; and set ARGV (echo $argv[1] | sed 's:/*$::')
+    test -d $argv[1]; and set ARGV (echo $argv[1] | sed 's:/*$::'); or set ARGV $argv
 
     if set -q _flag_x # extract
         # extract into dir based on the tar file
