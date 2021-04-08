@@ -1288,7 +1288,7 @@ abbr pacf 'proxychains4 -q pacui i'
 # check pacui h/help for more
 
 # donnot show the other info on startup
-abbr gdbi 'gdb -q -x ~/Dotfiles.d/gdb/.gdbinit'
+abbr gdbi 'gdb -q -x ~/Dotfiles.d/bin/.local/bin/gdbinit'
 abbr gdbx 'gdb -q -n' # with loading any .gdbinit file
 abbr gdbd 'sudo gdb -batch -ex "thread apply all bt" -p' # -p $PID to check the deadlock issue, or `sudo strace -s 99 -ffp $PID`
 abbr gdbu 'gdbgui --gdb-args="-q -n"'
@@ -1301,7 +1301,7 @@ function gdbt -d "using gdb with tmux panes"
     set -l id (tmux split-pane -hPF "#D" "tail -f /dev/null")
     tmux last-pane
     set -l tty (tmux display-message -p -t "$id" '#{pane_tty}')
-    gdb -q -x ~/Dotfiles.d/gdb/.gdbinit -ex "dashboard source -output $tty" "$argv"
+    gdb -q -x ~/Dotfiles.d/bin/.local/bin/gdbinit -ex "dashboard source -output $tty" "$argv"
     tmux kill-pane -t $id
 end
 
