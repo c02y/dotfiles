@@ -831,12 +831,12 @@ function loo -d 'locate functions, -u(update db), -a(under /), -v(video), -m(aud
         # -r in xargs is --no-run-if-empty
         eval $LOCATE | fzf | xargs -0 -r xdg-open
 
-        # check o function
-        if not cmp --silent ~/.local/bin/mimeapps.list ~/.config/mimeapps.list
-            diffs ~/.local/bin/mimeapps.list ~/.config/mimeapps.list
-            echo
-            echo 'Need to update mimeapps.list, check o function'
-        end
+        # check o -c function
+        # if not cmp --silent ~/.local/bin/mimeapps.list ~/.config/mimeapps.list
+        #     diffs ~/.local/bin/mimeapps.list ~/.config/mimeapps.list
+        #     echo
+        #     echo 'Need to update mimeapps.list, check o function'
+        # end
     else if set -q _flag_x # copy the result using fzf
         eval $LOCATE | fzf | xc && xc -o
     else if set -q _flag_r # remove it using fzf
@@ -1362,7 +1362,7 @@ end
 abbr cppc 'cppcheck --enable=all --inconclusive'
 
 function o -d 'open/xdg-open/xdg-utils, without option(open it), -s(show mimetype), -u(update mimeapps.list), -p(show default program for the file)'
-    set -l options s u p
+    set -l options s u p c
     argparse -n xdgs $options -- $argv
     or return
 
@@ -1375,6 +1375,8 @@ function o -d 'open/xdg-open/xdg-utils, without option(open it), -s(show mimetyp
         cp ~/.config/mimeapps.list ~/.local/bin/mimeapps.list
     else if set -q _flag_p # show the default program for opening the $argv file
         xdg-mime query default (xdg-mime query filetype $argv)
+    else if set -q _flag_c
+        cp ~/.config/mimeapps.list ~/.local/bin/mimeapps.list -rfv
     else
         set -q $argv; and set ARGV .; or set ARGV $argv
         if test -d $ARGV
