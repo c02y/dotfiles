@@ -14,7 +14,7 @@ let g:spacevim_plug_home = '~/.vim/plugged'
 " TODO: dependencies should be install by the layers:
 " pip install flake8 yapf isort
 let g:spacevim_layers = [
-            \ 'fzf', 'better-defaults', 'which-key',
+            \ 'fzf', 'better-defaults', 'which-key', 'formatting',
             \ 'auto-completion', 'c-c++', 'git', 'editing', 'python',
             \ 'better-motion', 'airline', 'lsp', 'text-align',
             \ ]
@@ -256,6 +256,12 @@ function! UserConfig()
     set listchars=tab:»\ ,extends:›,precedes:‹,nbsp:·,trail:·,eol:$,space:·,conceal:·
     " automatically strip trailing spaces on save
     autocmd BufWritePre * :%s/\s\+$//e
+    " auto format one save
+    au BufWrite * :Autoformat
+    " disable it when the filetype is not supported or the formatter is not installed
+    let g:autoformat_autoindent = 0
+    let g:autoformat_retab = 0
+    let g:autoformat_remove_trailing_spaces = 0
     " set in  ~/.vim/plugged/vim-better-default/plugin/default.vim
     " which will crate %home%xxx file in /tmp
     " now they will be placed in ~/.local/share/nvim/ which is their default values
@@ -492,7 +498,7 @@ function! UserConfig()
     " set foldmethod for different file types
     autocmd BufRead,BufNewFile *.el set foldmethod=syntax
 
-    " set pastetoggle=<F9>	 " paste from out-program under insert mode
+    " set pastetoggle=<F9>   " paste from out-program under insert mode
     " donnot have to type F9 before pasting from outside of Vim
     let &t_SI .= "\<Esc>[?2004h"
     let &t_EI .= "\<Esc>[?2004l"
