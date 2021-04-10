@@ -915,7 +915,7 @@ function mdv -d 'markdown viewer in terminal'
     if command -sq glow
         glow $argv
     else if command -sq mdcat
-        mdcat $argv | less
+        mdcat -p $argv
     else if command -sq pandoc; and command -sq lynx
         pandoc $argv | lynx --stdin
     else
