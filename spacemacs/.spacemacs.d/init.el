@@ -2534,7 +2534,7 @@ http://ergoemacs.org/emacs/elisp_determine_cursor_inside_string_or_comment.html"
 
   (defun insert-indent-brace ()
     "Insert {}, add new line and indent.
-https://stackoverflow.com/a/22114743/1528712"
+  https://stackoverflow.com/a/22114743/1528712"
     (interactive)
     (if (not (or (inside-string-p) (inside-comment-p)))
         (progn
@@ -2545,10 +2545,12 @@ https://stackoverflow.com/a/22114743/1528712"
       (progn
         (insert "{}")
         (forward-char -1))))
+  ;; use } for insert-indent-brace in situation such as function/if/while
+  ;; use { for normal {} in other normal situation
   (add-hook 'c-mode-common-hook
-            (lambda () (define-key c-mode-base-map "{" 'insert-indent-brace)))
+            (lambda () (define-key c-mode-base-map "}" 'insert-indent-brace)))
   (add-hook 'rust-mode-hook
-            (lambda () (define-key rust-mode-map "{" 'insert-indent-brace)))
+            (lambda () (define-key rust-mode-map "}" 'insert-indent-brace)))
 
   ;; using sock5 proxy, useful for installing packages
   (setq url-gateway-method 'socks)
