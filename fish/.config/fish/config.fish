@@ -945,7 +945,7 @@ function tree
     if test -f /usr/bin/tree
         command tree -Cashf $argv
     else
-        find $argv
+        find $argv | sed -e "s/[^-][^\/]*\//  |/g" -e "s/|\([^ ]\)/|-\1/"
         echo -e "\n...tree is not installed, use find instead..."
     end
 end
