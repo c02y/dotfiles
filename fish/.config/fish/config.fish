@@ -1799,8 +1799,8 @@ abbr gitl 'tig log'
 abbr gitlo 'git log --oneline' # = tig
 abbr gitlp 'git log -p --' # [+ file] to how entire all/[file(even renamed)] history
 abbr gitls 'git diff --name-only --cached' # list staged files to be commited
-abbr gitd ydiff # show unstaged modification
-abbr ggd ydiff # show unstaged modification
+abbr gitd 'git diff' # show unstaged modification
+abbr ggd 'git diff' # show unstaged modification
 abbr ggdd 'git difftool' # show unstaged modification using external tool such as vim
 abbr gitdc 'git diff --cached' # show staged but unpushed local modification
 abbr gitsh 'git show' # [+ COMMIT] to show the modifications in a last/[specific] commit
