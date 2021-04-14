@@ -306,7 +306,7 @@ function fish_user_key_bindings
     #bind \cl ""
     #bind \cl "tput reset; commandline -f repaint; path_prompt"
     bind \cd delete-or-ranger # check the BUG part in the function
-    bind \cq lazygit
+    bind \cq 'tig status'
     # if Alt-backword doesn't work, use this
     # TODO: delete it if fish-shell itself fix it
     bind \e\b backward-kill-word
@@ -1788,13 +1788,14 @@ function usertest -d 'add user test temporarily for one day, no passwd, and logi
 end
 
 # git
-abbr gg lazygit
-abbr ggl 'git log'
-abbr gglp 'git log -p --'
-abbr ggs 'git status'
-abbr gits 'git status'
-abbr gitl 'git log'
-abbr gitlo 'git log --oneline'
+abbr gg tig
+abbr ggl 'tig log'
+abbr gglp 'tig log -p --'
+abbr ggs 'tig status'
+abbr ggr 'tig refs'
+abbr gits 'tig status'
+abbr gitl 'tig log'
+abbr gitlo 'git log --oneline' # = tig
 abbr gitlp 'git log -p --' # [+ file] to how entire all/[file(even renamed)] history
 abbr gitls 'git diff --name-only --cached' # list staged files to be commited
 abbr gitd ydiff # show unstaged modification
@@ -1812,7 +1813,7 @@ abbr gitft 'git ls-files --error-unmatch' # Check if file/dir is git-tracked
 abbr gitpu 'git push -v'
 abbr gitpun 'git push -v -n' # simulate git push
 abbr gitpr 'git pull --rebase=interactive'
-abbr gitup 'git log origin/master..HEAD' # list unpushed commits
+abbr gitup 'tig log origin/master..HEAD' # list unpushed commits using tig
 set -l SSR socks5://127.0.0.1:1080
 abbr gitpx "git config --global http.proxy $SSR; git config --global https.proxy $SSR; git config --global http.https://github.com.proxy $SSR"
 abbr gitupx 'git config --global --unset http.proxy; git config --global --unset https.proxy; git config --global --unset http.https://github.com.proxy'
