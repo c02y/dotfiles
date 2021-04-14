@@ -1788,6 +1788,7 @@ function usertest -d 'add user test temporarily for one day, no passwd, and logi
 end
 
 # git
+abbr lg lazygit
 abbr gg tig
 abbr ggl 'tig log'
 abbr gglp 'tig log -p --'
