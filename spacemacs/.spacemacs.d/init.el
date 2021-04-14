@@ -1079,6 +1079,13 @@ With argument, backward ARG lines."
       (when orig-indent-tabs-mode
         (setq indent-tabs-mode t))))
 
+  ;; Use Space for y in prompt
+  (defun y-or-n-p-with-space (orig-func &rest args)
+    (let ((query-replace-map (copy-keymap query-replace-map)))
+      (define-key query-replace-map (kbd "SPC") 'act)
+      (apply orig-func args)))
+  (advice-add 'y-or-n-p :around #'y-or-n-p-with-space)
+
   ;; kill all magit buffers, do this in magit-status with `q'
   ;; https://manuel-uberti.github.io/emacs/2018/02/17/magit-bury-buffer/
   (defun mu-magit-kill-buffers (param)
