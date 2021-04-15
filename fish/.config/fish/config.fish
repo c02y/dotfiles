@@ -2447,18 +2447,6 @@ alias dic 'trans :zh+en -d -show-dictionary Y -v -sp -theme ~/.local/bin/trans-t
 # count chars of lines of a file
 # awk '{ print length }' | sort -n | uniq -c
 
-# note that there is no $argv[0], the $argv[1] is the first argv after the command name, so the argc of `command argument` is 1, not 2
-function man
-    if test (count $argv) -eq 2
-        #sed -i "s/.shell/\"$argv[2]\n.shell/g" ~/.lesshst
-        echo "\"$argv[2]" >>~/.lesshst
-    else
-        #sed -i "s/.shell/\"$argv[1]\n.shell/g" ~/.lesshst
-        echo "\"$argv[1]" >>~/.lesshst
-    end
-    command man $argv
-end
-
 function wtp --description 'show the real definition of a type or struct in C code, you can find which file it is defined in around the result'
     gcc -E $LBIN/type.c -I$argv[1] >/tmp/result
     if test (count $argv) -eq 2
