@@ -16,7 +16,7 @@ export HISTTIMEFORMAT="[%F %T] ~~~ "
 shopt -s histappend
 # Preload the working directory history list from the directory history
 if type -t hd >/dev/null && type -t cd_func >/dev/null; then
-	for x in `hd 20` `pwd`; do cd_func $x ; done
+	for x in $(hd 20) $(pwd); do cd_func $x; done
 fi
 
 eval "$(zoxide init bash)"
@@ -41,12 +41,12 @@ else
 	export PATH=$GOPATH/bin:~/anaconda3/bin:~/.cargo/bin:~/.npms/bin:~/.local/bin:$PATH
 fi
 
-export LESS_TERMCAP_me=$'\e[0m' # turn off all appearance modes (mb, md, so, us)
-export LESS_TERMCAP_se=$'\e[0m' # leave standout mode
-export LESS_TERMCAP_ue=$'\e[0m' # leave underline mode
-export LESS_TERMCAP_so=$'\e[30;44m' # standout-mode – info
-export LESS_TERMCAP_mb=$'\e[01;31m' # enter blinking mode
-export LESS_TERMCAP_md=$'\e[01;38;5;75m' # enter double-bright mode
+export LESS_TERMCAP_me=$'\e[0m'           # turn off all appearance modes (mb, md, so, us)
+export LESS_TERMCAP_se=$'\e[0m'           # leave standout mode
+export LESS_TERMCAP_ue=$'\e[0m'           # leave underline mode
+export LESS_TERMCAP_so=$'\e[30;44m'       # standout-mode – info
+export LESS_TERMCAP_mb=$'\e[01;31m'       # enter blinking mode
+export LESS_TERMCAP_md=$'\e[01;38;5;75m'  # enter double-bright mode
 export LESS_TERMCAP_us=$'\e[04;38;5;200m' # enter underline mode
 # color man page
 export MANPAGER='less -s -M +Gg -i'
@@ -70,9 +70,18 @@ alias llt='ll --sort=time | less'
 alias lat='la --sort=time | less'
 
 #cdls, cdll, cdla
-function cdls () { cd "$@" ; eval ls "\"\$$#\"";}
-function cdll () { cd "$@" ; eval ll "\"\$$#\"";}
-function cdla () { cd "$@" ; eval la "\"\$$#\"";}
+function cdls() {
+	cd "$@"
+	eval ls "\"\$$#\""
+}
+function cdll() {
+	cd "$@"
+	eval ll "\"\$$#\""
+}
+function cdla() {
+	cd "$@"
+	eval la "\"\$$#\""
+}
 
 # User specific aliases and functions
 # alias ima='gwenview'
@@ -111,15 +120,17 @@ alias gitpu='git push -v'
 alias gitl='git log --stat'
 alias gitd='git diff'           # show unstaged local modification
 alias gitdc='git diff --cached' # show staged bu unpushed local modification
-alias gitlp='git log -p --' # [+ file] to how entire all/[file(even renamed)] history
-alias gitsh='git show' # [+ COMMIT] to show the modifications in a last/[specific] commit
+alias gitlp='git log -p --'     # [+ file] to how entire all/[file(even renamed)] history
+alias gitsh='git show'          # [+ COMMIT] to show the modifications in a last/[specific] commit
 alias gitlo='git log --oneline'
 alias gitb='git branch -vv'
 alias gitbl='git ls-remote'
 alias gitblg='git ls-remote | grep -i'
 alias gitcl='git config -l'
-alias gitcp='git checkout HEAD^1' # git checkout previous/old commit
-alias gitcn='git log --reverse --pretty=%H master | grep -A 1 (git rev-parse HEAD) | tail -n1 | xargs git checkout' # git checkout next/new commit
+# git checkout previous/old commit
+alias gitcp='git checkout HEAD^1'
+# git checkout next/new commit
+alias gitcn='git log --reverse --pretty=%H master | grep -A 1 (git rev-parse HEAD) | tail -n1 | xargs git checkout'
 alias gitcm='git commit -m'
 alias gitcma='git commit -amend -m'
 alias gitt='git tag'
@@ -145,37 +156,16 @@ alias wt='wget -P /tmp/  http://softdownload.hao123.com/hao123-soft-online-bcs/s
 # systemd-analyze
 alias sab='systemd-analyze blame; systemd-analyze time'
 
-function mkcd () { mkdir -p "$@" ; eval cd "\"\$$#\"";}
+function mkcd() {
+	mkdir -p "$@"
+	eval cd "\"\$$#\""
+}
 
 alias diff-s='diff -y --suppress-common-line '
 # function diff-s () { diff -s --suppress-common-line "$@" | more -N;}
-function diff-y () { diff -y "$@" | more -N;}
+function diff-y() { diff -y "$@" | more -N; }
 
-function zz()
-{
-	if [ -f ~/.config/fish/functions/z.lua ]; then
-		eval "$(lua ~/.config/fish/functions/z.lua --init bash once echo fzf)"
-		if hash fzf 2>/dev/null; then
-			if [ $# -eq 0 ]; then
-				z -I .
-			else
-				z -I $@
-			fi
-		else
-			if [ $# -eq 0 ]; then
-				z -i .
-			else
-				z -i $@
-			fi
-		fi
-	else
-		echo "z.lua is not installed!"
-		exit
-	fi
-}
-
-function lls()
-{
+function lls() {
 	if [ $# -eq 0 ]; then
 		ls -lhA --color=yes . --sort=time --time=ctime | nl -v 0 | sort -nr | tail -20
 	else
@@ -183,8 +173,7 @@ function lls()
 	fi
 }
 
-function finds()
-{
+function finds() {
 	if [ $# -eq 2 ]; then
 		find $1 -iname "*$2*"
 	else
@@ -192,8 +181,7 @@ function finds()
 	fi
 }
 
-function lsx()
-{
+function lsx() {
 	if test $DISPLAY; then
 		if [ -f $@ ] || [ -d $@ ]; then
 			readlink -fn $@ | xclip -selection c
