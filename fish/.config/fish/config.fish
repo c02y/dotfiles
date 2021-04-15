@@ -1794,7 +1794,7 @@ abbr ggl 'tig log'
 abbr gglp 'tig log -p --'
 abbr ggs 'tig status'
 abbr ggr 'tig refs'
-abbr gits 'tig status'
+abbr gits 'git status'
 abbr gitl 'tig log'
 abbr gitlo 'git log --oneline' # = tig
 abbr gitlp 'git log -p --' # [+ file] to how entire all/[file(even renamed)] history
