@@ -2,10 +2,10 @@
 
 # TODO: 1. move a window using mouse, 2. resize a window using mouse
 if [[ $1 == 'left' || $1 == 'right' ]]; then # tile window to lef/right
-	size=`wmctrl -d | head -n 1 | grep -Eho '[0-9]{4}x[0-9]{3,4}' | tail -1`
-	width=`echo $size | cut -d'x' -f 1`
-	height=`echo $(($(echo $size | cut -d'x' -f 2) - 24))`
-	half=$(( $width/2 ))
+	size=$(wmctrl -d | head -n 1 | grep -Eho '[0-9]{4}x[0-9]{3,4}' | tail -1)
+	width=$(echo $size | cut -d'x' -f 1)
+	height=$(echo $(($(echo $size | cut -d'x' -f 2) - 24)))
+	half=$(($width / 2))
 
 	wmctrl -r :ACTIVE: -b remove,maximized_horz,shaded &
 
@@ -20,8 +20,8 @@ elif [[ $1 == 'center' ]]; then # center the window
 	width=$(xdotool getactivewindow getwindowgeometry --shell | head -4 | tail -1 | sed 's/[^0-9]*//')
 	height=$(xdotool getactivewindow getwindowgeometry --shell | head -5 | tail -1 | sed 's/[^0-9]*//')
 
-	newPosX=$((screenWidth/2-width/2))
-	newPosY=$((screenHeight/2-height/2))
+	newPosX=$((screenWidth / 2 - width / 2))
+	newPosY=$((screenHeight / 2 - height / 2))
 
 	xdotool getactivewindow windowmove "$newPosX" "$newPosY"
 elif [[ $1 == 'desktop' ]]; then # toggle/show the desktop

@@ -38,8 +38,8 @@ function load_paths {
 	# of a package could be installed, and we want the latest one, we
 	# sort them and take the top one.
 	for package in "$@"; do
-		find ~/.emacs.d/elpa -maxdepth 3 -type d -iname "$package-2*" \
-			| sort -r | head -n1 | \
+		find ~/.emacs.d/elpa -maxdepth 3 -type d -iname "$package-2*" |
+			sort -r | head -n1 |
 			while read path; do
 				printf -- '-L %q ' "$path"
 			done
@@ -60,21 +60,27 @@ EOF
 
 # * Args
 
-args=$(getopt -n "$0" -o hx -l help,no-x -- "$@") || { usage; exit 1; }
+args=$(getopt -n "$0" -o hx -l help,no-x -- "$@") || {
+	usage
+	exit 1
+}
 eval set -- "$args"
 
 while true; do
 	case "$1" in
-		-h|--help)
-			usage
-			exit ;;
-		-x|--no-x)
-			gui="-nw" ;;
-		--)
-			# Remaining args (required; do not remove)
-			shift
-			rest=("$@")
-			break ;;
+	-h | --help)
+		usage
+		exit
+		;;
+	-x | --no-x)
+		gui="-nw"
+		;;
+	--)
+		# Remaining args (required; do not remove)
+		shift
+		rest=("$@")
+		break
+		;;
 	esac
 	shift
 done
@@ -85,13 +91,14 @@ OLDPWD=$pwd
 [[ -d $1 ]] && cd "$1"
 
 emacs -q $gui \
-	  $(load_paths "${dependencies[@]}") \
-	  -l magit -f magit-status \
-	  --eval "(local-set-key \"q\" #'kill-emacs)" \
-	  -f delete-other-windows -mm \
-	  --eval "(progn (scroll-bar-mode -1)(tool-bar-mode -1))" \
-	  --eval "(set-face-attribute 'default nil :font \"Cascadia Code PL-13\")" \
-	  --eval "(fset 'yes-or-no-p 'y-or-n-p)" \
-	  --eval "(setq truncate-lines nil)" & >/dev/null
+	$(load_paths "${dependencies[@]}") \
+	-l magit -f magit-status \
+	--eval "(local-set-key \"q\" #'kill-emacs)" \
+	-f delete-other-windows -mm \
+	--eval "(progn (scroll-bar-mode -1)(tool-bar-mode -1))" \
+	--eval "(set-face-attribute 'default nil :font \"Cascadia Code PL-13\")" \
+	--eval "(fset 'yes-or-no-p 'y-or-n-p)" \
+	--eval "(setq truncate-lines nil)" &
+>/dev/null
 
 cd $OLDPWD
