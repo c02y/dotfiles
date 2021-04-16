@@ -2334,8 +2334,11 @@ abbr epub 'ebook-viewer --detach'
 function ssh -d 'show ssh info for current tmux window'
     if set -q TMUX
         # you can see this new name in choose-tree list
+        set window_name (tmux display -p '#{window_name}')
         tmux rename-window "ssh $argv"
         command ssh "$argv"
+        # restore window_name after exiting ssh session
+        tmux rename-window $window_name
     else
         command ssh "$argv"
     end
