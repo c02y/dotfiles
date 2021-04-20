@@ -1623,7 +1623,7 @@ abbr xp xclip
 #vim
 set -gx EDITOR vim
 function vis -d 'vim different targets'
-    set -l options 2 b B c d e f F t T a k s u m M v o r
+    set -l options 2 b B c d e f t T a k s u m M v o r
     argparse -n vis $options -- $argv
     or return
 
@@ -1645,8 +1645,6 @@ function vis -d 'vim different targets'
         vim $EMACS_EL
     else if set -q _flag_f
         vim $FISHRC
-    else if set -q _flag_F
-        vim (fzf)
     else if set -q _flag_t
         vim ~/.tmux.conf
         tmux source-file ~/.tmux.conf
