@@ -867,7 +867,11 @@ function dfs -d 'df(-l, -L for full list), gua(-i), dua(-I), du(by default), cac
     else if set -q _flag_L
         df -Th
     else if set -q _flag_c
-        dua -f binary a --no-sort ~/.cache/google-chrome ~/.config/google-chrome ~/.cache/vivaldi ~/.config/vivaldi ~/.cache/mozilla ~/.mozilla ~/.cache/yay /var/cache/pacman/pkg
+        dua -f binary a --no-sort \
+            ~/.cache/google-chrome ~/.config/google-chrome \
+            ~/.cache/vivaldi ~/.config/vivaldi \
+            ~/.cache/mozilla ~/.mozilla \
+            ~/.cache/yay /var/cache/pacman/pkg
     else
         if test (count $argv) -gt 0 # argv contains /* at the end of path or multiple argv
             dua -f binary $argv
