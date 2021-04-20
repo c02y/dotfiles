@@ -1309,6 +1309,7 @@ Emacs session."
     ;; the default binding is SPC j =
     "=b" 'spacemacs/indent-region-or-buffer
     "==" 'format-all-buffer
+    "=t" 'format-all-mode
     "bq" 'query-replace-region-or-from-top
     "bf" 'flush-blank-lines
     ;; related one is default M-q
@@ -1343,6 +1344,7 @@ Emacs session."
     "sw" 'swiper-whole-word
     "sW" 'spacemacs/swiper-region-or-symbol-whole-word
     "tC" 'rainbow-mode
+    "t=" 'format-all-mode
     "xA" 'align-regexp
     "xaA" 'align-regexp
     "xaC" 'align-c-comments
