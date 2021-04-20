@@ -2037,12 +2037,29 @@ function gitco -d 'git checkout -- for multiple files(filA fileB...) at once, al
     end
 end
 function sss -d 'count lines of code from a local code dir or a github url'
+    set -l options "e=" f t
+    argparse -n sss $options -- $argv
+    or return
+
     if echo $argv | rg "https://github.com" ^/dev/null >/dev/null
         # or use website directly: https://codetabs.com/count-loc/count-loc-online.html
         set -l username_repo (echo $argv | cut -c20-)
         curl "https://api.codetabs.com/v1/loc/?github=$username_repo" | jq -r '(["Files", "Lines", "Blanks", "Comments", "LinesOfCode", "Language"] | (., map(length*"-"))), (.[] | [.files, .lines, .blanks, .comments, .linesOfCode, .language]) | @tsv' | column -t
+        return
+    end
+
+    set OPT -c --no-cocomo
+    if set -q _flag_e # exclude dirs
+        # $_flag_e should be dirs separated by ,
+        set OPT $OPT --exclude-dir $_flag_e
+    end
+    if set -q _flag_f
+        set OPT $OPT --by-file
+    end
+    if set -q _flag_t # Only show Total line
+        eval scc $OPT $argv | rg Total
     else
-        scc -c --no-cocomo $argv
+        eval scc $OPT $argv
     end
 end
 abbr gitsc sss
