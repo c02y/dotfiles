@@ -257,6 +257,7 @@ function! UserConfig()
     " automatically strip trailing spaces on save
     autocmd BufWritePre * :%s/\s\+$//e
     " auto format one save
+    set cmdheight=1
     au BufWrite * :Autoformat
     " disable it when the filetype is not supported or the formatter is not installed
     let g:autoformat_autoindent = 0
