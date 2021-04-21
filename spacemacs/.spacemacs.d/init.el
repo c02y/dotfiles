@@ -148,7 +148,11 @@ This function should only modify configuration layer settings."
      ;; pip install cmake_format
      (cmake :variables
             cmake-enable-cmake-ide-support t
-            cmake-backend 'lsp)
+            cmake-backend 'lsp
+            ;; build dir for the project will be created automatically by cmake-ide(`, p C') when open the src file
+            ;; compile project using `, c c' directly even if after modifying CMakeLists.txt
+            cmake-ide-build-dir "build"
+            )
      ;; NOTE: install cscope, pip install pycscope
      cscope
      ;; NOTE: to generate compile_commands.json file for lsp before using lsp
