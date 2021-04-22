@@ -1869,19 +1869,20 @@ function gitpll -d 'git pull and location it to previous commit id before git pu
     git pull
     git log --stat | command less -p$COMMIT_ID
 end
-function gitcl -d 'git clone and cd into it, full-clone(by default), simple-clone(-s)'
-    set -l options s
+function gitcl -d 'git clone and cd into it, full-clone(by default), simple-clone(-s), using proxy(-p)'
+    set -l options s p
     argparse -n gitcl $options -- $argv
     or return
 
     # https://stackoverflow.com/questions/57335936
     if set -q _flag_s
-        set DEPTH "--depth=1 --no-single-branch"
+        set DEPTH --depth=1 --no-single-branch
         echo "Use 'git pull --unshallow' to pull all info."
     else
         set DEPTH
     end
-    git clone -v $argv $DEPTH
+    set -q _flag_p; and set CMD $CMD $PXY; or set CMD
+    eval $CMD git clone -v $argv $DEPTH
     echo ---------------------------
     if test (count $argv) -eq 2
         set project $argv[2]
