@@ -1,0 +1,23 @@
+# -*- mode: snippet -*-
+# name: template
+# key: temp
+# --
+cmake_minimum_required(VERSION ${1:3.13})
+
+project(${2:ProjectName})
+
+set(CMAKE_CXX_STANDARD ${3:11})
+
+# https://stackoverflow.com/q/48754619/1528712
+set(CMAKE_BUILD_TYPE ${4:$$(yas-choose-value '("Debug" "Release" "RelWithDebInfo" "MinSizeRel"))})
+
+add_library(${5:LibraryName} ${6:STATIC} ${7:lib.cpp})
+
+include_directories(${8:includes/path})
+
+# Can manually add the sources using the set command as follows:
+set(SOURCES ${9:main.cpp} ${10:another.cpp})
+add_executable(${11:BinaryFile} \${SOURCES})
+
+# Use "sudo make install" to apply
+install(TARGETS $11 DESTINATION ${12:/usr/local/bin})
