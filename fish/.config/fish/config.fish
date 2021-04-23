@@ -694,7 +694,7 @@ zoxide init fish | source
 alias zz zi
 set -gx _ZO_FZF_OPTS "-1 -0 --reverse --print0"
 # -m to mult-select using Tab/S-Tab
-set -gx FZF_DEFAULT_OPTS "+s -e -m -0 --reverse --print0 --preview 'bat --style=rule --color=always --line-range :500 {}' --preview-window=down:wrap"
+set -gx FZF_DEFAULT_OPTS "-e -m -0 --reverse --print0 --preview 'bat --style=rule --color=always --line-range :500 {}' --preview-window=down:wrap"
 set -gx FZF_TMUX_HEIGHT 100%
 
 # touch temporary files
