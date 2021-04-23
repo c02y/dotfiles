@@ -694,7 +694,7 @@ zoxide init fish | source
 alias zz zi
 set -gx _ZO_FZF_OPTS "-1 -0 --reverse --print0"
 # -m to mult-select using Tab/S-Tab
-set -gx FZF_DEFAULT_OPTS "-e -m -0 --reverse --print0 --preview 'bat --style=rule --color=always --line-range :500 {}' --preview-window=down:wrap"
+set -gx FZF_DEFAULT_OPTS "-e -m -0 --reverse --preview 'bat --style=rule --color=always --line-range :500 {}' --preview-window=down:wrap"
 set -gx FZF_TMUX_HEIGHT 100%
 
 # touch temporary files
@@ -829,8 +829,9 @@ function loo -d 'locate functions, -u(update db), -a(under /), -v(video), -m(aud
 
     if set -q _flag_o # open it using fzf
         # NOTE: the -0 + --print0 in fzf to be able to work with file/dir with spaces
+        # NOTE: DO NOT add --print0 it into FZF_DEFAULT_OPTS
         # -r in xargs is --no-run-if-empty
-        eval $LOCATE | fzf | xargs -0 -r xdg-open
+        eval $LOCATE | fzf --print0 | xargs -0 -r xdg-open
 
         # check o -c function
         # if not cmp --silent ~/.local/bin/mimeapps.list ~/.config/mimeapps.list
@@ -839,12 +840,12 @@ function loo -d 'locate functions, -u(update db), -a(under /), -v(video), -m(aud
         #     echo 'Need to update mimeapps.list, check o function'
         # end
     else if set -q _flag_x # copy the result using fzf
-        eval $LOCATE | fzf | xc && xc -o
+        eval $LOCATE | fzf --print0 | xc && xc -o
     else if set -q _flag_r # remove it using fzf
-        eval $LOCATE | fzf | xargs -0 -r rm -rfv
+        eval $LOCATE | fzf --print0 | xargs -0 -r rm -rfv
         set -q _flag_a; and eval $UPDATEDB_CMD; or eval $UPDATEDB_HOME_CMD
     else if set -q _flag_e # open it with editor
-        eval $LOCATE | fzf | xargs -0 -r vim --
+        eval $LOCATE | fzf --print0 | xargs -0 -r vim --
     else
         eval $LOCATE | rg -i $argv
     end
