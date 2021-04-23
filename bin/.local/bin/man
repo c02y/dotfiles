@@ -4,16 +4,19 @@
 # disable --print0 in fish-shell, it causes warning output
 unset FZF_DEFAULT_OPTS
 
-while getopts ":k:" opt; do
+while getopts ":lk:" opt; do
 	case $opt in
 	k)
-		SECTION=$OPTARG
-		manual=$(apropos $SECTION |
+		manual=$(apropos $OPTARG |
 			grep -v -E '^.+ \(0\)' |
 			awk '{print $2 "    " $1}' |
-			# sort |
-			fzf -1 -0 --preview-window down:wrap --prompt="Manual: " --preview="echo {1} | sed -E \"s/^\((.+)\)/\1/\" | xargs -I{S} /bin/man -Pcat {S} {2} 2>/dev/null" |
+			fzf -1 -0 -q $OPTARG --preview-window down:wrap --prompt="Manual: " --preview="echo {1} | sed -E \"s/^\((.+)\)/\1/\" | xargs -I{S} /bin/man -Pcat {S} {2} 2>/dev/null" |
 			sed -E 's/^\((.+)\)/\1/')
+		;;
+	l)
+		shift
+		/bin/man -wa $@
+		exit 0
 		;;
 	\?)
 		echo "Invalid option: -$OPTARG" >&2
