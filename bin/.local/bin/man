@@ -1,18 +1,19 @@
 #!/bin/sh
 # https://hiphish.github.io/blog/2020/05/31/macho-man-command-on-steroids/
 
-export FZF_DEFAULT_OPTS='
---height=50%
---layout=reverse
---prompt="Manual: "
---preview="echo {1} | sed -E \"s/^\((.+)\)/\1/\" | xargs -I{S} man -Pcat {S} {2} 2>/dev/null"'
+# disable --print0 in fish-shell, it causes warning output
+unset FZF_DEFAULT_OPTS
 
-while getopts ":s:" opt; do
+while getopts ":k:" opt; do
 	case $opt in
-	s)
+	k)
 		SECTION=$OPTARG
-		shift
-		shift
+		manual=$(apropos $SECTION |
+			grep -v -E '^.+ \(0\)' |
+			awk '{print $2 "    " $1}' |
+			# sort |
+			fzf -1 -0 --preview-window down:wrap --prompt="Manual: " --preview="echo {1} | sed -E \"s/^\((.+)\)/\1/\" | xargs -I{S} /bin/man -Pcat {S} {2} 2>/dev/null" |
+			sed -E 's/^\((.+)\)/\1/')
 		;;
 	\?)
 		echo "Invalid option: -$OPTARG" >&2
@@ -25,13 +26,8 @@ while getopts ":s:" opt; do
 	esac
 done
 
-manual=$(apropos -s ${SECTION:-''} ${@:-.} |
-	grep -v -E '^.+ \(0\)' |
-	awk '{print $2 "    " $1}' |
-	sort |
-	fzf -1 |
-	sed -E 's/^\((.+)\)/\1/')
-
-[ -z "$manual" ] && exit 0
-
-/bin/man $manual
+if [ ! -z "$manual" ]; then
+	/bin/man $manual
+else
+	/bin/man $@
+fi
