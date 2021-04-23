@@ -19,6 +19,8 @@ if type -t hd >/dev/null && type -t cd_func >/dev/null; then
 	for x in $(hd 20) $(pwd); do cd_func $x; done
 fi
 
+alias bsr='source ~/.bashrc && echo ~/.bashrc reloaded!'
+
 eval "$(zoxide init bash)"
 alias zz='zi'
 export _ZO_FZF_OPTS="-1 -0 --reverse --print0"
@@ -109,7 +111,10 @@ alias duS='du -sk * | sort -n'
 alias watd='watch -d du --summarize'
 alias df='df -h'
 
+alias rgr='ranger'
+
 # git
+alias lg='lazygit'
 alias gg='tig'
 alias ggl='tig log'
 alias ggs='tig status'
