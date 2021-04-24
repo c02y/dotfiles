@@ -1564,20 +1564,7 @@ function syss -d 'systemctl related functions'
     eval $PRI $CMD $argv
 end
 
-# cd
-function ..
-    cd ..
 end
-function ...
-    cd ../..
-end
-function ....
-    cd ../../..
-end
-function .....
-    cd ../../../..
-end
-abbr cdp 'cd ~/Public; and lls'
 
 function diffs -d "all kinds of diff features"
     if command -sq ydiff
