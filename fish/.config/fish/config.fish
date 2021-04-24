@@ -1467,103 +1467,98 @@ function ddiso -d 'burn ISO file to drive(such as USB as LIVE USB)'
 end
 
 function syss -d 'systemctl related functions'
-    set -l options u e d D m M r s S l R f c p L t h
+    set -l options u
     argparse -n syss $options -- $argv
     or return
 
-    if set -q _flag_h; and ! set -q _flag_c
-        echo "syss [-u/-e/-d/-D/-m/-M/-r/-s/-S/-l/-R/-f/-c -s/-c -h/-c -S/-c -r/-c -p/-L/-t/-h]"
-        echo "     --> check all the services of the user if no argv, argv for the argv.service"
-        echo "     -u --> current user or using default sudo"
-        echo "     -e --> systemctl enable name.service"
-        echo "     -d --> systemctl disable name.service"
-        echo "     -D --> systemctl reenable name.service"
-        echo "     -m --> systemctl mask name.service"
-        echo "     -M --> systemctl unmask name.service"
-        echo "     -r --> systemctl restart name.service"
-        echo "     -s --> systemctl start name.service"
-        echo "     -S --> systemctl stop name.service"
-        echo "     -l --> systemctl list-units --type service --all, arg to search"
-        echo "     -R --> systemctl daemon-reload"
-        echo "     -f --> systemctl --failed"
-        echo "     -c -s --> suspend"
-        echo "     -c -h --> hibernate"
-        echo "     -c -S --> hibernate-sleep"
-        echo "     -c -r --> reboot"
-        echo "     -c -p --> poweroff/shutdown"
-        echo "     -L --> journalctrl -xe, the log"
-        echo "     -t --> systemd-analyze for boo time analyze, any argv for saving to file and view"
-        echo "     -h --> print this usage message"
+    # current user or using default sudo
+    if set -q _flag_u
+        set PRI systemctl --user
+    else
+        set PRI systemctl
+    end
+
+    if ! set -q $argv
+        systemctl status $argv
         return
     end
 
-    if set -q _flag_c
-        if set -q _flag_s
-            systemctl suspend
-        else if set -q _flag_h
-            systemctl hibernate
-        else if set -q _flag_S
-            systemctl hybrid-sleep
-        else if set -q _flag_r
-            # or simplily `reboot`
-            systemctl reboot
-        else if set -q _flag_p
-            # or simplily `poweroff`
-            systemctl poweroff
+    set keys (seq 1 20)
+    set values \
+        list-unit-files \
+        enable \
+        disable \
+        reenable \
+        mask \
+        unmask \
+        restart \
+        start \
+        stop \
+        daemon-reload \
+        --failed \
+        suspend \
+        hibernate \
+        hybrid-sleep \
+        reboot \
+        poweroff \
+        "journalctl -xe" \
+        "systemd-analyze blame | head -40 && systemd-analyze blame && return" \
+        "systemd-analyze blame > ./boottime && \
+        systemd-analyze time >> ./boottime && \
+        systemd-analyze plot > ./boottime.svg && \
+        echo 'file: ./boottime+./boottime.svg' && \
+        display ./boottime.svg"
+
+    echo -e "Usage: syss \n \
+      Check all the services of the user if no argv, argv for the argv.service \n\n \
+     -u --> current user or using default sudo \n \
+      1 --> systemctl: list-unit-files, list all services status \n \
+      2 -->            enable name.service \n \
+      3 -->            disable name.service \n \
+      4 -->            reenable name.service \n \
+      5 -->            mask name.service \n \
+      6 -->            unmask name.service \n \
+      7 -->            restart name.service \n \
+      8 -->            start name.service \n \
+      9 -->            stop name.service \n \
+     10 -->            daemon-reload \n \
+     11 -->            --failed \n \
+     12 --> power: suspend \n \
+     13 -->        hibernate \n \
+     14 -->        hibernate-sleep \n \
+     15 -->        reboot \n \
+     16 -->        poweroff/shutdown \n \
+     17 --> journalctrl -xe, the log \n \
+     18 --> systemd-analyze: for boot time analyze to the output \n \
+     19 -->                  to a file \n"
+
+    read -l -p 'echo "Which one? [index/Enter] "' answer
+    if contains $answer $keys
+        if contains $answer (seq 2 9)
+            read -l -p 'echo "service target: [service]: "' ARG
+            if test $answer != ""
+                eval $PRI $values[$answer] $ARG # argv can be empty
+            end
+        else if test $answer = 1
+            read -l -p 'echo "service str: "' ARG
+            if test $ARG != ""
+                eval $PRI $values[$answer] | rg -i $ARG
+                or eval $PRI $$values[$answer] --user | rg -i $ARG
+            else
+                eval $PRI $values[$answer]
+            end
+        else if contains $answer 17 18 19 # journalctrl -xe + systemd-analyze
+            eval $values[$answer]
         else
-            syss -h
+            eval $PRI $values[$answer]
         end
-        return
+    else if test $answer = "" # "" == Enter
+        read -l -p 'echo "service target: [service/Enter]: "' ARG
+        # if ARG is Enter/empty, list tree structure of all loaded status
+        eval $PRI status $ARG
+    else
+        echo "Wrong answer: $answer"
     end
-
-    if set -q _flag_t # list the boot time of all services
-        if set -q $argv # no given argv
-            systemd-analyze blame | head -40
-            systemd-analyze time
-        else
-            # more verbose version:
-            systemd-analyze blame >boottime
-            systemd-analyze time >>boottime
-            systemd-analyze plot >>boottime.svg
-            echo "file: ./boottime + ./boottime.svg"
-            # open boottime.svg, display is from imagemagick
-            display boottime.svg
-        end
-        return
-    end
-
-    set -q _flag_L; and journalctl -xe && return
-    set -q _flag_R; and sudo systemctl daemon-reload && return
-    set -q _flag_f; and systemctl --failed && return
-
-    set -q _flag_u; and set PRI systemctl --user; or set PRI systemctl
-
-    set CMD status # default action: status
-    set -q _flag_e; and set CMD enable
-    set -q _flag_d; and set CMD disable
-    set -q _flag_D; and set CMD reenable
-    set -q _flag_m; and set CMD mask
-    set -q _flag_M; and set CMD unmask
-    set -q _flag_R; and set CMD reenable
-    set -q _flag_s; and set CMD start
-    set -q _flag_r; and set CMD restart
-    set -q _flag_S; and set CMD stop
-
-    if set -q _flag_l
-        set CMD list-units --type service --all
-        if set -q $argv # no given argv
-            eval $PRI $CMD
-        else
-            systemctl list-units --type service --all | rg $argv
-            or systemctl --user list-units --type service --all | rg $argv
-        end
-        return
-    end
-
-    # without argv and opt, show all the status of services under user
-    eval $PRI $CMD $argv
-end
-
 end
 
 function diffs -d "all kinds of diff features"
