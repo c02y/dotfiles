@@ -2675,6 +2675,64 @@ function cpb -d 'backups manager: rename files/dirs from name to name.bak or bac
     end
 end
 
+# cargo
+function cars -d "cargo commands, -b(build), -c(clean target), -d(remove/uninstall), -i(install), -r(release build), -S(reduce size)"
+    set -l options b c d i r s S
+    argparse -n cars $options -- $argv
+    or return
+
+    set CMD $PXY cargo
+
+    if set -q _flag_d
+        eval $CMD uninstall $argv
+    else if set -q _flag_c
+        if test -d ./target
+            if set -q _flag_r
+                # only remove target/release
+                eval $CMD clean --release -v
+            else
+                # remove the whole target
+                eval $CMD clean -v
+            end
+            echo "target cleaned..."
+        end
+    else if set -q _flag_n
+        eval $CMD new $argv
+    else if set -q _flag_R
+        if test -d ./target
+            eval $CMD run
+        end
+    else if set -q _flag_s
+        eval $CMD search $argv
+    else
+        if set -q _flag_i; or ! test -f ./Cargo.toml
+            if set -q _flag_S
+                set -l RUSTFLAGS '-C link-arg=-s'; and eval $CMD install $argv
+            else
+                eval $CMD install $argv
+            end
+        else if test -f ./Cargo.toml
+            if set -q _flag_r # build release if -q is given
+                echo -e "Building release version...\n"
+                if set -q _flag_S
+                    set -l RUSTFLAGS '-C link-arg=-s'; and eval $CMD build --release $argv
+                    # NOTE: upx will not work for debug+-S version
+                    echo "use `upx --best --lzma the-bin` to reduce more binary size!"
+                else
+                    eval $CMD build --release $argv
+                end
+            else
+                echo -e "Building debug version...\n"
+                if set -q _flag_S
+                    set -l RUSTFLAGS '-C link-arg=-s'; and eval $CMD build --$argv
+                else
+                    eval $CMD build $argv
+                end
+            end
+        end
+    end
+end
+
 # Download anaconda from https://mirrors.cloud.tencent.com/anaconda/archive/
 # Check ~/.condarc for configuration
 # https://www.piqizhu.com/tools/anaconda
