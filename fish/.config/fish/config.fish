@@ -782,13 +782,16 @@ function fts -d 'find the temporary files such as a~ or #a or .a~, and files for
     end
 
 end
+
 # NOTE: you need to mask updatedb.service and delete /var/lib/mlocate/mlocate.db file first
 function loo -d 'locate functions, -u(update db), -a(under /), -v(video), -m(audio), -d(dir), -f(file), -o(open), -x(copy), -r(remove), -e(open it with editor)'
     set -l options u a v m d f o x r e
     argparse -n loo $options -- $argv
     or return
 
-    set -q $argv; and return
+    if ! set -q _flag_v
+        set -q $argv; and return
+    end
 
     set -l UPDATEDB 0
     set -l UPDATEDB_CMD "updatedb --require-visibility 0 -o /tmp/mlocate.db"
@@ -811,11 +814,20 @@ function loo -d 'locate functions, -u(update db), -a(under /), -v(video), -m(aud
     if set -q _flag_a # search file/dir in /
         set LOCATE 'locate -e -i -d /tmp/mlocate.db $argv'
     else if set -q _flag_v # search all video files in home
-        set LOCATE 'locate -e -i -d /tmp/mlocate-home.db $argv | rg -ie ".mp4\$|.mkv\$|.avi\$|.webm\$|.mov\$|.rmvb\$"'
+        if set -q $argv # no given argv, list all videos
+            # get size of all videos, using `xargs -d '\n' dua -f binary` at the end
+            set LOCATE 'locate -e -i -d /tmp/mlocate-home.db * | \
+                rg -ie ".mp4\$|.mkv\$|.avi\$|.webm\$|.mov\$|.rmvb\$"'
+        else
+            set LOCATE 'locate -e -i -d /tmp/mlocate-home.db $argv | \
+                rg -ie ".mp4\$|.mkv\$|.avi\$|.webm\$|.mov\$|.rmvb\$"'
+        end
     else if set -q _flag_m # serach all audio files in home
-        set LOCATE 'locate -e -i -d /tmp/mlocate-home.db $argv | rg -ie ".mp3\$|.flac\$|.ape\$|.wav\$|.w4a\$|.dsf\$|.dff\$"'
+        set LOCATE 'locate -e -i -d /tmp/mlocate-home.db $argv | \
+            rg -ie ".mp3\$|.flac\$|.ape\$|.wav\$|.w4a\$|.dsf\$|.dff\$"'
     else if set -q _flag_d
-        set LOCATE 'locate -e -i -d /tmp/mlocate-home.db --null -b $argv | xargs -r0 sh -c \'for i do [ -d "$i" ] && printf "%s\n" "$i"; done\' sh {} + '
+        set LOCATE 'locate -e -i -d /tmp/mlocate-home.db --null $argv | \
+            xargs -r0 sh -c \'for i do [ -d "$i" ] && printf "%s\n" "$i"; done\' sh {} + '
     else if set -q _flag_f
         set LOCATE 'locate -e -i -d /tmp/mlocate-home.db --null -b $argv | \
             xargs -r0 sh -c \'for i do [[ $(basename "$i") == *"$argv"* && -f "$i" ]] && printf "%s\n" "$i"; done\' sh {} + '
@@ -850,9 +862,18 @@ function loo -d 'locate functions, -u(update db), -a(under /), -v(video), -m(aud
     else if set -q _flag_e # open it with editor
         eval $LOCATE | fzf --print0 | xargs -0 -r vim --
     else
-        eval $LOCATE | rg -i $argv
-    end
+        if set -q _flag_v
+            # NOTE :the xargs `-d '\n'` part is for dealing space in file name
+            if set -q $argv
+                eval $LOCATE | xargs -d '\n' dua -f binary
 
+            else
+                eval $LOCATE | rg -i $argv | xargs -d '\n' dua -f binary
+            end
+        else
+            eval $LOCATE | rg -i $argv
+        end
+    end
 end
 
 # df+du+gdu/dua
