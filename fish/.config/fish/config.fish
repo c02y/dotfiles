@@ -789,7 +789,8 @@ function loo -d 'locate functions, -u(update db), -a(under /), -v(video), -m(aud
     argparse -n loo $options -- $argv
     or return
 
-    if ! set -q _flag_v
+    # if -v, argv can be empty to list all videos, -u, argv can be empty to just updates db, otherwise argv must be given
+    if ! set -q _flag_v; and ! set -q _flag_u
         set -q $argv; and return
     end
 
@@ -810,6 +811,10 @@ function loo -d 'locate functions, -u(update db), -a(under /), -v(video), -m(aud
 
     test $UPDATEDB -eq 1; and eval $UPDATEDB_CMD
     test $UPDATEDB_HOME -eq 1; and eval $UPDATEDB_HOME_CMD
+
+    if set -q _flag_u; and set -q $argv
+        return
+    end
 
     if set -q _flag_a # search file/dir in /
         set LOCATE 'locate -e -i -d /tmp/mlocate.db $argv'
