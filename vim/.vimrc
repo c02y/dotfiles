@@ -430,10 +430,13 @@ nnoremap <Leader>ry :YRShow<CR>
 let g:yankring_min_element_length = 4
 let g:yankring_manage_numbered_reg = 1
 
-Plug 'ntpeters/vim-better-whitespace'
-let g:strip_whitespace_on_save=1
-let g:strip_whitespace_confirm=0
-let g:show_spaces_that_precede_tabs=1
+Plug 'Chiel92/vim-autoformat'
+" autoformat on save
+au BufWrite * :Autoformat
+" disable it when the filetype is not supported or the formatter is not installed
+let g:autoformat_autoindent = 0
+let g:autoformat_retab = 0
+let g:autoformat_remove_trailing_spaces = 0
 
 Plug 'liuchengxu/vim-better-default'
 " Use the following variable to 'set noexpandtab' (use tab instead of spaces)

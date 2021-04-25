@@ -182,11 +182,6 @@ function! UserInit()
     Plug 'Shougo/neoyank.vim'
     nnoremap <Leader>ry :Unite history/yank -default-action=append<CR>
 
-    Plug 'ntpeters/vim-better-whitespace'
-    let g:strip_whitespace_on_save=1
-    let g:strip_whitespace_confirm=0
-    let g:show_spaces_that_precede_tabs=1
-
     Plug 'ajh17/VimCompletesMe'
     Plug 'wellle/targets.vim'
 
@@ -256,11 +251,15 @@ function! UserConfig()
     set listchars=tab:»\ ,extends:›,precedes:‹,nbsp:·,trail:·,eol:$,space:·,conceal:·
     " auto format one save
     set cmdheight=1
+
+    " for vim-autoformat plug
+    " autoformat on save
     au BufWrite * :Autoformat
     " disable it when the filetype is not supported or the formatter is not installed
     let g:autoformat_autoindent = 0
     let g:autoformat_retab = 0
     let g:autoformat_remove_trailing_spaces = 0
+
     " set in  ~/.vim/plugged/vim-better-default/plugin/default.vim
     " which will crate %home%xxx file in /tmp
     " now they will be placed in ~/.local/share/nvim/ which is their default values
