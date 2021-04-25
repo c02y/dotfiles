@@ -2699,6 +2699,8 @@ function cpb -d 'backups manager: rename files/dirs from name to name.bak or bac
     end
 end
 
+# upx get smaller size than strip
+abbr upxx 'upx --best --lzma'
 # cargo
 function cars -d "cargo commands, -b(build), -c(clean target), -d(remove/uninstall), -i(install), -r(release build), -S(reduce size)"
     set -l options b c d i r s S
