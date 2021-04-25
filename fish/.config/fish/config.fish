@@ -2732,18 +2732,17 @@ function cars -d "cargo commands, -b(build), -c(clean target), -d(remove/uninsta
         eval $CMD search $argv
     else
         if set -q _flag_i; or ! test -f ./Cargo.toml
-            if set -q _flag_S
-                set -l RUSTFLAGS '-C link-arg=-s'; and eval $CMD install $argv
-            else
-                eval $CMD install $argv
-            end
+            # install release version, reduce size by default
+            # NOTE: there is --debug(dev) version, huge size difference
+            set -l RUSTFLAGS '-C link-arg=-s'; and eval $CMD install $argv
+            echo -e "\nuse `upx --best --lzma the-bin` to reduce more binary size, better than strip"
         else if test -f ./Cargo.toml
             if set -q _flag_r # build release if -q is given
                 echo -e "Building release version...\n"
                 if set -q _flag_S
                     set -l RUSTFLAGS '-C link-arg=-s'; and eval $CMD build --release $argv
-                    # NOTE: upx will not work for debug+-S version
-                    echo "use `upx --best --lzma the-bin` to reduce more binary size!"
+                    echo -e "\nuse `upx --best --lzma the-bin` to reduce more binary size, better than strip \n \
+                    NOTE: upx is not working for debug+-s build version"
                 else
                     eval $CMD build --release $argv
                 end
