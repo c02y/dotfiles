@@ -816,7 +816,7 @@ function loo -d 'locate functions, -u(update db), -a(under /), -v(video), -m(aud
     else if set -q _flag_v # search all video files in home
         if set -q $argv # no given argv, list all videos
             # get size of all videos, using `xargs -d '\n' dua -f binary` at the end
-            set LOCATE 'locate -e -i -d /tmp/mlocate-home.db * | \
+            set LOCATE 'locate -e -i -d /tmp/mlocate-home.db "*" | \
                 rg -ie ".mp4\$|.mkv\$|.avi\$|.webm\$|.mov\$|.rmvb\$"'
         else
             set LOCATE 'locate -e -i -d /tmp/mlocate-home.db $argv | \
