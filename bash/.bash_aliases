@@ -51,7 +51,7 @@ export LESS_TERMCAP_mb=$'\e[01;31m'       # enter blinking mode
 export LESS_TERMCAP_md=$'\e[01;38;5;75m'  # enter double-bright mode
 export LESS_TERMCAP_us=$'\e[04;38;5;200m' # enter underline mode
 # color man page
-export MANPAGER='less -s -M +Gg -i'
+export MANPAGER='vim +Man! --cmd "let g:spacevim_enable_startify = 0" -c "set signcolumn=no"'
 export PAGER='less -iXFR -x4 -M'
 export GROFF_NO_SGR yes
 export EDITOR='vim'
