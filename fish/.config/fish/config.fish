@@ -794,57 +794,50 @@ function loo -d 'locate functions, -u(update db), -a(under /), -v(video), -m(aud
         set -q $argv; and return
     end
 
-    set -l UPDATEDB 0
-    set -l UPDATEDB_CMD "updatedb --require-visibility 0 -o /tmp/mlocate.db"
-    set -l UPDATEDB_HOME 0
-    set -l UPDATEDB_HOME_CMD "updatedb --require-visibility 0 -U /home/$USER -o /tmp/mlocate-home.db"
-
     if set -q _flag_a
-        not test -f /tmp/mlocate.db; and set UPDATEDB 1
+        set DB /tmp/mlocate.db
+        set UPDATEDB_CMD "updatedb --require-visibility 0 -o $DB"
     else
-        not test -f /tmp/mlocate-home.db; and set UPDATEDB_HOME 1
+        set DB /tmp/mlocate-home.db
+        set UPDATEDB_CMD "updatedb --require-visibility 0 -U /home/$USER -o $DB"
     end
 
-    if set -q _flag_u
-        set -q _flag_a; and set UPDATEDB 1; or set UPDATEDB_HOME 1
+    set UPDATEDB 0
+    if not test -f $DB; or set -q _flag_u
+        set UPDATEDB 1
     end
 
-    test $UPDATEDB -eq 1; and eval $UPDATEDB_CMD
-    test $UPDATEDB_HOME -eq 1; and eval $UPDATEDB_HOME_CMD
+    test $UPDATEDB = 1; and eval $UPDATEDB_CMD
 
     if set -q _flag_u; and set -q $argv
         return
     end
 
-    if set -q _flag_a # search file/dir in /
-        set LOCATE 'locate -e -i -d /tmp/mlocate.db $argv'
-    else if set -q _flag_v # search all video files in home
+    if set -q _flag_v # search all video files
         if set -q $argv # no given argv, list all videos
             # get size of all videos, using `xargs -d '\n' dua -f binary` at the end
-            set LOCATE 'locate -e -i -d /tmp/mlocate-home.db "*" | \
+            set LOCATE 'locate -e -i -d $DB "*" | \
                 rg -ie ".mp4\$|.mkv\$|.avi\$|.webm\$|.mov\$|.rmvb\$"'
         else
-            set LOCATE 'locate -e -i -d /tmp/mlocate-home.db $argv | \
+            set LOCATE 'locate -e -i -d $DB $argv | \
                 rg -ie ".mp4\$|.mkv\$|.avi\$|.webm\$|.mov\$|.rmvb\$"'
         end
-    else if set -q _flag_m # serach all audio files in home
-        set LOCATE 'locate -e -i -d /tmp/mlocate-home.db $argv | \
+    else if set -q _flag_m # serach all audio files
+        set LOCATE 'locate -e -i -d $DB $argv | \
             rg -ie ".mp3\$|.flac\$|.ape\$|.wav\$|.w4a\$|.dsf\$|.dff\$"'
     else if set -q _flag_d
-        set LOCATE 'locate -e -i -d /tmp/mlocate-home.db --null -b $argv | \
+        set LOCATE 'locate -e -i -d $DB --null -b $argv | \
             xargs -r0 sh -c \'for i do [ -d "$i" ] && printf "%s\n" "$i"; done\' sh {} + '
     else if set -q _flag_f
-        set LOCATE 'locate -e -i -d /tmp/mlocate-home.db --null -b $argv | \
+        set LOCATE 'locate -e -i -d $DB --null -b $argv | \
             xargs -r0 sh -c \'for i do [ -f "$i" ] && printf "%s\n" "$i"; done\' sh {} + '
-    else # search file/dir in home dir
-        set LOCATE 'locate -e -i -d /tmp/mlocate-home.db $argv'
+    else # search file/dir
+        set LOCATE 'locate -e -i -d $DB $argv'
     end
 
     # if not found at the first time, maybe the db is not updated, update the db once
     if not eval $LOCATE ^/dev/null >/dev/null
-        set -q _flag_a; and set UPDATEDB 1; or set UPDATEDB_HOME 1
         test $UPDATEDB -eq 1; and eval $UPDATEDB_CMD
-        test $UPDATEDB_HOME -eq 1; and eval $UPDATEDB_HOME_CMD
     end
 
     if set -q _flag_o # open it using fzf
@@ -852,18 +845,11 @@ function loo -d 'locate functions, -u(update db), -a(under /), -v(video), -m(aud
         # NOTE: DO NOT add --print0 it into FZF_DEFAULT_OPTS
         # -r in xargs is --no-run-if-empty
         eval $LOCATE | fzf --print0 | xargs -0 -r xdg-open
-
-        # check o -c function
-        # if not cmp --silent ~/.local/bin/mimeapps.list ~/.config/mimeapps.list
-        #     diffs ~/.local/bin/mimeapps.list ~/.config/mimeapps.list
-        #     echo
-        #     echo 'Need to update mimeapps.list, check o function'
-        # end
     else if set -q _flag_x # copy the result using fzf
         eval $LOCATE | fzf --print0 | xc && xc -o
     else if set -q _flag_r # remove it using fzf
         eval $LOCATE | fzf --print0 | xargs -0 -r rm -rfv
-        set -q _flag_a; and eval $UPDATEDB_CMD; or eval $UPDATEDB_HOME_CMD
+        eval $UPDATEDB_CMD
     else if set -q _flag_e # open it with editor
         eval $LOCATE | fzf --print0 | xargs -0 -r vim --
     else
