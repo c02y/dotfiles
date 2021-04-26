@@ -320,6 +320,7 @@ function fish_user_key_bindings
     bind --erase \cb
     bind \cf zz
     bind \ch htop
+    bind \cp pss
 end
 
 abbr pm-sl 'sudo pm-suspend' # 'Suspend to ram' in GUI buttom, power button to wake up
