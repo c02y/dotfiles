@@ -870,10 +870,10 @@ function loo -d 'locate functions, -u(update db), -a(under /), -v(video), -m(aud
         if set -q _flag_v
             # NOTE :the xargs `-d '\n'` part is for dealing space in file name
             if set -q $argv
-                eval $LOCATE | xargs -d '\n' dua -f binary
+                eval $LOCATE | xargs -r -d '\n' dua -f binary
 
             else
-                eval $LOCATE | rg -i $argv | xargs -d '\n' dua -f binary
+                eval $LOCATE | rg -i $argv | xargs -r -d '\n' dua -f binary
             end
         else
             eval $LOCATE | rg -i $argv
