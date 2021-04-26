@@ -4,33 +4,36 @@
 # disable --print0 in fish-shell, it causes warning output
 unset FZF_DEFAULT_OPTS
 
-while getopts ":lk:" opt; do
+while getopts "l:k:" opt; do
 	case $opt in
 	k)
-		manual=$(apropos $OPTARG |
+		manpage=$(apropos $OPTARG |
 			grep -v -E '^.+ \(0\)' |
 			awk '{print $2 "    " $1}' |
-			fzf -1 -0 -q $OPTARG --preview-window down:wrap --prompt="Manual: " --preview="echo {1} | sed -E \"s/^\((.+)\)/\1/\" | xargs -I{S} /bin/man -Pcat {S} {2} 2>/dev/null" |
+			fzf -1 -0 -q $OPTARG --preview-window down:wrap --prompt="Manpage: " --preview="echo {1} | sed -E \"s/^\((.+)\)/\1/\" | xargs -I{S} /bin/man -Pcat {S} {2} 2>/dev/null" |
 			sed -E 's/^\((.+)\)/\1/')
 		;;
 	l)
-		shift
-		/bin/man -wa $@
+		/bin/man -wa $OPTARG
 		exit 0
 		;;
-	\?)
+	?)
 		echo "Invalid option: -$OPTARG" >&2
-		exit 1
-		;;
-	:)
-		echo "Option -$OPTARG requires an argument" >&2
 		exit 1
 		;;
 	esac
 done
 
-if [ ! -z "$manual" ]; then
-	/bin/man $manual
+MANPAGER='vim +Man! --cmd "let g:spacevim_enable_startify = 0" -c "set signcolumn=no"'
+if [[ "$@" == "" ]]; then
+	read -p "Manpage: " manpage
+	manpage=$(apropos $manpage |
+		grep -v -E '^.+ \(0\)' |
+		awk '{print $2 "    " $1}' |
+		fzf -1 -0 -q $manpage --preview-window down:wrap --prompt="Manpage: " --preview="echo {1} | sed -E \"s/^\((.+)\)/\1/\" | xargs -I{S} /bin/man -Pcat {S} {2} 2>/dev/null" |
+		sed -E 's/^\((.+)\)/\1/')
 else
-	/bin/man $@
+	manpage=$@
 fi
+
+/bin/man $manpage
