@@ -59,6 +59,7 @@ export EDITOR='vim'
 set -o ignoreeof # 10 times until exiting
 
 alias x='exit'
+alias q='exit'
 # User specific aliases and functions
 alias sl='ls'
 alias ls='ls --color=auto'
