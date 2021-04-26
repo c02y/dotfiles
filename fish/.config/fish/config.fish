@@ -403,15 +403,11 @@ function psss -d 'pgrep process, used in script'
     ps -ef | rg -w -v rg | rg -i $argv[1] | nl
 end
 function pss -d 'pgrep process, used in command line'
-    set -l options h
-    argparse -n pss $options -- $argv
-    or return
-
+    # ps aux | rg -w -v rg | rg -i $argv[1] | nl
     set -g PSS 'ps -e -o "user pid ppid pcpu pmem vsz rssize tty stat start time command" | rg -w -v rg'
-    if set -q _flag_h
-        eval $PSS | head -2
+    if set -q $argv
+        eval $PSS | fzf --preview-window hidden
     else
-        # ps aux | rg -w -v rg | rg -i $argv[1] | nl
         eval $PSS | rg -i $argv[1] | nl
         if test (eval $PSS | rg -i $argv[1] | nl | wc -l) = 1
             set pid (pgrep -if $argv[1])
