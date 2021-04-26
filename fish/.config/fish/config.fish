@@ -1397,7 +1397,12 @@ function o -d 'open/xdg-open/xdg-utils, without option(open it), -s(show mimetyp
     else if set -q _flag_p # show the default program for opening the $argv file
         xdg-mime query default (xdg-mime query filetype $argv)
     else if set -q _flag_c
-        cp ~/.config/mimeapps.list ~/.local/bin/mimeapps.list -rfv
+        if not cmp --silent ~/.local/bin/mimeapps.list ~/.config/mimeapps.list
+            diffs ~/.local/bin/mimeapps.list ~/.config/mimeapps.list
+            echo
+            echo -e "Need to update mimeapps.list like: \n\
+            cp ~/.config/mimeapps.list ~/.local/bin/mimeapps.list -rfv"
+        end
     else
         set -q $argv; and set ARGV .; or set ARGV $argv
         if test -d $ARGV
