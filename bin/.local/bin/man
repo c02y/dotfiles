@@ -36,4 +36,7 @@ else
 	manpage=$@
 fi
 
+# there is a chance that the right man page is found when you are using `man -k arg`
+# since `make -k`/`apropos` is using `whatis`, if you install a package recently
+# the man-db may be not updated, just restart man-db.service manually
 /bin/man $manpage
