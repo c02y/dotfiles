@@ -42,7 +42,7 @@ if command -sq uname
 end
 
 set -gx FISHRC (readlink -f ~/.config/fish/config.fish)
-set -gx EMACS_EL (readlink -f ~/.spacemacs.d/init.el)
+test -f ~/.spacemacs.d/init.el; and set -gx EMACS_EL (readlink -f ~/.spacemacs.d/init.el); or set -gx EMACS_EL ~/.spacemacs
 test -f ~/.config/nvim/README.md; and set -gx VIMRC (readlink -f ~/.SpaceVim.d/autoload/myspacevim.vim); or set -gx VIMRC (readlink -f ~/.spacevim)
 # Please put the following lines into ~/.bashrc, putting them in config.fish won't work
 # This fixes a lot problems of displaying unicodes
