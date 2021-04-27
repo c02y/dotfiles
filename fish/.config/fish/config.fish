@@ -1151,8 +1151,10 @@ abbr appd 'apt depends'
 # Server = https://mirrors.tuna.tsinghua.edu.cn/archlinuxcn/$arch
 # Server = https://mirrors.ustc.edu.cn/archlinuxcn/$arch
 #
-# NOTE: yay: generate ~/.confif/yay/config.json
-test -f ~/.config/yay/config.json; or yay --sudoloop --aururl "https://aur.tuna.tsinghua.edu.cn" --combinedupgrade --save
+if test (lsb_release -i | rg -i -e 'manjaro|arch') # manjaro/arch
+    # NOTE: yay: generate ~/.config/yay/config.json
+    test -f ~/.config/yay/config.json; or yay --sudoloop --aururl "https://aur.tuna.tsinghua.edu.cn" --combinedupgrade --save
+end
 #
 alias pacr 'yay -Rsun' # remove a package and its unneeded dependencies, and clean configs
 alias pacrr 'yay -Rsc' # using this if pacr doesn't not uninstall a pacakge
