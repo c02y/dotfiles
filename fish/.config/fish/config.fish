@@ -1216,6 +1216,9 @@ function pacs -d 'pacman/yay search, -i(interactive using pacui), -n(only names)
                         end
                     end
                     open (xc -o) ^/dev/null >/dev/null
+                else if set -q _flag_L # list content in a pacakge
+                    pacman -Ql $argv
+                    or pamac list --files $argv
                 else
                     yay -Qi $file
                     or yay -Si $file
@@ -1239,6 +1242,7 @@ function pacs -d 'pacman/yay search, -i(interactive using pacui), -n(only names)
         return
     end
 
+    # -L can work with -s or be used alone to list the content
     if set -q _flag_L # list content in a pacakge
         pacman -Ql $argv
         or pamac list --files $argv
