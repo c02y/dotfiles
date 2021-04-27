@@ -384,10 +384,11 @@ function! UserConfig()
     " change PWD according to the buffer, this affect a lot of functions in vim
     autocmd BufEnter * silent! lcd %:p:h
 
-    "fzf
+    " fzf
+    let $FZF_DEFAULT_OPTS = '-e -m -0 --reverse'
     " Overwrite the default Files command to include hidden files
     command! -bang -nargs=? -complete=dir Files
-                \ call fzf#vim#files(<q-args>, {'source': 'rg --hidden --files -g !.git'}, <bang>0)
+                \ call fzf#vim#files(<q-args>, {'source': 'rg --hidden --files --no-ignore -g !.git'}, <bang>0)
     " SPC ff is bound to files-in-home-direcotry by default
     nnoremap <Leader>ff :Files<CR>
     let g:spacevim#map#leader#desc.f.f = 'Files-in-current-dir'
