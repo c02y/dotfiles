@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 # https://hiphish.github.io/blog/2020/05/31/macho-man-command-on-steroids/
 
 # disable --print0 in fish-shell, it causes warning output
@@ -7,14 +7,14 @@ unset FZF_DEFAULT_OPTS
 while getopts "l:k:" opt; do
 	case $opt in
 	k)
-		manpage=$(apropos $OPTARG |
+		manpage=$(apropos "$OPTARG" |
 			grep -v -E '^.+ \(0\)' |
 			awk '{print $2 "    " $1}' |
-			fzf -1 -0 -q $OPTARG --preview-window down:wrap --prompt="Manpage: " --preview="echo {1} | sed -E \"s/^\((.+)\)/\1/\" | xargs -I{S} /bin/man -Pcat {S} {2} 2>/dev/null" |
+			fzf -1 -0 -q "$OPTARG" --preview-window down:wrap --prompt="Manpage: " --preview="echo {1} | sed -E \"s/^\((.+)\)/\1/\" | xargs -I{S} /bin/man -Pcat {S} {2} 2>/dev/null" |
 			sed -E 's/^\((.+)\)/\1/')
 		;;
 	l)
-		/bin/man -wa $OPTARG
+		/bin/man -wa "$OPTARG"
 		exit 0
 		;;
 	?)
@@ -25,18 +25,20 @@ while getopts "l:k:" opt; do
 done
 
 export MANPAGER='vim +Man! --cmd "let g:spacevim_enable_startify = 0" -c "set signcolumn=no"'
-if [[ "$@" == "" ]]; then
-	read -p "Manpage: " manpage
-	manpage=$(apropos $manpage |
+if [ "$*" == "" ]; then
+	read -r -p "Manpage: " manpage
+	manpage=$(apropos "$manpage" |
 		grep -v -E '^.+ \(0\)' |
 		awk '{print $2 "    " $1}' |
-		fzf -1 -0 -q $manpage --preview-window down:wrap --prompt="Manpage: " --preview="echo {1} | sed -E \"s/^\((.+)\)/\1/\" | xargs -I{S} /bin/man -Pcat {S} {2} 2>/dev/null" |
+		fzf -1 -0 -q "$manpage" --preview-window down:wrap --prompt="Manpage: " --preview="echo {1} | sed -E \"s/^\((.+)\)/\1/\" | xargs -I{S} /bin/man -Pcat {S} {2} 2>/dev/null" |
 		sed -E 's/^\((.+)\)/\1/')
-else
-	manpage=$@
+elif [ $OPTIND -eq 1 ]; then
+	manpage="$*"
 fi
 
 # there is a chance that the right man page is found when you are using `man -k arg`
 # since `make -k`/`apropos` is using `whatis`, if you install a package recently
 # the man-db may be not updated, just restart man-db.service manually
-/bin/man $manpage
+# $manpage has to be double quoted according to shellcheck
+# but it may contains `1    man`, use eval here
+eval /bin/man "$manpage"
