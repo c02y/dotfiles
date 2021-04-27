@@ -796,7 +796,7 @@ function loo -d 'locate functions, -u(update db), -a(under /), -v(video), -m(aud
         set UPDATEDB_CMD "updatedb --require-visibility 0 -o $DB"
     else
         set DB /tmp/mlocate-home.db
-        set UPDATEDB_CMD "updatedb --require-visibility 0 -U /home/$USER -o $DB"
+        set UPDATEDB_CMD "updatedb --require-visibility 0 -U /$HOME -o $DB"
     end
 
     set UPDATEDB 0
