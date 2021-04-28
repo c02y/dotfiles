@@ -359,21 +359,6 @@ let g:UltiSnipsExpandTrigger="<c-space>"
 "let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/YouCompleteMe/.ycm_extra_conf.py'
 "set completeopt=menu,menuone
 
-Plug 'pelodelfuego/vim-swoop'
-" Swoop current buffer
-" use the better default bindings <Leader>l, ml
-"nmap <C-s> :call Swoop()<CR>
-"vmap <C-s> :call SwoopSelection()<CR>
-" Swoop multi buffers
-"nmap <C-S-s> :call SwoopMulti()<CR>
-"vmap <C-S-s> :call SwoopMultiSelection()<CR>
-let g:defaultWinSwoopWidth = 60
-let g:defaultWinSwoopHeight = 12
-nmap <Leader>ss :call Swoop()<CR>
-nmap <Leader>sS :call SwoopSelection()<CR>
-nmap <Leader>sm :let g:swoopWindowsVerticalLayout = 1<CR>
-nmap <Leader>sn :let g:swoopWindowsVerticalLayout = 0<CR>
-
 " jedi -- auto completion for Python
 Plug 'davidhalter/jedi-vim'
 let g:jedi#use_splits_not_buffers = "bottom"
