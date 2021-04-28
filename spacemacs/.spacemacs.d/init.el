@@ -76,6 +76,7 @@ This function should only modify configuration layer settings."
                treemacs-show-cursor t
                )
      ;; NOTE: install shellcheck
+	 ;; lsp for bash "npm i -g bash-language-server"
      shell-scripts
      ;; NOTE: `pip install importmagic epc flake8 pytest nose autoflake "ptvsd>=4.2"
      ;; if using lsp as backend: pip install python-language-server pyls-isort pyls-mypy'
@@ -235,6 +236,7 @@ This function should only modify configuration layer settings."
                                       format-all
                                       (translate-shell :location (recipe :fetcher github :repo "xuchunyang/translate-shell.el"))
                                       exec-path-from-shell
+                                      embrace
                                       )
 
    ;; A list of packages that cannot be updated.
@@ -370,6 +372,9 @@ It should only modify the values of Spacemacs settings."
 
    ;; True if the home buffer should respond to resize events. (default t)
    dotspacemacs-startup-buffer-responsive t
+
+   ;; The minimum delay in seconds between number key presses. (default 0.4)
+   dotspacemacs-startup-buffer-multi-digit-delay 0.4
 
    ;; Default major mode for a new empty buffer. Possible values are mode
    ;; names such as `text-mode'; and `nil' to use Fundamental mode.
@@ -1353,6 +1358,7 @@ Emacs session."
     "xaA" 'align-regexp
     "xaC" 'align-c-comments
     "xaM" 'align-c-macros
+    "xe" 'embrace-commander
     ;; The original binding is f1-o, C-h o
     "hh" 'counsel-describe-symbol
     ;; The original binding is SPC C e
