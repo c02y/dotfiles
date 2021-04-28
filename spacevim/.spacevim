@@ -40,7 +40,7 @@ let g:spacevim_lsp_engine = 'coc'
 "     " excluding multiple plugins like: { 'exclude': ['plugin1', 'plugin2'] }
 "     Layer 'auto-completion',  { 'exclude': 'roxma/vim-hug-neovim-rpc' }
 " endfunction
-let g:spacevim_excluded = ['ntpeters/vim-better-whitespace', 'tpope/vim-rsi', 'mhinz/vim-signify']
+let g:spacevim_excluded = ['ntpeters/vim-better-whitespace', 'tpope/vim-rsi', 'mhinz/vim-signify', 'pelodelfuego/vim-swoop']
 
 let g:spacevim_speed_up_via_timer = 0
 
@@ -408,7 +408,7 @@ function! UserConfig()
     let g:spacevim#map#leader#desc.p.F = 'Files-in-project'
     nnoremap <Leader>sg :Rg<CR>
     nnoremap <Leader>sG :Ag<CR>
-    nnoremap <Leader>sS :call SwoopSelection()<CR>
+    nnoremap <Leader>ss :call spacevim#map#manager#BLines()<CR>
     nnoremap <Leader>hc :Commands<CR>
     nnoremap <Leader>hb :Maps<CR>
     " search in recent files
