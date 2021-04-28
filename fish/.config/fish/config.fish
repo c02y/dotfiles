@@ -1396,7 +1396,8 @@ function o -d 'open/xdg-open/xdg-utils, without option(open it), -s(show mimetyp
         # $argv[1] is the desktop file for the program to open the file
         # $argv[2] is the file to be opened
         xdg-mime default $argv[1] (xdg-mime query filetype $argv[2])
-        cp ~/.config/mimeapps.list ~/.local/bin/mimeapps.list
+        echo "Need to update mimeapps.list file, check `o -c`"
+        # cp ~/.config/mimeapps.list ~/.local/bin/mimeapps.list
     else if set -q _flag_p # show the default program for opening the $argv file
         xdg-mime query default (xdg-mime query filetype $argv)
     else if set -q _flag_c
