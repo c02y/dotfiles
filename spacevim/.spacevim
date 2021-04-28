@@ -345,8 +345,9 @@ function! UserConfig()
     nnoremap <Leader>tw :set list!<CR>
     nnoremap <Leader>tl :set wrap!<CR>
 
-    nnoremap <Leader>br :%s/\<<C-r><C-w>\>//gc<Left><Left><Left>
-    vnoremap <Leader>br :%s/\<<C-r><C-w>\>//gc<Left><Left><Left>
+    " find and replace, :help :s then the c part for the prompt meaning
+    nnoremap <Leader>bq :%s/\<<C-r><C-w>\>//gc<Left><Left><Left>
+    vnoremap <Leader>bq :%s/\<<C-r><C-w>\>//gc<Left><Left><Left>
 
     function! GotoClosedFold(dir)
         let cmd = 'norm!z' . a:dir
