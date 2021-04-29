@@ -1,6 +1,6 @@
 #=============================================================================
 # dark_powered.toml --- dark powered configuration example for SpaceVim
-# Copyright (c) 2016-2017 Wang Shidong & Contributors
+# Copyright (c) 2016-2020 Wang Shidong & Contributors
 # Author: Wang Shidong < wsdjeg at 163.com >
 # URL: https://spacevim.org
 # License: GPLv3
@@ -13,16 +13,27 @@
 bootstrap_before = "myspacevim#before"
 bootstrap_after = "myspacevim#after"
 
+    # set spacevim theme. by default colorscheme layer is not loaded,
+    # if you want to use more colorscheme, please load the colorscheme
+    # layer
 colorscheme = ""
 colorscheme_bg = ""
+    # Disable guicolors in basic mode, many terminal do not support 24bit
+    # true colors
+    enable_guicolors = false
 default_indent = 4
+expand_tab = true
 enable_statusline_bfpath = true
 info_symbol = 'i'
-statusline_separator = 'nil'
+    # Disable statusline separator, if you want to use other value, please
+    # install nerd fonts
+#statusline_separator = 'nil'
+    statusline_separator = "arrow"
+    statusline_iseparator = "arrow"
+buffer_index_type = 4
 warning_symbol = '!'
 windows_leader = ""
-expand_tab = false
-enable_tabline_filetype_icon = false
+enable_tabline_filetype_icon = true
 enable_statusline_mode = true
 statusline_unicode_symbols = false
 commandline_prompt = "> "
@@ -30,44 +41,94 @@ commandline_prompt = "> "
 # disable vimfiler window on the home page after startup
 enable_vimfiler_welcome = 0
 
+# NOTE: the value should be a list, and each item is the name of the plugin.
+disabled_plugins = ["tagbar"]
 
+# disable auto loaded layer
+# [[layers]]
+# name = "core#banner"
+# enable = false
 # Enable autocomplete layer
 [[layers]]
 name = 'autocomplete'
-auto-completion-return-key-behavior = "complete"
-auto-completion-tab-key-behavior = "smart"
-
-# [[layers]]
-#     name = 'tools'
+auto_completion_return_key_behavior = "complete"
+auto_completion_tab_key_behavior = "smart"
 
 [[layers]]
-name = "lang#c"
+name = 'shell'
+default_position = 'bottom'
+default_height = 30
 
 [[layers]]
-# https://spacevim.org/layers/lang/python/
-# pip install flake8 isort yapf autoflake coverage
-name = "lang#python"
-
-[[layers]]
-name = "format"
+name = "incsearch"
 
 [[layers]]
 name = "fzf"
 
 [[layers]]
-name = "unite"
+name = "lang#c"
+enable_clang_syntax_highlight = true
+
+[layer.clang_std]
+cpp = "c11"
 
 [[layers]]
+name = "checker"
+
+[[layers]]
+name = "format"
+format_on_save = true
+
+[[layers]]
+name = "lang#python"
+python_file_head = ['#!/usr/bin/env python', '# -*- coding: utf-8 -*-', '', '']
+enabled_linters = ['python', 'pylint']
+
+[[layers]]
+name = "lang#lua"
+
+[[layers]]
+name = "lang#rust"
+
+[[layers]]
+name = "lsp"
+filetypes = ["rust", "python", "c", "cpp"]
+
+[layers.override_cmd]
+c = ['ccls']
+cpp = ['ccls']
+
+[[layes]]
 name = "VersionControl"
 
 [[layers]]
-# FIXME: cscope doesn't work at all
-name = "cscope"
+name = "ui"
+enable_indentline = false
 
 [[layers]]
-name = 'shell'
-default_position = 'top'
-default_height = 30
+name = "tools"
+
+[[layers]]
+name = "edit"
+
+[[layers]]
+name = "foldsearch"
+
+[[layers]]
+name = "git"
+git_plugin = 'fugitive'
+
+[[layers]]
+name = "lang#sh"
+
+[[layers]]
+name = "lang#markdown"
+
+[[layers]]
+name = "lang#toml"
+
+[[layers]]
+name = "lang#vim"
 
 # let g:spacevim_custom_plugins = [
 #             \ ['tpope/vim-commentary', {'merged' : 0}],
@@ -81,7 +142,3 @@ merged = 0
 [[custom_plugins]]
 name = 'tpope/vim-unimpaired'
 merged = 0
-
-# [[custom_plugins]]
-# name = 'luochen1990/rainbow'
-# m erged = 0

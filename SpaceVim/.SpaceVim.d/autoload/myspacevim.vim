@@ -68,15 +68,14 @@ function! myspacevim#before() abort
             let $foldall=0
         endif
     endfunction
-    call SpaceVim#custom#SPCGroupName(['z'], '+Folds')
-    call SpaceVim#custom#SPC('nnoremap', ['z', 'j'], ':call GotoClosedFold(\'j\')<CR>', 'next-closed-fold', 1)
-    call SpaceVim#custom#SPC('nnoremap', ['z', 'k'], ':call GotoClosedFold(\'k\')<CR>', 'prev-closed-fold', 1)
+    " call SpaceVim#custom#SPCGroupName(['z'], '+Folds')
+    " call SpaceVim#custom#SPC('nnoremap', ['z', 'j'], ':call GotoClosedFold(\'j\')<CR>', 'next-closed-fold', 1)
+    " call SpaceVim#custom#SPC('nnoremap', ['z', 'k'], ':call GotoClosedFold(\'k\')<CR>', 'prev-closed-fold', 1)
     " FIXME: zm is not working
     nnoremap zm :call ToggleFoldAll()<CR>
 
     " call s:add_load_repo('luochen1990/rainbow')
     " let g:rainbow_active = 1
-
 endfunction
 
 function! myspacevim#after() abort
@@ -87,6 +86,19 @@ function! myspacevim#after() abort
 
     nnoremap <silent><Leader>m m
     nmap <Leader>== gg=G2<C-o>
+
+    " not wrap search
+    set nowrapscan
+    " wrap long lines, hard break long line using `gq`
+    set wrap
+
+    " change default python formatter from yapf to black
+    let g:neoformat_python_black = {
+                \ 'exe': 'black',
+                \ 'stdin': 1,
+                \ 'args': ['-q', '-'],
+                \ }
+    let g:neoformat_enabled_python = ['black']
 
     " indent and jump back
     nnoremap <Leader>== gg=G``
