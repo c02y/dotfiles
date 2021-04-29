@@ -786,11 +786,6 @@ function loo -d 'locate functions, -u(update db), -a(under /), -v(video), -m(aud
     argparse -n loo $options -- $argv
     or return
 
-    # if -v, argv can be empty to list all videos, -u, argv can be empty to just updates db, otherwise argv must be given
-    if ! set -q _flag_v; and ! set -q _flag_u
-        set -q $argv; and return
-    end
-
     if set -q _flag_a
         set DB /tmp/mlocate.db
         set UPDATEDB_CMD "updatedb --require-visibility 0 -o $DB"
@@ -829,7 +824,11 @@ function loo -d 'locate functions, -u(update db), -a(under /), -v(video), -m(aud
         set LOCATE 'locate -e -i -d $DB --null -b $argv | \
             xargs -r0 sh -c \'for i do [ -f "$i" ] && printf "%s\n" "$i"; done\' sh {} + '
     else # search file/dir
-        set LOCATE 'locate -e -i -d $DB $argv'
+        if set -q $argv
+            set LOCATE 'locate -e -i -d $DB "*"'
+        else
+            set LOCATE 'locate -e -i -d $DB $argv'
+        end
     end
 
     # if not found at the first time, maybe the db is not updated, update the db once
@@ -859,7 +858,11 @@ function loo -d 'locate functions, -u(update db), -a(under /), -v(video), -m(aud
                 eval $LOCATE | rg -i $argv | xargs -r -d '\n' dua -f binary
             end
         else
-            eval $LOCATE | rg -i $argv
+            if set -q $argv
+                eval $LOCATE | fzf --print0
+            else
+                eval $LOCATE | rg -i $argv
+            end
         end
     end
 end
