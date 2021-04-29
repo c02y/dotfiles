@@ -316,7 +316,6 @@ function fish_user_key_bindings
         bind --erase \cx # or bind \cx ""
         bind --erase \cv # or bind \cv ""
     end
-    fzf_key_bindings # C-s for file/dir, C-r for history, Tab for complete
     bind --erase \cb
     bind \cf zz
     bind \ch htop
@@ -691,8 +690,63 @@ zoxide init fish | source
 alias zz zi
 set -gx _ZO_FZF_OPTS "-1 -0 --reverse --print0"
 # -m to mult-select using Tab/S-Tab
-set -gx FZF_DEFAULT_OPTS "-e -m -0 --reverse --preview 'bat --style=rule --color=always --line-range :500 {}' --preview-window=down:wrap"
+set -gx FZF_DEFAULT_OPTS "-e -m -0 --reverse --preview 'fish -c \"fzf_previewer {}\"' --preview-window=down:wrap"
 set -gx FZF_TMUX_HEIGHT 100%
+
+# C-o -- find file in ~/, C-r -- history, C-w -- cd dir
+# C-s -- open with EDITOR, M-o -- open with open
+source $HOME/.config/fish/functions/fzf.fish
+set -gx FZF_COMPLETE 2
+# find file in ~/, open file in ./
+set -gx FZF_FIND_FILE_COMMAND "rg --files --hidden --no-ignore -g !.git ~/"
+set -gx FZF_OPEN_COMMAND "rg --files --hidden --no-ignore -g !.git"
+set -gx FZF_LEGACY_KEYBINDINGS 0
+set -gx FZF_PREVIEW_FILE_CMD "bat --style=rule --color=always --line-range :500"
+set -gx FZF_PREVIEW_DIR_CMD "ls -lhA"
+set -gx FZF_ENABLE_FILE_PREVIEW 1
+set -gx FZF_ENABLE_CD_PREVIEW 1
+set -gx FZF_ENABLE_OPEN_PREVIEW 1
+
+# based on '__fzf_complete_preview' function and '~/.config/ranger/scope.sh' file
+function fzf_previewer -d 'generate preview for completion widget.
+    argv[1] is the currently selected candidate in fzf
+    argv[2] is a string containing the rest of the output produced by `complete -Ccmd`
+    '
+
+    if test "$argv[2]" = "Redefine variable"
+        # show environment variables current value
+        set -l evar (echo $argv[1] | cut -d= -f1)
+        echo $argv[1]$$evar
+    else
+        echo $argv[1]
+    end
+
+    set -l path (string replace "~" $HOME -- $argv[1])
+
+    # previwer for different file/dir types
+    # check ~/.config/ranger/scope.sh for more types
+    set -l MIMETYPE (file --dereference --brief --mime-type -- $path)
+    switch $MIMETYPE
+        case "text*"
+            bat --style=rule --color=always --line-range :500 $path
+        case "video*" "audio*" "image*"
+            mediainfo $path
+        case inode/directory
+            ls -lhA $path
+        case application/x-alpa-package "application/x-*compressed-tar" application/zstd application/zip
+            bsdtar --list --file $path
+        case application/x-rar
+            unrar l -p- -- $path
+        case "*"
+            echo $path
+    end
+
+    # if fish knows about it, let it show info
+    type -q "$path" 2>/dev/null; and type -a "$path"
+
+    # show aditional data
+    echo $argv[2]
+end
 
 # touch temporary files
 abbr tout 'touch ab~ .ab~ .\#ab .\#ab\# \#ab\# .ab.swp ab.swp'
@@ -1774,9 +1828,6 @@ abbr emv 'emm $VIMRC'
 abbr emb 'emm ~/.bashrc'
 abbr em2 'emm ~/Recentchange/TODO'
 abbr emtime "time emacs --debug-init -eval '(kill-emacs)'" # time emacs startup time
-
-# C-w to reload $FISHRC
-#bind \cs fsr
 
 # the gpl.txt can be gpl-2.0.txt or gpl-3.0.txt
 abbr lic 'wget -q http://www.gnu.org/licenses/gpl.txt -O LICENSE'
