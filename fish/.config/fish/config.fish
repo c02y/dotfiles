@@ -316,10 +316,7 @@ function fish_user_key_bindings
         bind --erase \cx # or bind \cx ""
         bind --erase \cv # or bind \cv ""
     end
-    bind --erase \cb
     bind \cf zz
-    bind \ct htop
-    bind \cp pss
 end
 
 abbr pm-sl 'sudo pm-suspend' # 'Suspend to ram' in GUI buttom, power button to wake up
