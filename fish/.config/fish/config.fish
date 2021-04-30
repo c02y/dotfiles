@@ -924,7 +924,7 @@ function dfs -d 'df(-l, -L for full list), gua(-i), dua(-I), du(by default), cac
     else if set -q _flag_l
         # NOTE: if /tmp is out of space, use `sudo mount -o remount,size=20G,noatime /tmp` to temporally resize /tmp
         # NOTE: if "/tmp/.mount_xx Transport endpoint is not connected", do `fusermount -zu /tmp/.mount_xxx; rm -rfv /tmp/.mount_xxx`
-        df -Th | rg -v -e 'rg|tmpfs|boot|var|snap|opt|tmp|srv|usr|user'
+        df -Th | rg -v -e "rg|tmpfs|boot|var|snap|opt|tmp|srv|usr|user"
     else if set -q _flag_L
         df -Th
     else if set -q _flag_c
@@ -2537,77 +2537,6 @@ function wtp --description 'show the real definition of a type or struct in C co
         end
     else
         rg $argv[1] /tmp/result
-    end
-end
-
-# if usb0 is not connected or data sharing is not enabled:
-# `ip link ls dev usb0` returns 255, else returns 0
-# if usb0 is not connected to network:
-# `ip link ls dev usb | rg UP` returns 1, else returns 0
-# if returns 1, then kill dhclient and enabled dhclient again:
-# sudo dhclient usb0
-function ut -d 'toggle -- use data network sharing through Android device throught USB'
-    ip link ls dev usb0 ^/dev/null >/dev/null
-    if not ip link ls dev usb0 ^/dev/null >/dev/null0 # ()=255, not plugged or enabled in Android device
-        echo Android device is not plugged or data network sharing is not enabled!
-    else # ()=0
-        # ip link ls dev usb0 | rg UP ^/dev/null >/dev/null
-        # if test $status != 0
-        if test 1 != 0
-            # echo Network on usb0 is off!
-            if test (pgrep dhclient | wc -l) != 0 # This will be useless since the latter kill
-                echo dhclient is already running, Kill it!
-                echo "      " | sudo -p "" -S pkill dhclient
-            end
-            echo Starting `dhclient usb0`
-            echo "      " | sudo -p "" -S dhclient usb0
-            # something it will fail, output error message like
-            # dhclient(26477) is already running - exiting....
-            if test $status != 0
-                sudo dhclient -r
-                sudo dhclient
-                sudo pkill dhclient
-            end
-        else
-            # echo Network on usb0 is already on!
-        end
-        if test (pgrep dhclient | wc -l) != 0
-            sudo pkill dhclient # this has no effect on the network, just make next usbt quicker
-        end
-    end
-end
-
-abbr um 'pumount /run/media/chz/UDISK'
-abbr mo 'pmount /dev/sdb4 /run/media/chz/UDISK'
-function mo-bak
-    set -l done 1
-    while test $done = 1
-        if not command df | rg -w -v rg | rg -i UDISK ^/dev/null >/dev/null # no UDISK in df, new or unplug
-            set -l device
-            if test -b /dev/sdb4
-                set device /dev/sdb4
-            else if test -b /dev/sdc4
-                set device /dev/sdc4
-            else
-                echo Please plug your USB drive!!!
-                return
-            end
-            pmount $device /media/UDISK
-            df
-            return
-        else # UDISK is in df, right or not-umount old
-            set -l device (command df | rg -w -v rg | rg -i UDISK | awk '{print $1}')
-            if not test -b $device
-                if not pumount /media/UDISK ^/dev/null >/dev/null
-                    echo $device -- /media/UDISK is busy.
-                    lsof | rg UDISK
-                    return
-                end
-            else # right
-                echo Device /dev/sdb4 is already mounted to /media/UDISK
-                return
-            end
-        end
     end
 end
 
