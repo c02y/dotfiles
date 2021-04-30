@@ -318,7 +318,7 @@ function fish_user_key_bindings
     end
     bind --erase \cb
     bind \cf zz
-    bind \ch htop
+    bind \ct htop
     bind \cp pss
 end
 
@@ -690,22 +690,12 @@ zoxide init fish | source
 alias zz zi
 set -gx _ZO_FZF_OPTS "-1 -0 --reverse --print0"
 # -m to mult-select using Tab/S-Tab
-set -gx FZF_DEFAULT_OPTS "-e -m -0 --reverse --preview 'fish -c \"fzf_previewer {}\"' --preview-window=down:wrap"
+set -gx FZF_DEFAULT_OPTS "-e -m -0 --reverse --preview 'fish -c \"fzf_previewer {}\"' --preview-window=right:wrap"
 set -gx FZF_TMUX_HEIGHT 100%
 
 # C-o -- find file in ~/, C-r -- history, C-w -- cd dir
 # C-s -- open with EDITOR, M-o -- open with open
 source $HOME/.config/fish/functions/fzf.fish
-set -gx FZF_COMPLETE 2
-# find file in ~/, open file in ./
-set -gx FZF_FIND_FILE_COMMAND "rg --files --hidden --no-ignore -g !.git ~/"
-set -gx FZF_OPEN_COMMAND "rg --files --hidden --no-ignore -g !.git"
-set -gx FZF_LEGACY_KEYBINDINGS 0
-set -gx FZF_PREVIEW_FILE_CMD "bat --style=rule --color=always --line-range :500"
-set -gx FZF_PREVIEW_DIR_CMD "ls -lhA"
-set -gx FZF_ENABLE_FILE_PREVIEW 1
-set -gx FZF_ENABLE_CD_PREVIEW 1
-set -gx FZF_ENABLE_OPEN_PREVIEW 1
 
 # based on '__fzf_complete_preview' function and '~/.config/ranger/scope.sh' file
 function fzf_previewer -d 'generate preview for completion widget.
@@ -727,7 +717,7 @@ function fzf_previewer -d 'generate preview for completion widget.
     # check ~/.config/ranger/scope.sh for more types
     set -l MIMETYPE (file --dereference --brief --mime-type -- $path)
     switch $MIMETYPE
-        case "text*"
+        case "text*" application/json
             bat --style=rule --color=always --line-range :500 $path
         case "video*" "audio*" "image*"
             mediainfo $path
