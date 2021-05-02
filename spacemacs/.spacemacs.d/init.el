@@ -1492,7 +1492,7 @@ Version 2016-12-18"
    ("C-h c" . counsel-colors-emacs)
    ("C-h C-c" . counsel-faces)
    ("C-h F" . counsel-describe-face)
-   ("C-x /" . counsel-semantic-or-imenu)   ;; SPC j i
+   ("C-x /" . spacemacs/counsel-jump-in-buffer)   ;; SPC j i
    ("C-x x" . switch-to-prev-visited-buffer)
    ("M-;" . comment-dwim-2)
    ("M-n" . symbol-overlay-jump-next)
