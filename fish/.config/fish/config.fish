@@ -1393,10 +1393,10 @@ function mkk -d "gcc, g++, cmake and make"
         set -l EXT (string split -r -m1 . (basename $argv))[2] # get the extension name
         if ! set -q $EXT # extension is not empty, argv is c/cpp file
             if test $EXT = cpp -o $EXT = cc
-                g++ -Wall -W -g $argv -o $DIR/$BIN && $DIR/$BIN
+                g++ -Wall -W -g $argv -o $DIR/$BIN; and $DIR/$BIN
                 return
             else if test $EXT = c
-                gcc -Wall -W -g $argv -o $DIR/$BIN && $DIR/$BIN
+                gcc -Wall -W -g $argv -o $DIR/$BIN; and $DIR/$BIN
                 return
             end
         end
@@ -1417,7 +1417,7 @@ function mkk -d "gcc, g++, cmake and make"
         make
     else if test -f ./CMakeLists.txt # no build dir
         not test -d build; and mkdir build
-        cd build && cmake .. && make
+        cd build && cmake ..; and make
         not set -q $argv; and ./$argv
     else
         echo "No CMakeLists.txt or not inside build or no Makefile/makefile..."
