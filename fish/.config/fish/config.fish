@@ -877,7 +877,7 @@ function loo -d 'locate functions, -u(update db), -a(under /), -v(video), -m(aud
         test $UPDATEDB -eq 1; and eval $UPDATEDB_CMD
     end
 
-    if set -q _flag_o # open it using fzf
+    if set -q _flag_o # open it using  fzf
         # NOTE: the -0 + --print0 in fzf to be able to work with file/dir with spaces
         # NOTE: DO NOT add --print0 it into FZF_DEFAULT_OPTS
         # -r in xargs is --no-run-if-empty
@@ -2185,57 +2185,74 @@ function gitrh -d 'git reset HEAD for multiple files(file1 file2, all without ar
     end
 end
 
-# docker related
-abbr docksi 'docker search' # search a image
-abbr dockp 'docker pull' # pull image +name:tag
 # create container example:
 # docker run -it -v ~/Public/tig:/Public/tig -net host --name new_name ubuntu:xenial /bin/bash
-abbr dockrun 'docker run -it' # create a container
-abbr dockr 'docker rm' # remove container +ID
-abbr dockri 'docker rmi' # remove image +repo
-abbr dockl 'docker ps -a' # list all created containers
-abbr dockli 'docker image ls' # list all pulled images
-function dock2 -d 'start an existed container(or session), first list all the container, then input the ID'
-    docker ps -a
-    set -l docker_cnt (docker ps -a | wc -l)
-    set -l ID
-    if test $docker_cnt = 2
-        set ID (docker ps -a | tail -1 | awk '{print $1}')
-    else if test $docker_cnt -gt 2
-        read -p 'echo -e "\nType the container ID: "' -l arg
-        set ID $arg
-    else if test $docker_cnt -lt 2
-        echo "No available container!"
+function docks -d 'docker commands'
+    set -l options s S p r R l L t q
+    argparse -n docks $options -- $argv
+    or return
+
+    if set -q _flag_s # serach image
+        set CMD search
+    else if set -q _flag_p # pull image(repo:tag as repo)
+        # tag is from `docks -t $repo`
+        set CMD pull
+    else if set -q _flag_r # remove container(CONTAINER ID as argv)
+        set CMD rm
+    else if set -q _flag_R # remove image(IMAGE ID as argv)
+        set CMD rmi
+        # docker rmi $argv
+    else if set -q _flag_l # list all created containers and pulled images
+        echo "Pulled images:"
+        docker image ls
+
+        echo -e "\nCreated containers:"
+        docker ps -a
+        return
+    else if set -q _flag_t # list tags for a docker image(repo as argv)
+        # use this for only the top 10 tags:
+        # curl https://registry.hub.docker.com/v2/repositories/library/$argv[1]/tags/ | jq '."results"[]["name"]'
+        wget -q https://registry.hub.docker.com/v1/repositories/$argv[1]/tags -O - | sed -e 's/[][]//g' -e 's/"//g' -e 's/ //g' | tr '}' '\n' | awk -F: '{print $3}'
+        and echo -e "\nThese are all the tags!\nPlease use `dockp $argv[1]:tag` to pull the image!"
+        return
+    else if set -q _flag_q # stop a running container
+        set ID (docker ps | fzf --preview-window hidden | awk '{print $1}')
+        test $ID; and docker container stop $ID # if ID is not empty
         return
     end
 
-    docker inspect --format="{{.State.Running}}" $ID | rg true ^/dev/null >/dev/null
-    if test $status = 0
-        # if the ID is already running, exec it,
-        # meaning: start another session on the same running container
-        echo -e "\nNOTE: the container is already running in another session...\n"
-        docker exec -it $ID bash
-    else
-        docker start -i $ID
+    if not set -q $CMD # CMD is set
+        if set -q _flag_r
+            # ARGV is CONTAINER ID
+            set ARGV (docker ps -a | fzf --preview-window hidden | awk '{print $1}')
+        else if set -q _flag_R
+            # ARGV is IMAGE ID
+            set ARGV (docker image ls | fzf --preview-window hidden | awk '{print $3}')
+        else
+            set ARGV $argv
+        end
+        eval docker $CMD $ARGV
+    else if set -q _flag_S # add a shared folder to existed containerd
+        set ID (docker ps -a | fzf --preview-window hidden | awk '{print $1}')
+        read -p 'echo "new container name: "' -l new_name
+        docker commit $ID $new_name
+        read -p 'echo "The share folder(absolute path) in host: "' -l share_src
+        read -p 'echo "The share folder(absolute path) in container: "' -l share_dst
+        docker run -ti -v $share_src:$share_dst $new_name /bin/bash
+    else # no option, no argv, run an existed container
+        set ID (docker ps -a | fzf --preview-window hidden | awk '{print $1}')
+        not test $ID; and return # ID is empty
+
+        docker inspect --format="{{.State.Running}}" $ID | rg true ^/dev/null >/dev/null
+        if test $status = 0
+            # if the ID is already running, exec it,
+            # meaning: start another session on the same running container
+            echo -e "\nNOTE: the container is already running in another session...\n"
+            docker exec -it $ID bash
+        else
+            docker start -i $ID
+        end
     end
-end
-function docklt -d 'list the first 10 tags for a docker image'
-    curl https://registry.hub.docker.com/v2/repositories/library/$argv[1]/tags/ | jq '."results"[]["name"]'
-    and echo -e "\nThese are the first 10 tags, use `docklta` to list all tags!\nPlease use `dockp $argv[1]:tag` to pull the image!"
-end
-function docklta -d 'list all tags for a docker image'
-    echo "Wait..."
-    wget -q https://registry.hub.docker.com/v1/repositories/$argv[1]/tags -O - | sed -e 's/[][]//g' -e 's/"//g' -e 's/ //g' | tr '}' '\n' | awk -F: '{print $3}'
-    and echo -e "\nThese are all the tags!\nPlease use `dockp $argv[1]:tag` to pull the image!"
-end
-function docksh -d 'add a share folder to existed container'
-    docker ps -a
-    read -p 'echo -e "\nType the container ID: "' -l id
-    read -p 'echo "new container name: "' -l new_name
-    docker commit $id $new_name
-    read -p 'echo "The share folder(absolute path) in host: "' -l share_src
-    read -p 'echo "The share folder(absolute path) in container: "' -l share_dst
-    docker run -ti -v $share_src:$share_dst $new_name /bin/bash
 end
 
 if test (ps -ef | rg -w -v rg | rg -e 'shadowsocks|v2ray' | wc -l) != 0 # ssr/v2ray is running
