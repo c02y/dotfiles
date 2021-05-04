@@ -3,7 +3,7 @@
 ################################# fzf.fish
 bind \co __fzf_find_file
 bind \cr __fzf_reverse_isearch
-bind \cw '__fzf_cd --hidden'
+bind \cw __fzf_cd
 bind \es __fzf_open
 bind \cs '__fzf_open --editor'
 
@@ -99,12 +99,9 @@ function __fzf_open -d "Open files and directories."
         if contains -- --editor $argv; or contains -- -e $argv
             set _flag_editor yes
         end
-        if contains -- --preview $argv; or contains -- -p $argv
-            set _flag_preview yes
-        end
     end
 
-    set -l options e/editor "p/preview=?"
+    set -l options e/editor
     argparse $options -- $argv
 
     # open file in ./
