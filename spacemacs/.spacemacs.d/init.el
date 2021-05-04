@@ -1291,6 +1291,8 @@ Emacs session."
     ;; whitespace-cleanup will also do untabify-it/tabify-it automatically
     ;; according indent-tabs-mode, so the definitions of two functions are not needed
     "bc" 'whitespace-cleanup
+	;; original: SPC b N I
+    "bC" 'clone-indirect-buffer-other-window-without-purpose
     ;; overwrite the default br
     "br" 'revert-buffer-without-asking
     ;; overwrite the default bR
@@ -1383,6 +1385,8 @@ Emacs session."
     "w SPC" 'spacemacs/window-layout-toggle
     ;; the default is other-frame
     "wo" 'spacemacs/window-split-single-column
+	;; original: SPC b N I
+    "wC" 'clone-indirect-buffer-other-window-without-purpose
     ;; the default binding is SPC j b
     "j SPC" 'avy-pop-mark
     "jr" 'avy-resume
