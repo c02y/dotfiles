@@ -67,7 +67,6 @@ This function should only modify configuration layer settings."
            lsp-rust-server 'rls
            )
      yaml
-     semantic
      (treemacs :variables
                treemacs-position 'right
                treemacs-no-png-images t
@@ -734,9 +733,9 @@ https://github.com/syl20bnr/spacemacs/issues/12346"
          :priority 100)
         (anzu :priority 95)
         auto-compile
-        ((buffer-modified buffer-id remote-host line-column)
+        ((buffer-modified buffer-id)
          :priority 98)
-        ((buffer-position buffer-size)
+        ((which-function remote-host line-column buffer-position buffer-size)
          :priority 79)
         (major-mode :priority 79)
         (process :when active)
@@ -753,8 +752,7 @@ https://github.com/syl20bnr/spacemacs/issues/12346"
         (org-clock :when active)
         nyan-cat)
       ;; right side
-      '(which-function
-        (python-pyvenv :fallback python-pyenv)
+      '((python-pyvenv :fallback python-pyenv)
         (purpose :priority 94)
         (battery :when active)
         (selection-info :priority 95)
@@ -988,6 +986,8 @@ before packages are loaded."
    translate-shell-command "trans :zh -d -show-dictionary Y -v -no-ansi %s"
    translate-shell-brief-command "trans -brief -t zh %s"
    )
+  ;; to make which-function in spaceline-custom-theme work
+  (which-function-mode)
 
   ;; NOTE: along with undo-tree-auto-save-history
   (unless (file-exists-p (concat spacemacs-cache-directory "undo"))
