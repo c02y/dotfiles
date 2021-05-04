@@ -65,7 +65,7 @@ stowsh_install() {
 			break
 		fi
 		if test -f "${target}" || test -d "${target}"; then
-			d=$($findcmd $d -mindepth 1 -maxdepth 1 -print0)
+			d=$($findcmd $d -mindepth 1 -maxdepth 1)
 			target=$(echo "$target/$(basename $d)")
 			if test -L "${target}"; then
 				echo $target is already a symbolic link...
@@ -91,7 +91,7 @@ stowsh_uninstall() {
 	while IFS= read -r -d '' d; do
 		target=$(echo "$target/$(basename $d)")
 		if ! test -L "${target}"; then
-			d=$($findcmd $d -mindepth 1 -maxdepth 1 -print0)
+			d=$($findcmd $d -mindepth 1 -maxdepth 1)
 			target=$(echo "$target/$(basename $d)")
 			if ! test -L "${target}"; then
 				echo $target is not a symbolic link...
