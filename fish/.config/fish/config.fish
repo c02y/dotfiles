@@ -640,7 +640,7 @@ function fu -d 'fu command and prompt to ask to open it or not'
             # NOTE: $num_line may contain more than one number, use "$num_line", or test will fail
             if not test "$num_line" # empty, defined but removed, not cleaned
                 echo "$argv is an alias/function defined in $def_file!"
-                if test $def_file = $FISHRC
+                if test (readlink -f $def_file) = $FISHRC
                     functions -e $argv
                     echo "$argv is not defined inside $FISHRC anymore, erased!"
                     return
