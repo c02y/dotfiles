@@ -1,0 +1,49 @@
+#!/bin/bash
+
+# Quick compile and run a c/cpp file or compile and run target in CMakeLists.txt or just compile using Makefile/makefile
+
+# gcc/g++ for simple c/c++ file
+if [ $# -ne 0 ]; then # argv is provided
+	DIR=$(dirname "$@")
+	BIN="${@%.*}"
+	EXT="${@##*.}"
+	# echo DIR: $DIR
+	# echo BIN: $BIN
+	# echo EXT: $EXT
+	if [ ! -z $EXT ]; then # if EXT variable is not empty
+		if [ "$EXT" = "cpp" -o "$EXT" = "cc" ]; then
+			CC=g++
+		elif [ "$EXT" = "c" ]; then
+			CC=gcc
+		fi
+		if [ ! -z $CC ]; then
+			$CC -Wall -W -g $@ -o $DIR/$BIN && $DIR/$BIN
+			exit 0
+		fi
+	fi
+fi
+
+if [ -f ../CMakeLists.txt ]; then # inside build dir
+	if [ $# -ne 0 ]; then            # argv is provided
+		make -q $@
+		# if make pass or make error, status=1
+		# if no given target, status 2
+		if [[ ("$?" -eq 1) || $(cmake ..) -eq 0 ]]; then
+			make $@ && ./$@
+		fi
+	else
+		cmake .. && make
+	fi
+elif [ -f ./Makefile -o -f ./makefile ]; then
+	make
+elif [ -f ./CMakeLists.txt ]; then # no build or not inside build dir
+	if [ ! -d ./build ]; then
+		mkdir build
+	fi
+	cd build && cmake .. && make
+	if [ $# -ne 0 ]; then
+		./$@
+	fi
+else
+	echo "No CMakeLists.txt or not inside build or no Makefile/makefile..."
+fi

@@ -1385,44 +1385,7 @@ end
 abbr gcc-w 'gcc -g -Wall -W -Wsign-conversion'
 abbr gcca 'gcc -g -pedantic -Wall -W -Wconversion -Wshadow -Wcast-qual -Wwrite-strings -Wmissing-prototypes  -Wno-sign-compare -Wno-unused-parameter'
 # gcc -Wall -W -Wextra -Wconversion -Wshadow -Wcast-qual -Wwrite-strings -Werror
-function mkk -d "gcc, g++, cmake and make"
-    # gcc/g++ for simple C/Cpp file
-    if ! set -q $argv[1] # given arguments
-        set -l DIR (dirname $argv)
-        set -l BIN (string split -r -m1 . (basename $argv))[1] # get the binary name
-        set -l EXT (string split -r -m1 . (basename $argv))[2] # get the extension name
-        if ! set -q $EXT # extension is not empty, argv is c/cpp file
-            if test $EXT = cpp -o $EXT = cc
-                g++ -Wall -W -g $argv -o $DIR/$BIN; and $DIR/$BIN
-                return
-            else if test $EXT = c
-                gcc -Wall -W -g $argv -o $DIR/$BIN; and $DIR/$BIN
-                return
-            end
-        end
-    end
 
-    if test -f ../CMakeLists.txt # inside build dir
-        if not set -q $argv
-            make -q $argv
-            # if make pass or make error, status=1
-            # if no given target, status=2
-            if test $status = 1; or cmake ..
-                make $argv; and ./$argv
-            end
-        else
-            cmake ..; and make
-        end
-    else if test -f ./Makefile -o -f makefile # not cmake
-        make
-    else if test -f ./CMakeLists.txt # no build dir
-        not test -d build; and mkdir build
-        cd build && cmake ..; and make
-        not set -q $argv; and ./$argv
-    else
-        echo "No CMakeLists.txt or not inside build or no Makefile/makefile..."
-    end
-end
 # static code analyzer, another tool is from clang-analyzer which is scan-build
 # https://clang-analyzer.llvm.org/scan-build.html
 # https://clang.llvm.org/extra/clang-tidy/
