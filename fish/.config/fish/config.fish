@@ -373,13 +373,18 @@ function lls -d 'ls functions with options'
     # using -A to not show hidden files/dirs
     ! set -q _flag_A; and set OPT -A --color=yes $ARGV; or set OPT --color=yes
 
-    set -q _flag_l; and set OPT $OPT -lh
+    if set -q _flag_l
+        set OPT $OPT -lh
+        set PIP "| nl -v 0 | sort -nr"
+    else
+        set PIP "| nl -v 1 | sort -nr"
+    end
     # reverse order(-r) or not
     set -q _flag_r; and set OPT $OPT -r
     # list and sort by extension, and directories first
     set -q _flag_e; and eval ls $OPT -X --group-directories-first $ARGV && return
     # list all(-a) or not
-    set -q _flag_a; and set PIP "| nl -v 0 | sort -nr"; or set PIP "| nl -v 0 | sort -nr | tail -20"
+    set -q _flag_a; or set -a PIP "| tail -20"
     # sort by size(-s) or sort by last modification time
     set -q _flag_s; and set OPT $OPT --sort=size; or set OPT $OPT --sort=time --time=ctime
 
