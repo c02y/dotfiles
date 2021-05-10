@@ -67,8 +67,6 @@ function! UserInit()
     " speedup the updates of the signs
     set updatetime=100
     let g:gitgutter_sign_modified = '*'
-    " in case the sudden popup of signcolumn
-    set signcolumn=yes
     nmap [h <Plug>(GitGutterPrevHunk)
     nmap ]h <Plug>(GitGutterNextHunk)
     nmap [H <Plug>(GitGutterNextHunk)
@@ -529,4 +527,9 @@ function! UserConfig()
     nnoremap <Leader>/ /\<\><left><left>
     " search and list all the result of current word
     nnoremap <Leader>sl :vimgrep /<c-r>=expand("<cword>")<cr>/ %<cr>:copen<cr>
+
+    " in case the sudden popup of signcolumn
+    set signcolumn=yes
+    " make margin transparent
+    highlight clear SignColumn
 endfunction
