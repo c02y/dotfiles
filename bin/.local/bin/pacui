@@ -4,8 +4,11 @@ SHELL=/usr/bin/bash                                                             
 # SC1117: Backslash is literal in "\e". Prefer explicit escaping: "\\e".
 # SC1117: Backslash is literal in "\n". Prefer explicit escaping: "\\n".
 # SC1117: Backslash is literal in "\t". Prefer explicit escaping: "\\t".
+# SC2001: See if you can use ${variable//search/replace} instead.
+# SC2016: Expressions don't expand in single quotes, use double quotes for that.
 # SC2086: Double quote to prevent globing and word splitting.                       # ${variable}  does not work when double quoted. also, double quote breaks this script in many cases --> there are warning comments containing "ATTENTION" about this.
-# shellcheck disable=SC1117,SC2086                                                  # exclude MANY false-positive shellcheck warnings (see above)
+# SC2116: Useless echo?
+# shellcheck disable=SC1117,SC2001,SC2016,SC2086,SC2116                             # exclude MANY false-positive shellcheck warnings (see above)
 
 #  This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as
 #  published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version.
@@ -112,7 +115,7 @@ function func_u
         then
 
             # execute "yay -Syu" command:
-            if ( yay $argument_flag-Syu )                                         # execute command "yay -Syu". if this command fails "false" is returned and the result is: "if ( false )"
+            if ( yay $argument_flag-Syu )                                           # ATTENTION: (i do not know why but) using quotes (" symbols) around $argument_flag breaks yay command for arguments (e.g. "pacui -u --noconfirm")
             then
                 # only set $install_successful=true, if the command "yay -Syu" was executed without errors
                 install_successful=true
@@ -123,7 +126,7 @@ function func_u
         elif [[ "$AUR_Helper" == "pikaur" ]]
         then
 
-            if ( pikaur "$argument_flag"-Syu )
+            if ( pikaur "$argument_flag"-Syu )                                      # execute command "yay -Syu". if this command fails "false" is returned and the result is: "if ( false )"
             then
                 install_successful=true
             else
@@ -678,7 +681,7 @@ function func_i
 
             if [[ "$AUR_Helper" == "yay" ]]
             then
-                yay $argument_flag-S $pkg                                         # ATTENTION: (i do not know why but) using quotes (" symbols) around $pkg variable breaks AUR helper and pacman
+                yay $argument_flag-S $pkg                                           # ATTENTION: (i do not know why but) using quotes (" symbols) around $argument_flag breaks yay command for arguments (e.g. "pacui -u --noconfirm")          # ATTENTION: (i do not know why but) using quotes (" symbols) around $pkg variable breaks AUR helper and pacman
 
             elif [[ "$AUR_Helper" == "pikaur" ]]
             then
@@ -814,7 +817,7 @@ function func_r
                             #set -E
                             pacui_tty_clean                                         # clear terminal
 
-                            if ! [[ -n "$pkg" ]]                                    # check, whether $pkg variable is empty. this happens when fzf is quit with CTRL+C.
+                            if [[ -z "$pkg" ]]                                      # check, whether $pkg variable is empty. this happens when fzf is quit with CTRL+C.
                             then
                                 break                                               # break while-loop, if fzf was quit using CTRL+C
                             fi
@@ -849,7 +852,7 @@ function func_r
 
 
                     3 )                                                             # do this, if "answer" is 3
-                        sudo pacman -Rsnc $pkg_remove --color always                 # ATTENTION: (i do not know why but) using quotes (" symbols) around $pkg_remove variable breaks AUR helper and pacman
+                        sudo pacman -Rsnc $pkg_remove --color always                # ATTENTION: (i do not know why but) using quotes (" symbols) around $pkg_remove variable breaks AUR helper and pacman
                         ;;
 
 
@@ -1213,7 +1216,7 @@ function func_b
         pacui_tty_clean                                                             # clear terminal
 
         # only run the command inside the if-statement, if variable $pacui_cache_packages is not empty and exists - this happens when fzf is quit with ESC or CTRL+C
-        if [[ ! -z "$pacui_cache_packages" ]]
+        if [[ -n "$pacui_cache_packages" ]]
         then
 
 
@@ -1221,7 +1224,7 @@ function func_b
             # filter variable $pacui_cache_packages for the word "installed" and write package names to variable $pkgR
             pkgR="$( echo "${pacui_cache_packages}" | awk '/installed/ {print $2}' | sort -u | paste -sd " " )"
 
-            if [[ ! -z "$pkgR" ]]                                                   # this if-condition avoids error message when no package gets removed (and $pkgR is empty)
+            if [[ -n "$pkgR" ]]                                                     # this if-condition avoids error message when no package gets removed (and $pkgR is empty)
             then
                 # remove packages with pacman command. use parameter substitution with ${...} (without quotes!!!) for it, because otherwise the pacman command fails!
                 sudo pacman "$argument_flag"-R ${pkgR} --color always               # ATTENTION: (i do not know why but) using quotes (" symbols) around $pkgR variable breaks AUR helper and pacman
@@ -1232,7 +1235,7 @@ function func_b
             # filter variable $pacui_cache_packages for the word "removed" and write package names to variable $pacui_cache_install
             pacui_cache_install="$( echo "${pacui_cache_packages}" | awk '/removed/ {print $2}' )"
 
-            if [[ ! -z "$pacui_cache_install" ]]                                    # this if-condition avoids error messages when no package gets installed (and variable $pacui_cache_install is empty)
+            if [[ -n "$pacui_cache_install" ]]                                      # this if-condition avoids error messages when no package gets installed (and variable $pacui_cache_install is empty)
             then
 
                 if [[ "$AUR_Helper" == "pacaur" ]]                                  # checks, whether file "pacaur" exists, i.e. pacaur is installed
@@ -1259,7 +1262,7 @@ function func_b
                 )"
 
                 # sort output to suit pacman's syntax. pacman needs a list of package names separated by single spaces.
-                if [[ ! -z "$pacui_aur_install" ]]
+                if [[ -n "$pacui_aur_install" ]]
                 then
                     # if AUR packages should be installed, the lists of package names are first combined before they get sorted and rearranged to space separated lists.
                     # use parameter substitution to combine 2 lists of packages.
@@ -1269,7 +1272,7 @@ function func_b
                 fi
 
                 # finally, all packages get installed manually using "pacman -U":
-                if [[ ! -z "$pkgI" ]]
+                if [[ -n "$pkgI" ]]
                 then
                     # install cannot be done as dependency, because sometimes packages are simply replaced by other packages. in this case, installing as dependency would be bad!
                     sudo pacman "$argument_flag"-U ${pkgI} --color always           # ATTENTION: (i do not know why but) using quotes (" symbols) around $pkgI variable breaks AUR helper and pacman
@@ -1282,7 +1285,7 @@ function func_b
             # variable $pacui_cache_packages contains list of package names to be downgraded!
             pacui_cache_downgrade="$( echo "${pacui_cache_packages}" | awk '/upgraded/ {print $2}' )"
 
-            if [[ ! -z "$pacui_cache_downgrade" ]]                                  # this if-condition avoids error messages when no package gets downgraded (and variables $pacui_cache_downgrade is empty)
+            if [[ -n "$pacui_cache_downgrade" ]]                                    # this if-condition avoids error messages when no package gets downgraded (and variables $pacui_cache_downgrade is empty)
             then
 
                 # here, it is impossible to use variables instead of temporary files. therefore, the temporary files should be as tamper-proof as possible.
@@ -1292,7 +1295,7 @@ function func_b
 
                 # add trap command to immediately remove upon ctrl+c (or any other case this function quits in the middle) for security purposes
                 # this is the normal syntax for "trap" command.
-                trap "unlink ${pacui_tmp_downgrade}" EXIT
+                trap 'unlink ${pacui_tmp_downgrade}' EXIT
 
                 # first, count the number of times the package name appears in file ${pacui_cache_downgrade}:
                 pacui_cache_downgrade_counted="$( echo "${pacui_cache_downgrade}" | sort | uniq -c )"
@@ -1338,7 +1341,7 @@ function func_b
                 pkgD="$( echo "${pacui_downgrade}" | sort -u | paste -sd " ")"
 
                 # the following if-statement prevents the following error, in case there is no older package version available: "error: no targets specified (use -h for help)"
-                if [[ ! -z "$pkgD" ]]                                               # checks, if variable is not empty
+                if [[ -n "$pkgD" ]]                                                 # checks, if variable is not empty
                 then
                     # downgrade packages by manually installing them: (sudo pacman -U --noconfirm --color always )
                     sudo pacman "$argument_flag"-U ${pkgD} --color always           # ATTENTION: (i do not know why but) using quotes (" symbols) around $pkgD variable breaks AUR helper and pacman
@@ -1351,7 +1354,7 @@ function func_b
             # variable $pacui_cache_packages contains list of package names to be downgraded!
             pacui_cache_upgrade="$( echo "${pacui_cache_packages}" | awk '/downgraded/ {print $2}' )"
 
-            if [[ ! -z "$pacui_cache_upgrade" ]]                                    # this if-condition avoids error messages when no package gets upgraded (and variables $pacui_cache_upgrade is empty)
+            if [[ -n "$pacui_cache_upgrade" ]]                                      # this if-condition avoids error messages when no package gets upgraded (and variables $pacui_cache_upgrade is empty)
             then
 
                 # here, it is impossible to use variables instead of temporary files. therefore, the temporary files should be as tamper-proof as possible.
@@ -1361,7 +1364,7 @@ function func_b
 
                 # add trap command to immediately remove upon ctrl+c (or any other case this function quits in the middle) for security purposes
                 # this is the normal syntax for "trap" command.
-                trap "unlink ${pacui_tmp_upgrade}" EXIT
+                trap 'unlink ${pacui_tmp_upgrade}' EXIT
 
                 # first, count the number of times the package name appears in file ${pacui_cache_upgrade}:
                 pacui_cache_upgrade_counted="$( echo "${pacui_cache_upgrade}" | sort | uniq -c )"
@@ -1407,7 +1410,7 @@ function func_b
                 pkgU="$( echo "${pacui_upgrade}" | sort -u | paste -sd " " )"
 
                 # the following if-statement prevents the following error, in case there is no older package version available: "error: no targets specified (use -h for help)"
-                if [[ ! -z "$pkgU" ]]                                               # checks, if variable is not empty
+                if [[ -n "$pkgU" ]]                                                 # checks, if variable is not empty
                 then
                     # upgrade packages by manually installing them: (sudo pacman -U --noconfirm --color always )
                     sudo pacman "$argument_flag"-U ${pkgU} --color always           # ATTENTION: (i do not know why but) using quotes (" symbols) around $pkgU variable breaks AUR helper and pacman
@@ -1434,7 +1437,8 @@ function func_f
 
 
         # remove pacman database lock file
-        local dbpath="$( awk -F '=' '/^DBPath/ {gsub(" ","",$2); print $2}' '/etc/pacman.conf' )"               # extract path of database file from pacman.conf
+        local dbpath
+        dbpath="$( awk -F '=' '/^DBPath/ {gsub(" ","",$2); print $2}' '/etc/pacman.conf' )"               # extract path of database file from pacman.conf
         if [[ -z "$dbpath" ]]                                                       # if "dbpath" variable is empty (exact: if output of $dbpath is zero)
         then
             dbpath="/var/lib/pacman/"                                               # default database path
@@ -1474,7 +1478,7 @@ function func_f
         server="$( grep "^Server =" -m 1 "/etc/pacman.d/mirrorlist" | awk -F '=' '{print $2}' | awk -F '$' '{print $1}' )"
 
         # check, whether there is a connection to the mirror/repository server. this is needed for package download/update!
-        if ! ( curl --silent --fail $(echo "$server") &>/dev/null )                        # the "curl --silent --fail" command gets executed in any case in order to check its output.
+        if ! ( curl --silent --fail $(echo "$server") &>/dev/null )                 # ATTENTION: the curl command needs   $(echo "$server")   without quotes!        # the "curl --silent --fail" command gets executed in any case in order to check its output.
         then
 
             # print error message, if there is no connection to a mirror/repository server and quit
@@ -1606,7 +1610,7 @@ function func_f
 
 
                                     echo " initializing and populating keyring ..."
-                                    sudo pacman-key --init && echo "" && sudo pacman-key --populate $( pacman -Qsq '(-keyring)' | grep -v -i -E '(gnome|python|debian)' | sed 's/-keyring//' | paste -sd " " )                      # ATTENTION: (i do not know why but) using quotes (" symbols) around $(...) does not work!
+                                    sudo pacman-key --init && echo "" && sudo pacman-key --populate $( pacman -Qsq '(-keyring)' | grep -v -i -E '(gnome|python|debian)' | sed 's/-keyring//' | paste -sd " " )           # ATTENTION: (i do not know why but) using quotes (" symbols) around $(...) does not work!
                                     echo ""
 
 
@@ -1737,7 +1741,7 @@ function func_c
 
         # add trap command to immediately remove upon ctrl+c (or any other case this function quits in the middle) for security purposes
         # this is the normal syntax for "trap" command:
-        trap "unlink ${pacui_config}" EXIT
+        trap 'unlink ${pacui_config}' EXIT
 
         #set +u
 
@@ -1804,7 +1808,7 @@ function func_c
         [[ -f /boot/grub/custom.cfg ]]                  && echo -e "/boot/grub/custom.cfg                                                                                                                                                                                                                                            Configure custom GRUB entries in file:" >> ${pacui_config}
         [[ -f /boot/loader/loader.conf ]]               && echo -e "\e[31m/boot/loader/loader.conf                                                                                                                                                                                                                                   Configure systemd-boot boot loader in file:\e[0m" >> ${pacui_config}
         [[ -f /etc/sdboot-manage.conf ]]                && echo -e "\e[31m/etc/sdboot-manage.conf                                                                                                                                                                                                                                    Configure systemd-boot-manager in file:\e[0m" >> ${pacui_config}
-        [[ -f /boot/loader/entries ]]                   && echo -e "\e[31m/boot/loader/entries/                                                                                                                                                                                                                                      Configure systemd-boot boot loader entries:\e[0m" >> ${pacui_config}
+        [[ -d /boot/loader/entries ]]                   && echo -e "\e[31m/boot/loader/entries/                                                                                                                                                                                                                                      Configure systemd-boot boot loader entries:\e[0m" >> ${pacui_config}
         [[ -f /boot/refind_linux.conf ]]                && echo -e "\e[31m/boot/refind_linux.conf                                                                                                                                                                                                                                    Configure rEFInd boot loader in file:\e[0m" >> ${pacui_config}
         [[ -f /boot/EFI/refind/refind.conf ]]           && echo -e "\e[31m/boot/EFI/refind/refind.conf                                                                                                                                                                                                                               Configure rEFInd boot loader in file:\e[0m" >> ${pacui_config}
         [[ -f /boot/EFI/CLOVER/config.plist ]]          && echo -e "\e[31m/boot/EFI/CLOVER/config.plist                                                                                                                                                                                                                              Configure Clover boot loader in file:\e[0m" >> ${pacui_config}
@@ -1960,7 +1964,7 @@ function func_ls
         # list all packages on local system sorted by their installed size using "expac" and "sort".
         # expac -H M -Q "%12m - \e[1m%n\e[0m %v"  displays size, name, and version number
         # "sort -n -r"  sorts list by number (with which every element begins).
-        # ATTENTION: (i do not know why but) using quotes (" symbols) around $( comm ...) breaks expac
+        # ATTENTION: (i do not know why but) using quotes (" symbols) around $(...) breaks expac
         expac -H M -Q "%12m - \e[1m%n\e[0m" $( pacman -Qq | sort) | sort -n -r | fzf -i --multi --exact --no-sort --ansi --layout=reverse --bind=pgdn:half-page-down,pgup:half-page-up --margin=1 --info=inline --no-unicode --preview '
             echo -e "\e[1mInstalled package info: \e[0m"
             pacman -Qi {4} --color always
@@ -1982,7 +1986,7 @@ function func_ua
 {
         if [[ "$AUR_Helper" == "yay" ]]
         then
-            yay $argument_flag-Syu --devel --needed
+            yay $argument_flag-Syu --devel --needed                                 # ATTENTION: (i do not know why but) using quotes (" symbols) around $argument_flag breaks yay command for arguments (e.g. "pacui -u --noconfirm")
 
         elif [[ "$AUR_Helper" == "pikaur" ]]
         then
@@ -2613,7 +2617,7 @@ function func_h
 #set +u                                                                             # temporarily disable strict mode for environment variables
 
 # check, whether pacaur is installed, user config file exists, $EDITOR variable is empty, "vi" is not installed:
-if [[ "$AUR_Helper" == "pacaur" ]] && [[ ! -f $HOME/.config/pacaur/config ]] && [[ ! -n $EDITOR ]] && [[ ! -f /usr/bin/vi ]]
+if [[ "$AUR_Helper" == "pacaur" ]] && [[ ! -f $HOME/.config/pacaur/config ]] && [[ -z $EDITOR ]] && [[ ! -f /usr/bin/vi ]]
 then
     # export "editor='${EDITOR:-nano}'" to config file. '${EDITOR:-nano}'" outputs "nano", if there is no $EDITOR variable set.
     mkdir -p "$HOME/.config/pacaur/"
