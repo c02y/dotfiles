@@ -41,4 +41,6 @@ fi
 # the man-db may be not updated, just restart man-db.service manually
 # $manpage has to be double quoted according to shellcheck
 # but it may contains `1    man`, use eval here
-eval /bin/man "$manpage"
+if [ "$manpage" != "" ]; then
+	eval /bin/man "$manpage"
+fi
