@@ -7,14 +7,14 @@ bind \cw __fzf_cd
 bind \es __fzf_open
 bind \cs '__fzf_open --editor'
 
-if not bind --user \t >/dev/null 2>/dev/null
-    if set -q FZF_COMPLETE
-        bind \t __fzf_complete
-        if ! test "$fish_key_bindings" = fish_default_key_bindings
-            bind -M insert \t __fzf_complete
-        end
-    end
-end
+# if not bind --user \t >/dev/null 2>/dev/null
+#     if set -q FZF_COMPLETE
+#         bind \t __fzf_complete
+#         if ! test "$fish_key_bindings" = fish_default_key_bindings
+#             bind -M insert \t __fzf_complete
+#         end
+#     end
+# end
 
 
 ################################# __fzf_find_file.fish
