@@ -411,7 +411,7 @@ function pss -d 'pgrep process, used in command line'
         eval $PSS | fzf --preview-window hidden
     else
         eval $PSS | rg -i $argv[1] | nl
-        if test (eval $PSS | rg -i $argv[1] | nl | wc -l) = 1
+        if not set -q $argv[2]; and test (eval $PSS | rg -i $argv[1] | nl | wc -l) = 1
             set pid (pgrep -if $argv[1])
             echo -e "\nPID: " $pid
             if test $DISPLAY
