@@ -1444,12 +1444,10 @@ function fmts -d "compile_commands.json(-l), clang-format(-f), cmake-format(-m)"
         # generate compile_commands.json file for C/C++ files used by ccls/lsp
         if test -f CMakeLists.txt
             cmake -H. -B build -DCMAKE_BUILD_TYPE=Debug -DCMAKE_EXPORT_COMPILE_COMMANDS=YES
-            if test $status != 0 -o ! -f build/compile_commands.json
-                echo -e "\nGenerating build/compile_commands.json failed!!!"
-            else if ! ln -nsfv build/compile_commands.json
-                # if ln fails(failed, such as Linux->Windows), cp directly
-                command cp -v build/compile_commands.json .
-            end
+            test -f build/compile_commands.json; and ln -nsfv build/compile_commands.json .
+        else if test -f meson.build
+            meson build
+            test -f build/compile_commands.json; and ln -nsfv build/compile_commands.json .
         else if test -f scripts/gen_compile_commands.py # Linux kernel
             make defconfig
             if test $status = 0; and make
