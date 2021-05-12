@@ -23,27 +23,42 @@ if [ $# -ne 0 ]; then # argv is provided
 	fi
 fi
 
-if [ -f ../CMakeLists.txt ]; then # inside build dir
-	if [ $# -ne 0 ]; then            # argv is provided
-		make -q $@
-		# if make pass or make error, status=1
-		# if no given target, status 2
-		if [[ ("$?" -eq 1) || $(cmake ..) -eq 0 ]]; then
-			make $@ && ./$@
-		fi
+if [ -f ../CMakeLists.txt -o -f ./CMakeLists.txt ]; then # using cmake+make/ninja
+	if [ -f ../CMakeLists.txt ]; then
+		cmake ..
 	else
-		cmake .. && make
+		if [ ! -d ./build ]; then
+			mkdir build
+		fi
+		cd build && cmake ..
+	fi
+
+	if [ $? = 0 ]; then
+		CMD=make
+		if [ -f build.ninja ]; then
+			CMD=ninja
+		fi
+		if [ $# -ne 0 ]; then # argv is provided
+			eval $CMD $@ && ./$@
+		else
+			eval $CMD
+		fi
+	fi
+elif [ -f ../meson.build -o -f ./meson.build ]; then # using meson+ninja
+	if [ -f ../meson.build ]; then
+		meson ..
+	else
+		meson build && cd build
+	fi
+	if [ $? = 0 ]; then
+		if [ $# -ne 0 ]; then # argv is provided
+			ninja ./$@ && ./$@
+		else
+			ninja
+		fi
 	fi
 elif [ -f ./Makefile -o -f ./makefile ]; then
 	make
-elif [ -f ./CMakeLists.txt ]; then # no build or not inside build dir
-	if [ ! -d ./build ]; then
-		mkdir build
-	fi
-	cd build && cmake .. && make
-	if [ $# -ne 0 ]; then
-		./$@
-	fi
 else
-	echo "No CMakeLists.txt or not inside build or no Makefile/makefile..."
+	echo "No CMakeLists.txt/meson.build or no Makefile/makefile..."
 fi
