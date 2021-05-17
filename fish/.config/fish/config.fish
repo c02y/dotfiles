@@ -2534,13 +2534,13 @@ function yous -d 'youtube-dl functions'
     if set -q _flag_l # list all formats
         eval $PXY youtube-dl -F \"$argv\"
     else if set -q _flag_f # choose the num from the list
-        eval $PXY youtube-dl -f $argv[1] \"$argv[2]\"
+        eval $PXY youtube-dl -ciw -f $argv[1]+bestaudio \"$argv[2]\"
     else if set -q _flag_a # only download best audio into mp3
         eval $PXY youtube-dl -ciw --extract-audio --audio-format mp3 --audio-quality 0 \"$argv\"
     else if set -q _flag_p # download playlist
-        eval $PXY youtube-dl --download-archive downloaded.txt --no-overwrites -ict --yes-playlist --socket-timeout 5 \"$argv\"
+        eval $PXY youtube-dl -ciw --download-archive downloaded.txt --no-overwrites -ict --yes-playlist --socket-timeout 5 \"$argv\"
     else if set -q _flag_P # download playlist into audio
-        eval $PXY youtube-dl --download-archive downloaded.txt --no-overwrites -ict --yes-playlist --extract-audio --audio-format mp3 --audio-quality 0 --socket-timeout 5 \"$argv\"
+        eval $PXY youtube-dl -ciw --download-archive downloaded.txt --no-overwrites -ict --yes-playlist --extract-audio --audio-format mp3 --audio-quality 0 --socket-timeout 5 \"$argv\"
     else # download video
         eval $PXY youtube-dl -ciw \"$argv\"
     end
