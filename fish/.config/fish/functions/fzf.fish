@@ -63,17 +63,17 @@ function __fzf_cd -d "Change directory"
 
     set -l FZF_CD_COMMAND "
     command find -L $dir \( -path '*/\.git*' -o -fstype 'dev' -o -fstype 'proc' \) -prune \
-        -o -type d -print 2> /dev/null | sed 1d | cut -b3-"
+        -o -type d -print 2> /dev/null | sed 1d"
 
     eval "$FZF_CD_COMMAND | fzf +m $FZF_DEFAULT_OPTS --query \"$fzf_query\"" | read -l select
 
     if not test -z "$select"
-        cd "$select"
+        builtin cd "$select"
 
         # Remove last token from commandline.
-        # commandline -t ""
+        commandline -t ""
     end
-    commandline -f repaint
+    # commandline -f repaint
 end
 
 
