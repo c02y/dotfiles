@@ -58,10 +58,12 @@ This function should only modify configuration layer settings."
      ;; TODO:
      ;; rustup component add rls rust-analysis rust-src
      ;; rustup component add clippy rustfmt
-     ;; cargo install cargo-edit cargo-audit
+     ;; cargo install cargo-edit cargo-audit cargo-outdated
      (rust :variables
+           cargo-process-reload-on-modify t
            cargo-process--open-file-after-new t
            cargo-process--enable-rust-backtrace t
+           cargo-process--command-flags "--color never"
            ;; rustup component add rls rust-analysis rust-src
            ;; install rust-racer for auto completion with rls
            lsp-rust-server 'rls
