@@ -2435,6 +2435,7 @@ function ios -d 'io stat'
     # `dstat -d -n`
     # Check the health issue of disk using smartmontools
     # `sudo smartctl --all /dev/nvme0n1`
+    # `gpustat -cp` to check gpu usage
     if set -q argv[1]
         sudo hdparm -Tt $argv # $argv is device like /dev/sda1
     else
