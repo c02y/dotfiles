@@ -675,6 +675,9 @@ It should only modify the values of Spacemacs settings."
    ;; (default t)
    dotspacemacs-use-clean-aindent-mode nil
 
+   ;; Accept SPC as y for prompts if non nil. (default nil)
+   dotspacemacs-use-SPC-as-y t
+
    ;; If non-nil shift your number row to match the entered keyboard layout
    ;; (only in insert state). Currently supported keyboard layouts are:
    ;; `qwerty-us', `qwertz-de' and `querty-ca-fr'.
@@ -1105,13 +1108,6 @@ With argument, backward ARG lines."
       ad-do-it
       (when orig-indent-tabs-mode
         (setq indent-tabs-mode t))))
-
-  ;; Use Space for y in prompt
-  (defun y-or-n-p-with-space (orig-func &rest args)
-    (let ((query-replace-map (copy-keymap query-replace-map)))
-      (define-key query-replace-map (kbd "SPC") 'act)
-      (apply orig-func args)))
-  (advice-add 'y-or-n-p :around #'y-or-n-p-with-space)
 
   ;; kill all magit buffers, do this in magit-status with `q'
   ;; https://manuel-uberti.github.io/emacs/2018/02/17/magit-bury-buffer/
