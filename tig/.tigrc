@@ -56,12 +56,13 @@ bind stage      k    ?>git clean -f -d -- %(file) # delete untracked files/dirs
 bind stage      D    ?>sh -c "rm -rfv %(file)"
 bind stage      d    view-stage
 
-bind generic    Y    >git stash push -m "%(prompt Msg: )" %(file)
+# NOTE: -p option need to start tig from typing the command instead of using shortcut to open tig
+bind generic    Y    >git stash push -m "%(prompt Msg: )" -p
 bind stash      p    ?>git stash pop %(stash)
 bind diff       p    ?>git stash pop %(stash)
 bind stash      d    ?>git stash drop %(stash)
-bind status     P    >git stash push -m "%(prompt Msg: )" -p %(file)
-bind stage      P    >git stash push -m "%(prompt Msg: )" -p %(file)
+bind status     P    >git stash push -m "%(prompt Msg: )" -p
+bind stage      P    >git stash push -m "%(prompt Msg: )" -p
 bind stage      gS   !>sh -c "git diff HEAD > stage.diff" # save stage buffer into file
 
 bind generic    c    none # disable single c
