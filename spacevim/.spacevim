@@ -131,6 +131,9 @@ function! UserInit()
     endif
 
     Plug 'tpope/vim-commentary'
+    " change Cpp comment style to // instead of /* */
+    autocmd FileType cpp setlocal commentstring=//\ %s
+
     Plug 'tpope/vim-unimpaired'
 
     " for syntax-checking layer, check https://github.com/liuchengxu/space-vim/issues/407
