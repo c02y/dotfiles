@@ -90,15 +90,16 @@ done
 OLDPWD=$pwd
 [[ -d $1 ]] && cd "$1"
 
+echo $1
+# exit
 emacs -q $gui \
 	$(load_paths "${dependencies[@]}") \
 	-l magit -f magit-status \
 	--eval "(local-set-key \"q\" #'kill-emacs)" \
 	-f delete-other-windows -mm \
 	--eval "(progn (scroll-bar-mode -1)(tool-bar-mode -1))" \
-	--eval "(set-face-attribute 'default nil :font \"Cascadia Code PL-13\")" \
+	--eval "(set-face-attribute 'default nil :font \"Cascadia Mono PL-13\")" \
 	--eval "(fset 'yes-or-no-p 'y-or-n-p)" \
-	--eval "(setq truncate-lines nil)" &
->/dev/null
+	--eval "(setq truncate-lines nil)"
 
 cd $OLDPWD
