@@ -865,57 +865,6 @@ before packages are loaded."
   ;; prevent package-selected-package list been created
   (defun package--save-selected-packages (&rest opt) nil)
 
-  ;; set the font, don't have touch dotspacemacs-default-font
-  ;; even touched without this following line, font may not work for daemon/emacsclient
-  (setq default-frame-alist '((font . "Delugia Nerd Font-13.5")))
-  ;; cascadia-code/issues/153#issuecomment-548622886
-  ;; Emacs Ligatures for Cascadia Code font
-  (use-package composite
-    :defer t
-    :init
-    (defvar composition-ligature-table (make-char-table nil))
-    :hook
-    (((prog-mode conf-mode nxml-mode markdown-mode help-mode org-mode)
-      . (lambda () (setq-local composition-function-table composition-ligature-table))))
-    :config
-    ;; support ligatures, some toned down to prevent hang
-    (when (version<= "27.0" emacs-version)
-      (let ((alist
-             '((33 . ".\\(?:\\(==\\|[!=]\\)[!=]?\\)")
-               (35 . ".\\(?:\\(###?\\|_(\\|[(:=?[_{]\\)[#(:=?[_{]?\\)")
-               (36 . ".\\(?:\\(>\\)>?\\)")
-               (37 . ".\\(?:\\(%\\)%?\\)")
-               (38 . ".\\(?:\\(&\\)&?\\)")
-               (42 . ".\\(?:\\(\\*\\*\\|[*>]\\)[*>]?\\)")
-               ;; (42 . ".\\(?:\\(\\*\\*\\|[*/>]\\).?\\)")
-               (43 . ".\\(?:\\([>]\\)>?\\)")
-               ;; (43 . ".\\(?:\\(\\+\\+\\|[+>]\\).?\\)")
-               (45 . ".\\(?:\\(-[->]\\|<<\\|>>\\|[-<>|~]\\)[-<>|~]?\\)")
-               ;; (46 . ".\\(?:\\(\\.[.<]\\|[-.=]\\)[-.<=]?\\)")
-               (46 . ".\\(?:\\(\\.<\\|[-=]\\)[-<=]?\\)")
-               (47 . ".\\(?:\\(//\\|==\\|[=>]\\)[/=>]?\\)")
-               ;; (47 . ".\\(?:\\(//\\|==\\|[*/=>]\\).?\\)")
-               (48 . ".\\(?:\\(x[a-fA-F0-9]\\).?\\)")
-               (58 . ".\\(?:\\(::\\|[:<=>]\\)[:<=>]?\\)")
-               (59 . ".\\(?:\\(;\\);?\\)")
-               (60 . ".\\(?:\\(!--\\|\\$>\\|\\*>\\|\\+>\\|-[-<>|]\\|/>\\|<[-<=]\\|=[<>|]\\|==>?\\||>\\||||?\\|~[>~]\\|[$*+/:<=>|~-]\\)[$*+/:<=>|~-]?\\)")
-               (61 . ".\\(?:\\(!=\\|/=\\|:=\\|<<\\|=[=>]\\|>>\\|[=>]\\)[=<>]?\\)")
-               (62 . ".\\(?:\\(->\\|=>\\|>[-=>]\\|[-:=>]\\)[-:=>]?\\)")
-               (63 . ".\\(?:\\([.:=?]\\)[.:=?]?\\)")
-               (91 . ".\\(?:\\(|\\)[]|]?\\)")
-               ;; (92 . ".\\(?:\\([\\n]\\)[\\]?\\)")
-               (94 . ".\\(?:\\(=\\)=?\\)")
-               (95 . ".\\(?:\\(|_\\|[_]\\)_?\\)")
-               (119 . ".\\(?:\\(ww\\)w?\\)")
-               (123 . ".\\(?:\\(|\\)[|}]?\\)")
-               (124 . ".\\(?:\\(->\\|=>\\||[-=>]\\||||*>\\|[]=>|}-]\\).?\\)")
-               (126 . ".\\(?:\\(~>\\|[-=>@~]\\)[-=>@~]?\\)"))))
-        (dolist (char-regexp alist)
-          (set-char-table-range composition-ligature-table (car char-regexp)
-                                `([,(cdr char-regexp) 0 font-shape-gstring]))))
-      (set-char-table-parent composition-ligature-table composition-function-table))
-    )
-
   (setq-default
    ;; always show trailing whitespace, spacemacs only it in prog-mode by default
    ;; show-trailing-whitespace t
