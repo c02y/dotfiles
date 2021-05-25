@@ -1020,15 +1020,15 @@ function tree
     end
 end
 
-# j for .bz2, z for .gz, J for xz, a for auto determine
-function tars -d 'tar extract(x)/list(l, by default)/create(c, add extra arg to exclude .git dir), fastest(C, add extra arg to exclude .git)or others using extr(o)'
-    set -l options x l c C o
+function tars -d 'tar extract(x)/list(l, by default)/create(c, add extra arg to exclude .git dir), fastest(C, add extra arg to exclude .git)or others(o, rar, zip)'
+    set -l options x l c C o O X
     argparse -n tars $options -- $argv
     or return
 
     # remove the end slash in argv[1] if it is a directory
     test -d $argv[1]; and set ARGV (echo $argv[1] | sed 's:/*$::'); or set ARGV $argv
 
+    # j for .bz2, z for .gz, J for xz, a for auto determine
     if set -q _flag_x # extract
         # extract into dir based on the tar file
         tar xvfa $argv --one-top-level
@@ -1049,49 +1049,42 @@ function tars -d 'tar extract(x)/list(l, by default)/create(c, add extra arg to 
             echo -e "\nUse `tars -C $ARGV g` to include .git directory!"
         end
     else if set -q _flag_o
-        if command -sq extr
-            extr $argv
+        # using unar -- https://unarchiver.c3.cx/unarchiver is available
+        # if the code is not working, try GBK or GB18030
+        # unzip zip if it is archived in Windows and messed up characters with normal unzip
+        # `unzip -O CP936`
+        if set -q _flag_l # list
+            if command -sq lsar
+                lsar $ARGV
+            else
+                unzip -l $ARGV
+            end
+        else if set -q _flag_C # list Chinese characters
+            zips.py -l $ARGV
+        else if set -q _flag_x
+            if command -sq unar
+                unar $ARGV
+            else
+                unzip $ARGV
+            end
+        else if set -q _flag_X # extract Chinese characters
+            zips.py -x $ARGV
+        else if set -q _flag_c # create zip
+            zip -r $ARGV.zip $ARGV
+        else
+            unzip -l $a # -l
+        end
+    else if set -q _flag_O # open it using file-roller
+        if command -sq xarchiver
+            xarchiver $ARGV
+        else if command -sq file-roller
+            file-roller $ARGV
         end
     else
         tar tvfa $argv
     end
 end
-# using unar -- https://unarchiver.c3.cx/unarchiver is available
-# if the code is not working, try GBK or GB18030
-# unzip zip if it is archived in Windows and messed up characters with normal unzip
-abbr unzipc 'unzip -O CP936'
-function zips -d 'zip to list(l, default)/extract(x)/create(c)'
-    # NOTE: if unarchiver is installed(lsar+unar), the $argv can be zip/rar/tar.xxx
-    set -l options l L c x X
-    argparse -n zips $options -- $argv
-    or return
 
-    for a in $argv
-        if set -q _flag_l # list
-            if command -sq lsar
-                lsar $a
-            else
-                unzip -l $a
-            end
-        else if set -q _flag_L # list Chinese characters
-            zips.py -l $a
-        else if set -q _flag_x
-            if command -sq unar
-                unar $a
-            else
-                unzip $a
-            end
-        else if set -q _flag_X # extract Chinese characters
-            zips.py -x $a
-        else if set -q _flag_c
-            # remove the end slash in argv
-            set ARGV (echo $a | sed 's:/*$::')
-            zip -r $ARGV.zip $ARGV
-        else
-            unzip -l $a
-        end
-    end
-end
 function deb -d 'deb package, list(default)/extract(x)'
     set -l options x
     argparse -n deb $options -- $argv
@@ -1116,8 +1109,6 @@ function deb -d 'deb package, list(default)/extract(x)'
         dpkg -c $argv
     end
 end
-
-# rpm
 function rpms -d 'rpm file, install(i)/extract(x)/list(default)'
     set -l options i x
     argparse -n rpms $options -- $argv
