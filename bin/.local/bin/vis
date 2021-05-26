@@ -1,0 +1,116 @@
+#!/bin/bash
+
+print_usage() {
+	cat <<EOF
+$(basename $0) -- vim different targets
+
+Usage: $(basename $0)
+       -h to print this usage
+       -2 to edit ~/Dotfiles.d/todo.org
+       -b to edit ~/.bashrc
+       -B to edit ~/.bash_aliases
+       -d to vim diff
+       -c to edit ~/Dotfiles.d/spacemacs/.spacemacs.d/lisp/clang-format-c-cpp
+       -e to edit $EMACS_EL
+       -f to edit $FISHRC
+       -t to edit ~/.tmux.conf
+       -T to edit ~/.tigrc
+       -a to edit ~/.config/alacritty/alacritty.yml
+       -k to edit ~/.config/kitty/kitty.conf
+       -s to edit ~/.config/sxhkd/sxhkdrc
+       -u to vim -U NONE $@
+       -m to vim -u ~/Dotfiles.d/vim/vimrc.more $@
+       -M to vim ~/Dotfiles.d/spacemacs/.spacemacs.d/lisp/cmake-format.json
+       -v to edit ~/.spacevim
+       -o to vim ~/Dotfiles.d.d/vim/.vimrc
+       -r to sudo edit
+EOF
+	exit 0
+}
+
+EMACS_EL="~/.spacemacs.d/init.el"
+FISHRC="~/.config/fish/config.fish"
+cmd=vim
+while getopts ":2bBdceftTaksuUmoOvr" args; do # prefix-: no warning for illegal option
+	case "$args" in
+	h | \?)
+		print_usage
+		;;
+	2)
+		file="~/Dotfiles.d/todo.org"
+		;;
+	b)
+		file="~/.bashrc"
+		;;
+	B)
+		file="~/.bash_aliases"
+		;;
+	d)
+		shift
+		if [ -f $1 ]; then
+			eval $cmd -d -o $1 $2
+		elif [ -d $1 ]; then
+			eval $cmd -c "DirDiff $1 $2"
+		fi
+		exit
+		;;
+	c)
+		file="~/Dotfiles.d/spacemacs/.spacemacs.d/lisp/clang-format-c-cpp"
+		;;
+	e)
+		file=$EMACS_EL
+		;;
+	f)
+		file=$FISHRC
+		;;
+	t)
+		eval $cmd ~/.tmux.conf && tmux source-file ~/.tmux.conf && echo ~/.tmux.conf reloaded!
+		exit
+		;;
+	T)
+		file="~/.tigrc"
+		;;
+	a)
+		file="~/.config/alacritty/alacritty.yml"
+		;;
+	k)
+		file="~/.config/kitty/kitty.conf"
+		;;
+	s)
+		file="~/.config/sxhkd/sxhkdrc"
+		;;
+	u)
+		cmd="vim -u NONE -c 'nmap q :q!<CR>'"
+		shift
+		file=$@
+		;;
+	U)
+		cmd="vim -u ~/Dotfiles.d/vim/vimrc.more"
+		shift
+		file=$@
+		;;
+	m)
+		file="~/Dotfiles.d/spacemacs/.spacemacs.d/lisp/cmake-format.json"
+		;;
+	o)
+		file="~/Dotfiles.d/vim/.vimrc"
+		;;
+	O)
+		file="~/Dotfiles.d/vim/vimrc.more"
+		;;
+	v)
+		file="~/.spacevim"
+		;;
+	r)
+		shift
+		sudo -e $@
+		exit
+		;;
+	esac
+done
+
+if [ "$file" = "" ]; then
+	eval $cmd
+else
+	eval $cmd $file
+fi

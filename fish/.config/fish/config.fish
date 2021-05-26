@@ -1,6 +1,7 @@
 ### you can use `fish_config` to config a lot of things in WYSIWYG way in browser
 
 set -gx TERM screen-256color
+set -gx EDITOR vim
 set -gx GOPATH $GOPATH ~/.go
 set -gx GO111MODULE on
 set -gx GOPROXY https://goproxy.cn
@@ -1636,60 +1637,6 @@ end
 alias xc 'xclip -r -selection c'
 abbr xp xclip
 
-#vim
-set -gx EDITOR vim
-function vis -d 'vim different targets'
-    set -l options 2 b B c d e f t T a k s u m M v o r
-    argparse -n vis $options -- $argv
-    or return
-
-    if set -q _flag_2
-        vim ~/Dotfiles.d/todo.org
-    else if set -q _flag_b
-        vim ~/.bashrc
-    else if set -q _flag_B
-        vim ~/.bash_aliases
-    else if set -q _flag_d # vim diff
-        if test -f $argv[1]
-            vim -d -o $argv[1] $argv[2]
-        else if test -d $argv[1]
-            vim -c "DirDiff $argv[1] $argv[2]"
-        end
-    else if set -q _flag_c
-        vim ~/Dotfiles.d/spacemacs/.spacemacs.d/lisp/clang-format-c-cpp
-    else if set -q _flag_e
-        vim $EMACS_EL
-    else if set -q _flag_f
-        vim $FISHRC
-    else if set -q _flag_t
-        vim ~/.tmux.conf
-        tmux source-file ~/.tmux.conf
-        echo ~/.tmux.conf reloaded!
-    else if set -q _flag_T
-        vim ~/.tigrc
-    else if set -q _flag_a
-        vim ~/.config/alacritty/alacritty.yml
-    else if set -q _flag_k
-        vim ~/.config/kitty/kitty.conf
-    else if set -q _flag_s
-        vim ~/.config/sxhkd/sxhkdrc
-    else if set -q _flag_u
-        vim -u NONE $argv
-    else if set -q _flag_m
-        vim -u ~/Dotfiles.d/vim/vimrc.more $argv
-    else if set -q _flag_M
-        vim ~/Dotfiles.d/spacemacs/.spacemacs.d/lisp/cmake-format.json
-    else if set -q _flag_v
-        vim ~/.spacevim
-    else if set -q _flag_o
-        vim ~/Dotfiles.d/vim/.vimrc
-    else if set -q _flag_r # replace `sudo vim`
-        # can also use `sudoedit`, they will be local vim config + sudo vim
-        sudo -e $argv
-    else
-        vim $argv
-    end
-end
 function vims -d 'switch between vanilla vim(-v) <-> SpaceVim or space-vim(the default)'
     set -l options v
     argparse -n vims $options -- $argv
