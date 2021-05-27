@@ -389,7 +389,8 @@ function! UserConfig()
     autocmd BufEnter * silent! lcd %:p:h
 
     " fzf
-    let $FZF_DEFAULT_OPTS = '-e -m -0 --reverse'
+    let $FZF_DEFAULT_OPTS = '-e -m -0 --reverse --preview-window hidden'
+    let g:fzf_layout = { 'window': { 'width': 0.8, 'height': 0.8 } }
     " Overwrite the default Files command to include hidden files
     command! -bang -nargs=? -complete=dir Files
                 \ call fzf#vim#files(<q-args>, {'source': 'rg --hidden --files --no-ignore -g !.git'}, <bang>0)
