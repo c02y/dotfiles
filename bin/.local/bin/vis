@@ -108,9 +108,11 @@ while getopts ":2bBdceftTaksuUmoOvr" args; do # prefix-: no warning for illegal 
 		;;
 	esac
 done
+shift
+num=$@
 
 if [ "$file" = "" ]; then
 	eval $cmd
 else
-	eval $cmd $file
+	eval $cmd $file $num
 fi
