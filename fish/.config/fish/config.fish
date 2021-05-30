@@ -919,7 +919,7 @@ end
 
 # df+du+gdu/dua
 function dfs -d 'df(-l, -L for full list), gua(-i), dua(-I), du(by default), cache/config dir of Firefox/Chrome/Vivaldi/yay/pacman'
-    set -l options i I l L c h
+    set -l options i I l L c h t m
     argparse -n dfs $options -- $argv
     or return
 
@@ -928,11 +928,15 @@ function dfs -d 'df(-l, -L for full list), gua(-i), dua(-I), du(by default), cac
     else if set -q _flag_I
         dua -f binary i $argv/* # NOTE: even if argv is empty, this works too
     else if set -q _flag_l
-        # NOTE: if /tmp is out of space, use `sudo mount -o remount,size=20G,noatime /tmp` to temporally resize /tmp
-        # NOTE: if "/tmp/.mount_xx Transport endpoint is not connected", do `fusermount -zu /tmp/.mount_xxx; rm -rfv /tmp/.mount_xxx`
         df -Th | rg -v -e "rg|tmpfs|boot|var|snap|opt|tmp|srv|usr|user"
     else if set -q _flag_L
         df -Th
+    else if set -q _flag_t
+        # if /tmp is out of space, temporally resize /tmp, argv is size like 20G
+        sudo mount -o remount,size=$argv,noatime /tmp
+    else if set -q _flag_m
+        # if "/tmp/.mount_xxx Transport endpoint is not connected", argv is /tmp/.mount_xxx
+        fusermount -zu $argv && rm -rfv $argv
     else if set -q _flag_c
         dua -f binary a --no-sort \
             ~/.cache/google-chrome ~/.config/google-chrome \
