@@ -918,7 +918,7 @@ function loo -d 'locate functions, -u(update db), -a(under /), -v(video), -m(aud
 end
 
 # df+du+gdu/dua
-function dfs -d 'df(-l, -L for full list), gua(-i), dua(-I), du(by default), cache/config dir of Firefox/Chrome/Vivaldi/yay/pacman'
+function dfs -d 'df(-l, -L for full list), gua(-i), dua(-I), du(by default), cache/config dir of Firefox/Chrome/Vivaldi/paru/pacman'
     set -l options i I l L c h t m
     argparse -n dfs $options -- $argv
     or return
@@ -942,7 +942,7 @@ function dfs -d 'df(-l, -L for full list), gua(-i), dua(-I), du(by default), cac
             ~/.cache/google-chrome ~/.config/google-chrome \
             ~/.cache/vivaldi ~/.config/vivaldi \
             ~/.cache/mozilla ~/.mozilla \
-            ~/.cache/yay /var/cache/pacman/pkg
+            ~/.cache/paru /var/cache/pacman/pkg
     else
         if test (count $argv) -gt 0 # argv contains /* at the end of path or multiple argv
             dua -f binary $argv
@@ -1203,30 +1203,24 @@ abbr appd 'apt depends'
 # Server = https://mirrors.tuna.tsinghua.edu.cn/archlinuxcn/$arch
 # Server = https://mirrors.ustc.edu.cn/archlinuxcn/$arch
 #
-if test (lsb_release -i | rg -i -e 'manjaro|arch') # manjaro/arch
-    # NOTE: yay: generate ~/.config/yay/config.json
-    test -f ~/.config/yay/config.json; or yay --sudoloop --aururl "https://aur.tuna.tsinghua.edu.cn" --combinedupgrade --save
-end
-#
-alias pacr 'yay -Rsun' # remove a package and its unneeded dependencies, and clean configs
-alias pacrr 'yay -Rsc' # using this if pacr doesn't not uninstall a pacakge
-abbr pacrc 'yay -Rsu' # like pacr, but don't clean configs
-abbr pacrd 'yay -Rscn' # do not remove dependencies and their configs
-abbr pacd 'sudo pacman -Sw' # download package without installing
-abbr pacc 'sudo pacman -Sc --noconfirm' # clean packages cache
+alias pacr 'paru -Rsun' # remove a package and its unneeded dependencies, and clean configs
+alias pacrr 'paru -Rsc' # using this if pacr doesn't not uninstall a pacakge
+abbr pacrc 'paru -Rsu' # like pacr, but don't clean configs
+abbr pacrd 'paru -Rscn' # do not remove dependencies and their configs
+abbr pacd 'paru -Sw' # download package without installing
+abbr pacc 'paru -Sc' # clean packages cache
 abbr pacC 'paccache -rvk2 --noconfirm' # remove old package cache files is to remove all packages except for the latest 2 package versions
-abbr pacu 'yay -Syu' # update the database and update the system, pacman only updates from repo, yay updates from both repo and aur
-abbr pacuu 'yay -Syyuu' # force a full refresh of database and update the system, must do this when switching branches/mirrors
-abbr pacud 'yay -Syuu' # like pacu, but allow downgrade, needed when switch to old branch like testing->stable or you seen local xxx is newer than xxx
-abbr paco 'yay -Qdt --color=always' # To list all orphans, installed packages that are not used by anything else and should no longer be needed
-abbr pacor 'yay -Rsun (yay -Qdtq)' # remove package and its configs in paco
-function paci -d 'pacman/yay install function, -y(noconfirm), -u(update first), -r(reinstall), -l(local install), -i(interactive)'
+abbr pacu paru # update the database and update the system, pacman only updates from repo, paru updates from both repo and aur
+abbr pacuu 'paru -Syyuu' # force a full refresh of database and update the system, must do this when switching branches/mirrors
+abbr pacud 'paru -Syuu' # like pacu, but allow downgrade, needed when switch to old branch like testing->stable or you seen local xxx is newer than xxx
+abbr paco 'paru -c' # To list all orphans, installed packages that are not used by anything else and should no longer be needed
+function paci -d 'pacman/paru install function, -y(noconfirm), -u(update first), -r(reinstall), -l(local install), -i(interactive)'
     set -l options y u r l i
     argparse -n paci $options -- $argv
     or return
 
     set -q _flag_i; and proxychains4 -q pacui i $argv && return # install package interactively using pacui
-    set -q _flag_l; and yay -U $argv && return # install package from a local .pkg.tar.xz/link file
+    set -q _flag_l; and paru -U $argv && return # install package from a local .pkg.tar.xz/link file
 
     # -S to install a package, -Syu pkg to ensure the system is update to date then install the package
     set -q _flag_u; and set OPT $OPT -Syu; or set OPT $OPT -S
@@ -1234,9 +1228,9 @@ function paci -d 'pacman/yay install function, -y(noconfirm), -u(update first), 
     set -q _flag_y; and set OPT $OPT --noconfirm # noconfirm, without asking for y/n
     set -q _flag_r; and set OPT $OPT; or set OPT $OPT --needed
 
-    eval yay $OPT $argv
+    eval paru $OPT $argv
 end
-function pacs -d 'pacman/yay search, -i(interactive using pacui), -n(only names), -L(list content), -g(list packages in a group), -s(show info)'
+function pacs -d 'pacman/paru search, -i(interactive using pacui), -n(only names), -L(list content), -g(list packages in a group), -s(show info)'
     set -l options a i n l L g s
     argparse -n pacs $options -- $argv
     or return
@@ -1249,9 +1243,9 @@ function pacs -d 'pacman/yay search, -i(interactive using pacui), -n(only names)
     if set -q _flag_g # list packages in a groupadd
         # available groups(not all) and their packages: https://archlinux.org/groups/
         if set -q _flag_l # list all installed groups and packages
-            yay -Qg
+            paru -Qg
         else
-            yay -Sg $argv
+            paru -Sg $argv
         end
         return
     end
@@ -1261,12 +1255,12 @@ function pacs -d 'pacman/yay search, -i(interactive using pacui), -n(only names)
             for file in $argv
                 if set -q _flag_l # get URL info and send it to clipper
                     if set -q _flag_a # get AUR URL info and send it to clipper
-                        yay -Si $file | rg "AUR URL" | awk '{print $4}' | xc && xc -o
+                        paru -Si $file | rg "AUR URL" | awk '{print $4}' | xc && xc -o
                     else
-                        if yay -Q $file ^/dev/null >/dev/null
-                            yay -Qi $file | rg "^URL" | awk '{print $3}' | xc && xc -o
+                        if paru -Q $file ^/dev/null >/dev/null
+                            paru -Qi $file | rg "^URL" | awk '{print $3}' | xc && xc -o
                         else
-                            yay -Si $file | rg "^URL" | awk '{print $3}' | xc && xc -o
+                            paru -Si $file | rg "^URL" | awk '{print $3}' | xc && xc -o
                         end
                     end
                     open (xc -o) ^/dev/null >/dev/null
@@ -1274,8 +1268,8 @@ function pacs -d 'pacman/yay search, -i(interactive using pacui), -n(only names)
                     pacman -Ql $argv
                     or pamac list --files $argv
                 else
-                    yay -Qi $file
-                    or yay -Si $file
+                    paru -Qi $file
+                    or paru -Si $file
                 end
             end
         else
@@ -1291,7 +1285,7 @@ function pacs -d 'pacman/yay search, -i(interactive using pacui), -n(only names)
         else if set -q _flag_a # list packages installed from AUR
             pacui la
         else
-            yay -Qs --color=always $argv
+            paru -Qs --color=always $argv
         end
         return
     end
@@ -1303,15 +1297,15 @@ function pacs -d 'pacman/yay search, -i(interactive using pacui), -n(only names)
         return
     end
 
-    set -q _flag_a; and set CMD yay; or set CMD pacman
+    set -q _flag_a; and set CMD paru; or set CMD pacman
     if set -q _flag_n # search only in package names
         eval $CMD -Slq | sort | rg $argv
-        # if failed with pacman, using yay directly (yay including aur is slow)
-        or yay -Slq | rg $argv
+        # if failed with pacman, using paru directly (paru including aur is slow)
+        or paru -Slq | rg $argv
         return
     end
-    # if failed with pacman, using yay directly (yay including aur is slow)
-    eval $CMD -Ss --color=always $argv; or yay -Ss --color=always $argv
+    # if failed with pacman, using paru directly (paru including aur is slow)
+    eval $CMD -Ss --color=always $argv; or paru -Ss --color=always $argv
 end
 function pacms -d 'pacman-mirrors functions, default(China), -f(fastest 5), -s(status), -i(interactive), -r(reflector), -l(list config)'
     set -l options f s i r l
@@ -1350,18 +1344,6 @@ function pacch -d 'check if package is owned by others, if not, delete it'
         end
     end
 end
-function yaysh -d 'search info about package, first search installed then search in repo'
-    yay -Qi $argv
-    or yay -Si $argv
-end
-# yay, install it first
-abbr yayc 'yay -Yc'
-abbr yayu 'yay -Syu' # yay == yay -Syu
-abbr yayr 'yay -Rsun'
-# check yay --help for more
-# pacui, depending on yay, install it first
-abbr pacf 'proxychains4 -q pacui i'
-# check pacui h/help for more
 
 # donnot show the other info on startup
 abbr gdbi 'gdb -q -x ~/Dotfiles.d/bin/.local/bin/gdbinit'
