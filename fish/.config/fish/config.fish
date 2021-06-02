@@ -1214,131 +1214,97 @@ abbr pacu paru # update the database and update the system, pacman only updates 
 abbr pacuu 'paru -Syyuu' # force a full refresh of database and update the system, must do this when switching branches/mirrors
 abbr pacud 'paru -Syuu' # like pacu, but allow downgrade, needed when switch to old branch like testing->stable or you seen local xxx is newer than xxx
 abbr paco 'paru -c' # To list all orphans, installed packages that are not used by anything else and should no longer be needed
-function paci -d 'pacman/paru install function, -y(noconfirm), -u(update first), -r(reinstall), -l(local install), -i(interactive)'
-    set -l options y u r l i
-    argparse -n paci $options -- $argv
-    or return
-
-    set -q _flag_i; and proxychains4 -q pacui i $argv && return # install package interactively using pacui
-    set -q _flag_l; and paru -U $argv && return # install package from a local .pkg.tar.xz/link file
-
-    # -S to install a package, -Syu pkg to ensure the system is update to date then install the package
-    set -q _flag_u; and set OPT $OPT -Syu; or set OPT $OPT -S
-
-    set -q _flag_y; and set OPT $OPT --noconfirm # noconfirm, without asking for y/n
-    set -q _flag_r; and set OPT $OPT; or set OPT $OPT --needed
-
-    eval paru $OPT $argv
-end
-function pacs -d 'pacman/paru search, -i(interactive using pacui), -n(only names), -L(list content), -g(list packages in a group), -s(show info)'
-    set -l options a i n l L g s
+function pacs -d 'pacman/paru operations'
+    set -l options a n l L g s m f r i c y u
     argparse -n pacs $options -- $argv
     or return
 
-    if set -q _flag_i # interactively search using pacui i
-        proxychains4 -q pacui i $argv
-        return
-    end
+    if set -q _flag_i # install
+        # install package from a local .pkg.tar.xz/link file
+        set -q _flag_l; and paru -U $argv && return
 
-    if set -q _flag_g # list packages in a groupadd
-        # available groups(not all) and their packages: https://archlinux.org/groups/
-        if set -q _flag_l # list all installed groups and packages
-            paru -Qg
-        else
-            paru -Sg $argv
+        # -S to install a package, -Syu pkg to ensure the system is update to date then install the package
+        set -q _flag_u; and set OPT $OPT -Syu; or set OPT $OPT -S
+
+        # noconfirm, without asking for y/n
+        set -q _flag_y; and set OPT $OPT --noconfirm
+
+        # -r to reinstall, no -r to ignore installed
+        set -q _flag_r; and set OPT $OPT; or set OPT $OPT --needed
+
+        eval paru $OPT $argv
+    else if set -q _flag_g # group
+        # all available groups(not all) and their packages: https://archlinux.org/groups/
+        # if given argv, list only the target group
+        if set -q _flag_l # list only the local groups and packages in the groups
+            paru -Qg $argv | sort
+        else # list all(local+repo) groups and pacakges in the groups
+            paru -Sg $argv | sort
         end
-        return
-    end
-
-    if set -q _flag_s
-        if ! set -q $argv # given $argv
-            for file in $argv
-                if set -q _flag_l # get URL info and send it to clipper
-                    if set -q _flag_a # get AUR URL info and send it to clipper
-                        paru -Si $file | rg "AUR URL" | awk '{print $4}' | xc && xc -o
-                    else
-                        if paru -Q $file ^/dev/null >/dev/null
-                            paru -Qi $file | rg "^URL" | awk '{print $3}' | xc && xc -o
-                        else
-                            paru -Si $file | rg "^URL" | awk '{print $3}' | xc && xc -o
-                        end
-                    end
-                    open (xc -o) ^/dev/null >/dev/null
-                else if set -q _flag_L # list content in a pacakge
-                    pacman -Ql $argv
-                    or pamac list --files $argv
-                else
-                    paru -Qi $file
-                    paru -Si $file
-                end
+    else if set -q _flag_c # check if package is owned by others, if not, delete it
+        # This is used when the following errors occur after executing update command:
+        # "error: failed to commit transaction (conflicting files)"
+        # "xxx existed in filesystem"
+        # After executing this function with xxx one by one, execute the update command again
+        # https://wiki.archlinux.org/index.php/Pacman#.22Failed_to_commit_transaction_.28conflicting_files.29.22_error
+        # NOTE: this can be also used to check what package provides the file/command/package
+        if not pacman -Q -o $argv
+            sudo rm -rfv $argv
+        end
+    else if set -q _flag_m # mirror
+        if set -q _flag_f # fastest top 5 mirrors
+            sudo pacman-mirrors -f 3
+        else if set -q _flag_s # get status of local mirrors
+            pacman-mirrors --status
+        else if set -q _flag_i # insteractive choose mirror
+            sudo pacman-mirrors -i -d
+        else if set -q _flag_r # reflector choose mirror
+            set -q $argv; and set ARGV China; or set ARGV $argv
+            sudo reflector --country $ARGV --verbose --latest 6 --sort rate --save /etc/pacman.d/mirrorlist
+        else if set -q _flag_l # list local mirrors
+            cat /etc/pacman.d/mirrorlist
+        else # change mirrors
+            if ! set -q $argv[1] # given arguments
+                sudo pacman-mirrors -c $argv
+            else # if no given, get the fastest and synced China mirrors
+                sudo pacman-mirrors -c China
             end
         end
-        return
-    end
-
-    if set -q _flag_l # list installed pcakges containing the keyword(including description)
-        if set -q _flag_L # list installed packages by size
-            pacui ls
-        else if set -q _flag_a # list packages installed from AUR
-            pacui la
-        else
-            paru -Qs --color=always $argv
+    else if set -q _flag_s # show info
+        if set -q _flag_l # get URL info and send it to clipper
+            if set -q _flag_a # get AUR URL info and send it to clipper
+                paru -Si $argv | rg "AUR URL" | awk '{print $4}' | xc && xc -o
+            else
+                if paru -Q $argv ^/dev/null >/dev/null
+                    paru -Qi $argv | rg "^URL" | awk '{print $3}' | xc && xc -o
+                else
+                    paru -Si $argv | rg "^URL" | awk '{print $3}' | xc && xc -o
+                end
+            end
+            open (xc -o) ^/dev/null >/dev/null
+        else if set -q _flag_L # list content in a pacakge
+            pacman -Ql $argv
+            or pamac list --files $argv
+        else # just show info
+            # show both local and remote info
+            paru -Qi $argv
+            paru -Si $argv
         end
-        return
-    end
-
-    # -L can work with -s or be used alone to list the content
-    if set -q _flag_L # list content in a pacakge
+    else if set -q _flag_l # list installed pcakges containing the keyword(including description)
+        paru -Qs $argv
+    else if set -q _flag_L # list content in a pacakge
+        # -L can work with -s or be used alone to list the content
         pacman -Ql $argv
         or pamac list --files $argv
-        return
-    end
-
-    set -q _flag_a; and set CMD paru; or set CMD pacman
-    if set -q _flag_n # search only in package names
-        eval $CMD -Slq | sort | rg $argv
+    else if set -q _flag_n # search only keyword in package names
+        pacman -Slq | sort | rg $argv
         # if failed with pacman, using paru directly (paru including aur is slow)
         or paru -Slq | rg $argv
-        return
-    end
-    # if failed with pacman, using paru directly (paru including aur is slow)
-    eval $CMD -Ss --color=always $argv; or paru -Ss --color=always $argv
-end
-function pacms -d 'pacman-mirrors functions, default(China), -f(fastest 5), -s(status), -i(interactive), -r(reflector), -l(list config)'
-    set -l options f s i r l
-    argparse -n pacms $options -- $argv
-    or return
-
-    if set -q _flag_f
-        sudo pacman-mirrors -f 3
-    else if set -q _flag_s
-        pacman-mirrors --status
-    else if set -q _flag_i
-        sudo pacman-mirrors -i -d
-    else if set -q _flag_r
-        set -q $argv; and set ARGV China; or set ARGV $argv
-        sudo reflector --country $ARGV --verbose --latest 6 --sort rate --save /etc/pacman.d/mirrorlist
-    else if set -q _flag_l
-        cat /etc/pacman.d/mirrorlist
-    else
-        if ! set -q $argv[1] # given arguments
-            sudo pacman-mirrors -c $argv
-        else
-            sudo pacman-mirrors -c China
-        end
-    end
-end
-function pacch -d 'check if package is owned by others, if not, delete it'
-    # This is used when the following errors occur after executing update command:
-    # "error: failed to commit transaction (conflicting files)"
-    # "xxx existed in filesystem"
-    # After executing this function with xxx one by one, execute the update command again
-    # https://wiki.archlinux.org/index.php/Pacman#.22Failed_to_commit_transaction_.28conflicting_files.29.22_error
-    # NOTE: this can be also used to check what package provides the file/command/package
-    for file in $argv
-        if not pacman -Q -o $file
-            sudo rm -rfv $file
-        end
+    else if set -q _flag_a # search all including repo and aur
+        paru $argv
+    else # just search repo, if not found, search it in aur
+        # if failed with pacman, using paru directly (paru including aur is slow)
+        pacman -Ss $argv; or paru $argv
     end
 end
 
