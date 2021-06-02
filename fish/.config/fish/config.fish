@@ -1269,12 +1269,9 @@ function pacs -d 'pacman/paru search, -i(interactive using pacui), -n(only names
                     or pamac list --files $argv
                 else
                     paru -Qi $file
-                    or paru -Si $file
+                    paru -Si $file
                 end
             end
-        else
-            # without args, it will print info of all the intalled packages
-            echo "Need argv[s]!"
         end
         return
     end
