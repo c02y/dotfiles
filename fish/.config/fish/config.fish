@@ -1961,7 +1961,7 @@ function sss -d 'count lines of code from a local code dir or a github url'
         return
     end
 
-    set OPT -c --no-cocomo
+    set OPT -c --no-cocomo -s code
     if set -q _flag_e # exclude dirs
         # $_flag_e should be dirs separated by ,
         set OPT $OPT --exclude-dir $_flag_e
