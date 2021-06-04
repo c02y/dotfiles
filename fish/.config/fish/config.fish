@@ -1950,7 +1950,7 @@ function gitco -d 'git checkout -- for multiple files(filA fileB...) at once, al
     end
 end
 function sss -d 'count lines of code from a local code dir or a github url'
-    set -l options "e=" f t
+    set -l options "e=" f F
     argparse -n sss $options -- $argv
     or return
 
@@ -1961,19 +1961,15 @@ function sss -d 'count lines of code from a local code dir or a github url'
         return
     end
 
-    set OPT -c --no-cocomo -s code
-    if set -q _flag_e # exclude dirs
-        # $_flag_e should be dirs separated by ,
-        set OPT $OPT --exclude-dir $_flag_e
-    end
-    if set -q _flag_f
-        set OPT $OPT --by-file
-    end
-    if set -q _flag_t # Only show Total line
-        eval scc $OPT $argv | rg Total
-    else
-        eval scc $OPT $argv
-    end
+    set OPT -c --no-cocomo
+
+    # using -f to sort by default(file count), otherwise sort by code lines
+    set -q _flag_f; or set OPT $OPT -s code
+    set -q _flag_F; and set OPT $OPT --by-file
+    # exclude dirs $_flag_e should be dirs separated by ,
+    set -q _flag_e; and set OPT $OPT --exclude-dir $_flag_e
+
+    eval scc $OPT $argv
 end
 abbr gitsc sss
 function gitsr -d "get the url of a git repo"
