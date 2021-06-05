@@ -859,10 +859,10 @@ function loo -d 'locate functions, -u(update db), -a(under /), -v(video), -m(aud
         if set -q $argv # no given argv, list all videos
             # get size of all videos, using `xargs -d '\n' dua -f binary` at the end
             set LOCATE 'locate -e -i -d $DB "*" | \
-                rg -ie ".mp4\$|.mkv\$|.avi\$|.webm\$|.mov\$|.rmvb\$"'
+                rg -ie ".mp4\$|.mkv\$|.avi\$|.webm\$|.mov\$|.rmvb\$" | rg -v steamapp'
         else
             set LOCATE 'locate -e -i -d $DB $argv | \
-                rg -ie ".mp4\$|.mkv\$|.avi\$|.webm\$|.mov\$|.rmvb\$"'
+                rg -ie ".mp4\$|.mkv\$|.avi\$|.webm\$|.mov\$|.rmvb\$" | rg -v steamapp'
         end
     else if set -q _flag_m # serach all audio files
         set LOCATE 'locate -e -i -d $DB $argv | \
@@ -883,7 +883,7 @@ function loo -d 'locate functions, -u(update db), -a(under /), -v(video), -m(aud
 
     # if not found at the first time, maybe the db is not updated, update the db once
     if not eval $LOCATE ^/dev/null >/dev/null
-        test $UPDATEDB -eq 1; and eval $UPDATEDB_CMD
+        eval $UPDATEDB_CMD
     end
 
     if set -q _flag_o # open it using  fzf
@@ -919,7 +919,7 @@ end
 
 # df+du+gdu/dua
 function dfs -d 'df(-l, -L for full list), gua(-i), dua(-I), du(by default), cache/config dir of Firefox/Chrome/Vivaldi/paru/pacman'
-    set -l options i I l L c h t m
+    set -l options i I l L c t m
     argparse -n dfs $options -- $argv
     or return
 
