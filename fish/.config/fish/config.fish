@@ -882,7 +882,7 @@ function loo -d 'locate functions, -u(update db), -a(under /), -v(video), -m(aud
     end
 
     # if not found at the first time, maybe the db is not updated, update the db once
-    if not eval $LOCATE ^/dev/null >/dev/null
+    if test (eval $LOCATE | wc -l) = 0
         eval $UPDATEDB_CMD
     end
 
