@@ -1203,26 +1203,53 @@ abbr appd 'apt depends'
 # Server = https://mirrors.tuna.tsinghua.edu.cn/archlinuxcn/$arch
 # Server = https://mirrors.ustc.edu.cn/archlinuxcn/$arch
 #
-alias pacr 'paru -Rsun' # remove a package and its unneeded dependencies, and clean configs
-alias pacrr 'paru -Rsc' # using this if pacr doesn't not uninstall a pacakge
-abbr pacrc 'paru -Rsu' # like pacr, but don't clean configs
-abbr pacrd 'paru -Rscn' # do not remove dependencies and their configs
-abbr pacd 'paru -Sw' # download package without installing
-abbr pacc 'paru -Sc' # clean packages cache
-abbr pacC 'paccache -rvk2 --noconfirm' # remove old package cache files is to remove all packages except for the latest 2 package versions
-abbr pacu paru # update the database and update the system, pacman only updates from repo, paru updates from both repo and aur
-abbr pacuu 'paru -Syyuu' # force a full refresh of database and update the system, must do this when switching branches/mirrors
-abbr pacud 'paru -Syuu' # like pacu, but allow downgrade, needed when switch to old branch like testing->stable or you seen local xxx is newer than xxx
-abbr paco 'paru -c' # To list all orphans, installed packages that are not used by anything else and should no longer be needed
 function pacs -d 'pacman/paru operations'
-    set -l options a n l L g s m f r i c y u
+    set -l options i u y r d l c g m f s L n a h
     argparse -n pacs $options -- $argv
     or return
 
-    if set -q _flag_i # install
-        # install package from a local .pkg.tar.xz/link file
-        set -q _flag_l; and paru -U $argv && return
-
+    if set -q _flag_h
+        echo "      no option, no argv --> update the system"
+        echo "      no option, argv --> search argv"
+        echo "      -i --> install(need argv)"
+        echo "         + -u --> update the system and install the argv"
+        echo "         + -y --> install the argv without confirm"
+        echo "         + -r --> reinsall argv"
+        echo "         + -d --> download argv without installing it"
+        echo "         + -l --> install the local .pkg.tar.xz/link-file argv"
+        echo "      -c --> clean/check"
+        echo "         + no argv --> clean packages in /var/cache/pacman/pkg"
+        echo "         + argv --> check if argv is owned by a pacakge, otherwise delete it"
+        echo "         + -u --> clean unneeded dependencies"
+        echo "      -u --> update, force refresh database first(no argv)"
+        echo "         + -d --> allow downgrade"
+        echo "      -d --> delete/uninstall(need argv)"
+        echo "         + -r --> delete/uninstall dependencies as well"
+        echo "      -g --> groups"
+        echo "         + no argv --> list all local and remote groups"
+        echo "         + argv --> list all packages in argv group"
+        echo "         + -l --> list only the local groups and packages in the groups"
+        echo "           + argv --> list only the local packages in argv group"
+        echo "      -m --> mirror"
+        echo "         + argv --> get mirror from argv country"
+        echo "         + no argv --> get mirror from China by default"
+        echo "         + -f --> fastest top 5 mirrors"
+        echo "         + -s --> get status of local mirrors"
+        echo "         + -i --> interactively choose mirror"
+        echo "         + -r --> reflector choose mirror"
+        echo "         + -l --> list local mirrors"
+        echo "      -s --> show info(need argv)"
+        echo "         + -l --> get source link and send it to clipper"
+        echo "           + -a --> get source link info and send it to clipper"
+        echo "         + -L --> list conetnet of argv package"
+        echo "      -l --> list local packages"
+        echo "         + no argv --> list all local installed packages"
+        echo "         + argv --> list installed packages containing argv keyword"
+        echo "      -L --> list content of a argv pacakge, the same as -s -L"
+        echo "      -n --> search argv in only packages name part"
+        echo "      -a --> search all using paru, slow since inlcuding AUR"
+        echo "      -h --> usage"
+    else if set -q _flag_i # install
         # -S to install a package, -Syu pkg to ensure the system is update to date then install the package
         set -q _flag_u; and set OPT $OPT -Syu; or set OPT $OPT -S
 
@@ -1232,7 +1259,47 @@ function pacs -d 'pacman/paru operations'
         # -r to reinstall, no -r to ignore installed
         set -q _flag_r; and set OPT $OPT; or set OPT $OPT --needed
 
+        # jus download the pacakge without installing it, NOTE: not append OPT
+        set -q _flag_d; and set OPT -Sw
+
+        # install package from a local .pkg.tar.xz/link file, NOTE: not append OPT
+        set -q _flag_l; and set OPT -U
+
         eval paru $OPT $argv
+    else if set -q _flag_c # clean/check
+        if set -q $argv # no given argv
+            # use `paru -Sc` to clean interactively
+            paccache -rvk2 # clean installed packaegs, keep the last two versions
+            paccache -rvuk0 # clean uninstalled packages
+        else
+            if set -q _flag_u # clean unneeded dependencies
+                paru -c
+            else
+                # check if package is owned by others, if not, delete it
+                # This is used when the following errors occur after executing update command:
+                # "error: failed to commit transaction (conflicting files) xxx existed in filesystem"
+                # After executing this function with xxx one by one, execute the update command again
+                # https://wiki.archlinux.org/index.php/Pacman#.22Failed_to_commit_transaction_.28conflicting_files.29.22_error
+                # NOTE: this can be also used to check what package provides the file/command/package
+                not pacman -Q -o $argv; and sudo rm -rfv $argv
+            end
+        end
+    else if set -q _flag_u # update/upgrade, NOTE: pacs without anything also update
+        if set -q _flag_d
+            # allow downgrade, needed when switch to old branch like testing->stable or 
+            # you seen local xxx is newer than xxx
+            paru -Syuu
+        else
+            # force a full refresh of database and update the sustem
+            # must do this after switching branch/mirror
+            paru -Syyuu
+        end
+    else if set -q _flag_d # delete/uninstall
+        if set -q _flag_r # delete/uninstall dependencies as well
+            paru -Rsc $argv
+        else
+            paru -Rsun $argv
+        end
     else if set -q _flag_g # group
         # all available groups(not all) and their packages: https://archlinux.org/groups/
         # if given argv, list only the target group
@@ -1240,16 +1307,6 @@ function pacs -d 'pacman/paru operations'
             paru -Qg $argv | sort
         else # list all(local+repo) groups and pacakges in the groups
             paru -Sg $argv | sort
-        end
-    else if set -q _flag_c # check if package is owned by others, if not, delete it
-        # This is used when the following errors occur after executing update command:
-        # "error: failed to commit transaction (conflicting files)"
-        # "xxx existed in filesystem"
-        # After executing this function with xxx one by one, execute the update command again
-        # https://wiki.archlinux.org/index.php/Pacman#.22Failed_to_commit_transaction_.28conflicting_files.29.22_error
-        # NOTE: this can be also used to check what package provides the file/command/package
-        if not pacman -Q -o $argv
-            sudo rm -rfv $argv
         end
     else if set -q _flag_m # mirror
         if set -q _flag_f # fastest top 5 mirrors
@@ -1271,8 +1328,8 @@ function pacs -d 'pacman/paru operations'
             end
         end
     else if set -q _flag_s # show info
-        if set -q _flag_l # get URL info and send it to clipper
-            if set -q _flag_a # get AUR URL info and send it to clipper
+        if set -q _flag_l # get source link and send it to clipper
+            if set -q _flag_a # get AUR source link and send it to clipper
                 paru -Si $argv | rg "AUR URL" | awk '{print $4}' | xc && xc -o
             else
                 if paru -Q $argv ^/dev/null >/dev/null
@@ -1303,8 +1360,12 @@ function pacs -d 'pacman/paru operations'
     else if set -q _flag_a # search all including repo and aur
         paru $argv
     else # just search repo, if not found, search it in aur
-        # if failed with pacman, using paru directly (paru including aur is slow)
-        pacman -Ss $argv; or paru $argv
+        if not set -q $argv # given argv
+            # if failed with pacman, using paru directly (paru including aur is slow)
+            pacman -Ss $argv; or paru $argv
+        else
+            paru # = pacman/paru -Syu, update, check -u option for more
+        end
     end
 end
 
@@ -1544,7 +1605,7 @@ function syss -d 'systemctl related functions'
 end
 
 function diffs -d "all kinds of diff features"
-    if command -sq ydiff
+    if command -sq ydiff2
         diff -u $argv | ydiff -s -w 0 --wrap
     else
         set -l options f w l L W h
@@ -1560,7 +1621,6 @@ function diffs -d "all kinds of diff features"
             echo "      -L --> like -l, but print whole files"
             echo "      -W --> like -l, but ignore all white spaces"
             echo "      -h --> usage"
-            return
         else if set -q _flag_f
             diff -r -y -s -W $COLUMNS $argv | less
         else if set -q _flag_w
