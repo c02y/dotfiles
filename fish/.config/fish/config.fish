@@ -890,9 +890,9 @@ function loo -d 'locate functions, -u(update db), -a(under /), -v(video), -m(aud
         # NOTE: the -0 + --print0 in fzf to be able to work with file/dir with spaces
         # NOTE: DO NOT add --print0 it into FZF_DEFAULT_OPTS
         # -r in xargs is --no-run-if-empty
-        eval $LOCATE | fzf --print0 | xargs -0 -r xdg-open
+        eval $LOCATE | fzf -1 --print0 | xargs -0 -r xdg-open
     else if set -q _flag_x # copy the result using fzf
-        eval $LOCATE | fzf --print0 | xc && xc -o
+        eval $LOCATE | fzf -1 --print0 | xc && xc -o
     else if set -q _flag_r # remove it using fzf
         eval $LOCATE | fzf --print0 | xargs -0 -r rm -rfv
         eval $UPDATEDB_CMD
