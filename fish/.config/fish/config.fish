@@ -938,11 +938,18 @@ function dfs -d 'df(-l, -L for full list), gua(-i), dua(-I), du(by default), cac
         # if "/tmp/.mount_xxx Transport endpoint is not connected", argv is /tmp/.mount_xxx
         fusermount -zu $argv && rm -rfv $argv
     else if set -q _flag_c
-        dua -f binary a --no-sort \
-            ~/.cache/google-chrome ~/.config/google-chrome \
+        set dirs ~/.cache/google-chrome ~/.config/google-chrome \
             ~/.cache/vivaldi ~/.config/vivaldi \
             ~/.cache/mozilla ~/.mozilla \
-            ~/.cache/paru /var/cache/pacman/pkg
+            ~/.cache/paru /var/cache/pacman/pkg \
+            ~/.local/share/Trash /tmp
+        set dirs_e
+        for i in $dirs
+            if test -d $i
+                set dirs_e $dirs_e $i
+            end
+        end
+        dua -f binary a --no-sort $dirs_e
     else
         if test (count $argv) -gt 0 # argv contains /* at the end of path or multiple argv
             dua -f binary $argv
