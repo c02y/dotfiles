@@ -945,9 +945,7 @@ function dfs -d 'df(-l, -L for full list), gua(-i), dua(-I), du(by default), cac
             ~/.local/share/Trash /tmp
         set dirs_e
         for i in $dirs
-            if test -d $i
-                set dirs_e $dirs_e $i
-            end
+            test -d $i; and set dirs_e $dirs_e $i
         end
         dua -f binary a --no-sort $dirs_e
     else
@@ -1227,7 +1225,6 @@ function pacs -d 'pacman/paru operations'
         echo "      -c --> clean/check"
         echo "         + no argv --> clean packages in /var/cache/pacman/pkg"
         echo "         + argv --> check if argv is owned by a pacakge, otherwise delete it"
-        echo "         + -u --> clean unneeded dependencies"
         echo "      -u --> update, force refresh database first(no argv)"
         echo "         + -d --> allow downgrade"
         echo "      -d --> delete/uninstall(need argv)"
@@ -1276,20 +1273,17 @@ function pacs -d 'pacman/paru operations'
     else if set -q _flag_c # clean/check
         if set -q $argv # no given argv
             # use `paru -Sc` to clean interactively
+            paru -c # clean unneeded dependencies
             paccache -rvk2 # clean installed packaegs, keep the last two versions
             paccache -rvuk0 # clean uninstalled packages
         else
-            if set -q _flag_u # clean unneeded dependencies
-                paru -c
-            else
-                # check if package is owned by others, if not, delete it
-                # This is used when the following errors occur after executing update command:
-                # "error: failed to commit transaction (conflicting files) xxx existed in filesystem"
-                # After executing this function with xxx one by one, execute the update command again
-                # https://wiki.archlinux.org/index.php/Pacman#.22Failed_to_commit_transaction_.28conflicting_files.29.22_error
-                # NOTE: this can be also used to check what package provides the file/command/package
-                not pacman -Q -o $argv; and sudo rm -rfv $argv
-            end
+            # check if package is owned by others, if not, delete it
+            # This is used when the following errors occur after executing update command:
+            # "error: failed to commit transaction (conflicting files) xxx existed in filesystem"
+            # After executing this function with xxx one by one, execute the update command again
+            # https://wiki.archlinux.org/index.php/Pacman#.22Failed_to_commit_transaction_.28conflicting_files.29.22_error
+            # NOTE: this can be also used to check what package provides the file/command/package
+            not pacman -Q -o $argv; and sudo rm -rfv $argv
         end
     else if set -q _flag_u # update/upgrade, NOTE: pacs without anything also update
         if set -q _flag_d
