@@ -2178,7 +2178,7 @@ else
     set -g PXY
 end
 
-abbr bb bat
+abbr bb 'bat -p'
 
 # svn
 abbr svnp 'svn update; and echo "---status---"; svn status'
