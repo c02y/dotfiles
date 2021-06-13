@@ -1030,16 +1030,16 @@ function tree
     end
 end
 
-function tars -d 'tar extract(x)/list(l, by default)/create(c, add extra arg to exclude .git dir), fastest(C, add extra arg to exclude .git)or others(o, rar, zip)'
-    set -l options x l c C o O X
+function tars -d 'tar extract(x)/list(l, by default)/create(c, add extra arg to exclude .git dir), fastest(C, add extra arg to exclude .git), -o(open it using gui client)'
+    set -l options x l c C o X
     argparse -n tars $options -- $argv
     or return
 
     # remove the end slash in argv[1] if it is a directory
     test -d $argv[1]; and set ARGV (echo $argv[1] | sed 's:/*$::'); or set ARGV $argv
 
-    # zip or rar
-    if set -q _flag_o
+    set -l EXT (string lower (echo $ARGV | sed 's/^.*\.//'))
+    if test "$EXT" = zip -o "$EXT" = rar # zip or rar
         # using unar -- https://unarchiver.c3.cx/unarchiver is available
         # if the code is not working, try GBK or GB18030
         # unzip zip if it is archived in Windows and messed up characters with normal unzip
@@ -1050,6 +1050,8 @@ function tars -d 'tar extract(x)/list(l, by default)/create(c, add extra arg to 
             else
                 unzip -l $ARGV
             end
+        else if set -q _flag_c # create zip
+            zip -r $ARGV.zip $ARGV
         else if set -q _flag_C # list Chinese characters
             zips.py -l $ARGV
         else if set -q _flag_x
@@ -1060,42 +1062,40 @@ function tars -d 'tar extract(x)/list(l, by default)/create(c, add extra arg to 
             end
         else if set -q _flag_X # extract Chinese characters
             zips.py -x $ARGV
-        else if set -q _flag_c # create zip
-            zip -r $ARGV.zip $ARGV
-        else
-            unzip -l $a # -l
+        else if not set -q _flag_o
+            unzip -l $ARGV # -l
         end
-        return
+    else # j for .bz2, z for .gz, J for xz, a for auto determine
+        if set -q _flag_x # extract
+            # extract into dir based on the tar file
+            tar xvfa $argv --one-top-level
+        else if set -q _flag_l # list contents
+            tar tvfa $argv
+        else if set -q _flag_c # create archive, smaller size, extremely slow for big dir
+            if test (count $argv) = 1
+                tar cvfa $ARGV.tar.xz $ARGV
+            else
+                tar cvfa $ARGV.tar.xz $ARGV --exclude-vcs
+                echo -e "\nUse `tars -c $ARGV g` to include .git directory!"
+            end
+        else if set -q _flag_C # create archive, faster speed
+            if test (count $argv) = 1
+                tar cvf - $ARGV | zstd -c -T0 --fast >$ARGV.tar.zst
+            else
+                tar cvf - $ARGV --exclude-vcs | zstd -c -T0 --fast >$ARGV.tar.zst
+                echo -e "\nUse `tars -C $ARGV g` to include .git directory!"
+            end
+        else
+            tar tvfa $argv
+        end
     end
 
-    # j for .bz2, z for .gz, J for xz, a for auto determine
-    if set -q _flag_x # extract
-        # extract into dir based on the tar file
-        tar xvfa $argv --one-top-level
-    else if set -q _flag_l # list contents
-        tar tvfa $argv
-    else if set -q _flag_c # create archive, smaller size, extremely slow for big dir
-        if test (count $argv) = 1
-            tar cvfa $ARGV.tar.xz $ARGV
-        else
-            tar cvfa $ARGV.tar.xz $ARGV --exclude-vcs
-            echo -e "\nUse `tars -c $ARGV g` to include .git directory!"
-        end
-    else if set -q _flag_C # create archive, faster speed
-        if test (count $argv) = 1
-            tar cvf - $ARGV | zstd -c -T0 --fast >$ARGV.tar.zst
-        else
-            tar cvf - $ARGV --exclude-vcs | zstd -c -T0 --fast >$ARGV.tar.zst
-            echo -e "\nUse `tars -C $ARGV g` to include .git directory!"
-        end
-    else if set -q _flag_O # open it using file-roller
+    if set -q _flag_o # open it using file-roller
         if command -sq xarchiver
             xarchiver $ARGV
         else if command -sq file-roller
             file-roller $ARGV
         end
-    else
-        tar tvfa $argv
     end
 end
 
