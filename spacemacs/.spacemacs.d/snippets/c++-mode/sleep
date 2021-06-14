@@ -3,4 +3,4 @@
 # key: sleep
 # --
 #include <thread>
-std::this_thread::sleep_for(std::chrono::seconds($0));
+std::this_thread::sleep_for(std::chrono::${1:$$(yas-choose-value '("seconds" "milliseconds" "microseconds" "nanoseconds" "minutes" "hours" "..."))}($0));
