@@ -58,6 +58,16 @@ test -f ~/.config/nvim/README.md; and set -gx VIMRC (readlink -f ~/.SpaceVim.d/a
 # show key code and key name using xev used for other programs such as sxhkd
 abbr key "xev | awk -F'[ )]+' '/^KeyPress/ { a[NR+2] } NR in a { printf \"%-3s %s\n\", \$5, \$8 }'"
 
+bind \cd delete-or-ranger # check the BUG part in the function
+bind \cq 'tig status'
+bind \cf zz
+# TODO: delete it if fish-shell itself fix it
+# Ctrl-c/v is bound to fish_clipboard_copy/paste which is not working in non-X
+if not test $DISPLAY
+    bind --erase \cx # or bind \cx ""
+    bind --erase \cv # or bind \cv ""
+end
+
 if test $DISPLAY
     # change keyboard auto repeat, this improves keyboard experience, such as the scroll in Emacs
     # Check default value and result using `xset -q`
@@ -302,25 +312,6 @@ function delete-or-ranger -d 'modified from delete-or-exit, delete one char if i
         case '*'
             commandline -f delete-char
     end
-end
-# all bindings should be put inside the single one fish_user_key_bindings
-function fish_user_key_bindings
-    # without this line, C-l will not print the path at top of the screen
-    #bind \cl 'clear; commandline -f repaint; path_prompt'
-    #bind \cl ""
-    #bind \cl "tput reset; commandline -f repaint; path_prompt"
-    bind \cd delete-or-ranger # check the BUG part in the function
-    bind \cq 'tig status'
-    # if Alt-backword doesn't work, use this
-    # TODO: delete it if fish-shell itself fix it
-    bind \e\b backward-kill-word
-    # TODO: delete it if fish-shell itself fix it
-    # Ctrl-c/v is bound to fish_clipboard_copy/paste which is not working in non-X
-    if not test $DISPLAY
-        bind --erase \cx # or bind \cx ""
-        bind --erase \cv # or bind \cv ""
-    end
-    bind \cf zz
 end
 
 abbr pm-sl 'sudo pm-suspend' # 'Suspend to ram' in GUI buttom, power button to wake up
