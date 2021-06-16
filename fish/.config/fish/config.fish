@@ -1421,7 +1421,7 @@ function o -d 'open/xdg-open/xdg-utils, without option(open it), -s(show mimetyp
             cp ~/.config/mimeapps.list ~/.local/bin/mimeapps.list -rfv"
         end
     else
-        set -q $argv; and set ARGV .; or set ARGV $argv
+        set ARGV $argv
         if test -d $ARGV
             ranger $ARGV
         else
