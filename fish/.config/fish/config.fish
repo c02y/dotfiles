@@ -2445,7 +2445,7 @@ function catt
     end
 end
 
-alias dic 'trans :zh+en -d -show-dictionary Y -v -sp -theme ~/.local/bin/trans-theme-matrix.trans'
+alias dic 'trans :zh+en -d -show-dictionary Y -v -theme ~/.local/bin/trans-theme-matrix.trans'
 
 # count chars of lines of a file
 # awk '{ print length }' | sort -n | uniq -c
