@@ -2356,19 +2356,10 @@ function port -d 'list all the ports are used or check the process which are usi
     end
 end
 
-alias wget 'wget -c --no-check-certificate'
-alias wgets 'wget -c --mirror -p --html-extension --convert-links'
-alias curls 'curl -L -O -C -'
-# curl -L -O -C - https://site.com/file.iso
-alias aria2 'aria2c -c -x 5 --check-certificate=false --file-allocation=none'
+abbr pxx 'proxychains4 -q'
 abbr sky 'curl wttr.in'
 abbr wt 'bash -c \'rm -rf /tmp/Baidu* 2>/dev/null\'; wget -c -P /tmp/ https://speedxbu.baidu.com/shurufa/ime/setup/BaiduWubiSetup_1.2.0.67.exe'
 abbr wtt 'bash -c \'rm -rf /tmp/Baidu* 2>/dev/null\'; wget --connect-timeout=5 -c -P /tmp/ https://speedxbu.baidu.com/shurufa/ime/setup/BaiduPinyinSetup_5.5.5063.0.exe'
-function wgetr -d 'for wget that get stuck in middle of downloads'
-    while true
-        command wget -c --no-check-certificate -T 5 -c $argv; and break
-    end
-end
 function ios -d 'io stat'
     # check the current io speed, using command like
     # `dstat -d -n`
@@ -2381,10 +2372,8 @@ function ios -d 'io stat'
         dstat -d -n -m -s -c --nocolor
     end
 end
-
-abbr pxx 'proxychains4 -q'
 function pxs -d 'multiple commands using proxychains4'
-    set -l options w c p
+    set -l options w W c p
     argparse -n pxs $options -- $argv
     or return
 
@@ -2396,11 +2385,17 @@ function pxs -d 'multiple commands using proxychains4'
     end
 
     if set -q _flag_w
+        # wget -c --mirror -p --html-extension --convert-links
         eval $CMD wget -c --no-check-certificate $argv
+    else if set -q _flag_W # for wget that get stuck in middle of downloads
+        while true
+            eval $CMD wget -c --no-check-certificate -T 5 -c $argv; and break
+        end
     else if set -q _flag_c
         eval $CMD curl -L -O -C - $argv
     else # default using aria2
-        eval $CMD aria2c -c -x 5 --check-certificate=false --file-allocation=none $argv
+        # the \"\" is to handle magnet link correctly, other links are not affected
+        eval $CMD aria2c -c -x 5 --check-certificate=false --file-allocation=none \"$argv\"
     end
 end
 
