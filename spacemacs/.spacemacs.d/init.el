@@ -816,7 +816,10 @@ https://github.com/syl20bnr/spacemacs/issues/12346"
         ;; You could use `("-d" "en_US,en_US-med")` to check with multiple dictionaries
         '(("en_US" "[[:alpha:]]" "[^[:alpha:]]" "[']" nil ("-d" "en_US") nil utf-8))
         ;; number of windows is independent in multiple frames
-        winum-scope 'frame-local)
+        winum-scope 'frame-local
+        ispell-alternate-dictionary (expand-file-name
+                                     "~/Dotfiles.d/spacemacs/.spacemacs.d/lisp/words.txt")
+        )
   )
 
 (defun dotspacemacs/user-load ()
@@ -2266,6 +2269,7 @@ background of code to whatever theme I'm using's background"
                 (org-num-mode)))
     ;; put this after org-mode config part, or flyspell-mode won't be enabled, even with-eval-after-load won't work
     (add-hook 'org-mode-hook 'flyspell-mode)
+    (spacemacs|add-company-backends :backends company-ispell :modes org-mode)
     )
 
   (spacemacs|define-transient-state hl-todo
