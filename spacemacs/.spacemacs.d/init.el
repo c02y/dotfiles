@@ -155,8 +155,6 @@ This function should only modify configuration layer settings."
             ;; compile project using `, c c' directly even if after modifying CMakeLists.txt
             cmake-ide-build-dir "build"
             )
-     ;; NOTE: install cscope, pip install pycscope
-     cscope
      ;; NOTE: to generate compile_commands.json file for lsp before using lsp
      ;; https://sarcasm.github.io/notes/dev/compilation-database.html
      ;; Read https://github.com/MaskRay/ccls/wiki/Project-Setup for project setup like .ccls
