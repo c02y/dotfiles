@@ -940,7 +940,7 @@ before packages are loaded."
    ;; using translate-shell cli tool, which is trans binary in bin
    ;; translate-shell-command "proxychains4 -q trans -t en %s"
    ;; translate-shell-brief-command "proxychains4 -q trans -brief -t zh %s"
-   translate-shell-command "trans :zh -d -show-dictionary Y -v -no-ansi %s"
+   translate-shell-command "trans :zh+en -d -show-dictionary Y -v -no-ansi %s"
    translate-shell-brief-command "trans -brief -t zh %s"
    )
   ;; to make which-function in spaceline-custom-theme work
