@@ -932,8 +932,9 @@ function dfs -d 'df(-l, -L for full list), gua(-i), dua(-I), du(by default), cac
         set dirs ~/.cache/google-chrome ~/.config/google-chrome \
             ~/.cache/vivaldi ~/.config/vivaldi \
             ~/.cache/mozilla ~/.mozilla \
-            ~/.cache/paru /var/cache/pacman/pkg \
-            ~/.local/share/Trash /tmp
+            ~/.cache/paru ~/.cache/calibre \
+            ~/.local/share/Trash \
+            /var/cache/pacman/pkg /tmp
         set dirs_e
         for i in $dirs
             test -d $i; and set dirs_e $dirs_e $i
