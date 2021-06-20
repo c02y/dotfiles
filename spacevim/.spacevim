@@ -538,4 +538,6 @@ function! UserConfig()
     set signcolumn=yes
     " make margin transparent
     highlight clear SignColumn
+
+    command! -range -nargs=0 -bar JsonFormat <line1>,<line2>!python -m json.tool
 endfunction
