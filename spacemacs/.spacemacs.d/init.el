@@ -1331,6 +1331,7 @@ Emacs session."
     "w-" 'split-window-below-next-buffer
     "w/" 'split-window-right-next-buffer
     "w\\" 'split-window-right-next-buffer
+    "w RET" 'split-window-smart
     ;; the default binding is SPC w +
     "w SPC" 'spacemacs/window-layout-toggle
     ;; the default is other-frame
@@ -2431,6 +2432,15 @@ With prefix P, don't widen, just narrow even if buffer is already narrowed. "
     (other-window 1 nil)
     (switch-to-next-buffer)
     )
+  (defun split-window-smart ()
+    "Smart split the current window horizontally if width >= height, otherwise vertically,
+the 8/20 numbers just make it more equal visually than window-total-width/height"
+    (interactive)
+    (if (> (* 8 (window-total-width)) (* 20 (window-total-height)))
+        (split-window-horizontally)
+      (split-window-vertically))
+    (other-window 1 nil)
+    (switch-to-next-buffer))
 
   ;; functions for eshell
   (when (daemonp)
