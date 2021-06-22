@@ -29,19 +29,44 @@ set -gx LBIN (readlink -f ~/.local/bin)
 set -gx PATH $GOPATH/bin $NPMS/bin $HOME/.cargo/bin $LBIN /usr/local/bin /bin /sbin /usr/bin /usr/sbin $PATH
 # TODO: `pip install cppman ; cppman -c` to get manual for cpp
 set -gx MANPATH $NPMS/share/man ~/.local/share/man $MANPATH
-# Use different PATH/MANPATH for different distro since anaconda may affect system tools
-# for Windows and Linux compatible
-if command -sq uname
-    if test (uname) = Linux
-        if command -sq lsb_release
-            if not test (lsb_release -i | rg -i -e 'manjaro|arch|opensuse') # not manjaro/arch/opensuse
-                set -gx PATH $HOME/anaconda3/bin $PATH
-                set -gx MANPATH $HOME/anaconda3/share/man $MANPATH
+# TODO: slow startup, especially when you try to open vim+fish-script
+# caused by `system` line in vim-fish/ftplugin/fish.vim
+function startup -d "execute it manually only inside fsr fucntion since it is slow"
+    # function startup -d "execute it only when FISHRC changes, it is slow"
+    # Use different PATH/MANPATH for different distro since anaconda may affect system tools
+    # for Windows and Linux compatible
+    # Use different PATH/MANPATH for different distro since anaconda may affect system tools
+    # for Windows and Linux compatible, check the "manjaro" part in .bash_aliases since that part slows down fish
+    if command -sq uname
+        if test (uname) = Linux
+            if command -sq lsb_release
+                if not test (lsb_release -i | rg -i -e 'manjaro|arch|opensuse') # not manjaro/arch/opensuse
+                    set -gx PATH $HOME/anaconda3/bin $PATH
+                    set -gx MANPATH $HOME/anaconda3/share/man $MANPATH
+                end
+            end
+        else
+            # Windows
+            set -gx PATH /mingw64/bin /c/Program\ Files/CMake/bin $PATH
+        end
+    end
+
+    if test $DISPLAY
+        # change keyboard auto repeat, this improves keyboard experience, such as the scroll in Emacs
+        # Check default value and result using `xset -q`
+        # 200=auto repeat delay, given in milliseconds
+        # 50=repeat rate, is the number of repeats per second
+        # or uncomment the following part and use System Preference
+        if command -sq uname; and test (uname) = Linux
+            xset r rate 200 100
+        end
+
+        # fix the Display :0 can't be opened problem
+        if xhost ^/dev/null >/dev/null
+            if not xhost | rg (whoami) ^/dev/null >/dev/null
+                xhost +si:localuser:(whoami) ^/dev/null >/dev/null
             end
         end
-    else
-        # Windows
-        set -gx PATH /mingw64/bin /c/Program\ Files/CMake/bin $PATH
     end
 end
 
@@ -66,24 +91,6 @@ bind \cf zz
 if not test $DISPLAY
     bind --erase \cx # or bind \cx ""
     bind --erase \cv # or bind \cv ""
-end
-
-if test $DISPLAY
-    # change keyboard auto repeat, this improves keyboard experience, such as the scroll in Emacs
-    # Check default value and result using `xset -q`
-    # 200=auto repeat delay, given in milliseconds
-    # 50=repeat rate, is the number of repeats per second
-    # or uncomment the following part and use System Preference
-    if command -sq uname; and test (uname) = Linux
-        xset r rate 200 100
-    end
-
-    # fix the Display :0 can't be opened problem
-    if xhost ^/dev/null >/dev/null
-        if not xhost | rg (whoami) ^/dev/null >/dev/null
-            xhost +si:localuser:(whoami) ^/dev/null >/dev/null
-        end
-    end
 end
 
 # disable ksshaskpass pop window in KDE
@@ -194,6 +201,7 @@ end
 
 function fsr --description 'Reload your Fish config after configuration'
     source $FISHRC # fsr
+    startup
     echo $FISHRC is reloaded!
     vars -c ^/dev/null >/dev/null
 end
@@ -1279,7 +1287,7 @@ function pacs -d 'pacman/paru operations'
         end
     else if set -q _flag_u # update/upgrade, NOTE: pacs without anything also update
         if set -q _flag_d
-            # allow downgrade, needed when switch to old branch like testing->stable or 
+            # allow downgrade, needed when switch to old branch like testing->stable or
             # you seen local xxx is newer than xxx
             paru -Syuu
         else
@@ -2164,10 +2172,10 @@ function docks -d 'docker commands'
     end
 end
 
-if test (ps -ef | rg -w -v rg | rg -e 'shadowsocks|v2ray' | wc -l) != 0 # ssr/v2ray is running
-    set -g PXY 'proxychains4 -q'
+if test (pgrep -f 'shadowsocks|v2ray' | wc -l) != 0 # ssr/v2ray is running
+    set -gx PXY 'proxychains4 -q'
 else
-    set -g PXY
+    set -gx PXY
 end
 
 abbr bb 'bat -p'
