@@ -894,7 +894,6 @@ function loo -d 'locate functions, -u(update db), -a(under /), -v(video), -m(aud
         eval $LOCATE | fzf -1 --print0 | xc && xc -o
     else if set -q _flag_r # remove it using fzf
         eval $LOCATE | fzf --print0 | xargs -0 -r rm -rfv
-        eval $UPDATEDB_CMD
     else if set -q _flag_e # open it with editor
         eval $LOCATE | fzf --print0 | xargs -0 -r vim --
     else
