@@ -1849,10 +1849,14 @@ function gitcl -d 'git clone and cd into it, full-clone(by default), simple-clon
     else
         set DEPTH
     end
-    set -q _flag_p; and set CMD $CMD $PXY; or set CMD
+    set -q _flag_p; and set CMD $PXY; or set CMD
 
     if set -q _flag_a # after shallow pull
         eval $CMD git pull --unshallow
+        return
+    end
+    if set -q $argv # no repo link given
+        git pull
     else
         eval $CMD git clone -v $argv $DEPTH
         echo ---------------------------
