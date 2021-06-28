@@ -2362,9 +2362,9 @@ function ipl -d 'get the location of your public IP address'
 end
 function port -d 'list all the ports are used or check the process which are using the port'
     if test (count $argv) = 1
-        netstat -tulpn | rg $argv
+        sudo lsof -i -P -n | grep LISTEN | rg $argv
     else
-        netstat -tulpn
+        sudo lsof -i -P -n | grep LISTEN
     end
 end
 
