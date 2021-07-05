@@ -2022,9 +2022,14 @@ function gitco -d 'git checkout -- for multiple files(filA fileB...) at once, al
     end
 end
 function sss -d 'count lines of code from a local code dir or a github url'
-    set -l options "e=" f F
+    set -l options "e=" f F i
     argparse -n sss $options -- $argv
     or return
+
+    if set -q _flag_i
+        onefetch
+        return
+    end
 
     if echo $argv | rg "https://github.com" ^/dev/null >/dev/null
         # or use website directly: https://codetabs.com/count-loc/count-loc-online.html
