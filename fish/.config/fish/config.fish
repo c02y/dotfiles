@@ -1213,8 +1213,8 @@ function pacs -d 'pacman/paru operations'
     or return
 
     if set -q _flag_h
-        echo "      no option, no argv --> update the system"
-        echo "      no option, argv --> search argv"
+        echo "      --> update the system"
+        echo "      argv --> search argv"
         echo "      -i --> install(need argv)"
         echo "         + -u --> update the system and install the argv"
         echo "         + -y --> install the argv without confirm"
@@ -1224,18 +1224,16 @@ function pacs -d 'pacman/paru operations'
         echo "      -c --> clean/check"
         echo "         + no argv --> clean packages in /var/cache/pacman/pkg"
         echo "         + argv --> check if argv is owned by a pacakge, otherwise delete it"
-        echo "      -u --> update, force refresh database first(no argv)"
-        echo "         + -d --> allow downgrade"
+        echo "      -u --> update, force refresh database first"
+        echo "         + -d --> downgrade update"
         echo "      -d --> delete/uninstall(need argv)"
         echo "         + -r --> delete/uninstall dependencies as well"
-        echo "      -g --> groups"
-        echo "         + no argv --> list all local and remote groups"
+        echo "      -g --> list all local and remote groups"
         echo "         + argv --> list all packages in argv group"
         echo "         + -l --> list only the local groups and packages in the groups"
         echo "           + argv --> list only the local packages in argv group"
-        echo "      -m --> mirror"
+        echo "      -m --> get mirror from China by default"
         echo "         + argv --> get mirror from argv country"
-        echo "         + no argv --> get mirror from China by default"
         echo "         + -f --> fastest top 5 mirrors"
         echo "         + -s --> get status of local mirrors"
         echo "         + -i --> interactively choose mirror"
@@ -1245,9 +1243,10 @@ function pacs -d 'pacman/paru operations'
         echo "         + -l --> get source link and send it to clipper"
         echo "           + -a --> get source link info and send it to clipper"
         echo "         + -L --> list conetnet of argv package"
-        echo "      -l --> list local packages"
-        echo "         + no argv --> list all local installed packages"
-        echo "         + argv --> list installed packages containing argv keyword"
+        echo "      -l --> list local installed packages(name+description)"
+        echo "         + argv --> list installed packages containing argv keyword in name or description"
+        echo "         + -n --> list installed packaegs, names only"
+        echo "           + argv --> list installed packages containing argv keyword in name"
         echo "      -L --> list content of a argv pacakge, the same as -s -L"
         echo "      -n --> search argv in only packages name part"
         echo "      -a --> search all using paru, slow since inlcuding AUR"
@@ -1348,7 +1347,16 @@ function pacs -d 'pacman/paru operations'
             paru -Si $argv
         end
     else if set -q _flag_l # list installed pcakges containing the keyword(including description)
-        paru -Qs $argv
+        if set -q _flag_n
+            if set -q $argv[1] # if no argu, list all installed packages names
+                paru -Qs | rg -i local/
+            else
+                paru -Qs | rg -i local/ | rg -i $argv
+            end
+
+        else
+            paru -Qs $argv
+        end
     else if set -q _flag_L # list content in a pacakge
         # -L can work with -s or be used alone to list the content
         pacman -Ql $argv
