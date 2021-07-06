@@ -1212,9 +1212,19 @@ function pacs -d 'pacman/paru operations'
     argparse -n pacs $options -- $argv
     or return
 
+    # NOTE: the order of options and sub-options, sub-option in another option may affect 
+    # the other option, it may cause wrong execution order if you provide option/sub-option
     if set -q _flag_h
         echo "      --> update the system"
         echo "      argv --> search argv"
+        echo "      -m --> get mirror from China by default"
+        echo "         + argv --> get mirror from argv country"
+        echo "         + -f --> fastest top 3 mirrors"
+        echo "           + argv --> fastest top argv mirrors"
+        echo "         + -s --> get status of local mirrors"
+        echo "         + -i --> interactively choose mirror"
+        echo "         + -r --> reflector choose mirror(ArchLinux)"
+        echo "         + -l --> list local mirrors"
         echo "      -i --> install(need argv)"
         echo "         + -u --> update the system and install the argv"
         echo "         + -y --> install the argv without confirm"
@@ -1232,13 +1242,6 @@ function pacs -d 'pacman/paru operations'
         echo "         + argv --> list all packages in argv group"
         echo "         + -l --> list only the local groups and packages in the groups"
         echo "           + argv --> list only the local packages in argv group"
-        echo "      -m --> get mirror from China by default"
-        echo "         + argv --> get mirror from argv country"
-        echo "         + -f --> fastest top 5 mirrors"
-        echo "         + -s --> get status of local mirrors"
-        echo "         + -i --> interactively choose mirror"
-        echo "         + -r --> reflector choose mirror"
-        echo "         + -l --> list local mirrors"
         echo "      -s --> show info(need argv)"
         echo "         + -l --> get source link and send it to clipper"
         echo "           + -a --> get source link info and send it to clipper"
@@ -1251,6 +1254,29 @@ function pacs -d 'pacman/paru operations'
         echo "      -n --> search argv in only packages name part"
         echo "      -a --> search all using paru, slow since inlcuding AUR"
         echo "      -h --> usage"
+    else if set -q _flag_m # mirror
+        if set -q _flag_f # fastest top 3/argv mirrors
+            if set -q $argv
+                sudo pacman-mirrors -f 3
+            else
+                sudo pacman-mirrors -f $argv
+            end
+        else if set -q _flag_s # get status of local mirrors
+            pacman-mirrors --status
+        else if set -q _flag_i # insteractive choose mirror
+            sudo pacman-mirrors -i -d
+        else if set -q _flag_r # reflector choose mirror
+            set -q $argv; and set ARGV China; or set ARGV $argv
+            sudo reflector --country $ARGV --verbose --latest 6 --sort rate --save /etc/pacman.d/mirrorlist
+        else if set -q _flag_l # list local mirrors
+            cat /etc/pacman.d/mirrorlist
+        else # change mirrors
+            if ! set -q $argv[1] # given arguments
+                sudo pacman-mirrors -c $argv
+            else # if no given, get the fastest and synced China mirrors
+                sudo pacman-mirrors -c China
+            end
+        end
     else if set -q _flag_i # install
         # -S to install a package, -Syu pkg to ensure the system is update to date then install the package
         set -q _flag_u; and set OPT $OPT -Syu; or set OPT $OPT -S
@@ -1306,25 +1332,6 @@ function pacs -d 'pacman/paru operations'
             paru -Qg $argv | sort
         else # list all(local+repo) groups and pacakges in the groups
             paru -Sg $argv | sort
-        end
-    else if set -q _flag_m # mirror
-        if set -q _flag_f # fastest top 5 mirrors
-            sudo pacman-mirrors -f 3
-        else if set -q _flag_s # get status of local mirrors
-            pacman-mirrors --status
-        else if set -q _flag_i # insteractive choose mirror
-            sudo pacman-mirrors -i -d
-        else if set -q _flag_r # reflector choose mirror
-            set -q $argv; and set ARGV China; or set ARGV $argv
-            sudo reflector --country $ARGV --verbose --latest 6 --sort rate --save /etc/pacman.d/mirrorlist
-        else if set -q _flag_l # list local mirrors
-            cat /etc/pacman.d/mirrorlist
-        else # change mirrors
-            if ! set -q $argv[1] # given arguments
-                sudo pacman-mirrors -c $argv
-            else # if no given, get the fastest and synced China mirrors
-                sudo pacman-mirrors -c China
-            end
         end
     else if set -q _flag_s # show info
         if set -q _flag_l # get source link and send it to clipper
