@@ -657,7 +657,7 @@ function fu -d 'fu command and prompt to ask to open it or not'
                     set num_line 1
                 end
             else if test (echo "$num_line" | rg " ") # $num_line contains more than one value
-                echo "$argv has multiple definitions(alias and function) in $FISHRC, please clean them!"
+                echo "$argv has multiple definitions(alias and function) in $FISHRC: $num_line, please clean them!"
                 return
             end
         else # Case1, only handle abbr defined in $FISHRC
