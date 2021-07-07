@@ -338,7 +338,7 @@ function ml -d 'mutt or neomutt'
         echo "mutt/neomutt is not installed!"
         return -1
     end
-    eval $PXY $MUTT
+    eval (PXY) $MUTT
 end
 
 # User specific aliases and functions
@@ -1865,7 +1865,7 @@ function gitcl -d 'git clone and cd into it, full-clone(by default), simple-clon
     else
         set DEPTH
     end
-    set -q _flag_p; and set CMD $PXY; or set CMD
+    set -q _flag_p; and set CMD (PXY); or set CMD
 
     if set -q _flag_a # after shallow pull
         eval $CMD git pull --unshallow
@@ -2196,10 +2196,10 @@ function docks -d 'docker commands'
     end
 end
 
-if test (pgrep -f 'shadowsocks|v2ray' | wc -l) != 0 # ssr/v2ray is running
-    set -gx PXY 'proxychains4 -q'
-else
-    set -gx PXY
+function PXY
+    if test (pgrep -f 'shadowsocks|v2ray' | wc -l) != 0 # ssr/v2ray is running
+        echo proxychains4 -q
+    end
 end
 
 abbr bb 'bat -p'
@@ -2378,9 +2378,6 @@ end
 
 # abbr sss 'ps -eo tty,command | rg -v rg | rg "sudo ssh "'
 abbr p 'ping -c 5'
-function ipl -d 'get the location of your public IP address'
-    eval $PXY curl myip.ipip.net
-end
 function port -d 'list all the ports are used or check the process which are using the port'
     if test (count $argv) = 1
         sudo lsof -i -P -n | grep LISTEN | rg $argv
@@ -2412,7 +2409,7 @@ function pxs -d 'multiple commands using proxychains4'
 
     # two conditions, one or another
     if test (echo $argv | rg github); or set -q _flag_p
-        set CMD $PXY
+        set CMD (PXY)
     else
         set CMD
     end
@@ -2500,17 +2497,17 @@ function yous -d 'youtube-dl functions'
     or return
 
     if set -q _flag_l # list all formats
-        eval $PXY youtube-dl -F \"$argv\"
+        eval (PXY) youtube-dl -F \"$argv\"
     else if set -q _flag_f # choose the num from the list
-        eval $PXY youtube-dl -ciw -f $argv[1]+bestaudio \"$argv[2]\"
+        eval (PXY) youtube-dl -ciw -f $argv[1]+bestaudio \"$argv[2]\"
     else if set -q _flag_a # only download best audio into mp3
-        eval $PXY youtube-dl -ciw --extract-audio --audio-format mp3 --audio-quality 0 \"$argv\"
+        eval (PXY) youtube-dl -ciw --extract-audio --audio-format mp3 --audio-quality 0 \"$argv\"
     else if set -q _flag_p # download playlist
-        eval $PXY youtube-dl -ciw --download-archive downloaded.txt --no-overwrites -ict --yes-playlist --socket-timeout 5 \"$argv\"
+        eval (PXY) youtube-dl -ciw --download-archive downloaded.txt --no-overwrites -ict --yes-playlist --socket-timeout 5 \"$argv\"
     else if set -q _flag_P # download playlist into audio
-        eval $PXY youtube-dl -ciw --download-archive downloaded.txt --no-overwrites -ict --yes-playlist --extract-audio --audio-format mp3 --audio-quality 0 --socket-timeout 5 \"$argv\"
+        eval (PXY) youtube-dl -ciw --download-archive downloaded.txt --no-overwrites -ict --yes-playlist --extract-audio --audio-format mp3 --audio-quality 0 --socket-timeout 5 \"$argv\"
     else # download video
-        eval $PXY youtube-dl -ciw \"$argv\"
+        eval (PXY) youtube-dl -ciw \"$argv\"
     end
 end
 
@@ -2626,7 +2623,7 @@ function cars -d "cargo commands, -b(build), -c(clean target), -d(remove/uninsta
     argparse -n cars $options -- $argv
     or return
 
-    set CMD $PXY cargo
+    set CMD (PXY) cargo
 
     if set -q _flag_d
         eval $CMD uninstall $argv
