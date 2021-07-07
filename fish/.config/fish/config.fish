@@ -43,6 +43,7 @@ function startup -d "execute it manually only inside fsr fucntion since it is sl
                 if not test (lsb_release -i | rg -i -e 'manjaro|arch|opensuse') # not manjaro/arch/opensuse
                     set -gx PATH $HOME/anaconda3/bin $PATH
                     set -gx MANPATH $HOME/anaconda3/share/man $MANPATH
+                    source $HOME/anaconda3/etc/fish/conf.d/conda.fish >/dev/null 2>/dev/null
                 end
             end
         else
@@ -62,9 +63,9 @@ function startup -d "execute it manually only inside fsr fucntion since it is sl
         end
 
         # fix the Display :0 can't be opened problem
-        if xhost ^/dev/null >/dev/null
-            if not xhost | rg (whoami) ^/dev/null >/dev/null
-                xhost +si:localuser:(whoami) ^/dev/null >/dev/null
+        if xhost >/dev/null 2>/dev/null
+            if not xhost | rg (whoami) >/dev/null 2>/dev/null
+                xhost +si:localuser:(whoami) >/dev/null 2>/dev/null
             end
         end
     end
@@ -203,7 +204,7 @@ function fsr --description 'Reload your Fish config after configuration'
     source $FISHRC # fsr
     startup
     echo $FISHRC is reloaded!
-    vars -c ^/dev/null >/dev/null
+    vars -c >/dev/null 2>/dev/null
 end
 
 # tmux related
@@ -602,13 +603,13 @@ function fu -d 'fu command and prompt to ask to open it or not'
     set abbr_show "abbr -a -U --"
 
     # Case1: abbr
-    if abbr --show | rg "$abbr_show $argv " ^/dev/null # Space to avoid the extra abbr starting with $ARGV
+    if abbr --show | rg "$abbr_show $argv " 2>/dev/null # Space to avoid the extra abbr starting with $ARGV
         set found 1
         set result (abbr --show | rg "$abbr_show $argv ")
     end
 
     # Case2: alias or function, or executable file
-    if type $argv ^/dev/null # omit the result once error(abbr or not-a-thing) returned, $status = 0
+    if type $argv 2>/dev/null # omit the result once error(abbr or not-a-thing) returned, $status = 0
         if test $found = 1 -a (echo (rg -e "^alias $argv |^function $argv |^function $argv\$" $FISHRC))
             # Case3: both abbr and alias/function, duplicated definitions
             # function may be `function func` and `function func -d ...`
@@ -1110,8 +1111,8 @@ function deb -d 'deb package, list(default)/extract(x)'
             dpkg -x $argv[1] $pkgname
         else
             set dataname (ar t $argv[1] | rg data)
-            if not ar p $argv[1] $dataname | tar Jxv -C $pkgname ^/dev/null # failed, $status != 0
-                if not ar p $argv[1] $dataname | tar zxv -C $pkgname ^/dev/null # failed, $status != 0
+            if not ar p $argv[1] $dataname | tar Jxv -C $pkgname 2>/dev/null # failed, $status != 0
+                if not ar p $argv[1] $dataname | tar zxv -C $pkgname 2>/dev/null # failed, $status != 0
                     rm -rfv $pkgname
                     return
                 end
@@ -1212,7 +1213,7 @@ function pacs -d 'pacman/paru operations'
     argparse -n pacs $options -- $argv
     or return
 
-    # NOTE: the order of options and sub-options, sub-option in another option may affect 
+    # NOTE: the order of options and sub-options, sub-option in another option may affect
     # the other option, it may cause wrong execution order if you provide option/sub-option
     if set -q _flag_h
         echo "      --> update the system"
@@ -1338,13 +1339,13 @@ function pacs -d 'pacman/paru operations'
             if set -q _flag_a # get AUR source link and send it to clipper
                 paru -Si $argv | rg "AUR URL" | awk '{print $4}' | xc && xc -o
             else
-                if paru -Q $argv ^/dev/null >/dev/null
+                if paru -Q $argv >/dev/null 2>/dev/null
                     paru -Qi $argv | rg "^URL" | awk '{print $3}' | xc && xc -o
                 else
                     paru -Si $argv | rg "^URL" | awk '{print $3}' | xc && xc -o
                 end
             end
-            open (xc -o) ^/dev/null >/dev/null
+            open (xc -o) >/dev/null 2>/dev/null
         else if set -q _flag_L # list content in a pacakge
             pacman -Ql $argv
             or pamac list --files $argv
@@ -1448,7 +1449,7 @@ function o -d 'open/xdg-open/xdg-utils, without option(open it), -s(show mimetyp
         if test -d $ARGV
             ranger $ARGV
         else
-            open $ARGV ^/dev/null >/dev/null
+            open $ARGV >/dev/null 2>/dev/null
         end
     end
 end
@@ -1503,8 +1504,8 @@ function fmts -d "compile_commands.json(-l), clang-format(-f), cmake-format(-m)"
 end
 
 function ddiso -d 'burn ISO file to drive(such as USB as LIVE USB)'
-    if file $argv[1] | rg -i ISO ^/dev/null >/dev/null
-        if echo $argv[2] | rg -i dev ^/dev/null >/dev/null
+    if file $argv[1] | rg -i ISO >/dev/null 2>/dev/null
+        if echo $argv[2] | rg -i dev >/dev/null 2>/dev/null
             set FILE (readlink -f $argv[1])
             set DEV $argv[2]
             lsblk -l
@@ -1997,7 +1998,7 @@ function gitbs -d 'branches, tags and worktrees'
             if set -q $argv[1] # no argument
                 git branch # list local branches
             else # checkout $argv branch if exists, else create it
-                git checkout $argv ^/dev/null
+                git checkout $argv 2>/dev/null
                 or git checkout -b $argv
             end
         end
@@ -2015,7 +2016,7 @@ function gitco -d 'git checkout -- for multiple files(filA fileB...) at once, al
         end
     else
         # pass commit id
-        if git merge-base --is-ancestor $argv HEAD ^/dev/null
+        if git merge-base --is-ancestor $argv HEAD 2>/dev/null
             git checkout $argv
         else if test "$argv" = - # git switch to previous branch/commit
             git checkout -
@@ -2038,7 +2039,7 @@ function sss -d 'count lines of code from a local code dir or a github url'
         return
     end
 
-    if echo $argv | rg "https://github.com" ^/dev/null >/dev/null
+    if echo $argv | rg "https://github.com" >/dev/null 2>/dev/null
         # or use website directly: https://codetabs.com/count-loc/count-loc-online.html
         set -l username_repo (echo $argv | cut -c20-)
         curl "https://api.codetabs.com/v1/loc/?github=$username_repo" | jq -r '(["Files", "Lines", "Blanks", "Comments", "LinesOfCode", "Language"] | (., map(length*"-"))), (.[] | [.files, .lines, .blanks, .comments, .linesOfCode, .language]) | @tsv' | column -t
@@ -2079,7 +2080,7 @@ function gita -d 'git add for multiple files at once'
 end
 function gitfs -d 'git forked repo sync'
     git checkout master
-    git remote -v | rg upstream ^/dev/null >/dev/null
+    git remote -v | rg upstream >/dev/null 2>/dev/null
     set -l upstream_status $status
     if test $upstream_status = 1; and set -q $argv[1]
         echo "Remote upstream is not set, unable to sync!"
@@ -2183,7 +2184,7 @@ function docks -d 'docker commands'
         set ID (docker ps -a | fzf --preview-window hidden | awk '{print $1}')
         not test $ID; and return # ID is empty
 
-        docker inspect --format="{{.State.Running}}" $ID | rg true ^/dev/null >/dev/null
+        docker inspect --format="{{.State.Running}}" $ID | rg true >/dev/null 2>/dev/null
         if test $status = 0
             # if the ID is already running, exec it,
             # meaning: start another session on the same running container
@@ -2345,7 +2346,7 @@ alias q x
 function x -d 'exit or deactivate in python env'
     if not set -q $VIRTUAL_ENV # running in python virtual env
         # TODO: since sth. is wrong with the deactivate function in $argv/bin/activate.fish
-        deactivate ^/dev/null >/dev/null
+        deactivate >/dev/null 2>/dev/null
         source $FISHRC
     else if not set -q $CONDA_DEFAULT_ENV # running in conda virtual env
         cons -x
@@ -2687,7 +2688,6 @@ end
 #
 # The packages needed to be installed using conda are(only if you have no sudo permission or the offcial is old)
 # ~/anaconda3/bin/conda install -c conda-forge ncurses emacs w3m fish the_silver_searcher source-highlight tmux ripgrep
-source $HOME/anaconda3/etc/fish/conf.d/conda.fish >/dev/null ^/dev/null
 abbr condas '~/anaconda3/bin/binstar search -t conda' # [packagename]
 abbr condai '~/anaconda3/bin/conda install' # [packagename]
 abbr condaic '~/anaconda3/bin/conda install -c' # [channel] [packagename]
@@ -2748,7 +2748,7 @@ function cons -d 'conda virtual environments related functions -i(install packag
             echo "argv is needed!"
             return -1
         else
-            if conda env list | awk '{ print $1 }' | rg -w $argv[1] >/dev/null ^/dev/null
+            if conda env list | awk '{ print $1 }' | rg -w $argv[1] >/dev/null 2>/dev/null
                 # already in conda env list
                 echo "env $arv[1] already exists!!!"
                 return -1
@@ -2760,7 +2760,7 @@ function cons -d 'conda virtual environments related functions -i(install packag
                     # only pip/python included
                     conda create -y -n $argv[1] python
                 end
-                conda activate $argv[1] >/dev/null ^/dev/null; and echo "conda env switched to $argv[1]"
+                conda activate $argv[1] >/dev/null 2>/dev/null; and echo "conda env switched to $argv[1]"
                 if test (count $argv) -gt 1
                     pip install $argv[2..(count $argv)] # array slice in fish shell
                 end
@@ -2771,7 +2771,7 @@ function cons -d 'conda virtual environments related functions -i(install packag
             conda env list
             read -p 'echo "Which conda env switching to: [base?] "' argv
         end
-        if conda env list | awk '{ print $1 }' | rg -w $argv[1] >/dev/null ^/dev/null
+        if conda env list | awk '{ print $1 }' | rg -w $argv[1] >/dev/null 2>/dev/null
             if test "$argv" = "" # just enter when `read`, these three are unnecessary
                 set argv base
             end
