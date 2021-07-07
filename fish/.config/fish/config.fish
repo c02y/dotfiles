@@ -2516,7 +2516,7 @@ end
 
 function rgs -d 'rg sth in -e(init.el)/-E(errno)/-f(config.fish)/-t(.tmux.conf)/-v(vimrc), or use -F(fzf) to open the file, -g(git repo), -w(whole word), -V(exclude pattern), -l(list files), -s(sort), -n(no ignore), -S(smart case, otherwise ignore case), -2(todo.org)'
     # NOTE -V require an argument, so put "V=" line for argparse
-    set -l options e E f t v F g n w 'V=' l s S 2
+    set -l options e E f t v F g n w 'V=' l s S 2 c
     argparse -n rgs -N 1 $options -- $argv
     or return
 
@@ -2528,6 +2528,7 @@ function rgs -d 'rg sth in -e(init.el)/-E(errno)/-f(config.fish)/-t(.tmux.conf)/
     set -q _flag_s; and set OPT $OPT --sort path
     set -q _flag_n; and set OPT $OPT --no-ignore
     set -q _flag_S; and set OPT $OPT -s; or set OPT $OPT -i
+    set -q _flag_c; and set OPT $OPT -C 3
 
     if set -q _flag_e
         set FILE $EMACS_EL
