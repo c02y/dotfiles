@@ -694,6 +694,9 @@ end
 
 zoxide init fish | source
 alias zz zi
+function zzz
+    zz $argv; and ranger
+end
 set -gx _ZO_FZF_OPTS "-1 -0 --reverse --print0"
 # -m to mult-select using Tab/S-Tab
 set -gx FZF_DEFAULT_OPTS "-e -m -0 --reverse --preview 'fish -c \"fzf_previewer {}\"' --preview-window=bottom:wrap"
