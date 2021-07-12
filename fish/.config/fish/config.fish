@@ -2314,7 +2314,7 @@ function pips -d 'pip related functions, default(install), -i(sudo install), -c(
         # when using default pip install is slow, use repo from the following url to install
         # pip install -i https://pypi.tuna.tsinghua.edu.cn/simple -U (pip list --outdated | awk 'NR>2 {print $1}')
         # echo "Updating sudo pip packages"
-        sudo pip install -i https://pypi.tuna.tsinghua.edu.cn/simple -U (pip list --outdated | awk 'NR>2 {print $1}')
+        pip install -i https://pypi.tuna.tsinghua.edu.cn/simple -U (pip list --outdated | awk 'NR>2 {print $1}')
     else if set -q _flag_r
         pip uninstall $argv
         or sudo pip uninstall $argv
@@ -2323,7 +2323,7 @@ function pips -d 'pip related functions, default(install), -i(sudo install), -c(
         # if `pip search` fails, then `sudo pip install pip_search` first
         pip_search search $argv
     else if set -q _flag_U
-        sudo pip install -i https://pypi.tuna.tsinghua.edu.cn/simple -U $argv
+        pip install -i https://pypi.tuna.tsinghua.edu.cn/simple -U $argv
     else if set -q _flag_i
         sudo pip install -i https://pypi.tuna.tsinghua.edu.cn/simple $argv
     else
