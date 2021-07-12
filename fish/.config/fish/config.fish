@@ -1212,7 +1212,7 @@ abbr appd 'apt depends'
 # Server = https://mirrors.ustc.edu.cn/archlinuxcn/$arch
 #
 function pacs -d 'pacman/paru operations'
-    set -l options i u y r d l c g m f s L n a h
+    set -l options i u y r d l c g m f s L n a h k
     argparse -n pacs $options -- $argv
     or return
 
@@ -1257,6 +1257,7 @@ function pacs -d 'pacman/paru operations'
         echo "      -L --> list content of a argv pacakge, the same as -s -L"
         echo "      -n --> search argv in only packages name part"
         echo "      -a --> search all using paru, slow since inlcuding AUR"
+        echo "      -k --> check for missing files in packages"
         echo "      -h --> usage"
     else if set -q _flag_m # mirror
         if set -q _flag_f # fastest top 3/argv mirrors
@@ -1378,6 +1379,10 @@ function pacs -d 'pacman/paru operations'
         or paru -Slq | rg $argv
     else if set -q _flag_a # search all including repo and aur
         paru $argv
+    else if set -q _flag_k # check for missing files in packages
+        # use this when you see something like "warning: xxx path/to/xxx (No such file or directory)"
+        # or "warning: could not get file information for path/to/xxx", especially python pacakges
+        paru -Qk | rg warning
     else # just search repo, if not found, search it in aur
         if not set -q $argv # given argv
             # if failed with pacman, using paru directly (paru including aur is slow)
