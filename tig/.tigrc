@@ -38,7 +38,9 @@ bind generic    ca    ?>git commit --amend
 
 # NOTE: the ignore here only works for new untrcked files
 bind status     i    ?>sh -c "echo '%(file)'>>.gitignore" # ignore files
+bind status     I    ?>sh -c "echo '%(file)'>>~/.local/bin/.gitignore" # ignore files
 bind stage      i    ?>sh -c "echo '%(file)'>>.gitignore" # ignore files
+bind stage      i    ?>sh -c "echo '%(file)'>>~/.local/bin/.gitignore" # ignore files
 
 # FIXME: Space to select/mark the file, currently it is not supported
 bind status     s    status-update # stage/unstage/track/untrack a file
