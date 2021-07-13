@@ -1374,9 +1374,13 @@ function pacs -d 'pacman/paru operations'
         pacman -Ql $argv
         or pamac list --files $argv
     else if set -q _flag_n # search only keyword in package names
-        pacman -Slq | sort | rg $argv
-        # if failed with pacman, using paru directly (paru including aur is slow)
-        or paru -Slq | rg $argv
+        if set -q _flag_a
+            pamac search -a -q $argv | rg -i $argv
+        else
+            pamac search -r -q $argv | rg -i $argv
+            # if failed in repos, search in both repo+aur(slow)
+            or pamac search -a -q $argv | rg -i $argv
+        end
     else if set -q _flag_a # search all including repo and aur
         paru $argv
     else if set -q _flag_k # check for missing files in packages
