@@ -398,7 +398,7 @@ end
 # valgrind
 # TODO: pip install colour-valgrind
 # abbr va='valgrind -v --track-origins=yes'
-abbr va 'colour-valgrind --track-origins=yes --leak-check=full'
+abbr va 'colour-valgrind --track-origins=yes --leak-check=full --show-leak-kinds=all -s'
 # more detail about time
 abbr vad 'colour-valgrind --tool=callgrind --dump-instr=yes --simulate-cache=yes --collect-jumps=yes'
 
