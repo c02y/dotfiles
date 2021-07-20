@@ -223,7 +223,6 @@ This function should only modify configuration layer settings."
    dotspacemacs-additional-packages '(
                                       highlight-indent-guides
                                       electric-operator
-                                      syntax-subword
                                       comment-dwim-2
                                       (cool-moves :location (recipe :fetcher github :repo "mrbig033/cool-moves"))
                                       evil-smartparens
@@ -1011,17 +1010,17 @@ With negative N, comment out original line and use the absolute value."
   ;; delete not kill it into kill-ring
   ;; _based on_ http://ergoemacs.org/emacs/emacs_kill-ring.html
   (defun delete-word (arg)
-    "Delete characters forward until encountering the end of a syntax-subword.
+    "Delete characters forward until encountering the end of a word.
 With argument, do this that many times.
 This command does not push text to `kill-ring'."
     (interactive "p")
     (delete-region
      (point)
      (progn
-       (syntax-subword-forward arg)
+       (forward-word arg)
        (point))))
   (defun delete-word-backward (arg)
-    "Delete(not kill) characters backward until encountering the beginning of the syntax-subword.
+    "Delete(not kill) characters backward until encountering the beginning of the word.
 With argument, do this that many times."
     (interactive "p")
     (delete-word (- arg)))
@@ -1441,6 +1440,7 @@ Version 2016-12-18"
   (bind-keys*
    ("C-x DEL" . xah-shrink-whitespaces)
    ("M-%" . query-replace-region-or-from-top)
+   ("M-c" . xah-toggle-letter-case)
    ;; no alternate from ivy for helm-for-files
    ;; ("M-z" . helm-for-files)
    ("C-h h" . counsel-describe-symbol)
@@ -1775,14 +1775,12 @@ which switch the last buffer in this window."
 
   (add-to-list 'auto-mode-alist '(".spacevim\\'" . vimrc-mode))
 
-  ;; needed for change-case functions
-  (global-syntax-subword-mode)
   (defun xah-toggle-letter-case ()
     "Toggle the letter case of current word or text selection.
 Always cycle in this order: Init Caps, ALL CAPS, all lower.
 
 URL `http://ergoemacs.org/emacs/modernization_upcase-word.html'
-Version 2017-04-19"
+Version 2020-06-26"
     (interactive)
     (let (
           (deactivate-mark nil)
@@ -1791,9 +1789,9 @@ Version 2017-04-19"
           (setq $p1 (region-beginning)
                 $p2 (region-end))
         (save-excursion
-          (skip-chars-backward "[:alnum:]-_")
+          (skip-chars-backward "[:alpha:]")
           (setq $p1 (point))
-          (skip-chars-forward "[:alnum:]-_")
+          (skip-chars-forward "[:alpha:]")
           (setq $p2 (point))))
       (when (not (eq last-command this-command))
         (put this-command 'state 0))
@@ -1801,7 +1799,7 @@ Version 2017-04-19"
        ((equal 0 (get this-command 'state))
         (upcase-initials-region $p1 $p2)
         (put this-command 'state 1))
-       ((equal 1  (get this-command 'state))
+       ((equal 1 (get this-command 'state))
         (upcase-region $p1 $p2)
         (put this-command 'state 2))
        ((equal 2 (get this-command 'state))
@@ -1830,7 +1828,7 @@ extraneous space at beginning of line."
       (when (looking-at "^\\s-\\b")
         ;; get rid of it!
         (delete-char 1))
-      (call-interactively 'subword-capitalize)))
+      (call-interactively 'capitalize-word)))
   (defun endless/downcase ()
     "Downcase region or word.
 Also converts full stops to commas."
@@ -1838,13 +1836,13 @@ Also converts full stops to commas."
     (endless/convert-punctuation "\\." ",")
     (if (use-region-p)
         (call-interactively 'downcase-region)
-      (call-interactively 'subword-downcase)))
+      (call-interactively 'downcase-word)))
   (defun endless/upcase ()
     "Upcase region or word."
     (interactive)
     (if (use-region-p)
         (call-interactively 'upcase-region)
-      (call-interactively 'subword-upcase)))
+      (call-interactively 'upcase-word)))
   (spacemacs|define-transient-state change-case
     :title "Change Case Transient State"
     :doc "
