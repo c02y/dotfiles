@@ -45,6 +45,7 @@ This function should only modify configuration layer settings."
                       auto-completion-enable-snippets-in-popup t
                       auto-completion-enable-help-tooltip t
                       auto-completion-enable-sort-by-usage t
+                      auto-completion-use-company-box t
                       )
      better-defaults
      syntax-checking
@@ -880,7 +881,6 @@ before packages are loaded."
    python-spacemacs-indent-guess nil
    company-minimum-prefix-length 1
    company-show-numbers t
-   company-tooltip-limit 20
    bookmark-default-file "~/.spacemacs.d/bookmarks"
    ;; make cursor the width of the character it is under i.e. full width of a TAB
    x-stretch-cursor t
