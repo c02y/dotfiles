@@ -879,7 +879,7 @@ before packages are loaded."
    vc-follow-symlinks t
    ;; disable the warning message
    python-spacemacs-indent-guess nil
-   company-minimum-prefix-length 1
+   company-minimum-prefix-length 3
    company-show-numbers t
    bookmark-default-file "~/.spacemacs.d/bookmarks"
    ;; make cursor the width of the character it is under i.e. full width of a TAB
