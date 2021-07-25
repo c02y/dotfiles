@@ -1392,7 +1392,9 @@ function pacs -d 'pacman/paru operations'
             # if failed with pacman, using paru directly (paru including aur is slow)
             pacman -Ss $argv; or paru $argv
         else
-            paru # = pacman/paru -Syu, update, check -u option for more
+            # check if there are updates using checkupdates(non-root), if there are, update using paru(need root)
+            # paru = pacman/paru -Syu, update, check -u option for more
+            checkupdates; and paru; or echo "Already Updated!"
         end
     end
 end
