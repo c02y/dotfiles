@@ -863,14 +863,16 @@ function loo -d 'locate functions, -u(update db), -a(under /), -v(video), -m(aud
         if set -q $argv # no given argv, list all videos
             # get size of all videos, using `xargs -d '\n' dua -f binary` at the end
             set LOCATE 'locate -e -i -d $DB "*" | \
-                rg -ie ".mp4\$|.mkv\$|.avi\$|.webm\$|.mov\$|.rmvb\$" | rg -v steamapp'
+                rg -ie "\.mp4\$|\.mkv\$|\.avi\$|\.webm\$|\.mov\$|\.rmvb\$" | rg -v steamapp'
         else
-            set LOCATE 'locate -e -i -d $DB $argv | \
-                rg -ie ".mp4\$|.mkv\$|.avi\$|.webm\$|.mov\$|.rmvb\$" | rg -v steamapp'
+            # NOTE -b option before argv, -b means only search file name,
+            # without using -b, it show argv in the whole path, takes more time
+            set LOCATE 'locate -e -i -d $DB -b $argv | \
+                rg -ie "\.mp4\$|\.mkv\$|\.avi\$|\.webm\$|\.mov\$|\.rmvb\$" | rg -v steamapp'
         end
     else if set -q _flag_m # serach all audio files
         set LOCATE 'locate -e -i -d $DB $argv | \
-            rg -ie ".mp3\$|.flac\$|.ape\$|.wav\$|.w4a\$|.dsf\$|.dff\$"'
+            rg -ie "\.mp3\$|\.flac\$|\.ape\$|\.wav\$|\.w4a\$|\.dsf\$|\.dff\$"'
     else if set -q _flag_d
         set LOCATE 'locate -e -i -d $DB --null -b $argv | \
             xargs -r0 sh -c \'for i do [ -d "$i" ] && printf "%s\n" "$i"; done\' sh {} + '
