@@ -694,6 +694,13 @@ end
 
 zoxide init fish | source
 alias zz zi
+# zb go back to the history of current window/tab/pane
+function zb -d 'zb go back to the history of current window/tab/pane'
+    set dir (string collect $dirprev | fzf --tac)
+    if test $dir
+        z $dir
+    end
+end
 function zzz
     zz $argv; and ranger
 end
