@@ -840,11 +840,11 @@ function loo -d 'locate functions, -u(update db), -a(under /), -v(video), -m(aud
     or return
 
     if set -q _flag_a
-        set DB /tmp/mlocate.db
+        set DB ~/.cache/mlocate.db
         set UPDATEDB_CMD "updatedb --require-visibility 0 -o $DB"
     else
-        set DB /tmp/mlocate-home.db
-        set UPDATEDB_CMD "updatedb --require-visibility 0 -U /$HOME -o $DB"
+        set DB ~/.cache/mlocate-home.db
+        set UPDATEDB_CMD "updatedb --require-visibility 0 -U $HOME -o $DB"
     end
 
     set UPDATEDB 0
@@ -1427,7 +1427,7 @@ function g++-a
     /usr/bin/g++ -Wall -W -g -o $BIN $argv 2>&1 | rg --color always -iP "\^|warning:|error:|undefined|"
 end
 abbr gcc-w 'gcc -g -Wall -W -Wsign-conversion'
-abbr gcca 'gcc -g -pedantic -Wall -W -Wconversion -Wshadow -Wcast-qual -Wwrite-strings -Wmissing-prototypes  -Wno-sign-compare -Wno-unused-parameter'
+abbr gcca 'gcc -g -pedantic -Wall -W -Wconversion -Wshadow -Wcast-qual -Wwrite-strings -Wmissing-prototypes -Wno-sign-compare -Wno-unused-parameter'
 # gcc -Wall -W -Wextra -Wconversion -Wshadow -Wcast-qual -Wwrite-strings -Werror
 
 # static code analyzer, another tool is from clang-analyzer which is scan-build
