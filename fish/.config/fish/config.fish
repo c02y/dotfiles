@@ -855,6 +855,7 @@ function loo -d 'locate functions, -u(update db), -a(under /), -v(video), -m(aud
     test $UPDATEDB = 1; and eval $UPDATEDB_CMD
 
     if set -q _flag_u; and set -q $argv
+        eval $UPDATEDB_CMD
         return
     end
 
