@@ -1608,8 +1608,7 @@ Version 2016-12-18"
   ;; format-all package and the following config replaces all the format-on-save variables
   ;; provided or not-yet-provided by spacemacs
   (add-hook 'prog-mode-hook 'format-all-mode)
-  (with-eval-after-load 'format-all
-    (add-hook 'prog-mode-hook 'format-all-ensure-formatter))
+  (add-hook 'format-all-mode-hook 'format-all-ensure-formatter)
 
   (defun switch-to-prev-visited-buffer ()
     "Switch to the prev visited buffer, repeated invocations toggle between
