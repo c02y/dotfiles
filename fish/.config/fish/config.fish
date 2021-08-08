@@ -577,7 +577,9 @@ end
 # alias mv 'mv -vi'
 abbr rcp 'rsync --stats --info=progress2 -rh -avz'
 abbr rmv 'rsync --stats --info=progress2 -rh -avz --remove-source-files' # this will not delte the src dir, only the contents
-alias clr 'clear; tmux clear-history'
+# clear the content in the terminal, unlike C-l
+# alias clr 'clear; tmux clear-history'
+alias clr 'clear && echo -en "\e[3J"'
 
 function abbrc -d 'clean abbrs in `abbr --show` but not in $FISHRC'
     set abbr_show "abbr -a -U --"
