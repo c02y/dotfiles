@@ -842,9 +842,15 @@ end
 
 # NOTE: you need to mask updatedb.service and delete /var/lib/mlocate/mlocate.db file first
 function loo -d 'locate functions, -u(update db), -a(under /), -v(video), -m(audio), -d(dir), -f(file), -o(open), -x(copy), -r(remove), -e(open it with editor), -w(wholename)'
-    set -l options u a v m d f o x r e w
+    set -l options u a v m d f o x r e w p
     argparse -n loo $options -- $argv
     or return
+
+    # list and open only pdf files using rofi
+    if set -q _flag_p
+        fd --type f -e pdf . $HOME | rofi -keep-right -dmenu -i -p FILES -multi-select | xargs -I {} xdg-open {}
+        return
+    end
 
     if set -q _flag_a
         set DB ~/.cache/mlocate.db
