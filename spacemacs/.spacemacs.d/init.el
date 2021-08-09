@@ -2087,6 +2087,7 @@ In other non-comment situations, try C-M-j to split."
     (setq org-list-allow-alphabetical t
           ;; removes clocked tasks with 0:00 duration
           org-clock-out-remove-zero-time-clocks t
+          org-hide-emphasis-markers t
           ;; Save the running clock and all clock history when exiting Emacs, load it on startup
           ;; org-clock-persist t
           ;; Do not prompt to resume an active clock
@@ -2192,6 +2193,13 @@ In other non-comment situations, try C-M-j to split."
                   "\\)")
           org-footnote-definition-re (org-re "^\\[\\(fn:[-_[:word:]]+\\)\\]")
           )
+    (defun org-toggle-emphasis ()
+      "Toggle hiding/showing of org emphasize markers."
+      (interactive)
+      (if org-hide-emphasis-markers
+          (set-variable 'org-hide-emphasis-markers nil)
+        (set-variable 'org-hide-emphasis-markers t))
+      (org-mode-restart))
     ;; from https://github.com/svetlyak40wt/dot-emacs/blob/master/.emacs.d/lib/org-auto-clock.el
     (defun wicked/org-clock-in-if-starting ()
       "Clock in when the task is marked STARTED."
