@@ -2166,12 +2166,12 @@ In other non-comment situations, try C-M-j to split."
           org-emphasis-alist
           '(
             ("*" (:foreground "cyan" :weight bold))
-            ("/" (:foreground "cyan" :slant italic))
-            ("_" (:foreground "cyan" :underline t))
-            ("=" (:foreground "cyan" :weight bold))
-            ("~" (:foreground "cyan" :weight bold
+            ("/" (:foreground "green" :slant italic))
+            ("_" (:foreground "orange" :underline t))
+            ("=" (:foreground "MediumSpringGreen" :weight bold))
+            ("~" (:foreground "white" :weight bold
                               :box (:line-width 3 :color "#545454" :style released-button)))
-            ("+" (:foreground "cyan" :strike-through t)))
+            ("+" (:foreground "DimGrey" :strike-through t)))
           ;; in exported html file
           org-html-text-markup-alist
           '((bold . "<b>%s</b>")
