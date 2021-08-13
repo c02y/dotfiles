@@ -704,10 +704,14 @@ function zb -d 'zb go back to the history of current window/tab/pane'
     end
 end
 function zzz
-    if test -d $argv
-        z $argv; and ranger
+    if set -q $argv
+        ranger
     else
-        zz $argv; and ranger
+        if test -d $argv
+            z $argv; and ranger
+        else
+            zz $argv; and ranger
+        end
     end
 end
 set -gx _ZO_FZF_OPTS "-1 -0 --reverse --print0"
