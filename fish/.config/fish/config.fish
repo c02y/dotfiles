@@ -579,7 +579,19 @@ abbr rcp 'rsync --stats --info=progress2 -rh -avz'
 abbr rmv 'rsync --stats --info=progress2 -rh -avz --remove-source-files' # this will not delte the src dir, only the contents
 # clear the content in the terminal, unlike C-l
 # alias clr 'clear; tmux clear-history'
-alias clr 'clear && echo -en "\e[3J"'
+function cll -d "clear the terminal history buffer and repeat the last command or argv"
+    echo -en "\e[3J" # clean the terminal history buffer for real
+    clear
+    if test "$history[1]" != cll
+        set -g lastcommand $history[1]
+    end
+    # the x is to prevent exiting fish to bash for new fish session
+    if set -q $argv; and test "$lastcommand" != cll; and test "$lastcommand" != x
+        eval $lastcommand
+    else
+        eval $argv
+    end
+end
 
 function abbrc -d 'clean abbrs in `abbr --show` but not in $FISHRC'
     set abbr_show "abbr -a -U --"
