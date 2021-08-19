@@ -1268,6 +1268,8 @@ Emacs session."
     "tG" 'highlight-indent-guides-mode
     "tt" 'spacemacs/toggle-relative-line-numbers
     "tT" 'spacemacs/toggle-line-numbers
+    ;; fD delete current file and buffer, fd choose the file and delete the buffer
+    "fd" 'spacemacs/delete-file
     "fYn" 'yas-new-snippet
     "fYr" 'yas-reload-all
     "fYi" 'yas-insert-snippet
