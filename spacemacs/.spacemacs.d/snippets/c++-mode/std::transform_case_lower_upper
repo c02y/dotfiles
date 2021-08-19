@@ -1,7 +1,7 @@
 # -*- mode: snippet -*-
-# name: string to lower case
-# key: lwr
+# name: std::std::transform case lower or upper
+# key: trans
 # --
 std::transform(std::begin(${1:container}), std::end($1), std::begin($1), [](char c) {
-	return std::tolower(c);});
+	return std::${2:tolower/toupper}(c);});
 $0
