@@ -212,6 +212,15 @@ This function should only modify configuration layer settings."
           )
      (pdf :variables
           pdf-view-display-size 'fit-height)
+     (tabs :variables
+           centaur-tabs-height 20
+           ;; centaur-tabs-bar-height 30
+           ;; centaur-tabs-show-navigation-buttons t ;; FIXME: two tab height variables do not work if set
+           centaur-tabs-show-new-tab-button nil
+           centaur-tabs-modified-marker "*"
+           ;; centaur-tabs-set-bar 'left ;; FIXME: tab-bar will not be displayed for emacsclient if set to left
+           centaur-tabs-cycle 'tabs
+           )
      )
 
    ;; List of additional packages that will be installed without being wrapped
@@ -1465,6 +1474,9 @@ Version 2016-12-18"
    ("M-RET" . Meta-return)
    ("<C-return>" . Ctrl-return)         ; NOTE C-RET doesn't work as expected
    ("M-`" . other-window)
+   ("C-<tab>" . spacemacs/tabs-forward)
+   ("C-<iso-lefttab>" . spacemacs/tabs-backward)
+   ("C-x C-<tab>" . centaur-tabs-counsel-switch-group)
    )
   (bind-keys :map evil-hybrid-state-map
              ;; not put it into global, it goes wrong in helm mode
@@ -1505,6 +1517,9 @@ Version 2016-12-18"
              )
   ;; by default, f11 is bound to toggle-frame-fullscreen, but it easy to affect f12
   (unbind-key "<f11>" global-map)
+  ;; use C-tab and C-S-tab for switching tabs
+  (unbind-key "C-<tab>" evil-motion-state-map)
+  (unbind-key "C-<iso-lefttab>" evil-motion-state-map)
 
   (with-eval-after-load 'leetcode
     (bind-keys :map leetcode--problems-mode-map
