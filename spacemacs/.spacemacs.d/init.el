@@ -1248,7 +1248,7 @@ Emacs session."
     "bb" 'counsel-ibuffer
     ;; overwrite the default bB
     "bB" 'counsel-buffer-or-recentf
-    "bl" 'counsel-switch-buffer
+    "bl" 'ivy-switch-buffer
     "bU" 'reopen-killed-buffer-fancy
     ;; whitespace-cleanup will also do untabify-it/tabify-it automatically
     ;; according indent-tabs-mode, so the definitions of two functions are not needed
@@ -1529,6 +1529,9 @@ Version 2016-12-18"
     (setq ivy-count-format "%d/%d> "
           ivy-initial-inputs-alist nil
           ivy-magic-tilde nil
+          ;; ivy-use-virtual-buffers nil
+          ;; C-c C-a to ivy-toggle-ignore
+          ivy-ignore-buffers '("\\` " "\\`\\*")
           ;; set ivy-height to 1/2 frame instead the fixed 15
           ivy-height-alist
           '((t
