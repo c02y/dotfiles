@@ -2244,7 +2244,7 @@ into one step."
                ;; C-tab(original 'org-force-cycle-archived) to show the element
                ;; in another window(simpler version of org-panes.el)
                ;; then M-PageUp/Down to scroll another window
-               ("C-<tab>" . org-tree-to-indirect-buffer)
+               ("C-c <tab>" . org-tree-to-indirect-buffer)
                )
     ;;
     ;; org-export stylesheet
