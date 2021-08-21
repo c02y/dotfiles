@@ -2251,7 +2251,7 @@ function docks -d 'docker commands'
 end
 
 function PXY
-    if test (pgrep -f 'shadowsocks|v2ray' | wc -l) != 0 # ssr/v2ray is running
+    if test (pgrep -f 'shadowsocks|v2ray|clash' | wc -l) != 0 # proxy client is running
         echo proxychains4 -q
     end
 end
