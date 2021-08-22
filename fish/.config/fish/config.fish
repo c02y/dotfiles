@@ -2674,7 +2674,7 @@ end
 abbr upxx 'upx --best --lzma'
 # cargo
 function cars -d "cargo commands, -b(build), -c(clean target), -d(remove/uninstall), -i(install), -r(release build), -S(reduce size)"
-    set -l options b c d i r s S
+    set -l options b c C d i r s S
     argparse -n cars $options -- $argv
     or return
 
@@ -2693,6 +2693,9 @@ function cars -d "cargo commands, -b(build), -c(clean target), -d(remove/uninsta
             end
             echo "target cleaned..."
         end
+    else if set -q _flag_C
+        # clean whole cache in ~/.cargo
+        eval $CMD cache -a
     else if set -q _flag_n
         eval $CMD new $argv
     else if set -q _flag_R
