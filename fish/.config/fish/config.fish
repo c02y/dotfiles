@@ -1082,7 +1082,7 @@ function tars -d 'tar extract(x)/list(l, by default)/create(c, add extra arg to 
     test -d $argv[1]; and set ARGV (echo $argv[1] | sed 's:/*$::'); or set ARGV $argv
 
     set -l EXT (string lower (echo $ARGV | sed 's/^.*\.//'))
-    if test "$EXT" = zip -o "$EXT" = rar # zip or rar
+    if test "$EXT" = zip -o "$EXT" = rar -o "$EXT" = 7z
         # using unar -- https://unarchiver.c3.cx/unarchiver is available
         # if the code is not working, try GBK or GB18030
         # unzip zip if it is archived in Windows and messed up characters with normal unzip
