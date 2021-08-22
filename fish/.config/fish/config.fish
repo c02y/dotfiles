@@ -719,7 +719,7 @@ function zzz
     if set -q $argv
         ranger
     else
-        if test -d $argv
+        if test -d $argv[1] # only check the first argv if given multiple argvs
             z $argv; and ranger
         else
             zz $argv; and ranger
