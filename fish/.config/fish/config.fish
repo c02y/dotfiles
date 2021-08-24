@@ -1564,7 +1564,9 @@ function ddiso -d 'burn ISO file to drive(such as USB as LIVE USB)'
             set DEV $argv[2]
             lsblk -l
             echo
-            set CMD "sudo dd if=$FILE of=$DEV bs=4M status=progress oflag=sync"
+            # the argv[1] is the iso file, relative path is OK
+            # the argv[2] is the dev like /dev/sda
+            set CMD "sudo dd if=\"$FILE\" of=$DEV bs=4M status=progress oflag=sync"
             echo $CMD
             read -n 1 -l -p 'echo "Really run above command? [Y/n]"' answer
             if test "$answer" = y -o "$answer" = "" -o "$answer" = ""
