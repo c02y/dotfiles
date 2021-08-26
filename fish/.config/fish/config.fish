@@ -2548,7 +2548,7 @@ end
 # https://github.com/seanbreckenridge/mpvf/
 alias mpvs 'proxychains4 -q mpvf'
 function yous -d 'youtube-dl functions'
-    set -l options l a f p P
+    set -l options l a f F p P
     argparse -n yous -N 1 $options -- $argv
     or return
 
@@ -2556,6 +2556,10 @@ function yous -d 'youtube-dl functions'
         eval (PXY) youtube-dl -F \"$argv\"
     else if set -q _flag_f # choose the num from the list
         eval (PXY) youtube-dl -ciw -f $argv[1]+bestaudio \"$argv[2]\"
+    else if set -q _flag_F
+        # sometimes no-option or -f doesn't download the `best` video
+        # since the bitrate info in the list for the lower resolution is higher
+        eval (PXY) youtube-dl -ciw -f $argv[1] \"$argv[2]\"
     else if set -q _flag_a # only download best audio into mp3
         eval (PXY) youtube-dl -ciw --extract-audio --audio-format mp3 --audio-quality 0 \"$argv\"
     else if set -q _flag_p # download playlist
