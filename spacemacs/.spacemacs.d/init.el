@@ -2102,6 +2102,8 @@ In other non-comment situations, try C-M-j to split."
     (add-hook hook #'smartparens-mode))
 
   (with-eval-after-load 'org
+    (spacemacs/set-leader-keys-for-major-mode 'org-mode
+      "TE" 'org-toggle-emphasis)
     ;; Resume clocking task when emacs is restarted
     (org-clock-persistence-insinuate)
     (setq org-list-allow-alphabetical t
