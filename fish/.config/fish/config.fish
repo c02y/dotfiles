@@ -961,7 +961,7 @@ end
 
 # df+du+gdu/dua
 function dfs -d 'df(-l, -L for full list), gua(-i), dua(-I), du(by default), cache/config dir of Firefox/Chrome/Vivaldi/paru/pacman'
-    set -l options i I l L c t m
+    set -l options i I l L c t m s
     argparse -n dfs $options -- $argv
     or return
 
@@ -991,6 +991,12 @@ function dfs -d 'df(-l, -L for full list), gua(-i), dua(-I), du(by default), cac
             test -d $i; and set dirs_e $dirs_e $i
         end
         dua -f binary a --no-sort $dirs_e
+    else if set -q _flag_s # get the largest files list
+        if set -q $argv # no given argv, argv is the number of GB
+            sudo find / -xdev -type f -size +5G -print0 | xargs -0 ls -1hsS | sort -nk 1 | nl -v 1
+        else
+            sudo find / -xdev -type f -size +{$argv}G -print0 | xargs -0 ls -1hsS | sort -nk 1 | nl -v 1
+        end
     else
         if test (count $argv) -gt 0 # argv contains /* at the end of path or multiple argv
             dua -f binary $argv
