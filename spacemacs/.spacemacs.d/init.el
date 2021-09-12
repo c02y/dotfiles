@@ -1534,6 +1534,8 @@ Version 2016-12-18"
           ;; ivy-use-virtual-buffers nil
           ;; C-c C-a to ivy-toggle-ignore
           ivy-ignore-buffers '("\\` " "\\`\\*")
+          ;; preselect current file in list of candidates
+          counsel-preselect-current-file t
           ;; set ivy-height to 1/2 frame instead the fixed 15
           ivy-height-alist
           '((t
