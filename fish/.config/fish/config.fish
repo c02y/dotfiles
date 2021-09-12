@@ -924,7 +924,6 @@ function loo -d 'locate functions, -u(update db), -a(under /), -v(video), -m(aud
             # NOTE :the xargs `-d '\n'` part is for dealing space in file name
             if set -q $argv
                 eval $LOCATE | xargs -r -d '\n' dua -f binary
-
             else
                 eval $LOCATE | rg -i $argv | xargs -r -d '\n' dua -f binary
             end
@@ -1333,7 +1332,7 @@ function pacs -d 'pacman/paru operations'
         else
             # check if package is owned by others, if not, delete it
             # This is used when the following errors occur after executing update command:
-            # "error: failed to commit transaction (conflicting files) xxx existed in filesystem"
+            # "error: failed to commit transaction (conflicting files) xxx exists in filesystem"
             # After executing this function with xxx one by one, execute the update command again
             # https://wiki.archlinux.org/index.php/Pacman#.22Failed_to_commit_transaction_.28conflicting_files.29.22_error
             # NOTE: this can be also used to check what package provides the file/command/package
@@ -1499,6 +1498,7 @@ function fmts -d "compile_commands.json(-l), clang-format(-f), cmake-format(-m)"
     or return
 
     if set -q _flag_l
+        # Read https://github.com/MaskRay/ccls/wiki/Project-Setup for compile_commands.json
         # test -f build/compile_commands.json; and command rm -rf build
         # test -f compile_commands.json; and command rm -rf compile_commands.json
 
@@ -1509,24 +1509,24 @@ function fmts -d "compile_commands.json(-l), clang-format(-f), cmake-format(-m)"
         else if test -f meson.build
             meson build
             test -f build/compile_commands.json; and ln -nsfv build/compile_commands.json .
-        else if test -f scripts/gen_compile_commands.py # Linux kernel
+        else if test -f scripts/gen_compile_commands.py # available for Linux kernel v5+
             make defconfig
             if test $status = 0; and make
                 scripts/gen_compile_commands.py
             end
-        else if test -f Makefile -o -f makefile
-            make clean
-            if command -sq intercept-build # pip install scan-build
-                intercept-build make
-            else if command -sq compiledb
-                # NOTE: don't have to `make clean`, but may be error message
-                compiledb -n make
-            else if command -sq bear
-                bear -- make
+        else if test -f Makefile -o -f makefile # NOTE: some old linux kernel src contains the Makefile/makefile, this will fail
+            # NOTE: If inside old linux kernel, check https://github.com/gniuk/linux-compile-commands for more info
+            make clean # without this line, the compile_commands.json generated may be empty
+
+            # NOTE: pip install scan-build to get intercept-build
+            if command -q intercept-build; and command intercept-build -v make
+            else if command -q compiledb; and command compiledb -v -n make
+            else if command -q bear; and command bear -- make
             else
-                echo "None of scan-build/compiledb/bear is not installed!"
+                echo "None of scan-build/compiledb/bear is not installed or all failed to generate compile_commands.json!"
             end
         end
+        find . -name "compile_commands.json" -exec ls -lh {} +
     end
 
     if set -q _flag_f # .clang-format file for C/Cpp projects used by clang-format
