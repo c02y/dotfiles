@@ -1261,6 +1261,7 @@ function pacs -d 'pacman/paru operations'
         echo "         + -l --> install the local .pkg.tar.xz/link-file argv"
         echo "      -c --> clean/check"
         echo "         + no argv --> clean packages in /var/cache/pacman/pkg"
+        echo "         + -c argv --> check which package provide argv(bin/etc/...)"
         echo "         + argv --> check if argv is owned by a pacakge, otherwise delete it"
         echo "      -u --> update, force refresh database first"
         echo "         + -d --> downgrade update"
@@ -1329,6 +1330,9 @@ function pacs -d 'pacman/paru operations'
             paru -c # clean unneeded dependencies
             paccache -rvk2 # clean installed packaegs, keep the last two versions
             paccache -rvuk0 # clean uninstalled packages
+        else if set -q _flag_f
+            # check which package provide argv, argv can be any file inside a package
+            pacman -F $argv
         else
             # check if package is owned by others, if not, delete it
             # This is used when the following errors occur after executing update command:
