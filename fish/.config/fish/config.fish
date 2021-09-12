@@ -270,27 +270,6 @@ end
 
 alias check 'checkpatch.pl --ignore SPDX_LICENSE_TAG,CONST_STRUCT,AVOID_EXTERNS,NEW_TYPEDEFS --no-tree -f'
 
-function tag -d 'clean and create(with any arg) tags files for non-linux-kernel projects'
-    # delete existed tags files
-    rm -rf GPATH GTAGS GSYMS GRTAGS
-    rm -rf cscope.files cscope.in.out cscope.out cscope.po.out
-    rm -rf include_sys
-    echo Old files deleted!!
-
-    if not set -q $argv # given any argv
-        # gtags > GPATH, GTAGS, GSYMS, GRTAGS
-        ln -nsv /usr/include include_sys
-        gtags -v
-        echo gtags done!!
-
-        # cscope > cscope.files, cscope.in.out cscope.out, cscope.po.out
-        find . -name "*.[ch]" -print >cscope.files
-        find /usr/include/* -name "*.[ch]" >>cscope.files
-        cscope -b -R -q
-        echo cscope done!!
-    end
-end
-
 function utf8 -d 'convert encoding(argv[1]) file(argv[2]) to UTF-8 file'
     iconv -f $argv[1] -t UTF-8 $argv[2] >"$argv[2]".tmp
     rm -fv $argv[2]
