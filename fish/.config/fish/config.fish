@@ -2336,8 +2336,8 @@ end
 
 abbr ipy ipython # other alternatives are btpython, ptpython, ptipython
 abbr pdb pudb3
-function pips -d 'pip related functions, default(install), -i(sudo install), -c(check outdated), -r(remove/uninstall), -s(search), -u(update all outdated packages), -U(upgrade specific packages)'
-    set -l options i c r s u U
+function pips -d 'pip related functions, default(install), -i(sudo install), -c(check outdated), -d(remove/uninstall), -s(search), -u(update all outdated packages), -U(upgrade specific packages)'
+    set -l options i c d s u U
     argparse -n pips $options -- $argv
     or return
 
@@ -2359,7 +2359,7 @@ function pips -d 'pip related functions, default(install), -i(sudo install), -c(
         # pip install -i https://pypi.tuna.tsinghua.edu.cn/simple -U (pip list --outdated | awk 'NR>2 {print $1}')
         # echo "Updating sudo pip packages"
         pip install $REPO -U (pip list --outdated | awk 'NR>2 {print $1}')
-    else if set -q _flag_r
+    else if set -q _flag_d
         pip uninstall $argv
         or sudo pip uninstall $argv
     else if set -q _flag_s
