@@ -20,6 +20,12 @@ super + w
 	wmctrl_window desktop
 F12
 	tdrop -ma -w 100% -h 98% kitty -T=kitty
+super + Home
+    pactl -- set-sink-volume @DEFAULT_SINK@ +10%
+super + End
+	pactl -- set-sink-volume @DEFAULT_SINK@ -10%
+super + Pause
+    pactl set-sink-mute @DEFAULT_SINK@ toggle
 super + e
 	tdrop -ma -w 100% -h 100% emacsclient -c
 super + f
