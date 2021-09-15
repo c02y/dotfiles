@@ -305,7 +305,6 @@ end
 abbr pm-sl 'sudo pm-suspend' # 'Suspend to ram' in GUI buttom, power button to wake up
 abbr pm-hb 'sudo pm-hibernate' # not work in old CentOS6
 
-abbr rgr ranger
 abbr fpp '~/Public/PathPicker/fpp'
 abbr ga 'glances -t 1 --hide-kernel-threads -b --disable-irq --enable-process-extended'
 function ml -d 'mutt or neomutt'
@@ -687,22 +686,11 @@ end
 
 zoxide init fish | source
 alias zz zi
-# zb go back to the history of current window/tab/pane
-function zb -d 'zb go back to the history of current window/tab/pane'
-    set dir (string collect $dirprev | fzf --tac)
-    if test $dir
-        z $dir
-    end
-end
-function zzz
+function zzz -d 'use ranger with zoxide'
     if set -q $argv
         ranger
     else
-        if test -d $argv[1] # only check the first argv if given multiple argvs
-            z $argv; and ranger
-        else
-            zz $argv; and ranger
-        end
+        ranger (zoxide query -i $argv)
     end
 end
 set -gx _ZO_FZF_OPTS "-1 -0 --reverse --print0"
