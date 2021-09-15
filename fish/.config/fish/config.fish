@@ -1520,12 +1520,12 @@ function fmts -d "compile_commands.json(-l), clang-format(-f), cmake-format(-m)"
             end
         else if test -f Makefile -o -f makefile # NOTE: some old linux kernel src contains the Makefile/makefile, this will fail
             # NOTE: If inside old linux kernel, check https://github.com/gniuk/linux-compile-commands for more info
-            make clean # without this line, the compile_commands.json generated may be empty
+            # make clean # without this line, the compile_commands.json generated may be empty
 
             # NOTE: pip install scan-build to get intercept-build
-            if command -q intercept-build; and command intercept-build -v make
-            else if command -q compiledb; and command compiledb -v -n make
-            else if command -q bear; and command bear -- make
+            if command -q intercept-build; and command intercept-build --append -v make
+            else if command -q compiledb; and command compiledb -f -v -n make
+            else if command -q bear; and command bear --append -- make
             else
                 echo "None of scan-build/compiledb/bear is not installed or all failed to generate compile_commands.json!"
             end
