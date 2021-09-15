@@ -222,6 +222,8 @@ function! UserInit()
     Plug 'blankname/vim-fish'
     Plug 'axvr/org.vim'
 
+    Plug 'nanotee/zoxide.vim'
+
     Plug 'dkarter/bullets.vim'
     let g:bullets_enabled_file_types = [
                 \ 'markdown',
@@ -546,4 +548,9 @@ function! UserConfig()
     highlight clear SignColumn
 
     command! -range -nargs=0 -bar JsonFormat <line1>,<line2>!python -m json.tool
+
+    " zoxide
+    nnoremap <Leader>fd :Zi<CR>
+    let g:spacevim#map#leader#desc.f.d = 'zoxide using fzf'
+
 endfunction
