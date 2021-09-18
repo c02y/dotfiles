@@ -1046,12 +1046,17 @@ function tree
 end
 
 function tars -d 'tar extract(x)/list(l, by default)/create(c, add extra arg to exclude .git dir), fastest(C, add extra arg to exclude .git), -o(open it using gui client)'
-    set -l options x l c C o X
+    set -l options x l c C o X z
     argparse -n tars $options -- $argv
     or return
 
     # remove the end slash in argv[1] if it is a directory
     test -d $argv[1]; and set ARGV (echo $argv[1] | sed 's:/*$::'); or set ARGV $argv
+
+    if set -q _flag_z # create zip
+        zip -r $ARGV.zip $ARGV
+        return
+    end
 
     set -l EXT (string lower (echo $ARGV | sed 's/^.*\.//'))
     if test "$EXT" = zip -o "$EXT" = rar -o "$EXT" = 7z
@@ -1065,9 +1070,7 @@ function tars -d 'tar extract(x)/list(l, by default)/create(c, add extra arg to 
             else
                 unzip -l $ARGV
             end
-        else if set -q _flag_c # create zip
-            zip -r $ARGV.zip $ARGV
-        else if set -q _flag_C # list Chinese characters
+        else if set -q _flag_c # list Chinese characters
             zips.py -l $ARGV
         else if set -q _flag_x
             if command -sq unar
