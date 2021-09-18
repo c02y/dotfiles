@@ -1297,7 +1297,7 @@ function pacs -d 'pacman/paru operations'
         end
     else if set -q _flag_i # install
         # -S to install a package, -Syu pkg to ensure the system is update to date then install the package
-        set -q _flag_u; and set OPT $OPT -Syu; or set OPT $OPT -S
+        set -q _flag_u; and set OPT $OPT -Syy; or set OPT $OPT -S
 
         # noconfirm, without asking for y/n
         set -q _flag_y; and set OPT $OPT --noconfirm
