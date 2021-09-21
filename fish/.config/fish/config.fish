@@ -1252,8 +1252,8 @@ function pacs -d 'pacman/paru operations'
         echo "         + -l --> install the local .pkg.tar.xz/link-file argv"
         echo "      -c --> clean/check"
         echo "         + no argv --> clean packages in /var/cache/pacman/pkg"
-        echo "         + -c argv --> check which package provide argv(bin/etc/...)"
-        echo "         + argv --> check if argv is owned by a pacakge, otherwise delete it"
+        echo "         + -d argv --> check which packages require argv"
+        echo "         + argv --> check if argv is owned/provided by a pacakge, otherwise delete it"
         echo "      -u --> update, force refresh database first"
         echo "         + -d --> downgrade update"
         echo "      -d --> delete/uninstall(need argv)"
@@ -1321,17 +1321,18 @@ function pacs -d 'pacman/paru operations'
             paru -c # clean unneeded dependencies
             paccache -rvk2 # clean installed packaegs, keep the last two versions
             paccache -rvuk0 # clean uninstalled packages
-        else if set -q _flag_f
-            # check which package provide argv, argv can be any file inside a package
-            pacman -F $argv
         else
-            # check if package is owned by others, if not, delete it
-            # This is used when the following errors occur after executing update command:
-            # "error: failed to commit transaction (conflicting files) xxx exists in filesystem"
-            # After executing this function with xxx one by one, execute the update command again
-            # https://wiki.archlinux.org/index.php/Pacman#.22Failed_to_commit_transaction_.28conflicting_files.29.22_error
-            # NOTE: this can be also used to check what package provides the file/command/package
-            not pacman -Q -o $argv; and sudo rm -rfv $argv
+            if set -q _flag_d # check which packages require argv package
+                paru -Rs $argv
+            else
+                # check if package/bin/conf/file is owned by others, if not, delete it
+                # This can also be used when the following errors occur after executing update command:
+                # "error: failed to commit transaction (conflicting files) xxx exists in filesystem"
+                # After executing this function with xxx one by one, execute the update command again
+                # https://wiki.archlinux.org/index.php/Pacman#.22Failed_to_commit_transaction_.28conflicting_files.29.22_error
+                # NOTE: this can be also used to check what package provides the file/command/package
+                not pacman -Q -o $argv; and sudo rm -rfv $argv
+            end
         end
     else if set -q _flag_u # update/upgrade, NOTE: pacs without anything also update
         if set -q _flag_d
