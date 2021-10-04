@@ -1090,6 +1090,10 @@ function tars -d 'tar extract(x)/list(l, by default)/create(c, add extra arg to 
         else if set -q _flag_l # list contents
             tar tvfa $argv
         else if set -q _flag_c # create archive, smaller size, extremely slow for big dir
+            # create a multiple-part archive:
+            # tar cvfJ - target-dir/ | split --bytes=100M - target.tar.xz.
+            # open it using:
+            # cat target.tar.xz.* | tar xvfa -
             if test (count $argv) = 1
                 tar cvfa $ARGV.tar.xz $ARGV
             else
