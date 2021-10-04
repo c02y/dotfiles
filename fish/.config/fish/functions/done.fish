@@ -20,7 +20,11 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-set -g __done_version 1.16.2
+if not status is-interactive
+    exit
+end
+
+set -g __done_version 1.16.5
 
 function __done_run_powershell_script
     set -l powershell_exe (command --search "powershell.exe")
@@ -112,7 +116,7 @@ function __done_is_tmux_window_active
     # ppid == "tmux" -> break
     set tmux_fish_pid $fish_pid
     while set tmux_fish_ppid (ps -o ppid= -p $tmux_fish_pid | string trim)
-            and test ! (basename (ps -o exe= -p $tmux_fish_ppid)) = "tmux"
+        and ! string match -q "tmux*" (basename (ps -o command= -p $tmux_fish_ppid))
         set tmux_fish_pid $tmux_fish_ppid
     end
 
@@ -252,7 +256,7 @@ if set -q __done_enabled
                     end
                 end
 
-                notify-send -t 10000 --urgency=$urgency --icon=utilities-terminal --app-name=fish "$title" "$message"
+                notify-send --hint=int:transient:1 --urgency=$urgency --icon=utilities-terminal --app-name=fish "$title" "$message"
 
                 if test "$__done_notify_sound" -eq 1
                     echo -e "\a" # bell sound
