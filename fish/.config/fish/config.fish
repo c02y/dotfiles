@@ -2184,23 +2184,6 @@ function docks -d 'docker commands'
     else if set -q _flag_R # remove image(IMAGE ID as argv)
         set CMD rmi
         # docker rmi $argv
-    else if set -q _flag_l # list all created containers and pulled images
-        echo "Pulled images:"
-        docker image ls
-
-        echo -e "\nCreated containers:"
-        docker ps -a
-        return
-    else if set -q _flag_t # list tags for a docker image(repo as argv)
-        # use this for only the top 10 tags:
-        # curl https://registry.hub.docker.com/v2/repositories/library/$argv[1]/tags/ | jq '."results"[]["name"]'
-        wget -q https://registry.hub.docker.com/v1/repositories/$argv[1]/tags -O - | sed -e 's/[][]//g' -e 's/"//g' -e 's/ //g' | tr '}' '\n' | awk -F: '{print $3}'
-        and echo -e "\nThese are all the tags!\nPlease use `dockp $argv[1]:tag` to pull the image!"
-        return
-    else if set -q _flag_q # stop a running container
-        set ID (docker ps | fzf --preview-window hidden | awk '{print $1}')
-        test $ID; and docker container stop $ID # if ID is not empty
-        return
     end
 
     if not set -q $CMD # CMD is set
@@ -2214,6 +2197,26 @@ function docks -d 'docker commands'
             set ARGV $argv
         end
         eval docker $CMD $ARGV
+        return
+    end
+
+    if set -q _flag_l # list all created containers and pulled images
+        echo "Pulled images:"
+        docker image ls
+
+        echo -e "\nCreated containers:"
+        docker ps -a
+    else if set -q _flag_L # list all verbose info(such as size) of the containers/images installed
+        docker system df --verbose
+    else if set -q _flag_t # list tags for a docker image(repo as argv)
+        # use this for only the top 10 tags:
+        # curl https://registry.hub.docker.com/v2/repositories/library/$argv[1]/tags/ | jq '."results"[]["name"]'
+        wget -q https://registry.hub.docker.com/v1/repositories/$argv[1]/tags -O - | sed -e 's/[][]//g' -e 's/"//g' -e 's/ //g' | tr '}' '\n' | awk -F: '{print $3}'
+        and echo -e "\nThese are all the tags!\nPlease use `dockp $argv[1]:tag` to pull the image!"
+        return
+    else if set -q _flag_q # stop a running container
+        set ID (docker ps | fzf --preview-window hidden | awk '{print $1}')
+        test $ID; and docker container stop $ID # if ID is not empty
     else if set -q _flag_S # add a shared folder to existed containerd
         set ID (docker ps -a | fzf --preview-window hidden | awk '{print $1}')
         read -p 'echo "new container name: "' -l new_name
