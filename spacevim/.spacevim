@@ -16,7 +16,7 @@ let g:spacevim_plug_home = '~/.vim/plugged'
 let g:spacevim_layers = [
             \ 'fzf', 'better-defaults', 'which-key', 'formatting',
             \ 'auto-completion', 'c-c++', 'git', 'editing', 'python',
-            \ 'better-motion', 'airline', 'lsp', 'text-align',
+            \ 'better-motion', 'airline', 'lsp', 'text-align', 'rust',
             \ ]
 
 " Uncomment the following line if your terminal(-emulator) supports true colors.
@@ -40,7 +40,7 @@ let g:spacevim_lsp_engine = 'coc'
 "     " excluding multiple plugins like: { 'exclude': ['plugin1', 'plugin2'] }
 "     Layer 'auto-completion',  { 'exclude': 'roxma/vim-hug-neovim-rpc' }
 " endfunction
-let g:spacevim_excluded = ['ntpeters/vim-better-whitespace', 'tpope/vim-rsi', 'mhinz/vim-signify', 'pelodelfuego/vim-swoop']
+let g:spacevim_excluded = ['ntpeters/vim-better-whitespace', 'tpope/vim-rsi', 'mhinz/vim-signify', 'pelodelfuego/vim-swoop', 'ncm2/ncm2-racer']
 
 let g:spacevim_speed_up_via_timer = 0
 
@@ -566,4 +566,5 @@ function! UserConfig()
     nnoremap <Leader>fd :Zi<CR>
     let g:spacevim#map#leader#desc.f.d = 'zoxide using fzf'
 
+    " rust TODO: :CocInstall coc-rust-analyzer
 endfunction
