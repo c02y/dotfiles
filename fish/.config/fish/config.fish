@@ -2708,10 +2708,16 @@ function cars -d "cargo commands, -b(build), -c(clean target), -d(remove/uninsta
         if set -q _flag_i; or ! test -f ./Cargo.toml
             # install release version, reduce size by default
             # NOTE: there is --debug(dev) version, huge size difference
-            set -l RUSTFLAGS '-C link-arg=-s'; and eval $CMD install $argv
-            echo -e "\nuse `upx --best --lzma the-bin` to reduce more binary size, better than strip"
+            set -l RUSTFLAGS '-C link-arg=-s'
+            if echo $argv | rg "https://github.com" >/dev/null 2>/dev/null
+                # you can install directly from github repo URL like "cargo install --git https://github.com/user/repo"
+                eval $CMD install --git $argv
+            else
+                eval $CMD install $argv
+            end
+            and echo -e "\nuse `upx --best --lzma the-bin` to reduce more binary size, better than strip"
         else if test -f ./Cargo.toml
-            if set -q _flag_r # build release if -q is given
+            if set -q _flag_r # build release version
                 echo -e "Building release version...\n"
                 if set -q _flag_S
                     set -l RUSTFLAGS '-C link-arg=-s'; and eval $CMD build --release $argv
