@@ -232,6 +232,9 @@ function! UserInit()
                 \ 'scratch'
                 \]
 
+    Plug 'liuchengxu/vista.vim'
+    let g:vista_default_executive = 'coc'
+
     " NOTE: timeoutlen also affects the which-key popup delay
     " https://stackoverflow.com/a/15550787/1528712
     set timeout " Do time out on mappings and others
@@ -467,14 +470,16 @@ function! UserConfig()
     nnoremap <Leader>ld :call spacevim#lang#util#Definition()<CR>
     nnoremap <Leader>li <Plug>(coc-implementation)
     nnoremap <Leader>lt <Plug>(coc-type-definition)
-    nnoremap <Leader>ll :CocOpenLog<CR>
-    nnoremap <Leader>lI :CocInfo<CR>
+    " nnoremap <Leader>ll :CocOpenLog<CR>
+    " nnoremap <Leader>lI :CocInfo<CR>
     nnoremap <Leader>lc  :<C-u>CocListResume<CR>
-    nnoremap <Leader>lC  :CocConfig<CR>
+    " nnoremap <Leader>lC  :CocConfig<CR>
     " all functions/variables/etc/
-    nnoremap <Leader>lm :CocList -I symbols<CR>
+    " nnoremap <Leader>lm :CocList -I symbols<CR>
     " like imenu
     nnoremap <Leader>l/ :CocList outline<CR>
+    nnoremap <Leader>ll :Vista finder<CR>
+    nnoremap <Leader>lL :Vista!!<CR>
 
     " auto hove document on word: 
     " https://thoughtbot.com/blog/modern-typescript-and-react-development-in-vim
@@ -567,4 +572,11 @@ function! UserConfig()
     let g:spacevim#map#leader#desc.f.d = 'zoxide using fzf'
 
     " rust TODO: :CocInstall coc-rust-analyzer
+
+    " vista to show nearest function name in modeline
+    function! NearestMethodOrFunction() abort
+        return get(b:, 'vista_nearest_method_or_function', '')
+    endfunction
+    set statusline+=%{NearestMethodOrFunction()}
+    autocmd VimEnter * call vista#RunForNearestMethodOrFunction()
 endfunction
