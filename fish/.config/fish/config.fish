@@ -2453,7 +2453,7 @@ function ios -d 'io stat'
     end
 end
 function pxs -d 'multiple commands using proxychains4'
-    set -l options w W c p
+    set -l options w W c p "o="
     argparse -n pxs $options -- $argv
     or return
 
@@ -2476,6 +2476,11 @@ function pxs -d 'multiple commands using proxychains4'
     else # default using aria2
         # the \"\" is to handle magnet link correctly, other links are not affected
         eval $CMD aria2c -c -x 5 --check-certificate=false --file-allocation=none \"$argv\"
+    end
+
+    if set -q _flag_o
+        # get the lastest file in current dir and mv/rename it
+        mv -v (ls -Art | tail -n 1) $_flag_o
     end
 end
 
