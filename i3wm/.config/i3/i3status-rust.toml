@@ -18,11 +18,19 @@ block = "net"
 format = "{speed_down;K*B}{speed_up;K*B}"
 # disable built-in net icons
 icons_format = " "
-interval = 5
+interval = 2
 hide_missing = true
 hide_inactive = true
 [block.theme_overrides]
 idle_bg = "#123456"
+
+[[block]]
+block = "cpu"
+interval = 2
+info = 30
+warning = 50
+critical = 90
+format = "{utilization}"
 
 [[block]]
 block = "memory"
