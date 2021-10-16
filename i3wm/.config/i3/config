@@ -17,6 +17,8 @@ set $mod Mod4
 font pango:DejaVu Sans Mono bold 10
 
 title_align center
+# TODO: this feature will be v4.20
+# title_window_icon yes
 
 # NOTE: limitations in doc
 default_border pixel 3
@@ -67,8 +69,10 @@ bindsym $mod+Mod1+x kill
 bindsym --whole-window $mod+Mod1+button1 kill
 
 # change focus
-# NOTE: next/prev commands only work for current container(split creates container)
-# Use rofi to get all windows in all worksapces
+# NOTE: Use rofi to get all windows in all workspaces
+# repeating prev/next works only inside container when the container is front/rear
+# prev/next won't work for a container with only one window,
+# need to turn container status off first or use $mod+arrow to change focus
 bindsym Mod1+Tab focus next
 bindsym Mod1+Shift+Tab focus prev
 # alternatively, you can use the cursor keys:
@@ -78,11 +82,14 @@ bindsym $mod+Up focus up
 bindsym $mod+Right focus right
 
 # move focused window
+# this can also be used to move window into container
+# NOTE: a container containing only one window can turn its container status off with toggle floating
 bindsym $mod+Shift+Left move left
 bindsym $mod+Shift+Down move down
 bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
-
+# turn the single-window container status off
+bindsym $mod+Shift+Return split toggle; move left
 # split in horizontal orientation
 bindsym $mod+backslash split h
 # split in vertical orientation
@@ -102,8 +109,8 @@ bindsym $mod+Shift+w layout toggle split
 # toggle tiling / floating
 bindsym $mod+Shift+f floating toggle
 # button1=left, button2=middle, button3=right
-bindsym --whole-window Shift+button3 floating toggle
-bindsym --whole-window Shift+button1 fullscreen toggle
+bindsym --whole-window $mod+Shift+button3 floating toggle
+bindsym --whole-window $mod+Shift+button1 fullscreen toggle
 
 # change focus between tiling / floating windows
 bindsym $mod+Shift+space focus mode_toggle
@@ -190,8 +197,8 @@ bindsym --whole-window $mod+button1 mark --add "swapee"
 bindsym --whole-window $mod+button3 swap container with mark "swapee"; [con_mark="swapee"] focus; unmark "swapee"
 # swap windows using key
 mode "swap" {
-	# before this, already mark the current widnow
-	# use arrow to change focus -> swap the marked with the focused -> 
+	# before this, already mark the current window
+	# use arrow to change focus -> swap the marked with the focused ->
 	# unmark the marked one -> back to default -> changed the focus back to the marked one
 	bindsym Left focus left; swap container with mark "swapee"; unmark "swapee"; mode "default"; focus left
 	bindsym Down focus down; swap container with mark "swapee"; unmark "swapee"; mode "default"; focus down
@@ -220,49 +227,54 @@ client.background       #ffffff
 # NOTE: sticky makes it visiable in all workspaces
 # only work for floating window, floating window is already on top
 bindsym $mod+F12 sticky toggle
-# Enable floating for the following windows
-# `xprop WM_CLASS`+click to get the intance and class values
+
+# force floating for all new windows by default
+# so assign specific windows to floating seems unnecessary
+# for_window [class="[.]*"] floating enable
 # WM_NAME=title, WM_WINDOW_ROLE=window_role
+# NOTE: btop/ranger in alacritty will not be centered
+for_window [floating] move position center; resize set 70 ppt 80 ppt
 for_window [class="copyq"] floating enable
 for_window [class="Vivaldi-stable" window_role="pop-up"] floating enable
 for_window [class="fcitx5-config-qt"] floating enable
-
-# Move the followings windows into specific workspace
-assign [class="Anki"] $ws2
-assign [class="mpv"] $ws2
-for_window [class="mpv"] floating enable
-assign [class="Audacious"] $ws3
-# for_window [class="Audacious"] focus
-assign [class="TelegramDesktop"] $ws2
-# for_window [class="TelegramDesktop"] focus
-assign [class="VirtualBox Manager"] $ws2
-# for_window [class="VirtualBox Manager"] focus
-assign [class="VirtualBox Machine"] $ws2
-# for_window [class="VirtualBox Machine"] focus
-assign [class="Alacritty" title="Btop" ] $ws3
 for_window [class="Alacritty" title="Btop"] floating enable
-for_window [class="Alacritty" title="RangerFM"] floating enable
-# NOTE: need dropdown terminal to float when used with tdrop because of the flicker issue: 
+for_window [class="Alacritty" title="RangerFM"] floating enable; move position center
+# NOTE: need dropdown terminal to float when used with tdrop because of the flicker issue:
 # https://github.com/noctuid/tdrop/issues/1#issuecomment-102650457
 for_window [class="Dropdown"] floating enable
 for_window [class="Fsearch"] floating enable
 for_window [class="Emacs"] floating enable
 for_window [class="flameshot"] floating enable
+for_window [class="mpv"] floating enable
+for_window [class="Plank"] floating enable
+for_window [class="Blueman-manager"] floating enable
 
-# disable the following windows (notifications) from stealing focus 
+# Move the followings windows into specific workspace
+assign [class="Anki"] $ws2
+assign [class="mpv"] $ws2
+assign [class="Audacious"] $ws3
+assign [class="TelegramDesktop"] $ws2
+assign [class="VirtualBox Manager"] $ws2
+assign [class="VirtualBox Machine"] $ws2
+assign [class="Alacritty" title="Btop" ] $ws3
+
+# disable the following windows (notifications) from stealing focus
 no_focus [class="TelegramDesktop"]
 
 set $bar_height 30
 
-# Bindings for my our applications 
+# Bindings for the following applications
 # use `xmodmap -pke` to get bindcode value
 bindsym $mod+Print exec flameshot gui
 bindsym $mod+Shift+Print exec flameshot launcher
 bindsym $mod+e exec tdrop -t -m -w 100% -h 100% emacsclient -c
 bindsym $mod+f exec jumpapp -m firefox
-bindsym $mod+a exec jumpapp -m fsearch
+bindsym $mod+s exec jumpapp -m fsearch
 bindsym $mod+b exec jumpapp -m calibre
 bindsym $mod+v exec jumpapp -m vivaldi-stable
+bindsym $mod+g exec jumpapp -m clion
+bindsym $mod+a exec jumpapp -m audacious
+bindsym $mod+p exec jumpapp -m qpdfview
 # NOTE: the -t for jumpapp and -t for alacritty must be the same
 bindsym $mod+r exec jumpapp -m -t RangerFM alacritty -t RangerFM -e ranger
 bindsym $mod+h exec jumpapp -m -t Btop alacritty -t Btop -e btop
@@ -273,14 +285,14 @@ bindsym $mod+Shift+Pause exec ~/.connect_speaker.sh
 # -y 30 = Height in bar config, to avoid overlapping the top bar
 bindsym F12 exec tdrop -t -m -y $bar_height -w 100% -h 98% kitty --class=Dropdown --title=Dropdown_Kitty
 # NOTE: 133 is Super_L, bindsym+Mod4 doesn't work
-# If using 
+# If using
 # bindcode --release 133 exec "rofi -fixed-num-lines -show-icons -combi-modi window,drun,ssh -show combi \
 bindsym $mod+q exec "rofi -fixed-num-lines -show-icons -combi-modi window,drun,ssh -show combi \
-			                -modi combi,window,drun,run,ssh,power:rofi-power-menu \
-							-matching regex -drun-match-fields all -terminal kitty \
-							-theme /usr/share/rofi/themes/solarized_alternate.rasi \
-							-display-combi ALL -display-drun APP -display-window WINDOW \
-							-display-run BIN -display-ssh SSH -font 'DejaVu Sans Mono 14'"
+			              -modi combi,window,drun,run,ssh,power:rofi-power-menu \
+						  -matching regex -drun-match-fields all -terminal kitty \
+						  -theme /usr/share/rofi/themes/solarized_alternate.rasi \
+						  -display-combi ALL -display-drun APP -display-window WINDOW \
+						  -display-run BIN -display-ssh SSH -font 'DejaVu Sans Mono 14'"
 
 # Autostart applications
 exec_always --no-startup-id picom -b --config ~/.config/i3/picom.conf
@@ -316,4 +328,3 @@ bar {
 		urgent_workspace #2f343a #900000 #ffffff
 	}
 }
-
