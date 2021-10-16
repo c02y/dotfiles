@@ -24,6 +24,7 @@ Usage: $(basename $0)
        -v to edit ~/.spacevim
        -o to vim ~/Dotfiles.d.d/vim/.vimrc
        -r to sudo edit
+	   -i to vim ~/.config/i3/config
 EOF
 	exit 0
 }
@@ -32,7 +33,7 @@ EMACS_EL="~/.spacemacs.d/init.el"
 FISHRC="~/.config/fish/config.fish"
 cmd=vim
 file=$@
-while getopts ":2bBdceftTaksuUmoOvr" args; do # prefix-: no warning for illegal option
+while getopts ":2bBdceftTaksuUmoOvri" args; do # prefix-: no warning for illegal option
 	case "$args" in
 	h | \?)
 		print_usage
@@ -106,6 +107,9 @@ while getopts ":2bBdceftTaksuUmoOvr" args; do # prefix-: no warning for illegal 
 		shift
 		sudo -E vim $@
 		exit
+		;;
+	i)
+		file="~/.config/i3/config"
 		;;
 	esac
 done
