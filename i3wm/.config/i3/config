@@ -233,7 +233,7 @@ bindsym $mod+F12 sticky toggle
 # for_window [class="[.]*"] floating enable
 # WM_NAME=title, WM_WINDOW_ROLE=window_role
 # NOTE: btop/ranger in alacritty will not be centered
-for_window [floating] move position center; resize set 70 ppt 80 ppt
+for_window [floating] move position center; resize set 70 ppt 80 ppt; move position center
 for_window [class="copyq"] floating enable
 for_window [class="Vivaldi-stable" window_role="pop-up"] floating enable
 for_window [class="fcitx5-config-qt"] floating enable
@@ -243,20 +243,15 @@ for_window [class="Alacritty" title="RangerFM"] floating enable; move position c
 # https://github.com/noctuid/tdrop/issues/1#issuecomment-102650457
 for_window [class="Dropdown"] floating enable
 for_window [class="Fsearch"] floating enable
-for_window [class="Emacs"] floating enable
 for_window [class="flameshot"] floating enable
-for_window [class="mpv"] floating enable
+for_window [class="mpv"] floating enable; move position center
 for_window [class="Plank"] floating enable
 for_window [class="Blueman-manager"] floating enable
 
 # Move the followings windows into specific workspace
 assign [class="Anki"] $ws2
-assign [class="mpv"] $ws2
 assign [class="Audacious"] $ws3
-assign [class="TelegramDesktop"] $ws2
-assign [class="VirtualBox Manager"] $ws2
 assign [class="VirtualBox Machine"] $ws2
-assign [class="Alacritty" title="Btop" ] $ws3
 
 # disable the following windows (notifications) from stealing focus
 no_focus [class="TelegramDesktop"]
@@ -279,7 +274,7 @@ bindsym $mod+p exec jumpapp -m qpdfview
 bindsym $mod+r exec jumpapp -m -t RangerFM alacritty -t RangerFM -e ranger
 bindsym $mod+h exec jumpapp -m -t Btop alacritty -t Btop -e btop
 bindsym $mod+t exec jumpapp -m -t TerminalA alacritty -t TerminalA
-bindsym $mod+Shift+t exec jumpapp -m telegram-desktop; workspace number $ws2
+bindsym $mod+Shift+t exec jumpapp -m telegram-desktop
 bindsym $mod+Shift+Pause exec ~/.connect_speaker.sh
 # NOTE: the options for tdrop are important, especially for WM and multiple monitors
 # -y 30 = Height in bar config, to avoid overlapping the top bar
