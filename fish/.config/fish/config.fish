@@ -53,19 +53,25 @@ function startup -d "execute it manually only inside fsr fucntion since it is sl
     end
 
     if test $DISPLAY
+        # fix the Display :0 can't be opened problem
+        if xhost >/dev/null 2>/dev/null
+            if not xhost | rg (whoami) >/dev/null 2>/dev/null
+                xhost +si:localuser:(whoami) >/dev/null 2>/dev/null
+            end
+        end
+    end
+end
+
+function set_keyboard --on-event fish_preexec
+    if test $DISPLAY
         # change keyboard auto repeat, this improves keyboard experience, such as the scroll in Emacs
         # Check default value and result using `xset -q`
         # 200=auto repeat delay, given in milliseconds
         # 50=repeat rate, is the number of repeats per second
         # or uncomment the following part and use System Preference
         if command -sq uname; and test (uname) = Linux
-            xset r rate 200 100
-        end
-
-        # fix the Display :0 can't be opened problem
-        if xhost >/dev/null 2>/dev/null
-            if not xhost | rg (whoami) >/dev/null 2>/dev/null
-                xhost +si:localuser:(whoami) >/dev/null 2>/dev/null
+            if test (xset -q | rg "repeat rate: " | awk '{print $NF}') -lt 50
+                xset r rate 200 100
             end
         end
     end
@@ -829,7 +835,7 @@ function fts -d 'find the temporary files such as a~ or #a or .a~, and files for
 
 end
 
-# NOTE: you need to mask updatedb.service and delete /var/lib/mlocate/mlocate.db file first
+# NOTE: better to mask updatedb.service and delete /var/lib/mlocate/mlocate.db file first
 function loo -d 'locate functions, -u(update db), -a(under /), -v(video), -m(audio), -d(dir), -f(file), -o(open), -x(copy), -r(remove), -e(open it with editor), -w(wholename)'
     set -l options u a v m d f o x r e w p
     argparse -n loo $options -- $argv
@@ -1602,7 +1608,7 @@ function syss -d 'systemctl related functions'
         reboot \
         poweroff \
         "journalctl -xe" \
-        "systemd-analyze blame | head -40 && systemd-analyze blame && return" \
+        "systemd-analyze blame && return" \
         "systemd-analyze blame > ./boottime && \
         systemd-analyze time >> ./boottime && \
         systemd-analyze plot > ./boottime.svg && \
