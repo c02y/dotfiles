@@ -457,8 +457,8 @@ function! UserConfig()
     " do not comment the following line out, coc commands rely on the file
     let g:coc_config_home = "~/.local/bin/"
     nmap gG :call CocAction('jumpDefinition', 'split')<CR>
-    nmap gv :call CocAction('jumpDefinition', 'vsplit')<CR>
-    nmap gh :call spacevim#plug#coc#show_documentation()<CR>
+    nmap gh :call CocAction('jumpDefinition', 'vsplit')<CR>
+    " nmap gh :call spacevim#plug#coc#show_documentation()<CR>
     nmap gt <Plug>(coc-type-definition)
     nmap gi <Plug>(coc-implementation)
     nmap gr <Plug>(coc-references)
@@ -560,6 +560,9 @@ function! UserConfig()
     " search and list all the result of current word
     nnoremap <Leader>sl :vimgrep /<c-r>=expand("<cword>")<cr>/ %<cr>:copen<cr>
 
+    " reselect last marked text
+    nnoremap <C-x>x gv
+
     " in case the sudden popup of signcolumn
     set signcolumn=yes
     " make margin transparent
@@ -571,7 +574,8 @@ function! UserConfig()
     nnoremap <Leader>fd :Zi<CR>
     let g:spacevim#map#leader#desc.f.d = 'zoxide using fzf'
 
-    " rust TODO: :CocInstall coc-rust-analyzer
+    " TODO: :CocInstall coc-rust-analyzer
+    " TODO: :CocInstall coc-pyright
 
     " vista to show nearest function name in modeline
     function! NearestMethodOrFunction() abort
