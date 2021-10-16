@@ -1,0 +1,80 @@
+# theme = "solarized-dark"
+[theme]
+name = "modern"
+# [theme.overrides]
+# idle_bg = "#123456"
+# idle_fg = "#abcdef"
+
+[icons]
+name = "awesome5"
+
+[[block]]
+block = "focused_window"
+max_width = 50
+show_marks = "visible"
+
+[[block]]
+block = "net"
+format = "{speed_down;K*B}{speed_up;K*B}"
+# disable built-in net icons
+icons_format = " "
+interval = 5
+hide_missing = true
+hide_inactive = true
+[block.theme_overrides]
+idle_bg = "#123456"
+
+[[block]]
+block = "memory"
+display_type = "memory"
+format_mem = "{mem_used}"
+format_swap = "{swap_used}"
+warning_mem = 80.0
+warning_swap = 50.0
+critical_mem = 95.0
+critical_swap = 70.0
+interval = 5
+
+[[block]]
+block = "disk_space"
+format = "{icon} &lt;{available}"
+path = "/"
+alias = "/"
+info_type = "available"
+unit = "GB"
+interval = 10
+warning = 2.0
+alert = 1.0
+alert_absolute = true
+[block.theme_overrides]
+idle_bg = "#0F6C30"
+[block.format]
+short = ""
+
+[[block]]
+block = "sound"
+on_click = "pavucontrol"
+show_volume_when_muted = true
+
+[[block]]
+block = "bluetooth"
+mac = "60:AB:D2:0F:72:EB"
+format = ""
+hide_disconnected = true
+
+# [[block]]
+# block = "nvidia_gpu"
+# label = "RTX2060"
+# interval = 5
+# # show_fan_speed = true
+# # show_power_draw = true
+
+[[block]]
+block = "time"
+interval = 5
+format = "%m/%d_%a_%H:%M"
+[block.format]
+full = "%m/%d_%a_%H:%M"
+short = "%H:%M"
+[block.theme_overrides]
+idle_bg = "#222222"
