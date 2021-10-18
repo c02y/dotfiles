@@ -236,12 +236,11 @@ bindsym $mod+F12 sticky toggle
 # for_window [class="[.]*"] floating enable
 # WM_NAME=title, WM_WINDOW_ROLE=window_role
 # NOTE: USE , instead of ; for for_window
-for_window [floating] resize set 70 ppt 80 ppt, move position center
+for_window [floating] border normal 5, resize set 70 ppt 80 ppt, move position center
 for_window [class="copyq"] floating enable
 for_window [class="Vivaldi-stable" window_role="pop-up"] floating enable
 for_window [class="fcitx5-config-qt"] floating enable
-for_window [class="Alacritty" title="Btop"] floating enable, border normal 5
-for_window [class="Alacritty" title="RangerFM"] floating enable, border normal 5
+for_window [class="Alacritty"] floating enable
 # NOTE: need dropdown terminal to float when used with tdrop because of the flicker issue:
 # https://github.com/noctuid/tdrop/issues/1#issuecomment-102650457
 for_window [class="Dropdown"] floating enable
@@ -250,6 +249,7 @@ for_window [class="flameshot"] floating enable
 for_window [class="mpv"] floating enable
 for_window [class="Plank"] floating enable
 for_window [class="Blueman-manager"] floating enable
+for_window [class="Pavucontrol"] floating enable
 
 # Move the followings windows into specific workspace
 assign [class="Anki"] $ws2
