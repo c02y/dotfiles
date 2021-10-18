@@ -49,6 +49,10 @@ while getopts ":2bBdceftTaksuUmoOvri" args; do # prefix-: no warning for illegal
 		;;
 	d)
 		shift
+		if [ "$#" -eq 1 ]; then
+			eval $cmd -c "Gvdiffsplit!" $1
+			exit
+		fi
 		if [ -f $1 ]; then
 			eval $cmd -d -o $1 $2
 		elif [ -d $1 ]; then

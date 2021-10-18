@@ -1672,6 +1672,10 @@ function syss -d 'systemctl related functions'
 end
 
 function diffs -d "all kinds of diff features"
+    if test (count $argv) = 1
+        vim -c "Gvdiffsplit!" $argv
+        return
+    end
     if command -sq ydiff2
         diff -u $argv | ydiff -s -w 0 --wrap
     else
