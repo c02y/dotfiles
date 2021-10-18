@@ -218,16 +218,7 @@ bindsym $mod+m exec i3-input -F 'mark %s' -l 1 -P 'Mark: '
 # read 1 character and go to the window with the character
 bindsym $mod+Shift+m exec i3-input -F '[con_mark="%s"] focus' -l 1 -P 'Goto: '
 
-# Colors for windows bar
-# class                 border  backgr. text    indicator child_border
-client.focused          $bgc_hi $bgc_hi $fgc_wh #2e9ef4   #285577
-client.focused_inactive #333333 #5f676a $fgc_wh #484e50   #5f676a
-client.unfocused        #333333 $bgc_no #888888 #292d2e   #222222
-client.urgent           #2f343a #900000 $fgc_wh #900000   #900000
-client.placeholder      #000000 #0c0c0c $fgc_wh #000000   #0c0c0c
-client.background       $fgc_wh
-
-# NOTE: sticky makes it visiable in all workspaces
+# NOTE: sticky makes it visible in all workspaces
 # only work for floating window, floating window is already on top
 bindsym $mod+F12 sticky toggle
 
@@ -304,9 +295,25 @@ exec --no-startup-id xrandr --output DP-0 --auto --output DP-2 --off
 # for blank screen and sleep/hibernate
 exec --no-startup-id xfce4-power-manager
 
-set $bgc_hi #285577
-set $bgc_no #222222
-set $fgc_wh #ffffff
+# configure colors using https://thomashunter.name/i3-configurator/
+# There is a black in between the window bar and i3bar, use black color to hide it
+# https://github.com/i3/i3/discussions/4601
+set $bgc_hi #000000
+set $txt_hi #2e9ef4
+set $bgc_ia #1B1C1F
+set $txt_ia #888888
+set $bgc_ug #900000
+
+# TODO: Don't know what indicator/child_border/placeholder are all about
+# NOTE: child_border is the border of floating window/tabbed container
+# class                 border  backgr. text    indicator child_border
+client.focused          $bgc_hi $bgc_hi $txt_hi $bgc_ug   $txt_hi
+client.focused_inactive $bgc_hi $bgc_hi $txt_ia $txt_hi   $bgc_ia
+client.unfocused        $bgc_ia $bgc_ia $txt_ia $txt_hi   $bgc_hi
+client.urgent           #bgc_ug $bgc_ia $txt_ia $bgc_ug   $bgc_ug
+client.placeholder      $bgc_hi $bgc_hi $fgc_wh $bgc_ug   $bgc_ia
+client.background       $bgc_hi # TODO: ?
+
 set $bar_height 26
 
 # Start i3bar to display a workspace bar (plus the system information i3status
@@ -316,23 +323,23 @@ bar {
 	status_command i3status-rs ~/.config/i3/i3status-rust.toml
 	position top
 	# NOTE: bar_height and the font size must be set very carefully
-    # so the separator on the i3status-rust will be rendered well
-    # pairs: 25+13.2, 27+13.7, 26+13.15
+	# so the separator on the i3status-rust will be rendered well
+	# pairs: 25+13.2, 27+13.7, 26+13.15
 	font pango:DejaVu Sans Mono, Font Awesome 5 Free 13.15
 	Height $bar_height
 	workspace_min_width 40
 	tray_padding 2
-	# show only worksapce name parts without the numbers
+	# show only workspace name parts without the numbers
 	strip_workspace_numbers yes
+
 	colors {
-		separator #666666
-		# NOTE: the background should have the same value as the last block in the i3status-rust.toml
-		background $bgc_no
-		statusline #dddddd
+		separator $bgc_hi
+		background $bgc_hi
+		statusline $txt_hi
 		# <colorclass> <border> <background> <text>
-		focused_workspace  $bgc_hi $bgc_hi $fgc_wh
-		active_workspace   #333333 #333333 $fgc_wh
-		inactive_workspace $bgc_no $bgc_no #888888
-		urgent_workspace   #2f343a #900000 $fgc_wh
+		focused_workspace  $bgc_hi $bgc_hi $txt_hi
+		active_workspace   $bgc_hi $bgc_hi $bgc_ug
+		inactive_workspace $bgc_hi $bgc_hi $txt_ia
+		urgent_workspace   $bgc_ug $bgc_ug $txt_ia
 	}
 }
