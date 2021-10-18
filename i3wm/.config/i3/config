@@ -218,14 +218,14 @@ bindsym $mod+m exec i3-input -F 'mark %s' -l 1 -P 'Mark: '
 # read 1 character and go to the window with the character
 bindsym $mod+Shift+m exec i3-input -F '[con_mark="%s"] focus' -l 1 -P 'Goto: '
 
-# Colors
+# Colors for windows bar
 # class                 border  backgr. text    indicator child_border
-client.focused          #4c7899 #285577 #ffffff #2e9ef4   #285577
-client.focused_inactive #333333 #5f676a #ffffff #484e50   #5f676a
-client.unfocused        #333333 #222222 #888888 #292d2e   #222222
-client.urgent           #2f343a #900000 #ffffff #900000   #900000
-client.placeholder      #000000 #0c0c0c #ffffff #000000   #0c0c0c
-client.background       #ffffff
+client.focused          $bgc_hi $bgc_hi $fgc_wh #2e9ef4   #285577
+client.focused_inactive #333333 #5f676a $fgc_wh #484e50   #5f676a
+client.unfocused        #333333 $bgc_no #888888 #292d2e   #222222
+client.urgent           #2f343a #900000 $fgc_wh #900000   #900000
+client.placeholder      #000000 #0c0c0c $fgc_wh #000000   #0c0c0c
+client.background       $fgc_wh
 
 # NOTE: sticky makes it visiable in all workspaces
 # only work for floating window, floating window is already on top
@@ -304,6 +304,9 @@ exec --no-startup-id fcitx5 -d
 # NOTE: for multiple monitors: (DP-0 is the primary, DP-2 is the secondary)
 # exec --no-startup-id xrandr --output DP-0 --auto --output DP-2 --auto --right-of DP-0
 exec --no-startup-id xrandr --output DP-0 --auto --output DP-2 --off
+set $bgc_hi #285577
+set $bgc_no #222222
+set $fgc_wh #ffffff
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
@@ -320,11 +323,12 @@ bar {
 	colors {
 		separator #666666
 		# NOTE: the background should have the same value as the last block in the i3status-rust.toml
-		background #222222
+		background $bgc_no
 		statusline #dddddd
-		focused_workspace #0088CC #0088CC #ffffff
-		active_workspace #333333 #333333 #ffffff
-		inactive_workspace #333333 #333333 #888888
-		urgent_workspace #2f343a #900000 #ffffff
+		# <colorclass> <border> <background> <text>
+		focused_workspace  $bgc_hi $bgc_hi $fgc_wh
+		active_workspace   #333333 #333333 $fgc_wh
+		inactive_workspace $bgc_no $bgc_no #888888
+		urgent_workspace   #2f343a #900000 $fgc_wh
 	}
 }
