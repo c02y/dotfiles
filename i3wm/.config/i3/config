@@ -253,7 +253,6 @@ for_window [class="Blueman-manager"] floating enable
 
 # Move the followings windows into specific workspace
 assign [class="Anki"] $ws2
-assign [class="Audacious"] $ws3
 assign [class="VirtualBox Machine"] $ws2
 
 # disable the following windows (notifications) from stealing focus
@@ -270,8 +269,8 @@ bindsym $mod+f exec jumpapp -m firefox
 bindsym $mod+s exec jumpapp -m fsearch
 bindsym $mod+b exec jumpapp -m calibre
 bindsym $mod+v exec jumpapp -m vivaldi-stable
-bindsym $mod+g exec jumpapp -m clion
-bindsym $mod+a exec jumpapp -m audacious
+bindsym $mod+c exec jumpapp -m clion
+bindsym $mod+a workspace number $ws3; exec jumpapp -m audacious
 bindsym $mod+p exec jumpapp -m qpdfview
 # NOTE: the -t for jumpapp and -t for alacritty must be the same
 bindsym $mod+r exec jumpapp -m -t RangerFM alacritty -t RangerFM -e ranger
