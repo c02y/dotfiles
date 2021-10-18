@@ -292,7 +292,9 @@ bindsym $mod+q exec "rofi -fixed-num-lines -show-icons -combi-modi window,drun,s
 						  -display-run BIN -display-ssh SSH -font 'DejaVu Sans Mono 14'"
 
 # Autostart applications
-exec_always --no-startup-id picom -b --config ~/.config/i3/picom.conf
+# NOTE: the --experimental-backend for picom is to fix the screen tearing issue
+# https://youtu.be/MfL_JkcEFbE, https://www.reddit.com/r/archlinux/comments/j58isj/
+exec_always --no-startup-id picom --experimental-backend --config ~/.config/i3/picom.conf
 exec_always --no-startup-id nitrogen --set-scaled ~/.config/i3/mountains-1412683.jpg
 exec --no-startup-id copyq
 exec --no-startup-id redshift-gtk
