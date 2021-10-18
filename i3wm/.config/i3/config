@@ -304,12 +304,13 @@ set $bgc_ia #1B1C1F
 set $txt_ia #888888
 set $bgc_ug #900000
 
+# Colors for window bar
 # TODO: Don't know what indicator/child_border/placeholder are all about
-# NOTE: child_border is the border of floating window/tabbed container
+# NOTE: child_border is the border of floating window/split container
 # class                 border  backgr. text    indicator child_border
 client.focused          $bgc_hi $bgc_hi $txt_hi $bgc_ug   $txt_hi
 client.focused_inactive $bgc_hi $bgc_hi $txt_ia $txt_hi   $bgc_ia
-client.unfocused        $bgc_ia $bgc_ia $txt_ia $txt_hi   $bgc_hi
+client.unfocused        $bgc_hi $bgc_ia $txt_ia $txt_hi   $bgc_hi
 client.urgent           #bgc_ug $bgc_ia $txt_ia $bgc_ug   $bgc_ug
 client.placeholder      $bgc_hi $bgc_hi $fgc_wh $bgc_ug   $bgc_ia
 client.background       $bgc_hi # TODO: ?
@@ -332,6 +333,7 @@ bar {
 	# show only workspace name parts without the numbers
 	strip_workspace_numbers yes
 
+	# Colors for workspace names/labels
 	colors {
 		separator $bgc_hi
 		background $bgc_hi
