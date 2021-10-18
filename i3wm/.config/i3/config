@@ -87,12 +87,11 @@ bindsym $mod+Right focus right
 # move focused window
 # this can also be used to move window into container
 # NOTE: a container containing only one window can turn its container status off with toggle floating
+# move left/right can also be used to turn the one window container status off
 bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Right move right
 bindsym $mod+Shift+Down move down
 bindsym $mod+Shift+Up move up
-bindsym $mod+Shift+Right move right
-# turn the single-window container status off
-bindsym $mod+Shift+Return split toggle; move left
 # split in horizontal orientation
 bindsym $mod+backslash split h
 # split in vertical orientation
@@ -110,13 +109,13 @@ bindsym $mod+w layout toggle tabbed split
 bindsym $mod+Shift+w layout toggle split
 
 # toggle tiling / floating
-bindsym $mod+Shift+f floating toggle
+bindsym $mod+Return floating toggle
 # button1=left, button2=middle, button3=right
 bindsym --whole-window $mod+Shift+button3 floating toggle
 bindsym --whole-window $mod+Shift+button1 fullscreen toggle
 
 # change focus between tiling / floating windows
-bindsym $mod+Shift+space focus mode_toggle
+bindsym $mod+Shift+Return focus mode_toggle
 
 # focus the parent container
 # bindsym $mod+a focus parent
