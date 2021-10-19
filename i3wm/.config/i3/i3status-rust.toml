@@ -27,6 +27,17 @@ hide_inactive = true
 idle_fg = "#99B938"
 
 [[block]]
+block = "custom"
+command = "echo "
+on_click = "jumpapp -m -t Btop alacritty -t Btop -e btop"
+
+[[block]]
+block = "custom"
+# need to escape ampersand
+command = "echo "
+on_click = "jumpapp -m -t RangerFM alacritty -t RangerFM -e ranger"
+
+[[block]]
 block = "cpu"
 interval = 2
 info = 30
@@ -56,6 +67,13 @@ interval = 10
 warning = 10.0
 alert = 2.0
 alert_absolute = true
+
+[[block]]
+block = "music"
+buttons = ["prev", "play", "next"]
+dynamic_width = true
+# smart_trim = true
+hide_when_empty = true
 
 [[block]]
 block = "sound"
