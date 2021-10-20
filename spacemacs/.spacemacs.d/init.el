@@ -1270,6 +1270,7 @@ Emacs session."
     "fYv" 'yas-visit-snippet-file
     ;; NOTE: the hints for the following lambda functions are in spacemacs/declare-prefix
     "fxf" (lambda () (interactive) (find-file "~/.config/fish/config.fish"))
+    "fxi" (lambda () (interactive) (find-file "~/.config/i3/config"))
     "fxt" (lambda () (interactive) (find-file "~/.tmux.conf"))
     "fxT" (lambda () (interactive) (find-file "~/.local/bin/t"))
     "fxe" (lambda () (interactive) (find-file "~/.local/bin/emm"))
@@ -1361,6 +1362,7 @@ Emacs session."
     )
   (spacemacs/declare-prefix "fx" "Open the files: ")
   (spacemacs/declare-prefix "fxf" "open config.fish")
+  (spacemacs/declare-prefix "fxi" "open i3/config")
   (spacemacs/declare-prefix "fxt" "open .tmux.conf")
   (spacemacs/declare-prefix "fxT" "open bin/t")
   (spacemacs/declare-prefix "fxe" "open bin/emm")
