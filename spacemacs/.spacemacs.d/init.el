@@ -1234,13 +1234,7 @@ Emacs session."
             (find-file file)))
       (error "No recently-killed files to reopen")))
   (spacemacs/declare-prefix "fY" "yasnippets")
-  (spacemacs/declare-prefix "fx" "customized-files")
   (spacemacs/declare-prefix "X" "copy/cut/delete/move")
-  (spacemacs/declare-prefix "fxf" "config.fish")
-  (spacemacs/declare-prefix "fxt" ".tmux.conf")
-  (spacemacs/declare-prefix "fxT" "bin/t")
-  (spacemacs/declare-prefix "fxe" "bin/emm")
-  (spacemacs/declare-prefix "fxE" "ve.emacs.d/init.el")
   (spacemacs/declare-prefix "=" "format/indent")
   (spacemacs/declare-prefix "L" "leetcode")
   (spacemacs/set-leader-keys
@@ -1365,6 +1359,12 @@ Emacs session."
     ;; the other bindings for treemacs-select-window are M-0/C-x w 0
     "0" 'spacemacs/switch-to-minibuffer-window
     )
+  (spacemacs/declare-prefix "fx" "Open the files: ")
+  (spacemacs/declare-prefix "fxf" "open config.fish")
+  (spacemacs/declare-prefix "fxt" "open .tmux.conf")
+  (spacemacs/declare-prefix "fxT" "open bin/t")
+  (spacemacs/declare-prefix "fxe" "open bin/emm")
+  (spacemacs/declare-prefix "fxE" "open ve.emacs.d/init.el")
 
   (defun switch-to-ein-notebooklist-buffer ()
     (interactive)
