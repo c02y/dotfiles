@@ -308,9 +308,9 @@ exec --no-startup-id xfce4-power-manager
 # configure colors using https://thomashunter.name/i3-configurator/
 # There is a black in between the window bar and i3bar, use black color to hide it
 # https://github.com/i3/i3/discussions/4601
-set $bgc_hi #000000
+set $bgc_df #000000
 set $txt_hi #2e9ef4
-set $bgc_ia #1B1C1F
+set $bdr_hi #1B1C1F
 set $txt_ia #888888
 set $bgc_ug #900000
 
@@ -318,12 +318,12 @@ set $bgc_ug #900000
 # TODO: Don't know what indicator/child_border/placeholder are all about
 # NOTE: child_border is the border of floating window/split container
 # class                 border  backgr. text    indicator child_border
-client.focused          $bgc_hi $bgc_hi $txt_hi $bgc_ug   $txt_hi
-client.focused_inactive $bgc_hi $bgc_hi $txt_ia $txt_hi   $bgc_ia
-client.unfocused        $bgc_hi $bgc_ia $txt_ia $txt_hi   $bgc_hi
-client.urgent           #bgc_ug $bgc_ia $txt_ia $bgc_ug   $bgc_ug
-client.placeholder      $bgc_hi $bgc_hi $fgc_wh $bgc_ug   $bgc_ia
-client.background       $bgc_hi # TODO: ?
+client.focused          $bgc_df $bgc_df $txt_hi $bgc_ug   $txt_hi
+client.focused_inactive $txt_ia $bgc_df $txt_hi $txt_hi   $txt_ia
+client.unfocused        $bdr_hi $bgc_df $txt_ia $txt_hi   $bgc_df
+client.urgent           $bgc_ug $bgc_df $txt_ia $bgc_ug   $bgc_ug
+client.placeholder      $bdr_hi $bgc_df $txt_ia $bgc_ug   $bdr_hi
+client.background       $bdr_hi # TODO: ?
 
 set $bar_height 26
 
@@ -346,13 +346,13 @@ bar {
 
 	# Colors for workspace names/labels
 	colors {
-		separator $bgc_hi
-		background $bgc_hi
+		separator $bgc_df
+		background $bgc_df
 		statusline $txt_hi
 		# <colorclass> <border> <background> <text>
-		focused_workspace  $bgc_hi $bgc_hi $txt_hi
-		active_workspace   $bgc_hi $bgc_hi $bgc_ug
-		inactive_workspace $bgc_hi $bgc_hi $txt_ia
+		focused_workspace  $bgc_df $bgc_df $txt_hi
+		active_workspace   $bgc_df $bgc_df $bgc_ug
+		inactive_workspace $bgc_df $bgc_df $txt_ia
 		urgent_workspace   $bgc_ug $bgc_ug $txt_ia
 	}
 }
