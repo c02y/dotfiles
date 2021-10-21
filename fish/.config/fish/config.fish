@@ -2630,12 +2630,7 @@ function rgs -d 'rg sth in -e(init.el)/-E(errno)/-f(config.fish)/-t(.tmux.conf)/
     rg $OPT -p $argv[1] $FILE | less -i -RM -FX -s
 
     if set -q _flag_F # search pattern(s) in dir/file, open if using vim
-        read -n 1 -p 'echo "Open it with vim? [Y/n]: "' -l answer
-        if test "$answer" = y -o "$answer" = " "
-            rg $OPT --color never $argv[1] $FILE -l | fzf --bind 'enter:execute:vim {} < /dev/tty'
-        else
-            echo "Canceled!"
-        end
+        rg $OPT $argv[1] $FILE -l | fzf --bind 'enter:execute:vim {} < /dev/tty'
     end
 end
 
