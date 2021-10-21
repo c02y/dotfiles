@@ -1254,12 +1254,11 @@ function pacs -d 'pacman/paru operations'
         echo "         + -i --> interactively choose mirror"
         echo "         + -r --> reflector choose mirror(ArchLinux)"
         echo "         + -l --> list local mirrors"
-        echo "      -i --> install(need argv)"
+        echo "      -i --> install(need argv, pkg name, pkg file or pkg link)"
         echo "         + -u --> update the system and install the argv"
         echo "         + -y --> install the argv without confirm"
         echo "         + -r --> reinsall argv"
         echo "         + -d --> download argv without installing it"
-        echo "         + -l --> install the local .pkg.tar.xz/link-file argv"
         echo "      -c --> clean/check"
         echo "         + no argv --> clean packages in /var/cache/pacman/pkg"
         echo "         + -d argv --> check which packages require argv"
@@ -1322,7 +1321,7 @@ function pacs -d 'pacman/paru operations'
         set -q _flag_d; and set OPT -Sw
 
         # install package from a local .pkg.tar.xz/link file, NOTE: not append OPT
-        set -q _flag_l; and set OPT -U
+        echo $argv | rg -q pkg.tar; and set OPT -U
 
         eval paru $OPT $argv
     else if set -q _flag_c # clean/check
