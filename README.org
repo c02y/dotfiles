@@ -5,11 +5,12 @@
 ** Links
    : cd ~/Dotfiles.d/ && stow --verbose . # or like `stowsh --verbose vim`
 * avoid the issue git push prompts for username and password
-   : git remote set-url origin https://c02y:yourpassword@github.com/c02y/dotfiles.git
-   or
-   : git remote set-url origin git@github.com:c02y/dotfiles.git
-* Use sxhkd from start,
-   : cp -rfv ~/.local/bin/sxhkd.desktop ~/.config/autostart/sxhkd.desktop
-   logout
+  1. Login github account
+  2. Settings->Developer settings->Personal access token
+  3. New/Generate new token, copy the token
+  4. vim .git/config,
+   : 	url = https://github.com/c02y/dotfiles
+   change it to:
+   : 	url = https://c02y:THE_TOKEN@github.com/c02y/dotfiles
 
 NOTE: If you got no stow installed, use ./bin/.local/bin/stowsh script, use it like stow, and -h for help!
