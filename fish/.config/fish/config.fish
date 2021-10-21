@@ -1323,6 +1323,7 @@ function pacs -d 'pacman/paru operations'
         # install package from a local .pkg.tar.xz/link file, NOTE: not append OPT
         echo $argv | rg -q pkg.tar; and set OPT -U
 
+        command -sq paru; or sudo pacman -S paru
         eval paru $OPT $argv
     else if set -q _flag_c # clean/check
         if set -q $argv # no given argv
