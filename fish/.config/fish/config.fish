@@ -1612,7 +1612,7 @@ function syss -d 'systemctl related functions'
         reboot \
         poweroff \
         "journalctl -xe" \
-        "systemd-analyze blame && return" \
+        "systemd-analyze blame && systemd-analyze time && return" \
         "systemd-analyze blame > ./boottime && \
         systemd-analyze time >> ./boottime && \
         systemd-analyze plot > ./boottime.svg && \
