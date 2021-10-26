@@ -1241,7 +1241,7 @@ function pacs -d 'pacman/paru operations'
     argparse -n pacs $options -- $argv
     or return
 
-    command -sq paru; or sudo pacman -S paru
+    command -sq paru; or sudo pacman -Syy archlinuxcn-keyring paru
     # NOTE: the order of options and sub-options, sub-option in another option may affect
     # the other option, it may cause wrong execution order if you provide option/sub-option
     if set -q _flag_h
