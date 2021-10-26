@@ -1241,6 +1241,7 @@ function pacs -d 'pacman/paru operations'
     argparse -n pacs $options -- $argv
     or return
 
+    command -sq paru; or sudo pacman -S paru
     # NOTE: the order of options and sub-options, sub-option in another option may affect
     # the other option, it may cause wrong execution order if you provide option/sub-option
     if set -q _flag_h
@@ -1323,7 +1324,6 @@ function pacs -d 'pacman/paru operations'
         # install package from a local .pkg.tar.xz/link file, NOTE: not append OPT
         echo $argv | rg -q pkg.tar; and set OPT -U
 
-        command -sq paru; or sudo pacman -S paru
         eval paru $OPT $argv
     else if set -q _flag_c # clean/check
         if set -q $argv # no given argv
