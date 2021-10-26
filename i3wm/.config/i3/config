@@ -299,6 +299,8 @@ bindsym $mod+Shift+Pause exec ~/.connect_speaker.sh
 # NOTE: the options for tdrop are important, especially for WM and multiple monitors
 # -y 30 = Height in bar config, to avoid overlapping the top bar
 bindsym F12 exec tdrop -t -m -y $bar_height -w 100% -h 98% kitty --class=Dropdown --title=Dropdown_Kitty
+# if $mod+q failes, use $mod+d
+bindsym $mod+d exec --no-startup-id dmenu_run
 # NOTE: 133 is Super_L, bindsym+Mod4 doesn't work
 # If using
 # bindcode --release 133 exec "rofi -fixed-num-lines -show-icons -combi-modi window,drun,ssh -show combi \
