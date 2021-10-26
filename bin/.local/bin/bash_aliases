@@ -2,6 +2,15 @@
 # Make sure the following line is in ~/.bashrc to use this file
 # [ -f ~/.local/bin/bash_aliases ] && . ~/.local/bin/bash_aliases
 
+export GOPATH=~/.go
+if [[ $(lsb_release -i | grep -i -E 'manjaro|opensuse') ]]; then
+	# export PATH=~/.local/bin:~/anaconda3/bin:$PATH
+	# or
+	export PATH=$GOPATH/bin:~/.cargo/bin:~/.npms/bin:~/.local/bin:$PATH
+else
+	export PATH=$GOPATH/bin:~/anaconda3/bin:~/.cargo/bin:~/.npms/bin:~/.local/bin:$PATH
+fi
+
 ######################################## start
 # ingnore duplicates(continuous occurrences od a command) in history
 export HISTCONTROL=ignoredups
@@ -33,15 +42,6 @@ export LANGUAGE=en_US.UTF-8
 
 # Dir = cd Dir, cd into a dir without using cd
 shopt -s autocd
-
-export GOPATH=~/.go
-if [[ $(lsb_release -i | grep -i -E 'manjaro|opensuse') ]]; then
-	# export PATH=~/.local/bin:~/anaconda3/bin:$PATH
-	# or
-	export PATH=$GOPATH/bin:~/.cargo/bin:~/.npms/bin:~/.local/bin:$PATH
-else
-	export PATH=$GOPATH/bin:~/anaconda3/bin:~/.cargo/bin:~/.npms/bin:~/.local/bin:$PATH
-fi
 
 export LESS_TERMCAP_me=$'\e[0m'           # turn off all appearance modes (mb, md, so, us)
 export LESS_TERMCAP_se=$'\e[0m'           # leave standout mode
