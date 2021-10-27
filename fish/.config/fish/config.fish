@@ -350,33 +350,59 @@ function bxp -d 'pastebin service in command line'
     # eval $argv | curl -F 'sprunge=<-' http://sprunge.us
 end
 #
-function lls -d 'ls functions with options'
-    set -l options a s r e l A
+function lls -d 'ls/exa operations'
+    set -l options l e s r t a
     argparse -n lls $options -- $argv
     or return
 
     # no dir is given, assign it to .
     # the single quote in `'$argv'` is for directories with space like `~/VirtualBox VMs/`
     set -q $argv[1]; and set ARGV .; or set ARGV '$argv'
-    # using -A to not show hidden files/dirs
-    ! set -q _flag_A; and set OPT -A --color=yes $ARGV; or set OPT --color=yes
 
-    if set -q _flag_l
-        set OPT $OPT -lh
-        set PIP "| nl -v 0 | sort -nr"
-    else
+    if command -sq exa
+        set OPT -a -b --color-scale --color=always --icons --changed --time-style iso
+        set -q _flag_l; and set -a OPT -l
         set PIP "| nl -v 1 | sort -nr"
+        set -q _flag_e; and eval exa $OPT -s extension --group-directories-first $ARGV && return
+        set -q _flag_s; and set -a OPT -l -s size; or set -a OPT -s modified
+        set -q _flag_r; or set -a OPT -r
+        set CMD exa
+    else
+        set OPT --color=yes
+        if set -q _flag_l
+            set -a OPT -lh
+            set PIP "| nl -v 0 | sort -nr"
+        else
+            set PIP "| nl -v 1 | sort -nr"
+        end
+        # list and sort by extension, and directories first
+        set -q _flag_e; and eval ls $OPT -X --group-directories-first $ARGV && return
+        # sort by size(-s) or sort by last modification time
+        set -q _flag_s; and set OPT $OPT -lh --sort=size; or set OPT $OPT --sort=time --time=ctime
+        # reverse order(-r) or not
+        set -q _flag_r; and set -a OPT -r
+        set CMD ls
     end
-    # reverse order(-r) or not
-    set -q _flag_r; and set OPT $OPT -r
-    # list and sort by extension, and directories first
-    set -q _flag_e; and eval ls $OPT -X --group-directories-first $ARGV && return
+
+    # tree
+    if set -q _flag_t
+        if command -sq exa
+            eval $CMD $OPT -l --tree $ARGV
+        else if test -f /usr/bin/tree
+            eval /usr/bin/tree -Cashf $ARGV
+        else
+            eval find $ARGV | sed -e "s/[^-][^\/]*\//  |/g" -e "s/|\([^ ]\)/|-\1/"
+        end
+        return
+    end
+
     # list all(-a) or not
     set -q _flag_a; or set -a PIP "| tail -20"
-    # sort by size(-s) or sort by last modification time
-    set -q _flag_s; and set OPT $OPT --sort=size; or set OPT $OPT --sort=time --time=ctime
 
-    eval ls $OPT $PIP
+    eval $CMD $OPT $PIP
+end
+function tree
+    lls -t $argv
 end
 
 # valgrind
@@ -1042,14 +1068,6 @@ abbr nh 'sudo nethogs wlp5s0'
 # abbr ipp 'ip -4 -o address'
 abbr ipp 'ip addr'
 abbr m-c 'minicom --color=on'
-function tree
-    if test -f /usr/bin/tree
-        command tree -Cashf $argv
-    else
-        find $argv | sed -e "s/[^-][^\/]*\//  |/g" -e "s/|\([^ ]\)/|-\1/"
-        echo -e "\n...tree is not installed, use find instead..."
-    end
-end
 
 function tars -d 'tar extract(x)/list(l, by default)/create(c, add extra arg to exclude .git dir), fastest(C, add extra arg to exclude .git), -o(open it using gui client)'
     set -l options x l c C o X z
