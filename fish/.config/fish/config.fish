@@ -399,7 +399,7 @@ function lls -d 'ls/exa operations'
     # list all(-a) or not
     set -q _flag_a; or set -a PIP "| tail -20"
 
-    eval $CMD $OPT $PIP
+    eval $CMD $OPT $ARGV $PIP
 end
 function tree
     lls -t $argv
