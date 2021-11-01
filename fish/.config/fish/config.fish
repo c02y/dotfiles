@@ -1237,20 +1237,24 @@ abbr appl 'apt list --installed | rg'
 abbr applu 'apt list --upgradable'
 abbr appd 'apt depends'
 
-# TODO: archlinuxcn repo
-# append the follwing lines into /etc/pacman.conf and install "archlinuxcn-keyring"
-# [archlinuxcn]
-# SigLevel = Optional TrustedOnly
-# Server = https://mirrors.sjtug.sjtu.edu.cn/archlinux-cn/$arch
-# Server = https://mirrors.tuna.tsinghua.edu.cn/archlinuxcn/$arch
-# Server = https://mirrors.ustc.edu.cn/archlinuxcn/$arch
-#
+# TODO
+function archlinuxcn -d "add archlinuxcn repo for Manjaro/ArchLinux"
+    if not rg -q archlinuxcn /etc/pacman.conf
+        echo -e "
+[archlinuxcn]
+SigLevel = Optional TrustedOnly
+Server = https://mirrors.sjtug.sjtu.edu.cn/archlinux-cn/$arch
+Server = https://mirrors.tuna.tsinghua.edu.cn/archlinuxcn/$arch
+Server = https://mirrors.ustc.edu.cn/archlinuxcn/$arch" | sudo tee -a /etc/pacman.conf
+        sudo pacman -Syy --needed archlinuxcn-keyring paru
+    end
+end
 function pacs -d 'pacman/paru operations'
     set -l options i u y r d l c g m f s L n a h k
     argparse -n pacs $options -- $argv
     or return
 
-    command -sq paru; or sudo pacman -Syy archlinuxcn-keyring paru
+    command -sq paru; or archlinuxcn
     # NOTE: the order of options and sub-options, sub-option in another option may affect
     # the other option, it may cause wrong execution order if you provide option/sub-option
     if set -q _flag_h
