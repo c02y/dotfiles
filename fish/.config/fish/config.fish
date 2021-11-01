@@ -2214,7 +2214,7 @@ function docks -d 'docker commands'
         else
             set ARGV $argv
         end
-        eval docker $CMD $ARGV
+        test $ARGV; and eval docker $CMD $ARGV
         return
     end
 
@@ -2230,7 +2230,7 @@ function docks -d 'docker commands'
         # use this for only the top 10 tags:
         # curl https://registry.hub.docker.com/v2/repositories/library/$argv[1]/tags/ | jq '."results"[]["name"]'
         wget -q https://registry.hub.docker.com/v1/repositories/$argv[1]/tags -O - | sed -e 's/[][]//g' -e 's/"//g' -e 's/ //g' | tr '}' '\n' | awk -F: '{print $3}'
-        and echo -e "\nThese are all the tags!\nPlease use `dockp $argv[1]:tag` to pull the image!"
+        and echo -e "\nThese are all the tags!\nPlease use `docks -p $argv[1]:tag` to pull the image!"
         return
     else if set -q _flag_q # stop a running container
         set ID (docker ps | fzf --preview-window hidden | awk '{print $1}')
@@ -2243,17 +2243,24 @@ function docks -d 'docker commands'
         read -p 'echo "The share folder(absolute path) in container: "' -l share_dst
         docker run -ti -v $share_src:$share_dst $new_name /bin/bash
     else # no option, no argv, run an existed container
-        set ID (docker ps -a | fzf --preview-window hidden | awk '{print $1}')
-        not test $ID; and return # ID is empty
+        if test (docker ps -a | wc -l ) = 1
+            echo "No container, create a basic one from the existing image..."
+            sleep 2
+            set IMG_ID (docker image ls | fzf --preview-window hidden | awk '{print $3}')
+            not test $IMG_ID; and return
+            docker create -ti --name basic_con $IMG_ID bash
+        end
+        set CON_ID (docker ps -a | fzf --preview-window hidden | awk '{print $1}')
+        not test $CON_ID; and return
 
-        docker inspect --format="{{.State.Running}}" $ID | rg true >/dev/null 2>/dev/null
+        docker inspect --format="{{.State.Running}}" $CON_ID | rg true >/dev/null 2>/dev/null
         if test $status = 0
             # if the ID is already running, exec it,
             # meaning: start another session on the same running container
             echo -e "\nNOTE: the container is already running in another session...\n"
-            docker exec -it $ID bash
+            docker exec -it $CON_ID bash
         else
-            docker start -i $ID
+            docker start -i $CON_ID
         end
     end
 end
