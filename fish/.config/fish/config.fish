@@ -37,19 +37,10 @@ function startup -d "execute it manually only inside fsr fucntion since it is sl
     # for Windows and Linux compatible
     # Use different PATH/MANPATH for different distro since anaconda may affect system tools
     # for Windows and Linux compatible, check the "manjaro" part in .bash_aliases since that part slows down fish
-    if command -sq uname
-        if test (uname) = Linux
-            if command -sq lsb_release
-                if not test (lsb_release -i | rg -i -e 'manjaro|arch|opensuse') # not manjaro/arch/opensuse
-                    set -gx PATH $HOME/anaconda3/bin $PATH
-                    set -gx MANPATH $HOME/anaconda3/share/man $MANPATH
-                    source $HOME/anaconda3/etc/fish/conf.d/conda.fish >/dev/null 2>/dev/null
-                end
-            end
-        else
-            # Windows
-            set -gx PATH /mingw64/bin /c/Program\ Files/CMake/bin $PATH
-        end
+    if not test (cat /etc/*-release | rg "^NAME=" | rg -i -e 'manjaro|arch|opensuse') # not manjaro/arch/opensuse
+        set -gx PATH $HOME/anaconda3/bin $PATH
+        set -gx MANPATH $HOME/anaconda3/share/man $MANPATH
+        source $HOME/anaconda3/etc/fish/conf.d/conda.fish >/dev/null 2>/dev/null
     end
 
     if test $DISPLAY
