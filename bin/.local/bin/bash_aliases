@@ -3,7 +3,7 @@
 # [ -f ~/.local/bin/bash_aliases ] && . ~/.local/bin/bash_aliases
 
 export GOPATH=~/.go
-if [[ $(lsb_release -i | grep -i -E 'manjaro|opensuse') ]]; then
+if [[ $(cat /etc/*-release | grep "^NAME=" | grep -i -E 'manjaro|arch|opensuse') ]]; then
 	# export PATH=~/.local/bin:~/anaconda3/bin:$PATH
 	# or
 	export PATH=$GOPATH/bin:~/.cargo/bin:~/.npms/bin:~/.local/bin:$PATH
