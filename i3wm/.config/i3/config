@@ -183,59 +183,77 @@ bindsym $mod+r reload
 # exec is only run by initial i3, exec_always can be executed by restart
 bindsym $mod+Shift+r restart
 
-# resize window (you can also use the mouse for that)
-mode "resize" {
-	# These bindings trigger as soon as you enter the resize mode
+# Merge/swap windows using key+mouse
+# NOTE: mark first to merge/swap
+bindsym --whole-window $mod+Ctrl+button2 mark --add "mark"
+bindsym --whole-window $mod+Shift+button2 mark --add "mark"
+# Merge two windows into one container using mouse
+bindsym --whole-window $mod+Shift+button1 focus, split h, mark --add "merge"; [con_mark="mark"] focus; move container to mark "merge"; unmark "mark"; unmark "merge"
+# swap windows using mouse
+bindsym --whole-window $mod+Ctrl+button1 swap container with mark "mark"; [con_mark="mark"] focus; unmark "mark"
+
+# Merge/swap windows using keys in mode
+set $mode_merge_swap Action: (Return)mark, (m)erge, (s)wap
+mode "$mode_merge_swap" {
+	# Need to mark first, then trigger this mode again
+	bindsym Return mark --add "mark"; mode "default"
+	bindsym m split h; mark --add "merge"; [con_mark="mark"] focus; move container to mark "merge"; unmark "mark"; unmark "merge"; mode "default"
+	bindsym s swap container with mark "mark"; [con_mark="mark"] focus; unmark "mark"; mode "default"
+
+	bindsym Escape unmark "mark"; mode "default"
+}
+bindsym $mod+Ctrl+m mode "$mode_merge_swap"
+
+set $mode_mark Actions: (Return)markMark, (m)ark, (g)otoMark, (u)nmark, (U)nmarkAll
+mode "$mode_mark" {
+	bindsym Return mark --add "mark"; mode "default"
+	bindsym m exec i3-input -F 'mark %s' -P 'Mark: '; mode "default"
+	bindsym g exec i3-input -F '[con_mark="%s"] focus' -P 'Goto Mark: '; mode "default"
+	bindsym u exec i3-input -F 'unmark %s' -P 'Unmark: '; mode "default"
+	bindsym Shift+u unmark; mode "default"
+
+	bindsym Escape mode "default"
+}
+bindsym $mod+Ctrl+Shift+m mode "$mode_mark"
+
+set $mode_system Actions: (l)ock, (L)ogout, (s)uspend, (h)ibernate, (r)eboot, (S)hutdown
+mode "$mode_system" {
+	bindsym l exec --no-startup-id i3exit lock, mode "default"
+	bindsym Shift+l exec --no-startup-id i3-msg exit, mode "default"
+	bindsym s exec --no-startup-id systemctl suspend, mode "default"
+	bindsym h exec --no-startup-id systemctl hibernate, mode "default"
+	bindsym r exec --no-startup-id systemctl reboot, mode "default"
+	bindsym Shift+s exec --no-startup-id systemctl poweroff, mode "default"
+
+	bindsym Escape mode "default"
+}
+bindsym $mod+Ctrl+Delete mode "$mode_system"
+
+set $mode_resize Actions: Left(-width), Right(+width), Up(+height), Down(-height), =(50%)
+mode "$mode_resize" {
 	bindsym Left resize shrink width 10 px or 10 ppt
-	bindsym Down resize grow height 10 px or 10 ppt
-	bindsym Up resize shrink height 10 px or 10 ppt
 	bindsym Right resize grow width 10 px or 10 ppt
+	bindsym Up resize grow height 10 px or 10 ppt
+	bindsym Down resize shrink height 10 px or 10 ppt
+	# NOTE: This balance binding only works for 2 windows inside a container in split layout
+	bindsym equal resize set 50 ppt 50 ppt; mode "default"
 
 	# back to normal: Enter or Escape or $mod+r
 	bindsym Escape mode "default"
 }
-# NOTE: shortcuts in it are hard to use
-bindsym $mod+Shift+r mode "resize"
+bindsym $mod+Ctrl+r mode "$mode_resize"
 
-# swap windows using mouse
-# $mod+LeftKey to mark the window ->
-# $mod+RighKey to swap the window with the marked window
-bindsym --whole-window $mod+button1 mark --add "swapee"
-bindsym --whole-window $mod+button3 swap container with mark "swapee"; [con_mark="swapee"] focus; unmark "swapee"
-# swap windows using key
-mode "swap" {
-	# before this, already mark the current window
-	# use arrow to change focus -> swap the marked with the focused ->
-	# unmark the marked one -> back to default -> changed the focus back to the marked one
-	bindsym Left focus left; swap container with mark "swapee"; unmark "swapee"; mode "default"; focus left
-	bindsym Down focus down; swap container with mark "swapee"; unmark "swapee"; mode "default"; focus down
-	bindsym Up focus up; swap container with mark "swapee"; unmark "swapee"; mode "default"; focus up
-	bindsym Right focus right; swap container with mark "swapee"; unmark "swapee"; mode "default"; focus right
+# put all modes in this parent mode
+set $modes Modes: (m)erge_swap, (M)ark, (s)ystem, (r)esize
+mode "$modes" {
+	bindsym m mode "$mode_merge_swap"
+	bindsym Shift+m mode "$mode_mark"
+	bindsym s mode "$mode_system"
+	bindsym r mode "$mode_resize"
 
-	bindsym Escape unmark "swappee"; mode "default";
+	bindsym Escape mode "default"
 }
-bindsym $mod+Shift+s mark --add "swapee"; mode "swap"
-
-set $mode_system System (l)ock, (L)ogout, (s)uspend, (h)ibernate, (r)eboot, (S)hutdown
-mode "$mode_system" {
-    bindsym l exec --no-startup-id i3exit lock, mode "default"
-    bindsym Shift+l exec --no-startup-id i3-msg exit, mode "default"
-    bindsym s exec --no-startup-id systemctl suspend, mode "default"
-    bindsym h exec --no-startup-id systemctl hibernate, mode "default"
-    bindsym r exec --no-startup-id systemctl reboot, mode "default"
-    bindsym Shift+s exec --no-startup-id systemctl poweroff, mode "default"
-
-    # back to normal: Enter or Escape
-    bindsym Return mode "default"
-    bindsym Escape mode "default"
-}
-bindsym $mod+Mod1+Delete mode "$mode_system"
-
-# mark window and goto the marked window
-# read 1 character and mark the current window with this character
-bindsym $mod+m exec i3-input -F 'mark %s' -l 1 -P 'Mark: '
-# read 1 character and go to the window with the character
-bindsym $mod+Shift+m exec i3-input -F '[con_mark="%s"] focus' -l 1 -P 'Goto: '
+bindsym $mod+Shift+m mode "$modes"
 
 # NOTE: sticky makes it visible in all workspaces
 # only work for floating window, floating window is already on top
