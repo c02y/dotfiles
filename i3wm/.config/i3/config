@@ -74,9 +74,10 @@ bindsym $mod+Mod1+3 [floating con_id="__focused__"] resize set 100 ppt 98 ppt, m
 # bindsym $mod+Return exec i3-sensible-terminal
 
 # kill focused window
-bindsym $mod+Mod1+w kill
+bindsym $mod+Mod1+q kill
+# button1=left, button2=middle, button3=right
 bindsym button3 kill
-bindsym --whole-window $mod+Mod1+button1 kill
+bindsym --whole-window $mod+Ctrl+Shift+button1 kill
 
 # change focus
 # NOTE: Use rofi to get all windows in all workspaces
@@ -124,15 +125,11 @@ bindsym $mod+w layout toggle tabbed split
 bindsym $mod+Shift+w layout toggle split
 
 # toggle tiling / floating
-bindsym $mod+Return floating toggle; move position center
-bindsym $mod+Shift+f floating toggle; move position center
-# button1=left, button2=middle, button3=right
-bindsym --whole-window $mod+Shift+button3 floating toggle
-bindsym --whole-window $mod+Shift+button1 fullscreen toggle
-
+bindsym --whole-window $mod+button1 floating toggle; move position center
+bindsym $mod+Ctrl+space floating toggle; move position center
 # change focus between tiling / floating windows
-bindsym $mod+Shift+Return focus mode_toggle
-bindsym $mod+Shift+space focus mode_toggle
+bindsym --whole-window $mod+button3 focus mode_toggle
+bindsym $mod+Ctrl+Shift+space focus mode_toggle
 
 # focus the parent container
 # bindsym $mod+a focus parent
@@ -184,16 +181,12 @@ bindsym $mod+Shift+z move container to workspace prev; workspace prev
 bindsym $mod+Shift+x move container to workspace back_and_forth; workspace back_and_forth
 
 # reload the configuration file
-bindsym $mod+Shift+q reload
+bindsym $mod+r reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 # NOTE: reload will not run exec-always, +Alt+ will not work, use Mod1 instead
 # reload i3status.conf need restart i3
 # exec is only run by initial i3, exec_always can be executed by restart
-bindsym $mod+Mod1+q restart
-# exit i3 (logs you out of your X session, need confirmation)
-bindsym $mod+Ctrl+q exec "i3-nagbar -t warning -m \
-'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' \
--B 'Yes, exit i3' 'i3-msg exit'"
+bindsym $mod+Shift+r restart
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
