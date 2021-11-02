@@ -1075,6 +1075,8 @@ function tars -d 'tar extract(x)/list(l, by default)/create(c, add extra arg to 
 
     set -l EXT (string lower (echo $ARGV | sed 's/^.*\.//'))
     if test "$EXT" = zip -o "$EXT" = rar -o "$EXT" = 7z
+        # NOTE: the following line doesn't work for file like dir.tar.xz
+        set -l FILE (string split -m1 -r '.' $ARGV)[1]
         # using unar -- https://unarchiver.c3.cx/unarchiver is available
         # if the code is not working, try GBK or GB18030
         # unzip zip if it is archived in Windows and messed up characters with normal unzip
@@ -1091,7 +1093,7 @@ function tars -d 'tar extract(x)/list(l, by default)/create(c, add extra arg to 
             if command -sq unar
                 unar $ARGV
             else
-                unzip $ARGV
+                unzip $ARGV -d $FILE
             end
         else if set -q _flag_X # extract Chinese characters
             zips.py -x $ARGV
