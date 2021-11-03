@@ -2250,6 +2250,10 @@ function docks -d 'docker commands'
         docker run -ti -v $share_src:$share_dst $new_name /bin/bash
     else # no option, no argv, run an existed container
         if test (docker ps -a | wc -l ) = 1
+            if test (docker image ls | wc -l) = 1
+                echo "No container no image, need to pull an image first..."
+                return
+            end
             echo "No container, create a basic one from the existing image..."
             sleep 2
             set IMG_ID (docker image ls | fzf --preview-window hidden | awk '{print $3}')
