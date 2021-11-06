@@ -2709,7 +2709,7 @@ end
 abbr upxx 'upx --best --lzma'
 # cargo
 function cars -d "cargo commands, -b(build), -c(clean target), -d(remove/uninstall), -i(install), -r(release build), -S(reduce size)"
-    set -l options b c C d i r s S
+    set -l options b c C d i r s S R u
     argparse -n cars $options -- $argv
     or return
 
@@ -2734,11 +2734,11 @@ function cars -d "cargo commands, -b(build), -c(clean target), -d(remove/uninsta
     else if set -q _flag_n
         eval $CMD new $argv
     else if set -q _flag_R
-        if test -d ./target
-            eval $CMD run
-        end
+        eval $CMD run
     else if set -q _flag_s
         eval $CMD search $argv
+    else if set -q _flag_u
+        rustup update
     else
         if set -q _flag_i; or ! test -f ./Cargo.toml
             # install release version, reduce size by default
