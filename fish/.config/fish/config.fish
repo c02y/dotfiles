@@ -1252,7 +1252,7 @@ Server = https://mirrors.ustc.edu.cn/archlinuxcn/$arch" | sudo tee -a /etc/pacma
     end
 end
 function pacs -d 'pacman/paru operations'
-    set -l options i u y r d l c g m f s L n a h k
+    set -l options i u y r d l c g m f s L n a h k p
     argparse -n pacs $options -- $argv
     or return
 
@@ -1262,6 +1262,7 @@ function pacs -d 'pacman/paru operations'
     if set -q _flag_h
         echo "      --> update the system"
         echo "      argv --> search argv"
+        echo "      -p --> print installed pacakges stats"
         echo "      -m --> get mirror from China by default"
         echo "         + argv --> get mirror from argv country"
         echo "         + -f --> fastest top 3 mirrors"
@@ -1428,6 +1429,8 @@ function pacs -d 'pacman/paru operations'
         end
     else if set -q _flag_a # search all including repo and aur
         paru $argv
+    else if set -q _flag_p
+        paru -Ps
     else if set -q _flag_k # check for missing files in packages
         # use this when you see something like "warning: xxx path/to/xxx (No such file or directory)"
         # or "warning: could not get file information for path/to/xxx", especially python pacakges
