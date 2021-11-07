@@ -6,7 +6,8 @@
 
    base base-devel clang cppcheck wget transmission-cli hunspell xclip xsel atool zip unzip source-highlight
    btop mediainfo lua nodejs ccls unarchiver aspell-en libmythes mythes-en
-   emacs-git w3m ueberzug jq moreutils poppler paru bear youtube-dl python-pip upx ffmpeg ffmpegthumbnailer meson ninja fzf exa
+   emacs-git w3m ueberzug jq moreutils poppler paru bear youtube-dl python-pip upx ffmpeg ffmpegthumbnailer 
+   meson ninja fzf exa dua-cli bat ripgrep fd zoxide mdcat gdu
 
    # i3 Window Manager
    manjaro-i3-settings i3status-rust
@@ -25,13 +26,13 @@
 
    xorg-xhost xdotool xorg-xev xorg-xwininfo xorg-xrandr wmctrl
 
-   go get -u github.com/jesseduffield/lazygit
-   go get -u github.com/boyter/scc
-   go get -u github.com/dundee/gdu/v4
+   go install github.com/boyter/scc@latest
+   # clean go cache `go clean -modcache`
 
    # install rustc/cargo first
    : rust (`curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh`)
-   cargo install dua-cli ripgrep bat fd-find mdcat zoxide cargo-cache cargo-diet
+   cargo install cargo-cache cargo-diet
+   # clean cargo cache `cargo cache -a`
 
    # https://airekans.github.io/cpp/2014/07/04/gperftools-profile
    valgrind qcachegrind gperftools
