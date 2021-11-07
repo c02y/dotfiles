@@ -970,6 +970,8 @@ function dfs -d 'df(-l, -L for full list), gua(-i), dua(-I), du(by default), cac
         fusermount -zu $argv && rm -rfv $argv
     else if set -q _flag_c
         set dirs ~/.cache/google-chrome ~/.config/google-chrome \
+            ~/.cache/chromium ~/.config/chromium \
+            ~/.cache/microsoft-edge ~/.config/microsoft-edge \
             ~/.cache/vivaldi ~/.config/vivaldi \
             ~/.cache/mozilla ~/.mozilla \
             ~/.cache/paru ~/.cache/calibre \
