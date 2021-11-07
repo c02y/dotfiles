@@ -2710,7 +2710,7 @@ end
 # upx get smaller size than strip
 abbr upxx 'upx --best --lzma'
 # cargo
-function cars -d "cargo commands, -b(build), -c(clean target), -d(remove/uninstall), -i(install), -r(release build), -S(reduce size)"
+function cars -d "cargo commands, -c(clean target), -d(remove/uninstall), -i(install), -r(release build), -S(reduce size)"
     set -l options b c C d i r s S R u
     argparse -n cars $options -- $argv
     or return
@@ -2753,7 +2753,7 @@ function cars -d "cargo commands, -b(build), -c(clean target), -d(remove/uninsta
                 eval $CMD install $argv
             end
             and echo -e "\nuse `upx --best --lzma the-bin` to reduce more binary size, better than strip"
-        else if test -f ./Cargo.toml
+        else if test -f ./Cargo.toml # build it
             if set -q _flag_r # build release version
                 echo -e "Building release version...\n"
                 if set -q _flag_S
