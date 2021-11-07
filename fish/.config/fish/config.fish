@@ -1398,7 +1398,7 @@ function pacs -d 'pacman/paru operations'
             open (xc -o) >/dev/null 2>/dev/null
         else if set -q _flag_L # list content in a pacakge
             pacman -Ql $argv
-            or pamac list --files $argv
+            or paru -Fl $argv
         else # just show info
             # show both local and remote info
             paru -Qi $argv
@@ -1416,16 +1416,15 @@ function pacs -d 'pacman/paru operations'
             paru -Qs $argv
         end
     else if set -q _flag_L # list content in a pacakge
-        # -L can work with -s or be used alone to list the content
-        pacman -Ql $argv
-        or pamac list --files $argv
+        paru -Ql $argv
+        or paru -Fl $argv
     else if set -q _flag_n # search only keyword in package names
         if set -q _flag_a
-            pamac search -a -q $argv | rg -i $argv
+            paru -Sl | rg -i $argv
         else
-            pamac search -r -q $argv | rg -i $argv
-            # if failed in repos, search in both repo+aur(slow)
-            or pamac search -a -q $argv | rg -i $argv
+            # pacman package names are already sorted
+            pacman -Sl | rg -i $argv
+            or paru -Sl | rg -i $argv
         end
     else if set -q _flag_a # search all including repo and aur
         paru $argv
