@@ -974,7 +974,7 @@ function dfs -d 'df(-l, -L for full list), gua(-i), dua(-I), du(by default), cac
             ~/.cache/microsoft-edge ~/.config/microsoft-edge \
             ~/.cache/vivaldi ~/.config/vivaldi \
             ~/.cache/mozilla ~/.mozilla \
-            ~/.cache/paru ~/.cache/calibre \
+            ~/.cache/paru/clone ~/.cache/calibre \
             ~/.local/share/Trash \
             /var/cache/pacman/pkg /tmp
         set dirs_e
@@ -1063,7 +1063,7 @@ abbr ipp 'ip addr'
 abbr m-c 'minicom --color=on'
 
 function tars -d 'tar extract(x)/list(l, by default)/create(c, add extra arg to exclude .git dir), fastest(C, add extra arg to exclude .git), -o(open it using gui client)'
-    set -l options x l c C o X z
+    set -l options x l c C o X z g
     argparse -n tars $options -- $argv
     or return
 
@@ -1113,18 +1113,18 @@ function tars -d 'tar extract(x)/list(l, by default)/create(c, add extra arg to 
             # tar cvfJ - target-dir/ | split --bytes=100M - target.tar.xz.
             # open it using:
             # cat target.tar.xz.* | tar xvfa -
-            if test (count $argv) = 1
-                tar cvfa $ARGV.tar.xz $ARGV
-            else
+            if set -q _flag_g
                 tar cvfa $ARGV.tar.xz $ARGV --exclude-vcs
-                echo -e "\nUse `tars -c $ARGV g` to include .git directory!"
+                echo -e "\nNOTE: tar.xz excluding .git directory!"
+            else
+                tar cvfa $ARGV.tar.xz $ARGV
             end
         else if set -q _flag_C # create archive, faster speed
-            if test (count $argv) = 1
-                tar cvf - $ARGV | zstd -c -T0 --fast >$ARGV.tar.zst
-            else
+            if set -q _flag_g
                 tar cvf - $ARGV --exclude-vcs | zstd -c -T0 --fast >$ARGV.tar.zst
-                echo -e "\nUse `tars -C $ARGV g` to include .git directory!"
+                echo -e "\nNOTE: tar.xz excluding .git directory!"
+            else
+                tar cvf - $ARGV | zstd -c -T0 --fast >$ARGV.tar.zst
             end
         else
             tar tvfa $argv
