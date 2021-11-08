@@ -28,18 +28,18 @@ idle_fg = "#99B938"
 
 [[block]]
 block = "cpu"
+format = "{utilization:1}"
 interval = 2
 info = 30
 warning = 50
 critical = 90
-format = "{utilization}"
 on_click = "jumpapp -m -t Btop kitty -T=Btop btop"
 
 [[block]]
 block = "memory"
 display_type = "memory"
-format_mem = "{mem_used}"
-format_swap = "{swap_used}"
+format_mem = "{mem_used:1}"
+format_swap = "{swap_used:1}"
 warning_mem = 80.0
 warning_swap = 50.0
 critical_mem = 95.0
@@ -48,7 +48,7 @@ interval = 5
 
 [[block]]
 block = "disk_space"
-format = "{icon}{available}"
+format = "{icon:2}{available:1}"
 path = "/"
 alias = "/"
 info_type = "available"
@@ -70,14 +70,15 @@ interface_name_exclude = [".*chromium*.", ".*edge*.", ".*firefox*.", "vlc"]
 
 [[block]]
 block = "sound"
+format = "{volume:1}"
 on_click = "pavucontrol"
 max_vol = 150
 show_volume_when_muted = true
 
 [[block]]
 block = "bluetooth"
-mac = "60:AB:D2:0F:72:EB"
 format = ""
+mac = "60:AB:D2:0F:72:EB"
 
 # [[block]]
 # block = "nvidia_gpu"
@@ -88,9 +89,9 @@ format = ""
 
 [[block]]
 block = "time"
+format = "%m/%d %a %H:%M"
 interval = 5
 icons_format = " "
-format = "%m/%d %a %H:%M"
 [block.format]
 full = "%m/%d %a %H:%M"
 short = "%H:%M"
