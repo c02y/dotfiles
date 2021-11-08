@@ -2480,14 +2480,20 @@ abbr sky 'curl wttr.in'
 abbr wt 'bash -c \'rm -rf /tmp/Baidu* 2>/dev/null\'; wget -c -P /tmp/ https://speedxbu.baidu.com/shurufa/ime/setup/BaiduWubiSetup_1.2.0.67.exe'
 abbr wtt 'bash -c \'rm -rf /tmp/Baidu* 2>/dev/null\'; wget --connect-timeout=5 -c -P /tmp/ https://speedxbu.baidu.com/shurufa/ime/setup/BaiduPinyinSetup_5.5.5063.0.exe'
 function ios -d 'io stat'
-    # check the current io speed, using command like
-    # `dstat -d -n`
-    # Check the health issue of disk using smartmontools
-    # `sudo smartctl --all /dev/nvme0n1`
-    # `gpustat -cp` to check gpu usage
-    if set -q argv[1]
-        sudo hdparm -Tt $argv # $argv is device like /dev/sda1
-    else
+    set -l options "s=" "h=" g
+    argparse -n ios $options -- $argv
+    or return
+
+    if set -q _flag_s # speed of a drive
+        # argv is device like /dev/sda1
+        sudo hdparm -Tt $_flag_s
+    else if set -q _flag_h # health of a drive
+        # Check the health issue of disk using smartmontools
+        # the argv is device like /dev/nvme0n1
+        sudo smartctl -a $_flag_h | rg "Percentage Used"
+    else if set -q _flag_g
+        gpustat -cp
+    else # current io speed
         dstat -d -n -m -s -c --nocolor
     end
 end
