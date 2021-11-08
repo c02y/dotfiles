@@ -1271,7 +1271,6 @@ function pacs -d 'pacman/paru operations'
         echo "           + argv --> fastest top argv mirrors"
         echo "         + -s --> get status of local mirrors"
         echo "         + -i --> interactively choose mirror"
-        echo "         + -r --> reflector choose mirror(ArchLinux)"
         echo "         + -l --> list local mirrors"
         echo "      -i --> install(need argv, pkg name, pkg file or pkg link)"
         echo "         + -u --> update the system and install the argv"
@@ -1315,15 +1314,14 @@ function pacs -d 'pacman/paru operations'
         else if set -q _flag_i # insteractive choose mirror
             sudo pacman-mirrors -i -d
         else if set -q _flag_r # reflector choose mirror
-            set -q $argv; and set ARGV China; or set ARGV $argv
-            sudo reflector --country $ARGV --verbose --latest 6 --sort rate --save /etc/pacman.d/mirrorlist
         else if set -q _flag_l # list local mirrors
             cat /etc/pacman.d/mirrorlist
         else # change mirrors
-            if ! set -q $argv[1] # given arguments
-                sudo pacman-mirrors -c $argv
-            else # if no given, get the fastest and synced China mirrors
-                sudo pacman-mirrors -c China
+            set -q $argv; and set ARGV China; or set ARGV $argv
+            if command -sq pacman-mirrors
+                sudo pacman-mirrors -c $ARGV
+            else if command -sq reflector # Archlinux
+                sudo reflector --country $ARGV --verbose --latest 6 --sort rate --save /etc/pacman.d/mirrorlist
             end
         end
     else if set -q _flag_i # install
