@@ -1259,6 +1259,10 @@ function pacs -d 'pacman/paru operations'
     or return
 
     command -sq paru; or archlinuxcn
+
+    # lower the argv
+    set ARGV (string lower $argv)
+
     # NOTE: the order of options and sub-options, sub-option in another option may affect
     # the other option, it may cause wrong execution order if you provide option/sub-option
     if set -q _flag_h
@@ -1304,10 +1308,10 @@ function pacs -d 'pacman/paru operations'
         echo "      -h --> usage"
     else if set -q _flag_m # mirror
         if set -q _flag_f # fastest top 3/argv mirrors
-            if set -q $argv
+            if set -q $ARGV
                 sudo pacman-mirrors -f 3
             else
-                sudo pacman-mirrors -f $argv
+                sudo pacman-mirrors -f $ARGV
             end
         else if set -q _flag_s # get status of local mirrors
             pacman-mirrors --status
@@ -1338,9 +1342,9 @@ function pacs -d 'pacman/paru operations'
         set -q _flag_d; and set OPT -Sw
 
         # install package from a local .pkg.tar.xz/link file, NOTE: not append OPT
-        echo $argv | rg -q pkg.tar; and set OPT -U
+        echo $ARGV | rg -q pkg.tar; and set OPT -U
 
-        eval paru $OPT $argv
+        eval paru $OPT $ARGV
     else if set -q _flag_c # clean/check
         if set -q $argv # no given argv
             # use `paru -Sc` to clean interactively
@@ -1349,7 +1353,7 @@ function pacs -d 'pacman/paru operations'
             paccache -rvuk0 # clean uninstalled packages
         else
             if set -q _flag_d # check which packages require argv package
-                paru -Rs $argv
+                paru -Rs $ARGV
             else
                 # check if package/bin/conf/file is owned by others, if not, delete it
                 # This can also be used when the following errors occur after executing update command:
@@ -1357,7 +1361,7 @@ function pacs -d 'pacman/paru operations'
                 # After executing this function with xxx one by one, execute the update command again
                 # https://wiki.archlinux.org/index.php/Pacman#.22Failed_to_commit_transaction_.28conflicting_files.29.22_error
                 # NOTE: this can be also used to check what package provides the file/command/package
-                not pacman -Q -o $argv; and sudo rm -rfv $argv
+                not pacman -Q -o $ARGV; and sudo rm -rfv $ARGV
             end
         end
     else if set -q _flag_u # update/upgrade, NOTE: pacs without anything also update
@@ -1372,62 +1376,62 @@ function pacs -d 'pacman/paru operations'
         end
     else if set -q _flag_d # delete/uninstall
         if set -q _flag_r # delete/uninstall dependencies as well
-            paru -Rsc $argv
+            paru -Rsc $ARGV
         else
-            paru -Rsun $argv
+            paru -Rsun $ARGV
         end
     else if set -q _flag_g # group
         # all available groups(not all) and their packages: https://archlinux.org/groups/
         # if given argv, list only the target group
         if set -q _flag_l # list only the local groups and packages in the groups
-            paru -Qg $argv | sort
+            paru -Qg $ARGV | sort
         else # list all(local+repo) groups and pacakges in the groups
-            paru -Sg $argv | sort
+            paru -Sg $ARGV | sort
         end
     else if set -q _flag_s # show info
         if set -q _flag_l # get source link and send it to clipper
             if set -q _flag_a # get AUR source link and send it to clipper
-                paru -Si $argv | rg "AUR URL" | awk '{print $4}' | xc && xc -o
+                paru -Si $ARGV | rg "AUR URL" | awk '{print $4}' | xc && xc -o
             else
-                if paru -Q $argv >/dev/null 2>/dev/null
-                    paru -Qi $argv | rg "^URL" | awk '{print $3}' | xc && xc -o
+                if paru -Q $ARGV >/dev/null 2>/dev/null
+                    paru -Qi $ARGV | rg "^URL" | awk '{print $3}' | xc && xc -o
                 else
-                    paru -Si $argv | rg "^URL" | awk '{print $3}' | xc && xc -o
+                    paru -Si $ARGV | rg "^URL" | awk '{print $3}' | xc && xc -o
                 end
             end
             open (xc -o) >/dev/null 2>/dev/null
         else if set -q _flag_L # list content in a pacakge
-            pacman -Ql $argv
-            or paru -Fl $argv
+            pacman -Ql $ARGV
+            or paru -Fl $ARGV
         else # just show info
             # show both local and remote info
-            paru -Qi $argv
-            paru -Si $argv
+            paru -Qi $ARGV
+            paru -Si $ARGV
         end
     else if set -q _flag_l # list installed pcakges containing the keyword(including description)
         if set -q _flag_n
             if set -q $argv[1] # if no argu, list all installed packages names
                 paru -Qs | rg -i local/
             else
-                paru -Qs | rg -i local/ | rg -i $argv
+                paru -Qs | rg -i local/ | rg -i $ARGV
             end
 
         else
-            paru -Qs $argv
+            paru -Qs $ARGV
         end
     else if set -q _flag_L # list content in a pacakge
-        paru -Ql $argv
-        or paru -Fl $argv
+        paru -Ql $ARGV
+        or paru -Fl $ARGV
     else if set -q _flag_n # search only keyword in package names
         if set -q _flag_a
-            paru -Sl | rg -i $argv
+            paru -Sl | rg -i $ARGV
         else
             # pacman package names are already sorted
-            pacman -Sl | rg -i $argv
-            or paru -Sl | rg -i $argv
+            pacman -Sl | rg -i $ARGV
+            or paru -Sl | rg -i $ARGV
         end
     else if set -q _flag_a # search all including repo and aur
-        paru $argv
+        paru $ARGV
     else if set -q _flag_p
         paru -Ps
     else if set -q _flag_k # check for missing files in packages
@@ -1437,7 +1441,7 @@ function pacs -d 'pacman/paru operations'
     else # just search repo, if not found, search it in aur
         if not set -q $argv # given argv
             # if failed with pacman, using paru directly (paru including aur is slow)
-            pacman -Ss $argv; or paru $argv
+            pacman -Ss $ARGV; or paru $ARGV
         else
             # check if there are updates using checkupdates(non-root), if there are, update using paru(need root)
             # paru = pacman/paru -Syu, update, check -u option for more
