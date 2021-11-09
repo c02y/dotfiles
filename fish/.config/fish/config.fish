@@ -971,7 +971,6 @@ function dfs -d 'df(-l, -L for full list), gua(-i), dua(-I), du(by default), cac
     else if set -q _flag_c
         set dirs ~/.cache/google-chrome ~/.config/google-chrome \
             ~/.cache/chromium ~/.config/chromium \
-            ~/.cache/microsoft-edge ~/.config/microsoft-edge \
             ~/.cache/vivaldi ~/.config/vivaldi \
             ~/.cache/mozilla ~/.mozilla \
             ~/.cache/paru/clone ~/.cache/calibre \
