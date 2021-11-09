@@ -128,9 +128,9 @@ bindsym --whole-window $mod+button3 focus mode_toggle
 bindsym $mod+Ctrl+Shift+space focus mode_toggle
 
 # focus the parent container
-# bindsym $mod+a focus parent
+bindsym $mod+Mod1+Shift+Up focus parent
 # focus the child container
-#bindsym $mod+d focus child
+bindsym $mod+Mod1+Shift+Down focus child
 
 # Define names for default workspaces for which we configure key bindings later on.
 # We use variables to avoid repeating the names in multiple places.
@@ -328,7 +328,7 @@ bindsym $mod+grave exec "rofi -fixed-num-lines -show-icons -combi-modi window,dr
 # NOTE: the --experimental-backend for picom is to fix the screen tearing issue
 # https://youtu.be/MfL_JkcEFbE, https://www.reddit.com/r/archlinux/comments/j58isj/
 exec_always --no-startup-id picom --experimental-backend --config ~/.config/i3/picom.conf
-# NOTE: reduce jpeg/png file size losslessly using jpegoptim/optipng, 
+# NOTE: reduce jpeg/png file size losslessly using jpegoptim/optipng,
 # then convert it into avif to reduce more file size using convert from imagemagick
 # original Baboo png wallpapers are from gitlab.manjaro.org/artwork/themes/breath2/-/tree/master/wallpapers
 exec_always --no-startup-id nitrogen --set-scaled ~/.config/i3/Baboo_night_5120x2880_convert.avif
