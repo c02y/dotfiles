@@ -18,9 +18,9 @@ if [ $# -ne 0 ]; then # argv is provided
 		fi
 		if [ ! -z $CC ]; then
 			if grep -q " main(" $@; then
-				$CC -Wall -W -g $@ -o $DIR/$BIN && $DIR/$BIN
+				$CC -Wall -W -pthread -g $@ -o $DIR/$BIN && $DIR/$BIN
 			else # if no main is found in the argv, just compile it (do not link) to check if it fails
-				$CC -Wall -W -g -c $@
+				$CC -Wall -W -pthread -g -c $@
 			fi
 			exit 0
 		fi
