@@ -1343,6 +1343,9 @@ function pacs -d 'pacman/paru operations'
         # install package from a local .pkg.tar.xz/link file, NOTE: not append OPT
         echo $ARGV | rg -q pkg.tar; and set OPT -U
 
+        # NOTE: if you see "File /var/cache/pacman/pkg/xxx.pkg.tar.xz is corrupted (invalid or corrupted package (PGP signature))"
+        # use `sudo pacma-key --refresh-keys`
+        # all keyrings are stored in /usr/share/pacman/keyrings/
         eval paru $OPT $ARGV
     else if set -q _flag_c # clean/check
         if set -q $argv # no given argv
