@@ -1480,7 +1480,7 @@ function gcc-a
     /usr/bin/gcc -Wall -W -g -o $BIN $argv 2>&1 | rg --color always -iP "\^|warning:|error:|undefined|"
 end
 function g++-a
-    set BIN (echo (string split .c $argv) | awk '{print $1;}')
+    set BIN (echo (string split .cpp $argv) | awk '{print $1;}')
     /usr/bin/g++ -Wall -W -g -o $BIN $argv 2>&1 | rg --color always -iP "\^|warning:|error:|undefined|"
 end
 abbr gcc-w 'gcc -g -Wall -W -Wsign-conversion'
@@ -1536,6 +1536,7 @@ function fmts -d "compile_commands.json(-l), clang-format(-f), cmake-format(-m)"
             test -f build/compile_commands.json; and ln -nsfv build/compile_commands.json .
         else if test -f meson.build
             if test -d build
+                # compile_commands.json is only updated by meson compile(ninja) if no --reconfigure
                 meson build --reconfigure
             else
                 meson build
