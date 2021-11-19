@@ -80,8 +80,6 @@ This function should only modify configuration layer settings."
      ;; NOTE: install shellcheck
      ;; lsp for bash "npm i -g bash-language-server"
      shell-scripts
-     ;; NOTE: `pip install importmagic epc flake8 pytest nose autoflake "ptvsd>=4.2"
-     ;; if using lsp as backend: pip install python-language-server pyls-isort pyls-mypy'
      (python :variables
              python-backend 'lsp        ; the default is anaconda
              python-test-runner '(pytest nose)
@@ -89,7 +87,7 @@ This function should only modify configuration layer settings."
              ;; python-format-on-save t
              python-sort-imports-on-save t
              ;; TODO: npm install -g pyright
-             python-lsp-server 'pyright
+             ;; python-lsp-server 'pyright
              )
      ;; NOTE: `pip install jupyter', then run `jupyter notebook'
      (ipython-notebook :variables
