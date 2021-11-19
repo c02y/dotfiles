@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# name: log-macro
+# key: log
+# --
+#define LOG(fmt, args...) \
+do { \
+std::cout << "==== (${1:$$(yas-choose-value '("INFO" "WARNING" "ERROR"))}) " << __TIME__ << " - " << __FILE__ << ":" << __LINE__ << " - " << __PRETTY_FUNCTION__ << " "; \
+printf(fmt, ##args); \
+} while(0)
