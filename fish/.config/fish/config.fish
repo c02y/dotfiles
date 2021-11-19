@@ -1246,10 +1246,10 @@ function archlinuxcn -d "add archlinuxcn repo for Manjaro/ArchLinux"
         echo -e "
 [archlinuxcn]
 SigLevel = Optional TrustedOnly
-Server = https://mirrors.sjtug.sjtu.edu.cn/archlinux-cn/$arch
-Server = https://mirrors.tuna.tsinghua.edu.cn/archlinuxcn/$arch
-Server = https://mirrors.ustc.edu.cn/archlinuxcn/$arch" | sudo tee -a /etc/pacman.conf
-        sudo pacman -Syy --needed archlinuxcn-keyring paru
+Server = https://mirrors.sjtug.sjtu.edu.cn/archlinux-cn/\$arch
+Server = https://mirrors.tuna.tsinghua.edu.cn/archlinuxcn/\$arch
+Server = https://mirrors.ustc.edu.cn/archlinuxcn/\$arch" | sudo tee -a /etc/pacman.conf
+        sudo pacman -S --noconfirm archlinuxcn-keyring paru
     end
 end
 function pacs -d 'pacman/paru operations'
