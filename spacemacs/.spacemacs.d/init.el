@@ -207,8 +207,12 @@ This function should only modify configuration layer settings."
      json
      (html :variables
            web-fmt-tool 'web-beautify)
+     ;; TODO: sudo luarocks install luacheck
      (lua :variables
-          lua-backend nil
+          lua-backend 'lua-mode
+          ;; NOTE: lua-lsp doesn't support lua5.4
+          ;; lua-language-server is too heavy
+          ;; lua-lsp-server 'lua-lsp
           )
      (pdf :variables
           pdf-view-display-size 'fit-height)
@@ -944,10 +948,12 @@ before packages are loaded."
                                   (if (null (string-match ".*exited abnormally.*" str))
                                       ;; no errors, make the compilation window go away in a few seconds
                                       (progn
-                                        (run-at-time
-                                         "0 sec" nil 'delete-windows-on
-                                         (get-buffer-create "*compilation*"))
-                                        (message "No Compilation Errors!"))))
+                                        ;; (run-at-time
+                                        ;;  "10 sec" nil 'delete-windows-on
+                                        ;;  (get-buffer-create "*compilation*"))
+                                        (message "No Compilation Errors!"))
+                                    (switch-to-buffer "*compilation*")
+                                    ))
    find-file-visit-truename t
    ;; using translate-shell cli tool, which is trans binary in bin
    ;; translate-shell-command "proxychains4 -q trans -t en %s"
@@ -1258,7 +1264,8 @@ Emacs session."
     "bi" 'count-words
     "bI" 'count-words-region
     ;; the default cc is for compile
-    "cc" 'compile-again
+    "cc" 'smart-compile-again
+    "cC" 'smart-compile
     "tG" 'highlight-indent-guides-mode
     "tt" 'spacemacs/toggle-relative-line-numbers
     "tT" 'spacemacs/toggle-line-numbers
@@ -1293,6 +1300,7 @@ Emacs session."
     "Xk" 'cut-line-or-region-or-buffer
     ;; overwrite the default spacemacs/spell-checking-transient-state/body
     "S." 'spacemacs/ispell-transient-state/body
+    "xX" 'quickrun-compile-only
     "XX" 'spacemacs/change-case-transient-state/body
     "Xm" 'spacemacs/cool-moves-transient-state/body
     "Xr" 'spacemacs/rectangle-transient-state/body
@@ -2495,7 +2503,7 @@ the 8/20 numbers just make it more equal visually than window-total-width/height
                       :major-modes '(go-mode)
                       :server-id 'gopls)))
 
-  (defun compile-again (ARG)
+  (defun smart-compile-again (ARG)
     "Run the same compile as the last time.
 With a prefix argument or no last time, this acts like M-x compile,
 and you can reconfigure the compile args."
