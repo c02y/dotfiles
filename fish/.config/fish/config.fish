@@ -1828,22 +1828,44 @@ abbr emtime "time emacs --debug-init -eval '(kill-emacs)'" # time emacs startup 
 # the gpl.txt can be gpl-2.0.txt or gpl-3.0.txt
 abbr lic 'wget -q http://www.gnu.org/licenses/gpl.txt -O LICENSE'
 
-function usertest -d 'add user test temporarily for one day, no passwd, and login into it, delete it(-d), by default add it in smart way'
-    set -l options d
+function usernew -d 'useradd related functions'
+    set -l options "d=" t a "g="
     argparse -n usertest $options -- $argv
     or return
 
-    if set -q _flag_d
-        sudo userdel -rfRZ test
-        ll /home/
+    set -q $argv; and set ARGV test; or set ARGV $argv
+
+    if set -q _flag_d # delete user and home directory
+        if test -d /home/$_flag_d
+            sudo userdel -rfRZ $_flag_d
+            ll /home/
+        end
         return
     end
 
-    if test -d /home/test # directory exists
-        sudo su -s /bin/bash - test
+    if set -q _flag_g
+        if set -q _flag_d
+            sudo groupdel $_flag_d
+        else
+            sudo usermod -aG $_flag_g $ARGV
+        end
+        return
+    end
+
+    if test -d /home/$ARGV # directory exists
+        sudo su -s /bin/bash - $ARGV
     else
-        sudo useradd -m -e (date -d "1 days" +"%Y-%m-%d") test -s /sbin/nologin
-        sudo su -s /bin/bash - test
+        if set -q _flag_t # user test, no password, expire in one day
+            sudo useradd -m -e (date -d "1 days" +"%Y-%m-%d") $ARGV -s /sbin/nologin
+        else
+            if set -q _flag_a # autologin
+                sudo useradd -m $ARGV -s /sbin/nologin
+            else
+                sudo useradd -m $ARGV -s /bin/bash
+                sudo passwd $ARGV
+            end
+        end
+        sudo su -s /bin/bash - $ARGV
     end
 end
 
