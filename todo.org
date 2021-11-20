@@ -2,15 +2,16 @@
 
 * Packages to be installed
 ** non-GUI
-   alacritty aria2 fish gdb git kitty mpv neomutt npm proxychains ranger tig tmux vim
-
-   base base-devel clang cppcheck wget transmission-cli hunspell xclip xsel atool zip unzip source-highlight
-   btop mediainfo lua nodejs ccls unarchiver aspell-en libmythes mythes-en
-   emacs-git w3m ueberzug jq moreutils poppler paru bear youtube-dl python-pip upx ffmpeg ffmpegthumbnailer 
-   meson ninja fzf exa dua-cli bat ripgrep fd zoxide mdcat gdu shellcheck-static shfmt
+   base base-devel clang gdb cmake bear meson ninja ccache fish tmux tig ranger vim neovim
+   fzf exa dua-cli/gdu bat ripgrep fd zoxide mdcat btop ccls paru reflector
+   neomutt npm nodejs lua python-pip proxychains aria2 wget transmission-cli youtube-dl
+   shellcheck-static shfmt luarocks cppcheck upx hunspell xclip xsel atool zip unzip
+   source-highlight mediainfo unarchiver aspell-en libmythes mythes-en ffmpeg ffmpegthumbnailer
+   emacs-git w3m ueberzug jq moreutils poppler
 
    # i3 Window Manager
-   manjaro-i3-settings i3status-rust
+   manjaro-i3-settings(i3-gaps i3lock dunst) i3status-rust
+   picom nitrogen dunst papirus-icon-theme vimix-cursors
 
    # fcitx and dict
    # https://blog.coelacanthus.moe/tech/welcome-to-fcitx5/#arch
@@ -39,10 +40,10 @@
 
    gdbgui (binary downloaded from github release page, do not install using pip)
 ** GUI
-   vlc meld imagemagick fuse fuse-exfat exfat-utils file-roller darktable krita krita-plugin-gmic copyq nomacs fsearch qpdfview
-   noto-fonts noto-fonts-cjk noto-fonts-emoji flameshot peek rofi leafpad plank
+   alacritty kitty mpv vlc meld imagemagick fuse fuse-exfat exfat-utils file-roller darktable krita krita-plugin-gmic copyq nomacs fsearch qpdfview
+   noto-fonts noto-fonts-cjk noto-fonts-emoji flameshot peek rofi leafpad thunderbird
 
-   pandoc (depends on a lot of haskell)
+   pandoc (depends on a lot of haskell) plank
 
    umlet pycharm-community-edition clion clion-jre goland goland-jre
    # https://www.exception.site/essay/how-to-free-use-idea-20201
@@ -50,17 +51,15 @@
 
 * Installed using pip
   # pip install ...
-  ipython wheel pynvim rope ropemacs pep8 pylint ptpython pygments pudb codespell gdb-tools colour-valgrind scan-build compiledb gpustat visidata
+  ipython wheel pynvim rope ropemacs pep8 pylint ptpython pygments pudb codespell gdb-tools colour-valgrind scan-build compiledb gpustat visidata gdbfrontend
 
 ** for spacemacs
    # change /etc/pip.conf so you can install these packages using in system-wide
-   pip install importmagic epc flake8 pytest nose autoflake black mypy cmake-language-server pygls==0.8.1 cmake_format
+   pip install importmagic epc flake8 pytest nose autoflake black mypy cmake-language-server pygls==0.8.1 cmake_format python-lsp-server 'python-lsp-server[all]'
 
-   // if python-backend = pyls
-   // python-language-server pyls-isort pyls-mypy pyls-black
+   npm install -g prettier import-js eslint typescript typescript-language-server tern lua-fmt prettier-plugin-toml vscode-json-languageserver bash-language-server
 
-   npm install -g prettier import-js eslint typescript typescript-language-server tern lua-fmt prettier-plugin-toml vscode-json-languageserver pyright bash-language-server
-
+   luarocks install --local luacheck lanes
 ** for space-vim
    pip install 'python-language-server[all]'
 
