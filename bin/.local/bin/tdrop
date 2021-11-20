@@ -16,7 +16,7 @@ options:
 	-w width	specify a width for a newly created term (default: 100%)
 	-x pos		specify x offset for a newly created term (default: 0)
 	-y pos		specify y offset for a newly created term (default: 1, see man)
-	-s name		name for tmux/tmuxinator/tmuxifier session (supported
+	-s name		name for tmux/tmuxinator/tmuxifier/tmuxp session (supported
 			terminal required)
 	-n num		num or extra text; only needed if for the purpose of using
 			multiple dropdowns of same program
@@ -50,6 +50,7 @@ options:
 			the monitor changes (default: false)
 	-t		use mouse pointer location for detecting which monitor is the current
 			one
+	-A		always show/activate the window if it is not focused
 	--wm		set the window manager name to mimic another window manager
 			(for use with -a)
 	--class name	manually specify the class of the window (can be obtained with xprop)
@@ -75,7 +76,7 @@ error() {
 
 debug() {
 	if $debug; then
-		echo "Debug: $@" | tee -a "$LOG_FILE"
+		echo >&2 "Debug: $@" | tee -a "$LOG_FILE"
 	fi
 }
 
@@ -107,6 +108,7 @@ program_flags=()
 clearwid=false
 cancel_auto_show=true
 auto_detect_wm=false
+always_activate=false
 monitor_aware=false
 monitor=
 pointer_monitor_detection=false
@@ -116,7 +118,7 @@ class=
 name=
 timeout=10
 debug=false
-while getopts :h:w:x:y:s:n:c:C:l:L:p:P:u:U:d:S:i:f:-:amt opt
+while getopts :h:w:x:y:s:n:c:C:l:L:p:P:u:U:d:S:i:f:-:aAmt opt
 do
 	case $opt in
 		h) height=$OPTARG;;
@@ -138,6 +140,7 @@ do
 		i) is_floating=$OPTARG;;
 		f) eval "program_flags=($OPTARG)";;
 		a) auto_detect_wm=true;;
+		A) always_activate=true;;
 		m) monitor_aware=true;;
 		t) pointer_monitor_detection=true;;
 		-)
@@ -171,6 +174,7 @@ do
 				is-floating) is_floating=$OPTARG;;
 				program-flags) eval "program_flags=($OPTARG)";;
 				auto-detect-wm) auto_detect_wm=true;;
+				activate) always_activate=true;;
 				monitor-aware) monitor_aware=true;;
 				pointer-monitor-detection) pointer_monitor_detection=true;;
 				monitor) monitor=$OPTARG;;
@@ -290,12 +294,23 @@ update_geometry_settings_for_monitor() {
 	elif [[ $wm == i3 ]]; then
 		# TODO use jq if installed
 		# I'd rather not make jq a dependency
-		current_monitor=$(i3-msg -t get_workspaces | sed 's/{"num"/\n/g' | \
+		current_monitor=$(i3-msg -t get_workspaces | sed 's/"num"/\n/g' | \
 							  gawk -F ',' '/focused":true/ {sub(".*output",""); gsub("[:\"]",""); print $1}')
 	fi
 
 	local monitor_geo x_begin y_begin x_width y_height
-	if [[ -n $current_monitor ]]; then
+	if [[ $wm == herbstluftwm ]]; then
+		# fine if no monitor; will use current
+		monitor_geo=$(herbstclient monitor_rect "$monitor")
+		# not using read because behavior depends on bash version
+		x_begin=${monitor_geo%% *}
+		y_begin=${monitor_geo#* }
+		y_begin=${y_begin%% *}
+		x_width=${monitor_geo#* }
+		x_width=${x_width#* }
+		x_width=${x_width%% *}
+		y_height=${monitor_geo##* }
+	elif [[ -n $current_monitor ]]; then
 		monitor_geo=$(xrandr --current | \
 						  gawk "/^$current_monitor/ {gsub(\"primary \",\"\"); print \$3}")
 		split_geometry "$monitor_geo"
@@ -343,8 +358,8 @@ update_geometry_settings_for_monitor() {
 
 	# update x and y offsets, so that will appear on correct screen
 	# (required for some WMs apparently, but not for others)
-	((xoff+=x_begin))
-	((yoff+=y_begin))
+	[[ -n $xoff ]] && ((xoff+=x_begin))
+	[[ -n $yoff ]] && ((yoff+=y_begin))
 }
 
 map_and_reset_geometry() {
@@ -361,6 +376,7 @@ map_and_reset_geometry() {
 	else
 		xdotool windowmap "$wid" 2> /dev/null
 	fi
+	xdotool windowactivate "$wid" 2> /dev/null
 }
 
 # * WM Detection and Hooks
@@ -440,8 +456,8 @@ is_floating() {
 				gawk '/focused":true.*floating":"user_on/ {print $1}'
 		elif [[ $wm == bspwm ]]; then
 			bspc query -T -n | grep '"state":"floating"'
-		else
-			return 0
+		elif [[ $wm == herbstluftwm ]]; then
+			herbstclient or , compare tags.focus.floating = on , compare clients.focus.floating = on
 		fi
 	else
 		return 0
@@ -456,6 +472,8 @@ pre_float() {
 		else
 			bspc rule -a \*:"$class" -o state=floating
 		fi
+	elif [[ $wm == herbstluftwm ]]; then
+		herbstclient rule once class="$class" floating=on
 	fi
 }
 
@@ -465,8 +483,6 @@ post_float() {
 			awesome-client
 	elif [[ $wm == i3 ]]; then
 		i3-msg "[id=$wid] floating enable" > /dev/null
-	elif [[ $wm == herbstluftwm ]]; then
-		herbstclient fullscreen on
 	fi
 }
 
@@ -527,15 +543,8 @@ post_unmap() {
 }
 
 unmap() {
-	hide=$1
 	pre_unmap
 	xdotool windowunmap "$wid"
-	if [[ -z $hide ]]; then
-		if [[ $wm == herbstluftwm ]]; then
-			# TODO should only happen if wasn't previously fullscreen
-			herbstclient fullscreen off
-		fi
-	fi
 	post_unmap
 }
 
@@ -596,7 +605,7 @@ create_win_return_wid() {
 		blacklist=$(xdotool search --classname emacs)
 	fi
 	# need to redirect stdout or function won't return
-	"$@" > /dev/null &
+	"$@" > "$MUTDROP_PATH/program-output" &
 	if [[ -z $pid ]]; then
 		# for normal programs
 		# also for when one of the programs above hadn't already been started
@@ -625,6 +634,8 @@ create_win_return_wid() {
 			wids=$(xdotool search --classname "$class")
 		elif [[ $program == firefox ]]; then
 			wids=$(xdotool search --name firefox)
+		elif [[ $program == tabbed ]]; then
+			wids=$(head -n 1 "$MUTDROP_PATH/program-output")
 		else
 			wids=$(xdotool search --pid "$pid")
 		fi
@@ -668,6 +679,7 @@ program_start() {
 		tmux_command="tmux attach-session -dt $session_name 2> /dev/null || \
 			tmuxifier load-session $session_name 2> /dev/null || \
 			tmuxinator start $session_name 2> /dev/null || \
+			tmuxp load $session_name 2> /dev/null || \
 			tmux new-session -s $session_name"
 		# note: st will work with or without the -e flag (like kitty)
 		# note: regular console works with or without quotes, but trinity's
@@ -677,7 +689,7 @@ program_start() {
 		elif [[ $program == kitty ]]; then
 			program_command+=(bash -c "$tmux_command")
 		else
-			program_command+=(-e "bash -c $tmux_command")
+			program_command+=(-e "bash -c '$tmux_command'")
 		fi
 	fi
 	wid=$(create_win_return_wid "${program_command[@]}")
@@ -738,14 +750,14 @@ wid_toggle() {
 		exists=false
 	fi
 	if $exists; then
-		if [[ $visibility =~ ^(IsUnMapped|IsUnviewable)$ ]]; then
+		if [[ $visibility =~ ^(IsUnMapped|IsUnviewable)$ ]] \
+			   || $always_activate  && [[ $(xdotool getactivewindow) != $wid ]]
+		then
 			# visibility will be IsUnMapped on most WMs if the dropdown is open
 			# on another desktop; may also be IsUnviewable
 			xdotool set_desktop_for_window "$wid" "$(xdotool get_desktop)"
 			if [[ $(get_visibility "$wid") == IsUnMapped ]]; then
 				pre_map
-			else
-				xdotool windowactivate "$wid"
 			fi
 			# update here if possible so this doesn't cause a delay
 			# between the window being remapped and resized
@@ -872,7 +884,7 @@ auto_hide() {
 		echo "$wid" > "$MUTDROP_PATH"/auto_hidden/wid
 		get_class_name "$wid" > "$MUTDROP_PATH"/auto_hidden/class
 		get_geometry "$wid" > "$MUTDROP_PATH"/auto_hidden/geometry
-		unmap hide
+		unmap
 	fi
 }
 
