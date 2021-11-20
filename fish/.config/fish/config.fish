@@ -1341,7 +1341,7 @@ function pacs -d 'pacman/paru operations'
         set -q _flag_r; and set OPT $OPT; or set OPT $OPT --needed
 
         # jus download the pacakge without installing it, NOTE: not append OPT
-        set -q _flag_d; and set OPT -Sw
+        set -q _flag_d; and set OPT -Sw --cachedir ./
 
         # install package from a local .pkg.tar.xz/link file, NOTE: not append OPT
         echo $ARGV | rg -q pkg.tar; and set OPT -U
@@ -1354,6 +1354,7 @@ function pacs -d 'pacman/paru operations'
         if set -q $argv # no given argv
             # use `paru -Sc` to clean interactively
             paru -c # clean unneeded dependencies
+            paru -Rsun (paru -Qtdq)
             paccache -rvk2 # clean installed packaegs, keep the last two versions
             paccache -rvuk0 # clean uninstalled packages
         else
@@ -1585,7 +1586,7 @@ function ddiso -d 'burn ISO file to drive(such as USB as LIVE USB)'
             # the argv[2] is the dev like /dev/sda
             set CMD "sudo dd if=\"$FILE\" of=$DEV bs=4M status=progress oflag=sync"
             echo $CMD
-            read -n 1 -l -p 'echo "Really run above command? [Y/n]"' answer
+            read -n 1 -l -p 'echo "Really run above command? [Y/n] "' answer
             if test "$answer" = y -o "$answer" = "" -o "$answer" = ""
                 eval $CMD
             end
