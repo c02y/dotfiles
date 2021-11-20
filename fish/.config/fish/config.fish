@@ -1272,10 +1272,8 @@ function pacs -d 'pacman/paru operations'
         echo "      --> update the system"
         echo "      argv --> search argv"
         echo "      -p --> print installed pacakges stats"
-        echo "      -m --> get mirror from China by default"
-        echo "         + argv --> get mirror from argv country"
-        echo "         + -f --> fastest top 3 mirrors"
-        echo "           + argv --> fastest top argv mirrors"
+        echo "      -m --> get fastest mirror from China by default"
+        echo "         + -c argv --> get mirror from argv country"
         echo "         + -s --> get status of local mirrors"
         echo "         + -i --> interactively choose mirror"
         echo "         + -l --> list local mirrors"
@@ -1310,25 +1308,26 @@ function pacs -d 'pacman/paru operations'
         echo "      -k --> check for missing files in packages"
         echo "      -h --> usage"
     else if set -q _flag_m # mirror
-        if set -q _flag_f # fastest top 3/argv mirrors
-            if set -q $ARGV
-                sudo pacman-mirrors -f 3
-            else
-                sudo pacman-mirrors -f $ARGV
+        if not test (cat /etc/*-release | rg "^NAME=" | rg -i -e 'manjaro') # ArchLinux
+            if not command -sq reflector
+                pacs -i reflector
             end
-        else if set -q _flag_s # get status of local mirrors
-            pacman-mirrors --status
-        else if set -q _flag_i # insteractive choose mirror
-            sudo pacman-mirrors -i -d
-        else if set -q _flag_r # reflector choose mirror
-        else if set -q _flag_l # list local mirrors
-            cat /etc/pacman.d/mirrorlist
-        else # change mirrors
-            set -q $argv; and set ARGV China; or set ARGV $argv
-            if command -sq pacman-mirrors
-                sudo pacman-mirrors -c $ARGV
-            else if command -sq reflector # Archlinux
-                sudo reflector --country $ARGV --verbose --latest 6 --sort rate --save /etc/pacman.d/mirrorlist
+            if set -q _flag_l
+                cat /etc/pacman.d/mirrorlist
+            else # fastest top 8 mirrors
+                sudo reflector --verbose --country China --latest 8 --sort rate --save /etc/pacman.d/mirrorlist
+            end
+        else # manjaro
+            ! command -sq pacman-mirrors; and pacs -i pacman-mirrors
+            if set -q _flag_s # get status of local mirrors
+                pacman-mirrors --status
+            else if set -q _flag_i # insteractive choose mirror
+                sudo pacman-mirrors -i -d
+            else if set -q _flag_l # list local mirrors
+                cat /etc/pacman.d/mirrorlist
+            else # change mirror region
+                set -q $argv; and set ARGV China; or set ARGV $argv
+                sudo pacman-mirrors -f 5 -c $ARGV
             end
         end
     else if set -q _flag_i # install
