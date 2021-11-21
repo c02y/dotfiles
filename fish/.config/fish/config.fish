@@ -1245,15 +1245,30 @@ abbr applu 'apt list --upgradable'
 abbr appd 'apt depends'
 
 # TODO
-function archlinuxcn -d "add archlinuxcn repo for Manjaro/ArchLinux"
+function repo_extra -d "add 3party repoes for Manjaro/ArchLinux"
     if not rg -q archlinuxcn /etc/pacman.conf
-        echo -e "
+        # use single quote instead of double quote to avoid parsing $varable
+        echo -e '
 [archlinuxcn]
 SigLevel = Optional TrustedOnly
-Server = https://mirrors.sjtug.sjtu.edu.cn/archlinux-cn/\$arch
-Server = https://mirrors.tuna.tsinghua.edu.cn/archlinuxcn/\$arch
-Server = https://mirrors.ustc.edu.cn/archlinuxcn/\$arch" | sudo tee -a /etc/pacman.conf
-        sudo pacman -S --noconfirm archlinuxcn-keyring paru
+Server = https://mirrors.sjtug.sjtu.edu.cn/archlinux-cn/$arch
+Server = https://mirrors.tuna.tsinghua.edu.cn/archlinuxcn/$arch
+Server = https://mirrors.ustc.edu.cn/archlinuxcn/$arch
+
+# https://github.com/arcolinux/arcolinux-mirrorlist
+[arcolinux_repo_3party]
+SigLevel = Optional TrustAll
+Server = https://ant.seedhost.eu/arcolinux/$repo/$arch
+Server = https://gitlab.com/arcolinux/$repo/-/raw/master/$arch
+Server = https://ftp.belnet.be/arcolinux/$repo/$arch
+Server = https://mirror.aarnet.edu.au/pub/arcolinux/$repo/$arch
+[arcolinux_repo_xlarge]
+SigLevel = Optional TrustAll
+Server = https://ant.seedhost.eu/arcolinux/$repo/$arch
+Server = https://gitlab.com/arcolinux/$repo/-/raw/master/$arch
+Server = https://ftp.belnet.be/arcolinux/$repo/$arch
+Server = https://mirror.aarnet.edu.au/pub/arcolinux/$repo/$arch' | sudo tee -a /etc/pacman.conf
+        sudo pacman -S --needed --noconfirm archlinuxcn-keyring paru
     end
 end
 function pacs -d 'pacman/paru operations'
@@ -1261,7 +1276,7 @@ function pacs -d 'pacman/paru operations'
     argparse -n pacs $options -- $argv
     or return
 
-    command -sq paru; or archlinuxcn
+    command -sq paru; or repo_extra
 
     # lower the argv
     set ARGV (string lower $argv)
