@@ -1302,7 +1302,8 @@ function pacs -d 'pacman/paru operations'
         echo "         + -d argv --> check which packages require argv"
         echo "         + argv --> check if argv is owned/provided by a pacakge, otherwise delete it"
         echo "      -u --> update, force refresh database first"
-        echo "         + -d --> downgrade update"
+        echo "         + -l --> download files list from database"
+        echo "         + -d --> downgradable update"
         echo "      -d --> delete/uninstall(need argv)"
         echo "         + -r --> delete/uninstall dependencies as well"
         echo "      -g --> list all local and remote groups"
@@ -1385,7 +1386,11 @@ function pacs -d 'pacman/paru operations'
                 not pacman -Q -o $ARGV; and sudo rm -rfv $ARGV
             end
         end
-    else if set -q _flag_u # update/upgrade, NOTE: pacs without anything also update
+    else if set -q _flag_u # force refresh update/upgrade, NOTE: pacs without anything also update
+        # download files list into /var/lib/pacman/sync
+        set -q _flag_l; and paru -Fy >/dev/null
+
+        # download db into /var/lib/pacman/sync
         if set -q _flag_d
             # allow downgrade, needed when switch to old branch like testing->stable or
             # you seen local xxx is newer than xxx
@@ -1396,11 +1401,8 @@ function pacs -d 'pacman/paru operations'
             paru -Syyuu
         end
     else if set -q _flag_d # delete/uninstall
-        if set -q _flag_r # delete/uninstall dependencies as well
-            paru -Rsc $ARGV
-        else
-            paru -Rsun $ARGV
-        end
+        # delete/uninstall dependencies as well
+        set -q _flag_r; and paru -Rsc $ARGV; or paru -Rsun $ARGV
     else if set -q _flag_g # group
         # all available groups(not all) and their packages: https://archlinux.org/groups/
         # if given argv, list only the target group
@@ -1436,7 +1438,6 @@ function pacs -d 'pacman/paru operations'
             else
                 paru -Qs | rg -i local/ | rg -i $ARGV
             end
-
         else
             paru -Qs $ARGV
         end
