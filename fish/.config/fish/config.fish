@@ -392,9 +392,6 @@ function lls -d 'ls/exa operations'
 
     eval $CMD $OPT $ARGV $PIP
 end
-function tree
-    lls -t $argv
-end
 
 # valgrind
 # TODO: pip install colour-valgrind
