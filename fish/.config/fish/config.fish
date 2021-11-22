@@ -1299,7 +1299,7 @@ function pacs -d 'pacman/paru operations'
         echo "         + -d --> download argv without installing it"
         echo "      -c --> clean/check"
         echo "         + no argv --> clean packages in /var/cache/pacman/pkg"
-        echo "         + -d argv --> check which packages require argv"
+        echo "         + -p argv --> check which packages require argv"
         echo "         + argv --> check if argv is owned/provided by a pacakge, otherwise delete it"
         echo "      -u --> update, force refresh database first"
         echo "         + -l --> download files list from database"
@@ -1374,8 +1374,8 @@ function pacs -d 'pacman/paru operations'
             paccache -rvk2 # clean installed packaegs, keep the last two versions
             paccache -rvuk0 # clean uninstalled packages
         else
-            if set -q _flag_d # check which packages require argv package
-                paru -Rs $ARGV
+            if set -q _flag_p # check which package contains argv file/binary/config
+                paru -F $ARGV
             else
                 # check if package/bin/conf/file is owned by others, if not, delete it
                 # This can also be used when the following errors occur after executing update command:
@@ -1454,7 +1454,7 @@ function pacs -d 'pacman/paru operations'
         end
     else if set -q _flag_a # search all including repo and aur
         paru $ARGV
-    else if set -q _flag_p
+    else if set -q _flag_p # print all stats about packages in system
         paru -Ps
     else if set -q _flag_k # check for missing files in packages
         # use this when you see something like "warning: xxx path/to/xxx (No such file or directory)"
