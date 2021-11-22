@@ -2527,7 +2527,7 @@ abbr sky 'curl wttr.in'
 abbr wt 'bash -c \'rm -rf /tmp/Baidu* 2>/dev/null\'; wget -c -P /tmp/ https://speedxbu.baidu.com/shurufa/ime/setup/BaiduWubiSetup_1.2.0.67.exe'
 abbr wtt 'bash -c \'rm -rf /tmp/Baidu* 2>/dev/null\'; wget --connect-timeout=5 -c -P /tmp/ https://speedxbu.baidu.com/shurufa/ime/setup/BaiduPinyinSetup_5.5.5063.0.exe'
 function ios -d 'io stat'
-    set -l options "s=" "h=" g
+    set -l options "s=" "h=" g a
     argparse -n ios $options -- $argv
     or return
 
@@ -2540,10 +2540,17 @@ function ios -d 'io stat'
         sudo smartctl -a $_flag_h | rg "Percentage Used"
     else if set -q _flag_g
         gpustat -cp
-    else # current io speed
+    else if set -q _flag_a # all current speed
         dstat -d -n -m -s -c --nocolor
+    else
+        if command -sq neofetch
+            neofetch
+        else
+            command -sq screenfetch; and screenfetch; or echo "neofetch/screenfetch are neither installed!"
+        end
     end
 end
+
 function pxs -d 'multiple commands using proxychains4'
     set -l options w W c p "o="
     argparse -n pxs $options -- $argv
