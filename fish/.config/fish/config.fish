@@ -352,7 +352,7 @@ function lls -d 'ls/exa operations'
 
     if command -sq exa
         set OPT -a -b --color-scale --color=always --icons --changed --time-style iso
-        set -q _flag_l; and set -a OPT -l
+        set -q _flag_l; or set -a OPT -l
         set PIP "| nl -v 1 | sort -nr"
         set -q _flag_e; and eval exa $OPT -s extension --group-directories-first $ARGV && return
         set -q _flag_s; and set -a OPT -l -s size; or set -a OPT -s modified
@@ -361,10 +361,10 @@ function lls -d 'ls/exa operations'
     else
         set OPT --color=yes
         if set -q _flag_l
+            set PIP "| nl -v 1 | sort -nr"
+        else
             set -a OPT -lh
             set PIP "| nl -v 0 | sort -nr"
-        else
-            set PIP "| nl -v 1 | sort -nr"
         end
         # list and sort by extension, and directories first
         set -q _flag_e; and eval ls $OPT -X --group-directories-first $ARGV && return
