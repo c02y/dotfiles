@@ -314,8 +314,8 @@ bindsym $mod+Print exec flameshot gui
 bindsym $mod+Shift+Print exec flameshot launcher
 bindsym $mod+Shift+Pause exec ~/.connect_speaker.sh
 # NOTE: the options for tdrop are important, especially for WM and multiple monitors
-# -y 30 = Height in bar config, to avoid overlapping the top bar
-bindsym F12 exec tdrop -t -m -y $bar_height -w 100% -h 98% kitty --class=Dropdown --title=Dropdown_Kitty
+# NOTE: number 26 is matched for the font size 13.5 of bar to avoid overlapping the top bar
+bindsym F12 exec tdrop -t -m -y 26 -w 100% -h 98% kitty --class=Dropdown --title=Dropdown_Kitty
 # if $mod+q fails, use $mod+d
 bindsym $mod+d exec --no-startup-id dmenu_run
 # the grave key is `, the left key of NUM 1 on the keyboard
@@ -366,20 +366,14 @@ client.urgent           $bgc_ug $bgc_df $txt_ia $bgc_ug   $bgc_ug
 client.placeholder      $bdr_hi $bgc_df $txt_ia $bgc_ug   $bdr_hi
 client.background       $bdr_hi # TODO: ?
 
-set $bar_height 26
-
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
 	i3bar_command i3bar
 	status_command i3status-rs ~/.config/i3/i3status-rust.toml
 	position top
-	# NOTE: bar_height and the font size must be set very carefully
-	# so the separator on the i3status-rust will be rendered well
-	# pairs: 25+13.2, 27+13.7, 26+13.15
 	# Install Font Awesome 5 Pro from ./FontAwesomePro5.tar.xz
-	font pango:DejaVu Sans Mono, Font Awesome 5 Pro 13.15
-	Height $bar_height
+	font pango:DejaVu Sans Mono, Font Awesome 5 Pro 13.5
 	workspace_min_width 40
 	tray_padding 2
 	# show only workspace name parts without the numbers
