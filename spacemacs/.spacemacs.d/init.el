@@ -958,6 +958,8 @@ before packages are loaded."
    ;; translate-shell-brief-command "proxychains4 -q trans -brief -t zh %s"
    translate-shell-command "trans :zh+en -d -show-dictionary Y -v -no-ansi %s"
    translate-shell-brief-command "trans -brief -t zh %s"
+   ;; options for counsel-fzf function to open file in PWD using fzf
+   counsel-fzf-cmd "rg --files --hidden --no-ignore -g !.git | fzf -m $FZF_DEFAULT_OPTS -f \"%s\""
    )
   ;; to make which-function in spaceline-custom-theme work
   (which-function-mode)
@@ -1293,6 +1295,7 @@ Emacs session."
     ;; default feR, still works
     "fer" 'dotspacemacs/sync-configuration-layers
     "fF" 'find-alternate-file
+    "fa" 'counsel-fzf
     "Xd" 'delete-line-or-region-or-buffer
     "Xc" 'copy-line-or-region-or-buffer
     "Xk" 'cut-line-or-region-or-buffer
