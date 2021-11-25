@@ -896,6 +896,8 @@ before packages are loaded."
    python-spacemacs-indent-guess nil
    company-minimum-prefix-length 3
    company-show-numbers t
+   ;; column number starts from 1
+   column-number-indicator-zero-based nil
    bookmark-default-file "~/.spacemacs.d/bookmarks"
    ;; make cursor the width of the character it is under i.e. full width of a TAB
    x-stretch-cursor t
