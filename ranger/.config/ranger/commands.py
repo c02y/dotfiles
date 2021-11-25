@@ -365,9 +365,9 @@ class fzf_locate(Command):
     def execute(self):
         import subprocess
         if self.quantifier:
-            command = "locate / | fzf -e -i"
+            command = "locate -P -e -i -d ~/.cache/mlocate.db \"*\" | fzf -e -i"
         else:
-            command = "locate / | fzf -e -i"
+            command = "locate -P -e -i -d ~/.cache/mlocate.db \"*\" | fzf -e -i"
         fzf = self.fm.execute_command(command, stdout=subprocess.PIPE)
         stdout, stderr = fzf.communicate()
         if fzf.returncode == 0:
