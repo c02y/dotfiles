@@ -1345,7 +1345,7 @@ function pacs -d 'pacman/paru operations'
             end
         end
     else if set -q _flag_i # install
-        set -q _flag_p; and rg -e "installed|removed|upgraded" /var/log/pacman.log && return
+        set -q _flag_p; and rg -e "installed|reinstalled|removed|upgraded|warning" /var/log/pacman.log && return
         # -S to install a package, -Syu pkg to ensure the system is update to date then install the package
         set -q _flag_u; and set OPT $OPT -Syy; or set OPT $OPT -S
 
