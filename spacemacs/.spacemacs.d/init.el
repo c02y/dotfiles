@@ -944,16 +944,17 @@ before packages are loaded."
    ;;                                  ,@default-frame-alist
    ;;                                  (left . (- 1))
    ;;                                  (top . 0))))
-   compilation-finish-functions (lambda (buf str)
-                                  (if (null (string-match ".*exited abnormally.*" str))
-                                      ;; no errors, make the compilation window go away in a few seconds
-                                      (progn
-                                        ;; (run-at-time
-                                        ;;  "10 sec" nil 'delete-windows-on
-                                        ;;  (get-buffer-create "*compilation*"))
-                                        (message "No Compilation Errors!"))
-                                    (switch-to-buffer "*compilation*")
-                                    ))
+   ;; NOTE: disable the following config since it affects cargo will has no compilation window
+   ;; compilation-finish-functions (lambda (buf str)
+   ;;                                (if (null (string-match ".*exited abnormally.*" str))
+   ;;                                    ;; no errors, make the compilation window go away in a few seconds
+   ;;                                    (progn
+   ;;                                      ;; (run-at-time
+   ;;                                      ;;  "10 sec" nil 'delete-windows-on
+   ;;                                      ;;  (get-buffer-create "*compilation*"))
+   ;;                                      (message "No Compilation Errors!"))
+   ;;                                  (switch-to-buffer "*compilation*")
+   ;;                                  ))
    find-file-visit-truename t
    ;; using translate-shell cli tool, which is trans binary in bin
    ;; translate-shell-command "proxychains4 -q trans -t en %s"
