@@ -15,6 +15,7 @@ countdown() {
 		echo -ne "[$(date -u --date @$(($date1 - $(date +%s))) +%H:%M:%S)] \r"
 		sleep 1
 	done
+	notify-send -u critical "${1}s time's up"
 }
 
 stopwatch() {
