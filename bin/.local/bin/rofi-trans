@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+
+transText="$@"
+
+if [[ "$stage2" == "yes" ]]; then
+	# Stage 2
+	transOption=":zh -d -show-dictionary Y -no-ansi"
+	# font of rofi cannot be put in variable, otherwise error
+	# Option1: big window for the definition
+	# -mesg must be put at the end
+	# rofiOption="-p Trans -dmenu -theme /usr/share/rofi/themes/solarized_alternate.rasi -l 0 -mesg"
+	# Option2: use the window in theme and 30 lines
+	rofiOption="-p Trans -dmenu -theme /usr/share/rofi/themes/solarized_alternate.rasi -l 30"
+	while [[ -n "$input" ]]; do
+		result="$(trans $transOption "$input")"
+		# Option1
+		# input="$(rofi $rofiOption "$result" -font 'DejaVu Sans Mono 15')"
+		# Option2
+		input="$(echo "$result" | rofi $rofiOption -format f -font 'DejaVu Sans Mono 15')"
+	done
+elif [[ "$transText" == "" ]]; then
+	# Stage 1
+	# empty Prompt
+	echo
+else
+	# Transition between stage 1 and stage 2
+	env stage2="yes" input="$transText" rofi-trans &
+	pkill -u $USER rofi
+fi
