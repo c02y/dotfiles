@@ -189,7 +189,7 @@ set $mode_merge_swap Action: (Return)mark, (m)erge, (s)wap
 mode "$mode_merge_swap" {
 	# Need to mark first, then trigger this mode again
 	bindsym Return mark --add "mark"; mode "default"
-	bindsym m split h; mark --add "merge"; [con_mark="mark"] focus; move container to mark "merge"; unmark "mark"; unmark "merge"; mode "default"
+	bindsym m split h; mark --add "merge"; [con_mark="mark"] focus; move window to mark "merge"; [con_mark="merge"] focus; unmark "mark"; unmark "merge"; mode "default"
 	bindsym s swap container with mark "mark"; [con_mark="mark"] focus; unmark "mark"; mode "default"
 
 	bindsym Escape unmark "mark"; mode "default"
