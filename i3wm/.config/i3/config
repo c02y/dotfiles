@@ -184,15 +184,6 @@ bindsym $mod+r reload
 # exec is only run by initial i3, exec_always can be executed by restart
 bindsym $mod+Shift+r restart
 
-# Merge/swap windows using key+mouse
-# NOTE: mark first to merge/swap
-bindsym --whole-window $mod+Shift+button2 mark --add "merge"
-bindsym --whole-window $mod+Shift+Mod1+button2 mark --add "swap"
-# Merge two windows into one container using mouse
-bindsym --whole-window $mod+Shift+button1 focus, split h, mark --add "mark"; [con_mark="merge"] focus; move container to mark "mark"; unmark "merge"; unmark "mark"
-# swap windows using mouse
-bindsym --whole-window $mod+Shift+Mod1+button1 swap container with mark "swap"; [con_mark="swap"] focus; unmark "swap"
-
 # Merge/swap windows using keys in mode
 set $mode_merge_swap Action: (Return)mark, (m)erge, (s)wap
 mode "$mode_merge_swap" {
