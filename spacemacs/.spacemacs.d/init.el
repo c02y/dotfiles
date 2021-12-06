@@ -48,6 +48,7 @@ This function should only modify configuration layer settings."
                       ;; auto-completion-use-company-box t
                       )
      better-defaults
+     theming
      syntax-checking
      colors
      git
@@ -804,6 +805,10 @@ https://github.com/syl20bnr/spacemacs/issues/12346"
                       'help-echo "Virtual environment (via conda)")))
       (spaceline-compile))
     (setq-default mode-line-format '("%e" (:eval (spaceline-ml-main)))))
+  (setq theming-modifications
+        '((spacemacs-dark
+           (font-lock-comment-face :foreground "DimGrey")
+           )))
 
   ;; spell checking
   ;; NOTE: install hunspell
@@ -2598,8 +2603,8 @@ http://ergoemacs.org/emacs/elisp_determine_cursor_inside_string_or_comment.html"
             (lambda () (define-key rust-mode-map "}" 'insert-indent-brace)))
 
   ;; using sock5 proxy, useful for installing packages
-  (setq url-gateway-method 'socks)
-  (setq socks-server '("Default server" "127.0.0.1" 1080 5))
+  ;; (setq url-gateway-method 'socks)
+  ;; (setq socks-server '("Default server" "127.0.0.1" 1080 5))
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
