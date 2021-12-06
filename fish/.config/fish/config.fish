@@ -15,7 +15,8 @@ set -gx LANG en_US.UTF-8
 set -gx LANGUAGE en_US.UTF-8
 
 # NOTE: no color of ninja output by default
-not set -q CMAKE_GENERATOR && command -sq ninja && set -gx CMAKE_GENERATOR Ninja
+# diable it since it affects AUR build
+# not set -q CMAKE_GENERATOR && command -sq ninja && set -gx CMAKE_GENERATOR Ninja
 
 # By default, MANPATH variable is unset, so set MANPATH to the result of `manpath` according to
 # /etc/man.config and add the customized man path to MANPATH
