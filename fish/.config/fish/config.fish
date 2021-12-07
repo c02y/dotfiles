@@ -1604,7 +1604,7 @@ function ddiso -d 'burn ISO file to drive(such as USB as LIVE USB)'
             set CMD "sudo dd if=\"$FILE\" of=$DEV bs=4M status=progress oflag=sync"
             echo $CMD
             read -n 1 -l -p 'echo "Really run above command? [Y/n] "' answer
-            if test "$answer" = y -o "$answer" = "" -o "$answer" = ""
+            if test "$answer" = y -o "$answer" = " " -o "$answer" = ""
                 eval $CMD
             end
         else
