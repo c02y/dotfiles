@@ -126,7 +126,8 @@ function save_history --on-event fish_preexec
     history --save
 end
 
-function auto-source --on-event fish_prompt -d 'auto source config.fish if gets modified!'
+# fish_preexec is better than fish_prompt since it is executed before head, but empty key like Return doesn't work
+function auto-source --on-event fish_preexec -d 'auto source config.fish if gets modified!'
     if not set -q FISH_CONFIG_TIME # if FISH_CONFIG_TIME not set, status != 0
         set -g FISH_CONFIG_TIME (date +%s -r $FISHRC)
     else
