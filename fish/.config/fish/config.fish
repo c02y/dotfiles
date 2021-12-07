@@ -1504,6 +1504,62 @@ abbr gcc-w 'gcc -g -Wall -W -Wsign-conversion'
 abbr gcca 'gcc -g -pedantic -Wall -W -Wconversion -Wshadow -Wcast-qual -Wwrite-strings -Wmissing-prototypes -Wno-sign-compare -Wno-unused-parameter'
 # gcc -Wall -W -Wextra -Wconversion -Wshadow -Wcast-qual -Wwrite-strings -Werror
 
+function mess -d 'meson related functions'
+    set -l options r c "C=" t s l i u
+    argparse -n mess $options -- $argv
+    or return
+
+    if set -q _flag_C # passing build directory
+        set BUILDDIR $_flag_C
+    else
+        set -q $argv; and set BUILDDIR build; or set BUILDDIR $argv
+    end
+
+    if set -q _flag_r # release build
+        test -d $BUILDDIR; and meson --buildtype=release $BUILDDIR --reconfigure; or meson $BUILDDIR
+        mesom compile -C $BUILDDIR
+    else if set -q _flag_c # meson compile = ninja
+        if test -f build.ninja
+            # argv is the target to compile, empty to compile the only target
+            meson compile $argv
+        else
+            meson compile -C $BUILDDIR
+        end
+    else if set -q _flag_t
+        # `meson test` can be used to run the binary, need to set test in meson.build
+        if test -f build.ninja
+            # arg is the test name to test, empty to test the only test
+            meson test $argv
+        else
+            test -d $BUILDDIR; and meson test -C $BUILDDIR; or echo "`meson test` inside build directory"
+        end
+    else if set -q _flag_s # subprojects
+        test -f subprojects; and mkdir subprojects
+        if set -q _flag_l
+            set -q $argv; and meson wrap list; or meson wrap list | rg $argv
+        else if set -q _flag_i
+            meson wrap status
+        else if set -q _flag_u
+            meson wrap update
+        else
+            meson wrap install $argv
+        end
+    else # build by default
+        if test -f meson.build # inside root
+            # by default, setup debug build, use mess -r to setup release build
+            test -d $BUILDDIR; and meson $BUILDDIR --reconfigure; or meson $BUILDDIR
+        else if test -f build.ninja # inside build
+            meson compile $argv
+        else if test -d $BUILDDIR
+            meson compile -C $BUILDDIR
+        else
+            echo "meson.build doesn't exist, create it..."
+            # argv is the project name, build is the build directory
+            meson init --name (basename $PWD) --build
+        end
+    end
+end
+
 # static code analyzer, another tool is from clang-analyzer which is scan-build
 # https://clang-analyzer.llvm.org/scan-build.html
 # https://clang.llvm.org/extra/clang-tidy/
