@@ -2670,6 +2670,48 @@ function yous -d 'youtube-dl functions'
     end
 end
 
+function ffms -d 'ffmpeg related functions'
+    set -l options c "f=" i
+    argparse -n ffms $options -- $argv
+    or return
+
+    if set -q _flag_c # convert to h265
+        for videofile in $argv
+            # get the extension and filename without extension
+            set FILE (string split -r -m1 . $videofile)[1]
+            set EXT (string lower (echo $videofile | sed 's/^.*\.//'))
+            mediainfo --Inform="Video;BitRate=%BitRate/String%" $videofile
+            read -p 'echo "What BitRate would be? (2000k) "' -l bitrate
+            test "$answer" = " " -o "$answer" = ""; and set bitrate 2000k
+            ffmpeg -hide_banner -i $videofile -c:v hevc_nvenc -c:a copy -b:v $bitrate {$FILE}-converted_{$bitrate}.{$EXT}
+            if set -q _flag_f
+                for file in $videofile {$FILE}-converted_{$bitrate}.{$EXT}
+                    ffmpeg -hide_banner -ss $_flag_f -i $file -t $_flag_f {$file}_{$_flag_f}.bmp
+                end
+                open {$videofile}_{$_flag_f}.bmp
+            end
+        end
+    else if set -q _flag_f # get a frame losslessly at specific timestamp
+        # useful to compare the qualities of two files after using ffms -c
+        for file in $argv
+            # png in ffmpeg is not lossless, use bmp instead
+            # $flag_f is timestamp like 05:00 or 01:01:01
+            ffmpeg -hide_banner -ss $_flag_f -i $file -t $_flag_f {$file}_{$_flag_f}.bmp
+        end
+        open {$argv[1]}_{$_flag_f}.bmp
+    else if set -q _flag_i
+        for file in $argv
+            # `mediainfo --info-parameters` to get all the variables
+            echo -n "$file, "; and ls -lh $file | awk '{print $5}'
+            echo Video:
+            mediainfo --Inform="Video;%CodecID%, %Duration/String2%, %BitRate/String%, %Width%x%Height%" $file
+            echo Audio:
+            mediainfo --Inform='Audio;%BitRate/String%' $file
+            echo
+        end
+    end
+end
+
 function rgs -d 'rg sth in -e(init.el)/-E(errno)/-f(config.fish)/-t(.tmux.conf)/-v(vimrc), or use -F(fzf) to open the file, -g(git repo), -w(whole word), -V(exclude pattern), -l(list files), -s(sort), -n(no ignore), -S(smart case, otherwise ignore case), -2(todo.org)'
     # NOTE -V require an argument, so put "V=" line for argparse
     set -l options e E f t v F g n w 'V=' l s S 2 c
