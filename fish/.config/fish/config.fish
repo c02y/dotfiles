@@ -859,7 +859,8 @@ function loo -d 'locate functions, -u(update db), -a(under /), -v(video), -m(aud
 
     # list and open only pdf files using rofi
     if set -q _flag_p
-        fd --type f -e pdf . $HOME | rofi -keep-right -dmenu -i -p FILES -multi-select | xargs -I {} xdg-open {}
+        set -q $argv; and set ARGV .; or set ARGV $argv
+        fd --type f -e pdf $ARGV $HOME | rofi -keep-right -dmenu -i -p FILES -multi-select | xargs -I {} xdg-open {}
         return
     end
 
