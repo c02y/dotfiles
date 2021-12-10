@@ -1404,7 +1404,12 @@ function pacs -d 'pacman/paru operations'
         end
     else if set -q _flag_d # delete/uninstall
         # delete/uninstall dependencies as well
-        set -q _flag_r; and paru -Rsc $ARGV; or paru -Rsun $ARGV
+        # NOTE: do not combine the following if-else into and-or, or C-c to quit it causes issue
+        if set -q _flag_r
+            paru -Rsc $ARGV
+        else
+            paru -Rsun $ARGV
+        end
     else if set -q _flag_g # group
         # all available groups(not all) and their packages: https://archlinux.org/groups/
         # if given argv, list only the target group
