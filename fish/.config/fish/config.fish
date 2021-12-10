@@ -1698,6 +1698,7 @@ function syss -d 'systemctl related functions'
     set keys (seq 1 20)
     set values \
         list-unit-files \
+        status \
         enable \
         disable \
         reenable \
@@ -1723,26 +1724,28 @@ function syss -d 'systemctl related functions'
 
     echo -e "Usage: syss \n \
       Check all the services of the user if no argv, argv for the argv.service \n\n \
+   argv --> status of service \
      -u --> current user or using default sudo \n \
       1 --> systemctl: list-unit-files, list all services status \n \
-      2 -->            enable name.service \n \
-      3 -->            disable name.service \n \
-      4 -->            reenable name.service \n \
-      5 -->            mask name.service \n \
-      6 -->            unmask name.service \n \
-      7 -->            restart name.service \n \
-      8 -->            start name.service \n \
-      9 -->            stop name.service \n \
-     10 -->            daemon-reload \n \
-     11 -->            --failed \n \
-     12 --> power: suspend \n \
-     13 -->        hibernate \n \
-     14 -->        hibernate-sleep \n \
-     15 -->        reboot \n \
-     16 -->        poweroff/shutdown \n \
-     17 --> journalctrl -xe, the log \n \
-     18 --> systemd-analyze: for boot time analyze to the output \n \
-     19 -->                  to a file \n"
+      2 -->            status name.service \n \
+      3 -->            enable name.service \n \
+      4 -->            disable name.service \n \
+      5 -->            reenable name.service \n \
+      6 -->            mask name.service \n \
+      7 -->            unmask name.service \n \
+      8 -->            restart name.service \n \
+      9 -->            start name.service \n \
+      10 -->            stop name.service \n \
+     11 -->            daemon-reload \n \
+     12 -->            --failed \n \
+     13 --> power: suspend \n \
+     14 -->        hibernate \n \
+     15 -->        hibernate-sleep \n \
+     16 -->        reboot \n \
+     17 -->        poweroff/shutdown \n \
+     18 --> journalctrl -xe, the log \n \
+     19 --> systemd-analyze: for boot time analyze to the output \n \
+     20 -->                  to a file \n"
 
     read -l -p 'echo "Which one? [index/Enter] "' answer
     if contains $answer $keys
