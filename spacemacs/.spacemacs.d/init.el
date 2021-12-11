@@ -56,19 +56,17 @@ This function should only modify configuration layer settings."
      emacs-lisp
      markdown
      vimscript
-     ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/%2Blang/rust
      ;; TODO:
-     ;; rustup component add rls rust-analysis rust-src
-     ;; rustup component add clippy rustfmt
+     ;; rustup component add rust-analysis rust-src clippy rustfmt
      ;; cargo install cargo-edit cargo-audit cargo-outdated
      (rust :variables
            cargo-process-reload-on-modify t
            cargo-process--open-file-after-new t
            cargo-process--enable-rust-backtrace t
-           cargo-process--command-flags "--color never"
-           ;; rustup component add rls rust-analysis rust-src
-           ;; install rust-racer for auto completion with rls
-           lsp-rust-server 'rls
+           cargo-process--command-clippy "clippy"
+           lsp-rust-server 'rust-analyzer
+           ;; NOTE: the following file and path are installed by neovim ":CocInstall coc-rust-analyzer"
+           lsp-rust-analyzer-store-path "~/.config/coc/extensions/coc-rust-analyzer-data/rust-analyzer"
            )
      yaml
      (treemacs :variables
@@ -173,13 +171,16 @@ This function should only modify configuration layer settings."
       lsp-ui-doc-delay 1
       lsp-ui-sideline-show-hover t
       lsp-ui-sideline-delay 1
-      ;; lsp-enable-file-watchers nil
       ccls-initialization-options '(:index (:comments 2) :completion (:detailedLabel t) :cache (:directory "/tmp/ccls"))
       ccls-sem-highlight-method 'font-lock
       ;; spacemacs/issues/10051#issuecomment-605979333
       lsp-enable-indentation nil
       ;; https://emacs-lsp.github.io/lsp-mode/tutorials/how-to-turn-off/
       lsp-headerline-breadcrumb-enable nil
+      lsp-rust-analyzer-inlay-hints-mode t
+      lsp-rust-analyzer-server-display-inlay-hints t
+      lsp-rust-analyzer-display-chaining-hints t
+      lsp-rust-analyzer-display-parameter-hints t
       )
      ;; M-x dap-cpptools-setup after packages are installed by dap layer
      (dap :variables
@@ -1703,6 +1704,7 @@ which switch the last buffer in this window."
   ;; wrap long line from the margin, not break, just visually wrap lone line
   (spacemacs/toggle-truncate-lines-off)
   (add-hook 'org-mode-hook 'spacemacs/toggle-truncate-lines-off)
+  (add-hook 'cargo-process-mode-hook 'spacemacs/toggle-truncate-lines-off)
   (spacemacs/toggle-highlight-long-lines-globally-on)
 
   ;; electric-operator
