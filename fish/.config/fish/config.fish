@@ -179,11 +179,7 @@ end
 
 set -gx MEASURE_TIME 0
 function tg_mt -d 'Toggle to enable/disable measure_time'
-    if test $MEASURE_TIME = 0
-        set -gx MEASURE_TIME 1
-    else
-        set -gx MEASURE_TIME 0
-    end
+    test $MEASURE_TIME = 0; and set -gx MEASURE_TIME 1; or set -gx MEASURE_TIME 0
     echo MEASURE_TIME: $MEASURE_TIME
 end
 function measure_time
@@ -200,7 +196,7 @@ function measure_time
 end
 
 function fsr --description 'Reload your Fish config after configuration'
-    source $FISHRC # fsr
+    source $FISHRC
     startup
     echo $FISHRC is reloaded!
     vars -c >/dev/null 2>/dev/null
@@ -226,13 +222,10 @@ function tk -d 'tmux kill-session all(default)/single(id)/multiple(id1 id2)/exce
         return
     end
     if set -q $argv[1] # no arguments
-        if set -q TMUX_PANE # check if running inside a tmux session
-            echo Inside a tmux session!
-        end
-        read -n 1 -l -p 'echo "Kill all sessions? [y/N]"' answer
-        if test "$answer" = y -o "$answer" = " "
-            tmux kill-server # kill all sessions
-        end
+        # check if running inside a tmux session
+        set -q TMUX_PANE; and echo Inside a tmux session!
+        read -n 1 -l -p 'echo "Kill all sessions? [y/N] "' answer
+        test "$answer" = y -o "$answer" = " "; and tmux kill-server
         return
     end
 
@@ -452,16 +445,12 @@ function pk --description 'kill processes containing a pattern or PID'
         if not kill -9 $pid # failed to kill, $status != 0
             psss $pid | rg $argv[1] # list the details of the process need to be sudo kill
             read -n 1 -p 'echo "Use sudo to kill it? [Y/n]: "' -l arg
-            if test "$arg" = "" -o "$arg" = y -o "$arg" = " "
-                sudo kill -9 $pid
-            end
+            test "$arg" = "" -o "$arg" = y -o "$arg" = " "; and sudo kill -9 $pid
         end
     else
         while test 1
             psss $argv[1]
-            if test (psss $argv[1] | wc -l) = 0
-                return
-            end
+            test (psss $argv[1] | wc -l) = 0; and return
             read -p 'echo "Kill all of them or specific PID? [a/y/N/index/pid/m_ouse]: "' -l arg2
             if test $arg2 # it is not Enter directly
                 if not string match -q -r '^\d+$' $arg2 # if it is not integer
@@ -471,9 +460,7 @@ function pk --description 'kill processes containing a pattern or PID'
                             if not kill -9 $i # failed to kill, $status != 0
                                 psss $i | rg $argv[1]
                                 read -n 1 -p 'echo "Use sudo to kill it? [Y/n]: "' -l arg3
-                                if test "$arg3" = "" -o "$arg3" = y -o "$arg3" = " "
-                                    sudo kill -9 $i
-                                end
+                                test "$arg3" = "" -o "$arg3" = y -o "$arg3" = " "; and sudo kill -9 $i
                             end
                         end
                         return
@@ -485,11 +472,7 @@ function pk --description 'kill processes containing a pattern or PID'
                         # kill -SIGUSR2 (xprop | rg -i pid | rg -oe "[0-9]+")
                         set -l pid_m (xprop | rg -i pid | rg -oe "[0-9]+")
                         echo Pid is: $pid_m
-                        if test (psss $pid_m | rg -i emacs)
-                            kill -SIGUSR2 $pid_m
-                        else
-                            kill -9 $pid_m
-                        end
+                        test (psss $pid_m | rg -i emacs); and kill -SIGUSR2 $pid_m; or kill -9 $pid_m
                         return
                     else if test "$arg2" = n
                         return
@@ -552,11 +535,7 @@ function vars -d "list item in var line by line, all envs(by default), -m(MANPAT
             set -l newvar
             set -l count 0
             for v in $$var
-                if contains -- $v $newvar
-                    set count (math $count+1)
-                else
-                    set newvar $newvar $v
-                end
+                contains -- $v $newvar; and set count (math $count+1); or set newvar $newvar $v
             end
             set $var $newvar
             test $count -gt 0
@@ -654,10 +633,7 @@ function fu -d 'fu command and prompt to ask to open it or not'
                     set def_file $FISHRC
                 end
             end
-            if set -q $def_file # def_file is not set
-                echo "NOTE: definition file is not found!"
-                return
-            end
+            not test $def_file; and echo "NOTE: definition file is not found!" && return
 
             set num_line (rg -n -e "^alias $argv |^function $argv |^function $argv\$" $def_file | cut -d: -f1)
             # NOTE: $num_line may contain more than one number, use "$num_line", or test will fail
@@ -677,11 +653,7 @@ function fu -d 'fu command and prompt to ask to open it or not'
         else # Case1, only handle abbr defined in $FISHRC
             # abbrc
             set num_line (rg -n -e "^abbr $argv " $FISHRC | cut -d: -f1)
-            if not test "$num_line" # empty
-                return
-            else
-                set def_file $FISHRC
-            end
+            not test "$num_line"; and return; or set def_file $FISHRC
         end
 
         echo
@@ -699,9 +671,7 @@ function fu -d 'fu command and prompt to ask to open it or not'
         if test (file (readlink -f $file_path) | rg "script") # script can be open
             echo
             read -n 1 -p 'echo "Open the file for editing?[y/N]: "' -l answer
-            if test "$answer" = y -o "$answer" = " "
-                $EDITOR $file_path
-            end
+            test "$answer" = y -o "$answer" = " "; and $EDITOR $file_path
         end
     end
 end
@@ -709,11 +679,7 @@ end
 zoxide init fish | source
 alias zz zi
 function zzz -d 'use ranger with zoxide'
-    if set -q $argv
-        ranger
-    else
-        ranger (zoxide query -i $argv)
-    end
+    set -q $argv; and ranger; or ranger (zoxide query -i $argv)
 end
 set -gx _ZO_FZF_OPTS "-1 -0 --reverse --print0"
 # -m to mult-select using Tab/S-Tab
@@ -915,9 +881,7 @@ function loo -d 'locate functions, -u(update db), -a(under /), -v(video), -m(aud
     end
 
     # if not found at the first time, maybe the db is not updated, update the db once
-    if test (eval $LOCATE | wc -l) = 0
-        eval $UPDATEDB_CMD
-    end
+    test (eval $LOCATE | wc -l) = 0; and eval $UPDATEDB_CMD
 
     if set -q _flag_o # open it using  fzf
         # NOTE: the -0 + --print0 in fzf to be able to work with file/dir with spaces
@@ -992,11 +956,8 @@ function dfs -d 'df(-l, -L for full list), gua(-i), dua(-I), du(by default), cac
             sudo find / -xdev -type f -size +{$argv}G -print0 | xargs -0 ls -1hsS | sort -nk 1 | nl -v 1
         end
     else
-        if test (count $argv) -gt 0 # argv contains /* at the end of path or multiple argv
-            dua -f binary $argv
-        else
-            dua -f binary .
-        end
+        # argv contains /* at the end of path or multiple argv
+        test (count $argv) -gt 0; and dua -f binary $argv; or dua -f binary .
     end
 end
 
@@ -1015,11 +976,7 @@ function m
     # check if argv[1] is a number
     # `m 100 filename` (not +100)
     # BUG: after viewing the right line, any navigation will make point back to the beginning of the file
-    if echo $argv[1] | awk '$0 != $0 + 0 { exit 1 }'
-        less -RM -s +G$argv[1]g $argv[2]
-    else
-        less -RM -s +Gg $argv
-    end
+    echo $argv[1] | awk '$0 != $0 + 0 { exit 1 }'; and less -RM -s +G$argv[1]g $argv[2]; or less -RM -s +Gg $argv
 end
 #more
 abbr me 'm $EMACS_EL'
@@ -1073,11 +1030,10 @@ function tars -d 'tar extract(x)/list(l, by default)/create(c, add extra arg to 
     # remove the end slash in argv[1] if it is a directory
     test -d $argv[1]; and set ARGV (echo $argv[1] | sed 's:/*$::'); or set ARGV $argv
 
-    if set -q _flag_z # create zip
-        zip -r $ARGV.zip $ARGV
-        return
-    end
+    # create zip
+    set -q _flag_z; and zip -r $ARGV.zip $ARGV && return
 
+    # get extension of the archive
     set -l EXT (string lower (echo $ARGV | sed 's/^.*\.//'))
     if test "$EXT" = zip -o "$EXT" = rar -o "$EXT" = 7z
         # NOTE: the following line doesn't work for file like dir.tar.xz
@@ -1087,19 +1043,11 @@ function tars -d 'tar extract(x)/list(l, by default)/create(c, add extra arg to 
         # unzip zip if it is archived in Windows and messed up characters with normal unzip
         # `unzip -O CP936`
         if set -q _flag_l # list
-            if command -sq lsar
-                lsar $ARGV
-            else
-                unzip -l $ARGV
-            end
+            command -sq lsar; and lsar $ARGV; or unzip -l $ARGV
         else if set -q _flag_c # list Chinese characters
             zips.py -l $ARGV
         else if set -q _flag_x
-            if command -sq unar
-                unar $ARGV
-            else
-                unzip $ARGV -d $FILE
-            end
+            command -sq unar; and unar $ARGV; or unzip $ARGV -d $FILE
         else if set -q _flag_X # extract Chinese characters
             zips.py -x $ARGV
         else if not set -q _flag_o
@@ -1331,14 +1279,8 @@ function pacs -d 'pacman/paru operations'
         echo "      -h --> usage"
     else if set -q _flag_m # mirror
         if not test (cat /etc/*-release | rg "^NAME=" | rg -i -e 'manjaro') # ArchLinux
-            if not command -sq reflector
-                pacs -i reflector
-            end
-            if set -q _flag_l
-                cat /etc/pacman.d/mirrorlist
-            else # fastest top 8 mirrors
-                sudo reflector --verbose --country China --latest 8 --sort rate --save /etc/pacman.d/mirrorlist
-            end
+            not command -sq reflector; and pacs -i reflector
+            set -q _flag_l; and cat /etc/pacman.d/mirrorlist; or sudo reflector --verbose --country China --latest 8 --sort rate --save /etc/pacman.d/mirrorlist
         else # manjaro
             ! command -sq pacman-mirrors; and pacs -i pacman-mirrors
             if set -q _flag_s # get status of local mirrors
@@ -1697,16 +1639,9 @@ function syss -d 'systemctl related functions'
     or return
 
     # current user or using default sudo
-    if set -q _flag_u
-        set PRI systemctl --user
-    else
-        set PRI systemctl
-    end
+    set -q _flag_u; and set PRI systemctl --user; or set PRI systemctl
 
-    if ! set -q $argv
-        systemctl status $argv
-        return
-    end
+    ! set -q $argv; and systemctl status $argv && return
 
     set keys (seq 1 20)
     set values \
@@ -1764,9 +1699,7 @@ function syss -d 'systemctl related functions'
     if contains $answer $keys
         if contains $answer (seq 2 9)
             read -l -p 'echo "service target: [service]: "' ARG
-            if test $answer != ""
-                eval $PRI $values[$answer] $ARG # argv can be empty
-            end
+            test $answer != ""; and eval $PRI $values[$answer] $ARG
         else if test $answer = 1
             read -l -p 'echo "service str: "' ARG
             if test $ARG != ""
@@ -1944,11 +1877,7 @@ function usernew -d 'useradd related functions'
     end
 
     if set -q _flag_g
-        if set -q _flag_d
-            sudo groupdel $_flag_d
-        else
-            sudo usermod -aG $_flag_g $ARGV
-        end
+        set -q _flag_d; and sudo groupdel $_flag_d; or sudo usermod -aG $_flag_g $ARGV
         return
     end
 
@@ -2055,32 +1984,19 @@ function gitcl -d 'git clone and cd into it, full-clone(by default), simple-clon
     or return
 
     # https://stackoverflow.com/questions/57335936
-    if set -q _flag_s
-        set DEPTH --depth=1 --no-single-branch
-    else
-        set DEPTH
-    end
+    set -q _flag_s; and set DEPTH --depth=1 --no-single-branch; or set DEPTH
     set -q _flag_p; and set CMD (PXY); or set CMD
 
-    if set -q _flag_a # after shallow pull
-        eval $CMD git pull --unshallow
-        return
-    end
+    # after shallow pull
+    set -q _flag_a; and eval $CMD git pull --unshallow && return
     if set -q $argv # no repo link given
         git pull
     else
         eval $CMD git clone -v $argv $DEPTH
         echo ---------------------------
-        if test (count $argv) -eq 2
-            set project $argv[2]
-        else
-            # this works when $argv contains or not contains .git
-            set project (basename $argv .git)
-        end
-        if test -d $project
-            cd $project
-            echo cd ./$project
-        end
+        # this works when $argv contains or not contains .git
+        test (count $argv) -eq 2; and set project $argv[2]; or set project (basename $argv .git)
+        test -d $project; and cd $project && echo cd ./$project
     end
 end
 function gitpa --description 'git pull all in dir using `fing dir`'
@@ -2152,11 +2068,7 @@ function gitbs -d 'branches, tags and worktrees'
                     git diff $argv[1]..$argv[2] >>branches.diff
                     vim branches.diff
                 else
-                    if set -q _flag_v
-                        git diff --name-status $argv[1]..$argv[2]
-                    else
-                        git diff $argv[1]..$argv[2]
-                    end
+                    set -q _flag_v; and git diff --name-status $argv[1]..$argv[2]; or git diff $argv[1]..$argv[2]
                 end
             end
         else if set -q _flag_d
@@ -2170,11 +2082,7 @@ function gitbs -d 'branches, tags and worktrees'
             git fetch
             git branch -a | fzf | awk '{print $1}' | sed 's#^remotes/[^/]*/##' | xargs git checkout
         else if set -q _flag_l
-            if set -q $argv
-                git ls-remote --heads
-            else
-                git ls-remote --heads | rg -i $argv
-            end
+            set -q $argv; and git ls-remote --heads; or git ls-remote --heads | rg -i $argv
         else if set -q _flag_t # list all tags, with arg, switch the the tag
             # use the following command the fetch all remote tags in there is any
             # git fetch --all --tags
@@ -2203,12 +2111,7 @@ function gitco -d 'git checkout -- for multiple files(filA fileB...) at once, al
     if set -q $argv # no given files
         # in case accidentally git checkout all unstaged files
         read -n 1 -l -p 'echo "Checkout all unstaged files? [Y/n]"' answer
-        if test "$answer" = y -o "$answer" = " "
-            git checkout .
-        else
-            echo "Cancel and exit!"
-            return
-        end
+        test "$answer" = y -o "$answer" = " "; and git checkout .; or echo "Cancel and exit!" && return
     else
         # pass commit id
         if git merge-base --is-ancestor $argv HEAD 2>/dev/null
@@ -2282,9 +2185,8 @@ function gitfs -d 'git forked repo sync'
         return
     else
         if test $upstream_status != 0
-            if set -q $arv[1] # given argument
-                git remote add upstream $argv
-            end
+            # given argument
+            not set -q $arv[1]; and git remote add upstream $argv
         end
         # the upstream url may be wrong, `git fetch upstream` will prompt for user/psw
         # use `git remote remove upstream` to remove the wrong upstream url
@@ -2305,12 +2207,7 @@ function gitrh -d 'git reset HEAD for multiple files(file1 file2, all without ar
         if set -q $argv # no given files
             # in case accidentally git reset all staged files
             read -n 1 -l -p 'echo "Reset all staged files? [Y/n]"' answer
-            if test "$answer" = y -o "$answer" = " "
-                git reset
-            else
-                echo "Cancel and exit!"
-                return
-            end
+            test "$answer" = y -o "$answer" = " "; and git reset; or echo "Cancel and exit!" && return
         else
             set -l files (echo $argv | tr ',' '\n')
             for i in $files
@@ -2406,9 +2303,8 @@ function docks -d 'docker commands'
 end
 
 function PXY
-    if test (pgrep -f 'shadowsocks|v2ray|clash' | wc -l) != 0 # proxy client is running
-        echo proxychains4 -q
-    end
+    # proxy client is running
+    test (pgrep -f 'shadowsocks|v2ray|clash' | wc -l) != 0; and echo proxychains4 -q
 end
 
 abbr bb 'bat -p'
@@ -2495,11 +2391,7 @@ function meld --description 'lanuch meld from terminal without block it'
 end
 
 function wc
-    if test (count $argv) -gt 1
-        command wc $argv | sort -n
-    else
-        command wc $argv
-    end
+    test (count $argv) -gt 1; and command wc $argv | sort -n; or command wc $argv
 end
 
 abbr ipy ipython # other alternatives are btpython, ptpython, ptipython
@@ -2509,11 +2401,8 @@ function pips -d 'pip related functions, default(install), -i(sudo install), -c(
     argparse -n pips $options -- $argv
     or return
 
-    if test (PXY) # if using proxy in OS
-        set REPO "-i https://pypi.tuna.tsinghua.edu.cn/simple"
-    else
-        set REPO
-    end
+    # if using proxy in OS
+    test (PXY); and set REPO "-i https://pypi.tuna.tsinghua.edu.cn/simple"; or set REPO
 
     if set -q _flag_c
         echo "Outdated packages:"
@@ -2656,10 +2545,8 @@ function pxs -d 'multiple commands using proxychains4'
         eval $CMD aria2c -c -x 5 --check-certificate=false --file-allocation=none \"$argv\"
     end
 
-    if set -q _flag_o
-        # get the lastest file in current dir and mv/rename it
-        mv -v (ls -Art | tail -n 1) $_flag_o
-    end
+    # get the lastest file in current dir and mv/rename it
+    set -q _flag_o; and mv -v (ls -Art | tail -n 1) $_flag_o
 end
 
 # bc -- calculator
@@ -2711,11 +2598,7 @@ alias dic 'trans :zh+en -d -show-dictionary Y -v -theme ~/.local/bin/trans-theme
 function wtp --description 'show the real definition of a type or struct in C code, you can find which file it is defined in around the result'
     gcc -E $LBIN/type.c -I$argv[1] >/tmp/result
     if test (count $argv) -eq 2
-        if test (echo $argv[1] | rg struct)
-            rg -A $argv[2] "^$argv[1]" /tmp/result
-        else
-            rg -B $argv[2] $argv[1] /tmp/result
-        end
+        test (echo $argv[1] | rg struct); and rg -A $argv[2] "^$argv[1]" /tmp/result; or rg -B $argv[2] $argv[1] /tmp/result
     else
         rg $argv[1] /tmp/result
     end
@@ -2866,11 +2749,7 @@ function cpb -d 'backups manager: rename files/dirs from name to name.bak or bac
     for name in $argv # support multiple arguments
         if test $backward = 1
             set -l result (echo (string split -r -m1 .bak $name)[1])
-            if test -e $result
-                echo $result alread exists.
-            else
-                eval $CMD $name $result
-            end
+            test -e $result; and echo $result alread exists.; or eval $CMD $name $result
         else
             set old $name
             if test / = (echo (string sub --start=-1 $name)) # for dir ending with "/"
@@ -2879,11 +2758,7 @@ function cpb -d 'backups manager: rename files/dirs from name to name.bak or bac
             if test -e $old.bak
                 echo $old.bak already exists.
                 read -n 1 -l -p 'echo "Remove $old.bak first? [y/N]"' answer
-                if test "$answer" = y -o "$answer" = " "
-                    rm -rfv $old.bak
-                else
-                    continue
-                end
+                test "$answer" = y -o "$answer" = " "; and rm -rfv $old.bak; or continue
             end
             eval $CMD $old{,.bak}
         end
@@ -2904,13 +2779,8 @@ function cars -d "cargo commands, -c(clean target), -d(remove/uninstall), -i(ins
         eval $CMD uninstall $argv
     else if set -q _flag_c
         if test -d ./target
-            if set -q _flag_r
-                # only remove target/release
-                eval $CMD clean --release -v
-            else
-                # remove the whole target
-                eval $CMD clean -v
-            end
+            # only remove target/release; or remove the whole target
+            set -q _flag_r; and eval $CMD clean --release -v; or eval $CMD clean -v
             echo "target cleaned..."
         end
     else if set -q _flag_C
@@ -3050,20 +2920,14 @@ function cons -d 'conda virtual environments related functions -i(install packag
             end
         end
     else # no option, switch env or pip install based on base env
-        if set -q $argv # no argv
-            conda env list
-            read -p 'echo "Which conda env switching to: [base?] "' argv
-        end
+        set -q $argv; and conda env list && read -p 'echo "Which conda env switching to: [base?] "' argv
         if conda env list | awk '{ print $1 }' | rg -w $argv[1] >/dev/null 2>/dev/null
-            if test "$argv" = "" # just enter when `read`, these three are unnecessary
-                set argv base
-            end
+            # just enter when `read`, these three are unnecessary
+            test "$argv" = ""; and set argv base
             conda activate $argv[1] # if $argv[1] is null, it will be base automatically
             echo "Switched to $argv[1] env..."
             # $argv may contain the env name and extra packages
-            if test (count $argv) -gt 1
-                pip install $argv[2..(count $argv)]
-            end
+            test (count $argv) -gt 1; and pip install $argv[2..(count $argv)]
         else
             echo "No such env exists, use `cons -n env_name [pkg_name]` to create new!"
             conda activate base
