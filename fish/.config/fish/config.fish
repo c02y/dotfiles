@@ -1298,6 +1298,7 @@ function pacs -d 'pacman/paru operations'
         echo "         + -y --> install the argv without confirm"
         echo "         + -r --> reinsall argv"
         echo "         + -d --> download argv without installing it"
+        echo "         + -a --> specific from AUR"
         echo "      -c --> clean/check"
         echo "         + no argv --> clean packages in /var/cache/pacman/pkg"
         echo "         + -p argv --> check which packages require argv"
@@ -1315,11 +1316,15 @@ function pacs -d 'pacman/paru operations'
         echo "         + -l --> get source link and send it to clipper"
         echo "           + -a --> get source link info and send it to clipper"
         echo "         + -L --> list conetnet of argv package"
+        echo "           + -a --> specfic from AUR"
+        echo "         + -a --> specfic from AUR"
         echo "      -l --> list local installed packages(name+description)"
         echo "         + argv --> list installed packages containing argv keyword in name or description"
         echo "         + -n --> list installed packaegs, names only"
         echo "           + argv --> list installed packages containing argv keyword in name"
+        echo "         + -a --> specfic from AUR"
         echo "      -L --> list content of a argv pacakge, the same as -s -L"
+        echo "         + -a --> specfic from AUR"
         echo "      -n --> search argv in only packages name part"
         echo "      -a --> search all using paru, slow since inlcuding AUR"
         echo "      -k --> check for missing files in packages"
@@ -1363,6 +1368,9 @@ function pacs -d 'pacman/paru operations'
 
         # install package from a local .pkg.tar.xz/link file, NOTE: not append OPT
         echo $ARGV | rg -q pkg.tar; and set OPT -U
+
+        # install directly from AUR since some packages from extra repo have the same name with AUR
+        set -q _flag_a; and set -a OPT -a
 
         # NOTE: if you see "File /var/cache/pacman/pkg/xxx.pkg.tar.xz is corrupted (invalid or corrupted package (PGP signature))"
         # use `sudo pacma-key --refresh-keys`
@@ -1431,12 +1439,14 @@ function pacs -d 'pacman/paru operations'
             end
             open (xc -o) >/dev/null 2>/dev/null
         else if set -q _flag_L # list content in a pacakge
+            set -q _flag_a; and set OPT -a
             pacman -Ql $ARGV
-            or paru -Fl $ARGV
+            or paru -Fl $OPT $ARGV
         else # just show info
+            set -q _flag_a; and set OPT -a
             # show both local and remote info
-            paru -Qi $ARGV
-            paru -Si $ARGV
+            paru -Qi $OPT $ARGV
+            paru -Si $OPT $ARGV
         end
     else if set -q _flag_l # list installed pcakges containing the keyword(including description)
         if set -q _flag_n
@@ -1445,12 +1455,15 @@ function pacs -d 'pacman/paru operations'
             else
                 paru -Qs | rg -i local/ | rg -i $ARGV
             end
+        else if set -q _flag_a # list packages installed from AUR(no really)
+            paru -Qm
         else
             paru -Qs $ARGV
         end
     else if set -q _flag_L # list content in a pacakge
+        set -q _flag_a; and set OPT -a
         paru -Ql $ARGV
-        or paru -Fl $ARGV
+        or paru -Fl $OPT $ARGV
     else if set -q _flag_n # search only keyword in package names
         if set -q _flag_a
             paru -Sl | rg -i $ARGV
