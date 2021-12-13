@@ -939,6 +939,7 @@ function dfs -d 'df(-l, -L for full list), gua(-i), dua(-I), du(by default), cac
     else if set -q _flag_c
         set dirs ~/.cache/google-chrome ~/.config/google-chrome \
             ~/.cache/chromium ~/.config/chromium \
+            ~/.cache/BraveSoftware ~/.config/BraveSoftware \
             ~/.cache/vivaldi ~/.config/vivaldi \
             ~/.cache/mozilla ~/.mozilla \
             ~/.cache/paru/clone ~/.cache/calibre \
@@ -2764,13 +2765,16 @@ end
 abbr upxx 'upx --best --lzma'
 # cargo
 function cars -d "cargo commands, -c(clean target), -d(remove/uninstall), -i(install), -r(release build), -S(reduce size)"
-    set -l options b c C d i r s S R u p
+    set -l options b c C d i I r s S R u p
     argparse -n cars $options -- $argv
     or return
 
     set CMD (PXY) cargo
 
-    if set -q _flag_d
+    if set -q _flag_I
+        # crate a new project based on current directory; or create a new project based on argv
+        set -q $argv; and cargo init; or cargo init $argv && cd $argv
+    else if set -q _flag_d
         eval $CMD uninstall $argv
     else if set -q _flag_c
         if test -d ./target
