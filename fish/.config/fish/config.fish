@@ -2600,30 +2600,30 @@ function wtp --description 'show the real definition of a type or struct in C co
     end
 end
 
-# interactively(choose format and resolution) stream video using mpv+youtube-dl+fzf
+# interactively(choose format and resolution) stream video using mpv+yt-dlp+fzf
 # https://github.com/seanbreckenridge/mpvf/
 alias mpvs 'proxychains4 -q mpvf'
-function yous -d 'youtube-dl functions'
+function yous -d 'yt-dlp functions'
     set -l options l a f F p P
     argparse -n yous -N 1 $options -- $argv
     or return
 
     if set -q _flag_l # list all formats
-        eval (PXY) youtube-dl -F \"$argv\"
+        eval (PXY) yt-dlp -F \"$argv\"
     else if set -q _flag_f # choose the num from the list
-        eval (PXY) youtube-dl -ciw -f $argv[1]+bestaudio \"$argv[2]\"
+        eval (PXY) yt-dlp -ciw -f $argv[1]+bestaudio \"$argv[2]\"
     else if set -q _flag_F
         # sometimes no-option or -f doesn't download the `best` video
         # since the bitrate info in the list for the lower resolution is higher
-        eval (PXY) youtube-dl -ciw -f $argv[1] \"$argv[2]\"
+        eval (PXY) yt-dlp -ciw -f $argv[1] \"$argv[2]\"
     else if set -q _flag_a # only download best audio into mp3
-        eval (PXY) youtube-dl -ciw --extract-audio --audio-format mp3 --audio-quality 0 \"$argv\"
+        eval (PXY) yt-dlp -ciw --extract-audio --audio-format mp3 --audio-quality 0 \"$argv\"
     else if set -q _flag_p # download playlist
-        eval (PXY) youtube-dl -ciw --download-archive downloaded.txt --no-overwrites -ict --yes-playlist --socket-timeout 5 \"$argv\"
+        eval (PXY) yt-dlp -ciw --download-archive downloaded.txt --no-overwrites -ict --yes-playlist --socket-timeout 5 \"$argv\"
     else if set -q _flag_P # download playlist into audio
-        eval (PXY) youtube-dl -ciw --download-archive downloaded.txt --no-overwrites -ict --yes-playlist --extract-audio --audio-format mp3 --audio-quality 0 --socket-timeout 5 \"$argv\"
+        eval (PXY) yt-dlp -ciw --download-archive downloaded.txt --no-overwrites -ict --yes-playlist --extract-audio --audio-format mp3 --audio-quality 0 --socket-timeout 5 \"$argv\"
     else # download video
-        eval (PXY) youtube-dl -ciw \"$argv\"
+        eval (PXY) yt-dlp -ciw \"$argv\"
     end
 end
 
