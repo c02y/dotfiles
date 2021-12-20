@@ -2628,7 +2628,7 @@ function yous -d 'yt-dlp functions'
 end
 
 function ffms -d 'ffmpeg related functions'
-    set -l options c "f=" i
+    set -l options c "f=" i "s="
     argparse -n ffms $options -- $argv
     or return
 
@@ -2640,12 +2640,18 @@ function ffms -d 'ffmpeg related functions'
             mediainfo --Inform="Video;BitRate=%BitRate/String%" $videofile
             read -p 'echo "What BitRate would be? (2000k) "' -l bitrate
             test "$answer" = " " -o "$answer" = ""; and set bitrate 2000k
-            ffmpeg -hide_banner -i $videofile -c:v hevc_nvenc -c:a copy -b:v $bitrate {$FILE}-converted_{$bitrate}.{$EXT}
-            if set -q _flag_f
-                for file in $videofile {$FILE}-converted_{$bitrate}.{$EXT}
-                    ffmpeg -hide_banner -ss $_flag_f -i $file -t $_flag_f {$file}_{$_flag_f}.bmp
+            if set -q _flag_s # cut slice, argument for -s is like 00:10:00-00:20:00
+                set START (string split "-" $_flag_s)[1]
+                set END (string split "-" $_flag_s)[2]
+                ffmpeg -hide_banner -ss $START -to $END -i $videofile -c:v hevc_nvenc -c:a copy -b:v $bitrate {$FILE}-converted-cut_{$bitrate}.{$EXT}
+            else
+                ffmpeg -hide_banner -i $videofile -c:v hevc_nvenc -c:a copy -b:v $bitrate {$FILE}-converted_{$bitrate}.{$EXT}
+                if set -q _flag_f
+                    for file in $videofile {$FILE}-converted_{$bitrate}.{$EXT}
+                        ffmpeg -hide_banner -ss $_flag_f -i $file -t $_flag_f {$file}_{$_flag_f}.bmp
+                    end
+                    open {$videofile}_{$_flag_f}.bmp
                 end
-                open {$videofile}_{$_flag_f}.bmp
             end
         end
     else if set -q _flag_f # get a frame losslessly at specific timestamp
@@ -2656,7 +2662,7 @@ function ffms -d 'ffmpeg related functions'
             ffmpeg -hide_banner -ss $_flag_f -i $file -t $_flag_f {$file}_{$_flag_f}.bmp
         end
         open {$argv[1]}_{$_flag_f}.bmp
-    else if set -q _flag_i
+    else if set -q _flag_i # info
         for file in $argv
             # `mediainfo --info-parameters` to get all the variables
             echo -n "$file, "; and ls -lh $file | awk '{print $5}'
