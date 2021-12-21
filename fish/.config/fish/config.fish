@@ -2631,7 +2631,7 @@ function yous -d 'yt-dlp functions'
 end
 
 function ffms -d 'ffmpeg related functions'
-    set -l options c "f=" i "s="
+    set -l options c "f=" i "s=" "b="
     argparse -n ffms $options -- $argv
     or return
 
@@ -2640,9 +2640,13 @@ function ffms -d 'ffmpeg related functions'
             # get the extension and filename without extension
             set FILE (string split -r -m1 . $videofile)[1]
             set EXT (string lower (echo $videofile | sed 's/^.*\.//'))
-            mediainfo --Inform="Video;BitRate=%BitRate/String%" $videofile
-            read -p 'echo "What BitRate would be? (2000k) "' -l bitrate
-            test "$answer" = " " -o "$answer" = ""; and set bitrate 2000k
+            if set -q _flag_b
+                set bitrate $_flag_b # $_flag_b is string like 2000k
+            else
+                mediainfo --Inform="Video;BitRate=%BitRate/String%" $videofile
+                read -p 'echo "What BitRate would be? (2000k) "' -l bitrate
+                test "$answer" = " " -o "$answer" = ""; and set bitrate 2000k
+            end
             if set -q _flag_s # cut slice, argument for -s is like 00:10:00-00:20:00
                 set START (string split "-" $_flag_s)[1]
                 set END (string split "-" $_flag_s)[2]
