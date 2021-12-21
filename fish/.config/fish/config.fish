@@ -819,7 +819,7 @@ end
 
 # NOTE: better to mask updatedb.service and delete /var/lib/mlocate/mlocate.db file first
 function loo -d 'locate functions, -u(update db), -a(under /), -v(video), -m(audio), -d(dir), -f(file), -o(open), -x(copy), -r(remove), -e(open it with editor), -w(wholename)'
-    set -l options u a v m d f o x r e w p
+    set -l options u a v m d f o x r e w p c
     argparse -n loo $options -- $argv
     or return
 
@@ -833,6 +833,9 @@ function loo -d 'locate functions, -u(update db), -a(under /), -v(video), -m(aud
     if set -q _flag_a
         set DB ~/.cache/mlocate.db
         set UPDATEDB_CMD "updatedb --require-visibility 0 -o $DB"
+    else if set -q _flag_c
+        set DB ~/.cache/mlocate-mount.db
+        set UPDATEDB_CMD "updatedb --require-visibility 0 -U /run/media -o $DB"
     else
         set DB ~/.cache/mlocate-home.db
         set UPDATEDB_CMD "updatedb --require-visibility 0 -U $HOME -o $DB"
