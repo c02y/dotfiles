@@ -2655,9 +2655,9 @@ function ffms -d 'ffmpeg related functions'
                 ffmpeg -hide_banner -i $videofile -c:v hevc_nvenc -c:a copy -b:v $bitrate {$FILE}-converted_{$bitrate}.{$EXT}
                 if set -q _flag_f
                     for file in $videofile {$FILE}-converted_{$bitrate}.{$EXT}
-                        ffmpeg -hide_banner -ss $_flag_f -i $file -t $_flag_f {$file}_{$_flag_f}.bmp
+                        ffmpeg -hide_banner -ss $_flag_f -i $file -t $_flag_f {$file}.bmp
                     end
-                    open {$videofile}_{$_flag_f}.bmp
+                    open {$videofile}.bmp
                 end
             end
         end
@@ -2666,9 +2666,9 @@ function ffms -d 'ffmpeg related functions'
         for file in $argv
             # png in ffmpeg is not lossless, use bmp instead
             # $flag_f is timestamp like 05:00 or 01:01:01
-            ffmpeg -hide_banner -ss $_flag_f -i $file -t $_flag_f {$file}_{$_flag_f}.bmp
+            ffmpeg -hide_banner -ss $_flag_f -i $file -t $_flag_f {$file}.bmp
         end
-        open {$argv[1]}_{$_flag_f}.bmp
+        test -f $argv[1].bmp; and open $argv[1].bmp; or echo "==Error!=="
     else if set -q _flag_i # info
         for file in $argv
             # `mediainfo --info-parameters` to get all the variables
