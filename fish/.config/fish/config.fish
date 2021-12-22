@@ -817,8 +817,8 @@ function fts -d 'find the temporary files such as a~ or #a or .a~, and files for
 
 end
 
-# NOTE: better to mask updatedb.service and delete /var/lib/mlocate/mlocate.db file first
-function loo -d 'locate functions, -u(update db), -a(under /), -v(video), -m(audio), -d(dir), -f(file), -o(open), -x(copy), -r(remove), -e(open it with editor), -w(wholename)'
+# NOTE: used plocate instead of mlocate
+function loo -d 'plocate functions, -u(update db), -a(under /), -v(video), -m(audio), -d(dir), -f(file), -o(open), -x(copy), -r(remove), -e(open it with editor), -w(wholename)'
     set -l options u a v m d f o x r e w p c
     argparse -n loo $options -- $argv
     or return
@@ -831,62 +831,59 @@ function loo -d 'locate functions, -u(update db), -a(under /), -v(video), -m(aud
     end
 
     if set -q _flag_a
-        set DB ~/.cache/mlocate.db
+        set DB ~/.cache/locate.db
         set UPDATEDB_CMD "updatedb --require-visibility 0 -o $DB"
     else if set -q _flag_c
-        set DB ~/.cache/mlocate-mount.db
+        set DB ~/.cache/locate-mount.db
         set UPDATEDB_CMD "updatedb --require-visibility 0 -U /run/media -o $DB"
     else
-        set DB ~/.cache/mlocate-home.db
+        set DB ~/.cache/locate-home.db
         set UPDATEDB_CMD "updatedb --require-visibility 0 -U $HOME -o $DB"
     end
 
-    set UPDATEDB 0
-    if not test -f $DB; or set -q _flag_u
-        set UPDATEDB 1
+    if set -q _flag_u; and set -q $argv
+        eval $UPDATEDB_CMD && return
     end
 
-    test $UPDATEDB = 1; and eval $UPDATEDB_CMD
-
-    if set -q _flag_u; and set -q $argv
+    if not test -f $DB; or set -q _flag_u
         eval $UPDATEDB_CMD
-        return
     end
 
     if set -q _flag_v # search all video files
         if set -q $argv # no given argv, list all videos
             # get size of all videos, using `xargs -d '\n' dua -f binary` at the end
-            set LOCATE 'locate -P -e -i -d $DB "*" | \
+            set LOCATE 'plocate -e -i -d $DB "*" | \
                 rg -ie "\.mp4\$|\.mkv\$|\.avi\$|\.webm\$|\.mov\$|\.rmvb\$" | rg -v steamapp'
         else
             # NOTE -b option before argv, -b means only search file name,
             # without using -b, it show argv in the whole path, takes more time
-            set LOCATE 'locate -P -e -i -d $DB -b $argv | \
+            set LOCATE 'plocate -e -i -d $DB -b $argv | \
                 rg -ie "\.mp4\$|\.mkv\$|\.avi\$|\.webm\$|\.mov\$|\.rmvb\$" | rg -v steamapp'
         end
     else if set -q _flag_m # serach all audio files
-        set LOCATE 'locate -P -e -i -d $DB $argv | \
+        set LOCATE 'plocate -e -i -d $DB $argv | \
             rg -ie "\.mp3\$|\.flac\$|\.ape\$|\.wav\$|\.w4a\$|\.dsf\$|\.dff\$"'
     else if set -q _flag_d
-        set LOCATE 'locate -P -e -i -d $DB --null -b $argv | \
+        set LOCATE 'plocate -e -i -d $DB --null -b $argv | \
             xargs -r0 sh -c \'for i do [ -d "$i" ] && printf "%s\n" "$i"; done\' sh {} + '
     else if set -q _flag_f
-        set LOCATE 'locate -P -e -i -d $DB --null -b $argv | \
+        set LOCATE 'plocate -e -i -d $DB --null -b $argv | \
             xargs -r0 sh -c \'for i do [ -f "$i" ] && printf "%s\n" "$i"; done\' sh {} + '
     else if set -q _flag_w
-        set LOCATE "locate -P -e -i -d $DB -b '\\$argv'"
+        # NOTE: this is not working for plocate but for mlocate
+        set LOCATE "plocate -e -i -d $DB -b '\\$argv'"
     else # search file/dir
         if set -q $argv
-            set LOCATE 'locate -P -e -i -d $DB "*"'
+            set LOCATE 'plocate -e -i -d $DB "*"'
         else
-            set LOCATE 'locate -P -e -i -d $DB $argv'
+            set LOCATE 'plocate -e -i -d $DB $argv'
         end
     end
 
     # if not found at the first time, maybe the db is not updated, update the db once
     test (eval $LOCATE | wc -l) = 0; and eval $UPDATEDB_CMD
 
-    if set -q _flag_o # open it using  fzf
+    if set -q _flag_o # open it using fzf
         # NOTE: the -0 + --print0 in fzf to be able to work with file/dir with spaces
         # NOTE: DO NOT add --print0 it into FZF_DEFAULT_OPTS
         # -r in xargs is --no-run-if-empty
