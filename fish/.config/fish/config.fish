@@ -853,12 +853,12 @@ function loo -d 'plocate functions, -u(update db), -a(under /), -v(video), -m(au
         if set -q $argv # no given argv, list all videos
             # get size of all videos, using `xargs -d '\n' dua -f binary` at the end
             set LOCATE 'plocate -e -i -d $DB "*" | \
-                rg -ie "\.mp4\$|\.mkv\$|\.avi\$|\.webm\$|\.mov\$|\.rmvb\$" | rg -v steamapp'
+                rg -ie "\.mp4\$|\.mkv\$|\.avi\$|\.webm\$|\.mov\$|\.rmvb\$|\.wmv\$|\.flv\$" | rg -v steamapp'
         else
             # NOTE -b option before argv, -b means only search file name,
             # without using -b, it show argv in the whole path, takes more time
             set LOCATE 'plocate -e -i -d $DB -b $argv | \
-                rg -ie "\.mp4\$|\.mkv\$|\.avi\$|\.webm\$|\.mov\$|\.rmvb\$" | rg -v steamapp'
+                rg -ie "\.mp4\$|\.mkv\$|\.avi\$|\.webm\$|\.mov\$|\.rmvb\$|\.wmv\$|\.flv\$" | rg -v steamapp'
         end
     else if set -q _flag_m # serach all audio files
         set LOCATE 'plocate -e -i -d $DB $argv | \
