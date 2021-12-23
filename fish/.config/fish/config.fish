@@ -2800,7 +2800,7 @@ function cars -d "cargo commands, -c(clean target), -d(remove/uninstall), -i(ins
     else if set -q _flag_n
         eval $CMD new $argv
     else if set -q _flag_R
-        eval $CMD run
+        eval $CMD run $argv
     else if set -q _flag_s
         eval $CMD search $argv
     else if set -q _flag_u
