@@ -931,8 +931,9 @@ function dfs -d 'df(-l, -L for full list), gua(-i), dua(-I), du(by default), cac
     else if set -q _flag_L
         df -Th
     else if set -q _flag_t
-        # if /tmp is out of space, temporally resize /tmp, argv is size like 20G
-        sudo mount -o remount,size=$argv,noatime /tmp
+        set -q $argv; and set ARGV 20G; or set ARGV $argv
+        # if /tmp is out of space, temporally resize /tmp, use 20G if argv is not provided
+        sudo mount -o remount,size=$ARGV,noatime /tmp
     else if set -q _flag_m
         # if "/tmp/.mount_xxx Transport endpoint is not connected", argv is /tmp/.mount_xxx
         fusermount -zu $argv && rm -rfv $argv
