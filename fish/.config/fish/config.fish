@@ -2801,7 +2801,7 @@ function cars -d "cargo commands, -c(clean target), -d(remove/uninstall), -i(ins
     else if set -q _flag_n
         eval $CMD new $argv
     else if set -q _flag_R
-        eval $CMD run $argv
+        set -q _flag_u; and eval env RUST_BACKTRACE=1 $CMD run $argv; or eval $CMD run $argv
     else if set -q _flag_s
         eval $CMD search $argv
     else if set -q _flag_u
