@@ -900,7 +900,7 @@ before packages are loaded."
    vc-follow-symlinks t
    ;; disable the warning message
    python-spacemacs-indent-guess nil
-   company-minimum-prefix-length 3
+   company-minimum-prefix-length 2
    company-show-numbers t
    ;; column number starts from 1
    column-number-indicator-zero-based nil
