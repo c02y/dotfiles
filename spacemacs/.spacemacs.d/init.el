@@ -1135,7 +1135,7 @@ With argument, backward ARG lines."
               (lambda ()
                 (font-lock-add-keywords
                  nil
-                 '(("\\<\\(TODO:\\|NOTE:\\|FIXME:\\|FIX:\\|BUG:\\|WARNING:\\)" 1
+                 '(("\\<\\(TODO:\\|NOTE:\\|FIXME:\\|ERROR:\\|FIX:\\|BUG:\\|WARNING:\\)" 1
                     '(:background "yellow") t))))))
 
   (defun rename-this-buffer-and-file ()
