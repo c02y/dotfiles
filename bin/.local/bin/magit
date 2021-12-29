@@ -93,6 +93,7 @@ OLDPWD=$pwd
 echo $1
 emacs -q $gui \
 	$(load_paths "${dependencies[@]}") \
+	--eval "(setq use-dialog-box nil)" \
 	-l magit -f magit-status \
 	--eval "(local-set-key \"q\" #'kill-emacs)" \
 	-f delete-other-windows -mm \
