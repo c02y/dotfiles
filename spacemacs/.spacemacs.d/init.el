@@ -2325,7 +2325,7 @@ background of code to whatever theme I'm using's background"
                 (org-num-mode)))
     ;; put this after org-mode config part, or flyspell-mode won't be enabled, even with-eval-after-load won't work
     (add-hook 'org-mode-hook 'flyspell-mode)
-    (spacemacs|add-company-backends :backends company-ispell :modes org-mode)
+    (spacemacs|add-company-backends :backends company-ispell :modes org-mode prog-mode)
     )
 
   (spacemacs|define-transient-state hl-todo
