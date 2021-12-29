@@ -1318,6 +1318,7 @@ Emacs session."
     "Xr" 'spacemacs/rectangle-transient-state/body
     "XR" 'recover-this-file
     "Xh" 'spacemacs/hl-todo-transient-state/body
+    "pC" 'cargo-process-new
     "Sg" 'flyspell-correct-word-generic
     "Sc" 'flyspell-correct-at-point
     "Sw" 'flyspell-correct-wrapper
@@ -1365,7 +1366,7 @@ Emacs session."
     "w SPC" 'spacemacs/window-layout-toggle
     ;; the default is other-frame
     "wo" 'spacemacs/window-split-single-column
-	;; original: SPC b N I
+    ;; original: SPC b N I
     "wC" 'clone-indirect-buffer-other-window-without-purpose
     ;; the default binding is SPC j b
     "j SPC" 'avy-pop-mark
