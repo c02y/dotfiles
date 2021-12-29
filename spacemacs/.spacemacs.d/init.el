@@ -901,6 +901,8 @@ before packages are loaded."
    ;; disable the warning message
    python-spacemacs-indent-guess nil
    company-minimum-prefix-length 2
+   ;; disable gui pop window
+   use-dialog-box nil
    company-show-numbers t
    ;; column number starts from 1
    column-number-indicator-zero-based nil
