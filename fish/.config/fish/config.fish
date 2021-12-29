@@ -2776,7 +2776,7 @@ end
 abbr upxx 'upx --best --lzma'
 # cargo
 function cars -d "cargo commands, -c(clean target), -d(remove/uninstall), -i(install), -r(release build), -S(reduce size)"
-    set -l options b c C d i I r s S R u p
+    set -l options b c C d i I r s S R u p t
     argparse -n cars $options -- $argv
     or return
 
@@ -2802,6 +2802,15 @@ function cars -d "cargo commands, -c(clean target), -d(remove/uninstall), -i(ins
         eval $CMD new $argv
     else if set -q _flag_R
         set -q _flag_u; and eval env RUST_BACKTRACE=1 $CMD run $argv; or eval $CMD run $argv
+    else if set -q _flag_t
+        # NOTE: do not combine the following if-else into one line and-or
+        # since if the -u cargo test line test fail, the other eval will run
+        # there are many options for test, try `cargo test --help` and `cargo test -- --help`
+        if set -q _flag_u
+            eval env RUST_BACKTRACE=1 $CMD test $argv
+        else
+            eval $CMD test $argv
+        end
     else if set -q _flag_s
         eval $CMD search $argv
     else if set -q _flag_u
