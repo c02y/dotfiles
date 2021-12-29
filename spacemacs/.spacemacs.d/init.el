@@ -65,7 +65,8 @@ This function should only modify configuration layer settings."
            cargo-process--enable-rust-backtrace t
            cargo-process--command-clippy "clippy"
            lsp-rust-server 'rust-analyzer
-           ;; NOTE: the following file and path are installed by neovim ":CocInstall coc-rust-analyzer"
+           ;; NOTE: the following file and path are installed by neovim
+           ;; ":CocInstall coc-rust-analyzer" and open rust file in nvim to install the binary
            lsp-rust-analyzer-store-path "~/.config/coc/extensions/coc-rust-analyzer-data/rust-analyzer"
            )
      yaml
@@ -169,8 +170,11 @@ This function should only modify configuration layer settings."
       lsp-log-io t
       lsp-auto-guess-root t
       lsp-ui-doc-delay 1
-      lsp-ui-sideline-show-hover t
-      lsp-ui-sideline-delay 1
+      lsp-ui-doc-show-with-cursor t
+      lsp-ui-imenu-auto-refresh t
+      lsp-ui-peek-always-show t
+      ;; lsp-ui-sideline-show-hover t
+      ;; lsp-ui-sideline-delay 1
       ccls-initialization-options '(:index (:comments 2) :completion (:detailedLabel t) :cache (:directory "/tmp/ccls"))
       ccls-sem-highlight-method 'font-lock
       ;; spacemacs/issues/10051#issuecomment-605979333
