@@ -317,10 +317,10 @@ bindsym F12 exec tdrop -t -m -y 0 -w 100% -h 100% kitty --class=Dropdown --title
 bindsym $mod+d exec --no-startup-id dmenu_run
 # the grave key is `, the left key of NUM 1 on the keyboard
 bindsym $mod+grave exec "rofi -sidebar-mode -show-icons -combi-modi drun,window,ssh -show combi \
-			              -modi combi,window,drun,run,ssh,TRANS:rofi-trans -matching regex -drun-match-fields all \
-						  -terminal kitty -theme ~/.local/bin/rofi-theme-solarized_alternate.rasi \
-						  -display-combi ALL -display-drun APP -display-window WINDOW -display-run BIN \
-						  -display-ssh SSH -font 'DejaVu Sans Mono 15'"
+			             -modi combi,window,drun,run,ssh,TRANS:rofi-trans -matching regex -drun-match-fields all \
+						 -run-shell-command 'kitty --hold -e {cmd}' -theme ~/.local/bin/rofi-theme-solarized_alternate.rasi \
+						 -display-combi ALL -display-drun APP -display-window WINDOW -display-run BIN \
+						 -display-ssh SSH -font 'DejaVu Sans Mono 15'"
 
 # Autostart applications
 # NOTE: the --experimental-backend for picom is to fix the screen tearing issue
