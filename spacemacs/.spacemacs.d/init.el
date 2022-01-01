@@ -41,12 +41,13 @@ This function should only modify configuration layer settings."
      ;; Uncomment some layer names and press `SPC f e R' (Vim style) or
      ;; `M-m f e R' (Emacs style) to install them.
      ;; ----------------------------------------------------------------
-     (auto-completion :variables
-                      auto-completion-enable-snippets-in-popup t
-                      auto-completion-enable-help-tooltip t
-                      auto-completion-enable-sort-by-usage t
-                      ;; auto-completion-use-company-box t
-                      )
+     (auto-completion
+      :variables
+      auto-completion-enable-snippets-in-popup t
+      auto-completion-enable-help-tooltip t
+      auto-completion-enable-sort-by-usage t
+      ;; auto-completion-use-company-box t
+      )
      better-defaults
      theming
      syntax-checking
@@ -70,64 +71,75 @@ This function should only modify configuration layer settings."
            lsp-rust-analyzer-store-path "~/.config/coc/extensions/coc-rust-analyzer-data/rust-analyzer"
            )
      yaml
-     (treemacs :variables
-               treemacs-position 'right
-               treemacs-no-png-images t
-               treemacs-use-scope-type 'Perspectives
-               treemacs-display-in-side-window nil
-               treemacs-show-cursor t
-               )
+     (treemacs
+      :variables
+      treemacs-position 'right
+      treemacs-no-png-images t
+      treemacs-use-scope-type 'Perspectives
+      treemacs-display-in-side-window nil
+      treemacs-show-cursor t
+      )
      ;; NOTE: install shellcheck
      ;; lsp for bash "npm i -g bash-language-server"
-     shell-scripts
-     (python :variables
-             python-backend 'lsp        ; the default is anaconda
-             python-test-runner '(pytest nose)
-             python-formatter 'black
-             ;; python-format-on-save t
-             python-sort-imports-on-save t
-             ;; TODO: npm install -g pyright
-             ;; python-lsp-server 'pyright
-             )
+     (shell-scripts
+      :variables
+      shell-scripts-format-on-save t
+      shell-scripts-backend 'lsp
+      )
+     (python
+      :variables
+      python-backend 'lsp        ; the default is anaconda
+      python-test-runner '(pytest nose)
+      python-formatter 'black
+      ;; python-format-on-save t
+      python-sort-imports-on-save t
+      ;; TODO: npm install -g pyright
+      ;; python-lsp-server 'pyright
+      )
      ;; NOTE: `pip install jupyter', then run `jupyter notebook'
-     (ipython-notebook :variables
-                       ein:jupyter-default-notebook-directory "~/ipynb"
-                       ;; display inline image inside emacs instead of external tool
-                       ein:output-area-inlined-images t)
-     (conda :variables
-            conda-anaconda-home "~/anaconda3")
+     (ipython-notebook
+      :variables
+      ein:jupyter-default-notebook-directory "~/ipynb"
+      ;; display inline image inside emacs instead of external tool
+      ein:output-area-inlined-images t)
+     (conda :variables conda-anaconda-home "~/anaconda3")
      ;; TODO: Check layer/go for packages to install
-     (go :variables
-         ;; if not given and lsp layer is used, lsp will be used as go-backend
-         ;; go-backend 'go-mode
-         ;; go-tab-width 4
-         ;; go-format-before-save t
-         go-use-golangci-lint t
-         godoc-at-point-function 'godoc-gogetdoc
-         )
+     (go
+      :variables
+      ;; if not given and lsp layer is used, lsp will be used as go-backend
+      ;; go-backend 'go-mode
+      ;; go-tab-width 4
+      ;; go-format-before-save t
+      go-use-golangci-lint t
+      godoc-at-point-function 'godoc-gogetdoc
+      )
      ;; replace multiple-cursors with symbol-overlay(SPC s o)
      ;; multiple-cursors
      (org :variables
           org-want-todo-bindings t
           org-enable-epub-support t
           org-enable-sticky-header t)
-     (shell :variables
-            shell-default-shell 'eshell
-            shell-enable-smart-shell t
-            close-window-with-terminal t
-            shell-pop-autocd-to-working-dir nil
-            ;; not the full width, but just split the current window
-            shell-default-full-span nil
-            )
-     (spell-checking :variables
-                     ;; enable-flyspell-auto-completion t
-                     )
+     (shell
+      :variables
+      shell-default-shell 'eshell
+      shell-enable-smart-shell t
+      close-window-with-terminal t
+      shell-pop-autocd-to-working-dir nil
+      ;; not the full width, but just split the current window
+      shell-default-full-span nil
+      )
+     (spell-checking
+      :variables
+      ;; enable-flyspell-auto-completion t
+      )
      ;; use `SPC g .' to use version control functions such as goto next hunk
-     (version-control :variables
-                      version-control-diff-tool 'git-gutter+
-                      version-control-diff-side 'left
-                      )
-     (evil-snipe :variables evil-snipe-enable-alternate-f-and-t-behaviors t)
+     (version-control
+      :variables
+      version-control-diff-tool 'git-gutter+
+      version-control-diff-side 'left
+      )
+     (evil-snipe
+      :variables evil-snipe-enable-alternate-f-and-t-behaviors t)
      ;; NOTE: install ccls
      (c-c++
       :variables
@@ -148,13 +160,14 @@ This function should only modify configuration layer settings."
      ;; will provide lsp and cmake-format for cmake
      ;; But cmake-format provided by cmake-language-server seems broken, so
      ;; pip install cmake_format
-     (cmake :variables
-            cmake-enable-cmake-ide-support t
-            cmake-backend 'lsp
-            ;; build dir for the project will be created automatically by cmake-ide(`, p C') when open the src file
-            ;; compile project using `, c c' directly even if after modifying CMakeLists.txt
-            cmake-ide-build-dir "build"
-            )
+     (cmake
+      :variables
+      cmake-enable-cmake-ide-support t
+      cmake-backend 'lsp
+      ;; build dir for the project will be created automatically by cmake-ide(`, p C') when open the src file
+      ;; compile project using `, c c' directly even if after modifying CMakeLists.txt
+      cmake-ide-build-dir "build"
+      )
      ;; NOTE: to generate compile_commands.json file for lsp before using lsp
      ;; https://sarcasm.github.io/notes/dev/compilation-database.html
      ;; Read https://github.com/MaskRay/ccls/wiki/Project-Setup for project setup like .ccls
@@ -187,8 +200,7 @@ This function should only modify configuration layer settings."
       lsp-rust-analyzer-display-parameter-hints t
       )
      ;; M-x dap-cpptools-setup after packages are installed by dap layer
-     (dap :variables
-          dap-ui-locals-expand-depth 3)
+     (dap :variables dap-ui-locals-expand-depth 3)
      ;; TODO: npm install -g prettier
      prettier
      ;; TODO: npm install -g import-js
@@ -209,26 +221,26 @@ This function should only modify configuration layer settings."
       node-add-moduels-path t
       )
      json
-     (html :variables
-           web-fmt-tool 'web-beautify)
+     (html :variables web-fmt-tool 'web-beautify)
      ;; TODO: sudo luarocks install luacheck
-     (lua :variables
-          lua-backend 'lua-mode
-          ;; NOTE: lua-lsp doesn't support lua5.4
-          ;; lua-language-server is too heavy
-          ;; lua-lsp-server 'lua-lsp
-          )
-     (pdf :variables
-          pdf-view-display-size 'fit-height)
-     (tabs :variables
-           centaur-tabs-height 20
-           ;; centaur-tabs-bar-height 30
-           ;; centaur-tabs-show-navigation-buttons t ;; FIXME: two tab height variables do not work if set
-           centaur-tabs-show-new-tab-button nil
-           centaur-tabs-modified-marker "*"
-           ;; centaur-tabs-set-bar 'left ;; FIXME: tab-bar will not be displayed for emacsclient if set to left
-           centaur-tabs-cycle 'tabs
-           )
+     (lua
+      :variables
+      lua-backend 'lua-mode
+      ;; NOTE: lua-lsp doesn't support lua5.4
+      ;; lua-language-server is too heavy
+      ;; lua-lsp-server 'lua-lsp
+      )
+     (pdf :variables pdf-view-display-size 'fit-height)
+     (tabs
+      :variables
+      centaur-tabs-height 20
+      ;; centaur-tabs-bar-height 30
+      ;; centaur-tabs-show-navigation-buttons t ;; FIXME: two tab height variables do not work if set
+      centaur-tabs-show-new-tab-button nil
+      centaur-tabs-modified-marker "*"
+      ;; centaur-tabs-set-bar 'left ;; FIXME: tab-bar will not be displayed for emacsclient if set to left
+      centaur-tabs-cycle 'tabs
+      )
      )
 
    ;; List of additional packages that will be installed without being wrapped
