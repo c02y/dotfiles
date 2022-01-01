@@ -7,29 +7,27 @@
 #=============================================================================
 # https://spacevim.org/documentation/
 # Update SpaceVim using `:SPUpdate SpaceVim` in vim or `git -C ~/.SpaceVim pull` in terminal
-
 # All SpaceVim option below [option] section
 [options]
 bootstrap_before = "myspacevim#before"
 bootstrap_after = "myspacevim#after"
-
-    # set spacevim theme. by default colorscheme layer is not loaded,
-    # if you want to use more colorscheme, please load the colorscheme
-    # layer
+# set spacevim theme. by default colorscheme layer is not loaded,
+# if you want to use more colorscheme, please load the colorscheme
+# layer
 colorscheme = ""
 colorscheme_bg = ""
-    # Disable guicolors in basic mode, many terminal do not support 24bit
-    # true colors
-    enable_guicolors = false
+# Disable guicolors in basic mode, many terminal do not support 24bit
+# true colors
+enable_guicolors = false
 default_indent = 4
 expand_tab = true
 enable_statusline_bfpath = true
 info_symbol = 'i'
-    # Disable statusline separator, if you want to use other value, please
-    # install nerd fonts
+# Disable statusline separator, if you want to use other value, please
+# install nerd fonts
 #statusline_separator = 'nil'
-    statusline_separator = "arrow"
-    statusline_iseparator = "arrow"
+statusline_separator = "arrow"
+statusline_iseparator = "arrow"
 buffer_index_type = 4
 warning_symbol = '!'
 windows_leader = ""
@@ -37,12 +35,11 @@ enable_tabline_filetype_icon = true
 enable_statusline_mode = true
 statusline_unicode_symbols = false
 commandline_prompt = "> "
-
 # disable vimfiler window on the home page after startup
 enable_vimfiler_welcome = 0
-
 # NOTE: the value should be a list, and each item is the name of the plugin.
 disabled_plugins = ["tagbar"]
+autocomplete_method = "coc"
 
 # disable auto loaded layer
 # [[layers]]
@@ -63,14 +60,8 @@ default_height = 30
 name = "incsearch"
 
 [[layers]]
+# this is the fuzzy finder layer, 5 options: unite, denite, fzf, leaderf and ctrlp
 name = "fzf"
-
-[[layers]]
-name = "lang#c"
-enable_clang_syntax_highlight = true
-
-[layer.clang_std]
-cpp = "c11"
 
 [[layers]]
 name = "checker"
@@ -80,23 +71,8 @@ name = "format"
 format_on_save = true
 
 [[layers]]
-name = "lang#python"
-python_file_head = ['#!/usr/bin/env python', '# -*- coding: utf-8 -*-', '', '']
-enabled_linters = ['python', 'pylint']
-
-[[layers]]
-name = "lang#lua"
-
-[[layers]]
-name = "lang#rust"
-
-[[layers]]
-name = "lsp"
-filetypes = ["rust", "python", "c", "cpp"]
-
-[layers.override_cmd]
-c = ['ccls']
-cpp = ['ccls']
+name = "git"
+git_plugin = 'fugitive'
 
 [[layes]]
 name = "VersionControl"
@@ -115,8 +91,29 @@ name = "edit"
 name = "foldsearch"
 
 [[layers]]
-name = "git"
-git_plugin = 'fugitive'
+name = "lang#c"
+enable_clang_syntax_highlight = true
+[layer.clang_std]
+cpp = "c11"
+
+[[layers]]
+name = "lang#python"
+python_file_head = ['#!/usr/bin/env python', '# -*- coding: utf-8 -*-', '', '']
+enabled_linters = ['python', 'pylint']
+
+[[layers]]
+name = "lang#lua"
+
+[[layers]]
+name = "lang#rust"
+
+[[layers]]
+name = "lsp"
+filetypes = ["rust", "python", "c", "cpp"]
+[layers.override_cmd]
+c = ['clangd']
+cpp = ['clangd']
+rust = ['rust-analyzer']
 
 [[layers]]
 name = "lang#sh"
@@ -136,9 +133,10 @@ name = "lang#vim"
 #             \ ['luochen1990/rainbow', {'merged' : 0}],
 #             \ ]
 [[custom_plugins]]
+# For more options see `:h dein-options`
 name = 'tpope/vim-commentary'
-merged = 0
+merged = false
 
 [[custom_plugins]]
 name = 'tpope/vim-unimpaired'
-merged = 0
+merged = false

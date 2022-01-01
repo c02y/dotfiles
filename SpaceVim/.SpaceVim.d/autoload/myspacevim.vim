@@ -83,6 +83,8 @@ function! myspacevim#after() abort
     " q to exit if no change
     nmap q :q<CR>
     nmap Q :qa!<CR>
+    noremap <C-a> <Home>
+    noremap <C-e> <End>
 
     nnoremap <silent><Leader>m m
     nmap <Leader>== gg=G2<C-o>
@@ -106,4 +108,5 @@ function! myspacevim#after() abort
     nnoremap <Leader>=( =i(<C-o>
     nnoremap <Leader>=[ =i[<C-o>
 
+    let g:coc_config_home = '~/.local/bin/'
 endfunction
