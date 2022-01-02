@@ -2659,6 +2659,14 @@ function ffms -d 'ffmpeg related functions'
                 end
             end
         end
+    else if set -q _flag_s # only cut slice based on time, argument for -s is like 00:10:00-00:20:00
+        set START (string split "-" $_flag_s)[1]
+        set END (string split "-" $_flag_s)[2]
+        for videofile in $argv
+            set FILE (string split -r -m1 . $videofile)[1]
+            set EXT (string lower (echo $videofile | sed 's/^.*\.//'))
+            ffmpeg -hide_banner -ss $START -to $END -i $videofile -c:v copy -c:a copy {$FILE}-cut.{$EXT}
+        end
     else if set -q _flag_f # get a frame losslessly at specific timestamp
         # useful to compare the qualities of two files after using ffms -c
         for file in $argv
