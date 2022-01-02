@@ -56,7 +56,10 @@ This function should only modify configuration layer settings."
      (ivy :variables ivy-enable-advanced-buffer-information t)
      emacs-lisp
      markdown
-     vimscript
+     (vimscript
+      ;; TODO: npm install -g vim-language-server
+     :variables vimscript-backend 'lsp
+     )
      ;; TODO:
      ;; rustup component add rust-analysis rust-src clippy rustfmt
      ;; cargo install cargo-edit cargo-audit cargo-outdated
