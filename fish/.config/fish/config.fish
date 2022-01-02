@@ -688,7 +688,7 @@ set -gx FZF_TMUX_HEIGHT 100%
 
 # C-o -- find file in ~/, C-r -- history, C-w -- cd dir
 # C-s -- open with EDITOR, M-o -- open with open
-source $HOME/.config/fish/functions/fzf.fish
+source $HOME/.config/fish/functions/myfzf.fish
 
 # based on '__fzf_complete_preview' function and '~/.config/ranger/scope.sh' file
 function fzf_previewer -d 'generate preview for completion widget.
