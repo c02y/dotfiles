@@ -257,6 +257,7 @@ This function should only modify configuration layer settings."
    dotspacemacs-additional-packages '(
                                       highlight-indent-guides
                                       electric-operator
+                                      syntax-subword
                                       comment-dwim-2
                                       (cool-moves :location (recipe :fetcher github :repo "mrbig033/cool-moves"))
                                       evil-smartparens
@@ -1056,20 +1057,21 @@ With negative N, comment out original line and use the absolute value."
           (forward-line 1)
           (forward-char pos)))))
 
+  (global-syntax-subword-mode)
   ;; delete not kill it into kill-ring
   ;; _based on_ http://ergoemacs.org/emacs/emacs_kill-ring.html
   (defun delete-word (arg)
-    "Delete characters forward until encountering the end of a word.
+    "Delete characters forward until encountering the end of a syntax-subword.
 With argument, do this that many times.
 This command does not push text to `kill-ring'."
     (interactive "p")
     (delete-region
      (point)
      (progn
-       (forward-word arg)
+       (syntax-subword-forward arg)
        (point))))
   (defun delete-word-backward (arg)
-    "Delete(not kill) characters backward until encountering the beginning of the word.
+    "Delete(not kill) characters backward until encountering the beginning of the syntax-subword.
 With argument, do this that many times."
     (interactive "p")
     (delete-word (- arg)))
