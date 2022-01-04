@@ -1244,6 +1244,7 @@ function pacs -d 'pacman/paru operations'
         echo "         + -l --> list local mirrors"
         echo "      -i --> install(need argv, pkg name, pkg file or pkg link)"
         echo "         + -p --> print installed/removed/upgraded packages history"
+        echo "           + argv --> print pacman history for the argv package"
         echo "         + -u --> update the system and install the argv"
         echo "         + -y --> install the argv without confirm"
         echo "         + -r --> reinsall argv"
@@ -1297,7 +1298,11 @@ function pacs -d 'pacman/paru operations'
             end
         end
     else if set -q _flag_i # install
-        set -q _flag_p; and rg -e "installed|reinstalled|removed|upgraded|warning" /var/log/pacman.log && return
+        if set -q _flag_p # list pacman log
+            set -q $argv; and rg -e "installed|reinstalled|removed|upgraded|warning" /var/log/pacman.log; or rg -e "installed|reinstalled|removed|upgraded|warning" /var/log/pacman.log | rg $argv
+            return
+        end
+
         # -S to install a package, -Syu pkg to ensure the system is update to date then install the package
         set -q _flag_u; and set OPT $OPT -Syy; or set OPT $OPT -S
 
