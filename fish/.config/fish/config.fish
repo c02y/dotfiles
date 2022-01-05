@@ -2789,7 +2789,7 @@ end
 abbr upxx 'upx --best --lzma'
 # cargo
 function cars -d "cargo commands, -c(clean target), -d(remove/uninstall), -i(install), -r(release build), -S(reduce size)"
-    set -l options b c C d i I r s S R u p t m
+    set -l options c C d i I r s S R u p t m "b="
     argparse -n cars $options -- $argv
     or return
 
@@ -2816,11 +2816,12 @@ function cars -d "cargo commands, -c(clean target), -d(remove/uninstall), -i(ins
     else if set -q _flag_R
         set -q _flag_u; and eval env RUST_BACKTRACE=1 $CMD run $argv; or eval $CMD run $argv
     else if set -q _flag_m # view the structure in tree/graph
-        command -sq cargo-modules; and eval $CMD install cargo-modules
+        command -sq cargo-modules; or eval $CMD install cargo-modules
+        iet -q _flag_b; and set TARGET "--bin $_flag_b"; or set TARGET --lib
         if set -q _flag_t
-            eval $CMD modules generate tree --all-features $argv
+            eval $CMD modules generate tree --all-features $TARGET
         else
-            eval $CMD modules generate graph --all-features $argv | xdot -
+            eval $CMD modules generate graph --all-features $TARGET | xdot -
         end
     else if set -q _flag_t
         # NOTE: do not combine the following if-else into one line and-or
