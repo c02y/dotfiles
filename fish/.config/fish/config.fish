@@ -2789,15 +2789,19 @@ end
 abbr upxx 'upx --best --lzma'
 # cargo
 function cars -d "cargo commands, -c(clean target), -d(remove/uninstall), -i(install), -r(release build), -S(reduce size)"
-    set -l options c C d i I r s S R u p t m "b="
+    set -l options c C d i n r s S R u p t m "b="
     argparse -n cars $options -- $argv
     or return
 
     set CMD (PXY) cargo
 
-    if set -q _flag_I
-        # crate a new project based on current directory; or create a new project based on argv
-        set -q $argv; and cargo init; or cargo init $argv && cd $argv
+    if set -q _flag_n
+        if set -q _flag_i
+            # crate a new project based on current directory; or create a new project based on argv
+            set -q $argv; and cargo init; or cargo init $argv && cd $argv
+        else
+            eval $CMD new $argv; and cd $argv
+        end
     else if set -q _flag_d
         eval $CMD uninstall $argv
     else if set -q _flag_c
@@ -2811,8 +2815,6 @@ function cars -d "cargo commands, -c(clean target), -d(remove/uninstall), -i(ins
         eval $CMD cache -a
     else if set -q _flag_p
         eval $CMD clippy
-    else if set -q _flag_n
-        eval $CMD new $argv
     else if set -q _flag_R
         set -q _flag_u; and eval env RUST_BACKTRACE=1 $CMD run $argv; or eval $CMD run $argv
     else if set -q _flag_m # view the structure in tree/graph
