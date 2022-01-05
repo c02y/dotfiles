@@ -224,23 +224,13 @@ mode "$mode_system" {
 }
 bindsym $mod+Ctrl+Delete mode "$mode_system"
 
-set $mode_resize Actions: Left(-width), Right(+width), Up(+height), Down(-height), =(50%)
-mode "$mode_resize" {
-	bindsym Left  resize shrink width  5 px or 5 ppt
-	bindsym Right resize grow   width  5 px or 5 ppt
-	bindsym Up    resize grow   height 5 px or 5 ppt
-	bindsym Down  resize shrink height 5 px or 5 ppt
-	# NOTE: This balance binding only works for 2 windows inside a container in split layout
-	bindsym equal resize set 50 ppt 50 ppt; mode "default"
-
-	# back to normal: Enter or Escape or $mod+r
-	bindsym Escape mode "default"
-}
-bindsym $mod+Ctrl+r mode "$mode_resize"
-bindsym $mod+Ctrl+Left  resize shrink width  5 px or 5 ppt
-bindsym $mod+Ctrl+Right resize grow   width  5 px or 5 ppt
-bindsym $mod+Ctrl+Up    resize grow   height 5 px or 5 ppt
-bindsym $mod+Ctrl+Down  resize shrink height 5 px or 5 ppt
+# resize window without using mode, this works for both tiling and floating windows
+# move window using $mod+Shift+arrow, it works for both tiling and floating windows as well
+# NOTE: it seems floating windows use 20 px, floating windows use 5 ppt, move-center works for floating windows
+bindsym $mod+Ctrl+Left  resize shrink width  20 px or 5 ppt; move position center
+bindsym $mod+Ctrl+Right resize grow   width  20 px or 5 ppt; move position center
+bindsym $mod+Ctrl+Up    resize grow   height 20 px or 5 ppt; move position center
+bindsym $mod+Ctrl+Down  resize shrink height 20 px or 5 ppt; move position center
 
 # put all modes in this parent mode
 set $modes Modes: (m)erge_swap, (M)ark, (s)ystem, (r)esize
