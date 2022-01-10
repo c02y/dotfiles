@@ -93,10 +93,11 @@ bindsym $mod+Right focus right
 # this can also be used to move window into container
 # NOTE: a container containing only one window can turn its container status off with toggle floating
 # move left/right can also be used to turn the one window container status off
-bindsym $mod+Shift+Left move left
-bindsym $mod+Shift+Right move right
-bindsym $mod+Shift+Down move down
-bindsym $mod+Shift+Up move up
+# the value at the end is for floating windows
+bindsym $mod+Shift+Left move left 50 px
+bindsym $mod+Shift+Right move right 50 px
+bindsym $mod+Shift+Down move down 50 px
+bindsym $mod+Shift+Up move up 50 px
 # Move the current window with the Left/Right/Down/Up window into a container in one step
 # Move focus->toggle into container->move focus back->move window into the container
 bindsym $mod+Mod1+Left focus left, split h, focus right, move left
@@ -226,11 +227,11 @@ bindsym $mod+Ctrl+Delete mode "$mode_system"
 
 # resize window without using mode, this works for both tiling and floating windows
 # move window using $mod+Shift+arrow, it works for both tiling and floating windows as well
-# NOTE: it seems floating windows use 20 px, floating windows use 5 ppt, move-center works for floating windows
-bindsym $mod+Ctrl+Left  resize shrink width  20 px or 5 ppt; move position center
-bindsym $mod+Ctrl+Right resize grow   width  20 px or 5 ppt; move position center
-bindsym $mod+Ctrl+Up    resize grow   height 20 px or 5 ppt; move position center
-bindsym $mod+Ctrl+Down  resize shrink height 20 px or 5 ppt; move position center
+# NOTE: it seems floating windows use px, tiling windows use ppt, move-center works for floating windows
+bindsym $mod+Ctrl+Left  resize shrink width  50 px or 5 ppt; move position center
+bindsym $mod+Ctrl+Right resize grow   width  50 px or 5 ppt; move position center
+bindsym $mod+Ctrl+Up    resize grow   height 50 px or 5 ppt; move position center
+bindsym $mod+Ctrl+Down  resize shrink height 50 px or 5 ppt; move position center
 
 # put all modes in this parent mode
 set $modes Modes: (m)erge_swap, (M)ark, (s)ystem, (r)esize
