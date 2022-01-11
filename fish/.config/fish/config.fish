@@ -912,6 +912,79 @@ function loo -d 'plocate functions, -u(update db), -a(under /), -v(video), -m(au
     end
 end
 
+function fdd -d 'fd to replace mlocate/plocate'
+    set -l options a v m d o x r e w p
+    argparse -n fdd $options -- $argv
+    or return
+
+    set ARGV $argv[1]
+    set -q $argv[2]; and set DIR .; or set DIR $argv[2]
+
+    set OPT -HI
+    set -q _flag_d; and set -a OPT -td; or set -a OPT -p
+    set -q _flag_w; and set -a OPT -F
+
+    set EXT
+    if set -q _flag_v
+        set EXT -e mp4 -e mkv -e avi -e webm -e mov -e rmvb -e flv
+        if set -q _flag_a # -a is to list all files, without keyword
+            set DIR $argv
+            test -d $DIR; and set ARGV .; or echo "'$DIR' directory doesn't exist" && return
+        end
+    else if set -q _flag_m
+        set EXT -e mp3 -e flac -e ape -e wav -e w4a -e dsf -e dff
+        if set -q _flag_a
+            # NOTE:
+            set DIR ~/Music
+            test -d $DIR; and set ARGV .; or echo "'$DIR' directory doesn't exist" && return
+        end
+        set -q $argv[2]; and set DIR ~/Music; or set DIR $argv[2]
+    else if set -q _flag_p
+        set EXT -e pdf
+        if set -q _flag_a
+            set DIR $argv
+            test -d $DIR; and set ARGV .; or echo "'$DIR' directory doesn't exist" && return
+        end
+    end
+
+    test $DIR = /; and set -a OPT -E /sys -E /proc -E /run/user
+
+    # NOTE: use double quote for CMD to successfully parse the variables
+    # -X ls is to sort the path
+    set CMD "fd $OPT $EXT $ARGV $DIR"
+    # or is in case of "Problem while executing command: Argument list too long (os error 7)"
+    # CMD2 is for non-operation, just print the list
+    set CMD2 "dua -f binary a --no-sort (fd $OPT $EXT $ARGV $DIR -x ls -d); or fd $OPT $EXT $ARGV $DIR"
+
+    # NOTE: dua will think the fd returns . if fd fails to find nothing
+    # so this step is needed, otherwise it affects the rest operations
+    # if test (fd -1 $OPT $EXT $ARGV $DIR | wc -l) = 0
+    if test (eval $CMD -1 | wc -l) = 0
+        echo "Not found!!!"; and return
+    end
+
+    # NOTE: the -0 + --print0 in fzf to be able to work with file/dir with spaces
+    # NOTE: DO NOT add --print0 it into FZF_DEFAULT_OPTS
+    # -r in xargs is --no-run-if-empty
+    if set -q _flag_o
+        # 2>/dev/null is for Ctrl-c to cancel in fzf
+        o (eval $CMD | fzf -1) 2>/dev/null
+    else if set -q _flag_x
+        eval $CMD | fzf -1 | xc && xc -o
+    else if set -q _flag_r
+        eval $CMD | fzf --print0 | xargs -0 -r rm -rfv
+    else if set -q _flag_e
+        eval $CMD | fzf -1 --print0 | xargs -0 -r vim --
+    else
+        if set -q $argv
+            eval $CMD2 | fzf --print0
+        else
+            # --passthru for rg is to highlight the word but also print non-highlighted lines
+            eval $CMD2 | rg -i -p --passthru $argv[1]
+        end
+    end
+end
+
 # df+du+gdu/dua
 function dfs -d 'df(-l, -L for full list), gua(-i), dua(-I), du(by default), cache/config dir of Firefox/Chrome/Vivaldi/paru/pacman'
     set -l options i I l L c t m s
