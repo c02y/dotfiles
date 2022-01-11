@@ -1534,30 +1534,22 @@ end
 # scan-build make or scan-build gcc file.c or clang --analyze file.c or clang-tidy file.c
 abbr cppc 'cppcheck --enable=all --inconclusive'
 
-function o -d 'open/xdg-open/xdg-utils, without option(open it), -s(show mimetype), -u(update mimeapps.list), -p(show default program for the file)'
-    set -l options s u p c
+function o -d "open, xdg-open, xdg-utils"
+    set -l options u p
     argparse -n xdgs $options -- $argv
     or return
 
-    if set -q _flag_s # show the mimetype of the argv file the default program for opening $argv file
-        xdg-mime query filetype $argv
-    else if set -q _flag_u # update mimeapps.list for this $argv file
+    if set -q _flag_u # update mimeapps.list for this $argv file
         # $argv[1] is the desktop file for the program to open the file
         # $argv[2] is the file to be opened
         xdg-mime default $argv[1] (xdg-mime query filetype $argv[2])
-        echo "Need to update mimeapps.list file, check `o -c`"
-        # cp ~/.config/mimeapps.list ~/.local/bin/mimeapps.list
-    else if set -q _flag_p # show the default program for opening the $argv file
+    else if set -q _flag_p # show the mimetype and the default program for opening the $argv file
+        xdg-mime query filetype $argv
         xdg-mime query default (xdg-mime query filetype $argv)
-    else if set -q _flag_c
-        if not cmp --silent ~/.local/bin/mimeapps.list ~/.config/mimeapps.list
-            diffs ~/.local/bin/mimeapps.list ~/.config/mimeapps.list
-            echo
-            echo -e "Need to update mimeapps.list like: \n\
-            cp ~/.config/mimeapps.list ~/.local/bin/mimeapps.list -rfv"
-        end
     else
-        open $argv >/dev/null 2>/dev/null
+        # https://github.com/chmln/handlr
+        # Simple xdg-open or open will not handle . and file propertly 
+        handlr open $argv
     end
 end
 
