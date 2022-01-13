@@ -917,7 +917,7 @@ function fdd -d 'fd to replace mlocate/plocate'
     argparse -n fdd $options -- $argv
     or return
 
-    set ARGV $argv[1]
+    set -q $argv[1]; and set ARGV .; or set ARGV $argv[1]
     set -q $argv[2]; and set DIR .; or set DIR $argv[2]
 
     set OPT -HI
@@ -928,22 +928,24 @@ function fdd -d 'fd to replace mlocate/plocate'
     if set -q _flag_v
         set EXT -e mp4 -e mkv -e avi -e webm -e mov -e rmvb -e flv
         if set -q _flag_a # -a is to list all files, without keyword
-            set DIR $argv
-            test -d $DIR; and set ARGV .; or echo "'$DIR' directory doesn't exist" && return
+            set ARGV .
+            set -q $argv; and set DIR .; or set DIR $argv
+            test -d $DIR; or echo "'$DIR' directory doesn't exist" && return
         end
     else if set -q _flag_m
         set EXT -e mp3 -e flac -e ape -e wav -e w4a -e dsf -e dff
         if set -q _flag_a
             # NOTE:
-            set DIR ~/Music
-            test -d $DIR; and set ARGV .; or echo "'$DIR' directory doesn't exist" && return
+            set ARGV .
+            set -q $argv; and set DIR .; or set DIR $argv
+            test -d $DIR; or echo "'$DIR' directory doesn't exist" && return
         end
-        set -q $argv[2]; and set DIR ~/Music; or set DIR $argv[2]
     else if set -q _flag_p
         set EXT -e pdf
         if set -q _flag_a
-            set DIR $argv
-            test -d $DIR; and set ARGV .; or echo "'$DIR' directory doesn't exist" && return
+            set ARGV .
+            set -q $argv; and set DIR .; or set DIR $argv
+            test -d $DIR; or echo "'$DIR' directory doesn't exist" && return
         end
     end
 
@@ -954,11 +956,10 @@ function fdd -d 'fd to replace mlocate/plocate'
     set CMD "fd $OPT $EXT $ARGV $DIR"
     # or is in case of "Problem while executing command: Argument list too long (os error 7)"
     # CMD2 is for non-operation, just print the list
-    set CMD2 "dua -f binary a --no-sort (fd $OPT $EXT $ARGV $DIR -x ls -d); or fd $OPT $EXT $ARGV $DIR"
+    set CMD2 "dua -f binary a --no-sort (fd $OPT $EXT $ARGV $DIR -X ls -d); or fd $OPT $EXT $ARGV $DIR"
 
     # NOTE: dua will think the fd returns . if fd fails to find nothing
     # so this step is needed, otherwise it affects the rest operations
-    # if test (fd -1 $OPT $EXT $ARGV $DIR | wc -l) = 0
     if test (eval $CMD -1 | wc -l) = 0
         echo "Not found!!!"; and return
     end
@@ -967,7 +968,7 @@ function fdd -d 'fd to replace mlocate/plocate'
     # NOTE: DO NOT add --print0 it into FZF_DEFAULT_OPTS
     # -r in xargs is --no-run-if-empty
     if set -q _flag_o
-        # 2>/dev/null is for Ctrl-c to cancel in fzf
+        # 2>/dev/null is for Ctrl-c to cancel in fzf, otherwise it will print error for o
         o (eval $CMD | fzf -1) 2>/dev/null
     else if set -q _flag_x
         eval $CMD | fzf -1 | xc && xc -o
@@ -976,11 +977,12 @@ function fdd -d 'fd to replace mlocate/plocate'
     else if set -q _flag_e
         eval $CMD | fzf -1 --print0 | xargs -0 -r vim --
     else
-        if set -q $argv
+        if test "$ARGV" = "."
+            # just print it, otherwise the list will all be highlighted
             eval $CMD2 | fzf --print0
         else
             # --passthru for rg is to highlight the word but also print non-highlighted lines
-            eval $CMD2 | rg -i -p --passthru $argv[1]
+            eval $CMD2 | rg -i -p --passthru $ARGV
         end
     end
 end
