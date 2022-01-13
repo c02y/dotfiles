@@ -681,7 +681,7 @@ alias zz zi
 function zzz -d 'use ranger with zoxide'
     set -q $argv; and ranger; or z (zoxide query -i $argv) && ranger
 end
-set -gx _ZO_FZF_OPTS "-1 -0 --reverse --print0"
+set -gx _ZO_FZF_OPTS "-1 -0 --reverse"
 # -m to mult-select using Tab/S-Tab
 set -gx FZF_DEFAULT_OPTS "-e -m -0 --reverse --preview 'fish -c \"fzf_previewer {}\"' --preview-window=bottom:wrap"
 set -gx FZF_TMUX_HEIGHT 100%
