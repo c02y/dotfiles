@@ -2854,7 +2854,8 @@ end
 
 # upx get smaller size than strip
 abbr upxx 'upx --best --lzma'
-# cargo
+# for all the Rust developement setup:
+# https://fasterthanli.me/articles/my-ideal-rust-workflow
 function cars -d "cargo commands, -c(clean target), -d(remove/uninstall), -i(install), -r(release build), -S(reduce size)"
     set -l options c C d i n r s S R u p t T m "b="
     argparse -n cars $options -- $argv
@@ -2881,7 +2882,8 @@ function cars -d "cargo commands, -c(clean target), -d(remove/uninstall), -i(ins
         # clean whole cache in ~/.cargo
         eval $CMD cache -a
     else if set -q _flag_p
-        eval $CMD clippy
+        # https://fasterthanli.me/articles/my-ideal-rust-workflow
+        eval $CMD clippy --locked -- -D warnings
     else if set -q _flag_R
         set -q _flag_u; and eval env RUST_BACKTRACE=1 $CMD run $argv; or eval $CMD run $argv
     else if set -q _flag_m # view the structure in tree/graph
