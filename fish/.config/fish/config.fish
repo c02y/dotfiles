@@ -920,9 +920,10 @@ function fdd -d 'fd to replace mlocate/plocate'
     set -q $argv[1]; and set ARGV .; or set ARGV $argv[1]
     set -q $argv[2]; and set DIR .; or set DIR $argv[2]
 
-    set OPT -HI
+    # NOTE: -a here means non-all(exclude -HI)
+    set -q _flag_a; or set OPT -HI
     set -q _flag_d; and set -a OPT -td; or set -a OPT -p
-    set -q _flag_w; and set -a OPT -F
+    set -q _flag_w; and set -a OPT -g
 
     set EXT
     if set -q _flag_v
@@ -1623,7 +1624,7 @@ function o -d "open, xdg-open, xdg-utils"
         xdg-mime query default (xdg-mime query filetype $argv)
     else
         # https://github.com/chmln/handlr
-        # Simple xdg-open or open will not handle . and file propertly 
+        # Simple xdg-open or open will not handle . and file propertly
         handlr open $argv
     end
 end
