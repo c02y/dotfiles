@@ -922,7 +922,11 @@ function fdd -d 'fd to replace mlocate/plocate'
 
     # NOTE: -a here means non-all(exclude -HI)
     set -q _flag_a; or set OPT -HI
-    set -q _flag_d; and set -a OPT -td; or set -a OPT -p
+    # NOTE: -d and -w don't work well with -p, so do not use -p if using -d or -w
+    if not set -q _flag_d; and not set -q _flag_w
+        set -a OPT -p
+    end
+    set -q _flag_d; and set -a OPT -td
     set -q _flag_w; and set -a OPT -g
 
     set EXT
