@@ -24,7 +24,7 @@ function __fzf_find_file -d "List files and folders"
     set -l fzf_query $commandline[2]
 
     # Find file in ~/
-    set -l FZF_FIND_FILE_COMMAND "rg --files --hidden --no-ignore -g !.git ~/"
+    set -l FZF_FIND_FILE_COMMAND "fd -HIp -tf . ~/"
     begin
         eval "$FZF_FIND_FILE_COMMAND | "fzf "-m $FZF_DEFAULT_OPTS --query \"$fzf_query\"" | while read -l s
             set results $results $s
@@ -105,7 +105,7 @@ function __fzf_open -d "Open files and directories."
     argparse $options -- $argv
 
     # open file in ./
-    set -l FZF_OPEN_COMMAND "rg --files --hidden --no-ignore -g !.git"
+    set -l FZF_OPEN_COMMAND "fd -HIp -tf ."
 
     set -l select (eval "$FZF_OPEN_COMMAND | "fzf "-m $FZF_DEFAULT_OPTS --query \"$fzf_query\"" | string escape)
 
@@ -122,6 +122,7 @@ function __fzf_open -d "Open files and directories."
 
     set -l open_status 0
     if not test -z "$select"
+        # FIXME: if there is space in select/file/dir-name, this function will fail
         set -l file_path (readlink -f $select)
         commandline "$open_cmd $file_path"; and commandline -f execute
         set open_status $status
