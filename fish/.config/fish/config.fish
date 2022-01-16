@@ -913,7 +913,7 @@ function loo -d 'plocate functions, -u(update db), -a(under /), -v(video), -m(au
 end
 
 function fdd -d 'fd to replace mlocate/plocate'
-    set -l options a v m d o x r e w p
+    set -l options a v m d o x r e w p "E="
     argparse -n fdd $options -- $argv
     or return
 
@@ -921,13 +921,15 @@ function fdd -d 'fd to replace mlocate/plocate'
     set -q $argv[2]; and set DIR .; or set DIR $argv[2]
 
     # NOTE: -a here means non-all(exclude -HI)
-    set -q _flag_a; or set OPT -HI -E Steam
+    set -q _flag_a; or set OPT -HI
     # NOTE: -d and -w don't work well with -p, so do not use -p if using -d or -w
     if not set -q _flag_d; and not set -q _flag_w
         set -a OPT -p
     end
     set -q _flag_d; and set -a OPT -td
     set -q _flag_w; and set -a OPT -g
+    # NOTE: $_flag_E must be the whole name of file/dir
+    set -q _flag_E; and set -a OPT "-E $_flag_E"
 
     set EXT
     if set -q _flag_v
