@@ -679,7 +679,7 @@ end
 zoxide init fish | source
 alias zz zi
 function zzz -d 'use ranger with zoxide'
-    set -q $argv; and ranger; or z (zoxide query -i $argv) && ranger
+    set -q $argv; and ranger; or z (zoxide query -i $argv; or test -d $argv && echo $argv) && ranger
 end
 set -gx _ZO_FZF_OPTS "-1 -0 --reverse"
 # -m to mult-select using Tab/S-Tab
