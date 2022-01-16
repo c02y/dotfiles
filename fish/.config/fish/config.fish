@@ -936,7 +936,7 @@ function fdd -d 'fd to replace mlocate/plocate'
         set EXT -e mp4 -e mkv -e avi -e webm -e mov -e rmvb -e flv
         if set -q _flag_a # -a is to list all files, without keyword
             set ARGV .
-            set -q $argv; and set DIR .; or set DIR $argv
+            set -q $argv; and set DIR .; or set DIR $argv[-1]
             test -d $DIR; or echo "'$DIR' directory doesn't exist" && return
         end
     else if set -q _flag_m
@@ -944,14 +944,14 @@ function fdd -d 'fd to replace mlocate/plocate'
         if set -q _flag_a
             # NOTE:
             set ARGV .
-            set -q $argv; and set DIR .; or set DIR $argv
+            set -q $argv; and set DIR .; or set DIR $argv[-1]
             test -d $DIR; or echo "'$DIR' directory doesn't exist" && return
         end
     else if set -q _flag_p
         set EXT -e pdf
         if set -q _flag_a
             set ARGV .
-            set -q $argv; and set DIR .; or set DIR $argv
+            set -q $argv; and set DIR .; or set DIR $argv[-1]
             test -d $DIR; or echo "'$DIR' directory doesn't exist" && return
         end
     end
