@@ -2865,7 +2865,7 @@ abbr upxx 'upx --best --lzma'
 # for all the Rust developement setup:
 # https://fasterthanli.me/articles/my-ideal-rust-workflow
 function cars -d "cargo commands, -c(clean target), -d(remove/uninstall), -i(install), -r(release build), -S(reduce size)"
-    set -l options c C d i n r s S R u p t T m "b="
+    set -l options c C d i n r s S R u p t T m "b=" B
     argparse -n cars $options -- $argv
     or return
 
@@ -2880,6 +2880,23 @@ function cars -d "cargo commands, -c(clean target), -d(remove/uninstall), -i(ins
         end
     else if set -q _flag_d
         eval $CMD uninstall $argv
+    else if set -q _flag_B # cargo bloat
+        if set -q _flag_t
+            echo "list of crates that took longest to compile, it will clean target dir and takes a while"
+            eval $CMD bloat --time -j 1
+        else
+            if set -q _flag_r
+                echo "====the biggest dependencies in the release build"
+                eval $CMD bloat --release --crates
+                echo "====the biggest functions in the release build"
+                eval $CMD bloat --release -n 10
+            else
+                echo "====the biggest dependencies in the release build"
+                eval $CMD bloat --crates
+                echo "====the biggest functions in the release build"
+                eval $CMD bloat -n 10
+            end
+        end
     else if set -q _flag_c
         if test -d ./target
             # only remove target/release; or remove the whole target
