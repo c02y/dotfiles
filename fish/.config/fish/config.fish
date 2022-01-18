@@ -699,9 +699,9 @@ function fzf_previewer -d 'generate preview for completion widget.
     if test "$argv[2]" = "Redefine variable"
         # show environment variables current value
         set -l evar (echo $argv[1] | cut -d= -f1)
-        echo $argv[1]$$evar
+        # echo $argv[1]$$evar
     else
-        echo $argv[1]
+        # echo $argv[1]
     end
 
     set -l path (string replace "~" $HOME -- $argv[1])
@@ -721,7 +721,7 @@ function fzf_previewer -d 'generate preview for completion widget.
         case application/x-rar
             unrar l -p- -- $path
         case "*"
-            echo $path
+            ls -lh $path
     end
 
     # if fish knows about it, let it show info
