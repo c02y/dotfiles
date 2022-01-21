@@ -221,7 +221,7 @@ function tk -d 'tmux kill-session all(default)/single(id)/multiple(id1 id2)/exce
         end
         return
     end
-    if set -q $argv[1] # no arguments
+    if not set -q argv[1]
         # check if running inside a tmux session
         set -q TMUX_PANE; and echo Inside a tmux session!
         read -n 1 -l -p 'echo "Kill all sessions? [y/N] "' answer
@@ -343,7 +343,7 @@ function lls -d 'ls/exa operations'
 
     # no dir is given, assign it to .
     # the single quote in `'$argv'` is for directories with space like `~/VirtualBox VMs/`
-    set -q $argv[1]; and set ARGV .; or set ARGV '$argv'
+    set -q argv[1]; and set ARGV '$argv'; or set ARGV .
 
     if command -sq exa
         set OPT -a -b --color-scale --color=always --icons --changed --time-style iso
@@ -404,11 +404,13 @@ end
 function pss -d 'pgrep process, used in command line'
     # ps aux | rg -w -v rg | rg -i $argv[1] | nl
     set -g PSS 'ps -e -o "user pid ppid pcpu pmem vsz rssize tty stat start time command" | rg -w -v rg'
-    if set -q $argv
+    if not set -q argv[1]
         eval $PSS | fzf --preview-window hidden
     else
         eval $PSS | rg -i $argv[1] | nl
-        if not set -q $argv[2]; and test (eval $PSS | rg -i $argv[1] | nl | wc -l) = 1
+        # copy the PID for the only process
+        # argv[2] is any valid character/words
+        if set -q argv[2]; and test (eval $PSS | rg -i $argv[1] | nl | wc -l) = 1
             set pid (pgrep -if $argv[1])
             echo -e "\nPID: " $pid
             if test $DISPLAY
@@ -420,7 +422,7 @@ function pss -d 'pgrep process, used in command line'
 end
 # pkill will not kill processes matching pattern, you have to kill the PID
 function pk --description 'kill processes containing a pattern or PID'
-    if set -q $argv
+    if not set -q argv[1]
         # this part of using fzf is from
         # https://github.com/SidOfc/dotfiles/blob/e94b96b908479950186e42a3709511a0afe300e4/.config/fish/functions/kp.fish
         set -l __kp__pid (ps -ef | sed 1d | eval "fzf $FZF_DEFAULT_OPTS --preview-window hidden -m --header='[kill:process]'" | awk '{print $2}')
@@ -545,7 +547,7 @@ function vars -d "list item in var line by line, all envs(by default), -m(MANPAT
         end
     else if set -q _flag_p
         echo $PATH | tr " " "\n" | nl
-    else if not set -q $argv # given any argv
+    else if set -q argv[1] # given any argv
         echo $$var | tr " " "\n" | nl
     else
         env
@@ -565,7 +567,7 @@ function cll -d "clear the terminal history buffer and repeat the last command o
         set -g lastcommand $history[1]
     end
     # the x is to prevent exiting fish to bash for new fish session
-    if set -q $argv; and test "$lastcommand" != cll; and test "$lastcommand" != x
+    if not set -q argv[1]; and test "$lastcommand" != cll; and test "$lastcommand" != x
         eval $lastcommand
     else
         eval $argv
@@ -679,7 +681,7 @@ end
 zoxide init fish | source
 alias zz zi
 function zzz -d 'use ranger with zoxide'
-    set -q $argv; and ranger; or z (zoxide query -i $argv; or test -d $argv && echo $argv) && ranger
+    not set -q argv[1]; and ranger; or z (zoxide query -i $argv; or test -d $argv && echo $argv) && ranger
 end
 set -gx _ZO_FZF_OPTS "-1 -0 --reverse"
 # -m to mult-select using Tab/S-Tab
@@ -740,7 +742,7 @@ function finds -d 'find a file/folder and view/edit using less/vim/emacs/emx/cd/
     argparse -n finds $options -- $argv
     or return
 
-    if set -q $argv[2] # no argv[2]
+    if not set -q argv[2] # no argv[2]
         set ARGV1 .
         set ARGV2 $argv[1]
     else
@@ -791,7 +793,7 @@ function fts -d 'find the temporary files such as a~ or #a or .a~, and files for
     or return
 
     # no dir is given, assign it to .
-    set -q $argv[1]; and set ARGV .; or set ARGV $argv
+    set -q argv[1]; and set ARGV $argv; or set ARGV .
 
     if set -q _flag_c # one level, not recursive, print
         find $ARGV -maxdepth 1 \( -iname "*~" -o -iname "#?*#" -o -iname ".#?*" -o -iname "*.swp*" \) | xargs -r ls -lhd | nl
@@ -825,7 +827,7 @@ function loo -d 'plocate functions, -u(update db), -a(under /), -v(video), -m(au
 
     # list and open only pdf files using rofi
     if set -q _flag_p
-        set -q $argv; and set ARGV .; or set ARGV $argv
+        set -q argv[1]; and set ARGV $argv; or set ARGV .
         o (fd --type f -e pdf $ARGV $HOME | fzf -1 --print0)
         return
     end
@@ -841,7 +843,7 @@ function loo -d 'plocate functions, -u(update db), -a(under /), -v(video), -m(au
         set UPDATEDB_CMD "updatedb --require-visibility 0 -U $HOME -o $DB"
     end
 
-    if set -q _flag_u; and set -q $argv
+    if set -q _flag_u; and not set -q argv[1]
         eval $UPDATEDB_CMD && return
     end
 
@@ -850,7 +852,7 @@ function loo -d 'plocate functions, -u(update db), -a(under /), -v(video), -m(au
     end
 
     if set -q _flag_v # search all video files
-        if set -q $argv # no given argv, list all videos
+        if not set -q argv[1] # no given argv, list all videos
             # get size of all videos, using `xargs -d '\n' dua -f binary` at the end
             set LOCATE 'plocate -e -i -d $DB "*" | \
                 rg -ie "\.mp4\$|\.mkv\$|\.avi\$|\.webm\$|\.mov\$|\.rmvb\$|\.wmv\$|\.flv\$" | rg -v steamapp'
@@ -873,7 +875,7 @@ function loo -d 'plocate functions, -u(update db), -a(under /), -v(video), -m(au
         # NOTE: this is not working for plocate but for mlocate
         set LOCATE "plocate -e -i -d $DB -b '\\$argv'"
     else # search file/dir
-        if set -q $argv
+        if not set -q argv[1]
             set LOCATE 'plocate -e -i -d $DB "*"'
         else
             set LOCATE 'plocate -e -i -d $DB $argv'
@@ -897,13 +899,13 @@ function loo -d 'plocate functions, -u(update db), -a(under /), -v(video), -m(au
     else
         if set -q _flag_v
             # NOTE :the xargs `-d '\n'` part is for dealing space in file name
-            if set -q $argv
+            if not set -q argv[1]
                 eval $LOCATE | xargs -r -d '\n' dua -f binary
             else
                 eval $LOCATE | rg -i $argv | xargs -r -d '\n' dua -f binary
             end
         else
-            if set -q $argv
+            if not set -q argv[1]
                 eval $LOCATE | fzf --print0
             else
                 eval $LOCATE | rg -i $argv
@@ -913,15 +915,15 @@ function loo -d 'plocate functions, -u(update db), -a(under /), -v(video), -m(au
 end
 
 function fdd -d 'fd to replace mlocate/plocate'
-    set -l options a v m d o x r e w p "E="
+    set -l options a v m d o x r e w p "E=" H
     argparse -n fdd $options -- $argv
     or return
 
-    set -q $argv[1]; and set ARGV .; or set ARGV $argv[1]
-    set -q $argv[2]; and set DIR .; or set DIR $argv[2]
+    set -q argv[1]; and set ARGV $argv[1]; or set ARGV .
+    set -q argv[2]; and set DIR $argv[2]; or set DIR .
 
-    # NOTE: -a here means non-all(exclude -HI)
-    set -q _flag_a; or set OPT -HI
+    # NOTE: -H here means exclude hidden files/dirs
+    set -q _flag_H; and set OPT; or set OPT -HI
     # NOTE: -d and -w don't work well with -p, so do not use -p if using -d or -w
     if not set -q _flag_d; and not set -q _flag_w
         set -a OPT -p
@@ -936,7 +938,7 @@ function fdd -d 'fd to replace mlocate/plocate'
         set EXT -e mp4 -e mkv -e avi -e webm -e mov -e rmvb -e flv
         if set -q _flag_a # -a is to list all files, without keyword
             set ARGV .
-            set -q $argv; and set DIR .; or set DIR $argv[-1]
+            set -q argv[1]; and set DIR $argv[-1]; or set DIR .
             test -d $DIR; or echo "'$DIR' directory doesn't exist" && return
         end
     else if set -q _flag_m
@@ -944,14 +946,14 @@ function fdd -d 'fd to replace mlocate/plocate'
         if set -q _flag_a
             # NOTE:
             set ARGV .
-            set -q $argv; and set DIR .; or set DIR $argv[-1]
+            set -q argv[1]; and set DIR $argv[-1]; or set DIR .
             test -d $DIR; or echo "'$DIR' directory doesn't exist" && return
         end
     else if set -q _flag_p
         set EXT -e pdf
         if set -q _flag_a
             set ARGV .
-            set -q $argv; and set DIR .; or set DIR $argv[-1]
+            set -q argv[1]; and set DIR $argv[-1]; or set DIR .
             test -d $DIR; or echo "'$DIR' directory doesn't exist" && return
         end
     end
@@ -1014,7 +1016,7 @@ function dfs -d 'df(-l, -L for full list), gua(-i), dua(-I), du(by default), cac
     else if set -q _flag_L
         df -Th
     else if set -q _flag_t
-        set -q $argv; and set ARGV 20G; or set ARGV $argv
+        set -q argv[1]; and set ARGV $argv[1]; or set ARGV 20G
         # if /tmp is out of space, temporally resize /tmp, use 20G if argv is not provided
         sudo mount -o remount,size=$ARGV,noatime /tmp
     else if set -q _flag_m
@@ -1035,7 +1037,7 @@ function dfs -d 'df(-l, -L for full list), gua(-i), dua(-I), du(by default), cac
         end
         dua -f binary a --no-sort $dirs_e
     else if set -q _flag_s # get the largest files list
-        if set -q $argv # no given argv, argv is the number of GB
+        if not set -q argv[1] # no given argv, argv is the number of GB
             sudo find / -xdev -type f -size +5G -print0 | xargs -0 ls -1hsS | sort -nk 1 | nl -v 1
         else
             sudo find / -xdev -type f -size +{$argv}G -print0 | xargs -0 ls -1hsS | sort -nk 1 | nl -v 1
@@ -1376,13 +1378,13 @@ function pacs -d 'pacman/paru operations'
             else if set -q _flag_l # list local mirrors
                 cat /etc/pacman.d/mirrorlist
             else # change mirror region
-                set -q $argv; and set ARGV China; or set ARGV $argv
+                set -q argv[1]; and set ARGV $argv[1]; or set ARGV China
                 sudo pacman-mirrors -f 5 -c $ARGV
             end
         end
     else if set -q _flag_i # install
         if set -q _flag_p # list pacman log
-            set -q $argv; and rg -e "installed|reinstalled|removed|upgraded|warning" /var/log/pacman.log; or rg -e "installed|reinstalled|removed|upgraded|warning" /var/log/pacman.log | rg $argv
+            not set -q argv[1]; and rg -e "installed|reinstalled|removed|upgraded|warning" /var/log/pacman.log; or rg -e "installed|reinstalled|removed|upgraded|warning" /var/log/pacman.log | rg $argv
             return
         end
 
@@ -1409,7 +1411,7 @@ function pacs -d 'pacman/paru operations'
         # all keyrings are stored in /usr/share/pacman/keyrings/
         eval paru $OPT $ARGV
     else if set -q _flag_c # clean/check
-        if set -q $argv # no given argv
+        if not set -q argv[1] # no given argv
             # use `paru -Sc` to clean interactively
             paru -c # clean unneeded dependencies
             paru -Rsun (paru -Qtdq)
@@ -1482,7 +1484,7 @@ function pacs -d 'pacman/paru operations'
         end
     else if set -q _flag_l # list installed pcakges containing the keyword(including description)
         if set -q _flag_n
-            if set -q $argv[1] # if no argu, list all installed packages names
+            if not set -q argv[1] # if no argu, list all installed packages names
                 paru -Qs | rg -i local/
             else
                 paru -Qs | rg -i local/ | rg -i $ARGV
@@ -1513,7 +1515,7 @@ function pacs -d 'pacman/paru operations'
         # or "warning: could not get file information for path/to/xxx", especially python pacakges
         paru -Qk | rg warning
     else # just search repo, if not found, search it in aur
-        if not set -q $argv # given argv
+        if set -q argv[1] # given argv
             # if failed with pacman, using paru directly (paru including aur is slow)
             pacman -Ss $ARGV; or paru $ARGV
         else
@@ -1563,7 +1565,7 @@ function mess -d 'meson related functions'
     if set -q _flag_C # passing build directory
         set BUILDDIR $_flag_C
     else
-        set -q $argv; and set BUILDDIR build; or set BUILDDIR $argv
+        set -q argv[1]; and set BUILDDIR $argv[1]; or set BUILDDIR builder
     end
 
     if set -q _flag_r # release build
@@ -1587,7 +1589,7 @@ function mess -d 'meson related functions'
     else if set -q _flag_s # subprojects
         test -f subprojects; and mkdir subprojects
         if set -q _flag_l
-            set -q $argv; and meson wrap list; or meson wrap list | rg $argv
+            not set -q argv[1]; and meson wrap list; or meson wrap list | rg $argv
         else if set -q _flag_i
             meson wrap status
         else if set -q _flag_u
@@ -1723,7 +1725,7 @@ function syss -d 'systemctl related functions'
     # current user or using default sudo
     set -q _flag_u; and set PRI systemctl --user; or set PRI systemctl
 
-    ! set -q $argv; and systemctl status $argv && return
+    set -q argv[1]; and systemctl status $argv && return
 
     set keys (seq 1 20)
     set values \
@@ -1857,7 +1859,7 @@ function vims -d 'switch between vanilla vim(-v) <-> SpaceVim or space-vim(the d
 
     if set -q _flag_v
         # The plugins are still installed inside ~/.vim/autoload based on the vimrc
-        set -q $argv; and set ARGV ~/Dotfiles.d/vim/.vimrc; or set ARGV $argv
+        set -q argv[1]; and set ARGV $argv; or set ARGV ~/Dotfiles.d/vim/.vimrc
         bash -c "vim --cmd \"set runtimepath^=$HOME/.vim\" -u $HOME/Dotfiles.d/vim/.vimrc $ARGV"
     else
         if ! test -d ~/.config/nvim # use neovim instead vim, so ignore vim
@@ -1948,7 +1950,7 @@ function usernew -d 'useradd related functions'
     argparse -n usertest $options -- $argv
     or return
 
-    set -q $argv; and set ARGV test; or set ARGV $argv
+    set -q argv[1]; and set ARGV $argv; or set ARGV test
 
     if set -q _flag_d # delete user and home directory
         if test -d /home/$_flag_d
@@ -2030,7 +2032,7 @@ function gitpls -d 'git pull another repo from current dir, ~/.emacs.d(-e), ~/.s
         echo "git pull in $dirs[2]..."
         git -C $dirs[2] pull
     else
-        if set -q $argv
+        if not set -q argv[1]
             echo "git pull in $dirs[3]..."
             git -C $dirs[3] pull
         else
@@ -2040,7 +2042,7 @@ function gitpls -d 'git pull another repo from current dir, ~/.emacs.d(-e), ~/.s
     end
 end
 function gitrm -d 'clean untracked file/dirs(fileA fileB...), all by default)'
-    if set -q $argv # no given argv
+    if not set -q argv[1] # no given argv
         git clean -f -d
     else
         set files (string split \n -- $argv)
@@ -2071,7 +2073,7 @@ function gitcl -d 'git clone and cd into it, full-clone(by default), simple-clon
 
     # after shallow pull
     set -q _flag_a; and eval $CMD git pull --unshallow && return
-    if set -q $argv # no repo link given
+    if not set -q argv[1] # no repo link given
         git pull
     else
         eval $CMD git clone -v $argv $DEPTH
@@ -2119,7 +2121,7 @@ function gitbs -d 'branches, tags and worktrees'
         if set -q _flag_d
             git worktree remove $argv
         else
-            if set -q $argv[1] # no argument
+            if not set -q argv[1] # no argument
                 git worktree list
             else if test -d $argv
                 echo "Directory $argv already exists!"
@@ -2154,7 +2156,7 @@ function gitbs -d 'branches, tags and worktrees'
                 end
             end
         else if set -q _flag_d
-            if set -q $argv[1] # no argv
+            if not set -q argv[1] # no argv
                 git branch -a | fzf | xargs git branch -d
             else
                 git branch -d $argv
@@ -2164,11 +2166,11 @@ function gitbs -d 'branches, tags and worktrees'
             git fetch
             git branch -a | fzf | awk '{print $1}' | sed 's#^remotes/[^/]*/##' | xargs git checkout
         else if set -q _flag_l
-            set -q $argv; and git ls-remote --heads; or git ls-remote --heads | rg -i $argv
+            not set -q argv[1]; and git ls-remote --heads; or git ls-remote --heads | rg -i $argv
         else if set -q _flag_t # list all tags, with arg, switch the the tag
             # use the following command the fetch all remote tags in there is any
             # git fetch --all --tags
-            if set -q $argv
+            if not set -q argv[1]
                 git tag -ln
                 echo -e "------------\nCurrent tag:"
                 git describe --tags
@@ -2180,7 +2182,7 @@ function gitbs -d 'branches, tags and worktrees'
         else if set -q _flag_v
             git branch -vv
         else
-            if set -q $argv[1] # no argument
+            if not set -q argv[1] # no argument
                 git branch # list local branches
             else # checkout $argv branch if exists, else create it
                 git checkout $argv 2>/dev/null
@@ -2190,7 +2192,7 @@ function gitbs -d 'branches, tags and worktrees'
     end
 end
 function gitco -d 'git checkout -- for multiple files(filA fileB...) at once, all by default'
-    if set -q $argv # no given files
+    if not set -q argv[1] # no given files
         # in case accidentally git checkout all unstaged files
         read -n 1 -l -p 'echo "Checkout all unstaged files? [Y/n]"' answer
         test "$answer" = y -o "$answer" = " "; and git checkout .; or echo "Cancel and exit!" && return
@@ -2233,17 +2235,17 @@ function sss -d 'count lines of code from a local code dir or a github url'
 end
 abbr gitsc sss
 function gitsr -d "get the url of a git repo"
-    set -q $argv[1]; and set -l ARGV .; or set -l ARGV $argv
+    set -q argv[1]; and set ARGV $argv; or set ARGV .
     if test -d $ARGV
         cd $ARGV && git config --get remote.origin.url | xc && xc -o
-        ! set -q $argv[1]; and cd -
+        set -q argv[1]; and cd -
         echo \n---- Path Copied to Clipboard! ----
     else
         echo Error: $ARGV is not valid!
     end
 end
 function gita -d 'git add for multiple files at once'
-    if set -q $argv # no given files
+    if not set -q argv[1] # no given files
         git add .
     else
         set -l files (echo $argv | tr ',' '\n')
@@ -2257,13 +2259,13 @@ function gitfs -d 'git forked repo sync'
     git checkout master
     git remote -v | rg upstream >/dev/null 2>/dev/null
     set -l upstream_status $status
-    if test $upstream_status = 1; and set -q $argv[1]
+    if test $upstream_status = 1; and not set -q argv[1]
         echo "Remote upstream is not set, unable to sync!"
         return
     else
         if test $upstream_status != 0
             # given argument
-            not set -q $arv[1]; and git remote add upstream $argv
+            set -q arv[1]; and git remote add upstream $argv
         end
         # the upstream url may be wrong, `git fetch upstream` will prompt for user/psw
         # use `git remote remove upstream` to remove the wrong upstream url
@@ -2281,7 +2283,7 @@ function gitrh -d 'git reset HEAD for multiple files(file1 file2, all without ar
     else if set -q _flag_h # undo last unpushed/pushed(unpulled) commit, delete changes
         git reset --hard HEAD~1
     else
-        if set -q $argv # no given files
+        if not set -q argv[1] # no given files
             # in case accidentally git reset all staged files
             read -n 1 -l -p 'echo "Reset all staged files? [Y/n]"' answer
             test "$answer" = y -o "$answer" = " "; and git reset; or echo "Cancel and exit!" && return
@@ -2512,7 +2514,7 @@ end
 # install pytest and pytest-pep8 first, to check if the code is following pep8 guidelines
 abbr pyp8 'py.test --pep8'
 function penv -d 'python3 -m venv in fish'
-    set -q $argv; and set ARGV venv; or set ARGV $argv
+    set -q argv[1]; and set ARGV $argv; or set ARGV venv
 
     if not test -d $ARGV
         python3 -m venv $ARGV
@@ -2803,7 +2805,7 @@ function rgs -d 'rg sth in -e(init.el)/-E(errno)/-f(config.fish)/-t(.tmux.conf)/
     else if set -q _flag_2
         set FILE ~/Dotfiles.d/todo.org
     else # without options
-        if set -q $argv[2] # no $argv[2]
+        if not set -q argv[2] # no $argv[2]
             set FILE .
         else
             set FILE $argv[2]
@@ -2874,7 +2876,7 @@ function cars -d "cargo commands, -c(clean target), -d(remove/uninstall), -i(ins
     if set -q _flag_n
         if set -q _flag_i
             # crate a new project based on current directory; or create a new project based on argv
-            set -q $argv; and cargo init; or cargo init $argv && cd $argv
+            not set -q argv[1]; and cargo init; or cargo init $argv && cd $argv
         else
             eval $CMD new $argv; and cd $argv
         end
@@ -3012,9 +3014,9 @@ function cons -d 'conda virtual environments related functions -i(install packag
     else if set -q _flag_l
         conda env list
     else if set -q _flag_L
-        if not set -q $CONDA_DEFAULT_ENV; and set -q $argv # running in conda env and no argv, too conditions
+        if not set -q $CONDA_DEFAULT_ENV; and not set -q argv[1] # running in conda env and no argv, too conditions
             conda list
-        else if set -q $CONDA_DEFAULT_ENV; and set -q $argv
+        else if set -q $CONDA_DEFAULT_ENV; and not set -q argv[1]
             conda list
         else if test "$CONDA_DEFAULT_ENV" != "$argv"
             conda list -n $argv
@@ -3034,7 +3036,7 @@ function cons -d 'conda virtual environments related functions -i(install packag
                 echo "!!!base env here, do not remove it!!!"
                 return -1
             end
-            if not set -q $argv; and test "$CONDA_DEFAULT_ENV" != "$argv" # given another argv
+            if set -q argv[1]; and test "$CONDA_DEFAULT_ENV" != "$argv" # given another argv
                 conda remove -n $argv --all
             else # no argv or argv=current env
                 set argv $CONDA_DEFAULT_ENV
@@ -3044,7 +3046,7 @@ function cons -d 'conda virtual environments related functions -i(install packag
             end
         end
     else if set -q _flag_n # new env, at least one argv
-        if set -q $argv # no argv
+        if not set -q argv[1] # no argv
             echo "argv is needed!"
             return -1
         else
@@ -3067,7 +3069,7 @@ function cons -d 'conda virtual environments related functions -i(install packag
             end
         end
     else # no option, switch env or pip install based on base env
-        set -q $argv; and conda env list && read -p 'echo "Which conda env switching to: [base?] "' argv
+        not set -q argv[1]; and conda env list && read -p 'echo "Which conda env switching to: [base?] "' argv
         if conda env list | awk '{ print $1 }' | rg -w $argv[1] >/dev/null 2>/dev/null
             # just enter when `read`, these three are unnecessary
             test "$argv" = ""; and set argv base
