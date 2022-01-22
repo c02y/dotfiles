@@ -158,3 +158,26 @@ textbox-prompt-colon {
     margin:     0px 0.3em 0em 0em ;
     text-color: @normal-foreground;
 }
+/* 
+* the original one line command is:
+rofi -sidebar-mode -show-icons -combi-modi drun,window,ssh -show combi \
+-modi combi,window,drun,run,ssh,TRANS:rofi-trans -matching regex -drun-match-fields all \
+-run-shell-command 'kitty --hold -e {cmd}' -theme ~/.local/bin/rofi-theme-solarized_alternate.rasi \
+-display-combi ALL -display-drun APP -display-window WINDOW -display-run BIN \
+-display-ssh SSH -font 'DejaVu Sans Mono 15'
+*/
+configuration {
+    font: "Droid Sans Mono 15";
+    run-shell-command: "kitty --hold -e {cmd}";
+    modi: "combi,window,drun,run,ssh,TRANS:rofi-trans";
+    combi-modi: "drun,window,ssh";
+    matching: "regex";
+    drun-match-fields: "all";
+    sidebar-mode: true;
+    show-icons: true;
+    display-combi: "ALL";
+    display-drun: "APP";
+    display-window: "WINDOW";
+    display-run: "BIN";
+    display-ssh: "SSH";
+}

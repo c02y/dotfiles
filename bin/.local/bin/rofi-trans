@@ -10,13 +10,13 @@ if [[ "$stage2" == "yes" ]]; then
 	# -mesg must be put at the end
 	# rofiOption="-p Trans -dmenu -theme /usr/share/rofi/themes/solarized_alternate.rasi -l 0 -mesg"
 	# Option2: use the window in theme and 30 lines
-	rofiOption="-p TRANS -dmenu -theme ~/.local/bin/rofi-theme-solarized_alternate.rasi -l 30"
+	rofiOption="-p TRANS -dmenu -theme ~/.local/bin/rofi-theme-solarized_alternate.rasi"
 	while [[ -n "$input" ]]; do
 		result="$(trans $transOption "$input")"
 		# Option1
 		# input="$(rofi $rofiOption "$result" -font 'DejaVu Sans Mono 15')"
 		# Option2
-		input="$(echo "$result" | rofi $rofiOption -format f -font 'DejaVu Sans Mono 15')"
+		input="$(echo "$result" | rofi $rofiOption -format f)"
 	done
 elif [[ "$transText" == "" ]]; then
 	# Stage 1
