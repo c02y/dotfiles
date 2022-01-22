@@ -29,12 +29,12 @@ fi
 
 if [ -f ../CMakeLists.txt -o -f ./CMakeLists.txt ]; then # using cmake+make/ninja
 	if [ -f ../CMakeLists.txt ]; then
-		cmake ..
+		cmake .. -G Ninja
 	else
 		if [ ! -d ./build ]; then
 			mkdir build
 		fi
-		cd build && cmake ..
+		cd build && cmake .. -G Ninja
 	fi
 
 	if [ $? = 0 ]; then
@@ -52,13 +52,14 @@ elif [ -f ../meson.build -o -f ./meson.build ]; then # using meson+ninja
 	if [ -f ../meson.build ]; then
 		meson ..
 	else
-		meson build && cd build
+		meson build
 	fi
 	if [ $? = 0 ]; then
+		cd build
 		if [ $# -ne 0 ]; then # argv is provided
-			ninja ./$@ && ./$@
+			meson compile $@ && ./$@
 		else
-			ninja
+			meson compile
 		fi
 	fi
 elif [ -f ./Makefile -o -f ./makefile ]; then
