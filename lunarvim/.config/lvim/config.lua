@@ -150,6 +150,7 @@ lvim.autocommands.custom_groups = {
 	{ "CursorHold,CursorHoldI,MenuPopup", "*", "silent! lua vim.lsp.buf.hover()" },
 	-- On entering insert mode in any file, scroll the window so the cursor line is centered
 	-- { "InsertEnter", "*", ":normal zz" },
+	{ "FileType", "gitcommit 1 | startinsert"},
 }
 
 -- Change Telescope navigation to use j and k for navigation and n and p for history in both input and normal mode.
