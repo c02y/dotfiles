@@ -16,10 +16,10 @@ an executable
 lvim.log.level = "warn"
 lvim.format_on_save = true
 lvim.transparent_window = true
--- lvim.colorscheme = 'default'
+lvim.colorscheme = "default"
 lvim.builtin.lualine.style = "default"
 lvim.builtin.lualine.options.theme = "onedark"
-lvim.builtin.lualine.sections.lualine_z = { "location", "diagnostics" }
+lvim.builtin.lualine.sections.lualine_c = { "filename", "diagnostics" }
 vim.cmd([[
 " FIXME: whitespace is not highlighted
 set listchars=tab:»\ ,extends:›,precedes:‹,nbsp:·,trail:·,eol:$,space:·,conceal:·
@@ -152,6 +152,9 @@ lvim.autocommands.custom_groups = {
 	-- On entering insert mode in any file, scroll the window so the cursor line is centered
 	-- { "InsertEnter", "*", ":normal zz" },
 	{ "FileType", "gitcommit 1 | startinsert" },
+	-- for color and borders of pop windows likes which-key and completion
+	{ "ColorScheme * highlight Pmenu ctermbg=NONE guibg=NONE" },
+	{ "ColorScheme * highlight FloatBorder ctermbg=NONE guibg=NONE" },
 }
 
 -- Change Telescope navigation to use j and k for navigation and n and p for history in both input and normal mode.
