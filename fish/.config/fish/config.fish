@@ -71,7 +71,7 @@ end
 
 set -gx FISHRC (readlink -f ~/.config/fish/config.fish)
 test -f ~/.spacemacs.d/init.el; and set -gx EMACS_EL (readlink -f ~/.spacemacs.d/init.el); or set -gx EMACS_EL ~/.spacemacs
-test -f ~/.config/nvim/README.md; and set -gx VIMRC (readlink -f ~/.SpaceVim.d/autoload/myspacevim.vim); or set -gx VIMRC (readlink -f ~/.spacevim)
+test -f ~/.config/nvim/config.lua; and set -gx VIMRC (readlink -f ~/.config/lvim/config.lua)
 # Please put the following lines into ~/.bashrc, putting them in config.fish won't work
 # This fixes a lot problems of displaying unicodes
 # https://github.com/syl20bnr/spacemacs/issues/12257
@@ -1095,7 +1095,7 @@ abbr manp cppman
 
 # color in man page
 # K jump link inside vim man page
-set -gx MANPAGER 'vim +Man! --cmd "let g:spacevim_enable_startify = 0" -c "set signcolumn=no"'
+set -gx MANPAGER 'vim +Man! -c "set signcolumn=no"'
 set -gx PAGER 'less -iXFR -x4 -M'
 
 abbr ifw 'ifconfig wlp5s0'

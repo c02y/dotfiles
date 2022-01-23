@@ -24,7 +24,7 @@ while getopts "l:k:" opt; do
 	esac
 done
 
-export MANPAGER='vim +Man! --cmd "let g:spacevim_enable_startify = 0" -c "set signcolumn=no"'
+export MANPAGER='vim +Man! -c "set signcolumn=no"'
 if [ "$*" == "" ]; then
 	read -r -p "Manpage: " manpage
 	manpage=$(apropos "$manpage" |
