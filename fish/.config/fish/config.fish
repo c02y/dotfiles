@@ -1629,8 +1629,7 @@ function o -d "open, xdg-open, xdg-utils"
         # $argv[2] is the file to be opened
         xdg-mime default $argv[1] (xdg-mime query filetype $argv[2])
     else if set -q _flag_p # show the mimetype and the default program for opening the $argv file
-        xdg-mime query filetype $argv
-        xdg-mime query default (xdg-mime query filetype $argv)
+        echo (xdg-mime query filetype $argv) = (xdg-mime query default (xdg-mime query filetype $argv))
     else
         # https://github.com/chmln/handlr
         # Simple xdg-open or open will not handle . and file propertly
