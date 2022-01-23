@@ -181,7 +181,7 @@ lvim.builtin.which_key.mappings["vv"] = { ":VTerm<CR>", "V Term" }
 lvim.builtin.which_key.mappings["vs"] = { ":Term<CR>", "H Term" }
 lvim.builtin.which_key.mappings["b<Space>"] = { "<cmd>Telescope buffers<cr>", "Switch Buffers" }
 lvim.builtin.which_key.mappings["xx"] = { ":QuickRun<CR>", "QuickRun" }
-lvim.builtin.which_key.mappings["ss"] = { ":Telescope current_buffer_fuzzy_find<CR>", "Search Buffer" }
+lvim.builtin.which_key.mappings["ss"] = { ":Telescope current_buffer_fuzzy_find fuzzy=false<CR>", "Search Buffer" }
 lvim.builtin.which_key.mappings["sP"] = { "<cmd>Telescope live_grep<CR>", "Live Search" }
 lvim.builtin.which_key.mappings["l/"] = { ":Telescope lsp_document_symbols<CR>", "Document Symbols" }
 lvim.builtin.which_key.mappings["l."] = { ":Telescope lsp_workspace_symbols<CR>", "Workspace Symbols" }
