@@ -147,10 +147,11 @@ lvim.autocommands.custom_groups = {
 	{ "BufRead,BufNewFile", "*.cpp,*.cc,*.hpp", "set noexpandtab tabstop=4 shiftwidth=4" },
 	-- auto hover when cursot is stopped at something
 	-- hover can maually triggered by K
-	{ "CursorHold,CursorHoldI,MenuPopup", "*", "silent! lua vim.lsp.buf.hover()" },
+	-- * if &filetype != "latex" && &filetype != "plaintex" | do
+	{ "CursorHold,CursorHoldI,MenuPopup", '* if &ft != "fish" | lua vim.lsp.buf.hover()' },
 	-- On entering insert mode in any file, scroll the window so the cursor line is centered
 	-- { "InsertEnter", "*", ":normal zz" },
-	{ "FileType", "gitcommit 1 | startinsert"},
+	{ "FileType", "gitcommit 1 | startinsert" },
 }
 
 -- Change Telescope navigation to use j and k for navigation and n and p for history in both input and normal mode.
