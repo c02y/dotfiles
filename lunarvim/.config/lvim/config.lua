@@ -181,8 +181,8 @@ lvim.autocommands.custom_groups = {
 -- Use which-key to add extra bindings with the leader-key prefix
 -- from vimlab/split-term.vim
 lvim.builtin.which_key.mappings["'"] = { "<Esc><Cmd>ToggleTerm<CR>", "Quick Terminal" }
-lvim.builtin.which_key.mappings["vv"] = { ":VTerm<CR>", "V Term" }
-lvim.builtin.which_key.mappings["vs"] = { ":Term<CR>", "H Term" }
+lvim.builtin.which_key.mappings["v\\"] = { ":VTerm<CR>", "| Term" }
+lvim.builtin.which_key.mappings["v-"] = { ":Term<CR>", "- Term" }
 lvim.builtin.which_key.mappings["b<Space>"] = { "<cmd>Telescope buffers<cr>", "Switch Buffers" }
 lvim.builtin.which_key.mappings["xx"] = { ":QuickRun<CR>", "QuickRun" }
 lvim.builtin.which_key.mappings["ss"] = { ":Telescope current_buffer_fuzzy_find fuzzy=false<CR>", "Search Buffer" }
