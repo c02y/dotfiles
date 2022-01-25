@@ -1,0 +1,11 @@
+# -*- mode: snippet -*-
+# name: impl TryFrom<From> for Type { fn try_from(...) }
+# key: impl
+# --
+impl${1:<'a>} From<${2:From}> for ${3:Type}$1 {
+	type Error = ();
+	fn try_from(source: $2) -> Result<Self, Self::Error> {
+		$0
+		Err(())
+	}
+}

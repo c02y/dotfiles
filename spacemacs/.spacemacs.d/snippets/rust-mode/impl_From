@@ -2,8 +2,8 @@
 # name: impl From<From> for Type { fn from(...) }
 # key: impl
 # --
-impl From<${1:From}> for ${2:Type} {
-    fn from(source: $1) -> Self {
+impl${1:<'a>} From<${2:From}> for ${3:Type}$1 {
+    fn from(source: $2) -> Self {
        $0
        Self { }
     }

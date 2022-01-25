@@ -1,7 +1,9 @@
 # -*- mode: snippet -*-
 # name: impl FromStr for Type { fn from_str(...) }
-# key: fromstr
+# key: impl
 # --
+// FromStr is usually used with .parse::<type>()
+use std::str;
 impl FromStr for ${1:Type} {
     type Err = ${2:Error};
 

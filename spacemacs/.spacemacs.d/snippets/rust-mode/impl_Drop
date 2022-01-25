@@ -2,8 +2,8 @@
 # name: impl Drop for Type { fn drop(...) }
 # key: impl
 # --
-impl Drop for ${1:Type} {
+impl${1:<'a>} Drop for ${2:Type}$1 {
      fn drop(&mut self) {
           $0
-      }
+     }
 }

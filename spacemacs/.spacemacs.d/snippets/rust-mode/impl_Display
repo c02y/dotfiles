@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+# name: impl Display for Type { fn fmt (...) }
+# key: impl
+# --
+use std::fmt::{Display, Formatter, Result};
+impl${1:<'a>} Display for ${2:Type}$1 {
+    fn fmt(&self, f: &mut Formatter) -> Result {
+        write!(f, "$0")
+    }
+}

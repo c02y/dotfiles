@@ -1,0 +1,12 @@
+# -*- mode: snippet -*-
+# name: impl DerefMut for Type { ... }
+# key: impl
+# --
+use std::ops::DerefMut;
+impl${1:<${2:T}>} DerefMut for ${3:Type}$1 {
+	 type Target = $2$4;
+
+	 fn deref_mut(&mut self) -> &mut Self::Target {
+	 	&mut self.$0
+	 }
+}

@@ -1,0 +1,11 @@
+# -*- mode: snippet -*-
+# name: impl Pointer for Type { ... }
+# key: impl
+# --
+use std::fmt::{Formatter, Pointer, Result};
+impl<T> Pointer for MyBox<T> {
+	fn fmt(&self, f: &mut Formatter<'_>) -> Result {
+		let ptr = self as *const Self;
+		Pointer::fmt(&ptr, f)$0
+	}
+}

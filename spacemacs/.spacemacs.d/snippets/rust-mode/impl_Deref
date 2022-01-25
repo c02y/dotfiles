@@ -1,0 +1,12 @@
+# -*- mode: snippet -*-
+# name: impl Deref for Type { ... }
+# key: impl
+# --
+use std::ops::Deref;
+impl${1:<${2:T}>} Deref for ${3:Type}$1 {
+	 type Target = $2$4;
+
+	 fn deref(&self) -> &Self::Target {
+	 	&self.$0
+	 }
+}
