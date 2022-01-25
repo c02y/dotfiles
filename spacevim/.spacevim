@@ -40,7 +40,7 @@ let g:spacevim_lsp_engine = 'coc'
 "     " excluding multiple plugins like: { 'exclude': ['plugin1', 'plugin2'] }
 "     Layer 'auto-completion',  { 'exclude': 'roxma/vim-hug-neovim-rpc' }
 " endfunction
-let g:spacevim_excluded = ['ntpeters/vim-better-whitespace', 'tpope/vim-rsi', 'mhinz/vim-signify', 'pelodelfuego/vim-swoop', 'ncm2/ncm2-racer']
+let g:spacevim_excluded = ['ntpeters/vim-better-whitespace', 'tpope/vim-rsi', 'mhinz/vim-signify', 'pelodelfuego/vim-swoop', 'ncm2/ncm2-racer', 'ncm2/ncm2-go']
 
 let g:spacevim_speed_up_via_timer = 0
 
@@ -458,7 +458,7 @@ function! UserConfig()
     " https://github.com/neoclide/coc.nvim/wiki/Language-servers#python
     " gd == goto definition in current window
     " do not comment the following line out, coc commands rely on the file
-    let g:coc_config_home = "~/.local/bin/"
+    " let g:coc_config_home = "~/.local/bin/"
     nmap gG :call CocAction('jumpDefinition', 'split')<CR>
     nmap gh :call CocAction('jumpDefinition', 'vsplit')<CR>
     " nmap gh :call spacevim#plug#coc#show_documentation()<CR>
@@ -484,7 +484,7 @@ function! UserConfig()
     nnoremap <Leader>ll :Vista finder<CR>
     nnoremap <Leader>lL :Vista!!<CR>
 
-    " auto hove document on word: 
+    " auto hove document on word:
     " https://thoughtbot.com/blog/modern-typescript-and-react-development-in-vim
     function! ShowDocIfNoDiagnostic(timer_id)
         if (coc#float#has_float() == 0 && CocHasProvider('hover') == 1)
@@ -577,8 +577,8 @@ function! UserConfig()
     nnoremap <Leader>fd :Zi<CR>
     let g:spacevim#map#leader#desc.f.d = 'zoxide using fzf'
 
-    " TODO: :CocInstall coc-rust-analyzer
-    " TODO: :CocInstall coc-pyright
+    " NOTE: you have to open a rust file to make vim auto install the rust-analyzer binary
+    let g:coc_global_extensions = ['coc-rust-analyzer', 'coc-pyright', 'coc-vimlsp', 'coc-clangd', 'coc-cmake', 'coc-sh']
 
     " vista to show nearest function name in modeline
     function! NearestMethodOrFunction() abort
