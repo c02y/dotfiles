@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# name: time-measure
+# key: time
+# --
+#include <chrono>
+
+auto start = std::chrono::high_resolution_clock::now();
+// long operation$0
+std::cout << "Time spent: " << std::chrono::duration<double, std::milli>(std::chrono::high_resolution_clock::now() - start).count() << std::endl;
