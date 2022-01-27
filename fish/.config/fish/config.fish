@@ -383,6 +383,7 @@ function lls -d 'ls/exa operations'
         set -q _flag_e; and eval exa $OPT -s extension --group-directories-first $ARGV && return
         set -q _flag_s; and set -a OPT -l -s size; or set -a OPT -s modified
         set -q _flag_r; or set -a OPT -r
+        set -q _flag_a; and set -a OPT --git
         set CMD exa
     else
         set OPT --color=yes
