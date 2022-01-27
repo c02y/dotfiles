@@ -1035,10 +1035,10 @@ function dfs -d 'df(-l, -L for full list), gua(-i), dua(-I), du(by default), cac
     or return
 
     if set -q _flag_i
-        if command -sq gdu
+        if command -sq dua
+            dua -f binary i $argv # NOTE: even if argv is empty, this works too
+        else if command -sq gdu
             gdu $argv
-        else if command -sq dua
-            dua -f binary i $argv/* # NOTE: even if argv is empty, this works too
         end
     else if set -q _flag_I
         dua -f binary i $argv/* # NOTE: even if argv is empty, this works too
