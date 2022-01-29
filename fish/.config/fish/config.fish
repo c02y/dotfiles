@@ -1104,11 +1104,6 @@ abbr m2 'm ~/Recentchange/TODO'
 abbr mf 'm $FISHRC'
 #
 alias less 'less -iXFR -x4 -M' # -x4 to set the tabwidth to 4 instead default 8
-abbr lesst 'less ~/.tmux.conf'
-abbr lessf 'less $FISHRC'
-abbr lesse 'less $EMACS_EL'
-abbr lessv 'less $VIMRC'
-abbr lessem 'less $LBIN/emm'
 # NOTE: there is a package called mdv, don't use it
 function mdv -d 'markdown viewer in terminal'
     if command -sq glow
@@ -1889,13 +1884,6 @@ abbr emq 'emacs -q --no-splash'
 abbr emd 'emacs --debug-init'
 abbr eml 'emacs -q --no-splash --load' # load specific init.el
 abbr emn 'emacs --no-desktop'
-abbr eme 'emm $EMACS_EL'
-abbr emc 'emm ~/.cgdb/cgdbrc'
-abbr emf 'emm $FISHRC'
-abbr emt 'emm ~/.tmux.conf'
-abbr emv 'emm $VIMRC'
-abbr emb 'emm ~/.bashrc'
-abbr em2 'emm ~/Recentchange/TODO'
 abbr emtime "time emacs --debug-init -eval '(kill-emacs)'" # time emacs startup time
 
 # the gpl.txt can be gpl-2.0.txt or gpl-3.0.txt
