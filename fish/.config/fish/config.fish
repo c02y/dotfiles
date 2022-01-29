@@ -2811,7 +2811,7 @@ abbr upxx 'upx --best --lzma'
 # for all the Rust developement setup:
 # https://fasterthanli.me/articles/my-ideal-rust-workflow
 function cars -d "cargo commands, -c(clean target), -d(remove/uninstall), -i(install), -r(release build), -S(reduce size)"
-    set -l options c C d i n r s S R u p t T m "b=" B
+    set -l options c C d i n r s S R u p t T m "b=" B w
     argparse -n cars $options -- $argv
     or return
 
@@ -2824,9 +2824,11 @@ function cars -d "cargo commands, -c(clean target), -d(remove/uninstall), -i(ins
         else
             eval $CMD new $argv; and cd $argv
         end
+    else if set -q _flag_w # NOTE: cargo install cargo-watch
+        set -q argv[1]; and eval $CMD watch -x \"$argv\"; or eval $CMD watch -x run
     else if set -q _flag_d
         eval $CMD uninstall $argv
-    else if set -q _flag_B # cargo bloat
+    else if set -q _flag_B # NOTE: cargo install cargo-bloat
         if set -q _flag_t
             echo "list of crates that took longest to compile, it will clean target dir and takes a while"
             eval $CMD bloat --time -j 1
@@ -2867,8 +2869,7 @@ function cars -d "cargo commands, -c(clean target), -d(remove/uninstall), -i(ins
                 env RUSTC_BOOTSTRAP=1 $CMD build --quiet -Z timings
             end
             test -f ./cargo-timing.html; and o ./cargo-timing.html
-        else
-            command -sq cargo-modules; or eval $CMD install cargo-modules
+        else # NOTE: cargo install cargo-modules
             set -q _flag_b; and set TARGET "--bin $_flag_b"; or set TARGET --lib
             if set -q _flag_t
                 eval $CMD modules generate tree --all-features $TARGET
