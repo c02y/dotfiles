@@ -1310,7 +1310,7 @@ Emacs session."
     ;; NOTE: the hints for the following lambda functions are in spacemacs/declare-prefix
     "fxf" (lambda () (interactive) (find-file "~/.config/fish/config.fish"))
     "fxi" (lambda () (interactive) (find-file "~/.config/i3/config"))
-    "fxt" (lambda () (interactive) (find-file "~/.tmux.conf"))
+    "fxt" (lambda () (interactive) (find-file "~/.config/tmux/tmux.conf"))
     "fxT" (lambda () (interactive) (find-file "~/.local/bin/t"))
     "fxe" (lambda () (interactive) (find-file "~/.local/bin/emm"))
     "fxE" (lambda () (interactive) (find-file "~/ve.emacs.d/init.el"))
@@ -1403,9 +1403,9 @@ Emacs session."
     "0" 'spacemacs/switch-to-minibuffer-window
     )
   (spacemacs/declare-prefix "fx" "Open the files: ")
-  (spacemacs/declare-prefix "fxf" "open config.fish")
+  (spacemacs/declare-prefix "fxf" "open fish/config.fish")
   (spacemacs/declare-prefix "fxi" "open i3/config")
-  (spacemacs/declare-prefix "fxt" "open .tmux.conf")
+  (spacemacs/declare-prefix "fxt" "open tmux/tmux.conf")
   (spacemacs/declare-prefix "fxT" "open bin/t")
   (spacemacs/declare-prefix "fxe" "open bin/emm")
   (spacemacs/declare-prefix "fxE" "open ve.emacs.d/init.el")

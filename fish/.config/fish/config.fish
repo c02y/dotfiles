@@ -281,8 +281,8 @@ function tk -d 'tmux kill-session all(default)/single(id)/multiple(id1 id2)/exce
     end
 end
 
-# or just use 'M-c r', it is defiend in ~/.tmux.conf
-abbr tsr 'tmux source-file ~/.tmux.conf; echo ~/.tmux.conf reloaded!'
+# or just use 'M-c r', it is defiend in ~/.config/tmux/tmux.conf
+abbr tsr 'tmux source-file ~/.config/tmux/tmux.conf; echo ~/.config/tmux/tmux.conf reloaded!'
 # this line will make the indentation of lines below it wrong, TODO: weird
 # abbr tt 'tmux switch-client -t'
 function twp -d 'tmux swap-pane to current pane to the target pane'
@@ -2726,7 +2726,7 @@ function ffms -d 'ffmpeg related functions'
     end
 end
 
-function rgs -d 'rg sth in -e(init.el)/-E(errno)/-f(config.fish)/-t(.tmux.conf)/-v(vimrc), or use -F(fzf) to open the file, -g(git repo), -w(whole word), -V(exclude pattern), -l(list files), -s(sort), -n(no ignore), -S(smart case, otherwise ignore case), -2(todo.org)'
+function rgs -d 'rg sth in -e(init.el)/-E(errno)/-f(config.fish)/-t(tmux.conf)/-v(vimrc), or use -F(fzf) to open the file, -g(git repo), -w(whole word), -V(exclude pattern), -l(list files), -s(sort), -n(no ignore), -S(smart case, otherwise ignore case), -2(todo.org)'
     # NOTE -V require an argument, so put "V=" line for argparse
     set -l options e E f t v F g n w 'V=' l s S 2 c
     argparse -n rgs -N 1 $options -- $argv
@@ -2753,7 +2753,7 @@ function rgs -d 'rg sth in -e(init.el)/-E(errno)/-f(config.fish)/-t(.tmux.conf)/
     else if set -q _flag_f
         set FILE $FISHRC
     else if set -q _flag_t
-        set FILE ~/.tmux.conf
+        set FILE ~/.config/tmux/tmux.conf
     else if set -q _flag_v
         set FILE $VIMRC
     else if set -q _flag_g

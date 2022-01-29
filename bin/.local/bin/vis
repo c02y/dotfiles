@@ -13,8 +13,8 @@ Usage: $(basename $0)
        -c to edit ~/Dotfiles.d/spacemacs/.spacemacs.d/lisp/clang-format-c-cpp
        -e to edit $EMACS_EL
        -f to edit $FISHRC
-       -t to edit ~/.tmux.conf
-       -T to edit ~/.tigrc
+       -t to edit ~/.config/tmux/tmux.conf
+       -T to edit ~/.config/tig/config
        -a to edit ~/.config/alacritty/alacritty.yml
        -k to edit ~/.config/kitty/kitty.conf
        -s to edit ~/.config/sxhkd/sxhkdrc
@@ -70,11 +70,11 @@ while getopts ":2bBdceftTaksuUmoOvri" args; do # prefix-: no warning for illegal
 		file=$FISHRC
 		;;
 	t)
-		eval $cmd ~/.tmux.conf && tmux source-file ~/.tmux.conf && echo ~/.tmux.conf reloaded!
+		eval $cmd ~/.config/tmux/tmux.conf && tmux source-file ~/.config/tmux/tmux.conf && echo ~/.config/tmux/tmux.conf reloaded!
 		exit
 		;;
 	T)
-		file="~/.tigrc"
+		file="~/.config/tig/config"
 		;;
 	a)
 		file="~/.config/alacritty/alacritty.yml"
