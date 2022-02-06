@@ -139,7 +139,7 @@ bindsym $mod+Mod1+Shift+Down focus child
 # icons are copied from FontAwesome v5 cheatsheet
 # https://fontawesome.com/v5/cheatsheet/pro
 # f80c f856 f857
-set $ws1 "1:" 
+set $ws1 "1:"
 set $ws2 "2:"
 set $ws3 "3:"
 # set $ws4 "4"
@@ -211,12 +211,12 @@ mode "$mode_mark" {
 }
 bindsym $mod+Ctrl+Shift+m mode "$mode_mark"
 
-set $mode_system Actions: (l)ock, (L)ogout, (s)uspend, (h)ibernate, (r)eboot, (S)hutdown
+set $mode_system Actions: (l)ock, (L)ogout, (s)uspend, (Enter)Hibernate, (r)eboot, (S)hutdown
 mode "$mode_system" {
 	bindsym l exec --no-startup-id i3lock, mode "default"
 	bindsym Shift+l exec --no-startup-id i3-msg exit, mode "default"
 	bindsym s exec --no-startup-id systemctl suspend, mode "default"
-	bindsym h exec --no-startup-id systemctl hibernate, mode "default"
+	bindsym Enter exec --no-startup-id systemctl hibernate, mode "default"
 	bindsym r exec --no-startup-id systemctl reboot, mode "default"
 	bindsym Shift+s exec --no-startup-id systemctl poweroff, mode "default"
 
@@ -302,7 +302,7 @@ bindsym $mod+t exec jumpapp -f -t Alacritty alacritty -t Alacritty
 bindsym $mod+Return exec jumpapp -f -t Alacritty alacritty -t Alacritty
 bindsym $mod+Shift+Return exec alacritty
 bindsym $mod+Shift+f exec jumpapp -f -t RangerFM kitty -T=RangerFM ranger
-bindsym $mod+Shift+h exec jumpapp -f -t Btop kitty -T=Btop btop
+bindsym $mod+F1 exec jumpapp -f -t Btop kitty -T=Btop btop
 bindsym $mod+Mod1+m move scratchpad
 bindsym $mod+m scratchpad show
 bindsym $mod+Shift+c exec jumpapp -f clion
