@@ -74,6 +74,10 @@ handle_extension() {
             exiftool "${FILE_PATH}" && exit 5
             exit 1;;
 
+        drawio)
+            /opt/drawio/drawio -x "${FILE_PATH}" -o "${IMAGE_CACHE_PATH}" --width 1920 && exit 6
+            exit 1;;
+
         ## BitTorrent
         torrent)
             transmission-show -- "${FILE_PATH}" && exit 5
