@@ -28,6 +28,8 @@ set nowrapscan
 set wrap
 " this updatetime affects the CursorHold
 set updatetime=1000
+" start insert when editing git commit message
+au FileType gitcommit 1 | startinsert
 ]])
 
 -- Additional Plugins
