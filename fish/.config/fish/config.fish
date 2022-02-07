@@ -1410,7 +1410,7 @@ function pacs -d 'pacman/paru operations'
         end
     else if set -q _flag_i # install
         if set -q _flag_p # list pacman log
-            not set -q argv[1]; and rg -e "installed|reinstalled|removed|upgraded|warning" /var/log/pacman.log; or rg -e "installed|reinstalled|removed|upgraded|warning" /var/log/pacman.log | rg $argv
+            not set -q argv[1]; and rg -e "installed|reinstalled|removed|upgraded|warning" /var/log/pacman.log; or rg -e "installed|reinstalled|removed|upgraded|warning" /var/log/pacman.log | rg $ARGV
             return
         end
 
@@ -1513,7 +1513,7 @@ function pacs -d 'pacman/paru operations'
             if not set -q argv[1] # if no argv, list all installed packages names
                 paru -Q
             else
-                paru -Q | rg -i $ARGV
+                paru -Q | rg $ARGV
             end
         else if set -q _flag_a # list packages installed from AUR(no really)
             paru -Qm
@@ -1526,11 +1526,11 @@ function pacs -d 'pacman/paru operations'
         or paru -Fl $OPT $ARGV
     else if set -q _flag_n # search only keyword in package names
         if set -q _flag_a
-            paru -Sl | rg -i $ARGV
+            paru -Sl | rg $ARGV
         else
             # pacman package names are already sorted
-            pacman -Sl | rg -i $ARGV
-            or paru -Sl | rg -i $ARGV
+            pacman -Sl | rg $ARGV
+            or paru -Sl | rg $ARGV
         end
     else if set -q _flag_a # search all including repo and aur
         paru $ARGV
