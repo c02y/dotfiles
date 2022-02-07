@@ -1510,10 +1510,10 @@ function pacs -d 'pacman/paru operations'
         end
     else if set -q _flag_l # list installed pcakges containing the keyword(including description)
         if set -q _flag_n
-            if not set -q argv[1] # if no argu, list all installed packages names
-                paru -Qs | rg -i local/
+            if not set -q argv[1] # if no argv, list all installed packages names
+                paru -Q
             else
-                paru -Qs | rg -i local/ | rg -i $ARGV
+                paru -Q | rg -i $ARGV
             end
         else if set -q _flag_a # list packages installed from AUR(no really)
             paru -Qm
