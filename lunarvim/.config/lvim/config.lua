@@ -147,6 +147,7 @@ lvim.autocommands.custom_groups = {
 	{ "BufWinEnter", "*.lua", "set noexpandtab ts=2 sw=2" },
 	{ "BufRead,BufNewFile", "*.c,*.h", "set noexpandtab tabstop=8 shiftwidth=8" },
 	{ "BufRead,BufNewFile", "*.cpp,*.cc,*.hpp", "set noexpandtab tabstop=4 shiftwidth=4" },
+	{ "BufRead,BufNewFile", "*.fish", "set expandtab tabstop=4 shiftwidth=4" },
 	-- auto hover when cursot is stopped at something
 	-- hover can maually triggered by K
 	-- * if &filetype != "latex" && &filetype != "plaintex" | do
