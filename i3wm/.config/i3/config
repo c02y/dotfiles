@@ -315,7 +315,7 @@ bindsym F12 exec tdrop -t -m -y 0 -w 100% -h 100% kitty --class=Dropdown --title
 # if $mod+q fails, use $mod+d
 bindsym $mod+d exec --no-startup-id dmenu_run
 # the grave key is `, the left key of NUM 1 on the keyboard
-bindsym $mod+grave exec "rofi -show combi -theme ~/.local/bin/rofi-theme-solarized_alternate.rasi
+bindsym $mod+grave exec "rofi -show combi -theme ~/.local/bin/rofi-theme-solarized_alternate.rasi"
 
 # Autostart applications
 # NOTE: the --experimental-backend for picom is to fix the screen tearing issue
@@ -327,6 +327,8 @@ exec_always --no-startup-id picom --experimental-backend --config ~/.config/i3/p
 exec_always --no-startup-id nitrogen --set-scaled ~/.config/i3/Baboo_night_5120x2880_convert.avif
 # NOTE: nm-applet and blueman-applet sometimes exit somehow
 exec_always --no-startup-id blueman-applet
+# change keyboard repeating rate
+exec_always --no-startup-id xset r rate 200 100
 # use `dunstctl history-pop` to get previous notification
 exec --no-startup-id dunst -config ~/.config/i3/dunstrc
 exec --no-startup-id copyq
@@ -340,7 +342,7 @@ exec --no-startup-id xrandr --output DP-0 --auto --output DP-2 --off
 exec --no-startup-id xfce4-power-manager
 
 # configure colors using https://thomashunter.name/i3-configurator/
-# There is a black in between the window bar and i3bar, use black color to hide it
+# There is a black line between the window bar and i3bar, use black color to hide it
 # https://github.com/i3/i3/discussions/4601
 set $bgc_df #000000
 set $txt_hi #2e9ef4
