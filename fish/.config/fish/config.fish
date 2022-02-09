@@ -2752,7 +2752,8 @@ function rgs -d 'rg sth in -e(init.el)/-E(errno)/-f(config.fish)/-t(tmux.conf)/-
         if not set -q argv[2] # no $argv[2]
             set FILE .
         else
-            set FILE $argv[2]
+            # NOTE: take all but the first argv since it may contain wildcard
+            set FILE $argv[2..]
         end
     end
 
