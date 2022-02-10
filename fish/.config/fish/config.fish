@@ -2828,7 +2828,7 @@ function cars -d "cargo commands, -c(clean target), -d(remove/uninstall), -i(ins
     else if set -q _flag_w # NOTE: cargo install cargo-watch
         set -q argv[1]; and eval $CMD watch -x \"$argv\"; or eval $CMD watch -x run
     else if set -q _flag_d
-        eval $CMD uninstall $argv
+        set -q _flag_m; and eval $CMD doc --no-deps --open; or eval $CMD uninstall $argv
     else if set -q _flag_B # NOTE: cargo install cargo-bloat
         if set -q _flag_t
             echo "list of crates that took longest to compile, it will clean target dir and takes a while"
