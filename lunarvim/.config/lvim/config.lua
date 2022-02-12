@@ -220,8 +220,18 @@ lvim.builtin.which_key.mappings["P"] = {
 }
 lvim.builtin.which_key.mappings["f"] = {
 	name = "+Files",
-	f = { "<cmd>Telescope find_files<CR>", "Find Files" },
-	r = { "<cmd>Telescope oldfiles<CR>", "Recent Files" },
+	F = { "<cmd>Telescope find_files<CR>", "Find Project Files" },
+	-- find files from PWD/CWD(current working directory)
+	f = {
+		"<cmd>:lua require 'telescope.builtin'.find_files{ cwd = '%:p:h' }<CR>",
+		"Find Files",
+	},
+	a = {
+		"<cmd>:lua require 'telescope.builtin'.find_files{find_command={'fd', '--type', 'f', '-HI', '--strip-cwd-prefix'}}<CR>",
+		"Find Project All Files",
+	},
+	r = { "<cmd>Telescope oldfiles<CR>", "Open Recent File" },
+	n = { "<cmd>enew<CR>", "New File" },
 }
 -- more windows operations in <C-w>
 lvim.builtin.which_key.mappings["w"] = {
