@@ -142,24 +142,6 @@ vim.api.nvim_set_keymap("x", "<A-Up>", ":m '<-2<CR>gv-gv", { noremap = true, sil
 lvim.keys.normal_mode["<C-w>m"] = ":MaximizerToggle<cr>"
 lvim.keys.normal_mode["<C-w>1"] = ":only<cr>"
 
-lvim.autocommands.custom_groups = {
-	-- On entering a lua file, set the tab spacing and shift width to 8
-	{ "BufWinEnter", "*.lua", "set noexpandtab ts=2 sw=2" },
-	{ "BufRead,BufNewFile", "*.c,*.h", "set noexpandtab tabstop=8 shiftwidth=8" },
-	{ "BufRead,BufNewFile", "*.cpp,*.cc,*.hpp", "set noexpandtab tabstop=4 shiftwidth=4" },
-	{ "BufRead,BufNewFile", "*.fish", "set expandtab tabstop=4 shiftwidth=4" },
-	-- auto hover when cursot is stopped at something
-	-- hover can maually triggered by K
-	-- * if &filetype != "latex" && &filetype != "plaintex" | do
-	{ "CursorHold,CursorHoldI,MenuPopup", '* if &ft != "fish" | lua vim.lsp.buf.hover()' },
-	-- On entering insert mode in any file, scroll the window so the cursor line is centered
-	-- { "InsertEnter", "*", ":normal zz" },
-	{ "FileType", "gitcommit 1 | startinsert" },
-	-- for color and borders of pop windows likes which-key and completion
-	{ "ColorScheme * highlight Pmenu ctermbg=NONE guibg=NONE" },
-	{ "ColorScheme * highlight FloatBorder ctermbg=NONE guibg=NONE" },
-}
-
 -- Change Telescope navigation to use j and k for navigation and n and p for history in both input and normal mode.
 -- we use protected-mode (pcall) just in case the plugin wasn't loaded yet.
 -- local _, actions = pcall(require, "telescope.actions")
@@ -366,6 +348,21 @@ formatters.setup({
 -- }
 
 -- Autocommands (https://neovim.io/doc/user/autocmd.html)
--- lvim.autocommands.custom_groups = {
---   { "BufWinEnter", "*.lua", "setlocal ts=8 sw=8" },
--- }
+lvim.autocommands.custom_groups = {
+	-- On entering a lua file, set the tab spacing and shift width to 8
+	{ "BufWinEnter", "*.lua", "set noexpandtab ts=2 sw=2" },
+	{ "BufRead,BufNewFile", "*.c,*.h", "set noexpandtab tabstop=8 shiftwidth=8" },
+	{ "BufRead,BufNewFile", "*.cpp,*.cc,*.hpp", "set noexpandtab tabstop=4 shiftwidth=4" },
+	{ "BufRead,BufNewFile", "*.fish", "set expandtab tabstop=4 shiftwidth=4" },
+	-- auto hover when cursot is stopped at something
+	-- hover can maually triggered by K
+	-- * if &filetype != "latex" && &filetype != "plaintex" | do
+	{ "CursorHold,CursorHoldI,MenuPopup", '* if &ft != "fish" | lua vim.lsp.buf.hover()' },
+	-- On entering insert mode in any file, scroll the window so the cursor line is centered
+	-- { "InsertEnter", "*", ":normal zz" },
+	-- start insert when editing git commit message
+	{ "FileType", "gitcommit 1 | startinsert" },
+	-- for color and borders of pop windows likes which-key and completion
+	{ "ColorScheme * highlight Pmenu ctermbg=NONE guibg=NONE" },
+	{ "ColorScheme * highlight FloatBorder ctermbg=NONE guibg=NONE" },
+}
