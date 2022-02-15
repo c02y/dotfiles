@@ -2838,13 +2838,17 @@ function cars -d "cargo commands, -c(clean target), -d(remove/uninstall), -i(ins
             end
         end
     else if set -q _flag_t
-        # NOTE: do not combine the following if-else into one line and-or
-        # since if the -u cargo test line test fail, the other eval will run
-        # there are many options for test, try `cargo test --help` and `cargo test -- --help`
-        if set -q _flag_u
-            eval env RUST_BACKTRACE=1 $CMD test $argv
+        if command -sq cargo-nextest # NOTE: cargo install cargo-watch
+            eval $CMD nextest run --tests $argv
         else
-            eval $CMD test $argv
+            # NOTE: do not combine the following if-else into one line and-or
+            # since if the -u cargo test line test fail, the other eval will run
+            # there are many options for test, try `cargo test --help` and `cargo test -- --help`
+            if set -q _flag_u
+                eval env RUST_BACKTRACE=1 $CMD test $argv
+            else
+                eval $CMD test $argv
+            end
         end
     else if set -q _flag_s
         eval $CMD search $argv
