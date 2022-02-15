@@ -2572,47 +2572,6 @@ function pxs -d 'multiple commands using proxychains4'
     set -q _flag_o; and mv -v (ls -Art | tail -n 1) $_flag_o
 end
 
-# bc -- calculator
-function bc --description 'calculate in command line using bc non-interactive mode if needed, even convert binary/octual/hex'
-    if test (count $argv) -eq 0
-        /usr/bin/bc -ql
-    else
-        # TODO: fish won't recognize command like `bc 2*3`, you have to quote it or use `bc 2\*3`
-        for i in $argv
-            echo $i:
-            echo -ne "\t"
-            echo -e $i | /usr/bin/bc -l
-        end
-    end
-end
-# more examples using bc
-# http://www.basicallytech.com/blog/archive/23/command-line-calculations-using-bc/
-#1 convert 255 from base 10 to base 16
-# echo 'obase=16; 255' | bc
-# use `bcc 'obase=16; 255'` directly
-#2 convert hex FF (not ff) from base 16 to binary
-# echo 'obase=2; FF' | bc
-#3 convert binary 110 from binary to hex
-# echo 'ibase=2;obase=A;110' | bc
-# not 16 or a but A means hex
-#4 convert from hexadecimal to decimal ; 3 and 4 are weird
-# echo 'ibase=16;obase=A;FF' | bc
-#5 convert hex to octual
-# echo 'F' | bc
-
-function catt
-    if test (count $argv) -gt 1
-        for i in $argv
-            echo -e "\\033[0;31m"\<$i\>
-            echo -e ------------------------------------------------- "\\033[0;39m"
-            /bin/cat $i
-            echo
-        end
-    else
-        /bin/cat $argv
-    end
-end
-
 alias dic 'trans :zh -d -show-dictionary Y -v -theme ~/.local/bin/trans-theme-matrix.trans'
 
 # count chars of lines of a file
