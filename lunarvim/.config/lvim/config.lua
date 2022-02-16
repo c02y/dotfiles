@@ -31,6 +31,23 @@ set updatetime=1000
 " start insert when editing git commit message
 au FileType gitcommit 1 | startinsert
 ]])
+vim.api.nvim_exec(
+	[[
+    function! ToggleWindowSplit()
+        if !exists('t:splitType')
+            let t:splitType = 'vertical'
+        endif
+        if t:splitType == 'vertical' " is vertical switch to horizontal
+            windo wincmd K
+            let t:splitType = 'horizontal'
+        else " is horizontal switch to vertical
+            windo wincmd H
+            let t:splitType = 'vertical'
+        endif
+    endfunction
+	]],
+	false
+)
 
 -- Additional Plugins
 lvim.plugins = {
@@ -246,6 +263,7 @@ lvim.builtin.which_key.mappings["w"] = {
 	m = { ":MaximizerToggle<cr>", "Max Window" },
 	-- from https://gitlab.com/yorickpeterse/nvim-window.git
 	a = { ":lua require('nvim-window').pick()<CR>", "Choose Windows" },
+	["<space>"] = { ":call ToggleWindowSplit()<CR>", "Toggle Layout" },
 }
 lvim.builtin.which_key.mappings["j"] = {
 	name = "+Jump",
