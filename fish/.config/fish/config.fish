@@ -947,7 +947,7 @@ function loo -d 'plocate functions, -u(update db), -a(under /), -v(video), -m(au
 end
 
 function fdd -d 'fd to replace mlocate/plocate'
-    set -l options a v m d o x r e w p "E=" H
+    set -l options a v m d o x r e w p "E=" H "t="
     argparse -n fdd $options -- $argv
     or return
 
@@ -965,7 +965,7 @@ function fdd -d 'fd to replace mlocate/plocate'
     # NOTE: $_flag_E must be the whole name of file/dir
     set -q _flag_E; and set -a OPT "-E $_flag_E"
 
-    set EXT
+    set -q _flag_t; and set EXT "-e $_flag_t"; or set EXT
     if set -q _flag_v
         set EXT -e mp4 -e mkv -e avi -e webm -e mov -e rmvb -e flv
         if set -q _flag_a # -a is to list all files, without keyword
