@@ -13,7 +13,7 @@ if [ "$LANG" != "en_US.UTF-8" ]; then
 	# export LANGUAGE=en_US.UTF-8
 fi
 
-while getopts ":nl" args; do
+while getopts ":nlu" args; do
 	case "$args" in
 	\?)
 		echo "t or t -n"
@@ -29,6 +29,10 @@ while getopts ":nl" args; do
 			echo
 			echo "Already inside tmux session: $(tmux display-message -p '#S')"
 		fi
+		exit
+		;;
+	u)
+		tmux -L tmpsession -f /dev/null
 		exit
 		;;
 	esac
