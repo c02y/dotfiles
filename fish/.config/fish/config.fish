@@ -994,11 +994,11 @@ function fdd -d 'fd to replace mlocate/plocate'
 
     # NOTE: use double quote for CMD to successfully parse the variables
     # -X ls is to sort the path
-    # single quote to handle space in ARGV(file/dir name)
-    set CMD "fd $OPT $EXT '$ARGV' $DIR"
+    # single quote to handle space in ARGV/DIR(file/dir name)
+    set CMD "fd $OPT $EXT '$ARGV' '$DIR'"
     # or is in case of "Problem while executing command: Argument list too long (os error 7)"
     # CMD2 is for non-operation, just print the list
-    set CMD2 "dua -f binary a --no-sort (fd $OPT $EXT '$ARGV' $DIR -X ls -d); or fd $OPT $EXT '$ARGV' $DIR"
+    set CMD2 "dua -f binary a --no-sort (fd $OPT $EXT '$ARGV' '$DIR' -X ls -d); or fd $OPT $EXT '$ARGV' '$DIR'"
 
     # NOTE: dua will think the fd returns . if fd fails to find nothing
     # so this step is needed, otherwise it affects the rest operations
