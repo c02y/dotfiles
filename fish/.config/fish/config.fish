@@ -951,9 +951,6 @@ function fdd -d 'fd to replace mlocate/plocate'
     argparse -n fdd $options -- $argv
     or return
 
-    set -q argv[1]; and set ARGV $argv[1]; or set ARGV .
-    set -q argv[2]; and set DIR $argv[2]; or set DIR .
-
     # NOTE: -H here means exclude hidden files/dirs
     set -q _flag_H; and set OPT; or set OPT -HI
     # NOTE: -d and -w don't work well with -p, so do not use -p if using -d or -w
@@ -965,29 +962,27 @@ function fdd -d 'fd to replace mlocate/plocate'
     # NOTE: $_flag_E must be the whole name of file/dir
     set -q _flag_E; and set -a OPT "-E $_flag_E"
 
-    set -q _flag_t; and set EXT "-e $_flag_t"; or set EXT
     if set -q _flag_v
         set EXT -e mp4 -e mkv -e avi -e webm -e mov -e rmvb -e flv
-        if set -q _flag_a # -a is to list all files, without keyword
-            set ARGV .
-            set -q argv[1]; and set DIR $argv[-1]; or set DIR .
-            test -d $DIR; or echo "'$DIR' directory doesn't exist" && return
-        end
     else if set -q _flag_m
         set EXT -e mp3 -e flac -e ape -e wav -e w4a -e dsf -e dff
-        if set -q _flag_a
-            # NOTE:
-            set ARGV .
-            set -q argv[1]; and set DIR $argv[-1]; or set DIR .
-            test -d $DIR; or echo "'$DIR' directory doesn't exist" && return
-        end
     else if set -q _flag_p
         set EXT -e pdf
-        if set -q _flag_a
-            set ARGV .
-            set -q argv[1]; and set DIR $argv[-1]; or set DIR .
-            test -d $DIR; or echo "'$DIR' directory doesn't exist" && return
+    else if set -q _flag_t
+        set EXT "-e $_flag_t"
+    end
+
+    if set -q argv[2]
+        set ARGV $argv[-2] && set DIR $argv[-1]
+    else if set -q argv[1]
+        # if the only argv is a path, make it DIR, otherwise make it ARGV
+        if test -d $argv[-1]
+            set ARGV . && set DIR $argv[-1]
+        else
+            set ARGV $argv[-1] && set DIR .
         end
+    else
+        set ARGV . && set DIR .
     end
 
     test $DIR = /; and set -a OPT -E /sys -E /proc -E /run/user
