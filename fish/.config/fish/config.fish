@@ -1016,7 +1016,7 @@ function fdd -d 'fd to replace mlocate/plocate'
     else
         if test "$ARGV" = "."
             # just print it, otherwise the list will all be highlighted
-            eval $CMD2 | fzf --print0
+            eval $CMD2 | fzf --print0 --preview-window hidden
         else
             # --passthru for rg is to highlight the word but also print non-highlighted lines
             eval $CMD2 | rg -i -p --passthru $ARGV
