@@ -33,19 +33,27 @@ if [ "$#" -gt 0 ]; then
 		if [ "$#" -eq 2 ]; then
 			case $2 in
 			'' | *[!0-9]*) echo "[Not a number] " ;;
-			*) countdown $2 ;;
+			*) if [[ $2 -lt 60 ]]; then
+				countdown "$2"*60
+			else
+				countdown $2
+			fi ;;
 			esac
 		else
-			read -p "Countdown? [60s] " seconds
-			case "$seconds" in
+			read -p "Countdown? [60s] " sec_min
+			case "$sec_min" in
 			"") countdown 60 ;;
-			'' | *[!0-9]*) echo "[Not a number] " ;;
-			*) countdown $seconds ;;
+			*[!0-9]*) echo "[Not a number] " ;;
+			*) if [[ $sec_min -lt 60 ]]; then
+				countdown "$sec_min"*60
+			else
+				countdown $sec_min
+			fi ;;
 			esac
 		fi
 	elif [ "$1" = "-h" ] || [ "$1" = "--help" ]; then
 		echo "Usage: 1. timer -- stopwatch starts from 0"
-		echo "       2. timer -c num -- countdown starts from num seconds, default 60s if num is not given"
+		echo "       2. timer -c num -- countdown starts from num seconds/minutes, default 60s if num is not given"
 	else
 		timer -h
 	fi
