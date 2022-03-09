@@ -1463,7 +1463,7 @@ function pacs -d 'pacman/paru operations'
         else
             # force a full refresh of database and update the sustem
             # must do this after switching branch/mirror
-            paru -Syyuu
+            paru -Syyu
         end
     else if set -q _flag_d # delete/uninstall
         # delete/uninstall dependencies as well
