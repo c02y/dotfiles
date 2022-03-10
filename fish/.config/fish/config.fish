@@ -1435,7 +1435,7 @@ function pacs -d 'pacman/paru operations'
         if not set -q argv[1] # no given argv
             # use `paru -Sc` to clean interactively
             paru -c # clean unneeded dependencies
-            paru -Rsun (paru -Qtdq)
+            # paru -Rsun (paru -Qtdq)
             paccache -rvk2 # clean installed packaegs, keep the last two versions
             paccache -rvuk0 # clean uninstalled packages
         else
