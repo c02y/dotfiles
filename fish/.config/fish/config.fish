@@ -2659,10 +2659,10 @@ function ffms -d 'ffmpeg related functions'
         for file in $argv
             # `mediainfo --info-parameters` to get all the variables
             echo -n "$file, "; and ls -lh $file | awk '{print $5}'
-            echo Video:
+            echo -n "Video: "
             mediainfo --Inform="Video;%CodecID%, %Duration/String2%, %BitRate/String%, %Width%x%Height%" $file
-            echo Audio:
-            mediainfo --Inform='Audio;%BitRate/String%' $file
+            echo -n "Audio: "
+            mediainfo --Inform="Audio;%BitRate/String%" $file
             echo
         end
     end
