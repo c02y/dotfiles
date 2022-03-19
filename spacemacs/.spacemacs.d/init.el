@@ -467,7 +467,7 @@ It should only modify the values of Spacemacs settings."
    ;; Default font or prioritized list of fonts. The `:size' can be specified as
    ;; a non-negative integer (pixel size), or a floating-point (point size).
    ;; Point size is recommended, because it's device independent. (default 10.0)
-   dotspacemacs-default-font '("Cascadia Mono PL"
+   dotspacemacs-default-font '("CaskaydiaCove Nerd Font Mono"
                                :size 13.5
                                :weight normal
                                :width normal)
@@ -928,10 +928,8 @@ before packages are loaded."
    vc-follow-symlinks t
    ;; disable the warning message
    python-spacemacs-indent-guess nil
-   company-minimum-prefix-length 2
    ;; disable gui pop window
    use-dialog-box nil
-   company-show-numbers t
    ;; column number starts from 1
    column-number-indicator-zero-based nil
    bookmark-default-file "~/.spacemacs.d/bookmarks"
@@ -999,6 +997,9 @@ before packages are loaded."
    translate-shell-brief-command "trans -brief -t zh %s"
    ;; options for counsel-fzf function to open file in PWD using fzf
    counsel-fzf-cmd "rg --files --hidden --no-ignore -g !.git | fzf -m $FZF_DEFAULT_OPTS -f \"%s\""
+   ;; Putting the following two setq in lsp layer doesn't work
+   lsp-completion-provider :capf
+   lsp-completion-default-behaviour :insert
    )
   ;; to make which-function in spaceline-custom-theme work
   (which-function-mode)
@@ -1140,6 +1141,12 @@ With argument, backward ARG lines."
                )
     (add-hook 'magit-diff-mode-hook (lambda () (setq truncate-lines nil)))
     )
+
+  (with-eval-after-load 'company
+    (bind-keys :map company-active-map
+               ;; NOTE: C-d/C-h/F1 all call company-show-doc-buffer when point is in company completion list
+               ;; it will affect the snippets which C-d is to delete the word
+               ("C-d" . yas-skip-and-clear-field)))
 
   ;; show snippets in company list, don't know why auto-completion-enable-snippets-in-popup doesn't work
   (defun autocomplete-show-snippets ()
