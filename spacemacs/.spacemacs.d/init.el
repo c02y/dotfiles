@@ -1805,6 +1805,15 @@ which switch the last buffer in this window."
      (cons "++" "++")
      )
     (electric-operator-add-rules-for-mode
+     'rust-mode
+     ;; (cons "< " " < ")
+     ;; (cons "> " " > ")
+     ;; (cons "<" "<>")
+     (cons "?" "?")
+     (cons "..=" "..=")
+     (cons "||" "||")
+     )
+    (electric-operator-add-rules-for-mode
      'org-mode
      (cons "," ", ")
      (cons "?" "? ")
