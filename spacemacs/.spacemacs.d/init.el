@@ -54,11 +54,10 @@ This function should only modify configuration layer settings."
      git
      (ivy :variables ivy-enable-advanced-buffer-information t)
      emacs-lisp
-     markdown
      (vimscript
       ;; TODO: npm install -g vim-language-server
-     :variables vimscript-backend 'lsp
-     )
+      :variables vimscript-backend 'lsp
+      )
      ;; TODO:
      ;; rustup component add rust-analysis rust-src clippy rustfmt
      ;; cargo install cargo-edit cargo-audit cargo-outdated
@@ -72,7 +71,6 @@ This function should only modify configuration layer settings."
            ;; ":CocInstall coc-rust-analyzer" and open rust file in nvim to install the binary
            lsp-rust-analyzer-store-path "~/.config/coc/extensions/coc-rust-analyzer-data/rust-analyzer"
            )
-     yaml
      (treemacs
       :variables
       treemacs-position 'right
@@ -117,10 +115,20 @@ This function should only modify configuration layer settings."
       )
      ;; replace multiple-cursors with symbol-overlay(SPC s o)
      ;; multiple-cursors
-     (org :variables
-          org-want-todo-bindings t
-          org-enable-epub-support t
-          org-enable-sticky-header t)
+     (org
+      :variables
+      org-want-todo-bindings t
+      org-enable-epub-support t
+      org-enable-sticky-header t
+      ;; NOTE: sqlite for org-roam will auto-start even you didn't use org-mode
+      ;; org-enable-roam-support t
+      ;; org-roam-v2-ack t
+      ;; ;; NOTE: the following three lines fix the org-roam causing emacsclient fail to start issue
+      ;; ;; spacemacs/issues/14477
+      ;; org-directory "~/Org"
+      ;; org-roam-directory (concat org-directory "/org-roam")
+      ;; org-roam-db-location (concat org-roam-directory "/org-roam.db")
+      )
      (shell
       :variables
       shell-default-shell 'eshell
@@ -170,6 +178,7 @@ This function should only modify configuration layer settings."
       ;; compile project using `, c c' directly even if after modifying CMakeLists.txt
       cmake-ide-build-dir "build"
       )
+     meson
      ;; NOTE: to generate compile_commands.json file for lsp before using lsp
      ;; https://sarcasm.github.io/notes/dev/compilation-database.html
      ;; Read https://github.com/MaskRay/ccls/wiki/Project-Setup for project setup like .ccls
@@ -206,43 +215,49 @@ This function should only modify configuration layer settings."
      ;; TODO: npm install -g prettier
      prettier
      ;; TODO: npm install -g import-js
-     import-js
+     ;; import-js
      ;; TODO: npm install -g tern
-     tern
+     ;; tern
      ;; TODO: npm install -g import-js eslint typescript typescript-language-server
-     (javascript
-      :variables
-      javascript-import-tool 'import-js
-      javascript-fmt-tool 'prettier
-      ;; javascript-fmt-on-save t
-      ;; the default backend is lsp
-      javascript-backend 'tern
-      ;; for javascript
-      js2-basic-offset 2
-      js2-include-node-externs t
-      node-add-moduels-path t
-      )
+     ;; (javascript
+     ;;  :variables
+     ;;  javascript-import-tool 'import-js
+     ;;  javascript-fmt-tool 'prettier
+     ;;  ;; javascript-fmt-on-save t
+     ;;  ;; the default backend is lsp
+     ;;  javascript-backend 'tern
+     ;;  ;; for javascript
+     ;;  js2-basic-offset 2
+     ;;  js2-include-node-externs t
+     ;;  node-add-moduels-path t
+     ;;  )
+     markdown
      json
-     (html :variables web-fmt-tool 'web-beautify)
+     yaml
+     ; (html :variables web-fmt-tool 'web-beautify)
      ;; TODO: sudo luarocks install luacheck
      (lua
       :variables
-      lua-backend 'lua-mode
-      ;; NOTE: lua-lsp doesn't support lua5.4
-      ;; lua-language-server is too heavy
-      ;; lua-lsp-server 'lua-lsp
+      lua-backend 'lsp
+      ;; NOTE: it auto installs lua-language-server into ~/.emacs.d/.cache/lsp/lua-language-server/
+      ;; install lua-roblox-language-server
+      lua-lsp-server 'lua-language-server
+      lsp-lua-hint-enable t
       )
-     (pdf :variables pdf-view-display-size 'fit-height)
-     (tabs
-      :variables
-      centaur-tabs-height 20
-      ;; centaur-tabs-bar-height 30
-      ;; centaur-tabs-show-navigation-buttons t ;; FIXME: two tab height variables do not work if set
-      centaur-tabs-show-new-tab-button nil
-      centaur-tabs-modified-marker "*"
-      ;; centaur-tabs-set-bar 'left ;; FIXME: tab-bar will not be displayed for emacsclient if set to left
-      centaur-tabs-cycle 'tabs
-      )
+     ;;(pdf :variables pdf-view-display-size 'fit-height)
+     ;; (tabs
+     ;;  :variables
+     ;;  centaur-tabs-height 20
+     ;;  ;; centaur-tabs-bar-height 30
+     ;;  ;; centaur-tabs-show-navigation-buttons t ;; FIXME: two tab height variables do not work if set
+     ;;  centaur-tabs-show-new-tab-button nil
+     ;;  centaur-tabs-modified-marker "*"
+     ;;  ;; FIXME: tab-bar will not be displayed for emacsclient if set to left
+     ;;  ;; centaur-tabs-set-bar 'left
+     ;;  centaur-tabs-cycle 'tabs
+     ;;  ;; NOTE: even it is t, emacsclient won't display it, nil for normal emacs
+     ;;  centaur-tabs-set-icons nil
+     ;;  )
      )
 
    ;; List of additional packages that will be installed without being wrapped
