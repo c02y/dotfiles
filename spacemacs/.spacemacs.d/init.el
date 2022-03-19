@@ -1340,6 +1340,7 @@ Emacs session."
     "bt" 'tabify-or-untabify
     "bM" 'hide-ctrl-M
     ;; default feR, still works
+    "dt" 'treemacs-select-directory
     "fer" 'dotspacemacs/sync-configuration-layers
     "fF" 'find-alternate-file
     "fa" 'counsel-fzf
@@ -1370,6 +1371,7 @@ Emacs session."
     "ss" 'swiper-isearch
     "sw" 'swiper-whole-word
     "sW" 'spacemacs/swiper-region-or-symbol-whole-word
+    "sR" 'recentf-save-list
     "tC" 'rainbow-mode
     "t=" 'format-all-mode
     "xA" 'align-regexp
