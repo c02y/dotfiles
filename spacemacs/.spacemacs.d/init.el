@@ -61,16 +61,18 @@ This function should only modify configuration layer settings."
      ;; TODO:
      ;; rustup component add rust-analysis rust-src clippy rustfmt
      ;; cargo install cargo-edit cargo-audit cargo-outdated
-     (rust :variables
-           cargo-process-reload-on-modify t
-           cargo-process--open-file-after-new t
-           cargo-process--enable-rust-backtrace t
-           cargo-process--command-clippy "clippy"
-           lsp-rust-server 'rust-analyzer
-           ;; NOTE: the following file and path are installed by neovim
-           ;; ":CocInstall coc-rust-analyzer" and open rust file in nvim to install the binary
-           lsp-rust-analyzer-store-path "~/.config/coc/extensions/coc-rust-analyzer-data/rust-analyzer"
-           )
+     (rust
+      :variables
+      ;; rust-format-on-save t
+      cargo-process-reload-on-modify t
+      cargo-process--open-file-after-new t
+      cargo-process--enable-rust-backtrace t
+      ;; NOTE: it auto installs rust-analyzer into ~/.emacs.d/.cache/lsp/rust/rust-analyzer
+      lsp-rust-server 'rust-analyzer
+      lsp-rust-clippy-preference "on"
+      lsp-rust-analyzer-cargo-watch-command "clippy"
+      lsp-rust-analyzer-experimental-proc-attr-macros t
+      )
      (treemacs
       :variables
       treemacs-position 'right
@@ -78,21 +80,23 @@ This function should only modify configuration layer settings."
       treemacs-use-scope-type 'Perspectives
       treemacs-display-in-side-window nil
       treemacs-show-cursor t
+      treemacs-missing-project-action 'remove
       )
      ;; NOTE: install shellcheck
      ;; lsp for bash "npm i -g bash-language-server"
      (shell-scripts
       :variables
-      shell-scripts-format-on-save t
+      ;; shell-scripts-format-on-save t
       shell-scripts-backend 'lsp
       )
      (python
       :variables
+      ;; TODO: pip install 'python-lsp-server[all]'
       python-backend 'lsp        ; the default is anaconda
       python-test-runner '(pytest nose)
       python-formatter 'black
       ;; python-format-on-save t
-      python-sort-imports-on-save t
+      python-sort-imports-on-save nil
       ;; TODO: npm install -g pyright
       ;; python-lsp-server 'pyright
       )
@@ -150,10 +154,16 @@ This function should only modify configuration layer settings."
       )
      (evil-snipe
       :variables evil-snipe-enable-alternate-f-and-t-behaviors t)
-     ;; NOTE: install ccls
      (c-c++
       :variables
-      c-c++-backend 'lsp-ccls
+      c-c++-backend 'lsp-clangd
+      lsp-clients-clangd-args
+      '("-j=12" "--all-scopes-completion" "--background-index" "--clang-tidy"
+        "--completion-style=detailed" "--cross-file-rename" "--header-insertion=iwyu"
+        "--header-insertion-decorators" "--inlay-hints" "--pch-storage=memory"
+        "--query-driver=/usr/bin/**/clang*,/bin/clang,/bin/clang++,/usr/bin/gcc,/usr/bin/g++"
+        )
+      ;; NOTE: some options such as inlay-hints don't work
       c-c++-adopt-subprojects t
       ;; c-c++-enable-auto-newline t
       c-c++-lsp-enable-semantic-highlight t
@@ -187,28 +197,36 @@ This function should only modify configuration layer settings."
       ;; https://github.com/emacs-lsp/lsp-mode#performance
       lsp-file-watch-threshold nil
       read-process-output-max (* 1024 1024 3)
-      lsp-prefer-capf t
       lsp-idle-delay 0.500
       ;; Collect lsp-log data
       ;; lsp-print-performance t
       lsp-log-io t
       lsp-auto-guess-root t
+      lsp-ui-doc-position 'at-point
       lsp-ui-doc-delay 1
       lsp-ui-doc-show-with-cursor t
       lsp-ui-imenu-auto-refresh t
       lsp-ui-peek-always-show t
+      lsp-ui-peek-peek-height 50
+      lsp-ui-sideline-show-code-actions t
+      lsp-ui-sideline-show-symbol t
       ;; lsp-ui-sideline-show-hover t
       ;; lsp-ui-sideline-delay 1
-      ccls-initialization-options '(:index (:comments 2) :completion (:detailedLabel t) :cache (:directory "/tmp/ccls"))
-      ccls-sem-highlight-method 'font-lock
+      ;; ccls-initialization-options '(:index (:comments 2) :completion (:detailedLabel t) :cache (:directory "/tmp/ccls"))
+      ;; ccls-sem-highlight-method 'font-lock
       ;; spacemacs/issues/10051#issuecomment-605979333
       lsp-enable-indentation nil
       ;; https://emacs-lsp.github.io/lsp-mode/tutorials/how-to-turn-off/
-      lsp-headerline-breadcrumb-enable nil
       lsp-rust-analyzer-inlay-hints-mode t
       lsp-rust-analyzer-server-display-inlay-hints t
       lsp-rust-analyzer-display-chaining-hints t
       lsp-rust-analyzer-display-parameter-hints t
+      ;; close the server once all buffers of the workspace are closed
+      lsp-keep-workspace-alive nil
+      lsp-headerline-breadcrumb-enable t
+      lsp-headerline-breadcrumb-icons-enable nil
+      lsp-headerline-breadcrumb-enable-diagnostics nil
+      lsp-headerline-breadcrumb-segments '(project path-up-to-project file symbols)
       )
      ;; M-x dap-cpptools-setup after packages are installed by dap layer
      (dap :variables dap-ui-locals-expand-depth 3)
