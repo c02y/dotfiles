@@ -1522,6 +1522,7 @@ Version 2016-12-18"
    ("C-<tab>" . spacemacs/tabs-forward)
    ("C-<iso-lefttab>" . spacemacs/tabs-backward)
    ("C-x C-<tab>" . centaur-tabs-counsel-switch-group)
+   ("C-c C-j" . lsp-execute-code-action)
    )
   (bind-keys :map evil-hybrid-state-map
              ;; not put it into global, it goes wrong in helm mode
@@ -1535,7 +1536,9 @@ Version 2016-12-18"
              ("C-e" . keep-end-of-code-or-line)
              )
   (bind-keys :map evil-normal-state-map
-             ("g r" . revert-buffer-without-asking)
+             ("g p" . lsp-ui-peek-find-definitions)
+             ("g r" . lsp-ui-peek-find-references)
+             ("g R". xref-find-references)
              ;; overwrite the default evil-scroll-down
              ("C-d" . sp-delete-char)
              ;; overwrite the default evil-scroll-up
