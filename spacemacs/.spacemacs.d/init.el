@@ -1149,13 +1149,13 @@ With argument, backward ARG lines."
         ;; Indent character samples: | ┆ ┊ ⁞
         highlight-indent-guides-character ?\┊)
 
-  ;; highlight TODO:/NOTE:/FIXME:/FIX:/BUG:/WARNING: keywords
+  ;; highlight keywords like TODO/FIXME
   (dolist (hook '(prog-mode-hook org-mode-hook))
     (add-hook hook
               (lambda ()
                 (font-lock-add-keywords
                  nil
-                 '(("\\<\\(TODO:\\|NOTE:\\|FIXME:\\|ERROR:\\|FIX:\\|BUG:\\|WARNING:\\)" 1
+                 '(("\\<\\(TODO\\|NOTE\\|FIXME\\|ERROR\\|FIX\\|BUG\\|WARNING\\)" 1
                     '(:background "yellow") t))))))
 
   (defun rename-this-buffer-and-file ()
