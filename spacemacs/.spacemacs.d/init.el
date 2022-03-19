@@ -2165,6 +2165,8 @@ In other non-comment situations, try C-M-j to split."
           org-clock-report-include-clocking-task t
           ;; Overwrite the current window with the agenda
           org-agenda-window-setup 'current-window
+          ;; indent the content with the header
+          org-adapt-indentation t
           ;; search all items including archives
           org-agenda-text-search-extra-files '(agenda-archives)
           ;; mark all children DONE when mark parent DONE, FIXME: not working
