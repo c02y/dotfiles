@@ -1075,12 +1075,25 @@ function dfs -d 'df(-l, -L for full list), gua(-i), dua(-I), du(by default), cac
     end
 end
 
-function watch -d 'wrap default watch to support aliases and functions'
-    while test 1
-        date
-        eval $argv
-        sleep 1
-        echo
+function wee -d 'wrap watch and watchexec'
+    set -l options x n "w=" "e="
+    argparse -n wee $options -- $argv
+    or return
+
+    if set -q _flag_x
+        set OPT --shell=fish
+        set -q _flag_n; and set -a OPT -N
+        # if -w or -e is not specified, watch the current dir
+        set -q _flag_w; and set -a OPT -w $_flag_w
+        set -q _flag_e; and set -a OPT -e $_flag_e
+        watchexec $OPT $argv
+    else
+        while test 1
+            date
+            eval $argv
+            sleep 1
+            echo
+        end
     end
 end
 # stop less save search history into ~/.lesshst
