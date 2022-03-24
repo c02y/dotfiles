@@ -52,10 +52,10 @@ vim.api.nvim_exec(
 -- Additional Plugins
 lvim.plugins = {
 	--     {"folke/tokyonight.nvim"},
-	--     {
-	--       "folke/trouble.nvim",
-	--       cmd = "TroubleToggle",
-	--     },
+	{
+		"folke/trouble.nvim",
+		cmd = "TroubleToggle",
+	},
 	{ "szw/vim-maximizer" },
 	{ "chrisbra/Colorizer" },
 	{ "vimlab/split-term.vim" },
@@ -271,15 +271,15 @@ lvim.builtin.which_key.mappings["j"] = {
 	l = { ":HopLine<CR>", "Jump Line" },
 	j = { ":HopChar2<CR>", "Jump Chars" },
 }
--- lvim.builtin.which_key.mappings["t"] = {
---   name = "+Trouble",
---   r = { "<cmd>Trouble lsp_references<cr>", "References" },
---   f = { "<cmd>Trouble lsp_definitions<cr>", "Definitions" },
---   d = { "<cmd>Trouble lsp_document_diagnostics<cr>", "Diagnostics" },
---   q = { "<cmd>Trouble quickfix<cr>", "QuickFix" },
---   l = { "<cmd>Trouble loclist<cr>", "LocationList" },
---   w = { "<cmd>Trouble lsp_workspace_diagnostics<cr>", "Diagnostics" },
--- }
+lvim.builtin.which_key.mappings["lt"] = {
+	name = "+Trouble",
+	r = { "<cmd>Trouble lsp_references<cr>", "References" },
+	d = { "<cmd>Trouble lsp_definitions<cr>", "Definitions" },
+	l = { "<cmd>Trouble lsp_document_diagnostics<cr>", "Diagnostics" },
+	q = { "<cmd>Trouble quickfix<cr>", "QuickFix" },
+	L = { "<cmd>Trouble loclist<cr>", "LocationList" },
+	w = { "<cmd>Trouble lsp_workspace_diagnostics<cr>", "Workspace Diagnostics" },
+}
 
 -- TODO: User Config for predefined plugins
 -- After changing plugin config exit and reopen LunarVim, Run :PackerInstall :PackerCompile
@@ -320,7 +320,7 @@ lvim.builtin.treesitter.highlight.enabled = true
 -- ---@usage disable automatic installation of servers
 -- lvim.lsp.automatic_servers_installation = false
 
--- ---@usage Select which servers should be configured manually. Requires `:LvimCacheRest` to take effect.
+-- ---@usage Select which servers should be configured manually. Requires `:LvimCacheReset` to take effect.
 -- See the full default list `:lua print(vim.inspect(lvim.lsp.override))`
 -- vim.list_extend(lvim.lsp.override, { "pyright" })
 
