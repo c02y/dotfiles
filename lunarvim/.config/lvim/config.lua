@@ -283,13 +283,13 @@ lvim.builtin.which_key.mappings["j"] = {
 
 -- TODO: User Config for predefined plugins
 -- After changing plugin config exit and reopen LunarVim, Run :PackerInstall :PackerCompile
-lvim.builtin.dashboard.active = true
 lvim.builtin.notify.active = true
 lvim.builtin.terminal.active = true
 lvim.builtin.nvimtree.setup.view.side = "left"
 lvim.builtin.nvimtree.show_icons.git = 0
 
 -- if you don't want all the parsers change this to a table of the ones you want
+-- You may need to :TSupdate if vim has tree-sitter issues
 lvim.builtin.treesitter.ensure_installed = {
 	"bash",
 	"fish",
