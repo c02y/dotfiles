@@ -1587,9 +1587,14 @@ Version 2016-12-18"
              ("C-e" . keep-end-of-code-or-line)
              )
   (bind-keys :map evil-normal-state-map
+             ;; NOTE: xref, lsp, jump-to-definition/-other-window all have goto-definition functions,
+             ;; jump-to-definition/-other-window work badly for lsp project(freeze after jump, not work on some symbols),
+             ;; lsp doesn't have other-window function
+             ;; xref doesn't work for lsp project
+             ("g d" . evil-goto-definition)
              ("g p" . lsp-ui-peek-find-definitions)
              ("g r" . lsp-ui-peek-find-references)
-             ("g R". xref-find-references)
+             ("g R" . xref-find-references)
              ;; overwrite the default evil-scroll-down
              ("C-d" . sp-delete-char)
              ;; overwrite the default evil-scroll-up
