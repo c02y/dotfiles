@@ -1555,7 +1555,17 @@ function pacs -d 'pacman/paru operations'
         else
             # check if there are updates using checkupdates(non-root), if there are, update using paru(need root)
             # paru = pacman/paru -Syu, update, check -u option for more
-            checkupdates; and paru; or echo "Already Updated!"
+            checkupdates
+            set return_code $status
+            if test $return_code -eq 0
+                # if three times passed no password is typed, 
+                # use `faillock --user chz --reset` to unlock the password attempt for root
+                # timeout here in case forget to type password and then 3 attemps passed
+                timeout 60 paru
+            else if test $return_code -eq 2
+                echo "Already Updated!"
+            end
+            # otherwise, return_code=1, such as network issue
         end
     end
 end
