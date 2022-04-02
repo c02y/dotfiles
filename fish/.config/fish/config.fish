@@ -2479,11 +2479,11 @@ end
 # abbr x 'exit'
 alias q x
 function x -d 'exit or deactivate in python env'
-    if not set -q $VIRTUAL_ENV # running in python virtual env
+    if set -q VIRTUAL_ENV # running in python virtual env
         # TODO: since sth. is wrong with the deactivate function in $argv/bin/activate.fish
         deactivate >/dev/null 2>/dev/null
         source $FISHRC
-    else if not set -q $CONDA_DEFAULT_ENV # running in conda virtual env
+    else if set -q CONDA_DEFAULT_ENV # running in conda virtual env
         cons -x
     else
         exit
