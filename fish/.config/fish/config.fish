@@ -1769,7 +1769,7 @@ function syss -d 'systemctl related functions'
     # current user or using default sudo
     set -q _flag_u; and set PRI systemctl --user; or set PRI systemctl
 
-    set -q argv[1]; and systemctl status $argv && return
+    set -q argv[1]; and eval $PRI status $argv && return
 
     set keys (seq 1 20)
     set values \
