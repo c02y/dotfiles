@@ -255,7 +255,8 @@ bindsym $mod+F12 sticky toggle
 # NOTE: enable window bar for floating window so kill or move can be archived by only mouse on the window bar
 # NOTE: it works for floating mpv window too since it is not able to show window bar from mpv config
 # NOTE: BUG: the window bar is still there when you make un-floating, use binding manually to disable the window bar
-for_window [floating] resize set 70 ppt 80 ppt, move position center, border normal 5
+# set all floating windows except for Dropdown kitty
+for_window [floating class="^(?!Dropdown$)"] resize set 70 ppt 80 ppt, move position center, border normal 5
 for_window [class="copyq"] floating enable
 for_window [class="fcitx5-config-qt"] floating enable
 for_window [class="Alacritty"] floating enable
@@ -309,8 +310,9 @@ bindsym $mod+Shift+t exec jumpapp -f telegram-desktop
 bindsym $mod+Print exec flameshot gui
 bindsym $mod+Shift+Print exec flameshot launcher
 # NOTE: the options for tdrop are important, especially for WM and multiple monitors
-# NOTE: -y 0 is to hide the window bar, since border normal 3 for all floating windows will display window bar for this too
-bindsym F12 exec tdrop -t -m -y 0 -w 100% -h 100% kitty --class=Dropdown --title=Dropdown_Kitty
+# NOTE: -y 30 is to make the top margin of Dropdown_Kitty and bottom margin of i3status-bar work well
+# -h 98% is to make the status bar of tmux in Dropdown_Kitty work well with the screen bottom margin
+bindsym F12 exec tdrop -t -m -y 30 -w 100% -h 98% kitty --class=Dropdown --title=Dropdown_Kitty
 # if $mod+q fails, use $mod+d
 bindsym $mod+d exec --no-startup-id dmenu_run
 # the grave key is `, the left key of NUM 1 on the keyboard
