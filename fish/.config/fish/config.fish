@@ -1495,6 +1495,7 @@ function pacs -d 'pacman/paru operations'
             paru -Sg $ARGV | sort
         end
     else if set -q _flag_s # show info
+        set -q argv[1]; or echo "Need argv" && return
         if set -q _flag_l # get source link and send it to clipper
             if set -q _flag_a # get AUR source link and send it to clipper
                 paru -Si $ARGV | rg "AUR URL" | awk '{print $4}' | xc && xc -o
