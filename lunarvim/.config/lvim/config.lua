@@ -130,6 +130,7 @@ lvim.keys.normal_mode["<C-x><C-x>"] = "gv"
 lvim.keys.normal_mode["<C-x>x"] = ":b#<CR>"
 -- format buffer, or using rough one: "gg=G``"
 lvim.keys.normal_mode["=="] = "<cmd>lua vim.lsp.buf.formatting()<cr>"
+lvim.keys.normal_mode["=t"] = ":LvimToggleFormatOnSave<cr>"
 -- git related, more in <Leader>g
 lvim.keys.normal_mode["[h"] = "<cmd>lua require 'gitsigns'.prev_hunk()<cr>"
 lvim.keys.normal_mode["]h"] = "<cmd>lua require 'gitsigns'.next_hunk()<cr>"
