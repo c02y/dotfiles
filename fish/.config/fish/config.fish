@@ -1390,10 +1390,12 @@ function pacs -d 'pacman/paru operations'
         echo "           + -a --> specfic from AUR"
         echo "         + -a --> specfic from AUR"
         echo "      -l --> list local installed packages(name+description)"
-        echo "         + argv --> list installed packages containing argv keyword in name or description"
         echo "         + -n --> list installed packaegs, names only"
         echo "           + argv --> list installed packages containing argv keyword in name"
         echo "         + -a --> specfic from AUR"
+        echo "         + -r --> list all packages from repo"
+        echo "         + -r -L --> list installed/local packages from repo"
+        echo "         + argv --> list installed packages containing argv keyword in name or description"
         echo "      -L --> list content of a argv pacakge, the same as -s -L"
         echo "         + -a --> specfic from AUR"
         echo "      -n --> search argv in only packages name part"
@@ -1526,6 +1528,10 @@ function pacs -d 'pacman/paru operations'
             end
         else if set -q _flag_a # list packages installed from AUR(no really)
             paru -Qm
+        else if set -q _flag_r # list packages from repo
+            # and: list installed/local packages from repo
+            # or: list all(remote and local) packages from repo
+            set -q _flag_L; and paclist $ARGV; or paru -Sl $ARGV
         else
             paru -Qs $ARGV
         end
