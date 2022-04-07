@@ -1333,15 +1333,31 @@ Server = https://mirrors.ustc.edu.cn/archlinuxcn/$arch
 # https://github.com/arcolinux/arcolinux-mirrorlist
 [arcolinux_repo_3party]
 SigLevel = Optional TrustAll
+# South Korea
+Server = https://mirror.funami.tech/arcolinux/$repo/$arch
+# Singapore
+Server = https://mirror.jingk.ai/arcolinux/$repo/$arch
+# Europe Netherlands Amsterdam
 Server = https://ant.seedhost.eu/arcolinux/$repo/$arch
+# Gitlab United States
 Server = https://gitlab.com/arcolinux/$repo/-/raw/master/$arch
+# Europe Belgium Brussels
 Server = https://ftp.belnet.be/arcolinux/$repo/$arch
+# Australia
 Server = https://mirror.aarnet.edu.au/pub/arcolinux/$repo/$arch
 [arcolinux_repo_xlarge]
 SigLevel = Optional TrustAll
+# South Korea
+Server = https://mirror.funami.tech/arcolinux/$repo/$arch
+# Singapore
+Server = https://mirror.jingk.ai/arcolinux/$repo/$arch
+# Europe Netherlands Amsterdam
 Server = https://ant.seedhost.eu/arcolinux/$repo/$arch
+# Gitlab United States
 Server = https://gitlab.com/arcolinux/$repo/-/raw/master/$arch
+# Europe Belgium Brussels
 Server = https://ftp.belnet.be/arcolinux/$repo/$arch
+# Australia
 Server = https://mirror.aarnet.edu.au/pub/arcolinux/$repo/$arch
 
 # https://aur.chaotic.cx/
