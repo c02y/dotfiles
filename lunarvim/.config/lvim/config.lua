@@ -259,7 +259,7 @@ lvim.builtin.which_key.mappings["w"] = {
 	["1"] = { ":only<CR>", "Delete Other Windows" },
 	["-"] = { "<C-w>s", "Split Window" },
 	["\\"] = { "<C-w>v", "Split Window V" },
-	w = { "<C-w>w", "Switch Windows" },
+	w = { ":lua require('nvim-window').pick()<CR>", "Switch Windows" },
 	-- the following binding is from vim-maximizer
 	m = { ":MaximizerToggle<cr>", "Max Window" },
 	-- from https://gitlab.com/yorickpeterse/nvim-window.git
