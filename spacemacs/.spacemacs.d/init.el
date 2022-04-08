@@ -1033,6 +1033,8 @@ before packages are loaded."
    ;; Putting the following two setq in lsp layer doesn't work
    lsp-completion-provider :capf
    lsp-completion-default-behaviour :insert
+   ;; default value alien will ignore projectile-globally-ignored-directories
+   projectile-indexing-method 'hybrid
    )
   ;; to make which-function in spaceline-custom-theme work
   (which-function-mode)
