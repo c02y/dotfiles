@@ -1330,51 +1330,21 @@ Server = https://mirrors.sjtug.sjtu.edu.cn/archlinux-cn/$arch
 Server = https://mirrors.tuna.tsinghua.edu.cn/archlinuxcn/$arch
 Server = https://mirrors.ustc.edu.cn/archlinuxcn/$arch
 
-# https://github.com/arcolinux/arcolinux-mirrorlist
-[arcolinux_repo_3party]
-SigLevel = Optional TrustAll
-# South Korea
-Server = https://mirror.funami.tech/arcolinux/$repo/$arch
-# Singapore
-Server = https://mirror.jingk.ai/arcolinux/$repo/$arch
-# Europe Netherlands Amsterdam
-Server = https://ant.seedhost.eu/arcolinux/$repo/$arch
-# Gitlab United States
-Server = https://gitlab.com/arcolinux/$repo/-/raw/master/$arch
-# Europe Belgium Brussels
-Server = https://ftp.belnet.be/arcolinux/$repo/$arch
-# Australia
-Server = https://mirror.aarnet.edu.au/pub/arcolinux/$repo/$arch
-[arcolinux_repo_xlarge]
-SigLevel = Optional TrustAll
-# South Korea
-Server = https://mirror.funami.tech/arcolinux/$repo/$arch
-# Singapore
-Server = https://mirror.jingk.ai/arcolinux/$repo/$arch
-# Europe Netherlands Amsterdam
-Server = https://ant.seedhost.eu/arcolinux/$repo/$arch
-# Gitlab United States
-Server = https://gitlab.com/arcolinux/$repo/-/raw/master/$arch
-# Europe Belgium Brussels
-Server = https://ftp.belnet.be/arcolinux/$repo/$arch
-# Australia
-Server = https://mirror.aarnet.edu.au/pub/arcolinux/$repo/$arch
-
 # https://aur.chaotic.cx/
 # https://archlinux.pkgs.org/rolling/chaotic-aur-x86_64/
 # install chaotic-keyring
 # from package chaotic-mirrorlist package
 [chaotic-aur]
 SigLevel = Optional TrustAll
+# Seoul, Korea
+Server = https://kr-mirror.chaotic.cx/$repo/$arch
+# India
+Server = https://in-mirror.chaotic.cx/$repo/$arch
+Server = https://in-1-mirror.chaotic.cx/$repo/$arch
 # Automatic per-country routing of the mirrors below.
 Server = https://geo-mirror.chaotic.cx/$repo/$arch
 # CDN (delayed syncing)
 Server = https://cdn-mirror.chaotic.cx/$repo/$arch
-# India
-Server = https://in-mirror.chaotic.cx/$repo/$arch
-Server = https://in-1-mirror.chaotic.cx/$repo/$arch
-# Seoul, Korea
-Server = https://kr-mirror.chaotic.cx/$repo/$arch
 # USA
 Server = https://us-ut-mirror.chaotic.cx/$repo/$arch
 # Spain
@@ -1393,6 +1363,36 @@ Server = https://br-mirror.chaotic.cx/$repo/$arch
 Server = https://bg-mirror.chaotic.cx/$repo/$arch
 # Toronto, Canada
 Server = https://ca-mirror.chaotic.cx/$repo/$arch
+
+# https://github.com/arcolinux/arcolinux-mirrorlist
+[arcolinux_repo_3party]
+SigLevel = Optional TrustAll
+# Singapore
+Server = https://mirror.jingk.ai/arcolinux/$repo/$arch
+# South Korea
+Server = https://mirror.funami.tech/arcolinux/$repo/$arch
+# Europe Netherlands Amsterdam
+Server = https://ant.seedhost.eu/arcolinux/$repo/$arch
+# Gitlab United States
+Server = https://gitlab.com/arcolinux/$repo/-/raw/master/$arch
+# Europe Belgium Brussels
+Server = https://ftp.belnet.be/arcolinux/$repo/$arch
+# Australia
+Server = https://mirror.aarnet.edu.au/pub/arcolinux/$repo/$arch
+[arcolinux_repo_xlarge]
+SigLevel = Optional TrustAll
+# Singapore
+Server = https://mirror.jingk.ai/arcolinux/$repo/$arch
+# South Korea
+Server = https://mirror.funami.tech/arcolinux/$repo/$arch
+# Europe Netherlands Amsterdam
+Server = https://ant.seedhost.eu/arcolinux/$repo/$arch
+# Gitlab United States
+Server = https://gitlab.com/arcolinux/$repo/-/raw/master/$arch
+# Europe Belgium Brussels
+Server = https://ftp.belnet.be/arcolinux/$repo/$arch
+# Australia
+Server = https://mirror.aarnet.edu.au/pub/arcolinux/$repo/$arch
 ' | sudo tee -a /etc/pacman.conf
         sudo pacman -S --needed --noconfirm archlinuxcn-keyring chaotic-keyring chaotic-mirrorlist paru
     end
