@@ -1410,11 +1410,17 @@ function pacs -d 'pacman/paru operations'
     # lower the argv
     set ARGV (string lower $argv)
 
+    # NOTE do not use -y with -c/-d
+    if not set -q _flag_c; and not set -q _flag_d
+        set -q _flag_y; and set -a ARGV --noconfirm
+    end
+
     # NOTE: the order of options and sub-options, sub-option in another option may affect
     # the other option, it may cause wrong execution order if you provide option/sub-option
     if set -q _flag_h
         echo "      --> update the system"
         echo "      argv --> search argv"
+        echo "      -y --> pacman/paru with noconfirm"
         echo "      -p --> print installed pacakges stats"
         echo "      -m --> get fastest mirror from China by default"
         echo "         + argv --> get mirrors from argv country"
@@ -1425,7 +1431,6 @@ function pacs -d 'pacman/paru operations'
         echo "         + -p --> print installed/removed/upgraded packages history"
         echo "           + argv --> print pacman history for the argv package"
         echo "         + -u --> update the system and install the argv"
-        echo "         + -y --> install the argv without confirm"
         echo "         + -r --> reinsall argv"
         echo "         + -d --> download argv without installing it"
         echo "         + -a --> specific from AUR"
@@ -1485,9 +1490,6 @@ function pacs -d 'pacman/paru operations'
 
         # -S to install a package, -Syu pkg to ensure the system is update to date then install the package
         set -q _flag_u; and set OPT $OPT -Syy; or set OPT $OPT -S
-
-        # noconfirm, without asking for y/n
-        set -q _flag_y; and set OPT $OPT --noconfirm
 
         # -r to reinstall, no -r to ignore installed
         set -q _flag_r; and set OPT $OPT; or set OPT $OPT --needed
