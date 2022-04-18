@@ -2744,7 +2744,7 @@ function ffms -d 'ffmpeg related functions'
     else if set -q _flag_i # info
         for file in $argv
             # `mediainfo --info-parameters` to get all the variables
-            mediainfo --Inform="General;%Duration/String2%, %OverallBitRate/String%, %FileSize/String4%" $file
+            mediainfo --Inform="General;%CompleteName%\n%Duration/String2%, %OverallBitRate/String%, %FileSize/String4%" $file
             mediainfo --Inform="Video;%CodecID%, %Width%x%Height%" $file
             mediainfo --Inform="Audio;%Compression_Mode/String%, %SamplingRate/String%" $file
             echo
