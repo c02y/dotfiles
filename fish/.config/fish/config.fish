@@ -1336,6 +1336,9 @@ Server = https://mirrors.ustc.edu.cn/archlinuxcn/$arch
 # from package chaotic-mirrorlist package
 [chaotic-aur]
 SigLevel = Optional TrustAll
+# Singapore
+# * By: freediff.org
+Server = https://mirror.freedif.org/Garuda/$arch
 # Seoul, Korea
 Server = https://kr-mirror.chaotic.cx/$repo/$arch
 # India
