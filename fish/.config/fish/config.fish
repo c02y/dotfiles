@@ -1657,14 +1657,14 @@ end
 # make the make and gcc/g++ color
 function gcc-a
     set BIN (echo (string split .c $argv) | awk '{print $1;}')
-    /usr/bin/gcc -Wall -W -g -o $BIN $argv 2>&1 | rg --color always -iP "\^|warning:|error:|undefined|"
+    /usr/bin/gcc -Wpedantic -fsanitize=address,undefined -Wall -W -g -o $BIN $argv 2>&1 | rg --color always -iP "\^|warning:|error:|undefined|"
 end
 function g++-a
     set BIN (echo (string split .cpp $argv) | awk '{print $1;}')
-    /usr/bin/g++ -Wall -W -g -o $BIN $argv 2>&1 | rg --color always -iP "\^|warning:|error:|undefined|"
+    /usr/bin/g++ -Wpedantic -fsanitize=address,undefined -Wall -W -g -o $BIN $argv 2>&1 | rg --color always -iP "\^|warning:|error:|undefined|"
 end
 abbr gcc-w 'gcc -g -Wall -W -Wsign-conversion'
-abbr gcca 'gcc -g -pedantic -Wall -W -Wconversion -Wshadow -Wcast-qual -Wwrite-strings -Wmissing-prototypes -Wno-sign-compare -Wno-unused-parameter'
+abbr gcca 'gcc -g -Wpedantic -fsanitize=address,undefined -Wall -W -Wconversion -Wshadow -Wcast-qual -Wwrite-strings -Wmissing-prototypes -Wno-sign-compare -Wno-unused-parameter'
 # gcc -Wall -W -Wextra -Wconversion -Wshadow -Wcast-qual -Wwrite-strings -Werror
 
 function mess -d 'meson related functions'
