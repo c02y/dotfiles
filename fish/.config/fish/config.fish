@@ -1407,7 +1407,7 @@ Server = https://ftp.belnet.be/arcolinux/$repo/$arch
 # Australia
 Server = https://mirror.aarnet.edu.au/pub/arcolinux/$repo/$arch
 ' | sudo tee -a /etc/pacman.conf
-        sudo pacman -S --needed --noconfirm archlinuxcn-keyring chaotic-keyring chaotic-mirrorlist paru
+        sudo pacman -Fy && sudo pacman -S --needed --noconfirm archlinuxcn-keyring chaotic-keyring chaotic-mirrorlist paru
     end
 end
 function pacs -d 'pacman/paru operations'
