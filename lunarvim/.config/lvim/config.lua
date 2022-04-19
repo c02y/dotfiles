@@ -189,6 +189,8 @@ lvim.builtin.which_key.mappings["v-"] = { ":Term<CR>", "- Term" }
 lvim.builtin.which_key.mappings["b<Space>"] = { "<cmd>Telescope buffers<cr>", "Switch Buffers" }
 lvim.builtin.which_key.mappings["xx"] = { ":QuickRun<CR>", "QuickRun" }
 lvim.builtin.which_key.mappings["ss"] = { ":Telescope current_buffer_fuzzy_find fuzzy=false<CR>", "Search Buffer" }
+lvim.builtin.which_key.mappings["<Tab>"] = { ":BufferLineCycleNext<CR>", "Next Tab" }
+lvim.builtin.which_key.mappings["<S-Tab>"] = { ":BufferLineCyclePrev<CR>", "Prev Tab" }
 -- original / is to comment
 lvim.builtin.which_key.mappings["/"] = { ":Telescope current_buffer_fuzzy_find fuzzy=false<CR>", "Search Buffer" }
 lvim.builtin.which_key.mappings["sP"] = { "<cmd>Telescope live_grep<CR>", "Live Search" }
