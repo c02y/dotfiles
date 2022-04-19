@@ -1470,9 +1470,14 @@ function pacs -d 'pacman/paru operations'
         echo "         + -r --> list all packages from repo"
         echo "         + -r -L --> list installed/local packages from repo"
         echo "         + argv --> list installed packages containing argv keyword in name or description"
-        echo "      -L --> list content of a argv pacakge, the same as -s -L"
-        echo "         + -a --> specfic from AUR"
+        echo "      -L --> list content of pacakges, the same as -s -L"
+        echo "         + argv --> from a package"
+        echo "         + -a argv --> including AUR package that may not be installed"
         echo "      -n --> search argv in only packages name part"
+        echo "         + argv --> search argv in only packages(repo) name part"
+        echo "         + -a argv --> search argv in only packages(repo+AUR) name part "
+        echo "         + --> list all packages in repo"
+        echo "         + -a --> list all packages in repo+AUR"
         echo "      -a --> search all using paru, slow since inlcuding AUR"
         echo "      -k --> check for missing files in packages"
         echo "      -h --> usage"
@@ -1607,16 +1612,20 @@ function pacs -d 'pacman/paru operations'
             paru -Qs $ARGV
         end
     else if set -q _flag_L # list content in a pacakge
+        set -q argv[1]; or echo "Need one or more package names!" && return
         set -q _flag_a; and set OPT -a
-        paru -Ql $ARGV
-        or paru -Fl $OPT $ARGV
+        paru -Ql $ARGV; or paru -Fl $OPT $ARGV
     else if set -q _flag_n # search only keyword in package names
-        if set -q _flag_a
-            paru -Sl | rg $ARGV
-        else
-            # pacman package names are already sorted
-            pacman -Sl | rg $ARGV
-            or paru -Sl | rg $ARGV
+        if set -q argv[1]
+            if set -q _flag_a
+                paru -Sl | rg $ARGV
+            else
+                # pacman package names are already sorted
+                pacman -Sl | rg $ARGV
+                or paru -Sl | rg $ARGV
+            end
+        else # list all packages, no filter
+            set -q _flag_a; and paru -Sl; or pacman -Sl
         end
     else if set -q _flag_a # search all including repo and aur
         paru $ARGV
@@ -2305,7 +2314,7 @@ function gitfs -d 'git forked repo sync'
     else
         if test $upstream_status != 0
             # given argument
-            set -q arv[1]; and git remote add upstream $argv
+            set -q argv[1]; and git remote add upstream $argv
         end
         # the upstream url may be wrong, `git fetch upstream` will prompt for user/psw
         # use `git remote remove upstream` to remove the wrong upstream url
