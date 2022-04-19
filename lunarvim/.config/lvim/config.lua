@@ -20,6 +20,8 @@ lvim.colorscheme = "default"
 lvim.builtin.lualine.style = "default"
 lvim.builtin.lualine.options.theme = "onedark"
 lvim.builtin.lualine.sections.lualine_c = { "filename", "diagnostics" }
+-- debug -- dap
+lvim.builtin.dap.active = true
 vim.cmd([[
 " FIXME: whitespace is not highlighted
 set listchars=tab:»\ ,extends:›,precedes:‹,nbsp:·,trail:·,eol:$,space:·,conceal:·
@@ -63,6 +65,8 @@ lvim.plugins = {
 	{ "ethanholz/nvim-lastplace" },
 	{ "phaazon/hop.nvim" },
 	{ "https://gitlab.com/yorickpeterse/nvim-window.git" },
+	{ "theHamsta/nvim-dap-virtual-text" },
+	{ "rcarriga/nvim-dap-ui" },
 }
 
 require("telescope").setup({
@@ -196,6 +200,13 @@ lvim.builtin.which_key.mappings["/"] = { ":Telescope current_buffer_fuzzy_find f
 lvim.builtin.which_key.mappings["sP"] = { "<cmd>Telescope live_grep<CR>", "Live Search" }
 lvim.builtin.which_key.mappings["l/"] = { ":Telescope lsp_document_symbols<CR>", "Document Symbols" }
 lvim.builtin.which_key.mappings["l."] = { ":Telescope lsp_workspace_symbols<CR>", "Workspace Symbols" }
+lvim.builtin.which_key.mappings["dI"] = { ':lua require("dapui").eval()<CR>', "Hover Info" }
+lvim.builtin.which_key.mappings["d<Space>"] = { ':lua require("dapui").toggle()<CR>', "Dapui Toggle" }
+lvim.builtin.which_key.mappings["dQ"] = {
+	-- bind multiple commands into one key
+	':lua require("dap").close()<CR>:lua require("dapui").close()<CR> ',
+	"Quit Dap and Dapui",
+}
 
 lvim.builtin.which_key.mappings["t"] = {
 	name = "+Toggle",
@@ -397,3 +408,68 @@ lvim.autocommands.custom_groups = {
 	{ "ColorScheme * highlight Pmenu ctermbg=NONE guibg=NONE" },
 	{ "ColorScheme * highlight FloatBorder ctermbg=NONE guibg=NONE" },
 }
+
+-- debugger -- dap
+require("nvim-dap-virtual-text").setup({
+	enabled = true,
+	enabled_commands = true,
+	highlight_changed_variables = true,
+	highlight_new_as_changed = true,
+	show_stop_reason = true,
+	commented = false,
+	-- experimental features:
+	virt_text_pos = "eol",
+	all_frames = false,
+	virt_lines = false,
+	virt_text_win_col = nil,
+	-- e.g. 80 to position at column 80, see `:h nvim_buf_set_extmark()`
+})
+-- dapui
+require("dapui").setup()
+local dap, dapui = require("dap"), require("dapui")
+dap.listeners.after.event_initialized["dapui_config"] = function()
+	dapui.open()
+end
+dap.listeners.before.event_terminated["dapui_config"] = function()
+	dapui.close()
+end
+dap.listeners.before.event_exited["dapui_config"] = function()
+	dapui.close()
+end
+--
+lvim.builtin.dap.on_config_done = function(dap)
+	dap.adapters.lldb = {
+		type = "executable",
+		command = "/usr/bin/lldb-vscode",
+		name = "lldb",
+	}
+
+	dap.configurations.cpp = {
+		{
+			name = "Launch",
+			type = "lldb",
+			request = "launch",
+			program = function()
+				return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
+			end,
+			cwd = "${workspaceFolder}",
+			stopOnEntry = false,
+			args = {},
+			runInTerminal = false,
+			autoReload = {
+				enable = true,
+			},
+		},
+		{
+			-- If you get an "Operation not permitted" error using this, try disabling YAMA:
+			--  echo 0 | sudo tee /proc/sys/kernel/yama/ptrace_scope
+			name = "Attach to process",
+			type = "lldb",
+			request = "attach",
+			pid = require("dap.utils").pick_process,
+			args = {},
+		},
+	}
+	dap.configurations.c = dap.configurations.cpp
+	dap.configurations.rust = dap.configurations.cpp
+end
