@@ -1648,7 +1648,7 @@ function pacs -d 'pacman/paru operations'
                 # if three times passed no password is typed, 
                 # use `faillock --user chz --reset` to unlock the password attempt for root
                 # timeout here in case forget to type password and then 3 attemps passed
-                timeout 60 paru
+                timeout 60 paru -Syu $ARGV
             else if test $return_code -eq 2
                 echo "Already Updated!"
             end
