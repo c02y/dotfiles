@@ -1658,7 +1658,7 @@ function pacs -d 'pacman/paru operations'
 end
 
 # donnot show the other info on startup
-abbr gdbi 'gdb -q -x ~/Dotfiles.d/bin/.local/bin/gdbinit'
+abbr gdbi 'gdb -q -x ~/Dotfiles.d/misc/gdbinit'
 abbr gdbx 'gdb -q -n' # with loading any .gdbinit file
 abbr gdbd 'sudo gdb -batch -ex "thread apply all bt" -p' # -p $PID to check the deadlock issue, or `sudo strace -s 99 -ffp $PID`
 abbr gdbu 'gdbgui --gdb-args="-q -n"'
@@ -1671,7 +1671,7 @@ function gdbt -d "using gdb with tmux panes"
     set -l id (tmux split-pane -hPF "#D" "tail -f /dev/null")
     tmux last-pane
     set -l tty (tmux display-message -p -t "$id" '#{pane_tty}')
-    gdb -q -x ~/Dotfiles.d/bin/.local/bin/gdbinit -ex "dashboard source -output $tty" "$argv"
+    gdb -q -x ~/Dotfiles.d/misc/gdbinit -ex "dashboard source -output $tty" "$argv"
     tmux kill-pane -t $id
 end
 
@@ -2678,7 +2678,7 @@ function pxs -d 'multiple commands using proxychains4'
     set -q _flag_o; and mv -v (ls -Art | tail -n 1) $_flag_o
 end
 
-alias dic 'trans :zh -d -show-dictionary Y -v -theme ~/.local/bin/trans-theme-matrix.trans'
+alias dic 'trans :zh -d -show-dictionary Y -v -theme ~/Dotfiles.d/misc/trans-theme-matrix.trans'
 
 # count chars of lines of a file
 # awk '{ print length }' | sort -n | uniq -c
