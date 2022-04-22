@@ -930,7 +930,7 @@ function fdd -d 'fd to replace mlocate/plocate'
 end
 
 # df+du+gdu/dua
-function dfs -d 'df(-l, -L for full list), gua(-i), dua(-I), du(by default), cache/config dir of Firefox/Chrome/Vivaldi/paru/pacman'
+function dfs -d 'df(-l, -L for full list), gua(-i), dua(-I), du(by default), cache/config dir of Firefox/Chrome/paru/pacman'
     set -l options i I l L c t m s
     argparse -n dfs $options -- $argv
     or return
@@ -956,9 +956,6 @@ function dfs -d 'df(-l, -L for full list), gua(-i), dua(-I), du(by default), cac
         fusermount -zu $argv && rm -rfv $argv
     else if set -q _flag_c
         set dirs ~/.cache/google-chrome ~/.config/google-chrome \
-            ~/.cache/chromium ~/.config/chromium \
-            ~/.cache/BraveSoftware ~/.config/BraveSoftware \
-            ~/.cache/vivaldi ~/.config/vivaldi \
             ~/.cache/mozilla ~/.mozilla \
             ~/.cache/paru/clone ~/.cache/calibre \
             ~/.local/share/Trash \
