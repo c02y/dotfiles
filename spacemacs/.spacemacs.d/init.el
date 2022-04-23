@@ -175,7 +175,10 @@ This function should only modify configuration layer settings."
       ;; In Cpp project:
       ;; NOTE: the following config is replaced by format-all package and config
       ;; c-c++-enable-clang-format-on-save t
-      )
+      ;; NOTE: do not use dap-cpptoles, it needs `M-x dap-cpptools-setup' and you need to edit template before debug
+      ;; Do not use dap-gdb-lldb, it needs `M-x dap-gdb-lldb-setup'
+      ;; (it fails sometimes, FIXME: old version/lldb is not working), no variable like dap-lldb-debugged-program-function
+      c-c++-dap-adapters 'dap-lldb)
      ;; TODO: pip install cmake-language-server
      ;; will provide lsp and cmake-format for cmake
      ;; But cmake-format provided by cmake-language-server seems broken, so
@@ -228,7 +231,6 @@ This function should only modify configuration layer settings."
       lsp-headerline-breadcrumb-enable-diagnostics nil
       lsp-headerline-breadcrumb-segments '(project path-up-to-project file symbols)
       )
-     ;; M-x dap-cpptools-setup after packages are installed by dap layer
      (dap :variables dap-ui-locals-expand-depth 3)
      ;; TODO: npm install -g prettier
      prettier
@@ -1349,6 +1351,9 @@ Emacs session."
     ;; the default cc is for compile
     "cc" 'smart-compile-again
     "cC" 'smart-compile
+    "dC" 'dap-clean-buffers
+    "dQ" 'dap-disconnect
+    "dR" 'dap-debug-restart
     "tG" 'highlight-indent-guides-mode
     "tt" 'spacemacs/toggle-relative-line-numbers
     "tT" 'spacemacs/toggle-line-numbers
@@ -2705,7 +2710,79 @@ http://ergoemacs.org/emacs/elisp_determine_cursor_inside_string_or_comment.html"
   ;; using sock5 proxy, useful for installing packages
   ;; (setq url-gateway-method 'socks)
   ;; (setq socks-server '("Default server" "127.0.0.1" 1080 5))
-  )
+
+  (use-package dap-mode
+    :defer
+    :custom
+    (dap-auto-configure-mode t                           "Automatically configure dap.")
+    (dap-auto-configure-features
+     '(sessions locals breakpoints expressions tooltip)  "Remove the button panel in the top.")
+    :config
+    ;; dap for c++
+    (require 'dap-lldb)
+
+    ;; set the debugger executable (c++)
+    (setq dap-lldb-debug-program '("/usr/bin/lldb-vscode"))
+    ;; FIXME: bug of dap-mode package, it will open all files with known breakpoints in
+    ;; default ~/.emacs.d/.dap-breakpoints
+    (setq dap-breakpoints-file "/tmp/dap-breakpoints")
+
+    (setq dap-lldb-debugged-program-function
+          (lambda ()
+            (completing-read "Select file to debug: "
+                             (directory-files-recursively
+                              (lsp-workspace-root)
+                              ".*" nil #'f-executable?))))
+
+    ;; default debug template for (c++)
+    ;; (dap-register-debug-template
+    ;;  "LLDB dap debugger for C/C++/Rust"
+    ;;  (list :type "lldb-vscode"
+    ;;        ;; :cwd: "${workspaceFolder}"
+    ;;        :cwd nil
+    ;;        ;; :args ["abc", "def"]
+    ;;        :args nil
+    ;;        ;; :program "${workspaceFolder}/build/${fileBasenameNoExtension}",
+    ;;        :program nil
+    ;;        :request "launch"))
+
+    ;; FIXME: don't know how to combine these two into one
+    ;; NOTE: 10 makes sure dap-ui--show-many-windows run before dap-hydra
+    ;; or dap-ui--show-many-windows will not be displayed
+    (add-hook 'dap-stopped-hook
+              (lambda (arg) (call-interactively #'dap-hydra)) 10)
+    ;; (add-hook 'dap-session-created-hook
+    ;;           'dap-ui--show-many-windows)
+
+    (add-hook 'dap-terminated-hook
+              (lambda (arg)
+                ;; quit dap-hydra once Q to disconnect dap session
+                (call-interactively #'dap-hydra/nil)
+                ) 10)
+    (defun dap-clean-buffers ()
+      (interactive)
+      (let ((buffers (list "\*dap-ui-*" "\*LLDB::Run *" "\*GDB::Run *")))
+        (mapc (lambda (buffer-name) (kill-matching-buffers buffer-name nil t)) buffers))
+      )
+    ;; FIXME: *dap-ui-expressions* and *dap-ui-locals* buffers won't be killed automatically
+    ;; manually executing dap-clean-buffers will
+    (add-hook 'dap-terminated-hook (lambda (arg) (dap-clean-buffers) 9))
+
+    ;; TODO: unable to change the height in the left/right
+    ;; unable to change the position of debug output window
+    (setq dap-ui-buffer-configurations
+          `((,dap-ui--breakpoints-buffer  . ((side . left)  (slot . 1) (window-width . ,treemacs-width)))
+            (,dap-ui--expressions-buffer  . ((side . left)  (slot . 2) (window-width . 0.20)))
+            (,dap-ui--sessions-buffer     . ((side . left)  (slot . 3) (window-width . 0.20)))
+            ;; TODO: what is repl-buffer(:python like)
+            (,dap-ui--repl-buffer         . ((side . left)  (slot . 4) (window-width . 0.20)))
+            (,dap-ui--locals-buffer       . ((side . right) (slot . 1) (window-width . 0.20)))
+            ;; TODO: what is debug-window-buffer
+            (,dap-ui--debug-window-buffer . ((side . right) (slot . 2) (window-width . 0.20)))
+            ))
+
+    )
+    )
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
