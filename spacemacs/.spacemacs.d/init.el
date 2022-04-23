@@ -993,6 +993,13 @@ before packages are loaded."
    ;; https://github.com/syl20bnr/spacemacs/issues/774
    undo-tree-auto-save-history t
    undo-tree-history-directory-alist `(("." . ,(concat spacemacs-cache-directory "undo")))
+   ;; NOTE: when saving a file becomes slow because of the file in ~/.emacs.d/.cache/undo
+   ;; becomes very big, use `(setq buffer-undo-tree nil)' to clean that file completely
+   ;; set the limit for file in ~/.emacs.d/.cache/undo, around 10MB
+   ;; TODO: not work
+   undo-limit 10000000
+   undo-strong-limit 10000000
+   undo-outer-limit 10000000
    ;; to cause the *compilation* buffer to automatically scroll to the end of new output
    compilation-scroll-output t
    ;; TODO: delete it until the recentf issue is fixed
