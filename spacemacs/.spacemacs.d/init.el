@@ -2711,6 +2711,12 @@ http://ergoemacs.org/emacs/elisp_determine_cursor_inside_string_or_comment.html"
   ;; (setq url-gateway-method 'socks)
   ;; (setq socks-server '("Default server" "127.0.0.1" 1080 5))
 
+
+  (with-eval-after-load 'rust-mode
+    (spacemacs/set-leader-keys-for-major-mode 'rust-mode
+      "cw" 'cargo-process-watch)
+    )
+
   (use-package dap-mode
     :defer
     :custom
