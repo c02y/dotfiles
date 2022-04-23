@@ -1343,6 +1343,7 @@ Emacs session."
     "bR" 'rename-this-buffer-and-file
     ;; there are extra several related functions: copy-name/path-short/path/html/pdf
     "b SPC" 'copy-path
+    "bN" 'copy-name
     "bi" 'count-words
     "bI" 'count-words-region
     ;; the default cc is for compile
