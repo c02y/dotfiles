@@ -1785,6 +1785,8 @@ which switch the last buffer in this window."
               ;; insert mode by default in commit editing buffer
               (evil-insert-state)
               (smartparens-mode)))
+  ;; to disable warning "Warning (with-editor): Cannot determine a suitable Emacsclient" when starting emacs
+  (setq-default with-editor-emacsclient-executable "emacsclient")
 
   ;; wrap long line from the margin, not break, just visually wrap lone line
   (spacemacs/toggle-truncate-lines-off)
