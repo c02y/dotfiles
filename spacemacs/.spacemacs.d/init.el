@@ -263,19 +263,19 @@ This function should only modify configuration layer settings."
       lsp-lua-hint-enable t
       )
      ;;(pdf :variables pdf-view-display-size 'fit-height)
-     ;; (tabs
-     ;;  :variables
-     ;;  centaur-tabs-height 20
-     ;;  ;; centaur-tabs-bar-height 30
-     ;;  ;; centaur-tabs-show-navigation-buttons t ;; FIXME: two tab height variables do not work if set
-     ;;  centaur-tabs-show-new-tab-button nil
-     ;;  centaur-tabs-modified-marker "*"
-     ;;  ;; FIXME: tab-bar will not be displayed for emacsclient if set to left
-     ;;  ;; centaur-tabs-set-bar 'left
-     ;;  centaur-tabs-cycle 'tabs
-     ;;  ;; NOTE: even it is t, emacsclient won't display it, nil for normal emacs
-     ;;  centaur-tabs-set-icons nil
-     ;;  )
+     (tabs
+      :variables
+      centaur-tabs-height 20
+      ;; centaur-tabs-bar-height 30
+      ;; centaur-tabs-show-navigation-buttons t ;; FIXME: two tab height variables do not work if set
+      centaur-tabs-show-new-tab-button nil
+      centaur-tabs-modified-marker "*"
+      ;; FIXME: tab-bar will not be displayed for emacsclient if set to left
+      ;; centaur-tabs-set-bar 'left
+      centaur-tabs-cycle 'tabs
+      ;; NOTE: even it is t, emacsclient won't display it, nil for normal emacs
+      centaur-tabs-set-icons nil
+      )
      )
 
    ;; List of additional packages that will be installed without being wrapped
