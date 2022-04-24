@@ -254,7 +254,7 @@ This function should only modify configuration layer settings."
      markdown
      json
      yaml
-     ; (html :variables web-fmt-tool 'web-beautify)
+     ;; (html :variables web-fmt-tool 'web-beautify)
      ;; TODO: sudo luarocks install luacheck
      (lua
       :variables
@@ -2792,10 +2792,8 @@ http://ergoemacs.org/emacs/elisp_determine_cursor_inside_string_or_comment.html"
             (,dap-ui--locals-buffer       . ((side . right) (slot . 1) (window-width . 0.20)))
             ;; TODO: what is debug-window-buffer
             (,dap-ui--debug-window-buffer . ((side . right) (slot . 2) (window-width . 0.20)))
-            ))
-
-    )
-    )
+            )))
+  )
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
