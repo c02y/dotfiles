@@ -1052,7 +1052,7 @@ function tars -d 'tar extract(x)/list(l, by default)/create(c, add extra arg to 
     or return
 
     # remove the end slash in argv[1] if it is a directory
-    test -d $argv[1]; and set ARGV (echo $argv[1] | sed 's:/*$::'); or set ARGV $argv
+    test -d $argv[1]; and set ARGV (echo $argv[1] | sed 's:/*$::'); or set ARGV $argv[1]
 
     # create zip
     set -q _flag_z; and zip -r $ARGV.zip $ARGV && return
@@ -1071,7 +1071,12 @@ function tars -d 'tar extract(x)/list(l, by default)/create(c, add extra arg to 
         else if set -q _flag_c # list Chinese characters
             zips.py -l $ARGV
         else if set -q _flag_x
-            command -sq unar; and unar $ARGV; or unzip $ARGV -d $FILE
+            if set -q _flag_o # extract contents into $argv[2] directory, no new dir
+                command -sq unar; and unar $ARGV -D -o $argv[2]; or unzip $ARGV -d $argv[2]
+            else
+                command -sq unar; and unar $ARGV; or unzip $ARGV -d $FILE
+            end
+            return
         else if set -q _flag_X # extract Chinese characters
             zips.py -x $ARGV
         else if not set -q _flag_o
@@ -1079,8 +1084,13 @@ function tars -d 'tar extract(x)/list(l, by default)/create(c, add extra arg to 
         end
     else # j for .bz2, z for .gz, J for xz, a for auto determine
         if set -q _flag_x # extract
-            # extract into dir based on the tar file
-            tar xvfa $argv --one-top-level
+            if set -q _flag_o
+                tar xvfa $argv[1] -C $argv[2]
+            else
+                # extract into dir based on the tar file
+                tar xvfa $argv --one-top-level
+            end
+            return
         else if set -q _flag_l # list contents
             tar tvfa $argv
         else if set -q _flag_c # create archive, smaller size, extremely slow for big dir
