@@ -287,27 +287,28 @@ assign [class="VirtualBox*"] $ws3
 # disable the following windows (notifications) from stealing focus
 # no_focus [class="TelegramDesktop"]
 
+set $open jumpapp -f
 # Bindings for the following applications
 # use `xmodmap -pke` to get bindcode value
 # NOTE: if i3 unable to use ~/.local/bin, put `export PATH="$PATH:$HOME/.local/bin"` in ~/.profile
 bindsym $mod+e exec tdrop -t -m -w 100% -h 100% emacsclient -c
 bindsym $mod+Shift+e exec emacs
-bindsym $mod+f exec jumpapp -f firefox
-bindsym $mod+s exec jumpapp -f rofi-files
-bindsym $mod+b exec jumpapp -f calibre
-bindsym $mod+n exec emacs -q --no-splash
-bindsym $mod+p exec jumpapp -f qpdfview
+bindsym $mod+f exec $open firefox
+bindsym $mod+s exec $open rofi-files
+bindsym $mod+b exec $open calibre
+bindsym $mod+n exec $open emacs -q --no-splash
+bindsym $mod+p exec $open qpdfview
 # NOTE: the -t for jumpapp and -t for alacritty must be the same
-bindsym $mod+t exec jumpapp -f -t Alacritty alacritty -t Alacritty
-bindsym $mod+Return exec jumpapp -f -t Alacritty alacritty -t Alacritty
+bindsym $mod+t exec $open -t Alacritty alacritty -t Alacritty
+bindsym $mod+Return exec $open -t Alacritty alacritty -t Alacritty
 bindsym $mod+Shift+Return exec alacritty
-bindsym $mod+Shift+f exec jumpapp -f -t RangerFM kitty -T=RangerFM ranger
-bindsym $mod+F1 exec jumpapp -f -t Btop kitty -T=Btop btop
+bindsym $mod+Shift+f exec $open -t RangerFM kitty -T=RangerFM ranger
+bindsym $mod+F1 exec $open -t Btop kitty -T=Btop btop
 bindsym $mod+Mod1+m move scratchpad
 bindsym $mod+m scratchpad show
-bindsym $mod+Print exec jumpapp -f flameshot gui
-bindsym $mod+Shift+Print exec jumpapp -f flameshot gui --delay 2000
-bindsym $mod+Ctrl+Shift+Print exec jumpapp -f flameshot launcher
+bindsym $mod+Print exec $open flameshot gui
+bindsym $mod+Shift+Print exec $open flameshot gui --delay 2000
+bindsym $mod+Ctrl+Shift+Print exec $open flameshot launcher
 # NOTE: the options for tdrop are important, especially for WM and multiple monitors
 # NOTE: -y 30 is to make the top margin of Dropdown_Kitty and bottom margin of i3status-bar work well
 # -h 98% is to make the status bar of tmux in Dropdown_Kitty work well with the screen bottom margin
@@ -317,17 +318,18 @@ bindsym $mod+d exec --no-startup-id dmenu_run
 # the grave key is `, the left key of NUM 1 on the keyboard
 bindsym $mod+grave exec "rofi -show combi -theme ~/Dotfiles.d/misc/rofi-theme-solarized_alternate.rasi"
 
-set $mode_open_apps Actions: (a)udacious, (c)lion, (f)search, (g)oogle-chrome, (m)otrix, (p)cmanfm, (s)team, (t)hunderbird, (T)elegram
+set $mode_open_apps Actions: (a)udacious, (c)lion, (f)search, (g)oogle-chrome, (m)otrix, (p)cmanfm, (s)team, (t)hunderbird, (T)elegram, (v)irtualbox
 mode "$mode_open_apps" {
-	bindsym a workspace number $ws3; exec jumpapp -f audacious; mode "default"
-	bindsym c exec jumpapp -f clion; mode "default"
-	bindsym f exec jumpapp -f fsearch; mode "default"
-	bindsym g exec jumpapp -f google-chrome-stable; mode "default"
-	bindsym m exec jumpapp -f motrix; mode "default"
-	bindsym p exec jumpapp -f pcmanfm; mode "default"
-	bindsym s exec jumpapp -f steam; mode "default"
-	bindsym t workspace number $ws3; exec jumpapp -f thunderbird; mode "default"
-	bindsym Shift+t workspace number $ws3; exec jumpapp -f telegram-desktop; mode "default"
+	bindsym a workspace number $ws3; exec $open audacious; mode "default"
+	bindsym c exec $open clion; mode "default"
+	bindsym f exec $open fsearch; mode "default"
+	bindsym g exec $open google-chrome-stable; mode "default"
+	bindsym m exec $open motrix; mode "default"
+	bindsym p exec $open pcmanfm; mode "default"
+	bindsym s exec $open steam; mode "default"
+	bindsym t workspace number $ws3; exec $open thunderbird; mode "default"
+	bindsym Shift+t workspace number $ws3; exec $open telegram-desktop; mode "default"
+	bindsym v workspace number $ws3; exec $open virtualbox; mode "default"
 
 	bindsym Escape mode "default"
 }
