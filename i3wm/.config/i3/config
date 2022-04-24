@@ -190,37 +190,38 @@ bindsym $mod+Shift+r restart
 # Merge/swap windows using keys in mode
 set $mode_merge_swap Action: (Return)mark, (m)erge, (s)wap
 mode "$mode_merge_swap" {
-	# Need to mark first, then trigger this mode again
-	bindsym Return mark --add "mark"; mode "default"
-	bindsym m split h; mark --add "merge"; [con_mark="mark"] focus; move window to mark "merge"; [con_mark="merge"] focus; unmark "mark"; unmark "merge"; mode "default"
-	bindsym s swap container with mark "mark"; [con_mark="mark"] focus; unmark "mark"; mode "default"
+  # Need to mark first, then trigger this mode again
+  bindsym Return mark --add "mark"; mode "default"
+  bindsym m split h; mark --add "merge"; [con_mark="mark"] focus; move window to mark "merge"; [con_mark="merge"] focus; unmark "mark"; unmark "merge"; mode "default"
+  bindsym s swap container with mark "mark"; [con_mark="mark"] focus; unmark "mark"; mode "default"
 
-	bindsym Escape unmark "mark"; mode "default"
+  bindsym Escape unmark "mark"; mode "default"
 }
 bindsym $mod+Ctrl+m mode "$mode_merge_swap"
 
 set $mode_mark Actions: (Return)markMark, (m)ark, (g)otoMark, (u)nmark, (U)nmarkAll
 mode "$mode_mark" {
-	bindsym Return mark --add "mark"; mode "default"
-	bindsym m exec i3-input -F 'mark %s' -P 'Mark: '; mode "default"
-	bindsym g exec i3-input -F '[con_mark="%s"] focus' -P 'Goto Mark: '; mode "default"
-	bindsym u exec i3-input -F 'unmark %s' -P 'Unmark: '; mode "default"
-	bindsym Shift+u unmark; mode "default"
+  bindsym Return mark --add "mark"; mode "default"
+  bindsym m exec i3-input -F 'mark %s' -P 'Mark: '; mode "default"
+  bindsym g exec i3-input -F '[con_mark="%s"] focus' -P 'Goto Mark: '; mode "default"
+  bindsym u exec i3-input -F 'unmark %s' -P 'Unmark: '; mode "default"
+  bindsym Shift+u unmark; mode "default"
 
-	bindsym Escape mode "default"
+  bindsym Escape mode "default"
 }
 bindsym $mod+Ctrl+Shift+m mode "$mode_mark"
 
 set $mode_system Actions: (l)ock, (L)ogout, (s)uspend, (Enter)Hibernate, (r)eboot, (S)hutdown
 mode "$mode_system" {
-	bindsym l exec --no-startup-id i3lock, mode "default"
-	bindsym Shift+l exec --no-startup-id i3-msg exit, mode "default"
-	bindsym s exec --no-startup-id systemctl suspend, mode "default"
-	bindsym Return exec --no-startup-id systemctl hibernate, mode "default"
-	bindsym r exec --no-startup-id systemctl reboot, mode "default"
-	bindsym Shift+s exec --no-startup-id systemctl poweroff, mode "default"
+  bindsym l exec --no-startup-id i3lock, mode "default"
+  bindsym Shift+l exec --no-startup-id i3-msg exit, mode "default"
+  bindsym s exec --no-startup-id systemctl suspend, mode "default"
+  bindsym Return exec --no-startup-id systemctl hibernate, mode "default"
+  bindsym r exec --no-startup-id systemctl reboot, mode "default"
+  bindsym Shift+s exec --no-startup-id systemctl poweroff, mode "default"
+  bindsym Shift+s exec --no
 
-	bindsym Escape mode "default"
+  bindsym Escape mode "default"
 }
 bindsym $mod+Ctrl+Delete mode "$mode_system"
 
@@ -238,12 +239,12 @@ bindsym $mod+Ctrl+Shift+Left resize set width 99 ppt; move position center
 # put all modes in this parent mode
 set $modes Modes: (m)erge_swap, (M)ark, (s)ystem, (r)esize
 mode "$modes" {
-	bindsym m mode "$mode_merge_swap"
-	bindsym Shift+m mode "$mode_mark"
-	bindsym s mode "$mode_system"
-	bindsym r mode "$mode_resize"
+  bindsym m mode "$mode_merge_swap"
+  bindsym Shift+m mode "$mode_mark"
+  bindsym s mode "$mode_system"
+  bindsym r mode "$mode_resize"
 
-	bindsym Escape mode "default"
+  bindsym Escape mode "default"
 }
 bindsym $mod+Shift+m mode "$modes"
 
@@ -320,18 +321,18 @@ bindsym $mod+grave exec "rofi -show combi -theme ~/Dotfiles.d/misc/rofi-theme-so
 
 set $mode_open_apps Actions: (a)udacious, (c)lion, (f)search, (g)oogle-chrome, (m)otrix, (p)cmanfm, (s)team, (t)hunderbird, (T)elegram, (v)irtualbox
 mode "$mode_open_apps" {
-	bindsym a workspace number $ws3; exec $open audacious; mode "default"
-	bindsym c exec $open clion; mode "default"
-	bindsym f exec $open fsearch; mode "default"
-	bindsym g exec $open google-chrome-stable; mode "default"
-	bindsym m exec $open motrix; mode "default"
-	bindsym p exec $open pcmanfm; mode "default"
-	bindsym s exec $open steam; mode "default"
-	bindsym t workspace number $ws3; exec $open thunderbird; mode "default"
-	bindsym Shift+t workspace number $ws3; exec $open telegram-desktop; mode "default"
-	bindsym v workspace number $ws3; exec $open virtualbox; mode "default"
+  bindsym a workspace number $ws3; exec $open audacious; mode "default"
+  bindsym c exec $open clion; mode "default"
+  bindsym f exec $open fsearch; mode "default"
+  bindsym g exec $open google-chrome-stable; mode "default"
+  bindsym m exec $open motrix; mode "default"
+  bindsym p exec $open pcmanfm; mode "default"
+  bindsym s exec $open steam; mode "default"
+  bindsym t workspace number $ws3; exec $open thunderbird; mode "default"
+  bindsym Shift+t workspace number $ws3; exec $open telegram-desktop; mode "default"
+  bindsym v workspace number $ws3; exec $open virtualbox; mode "default"
 
-	bindsym Escape mode "default"
+  bindsym Escape mode "default"
 }
 bindsym $mod+Shift+a mode "$mode_open_apps"
 
@@ -382,25 +383,25 @@ client.background       $bdr_hi # TODO: ?
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
-	status_command i3status-rs ~/.config/i3/i3status-rust.toml
-	position top
-	# Install Font Awesome 5 Pro from ./FontAwesomePro5.tar.xz
-	font pango:Droid Sans Mono, Font Awesome 5 Pro 13.5
-	workspace_min_width 40
-	tray_padding 2
-	# show only workspace name parts without the numbers
-	strip_workspace_numbers yes
+  status_command i3status-rs ~/.config/i3/i3status-rust.toml
+  position top
+  # Install Font Awesome 5 Pro from ./FontAwesomePro5.tar.xz
+  font pango:Droid Sans Mono, Font Awesome 5 Pro 13.5
+  workspace_min_width 40
+  tray_padding 2
+  # show only workspace name parts without the numbers
+  strip_workspace_numbers yes
 
-	# Colors for workspace names/labels
-	colors {
-		separator $bgc_df
-		background $bgc_df
-		statusline $txt_hi
-		# <colorclass> <border> <background> <text>
-		focused_workspace  $bgc_df $bgc_df $txt_hi
-		active_workspace   $bgc_df $bgc_df $bgc_ug
-		inactive_workspace $bgc_df $bgc_df $txt_ia
-		urgent_workspace   $bgc_ug $bgc_ug $txt_ia
-		binding_mode       $bgc_ug $bgc_df $bgc_ug
-	}
+  # Colors for workspace names/labels
+  colors {
+    separator $bgc_df
+    background $bgc_df
+    statusline $txt_hi
+    # <colorclass> <border> <background> <text>
+    focused_workspace  $bgc_df $bgc_df $txt_hi
+    active_workspace   $bgc_df $bgc_df $bgc_ug
+    inactive_workspace $bgc_df $bgc_df $txt_ia
+    urgent_workspace   $bgc_ug $bgc_ug $txt_ia
+    binding_mode       $bgc_ug $bgc_df $bgc_ug
+  }
 }
