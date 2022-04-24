@@ -293,12 +293,8 @@ assign [class="VirtualBox*"] $ws3
 bindsym $mod+e exec tdrop -t -m -w 100% -h 100% emacsclient -c
 bindsym $mod+Shift+e exec emacs
 bindsym $mod+f exec jumpapp -f firefox
-bindsym $mod+b exec jumpapp -f google-chrome-stable
-bindsym $mod+s exec jumpapp -f fsearch
 bindsym $mod+Shift+s exec jumpapp -f rofi-files
 bindsym $mod+c exec jumpapp -f calibre
-bindsym $mod+a workspace number $ws3; exec jumpapp -f audacious
-bindsym $mod+g workspace number $ws2; exec jumpapp -f steam
 bindsym $mod+n exec emacs -q --no-splash
 bindsym $mod+p exec jumpapp -f qpdfview
 # NOTE: the -t for jumpapp and -t for alacritty must be the same
@@ -306,12 +302,9 @@ bindsym $mod+t exec jumpapp -f -t Alacritty alacritty -t Alacritty
 bindsym $mod+Return exec jumpapp -f -t Alacritty alacritty -t Alacritty
 bindsym $mod+Shift+Return exec alacritty
 bindsym $mod+Shift+f exec jumpapp -f -t RangerFM kitty -T=RangerFM ranger
-bindsym $mod+Ctrl+Shift+f exec jumpapp -f pcmanfm
 bindsym $mod+F1 exec jumpapp -f -t Btop kitty -T=Btop btop
 bindsym $mod+Mod1+m move scratchpad
 bindsym $mod+m scratchpad show
-bindsym $mod+Shift+c exec jumpapp -f clion
-bindsym $mod+Shift+t exec jumpapp -f telegram-desktop
 bindsym $mod+Print exec jumpapp -f flameshot gui
 bindsym $mod+Shift+Print exec jumpapp -f flameshot gui --delay 2000
 bindsym $mod+Ctrl+Shift+Print exec jumpapp -f flameshot launcher
@@ -323,6 +316,21 @@ bindsym F12 exec tdrop -t -m -y 30 -w 100% -h 98% kitty --class=Dropdown --title
 bindsym $mod+d exec --no-startup-id dmenu_run
 # the grave key is `, the left key of NUM 1 on the keyboard
 bindsym $mod+grave exec "rofi -show combi -theme ~/Dotfiles.d/misc/rofi-theme-solarized_alternate.rasi"
+
+set $mode_open_apps Actions: (a)udacious, (c)lion, (f)search, (g)oogle-chrome, (p)cmanfm, (s)team, (t)hunderbird, (T)elegram
+mode "$mode_open_apps" {
+	bindsym a workspace number $ws3; exec jumpapp -f audacious; mode "default"
+	bindsym c exec jumpapp -f clion; mode "default"
+	bindsym f exec jumpapp -f fsearch; mode "default"
+	bindsym g exec jumpapp -f google-chrome-stable; mode "default"
+	bindsym p exec jumpapp -f pcmanfm; mode "default"
+	bindsym s exec jumpapp -f steam; mode "default"
+	bindsym t workspace number $ws3; exec jumpapp -f thunderbird; mode "default"
+	bindsym Shift+t workspace number $ws3; exec jumpapp -f telegram-desktop; mode "default"
+
+	bindsym Escape mode "default"
+}
+bindsym $mod+Shift+a mode "$mode_open_apps"
 
 # Autostart applications
 # NOTE: the --experimental-backend for picom is to fix the screen tearing issue
