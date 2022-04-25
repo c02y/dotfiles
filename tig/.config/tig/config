@@ -373,6 +373,7 @@ bind stage      d    view-stage
 
 # NOTE: -p option need to start tig from typing the command instead of using shortcut to open tig
 bind generic    Y    >git stash push -m "%(prompt Msg: )" -p
+bind status     !    >git stash -m "%(prompt Msg: )" # stash all unstaged changes
 bind stash      P    ?>git stash pop %(stash)
 bind stash      A    ?>git stash apply %(stash)
 bind stash      !    ?>git stash drop %(stash)
