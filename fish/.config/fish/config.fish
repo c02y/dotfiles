@@ -1117,11 +1117,7 @@ function tars -d 'tar extract(x)/list(l, by default)/create(c, add extra arg to 
     end
 
     if set -q _flag_o # open it using file-roller
-        if command -sq xarchiver
-            xarchiver $ARGV
-        else if command -sq file-roller
-            file-roller $ARGV
-        end
+        command -sq file-roller; and file-roller $ARGV
     end
 end
 
