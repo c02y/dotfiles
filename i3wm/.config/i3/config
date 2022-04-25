@@ -252,30 +252,17 @@ bindsym $mod+Shift+m mode "$modes"
 # only work for floating window, floating window is already on top
 bindsym $mod+F12 sticky toggle
 
-# force floating for all new windows by default
-# so assign specific windows to floating seems unnecessary
 # WM_NAME=title, WM_WINDOW_ROLE=window_role
 # NOTE: USE , instead of ; for for_window
 # NOTE: enable window bar for floating window so kill or move can be archived by only mouse on the window bar
 # NOTE: it works for floating mpv window too since it is not able to show window bar from mpv config
 # NOTE: BUG: the window bar is still there when you make un-floating, use binding manually to disable the window bar
-# set all floating windows except for Dropdown kitty
+# NOTE: set all floating windows except for Dropdown kitty
 for_window [floating class="^(?!Dropdown$)"] resize set 70 ppt 80 ppt, move position center, border normal 5
-for_window [class="copyq"] floating enable
-for_window [class="fcitx5-config-qt"] floating enable
-for_window [class="Alacritty"] floating enable
-for_window [class="kitty"] floating enable
 # NOTE: need dropdown terminal to float when used with tdrop because of the flicker issue:
 # https://github.com/noctuid/tdrop/issues/1#issuecomment-102650457
-for_window [class="Dropdown"] floating enable
-for_window [class="Fsearch"] floating enable
-for_window [class="flameshot"] floating enable
-for_window [class="mpv"] floating enable
-for_window [class="Plank"] floating enable
-for_window [class="Blueman-manager"] floating enable
-for_window [class="Pavucontrol"] floating enable
-for_window [instance="nomacs"] floating enable
-for_window [class="File-roller"] floating enable
+# 'Image Lounge' is class name for nomacs, instance name is nomacs
+for_window [class="copyq|fcitx5-config-qt|Alacritty|kitty|Dropdown|Fsearch|flameshot|mpv|Blueman-manager|Pavucontrol|Image Lounge|File-roller"] floating enable
 # `xprop _NET_WM_WINDOW_TYPE`, dialog: such as open file from menu bar, calibre popup window/dialog
 for_window [window_type="dialog"] resize set 40 ppt 60 ppt, move position center
 # `copyq config hide_main_window_in_task_bar true` in command and restart copyq to make the list window utility
