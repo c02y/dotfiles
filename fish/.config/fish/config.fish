@@ -1484,7 +1484,7 @@ function pacs -d 'pacman/paru operations'
         set -q argv[1]; or echo "Need argv" && return
         if set -q _flag_l # get source link and send it to clipper
             if set -q _flag_a # get AUR source link and send it to clipper
-                paru -Si $ARGV | rg "AUR URL" | awk '{print $4}' | xc && xc -o
+                paru -Sia $ARGV | rg "AUR URL" | awk '{print $4}' | xc && xc -o
             else
                 if paru -Q $ARGV >/dev/null 2>/dev/null
                     paru -Qi $ARGV | rg "^URL" | awk '{print $3}' | xc && xc -o
