@@ -1719,14 +1719,14 @@ function fmts -d "compile_commands.json(-l), clang-format(-f), cmake-format(-m)"
     end
 
     if set -q _flag_f # .clang-format file for C/Cpp projects used by clang-format
-        ln -nsfv ~/Dotfiles.d/spacemacs/.spacemacs.d/lisp/clang-format-c-cpp .clang-format
-        or cp -v ~/Dotfiles.d/spacemacs/.spacemacs.d/lisp/clang-format-c-cpp .clang-format
+        ln -nsfv ~/Dotfiles.d/misc/clang-format-c-cpp .clang-format
+        or cp -v ~/Dotfiles.d/misc/clang-format-c-cpp .clang-format
     end
 
     if set -q _flag_m # .cmake-format.json file for CMakeLists.txt used by cmake-format
         if test -f CMakeLists.txt # TODO: combine the two conditions
-            ln -nsfv ~/Dotfiles.d/spacemacs/.spacemacs.d/lisp/cmake-format.json .cmake-format.json
-            or cp -v ~/Dotfiles.d/spacemacs/.spacemacs.d/lisp/cmake-format.json .cmake-format.json
+            ln -nsfv ~/Dotfiles.d/misc/cmake-format.json .cmake-format.json
+            or cp -v ~/Dotfiles.d/misc/cmake-format.json .cmake-format.json
         end
     end
 end

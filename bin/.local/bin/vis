@@ -10,7 +10,7 @@ Usage: $(basename $0)
        -b to edit ~/.bashrc
        -B to edit ~/.bash_aliases
        -d to vim diff
-       -c to edit ~/Dotfiles.d/spacemacs/.spacemacs.d/lisp/clang-format-c-cpp
+       -c to edit ~/Dotfiles.d/misc/clang-format-c-cpp
        -e to edit $EMACS_EL
        -f to edit $FISHRC
        -t to edit ~/.config/tmux/tmux.conf
@@ -20,7 +20,7 @@ Usage: $(basename $0)
        -s to edit ~/.config/sxhkd/sxhkdrc
        -u to vim -U NONE $@
        -U to vim -u ~/Dotfiles.d/vim/vimrc.more $@
-       -m to vim ~/Dotfiles.d/spacemacs/.spacemacs.d/lisp/cmake-format.json
+       -m to vim ~/Dotfiles.d/misc/cmake-format.json
        -v to edit ~/.config/lvim/config.lua
        -o to vim ~/Dotfiles.d.d/vim/.vimrc
        -r to sudo edit
@@ -61,7 +61,7 @@ while getopts ":2bBdceftTaksuUmoOvri" args; do # prefix-: no warning for illegal
 		exit
 		;;
 	c)
-		file="~/Dotfiles.d/spacemacs/.spacemacs.d/lisp/clang-format-c-cpp"
+		file="~/Dotfiles.d/misc/clang-format-c-cpp"
 		;;
 	e)
 		file=$EMACS_EL
@@ -96,7 +96,7 @@ while getopts ":2bBdceftTaksuUmoOvri" args; do # prefix-: no warning for illegal
 		file=$@
 		;;
 	m)
-		file="~/Dotfiles.d/spacemacs/.spacemacs.d/lisp/cmake-format.json"
+		file="~/Dotfiles.d/misc/cmake-format.json"
 		;;
 	o)
 		file="~/Dotfiles.d/vim/.vimrc"

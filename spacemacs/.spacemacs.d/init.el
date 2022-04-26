@@ -171,7 +171,7 @@ This function should only modify configuration layer settings."
       ;; clang-format-style: https://clang.llvm.org/docs/ClangFormat.html
       ;; `clang-format -style=LLVM -dump-config > .clang-format`
       ;; Both C and Cpp projects can share the same .clang-format
-      ;; ln -s ~/Dotfiles.d/spacemacs/.spacemacs.d/lisp/clang-format-c-cpp .clang-format
+      ;; ln -s ~/Dotfiles.d/misc/clang-format-c-cpp .clang-format
       ;; In Cpp project:
       ;; NOTE: the following config is replaced by format-all package and config
       ;; c-c++-enable-clang-format-on-save t
