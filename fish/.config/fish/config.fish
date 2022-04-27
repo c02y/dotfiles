@@ -377,7 +377,7 @@ function lls -d 'ls/exa operations'
     set -q argv[1]; and set ARGV '$argv'; or set ARGV .
 
     if command -sq exa
-        set OPT -a -b --color-scale --color=always --changed --time-style iso
+        set OPT -a -b --color-scale --color=always --icons --changed --time-style iso
         set -q _flag_l; or set -a OPT -l
         set PIP "| nl -v 1 | sort -nr"
         set -q _flag_e; and eval exa $OPT -s extension --group-directories-first $ARGV && return
