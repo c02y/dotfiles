@@ -284,6 +284,7 @@ bindsym $mod+Shift+e exec emacs
 bindsym $mod+f exec $open firefox
 bindsym $mod+s exec $open rofi-files
 bindsym $mod+b exec $open calibre
+bindsym $mod+g exec $open -c Google-chrome google-chrome-stable
 bindsym $mod+n exec $open -i "emacs -q" emacs -q --no-splash
 bindsym $mod+p exec $open qpdfview
 # NOTE: the -t for jumpapp and -t for alacritty must be the same
@@ -306,12 +307,11 @@ bindsym $mod+d exec --no-startup-id dmenu_run
 # the grave key is `, the left key of NUM 1 on the keyboard
 bindsym $mod+grave exec "rofi -show combi -theme ~/Dotfiles.d/misc/rofi-theme-solarized_alternate.rasi"
 
-set $mode_open_apps Actions: (a)udacious, (c)lion, (f)search, (g)oogle-chrome, (m)otrix, (p)cmanfm, (s)team, (t)hunderbird, (T)elegram, (v)irtualbox
+set $mode_open_apps Actions: (a)udacious, (c)lion, (f)search, (m)otrix, (p)cmanfm, (s)team, (t)hunderbird, (T)elegram, (v)irtualbox
 mode "$mode_open_apps" {
   bindsym a workspace number $ws3; exec $open audacious; mode "default"
   bindsym c exec $open clion; mode "default"
   bindsym f exec $open fsearch; mode "default"
-  bindsym g exec $open google-chrome-stable; mode "default"
   bindsym m exec $open motrix; mode "default"
   bindsym p exec $open pcmanfm; mode "default"
   bindsym s exec $open steam; mode "default"
