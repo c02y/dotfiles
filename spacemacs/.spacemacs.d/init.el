@@ -507,6 +507,10 @@ It should only modify the values of Spacemacs settings."
    ;;               (when-let ((info (font-info font)))
    ;;                 (string-match-p "spacing=100" (aref info 1))))
    ;;             (font-family-list))
+   ;; or
+   ;; (message
+   ;;  (mapconcat (quote identity)
+   ;;             (sort (font-family-list) #'string-lessp) "\n"))
    dotspacemacs-default-font '("OperatorMono Nerd Font Mono"
                                :size 13.5
                                :weight normal
