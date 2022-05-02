@@ -3,6 +3,7 @@
 # Please do `git config user.name "name"` and `git config user.email "mail@com"` in the repo
 [user]
 	email = cody.chan.cz@gmail.com
+	name = c02y
 [credential]
 	helper = cache --timeout 86400
 [format]
@@ -12,9 +13,16 @@
 [core]
 	filemode = true
 	#pager = less -iXFR -x4 -M
+  pager = delta --line-numbers
 [merge]
 #	tool = meld
 	tool = nvim
+[delta]
+  navigate = true  # use n and N to move between diff sections
+[interactive]
+    diffFilter = delta --color-only
+[diff]
+    colorMoved = default
 [mergetool "nvim"]
 	# cmd = nvim -f -c \"Gvdiffsplit!\" \"$MERGED\"
 	# cmd = nvim -f -d \"$LOCAL\" \"$MERGED\" \"$REMOTE\"
@@ -47,3 +55,8 @@
 	sslVerify = false
 [commit]
 	verbose = true
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
