@@ -295,9 +295,10 @@ bindsym $mod+Shift+f exec $open -t RangerFM kitty -T=RangerFM ranger
 bindsym $mod+F1 exec $open -t Btop kitty -T=Btop btop
 bindsym $mod+Mod1+m move scratchpad
 bindsym $mod+m scratchpad show
-bindsym $mod+Print exec $open flameshot gui
-bindsym $mod+Shift+Print exec $open flameshot gui --delay 2000
-bindsym $mod+Ctrl+Shift+Print exec $open flameshot launcher
+# NOTE: don't use $open for flameshot since you pin a screenshot you may need to screenshot again
+bindsym $mod+Print exec flameshot gui
+bindsym $mod+Shift+Print exec flameshot gui --delay 2000
+bindsym $mod+Ctrl+Shift+Print exec flameshot launcher
 # NOTE: the options for tdrop are important, especially for WM and multiple monitors
 # NOTE: -y 30 is to make the top margin of Dropdown_Kitty and bottom margin of i3status-bar work well
 # -h 98% is to make the status bar of tmux in Dropdown_Kitty work well with the screen bottom margin
