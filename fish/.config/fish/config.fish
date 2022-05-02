@@ -2177,18 +2177,16 @@ function sss -d 'count lines of code from a local code dir or a github url'
         # or use website directly: https://codetabs.com/count-loc/count-loc-online.html
         set -l username_repo (echo $argv | cut -c20-)
         curl "https://api.codetabs.com/v1/loc/?github=$username_repo" | jq -r '(["Files", "Lines", "Blanks", "Comments", "LinesOfCode", "Language"] | (., map(length*"-"))), (.[] | [.files, .lines, .blanks, .comments, .linesOfCode, .language]) | @tsv' | column -t
-        return
+    else
+        set OPT -c --no-cocomo
+        # using -f to sort by default(file count), otherwise sort by code lines
+        set -q _flag_f; or set OPT $OPT -s code
+        set -q _flag_F; and set OPT $OPT --by-file
+        # exclude dirs $_flag_e should be dirs separated by ,
+        set -q _flag_e; and set OPT $OPT --exclude-dir $_flag_e
+
+        eval scc $OPT $argv
     end
-
-    set OPT -c --no-cocomo
-
-    # using -f to sort by default(file count), otherwise sort by code lines
-    set -q _flag_f; or set OPT $OPT -s code
-    set -q _flag_F; and set OPT $OPT --by-file
-    # exclude dirs $_flag_e should be dirs separated by ,
-    set -q _flag_e; and set OPT $OPT --exclude-dir $_flag_e
-
-    eval scc $OPT $argv
 end
 abbr gitsc sss
 function gitsr -d "get the url of a git repo"
