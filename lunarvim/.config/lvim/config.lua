@@ -236,7 +236,7 @@ lvim.builtin.which_key.mappings["h"] = {
 	M = { "<cmd>Telescope marks<CR>", "Marks" },
 	v = { "<cmd>Telescope vim_options<CR>", "Variables" },
 	s = { "<cmd>Telescope spell_suggest<CR>", "Spell Suggest" },
-	b = { "<cmd>Telescope keymaps<CR>", "Keybindings" },
+	b = { "<cmd>Telescope keymaps fuzzy=false<CR>", "Keybindings" },
 	H = { "<cmd>Telescope highlights<CR>", "Higlights" },
 }
 -- rewrite them under P, original is p
