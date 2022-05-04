@@ -2689,7 +2689,7 @@ function rgs -d 'rg sth in -e(init.el)/-E(errno)/-f(config.fish)/-t(tmux.conf)/-
     argparse -n rgs -N 1 $options -- $argv
     or return
 
-    set OPT --hidden -g !.git
+    set OPT --follow --hidden -g !.git
     set -q _flag_w; and set OPT $OPT -w
     set -q _flag_l; and set OPT $OPT -l
     # and $_flag_V is the argument for for -V
