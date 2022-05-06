@@ -60,7 +60,7 @@ FILE_NODE_EXTENSIONS = {
     'exe'      : '',
     'exs'      : '',
     'f#'       : '',
-    'fifo'     : '|',
+    'fifo'     : 'ﳣ',
     'fish'     : '',
     'flac'     : '',
     'flv'      : '',
@@ -71,7 +71,7 @@ FILE_NODE_EXTENSIONS = {
     'gem'      : '',
     'gemspec'  : '',
     'gif'      : '',
-    'go'       : '',
+    'go'       : '',
     'gz'       : '',
     'gzip'     : '',
     'h'        : '',
@@ -127,14 +127,14 @@ FILE_NODE_EXTENSIONS = {
     'nix'      : '',
     'o'        : '',
     'ogg'      : '',
-    'pdf'      : '',
+    'pdf'      : '',
     'php'      : '',
     'pl'       : '',
     'pm'       : '',
     'png'      : '',
     'pp'       : '',
-    'ppt'      : '',
-    'pptx'     : '',
+    'ppt'      : '',
+    'pptx'     : '',
     'ps1'      : '',
     'psb'      : '',
     'psd'      : '',
@@ -160,7 +160,7 @@ FILE_NODE_EXTENSIONS = {
     'sass'     : '',
     'scala'    : '',
     'scss'     : '',
-    'sh'       : '',
+    'sh'       : '',
     'slim'     : '',
     'sln'      : '',
     'so'       : '',
@@ -186,8 +186,8 @@ FILE_NODE_EXTENSIONS = {
     'xbps'     : '',
     'xcplayground' : '',
     'xhtml'    : '',
-    'xls'      : '',
-    'xlsx'     : '',
+    'xls'      : '',
+    'xlsx'     : '',
     'xml'      : '',
     'xul'      : '',
     'xz'       : '',
@@ -209,49 +209,7 @@ DIR_NODE_EXACT_MATCHES = {
     'Public'                           : '',
     'Templates'                        : '',
     'Videos'                           : '',
-    'Escritorio'                       : '',
-    'Documentos'                       : '',
-    'Descargas'                        : '',
-    'Música'                           : '',
-    'Imágenes'                         : '',
-    'Público'                          : '',
-    'Plantillas'                       : '',
-    'Vídeos'                           : '',
-    'Bureau'                           : '',
-    'Documents'                        : '',
     'Images'                           : '',
-    'Musique'                          : '',
-    'Publique'                         : '',
-    'Téléchargements'                  : '',
-    'Vidéos'                           : '',
-    'Documentos'                       : '',
-    'Imagens'                          : '',
-    'Modelos'                          : '',
-    'Música'                           : '',
-    'Público'                          : '',
-    'Vídeos'                           : '',
-    'Área de trabalho'                 : '',
-    'Documenti'                        : '',
-    'Immagini'                         : '',
-    'Modelli'                          : '',
-    'Musica'                           : '',
-    'Pubblici'                         : '',
-    'Scaricati'                        : '',
-    'Scrivania'                        : '',
-    'Video'                            : '',
-    'Bilder'                           : '',
-    'Dokumente'                        : '',
-    'Musik'                            : '',
-    'Schreibtisch'                     : '',
-    'Vorlagen'                         : '',
-    'Öffentlich'                       : '',
-    'Dokumentumok'                     : '',
-    'Képek'                            : '',
-    'Modelli'                          : '',
-    'Zene'                             : '',
-    'Letöltések'                       : '',
-    'Számítógép'                       : '',
-    'Videók'                           : '',
 }
 
 FILE_NODE_EXACT_MATCHES = {
@@ -350,16 +308,6 @@ def devicon(fobj):
         return DIR_NODE_EXACT_MATCHES.get(fobj.relative_path, '')
     return FILE_NODE_EXACT_MATCHES.get(
         os.path.basename(fobj.relative_path), FILE_NODE_EXTENSIONS.get(fobj.extension, ''))
-
-
-@ranger.api.register_linemode
-class DevIconsLinemode(LinemodeBase):
-    name = "devicons"
-
-    uses_metadata = False
-
-    def filetitle(self, fobj, metadata):
-        return devicon(fobj) + ' ' + fobj.relative_path
 
 
 @ranger.api.register_linemode
