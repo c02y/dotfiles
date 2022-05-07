@@ -2683,9 +2683,9 @@ function ffms -d 'ffmpeg related functions'
     end
 end
 
-function rgs -d 'rg sth in -e(init.el)/-E(errno)/-f(config.fish)/-t(tmux.conf)/-v(vimrc), or use -F(fzf) to open the file, -g(git repo), -w(whole word), -V(exclude pattern), -l(list files), -s(sort), -n(no ignore), -S(smart case, otherwise ignore case), -2(todo.org)'
+function rgs -d 'rg sth in -e(init.el)/-E(errno)/-f(config.fish)/-i(i3/config)-t(tmux.conf)/-v(vimrc), or use -F(fzf) to open the file, -g(git repo), -w(whole word), -V(exclude pattern), -l(list files), -s(sort), -n(no ignore), -S(smart case, otherwise ignore case), -2(todo.org)'
     # NOTE -V require an argument, so put "V=" line for argparse
-    set -l options e E f t v F g n w 'V=' l s S 2 c
+    set -l options e E f i t v F g n w 'V=' l s S 2 c
     argparse -n rgs -N 1 $options -- $argv
     or return
 
@@ -2709,6 +2709,8 @@ function rgs -d 'rg sth in -e(init.el)/-E(errno)/-f(config.fish)/-t(tmux.conf)/-
         return
     else if set -q _flag_f
         set FILE $FISHRC
+    else if set -q _flag_i
+        set FILE ~/.config/i3/config
     else if set -q _flag_t
         set FILE ~/.config/tmux/tmux.conf
     else if set -q _flag_v
