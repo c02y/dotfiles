@@ -1487,9 +1487,9 @@ function pacs -d 'pacman/paru operations'
                 paru -Sia $ARGV | rg "AUR URL" | awk '{print $4}' | xc && xc -o
             else
                 if paru -Q $ARGV >/dev/null 2>/dev/null
-                    paru -Qi $ARGV | rg "^URL" | awk '{print $3}' | xc && xc -o
+                    paru -Qi $ARGV | rg "^URL" | awk '{print $3}' | head -1 | xc && xc -o
                 else
-                    paru -Si $ARGV | rg "^URL" | awk '{print $3}' | xc && xc -o
+                    paru -Si $ARGV | rg "^URL" | awk '{print $3}' | head -1 | xc && xc -o
                 end
             end
             open (xc -o) >/dev/null 2>/dev/null
