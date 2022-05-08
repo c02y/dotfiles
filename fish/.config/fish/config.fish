@@ -982,10 +982,12 @@ function wee -d 'wrap watch and watchexec'
     argparse -n wee $options -- $argv
     or return
 
-    if set -q _flag_x
+    if set -q _flag_x # to use watchexec
         set OPT --shell=fish
         set -q _flag_n; and set -a OPT -N
-        # if -w or -e is not specified, watch the current dir
+        # if -w or -e is not specified, watch everything in the current dir
+        # -w is to specify the file/dir path (only one)
+        # -e is to specify the extension, comma-separated list if multiple
         set -q _flag_w; and set -a OPT -w $_flag_w
         set -q _flag_e; and set -a OPT -e $_flag_e
         watchexec $OPT $argv
