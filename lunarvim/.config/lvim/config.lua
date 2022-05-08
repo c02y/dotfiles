@@ -191,6 +191,8 @@ lvim.builtin.which_key.mappings["'"] = { "<Esc><Cmd>ToggleTerm<CR>", "Quick Term
 lvim.builtin.which_key.mappings["v\\"] = { ":VTerm<CR>", "| Term" }
 lvim.builtin.which_key.mappings["v-"] = { ":Term<CR>", "- Term" }
 lvim.builtin.which_key.mappings["b<Space>"] = { "<cmd>Telescope buffers<cr>", "Switch Buffers" }
+-- builtin <leader>be to choose a buffer to delete
+lvim.builtin.which_key.mappings["bd"] = { ":bd<cr>", "Close/Delete Current Buffer" }
 lvim.builtin.which_key.mappings["xx"] = { ":QuickRun<CR>", "QuickRun" }
 lvim.builtin.which_key.mappings["rl"] = { ":Telescope resume<CR>", "Resume" }
 lvim.builtin.which_key.mappings["ss"] = {
