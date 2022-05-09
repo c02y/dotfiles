@@ -2249,7 +2249,6 @@ In other non-comment situations, try C-M-j to split."
     (setq org-list-allow-alphabetical t
           ;; removes clocked tasks with 0:00 duration
           org-clock-out-remove-zero-time-clocks t
-          org-hide-emphasis-markers t
           ;; Save the running clock and all clock history when exiting Emacs, load it on startup
           ;; org-clock-persist t
           ;; Do not prompt to resume an active clock
