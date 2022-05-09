@@ -1,6 +1,19 @@
 # -*- mode: snippet -*-
 # name: gtest
 # key: gtest
-# group: testing
 # --
+// compile and run: g++ -o binary src.cpp -lgtest && ./binary
+#include <gmock/gmock.h>
 #include <gtest/gtest.h>
+using namespace testing;
+
+TEST(${1:TestCaseName}, ${2:TestCaseDesc})
+{
+	$0
+}
+
+int main(int argc, char **argv)
+{
+	InitGoogleTest(&argc, argv);
+	return RUN_ALL_TESTS();
+}
