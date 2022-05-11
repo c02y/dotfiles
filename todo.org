@@ -2,16 +2,16 @@
 
 * Packages to be installed
 ** non-GUI
-   base base-devel clang gdb cmake bear meson ninja ccache fish tmux tig ranger vim neovim
-   fzf exa gdu bat ripgrep fd zoxide btop ccls paru reflector
+   base base-devel clang gdb cmake bear meson ninja ccache fish tmux git git-delta tig lazygit ranger vim neovim
+   fzf exa gdu bat ripgrep fd handlr zoxide btop ccls paru reflector fastfetch
    neomutt npm nodejs lua python-pip proxychains aria2 wget transmission-cli yt-dlp
    shellcheck-static shfmt luarocks cppcheck upx hunspell xclip xsel atool zip unzip
    source-highlight mediainfo unarchiver aspell-en libmythes mythes-en ffmpeg ffmpegthumbnailer
-   emacs-git ueberzug jq moreutils poppler xdot calc scc
+   emacs-git ueberzug jq moreutils poppler xdot calc scc stylua dua-cli watchexec
 
    # i3 Window Manager
    i3-wm i3lock dunst i3status-rust picom nitrogen dunst pavucontrol blueman
-   papirus-icon-theme vimix-cursors polkit-gnome lxappearance qt5ct pcmanfm xfce4-power-manager
+   papirus-icon-theme vimix-cursors polkit-gnome lxappearance-gtk3 qt5ct pcmanfm-gtk3 xfce4-power-manager
 
    # fcitx and dict
    # https://blog.coelacanthus.moe/tech/welcome-to-fcitx5/#arch
@@ -32,7 +32,7 @@
 
    # install rustc/cargo first
    : rust (`curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh`)
-   cargo install cargo-cache cargo-diet cargo-modules cargo-bloat cargo-watch cargo-nextest stylua dua-cli watchexec-cli
+   cargo install cargo-cache cargo-diet cargo-modules cargo-bloat cargo-watch cargo-nextest
    # clean cargo cache `cargo cache -a`
 
    # https://airekans.github.io/cpp/2014/07/04/gperftools-profile
@@ -40,7 +40,7 @@
 
    gdbgui (binary downloaded from github release page, do not install using pip)
 ** GUI
-   alacritty kitty mpv vlc meld imagemagick fuse fuse-exfat exfat-utils file-roller darktable krita krita-plugin-gmic copyq nomacs fsearch qpdfview
+   alacritty kitty mpv vlc meld imagemagick fuse fuse-exfat exfat-utils file-roller darktable krita krita-plugin-gmic copyq nomacs kimageformats fsearch qpdfview
    noto-fonts noto-fonts-emoji ttf-sarasa-gothic font-manager flameshot peek rofi thunderbird
 
    pandoc (depends on a lot of haskell) plank
@@ -55,7 +55,7 @@
 
 ** for spacemacs
    # change /etc/pip.conf so you can install these packages using in system-wide
-   pip install importmagic epc flake8 pytest nose autoflake black mypy cmake-language-server pygls==0.8.1 cmake_format python-lsp-server 'python-lsp-server[all]'
+   pip install importmagic epc flake8 pytest nose autoflake black isort mypy cmake-language-server pygls==0.8.1 cmake_format python-lsp-server 'python-lsp-server[all]'
 
    npm install -g prettier import-js eslint typescript typescript-language-server tern lua-fmt prettier-plugin-toml vscode-json-languageserver bash-language-server vim-language-server
 ** for space-vim
