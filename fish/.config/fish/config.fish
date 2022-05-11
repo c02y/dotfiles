@@ -853,7 +853,7 @@ function fts -d 'find the temporary files such as a~ or #a or .a~, and files for
 end
 
 function fdd -d 'fd to replace mlocate/plocate'
-    set -l options a v m d o x r e w p "E=" H "t="
+    set -l options a v m d o O x r e w p "E=" H "t="
     argparse -n fdd $options -- $argv
     or return
 
@@ -911,8 +911,13 @@ function fdd -d 'fd to replace mlocate/plocate'
     # NOTE: DO NOT add --print0 it into FZF_DEFAULT_OPTS
     # -r in xargs is --no-run-if-empty
     if set -q _flag_o
-        # 2>/dev/null is for Ctrl-c to cancel in fzf, otherwise it will print error for o
-        o (eval $CMD | fzf -1) 2>/dev/null
+        if set _flag_O
+            eval $CMD >/tmp/fdd-list
+            echo "Ouput list into /tmp/fdd-list"
+        else
+            # 2>/dev/null is for Ctrl-c to cancel in fzf, otherwise it will print error for o
+            o (eval $CMD | fzf -1) 2>/dev/null
+        end
     else if set -q _flag_x
         eval $CMD | fzf -1 | xc && xc -o
     else if set -q _flag_r
