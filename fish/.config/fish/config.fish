@@ -2528,10 +2528,8 @@ function port -d 'list all the ports are used or check the process which are usi
 end
 
 abbr pxx 'proxychains4 -q'
-abbr wt 'bash -c \'rm -rf /tmp/Baidu* 2>/dev/null\'; wget -c -P /tmp/ https://speedxbu.baidu.com/shurufa/ime/setup/BaiduWubiSetup_1.2.0.67.exe'
-abbr wtt 'bash -c \'rm -rf /tmp/Baidu* 2>/dev/null\'; wget --connect-timeout=5 -c -P /tmp/ https://speedxbu.baidu.com/shurufa/ime/setup/BaiduPinyinSetup_5.5.5063.0.exe'
-function ios -d 'io stat'
-    set -l options "s=" "h=" g a
+function ios -d 'disk/network/OS related'
+    set -l options "s=" "h=" g a n N
     argparse -n ios $options -- $argv
     or return
 
@@ -2544,6 +2542,37 @@ function ios -d 'io stat'
         sudo smartctl -a $_flag_h | rg "Percentage Used"
     else if set -q _flag_g
         gpustat -cp
+    else if set -q _flag_n
+        if set -q _flag_N # notify is network traffic is lower than argv(5)MB/s
+            set -q argv[1]; and set ARGV $argv; or set ARGV 5
+
+            set INTERFACE (ip route get 8.8.8.8 | awk -- '{printf $5}')
+            # motified from speed_net bash script
+            while true
+                set FILE "/sys/class/net/$INTERFACE/statistics"
+                set RX (cat $FILE/rx_bytes)
+                set TX (cat $FILE/tx_bytes)
+
+                sleep 1
+
+                set RXN (cat $FILE/rx_bytes)
+                set TXN (cat $FILE/tx_bytes)
+
+                set RXDIF (math $RXN - $RX)
+                set TXDIF (math $TXN - $TX)
+
+                if test "$RXDIF" -lt $(expr $ARGV \* 1024 \* 1024)
+                    notify-send -u critical "NOTE: Network speed becomes lower than $ARGV MB/s"
+                end
+                sleep 5
+            end
+        else if set -q _flag_a
+            while true
+                wget -q --show-progress -T 5 -O /dev/null https://speedxbu.baidu.com/shurufa/ime/setup/BaiduPinyinSetup_5.5.5063.0.exe
+            end
+        else
+            wget -q --show-progress -T 5 -O /dev/null https://speedxbu.baidu.com/shurufa/ime/setup/BaiduPinyinSetup_5.5.5063.0.exe
+        end
     else if set -q _flag_a # all current speed
         dstat -d -n -m -s -c --nocolor
     else
