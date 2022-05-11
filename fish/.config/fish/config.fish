@@ -1257,13 +1257,12 @@ Server = https://mirrors.aliyun.com/blackarch/blackarch/os/$arch
 [chaotic-aur]
 SigLevel = Optional TrustAll
 # Singapore
-# * By: freediff.org
-Server = https://mirror.freedif.org/Garuda/$arch
+Server = https://sg-mirror.chaotic.cx/$repo/$arch
 # Seoul, Korea
 Server = https://kr-mirror.chaotic.cx/$repo/$arch
 # India
 Server = https://in-mirror.chaotic.cx/$repo/$arch
-Server = https://in-1-mirror.chaotic.cx/$repo/$arch
+Server = https://in-2-mirror.chaotic.cx/$repo/$arch
 # Automatic per-country routing of the mirrors below.
 Server = https://geo-mirror.chaotic.cx/$repo/$arch
 # CDN (delayed syncing)
