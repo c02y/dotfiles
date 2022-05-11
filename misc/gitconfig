@@ -13,14 +13,10 @@
 [core]
 	filemode = true
 	#pager = less -iXFR -x4 -M
-  pager = delta --line-numbers
+  pager = /usr/share/git/diff-highlight/diff-highlight
 [merge]
 #	tool = meld
 	tool = nvim
-[delta]
-  navigate = true  # use n and N to move between diff sections
-[interactive]
-    diffFilter = delta --color-only
 [diff]
     colorMoved = default
 [mergetool "nvim"]
@@ -48,10 +44,10 @@
 	# https://ask.xiaolee.net/questions/1061863
 	rebase = true
 [http "https://github.com"]
-	proxy = socks5://127.0.0.1:1080
+	#proxy = socks5://127.0.0.1:1080
 	sslVerify = false
 [http "https://gist.github.com"]
-	proxy = socks5://127.0.0.1:1080
+	#proxy = socks5://127.0.0.1:1080
 	sslVerify = false
 [commit]
 	verbose = true
