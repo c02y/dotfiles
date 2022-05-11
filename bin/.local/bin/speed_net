@@ -1,50 +1,25 @@
 #!/bin/bash
 
-# when in ssh-remote mode, some characters are not correctly displayed
-if [[ -z $DISPLAY ]]; then
-	DOWN='Rx'
-	UP='Tx'
-else
-	DOWN='⬇'
-	UP='⬆'
-fi
+INTERFACE=$(ip route get 8.8.8.8 | awk -- '{printf $5}')
 
 while true; do
-	RXB=0
-	TXB=0
-
-	RX_T=/sys/class/net/*/statistics/rx_bytes
-	TX_T=/sys/class/net/*/statistics/tx_bytes
-
-	for rxbytes in $RX_T; do
-		let RXB+=$(<$rxbytes)
-	done
-
-	for txbytes in $TX_T; do
-		let TXB+=$(<$txbytes)
-	done
+	FILE="/sys/class/net/$INTERFACE/statistics"
+	RX=$(cat $FILE/rx_bytes)
+	TX=$(cat $FILE/tx_bytes)
 
 	sleep 1
 
-	RXBN=0
-	TXBN=0
+	RXN=$(cat $FILE/rx_bytes)
+	TXN=$(cat $FILE/tx_bytes)
 
-	for rxbytes in $RX_T; do
-		let RXBN+=$(<$rxbytes)
-	done
-
-	for txbytes in $TX_T; do
-		let TXBN+=$(<$txbytes)
-	done
-
-	RXDIF=$(echo $((RXBN - RXB)))
-	TXDIF=$(echo $((TXBN - TXB)))
+	RXDIF=$(echo $((RXN - RX)))
+	TXDIF=$(echo $((TXN - TX)))
 
 	if [ "$RXDIF" -lt 10240 ]; then
-		echo "<NO SPEED> "
+		echo -n
 	elif [ "$RXDIF" -gt 1048576 ]; then
-		echo -e " <$DOWN:$(bash -c "bc <<< 'scale=2; $RXDIF/1048576'")M/s $UP:$((TXDIF / 1024))K/s> "
+		echo -e " <$(awk -v RXDIF="$RXDIF" 'BEGIN { printf "%.0f", (RXDIF / 1048576) }')M/s $((TXDIF / 1024))K/s> "
 	else
-		echo -e " <$DOWN:$(($RXDIF / 1024))K/s $UP:$((TXDIF / 1024))K/s> "
+		echo -e " <$(($RXDIF / 1024))K/s $((TXDIF / 1024))K/s> "
 	fi
 done
