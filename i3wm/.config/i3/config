@@ -68,6 +68,8 @@ bindsym $mod+Mod1+3 [floating con_id="__focused__"] resize set 100 ppt 98 ppt, m
 
 # kill focused window
 bindsym $mod+Shift+q kill
+# use xkill to by-force kill some program that gets stuck such as Emacs
+bindsym --release $mod+Mod1+Shift+q exec xkill
 # button1=left, button2=middle, button3=right
 bindsym button3 kill
 bindsym --whole-window $mod+Shift+button1 kill
@@ -222,6 +224,7 @@ mode "$mode_system" {
   bindsym Shift+s exec --no
 
   bindsym Escape mode "default"
+  bindsym Delete mode "default"
 }
 bindsym $mod+Ctrl+Delete mode "$mode_system"
 
