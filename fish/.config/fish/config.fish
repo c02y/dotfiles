@@ -894,18 +894,14 @@ function fdd -d 'fd to replace mlocate/plocate'
     test $DIR = /; and set -a OPT -E /sys -E /proc -E /run/user
 
     # NOTE: use double quote for CMD to successfully parse the variables
-    # -X ls is to sort the path
     # single quote to handle space in ARGV/DIR(file/dir name)
     set CMD "fd $OPT $EXT '$ARGV' '$DIR'"
-    # or is in case of "Problem while executing command: Argument list too long (os error 7)"
-    # CMD2 is for non-operation, just print the list
-    set CMD2 "dua -f binary a --no-sort (fd $OPT $EXT '$ARGV' '$DIR' -X ls -d); or fd $OPT $EXT '$ARGV' '$DIR'"
-
     # NOTE: dua will think the fd returns . if fd fails to find nothing
     # so this step is needed, otherwise it affects the rest operations
     if test (eval $CMD -1 | wc -l) = 0
         echo "Not found!!!"; and return
     end
+    set CMD "$CMD | sort"
 
     # NOTE: the -0 + --print0 in fzf to be able to work with file/dir with spaces
     # NOTE: DO NOT add --print0 it into FZF_DEFAULT_OPTS
@@ -925,6 +921,11 @@ function fdd -d 'fd to replace mlocate/plocate'
     else if set -q _flag_e
         eval $CMD | fzf -1 --print0 | xargs -0 -r vim --
     else
+        set CMD2 "dua -f binary a --no-sort ($CMD)"
+        # may fail: dua: "the size of argument and environment lists xMB exceeds the OS limit of 2MB."
+        # FIXME: may fail2: dua: "Error: No such file or directory (os error 2)" because of "broken symbolic" (dua-cli/issues/124)
+        # if failed, use CMD: fd without dua
+        eval $CMD2 >/dev/null; or set CMD2 $CMD
         if test "$ARGV" = "."
             # just print it, otherwise the list will all be highlighted
             eval $CMD2 | fzf --no-sort --print0 --preview-window hidden
