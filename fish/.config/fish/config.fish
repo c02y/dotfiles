@@ -82,6 +82,7 @@ test -f ~/.config/nvim/config.lua; and set -gx VIMRC (readlink -f ~/.config/lvim
 # show key code and key name using xev used for other programs such as sxhkd
 abbr key "xev | awk -F'[ )]+' '/^KeyPress/ { a[NR+2] } NR in a { printf \"%-3s %s\n\", \$5, \$8 }'"
 
+abbr rgr ranger
 bind \cd delete-or-ranger # check the BUG part in the function
 bind \cq 'tig status'
 bind \cf zz
@@ -2527,7 +2528,6 @@ function port -d 'list all the ports are used or check the process which are usi
 end
 
 abbr pxx 'proxychains4 -q'
-abbr sky 'curl wttr.in'
 abbr wt 'bash -c \'rm -rf /tmp/Baidu* 2>/dev/null\'; wget -c -P /tmp/ https://speedxbu.baidu.com/shurufa/ime/setup/BaiduWubiSetup_1.2.0.67.exe'
 abbr wtt 'bash -c \'rm -rf /tmp/Baidu* 2>/dev/null\'; wget --connect-timeout=5 -c -P /tmp/ https://speedxbu.baidu.com/shurufa/ime/setup/BaiduPinyinSetup_5.5.5063.0.exe'
 function ios -d 'io stat'
