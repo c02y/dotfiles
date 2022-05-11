@@ -2547,10 +2547,10 @@ function ios -d 'io stat'
     else if set -q _flag_a # all current speed
         dstat -d -n -m -s -c --nocolor
     else
-        if command -sq neofetch
-            neofetch
+        if command -sq fastfetch
+            fastfetch
         else
-            command -sq screenfetch; and screenfetch; or echo "neofetch/screenfetch are neither installed!"
+            command -sq screenfetch; and screenfetch; or echo "fastfetch/screenfetch are neither installed!"
         end
     end
 end
