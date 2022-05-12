@@ -923,7 +923,7 @@ function fdd -d 'fd to replace mlocate/plocate'
     else
         set CMD2 "dua -f binary a --no-sort ($CMD)"
         # may fail: dua: "the size of argument and environment lists xMB exceeds the OS limit of 2MB."
-        # FIXME: may fail2: dua: "Error: No such file or directory (os error 2)" because of "broken symbolic" (dua-cli/issues/124)
+        # may fail2: dua: "IO Errors" (dua-cli/issues/124)
         # if failed, use CMD: fd without dua
         eval $CMD2 >/dev/null; or set CMD2 $CMD
         if test "$ARGV" = "."
@@ -2725,9 +2725,10 @@ function rgs -d 'rg sth in -e(init.el)/-E(errno)/-f(config.fish)/-i(i3/config)-t
     argparse -n rgs -N 1 $options -- $argv
     or return
 
-    set OPT --follow --hidden -g !.git
+    set OPT --hidden -g !.git
     set -q _flag_w; and set OPT $OPT -w
     set -q _flag_l; and set OPT $OPT -l
+    set -q _flag_L; and set OPT $OPT -L
     # and $_flag_V is the argument for for -V
     set -q _flag_V; and set OPT $OPT -g !$_flag_V
     set -q _flag_s; and set OPT $OPT --sort path
