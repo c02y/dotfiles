@@ -1495,9 +1495,11 @@ function pacs -d 'pacman/paru operations'
                 paru -Sia $ARGV | rg "AUR URL" | awk '{print $4}' | xc && xc -o
             else
                 if paru -Q $ARGV >/dev/null 2>/dev/null
-                    paru -Qi $ARGV | rg "^URL" | awk '{print $3}' | head -1 | xc && xc -o
+                    # installed
+                    paru -Qi $ARGV | rg "^URL" | awk '{print $3}' | xc && xc -o
                 else
-                    paru -Si $ARGV | rg "^URL" | awk '{print $3}' | head -1 | xc && xc -o
+                    # not installed, the same pacakge may in multiple repos
+                    paru -Si $ARGV | rg -m 1 "^URL" | awk '{print $3}' | xc && xc -o
                 end
             end
             open (xc -o) >/dev/null 2>/dev/null
