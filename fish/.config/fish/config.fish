@@ -1545,11 +1545,12 @@ function pacs -d 'pacman/paru operations'
     else if set -q _flag_n # search only keyword in package names
         if set -q argv[1]
             if set -q _flag_a
-                paru -Sl | rg $ARGV
+                paru -Sl | awk -v PKG=$ARGV '$2~PKG' | rg $ARGV
             else
-                # pacman package names are already sorted
-                pacman -Sl | rg $ARGV
-                or paru -Sl | rg $ARGV
+                # NOTE: PKG cannot be ARGV which is the same name as $ARGV
+                # awk part is to search the second column which is the package name only
+                pacman -Sl | awk -v PKG=$ARGV '$2~PKG' | rg $ARGV
+                or paru -Sl | awk -v PKG=$ARGV '$2~PKG' | rg $ARGV
             end
         else # list all packages, no filter
             set -q _flag_a; and paru -Sl; or pacman -Sl
