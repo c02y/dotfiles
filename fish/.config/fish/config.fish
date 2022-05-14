@@ -1264,7 +1264,6 @@ Server = https://mirrors.aliyun.com/blackarch/blackarch/os/$arch
 # install chaotic-keyring
 # from package chaotic-mirrorlist package
 [chaotic-aur]
-SigLevel = Optional TrustAll
 # Singapore
 Server = https://sg-mirror.chaotic.cx/$repo/$arch
 # Seoul, Korea
