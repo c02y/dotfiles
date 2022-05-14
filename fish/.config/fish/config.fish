@@ -878,16 +878,18 @@ function fdd -d 'fd to replace mlocate/plocate'
         set EXT "-e $_flag_t"
     end
 
-    if set -q argv[2]
+    set ARGV . && set DIR .
+    if set -q argv[2] # two args
         set ARGV $argv[-2] && set DIR $argv[-1]
-    else if set -q argv[1]
+    else if set -q argv[1] # only one argv
         # if the only argv is a path, make it DIR, otherwise make it ARGV
+        # NOTE: if argv[-1] is the path, it is better to use ./dir, or dir/ or /path/to/dir
         if test -d $argv[-1]
             set ARGV . && set DIR $argv[-1]
         else
             set ARGV $argv[-1] && set DIR .
         end
-    else
+    else # no argv
         set ARGV . && set DIR .
     end
 
