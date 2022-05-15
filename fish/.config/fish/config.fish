@@ -1752,30 +1752,6 @@ function fmts -d "compile_commands.json(-l), clang-format(-f), cmake-format(-m)"
     end
 end
 
-function ddiso -d 'burn ISO file to drive(such as USB as LIVE USB)'
-    if file $argv[1] | rg -i ISO >/dev/null 2>/dev/null
-        if echo $argv[2] | rg -i dev >/dev/null 2>/dev/null
-            set FILE (readlink -f $argv[1])
-            set DEV $argv[2]
-            lsblk -l
-            echo
-            # the argv[1] is the iso file, relative path is OK
-            # the argv[2] is the dev like /dev/sda
-            set CMD "sudo dd if=\"$FILE\" of=$DEV bs=4M status=progress oflag=sync"
-            echo $CMD
-            read -n 1 -l -p 'echo "Really run above command? [Y/n] "' answer
-            if test "$answer" = y -o "$answer" = " " -o "$answer" = ""
-                eval $CMD
-            end
-        else
-            echo $argv[2] is not a /dev/sxx
-            return
-        end
-    else
-        echo $argv[1] is not an ISO file!
-    end
-end
-
 function syss -d 'systemctl related functions'
     set -l options u
     argparse -n syss $options -- $argv
@@ -2600,7 +2576,7 @@ end
 
 abbr pxx 'proxychains4 -q'
 function ios -d 'disk/network/OS related'
-    set -l options "s=" "h=" g a n N
+    set -l options "s=" "h=" g a n N b
     argparse -n ios $options -- $argv
     or return
 
@@ -2611,6 +2587,29 @@ function ios -d 'disk/network/OS related'
         # Check the health issue of disk using smartmontools
         # the argv is device like /dev/nvme0n1
         sudo smartctl -a $_flag_h | rg "Percentage Used"
+    else if set -q _flag_b # burn ISO file to drive(such as USB as LIVE USB)
+        # usage: iso -b ./path/file.iso /dev/sda1
+        if file $argv[1] | rg -i ISO >/dev/null 2>/dev/null
+            if echo $argv[2] | rg -i dev >/dev/null 2>/dev/null
+                set FILE (readlink -f $argv[1])
+                set DEV $argv[2]
+                lsblk -l
+                echo
+                # the argv[1] is the iso file, relative path is OK
+                # the argv[2] is the dev like /dev/sda
+                set CMD "sudo dd if=\"$FILE\" of=$DEV bs=4M status=progress oflag=sync"
+                echo $CMD
+                read -n 1 -l -p 'echo "Really run above command? [Y/n] "' answer
+                if test "$answer" = y -o "$answer" = " " -o "$answer" = ""
+                    eval $CMD
+                end
+            else
+                echo $argv[2] is not a /dev/sxx
+                return
+            end
+        else
+            echo $argv[1] is not an ISO file!
+        end
     else if set -q _flag_g
         gpustat -cp
     else if set -q _flag_n
