@@ -2634,7 +2634,7 @@ function ios -d 'disk/network/OS related'
                 if test "$RXDIF" -lt $(expr $ARGV \* 1024 \* 1024)
                     notify-send -u critical "NOTE: Network speed becomes lower than $ARGV MB/s"
                 end
-                sleep 5
+                sleep 30
             end
         else if set -q _flag_a
             while true
