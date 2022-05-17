@@ -911,7 +911,7 @@ function fdd -d 'fd to replace mlocate/plocate'
     # NOTE: DO NOT add --print0 it into FZF_DEFAULT_OPTS
     # -r in xargs is --no-run-if-empty
     if set -q _flag_o
-        if set _flag_O
+        if set -q _flag_O
             eval $CMD >/tmp/fdd-list
             echo "Ouput list into /tmp/fdd-list"
         else
