@@ -285,7 +285,7 @@ set $open jumpapp -f
 bindsym $mod+e exec tdrop -t -m -w 100% -h 100% emacsclient -c
 bindsym $mod+Shift+e exec emacs
 bindsym $mod+f exec $open firefox
-bindsym $mod+s exec $open rofi-files
+bindsym $mod+s exec fd -HIap -E Steam -E .cargo . $HOME | rofi -dmenu -i -theme ~/Dotfiles.d/misc/rofi-theme-solarized_alternate.rasi -p FILES | xargs -I {} xdg-open {}
 bindsym $mod+b exec $open calibre
 bindsym $mod+g exec $open -c Google-chrome google-chrome-stable
 bindsym $mod+n exec $open -i "emacs -q" emacs -q --no-splash
