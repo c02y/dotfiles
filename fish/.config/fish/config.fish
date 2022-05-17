@@ -857,8 +857,10 @@ function fdd -d 'fd to replace mlocate/plocate'
     argparse -n fdd $options -- $argv
     or return
 
+    set OPT
+    set -q _flag_a; or set -a OPT --exclude Steam
     # NOTE: -H here means exclude hidden files/dirs
-    set -q _flag_H; and set OPT; or set OPT -HI
+    set -q _flag_H; or set -a OPT -HI
     # NOTE: -d and -w don't work well with -p, so do not use -p if using -d or -w
     if not set -q _flag_d; and not set -q _flag_w
         set -a OPT -p
