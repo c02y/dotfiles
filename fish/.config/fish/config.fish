@@ -1933,14 +1933,14 @@ function usernew -d 'useradd related functions'
 end
 
 function gits -d 'git related commands'
-    set -l options b c d f l o s p x t u m r w h
+    set -l options a B c C d D f h H i l m L n o s S t T p P x X R W u
     argparse -n gits $options -- $argv
     or return
 
-    if set -q _flag_h; and not set -q _flag_r
+    if set -q _flag_h
         echo "      --> git status"
         echo "      -h --> usage"
-        echo "      -b --> git branch"
+        echo "      -B --> git branch"
         echo "         -c --> compare branches/commits of diff"
         echo "            -l --> compare branchs/commits of log"
         echo "               -d --> compare branchs/commits or log, save and open diff"
@@ -1950,30 +1950,32 @@ function gits -d 'git related commands'
         echo "            argv --> delete branch argv"
         echo "         -f --> switch branch using fzf"
         echo "         -l --> list branches"
+        echo "            argv --> search argv branch"
         echo "         no argv --> list local branches"
         echo "         argv --> checkout argv branch if exists, otherwise create new argv branch"
-        echo "      -t --> git tag"
+        echo "      -T --> git tag"
         echo "         -f --> switch tag using fzf"
         echo "         no argv --> list all and current tags"
         echo "         argv --> checkout the argv tag"
-        echo "      -w --> git worktree"
+        echo "      -W --> git worktree"
         echo "         -d argv --> delete argv worktree"
         echo "         no argv --> list all worktrees"
         echo "         argv --> if argv worktree does not exist, create it"
-        echo "      -d --> git diff"
-        echo "         -c --> show staged but unpushed local diff"
-        echo "         -t --> open difftool"
-        echo "         -r --> clean untracked files/dirs"
+        echo "      -D --> git diff"
+        echo "         -u --> show staged but unpushed local diff"
+        echo "         -d --> open difftool"
+        echo "         -c --> clean untracked files/dirs"
         echo "            argvs --> clean untracked files/dirs argvs"
         echo "            no argv --> clean all untracked files/dirs"
-        echo "      -c --> git checkout/commit"
+        echo "      -C --> git checkout/commit"
         echo "         -p --> git checkout previous/old commit"
-        echo "         -n --> git next/new commit"
+        echo "         -n --> git checkout next/new commit"
         echo "         -l --> git clone"
         echo "            + -s --> git clone shallow"
         echo "            + -x --> set proxy"
         echo "            + -a --> git clone -unshallow"
-        echo "            argv --> one argv, clone and cd, two args, one repo and one target dir and cd"
+        echo "            argv --> one argv, clone and cd"
+        echo "            argv1 argv2 --> two args, one repo and one target dir and cd"
         echo "         -m --> git commit"
         echo "            -a --> git commit --amend"
         echo "            argv --> git commit -m argv message"
@@ -1981,39 +1983,37 @@ function gits -d 'git related commands'
         echo "         argvs --> git checkout the unstaged files/dirs of argvs"
         echo "         - --> git checkout the previous branch/commit"
         echo "         argvID --> git checkout the Hash ID"
-        echo "      -l --> git log"
-        echo "         -f --> git log a history of argv file"
+        echo "      -L --> git log"
+        echo "         -f --> git log history of argv file"
         echo "            argv --> git log a history of argv file"
         echo "            no argv --> git log diff of all history"
         echo "         -o --> git log, all in oneline"
         echo "         -s --> list staged files to be commits"
-        echo "      -s --> misc, show, stage, sync forked"
+        echo "         -u --> list unpushed commits"
+        echo "      -S --> misc, show, stage, sync forked"
         echo "         -u --> show url of a repo"
         echo "            argv --> show url of a git repo argv"
         echo "            no argv --> show url of the current git repo"
-        echo "         -n --> stage files/dirs"
+        echo "         -s --> stage files/dirs"
         echo "            no argv --> stage all files/dirs"
         echo "            argvs --> stage argvs files/dirs"
         echo "         -f --> sync forked repo with upstream code"
         echo "         -t --> check if a file/dir is under track by git"
         echo "         no argv --> git show the latest commited commit details"
         echo "         argvID --> git show the argv ID commit details"
-        echo "      -p --> git push/pull"
+        echo "      -P --> git pull --rebase"
         echo "         -u --> git push -v"
         echo "            -n --> git push dry"
-        echo "            -l --> list unpushed commits"
-        echo "         -l --> git pull --rebase"
-        echo "            -s --> git pull --rebase=interactive"
-        echo "            -n --> locate the current commit id before pull"
-        echo "            -a --> git pull all .git dir in current directory"
-        echo "      -x --> set proxy for git"
+        echo "         -i --> git pull --rebase=interactive"
+        echo "         -p --> locate the current commit id before pull"
+        echo "      -X --> set proxy for git"
         echo "         -u --> undo set proxy for git"
-        echo "      -r --> git reset"
+        echo "      -R --> git reset"
         echo "         -s --> git reset soft, undo last unpushed/pushed(unpulled) committed, keep changes"
-        echo "         -h --> git reset hard, undo last unpushed/pushed(unpulled) committed, delete changes"
+        echo "         -H --> git reset hard, undo last unpushed/pushed(unpulled) committed, delete changes"
         echo "         no argv --> git reset all staged files"
         echo "         argvs --> git reset all argvs files"
-    else if set -q _flag_b # branches
+    else if set -q _flag_B # branches
         if set -q _flag_c # compare
             if set -q _flag_l # compare two branches or commits of log
                 # NOTE: .. and ... are different
@@ -2057,7 +2057,7 @@ function gits -d 'git related commands'
                 or git checkout -b $argv
             end
         end
-    else if set -q _flag_t # tags 
+    else if set -q _flag_T # tags 
         if set -q _flag_f # switch tag with fzf
             echo tags/(git tag -ln | fzf | awk '{print $1}') | xargs git checkout
         else # list all tags, with arg, switch the the tag
@@ -2071,7 +2071,7 @@ function gits -d 'git related commands'
                 git checkout tags/$argv
             end
         end
-    else if set -q _flag_w # worktree
+    else if set -q _flag_W # worktree
         if set -q _flag_d # delete worktree
             git worktree remove $argv
         else
@@ -2085,12 +2085,12 @@ function gits -d 'git related commands'
                 and cd $argv
             end
         end
-    else if set -q _flag_d # diff
-        if set -q _flag_c # show staged but unpushed local modification
+    else if set -q _flag_D # diff
+        if set -q _flag_u # show staged but unpushed local modification
             git diff --cached
-        else if set -q _flag_t
+        else if set -q _flag_d
             git difftool
-        else if set -q _flag_r # clean untracked file/dirs(fileA fileB...), all by default without argv
+        else if set -q _flag_c # clean untracked file/dirs(fileA fileB...), all by default without argv
             if not set -q argv[1] # no given argv, clean all untracked
                 git clean -f -d
             else
@@ -2104,7 +2104,7 @@ function gits -d 'git related commands'
             # show unstaged modification
             git diff
         end
-    else if set -q _flag_c # checkout
+    else if set -q _flag_C # checkout
         if set -q _flag_p # git checkout previous/old commit
             git checkout HEAD^1
         else if set -q _flag_n # git checkout next/new commit
@@ -2122,7 +2122,7 @@ function gits -d 'git related commands'
             # this works when $argv contains or not contains .git
             test (count $argv) -eq 2; and set project $argv[2]; or set project (basename $argv .git)
             test -d $project; and cd $project && echo cd ./$project
-        else if set -q _flag_m
+        else if set -q _flag_m # commit
             if set -q _flag_a
                 git commit --amend
             else
@@ -2148,18 +2148,20 @@ function gits -d 'git related commands'
                 end
             end
         end
-    else if set -q _flag_l # log
-        if set -q _flag_f
+    else if set -q _flag_L # log
+        if set -q _flag_f # git log history of argv file
             git log -p -- $argv | bat
-        else if set -q _flag_o
+        else if set -q _flag_o # git log, all in one line
             git log --oneline | bat
-        else if set -q _flag_s
+        else if set -q _flag_s # list staged files to be commits
             # list staged files to be commited
             git diff --name-only --cached
+        else if set -q _flag_u # list unpushed commits
+            git log origin/master..HEAD
         else
             lazygit log
         end
-    else if set -q _flag_s # show something, stage files, sync forked repo
+    else if set -q _flag_S # show something, stage files, sync forked repo
         if set -q _flag_u # get the url of a repo
             set -q argv[1]; and set ARGV $argv; or set ARGV .
             if test -d $ARGV
@@ -2169,7 +2171,7 @@ function gits -d 'git related commands'
             else
                 echo Error: $ARGV is not valid!
             end
-        else if set _flag_n # stage files/dirs
+        else if set _flag_s # stage files/dirs
             if not set -q argv[1] # no given files
                 git add .
             else
@@ -2202,41 +2204,27 @@ function gits -d 'git related commands'
             # [+commit] to show the modification in a last/[specific] commit
             git show $argv
         end
-    else if set -q _flag_p
+    else if set -q _flag_P
         if set -q _flag_u # push
-            if set -q _flag_n
-                # dry git push
+            if set -q _flag_n # dry push
                 git push -v -n
-            else if set -q _flag_l
-                # list unpushed commits
-                git log origin/master..hEAD
             else
                 git push -v
             end
-        else if set -q _flag_l # pull
-            if set -q _flag_s # interactive pull
+        else # pull
+            if set -q _flag_i # interactive pull
                 git pull --rebase=interactive
-            else if set -q _flag_n
+            else if set -q _flag_p
                 # git pull and locate it to previous commit id before git pull in git log
                 set COMMIT_ID (git rev-parse HEAD) # short version: `git rev-parse --short HEAD`
                 git log -1 # show the info of the current commit before git pull
                 git pull
                 git log --stat | command less -p$COMMIT_ID
-            else if set -q _flag_a
-                # git pull all git repos in dir using `fing dir`
-                for i in (find $argv[1] -type d -iname .git | sort | xargs realpath)
-                    cd $i
-                    cd ../
-                    pwd
-                    git pull
-                    echo -----------------------------
-                    echo
-                end
             else
                 git pull --rebase
             end
         end
-    else if set -q _flag_x # set proxy
+    else if set -q _flag_X # set proxy
         set -l SSR socks5://127.0.0.1:1080
         if set -q _flag_u
             git config --global --unset http.proxy
@@ -2247,12 +2235,12 @@ function gits -d 'git related commands'
             git config --global https.proxy $SSR
             git config --global http.https://github.com.proxy $SSR
         end
-    else if set -q _flag_r # reset 
+    else if set -q _flag_R # reset 
         # git reset HEAD for multiple files(file1 file2, all without argv), 
         # soft(-s)/hard(-h) reset
         if set -q _flag_s # undo last unpushed/pushed(unpulled) commit, keep changes
             git reset --soft HEAD~1
-        else if set -q _flag_h # undo last unpushed/pushed(unpulled) commit, delete changes
+        else if set -q _flag_H # undo last unpushed/pushed(unpulled) commit, delete changes
             git reset --hard HEAD~1
         else
             if not set -q argv[1] # no given files
