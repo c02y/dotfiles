@@ -1372,8 +1372,7 @@ function pacs -d 'pacman/paru operations'
         echo "      -u --> update, force refresh database first"
         echo "         + -l --> download files list from database"
         echo "         + -d --> downgradable update"
-        echo "      -d --> delete/uninstall(need argv)"
-        echo "         + -r --> delete/uninstall dependencies as well"
+        echo "      -d --> delete/uninstall with dependencies(need argv)"
         echo "      -g --> list all local and remote groups"
         echo "         + argv --> list all packages in argv group"
         echo "         + -l --> list only the local groups and packages in the groups"
@@ -1486,12 +1485,7 @@ function pacs -d 'pacman/paru operations'
         end
     else if set -q _flag_d # delete/uninstall
         # delete/uninstall dependencies as well
-        # NOTE: do not combine the following if-else into and-or, or C-c to quit it causes issue
-        if set -q _flag_r
-            paru -Rsc $ARGV
-        else
-            paru -Rsun $ARGV
-        end
+        paru -Rsc $ARGV
     else if set -q _flag_g # group
         # all available groups(not all) and their packages: https://archlinux.org/groups/
         # if given argv, list only the target group
