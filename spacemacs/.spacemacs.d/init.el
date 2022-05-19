@@ -1849,6 +1849,8 @@ which switch the last buffer in this window."
      (cons "," ", ")
      (cons "?" "? ")
      (cons ";" "; ")
+     (cons ":" ": ")
+     (cons "." ". ")
      )
     (electric-operator-add-rules-for-mode
      'js2-mode
