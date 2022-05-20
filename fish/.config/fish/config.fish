@@ -668,7 +668,7 @@ function fu -d 'fu command and prompt to ask to open it or not'
                     set def_file $FISHRC
                 end
             end
-            not test $def_file; and echo "NOTE: definition file is not found!" && return
+            not test $def_file; and echo "NOTE: definition file is not found, erased!" && functions -e $argv && return
 
             set num_line (rg -n -e "^alias $argv |^function $argv |^function $argv\$" $def_file | cut -d: -f1)
             # NOTE: $num_line may contain more than one number, use "$num_line", or test will fail
