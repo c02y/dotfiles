@@ -1003,7 +1003,7 @@ function wee -d 'wrap watch and watchexec'
         # -e is to specify the extension, comma-separated list if multiple
         set -q _flag_w; and set -a OPT -w $_flag_w
         set -q _flag_e; and set -a OPT -e $_flag_e
-        watchexec $OPT -- "eval $argv ; echo -e \n'==================================================> $argv'"
+        watchexec $OPT -- "echo -e \n'==================================================> $argv' ; eval $argv"
     else
         while test 1
             date
