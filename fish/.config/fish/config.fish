@@ -991,18 +991,26 @@ function dfs -d 'df(-l, -L for full list), gua(-i), dua(-I), du(by default), cac
 end
 
 function wee -d 'wrap watch and watchexec'
-    set -l options x n "w=" "e="
-    argparse -n wee $options -- $argv
+    set -l options x n "e=" "i="
+    # -w can be used multiple times with values
+    set -a options (fish_opt -s w --multiple-vals)
+    argparse $options -- $argv
     or return
 
     if set -q _flag_x # to use watchexec
         set OPT --shell=fish
         set -q _flag_n; and set -a OPT -N
         # if -w or -e is not specified, watch everything in the current dir
-        # -w is to specify the file/dir path (only one)
+        # -w is to specify the file/dir path (can be used multiple times)
         # -e is to specify the extension, comma-separated list if multiple
-        set -q _flag_w; and set -a OPT -w $_flag_w
+        # -i to ignore paths, usefule for dir like build, NOTE: ignore build using -i "build/**"
+        if set -q _flag_w
+            for i in $_flag_w
+                set -a OPT -w $i
+            end
+        end
         set -q _flag_e; and set -a OPT -e $_flag_e
+        set -q _flag_i; and set -a OPT -i $_flag_i
         watchexec $OPT -- "echo -e \n'==================================================> $argv' ; eval $argv"
     else
         while test 1
@@ -1448,7 +1456,7 @@ function pacs -d 'pacman/paru operations'
         set -q _flag_a; and set -a OPT -a
 
         # NOTE: if you see "File /var/cache/pacman/pkg/xxx.pkg.tar.xz is corrupted (invalid or corrupted package (PGP signature))"
-        # use `sudo pacma-key --refresh-keys`
+        # use `sudo pacman-key --refresh-keys`
         # all keyrings are stored in /usr/share/pacman/keyrings/
         eval paru $OPT $ARGV
     else if set -q _flag_c # clean/check
