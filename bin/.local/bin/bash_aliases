@@ -175,13 +175,13 @@ function lls() {
 	if [ $# -eq 0 ]; then
 		ls -lhA --color=yes . --sort=time --time=ctime | nl -v 0 | sort -nr | tail -20
 	else
-		ls -lhA --color=yes $@ --sort=time --time=ctime | nl -v 0 | sort -nr | tail -20
+		ls -lhA --color=yes "$@" --sort=time --time=ctime | nl -v 0 | sort -nr | tail -20
 	fi
 }
 
 function finds() {
 	if [ $# -eq 2 ]; then
-		find $1 -iname "*$2*"
+		find "$1" -iname "*$2*"
 	else
 		find . -iname "*$1*"
 	fi
@@ -189,13 +189,13 @@ function finds() {
 
 function lsx() {
 	if test $DISPLAY; then
-		if [ -f $@ ] || [ -d $@ ]; then
-			readlink -fn $@ | xclip -selection c
-			readlink -f $@
+		if [ -f "$@" ] || [ -d "$@" ]; then
+			readlink -fn "$@" | xclip -selection c
+			readlink -f "$@"
 			echo ---- Path copied to Clipbaord! ----
 		fi
 	else
-		readlink -f $@
+		readlink -f "$@"
 	fi
 }
 
