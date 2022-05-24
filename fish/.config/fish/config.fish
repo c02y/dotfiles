@@ -18,32 +18,29 @@ set -gx LANGUAGE en_US.UTF-8
 # diable it since it affects AUR build
 # not set -q CMAKE_GENERATOR && command -sq ninja && set -gx CMAKE_GENERATOR Ninja
 
-# By default, MANPATH variable is unset, so set MANPATH to the result of `manpath` according to
-# /etc/man.config and add the customized man path to MANPATH
-if test "$MANPATH" = ""
-    set -gx MANPATH (manpath | string split ":")
+# NOTE: order in PATH_A will be reversed in final PATH
+# NOTE: ~/.local/bin is already in PATH from ~/.profile, so it is not affected
+set PATH_A $GOPATH/bin $NPMS/bin ~/.cargo/bin ~/anaconda3/bin ~/.local/bin
+for path in $PATH_A
+    if not contains $path $PATH
+        test -d $path; and set -p PATH $path
+    end
 end
 
-set -gx LBIN (readlink -f ~/.local/bin)
-# set -gx PATH $HOME/anaconda3/bin ~/.local/share/arm-linux/bin $LBIN ~/.linuxbrew/bin $GOPATH/bin $PATH
-#set -gx PATH $HOME/anaconda3/bin $LBIN $GOPATH/bin /usr/local/bin /usr/local/liteide/bin /bin /sbin /usr/bin /usr/sbin $PATH
-set -gx PATH $GOPATH/bin $NPMS/bin $HOME/.cargo/bin $LBIN /usr/local/bin /bin /sbin /usr/bin /usr/sbin $PATH
-# TODO: `pip install cppman ; cppman -c` to get manual for cpp
-set -gx MANPATH $NPMS/share/man ~/.local/share/man $MANPATH
-# TODO: slow startup, especially when you try to open vim+fish-script
-# caused by `system` line in vim-fish/ftplugin/fish.vim
-function startup -d "execute it manually only inside fsr fucntion since it is slow"
-    # function startup -d "execute it only when FISHRC changes, it is slow"
-    # Use different PATH/MANPATH for different distro since anaconda may affect system tools
-    # for Windows and Linux compatible
-    # Use different PATH/MANPATH for different distro since anaconda may affect system tools
-    # for Windows and Linux compatible, check the "manjaro" part in .bash_aliases since that part slows down fish
-    if not test (cat /etc/*-release | rg "^NAME=" | rg -i -e 'manjaro|arch|opensuse') # not manjaro/arch/opensuse
-        set -gx PATH $HOME/anaconda3/bin $PATH
-        set -gx MANPATH $HOME/anaconda3/share/man $MANPATH
-        source $HOME/anaconda3/etc/fish/conf.d/conda.fish >/dev/null 2>/dev/null
-    end
+# By default, MANPATH variable is unset, so set MANPATH to the result of `manpath` according to
+# /etc/man.config and add the customized man path to MANPATH
+test "$MANPATH" = ""; and set -gx MANPATH (manpath | string split ":")
 
+# TODO: `pip install cppman ; cppman -c` to get manual for cpp
+# NOTE: use mman script to interactive select the right man page, and show the path of a man page
+set -l MANPATH_A $HOME/anaconda3/share/man $NPMS/lib/node_modules/npm/man $HOME/.local/share/man
+for path in $MANPATH_A
+    if not contains $path $MANPATH
+        test -d $path; and set -p MANPATH $path
+    end
+end
+
+function startup -d "execute it manually only inside fsr fucntion since it is slow"
     if test $DISPLAY
         # fix the Display :0 can't be opened problem
         if xhost >/dev/null 2>/dev/null
@@ -2547,11 +2544,6 @@ function x -d 'exit or deactivate in python env'
     end
 end
 
-# abbr rea 'sudo $LBIN/reaver -i mon0 -b $argv[1] -vv'
-# function rea
-# sudo $LBIN/reaver -i mon0 -b $argv
-# end
-
 abbr epub 'ebook-viewer --detach'
 # alias time 'time -p'
 
@@ -2694,7 +2686,7 @@ alias dic 'trans :zh -d -show-dictionary Y -v -theme ~/Dotfiles.d/misc/trans-the
 # awk '{ print length }' | sort -n | uniq -c
 
 function wtp --description 'show the real definition of a type or struct in C code, you can find which file it is defined in around the result'
-    gcc -E $LBIN/type.c -I$argv[1] >/tmp/result
+    gcc -E ~/Dotfiles.d/misc/type.c -I$argv[1] >/tmp/result
     if test (count $argv) -eq 2
         test (echo $argv[1] | rg struct); and rg -A $argv[2] "^$argv[1]" /tmp/result; or rg -B $argv[2] $argv[1] /tmp/result
     else
@@ -3016,6 +3008,7 @@ end
 #
 # The packages needed to be installed using conda are(only if you have no sudo permission or the offcial is old)
 # ~/anaconda3/bin/conda install -c conda-forge ncurses emacs w3m fish the_silver_searcher source-highlight tmux ripgrep
+test -f $HOME/anaconda3/etc/fish/conf.d/conda.fish; and source $HOME/anaconda3/etc/fish/conf.d/conda.fish
 abbr condas '~/anaconda3/bin/binstar search -t conda' # [packagename]
 abbr condai '~/anaconda3/bin/conda install' # [packagename]
 abbr condaic '~/anaconda3/bin/conda install -c' # [channel] [packagename]
