@@ -2474,7 +2474,7 @@ end
 abbr ipy ipython # other alternatives are btpython, ptpython, ptipython
 abbr pdb pudb3
 function pips -d 'pip related functions, default(install), -i(sudo install), -c(check outdated), -d(remove/uninstall), -s(search), -u(update all outdated packages), -U(upgrade specific packages)'
-    set -l options i c d s u U
+    set -l options i c d s u U l
     argparse -n pips $options -- $argv
     or return
 
@@ -2497,11 +2497,18 @@ function pips -d 'pip related functions, default(install), -i(sudo install), -c(
         pip uninstall $argv
         or sudo pip uninstall $argv
     else if set -q _flag_s
-        # pip search $argv
-        # if `pip search` fails, then `sudo pip install pip_search` first
-        pip_search search $argv
+        if set -q _flag_l # check wich pacakge containing $argv file/path
+            pip list | tail -n +3 | cut -d" " -f1 | xargs pip show -f | rg -i $argv
+        else
+            # pip search $argv
+            # if `pip search` fails, then `sudo pip install pip_search` first
+            pip_search -s name $argv
+        end
     else if set -q _flag_U
         pip install $REPO -U $argv
+    else if set -q _flag_l
+        # `sudo pip list` is another list
+        pip list
     else if set -q _flag_i
         sudo pip install $REPO $argv
     else

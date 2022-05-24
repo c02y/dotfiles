@@ -1,6 +1,6 @@
 #!/bin/bash -eu
 
-readonly CHECKPATCH="$HOME/.bin/checkpatch.pl"
+readonly CHECKPATCH="$HOME/.local/bin/checkpatch.pl"
 
 if [ ! -x "${CHECKPATCH}" ]; then
 	echo "cannot execute '${CHECKPATCH}'"
@@ -31,7 +31,7 @@ CHECKPATCH_FLAGS+=" --ignore STORAGE_CLASS"
 
 # checkpatch.pl will ignore the following paths
 readonly CHECKPATCH_IGNORE+=" Makefile"
-readonly CHECKPATCH_EXCLUDE=$(for p in ${CHECKPATCH_IGNORE}; do echo ":(exclude)${p}" ; done)
+readonly CHECKPATCH_EXCLUDE=$(for p in ${CHECKPATCH_IGNORE}; do echo ":(exclude)${p}"; done)
 
 _checkpatch() {
 	"${CHECKPATCH}" "${CHECKPATCH_FLAGS}" --no-tree -
