@@ -2488,11 +2488,14 @@ function pips -d 'pip related functions, default(install), -i(sudo install), -c(
         # echo "sudo pip:"
         # sudo pip list --outdated
     else if set -q _flag_u
-        echo "Updating pip packages"
-        # when using default pip install is slow, use repo from the following url to install
-        # pip install -i https://pypi.tuna.tsinghua.edu.cn/simple -U (pip list --outdated | awk 'NR>2 {print $1}')
-        # echo "Updating sudo pip packages"
-        pip install $REPO -U (pip list --outdated | awk 'NR>2 {print $1}')
+        if set -q argv[1] # if given argv, update the argv packages
+            pip install $REPO -U $argv
+        else # else updating all pip packages
+            # when using default pip install is slow, use repo from the following url to install
+            # pip install -i https://pypi.tuna.tsinghua.edu.cn/simple -U (pip list --outdated | awk 'NR>2 {print $1}')
+            # echo "Updating sudo pip packages"
+            pip install $REPO -U (pip list --outdated | awk 'NR>2 {print $1}')
+        end
     else if set -q _flag_d
         pip uninstall $argv
         or sudo pip uninstall $argv
@@ -2504,13 +2507,13 @@ function pips -d 'pip related functions, default(install), -i(sudo install), -c(
             # if `pip search` fails, then `sudo pip install pip_search` first
             pip_search -s name $argv
         end
-    else if set -q _flag_U
-        pip install $REPO -U $argv
-    else if set -q _flag_l
-        # `sudo pip list` is another list
-        pip list
     else if set -q _flag_i
-        sudo pip install $REPO $argv
+        if set -q _flag_l # list all installed pip packages
+            # `sudo pip list` is another list
+            pip list
+        else
+            sudo pip install $REPO $argv
+        end
     else
         pip install $REPO $argv
     end
