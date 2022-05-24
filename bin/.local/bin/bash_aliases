@@ -25,7 +25,7 @@ export HISTTIMEFORMAT="[%F %T] ~~~ "
 shopt -s histappend
 # Preload the working directory history list from the directory history
 if type -t hd >/dev/null && type -t cd_func >/dev/null; then
-	for x in $(hd 20) $(pwd); do cd_func $x; done
+	for x in $(hd 20) $(pwd); do cd_func "$x"; done
 fi
 
 alias bsr='source ~/.bashrc && echo ~/.bashrc reloaded!'
@@ -102,10 +102,9 @@ alias rgr='ranger'
 
 # git
 alias lg='lazygit'
-alias gg='tig'
-alias ggl='tig log'
-alias ggs='tig status'
-alias ggr='tig refs'
+alias gg='lazygit'
+alias ggl='lazygit log'
+alias ggs='lazygit status'
 alias gits='git status' # gs is original Ghostscript app
 alias gitpl='git pull'
 alias gitpu='git push -v'
