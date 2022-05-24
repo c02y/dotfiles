@@ -1587,6 +1587,7 @@ Version 2016-12-18"
    ("M-p" . symbol-overlay-jump-prev)
    ("M-d" . delete-word)
    ("<M-backspace>" . delete-word-backward)
+   ("<M-S-backspace>" . ido-delete-backward-word-updir)
    ("C-k" . delete-line-to-end)
    ("C-c k" . delete-line-backward)
    ("C-c d" . duplicate-line-or-region)
