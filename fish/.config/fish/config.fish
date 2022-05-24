@@ -1852,7 +1852,7 @@ function diffs -d "all kinds of diff features"
         vim -c "Gvdiffsplit!" $argv
         return
     end
-    if command -sq ydiff2
+    if command -sq ydiff
         diff -u $argv | ydiff -s -w 0 --wrap
     else
         set -l options f w l L W h
@@ -2008,7 +2008,7 @@ function gits -d 'git related commands'
         echo "            no argv --> stage all files/dirs"
         echo "            argvs --> stage argvs files/dirs"
         echo "         -f --> sync forked repo with upstream code"
-        echo "         -t --> check if a file/dir is under track by git"
+        echo "         -t argv --> check if a argv file/dir is under track by git"
         echo "         no argv --> git show the latest commited commit details"
         echo "         argvID --> git show the argv ID commit details"
         echo "      -P --> git pull --rebase"
@@ -2209,7 +2209,7 @@ function gits -d 'git related commands'
                 git rebase upstream/master
             end
         else if set -q _flag_t # check if a file/dir is under track by git
-            git ls-files --error-unmatch
+            git ls-files --error-unmatch $argv
         else
             # [+commit] to show the modification in a last/[specific] commit
             git show $argv
