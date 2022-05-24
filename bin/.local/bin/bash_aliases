@@ -4,13 +4,22 @@
 # [ -f ~/.local/bin/bash_aliases ] && . ~/.local/bin/bash_aliases
 
 export GOPATH=~/.go
-if [[ $(cat /etc/*-release | grep "^NAME=" | grep -i -E 'manjaro|arch|opensuse') ]]; then
-	# export PATH=~/.local/bin:~/anaconda3/bin:$PATH
-	# or
-	export PATH=$GOPATH/bin:~/.cargo/bin:~/.npms/bin:~/.local/bin:$PATH
-else
-	export PATH=$GOPATH/bin:~/anaconda3/bin:~/.cargo/bin:~/.npms/bin:~/.local/bin:$PATH
-fi
+# print PATH line by line using `echo -e ${PATH//:/\\n}`
+PATH_A="$GOPATH/bin $HOME/.npms/bin $HOME/.cargo/bin $HOME/anaconda3/bin $HOME/.local/bin"
+for path in $PATH_A; do
+	if ! [[ ":$PATH:" == *":$path:"* ]]; then
+		[ -d "$path" ] && export PATH=$path:$PATH
+	fi
+done
+
+! [[ -v MANPATH ]] && export MANPATH=$(manpath)
+# print MANPATH line by line using `echo -e ${MANPATH//:/\\n}`
+MANPATH_A="$HOME/anaconda3/share/man $HOME/.npms/lib/node_modules/npm/man $HOME/.local/share/man"
+for path in $MANPATH_A; do
+	if ! [[ ":$MANPATH:" == *":$path:"* ]]; then
+		[ -d "$path" ] && export MANPATH=$path:$MANPATH
+	fi
+done
 
 ######################################## start
 # ingnore duplicates(continuous occurrences od a command) in history
