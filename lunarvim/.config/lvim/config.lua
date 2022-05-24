@@ -30,8 +30,6 @@ set nowrapscan
 set wrap
 " this updatetime affects the CursorHold
 set updatetime=1000
-" start insert when editing git commit message
-au FileType gitcommit 1 | startinsert
 ]])
 vim.api.nvim_exec(
 	[[
@@ -82,7 +80,7 @@ require("telescope").setup({
 -- from ethanholz/nvim-lastplace
 require("nvim-lastplace").setup({
 	lastplace_ignore_buftype = { "quickfix", "nofile", "help" },
-	lastplace_ignore_filetype = { "gitcommit", "gitrebase", "svn", "hgcommit" },
+	-- lastplace_ignore_filetype = { "gitcommit", "gitrebase", "svn", "hgcommit" },
 	lastplace_open_folds = true,
 })
 -- from phaazon/hop.nvim
@@ -187,6 +185,7 @@ lvim.keys.normal_mode["<C-w>1"] = ":only<cr>"
 -- `lvim --headless +'lua require("lvim.utils").generate_settings()' +qa && sort -o lv-settings.lua{,}`
 -- Use which-key to add extra bindings with the leader-key prefix
 -- from vimlab/split-term.vim
+-- NOTE: C-l in the terminal to toggle the terminal back to the editor
 lvim.builtin.which_key.mappings["'"] = { "<Esc><Cmd>ToggleTerm<CR>", "Quick Terminal" }
 lvim.builtin.which_key.mappings["v\\"] = { ":VTerm<CR>", "| Term" }
 lvim.builtin.which_key.mappings["v-"] = { ":Term<CR>", "- Term" }
@@ -306,8 +305,8 @@ lvim.builtin.which_key.mappings["lt"] = {
 -- After changing plugin config exit and reopen LunarVim, Run :PackerInstall :PackerCompile
 lvim.builtin.notify.active = true
 lvim.builtin.terminal.active = true
-lvim.builtin.nvimtree.setup.view.side = "left"
-lvim.builtin.nvimtree.show_icons.git = 0
+-- disable nvimtree since a bug: LunarVim/issues/2512
+lvim.builtin.nvimtree.active = false
 
 -- if you don't want all the parsers change this to a table of the ones you want
 -- You may need to :TSupdate if vim has tree-sitter issues
