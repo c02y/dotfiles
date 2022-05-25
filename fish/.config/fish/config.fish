@@ -1260,13 +1260,15 @@ Server = https://mirrors.ustc.edu.cn/archlinuxcn/$arch
 
 # https://www.blackarch.org/downloads.html#mirror-list
 # https://philosophos.github.io/articles/20170305~Installing-BlackArch-on-top-of-ArchLinux/
-[blackarch]
-SigLevel = Optional TrustAll
-Server = https://mirrors.tuna.tsinghua.edu.cn/blackarch/blackarch/os/$arch
-Server = https://mirrors.ustc.edu.cn/blackarch/blackarch/os/$arch
-Server = https://mirrors.nju.edu.cn/blackarch/blackarch/os/$arch
-Server = https://mirror.sjtu.edu.cn/blackarch/blackarch/os/$arch
-Server = https://mirrors.aliyun.com/blackarch/blackarch/os/$arch
+# NOTE: Disabled by default since when you try to `pacs -cp xxx`/`paru -F`/`pacman -F`:
+# "error: blackarch database is inconsistent: version mismatch on package xxx"
+#[blackarch]
+#SigLevel = Optional TrustAll
+#Server = https://mirrors.tuna.tsinghua.edu.cn/blackarch/blackarch/os/$arch
+#Server = https://mirrors.ustc.edu.cn/blackarch/blackarch/os/$arch
+#Server = https://mirrors.nju.edu.cn/blackarch/blackarch/os/$arch
+#Server = https://mirror.sjtu.edu.cn/blackarch/blackarch/os/$arch
+#Server = https://mirrors.aliyun.com/blackarch/blackarch/os/$arch
 
 # https://aur.chaotic.cx/
 # https://archlinux.pkgs.org/rolling/chaotic-aur-x86_64/
