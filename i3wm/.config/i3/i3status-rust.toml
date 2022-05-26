@@ -32,7 +32,9 @@ idle_fg = "#99B938"
 [[block]]
 block = "cpu"
 format = "{utilization:1}"
-interval = 2
+# use a long interval value since some process such as
+# fd(in terminal or rofi-files) will increase CPU usage for short time
+interval = 10
 info = 30
 warning = 50
 critical = 90
