@@ -1492,8 +1492,12 @@ function pacs -d 'pacman/paru operations'
             paru -Syyu
         end
     else if set -q _flag_d # delete/uninstall
-        # delete/uninstall dependencies as well
-        paru -Rsc $ARGV
+        # dry-run first (-p for pacman/paru, no need root permission)
+        # if confirmed, delete/uninstall argv including dependencies
+        if paru -Rscp $ARGV # in case $ARGV is not found
+            read -n 1 -l -p 'echo "Really uninstall? [y/N] "' answer
+            test "$answer" = y -o "$answer" = " "; and paru -Rsc --noconfirm $ARGV
+        end
     else if set -q _flag_g # group
         # all available groups(not all) and their packages: https://archlinux.org/groups/
         # if given argv, list only the target group
