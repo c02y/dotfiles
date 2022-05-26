@@ -6,8 +6,7 @@ set -gx GOPATH $GOPATH ~/.go
 set -gx GO111MODULE on
 set -gx GOPROXY https://goproxy.cn
 # electron/node, for `npm install -g xxx`, default place is /usr
-set -gx NPMS $HOME/.npms
-set -gx NODE_PATH $NPMS/lib/node_modules
+set -gx NODE_PATH $HOME/.npms/lib/node_modules
 
 # fix the error: "manpath: can't set the locale; make sure $LC_* and $LANG are correct"
 set -gx LC_ALL en_US.UTF-8
@@ -20,7 +19,7 @@ set -gx LANGUAGE en_US.UTF-8
 
 # NOTE: order in PATH_A will be reversed in final PATH
 # NOTE: ~/.local/bin is already in PATH from ~/.profile, so it is not affected
-set PATH_A $GOPATH/bin $NPMS/bin ~/.cargo/bin ~/anaconda3/bin ~/.local/bin
+set -l PATH_A $GOPATH/bin $HOME/.npms/bin $HOME/.cargo/bin $HOME/anaconda3/bin $HOME/.local/bin
 for path in $PATH_A
     if not contains $path $PATH
         test -d $path; and set -p PATH $path
@@ -33,7 +32,7 @@ test "$MANPATH" = ""; and set -gx MANPATH (manpath | string split ":")
 
 # TODO: `pip install cppman ; cppman -c` to get manual for cpp
 # NOTE: use mman script to interactive select the right man page, and show the path of a man page
-set -l MANPATH_A $HOME/anaconda3/share/man $NPMS/lib/node_modules/npm/man $HOME/.local/share/man
+set -l MANPATH_A $HOME/anaconda3/share/man $HOME/.npms/lib/node_modules/npm/man $HOME/.local/share/man
 for path in $MANPATH_A
     if not contains $path $MANPATH
         test -d $path; and set -p MANPATH $path
