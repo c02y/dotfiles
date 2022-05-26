@@ -65,6 +65,7 @@ lvim.plugins = {
 	{ "https://gitlab.com/yorickpeterse/nvim-window.git" },
 	{ "theHamsta/nvim-dap-virtual-text" },
 	{ "rcarriga/nvim-dap-ui" },
+	{ "timonv/vim-cargo" },
 }
 
 require("telescope").setup({
@@ -299,6 +300,21 @@ lvim.builtin.which_key.mappings["lt"] = {
 	q = { "<cmd>Trouble quickfix<cr>", "QuickFix" },
 	L = { "<cmd>Trouble loclist<cr>", "LocationList" },
 	w = { "<cmd>Trouble lsp_workspace_diagnostics<cr>", "Workspace Diagnostics" },
+}
+lvim.builtin.which_key.mappings["lc"] = {
+	name = "+Cargo",
+	["<space>"] = { ":CargoBuild<cr>", "Build" },
+	b = { ":CargoBuild<cr>", "Build" },
+	B = { ":CargoBench<cr>", "Benchmarks" },
+	c = { ":CargoCheck<cr>", "Check" },
+	C = { ":CargoClean<cr>", "Clean" },
+	d = { ":CargoDoc<cr>", "Doc" },
+	n = { ":CargoNew<cr>", "New" },
+	x = { ":CargoRun<cr>", "Run" },
+	r = { ":CargoRun<cr>", "Run" },
+	R = { ":CargoReload<cr>", "Reload" },
+	t = { ":CargoTest<cr>", "Test" },
+	u = { ":CargoUpdate<cr>", "Update" },
 }
 
 -- TODO: User Config for predefined plugins
