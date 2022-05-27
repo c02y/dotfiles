@@ -213,7 +213,7 @@ mode "$mode_mark" {
 }
 bindsym $mod+Ctrl+Shift+m mode "$mode_mark"
 
-set $mode_system Actions: (l)ock, (L)ogout, (s)uspend, (Enter)Hibernate, (r)eboot, (S)hutdown
+set $mode_system Actions: (l)ock, (L)ogout, (m)onitors, (s)uspend, (Enter)Hibernate, (r)eboot, (S)hutdown
 mode "$mode_system" {
   bindsym l exec --no-startup-id i3lock, mode "default"
   bindsym Shift+l exec --no-startup-id i3-msg exit, mode "default"
@@ -221,6 +221,8 @@ mode "$mode_system" {
   bindsym Return exec --no-startup-id systemctl hibernate, mode "default"
   bindsym r exec --no-startup-id systemctl reboot, mode "default"
   bindsym Shift+s exec --no-startup-id systemctl poweroff, mode "default"
+  # the monitors command is to switch to available max resolution monitor once plug/unplug external monitors
+  bindsym m exec monitors; mode "default"
   bindsym Shift+s exec --no
 
   bindsym Escape mode "default"
@@ -347,9 +349,7 @@ exec --no-startup-id copyq
 exec --no-startup-id fcitx5 -d
 # handle authentication prompt window
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
-# NOTE: for multiple monitors: (DP-0 is the primary, DP-2 is the secondary)
-# exec --no-startup-id xrandr --output DP-0 --auto --output DP-2 --auto --right-of DP-0
-exec --no-startup-id xrandr --output DP-0 --auto --output DP-2 --off
+exec --no-startup-id monitors
 # for blank screen and sleep/hibernate
 exec --no-startup-id xfce4-power-manager
 
