@@ -217,12 +217,12 @@ set $mode_system Actions: (l)ock, (L)ogout, (m)onitors, (s)uspend, (Enter)Hibern
 mode "$mode_system" {
   bindsym l exec --no-startup-id i3lock, mode "default"
   bindsym Shift+l exec --no-startup-id i3-msg exit, mode "default"
-  bindsym s exec --no-startup-id systemctl suspend, mode "default"
-  bindsym Return exec --no-startup-id systemctl hibernate, mode "default"
-  bindsym r exec --no-startup-id systemctl reboot, mode "default"
-  bindsym Shift+s exec --no-startup-id systemctl poweroff, mode "default"
   # the monitors command is to switch to available max resolution monitor once plug/unplug external monitors
   bindsym m exec monitors; mode "default"
+  bindsym s exec --no-startup-id systemctl suspend -no-wall, mode "default"
+  bindsym Return exec --no-startup-id systemctl hibernate --no-wall, mode "default"
+  bindsym r exec --no-startup-id systemctl reboot --no-wall, mode "default"
+  bindsym Shift+s exec --no-startup-id systemctl poweroff --no-wall, mode "default"
   bindsym Shift+s exec --no
 
   bindsym Escape mode "default"
