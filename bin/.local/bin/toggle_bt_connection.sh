@@ -11,20 +11,23 @@ function toggle_one() {
 	else
 		timeout 0.1s bluetoothctl connect "$device"
 	fi
-
 }
 
-devices=$(bluetoothctl devices | awk '{print $2}')
-for device in $devices; do
-	if bluetoothctl info "$device" | grep 'Connected: yes' -q; then
-		bluetoothctl disconnect "$device"
-	else
-		timeout 0.1s bluetoothctl connect "$device"
-		# when device is unavailable, return 1
-		# otherwise, it will connect with return code 124
-		if [[ $? -eq 124 ]]; then
-			# once connect the first device, skip the rest
-			break
+function toggle_all() {
+	devices=$(bluetoothctl devices | awk '{print $2}')
+	for device in $devices; do
+		if bluetoothctl info "$device" | grep 'Connected: yes' -q; then
+			bluetoothctl disconnect "$device"
+		else
+			timeout 0.1s bluetoothctl connect "$device"
+			# when device is unavailable, return 1
+			# otherwise, it will connect with return code 124
+			if [[ $? -eq 124 ]]; then
+				# once connect the first device, skip the rest
+				break
+			fi
 		fi
-	fi
-done
+	done
+}
+
+toggle_one
