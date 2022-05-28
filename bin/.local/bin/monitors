@@ -1,5 +1,9 @@
 #!/bin/env bash
 
+# NOTE: TODO: FIXME: xrandr can only detect if a monitor is connected or not,
+# it cannot detect if a monitor is powered on or off, solution not found yet:
+# https://bbs.archlinux.org/viewtopic.php?id=257700
+
 # if accicdently disable all monitors: switch to tty using Ctrl-Alt-F2
 # run `sleep 2 && xrandr -d :0 --auto`, before sleep is finished, switch to workspace(Ctrl-Alt-F7)
 
@@ -29,11 +33,13 @@ function help() {
 
 # FIXME: only test two monitors, and --left-of may have issues
 function monitors_all() {
-	monitors=$(xrandr | grep ' connected ' | awk '{print $1}')
+	# NOTE: `xrandr --auto` will enable all monitors as possible, but it won't handle the layout, for instance,
+	# external monitor may only use part of the big screen, laptop's builtin small screen will be the main monitor
+	monitors=$(xrandr | awk '$2 == "connected"{print $1}')
 	monitors_resolutions_list=$(xrandr | grep -A 1 ' connected ' --no-group-separator | awk '{print $1}')
 	max_resolution=$(echo "$monitors_resolutions_list" | grep x | sort -nr | head -1)
 	max_resolution_monitor=$(echo "$monitors_resolutions_list" | grep -B 1 "$max_resolution" | head -1)
-	monitors_on_list=$(xrandr | grep ' connected ' | awk '$NF ~ /mm$/' | awk '{print $1}')
+	monitors_on_list=$(xrandr | grep -E " connected (primary )?[1-9]+" | sed -e "s/\([A-Z0-9]\+\) connected.*/\1/")
 	if [[ "$monitors_on_list" != *"$max_resolution_monitor"* ]]; then
 		xrandr --output "$max_resolution_monitor" --auto
 	fi
@@ -47,9 +53,7 @@ function monitors_all() {
 # FIXME: not perfect, sometimes it messes up the primary monitor
 function monirors_choose() {
 	monitors_list
-	monitors=$(xrandr | grep ' connected ' | awk '{print $1}')
-
-	# monitors_on_list=$(xrandr | grep ' connected ' | awk '$NF ~ /mm$/' | awk '{print $1}')
+	monitors=$(xrandr | awk '$2 == "connected"{print $1}')
 
 	while true; do
 		read -r -e -p 'Which monitor to enable? (primary first) '
@@ -91,7 +95,7 @@ function monirors_choose() {
 }
 
 function monitors_single() {
-	monitors=$(xrandr | grep ' connected ' | awk '{print $1}')
+	monitors=$(xrandr | awk '$2 == "connected"{print $1}')
 	# NOTE: don't know how xrandr auto choose the "primary" monitor
 
 	monitors_resolutions_list=$(xrandr | grep -A 1 ' connected ' --no-group-separator | awk '{print $1}')
@@ -104,7 +108,7 @@ function monitors_single() {
 		fi
 	done
 
-	monitors_on_list=$(xrandr | grep ' connected ' | awk '$NF ~ /mm$/' | awk '{print $1}')
+	monitors_on_list=$(xrandr | grep -E " connected (primary )?[1-9]+" | sed -e "s/\([A-Z0-9]\+\) connected.*/\1/")
 	if [[ "$monitors_on_list" != *"$max_resolution_monitor"* ]]; then
 		xrandr --noprimary --output "$max_resolution_monitor" --auto
 	fi
@@ -113,7 +117,7 @@ function monitors_single() {
 function monitors_list() {
 	# the grep part is to highlight the matches and print the whole output as well
 	xrandr | grep --color ' connected \|$'
-	echo -e "\nCurrently enabled:\n$(xrandr | grep ' connected ' | awk '$NF ~ /mm$/')"
+	echo -e "\nCurrently enabled:\n$(xrandr | grep -E ' connected (primary )?[1-9]+')"
 }
 
 case $1 in
