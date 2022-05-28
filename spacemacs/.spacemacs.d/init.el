@@ -1617,6 +1617,7 @@ Version 2016-12-18"
              ;; lsp doesn't have other-window function
              ;; xref doesn't work for lsp project
              ("g d" . evil-goto-definition)
+             ("g D" . evil-goto-definition-other-window)
              ("g p" . lsp-ui-peek-find-definitions)
              ("g r" . lsp-ui-peek-find-references)
              ("g R" . xref-find-references)
@@ -2804,6 +2805,16 @@ http://ergoemacs.org/emacs/elisp_determine_cursor_inside_string_or_comment.html"
             ;; TODO: what is debug-window-buffer
             (,dap-ui--debug-window-buffer . ((side . right) (slot . 2) (window-width . 0.20)))
             )))
+  (defun evil-goto-definition-other-window ()
+    "Jump to definition around point in other window.
+Rewrite `spacemacs/jump-to-definition' to use `evil-goto-definition' instead since after jumping using `spacemacs/jump-to-definition', point can get stuck."
+    (interactive)
+    (let ((pos (point)))
+      ;; since `spacemacs/jump-to-definition' can be asynchronous we cannot use
+      ;; `save-excursion' here, so we have to bear with the jumpy behavior.
+      (switch-to-buffer-other-window (current-buffer))
+      (goto-char pos)
+      (evil-goto-definition)))
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
