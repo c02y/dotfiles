@@ -336,10 +336,6 @@ bindsym $mod+Shift+a mode "$mode_open_apps"
 # NOTE: the --experimental-backend for picom is to fix the screen tearing issue
 # https://youtu.be/MfL_JkcEFbE, https://www.reddit.com/r/archlinux/comments/j58isj/
 exec_always --no-startup-id picom --experimental-backend --config ~/.config/i3/picom.conf
-# NOTE: reduce jpeg/png file size losslessly using jpegoptim/optipng,
-# then convert it into avif to reduce more file size using convert from imagemagick
-# original Baboo png wallpapers are from gitlab.manjaro.org/artwork/themes/breath2/-/tree/master/wallpapers
-exec_always --no-startup-id nitrogen --set-scaled ~/.config/i3/Baboo_night_5120x2880_convert.avif
 # NOTE: nm-applet and blueman-applet sometimes exit somehow
 exec_always --no-startup-id blueman-applet
 # change keyboard repeating rate
@@ -354,6 +350,10 @@ exec --no-startup-id fcitx5 -d
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 # for blank screen and sleep/hibernate
 exec --no-startup-id xfce4-power-manager
+# NOTE: reduce jpeg/png file size losslessly using jpegoptim/optipng,
+# then convert it into avif to reduce more file size using convert from imagemagick
+# original Baboo png wallpapers are from gitlab.manjaro.org/artwork/themes/breath2/-/tree/master/wallpapers
+exec_always --no-startup-id nitrogen --set-scaled ~/.config/i3/Baboo_night_5120x2880_convert.avif
 
 # configure colors using https://thomashunter.name/i3-configurator/
 # There is a black line between the window bar and i3bar, use black color to hide it
