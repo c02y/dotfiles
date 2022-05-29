@@ -999,7 +999,7 @@ function wee -d 'wrap watch and watchexec'
         # if -w or -e is not specified, watch everything in the current dir
         # -w is to specify the file/dir path (can be used multiple times)
         # -e is to specify the extension, comma-separated list if multiple
-        # -i to ignore paths, usefule for dir like build, NOTE: ignore build using -i "build/**"
+        # -i to ignore paths, useful for dir like build, NOTE: ignore build using -i "build/**"
         if set -q _flag_w
             for i in $_flag_w
                 set -a OPT -w $i
@@ -1466,7 +1466,8 @@ function pacs -d 'pacman/paru operations'
             paccache -rvuk0 # clean uninstalled packages
         else
             if set -q _flag_p # check which package contains argv file/binary/config
-                paru -F $ARGV
+                # -x is to handle situation the file in pacakge is not all lowercase
+                paru -Fx $ARGV
             else
                 # check if package/bin/conf/file is owned by others, if not, delete it
                 # This can also be used when the following errors occur after executing update command:
