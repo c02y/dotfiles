@@ -319,12 +319,13 @@ bindsym $mod+d exec --no-startup-id dmenu_run
 # the grave key is `, the left key of NUM 1 on the keyboard
 bindsym $mod+grave exec "rofi -show combi -theme ~/Dotfiles.d/misc/rofi-theme-solarized_alternate.rasi"
 
-set $mode_open_apps Actions: (a)udacious, (c)lion, (d)unstClose, (D)unstPop, (f)search, (m)otrix, (p)cmanfm, (s)team, (t)hunderbird, (T)elegram, (v)irtualbox
+set $mode_open_apps Actions: (a)udacious, (c)lion, (d)unstClose, (C-d)unstCloseAll, (D)unstPop, (f)search, (m)otrix, (p)cmanfm, (s)team, (t)hunderbird, (T)elegram, (v)irtualbox
 mode "$mode_open_apps" {
   bindsym a workspace number $ws3; exec $open audacious; mode "default"
   bindsym c exec $open clion; mode "default"
-  bindsym d exec $open dunstctl close; mode "default"
-  bindsym shift+d exec $open dunstctl history-pop; mode "default"
+  bindsym d exec dunstctl close; mode "default"
+  bindsym Mod1+d exec dunstctl close-all; mode "default"
+  bindsym shift+d exec dunstctl history-pop; mode "default"
   bindsym f exec $open fsearch; mode "default"
   bindsym m exec $open motrix; mode "default"
   bindsym p exec $open pcmanfm; mode "default"
