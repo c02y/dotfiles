@@ -367,7 +367,7 @@ end
 alias ls 'exa --icons'
 alias ll 'exa -l --icons'
 function lls -d 'ls/exa operations'
-    set -l options l e s r t a
+    set -l options l e s r t a "E="
     argparse -n lls $options -- $argv
     or return
 
@@ -403,10 +403,13 @@ function lls -d 'ls/exa operations'
 
     # tree
     if set -q _flag_t
+        # $_flag_E is something like 'target|.git' if it contains multiple targets
+        set -q _flag_E; and set OPT2 -I "$_flag_E"; or set OPT2
         if command -sq exa
-            eval $CMD $OPT -l --tree $ARGV
+            # the single '' around $OPT2 because it needs it in command
+            eval $CMD $OPT '$OPT2' -l --tree $ARGV
         else if test -f /usr/bin/tree
-            eval /usr/bin/tree -Cashf $ARGV
+            eval /usr/bin/tree -Cashf '$OPT2' $ARGV
         else
             eval find $ARGV | sed -e "s/[^-][^\/]*\//  |/g" -e "s/|\([^ ]\)/|-\1/"
         end
