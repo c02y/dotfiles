@@ -1758,6 +1758,7 @@ Version 2016-12-18"
   ;; format-all package and the following config replaces all the format-on-save variables
   ;; provided or not-yet-provided by spacemacs
   (add-hook 'prog-mode-hook 'format-all-mode)
+  (add-hook 'toml-mode-hook 'format-all-mode)
   (add-hook 'format-all-mode-hook 'format-all-ensure-formatter)
 
   (defun switch-to-prev-visited-buffer ()
@@ -2242,7 +2243,7 @@ In other non-comment situations, try C-M-j to split."
     (indent-according-to-mode))
 
   (add-hook 'smartparens-enabled-hook #'evil-smartparens-mode)
-  (dolist (hook '(css-mode-hook))
+  (dolist (hook '(css-mode-hook toml-mode-hook))
     (add-hook hook #'smartparens-mode))
 
   (with-eval-after-load 'org
