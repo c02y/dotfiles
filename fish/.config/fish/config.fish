@@ -407,7 +407,7 @@ function lls -d 'ls/exa operations'
         set -q _flag_E; and set OPT2 -I "$_flag_E"; or set OPT2
         if command -sq exa
             # the single '' around $OPT2 because it needs it in command
-            eval $CMD $OPT '$OPT2' -l --tree $ARGV
+            eval $CMD $OPT '$OPT2' --tree $ARGV
         else if test -f /usr/bin/tree
             eval /usr/bin/tree -Cashf '$OPT2' $ARGV
         else
