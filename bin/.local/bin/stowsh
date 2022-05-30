@@ -10,7 +10,7 @@ _runcommands() {
 }
 
 echoerr() {
-	printf "%s\n" "$*" >&2;
+	printf "%s\n" "$*" >&2
 }
 
 deperr() {
@@ -18,7 +18,7 @@ deperr() {
 }
 
 isgnu() {
-	if $1 --version >/dev/null 2>&1 ; then
+	if $1 --version >/dev/null 2>&1; then
 		return 1
 	else
 		return 0
@@ -67,6 +67,11 @@ stowsh_install() {
 		if test -f "${target}" || test -d "${target}"; then
 			d=$($findcmd $d -mindepth 1 -maxdepth 1)
 			target=$(echo "$target/$(basename $d)")
+			if [[ -d "$target" && -z "$(ls -A $target)" ]]; then
+				echo $target exists and is empty, removing it...
+				rm -rfv $target
+				echo
+			fi
 			if test -L "${target}"; then
 				echo $target is already a symbolic link...
 				echo
@@ -93,6 +98,10 @@ stowsh_uninstall() {
 		if ! test -L "${target}"; then
 			d=$($findcmd $d -mindepth 1 -maxdepth 1)
 			target=$(echo "$target/$(basename $d)")
+			if ! test -d "${target}"; then
+				echo $target does not exist...
+				break
+			fi
 			if ! test -L "${target}"; then
 				echo $target is not a symbolic link...
 			else
@@ -130,31 +139,36 @@ if [ "$0" = "$BASH_SOURCE" ]; then
 			OPTIND=1
 			while getopts ":vhrsnt:" opt; do
 				case $opt in
-					h)
-						stowsh_help
-						exit 0
-						;;
-					r)  UNINSTALL=1
-						;;
-					n)  DRYRUN=1
-						;;
-					s)  SKIP=1
-						;;
-					v)  VERBOSE=$((VERBOSE + 1))
-						;;
-					*)  echo "'$OPTARG' is an invalid option/flag"
-						exit 1
-						;;
+				h)
+					stowsh_help
+					exit 0
+					;;
+				r)
+					UNINSTALL=1
+					;;
+				n)
+					DRYRUN=1
+					;;
+				s)
+					SKIP=1
+					;;
+				v)
+					VERBOSE=$((VERBOSE + 1))
+					;;
+				*)
+					echo "'$OPTARG' is an invalid option/flag"
+					exit 1
+					;;
 				esac
 			done
-			shift $((OPTIND-1))
+			shift $((OPTIND - 1))
 		else
 			PACKAGES+=("$1")
 			shift
 		fi
 	done
 
-	if [[ ${#PACKAGES[@]} -eq 0 ]] ; then
+	if [[ ${#PACKAGES[@]} -eq 0 ]]; then
 		stowsh_help
 		exit 1
 	fi
@@ -162,10 +176,10 @@ if [ "$0" = "$BASH_SOURCE" ]; then
 	for i in ${!PACKAGES[*]}; do
 		pkg=${PACKAGES[$i]}
 		if [[ $UNINSTALL -eq 1 ]]; then
-			if [[ $VERBOSE -gt 0 ]] ; then echoerr "Uninstalling $pkg" ; fi
+			if [[ $VERBOSE -gt 0 ]]; then echoerr "Uninstalling $pkg"; fi
 			stowsh_uninstall "$pkg"
 		else
-			if [[ $VERBOSE -gt 0 ]] ; then echoerr "Installing $pkg" ; fi
+			if [[ $VERBOSE -gt 0 ]]; then echoerr "Installing $pkg"; fi
 			stowsh_install "$pkg"
 		fi
 	done
