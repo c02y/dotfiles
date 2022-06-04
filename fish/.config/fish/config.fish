@@ -2303,12 +2303,16 @@ end
 
 # create container example:
 # docker run -it -v ~/Public/tig:/Public/tig -net host --name new_name ubuntu:xenial /bin/bash
-function docks -d 'docker commands'
-    set -l options s S p r R l L t q
+function docks -d 'docker/podman commands'
+    set -l options s S p r R l L t q n
     argparse -n docks $options -- $argv
     or return
 
+    command -sq podman; and set BIN podman; or set BIN docker
+
     if set -q _flag_s # serach image
+        # NOTE: if using podman, put the following line into /etc/containers/registries.conf
+        # unqualified-search-registries=["registry.access.redhat.com", "registry.fedoraproject.org", "docker.io"]
         set CMD search
     else if set -q _flag_p # pull image(repo:tag as repo)
         # tag is from `docks -t $repo`
@@ -2323,64 +2327,74 @@ function docks -d 'docker commands'
     if set -q CMD # CMD is set
         if set -q _flag_r
             # ARGV is CONTAINER ID
-            set ARGV (docker ps -a | fzf --preview-window hidden | awk '{print $1}')
+            set ARGV (eval $BIN ps -a --noheading | fzf --preview-window hidden | awk '{print $1}')
         else if set -q _flag_R
             # ARGV is IMAGE ID
-            set ARGV (docker image ls | fzf --preview-window hidden | awk '{print $3}')
+            set ARGV (eval $BIN image ls --noheading | fzf --preview-window hidden | awk '{print $3}')
         else
             set ARGV $argv
         end
-        test $ARGV; and eval docker $CMD $ARGV
+        test $ARGV; and eval $BIN $CMD $ARGV
         return
     end
 
     if set -q _flag_l # list all created containers and pulled images
         echo "Pulled images:"
-        docker image ls
+        eval $BIN image ls
 
         echo -e "\nCreated containers:"
-        docker ps -a
+        eval $BIN ps -a
     else if set -q _flag_L # list all verbose info(such as size) of the containers/images installed
-        docker system df --verbose
+        eval $BIN system df --verbose
     else if set -q _flag_t # list tags for a docker image(repo as argv)
         # use this for only the top 10 tags:
         # curl https://registry.hub.docker.com/v2/repositories/library/$argv[1]/tags/ | jq '."results"[]["name"]'
+        # if using podman, note the argv[1] is the image
         wget -q https://registry.hub.docker.com/v1/repositories/$argv[1]/tags -O - | sed -e 's/[][]//g' -e 's/"//g' -e 's/ //g' | tr '}' '\n' | awk -F: '{print $3}'
         and echo -e "\nThese are all the tags!\nPlease use `docks -p $argv[1]:tag` to pull the image!"
         return
     else if set -q _flag_q # stop a running container
-        set ID (docker ps | fzf --preview-window hidden | awk '{print $1}')
-        test $ID; and docker container stop $ID # if ID is not empty
+        set ID (eval $BIN ps --noheading | fzf --preview-window hidden | awk '{print $1}')
+        test $ID; and eval $BIN container stop -t 0 $ID --log-level=debug # if ID is not empty
     else if set -q _flag_S # add a shared folder to existed containerd
-        set ID (docker ps -a | fzf --preview-window hidden | awk '{print $1}')
+        set ID (eval $BIN ps -a | fzf --preview-window hidden | awk '{print $1}')
         read -p 'echo "new container name: "' -l new_name
-        docker commit $ID $new_name
+        eval $BIN commit $ID $new_name
         read -p 'echo "The share folder(absolute path) in host: "' -l share_src
         read -p 'echo "The share folder(absolute path) in container: "' -l share_dst
-        docker run -ti -v $share_src:$share_dst $new_name /bin/bash
-    else # no option, no argv, run an existed container
-        if test (docker ps -a | wc -l ) = 1
-            if test (docker image ls | wc -l) = 1
+        eval $BIN run -ti -v $share_src:$share_dst $new_name /bin/bash
+    else
+        if set -q _flag_n # crate a new container from images
+            set IMG_ID (eval $BIN image ls --noheading | fzf --preview-window hidden | awk '{print $3}')
+            not test $IMG_ID; and return
+            read -p 'echo "The name for the new container: "' -l name
+            eval $BIN create -ti --name $name $IMG_ID
+        end
+
+        # no option, no argv, run an existed container or create a new one if none
+        if test (eval $BIN ps -a | wc -l) = 1
+            if test (eval $BIN image ls | wc -l) = 1
                 echo "No container no image, need to pull an image first..."
                 return
             end
             echo "No container, create a basic one from the existing image..."
-            sleep 2
-            set IMG_ID (docker image ls | fzf --preview-window hidden | awk '{print $3}')
+            set IMG_ID (eval $BIN image ls --noheading | fzf --preview-window hidden | awk '{print $3}')
             not test $IMG_ID; and return
-            docker create -ti --name basic_con $IMG_ID bash
+
+            read -p 'echo "The name for the new container: "' -l name
+            eval $BIN create -ti --name $name $IMG_ID
         end
-        set CON_ID (docker ps -a | fzf --preview-window hidden | awk '{print $1}')
+        set CON_ID (eval $BIN ps -a --noheading | fzf --preview-window hidden | awk '{print $1}')
         not test $CON_ID; and return
 
-        docker inspect --format="{{.State.Running}}" $CON_ID | rg true >/dev/null 2>/dev/null
+        eval $BIN inspect --format="{{.State.Running}}" $CON_ID | rg true >/dev/null 2>/dev/null
         if test $status = 0
             # if the ID is already running, exec it,
             # meaning: start another session on the same running container
             echo -e "\nNOTE: the container is already running in another session...\n"
-            docker exec -it $CON_ID bash
+            eval $BIN exec -it $CON_ID bash
         else
-            docker start -i $CON_ID
+            eval $BIN start -a $CON_ID
         end
     end
 end
