@@ -2320,7 +2320,7 @@ function docks -d 'docker commands'
         # docker rmi $argv
     end
 
-    if not set -q $CMD # CMD is set
+    if set -q CMD # CMD is set
         if set -q _flag_r
             # ARGV is CONTAINER ID
             set ARGV (docker ps -a | fzf --preview-window hidden | awk '{print $1}')
