@@ -1586,6 +1586,7 @@ function pacs -d 'pacman/paru operations'
             checkupdates
             set return_code $status
             if test $return_code -eq 0
+                notify-send "There are updates from pacman/paru!"
                 # if three times passed no password is typed, 
                 # use `faillock --user chz --reset` to unlock the password attempt for root
                 # timeout here in case forget to type password and then 3 attemps passed
