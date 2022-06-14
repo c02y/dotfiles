@@ -247,18 +247,6 @@ bindsym $mod+Ctrl+Down  resize shrink height 50 px or 5 ppt; move position cente
 bindsym $mod+Ctrl+Shift+Up resize set height 97 ppt; move position center
 bindsym $mod+Ctrl+Shift+Left resize set width 99 ppt; move position center
 
-# put all modes in this parent mode
-set $modes Modes: (m)erge_swap, (M)ark, (s)ystem, (r)esize
-mode "$modes" {
-  bindsym m mode "$mode_merge_swap"
-  bindsym Shift+m mode "$mode_mark"
-  bindsym s mode "$mode_system"
-  bindsym r mode "$mode_resize"
-
-  bindsym Escape mode "default"
-}
-bindsym $mod+Shift+m mode "$modes"
-
 # NOTE: sticky makes it visible in all workspaces
 # only work for floating window, floating window is already on top
 bindsym $mod+F12 sticky toggle
