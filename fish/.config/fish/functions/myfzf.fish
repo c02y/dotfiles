@@ -49,7 +49,7 @@ end
 ################################# __fzf_reverse_isearch.fish
 function __fzf_reverse_isearch
     history merge
-    history -z | eval fzf --read0 --print0 --tiebreak=index --toggle-sort=ctrl-r $FZF_DEFAULT_OPTS -q '(commandline)' --preview-window hidden | read -lz result
+    history --show-time='%F %T ' -z | eval fzf --read0 --print0 --tiebreak=index --toggle-sort=ctrl-r $FZF_DEFAULT_OPTS -q '(commandline)' --preview-window hidden | cut -d " " -f 3- | read -lz result
     and commandline -- $result
     commandline -f repaint
 end
