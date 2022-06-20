@@ -58,8 +58,8 @@ function set_keyboard --on-event fish_preexec
         # 50=repeat rate, is the number of repeats per second
         # or uncomment the following part and use System Preference
         if command -sq uname; and test (uname) = Linux
-            if test (xset -q | rg "repeat rate: " | awk '{print $NF}') -lt 50
-                xset r rate 200 100
+            if test (xset -q | rg "repeat rate: " | awk '{print $NF}') -ne 50
+                xset r rate 200 50
             end
         end
     end
