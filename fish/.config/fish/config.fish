@@ -1592,7 +1592,7 @@ function pacs -d 'pacman/paru operations'
                 # timeout here in case forget to type password and then 3 attemps passed
                 timeout 60 paru -Syu $ARGV
             else if test $return_code -eq 2
-                echo "Already Updated!"
+                echo "Already Up To Date!"
             end
             # otherwise, return_code=1, such as network issue
         end
@@ -2795,9 +2795,9 @@ function ffms -d 'ffmpeg related functions'
     else if set -q _flag_i # info
         for file in $argv
             # `mediainfo --info-parameters` to get all the variables
-            mediainfo --Inform="General;%CompleteName%\n%Duration/String2%, %OverallBitRate/String%, %FileSize/String4%" $file
-            mediainfo --Inform="Video;%CodecID%, %Width%x%Height%" $file
-            mediainfo --Inform="Audio;%Compression_Mode/String%, %SamplingRate/String%" $file
+            mediainfo --Inform="General;%CompleteName%\n%Duration/String2%, %FileSize/String4%" $file
+            mediainfo --Inform="Video;%Format%, %Width%x%Height%, %BitRate/String%" $file
+            mediainfo --Inform="Audio;%Format%, %Compression_Mode/String%, %BitRate/String%, %SamplingRate/String%" $file
             echo
         end
     end
