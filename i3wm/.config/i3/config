@@ -221,7 +221,7 @@ set $mode_system Actions: (b)lackscreen, (l)ock, (L)ogout, (m)onitors0, (M)onito
 mode "$mode_system" {
   # black screen, move mouse or hit a key to back on
   bindsym b exec xset dpms force off, mode "default"
-  bindsym l exec --no-startup-id i3lock, mode "default"
+  bindsym l exec --no-startup-id i3lock -c 000000, mode "default"
   bindsym Shift+l exec --no-startup-id i3-msg exit, mode "default"
   # m is to use only the laptop native builtin monitor, M is to use both laptop and external ones
   bindsym m exec monitors -0; mode "default"
