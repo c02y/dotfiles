@@ -310,7 +310,7 @@ bindsym $mod+grave exec "rofi -show combi -theme ~/Dotfiles.d/misc/rofi-theme-so
 
 set $mode_open_apps Actions: (a)udacious, (c)lion, (d)unstClose, (C-d)unstCloseAll, (D)unstPop, (f)search, (m)otrix, (p)cmanfm, (s)team, (t)hunderbird, (T)elegram, (v)irtualbox
 mode "$mode_open_apps" {
-  bindsym a workspace number $ws3; exec $open audacious; mode "default"
+  bindsym a workspace --no-auto-back-and-forth $ws3; exec $open audacious; mode "default"
   bindsym c exec $open clion; mode "default"
   bindsym d exec dunstctl close; mode "default"
   bindsym Mod1+d exec dunstctl close-all; mode "default"
@@ -319,9 +319,9 @@ mode "$mode_open_apps" {
   bindsym m exec $open motrix; mode "default"
   bindsym p exec $open pcmanfm; mode "default"
   bindsym s exec $open steam; mode "default"
-  bindsym t workspace number $ws3; exec $open thunderbird; mode "default"
-  bindsym Shift+t workspace number $ws3; exec $open telegram-desktop; mode "default"
-  bindsym v workspace number $ws3; exec $open virtualbox; mode "default"
+  bindsym t workspace --no-auto-back-and-forth $ws3; exec $open thunderbird; mode "default"
+  bindsym Shift+t workspace --no-auto-back-and-forth $ws3; exec $open telegram-desktop; mode "default"
+  bindsym v workspace --no-auto-back-and-forth $ws3; exec $open virtualbox; mode "default"
 
   bindsym Escape mode "default"
 }
