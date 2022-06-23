@@ -30,6 +30,8 @@ set nowrapscan
 set wrap
 " this updatetime affects the CursorHold
 set updatetime=1000
+" from rrethy/vim-hexokinase, config in lvim.plugins block according to lunarvim doc deosn't work
+let g:Hexokinase_highlighters = ['backgroundfull']
 ]])
 vim.api.nvim_exec(
 	[[
@@ -52,12 +54,10 @@ vim.api.nvim_exec(
 -- Additional Plugins
 lvim.plugins = {
 	--     {"folke/tokyonight.nvim"},
-	{
-		"folke/trouble.nvim",
-		cmd = "TroubleToggle",
-	},
+	{ "folke/trouble.nvim", cmd = "TroubleToggle" },
 	{ "szw/vim-maximizer" },
-	{ "chrisbra/Colorizer" },
+	-- make command needs golang installed
+	{ "rrethy/vim-hexokinase", run = "make hexokinase" },
 	{ "vimlab/split-term.vim" },
 	{ "thinca/vim-quickrun" },
 	{ "ethanholz/nvim-lastplace" },
@@ -216,8 +216,8 @@ lvim.builtin.which_key.mappings["dQ"] = {
 
 lvim.builtin.which_key.mappings["t"] = {
 	name = "+Toggle",
-	-- from chrisbra/Colorizer
-	c = { ":ColorToggle<CR>", "Toggle Color" },
+	-- from rrethy/vim-hexokinase
+	c = { ":HexokinaseToggle<CR>", "Toggle Color" },
 	w = { ":set list!<CR>", "Toggle Whitespace" },
 	l = { ":set wrap!", "Wrap Lines" },
 }
