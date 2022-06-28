@@ -1500,7 +1500,7 @@ function pacs -d 'pacman/paru operations'
         # if confirmed, delete/uninstall argv including dependencies
         if paru -Rscp $ARGV # in case $ARGV is not found
             read -n 1 -l -p 'echo "Really uninstall? [y/N] "' answer
-            test "$answer" = y -o "$answer" = " "; and paru -Rsc --noconfirm $ARGV
+            test "$answer" = y -o "$answer" = " "; and paru -Rscn --noconfirm $ARGV
         end
     else if set -q _flag_g # group
         # all available groups(not all) and their packages: https://archlinux.org/groups/
@@ -2596,13 +2596,28 @@ end
 
 abbr pxx 'proxychains4 -q'
 function ios -d 'disk/network/OS related'
-    set -l options "s=" "h=" g a n N b
+    set -l options "s=" "h=" g a n N b t
     argparse -n ios $options -- $argv
     or return
 
     if set -q _flag_s # speed of a drive
         # argv is device like /dev/sda1
         sudo hdparm -Tt $_flag_s
+    else if set -q _flag_t # set date/time manually
+        if set -q _flag_a # sync date/time from internet automatically
+            sudo timedatectl set-ntp 0
+            sudo timedatectl set-time (date -d (curl -I 'https://baidu.com/' 2>/dev/null | grep -i '^date:' | sed 's/^[Dd]ate: //g') '+%Y-%m-%d %T')
+            sudo hwclock --systohc
+            sudo timedatectl set-ntp 1
+        else if set -q argv[1] # given argv, temporally
+            sudo timedatectl set-ntp 0
+            # argv is string like "2022-01-01 01:01:01" or "01:01:01"
+            sudo timedatectl set-time "$argv"
+            # sudo hwclock --systohc
+            # NOTE: if enabling the following line, the time after is always -2 mins to real time (not argv)
+            # sudo timedatectl set-ntp 1
+        end
+        timedatectl status
     else if set -q _flag_h # health of a drive
         # Check the health issue of disk using smartmontools
         # the argv is device like /dev/nvme0n1
