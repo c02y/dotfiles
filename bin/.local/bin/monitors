@@ -134,12 +134,17 @@ function monitors_specify() {
 		return
 	fi
 
+	monitors_on_list=$(xrandr | grep -E " connected (primary )?[1-9]+" | sed -e "s/\([A-Z0-9]\+\) connected.*/\1/")
 	case "$1" in
 	"0")
-		xrandr --output "$monitor_laptop" --auto --primary --output "$monitor_external0" --off
+		if [[ "$monitors_on_list" != "$monitor_laptop" ]]; then
+			xrandr --output "$monitor_laptop" --auto --primary --output "$monitor_external0" --off
+		fi
 		;;
 	"1")
-		xrandr --output "$monitor_external0" --primary --auto --output "$monitor_laptop" --off
+		if [[ "$monitors_on_list" != "$monitor_external0" ]]; then
+			xrandr --output "$monitor_external0" --primary --auto --output "$monitor_laptop" --off
+		fi
 		;;
 	"2")
 		xrandr --output "$monitor_external0" --auto --primary --output "$monitor_laptop" --auto "$laptop_2_external0" "$monitor_external0"
