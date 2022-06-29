@@ -1360,8 +1360,8 @@ function pacs -d 'pacman/paru operations'
     if set -q _flag_h
         echo "      --> update the system"
         echo "      argv --> search argv"
+        echo "      -h --> usage"
         echo "      -y --> pacman/paru with noconfirm"
-        echo "      -p --> print installed pacakges stats"
         echo "      -m --> get fastest mirror from China by default"
         echo "         + argv --> get mirrors from argv country"
         echo "         + -l --> list local mirrors"
@@ -1382,6 +1382,7 @@ function pacs -d 'pacman/paru operations'
         echo "         + argv --> check if argv is owned/provided by a pacakge, otherwise delete it"
         echo "      -u --> update, force refresh database first"
         echo "         + -l --> download files list from database"
+        echo "         + -p --> print upgradable packages"
         echo "         + -d --> downgradable update"
         echo "      -d --> delete/uninstall with dependencies(need argv)"
         echo "      -g --> list all local and remote groups"
@@ -1398,8 +1399,10 @@ function pacs -d 'pacman/paru operations'
         echo "         + -n --> list installed packaegs, names only"
         echo "           + argv --> list installed packages containing argv keyword in name"
         echo "         + -a --> specfic from AUR"
-        echo "         + -r --> list all packages from repo"
-        echo "         + -r -L --> list installed/local packages from repo"
+        echo "         + -r argv --> list all packages from argv repo"
+        echo "         + -r -L argv --> list installed/local packages from argv repo"
+        echo "         + -p --> print installed pacakges stats"
+        echo "         + -L --> print explicitly installed packages"
         echo "         + argv --> list installed packages containing argv keyword in name or description"
         echo "      -L --> list content of pacakges, the same as -s -L"
         echo "         + argv --> from a package"
@@ -1411,7 +1414,6 @@ function pacs -d 'pacman/paru operations'
         echo "         + -a --> list all packages in repo+AUR"
         echo "      -a --> search all using paru, slow since inlcuding AUR"
         echo "      -k --> check for missing files in packages"
-        echo "      -h --> usage"
     else if set -q _flag_m # mirror
         set -q _flag_l; and cat /etc/pacman.d/mirrorlist && return
         set -q argv[1]; and set ARGV $argv[1]; or set ARGV China
@@ -1478,7 +1480,7 @@ function pacs -d 'pacman/paru operations'
                 # After executing this function with xxx one by one, execute the update command again
                 # https://wiki.archlinux.org/index.php/Pacman#.22Failed_to_commit_transaction_.28conflicting_files.29.22_error
                 # NOTE: this can be also used to check what package provides the file/command/package
-                not pacman -Q -o $ARGV; and sudo rm -rfv $ARGV
+                not pacman -Qo $ARGV; and sudo rm -rfv $ARGV
             end
         end
     else if set -q _flag_u # force refresh update/upgrade, NOTE: pacs without anything also update
@@ -1490,6 +1492,8 @@ function pacs -d 'pacman/paru operations'
             # allow downgrade, needed when switch to old branch like testing->stable or
             # you seen local xxx is newer than xxx
             paru -Syuu
+        else if set -q _flag_p # print upgradable packages
+            paru -Qeu
         else
             # force a full refresh of database and update the sustem
             # must do this after switching branch/mirror
@@ -1542,12 +1546,16 @@ function pacs -d 'pacman/paru operations'
             else
                 paru -Q | rg $ARGV
             end
-        else if set -q _flag_a # list packages installed from AUR(no really)
+        else if set -q _flag_a # list packages installed from AUR
             paru -Qm
         else if set -q _flag_r # list packages from repo
             # and: list installed/local packages from repo
             # or: list all(remote and local) packages from repo
             set -q _flag_L; and paclist $ARGV; or paru -Sl $ARGV
+        else if set -q _flag_p # print all stats about packages in system
+            paru -Ps
+        else if set -q _flag_L # list all explicitly installed packages
+            paru -Qet
         else
             paru -Qs $ARGV
         end
@@ -1570,8 +1578,6 @@ function pacs -d 'pacman/paru operations'
         end
     else if set -q _flag_a # search all including repo and aur
         paru $ARGV
-    else if set -q _flag_p # print all stats about packages in system
-        paru -Ps
     else if set -q _flag_k # check for missing files in packages
         # use this when you see something like "warning: xxx path/to/xxx (No such file or directory)"
         # or "warning: could not get file information for path/to/xxx", especially python pacakges
