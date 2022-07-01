@@ -751,7 +751,7 @@ function fzf_previewer -d 'generate preview for completion widget.
         case "video*" "audio*" "image*"
             mediainfo $path
         case inode/directory
-            ls -lhA $path
+            /bin/ls -lhA $path
         case application/x-alpa-package "application/x-*compressed-tar" application/zstd application/zip
             bsdtar --list --file $path
         case application/x-rar
