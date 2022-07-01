@@ -855,6 +855,8 @@ end
 
 function fdd -d 'fd to replace mlocate/plocate'
     set -l options a v m d o O x r e w p "E=" H "t="
+    # -T can be used multiple times with values
+    set -a options (fish_opt -s T --multiple-vals)
     argparse -n fdd $options -- $argv
     or return
 
@@ -879,6 +881,11 @@ function fdd -d 'fd to replace mlocate/plocate'
         set EXT -e pdf
     else if set -q _flag_t
         set EXT "-e $_flag_t"
+    else if set -q _flag_T
+        # -T can be used multiple times with value 
+        for i in $_flag_T
+            set -a EXT "-t $i"
+        end
     end
 
     set ARGV . && set DIR .
