@@ -365,7 +365,7 @@ function bxp -d 'pastebin service in command line'
 end
 #
 alias ls 'exa --icons'
-alias ll 'exa -l --icons'
+alias ll 'exa -l --icons -b'
 function lls -d 'ls/exa operations'
     set -l options l e s r t a "E="
     argparse -n lls $options -- $argv
