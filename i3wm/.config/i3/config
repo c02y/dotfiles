@@ -348,7 +348,8 @@ exec --no-startup-id xfce4-power-manager
 # NOTE: reduce jpeg/png file size losslessly using jpegoptim/optipng,
 # then convert it into avif to reduce more file size using convert from imagemagick
 # original Baboo png wallpapers are from gitlab.manjaro.org/artwork/themes/breath2/-/tree/master/wallpapers
-exec_always --no-startup-id nitrogen --force-setter=xwindows --set-scaled ~/.config/i3/Baboo_night_5120x2880_convert.avif
+# randomly choose one from the *.avif and set it as wallpaper
+exec_always --no-startup-id nitrogen --force-setter=xwindows --set-scaled $(shuf -n1 -e ~/.config/i3/*.avif)
 # add 5s delay, otherwise the script won't work, 
 # NOTE: bt devices are closed before hiberation, exec doesn't work for wakup from hiberation 
 exec --no-startup-id sleep 5; toggle_bt_connection.sh
