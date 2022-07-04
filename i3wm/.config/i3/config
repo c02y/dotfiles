@@ -126,11 +126,12 @@ bindsym $mod+Shift+w layout toggle split
 
 # toggle tiling / floating
 bindsym --whole-window $mod+button1 floating toggle; move position center
-bindsym $mod+Shift+space floating toggle; move position center
+# the grave key is `, the left key of NUM 1 on the keyboard
+bindsym $mod+grave floating toggle; move position center
 bindsym button9 floating toggle; move position center
 # change focus between tiling / floating windows
 bindsym --whole-window $mod+button3 focus mode_toggle
-bindsym $mod+Ctrl+Shift+space focus mode_toggle
+bindsym $mod+Shift+grave focus mode_toggle
 bindsym $mod+Shift+minus border toggle
 
 # focus the parent container
@@ -306,9 +307,9 @@ bindsym F12 exec tdrop -t -m -y 30 -w 100% -h 98% kitty --class=Dropdown --title
 # if $mod+q fails, use $mod+d
 bindsym $mod+d exec --no-startup-id dmenu_run
 # the grave key is `, the left key of NUM 1 on the keyboard
-bindsym $mod+grave exec "rofi -show combi -theme ~/Dotfiles.d/misc/rofi-theme-solarized_alternate.rasi"
+bindsym $mod+Escape exec "rofi -show combi -theme ~/Dotfiles.d/misc/rofi-theme-solarized_alternate.rasi"
 
-set $mode_open_apps Actions: (a)udacious, (c)lion, (d)unstClose, (C-d)unstCloseAll, (D)unstPop, (f)search, (m)otrix, (p)cmanfm, (s)team, (t)hunderbird, (T)elegram, (v)irtualbox
+set $mode_open_apps Actions: (a)udacious, (c)lion, (d)unstClose, (M-d)unstCloseAll, (D)unstPop, (f)search, (m)otrix, (p)cmanfm, (s)team, (t)hunderbird, (T)elegram, (v)irtualbox
 mode "$mode_open_apps" {
   bindsym a workspace --no-auto-back-and-forth $ws3; exec $open audacious; mode "default"
   bindsym c exec $open clion; mode "default"
