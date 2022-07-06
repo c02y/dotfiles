@@ -52,7 +52,7 @@ function monitors_all() {
 }
 
 # FIXME: not perfect, sometimes it messes up the primary monitor
-function monirors_choose() {
+function monitors_choose() {
 	monitors_list
 	monitors=$(xrandr | awk '$2 == "connected"{print $1}')
 
@@ -172,7 +172,7 @@ case $1 in
 	monitors_list
 	;;
 "-c")
-	monirors_choose
+	monitors_choose
 	;;
 "-a")
 	monitors_all
