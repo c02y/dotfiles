@@ -450,23 +450,29 @@ linters.setup({
 })
 
 -- Autocommands (https://neovim.io/doc/user/autocmd.html)
-lvim.autocommands.custom_groups = {
+lvim.autocommands = {
 	-- On entering a lua file, set the tab spacing and shift width to 8
-	{ "BufWinEnter", "*.lua", "set noexpandtab ts=2 sw=2" },
-	{ "BufRead,BufNewFile", "*.c,*.h", "set noexpandtab tabstop=8 shiftwidth=8" },
-	{ "BufRead,BufNewFile", "*.cpp,*.cc,*.hpp", "set noexpandtab tabstop=4 shiftwidth=4" },
-	{ "BufRead,BufNewFile", "*.fish", "set expandtab tabstop=4 shiftwidth=4" },
+	{ "BufWinEnter", { pattern = { "*.lua" }, command = "set noexpandtab ts=2 sw=2" } },
+	{ "BufRead,BufNewFile", { pattern = { "*.c", "*.h" }, command = "set noexpandtab tabstop=8 shiftwidth=8" } },
+	{
+		"BufRead,BufNewFile",
+		{ pattern = { "*.cpp", "*.cc", "*.hpp" }, command = "set noexpandtab tabstop=4 shiftwidth=4" },
+	},
+	{ "BufRead,BufNewFile", { pattern = { "*.fish" }, command = "set expandtab tabstop=4 shiftwidth=4" } },
 	-- auto hover when cursot is stopped at something
 	-- hover can maually triggered by K
 	-- * if &filetype != "latex" && &filetype != "plaintex" | do
-	{ "CursorHold,CursorHoldI,MenuPopup", '* if &ft != "fish" | lua vim.lsp.buf.hover()' },
+	{
+		"CursorHold,CursorHoldI,MenuPopup",
+		{ pattern = { "*.*" }, command = 'if &ft != "fish" | lua vim.lsp.buf.hover()' },
+	},
 	-- On entering insert mode in any file, scroll the window so the cursor line is centered
-	-- { "InsertEnter", "*", ":normal zz" },
+	{ "InsertEnter", { pattern = { "*" }, command = ":normal zz" } },
 	-- start insert when editing git commit message
-	{ "FileType", "gitcommit 1 | startinsert" },
-	-- for color and borders of pop windows likes which-key and completion
-	{ "ColorScheme * highlight Pmenu ctermbg=NONE guibg=NONE" },
-	{ "ColorScheme * highlight FloatBorder ctermbg=NONE guibg=NONE" },
+	{ "FileType", { pattern = { "gitcommit" }, command = "startinsert" } },
+	-- for color and borders of pop windows likes which-key and lsp
+	{ "ColorScheme", { pattern = { "*" }, command = "highlight Pmenu ctermbg=NONE guibg=NONE" } },
+	{ "ColorScheme", { pattern = { "*" }, command = "highlight FloatBorder ctermbg=NONE guibg=NONE" } },
 }
 
 -- debugger -- dap
