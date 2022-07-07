@@ -296,10 +296,6 @@ bindsym $mod+Shift+f exec $open -t RangerFM kitty -T=RangerFM ranger
 bindsym $mod+F1 exec $open -t Btop kitty -T=Btop btop
 bindsym $mod+Mod1+m move scratchpad
 bindsym $mod+m scratchpad show
-# NOTE: don't use $open for flameshot since you pin a screenshot you may need to screenshot again
-bindsym $mod+Print exec flameshot gui
-bindsym $mod+Shift+Print exec flameshot gui --delay 2000
-bindsym $mod+Ctrl+Shift+Print exec flameshot launcher
 # NOTE: the options for tdrop are important, especially for WM and multiple monitors
 # NOTE: -y 30 is to make the top margin of Dropdown_Kitty and bottom margin of i3status-bar work well
 # -h 98% is to make the status bar of tmux in Dropdown_Kitty work well with the screen bottom margin
@@ -309,7 +305,20 @@ bindsym $mod+d exec --no-startup-id dmenu_run
 # the grave key is `, the left key of NUM 1 on the keyboard
 bindsym $mod+Escape exec "rofi -show combi -theme ~/Dotfiles.d/misc/rofi-theme-solarized_alternate.rasi"
 
-set $mode_open_apps Actions: (a)udacious, (c)lion, (d)unstClose, (M-d)unstCloseAll, (D)unstPop, (f)search, (m)otrix, (p)cmanfm, (s)team, (t)hunderbird, (T)elegram, (v)irtualbox
+set $mode_screenshot Screenshot: (Return)default, (c)opy, (d)elay, (f)ullscreen, (i)mgur, (p)in
+mode "$mode_screenshot" {
+  # NOTE: don't use $open for flameshot since you pin a screenshot you may need to screenshot again
+  bindsym Return exec flameshot gui; mode "default"
+  bindsym c exec flameshot gui -c; mode "default"
+  bindsym d exec flameshot gui -d 2000; mode "default"
+  bindsym f exec flameshot full; mode "default"
+  bindsym i exec flameshot gui -u; mode "default"
+  bindsym p exec flameshot gui --pin; mode "default"
+
+  bindsym Escape mode "default"
+}
+bindsym $mod+Shift+P mode "$mode_screenshot"
+
 set $mode_open_apps Apps: (a)udacious, (c)lion, (d)unstClose, (M-d)unstCloseAll, (D)unstPop, (f)search, (m)otrix, (n)etworkMonitor, (p)cmanfm, (s)team, (t)hunderbird, (T)elegram, (v)irtualbox
 mode "$mode_open_apps" {
   bindsym a workspace --no-auto-back-and-forth $ws3; exec $open audacious; mode "default"
