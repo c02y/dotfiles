@@ -13,12 +13,14 @@
 [core]
 	filemode = true
 	#pager = less -iXFR -x4 -M
-  pager = /usr/share/git/diff-highlight/diff-highlight
+	pager = /usr/share/git/diff-highlight/diff-highlight
+	# ignore dirs/files in the file globallly for all git repos
+	excludesFile = ~/Dotfiles.d/misc/global_gitignore
 [merge]
 #	tool = meld
 	tool = nvim
 [diff]
-    colorMoved = default
+	colorMoved = default
 [mergetool "nvim"]
 	# cmd = nvim -f -c \"Gvdiffsplit!\" \"$MERGED\"
 	# cmd = nvim -f -d \"$LOCAL\" \"$MERGED\" \"$REMOTE\"
