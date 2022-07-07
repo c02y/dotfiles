@@ -949,7 +949,7 @@ function fdd -d 'fd to replace mlocate/plocate'
 end
 
 # df+du+gdu/dua
-function dfs -d 'df(-l, -L for full list), gua(-i), dua(-I), du(by default), cache/config dir of Firefox/Chrome/paru/pacman'
+function dfs -d 'df(-l, -L for full list), dua/gua(-i interactive), dua(by default), cache/config dirs'
     set -l options i I l L c t m s
     argparse -n dfs $options -- $argv
     or return
@@ -997,7 +997,7 @@ function dfs -d 'df(-l, -L for full list), gua(-i), dua(-I), du(by default), cac
 end
 
 function wee -d 'wrap watch and watchexec'
-    set -l options x n "e=" "i="
+    set -l options x n "e=" "i=" "d="
     # -w can be used multiple times with values
     set -a options (fish_opt -s w --multiple-vals)
     argparse $options -- $argv
@@ -1005,7 +1005,10 @@ function wee -d 'wrap watch and watchexec'
 
     if set -q _flag_x # to use watchexec
         set OPT --shell=fish
+        # -n, notify when done
         set -q _flag_n; and set -a OPT -N
+        # -d argv to monitor the argv dir
+        set -q _flag_d; and set -a OPT $_flag_d
         # if -w or -e is not specified, watch everything in the current dir
         # -w is to specify the file/dir path (can be used multiple times)
         # -e is to specify the extension, comma-separated list if multiple
