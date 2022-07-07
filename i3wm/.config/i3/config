@@ -310,6 +310,7 @@ bindsym $mod+d exec --no-startup-id dmenu_run
 bindsym $mod+Escape exec "rofi -show combi -theme ~/Dotfiles.d/misc/rofi-theme-solarized_alternate.rasi"
 
 set $mode_open_apps Actions: (a)udacious, (c)lion, (d)unstClose, (M-d)unstCloseAll, (D)unstPop, (f)search, (m)otrix, (p)cmanfm, (s)team, (t)hunderbird, (T)elegram, (v)irtualbox
+set $mode_open_apps Apps: (a)udacious, (c)lion, (d)unstClose, (M-d)unstCloseAll, (D)unstPop, (f)search, (m)otrix, (n)etworkMonitor, (p)cmanfm, (s)team, (t)hunderbird, (T)elegram, (v)irtualbox
 mode "$mode_open_apps" {
   bindsym a workspace --no-auto-back-and-forth $ws3; exec $open audacious; mode "default"
   bindsym c exec $open clion; mode "default"
@@ -318,6 +319,8 @@ mode "$mode_open_apps" {
   bindsym shift+d exec dunstctl history-pop; mode "default"
   bindsym f exec $open fsearch; mode "default"
   bindsym m exec $open motrix; mode "default"
+  # speed_net -t: check background downloading task if the speed is lower than 5MB/s or completed
+  bindsym n exec "speed_net -t"; mode "default"
   bindsym p exec $open pcmanfm; mode "default"
   bindsym s exec $open steam; mode "default"
   bindsym t workspace --no-auto-back-and-forth $ws3; exec $open thunderbird; mode "default"

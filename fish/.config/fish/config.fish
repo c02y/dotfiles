@@ -2664,29 +2664,8 @@ function ios -d 'disk/network/OS related'
     else if set -q _flag_g
         gpustat -cp
     else if set -q _flag_n
-        if set -q _flag_N # notify is network traffic is lower than argv(5)MB/s
-            set -q argv[1]; and set ARGV $argv; or set ARGV 5
-
-            set INTERFACE (ip route get 8.8.8.8 | awk -- '{printf $5}')
-            # motified from speed_net bash script
-            while true
-                set FILE "/sys/class/net/$INTERFACE/statistics"
-                set RX (cat $FILE/rx_bytes)
-                set TX (cat $FILE/tx_bytes)
-
-                sleep 1
-
-                set RXN (cat $FILE/rx_bytes)
-                set TXN (cat $FILE/tx_bytes)
-
-                set RXDIF (math $RXN - $RX)
-                set TXDIF (math $TXN - $TX)
-
-                if test "$RXDIF" -lt $(expr $ARGV \* 1024 \* 1024)
-                    notify-send -u critical "NOTE: Network speed becomes lower than $ARGV MB/s"
-                end
-                sleep 30
-            end
+        if set -q _flag_N # notify is network traffic is lower than 5MB/s
+            speed_net -t
         else if set -q _flag_a
             while true
                 wget -q --show-progress -T 5 -O /dev/null https://downpack.baidu.com/Baidunetdisk_AndroidPhone_1026962m.apk

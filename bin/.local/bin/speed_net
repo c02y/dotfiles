@@ -2,6 +2,8 @@
 
 INTERFACE=$(ip route get 8.8.8.8 | awk -- '{printf $5}')
 
+count_less=0
+count_quit=0
 while true; do
 	FILE="/sys/class/net/$INTERFACE/statistics"
 	RX=$(cat $FILE/rx_bytes)
@@ -12,14 +14,38 @@ while true; do
 	RXN=$(cat $FILE/rx_bytes)
 	TXN=$(cat $FILE/tx_bytes)
 
-	RXDIF=$(echo $((RXN - RX)))
-	TXDIF=$(echo $((TXN - TX)))
+	RXDIF=$((RXN - RX))
+	TXDIF=$((TXN - TX))
 
-	if [ "$RXDIF" -lt 10240 ]; then
-		echo -n
-	elif [ "$RXDIF" -gt 1048576 ]; then
-		echo -e " <$(awk -v RXDIF="$RXDIF" 'BEGIN { printf "%.0f", (RXDIF / 1048576) }')M/s $((TXDIF / 1024))K/s> "
-	else
-		echo -e " <$(($RXDIF / 1024))K/s $((TXDIF / 1024))K/s> "
-	fi
+	case $1 in
+	"-t")
+		if [ "$RXDIF" -lt $((500 * 1024)) ]; then
+			((count_quit++))
+			if [ "$count_quit" -gt 3 ]; then
+				notify-send -u critical "NOTE: Downloading task may be completed"
+				exit
+			fi
+		elif [ "$RXDIF" -lt $((5 * 1024 * 1024)) ]; then
+			count_quit=0
+			((count_less++))
+			if [ "$count_less" -gt 3 ]; then
+				notify-send -u critical "NOTE: Network speed becomes lower than 5 MB/s"
+				count_less=0
+			fi
+		else
+			count_quit=0
+			count_less=0
+		fi
+		sleep 10
+		;;
+	*)
+		if [ "$RXDIF" -lt $((10 * 1024)) ]; then
+			echo -n
+		elif [ "$RXDIF" -gt $((1024 * 1024)) ]; then
+			echo -e " <$(awk -v RXDIF="$RXDIF" 'BEGIN { printf "%.0f", (RXDIF / 1048576) }')M/s $((TXDIF / 1024))K/s> "
+		else
+			echo -e " <$(($RXDIF / 1024))K/s $((TXDIF / 1024))K/s> "
+		fi
+		;;
+	esac
 done
