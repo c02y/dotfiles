@@ -1008,7 +1008,7 @@ function wee -d 'wrap watch and watchexec'
         # -n, notify when done
         set -q _flag_n; and set -a OPT -N
         # -d argv to monitor the argv dir
-        set -q _flag_d; and set -a OPT $_flag_d
+        set -q _flag_d; and set -a OPT --workdir $_flag_d
         # if -w or -e is not specified, watch everything in the current dir
         # -w is to specify the file/dir path (can be used multiple times)
         # -e is to specify the extension, comma-separated list if multiple
