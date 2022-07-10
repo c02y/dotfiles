@@ -4,35 +4,35 @@
  * Copyright: Rasmus Steinke
  ******************************************************************************/
 * {
-    selected-normal-foreground:  rgba ( 255, 255, 255, 80 % );
+    selected-normal-foreground:  rgba ( 255, 255, 255, 80 % ); /* #FFFFFF + 80% */
     foreground:                  @selected-normal-foreground;
     normal-foreground:           @selected-normal-foreground;
-    alternate-normal-background: rgba ( 0, 0, 0, 100 % );
-    red:                         rgba ( 220, 50, 47, 100 % );
-    selected-urgent-foreground:  rgba ( 137, 6, 97, 100 % );
-    blue:                        rgba ( 38, 139, 210, 100 % );
-    urgent-foreground:           rgba ( 218, 66, 129, 100 % );
-    alternate-urgent-background: rgba ( 0, 54, 67, 100 % );
-    active-foreground:           rgba ( 0, 142, 212, 100 % );
-    lightbg:                     rgba ( 238, 232, 213, 100 % );
-    selected-active-foreground:  rgba ( 102, 198, 255, 100 % );
-    alternate-active-background: rgba ( 0, 54, 67, 100 % );
-    background:                  rgba ( 0, 0, 0, 100 % );
-    bordercolor:                 rgba ( 0, 43, 55, 100 % );
+    alternate-normal-background: rgba ( 0, 0, 0, 100 % ); /* #FFFFFF */
+    red:                         rgba ( 220, 50, 47, 100 % ); /* #DC322F */
+    selected-urgent-foreground:  rgba ( 137, 6, 97, 100 % ); /* #880661 */
+    blue:                        rgba ( 38, 139, 210, 100 % ); /* #268BD2 */
+    urgent-foreground:           rgba ( 218, 66, 129, 100 % ); /* #DA42DB */
+    alternate-urgent-background: rgba ( 0, 54, 67, 100 % ); /* #003643 */
+    active-foreground:           rgba ( 0, 142, 212, 100 % ); /* #008ED4 */
+    lightbg:                     rgba ( 238, 232, 213, 100 % ); /* #EEE8D5 */
+    selected-active-foreground:  rgba ( 102, 198, 255, 100 % ); /* #66C6FF */
+    alternate-active-background: rgba ( 0, 54, 67, 100 % ); /* #003643 */
+    background:                  @alternate-normal-background;
+    bordercolor:                 rgba ( 0, 43, 55, 100 % ); /* #002B37 */
     alternate-normal-foreground: @foreground;
-    normal-background:           rgba ( 0, 0, 0, 100 % );
-    lightfg:                     rgba ( 88, 104, 117, 100 % );
-    selected-normal-background:  rgba ( 0, 142, 212, 100 % );
+    normal-background:           @alternate-normal-background;
+    lightfg:                     rgba ( 88, 104, 117, 100 % ); /* #586875 */
+    selected-normal-background:  @active-foreground;
     border-color:                @foreground;
-    spacing:                     2;
-    separatorcolor:              rgba ( 0, 54, 66, 100 % );
-    urgent-background:           rgba ( 0, 43, 55, 100 % );
-    selected-urgent-background:  rgba ( 0, 142, 212, 100 % );
+    separatorcolor:              rgba ( 0, 54, 66, 100 % ); /* #003742 */
+    urgent-background:           rgba ( 0, 43, 55, 100 % ); /* #002B37 */
+    selected-urgent-background:  @active-foreground;  
     alternate-urgent-foreground: @urgent-foreground;
-    background-color:            rgba ( 0, 0, 0, 0 % );
+    background-color:            rgba ( 0, 0, 0, 0 % ); /* #000000 +0% */
     alternate-active-foreground: @active-foreground;
-    active-background:           rgba ( 0, 43, 55, 100 % );
-    selected-active-background:  rgba ( 0, 142, 212, 100 % );
+    active-background:           @bordercolor; 
+    selected-active-background:  @selected-normal-background;
+    text-color:                  rgba ( 240, 240, 240, 100 % ); /* #F0F0F0 */
 }
 window {
     background-color: @background;
@@ -58,8 +58,11 @@ listview {
     border:       2px dash 0px 0px ;
     border-color: @separatorcolor;
     spacing:      2px ;
-    scrollbar:    false;
+    scrollbar:    true;
     padding:      2px 0px 0px ;
+}
+scrollbar {
+    handle-color: @selected-normal-foreground;
 }
 element {
     border:  0;
@@ -67,7 +70,7 @@ element {
 }
 element-text {
     background-color: inherit;
-    text-color:       rgba ( 240, 240, 240, 100 % );
+    text-color:       @text-color;
 }
 element-icon {
     size:             0.9em ;
@@ -136,7 +139,7 @@ entry {
 }
 prompt {
     spacing:    0;
-    text-color: rgba ( 240, 240, 240, 100 % );
+    text-color: @text-color;
 }
 num-filtered-rows {
     text-color: @lightfg;
