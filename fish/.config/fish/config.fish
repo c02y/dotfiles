@@ -2622,6 +2622,7 @@ function ios -d 'disk/network/OS related'
     else if set -q _flag_t # set date/time manually
         if set -q _flag_a # sync date/time from internet automatically
             sudo timedatectl set-ntp 0
+            sudo timedatectl set-timezone Asia/Shanghai
             sudo timedatectl set-time (date -d (curl -I 'https://baidu.com/' 2>/dev/null | grep -i '^date:' | sed 's/^[Dd]ate: //g') '+%Y-%m-%d %T')
             sudo hwclock --systohc
             sudo timedatectl set-ntp 1
