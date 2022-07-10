@@ -1481,10 +1481,9 @@ function pacs -d 'pacman/paru operations'
             paccache -rvuk0 # clean uninstalled packages
         else
             if set -q _flag_p # check which package contains argv file/binary/config
-                # -x is to handle situation the file in pacakge is not all lowercase
                 # "2>/dev/null" is to hide the lines "error: ... database is inconsistent: ..." from some repo
                 # this may happend for some third party repos in /etc/pacman.conf
-                paru -Qo $ARGV; or paru -Fx $ARGV 2>/dev/null
+                paru -Qo $argv; or paru -F $argv 2>/dev/null
             else
                 # check if package/bin/conf/file is owned by others, if not, delete it
                 # This can also be used when the following errors occur after executing update command:
