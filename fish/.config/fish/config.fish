@@ -1482,7 +1482,9 @@ function pacs -d 'pacman/paru operations'
         else
             if set -q _flag_p # check which package contains argv file/binary/config
                 # -x is to handle situation the file in pacakge is not all lowercase
-                paru -Fx $ARGV
+                # "2>/dev/null" is to hide the lines "error: ... database is inconsistent: ..." from some repo
+                # this may happend for some third party repos in /etc/pacman.conf
+                paru -Qo $ARGV; or paru -Fx $ARGV 2>/dev/null
             else
                 # check if package/bin/conf/file is owned by others, if not, delete it
                 # This can also be used when the following errors occur after executing update command:
@@ -1495,7 +1497,7 @@ function pacs -d 'pacman/paru operations'
         end
     else if set -q _flag_u # force refresh update/upgrade, NOTE: pacs without anything also update
         # download files list into /var/lib/pacman/sync
-        set -q _flag_l; and paru -Fy >/dev/null
+        set -q _flag_l; and paru -Fyy >/dev/null
 
         # download db into /var/lib/pacman/sync
         if set -q _flag_d
@@ -1541,8 +1543,8 @@ function pacs -d 'pacman/paru operations'
             open (xc -o) >/dev/null 2>/dev/null
         else if set -q _flag_L # list content in a pacakge
             set -q _flag_a; and set OPT -a
-            pacman -Ql $ARGV
-            or paru -Fl $OPT $ARGV
+            # "2>/dev/null" is to hide the lines "error: ... database is inconsistent: ..." from some repo
+            paru -Ql $ARGV; or paru -Fl $OPT $ARGV 2>/dev/null
         else # just show info
             set -q _flag_a; and set OPT -a
             # show both local and remote info
@@ -1572,7 +1574,8 @@ function pacs -d 'pacman/paru operations'
     else if set -q _flag_L # list content in a pacakge
         set -q argv[1]; or echo "Need one or more package names!" && return
         set -q _flag_a; and set OPT -a
-        paru -Ql $ARGV; or paru -Fl $OPT $ARGV
+        # "2>/dev/null" is to hide the lines "error: ... database is inconsistent: ..." from some repo
+        paru -Ql $ARGV; or paru -Fl $OPT $ARGV 2>/dev/null
     else if set -q _flag_n # search only keyword in package names
         if set -q argv[1]
             if set -q _flag_a
