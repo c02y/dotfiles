@@ -11,6 +11,7 @@
 
 # Mod4 = L_Super
 set $mod Mod4
+set $Alt Mod1
 
 title_align center
 # enable window icons for all windows
@@ -52,17 +53,15 @@ bindsym $mod+Shift+End exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ t
 bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle
 
 # Use Mouse+floating_modifier to drag floating windows to their wanted position
-# floating_modifier $mod
-# Mod1 = Alt
-floating_modifier Mod1
+floating_modifier $Alt
 # floating_maximum_size 1920 x 1080
 
 # NOTE: for floating mpv, sometimes all three bindings have some kind of toggle effect,
-#       since Mod1+1/2/3 are in input.conf of mpv
+#       since $Alt+1/2/3 are in input.conf of mpv
 # set width ppt height ppt
-bindsym $mod+Mod1+1 [floating con_id="__focused__"] resize set 40 ppt 50 ppt, move position center
-bindsym $mod+Mod1+2 [floating con_id="__focused__"] resize set 70 ppt 80 ppt, move position center
-bindsym $mod+Mod1+3 [floating con_id="__focused__"] resize set 100 ppt 98 ppt, move position center
+bindsym $mod+$Alt+1 [floating con_id="__focused__"] resize set 40 ppt 50 ppt, move position center
+bindsym $mod+$Alt+2 [floating con_id="__focused__"] resize set 70 ppt 80 ppt, move position center
+bindsym $mod+$Alt+3 [floating con_id="__focused__"] resize set 100 ppt 98 ppt, move position center
 
 # start a terminal
 # bindsym $mod+Return exec i3-sensible-terminal
@@ -70,7 +69,7 @@ bindsym $mod+Mod1+3 [floating con_id="__focused__"] resize set 100 ppt 98 ppt, m
 # kill focused window
 bindsym $mod+Shift+q kill
 # use xkill to by-force kill some program that gets stuck such as Emacs
-bindsym --release $mod+Mod1+Shift+q exec xkill
+bindsym --release $mod+$Alt+Shift+q exec xkill
 # button1=left, button2=middle, button3=right
 # middle button on the window bar to kill the window
 bindsym button2 kill
@@ -81,8 +80,8 @@ bindsym --whole-window $mod+Shift+button3 kill
 # repeating prev/next works only inside container when the container is front/rear
 # prev/next won't work for a container with only one window,
 # need to turn container status off first or use $mod+arrow to change focus
-bindsym Mod1+Tab focus next
-bindsym Mod1+Shift+Tab focus prev
+bindsym $Alt+Tab focus next
+bindsym $Alt+Shift+Tab focus prev
 bindsym $mod+Tab focus next
 bindsym $mod+Shift+Tab focus prev
 # alternatively, you can use the cursor keys:
@@ -102,10 +101,10 @@ bindsym $mod+Shift+Down move down 50 px
 bindsym $mod+Shift+Up move up 50 px
 # Move the current window with the Left/Right/Down/Up window into a container in one step
 # Move focus->toggle into container->move focus back->move window into the container
-bindsym $mod+Mod1+Left focus left, split h, focus right, move left
-bindsym $mod+Mod1+Right focus right, split h, focus left, move right
-bindsym $mod+Mod1+Up focus up, split v, focus down, move up
-bindsym $mod+Mod1+Down focus down, split v, focus up, move down
+bindsym $mod+$Alt+Left focus left, split h, focus right, move left
+bindsym $mod+$Alt+Right focus right, split h, focus left, move right
+bindsym $mod+$Alt+Up focus up, split v, focus down, move up
+bindsym $mod+$Alt+Down focus down, split v, focus up, move down
 # split in horizontal orientation
 bindsym $mod+backslash split h
 # split in vertical orientation
@@ -135,9 +134,9 @@ bindsym $mod+Shift+grave focus mode_toggle
 bindsym $mod+Shift+minus border toggle
 
 # focus the parent container
-bindsym $mod+Mod1+Shift+Up focus parent
+bindsym $mod+$Alt+Shift+Up focus parent
 # focus the child container
-bindsym $mod+Mod1+Shift+Down focus child
+bindsym $mod+$Alt+Shift+Down focus child
 
 # Define names for default workspaces for which we configure key bindings later on.
 # We use variables to avoid repeating the names in multiple places.
@@ -189,7 +188,7 @@ bindsym $mod+Ctrl+x move workspace to output next
 # reload the configuration file
 bindsym $mod+r reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
-# NOTE: reload will not run exec-always, +Alt+ will not work, use Mod1 instead
+# NOTE: reload will not run exec-always
 # reload i3status.conf need restart i3
 # exec is only run by initial i3, exec_always can be executed by restart
 bindsym $mod+Shift+r restart
@@ -282,7 +281,7 @@ set $open jumpapp -f
 # NOTE: if i3 unable to use ~/.local/bin, put `export PATH="$HOME/.local/bin:$PATH"` in ~/.profile
 bindsym $mod+e exec tdrop -t -m -w 100% -h 100% emacsclient -c
 bindsym $mod+Shift+e exec emacs
-bindsym $mod+Mod1+e exec emacsclient -c
+bindsym $mod+$Alt+e exec emacsclient -c
 bindsym $mod+f exec $open firefox
 bindsym $mod+s exec fd -HIap -E Steam -E .cargo . $HOME | rofi -dmenu -i -theme ~/Dotfiles.d/misc/rofi-theme-solarized_alternate.rasi -p FILES | xargs -I {} xdg-open {}
 bindsym $mod+b exec $open calibre
@@ -295,7 +294,8 @@ bindsym $mod+Return exec $open -t Alacritty alacritty -t Alacritty
 bindsym $mod+Shift+Return exec alacritty
 bindsym $mod+Shift+f exec $open -t RangerFM kitty -T=RangerFM ranger
 bindsym $mod+F1 exec $open -t Btop kitty -T=Btop btop
-bindsym $mod+Mod1+m move scratchpad
+bindsym $mod+$Alt+m move scratchpad
+# floating toggle on a window to remove it from the scratchpad
 bindsym $mod+m scratchpad show
 # NOTE: the options for tdrop are important, especially for WM and multiple monitors
 # NOTE: -y 30 is to make the top margin of Dropdown_Kitty and bottom margin of i3status-bar work well
@@ -325,7 +325,7 @@ mode "$mode_open_apps" {
   bindsym a workspace --no-auto-back-and-forth $ws3; exec $open audacious; mode "default"
   bindsym c exec $open clion; mode "default"
   bindsym d exec dunstctl close; mode "default"
-  bindsym Mod1+d exec dunstctl close-all; mode "default"
+  bindsym $Alt+d exec dunstctl close-all; mode "default"
   bindsym shift+d exec dunstctl history-pop; mode "default"
   bindsym f exec $open fsearch; mode "default"
   bindsym m exec $open motrix; mode "default"
