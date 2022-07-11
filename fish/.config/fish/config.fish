@@ -230,54 +230,6 @@ function fsr --description 'Reload your Fish config after configuration'
     vars -c >/dev/null 2>/dev/null
 end
 
-# tmux related
-abbr tls 'tmux list-panes -s'
-function tk -d 'tmux kill-session all(default)/single(id)/multiple(id1 id2)/except(-e)/list(-l) sessions'
-    if test (ps -ef | rg -w -v rg | rg tmux | wc -l ) = 0
-        echo "No tmux server is running!!!"
-        return
-    end
-    set -l options e l
-    argparse -n tk $options -- $argv
-    or return
-
-    if set -q _flag_l
-        tmux ls
-        if set -q TMUX_PANE # check if running inside a tmux session
-            echo
-            echo Already inside tmux session: (tmux display-message -p '#S')
-        end
-        return
-    end
-    if not set -q argv[1]
-        # check if running inside a tmux session
-        set -q TMUX_PANE; and echo Inside a tmux session!
-        read -n 1 -l -p 'echo "Kill all sessions? [y/N] "' answer
-        test "$answer" = y -o "$answer" = " "; and tmux kill-server
-        return
-    end
-
-    if test (count $argv) -gt 0
-        set -l sid (tmux ls | nl | awk '{print $2}' | sed 's/://g')
-        for i in $sid
-            if set -q _flag_e
-                if not contains $i $argv
-                    tmux kill-session -t $i
-                    echo Tmux session $i is killed
-                end
-            else
-                if contains $i $argv
-                    tmux kill-session -t $i
-                    echo Tmux session $i is killed
-                end
-            end
-        end
-        echo \n--------------\n
-        echo Left sessions:
-        tmux ls
-    end
-end
-
 # or just use 'M-c r', it is defiend in ~/.config/tmux/tmux.conf
 abbr tsr 'tmux source-file ~/.config/tmux/tmux.conf; echo ~/.config/tmux/tmux.conf reloaded!'
 # this line will make the indentation of lines below it wrong, TODO: weird

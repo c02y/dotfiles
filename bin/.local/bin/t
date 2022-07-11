@@ -13,14 +13,47 @@ if [ "$LANG" != "en_US.UTF-8" ]; then
 	# export LANGUAGE=en_US.UTF-8
 fi
 
-while getopts ":nlu" args; do
+function kill_session() {
+	if ! tmux has-session 2>/dev/null; then
+		echo "No tmux session is running, start a new first!" && exit
+	fi
+
+	tmux ls
+	if [ ! -z "$TMUX_PANE" ]; then
+		echo -e "Current tmux session: $(tmux display-message -p '#S')\n"
+	fi
+
+	# kill tmux session interactively using tmux choose-tree `Alt-c w` + x(on a session)
+	if [ $# -eq 0 ]; then         # kill all the other sessions
+		if [ -z "$TMUX_PANE" ]; then # not inside tmux session
+			read -r -e -n 1 -p 'Kill tmux server? [Y/n] '
+			if [[ "$REPLY" == 'y' || "$REPLY" == " " ]]; then
+				tmux kill-server
+			fi
+		else
+			read -r -e -n 1 -p 'Kill all other sessions? [Y/n] '
+			if [[ "$REPLY" == 'y' || "$REPLY" == " " ]]; then
+				tmux kill-session -a
+				echo "All other tmux sessions are killed"
+			fi
+		fi
+	else
+		for session in "$@"; do
+			tmux kill-session -t "$session"
+			echo "tmux session $session is killed"
+		done
+		echo "Left sessions:" && tmux ls
+	fi
+}
+
+while getopts ":nkKlu" args; do
 	case "$args" in
 	\?)
 		echo "t or t -n"
 		exit
 		;;
-	n)
-		tmux -2 # new
+	n) # creaet a new tmux session outside of tmux existing session
+		tmux -2
 		exit
 		;;
 	l)
@@ -28,6 +61,21 @@ while getopts ":nlu" args; do
 		if [ ! -z "$TMUX_PANE" ]; then
 			echo
 			echo "Already inside tmux session: $(tmux display-message -p '#S')"
+		fi
+		exit
+		;;
+	k) # kill the sepecific sessions or all other sessions
+		shift
+		kill_session "$@"
+		exit
+		;;
+	K) # kill tmux server
+		if ! tmux has-session 2>/dev/null; then
+			echo "No tmux session is running, start a new first!" && exit
+		fi
+		read -r -e -n 1 -p 'Kill tmux server? [Y/n] '
+		if [[ "$REPLY" == 'y' || "$REPLY" == " " ]]; then
+			tmux kill-server
 		fi
 		exit
 		;;
@@ -39,16 +87,16 @@ while getopts ":nlu" args; do
 done
 
 # attach a session if it exists, it failed, tmux a new one, if failed, echo message
-if tmux has-session 2>/dev/null; then  # has tmux session running
-	if [ $(tmux ls | wc -l) -gt 1 ]; then # 2 or more sessions running
+if tmux has-session 2>/dev/null; then    # has tmux session running
+	if [ "$(tmux ls | wc -l)" -gt 1 ]; then # 2 or more sessions running
 		tmux ls
 		if [ ! -z "$TMUX_PANE" ]; then
 			echo
 			echo "Already inside tmux session: $(tmux display-message -p '#S'), unable to attach!"
 			exit
 		fi
-		read -e -n 1 -p 'Which one to attach? '
-		tmux -2 attach -t $REPLY || tmux -2 # type any wrong index to create new tmux session
+		read -e -r -n 1 -p 'Which one to attach? '
+		tmux -2 attach -t "$REPLY" || tmux -2 # type any wrong index to create new tmux session
 	else
 		tmux -2 attach 2>/dev/null || tmux -2 2>/dev/null || echo "Already inside a tmux session!"
 	fi
