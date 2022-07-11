@@ -1016,7 +1016,7 @@ abbr manp cppman
 
 # color in man page
 # K jump link inside vim man page
-set -gx MANPAGER 'vim +Man! -c "set signcolumn=no"'
+set -gx MANPAGER 'vim +Man! -c "set signcolumn=no" -c "set cmdheight=1" -c "set laststatus=1"'
 set -gx PAGER 'less -iXFR -x4 -M'
 
 abbr ifw 'ifconfig wlp5s0'
