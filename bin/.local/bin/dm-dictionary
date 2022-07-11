@@ -7,6 +7,7 @@
 ROFI="rofi -dmenu -theme ~/Dotfiles.d/misc/rofi-theme-solarized_alternate.rasi -theme-str 'window {width: 50%; height: 50%;} configuration {show-icons:false;}' -p"
 
 WORD="$(eval ${ROFI} "TRANS")"
+[ "$WORD" = "" ] && exit
 
 # FIXME: `-theme ~/Dotfiles.d/misc/trans-theme-matrix.trans` works fine if running it in terminal
 # it shows a lot ansi code if running it using i3, so add `-no-ansi`
