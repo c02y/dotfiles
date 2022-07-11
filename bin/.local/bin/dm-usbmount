@@ -1,0 +1,100 @@
+#!/usr/bin/env bash
+
+# script name: dm-usbmount
+# Description: mount/unmount usb drives using dmenu. No fancy daemon required
+# Dependencies : dmenu, udisks2
+
+ROFI="rofi -dmenu -theme ~/Dotfiles.d/misc/rofi-theme-solarized_alternate.rasi -theme-str 'window {width: 50%; height: 50%;} configuration {show-icons:false;}' -p"
+
+help() {
+	printf 'dm-usbmount [options]\n
+    \tChoose mount or unmount
+    -m\tMount usb drive
+    -u\tUnmount usb drive
+    -h\tDisplays this help menu\n
+    Drives are mounted at /run/media\n'
+}
+
+driveCount() {
+	count="$(echo "$1" | wc -l)"
+}
+
+mountAll() {
+	while IFS= read -r drive; do
+		# TODO: handle if failed
+		udisksctl mount -b "${drive%% *}"
+	done < <(printf '%s\n' "$mountable")
+}
+
+unmountAll() {
+	while IFS= read -r drive; do
+		if ! udisksctl unmount -b "$(echo "$drive" | awk '{print $1}')"; then
+			# NOTE: chosen part is to get the last word directly from a variable
+			notify-send -u critical "Device '${drive##* }' unmounted failed!"
+		fi
+
+	done < <(printf '%s\n' "${mounted%%* }")
+}
+
+# mount and open ranger with it
+mount() {
+	mountable="$(lsblk -lp | awk '/^\/dev\/sd.* $/ { print $1 " ("$4")" }')"
+	[ "$mountable" = "" ] && echo "All devices mounted!" && exit 1
+
+	driveCount "$mountable"
+	[ "$count" = "1" ] && options="$mountable" || options="${mountable}"$'\n'"All"
+
+	chosen="$(printf '%s' "$options" | eval ${ROFI} "MOUNT")" || exit 1
+	if [ "$chosen" = "All" ]; then
+		kitty ranger "$(dirname $(echo $(mountAll) | head -1 | awk '{print $NF}'))"
+	else
+		# TODO: handle if failed
+		# NOTE: chosen part is to get the first word directly from a variable
+		kitty ranger "$(echo $(udisksctl mount -b "${chosen%% *}") | awk '{print $NF}')"
+	fi
+}
+
+unmount() {
+	# mounted="$(lsblk -lp | awk '/run/ { print $1 }')"
+	mounted="$(lsblk -lp | grep 'run')"
+	[ "$mounted" = "" ] && echo "No device mounted!" && exit 1
+
+	driveCount "${mounted%%* }"
+	[ "$count" = "1" ] && options="${mounted%%* }" || options="${mounted%%* }"$'\n'"All"
+
+	chosen="$(printf '%s' "${options}" | eval ${ROFI} "UNMOUNT")"
+	if [ "$chosen" = "All" ]; then
+		unmountAll
+	else
+		if ! udisksctl unmount -b "${chosen%% *}"; then
+			# NOTE: chosen part is to get the last word directly from a variable
+			notify-send -u critical "Device '${chosen##* }' unmounted failed!"
+		fi
+	fi
+}
+
+mount_or_unmount() {
+	mounted="$(lsblk -lp | grep 'run')"
+	[ "$mounted" = "" ] && mount && exit
+
+	mountable="$(lsblk -lp | awk '/^\/dev\/sd.* $/ { print $1 " ("$4")" }')"
+	[ "$mountable" = "" ] && unmount && exit
+
+	chosen="$(printf '%s\n' "${mounted} (mounted)" "${mountable} (unmounted)" | eval ${ROFI} "DEVICE")"
+	if [[ "$chosen" == *"(mounted)"* ]]; then
+		unmount
+	else
+		mount
+	fi
+}
+
+while getopts "hmu" arg 2>/dev/null; do
+	case "${arg}" in
+	h) help ;;
+	m) mount ;;
+	u) unmount ;;
+	*) help ;;
+	esac
+done
+# no flag
+if [ $OPTIND -eq 1 ]; then mount_or_unmount; fi

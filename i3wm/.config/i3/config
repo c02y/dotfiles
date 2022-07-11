@@ -206,6 +206,19 @@ mode "$mode_merge_swap" {
 }
 bindsym $mod+Ctrl+m mode "$mode_merge_swap"
 
+set $mode_rofi_tools Tool: (e)ditconf, (d)ict, (k)ill, (m)anpage, (M)ountUnmount, (w)eb
+mode "$mode_rofi_tools" {
+  bindsym e exec dm-confedit; mode "default"
+  bindsym d exec dm-dictionary; mode "default"
+  bindsym k exec dm-kill; mode "default"
+  bindsym m exec dm-man; mode "default"
+  bindsym w exec dm-websearch; mode "default"
+  bindsym Shift+m exec dm-usbmount; mode "default"
+
+  bindsym Escape mode "default"
+}
+bindsym $mod+Shift+d mode "$mode_rofi_tools"
+
 set $mode_mark Actions: (Return)markMark, (m)ark, (g)otoMark, (u)nmark, (U)nmarkAll
 mode "$mode_mark" {
   bindsym Return mark --add "mark"; mode "default"

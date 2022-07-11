@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+#
+# Script name: dm-kill
+# Description: Search for a process to kill.
+
+ROFI="rofi -dmenu -theme ~/Dotfiles.d/misc/rofi-theme-solarized_alternate.rasi -theme-str 'window {width: 50%; height: 50%;} configuration {show-icons:false;}' -p"
+
+# Running ps to get running processes and display in dmenu.
+# In this script we use a variable called $DMENU, in your scripts, you
+# should just write dmenu or rofi or whatever launcher you use.
+selected="$(ps --user "$USER" -F |
+	eval ${ROFI} "KILL" "$@" |
+	awk '{print $2" "$11}')"
+
+# Nested 'if' statements.  The outer 'if' statement is what to do
+# when we select one of the 'selected' options listed in dmenu.
+if [[ -n $selected ]]; then
+	# Piping No/Yes into dmenu as a safety measure, in case you
+	answer="$(echo -e "Yes\nNo" | eval ${ROFI} "KILL" "$@")"
+
+	if [[ $answer == "Yes" ]]; then
+		# This echo command prints everything before the first space.
+		# Luke Smith has a video on why this is most efficient in this case
+		# An alternative way to do it would be with awk or cut, both are less
+		# efficient however.
+		kill -9 "${selected%% *}"
+		echo "Process $selected has been killed." && exit 0
+	else
+		# We want this script to exit with a 1 and not 0 because 1 means
+		# an error, so this can be handled by other scripts better
+		echo "Program terminated." && exit 1
+	fi
+fi
