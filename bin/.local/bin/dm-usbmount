@@ -75,10 +75,15 @@ unmount() {
 
 mount_or_unmount() {
 	mounted="$(lsblk -lp | grep 'run')"
-	[ "$mounted" = "" ] && mount && exit
-
 	mountable="$(lsblk -lp | awk '/^\/dev\/sd.* $/ { print $1 " ("$4")" }')"
-	[ "$mountable" = "" ] && unmount && exit
+
+	if [ "$mounted" = "" ] && [ "$mountable" = "" ]; then
+		echo "No divice mounted or moutable!" && exit
+	elif [ "$mountable" = "" ]; then
+		unmount && exit
+	else
+		mount && exit
+	fi
 
 	chosen="$(printf '%s\n' "${mounted} (mounted)" "${mountable} (unmounted)" | eval ${ROFI} "DEVICE")"
 	if [[ "$chosen" == *"(mounted)"* ]]; then
