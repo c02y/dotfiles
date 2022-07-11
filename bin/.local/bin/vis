@@ -33,7 +33,7 @@ EMACS_EL="~/.spacemacs.d/init.el"
 FISHRC="~/.config/fish/config.fish"
 cmd=vim
 file=$@
-while getopts ":2bBdceftTaksuUmoOvri" args; do # prefix-: no warning for illegal option
+while getopts ":2bBdcefFtTaksuUmoOvri" args; do # prefix-: no warning for illegal option
 	case "$args" in
 	h | \?)
 		print_usage
@@ -68,6 +68,11 @@ while getopts ":2bBdceftTaksuUmoOvri" args; do # prefix-: no warning for illegal
 		;;
 	f)
 		file=$FISHRC
+		;;
+	F) # disable format_on_save using lunarvim, or toggle it inside lunarvim before saving it
+		shift
+		lvim +LvimToggleFormatOnSave "$@"
+		exit
 		;;
 	t)
 		eval $cmd ~/.config/tmux/tmux.conf && tmux source-file ~/.config/tmux/tmux.conf && echo ~/.config/tmux/tmux.conf reloaded!
