@@ -1912,7 +1912,9 @@ function usernew -d 'useradd related functions'
                 sudo useradd -m $ARGV -s /sbin/nologin
             else
                 sudo useradd -m $ARGV -s /bin/bash
-                sudo passwd $ARGV
+                echo "New user $ARGV created, now set the password for it:" && sudo passwd $ARGV
+                read -n 1 -l -p 'echo "Add user to wheel group to avoid sudoers issue? [y/N] "' answer
+                test "$answer" = y -o "$answer" = " "; and sudo usermod -aG wheel $ARGV
             end
         end
         sudo su -s /bin/bash - $ARGV
