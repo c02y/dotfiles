@@ -64,8 +64,10 @@ local settings = {
     ]
   ]],
 
-  --loadfiles at startup if there is 0 or 1 items in playlist, if 0 uses worḱing dir for files
+  --loadfiles at startup if 1 or more items in playlist
   loadfiles_on_start = false,
+  -- loadfiles from working directory on idle startup
+  loadfiles_on_idle_start = false,
 
   --sort playlist on mpv start
   sortplaylist_on_start = false,
@@ -164,8 +166,13 @@ local settings = {
 
   -- what to show when playlist is truncated
   playlist_sliced_prefix = "...",
-  playlist_sliced_suffix = "..."
+  playlist_sliced_suffix = "...",
 
+  --output visual feedback to OSD for tasks
+  display_osd_feedback = true,
+
+  -- reset cursor navigation when playlist is not visible
+  reset_cursor_on_close = true,
 }
 local opts = require("mp.options")
 opts.read_options(settings, "playlistmanager", function(list) update_opts(list) end)
@@ -500,6 +507,10 @@ function unselectfile()
   showplaylist()
 end
 
+function resetcursor()
+  cursor = mp.get_property_number('playlist-pos', 1)
+end
+
 function removefile()
   refresh_globals()
   if plen == 0 then return end
@@ -652,6 +663,16 @@ function parse_files(res, delimiter)
   end
 end
 
+function get_playlist_filenames_set()
+  local filenames = {}
+  for n=0,plen-1,1 do
+    local filename = mp.get_property('playlist/'..n..'/filename')
+    local _, file = utils.split_path(filename)
+    filenames[file] = true
+  end
+  return filenames
+end
+
 --Creates a playlist of all files in directory, will keep the order and position
 --For exaple, Folder has 12 files, you open the 5th file and run this, the remaining 7 are added behind the 5th file and prior 4 files before it
 function playlist(force_dir)
@@ -673,6 +694,7 @@ function playlist(force_dir)
     files, error = get_files_windows(dir)
   end
 
+  local filenames = get_playlist_filenames_set()
   local c, c2 = 0,0
   if files then
     local cur = false
@@ -684,7 +706,9 @@ function playlist(force_dir)
         appendstr = "append-play"
         hasfile = true
       end
-      if cur == true then
+      if filenames[file] then
+        -- continue
+      elseif cur == true then
         mp.commandv("loadfile", utils.join_path(dir, file), appendstr)
         msg.info("Appended to playlist: " .. file)
         c2 = c2 + 1
@@ -734,8 +758,18 @@ function parse_home(path)
   return result
 end
 
+local interactive_save = false
+function activate_playlist_save()
+  if interactive_save then
+    remove_keybinds()
+    mp.command("script-message playlistmanager-save-interactive \"start interactive filenaming process\"")
+  else
+    save_playlist()
+  end
+end
+
 --saves the current playlist into a m3u file
-function save_playlist()
+function save_playlist(filename)
   local length = mp.get_property_number('playlist-count', 0)
   if length == 0 then return end
 
@@ -763,7 +797,9 @@ function save_playlist()
   local date = os.date("*t")
   local datestring = ("%02d-%02d-%02d_%02d-%02d-%02d"):format(date.year, date.month, date.day, date.hour, date.min, date.sec)
 
-  local savepath = utils.join_path(savepath, datestring.."_playlist-size_"..length..".m3u")
+  local name = filename or datestring.."_playlist-size_"..length..".m3u"
+
+  local savepath = utils.join_path(savepath, name)
   local file, err = io.open(savepath, "w")
   if not file then
     msg.error("Error in creating playlist file, check permissions. Error: "..(err or "unknown"))
@@ -781,7 +817,9 @@ function save_playlist()
       file:write(fullpath, "\n")
       i=i+1
     end
-    msg.info("Playlist written to: "..savepath)
+    local saved_msg = "Playlist written to: "..savepath
+    if settings.display_osd_feedback then mp.osd_message(saved_msg) end
+    msg.info(saved_msg)
     file:close()
   end
 end
@@ -803,19 +841,34 @@ function dosort(a,b)
   end
 end
 
+-- fast sort algo from https://github.com/zsugabubus/dotfiles/blob/master/.config/mpv/scripts/playlist-filtersort.lua
 function sortplaylist(startover)
-  local length = mp.get_property_number('playlist-count', 0)
-  if length < 2 then return end
-  --use insertion sort on playlist to make it easy to order files with playlist-move
-  for outer=1, length-1, 1 do
-    local outerfile = get_name_from_index(outer, true)
-    local inner = outer - 1
-    while inner >= 0 and dosort(outerfile, get_name_from_index(inner, true)) do
-      inner = inner - 1
-    end
-    inner = inner + 1
-    if outer ~= inner then
-      mp.commandv('playlist-move', outer, inner)
+  local playlist = mp.get_property_native('playlist')
+  if #playlist < 2 then return end
+
+  local order = {}
+  for i=1, #playlist do
+		order[i] = i
+    playlist[i].string = get_name_from_index(i - 1, true)
+	end
+
+  table.sort(order, function(a, b)
+    return dosort(playlist[a].string, playlist[b].string)
+  end)
+
+  for i=1, #playlist do
+    playlist[order[i]].new_pos = i
+  end
+
+  for i=1, #playlist do
+    while true do
+      local j = playlist[i].new_pos
+      if i == j then
+        break
+      end
+      mp.commandv('playlist-move', (i)     - 1, (j + 1) - 1)
+      mp.commandv('playlist-move', (j - 1) - 1, (i)     - 1)
+      playlist[j], playlist[i] = playlist[i], playlist[j]
     end
   end
   cursor = mp.get_property_number('playlist-pos', 0)
@@ -840,7 +893,11 @@ function reverseplaylist()
   for outer=1, length-1, 1 do
     mp.commandv('playlist-move', outer, 0)
   end
-  if playlist_visible then showplaylist() end
+  if playlist_visible then
+    showplaylist()
+  elseif settings.display_osd_feedback then
+    mp.osd_message("Playlist reversed")
+  end
 end
 
 function shuffleplaylist()
@@ -851,7 +908,11 @@ function shuffleplaylist()
   mp.commandv("playlist-move", pos, math.random(0, plen-1))
   mp.set_property('playlist-pos', 0)
   refresh_globals()
-  if playlist_visible then showplaylist() end
+  if playlist_visible then
+    showplaylist()
+  elseif settings.display_osd_feedback then
+    mp.osd_message("Playlist shuffled")
+  end
 end
 
 function bind_keys(keys, name, func, opts)
@@ -900,6 +961,9 @@ function remove_keybinds()
   keybindstimer:kill()
   mp.set_osd_ass(0, 0, "")
   playlist_visible = false
+  if settings.reset_cursor_on_close then
+    resetcursor()
+  end
   if settings.dynamic_binds then
     unbind_keys(settings.key_moveup, 'moveup')
     unbind_keys(settings.key_movedown, 'movedown')
@@ -922,7 +986,7 @@ if not settings.dynamic_binds then
   add_keybinds()
 end
 
-if settings.loadfiles_on_start and mp.get_property_number('playlist-count', 0) == 0 then
+if settings.loadfiles_on_idle_start and mp.get_property_number('playlist-count', 0) == 0 then
   playlist()
 end
 
@@ -1022,9 +1086,10 @@ function handlemessage(msg, value, value2)
   if msg == "shuffle" then shuffleplaylist() ; return end
   if msg == "reverse" then reverseplaylist() ; return end
   if msg == "loadfiles" then playlist(value) ; return end
-  if msg == "save" then save_playlist() ; return end
+  if msg == "save" then save_playlist(value) ; return end
   if msg == "playlist-next" then playlist_next(true) ; return end
   if msg == "playlist-prev" then playlist_prev(true) ; return end
+  if msg == "enable-interactive-save" then interactive_save = true end
 end
 
 mp.register_script_message("playlistmanager", handlemessage)
@@ -1033,7 +1098,7 @@ mp.add_key_binding("CTRL+p", "sortplaylist", sortplaylist)
 mp.add_key_binding("CTRL+P", "shuffleplaylist", shuffleplaylist)
 mp.add_key_binding("CTRL+R", "reverseplaylist", reverseplaylist)
 mp.add_key_binding("P", "loadfiles", playlist)
-mp.add_key_binding("p", "saveplaylist", save_playlist)
+mp.add_key_binding("p", "saveplaylist", activate_playlist_save)
 mp.add_key_binding("SHIFT+ENTER", "showplaylist", toggle_playlist)
 
 mp.register_event("file-loaded", on_loaded)
