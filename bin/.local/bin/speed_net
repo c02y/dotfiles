@@ -22,7 +22,7 @@ while true; do
 		if [ "$RXDIF" -lt $((500 * 1024)) ]; then
 			((count_quit++))
 			if [ "$count_quit" -gt 3 ]; then
-				notify-send -u critical "NOTE: Downloading task may be completed"
+				notify-send -u critical "NOTE: Downloading task may be completed, exit!"
 				exit
 			fi
 		elif [ "$RXDIF" -lt $((5 * 1024 * 1024)) ]; then

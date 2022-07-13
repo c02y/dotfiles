@@ -18,10 +18,12 @@ Usage: $(basename $0)
        -T to edit $HOME/.config/tig/config
        -a to edit $HOME/.config/alacritty/alacritty.yml
        -k to edit $HOME/.config/kitty/kitty.conf
+       -R to edit $HOME/.config/rofis
        -s to edit $HOME/.config/sxhkd/sxhkdrc
        -u to vim -U NONE $@
        -U to vim -u $HOME/Dotfiles.d/vim/vimrc.more $@
        -m to vim $HOME/Dotfiles.d/misc/cmake-format.json
+       -M to vim $HOME/.config/mpv
        -v to edit $HOME/.config/lvim/config.lua
        -o to vim $HOME/Dotfiles.d.d/vim/.vimrc
        -r to sudo edit
@@ -34,7 +36,7 @@ EMACS_EL="$HOME/.spacemacs.d/init.el"
 FISHRC="$HOME/.config/fish/config.fish"
 cmd=vim
 file=$@
-while getopts ":2bBdcefFtTaksuUmoOvri" args; do # prefix-: no warning for illegal option
+while getopts ":2bBdcefFtTaksuUmMoOvrRi" args; do # prefix-: no warning for illegal option
 	case "$args" in
 	h | \?)
 		print_usage
@@ -104,6 +106,9 @@ while getopts ":2bBdcefFtTaksuUmoOvri" args; do # prefix-: no warning for illega
 	m)
 		file="$HOME/Dotfiles.d/misc/cmake-format.json"
 		;;
+	M)
+		file="$HOME/.config/mpv"
+		;;
 	o)
 		file="$HOME/Dotfiles.d/vim/.vimrc"
 		;;
@@ -117,6 +122,9 @@ while getopts ":2bBdcefFtTaksuUmoOvri" args; do # prefix-: no warning for illega
 		shift
 		sudo -E vim $@
 		exit
+		;;
+	R)
+		file="$HOME/.local/bin/rofis"
 		;;
 	i)
 		file="$HOME/.config/i3/config"
