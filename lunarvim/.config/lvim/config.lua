@@ -468,8 +468,6 @@ lvim.autocommands = {
 		"CursorHold,CursorHoldI,MenuPopup",
 		{ pattern = { "*.*" }, command = 'if &ft != "fish" | lua vim.lsp.buf.hover()' },
 	},
-	-- On entering insert mode in any file, scroll the window so the cursor line is centered
-	{ "InsertEnter", { pattern = { "*" }, command = ":normal zz" } },
 	-- start insert when editing git commit message
 	{ "FileType", { pattern = { "gitcommit" }, command = "startinsert" } },
 	-- for color and borders of pop windows likes which-key and lsp
