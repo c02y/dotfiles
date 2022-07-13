@@ -1,0 +1,349 @@
+#!/usr/bin/env bash
+# some of the following scripts are heavily modifed from dtos/dmscripts/dm-xxx
+
+ROFI="rofi -dmenu -theme ~/Dotfiles.d/misc/rofi-theme-solarized_alternate.rasi -theme-str 'window {width: 50%; height: 50%;} configuration {show-icons:false;}' -p"
+
+help() {
+	printf 'rofis [options]\n
+    \tOpen rofi
+    -c\tedit_configs
+    -d\tdictionary
+    -k\tkill_process
+    -m\tmanpage
+    -t\tcountdown in terminal
+    \t-p\tpomodora
+    \t-c\tcountdown using rofi
+    \t-s\tstopwatch in terminal
+    -s\tsearch_files in Home
+    -w\twebsearch
+    -h\tDisplays this help menu\n'
+}
+
+# Original script name: dm-confedit
+# Description: Choose from a list of configuration files to edit.
+edit_configs() {
+	declare -A confedit_list
+	confedit_list[alacritty]="$HOME/.config/alacritty/alacritty.yml"
+	# confedit_list[awesome]="$HOME/.config/awesome/rc.lua"
+	# confedit_list[bash]="$HOME/.bashrc"
+	confedit_list[bash_alias]="$HOME/Dotfiles.d/misc/bash_aliases"
+	confedit_list[dunst]="$HOME/.config/i3/dunstrc"
+	confedit_list[fish]="$HOME/.config/fish/config.fish"
+	confedit_list[spacemacs]="$HOME/.spacemacs.d/init.el"
+	confedit_list[i3]="$HOME/.config/i3/config"
+	confedit_list[i3status_rust]="$HOME/.config/i3/i3status-rust.toml"
+	confedit_list[kitty]="$HOME/.config/kitty/kitty.conf"
+	confedit_list[lvim]="$HOME/.config/lvim/config.lua"
+	confedit_list[lazygit]="$HOME/.config/lazygit/config.yml"
+	confedit_list[mpv]="$HOME/.config/mpv"
+	confedit_list[picom]="$HOME/.config/i3/picom.conf"
+	confedit_list[ranger]="$HOME/.config/ranger"
+	confedit_list[rofi_theme]="$HOME/Dotfiles.d/misc/rofi-theme-solarized_alternate.rasi"
+	confedit_list[rofis]="$HOME/.local/bin/rofis"
+	confedit_list[ssh]="$HOME/.ssh/config"
+	confedit_list[sxhkd]="$HOME/.config/sxhkd/sxhkdrc"
+	confedit_list[tig]="$HOME/.config/tig/config"
+	confedit_list[tmux]="$HOME/.config/tmux/tmux.conf"
+	# confedit_list[xinitrc]="$HOME/.xinitrc"
+	# confedit_list[xresources]="$HOME/.Xresources"
+
+	# Clean options array making sure that the files exist
+	declare -A _clean_list
+	declare -A _confedit_value_list
+	# shellcheck disable=SC2154
+	for i in "${!confedit_list[@]}"; do
+		_clean_list["${i}"]=${confedit_list["${i}"]} && cfg=$(printf '%s\n' "${_clean_list["${i}"]}")
+	done
+
+	# Piping the above array (cleaned) into dmenu.
+	# We use "printf '%s\n'" to format the array one item to a line.
+	choice=$(printf '%s\n' "${!_clean_list[@]}" | sort | eval "${ROFI}" 'EDIT_CONFIG')
+
+	# What to do when/if we choose a file to edit.
+	if [ "$choice" ]; then
+		cfg=$(printf '%s\n' "${_clean_list["${choice}"]}")
+		# shellcheck disable=SC2154
+		kitty vim "$cfg"
+	# What to do if we just escape without choosing anything.
+	else
+		echo "Program terminated."
+	fi
+}
+
+# Original script name: dm-dictionary
+# Description: uses the translate package as a dictionary
+# Dependencies: translate-shell
+dictionary() {
+	WORD="$(eval "${ROFI}" "TRANS")"
+	[ "$WORD" = "" ] && exit
+
+	# FIXME: `-theme ~/Dotfiles.d/misc/trans-theme-matrix.trans` works fine if running it in terminal
+	# it shows a lot ansi code if running it using i3, so add `-no-ansi`
+	kitty trans :zh -d -show-dictionary Y -v -no-ansi "$WORD"
+}
+
+# Original script name: dm-kill
+# Description: Search for a process to kill.
+kill_process() {
+	# Running ps to get running processes and display in dmenu.
+	# In this script we use a variable called $DMENU, in your scripts, you
+	# should just write dmenu or rofi or whatever launcher you use.
+	selected="$(ps --user "$USER" -F | eval "${ROFI}" "KILL" | awk '{print $2" "$11}')"
+
+	# Nested 'if' statements.  The outer 'if' statement is what to do
+	# when we select one of the 'selected' options listed in dmenu.
+	if [[ -n $selected ]]; then
+		# Piping No/Yes into dmenu as a safety measure, in case you
+		answer="$(echo -e "Yes\nNo" | eval "${ROFI}" "KILL")"
+
+		if [[ $answer == "Yes" ]]; then
+			# This echo command prints everything before the first space.
+			# Luke Smith has a video on why this is most efficient in this case
+			# An alternative way to do it would be with awk or cut, both are less
+			# efficient however.
+			kill -9 "${selected%% *}"
+			echo "Process $selected has been killed."
+		else
+			# We want this script to exit with a 1 and not 0 because 1 means
+			# an error, so this can be handled by other scripts better
+			echo "Program terminated."
+		fi
+	fi
+}
+
+# Original script name: dm-man
+# Description: Search for a manpage or get a random one.
+manpage() {
+	export MANPAGER='vim +Man! -c "set signcolumn=no" -c "set cmdheight=1" -c "set laststatus=1"'
+	# shellcheck disable=SC2086
+	man -k . | awk '{$3="-"; print $0}' | eval ${ROFI} 'MANPAGE' | awk '{print $2, $1}' | tr -d '()' | xargs kitty man
+}
+
+timer() {
+	help() {
+		printf 'timer [options]\n
+    \tStopwatch starts from 0
+    -c\tCountdown in terminal, starts from input s/m/h, default 60s if num is not given
+    -p\tPomodoro
+    -C\tCountdown using Rofi
+    -s\tStopwatch
+    -h\tDisplays this help menu\n'
+	}
+
+	countdown_handle_input() {
+		echo 1: $1
+		if [ "$1" = "" ]; then # Enter without input
+			unit=s
+			num=60
+		else
+			unit=${1: -1} # get the last char
+			num=${1::-1}  # get all chars before the last one
+		fi
+
+		! [[ $num =~ ^[0-9]+$ ]] && notify-send -u critical "Invalid input, use 10s/10m/1h format" && exit
+		notify-send -u critical "<<==========================" "Countdown: $num$unit, now: $(date +%T)"
+
+		case "$unit" in
+		"s")
+			countdown_time="$num"
+			;;
+		"m")
+			countdown_time="$((num * 60))"
+			;;
+		"h")
+			countdown_time="$((num * 60 * 60))"
+			;;
+		*)
+			notify-send -u critical "Invalid input, use 10s/10m/1h format!" && exit
+			;;
+		esac
+
+		date_end=$(($(date +%s) + countdown_time))
+		while [ "$date_end" -ge "$(date +%s)" ]; do
+			echo -ne "[$(date -u --date @$((date_end - $(date +%s))) +%T)] \r"
+			sleep 1
+		done
+		notify-send -u critical "==========================>>" "Countdown ${num}${unit}, time's up" && exit
+	}
+
+	countdown() {
+		read -r -p "Countdown? [60s/1m/1h] "
+		countdown_handle_input "$REPLY"
+	}
+
+	countdown_rofi() {
+		# only allow one instance of countdown
+		for pid in $(pgrep -f "$0 -t -c"); do
+			if [ "$pid" != $$ ]; then
+				echo -e "A countdown is runningm kill it first?" | eval "${ROFI}" "EXIST"
+				answer="$(echo -e "Yes\nNo" | eval "${ROFI}" "KILL")"
+				[[ "$answer" == "Yes" ]] && kill "$pid"
+			fi
+		done
+		input="$(eval "${ROFI}" 'COUNTDOWN')"
+		countdown_handle_input "$input"
+	}
+
+	pomodoro() {
+		# only allow one instance of pomodoro
+		for pid in $(pgrep -f "$0 -t -p"); do
+			if [ "$pid" != $$ ]; then
+				echo -e "A pomodora is runningm kill it first?" | eval "${ROFI}" "EXIST"
+				answer="$(echo -e "Yes\nNo" | eval "${ROFI}" "KILL")"
+				[[ "$answer" == "Yes" ]] && kill "$pid"
+			fi
+		done
+
+		# (25m + 5m) * num
+		num="$(eval "${ROFI}" 'POMO_NUM')"
+		[ "$num" = "" ] && exit # Enter/Escape without input
+		! [[ $num =~ ^[1-9]+$ ]] && notify-send -u critical "Invalid input, only accept integer(>0)" && exit
+		total_hrs=$(awk -v a="$num" 'BEGIN {print(a/2)}')
+		notify-send -u critical "Get ready, $num pomodoros (25m+5m) start" "<<===============================\nCurrent time: $(date +%T), needed time: $total_hrs hrs!"
+
+		for i in $(seq 1 "$num"); do
+			date_end_25m=$(($(date +%s) + 60 * 25))
+			while [ "$date_end_25m" -ge "$(date +%s)" ]; do
+				sleep 10s
+			done
+
+			notify-send -u critical "#$i pomodoro complete, now short break for 5m"
+
+			date_end_5m=$(($(date +%s) + 60 * 5))
+			while [ "$date_end_5m" -ge "$(date +%s)" ]; do
+				sleep 5s
+			done
+			[ "$((num - i))" -lt 1 ] && pomodoros_left=0 || pomodoros_left=$((num - i))
+			notify-send -u critical "#$i break complete, pomodoro #$((i + 1)) start" "Pomodoros left: $pomodoros_left"
+
+			if [ "$i" = "$num" ]; then
+				date_end=$(date +%s)
+				notify-send -u critical "Total $num pomodoros complete" "=======================>>\nEXIT!" && exit
+			fi
+		done
+	}
+
+	stopwatch() {
+		date_start=$(date +%s)
+		while true; do
+			echo -ne "$(date -u --date @$(($(date +%s) - date_start)) +%T) \r"
+			sleep 1
+		done
+	}
+
+	case "$@" in
+	"-h") help ;;
+	"-c") countdown ;;
+	"-p") pomodoro ;;
+	"-C") countdown_rofi ;;
+	"-s") stopwatch ;;
+	*) help ;;
+	esac
+}
+
+search_files() {
+	fd -HIap -E Steam -E .cargo --regex . "$HOME" | eval "${ROFI}" FILES -i | xargs -I {} xdg-open {}
+}
+# Original script name: dm-websearch
+# Description: Search various search engines (inspired by surfraw).
+websearch() {
+	# Search engine config
+	declare -A websearch
+	# Syntax:
+	# websearch[name]="https://www.example.com/search?q="
+
+	# Search Engines------------
+	websearch[Baidu]="https://www.baidu.com/s?wd="
+	websearch[Bing]="https://www.bing.com/search?q="
+	# websearch[Brave]="https://search.brave.com/search?q="
+	websearch[Duckduckgo]="https://duckduckgo.com/?q="
+	# websearch[gemini search \(https\)]="https://portal.mozz.us/gemini/geminispace.info/search%3F"
+	websearch[Google]="https://www.google.com/search?q="
+	# websearch[qwant]="https://www.qwant.com/?q="
+	# websearch[swisscows]="https://swisscows.com/web?query="
+	# websearch[yandex]="https://yandex.com/search/?text="
+	# Information/News----------
+	# websearch[bbcnews]="https://www.bbc.co.uk/search?q="
+	# websearch[cnn]="https://www.cnn.com/search?q="
+	websearch[GoogleNews]="https://news.google.com/search?q="
+	websearch[Wikipedia]="https://en.wikipedia.org/w/index.php?search="
+	websearch[Wiktionary]="https://en.wiktionary.org/w/index.php?search="
+	# Social Media--------------
+	websearch[Bilibili]="https://search.bilibili.com/all?keyword="
+	websearch[Douban]="https://www.douban.com/search?q="
+	# NOTE: DoubanBook and DoubanMovie doesn't support search ' ' to jump to home page
+	websearch[DoubanBook]="https://search.douban.com/book/subject_search?search_text="
+	websearch[DoubanMovie]="https://search.douban.com/movie/subject_search?search_text="
+	websearch[Zhihu]="https://www.zhihu.com/search?type=content&q="
+	websearch[Twitter]="https://twitter.com/search?q="
+	websearch[ZLibrary]="https://book4you.org/s/?q="
+	websearch[Weibo]="https://s.weibo.com/weibo?q="
+	websearch[KindleBook]="https://www.amazon.cn/s/ref=nb_sb_noss?field-keywords="
+	websearch[JD]="https://search.jd.com/Search?keyword="
+	websearch[JavDB]="https://javdb.com/search?q="
+	websearch[Reddit]="https://www.reddit.com/search/?q="
+	# websearch[odysee]="https://odysee.com/$/search?q="
+	websearch[Youtube]="https://www.youtube.com/results?search_query="
+	# Online Shopping-----------
+	websearch[Amazon]="https://www.amazon.com/s?k="
+	# websearch[craigslist]="https://www.craigslist.org/search/sss?query="
+	# websearch[ebay]="https://www.ebay.com/sch/i.html?&_nkw="
+	# websearch[gumtree]="https://www.gumtree.com/search?search_category=all&q="
+	# Linux---------------------
+	websearch[Arch_AUR]="https://aur.archlinux.org/packages/?O=0&K="
+	websearch[Arch_pkg]="https://archlinux.org/packages/?sort=&q="
+	websearch[ArchWiki]="https://wiki.archlinux.org/index.php?search="
+	# websearch[debianpkg]="https://packages.debian.org/search?suite=default&section=all&arch=any&searchon=names&keywords="
+	# Development---------------
+	websearch[Github]="https://github.com/search?q="
+	websearch[Gitlab]="https://gitlab.com/search?search="
+	websearch[GoogleOpenSource]="https://opensource.google/projects/search?q="
+	# websearch[sourceforge]="https://sourceforge.net/directory/?q="
+	websearch[StackOverFlow]="https://stackoverflow.com/search?q="
+	# Etc
+
+	# As this is loaded from other file it is technically not defined
+	# shellcheck disable=SC2154 # Choosing  a search engine by name from array above.
+	engine=$(printf '%s\n' "${!websearch[@]}" | sort | eval "${ROFI}" 'SEARCH_ENGINE' -i) || exit 1
+
+	# Getting the URL of the search engine we chose.
+	url="${websearch["${engine}"]}"
+
+	# Searching the chosen engine.
+	query=$(eval "${ROFI}" 'SEARCH_$engine')
+	if [ "$query" = "" ]; then
+		exit
+	elif [ "$query" = " " ]; then
+		firefox "$(dirname "${url}")"
+	else
+		query="$(echo -n "${query}" | jq -s -R -r @uri)"
+		# Display search results in web browser
+		# shellcheck disable=SC2154
+		firefox "${url}${query}"
+	fi
+}
+
+while getopts "hcdkmMpstw" arg 2>/dev/null; do
+	case "${arg}" in
+	h) help ;;
+	c) edit_configs ;;
+	d) dictionary ;;
+	k) kill_process ;;
+	m) manpage ;;
+	s) search_files ;;
+	t)
+		shift
+		case "$@" in
+		"") timer -c ;;   # countdown in terminal
+		"-p") timer -p ;; # pomodora
+		"-c") timer -C ;; # countdown using rofi
+		"-s") timer -s ;; # stopwatch in terminal
+		*) timer -h ;;
+		esac
+		;;
+	w) websearch ;;
+	*) help ;;
+	esac
+done
+# no flag
+[ $OPTIND -eq 1 ] && rofi -show combi -theme ~/Dotfiles.d/misc/rofi-theme-solarized_alternate.rasi
