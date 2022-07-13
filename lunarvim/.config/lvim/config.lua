@@ -324,6 +324,10 @@ lvim.builtin.which_key.mappings["w"] = {
 	m = { ":MaximizerToggle<cr>", "Max Window" },
 	-- from https://gitlab.com/yorickpeterse/nvim-window.git
 	a = { ":lua require('nvim-window').pick()<CR>", "Choose Windows" },
+	["<Left>"] = { "<C-w><Left>", "Switch to Left window" },
+	["<Right>"] = { "<C-w><Right>", "Switch to Right window" },
+	["<Up>"] = { "<C-w><Up>", "Switch to Up window" },
+	["<Down>"] = { "<C-w><Down>", "Switch to Down window" },
 	["<space>"] = { ":call ToggleWindowSplit()<CR>", "Toggle Layout" },
 }
 lvim.builtin.which_key.mappings["j"] = {
