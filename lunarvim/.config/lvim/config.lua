@@ -32,6 +32,8 @@ set wrap
 set updatetime=1000
 " from rrethy/vim-hexokinase, config in lvim.plugins block according to lunarvim doc deosn't work
 let g:Hexokinase_highlighters = ['backgroundfull']
+" the offset to top/bottom for commands like z<Enter>/zt/z-/zb
+set scrolloff=0
 ]])
 vim.api.nvim_exec(
 	[[
