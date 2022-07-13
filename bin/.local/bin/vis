@@ -2,32 +2,33 @@
 
 print_usage() {
 	cat <<EOF
-$(basename $0) -- vim different targets
+$(basename "$0") -- vim different targets
 
-Usage: $(basename $0)
-       -h to print this usage
-       -2 to edit $HOME/Dotfiles.d/todo.org
-       -b to edit $HOME/.bashrc
-       -B to edit $HOME/.bash_aliases
-       -d to vim diff
-       -c to edit $HOME/Dotfiles.d/misc/clang-format-c-cpp
-       -e to edit $EMACS_EL
-       -f to edit $FISHRC
-       -F to edit file disabling format_on_save
-       -t to edit $HOME/.config/tmux/tmux.conf
-       -T to edit $HOME/.config/tig/config
-       -a to edit $HOME/.config/alacritty/alacritty.yml
-       -k to edit $HOME/.config/kitty/kitty.conf
-       -R to edit $HOME/.config/rofis
-       -s to edit $HOME/.config/sxhkd/sxhkdrc
-       -u to vim -U NONE $@
-       -U to vim -u $HOME/Dotfiles.d/vim/vimrc.more $@
-       -m to vim $HOME/Dotfiles.d/misc/cmake-format.json
-       -M to vim $HOME/.config/mpv
-       -v to edit $HOME/.config/lvim/config.lua
-       -o to vim $HOME/Dotfiles.d.d/vim/.vimrc
-       -r to sudo edit
-       -i to vim $HOME/.config/i3/config
+  -h -- print this usage
+  -2 -- edit $HOME/Dotfiles.d/todo.org
+  -a -- edit $HOME/.config/alacritty/alacritty.yml
+  -b -- edit $HOME/.bashrc
+  -B -- edit $HOME/.bash_aliases
+  -d -- vim diff
+  -c -- edit $HOME/Dotfiles.d/misc/clang-format-c-cpp
+  -e -- edit $EMACS_EL
+  -E -- sudo edit
+  -f -- edit $FISHRC
+  -F -- edit file disabling format_on_save
+  -i -- vim $HOME/.config/i3
+  -k -- edit $HOME/.config/kitty/kitty.conf
+  -m -- vim $HOME/Dotfiles.d/misc/cmake-format.json
+  -M -- vim $HOME/.config/mpv
+  -o -- edit $HOME/Dotfiles.d.d/vim/.vimrc
+  -O -- edit $HOME/Dotfiles.d/vim/vimrc.more
+  -s -- edit $HOME/.config/sxhkd/sxhkdrc
+  -t -- edit $HOME/.config/tmux/tmux.conf
+  -T -- edit $HOME/.config/tig/config
+  -r -- vim $HOME/.config/ranger
+  -R -- vim $HOME/.local/bin/rofis
+  -u -- vim -U NONE +argv
+  -U -- vim -u $HOME/Dotfiles.d/vim/vimrc.more +argv
+  -v -- edit $HOME/.config/lvim/config.lua
 EOF
 	exit 0
 }
@@ -35,14 +36,17 @@ EOF
 EMACS_EL="$HOME/.spacemacs.d/init.el"
 FISHRC="$HOME/.config/fish/config.fish"
 cmd=vim
-file=$@
-while getopts ":2bBdcefFtTaksuUmMoOvrRi" args; do # prefix-: no warning for illegal option
+file=$*
+while getopts ":h2abBdceEfFikmMoOrRstTuUv" args; do # prefix-: no warning for illegal option
 	case "$args" in
 	h | \?)
 		print_usage
 		;;
 	2)
 		file="$HOME/Dotfiles.d/todo.org"
+		;;
+	a)
+		file="$HOME/.config/alacritty/alacritty.yml"
 		;;
 	b)
 		file="$HOME/.bashrc"
@@ -53,13 +57,13 @@ while getopts ":2bBdcefFtTaksuUmMoOvrRi" args; do # prefix-: no warning for ille
 	d)
 		shift
 		if [ "$#" -eq 1 ]; then
-			eval $cmd -c "Gvdiffsplit!" $1
+			eval "$cmd" -c "Gvdiffsplit!" "$1"
 			exit
 		fi
-		if [ -f $1 ]; then
-			eval $cmd -d -o $1 $2
-		elif [ -d $1 ]; then
-			eval $cmd -c "DirDiff $1 $2"
+		if [ -f "$1" ]; then
+			eval "$cmd" -d -o "$1" "$2"
+		elif [ -d "$1" ]; then
+			eval "$cmd" -c "DirDiff $1 $2"
 		fi
 		exit
 		;;
@@ -69,6 +73,11 @@ while getopts ":2bBdcefFtTaksuUmMoOvrRi" args; do # prefix-: no warning for ille
 	e)
 		file=$EMACS_EL
 		;;
+	E)
+		shift
+		sudo -E vim "$@"
+		exit
+		;;
 	f)
 		file=$FISHRC
 		;;
@@ -77,31 +86,11 @@ while getopts ":2bBdcefFtTaksuUmMoOvrRi" args; do # prefix-: no warning for ille
 		lvim +LvimToggleFormatOnSave "$@"
 		exit
 		;;
-	t)
-		eval $cmd $HOME/.config/tmux/tmux.conf && tmux source-file $HOME/.config/tmux/tmux.conf && echo $HOME/.config/tmux/tmux.conf reloaded!
-		exit
-		;;
-	T)
-		file="$HOME/.config/tig/config"
-		;;
-	a)
-		file="$HOME/.config/alacritty/alacritty.yml"
+	i)
+		file="$HOME/.config/i3"
 		;;
 	k)
 		file="$HOME/.config/kitty/kitty.conf"
-		;;
-	s)
-		file="$HOME/.config/sxhkd/sxhkdrc"
-		;;
-	u)
-		cmd="vim -u NONE -c 'nmap q :q!<CR>'"
-		shift
-		file=$@
-		;;
-	U)
-		cmd="vim -u $HOME/Dotfiles.d/vim/vimrc.more"
-		shift
-		file=$@
 		;;
 	m)
 		file="$HOME/Dotfiles.d/misc/cmake-format.json"
@@ -115,23 +104,38 @@ while getopts ":2bBdcefFtTaksuUmMoOvrRi" args; do # prefix-: no warning for ille
 	O)
 		file="$HOME/Dotfiles.d/vim/vimrc.more"
 		;;
-	v)
-		file="$HOME/.config/lvim/config.lua"
-		;;
 	r)
-		shift
-		sudo -E vim $@
-		exit
+		file="$HOME/.config/ranger"
 		;;
 	R)
 		file="$HOME/.local/bin/rofis"
 		;;
-	i)
-		file="$HOME/.config/i3/config"
+	s)
+		file="$HOME/.config/sxhkd/sxhkdrc"
+		;;
+	t)
+		eval "$cmd" "$HOME/.config/tmux/tmux.conf" && tmux source-file "$HOME/.config/tmux/tmux.conf" && echo "$HOME/.config/tmux/tmux.conf reloaded!"
+		exit
+		;;
+	T)
+		file="$HOME/.config/tig/config"
+		;;
+	u)
+		cmd="vim -u NONE -c 'nmap q :q!<CR>'"
+		shift
+		file="$*"
+		;;
+	U)
+		cmd="vim -u $HOME/Dotfiles.d/vim/vimrc.more"
+		shift
+		file="$*"
+		;;
+	v)
+		file="$HOME/.config/lvim/config.lua"
 		;;
 	esac
 done
 shift
-num=$@
+num="$*"
 
-eval $cmd $file $num
+eval "$cmd" "$file" "$num"
