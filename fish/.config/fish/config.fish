@@ -50,6 +50,11 @@ function startup -d "execute it manually only inside fsr fucntion since it is sl
     end
 end
 
+function fish_command_not_found -d "Rewrite the default fish_command_not_found function"
+    echo "'$argv' command is not found."
+    paru -F $argv 2>/dev/null
+end
+
 function set_keyboard --on-event fish_preexec
     if test $DISPLAY
         # change keyboard auto repeat, this improves keyboard experience, such as the scroll in Emacs
