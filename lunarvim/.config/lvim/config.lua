@@ -464,6 +464,13 @@ linters.setup({
 	},
 })
 
+-- set commentstring for some filetypes, NOTE: autocommands block treesitter block don't work
+require("Comment.ft").set("gitconfig", "#%s")
+-- dosinit is for files like /etc/pacman.conf and /etc/pacman.d/*list
+require("Comment.ft").set("dosini", "#%s")
+-- for files wich filetype is empty
+require("Comment.ft").set("", "#%s")
+
 -- Autocommands (https://neovim.io/doc/user/autocmd.html)
 lvim.autocommands = {
 	-- On entering a lua file, set the tab spacing and shift width to 8
@@ -479,7 +486,7 @@ lvim.autocommands = {
 	-- * if &filetype != "latex" && &filetype != "plaintex" | do
 	{
 		"CursorHold,CursorHoldI,MenuPopup",
-		{ pattern = { "*.*" }, command = 'if &ft != "fish" | lua vim.lsp.buf.hover()' },
+		{ pattern = { "*" }, command = 'if &ft != "fish" | lua vim.lsp.buf.hover()' },
 	},
 	-- start insert when editing git commit message
 	{ "FileType", { pattern = { "gitcommit" }, command = "startinsert" } },
