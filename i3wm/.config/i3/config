@@ -46,10 +46,10 @@ font pango:Noto Sans Mono 12
 exec_always --no-startup-id nm-applet
 
 # Use pactl to adjust volume in PulseAudio.
-bindsym $mod+Home exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +5%
-bindsym $mod+End exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -5%
-bindsym $mod+Shift+Home exec --no-startup-id toggle_bt_connection.sh
-bindsym $mod+Shift+End exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle
+bindsym $mod+Home        exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +5%
+bindsym $mod+End         exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -5%
+bindsym $mod+Shift+Home  exec --no-startup-id toggle_bt_connection.sh
+bindsym $mod+Shift+End   exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle
 bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle
 
 # Use Mouse+floating_modifier to drag floating windows to their wanted position
@@ -59,12 +59,9 @@ floating_modifier $Alt
 # NOTE: for floating mpv, sometimes all three bindings have some kind of toggle effect,
 #       since $Alt+1/2/3 are in input.conf of mpv
 # set width ppt height ppt
-bindsym $mod+$Alt+1 [floating con_id="__focused__"] resize set 40 ppt 50 ppt, move position center
-bindsym $mod+$Alt+2 [floating con_id="__focused__"] resize set 70 ppt 80 ppt, move position center
+bindsym $mod+$Alt+1 [floating con_id="__focused__"] resize set 40 ppt 50 ppt,  move position center
+bindsym $mod+$Alt+2 [floating con_id="__focused__"] resize set 70 ppt 80 ppt,  move position center
 bindsym $mod+$Alt+3 [floating con_id="__focused__"] resize set 100 ppt 98 ppt, move position center
-
-# start a terminal
-# bindsym $mod+Return exec i3-sensible-terminal
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -76,18 +73,17 @@ bindsym button2 kill
 bindsym --whole-window $mod+Shift+button3 kill
 
 # change focus
-# NOTE: Use rofi to get all windows in all workspaces
 # repeating prev/next works only inside container when the container is front/rear
 # prev/next won't work for a container with only one window,
 # need to turn container status off first or use $mod+arrow to change focus
-bindsym $Alt+Tab focus next
+bindsym $Alt+Tab       focus next
 bindsym $Alt+Shift+Tab focus prev
-bindsym $mod+Tab focus next
+bindsym $mod+Tab       focus next
 bindsym $mod+Shift+Tab focus prev
 # alternatively, you can use the cursor keys:
-bindsym $mod+Left focus left
-bindsym $mod+Down focus down
-bindsym $mod+Up focus up
+bindsym $mod+Left  focus left
+bindsym $mod+Down  focus down
+bindsym $mod+Up    focus up
 bindsym $mod+Right focus right
 
 # move focused window
@@ -95,20 +91,19 @@ bindsym $mod+Right focus right
 # NOTE: a container containing only one window can turn its container status off with toggle floating
 # move left/right can also be used to turn the one window container status off
 # the value at the end is for floating windows
-bindsym $mod+Shift+Left move left 50 px
+bindsym $mod+Shift+Left  move left 50 px
 bindsym $mod+Shift+Right move right 50 px
-bindsym $mod+Shift+Down move down 50 px
-bindsym $mod+Shift+Up move up 50 px
+bindsym $mod+Shift+Down  move down 50 px
+bindsym $mod+Shift+Up    move up 50 px
 # Move the current window with the Left/Right/Down/Up window into a container in one step
 # Move focus->toggle into container->move focus back->move window into the container
-bindsym $mod+$Alt+Left focus left, split h, focus right, move left
+bindsym $mod+$Alt+Left  focus left, split h, focus right, move left
 bindsym $mod+$Alt+Right focus right, split h, focus left, move right
-bindsym $mod+$Alt+Up focus up, split v, focus down, move up
-bindsym $mod+$Alt+Down focus down, split v, focus up, move down
-# split in horizontal orientation
+bindsym $mod+$Alt+Up    focus up, split v, focus down, move up
+bindsym $mod+$Alt+Down  focus down, split v, focus up, move down
+# split in horizontal/vertical orientation
 bindsym $mod+backslash split h
-# split in vertical orientation
-bindsym $mod+minus split v
+bindsym $mod+minus     split v
 # NOTE: This balance binding only works for 2 windows inside a container in split layout
 bindsym $mod+equal resize set 50 ppt 50 ppt
 
@@ -120,7 +115,7 @@ bindsym $mod+y move position center
 # change container layout (stacked, tabbed, toggle split)
 # tabbed ~ maximized current window, and unable to maximized floating window, use fullscreen
 # NOTE: two layout commands only work for current container
-bindsym $mod+w layout toggle tabbed split
+bindsym $mod+w       layout toggle tabbed split
 bindsym $mod+Shift+w layout toggle split
 
 # toggle tiling / floating
@@ -133,9 +128,8 @@ bindsym --whole-window $mod+button3 focus mode_toggle
 bindsym $mod+Shift+grave focus mode_toggle
 bindsym $mod+Shift+minus border toggle
 
-# focus the parent container
-bindsym $mod+$Alt+Shift+Up focus parent
-# focus the child container
+# focus the parent/child container
+bindsym $mod+$Alt+Shift+Up   focus parent
 bindsym $mod+$Alt+Shift+Down focus child
 
 # Define names for default workspaces for which we configure key bindings later on.
@@ -178,12 +172,12 @@ bindsym $mod+Shift+4 move container to workspace number $ws4; workspace number $
 # bindsym $mod+Shift+9 move container to workspace number $ws9
 # bindsym $mod+Shift+0 move container to workspace number $ws10
 
-bindsym $mod+z workspace prev
-bindsym $mod+x workspace back_and_forth
+bindsym $mod+z       workspace prev
+bindsym $mod+x       workspace back_and_forth
 bindsym $mod+Shift+z move container to workspace prev; workspace prev
 bindsym $mod+Shift+x move container to workspace back_and_forth; workspace back_and_forth
-bindsym $mod+Ctrl+z move workspace to output left
-bindsym $mod+Ctrl+x move workspace to output next
+bindsym $mod+Ctrl+z  move workspace to output left
+bindsym $mod+Ctrl+x  move workspace to output next
 
 # reload the configuration file
 bindsym $mod+r reload
@@ -234,15 +228,15 @@ bindsym $mod+Ctrl+Shift+m mode "$mode_mark"
 set $mode_system Actions: (b)lackscreen, (l)ock, (L)ogout, (m)onitors0, (M)onitors2, (s)uspend, (Enter)Hibernate, (r)eboot, (S)hutdown
 mode "$mode_system" {
   # black screen, move mouse or hit a key to back on
-  bindsym b exec xset dpms force off, mode "default"
-  bindsym l exec --no-startup-id i3lock -c 000000, mode "default"
+  bindsym b       exec xset dpms force off, mode "default"
+  bindsym l       exec --no-startup-id i3lock -c 000000, mode "default"
   bindsym Shift+l exec --no-startup-id i3-msg exit, mode "default"
   # m is to use only the laptop native builtin monitor, M is to use both laptop and external ones
-  bindsym m exec monitors -0; mode "default"
+  bindsym m       exec monitors -0; mode "default"
   bindsym Shift+m exec monitors -2; mode "default" 
-  bindsym s exec --no-startup-id systemctl suspend, mode "default"
   bindsym Return exec --no-startup-id systemctl hibernate, mode "default"
-  bindsym r exec --no-startup-id systemctl reboot, mode "default"
+  bindsym s       exec --no-startup-id systemctl suspend, mode "default"
+  bindsym r       exec --no-startup-id systemctl reboot, mode "default"
   bindsym Shift+s exec --no-startup-id systemctl poweroff mode "default"
 
   bindsym Escape mode "default"
@@ -253,12 +247,12 @@ bindsym $mod+Ctrl+Delete mode "$mode_system"
 # resize window without using mode, this works for both tiling and floating windows
 # move window using $mod+Shift+arrow, it works for both tiling and floating windows as well
 # NOTE: it seems floating windows use px, tiling windows use ppt, move-center works for floating windows
-bindsym $mod+Ctrl+Left  resize shrink width  50 px or 5 ppt; move position center
-bindsym $mod+Ctrl+Right resize grow   width  50 px or 5 ppt; move position center
-bindsym $mod+Ctrl+Up    resize grow   height 50 px or 5 ppt; move position center
-bindsym $mod+Ctrl+Down  resize shrink height 50 px or 5 ppt; move position center
+bindsym $mod+Ctrl+Left       resize shrink width  50 px or 5 ppt; move position center
+bindsym $mod+Ctrl+Right      resize grow   width  50 px or 5 ppt; move position center
+bindsym $mod+Ctrl+Up         resize grow   height 50 px or 5 ppt; move position center
+bindsym $mod+Ctrl+Down       resize shrink height 50 px or 5 ppt; move position center
 # vertically/horizontally maximized
-bindsym $mod+Ctrl+Shift+Up resize set height 97 ppt; move position center
+bindsym $mod+Ctrl+Shift+Up   resize set height 97 ppt; move position center
 bindsym $mod+Ctrl+Shift+Left resize set width 99 ppt; move position center
 
 # NOTE: sticky makes it visible in all workspaces
@@ -415,7 +409,7 @@ bar {
 
   # Colors for workspace names/labels
   colors {
-    separator $bgc_df
+    separator  $bgc_df
     background $bgc_df
     statusline $txt_hi
     # <colorclass> <border> <background> <text>
