@@ -189,19 +189,6 @@ bindsym $mod+r reload
 bindsym $mod+Shift+r restart
 bindsym $mod+Ctrl+Shift+r exec pkill -USR2 i3status-rs
 
-set $mode_rofi_tools Tool: (e)ditconf, (d)ict, (k)ill, (m)anpage, (M)ountUnmount, (w)eb
-mode "$mode_rofi_tools" {
-  bindsym e exec dm-confedit; mode "default"
-  bindsym d exec dm-dictionary; mode "default"
-  bindsym k exec dm-kill; mode "default"
-  bindsym m exec dm-man; mode "default"
-  bindsym w exec dm-websearch; mode "default"
-  bindsym Shift+m exec dm-usbmount; mode "default"
-
-  bindsym Escape mode "default"
-}
-bindsym $mod+Shift+d mode "$mode_rofi_tools"
-
 set $mode_system <b>System:</b> [<b>Space</b>]Hibernate, [<b>b</b>]lackscreen, [<b>l</b>]ock, [<b>L</b>]ogout, [<b>m</b>]onitors0, [<b>M</b>]onitors2, [<b>s</b>]uspend, [<b>r</b>]eboot, [<b>S</b>]hutdown
 bindsym $mod+Ctrl+Delete mode "$mode_system"
 mode --pango_markup "$mode_system" {
@@ -300,6 +287,22 @@ mode --pango_markup "$mode_merge_swap" {
   bindsym s      swap container with mark "mark"; [con_mark="mark"] focus; unmark "mark"; mode "default"
 
   bindsym Escape unmark "mark"; mode "default"
+}
+
+set $mode_rofis <b>Tools:</b> [<b>Super+Space</b>]Rofi, edit[<b>c</b>]onfigs, [<b>C</b>]ountDown, [<b>d</b>]ict, [<b>k</b>]ill, [<b>m</b>]anpage, [<b>p</b>]omodoro, [<b>s</b>]earchFiles, [<b>w</b>]eb
+bindsym $mod+space mode "$mode_rofis"
+mode --pango_markup "$mode_rofis" {
+  bindsym $mod+space exec rofis; mode "default"
+  bindsym c exec rofis -c; mode "default"
+  bindsym Shift+c exec rofis -t -c; mode "default"
+  bindsym d exec rofis -d; mode "default"
+  bindsym k exec rofis -k; mode "default"
+  bindsym m exec rofis -m; mode "default"
+  bindsym p exec rofis -t -p; mode "default"
+  bindsym s exec rofis -s; mode "default"
+  bindsym w exec rofis -w; mode "default"
+
+  bindsym Escape mode "default"
 }
 
 set $mode_mark <b>Actions:</b> [<b>Return</b>]markMark, [<b>m</b>]ark, [<b>g</b>]otoMark, [<b>u</b>]nmark, [<b>U</b>]nmarkAll
