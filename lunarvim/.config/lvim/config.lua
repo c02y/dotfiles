@@ -20,6 +20,13 @@ lvim.colorscheme = "default"
 lvim.builtin.lualine.style = "default"
 lvim.builtin.lualine.options.theme = "onedark"
 lvim.builtin.lualine.sections.lualine_c = { "filename", "diagnostics" }
+lvim.builtin.telescope.defaults = {
+	-- list the line number from Results window top->down
+	sorting_strategy = "ascending",
+	layout_config = {
+		prompt_position = "top",
+	},
+}
 -- debug -- dap
 lvim.builtin.dap.active = true
 vim.cmd([[
