@@ -379,30 +379,31 @@ lvim.builtin.nvimtree.active = false
 
 -- if you don't want all the parsers change this to a table of the ones you want
 -- You may need to :TSupdate if vim has tree-sitter issues
-lvim.builtin.treesitter.ensure_installed = {
-	"bash",
-	"fish",
-	"c",
-	"cpp",
-	"cmake",
-	"make",
-	"ninja",
-	"rust",
-	"python",
-	"lua",
-	"vim",
-	-- "emacs-lisp",
-	"toml",
-	"yaml",
-	"json",
-	"javascript",
-	"typescript",
-	"css",
-	"java",
-}
-
-lvim.builtin.treesitter.ignore_install = { "haskell" }
-lvim.builtin.treesitter.highlight.enabled = true
+require("nvim-treesitter.configs").setup({
+	ensure_installed = {
+		"bash",
+		"fish",
+		"c",
+		"cpp",
+		"cmake",
+		"make",
+		"ninja",
+		"rust",
+		"python",
+		"lua",
+		"vim",
+		-- "emacs-lisp",
+		"toml",
+		"yaml",
+		"json",
+		"javascript",
+		"typescript",
+		"css",
+		"java",
+	},
+	ignore_install = { "haskell" },
+	highlight = { enabled = true },
+})
 
 -- generic LSP settings
 
