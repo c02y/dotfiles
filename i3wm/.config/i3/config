@@ -189,18 +189,6 @@ bindsym $mod+r reload
 bindsym $mod+Shift+r restart
 bindsym $mod+Ctrl+Shift+r exec pkill -USR2 i3status-rs
 
-# Merge/swap windows using keys in mode
-set $mode_merge_swap Action: (Return)mark, (m)erge, (s)wap
-mode "$mode_merge_swap" {
-  # Need to mark first, then trigger this mode again
-  bindsym Return mark --add "mark"; mode "default"
-  bindsym m split h; mark --add "merge"; [con_mark="mark"] focus; move window to mark "merge"; [con_mark="merge"] focus; unmark "mark"; unmark "merge"; mode "default"
-  bindsym s swap container with mark "mark"; [con_mark="mark"] focus; unmark "mark"; mode "default"
-
-  bindsym Escape unmark "mark"; mode "default"
-}
-bindsym $mod+Ctrl+m mode "$mode_merge_swap"
-
 set $mode_rofi_tools Tool: (e)ditconf, (d)ict, (k)ill, (m)anpage, (M)ountUnmount, (w)eb
 mode "$mode_rofi_tools" {
   bindsym e exec dm-confedit; mode "default"
@@ -214,20 +202,9 @@ mode "$mode_rofi_tools" {
 }
 bindsym $mod+Shift+d mode "$mode_rofi_tools"
 
-set $mode_mark Actions: (Return)markMark, (m)ark, (g)otoMark, (u)nmark, (U)nmarkAll
-mode "$mode_mark" {
-  bindsym Return mark --add "mark"; mode "default"
-  bindsym m exec i3-input -F 'mark %s' -P 'Mark: '; mode "default"
-  bindsym g exec i3-input -F '[con_mark="%s"] focus' -P 'Goto Mark: '; mode "default"
-  bindsym u exec i3-input -F 'unmark %s' -P 'Unmark: '; mode "default"
-  bindsym Shift+u unmark; mode "default"
-
-  bindsym Escape mode "default"
-}
-bindsym $mod+Ctrl+Shift+m mode "$mode_mark"
-
-set $mode_system Actions: (b)lackscreen, (l)ock, (L)ogout, (m)onitors0, (M)onitors2, (s)uspend, (Enter)Hibernate, (r)eboot, (S)hutdown
-mode "$mode_system" {
+set $mode_system <b>System:</b> [<b>Space</b>]Hibernate, [<b>b</b>]lackscreen, [<b>l</b>]ock, [<b>L</b>]ogout, [<b>m</b>]onitors0, [<b>M</b>]onitors2, [<b>s</b>]uspend, [<b>r</b>]eboot, [<b>S</b>]hutdown
+bindsym $mod+Ctrl+Delete mode "$mode_system"
+mode --pango_markup "$mode_system" {
   bindsym space exec --no-startup-id systemctl hibernate, mode "default"
   # black screen, move mouse or hit a key to back on
   bindsym b       exec xset dpms force off, mode "default"
@@ -243,7 +220,6 @@ mode "$mode_system" {
   bindsym Escape mode "default"
   bindsym Delete mode "default"
 }
-bindsym $mod+Ctrl+Delete mode "$mode_system"
 
 # resize window without using mode, this works for both tiling and floating windows
 # move window using $mod+Shift+arrow, it works for both tiling and floating windows as well
@@ -314,8 +290,33 @@ bindsym F12 exec tdrop -t -m -y 30 -w 100% -h 98% kitty --class=Dropdown --title
 bindsym $mod+Escape exec "rofi -show combi -theme ~/Dotfiles.d/misc/rofi-theme-solarized_alternate.rasi"
 bindsym $mod+d exec dmenu_run -l 6 -i -b -p 'CMD' -fn 'Noto Sans Mono 12' -nb '$bgc_df' -nf '$txt_ia' -sf '$txt_hi' -sb '$bgc_df'
 
-set $mode_screenshot Screenshot: (Return)default, (c)opy, (d)elay, (f)ullscreen, (i)mgur, (p)in
-mode "$mode_screenshot" {
+# Merge/swap windows using keys in mode
+set $mode_merge_swap <b>Actions:</b> [<b>Return</b>]mark, [<b>m</b>]erge, [<b>s</b>]wap
+bindsym $mod+Ctrl+m mode "$mode_merge_swap"
+mode --pango_markup "$mode_merge_swap" {
+  # Need to mark first, then trigger this mode again
+  bindsym Return mark --add "mark"; mode "default"
+  bindsym m      split h; mark --add "merge"; [con_mark="mark"] focus; move window to mark "merge"; [con_mark="merge"] focus; unmark "mark"; unmark "merge"; mode "default"
+  bindsym s      swap container with mark "mark"; [con_mark="mark"] focus; unmark "mark"; mode "default"
+
+  bindsym Escape unmark "mark"; mode "default"
+}
+
+set $mode_mark <b>Actions:</b> [<b>Return</b>]markMark, [<b>m</b>]ark, [<b>g</b>]otoMark, [<b>u</b>]nmark, [<b>U</b>]nmarkAll
+bindsym $mod+Ctrl+Shift+m mode "$mode_mark"
+mode --pango_markup "$mode_mark" {
+  bindsym Return mark --add "mark"; mode "default"
+  bindsym m exec i3-input -F 'mark %s' -P 'Mark: '; mode "default"
+  bindsym g exec i3-input -F '[con_mark="%s"] focus' -P 'Goto Mark: '; mode "default"
+  bindsym u exec i3-input -F 'unmark %s' -P 'Unmark: '; mode "default"
+  bindsym Shift+u unmark; mode "default"
+
+  bindsym Escape mode "default"
+}
+
+set $mode_screenshot <b>Screenshot:</b> [<b>Return</b>]default, [<b>c</b>]opy, [<b>d</b>]elay, [<b>f</b>]ullscreen, [<b>i</b>]mgur, [<b>p</b>]in
+bindsym $mod+Shift+P mode "$mode_screenshot"
+mode --pango_markup "$mode_screenshot" {
   # NOTE: don't use $open for flameshot since you pin a screenshot you may need to screenshot again
   bindsym Return exec flameshot gui; mode "default"
   bindsym c exec flameshot gui -c; mode "default"
@@ -326,10 +327,10 @@ mode "$mode_screenshot" {
 
   bindsym Escape mode "default"
 }
-bindsym $mod+Shift+P mode "$mode_screenshot"
 
-set $mode_open_apps Apps: (a)udacious, (c)lion, (d)unstClose, (M-d)unstCloseAll, (D)unstPop, (f)search, (n)etworkMonitor, (p)cmanfm, (s)team, (t)hunderbird, (T)elegram, (v)irtualbox
-mode "$mode_open_apps" {
+set $mode_open_apps <b>Apps:</b> [<b>a</b>]udacious, [<b>c</b>]lion, [<b>d</b>]unstCloseAll, [<b>D</b>]unstPop, [<b>f</b>]search, [<b>m</b>]ountUnmount, [<b>n</b>]etworkMonitor, [<b>p</b>]cmanfm, [<b>s</b>]team, [<b>t</b>]hunderbird, [<b>T</b>]elegram, [<b>v</b>]irtualbox
+bindsym $mod+a mode "$mode_open_apps"
+mode --pango_markup "$mode_open_apps" {
   bindsym a workspace --no-auto-back-and-forth $ws3; exec $open audacious; mode "default"
   bindsym c exec $open clion; mode "default"
   bindsym d exec dunstctl close-all; mode "default"
@@ -346,7 +347,6 @@ mode "$mode_open_apps" {
 
   bindsym Escape mode "default"
 }
-bindsym $mod+Shift+a mode "$mode_open_apps"
 
 # Autostart applications
 # NOTE: the --experimental-backend for picom is to fix the screen tearing issue
