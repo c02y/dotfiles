@@ -80,8 +80,11 @@ test -f ~/.config/nvim/config.lua; and set -gx VIMRC (readlink -f ~/.config/lvim
 # export LANG=en_US.UTF-8
 # export LANGUAGE=en_US.UTF-8
 
-# show key code and key name using xev used for other programs such as sxhkd
-abbr key "xev | awk -F'[ )]+' '/^KeyPress/ { a[NR+2] } NR in a { printf \"%-3s %s\n\", \$5, \$8 }'"
+# show key/mouse code/name using xev for other programs such as sxhkd
+function keybutton -d 'show names of keyboard keys and mouse buttons'
+    # key or button
+    xev -event button -event keyboard | grep -e button -e keycode
+end
 
 abbr rgr ranger
 bind \cd delete-or-ranger # check the BUG part in the function
