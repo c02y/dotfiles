@@ -310,9 +310,9 @@ bindsym $mod+m scratchpad show
 # -h 98% is to make the status bar of tmux in Dropdown_Kitty work well with the screen bottom margin
 bindsym F12 exec tdrop -t -m -y 30 -w 100% -h 98% kitty --class=Dropdown --title=Dropdown_Kitty
 # if $mod+q fails, use $mod+d
-bindsym $mod+d exec --no-startup-id dmenu_run
 # the grave key is `, the left key of NUM 1 on the keyboard
 bindsym $mod+Escape exec "rofi -show combi -theme ~/Dotfiles.d/misc/rofi-theme-solarized_alternate.rasi"
+bindsym $mod+d exec dmenu_run -l 6 -i -b -p 'CMD' -fn 'Noto Sans Mono 12' -nb '$bgc_df' -nf '$txt_ia' -sf '$txt_hi' -sb '$bgc_df'
 
 set $mode_screenshot Screenshot: (Return)default, (c)opy, (d)elay, (f)ullscreen, (i)mgur, (p)in
 mode "$mode_screenshot" {
