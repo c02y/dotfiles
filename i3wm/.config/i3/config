@@ -228,12 +228,9 @@ bindsym $mod+F12 sticky toggle
 # NOTE: enable window bar for floating window so kill or move can be archived by only mouse on the window bar
 # NOTE: it works for floating mpv window too since it is not able to show window bar from mpv config
 # NOTE: BUG: the window bar is still there when you make un-floating, use binding manually to disable the window bar
-# NOTE: set all floating windows except for Dropdown kitty
-for_window [floating class="^(?!Dropdown$)"] resize set 70 ppt 80 ppt, move position center, border normal 0
-# NOTE: need dropdown terminal to float when used with tdrop because of the flicker issue:
-# https://github.com/noctuid/tdrop/issues/1#issuecomment-102650457
+for_window [floating] resize set 75 ppt 75 ppt, move position center, border normal 0
 # 'Image Lounge' is class name for nomacs, instance name is nomacs
-for_window [class="copyq|fcitx5-config-qt|Alacritty|kitty|Dropdown|Fsearch|flameshot|mpv|Blueman-manager|Pavucontrol|Image Lounge|File-roller"] floating enable
+for_window [class="copyq|fcitx5-config-qt|Fsearch|flameshot|mpv|Blueman-manager|Pavucontrol|Image Lounge|File-roller"] floating enable
 # `xprop _NET_WM_WINDOW_TYPE`, dialog: such as open file from menu bar, calibre popup window/dialog
 for_window [window_type="dialog"] resize set 40 ppt 60 ppt, move position center
 # `copyq config hide_main_window_in_task_bar true` in command and restart copyq to make the list window utility
@@ -246,35 +243,29 @@ assign [class="VirtualBox*"] $ws3
 # disable the following windows (notifications) from stealing focus
 # no_focus [class="TelegramDesktop"]
 
-set $open jumpapp -f
+set $open ~/.config/i3/i3-scratchpad -d75%x75% -t -k -f
 # Bindings for the following applications
 # use `xmodmap -pke` to get bindcode value
 # NOTE: if i3 unable to use ~/.local/bin, put `export PATH="$HOME/.local/bin:$PATH"` in ~/.profile
-bindsym $mod+e exec tdrop -t -m -w 100% -h 100% emacsclient -c
-bindsym $mod+Shift+e exec emacs
-bindsym $mod+$Alt+e exec emacsclient -c
-bindsym $mod+f exec $open firefox
-bindsym $mod+s exec fd -HIap -E Steam -E .cargo . $HOME | rofi -dmenu -i -theme ~/Dotfiles.d/misc/rofi-theme-solarized_alternate.rasi -p FILES | xargs -I {} xdg-open {}
-bindsym $mod+b exec $open calibre
-bindsym $mod+g exec $open -c Google-chrome google-chrome-stable
-bindsym $mod+n exec $open -i "emacs -q" emacs -q --no-splash
-bindsym $mod+p exec $open qpdfview
+bindsym $mod+e       exec $open -F emacsclient -c
+bindsym $mod+Shift+e exec $open emacs
+bindsym $mod+$Alt+e  exec emacsclient -c
+bindsym $mod+f       exec $open -F firefox
+bindsym $mod+b       exec $open -F calibre
+bindsym $mod+g       exec $open google-chrome-stable
+bindsym $mod+n       exec $open emacs -q --no-splash
+bindsym $mod+p       exec $open -F qpdfview
 # NOTE: the -t for jumpapp and -t for alacritty must be the same
-bindsym $mod+t exec $open -t Alacritty alacritty -t Alacritty
-bindsym $mod+Return exec $open -t Alacritty alacritty -t Alacritty
+bindsym $mod+Return  exec $open alacritty -t Alacritty
 bindsym $mod+Shift+Return exec alacritty
-bindsym $mod+Shift+f exec $open -t RangerFM kitty -T=RangerFM ranger
-bindsym $mod+F1 exec $open -t Btop kitty -T=Btop btop
+bindsym $mod+Shift+f exec $open kitty -T=RangerFM ranger
+bindsym $mod+F1      exec $open kitty -T=Btop btop
 bindsym $mod+$Alt+m move scratchpad
 # floating toggle on a window to remove it from the scratchpad
 bindsym $mod+m scratchpad show
-# NOTE: the options for tdrop are important, especially for WM and multiple monitors
-# NOTE: -y 30 is to make the top margin of Dropdown_Kitty and bottom margin of i3status-bar work well
-# -h 98% is to make the status bar of tmux in Dropdown_Kitty work well with the screen bottom margin
-bindsym F12 exec tdrop -t -m -y 30 -w 100% -h 98% kitty --class=Dropdown --title=Dropdown_Kitty
+# NOTE: 30 and 98% are to make the top margin of Dropdown_Kitty and bottom margin of i3status-bar work well
+bindsym F12 exec "~/.config/i3/i3-scratchpad -atl -d100%x98% -t -p0,30 kitty --class=Dropdown --title=Dropdown_Kitty"
 # if $mod+q fails, use $mod+d
-# the grave key is `, the left key of NUM 1 on the keyboard
-bindsym $mod+Escape exec "rofi -show combi -theme ~/Dotfiles.d/misc/rofi-theme-solarized_alternate.rasi"
 bindsym $mod+d exec dmenu_run -l 6 -i -b -p 'CMD' -fn 'Noto Sans Mono 12' -nb '$bgc_df' -nf '$txt_ia' -sf '$txt_hi' -sb '$bgc_df'
 
 # Merge/swap windows using keys in mode
