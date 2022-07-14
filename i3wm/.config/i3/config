@@ -228,6 +228,7 @@ bindsym $mod+Ctrl+Shift+m mode "$mode_mark"
 
 set $mode_system Actions: (b)lackscreen, (l)ock, (L)ogout, (m)onitors0, (M)onitors2, (s)uspend, (Enter)Hibernate, (r)eboot, (S)hutdown
 mode "$mode_system" {
+  bindsym space exec --no-startup-id systemctl hibernate, mode "default"
   # black screen, move mouse or hit a key to back on
   bindsym b       exec xset dpms force off, mode "default"
   bindsym l       exec --no-startup-id i3lock -c 000000, mode "default"
@@ -235,7 +236,6 @@ mode "$mode_system" {
   # m is to use only the laptop native builtin monitor, M is to use both laptop and external ones
   bindsym m       exec monitors -0; mode "default"
   bindsym Shift+m exec monitors -2; mode "default" 
-  bindsym Return exec --no-startup-id systemctl hibernate, mode "default"
   bindsym s       exec --no-startup-id systemctl suspend, mode "default"
   bindsym r       exec --no-startup-id systemctl reboot, mode "default"
   bindsym Shift+s exec --no-startup-id systemctl poweroff mode "default"
