@@ -32,9 +32,14 @@
 #        when you toggle it back from scratchpad
 # v1.3 - add -k flag to keep the previous window size and position
 #        when toggling it back from scratchpad, 2022-07-14
-# v1.4 - add -F flag to avoid the comman/program as floating windowe, 2022-07-14
+# v1.4 - add -F flag to avoid a window as floating window, 2022-07-14
+# v1.5 - add -K flag to kill a window, 2022-07-14
+# v1.6 - add -T flag to toggle floating window smartly, 2022-07-14
+# v1.7 - reverse -F, do not float by default if not set in i3/config,
+#        it will create tiling window and resize, you can notice the resize
+#        and most programs don't need float in i3/config, 2022-07-15
 
-VERSION="1.2"
+VERSION="1.7"
 
 print_help() {
 	printf 'Usage: %s [[-a <anchor>] [-d <size>] [-p <pos>] [-s <screen>] [-F]] [-m <edge>] [-f] [-k] [-t] [-u [-w][-o <opts>]] [-v] [-V] <command>\n' "$script_name"
@@ -55,13 +60,15 @@ print_help() {
 	printf ' -m <edge>     Animates the movement to target position from specified edge.\n'
 	printf '               Valid values are top, left, bottom, right, or short t, l, b, r\n'
 	printf ' -f            Focus first is not foused, only necessary when used with -t.\n'
-	printf ' -F            Float disable, using tiling instead, will ignore -d if -d is used.\n'
+	printf ' -F            Float enabled, better to set in i3/config, you will see the floating move when using -F.\n'
 	printf ' -k            Keep window layout, restore its size and position when toggle it back.\n'
+	printf ' -K            Kill a window.\n'
 	printf ' -o <opts>     Extra URxvt options to pass.\n'
 	printf ' -p <pos>      Position of terminal on pixels, in X,Y format.\n'
 	printf '               Negative values can be used as well. Default is 0,0\n'
 	printf ' -s <screen>   Screen identifier, as listed in xrandr. Falls back to primary screen.\n'
 	printf ' -t            Toggles the window.\n'
+	printf ' -T            Toggle floating window smartly.\n'
 	printf ' -u            Use URxvt terminal to launch the command - for command line apps.\n'
 	printf ' -v            Verbose, for debugging.\n'
 	printf ' -V            Print version information.\n'
@@ -76,20 +83,47 @@ echoit() {
 	# get the line where this fucntion is called
 	LINE=${BASH_LINENO[$((${#BASH_LINENO[@]} - 4))]}
 	# get value of a value of a value, if $1 = "name", ${!1} = $name
-	echo L$LINE: "$1": "${!1}" >>/tmp/i3-scratchpad.log
+	echo L$LINE: "$1": "${!1}" # >>/tmp/i3-scratchpad.log
 	[ -n "$2" ] && exit
+}
+
+toggle_floating_smart() {
+	# hard part, parse json of `i3-msg -t get_tree > file.json`, search for `"floating": "user_on"`
+	# in the same level, get the value of "window", then this window is floating, compare it with the active window id
+	floating_window_ids=$(i3-msg -t get_tree | jq -r --arg sk floating --arg sv user_on --arg pv window '.. | objects | select(contains({($sk): $sv})) | .[$pv]')
+	window_focused_id="$(xdotool getactivewindow)"
+	i3-msg -q -- "[id=\"$window_focused_id\"] floating toggle"
+	if [[ "$floating_window_ids" == *"$window_focused_id"* ]]; then
+		debug 'The active window' "$window_focused_id" 'was a floting window, now it is a tiling window'
+		# border + no-window-bar for tiling window
+		i3-msg -q -- "[id=\"$window_focused_id\"] border pixel 3"
+	else
+		debug 'The active window' "$window_focused_id" 'was a tiling window, now it is a floating window'
+		# no-border + window-bar for floating window
+		# NOTE: Dropdown(dfined in i3/config for Dropdown kitty) has no-border + no-window-bar
+		window_focused_classname="$(xdotool getactivewindow getwindowclassname)"
+		if [ "Dropdown" = "$window_focused_classname" ]; then
+			i3-msg -q -- "[id=\"$window_focused_id\" class=\"(^Dropdown$)\" ] border pixel 0"
+		else
+			i3-msg -q -- "[id=\"$window_focused_id\" class=\"^(?!Dropdown$)\" ] border normal 0"
+		fi
+		# toggle a window manually to set specific 75%x75% size
+		i3-msg -q -- "[id=\"$window_focused_id\"] resize set 75 ppt 75 ppt; [id=\"$window_focused_id\"] move position center"
+	fi
+	exit 0
 }
 
 main() {
 	# echo "================================" >>/tmp/i3-scratchpad.log
 	local screen_width screen_height offset_x offset_y width height x_pos y_pos \
-		urxvt move wait command urxvt_opts toggle verbose \
-		wid_file pid_dir animation_frame_delay=0.01
+		urxvt move wait command urxvt_opts toggle verbose window_focused_id \
+		window_state wid_file pid_dir animation_frame_delay=0.01
 
 	pid_dir=${XDG_RUNTIME_DIR:-"/tmp"}
 
 	parse_aruments "$@"
 
+	# already_running return 0 = true, first run return 1
 	if already_running; then
 		exit 0
 	fi
@@ -100,19 +134,21 @@ main() {
 parse_aruments() {
 	local script_name dim='\([0-9]\+%\?\)' pos='\(-\?[0-9]\+\)' anchor='cc'
 	script_name="$(basename "$0")"
-	while getopts a:d:hfFkm:o:p:s:tuvVw arg; do
+	while getopts a:d:hfFkKm:o:p:s:tTuvVw arg; do
 		case $arg in
 		a) anchor="$OPTARG" ;;
 		d) read -r width height < <(sed -n "s/^${dim}x${dim}$/\1 \2/p" <<<"$OPTARG") ;;
 		h) print_help && exit 0 ;;
 		f) focus=true ;;
-		F) float_disable=true ;;
+		F) float=true ;;
 		k) keep=true ;;
+		K) kill "$(xdotool getactivewindow getwindowpid)" && exit 0 ;;
 		m) move="$OPTARG" ;;
 		o) urxvt_opts="$OPTARG" ;;
 		p) read -r x_pos y_pos < <(sed -n "s/^${pos},${pos}$/\1 \2/p" <<<"$OPTARG") ;;
 		s) screen="$OPTARG" ;;
 		t) toggle=true ;;
+		T) toggle_floating_smart && exit 0 ;;
 		u) urxvt=true ;;
 		v) verbose=true ;;
 		V) printf 'Version %s\n' "$VERSION" && exit 0 ;;
@@ -191,7 +227,7 @@ parse_dimensions() {
 }
 
 already_running() {
-	local window_id window_state pid window_pid
+	local window_id pid window_pid
 	debug 'Checking wid file' "$wid_file"
 	if [ -f "$wid_file" ] && [ -r "$wid_file" ]; then
 		read -r window_id pid <"$wid_file"
@@ -210,8 +246,8 @@ already_running() {
 			else
 				debug 'Last pid not found'
 			fi
+			window_state=$(xprop -id "$window_id" | sed -n 's/^.*window state: \(.*\)$/\1/p')
 			if [ -n "$toggle" ]; then
-				window_state=$(xprop -id "$window_id" | sed -n 's/^.*window state: \(.*\)$/\1/p')
 				debug 'Toggle mode on, current window state is' "$window_state"
 				if [[ "$window_state" != 'Withdrawn' ]]; then
 					debug 'Moving to scratchpad'
@@ -255,42 +291,53 @@ start_and_save_wid_and_pid() {
 	show_window_in_position
 }
 
+keep_window() {
+	i3-msg -q -- "[id=\"$1\"] scratchpad show;"
+	if [ -n "$keep" ]; then
+		# already in scrachpad and -k flag is used
+		window_currnet_info="$(xwininfo -id "$1")"
+		depth_current=$(echo "$window_currnet_info" | awk '/Depth/ {print $2}')
+		x_pos_current=$(echo "$window_currnet_info" | awk '/Absolute upper-left X/ {print $4}')
+		y_pos_current="$(($(echo "$window_currnet_info" | awk '/Absolute upper-left Y/ {print $4}') - depth_current))"
+		width_current=$(echo "$window_currnet_info" | awk '/Width/ {print $2}')
+		height_current="$(($(echo "$window_currnet_info" | awk '/Height/ {print $2}') + depth_current))"
+
+		debug 'Show window in scratchpad and restore the previous window size and position'
+		i3-msg -q -- "[id=\"$1\"] move position $x_pos_current px $y_pos_current px;[id=\"$1\"] resize set $width_current px $height_current px"
+	else
+		i3-msg -q -- "[id=\"$1\"] move position $x_pos px $y_pos px;[id=\"$1\"] resize set $width px $height px"
+	fi
+}
+
 show_window_in_position() {
 	if [ -z "$move" ]; then
-		if [ -n "$float_disable" ]; then
-			i3-save-tree >/tmp/i3-save-tree.json
-			i3-msg -q -- "[id=\"$window_id\"] move to scratchpad;[id=\"$window_id\"] scratchpad show"
-			# `borer none` command works only on situation when only one tiling window is in the workspace
-			i3-msg -q -- "[id=\"$window_id\"] floating toggle; [id=\"$window_id\"] border none"
-			if [ -n "$keep" ]; then
-				# TODO: restore layout for tiling windows, left/right/up/down position, and window size, border...
-				# the json file generated by i3-save-tree cannot be directly parsed by i3-msg append_layout
-				# TODO: this part is complicated, do not try to save and restore the layouy
-				# only trying to solave one thing: toggle the left tiling window, when you toggle it back,
-				# it becomes the right window, and the size if you resized cannot be restored
-				# drop this feature
-				echo
+		# check if this is a new created window that has not been put into scrachpad
+		# otherwise the value_current will be the controlled my i3 open-new-window function which is not passed by -d
+		# window_non_scratchpad_ids=$(i3-msg -t get_tree | jq -r --arg sk window --arg sv "$window_focused_id" --arg pv window '.. | objects | select(contains({($sk): $sv})) | .[$pv]')
+		# if [[ "$window_non_scratchpad_ids" != *"$window_focused_id"* && -n "$keep" ]]; then
+		window_state=$(xprop -id "$window_id" | sed -n 's/^.*window state: \(.*\)$/\1/p')
+		if [[ "$window_state" == "Withdrawn" ]]; then
+			if [ -n "$float" ]; then
+				if [ -n "$keep" ]; then
+					keep_window "$window_id"
+				else
+					i3-msg -q -- "[id=\"$window_id\"] scratchpad show"
+					debug 'The window' "$window_id" 'is alredy a floting window, resizez it'
+					i3-msg -q -- "[id=\"$window_id\"] move position $x_pos px $y_pos px;[id=\"$window_id\"] resize set $width px $height px"
+					window_focused_classname="$(xdotool getactivewindow getwindowclassname)"
+					if [ "Dropdown" = "$window_focused_classname" ]; then
+						i3-msg -q -- "[id=\"$window_id\" class=\"(^Dropdown$)\" ] border pixel 0"
+					else
+						i3-msg -q -- "[id=\"$window_id\" class=\"^(?!Dropdown$)\" ] border normal 0"
+					fi
+				fi
+			else
+				i3-msg -q -- "[id=\"$window_id\"] scratchpad show; [id=\"$window_id\"] floating toggle; [id=\"$window_id\"] border none"
 			fi
-			return 0
+		else # focus it first
+			i3-msg -q -- "[id=\"$window_id\"] focus"
 		fi
-		if [ -n "$keep" ]; then
-			window_currnet_info="$(xwininfo -id "$window_id")"
-			depth_current=$(echo "$window_currnet_info" | awk '/Depth/ {print $2}')
-			x_pos_current=$(echo "$window_currnet_info" | awk '/Absolute upper-left X/ {print $4}')
-			y_pos_current="$(($(echo "$window_currnet_info" | awk '/Absolute upper-left Y/ {print $4}') - depth_current))"
-			width_current=$(echo "$window_currnet_info" | awk '/Width/ {print $2}')
-			height_current="$(($(echo "$window_currnet_info" | awk '/Height/ {print $2}') + depth_current))"
-
-			debug 'Moving to scratchpad, showing and keeping the previous window size and position'
-			i3-msg -q -- "[id=\"$window_id\"] move to scratchpad;[id=\"$window_id\"] scratchpad show;[id=\"$window_id\"] move position $x_pos_current px $y_pos_current px;[id=\"$window_id\"] resize set $width_current px $height_current px"
-			return 0
-		else
-			debug 'Moving to scratchpad, showing and resizing'
-			# NOTE: if putting the following two lines into one, it won't resize the window to the specified size
-			i3-msg -q -- "[id=\"$window_id\"] move to scratchpad;[id=\"$window_id\"] scratchpad show"
-			i3-msg -q -- "[id=\"$window_id\"] move position $x_pos px $y_pos px;[id=\"$window_id\"] resize set $width px $height px"
-			return 0
-		fi
+		return 0
 	fi
 
 	local x x_inc=0 x_end y y_inc=0 y_end
