@@ -35,9 +35,10 @@
 # v1.4 - add -F flag to avoid a window as floating window, 2022-07-14
 # v1.5 - add -K flag to kill a window, 2022-07-14
 # v1.6 - add -T flag to toggle floating window smartly, 2022-07-14
-# v1.7 - reverse -F, do not float by default if not set in i3/config,
+# v1.7 - 1. reverse -F, do not float by default if not set in i3/config,
 #        it will create tiling window and resize, you can notice the resize
-#        and most programs don't need float in i3/config, 2022-07-15
+#        and most programs don't need float in i3/config
+#        2. remove -K flag since it is only one command, 2022-07-15
 
 VERSION="1.7"
 
@@ -134,7 +135,7 @@ main() {
 parse_aruments() {
 	local script_name dim='\([0-9]\+%\?\)' pos='\(-\?[0-9]\+\)' anchor='cc'
 	script_name="$(basename "$0")"
-	while getopts a:d:hfFkKm:o:p:s:tTuvVw arg; do
+	while getopts a:d:hfFkm:o:p:s:tTuvVw arg; do
 		case $arg in
 		a) anchor="$OPTARG" ;;
 		d) read -r width height < <(sed -n "s/^${dim}x${dim}$/\1 \2/p" <<<"$OPTARG") ;;
@@ -142,7 +143,6 @@ parse_aruments() {
 		f) focus=true ;;
 		F) float=true ;;
 		k) keep=true ;;
-		K) kill "$(xdotool getactivewindow getwindowpid)" && exit 0 ;;
 		m) move="$OPTARG" ;;
 		o) urxvt_opts="$OPTARG" ;;
 		p) read -r x_pos y_pos < <(sed -n "s/^${pos},${pos}$/\1 \2/p" <<<"$OPTARG") ;;
