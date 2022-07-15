@@ -77,6 +77,18 @@ lvim.plugins = {
 	{ "timonv/vim-cargo" },
 	-- ds"(delete "), cs"'(chanage " to '), ysw"(add the next word double ")
 	{ "kylechui/nvim-surround" },
+	{
+		"lukas-reineke/indent-blankline.nvim",
+		require("indent_blankline").setup({
+			show_current_context = true,
+			show_current_context_start = true,
+			show_end_of_line = true,
+			char_highlight_list = {
+				-- from :highlight
+				"DevIconSh",
+			},
+		}),
+	},
 }
 
 require("telescope").setup({
