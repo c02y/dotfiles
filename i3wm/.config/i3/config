@@ -246,24 +246,25 @@ set $open ~/.config/i3/i3-scratchpad -d75%x75% -t -f
 # Bindings for the following applications
 # use `xmodmap -pke` to get bindcode value
 # NOTE: if i3 unable to use ~/.local/bin, put `export PATH="$HOME/.local/bin:$PATH"` in ~/.profile
-bindsym $mod+e       exec $open -F emacsclient -c
+bindsym $mod+e       exec $open emacsclient -c
 bindsym $mod+Shift+e exec $open emacs
 bindsym $mod+$Alt+e  exec emacsclient -c
-bindsym $mod+f       exec $open -F firefox
-bindsym $mod+b       exec $open -F calibre
+bindsym $mod+f       exec $open firefox
+bindsym $mod+b       exec $open calibre
 bindsym $mod+g       exec $open google-chrome-stable
 bindsym $mod+n       exec $open emacs -q --no-splash
-bindsym $mod+p       exec $open -F qpdfview
-# NOTE: the -t for jumpapp and -t for alacritty must be the same
-bindsym $mod+Return  exec $open alacritty -t Alacritty
+bindsym $mod+p       exec $open qpdfview
+# TODO: (have to use -F since it handle it)alacritty and kitty do not need -F to enable float, 
+# float rule in i3/config is much better than i3-scratchpad -F, since if not set float rule in i3/config, -F will show the resizment
+bindsym $mod+Return  exec $open -F alacritty -t Alacritty
 bindsym $mod+Shift+Return exec alacritty
-bindsym $mod+Shift+f exec $open kitty -T=RangerFM ranger
-bindsym $mod+F1      exec $open kitty -T=Btop btop
+bindsym $mod+Shift+f exec $open -F kitty -T=RangerFM ranger
+bindsym $mod+F1      exec $open -F kitty -T=Btop btop
 bindsym $mod+$Alt+m move scratchpad
 # floating toggle on a window to remove it from the scratchpad
 bindsym $mod+m scratchpad show
 # NOTE: 30 and 98% are to make the top margin of Dropdown_Kitty and bottom margin of i3status-bar work well
-bindsym F12 exec "~/.config/i3/i3-scratchpad -atl -d100%x98% -t -p0,30 kitty --class=Dropdown --title=Dropdown_Kitty"
+bindsym F12 exec "~/.config/i3/i3-scratchpad -atl -d100%x98% -t -p0,30 -f -F kitty --class=Dropdown --title=Dropdown_Kitty"
 # if $mod+q fails, use $mod+d
 bindsym $mod+d exec dmenu_run -l 6 -i -b -p 'CMD' -fn 'Noto Sans Mono 12' -nb '$bgc_df' -nf '$txt_ia' -sf '$txt_hi' -sb '$bgc_df'
 
