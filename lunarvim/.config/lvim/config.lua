@@ -200,6 +200,7 @@ lvim.keys.normal_mode["]h"] = "<cmd>lua require 'gitsigns'.next_hunk()<cr>"
 lvim.keys.normal_mode["]'"] = "<cmd>lua require 'gitsigns'.next_hunk()<cr>"
 lvim.keys.normal_mode["[p"] = "<cmd>lua require 'gitsigns'.preview_hunk()<cr>"
 lvim.keys.normal_mode["[a"] = "<cmd>lua require 'gitsigns'.stage_hunk()<cr>"
+lvim.keys.normal_mode["[b"] = "<cmd>lua require 'gitsigns'.toggle_current_line_blame()<cr>"
 lvim.keys.normal_mode["[u"] = "<cmd>lua require 'gitsigns'.reset_hunk()<cr>"
 lvim.keys.normal_mode["[U"] = "<cmd>lua require 'gitsigns'.undo_stage_hunk()<cr>"
 -- move lines up and down
