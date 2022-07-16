@@ -52,7 +52,9 @@ end
 
 function fish_command_not_found -d "Rewrite the default fish_command_not_found function"
     echo "'$argv' command is not found."
-    paru -F $argv 2>/dev/null
+    if comand -sq pacman
+        comman -sq paru; and paru -F $argv 2>/dev/null; or repo_extra
+    end
 end
 
 function set_keyboard --on-event fish_preexec
