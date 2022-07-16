@@ -1374,6 +1374,7 @@ function pacs -d 'pacman/paru operations'
         echo "         + -p --> print installed pacakges stats"
         echo "         + -L --> print explicitly installed packages"
         echo "         + argv --> list installed packages containing argv keyword in name or description"
+        echo "         + no argv --> list installed packages by installed date"
         echo "      -L --> list content of pacakges, the same as -s -L"
         echo "         + argv --> from a package"
         echo "         + -a argv --> including AUR package that may not be installed"
@@ -1528,7 +1529,11 @@ function pacs -d 'pacman/paru operations'
         else if set -q _flag_L # list all explicitly installed packages
             paru -Qet
         else
-            paru -Qs $ARGV
+            if not set -q argv[1] # if no argv, list all installed packages by installed date
+                command -sq expac; and expac -t '%F %T' '%l %n' | sort -n; or paru -Qs
+            else
+                paru -Qs $ARGV
+            end
         end
     else if set -q _flag_L # list content in a pacakge
         set -q argv[1]; or echo "Need one or more package names!" && return
