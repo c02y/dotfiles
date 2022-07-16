@@ -2968,7 +2968,9 @@ function cars -d "cargo commands, -c(clean target), -d(remove/uninstall), -i(ins
     else if set -q _flag_s
         eval $CMD search $argv
     else if set -q _flag_u
-        rustup update
+        # install-update need to install "cargo-update" crate
+        # -u -i it to update all crates installed by `cargo install`
+        set -q _flag_i; and cargo install-update -a; or rustup update
     else
         if set -q _flag_i; or ! test -f ./Cargo.toml
             # install release version, reduce size by default
