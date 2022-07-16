@@ -484,6 +484,7 @@ linters.setup({
 require("Comment.ft").set("gitconfig", "#%s")
 -- dosinit is for files like /etc/pacman.conf and /etc/pacman.d/*list
 require("Comment.ft").set("dosini", "#%s")
+require("Comment.ft").set("org", "#%s")
 -- for files wich filetype is empty
 require("Comment.ft").set("", "#%s")
 
