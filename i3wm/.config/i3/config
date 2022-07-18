@@ -119,10 +119,10 @@ bindsym $mod+w       layout toggle tabbed split
 bindsym $mod+Shift+w layout toggle split
 
 # toggle tiling / floating
-bindsym --whole-window $mod+button1 exec ~/.config/i3/i3-scratchpad -T
+bindsym --whole-window $mod+button1 exec ~/.config/i3/i3-scratchpad -t
 # the grave key is `, the left key of NUM 1 on the keyboard
-bindsym $mod+grave exec ~/.config/i3/i3-scratchpad -T
-bindsym button9    exec ~/.config/i3/i3-scratchpad -T
+bindsym $mod+grave exec ~/.config/i3/i3-scratchpad -t
+bindsym button9    exec ~/.config/i3/i3-scratchpad -t
 # change focus between tiling / floating windows
 bindsym --whole-window $mod+button3 focus mode_toggle
 bindsym $mod+Shift+grave focus mode_toggle
@@ -242,7 +242,7 @@ assign [class="VirtualBox*"] $ws3
 # disable the following windows (notifications) from stealing focus
 # no_focus [class="TelegramDesktop"]
 
-set $open ~/.config/i3/i3-scratchpad -d75%x75% -t -f
+set $open ~/.config/i3/i3-scratchpad -d75%x75% 
 # Bindings for the following applications
 # use `xmodmap -pke` to get bindcode value
 # NOTE: if i3 unable to use ~/.local/bin, put `export PATH="$HOME/.local/bin:$PATH"` in ~/.profile
@@ -254,17 +254,17 @@ bindsym $mod+b       exec $open calibre
 bindsym $mod+g       exec $open google-chrome-stable
 bindsym $mod+n       exec $open emacs -q --no-splash
 bindsym $mod+p       exec $open qpdfview
-# TODO: (have to use -F since it handle it)alacritty and kitty do not need -F to enable float, 
-# float rule in i3/config is much better than i3-scratchpad -F, since if not set float rule in i3/config, -F will show the resizment
-bindsym $mod+Return  exec $open -F alacritty -t Alacritty
+# TODO: (have to use -f since it handle it)alacritty and kitty do not need -f to enable float, 
+# float rule in i3/config is much better than i3-scratchpad -f, since if not set float rule in i3/config, -f will show the resizment
+bindsym $mod+Return  exec $open -f alacritty -t Alacritty
 bindsym $mod+Shift+Return exec alacritty
-bindsym $mod+Shift+f exec $open -F kitty -T=RangerFM ranger
-bindsym $mod+F1      exec $open -F kitty -T=Btop btop
+bindsym $mod+Shift+f exec $open -f kitty -T=RangerFM ranger
+bindsym $mod+F1      exec $open -f kitty -T=Btop btop
 bindsym $mod+$Alt+m move scratchpad
 # floating toggle on a window to remove it from the scratchpad
 bindsym $mod+m scratchpad show
 # NOTE: 30 and 98% are to make the top margin of Dropdown_Kitty and bottom margin of i3status-bar work well
-bindsym F12 exec "~/.config/i3/i3-scratchpad -atl -d100%x98% -t -p0,30 -f -F kitty --class=Dropdown --title=Dropdown_Kitty"
+bindsym F12 exec "~/.config/i3/i3-scratchpad -atl -d100%x98% -p0,30 -f kitty --class=Dropdown --title=Dropdown_Kitty"
 # if $mod+q fails, use $mod+d
 bindsym $mod+d exec dmenu_run -l 6 -i -b -p 'CMD' -fn 'Noto Sans Mono 12' -nb '$bgc_df' -nf '$txt_ia' -sf '$txt_hi' -sb '$bgc_df'
 
@@ -329,7 +329,7 @@ mode --pango_markup "$mode_open_apps" {
   bindsym c exec $open clion; mode "default"
   bindsym d exec dunstctl close-all; mode "default"
   bindsym shift+d exec dunstctl history-pop; mode "default"
-  bindsym f exec $open fsearch; mode "default"
+  bindsym f exec $open -f fsearch; mode "default"
   bindsym m exec kitty bashmount; mode "default"
   # speed_net -t: check background downloading task if the speed is lower than 5MB/s or completed
   bindsym n exec "speed_net -t"; mode "default"
