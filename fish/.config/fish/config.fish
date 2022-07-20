@@ -52,8 +52,19 @@ end
 
 function fish_command_not_found -d "Rewrite the default fish_command_not_found function"
     echo "'$argv' command is not found."
-    if comand -sq pacman
-        comman -sq paru; and paru -F $argv 2>/dev/null; or repo_extra
+    # NOTE: https://fishshell.com/docs/current/cmds/and.html
+    # NOTE: and-or cannot simply replaces if-else-end such as 
+    # all first three lines will "echo 111", the fouth will not
+    # true; and false; or echo 111
+    # false; and true; or echo 111
+    # false; and false; or echo 111
+    # true; and true; or echo 111
+    if command -sq pacman
+        if command -sq paru
+            paru -F $argv 2>/dev/null
+        else
+            repo_extra
+        end
     end
 end
 
