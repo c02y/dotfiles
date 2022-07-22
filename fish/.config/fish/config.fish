@@ -2896,94 +2896,62 @@ end
 abbr upxx 'upx --best --lzma'
 # for all the Rust developement setup:
 # https://fasterthanli.me/articles/my-ideal-rust-workflow
-function cars -d "cargo commands, -c(clean target), -d(remove/uninstall), -i(install), -r(release build), -S(reduce size)"
-    set -l options c C d i n r s S R u p t T m "b=" B w
+function cars -d "cargo commands"
+    set -l options n i c r b D S C B t w u M T R x a h
     argparse -n cars $options -- $argv
     or return
 
     set CMD (PXY) cargo
 
-    if set -q _flag_n
+    if set -q _flag_h
+        echo "      -h --> usage"
+        echo "      -n --> cargo new argv and cd argv"
+        echo "         -i --> cargo init (based on current dir)"
+        echo "         -i argv --> cargo init argv and cd argv"
+        echo "      -i argv --> cargo install github-url or argv(release version)"
+        echo "         -s argv --> cargo search argv"
+        echo "         -d argv --> cargo uninstall argv and clean with fdd"
+        echo "      -c --> cargo clean (whole target, if -d ./target)"
+        echo "         -r --> cargo clean (release target, if -d ./target)"
+        echo "         --> cargo cache -a (clean ~/.cargo if ! -d ./target)"
+        echo "      -b --> cargo build, debug version"
+        echo "         -d --> cargo build doc and open it"
+        echo "         -r --> cargo build, release version"
+        echo "            -S --> cargo build, release version, reduce size with link-ar=-s"
+        echo "         -S --> cargo build, debug version, reduce size with link-arg=-s"
+        echo "      -C -- cargo clippy"
+        echo "      -B -- cargo bloat"
+        echo "         -t -- cargo bloat --time, list longest crate to compile"
+        echo "         -r -- cargo bloat crates, list biggest crate, in release build"
+        echo "         -- cargo bloat crates, list biggest crate, in debug build"
+        echo "      -r -- cargo run/watch/test"
+        echo "         -t -- cargo test/nextest"
+        echo "         -w -- cargo watch -x run"
+        echo "         -w argv -- cargo watch -x argv"
+        echo "         -u -- cargo run, verbosely"
+        echo "         -- cargo run"
+        echo "      -g -- cargo modules/timeing/tree"
+        echo "         -T -- cargo build timing graph, debug build"
+        echo "            -R -- cargo build timing graph, release build"
+        echo "         -- cargo build graph, --lib"
+        echo "            -t -- cargo build tree, --lib"
+        echo "         -x -- cargo build graph, --bin"
+        echo "            -t -- cargo build tree, --bin"
+        echo "      -u -- cargo update all `cargo install` crates with cargo-update"
+        echo "         -a -- rustup update"
+    else if set -q _flag_n # new/init
         if set -q _flag_i
             # crate a new project based on current directory; or create a new project based on argv
-            not set -q argv[1]; and cargo init; or cargo init $argv && cd $argv
+            not set -q argv[1]; and eval $CMD init; or eval $CMD init $argv && cd $argv
         else
             eval $CMD new $argv; and cd $argv
         end
-    else if set -q _flag_w # NOTE: cargo install cargo-watch
-        set -q argv[1]; and eval $CMD watch -x \"$argv\"; or eval $CMD watch -x run
-    else if set -q _flag_d
-        set -q _flag_m; and eval $CMD doc --no-deps --open; or eval $CMD uninstall $argv && fdd -r $argv ~/.cargo
-    else if set -q _flag_B # NOTE: cargo install cargo-bloat
-        if set -q _flag_t
-            echo "list of crates that took longest to compile, it will clean target dir and takes a while"
-            eval $CMD bloat --time -j 1
-        else
-            if set -q _flag_r
-                echo "====the biggest dependencies in the release build"
-                eval $CMD bloat --release --crates
-                echo "====the biggest functions in the release build"
-                eval $CMD bloat --release -n 10
-            else
-                echo "====the biggest dependencies in the release build"
-                eval $CMD bloat --crates
-                echo "====the biggest functions in the release build"
-                eval $CMD bloat -n 10
-            end
-        end
-    else if set -q _flag_c
-        if test -d ./target
-            # only remove target/release; or remove the whole target
-            set -q _flag_r; and eval $CMD clean --release -v; or eval $CMD clean -v
-            echo "target cleaned..."
-        end
-    else if set -q _flag_C
-        # clean whole cache in ~/.cargo
-        eval $CMD cache -a
-    else if set -q _flag_p
-        # https://fasterthanli.me/articles/my-ideal-rust-workflow
-        eval $CMD clippy --locked -- -D warnings
-    else if set -q _flag_R
-        set -q _flag_u; and eval env RUST_BACKTRACE=1 $CMD run $argv; or eval $CMD run $argv
-    else if set -q _flag_m # view the structure in tree/graph
-        if set -q _flag_T # generate and open the build timing graph
-            # https://fasterthanli.me/articles/why-is-my-rust-build-so-slow
-            cargo clean
-            if set -q _flag_r
-                env RUSTC_BOOTSTRAP=1 $CMD build --release --quiet -Z timings
-            else
-                env RUSTC_BOOTSTRAP=1 $CMD build --quiet -Z timings
-            end
-            test -f ./cargo-timing.html; and o ./cargo-timing.html
-        else # NOTE: cargo install cargo-modules
-            set -q _flag_b; and set TARGET "--bin $_flag_b"; or set TARGET --lib
-            if set -q _flag_t
-                eval $CMD modules generate tree --all-features $TARGET
-            else
-                eval $CMD modules generate graph --all-features $TARGET | xdot -
-            end
-        end
-    else if set -q _flag_t
-        if command -sq cargo-nextest # NOTE: cargo install cargo-watch
-            eval $CMD nextest run --tests $argv
-        else
-            # NOTE: do not combine the following if-else into one line and-or
-            # since if the -u cargo test line test fail, the other eval will run
-            # there are many options for test, try `cargo test --help` and `cargo test -- --help`
-            if set -q _flag_u
-                eval env RUST_BACKTRACE=1 $CMD test $argv
-            else
-                eval $CMD test $argv
-            end
-        end
-    else if set -q _flag_s
-        eval $CMD search $argv
-    else if set -q _flag_u
-        # install-update need to install "cargo-update" crate
-        # -u -i it to update all crates installed by `cargo install`
-        set -q _flag_i; and cargo install-update -a; or rustup update
-    else
-        if set -q _flag_i; or ! test -f ./Cargo.toml
+    else if set -q _flag_i # install/search/uninstall
+        if set -q _flag_s # search
+            cargo search $argv
+        else if set -q _flag_d # uninstall 
+            eval $CMD uninstall $argv && fdd -r $argv ~/.cargo
+        else # install
             # install release version, reduce size by default
             # NOTE: there is --debug(dev) version, huge size difference
             set -l RUSTFLAGS '-C link-arg=-s'
@@ -2994,24 +2962,94 @@ function cars -d "cargo commands, -c(clean target), -d(remove/uninstall), -i(ins
                 eval $CMD install $argv
             end
             and echo -e "\nuse `upx --best --lzma the-bin` to reduce more binary size, better than strip"
-        else if test -f ./Cargo.toml # build it
-            if set -q _flag_r # build release version
-                echo -e "Building release version...\n"
-                if set -q _flag_S
-                    set -l RUSTFLAGS '-C link-arg=-s'; and eval $CMD build --release $argv
-                    echo -e "\nuse `upx --best --lzma the-bin` to reduce more binary size, better than strip \n \
+        end
+    else if set -q _flag_c # clean/cache
+        if test -d ./target
+            # only remove target/release; or remove the whole target
+            set -q _flag_r; and eval $CMD clean --release -v; or eval $CMD clean -v
+            echo "target cleaned..."
+        else
+            # clean whole cache in ~/.cargo
+            eval $CMD cache -a
+        end
+    else if set -q _flag_b # build
+        if set -q _flag_d # doc
+            eval $CMD doc --no-deps --open
+        else if set -q _flag_r # build release version
+            echo -e "Building release version...\n"
+            if set -q _flag_S
+                # TODO: What is it in RUSTFLAGS?
+                set -l RUSTFLAGS '-C link-arg=-s'; and eval $CMD build --release $argv
+                echo -e "\nuse `upx --best --lzma the-bin` to reduce more binary size, better than strip \n \
                     NOTE: upx is not working for debug+-s build version"
-                else
-                    eval $CMD build --release $argv
-                end
             else
-                echo -e "Building debug version...\n"
-                if set -q _flag_S
-                    set -l RUSTFLAGS '-C link-arg=-s'; and eval $CMD build --$argv
-                else
-                    eval $CMD build $argv
-                end
+                eval $CMD build --release $argv
             end
+        else # build debug version
+            echo -e "Building debug version...\n"
+            if set -q _flag_S
+                set -l RUSTFLAGS '-C link-arg=-s'; and eval $CMD build --$argv
+            else
+                eval $CMD build $argv
+            end
+        end
+    else if set -q _flag_C # clippy
+        # https://fasterthanli.me/articles/my-ideal-rust-workflow
+        eval $CMD clippy --locked -- -D warnings
+    else if set -q _flag_B # cargo-bloat
+        if set -q _flag_t
+            echo "list of crates that took longest to compile, it will clean target dir and takes a while"
+            eval $CMD bloat --time -j 1
+        else
+            if set -q _flag_r
+                echo "====the biggest dependencies in the release build"
+                eval $CMD bloat --release --crates
+                echo "====the biggest functions in the release build"
+                eval $CMD bloat --release -n 10
+            else
+                echo "====the biggest dependencies in the debug build"
+                eval $CMD bloat --crates
+                echo "====the biggest functions in the debug build"
+                eval $CMD bloat -n 10
+            end
+        end
+    else if set -q _flag_r # run/watch
+        if set -q _flag_t # cargo test/nextest
+            command -sq cargo-nextest; or eval $CMD install cargo-nextest
+            eval $CMD nextest run --tests $argv
+            # or use `cargo test argv` or `env RUST_BACKTRACE=1 cargo test argv`
+        else if set -q _flag_w # cargo-watch
+            command -sq cargo-watch; or eval $CMD install cargo-watch
+            set -q argv[1]; and eval $CMD watch -x \"$argv\"; or eval $CMD watch -x run
+        else if set -q _flag_u # run verbosely
+            eval env RUST_BACKTRACE=1 $CMD run $argv
+        else
+            eval $CMD run $argv
+        end
+    else if set -q _flag_g # graph, cargp-modules/timing/tree
+        if set -q _flag_T # timing graph
+            # https://fasterthanli.me/articles/why-is-my-rust-build-so-slow
+            cargo clean
+            if set -q _flag_R
+                env RUSTC_BOOTSTRAP=1 $CMD build --release --quiet -Z timings
+            else
+                env RUSTC_BOOTSTRAP=1 $CMD build --quiet -Z timings
+            end
+            test -f ./cargo-timing.html; and o ./cargo-timing.html
+        else # cargo-modules
+            set -q _flag_x; and set TARGET "--bin $_flag_b"; or set TARGET --lib
+            if set -q _flag_t
+                eval $CMD modules generate tree --all-features $TARGET
+            else
+                eval $CMD modules generate graph --all-features $TARGET | xdot -
+            end
+        end
+    else if set -q _flag_u # cargo/rustup update
+        if set -q _flag_a # rustup
+            rustup update
+        else # cargo update all installed crates by `cargo install` with cargo-update crate
+            command -q cargo-update; or eval $CMD install cargo-update
+            eval $CMD cargo-update -a
         end
     end
 end
