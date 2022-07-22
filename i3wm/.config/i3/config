@@ -280,7 +280,7 @@ mode --pango_markup "$mode_merge_swap" {
   bindsym Escape unmark "mark"; mode "default"
 }
 
-set $mode_rofis <b>Tools:</b> [<b>Super+Space</b>], Rofi[<b>c</b>]ountDown, edit[<b>C</b>]onfigs, [<b>d</b>]ict, [<b>k</b>]ill, [<b>m</b>]anpage, [<b>p</b>]omodoro, [<b>s</b>]earchFiles, [<b>w</b>]eb
+set $mode_rofis <b>Tools:</b> [<b>Super+Space</b>]Rofi, [<b>c</b>]ountDown, edit[<b>C</b>]onfigs, [<b>d</b>]ict, [<b>k</b>]ill, [<b>m</b>]anpage, [<b>p</b>]omodoro, [<b>s</b>]earchFiles, [<b>w</b>]eb
 bindsym $mod+space mode "$mode_rofis"
 mode --pango_markup "$mode_rofis" {
   bindsym $mod+space exec rofis; mode "default"
@@ -322,7 +322,7 @@ mode --pango_markup "$mode_screenshot" {
   bindsym Escape mode "default"
 }
 
-set $mode_open_apps <b>Apps:</b> [<b>a</b>]udacious, [<b>c</b>]lion, [<b>d</b>]unstCloseAll, [<b>D</b>]unstPop, [<b>f</b>]search, [<b>m</b>]ountUnmount, [<b>n</b>]etworkMonitor, [<b>p</b>]cmanfm, [<b>s</b>]team, [<b>t</b>]hunderbird, [<b>T</b>]elegram, [<b>v</b>]irtualbox
+set $mode_open_apps <b>Apps:</b> [<b>a</b>]udacious, [<b>c</b>]lion, [<b>d</b>]unstCloseAll, [<b>D</b>]unstPop, [<b>f</b>]search, [<b>m</b>]ountUnmount, [<b>n</b>]etworkMonitor, [<b>p</b>]cmanfm, [<b>t</b>]hunderbird, [<b>T</b>]elegram, [<b>v</b>]irtualbox
 bindsym $mod+a mode "$mode_open_apps"
 mode --pango_markup "$mode_open_apps" {
   bindsym a workspace --no-auto-back-and-forth $ws3; exec $open audacious; mode "default"
@@ -334,7 +334,6 @@ mode --pango_markup "$mode_open_apps" {
   # speed_net -t: check background downloading task if the speed is lower than 5MB/s or completed
   bindsym n exec "speed_net -t"; mode "default"
   bindsym p exec $open pcmanfm; mode "default"
-  bindsym s exec $open steam; mode "default"
   bindsym t workspace --no-auto-back-and-forth $ws3; exec $open thunderbird; mode "default"
   bindsym Shift+t workspace --no-auto-back-and-forth $ws3; exec $open telegram-desktop; mode "default"
   bindsym v workspace --no-auto-back-and-forth $ws3; exec $open virtualbox; mode "default"
