@@ -290,7 +290,7 @@ print_help_submenu() {
 print_device() {
     local -i padding_name=13
     local -i padding_label=18
-    local -i padding_size=6
+    local -i padding_size=25
 
     local label="$(info_fslabel "$devname")"
     local fstype="$(info_fstype "$devname")"
@@ -385,7 +385,8 @@ info_partlabel() {
     lsblk -drno PARTLABEL "$1" 2>/dev/null
 }
 info_size() {
-    lsblk -drno SIZE "$1" 2>/dev/null
+    # size format like `df -lh`
+    lsblk -drno SIZE,FSUSED,FSAVAIL,FSUSE% "$1" 2>/dev/null | awk '{printf "%6s %6s %6s %4s\n",$1,$2,$3,$4}'
 }
 info_type() {
     lsblk -drno TYPE "$1" 2>/dev/null
