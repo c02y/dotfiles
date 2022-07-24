@@ -141,7 +141,7 @@ timer() {
 		fi
 
 		! [[ $num =~ ^[0-9]+$ ]] && notify-send -u critical "Invalid input, use 10s/10m/1h format" && exit
-		notify-send -u critical "<<==========================" "Countdown: $num$unit, now: $(date +%T)"
+		notify-send -u critical "<<============================" "Countdown: $num$unit, start time: $(date +%T)"
 
 		case "$unit" in
 		"s")
@@ -163,7 +163,7 @@ timer() {
 			echo -ne "[$(date -u --date @$((date_end - $(date +%s))) +%T)] \r"
 			sleep 1
 		done
-		notify-send -u critical "==========================>>" "Countdown ${num}${unit}, time's up" && exit
+		notify-send -u critical "<<============================" "Countdown ${num}${unit}, time's up" && exit
 	}
 
 	countdown() {
@@ -199,7 +199,7 @@ timer() {
 		[ "$num" = "" ] && exit # Enter/Escape without input
 		! [[ $num =~ ^[1-9]+$ ]] && notify-send -u critical "Invalid input, only accept integer(>0)" && exit
 		total_hrs=$(awk -v a="$num" 'BEGIN {print(a/2)}')
-		notify-send -u critical "Get ready, $num pomodoros (25m+5m) start" "<<===============================\nCurrent time: $(date +%T), needed time: $total_hrs hrs!"
+		notify-send -u critical "Get ready, $num pomodoros (25m+5m) start" "<<===============================\nStart time: $(date +%T), needed time: $total_hrs hrs!"
 
 		for i in $(seq 1 "$num"); do
 			date_end_25m=$(($(date +%s) + 60 * 25))
@@ -323,7 +323,11 @@ websearch() {
 	fi
 }
 
-while getopts "hcdkmMpstw" arg 2>/dev/null; do
+windows() {
+	rofi -show window -theme ~/Dotfiles.d/misc/rofi-theme-solarized_alternate.rasi -theme-str 'window {width: 50%; height: 50%;} listview {scrollbar:false;} configuration {sidebar-mode:false;}' -p 'WINDOW'
+}
+
+while getopts "hcdkmMpstwW" arg 2>/dev/null; do
 	case "${arg}" in
 	h) help ;;
 	c) edit_configs ;;
@@ -342,6 +346,7 @@ while getopts "hcdkmMpstw" arg 2>/dev/null; do
 		esac
 		;;
 	w) websearch ;;
+	W) windows ;;
 	*) help ;;
 	esac
 done
