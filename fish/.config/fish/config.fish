@@ -692,7 +692,7 @@ function zzz -d 'use ranger with zoxide'
 end
 set -gx _ZO_FZF_OPTS "-1 -0 --reverse"
 # -m to mult-select using Tab/S-Tab
-set -gx FZF_DEFAULT_OPTS "-e -m -0 --reverse --preview 'fish -c \"fzf_previewer {}\"' --preview-window=bottom:wrap"
+set -gx FZF_DEFAULT_OPTS "-e -m -0 --reverse --no-sort --preview 'fish -c \"fzf_previewer {}\"' --preview-window=bottom:wrap"
 set -gx FZF_TMUX_HEIGHT 100%
 
 # C-o -- find file in ~/, C-r -- history, C-w -- cd dir
@@ -913,7 +913,7 @@ function fdd -d 'fd to replace mlocate/plocate'
         eval $CMD2 >/dev/null; or set CMD2 $CMD
         if test "$ARGV" = "."
             # just print it, otherwise the list will all be highlighted
-            eval $CMD2 | fzf --no-sort --print0 --preview-window hidden
+            eval $CMD2 | fzf --print0 --preview-window hidden
         else
             # --passthru for rg is to highlight the word but also print non-highlighted lines
             eval $CMD2 | rg -i -p --passthru $ARGV
