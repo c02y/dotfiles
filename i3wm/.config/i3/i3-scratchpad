@@ -44,6 +44,8 @@
 #        2. fix issue when new created and opened window in another workspace
 #        (not been to scratchpad yet), toggle to focus fails, 2022-07-17
 # v1.9 - 1. remove -m/-o/-u/-w/-v flags, replace -V with -v flag, remove echoit function, clean some echo/log
+#        2. rewrite debug function to use notify-send and print line-num/calling-function/script-name,
+#        then comment out and rewrite all debug references
 
 VERSION="1.8"
 
@@ -85,11 +87,11 @@ toggle_floating_smart() {
 	# NOTE: do not put the same command part(floating toggle) in is-msg in if-else into one above here,
 	# it has some werid toggle-small-to-bigger resize effect
 	if [[ "$floating_window_ids" == *"$window_focused_id"* ]]; then
-		debug 'The active window' "$window_focused_id" 'was a floting window, make it a tiling window'
+		# debug "The active window $window_focused_id was a floting window, make it a tiling window"
 		# border + no-window-bar for tiling window
 		i3-msg -q -- "[id=\"$window_focused_id\"] floating toggle; [id=\"$window_focused_id\"] border pixel 3"
 	else
-		debug 'The active window' "$window_focused_id" 'was a tiling window, make it a floating window'
+		# debug "The active window $window_focused_id was a tiling window, make it a floating window"
 		# toggle a window manually to set specific 75%x75% size
 		# no-border + window-bar for floating window
 		i3-msg -q -- "[id=\"$window_focused_id\"] floating toggle; [id=\"$window_focused_id\"] resize set 75 ppt 75 ppt; [id=\"$window_focused_id\"] move position center"
@@ -190,39 +192,40 @@ parse_dimensions() {
 	?r) x_pos=$((x_pos + screen_width - width + offset_x)) ;;
 	esac
 
-	debug 'Calculated window dimensions are [' "x: $x_pos" "y: $y_pos" "w: $width" "h: $height" ']'
+	# debug "Calculated window dimensions are x: $x_pos, y: $y_pos, w: $width, h: $height"
 }
 
 already_running() {
 	local window_id pid window_pid
-	debug 'Checking wid file' "$wid_file"
+	# debug "Checking wid file $wid_file"
 	if [ -f "$wid_file" ] && [ -r "$wid_file" ]; then
 		read -r window_id pid <"$wid_file"
 	fi
 	if [ -n "$window_id" ]; then
-		debug 'Last window id was' "$window_id"
+		# debug "Last window id was $window_id"
 		if [ "$(wmctrl -l | grep -c "^$window_id ")" -gt 0 ]; then
-			debug 'Window still exist'
+			# debug "Window still exist"
 			if [ -n "$pid" ]; then
 				window_pid=$(xdotool getwindowpid "$window_id")
-				debug 'Pid of window is' "$window_pid"
+				# debug "Pid of window is $window_pid"
 				if [ "$pid" -ne "$window_pid" ]; then
-					debug 'PID does not match, window id reused?'
+					# debug "PID does not match, window id reused?"
 					return 1
 				fi
-			else
-				debug 'Last pid not found'
+				# else
+				# debug "Last pid not found"
 			fi
 			window_state=$(xprop -id "$window_id" | sed -n 's/^.*window state: \(.*\)$/\1/p')
-			debug 'Toggle mode on, current window state is' "$window_state"
+			# debug "Toggle mode on, current window state is $window_state"
 			# NOTE: if the window is opened/visiable but in another i3 workspace, its window_state is "Withdrawn"
 			# if the window is in scratchpad and hidden, its window_state is "Withdrawn",
 			# both can use `i3-msg -q -- "[id="37748740"] focus"` to focus its window, other situations are all "Normal"
 			if [[ "$window_state" != 'Withdrawn' ]]; then
-				debug 'Moving to scratchpad'
+				# debug "Window $window_id is not withdraw, call toggle_window"
 				toggle_window
 				return 0
 			fi
+			# debug "Window $window_id is withdraw, call show_window_in_position"
 			show_window_in_position
 			return 0
 		fi
@@ -233,7 +236,7 @@ already_running() {
 start_and_save_wid_and_pid() {
 	local window_id pid
 
-	debug 'Launching command' "$command"
+	# debug "Launching command: $command"
 	window_id=$(printf '0x%08x\n' "$(i3-msg -q "exec --no-startup-id \"$command\"" && i3-msg -t subscribe '[ "window" ]' | sed -n 's/.*"window":\([0-9]\+\).*/\1/p')")
 	if [ -z "$window_id" ]; then
 		printf 'Can not find window with id %s\n' "$window_id" >&2
@@ -247,9 +250,9 @@ start_and_save_wid_and_pid() {
 		rm -f "$wid_file"
 		return 1
 	fi
-	debug 'PID of window is' "$pid"
+	# debug "PID of window is $pid"
 
-	debug 'Saving window_id' "$window_id" 'and pid' "$pid" 'to wid file' "$wid_file"
+	# debug "Saving window_id $window_id and pid $pid to wid file $wid_file"
 	printf '%s %s\n' "$window_id" "$pid" >"$wid_file"
 
 	show_window_in_position
@@ -261,8 +264,8 @@ show_window_in_position() {
 		i3-msg -q -- "[id=\"$window_id\"] focus"
 	fi
 
+			# debug "The window $window_id is alredy a floting window"
 			else
-				debug 'The window' "$window_id" 'is alredy a floting window'
 				window_focused_classname="$(xdotool getactivewindow getwindowclassname)"
 				if [ "Dropdown" = "$window_focused_classname" ]; then
 					i3-msg -q -- "[id=\"$window_id\"] move position $x_pos px $y_pos px;[id=\"$window_id\"] resize set $width px $height px"
@@ -277,12 +280,12 @@ show_window_in_position() {
 
 			if [[ "$floating_window_ids" == *"$window_focused_id"* ]]; then
 				i3-msg -q -- "[id=\"$window_focused_id\"] floating toggle"
-				debug 'The active window' "$window_focused_id" 'was a floting window, now it is a tiling window'
 				# border + no-window-bar for tiling window
 				i3-msg -q -- "[id=\"$window_focused_id\"] border pixel 3"
 			fi
 		fi
 	else
+			# debug "The active window $window_focused_id was a floting window, now it is a tiling window"
 		fi
 	fi
 }
@@ -291,7 +294,7 @@ toggle_window() {
 	window_focused_id="$(xdotool getactivewindow)"
 	# the printf part is to convert hex to dec
 	if [[ "$window_focused_id" -ne "$(printf "%d" "$window_id")" ]]; then
-		debug 'window_id does not match current window_focused_id and -f is given, will focus the window_id first'
+		# debug "window_id does not match current window_focused_id and -f is given, will focus the window_id first"
 		show_window_in_position && return 0
 	else
 		i3-msg -q -- "[id=\"$window_id\"] move to scratchpad;"
@@ -299,7 +302,7 @@ toggle_window() {
 }
 
 debug() {
-		printf '%s\n' "$*" # >>/tmp/i3-scratchpad.log
+	notify-send "$*" "$(caller 0)"
 }
 
 [ -z "$BASH_LOADABLES_PATH" ] && BASH_LOADABLES_PATH=$(pkg-config bash --variable=loadablesdir 2>/dev/null)
