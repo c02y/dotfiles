@@ -43,7 +43,7 @@ font pango:Noto Sans Mono 12
 
 # NetworkManager is the most popular way to manage wireless networks on Linux,
 # and nm-applet is a desktop environment-independent system tray GUI for it.
-exec_always --no-startup-id nm-applet
+# exec_always --no-startup-id nm-applet
 
 # Use pactl to adjust volume in PulseAudio.
 bindsym $mod+Home        exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +5%
@@ -347,7 +347,7 @@ mode --pango_markup "$mode_open_apps" {
 # https://youtu.be/MfL_JkcEFbE, https://www.reddit.com/r/archlinux/comments/j58isj/
 exec_always --no-startup-id picom --experimental-backend --config ~/.config/i3/picom.conf
 # NOTE: nm-applet and blueman-applet sometimes exit somehow
-exec_always --no-startup-id blueman-applet
+# exec_always --no-startup-id blueman-applet
 # change keyboard repeating rate
 exec --no-startup-id xset r rate 200 50
 # use `dunstctl history-pop` to get previous notification
