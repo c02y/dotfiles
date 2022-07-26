@@ -46,6 +46,7 @@
 # v1.9 - 1. remove -m/-o/-u/-w/-v flags, replace -V with -v flag, remove echoit function, clean some echo/log
 #        2. rewrite debug function to use notify-send and print line-num/calling-function/script-name,
 #        then comment out and rewrite all debug references
+#        3. rewrite -a flag to use top-left if the flag is passed, otherwise use center-center
 
 VERSION="1.8"
 
@@ -54,13 +55,7 @@ print_help() {
 	printf 'Executes a program in a positioned scratchpad.\n'
 	printf 'so executing the same command will re-use the existing window, if it still exists.\n'
 	printf '\nArguments:\n'
-	printf ' -a <anchor>   Sets where to calculate position from. Valid values are\n'
-	printf '               top-left, top-center, top-right\n'
-	printf '               center-left, center-center, center-right\n'
-	printf '               bottom-left, bottom-center, bottom-right\n'
-	printf '               Can be shortened as: tl, tc, tr, cl, cc, cr, bl, bc, br\n'
-	printf '               Position will be calculated from anchor point of screen to anchor\n'
-	printf '               point of window. Default is center-center.\n'
+	printf ' -a            Calculate position from top-left, otherwise use center-center\n'
 	printf ' -d <size>     Dimensions of window in pixels, in WIDTHxHEIGHT format.\n'
 	printf '               Percentages of the screen dimensions can be used as well. Default is 50%%x50%%\n'
 	printf ' -h            Prints this help page.\n'
@@ -73,10 +68,7 @@ print_help() {
 	printf ' -t            Toggle floating window smartly.\n'
 	printf ' -v            Print version information.\n'
 	printf '\nExample:\n'
-	printf ' # Calendar at the bottom right of primary screen with 32px bottom margin:\n'
-	printf ' $ %s -d200x200 -abr -p0,-32 -wtu cal\n' "$script_name"
-}
-
+	printf ' $ %s -d200x200 -a -p0,-32 -t kitty\n' "$script_name"
 }
 
 toggle_floating_smart() {
@@ -118,11 +110,11 @@ main() {
 }
 
 parse_aruments() {
-	local script_name dim='\([0-9]\+%\?\)' pos='\(-\?[0-9]\+\)' anchor='cc'
+	local script_name dim='\([0-9]\+%\?\)' pos='\(-\?[0-9]\+\)'
 	script_name="$(basename "$0")"
 	while getopts ad:hfkp:s:tvV arg; do
 		case $arg in
-		a) anchor="$OPTARG" ;;
+		a) anchor=true ;;
 		d) read -r width height < <(sed -n "s/^${dim}x${dim}$/\1 \2/p" <<<"$OPTARG") ;;
 		h) print_help && exit 0 ;;
 		f) float=true ;;
@@ -141,15 +133,6 @@ parse_aruments() {
 		exit 1
 	fi
 	wid_file="$pid_dir/i3-sp-$(md5sum <<<"$command" | cut -f1 -d' ')"
-
-	if [[ "$anchor" =~ ^(top|center|bottom)-(left|center|right)$ ]]; then
-		anchor=$(sed -n 's/^\([tcb]\)[^-]\+-\([lcr]\).*$/\1\2/p' <<<"$anchor")
-	fi
-
-	if [[ ! "$anchor" =~ ^([tcb])([lcr])$ ]]; then
-		printf 'Anchor "%s" is invalid. See %s -h.\n' "$anchor" "$script_name" >&2
-		exit 1
-	fi
 
 	ensure_screen
 	parse_dimensions
@@ -180,18 +163,15 @@ parse_dimensions() {
 		height=$((screen_height * ${height//%/} / 100))
 	fi
 
-	case "$anchor" in
-	t?) y_pos=$((y_pos + offset_y)) ;;
-	c?) y_pos=$((y_pos + ((screen_height - height) / 2) + offset_y)) ;;
-	b?) y_pos=$((y_pos + screen_height - height + offset_y)) ;;
-	esac
-
-	case "$anchor" in
-	?l) x_pos=$((x_pos + offset_x)) ;;
-	?c) x_pos=$((x_pos + ((screen_width - width) / 2) + offset_x)) ;;
-	?r) x_pos=$((x_pos + screen_width - width + offset_x)) ;;
-	esac
-
+	if [ -n "$anchor" ]; then
+		# start from top-left
+		y_pos=$((y_pos + offset_y))
+		x_pos=$((x_pos + offset_x))
+	else
+		# start from center-center
+		y_pos=$((y_pos + ((screen_height - height) / 2) + offset_y))
+		x_pos=$((x_pos + ((screen_width - width) / 2) + offset_x))
+	fi
 	# debug "Calculated window dimensions are x: $x_pos, y: $y_pos, w: $width, h: $height"
 }
 
