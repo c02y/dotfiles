@@ -47,6 +47,7 @@
 #        2. rewrite debug function to use notify-send and print line-num/calling-function/script-name,
 #        then comment out and rewrite all debug references
 #        3. rewrite -a flag to use top-left if the flag is passed, otherwise use center-center
+#        4. fix Dropdown kitty position issue
 
 VERSION="1.8"
 
@@ -245,14 +246,10 @@ show_window_in_position() {
 	fi
 
 			# debug "The window $window_id is alredy a floting window"
+			window_focused_classname="$(xdotool getactivewindow getwindowclassname)"
+			if [ "Dropdown" = "$window_focused_classname" ]; then
+				i3-msg -q -- "[id=\"$window_id\"] border pixel 0; resize set $width px $height px; move position $x_pos px $y_pos px"
 			else
-				window_focused_classname="$(xdotool getactivewindow getwindowclassname)"
-				if [ "Dropdown" = "$window_focused_classname" ]; then
-					i3-msg -q -- "[id=\"$window_id\"] move position $x_pos px $y_pos px;[id=\"$window_id\"] resize set $width px $height px"
-					i3-msg -q -- "[id=\"$window_id\" class=\"(^Dropdown$)\" ] border pixel 0"
-				else
-					i3-msg -q -- "[id=\"$window_id\" class=\"^(?!Dropdown$)\" ] border normal 0"
-				fi
 			fi
 		else
 			floating_window_ids=$(i3-msg -t get_tree | jq -r --arg sk floating --arg sv user_on --arg pv window '.. | objects | select(contains({($sk): $sv})) | .[$pv]')
