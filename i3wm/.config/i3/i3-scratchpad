@@ -41,16 +41,19 @@
 #        2. remove -K flag since it is only one command, 2022-07-15
 # v1.8 - 1. remove -t, always toggle, that's scrachpad, give -t to -F which toggles floating/tiling smartly
 #        2. remove -f, always focus first, give -f flag to -F which float enabled
-#        2. fix issue when new created and opened window in another workspace
+#        3. fix issue when new created and opened window in another workspace
 #        (not been to scratchpad yet), toggle to focus fails, 2022-07-17
-# v1.9 - 1. remove -m/-o/-u/-w/-v flags, replace -V with -v flag, remove echoit function, clean some echo/log
+# v2.0 - 1. remove -m/-o/-u/-w/-v flags, replace -V with -v flag, remove echoit function, clean some echo/log
 #        2. rewrite debug function to use notify-send and print line-num/calling-function/script-name,
 #        then comment out and rewrite all debug references
 #        3. rewrite -a flag to use top-left if the flag is passed, otherwise use center-center
 #        4. fix Dropdown kitty position issue
-#        5. clean the handling -k (keep) flag, 2022-07-26
+#        5. clean the handling -k (keep) flag
+#        6. reorder all functions, merge toggle_window content into the reference part and remove it
+#        7. add new_window variable to check if it is a new created window(not into scratchpad yet)
+#        8. rewrite some i3-msg lines, 2022-07-26
 
-VERSION="1.9"
+VERSION="2.0"
 
 print_help() {
 	printf 'Usage: %s [[-a] [-d <size>] [-p <pos>] [-s <screen>] [-f]] [-t] [-k] [-v] <command>\n' "$script_name"
@@ -83,61 +86,120 @@ toggle_floating_smart() {
 	if [[ "$floating_window_ids" == *"$window_focused_id"* ]]; then
 		# debug "The active window $window_focused_id was a floting window, make it a tiling window"
 		# border + no-window-bar for tiling window
-		i3-msg -q -- "[id=\"$window_focused_id\"] floating toggle; [id=\"$window_focused_id\"] border pixel 3"
+		i3-msg -q -- "[id=\"$window_focused_id\"] floating toggle; border pixel 3"
 	else
 		# debug "The active window $window_focused_id was a tiling window, make it a floating window"
 		# toggle a window manually to set specific 75%x75% size
 		# no-border + window-bar for floating window
-		i3-msg -q -- "[id=\"$window_focused_id\"] floating toggle; [id=\"$window_focused_id\"] resize set 75 ppt 75 ppt; [id=\"$window_focused_id\"] move position center"
 		# NOTE: no -d options for ./script -t for Dropdown, so it won't be a big window size, toggle Dropdown will do as all other windows
-		i3-msg -q -- "[id=\"$window_focused_id\"] border normal 0"
+		i3-msg -q -- "[id=\"$window_focused_id\"] border normal 0; floating toggle; resize set 75 ppt 75 ppt; move position center"
 	fi
 	exit 0
 }
 
-main() {
-	local screen_width screen_height offset_x offset_y width height x_pos y_pos \
-		command window_focused_id window_state wid_file pid_dir
-
-	pid_dir=${XDG_RUNTIME_DIR:-"/tmp"}
-
-	parse_aruments "$@"
-
-	# already_running return 0 = true, first run return 1
-	if already_running; then
-		exit 0
-	fi
-
-	start_and_save_wid_and_pid
+debug() {
+	notify-send -u critical "$*" "$(caller 0)"
 }
 
-parse_aruments() {
-	local script_name dim='\([0-9]\+%\?\)' pos='\(-\?[0-9]\+\)'
-	script_name="$(basename "$0")"
-	while getopts ad:hfkp:s:tvV arg; do
-		case $arg in
-		a) anchor=true ;;
-		d) read -r width height < <(sed -n "s/^${dim}x${dim}$/\1 \2/p" <<<"$OPTARG") ;;
-		h) print_help && exit 0 ;;
-		f) float=true ;;
-		k) keep=true ;;
-		p) read -r x_pos y_pos < <(sed -n "s/^${pos},${pos}$/\1 \2/p" <<<"$OPTARG") ;;
-		s) screen="$OPTARG" ;;
-		t) toggle_floating_smart && exit 0 ;;
-		v) printf 'Version %s\n' "$VERSION" && exit 0 ;;
-		*) print_help && exit 1 ;;
-		esac
-	done
-	shift $((OPTIND - 1))
-	command="$*"
-	if [ -z "$command" ]; then
-		printf 'Command argument is missing. See %s -h.\n' "$script_name" >&2
-		exit 1
-	fi
-	wid_file="$pid_dir/i3-sp-$(md5sum <<<"$command" | cut -f1 -d' ')"
+show_window_in_position() {
+	i3-msg -q -- "[id=\"$window_id\"] focus"
 
-	ensure_screen
-	parse_dimensions
+	if [ -n "$float" ]; then
+		if [ -z "$keep" ]; then # -k is not passed, previous focus command from scratcpad will restore size and position
+			# debug "The window $window_id is alredy a floting window, now resize and re-position"
+			window_focused_classname="$(xdotool getactivewindow getwindowclassname)"
+			if [ "Dropdown" = "$window_focused_classname" ]; then
+				i3-msg -q -- "[id=\"$window_id\"] border pixel 0; resize set $width px $height px; move position $x_pos px $y_pos px"
+			else
+				i3-msg -q -- "[id=\"$window_id\"] border normal 0"
+				if [ -z "$new_window" ]; then
+					# debug "not new_window, now resize and re-position"
+					# NOTE:FIXME: the size/position got from parse_dimensions are a bit different from size/position from i3/config
+					# so, when it focuses back from scratchpad, there will be a little movement when resize/re-position
+					i3-msg -q -- "[id=\"$window_id\"] move position $x_pos px $y_pos px; resize set $width px $height px;"
+				fi
+			fi
+		fi
+	else
+		floating_window_ids=$(i3-msg -t get_tree | jq -r --arg sk floating --arg sv user_on --arg pv window '.. | objects | select(contains({($sk): $sv})) | .[$pv]')
+		window_focused_id="$(xdotool getactivewindow)"
+
+		if [[ "$floating_window_ids" == *"$window_focused_id"* ]]; then
+			# debug "The active window $window_focused_id was a floating window, now it is a tiling window"
+			# border + no-window-bar for tiling window
+			i3-msg -q -- "[id=\"$window_focused_id\"] floating toggle; border pixel 3"
+		fi
+	fi
+}
+
+already_running() {
+	local window_id pid window_pid
+	# debug "Checking wid file $wid_file"
+	if [ -f "$wid_file" ] && [ -r "$wid_file" ]; then
+		read -r window_id pid <"$wid_file"
+	fi
+	if [ -n "$window_id" ]; then
+		# debug "Last window id was $window_id"
+		if [ "$(wmctrl -l | grep -c "^$window_id ")" -gt 0 ]; then
+			# debug "Window still exist"
+			if [ -n "$pid" ]; then
+				window_pid=$(xdotool getwindowpid "$window_id")
+				# debug "Pid of window is $window_pid"
+				if [ "$pid" -ne "$window_pid" ]; then
+					# debug "PID does not match, window id reused?"
+					return 1
+				fi
+				# else
+				# debug "Last pid not found"
+			fi
+
+			window_state=$(xprop -id "$window_id" | sed -n 's/^.*window state: \(.*\)$/\1/p')
+			# debug "Toggle mode on, current window state is $window_state"
+			# NOTE: if the window is opened/visiable but in another i3 workspace, its window_state is "Normal"
+			# if the window is in scratchpad and hidden, its window_state is "Withdrawn",
+			# both can use `i3-msg -q -- "[id="37748740"] focus"` to focus its window, other situations are all "Normal"
+			if [[ "$window_state" != 'Withdrawn' ]]; then
+				# debug "Window $window_id is not withdraw, now focus it or move it to scratchpad"
+				window_focused_id="$(xdotool getactivewindow)"
+				# the printf part is to convert hex to dec
+				if [ "$window_focused_id" != "$(printf "%d" "$window_id")" ]; then
+					# debug "not focus, focus it"
+					i3-msg -q -- "[id=\"$window_id\"] focus"
+				else
+					# debug "Window $window_id is not in scratchpad, now move it into scratchpad"
+					i3-msg -q -- "[id=\"$window_id\"] move to scratchpad;"
+				fi
+			else
+				# debug "Window $window_id is in scratchpad, call show_window_in_position"
+				show_window_in_position
+			fi
+			return 0
+		fi
+	fi
+	return 1
+}
+
+start_and_save_wid_and_pid() {
+	local window_id pid
+
+	# debug "Launching command: $command"
+	window_id=$(printf '0x%08x\n' "$(i3-msg -q "exec --no-startup-id \"$command\"" && i3-msg -t subscribe '[ "window" ]' | sed -n 's/.*"window":\([0-9]\+\).*/\1/p')")
+	if [ -z "$window_id" ]; then
+		printf 'Can not find window with id %s\n' "$window_id" >&2
+		rm -f "$wid_file"
+		return 1
+	fi
+
+	pid="$(xdotool getwindowpid "$window_id")"
+	if [ -z "$pid" ]; then
+		printf 'Can not find pid for window id %s\n' "$window_id" >&2
+		rm -f "$wid_file"
+		return 1
+	fi
+	# debug "New window, window_id: $window_id, pid: $pid, svve info to wid file $wid_file"
+	printf '%s %s\n' "$window_id" "$pid" >"$wid_file"
+
+	show_window_in_position
 }
 
 ensure_screen() {
@@ -177,111 +239,50 @@ parse_dimensions() {
 	# debug "Calculated window dimensions are x: $x_pos, y: $y_pos, w: $width, h: $height"
 }
 
-already_running() {
-	local window_id pid window_pid
-	# debug "Checking wid file $wid_file"
-	if [ -f "$wid_file" ] && [ -r "$wid_file" ]; then
-		read -r window_id pid <"$wid_file"
+parse_aruments() {
+	local script_name dim='\([0-9]\+%\?\)' pos='\(-\?[0-9]\+\)'
+	script_name="$(basename "$0")"
+	while getopts ad:hfkp:s:tvV arg; do
+		case $arg in
+		a) anchor=true ;;
+		d) read -r width height < <(sed -n "s/^${dim}x${dim}$/\1 \2/p" <<<"$OPTARG") ;;
+		h) print_help && exit 0 ;;
+		f) float=true ;;
+		k) keep=true ;;
+		p) read -r x_pos y_pos < <(sed -n "s/^${pos},${pos}$/\1 \2/p" <<<"$OPTARG") ;;
+		s) screen="$OPTARG" ;;
+		t) toggle_floating_smart && exit 0 ;;
+		v) printf 'Version %s\n' "$VERSION" && exit 0 ;;
+		*) print_help && exit 1 ;;
+		esac
+	done
+	shift $((OPTIND - 1))
+	command="$*"
+	if [ -z "$command" ]; then
+		printf 'Command argument is missing. See %s -h.\n' "$script_name" >&2
+		exit 1
 	fi
-	if [ -n "$window_id" ]; then
-		# debug "Last window id was $window_id"
-		if [ "$(wmctrl -l | grep -c "^$window_id ")" -gt 0 ]; then
-			# debug "Window still exist"
-			if [ -n "$pid" ]; then
-				window_pid=$(xdotool getwindowpid "$window_id")
-				# debug "Pid of window is $window_pid"
-				if [ "$pid" -ne "$window_pid" ]; then
-					# debug "PID does not match, window id reused?"
-					return 1
-				fi
-				# else
-				# debug "Last pid not found"
-			fi
-			window_state=$(xprop -id "$window_id" | sed -n 's/^.*window state: \(.*\)$/\1/p')
-			# debug "Toggle mode on, current window state is $window_state"
-			# NOTE: if the window is opened/visiable but in another i3 workspace, its window_state is "Withdrawn"
-			# if the window is in scratchpad and hidden, its window_state is "Withdrawn",
-			# both can use `i3-msg -q -- "[id="37748740"] focus"` to focus its window, other situations are all "Normal"
-			if [[ "$window_state" != 'Withdrawn' ]]; then
-				# debug "Window $window_id is not withdraw, call toggle_window"
-				toggle_window
-				return 0
-			fi
-			# debug "Window $window_id is withdraw, call show_window_in_position"
-			show_window_in_position
-			return 0
-		fi
-	fi
-	return 1
+	wid_file="$pid_dir/i3-sp-$(md5sum <<<"$command" | cut -f1 -d' ')"
+
+	ensure_screen
+	parse_dimensions
 }
 
-start_and_save_wid_and_pid() {
-	local window_id pid
+main() {
+	local screen_width screen_height offset_x offset_y width height x_pos y_pos \
+		command window_focused_id window_state wid_file pid_dir new_window
 
-	# debug "Launching command: $command"
-	window_id=$(printf '0x%08x\n' "$(i3-msg -q "exec --no-startup-id \"$command\"" && i3-msg -t subscribe '[ "window" ]' | sed -n 's/.*"window":\([0-9]\+\).*/\1/p')")
-	if [ -z "$window_id" ]; then
-		printf 'Can not find window with id %s\n' "$window_id" >&2
-		rm -f "$wid_file"
-		return 1
+	pid_dir=${XDG_RUNTIME_DIR:-"/tmp"}
+
+	parse_aruments "$@"
+
+	# already_running return 0 = true, first run return 1
+	if already_running; then
+		exit 0
 	fi
 
-	pid="$(xdotool getwindowpid "$window_id")"
-	if [ -z "$pid" ]; then
-		printf 'Can not find pid for window id %s\n' "$window_id" >&2
-		rm -f "$wid_file"
-		return 1
-	fi
-	# debug "PID of window is $pid"
-
-	# debug "Saving window_id $window_id and pid $pid to wid file $wid_file"
-	printf '%s %s\n' "$window_id" "$pid" >"$wid_file"
-
-	show_window_in_position
-}
-
-show_window_in_position() {
-	window_focused_id="$(xdotool getactivewindow)"
-	if [ "$window_focused_id" != "$(printf "%d" "$window_id")" ]; then
-		i3-msg -q -- "[id=\"$window_id\"] focus"
-	fi
-
-	if [ -n "$float" ]; then
-		if [ -z "$keep" ]; then # by default, focus back from scratcpad, the size and position will restore
-			# debug "The window $window_id is alredy a floting window"
-			window_focused_classname="$(xdotool getactivewindow getwindowclassname)"
-			if [ "Dropdown" = "$window_focused_classname" ]; then
-				i3-msg -q -- "[id=\"$window_id\"] border pixel 0; resize set $width px $height px; move position $x_pos px $y_pos px"
-			else
-				i3-msg -q -- "[id=\"$window_id\"] border normal 0; resize set $width px $height px; move position $x_pos px $y_pos px"
-			fi
-		fi
-	else
-		floating_window_ids=$(i3-msg -t get_tree | jq -r --arg sk floating --arg sv user_on --arg pv window '.. | objects | select(contains({($sk): $sv})) | .[$pv]')
-		window_focused_id="$(xdotool getactivewindow)"
-
-		if [[ "$floating_window_ids" == *"$window_focused_id"* ]]; then
-			i3-msg -q -- "[id=\"$window_focused_id\"] floating toggle"
-			# debug "The active window $window_focused_id was a floting window, now it is a tiling window"
-			# border + no-window-bar for tiling window
-			i3-msg -q -- "[id=\"$window_focused_id\"] border pixel 3"
-		fi
-	fi
-}
-
-toggle_window() {
-	window_focused_id="$(xdotool getactivewindow)"
-	# the printf part is to convert hex to dec
-	if [[ "$window_focused_id" -ne "$(printf "%d" "$window_id")" ]]; then
-		# debug "window_id does not match current window_focused_id and -f is given, will focus the window_id first"
-		show_window_in_position && return 0
-	else
-		i3-msg -q -- "[id=\"$window_id\"] move to scratchpad;"
-	fi
-}
-
-debug() {
-	notify-send "$*" "$(caller 0)"
+	new_window=true
+	start_and_save_wid_and_pid
 }
 
 [ -z "$BASH_LOADABLES_PATH" ] && BASH_LOADABLES_PATH=$(pkg-config bash --variable=loadablesdir 2>/dev/null)
