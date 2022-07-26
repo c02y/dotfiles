@@ -48,8 +48,9 @@
 #        then comment out and rewrite all debug references
 #        3. rewrite -a flag to use top-left if the flag is passed, otherwise use center-center
 #        4. fix Dropdown kitty position issue
+#        5. clean the handling -k (keep) flag, 2022-07-26
 
-VERSION="1.8"
+VERSION="1.9"
 
 print_help() {
 	printf 'Usage: %s [[-a] [-d <size>] [-p <pos>] [-s <screen>] [-f]] [-t] [-k] [-v] <command>\n' "$script_name"
@@ -245,24 +246,25 @@ show_window_in_position() {
 		i3-msg -q -- "[id=\"$window_id\"] focus"
 	fi
 
+	if [ -n "$float" ]; then
+		if [ -z "$keep" ]; then # by default, focus back from scratcpad, the size and position will restore
 			# debug "The window $window_id is alredy a floting window"
 			window_focused_classname="$(xdotool getactivewindow getwindowclassname)"
 			if [ "Dropdown" = "$window_focused_classname" ]; then
 				i3-msg -q -- "[id=\"$window_id\"] border pixel 0; resize set $width px $height px; move position $x_pos px $y_pos px"
 			else
-			fi
-		else
-			floating_window_ids=$(i3-msg -t get_tree | jq -r --arg sk floating --arg sv user_on --arg pv window '.. | objects | select(contains({($sk): $sv})) | .[$pv]')
-			window_focused_id="$(xdotool getactivewindow)"
-
-			if [[ "$floating_window_ids" == *"$window_focused_id"* ]]; then
-				i3-msg -q -- "[id=\"$window_focused_id\"] floating toggle"
-				# border + no-window-bar for tiling window
-				i3-msg -q -- "[id=\"$window_focused_id\"] border pixel 3"
+				i3-msg -q -- "[id=\"$window_id\"] border normal 0; resize set $width px $height px; move position $x_pos px $y_pos px"
 			fi
 		fi
 	else
+		floating_window_ids=$(i3-msg -t get_tree | jq -r --arg sk floating --arg sv user_on --arg pv window '.. | objects | select(contains({($sk): $sv})) | .[$pv]')
+		window_focused_id="$(xdotool getactivewindow)"
+
+		if [[ "$floating_window_ids" == *"$window_focused_id"* ]]; then
+			i3-msg -q -- "[id=\"$window_focused_id\"] floating toggle"
 			# debug "The active window $window_focused_id was a floting window, now it is a tiling window"
+			# border + no-window-bar for tiling window
+			i3-msg -q -- "[id=\"$window_focused_id\"] border pixel 3"
 		fi
 	fi
 }
