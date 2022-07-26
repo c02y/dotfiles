@@ -43,13 +43,13 @@
 #        2. remove -f, always focus first, give -f flag to -F which float enabled
 #        2. fix issue when new created and opened window in another workspace
 #        (not been to scratchpad yet), toggle to focus fails, 2022-07-17
+# v1.9 - 1. remove -m/-o/-u/-w/-v flags, replace -V with -v flag, remove echoit function, clean some echo/log
 
 VERSION="1.8"
 
 print_help() {
-	printf 'Usage: %s [[-a <anchor>] [-d <size>] [-p <pos>] [-s <screen>] [-f]] [-t] [-m <edge>] [-k] [-u [-w][-o <opts>]] [-v] [-V] <command>\n' "$script_name"
-	printf 'Executes a program in a positioned scratchpad, optionally wrapped in a URxvt window.\n'
-	printf 'Caches optional URxvt wrapper script and stores window id at XDG_RUNTIME_DIR based on command,\n'
+	printf 'Usage: %s [[-a] [-d <size>] [-p <pos>] [-s <screen>] [-f]] [-t] [-k] [-v] <command>\n' "$script_name"
+	printf 'Executes a program in a positioned scratchpad.\n'
 	printf 'so executing the same command will re-use the existing window, if it still exists.\n'
 	printf '\nArguments:\n'
 	printf ' -a <anchor>   Sets where to calculate position from. Valid values are\n'
@@ -62,32 +62,19 @@ print_help() {
 	printf ' -d <size>     Dimensions of window in pixels, in WIDTHxHEIGHT format.\n'
 	printf '               Percentages of the screen dimensions can be used as well. Default is 50%%x50%%\n'
 	printf ' -h            Prints this help page.\n'
-	printf ' -m <edge>     Animates the movement to target position from specified edge.\n'
-	printf '               Valid values are top, left, bottom, right, or short t, l, b, r\n'
 	printf ' -f            Float enabled, better to set in i3/config, you will see the floating move when using only -f.\n'
 	printf ' -k            Keep window layout, restore its size and position when toggle it back.\n'
 	printf ' -K            Kill a window.\n'
-	printf ' -o <opts>     Extra URxvt options to pass.\n'
 	printf ' -p <pos>      Position of terminal on pixels, in X,Y format.\n'
 	printf '               Negative values can be used as well. Default is 0,0\n'
 	printf ' -s <screen>   Screen identifier, as listed in xrandr. Falls back to primary screen.\n'
 	printf ' -t            Toggle floating window smartly.\n'
-	printf ' -u            Use URxvt terminal to launch the command - for command line apps.\n'
-	printf ' -v            Verbose, for debugging.\n'
-	printf ' -V            Print version information.\n'
-	printf ' -w            Hides the cursor and waits for keypress before closing the\n'
-	printf '               terminal window. Useful for commands immediately returning.\n'
+	printf ' -v            Print version information.\n'
 	printf '\nExample:\n'
 	printf ' # Calendar at the bottom right of primary screen with 32px bottom margin:\n'
 	printf ' $ %s -d200x200 -abr -p0,-32 -wtu cal\n' "$script_name"
 }
 
-echoit() {
-	# get the line where this fucntion is called
-	LINE=${BASH_LINENO[$((${#BASH_LINENO[@]} - 4))]}
-	# get value of a value of a value, if $1 = "name", ${!1} = $name
-	echo L$LINE: "$1": "${!1}" # >>/tmp/i3-scratchpad.log
-	[ -n "$2" ] && exit
 }
 
 toggle_floating_smart() {
@@ -113,10 +100,8 @@ toggle_floating_smart() {
 }
 
 main() {
-	# echo "================================" >>/tmp/i3-scratchpad.log
 	local screen_width screen_height offset_x offset_y width height x_pos y_pos \
-		urxvt move wait command urxvt_opts verbose window_focused_id \
-		window_state wid_file pid_dir animation_frame_delay=0.01
+		command window_focused_id window_state wid_file pid_dir
 
 	pid_dir=${XDG_RUNTIME_DIR:-"/tmp"}
 
@@ -133,22 +118,17 @@ main() {
 parse_aruments() {
 	local script_name dim='\([0-9]\+%\?\)' pos='\(-\?[0-9]\+\)' anchor='cc'
 	script_name="$(basename "$0")"
-	while getopts a:d:hfkm:o:p:s:tuvVw arg; do
+	while getopts ad:hfkp:s:tvV arg; do
 		case $arg in
 		a) anchor="$OPTARG" ;;
 		d) read -r width height < <(sed -n "s/^${dim}x${dim}$/\1 \2/p" <<<"$OPTARG") ;;
 		h) print_help && exit 0 ;;
 		f) float=true ;;
 		k) keep=true ;;
-		m) move="$OPTARG" ;;
-		o) urxvt_opts="$OPTARG" ;;
 		p) read -r x_pos y_pos < <(sed -n "s/^${pos},${pos}$/\1 \2/p" <<<"$OPTARG") ;;
 		s) screen="$OPTARG" ;;
 		t) toggle_floating_smart && exit 0 ;;
-		u) urxvt=true ;;
-		v) verbose=true ;;
-		V) printf 'Version %s\n' "$VERSION" && exit 0 ;;
-		w) wait=true ;;
+		v) printf 'Version %s\n' "$VERSION" && exit 0 ;;
 		*) print_help && exit 1 ;;
 		esac
 	done
@@ -166,15 +146,6 @@ parse_aruments() {
 
 	if [[ ! "$anchor" =~ ^([tcb])([lcr])$ ]]; then
 		printf 'Anchor "%s" is invalid. See %s -h.\n' "$anchor" "$script_name" >&2
-		exit 1
-	fi
-
-	if [[ "$move" =~ ^(top|bottom|left|right)$ ]]; then
-		move=$(sed -n 's/^\([tblr]\).*$/\1/p' <<<"$move")
-	fi
-
-	if [[ -n "$move" && ! "$move" =~ ^[tblr]$ ]]; then
-		printf 'Move "%s" is invalid. See %s -h.\n' "$move" "$script_name" >&2
 		exit 1
 	fi
 
@@ -262,10 +233,6 @@ already_running() {
 start_and_save_wid_and_pid() {
 	local window_id pid
 
-	if [ -n "$urxvt" ]; then
-		create_urxvt_wrapper
-	fi
-
 	debug 'Launching command' "$command"
 	window_id=$(printf '0x%08x\n' "$(i3-msg -q "exec --no-startup-id \"$command\"" && i3-msg -t subscribe '[ "window" ]' | sed -n 's/.*"window":\([0-9]\+\).*/\1/p')")
 	if [ -z "$window_id" ]; then
@@ -294,19 +261,6 @@ show_window_in_position() {
 		i3-msg -q -- "[id=\"$window_id\"] focus"
 	fi
 
-	if [ -z "$move" ]; then
-		if [ -n "$float" ]; then
-			if [ -n "$keep" ]; then
-				# already in scrachpad and -k flag is used
-				window_currnet_info="$(xwininfo -id "$window_id")"
-				depth_current=$(echo "$window_currnet_info" | awk '/Depth/ {print $2}')
-				x_pos_current=$(echo "$window_currnet_info" | awk '/Absolute upper-left X/ {print $4}')
-				y_pos_current="$(($(echo "$window_currnet_info" | awk '/Absolute upper-left Y/ {print $4}') - depth_current))"
-				width_current=$(echo "$window_currnet_info" | awk '/Width/ {print $2}')
-				height_current="$(($(echo "$window_currnet_info" | awk '/Height/ {print $2}') + depth_current))"
-
-				debug 'Show window in scratchpad and restore the previous window size and position'
-				i3-msg -q -- "[id=\"$window_id\"] move position $x_pos_current px $y_pos_current px;[id=\"$window_id\"] resize set $width_current px $height_current px"
 			else
 				debug 'The window' "$window_id" 'is alredy a floting window'
 				window_focused_classname="$(xdotool getactivewindow getwindowclassname)"
@@ -329,42 +283,7 @@ show_window_in_position() {
 			fi
 		fi
 	else
-		local x x_inc=0 x_end y y_inc=0 y_end
-		x=$x_pos
-		y=$y_pos
-		x_end=$x_pos
-		y_end=$y_pos
-		case "$move" in
-		t)
-			y=$((offset_y - height + 1))
-			y_inc=$(((y_pos - y) / 4))
-			;;
-		b)
-			y=$((offset_y + screen_height - 1))
-			y_inc=$(((y_pos - y) / 4))
-			;;
-		l)
-			x=$((offset_x - width + 1))
-			x_inc=$(((x_pos - x) / 4))
-			;;
-		r)
-			x=$((offset_x + screen_width - 1))
-			x_inc=$(((x_pos - x) / 4))
-			;;
-		esac
-
-		if [ -n "$float_disable" ]; then
-			i3-msg -q -- "[id=\"$window_id\"] move to scratchpad;[id=\"$window_id\"] scratchpad show"
-			i3-msg -q -- "floating toggle"
-		else
-			i3-msg -q -- "[id=\"$window_id\"] move to scratchpad;[id=\"$window_id\"] scratchpad show;[id=\"$window_id\"] move position $x px $y px;[id=\"$window_id\"] resize set $width px $height px"
 		fi
-		debug 'Starting show animation'
-		while [[ ($x_inc -lt 0 && $x -gt $x_end) || ($x_inc -gt 0 && $x -lt $x_end) || ($y_inc -lt 0 && $y -gt $y_end) || ($y_inc -gt 0 && $y -lt $y_end) ]]; do
-			animate
-		done
-		debug 'Animation completed'
-		i3-msg -q -- "[id=\"$window_id\"] move position $x_pos px $y_pos px"
 	fi
 }
 
@@ -374,85 +293,13 @@ toggle_window() {
 	if [[ "$window_focused_id" -ne "$(printf "%d" "$window_id")" ]]; then
 		debug 'window_id does not match current window_focused_id and -f is given, will focus the window_id first'
 		show_window_in_position && return 0
-	elif [ -n "$move" ]; then
-		[ -z "$BASH_LOADABLES_PATH" ] && BASH_LOADABLES_PATH=$(pkg-config bash --variable=loadablesdir 2>/dev/null)
-		local x x_inc=0 x_end y y_inc=0 y_end
-		x=$x_pos
-		y=$y_pos
-		x_end=$x_pos
-		y_end=$y_pos
-		case "$move" in
-		t)
-			y_end=$((offset_y - height))
-			y_inc=$(((y_end - y_pos) / 20))
-			;;
-		b)
-			y_end=$((offset_y + screen_height - 1))
-			y_inc=$(((y_end - y_pos) / 20))
-			;;
-		l)
-			x_end=$((offset_x - width))
-			x_inc=$(((x_end - x_pos) / 20))
-			;;
-		r)
-			x_end=$((offset_x + screen_width - 1))
-			x_inc=$(((x_end - x_pos) / 20))
-			;;
-		esac
-		debug 'Starting hide animation'
-		while [[ ($x_inc -gt 0 && $x -lt $x_end) || ($x_inc -lt 0 && $x -gt $x_end) || ($y_inc -gt 0 && $y -lt $y_end) || ($y_inc -lt 0 && $y -gt $y_end) ]]; do
-			animate
-		done
-		debug 'Animation completed'
 	else
 		i3-msg -q -- "[id=\"$window_id\"] move to scratchpad;"
 	fi
 }
 
-animate() {
-	debug 'Moving to [' "$x" "$y" '] with increment [' "$x_inc" "$y_inc" ']'
-	i3-msg -q -- "[id=\"$window_id\"] move position $x px $y px"
-	y=$((y + y_inc))
-	x=$((x + x_inc))
-	if [[ ($x -lt $x_pos && $x_inc -le 0) || ($x -gt $x_pos && $x_inc -ge 0) ]]; then
-		x_inc=$((x_inc * 125 / 100))
-	else
-		x_inc=$((x_inc * 100 / 125))
-	fi
-	if [[ ($y -lt $y_pos && $y_inc -le 0) || ($y -gt $y_pos && $y_inc -ge 0) ]]; then
-		y_inc=$((y_inc * 125 / 100))
-	else
-		y_inc=$((y_inc * 100 / 125))
-	fi
-	sleep "$animation_frame_delay"
-}
-
-create_urxvt_wrapper() {
-	local wrapper_file
-	wrapper_file="$wid_file$(if [ -n "$wait" ]; then printf '_W'; fi).sh"
-	if [ -f "$wrapper_file" ] && [ -x "$wrapper_file" ]; then
-		debug 'Wrapper' "$wrapper_file" 'file already exists.'
-	else
-		debug 'Creating wrapper file' "$wrapper_file" 'with URxvt command wrapper'
-		printf '#!/bin/bash\n' >"$wrapper_file"
-		printf 'clear\n' >>"$wrapper_file"
-		printf '%s\n' "$command" >>"$wrapper_file"
-		if [ -n "$wait" ]; then
-			printf 'printf "\\e[?25l"\n' >>"$wrapper_file"
-			printf 'read -r -n1\n' >>"$wrapper_file"
-		fi
-		chmod u+x "$wrapper_file"
-		if [ -n "$verbose" ]; then
-			cat "$wrapper_file"
-		fi
-	fi
-	command="urxvt $urxvt_opts -e '$wrapper_file'"
-}
-
 debug() {
-	if [ -n "$verbose" ]; then
 		printf '%s\n' "$*" # >>/tmp/i3-scratchpad.log
-	fi
 }
 
 [ -z "$BASH_LOADABLES_PATH" ] && BASH_LOADABLES_PATH=$(pkg-config bash --variable=loadablesdir 2>/dev/null)
