@@ -518,6 +518,10 @@ lvim.autocommands = {
 	},
 	{ "BufRead,BufNewFile", { pattern = { "*.fish" }, command = "set expandtab tabstop=4 shiftwidth=4" } },
 	-- auto hover when cursot is stopped at something
+	{
+		"CursorHold,CursorHoldI,MenuPopup",
+		{ pattern = { "*" }, command = "lua require 'gitsigns'.preview_hunk()" },
+	},
 	-- hover can maually triggered by K
 	-- * if &filetype != "latex" && &filetype != "plaintex" | do
 	{
