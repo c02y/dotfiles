@@ -272,6 +272,7 @@ lvim.keys.normal_mode["<C-w>1"] = ":only<cr>"
 -- Use which-key to add extra bindings with the leader-key prefix
 -- from vimlab/split-term.vim
 -- NOTE: C-l in the terminal to toggle the terminal back to the editor
+lvim.builtin.which_key.mappings["<Space>"] = { ":lua require('nvim-window').pick()<CR>", "Choose Windows" }
 lvim.builtin.which_key.mappings["'"] = { "<Esc><Cmd>ToggleTerm<CR>", "Quick Terminal" }
 lvim.builtin.which_key.mappings["v\\"] = { ":VTerm<CR>", "| Term" }
 lvim.builtin.which_key.mappings["v-"] = { ":Term<CR>", "- Term" }
@@ -364,11 +365,8 @@ lvim.builtin.which_key.mappings["w"] = {
 	["-"] = { "<C-w>s", "Split Window" },
 	["\\"] = { "<C-w>v", "Split Window V" },
 	w = { "<C-w>w", "Switch Windows" },
-	W = { ":lua require('nvim-window').pick()<CR>", "Switch Windows#" },
 	-- the following binding is from vim-maximizer
 	m = { ":MaximizerToggle<cr>", "Max Window" },
-	-- from https://gitlab.com/yorickpeterse/nvim-window.git
-	a = { ":lua require('nvim-window').pick()<CR>", "Choose Windows" },
 	["<Left>"] = { "<C-w><Left>", "Switch to Left window" },
 	["<Right>"] = { "<C-w><Right>", "Switch to Right window" },
 	["<Up>"] = { "<C-w><Up>", "Switch to Up window" },
