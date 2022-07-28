@@ -37,8 +37,6 @@ set nowrapscan
 set wrap
 " this updatetime affects the CursorHold
 set updatetime=1000
-" from rrethy/vim-hexokinase, config in lvim.plugins block according to lunarvim doc deosn't work
-let g:Hexokinase_highlighters = ['backgroundfull']
 " the offset to top/bottom for commands like z<Enter>/zt/z-/zb
 set scrolloff=0
 ]])
@@ -60,34 +58,124 @@ vim.api.nvim_exec(
 	false
 )
 
--- Additional Plugins
+-- Additional Plugins,
+-- NOTE: to compile or re-compile into ~/.config/lvim/plugin/packer_compiled.lua for packer
+-- after changing this block using Space-P-c/r
+-- https://github.com/LunarVim/LunarVim/discussions/2842#discussioncomment-3255606
 lvim.plugins = {
 	--     {"folke/tokyonight.nvim"},
 	{ "folke/trouble.nvim", cmd = "TroubleToggle" },
 	{ "szw/vim-maximizer" },
 	-- make command needs golang installed
-	{ "rrethy/vim-hexokinase", run = "make hexokinase" },
+	{
+		"rrethy/vim-hexokinase",
+		run = "make hexokinase",
+		config = function()
+			vim.cmd("let g:Hexokinase_highlighters = ['backgroundfull']")
+		end,
+	},
 	{ "vimlab/split-term.vim" },
 	{ "thinca/vim-quickrun" },
-	{ "ethanholz/nvim-lastplace" },
-	{ "phaazon/hop.nvim" },
-	{ "https://gitlab.com/yorickpeterse/nvim-window.git" },
+	{
+		"ethanholz/nvim-lastplace",
+		config = function()
+			require("nvim-lastplace").setup({
+				lastplace_ignore_buftype = { "quickfix", "nofile", "help" },
+				-- lastplace_ignore_filetype = { "gitcommit", "gitrebase", "svn", "hgcommit" },
+				lastplace_open_folds = true,
+			})
+		end,
+	},
+	{
+		"phaazon/hop.nvim",
+		config = function()
+			require("hop").setup()
+		end,
+	},
+	{
+		"https://gitlab.com/yorickpeterse/nvim-window.git",
+		config = function()
+			-- https://gitlab.com/yorickpeterse/nvim-window.git
+			require("nvim-window").setup({
+				-- The characters available for hinting windows.
+				chars = {
+					"1",
+					"2",
+					"3",
+					"4",
+					"5",
+					"6",
+					"7",
+					"8",
+				},
+				-- A group to use for overwriting the Normal highlight group in the floating
+				-- window. This can be used to change the background color.
+				normal_hl = "Normal",
+				-- The highlight group to apply to the line that contains the hint characters.
+				-- This is used to make them stand out more.
+				hint_hl = "Bold",
+				-- The border style to use for the floating window.
+				border = "single",
+			})
+		end,
+	},
 	{ "theHamsta/nvim-dap-virtual-text" },
 	{ "rcarriga/nvim-dap-ui" },
 	{ "timonv/vim-cargo" },
 	-- ds"(delete "), cs"'(chanage " to '), ysw"(add the next word double ")
-	{ "kylechui/nvim-surround" },
+	{
+		"kylechui/nvim-surround",
+		config = function()
+			require("nvim-surround").setup({
+				keymaps = { -- vim-surround style keymaps
+					-- insert = "ys",
+					-- visual = "S",
+					delete = "ds",
+					change = "cs",
+				},
+				delimiters = {
+					pairs = {
+						["("] = { "( ", " )" },
+						[")"] = { "(", ")" },
+						["{"] = { "{ ", " }" },
+						["}"] = { "{", "}" },
+						["<"] = { "< ", " >" },
+						[">"] = { "<", ">" },
+						["["] = { "[ ", " ]" },
+						["]"] = { "[", "]" },
+					},
+					separators = {
+						["'"] = { "'", "'" },
+						['"'] = { '"', '"' },
+						["`"] = { "`", "`" },
+					},
+					HTML = {
+						["t"] = true, -- Use "t" for HTML-style mappings
+					},
+					aliases = {
+						["a"] = ">", -- Single character aliases apply everywhere
+						["b"] = ")",
+						["B"] = "}",
+						["r"] = "]",
+						["q"] = { '"', "'", "`" }, -- Table aliases only apply for changes/deletions
+					},
+				},
+			})
+		end,
+	},
 	{
 		"lukas-reineke/indent-blankline.nvim",
-		require("indent_blankline").setup({
-			show_current_context = true,
-			show_current_context_start = true,
-			show_end_of_line = true,
-			char_highlight_list = {
-				-- from :highlight
-				"DevIconSh",
-			},
-		}),
+		config = function()
+			require("indent_blankline").setup({
+				show_current_context = true,
+				show_current_context_start = true,
+				show_end_of_line = true,
+				char_highlight_list = {
+					-- from :highlight
+					"DevIconSh",
+				},
+			})
+		end,
 	},
 }
 
@@ -99,73 +187,6 @@ require("telescope").setup({
 			path_display = { nil },
 		},
 	},
-})
-
-require("nvim-surround").setup({
-	keymaps = { -- vim-surround style keymaps
-		insert = "ys",
-		visual = "S",
-		delete = "ds",
-		change = "cs",
-	},
-	delimiters = {
-		pairs = {
-			["("] = { "( ", " )" },
-			[")"] = { "(", ")" },
-			["{"] = { "{ ", " }" },
-			["}"] = { "{", "}" },
-			["<"] = { "< ", " >" },
-			[">"] = { "<", ">" },
-			["["] = { "[ ", " ]" },
-			["]"] = { "[", "]" },
-		},
-		separators = {
-			["'"] = { "'", "'" },
-			['"'] = { '"', '"' },
-			["`"] = { "`", "`" },
-		},
-		HTML = {
-			["t"] = true, -- Use "t" for HTML-style mappings
-		},
-		aliases = {
-			["a"] = ">", -- Single character aliases apply everywhere
-			["b"] = ")",
-			["B"] = "}",
-			["r"] = "]",
-			["q"] = { '"', "'", "`" }, -- Table aliases only apply for changes/deletions
-		},
-	},
-})
-
--- from ethanholz/nvim-lastplace
-require("nvim-lastplace").setup({
-	lastplace_ignore_buftype = { "quickfix", "nofile", "help" },
-	-- lastplace_ignore_filetype = { "gitcommit", "gitrebase", "svn", "hgcommit" },
-	lastplace_open_folds = true,
-})
--- from phaazon/hop.nvim
-require("hop").setup()
--- https://gitlab.com/yorickpeterse/nvim-window.git
-require("nvim-window").setup({
-	-- The characters available for hinting windows.
-	chars = {
-		"1",
-		"2",
-		"3",
-		"4",
-		"5",
-		"6",
-		"7",
-		"8",
-	},
-	-- A group to use for overwriting the Normal highlight group in the floating
-	-- window. This can be used to change the background color.
-	normal_hl = "Normal",
-	-- The highlight group to apply to the line that contains the hint characters.
-	-- This is used to make them stand out more.
-	hint_hl = "Bold",
-	-- The border style to use for the floating window.
-	border = "single",
 })
 
 -- keymappings [view all the defaults by pressing <leader>Lk]
