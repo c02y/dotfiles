@@ -2879,7 +2879,7 @@ abbr upxx 'upx --best --lzma'
 # for all the Rust developement setup:
 # https://fasterthanli.me/articles/my-ideal-rust-workflow
 function cars -d "cargo commands"
-    set -l options n i c r b D S C B t w u M T R x a h
+    set -l options n i s c r b D S C B t w u M T R x a h
     argparse -n cars $options -- $argv
     or return
 
