@@ -154,7 +154,7 @@ keybinding:
   files:
     commitChanges: 'c'
     commitChangesWithoutHook: 'w' # commit changes without pre-commit hook
-    amendLastCommit: 'A'
+    # amendLastCommit: 'A'
     commitChangesWithEditor: 'C'
     ignoreFile: 'i'
     refreshFiles: 'r'
@@ -186,7 +186,7 @@ keybinding:
     squashAboveCommits: 'S'
     moveDownCommit: '<c-j>' # move commit down one
     moveUpCommit: '<c-k>' # move commit up one
-    amendToCommit: 'A'
+    # amendToCommit: 'A'
     pickCommit: 'p' # pick commit (when mid-rebase)
     revertCommit: 't'
     cherryPickCopy: 'c'
@@ -226,3 +226,7 @@ customCommands:
     command: "git reset --{{index .PromptResponses 0}} HEAD~1"
     context: 'global'
     loadingText: 'reset last unpushed commit'
+  - key: 'A'
+    command: "git commit --amend"
+    context: 'files'
+    subprocess: true
