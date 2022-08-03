@@ -215,10 +215,14 @@ lvim.keys.normal_mode["<C-x>x"] = ":b#<CR>"
 lvim.keys.normal_mode["=<CR>"] = "<cmd>lua vim.lsp.buf.formatting()<cr>"
 lvim.keys.normal_mode["=t"] = ":LvimToggleFormatOnSave<cr>"
 -- git related, more in <Leader>g
-lvim.keys.normal_mode["[h"] = "<cmd>lua require 'gitsigns'.prev_hunk()<cr>"
-lvim.keys.normal_mode["['"] = "<cmd>lua require 'gitsigns'.prev_hunk()<cr>"
-lvim.keys.normal_mode["]h"] = "<cmd>lua require 'gitsigns'.next_hunk()<cr>"
-lvim.keys.normal_mode["]'"] = "<cmd>lua require 'gitsigns'.next_hunk()<cr>"
+lvim.keys.normal_mode["[h"] =
+	"<cmd>lua require 'gitsigns'.prev_hunk()<cr><cmd>lua require 'gitsigns'.preview_hunk()<cr>"
+lvim.keys.normal_mode["['"] =
+	"<cmd>lua require 'gitsigns'.prev_hunk()<cr><cmd>lua require 'gitsigns'.preview_hunk()<cr>"
+lvim.keys.normal_mode["]h"] =
+	"<cmd>lua require 'gitsigns'.next_hunk()<cr><cmd>lua require 'gitsigns'.preview_hunk()<cr>"
+lvim.keys.normal_mode["]'"] =
+	"<cmd>lua require 'gitsigns'.next_hunk()<cr><cmd>lua require 'gitsigns'.preview_hunk()<cr>"
 lvim.keys.normal_mode["[p"] = "<cmd>lua require 'gitsigns'.preview_hunk()<cr>"
 -- [c/]c to the prev/next diff in diffthis window
 lvim.keys.normal_mode["[P"] = "<cmd>lua require 'gitsigns'.diffthis()<cr>"
@@ -518,10 +522,10 @@ lvim.autocommands = {
 	},
 	{ "BufRead,BufNewFile", { pattern = { "*.fish" }, command = "set expandtab tabstop=4 shiftwidth=4" } },
 	-- auto hover when cursot is stopped at something
-	{
-		"CursorHold,CursorHoldI,MenuPopup",
-		{ pattern = { "*" }, command = "lua require 'gitsigns'.preview_hunk()" },
-	},
+	-- {
+	-- 	"CursorHold,CursorHoldI,MenuPopup",
+	-- 	{ pattern = { "*" }, command = "lua require 'gitsigns'.preview_hunk()" },
+	-- },
 	-- hover can maually triggered by K
 	-- * if &filetype != "latex" && &filetype != "plaintex" | do
 	{
