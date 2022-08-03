@@ -188,7 +188,7 @@ bindsym $mod+r reload
 bindsym $mod+Shift+r restart
 bindsym $mod+Ctrl+Shift+r exec pkill -USR2 i3status-rs
 
-set $mode_system System: [Space]Hibernate, [b]lackscreen, [l]ock, [L]ogout, [m]onitors0, [M]onitors2, [s]uspend, [r]eboot, [S]hutdown, [U]udatePkgs
+set $mode_system System: [Space]Hibernate, [b]lackscreen, [l]ock, [L]ogout, [m]onitors0, [M]onitors2, [s]uspend, [r]eboot, [S]hutdown, [u]udatePkgs
 bindsym $mod+Ctrl+Delete mode "$mode_system"
 mode "$mode_system" {
   bindsym space exec --no-startup-id systemctl hibernate, mode "default"
@@ -236,6 +236,8 @@ for_window [window_type="dialog"] resize set 40 ppt 60 ppt, move position center
 # `copyq config hide_main_window_in_task_bar true` in command and restart copyq to make the list window utility
 for_window [window_type="utility"] resize set 35 ppt 80 ppt, move right 50ppt
 for_window [class="Gpick"] border normal 0, resize set 50 ppt 50 ppt, move position center
+# "Event Tester" is for `xev` window
+for_window [title="^Event Tester$"] floating enable
 
 # Move the followings windows into specific workspace
 assign [class="Anki"] $ws2
