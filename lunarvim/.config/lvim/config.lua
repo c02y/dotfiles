@@ -503,13 +503,11 @@ linters.setup({
 	},
 })
 
--- set commentstring for some filetypes, NOTE: autocommands block treesitter block don't work
-require("Comment.ft").set("gitconfig", "#%s")
+-- set commentstring for some filetypes
+-- https://github.com/numToStr/Comment.nvim#%EF%B8%8F-filetypes--languages
 -- dosinit is for files like /etc/pacman.conf and /etc/pacman.d/*list
-require("Comment.ft").set("dosini", "#%s")
-require("Comment.ft").set("org", "#%s")
--- for files wich filetype is empty
-require("Comment.ft").set("", "#%s")
+-- "" for files wich filetype is empty
+require("Comment.ft")({ "", "gitconfig", "dosini", "org" }, "#%s")
 
 -- Autocommands (https://neovim.io/doc/user/autocmd.html)
 lvim.autocommands = {
