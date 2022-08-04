@@ -227,8 +227,8 @@ bindsym $mod+F12 sticky toggle
 # NOTE: USE , instead of ; for for_window
 # NOTE: enable window bar for floating window so kill or move can be archived by only mouse on the window bar
 # NOTE: BUG: the window bar is still there when you make un-floating, use binding manually to disable the window bar
-# Dropdown has its own resize in F12; Gpick has its own resize; mpv has its own larger/smaller size in mpv.conf, otherwize open mpv window according to video size
-for_window [floating class="^(?!Dropdown$)" class="^(?!Gpick$)" class="^(?!mpv$)"] resize set 75 ppt 75 ppt, move position center, border normal 0
+# Gpick has its own resize; mpv has its own larger/smaller size in mpv.conf, otherwize open mpv window according to video size
+for_window [floating class="^(?!Gpick|mpv$)"] resize set 75 ppt 75 ppt, move position center, border normal 0
 # 'Image Lounge' is class name for nomacs, instance name is nomacs
 for_window [class="copyq|fcitx5-config-qt|Alacritty|kitty|Dropdown|Fsearch|flameshot|mpv|Blueman-manager|Pavucontrol|Image Lounge|File-roller|Gpick"] floating enable
 # `xprop _NET_WM_WINDOW_TYPE`, dialog: such as open file from menu bar, calibre popup window/dialog
