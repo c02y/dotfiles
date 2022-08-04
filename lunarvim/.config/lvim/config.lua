@@ -277,7 +277,6 @@ lvim.keys.normal_mode["<C-w>1"] = ":only<cr>"
 -- from vimlab/split-term.vim
 -- NOTE: C-l in the terminal to toggle the terminal back to the editor
 lvim.builtin.which_key.mappings["<Space>"] = { ":lua require('nvim-window').pick()<CR>", "Choose Windows" }
-lvim.builtin.which_key.mappings["'"] = { "<Esc><Cmd>ToggleTerm<CR>", "Quick Terminal" }
 lvim.builtin.which_key.mappings["v\\"] = { ":VTerm<CR>", "| Term" }
 lvim.builtin.which_key.mappings["v-"] = { ":Term<CR>", "- Term" }
 lvim.builtin.which_key.mappings["b<Space>"] = { "<cmd>Telescope buffers<cr>", "Switch Buffers" }
@@ -412,6 +411,21 @@ lvim.builtin.which_key.mappings["lc"] = {
 -- After changing plugin config exit and reopen LunarVim, Run :PackerInstall :PackerCompile
 lvim.builtin.notify.active = true
 lvim.builtin.terminal.active = true
+lvim.builtin.terminal.float_opts = {
+	-- bottom-right floating terminal with 50% of the width/height of current vim window
+	width = function(_term)
+		local width = math.ceil(vim.o.columns / 2)
+		_term.float_opts.col = vim.o.columns - width
+		-- _term.float_opts.col = 0
+		return width
+	end,
+	height = function(_term)
+		local height = math.ceil(vim.o.lines / 2)
+		_term.float_opts.row = vim.o.lines - height - 4
+		-- _term.float_opts.row = 0
+		return height
+	end,
+}
 -- disable nvimtree since a bug: LunarVim/issues/2512
 lvim.builtin.nvimtree.active = false
 
