@@ -812,6 +812,8 @@ function fdd -d 'fd to replace mlocate/plocate'
     set -l options a v m d o O x r e w p "E=" H "t="
     # -T can be used multiple times with values
     set -a options (fish_opt -s T --multiple-vals)
+    # -c can have optional value, NOTE: using -c10mins format without space in the middle
+    set -a options (fish_opt -s c -o)
     argparse -n fdd $options -- $argv
     or return
 
@@ -819,6 +821,11 @@ function fdd -d 'fd to replace mlocate/plocate'
     set -q _flag_a; or set -a OPT --exclude Steam
     # NOTE: -H here means exclude hidden files/dirs
     set -q _flag_H; or set -a OPT -HI
+    if set -q _flag_c # sort by changed time, NOTE: no create time option available for fd
+        set -q _flag_a; or set -a OPT -E firefox -E undo -E copyq -E lvim
+        # -c can have optional value, if no value passed, use 10mins
+        test $_flag_c; and set -a OPT --changed-within $_flag_c; or set -a OPT --changed-within 10mins
+    end
     # NOTE: -d and -w don't work well with -p, so do not use -p if using -d or -w
     if not set -q _flag_d; and not set -q _flag_w
         set -a OPT -p
