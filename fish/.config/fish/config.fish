@@ -2056,7 +2056,9 @@ function gits -d 'git related commands'
         end
     else if set -q _flag_T # tags 
         if set -q _flag_f # switch tag with fzf
-            echo tags/(git tag -ln | fzf | awk '{print $1}') | xargs git checkout
+            set -l tag tags/(git tag -ln | fzf | awk '{print $1}')
+            git checkout $tag
+            echo -e "\nNow in tag: $tag"
         else # list all tags, with arg, switch the the tag
             # use the following command the fetch all remote tags in there is any
             # git fetch --all --tags
