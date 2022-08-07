@@ -926,6 +926,16 @@ function dfs -d 'df(-l, -L for full list), dua/gua(-i interactive), dua(by defau
         dua -f binary i $argv/* # NOTE: even if argv is empty, this works too
     else if set -q _flag_l
         df -Th | rg -v -e "rg|tmpfs|boot|var|snap|opt|tmp|srv|usr|user"
+        if not df >/dev/null 2>/dev/null
+            echo "Seeing '/tmp/.mount_xxx Transport endpoint is not connected'? Use `dfs -m /tmp/.mount_xxx` to fix it, or:"
+            read -l -p 'echo "point to unmount(space separated multiple points): "' points
+            for i in (string split ' ' $points)
+                if test -f $i
+                    fusermount -zu $i
+                    rm -rfv $i
+                end
+            end
+        end
     else if set -q _flag_L
         df -Th
     else if set -q _flag_t
