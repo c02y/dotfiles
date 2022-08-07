@@ -399,7 +399,7 @@ function pss -d 'pgrep process, used in command line'
         eval $PSS | rg -i $argv[1] | nl
         # copy the PID for the only process
         # argv[2] is any valid character/words
-        if set -q argv[2]; and test (eval $PSS | rg -i $argv[1] | nl | wc -l) = 1
+        if set -q argv[2]; and test (eval $PSS | rg -c -i $argv[1]) = 1
             set pid (pgrep -if $argv[1])
             echo -e "\nPID: " $pid
             if test $DISPLAY
@@ -2401,7 +2401,7 @@ end
 
 function PXY
     # proxy client is running
-    test (pgrep -f 'shadowsocks|v2ray|clash' | wc -l) != 0; and echo proxychains4 -q
+    test (pgrep -c -f 'shadowsocks|v2ray|clash') != 0; and echo proxychains4 -q
 end
 
 abbr bb 'bat -p'
