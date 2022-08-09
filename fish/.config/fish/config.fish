@@ -1089,7 +1089,7 @@ function tars -d 'tar extract(x)/list(l, by default)/create(c, add extra arg to 
     else # j for .bz2, z for .gz, J for xz, a for auto determine
         if set -q _flag_x # extract
             if set -q _flag_o
-                tar xvfa $argv[1] -C $argv[2]
+                tar xvfa $argv[1] --one-top-level -C $argv[2]
             else
                 # extract into dir based on the tar file
                 tar xvfa $argv --one-top-level
