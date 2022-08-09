@@ -45,6 +45,13 @@ font pango:Noto Sans Mono 12
 # and nm-applet is a desktop environment-independent system tray GUI for it.
 # exec_always --no-startup-id nm-applet
 
+# disable Caps_Lock by default, re-enable it using `setxkbmap -option`
+# do not use `xdotool key Caps_Lock` in exec line, it won't work properly
+exec --no-startup-id setxkbmap -option ctrl:nocaps
+# toggle Caps_Lock (always uppercase or always lowercase) using Alt+Caps_Lock
+# FIXME: bindsym+Caps_Lock will not work since it is disable in exec using setxkbmap
+bindcode $mod+Shift+66 exec --no-startup-id xdotool key Caps_Lock
+
 # Use pactl to adjust volume in PulseAudio.
 bindsym $mod+Home        exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +5%
 bindsym $mod+End         exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -5%
@@ -362,7 +369,7 @@ exec --no-startup-id copyq
 exec --no-startup-id fcitx5 -d
 # handle authentication prompt window
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
-# for blank screen and sleep/hibernate
+# for blank screen and sleep/hibernate, disable power manager notification using `xfce4-notifyd-config`
 exec --no-startup-id xfce4-power-manager
 # NOTE: reduce jpeg/png file size losslessly using jpegoptim/optipng,
 # then convert it into avif to reduce more file size using convert from imagemagick
