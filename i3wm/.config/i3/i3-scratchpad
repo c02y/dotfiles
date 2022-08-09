@@ -52,11 +52,16 @@
 #        6. reorder all functions, merge toggle_window content into the reference part and remove it
 #        7. add new_window variable to check if it is a new created window(not into scratchpad yet)
 #        8. rewrite some i3-msg lines, 2022-07-26
+# v2.1 - 1. add -F to always focus the window first if it is not focused,
+#        this strategy is enabled by default in older version,
+#        useful for clicks in i3status-rust bar and Dropdown terminal,
+#        2. add -w to open program in specific workspace
+#        3. change comment about window_state, 2022-08-10
 
 VERSION="2.0"
 
 print_help() {
-	printf 'Usage: %s [[-a] [-d <size>] [-p <pos>] [-s <screen>] [-f]] [-t] [-k] [-v] <command>\n' "$script_name"
+	printf 'Usage: %s [[-a] [-d <size>] [-p <pos>] [-s <screen>] [-f]] [-F] [-t] [-k] [-w <workspace>] [-v] <command>\n' "$script_name"
 	printf 'Executes a program in a positioned scratchpad.\n'
 	printf 'so executing the same command will re-use the existing window, if it still exists.\n'
 	printf '\nArguments:\n'
@@ -65,12 +70,14 @@ print_help() {
 	printf '               Percentages of the screen dimensions can be used as well. Default is 50%%x50%%\n'
 	printf ' -h            Prints this help page.\n'
 	printf ' -f            Float enabled, better to set in i3/config, you will see the floating move when using only -f.\n'
+	printf ' -F            Always focus first.\n'
 	printf ' -k            Keep window layout, restore its size and position when toggle it back.\n'
 	printf ' -K            Kill a window.\n'
 	printf ' -p <pos>      Position of terminal on pixels, in X,Y format.\n'
 	printf '               Negative values can be used as well. Default is 0,0\n'
 	printf ' -s <screen>   Screen identifier, as listed in xrandr. Falls back to primary screen.\n'
 	printf ' -t            Toggle floating window smartly.\n'
+	printf ' -w            Open a program in a specific workspace.\n'
 	printf ' -v            Print version information.\n'
 	printf '\nExample:\n'
 	printf ' $ %s -d200x200 -a -p0,-32 -t kitty\n' "$script_name"
@@ -102,6 +109,9 @@ debug() {
 }
 
 show_window_in_position() {
+	if [ -n "$workspace" ]; then
+		i3-msg -q "workspace --no-auto-back-and-forth $workspace"
+	fi
 	i3-msg -q -- "[id=\"$window_id\"] focus"
 
 	if [ -n "$float" ]; then
@@ -155,19 +165,18 @@ already_running() {
 
 			window_state=$(xprop -id "$window_id" | sed -n 's/^.*window state: \(.*\)$/\1/p')
 			# debug "Toggle mode on, current window state is $window_state"
-			# NOTE: if the window is opened/visiable but in another i3 workspace, its window_state is "Normal"
-			# if the window is in scratchpad and hidden, its window_state is "Withdrawn",
-			# both can use `i3-msg -q -- "[id="37748740"] focus"` to focus its window, other situations are all "Normal"
+			# NOTE: window_state values: focused or unfocused but opened in current i3 workspace: "Normal"
+			#                            opened in other i3 workspace or in scratchpad: "Withdrawn"
+			# Withdrawn widnows can be focused with `i3-msg -q -- "[id="37748740"] focus"`
 			if [[ "$window_state" != 'Withdrawn' ]]; then
 				# debug "Window $window_id is not withdraw, now focus it or move it to scratchpad"
 				window_focused_id="$(xdotool getactivewindow)"
 				# the printf part is to convert hex to dec
-				if [ "$window_focused_id" != "$(printf "%d" "$window_id")" ]; then
-					# debug "not focus, focus it"
+				if [[ -n "$focus" && "$window_focused_id" != "$(printf "%d" "$window_id")" ]]; then
+					# focus the window only when -F is passed and it is not focused
 					i3-msg -q -- "[id=\"$window_id\"] focus"
 				else
-					# debug "Window $window_id is not in scratchpad, now move it into scratchpad"
-					i3-msg -q -- "[id=\"$window_id\"] move to scratchpad;"
+					i3-msg -q -- "[id=\"$window_id\"] move to scratchpad"
 				fi
 			else
 				# debug "Window $window_id is in scratchpad, call show_window_in_position"
@@ -180,10 +189,13 @@ already_running() {
 }
 
 start_and_save_wid_and_pid() {
-	local window_id pid
+	local window_id pid new_window
 
 	# debug "Launching command: $command"
 	window_id=$(printf '0x%08x\n' "$(i3-msg -q "exec --no-startup-id \"$command\"" && i3-msg -t subscribe '[ "window" ]' | sed -n 's/.*"window":\([0-9]\+\).*/\1/p')")
+	if [ -n "$workspace" ]; then
+		i3-msg -q "move container to workspace $workspace; workspace --no-auto-back-and-forth $workspace"
+	fi
 	if [ -z "$window_id" ]; then
 		printf 'Can not find window with id %s\n' "$window_id" >&2
 		rm -f "$wid_file"
@@ -199,6 +211,7 @@ start_and_save_wid_and_pid() {
 	# debug "New window, window_id: $window_id, pid: $pid, svve info to wid file $wid_file"
 	printf '%s %s\n' "$window_id" "$pid" >"$wid_file"
 
+	new_window=true
 	show_window_in_position
 }
 
@@ -242,16 +255,18 @@ parse_dimensions() {
 parse_aruments() {
 	local script_name dim='\([0-9]\+%\?\)' pos='\(-\?[0-9]\+\)'
 	script_name="$(basename "$0")"
-	while getopts ad:hfkp:s:tvV arg; do
+	while getopts ad:hfFkp:s:tw:vV arg; do
 		case $arg in
 		a) anchor=true ;;
 		d) read -r width height < <(sed -n "s/^${dim}x${dim}$/\1 \2/p" <<<"$OPTARG") ;;
 		h) print_help && exit 0 ;;
 		f) float=true ;;
+		F) focus=true ;;
 		k) keep=true ;;
 		p) read -r x_pos y_pos < <(sed -n "s/^${pos},${pos}$/\1 \2/p" <<<"$OPTARG") ;;
 		s) screen="$OPTARG" ;;
 		t) toggle_floating_smart && exit 0 ;;
+		w) workspace="$OPTARG" ;;
 		v) printf 'Version %s\n' "$VERSION" && exit 0 ;;
 		*) print_help && exit 1 ;;
 		esac
@@ -270,7 +285,7 @@ parse_aruments() {
 
 main() {
 	local screen_width screen_height offset_x offset_y width height x_pos y_pos \
-		command window_focused_id window_state wid_file pid_dir new_window
+		command window_focused_id window_state wid_file pid_dir focus workspace
 
 	pid_dir=${XDG_RUNTIME_DIR:-"/tmp"}
 
@@ -281,7 +296,6 @@ main() {
 		exit 0
 	fi
 
-	new_window=true
 	start_and_save_wid_and_pid
 }
 

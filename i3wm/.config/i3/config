@@ -253,7 +253,7 @@ assign [class="VirtualBox*"] $ws3
 # disable the following windows (notifications) from stealing focus
 # no_focus [class="TelegramDesktop"]
 
-set $open ~/.config/i3/i3-scratchpad -d75%x75% 
+set $open ~/.config/i3/i3-scratchpad -d75%x75% -F
 # Bindings for the following applications
 # use `xmodmap -pke` to get bindcode value
 # NOTE: if i3 unable to use ~/.local/bin, put `export PATH="$HOME/.local/bin:$PATH"` in ~/.profile
@@ -337,7 +337,7 @@ mode "$mode_screenshot" {
 set $mode_apps Apps: [a]udacious, [c]lion, [d]unstCloseAll, [D]unstPop, [f]search, [m]ountUnmount, [n]etworkMonitor, [p]cmanfm, [t]hunderbird, [T]elegram, [v]irtualbox
 bindsym $mod+a mode "$mode_apps"
 mode "$mode_apps" {
-  bindsym a workspace --no-auto-back-and-forth $ws3; exec $open audacious; mode "default"
+  bindsym a exec $open -w $ws3 audacious; mode "default"
   bindsym c exec $open clion; mode "default"
   bindsym d exec dunstctl close-all; mode "default"
   bindsym shift+d exec dunstctl history-pop; mode "default"
@@ -346,9 +346,9 @@ mode "$mode_apps" {
   # speed_net -t: check background downloading task if the speed is lower than 5MB/s or completed
   bindsym n exec "speed_net -t"; mode "default"
   bindsym p exec $open pcmanfm; mode "default"
-  bindsym t workspace --no-auto-back-and-forth $ws3; exec $open thunderbird; mode "default"
-  bindsym Shift+t workspace --no-auto-back-and-forth $ws3; exec $open telegram-desktop; mode "default"
-  bindsym v workspace --no-auto-back-and-forth $ws3; exec $open virtualbox; mode "default"
+  bindsym t exec $open -w $ws3 thunderbird; mode "default"
+  bindsym Shift+t exec $open -w $ws3 telegram-desktop; mode "default"
+  bindsym v exec $open -w $ws3 virtualbox; mode "default"
 
   bindsym Escape mode "default"
 }
