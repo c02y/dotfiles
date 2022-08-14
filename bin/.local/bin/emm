@@ -26,7 +26,7 @@
 
 print_usage() {
 	cat <<EOF
-$(basename $0) -- emacs server and emacsclient manage script
+$(basename "$0") -- emacs server and emacsclient manage script
 
 Usage: $(basename $0)
 	 -h to print this usage
@@ -80,7 +80,7 @@ check_running_emacsclient() {
 	if check_daemon_status; then
 		if ! timeout 1 emacsclient -n -e "(if (> (length (frame-list)) 1) 't)" >/dev/null; then
 			# emacsclient gets stuck #
-			read -e -n 1 -p 'Running emacsclient gets stuck, kill it? [Y/n]: '
+			read -r -e -n 1 -p 'Running emacsclient gets stuck, kill it? [Y/n]: '
 			if [ "$REPLY" == "y" ]; then
 				kill_emacs_server
 				exit 1
@@ -100,8 +100,7 @@ check_running_emacsclient() {
 kill_running_emacsclient() {
 	if check_daemon_status; then
 		# using emacsclient process won't work for GUI since no emacsclient process exists
-		timeout 1 emacsclient -n -e "(length (frame-list))" >/dev/null
-		if [ "$?" -ne 0 ]; then
+		if ! timeout 1 emacsclient -n -e "(length (frame-list))" >/dev/null; then
 			# emacsclient gets stuck #
 			read -e -n 1 -p 'Running emacsclient gets stuck, kill it? [Y/n]: '
 			if [ "$REPLY" == "y" ]; then
@@ -110,9 +109,8 @@ kill_running_emacsclient() {
 				exit
 			fi
 		fi
-		emacsclient -n -e "(if (> (length (frame-list)) 1) 't)" | grep -q t >/dev/null
-		if [ "$?" -eq 0 ]; then # has emacsclient opened
-			read -e -n 1 -p 'Running emacsclient exists, kill(switch to emacs frame if unsaved)? [Y/n]: '
+		if emacsclient -n -e "(if (> (length (frame-list)) 1) 't)" | grep -q t >/dev/null; then # has emacsclient opened
+			read -r -e -n 1 -p 'Running emacsclient exists, kill(switch to emacs frame if unsaved)? [Y/n]: '
 			if [ "$REPLY" == "y" ]; then
 				# Note that if modified buffers unsaved, you have to switch to the emacsclient to save manually
 				emacsclient -n -e "(save-some-buffers)" >/dev/null
@@ -145,15 +143,15 @@ restart_emacs_server() {
 
 start_magit() {
 	pwd_old=$PWD
-	if [ -d $1 ]; then
+	if [ -d "$1" ]; then
 		if [ "$1" != "." ]; then
-			cd $1
+			cd "$1"
 		fi
 		# check if $1 is under git control
 		git rev-parse --is-inside-work-tree >/dev/null 2>&1
 		if [ "$?" -ne 0 ]; then
 			echo "$1 is not a git repo!"
-			cd --
+			cd -
 			exit 1
 		fi
 
@@ -168,7 +166,7 @@ start_magit() {
 		elif [ "$1" != "." ] && [ "$sub" != "1" ]; then
 			repo=$PWD
 			cmd="-e '(progn (magit-status \"$repo\") (delete-other-windows))'"
-			cd --
+			cd -
 		fi
 	else
 		echo "$1 is not even a directory!"
@@ -218,7 +216,7 @@ while getopts ":habcCdDeEfkKmopqrRstux" args; do # prefix-: no warning for illeg
 			OPTIND=$((OPTIND + 1))
 		fi
 		echo "Edit $file using emacs..."
-		emacs --no-splash $file >/dev/null 2>&1
+		emacs --no-splash "$file" >/dev/null 2>&1
 		exit 0
 		;;
 	E)
@@ -246,7 +244,7 @@ while getopts ":habcCdDeEfkKmopqrRstux" args; do # prefix-: no warning for illeg
 			repo=${@:$OPTIND}
 			OPTIND=$((OPTIND + 1))
 		fi
-		start_magit $repo
+		start_magit "$repo"
 		;;
 	o)
 		if [ ! -z ${@:$OPTIND} ]; then # if no argv is given, using default
@@ -332,7 +330,7 @@ if [ "$flag_s" -eq 1 ]; then
 	if [ -d ~/.emacs.d/core ]; then # check if directory exists
 		# -e in read - add newline after the the type in prompt, to avoid echo string after the prompt
 		# unnecessary to add an empty echo
-		read -e -n 1 -p "Currently using Spacemacs, switch to Vanilla emacs? [Y/SPC/n]: "
+		read -r -e -n 1 -p "Currently using Spacemacs, switch to Vanilla emacs? [Y/SPC/n]: "
 		if [ "$REPLY" == "y" ] || [ "$REPLY" == " " ]; then
 			if [ -d ~/se.emacs.d ]; then
 				echo "$HOME/se.emacs.d already exists, exit!"
@@ -350,7 +348,7 @@ if [ "$flag_s" -eq 1 ]; then
 			exit 0
 		fi
 	elif [ -d ~/.emacs.d/lisp ]; then
-		read -e -n 1 -p "Currently using Vanilla emacs, switch to Spacemacs? [Y/SPC/n]: "
+		read -r -e -n 1 -p "Currently using Vanilla emacs, switch to Spacemacs? [Y/SPC/n]: "
 		if [ "$REPLY" == "y" ] || [ "$REPLY" == " " ]; then
 			if [ -d ~/ve.emacs.d ]; then
 				echo "$HOME/ve.emacs.d already exists, exit!"
@@ -375,7 +373,7 @@ if [ "$flag_s" -eq 1 ]; then
 		emacs "$ARGV"
 		exit
 	elif [ -d ~/.emacs.d/core ]; then # ask if start Spacemacs
-		read -e -n 1 -p "Opening Spacemacs? [Y/SPC/n]: "
+		read -r -e -n 1 -p "Opening Spacemacs? [Y/SPC/n]: "
 		if [ "$REPLY" == "y" ] || [ "$REPLY" == " " ]; then
 			echo "Starting Spacemacs..."
 		else
@@ -402,7 +400,7 @@ if check_daemon_status; then
 		eval emacsclient -a "" -n -c "$cmd" "$ARGV"
 	else
 		# find all existing frames
-		frameslist=$(emacsclient -a '' --eval '(frame-list)' 2>/dev/null | egrep -o '(frame)+')
+		frameslist=$(emacsclient -a '' --eval '(frame-list)' 2>/dev/null | grep -E '(frame)+')
 		if [ "$(echo "$frameslist" | sed -n '$=')" -ge 2 ]; then
 			# prevent creating another X frame if there is at least one present.
 			# "" here forces the GUI running without holding the terminal, like &
