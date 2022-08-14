@@ -369,8 +369,7 @@ exec --no-startup-id copyq
 exec --no-startup-id fcitx5 -d
 # handle authentication prompt window
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
-# for blank screen and sleep/hibernate, disable power manager notification using `xfce4-notifyd-config`
-exec --no-startup-id xfce4-power-manager
+exec_always --no-startup-id ~/Dotfiles.d/misc/powermanager.sh
 # NOTE: reduce jpeg/png file size losslessly using jpegoptim/optipng,
 # then convert it into avif to reduce more file size using convert command from imagemagick
 # original Baboo png wallpapers are from gitlab.manjaro.org/artwork/themes/breath2/-/tree/master/wallpapers
