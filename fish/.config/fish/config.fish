@@ -2902,6 +2902,10 @@ function cars -d "cargo commands"
     argparse -n cars $options -- $argv
     or return
 
+    if command -sq sccache; and ! set -q RUSTC_WRAPPER
+        set -gx RUSTC_WRAPPER sccache
+    end
+
     set CMD (PXY) cargo
 
     if set -q _flag_h
