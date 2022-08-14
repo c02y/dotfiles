@@ -321,6 +321,12 @@ elif ! check_daemon_status; then
 	emacs --daemon >/dev/null 2>&1
 fi
 
+if [ -n "$@" ]; then
+	ARGV="$@"
+else
+	ARGV=
+fi
+
 if [ "$flag_s" -eq 1 ]; then
 	echo "Switch between Spacemacs and Vanilla emacs..."
 	if [ -d ~/.emacs.d/core ]; then # check if directory exists
@@ -366,7 +372,7 @@ if [ "$flag_s" -eq 1 ]; then
 		exit 1
 	fi
 	if [ -d ~/.emacs.d/lisp ]; then # start emacs directly without daemon
-		emacs $@
+		emacs "$ARGV"
 		exit
 	elif [ -d ~/.emacs.d/core ]; then # ask if start Spacemacs
 		read -e -n 1 -p "Opening Spacemacs? [Y/SPC/n]: "
@@ -385,7 +391,7 @@ if [ "$flag_x" -eq 1 ]; then
 		emacs --daemon >/dev/null 2>&1
 	fi
 	echo "Start emacsclient -a \"\" -t..."
-	emacsclient -a "" -t $@
+	emacsclient -a "" -t "$ARGV"
 	exit 0
 fi
 
@@ -393,18 +399,18 @@ if check_daemon_status; then
 	echo "Start emacsclient..."
 	if [ -z "$DISPLAY" ]; then # empty, non-GUI
 		# use eval since $cmd is string(command) in variable
-		eval emacsclient -a "" -n -c $cmd $@
+		eval emacsclient -a "" -n -c "$cmd" "$ARGV"
 	else
 		# find all existing frames
 		frameslist=$(emacsclient -a '' --eval '(frame-list)' 2>/dev/null | egrep -o '(frame)+')
 		if [ "$(echo "$frameslist" | sed -n '$=')" -ge 2 ]; then
 			# prevent creating another X frame if there is at least one present.
 			# "" here forces the GUI running without holding the terminal, like &
-			eval "emacsclient -a \"\" -n -F \"'(fullscreen . maximized)\" $cmd" $@ >/dev/null
+			eval "emacsclient -a \"\" -n -F \"'(fullscreen . maximized)\" $cmd" "$ARGV" >/dev/null
 		else
 			# "" here forces the GUI running without holding the terminal, like &
 			# Create one if there is no X window yet.
-			eval "emacsclient -a \"\" -n -F \"'(fullscreen . maximized)\" -c $cmd" $@ >/dev/null
+			eval "emacsclient -a \"\" -n -F \"'(fullscreen . maximized)\" -c $cmd" "$ARGV" >/dev/null
 		fi
 		# if the focused window is not emacs, minimize it
 		if ! xdotool getwindowfocus getwindowname | grep -i emacs >/dev/null; then
