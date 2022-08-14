@@ -49,7 +49,6 @@ Usage: $(basename $0)
 	 -s to switch between Spacemacs and Vanilla emacs
 	 -t to time the startup of emacs
 	 -u update all packages, only works for Spacemacs
-	 -v edit VIMRC with emacsclient
 	 -x to start emacsclient in terminal even inside GUI DE
 EOF
 	exit 0
@@ -221,7 +220,7 @@ while getopts ":habcCdeEfkKmopqrRstuvx" args; do # prefix-: no warning for illeg
 		cmd="-e '(execute-kbd-macro (kbd \"C-c a a c\"))'"
 		;;
 	b)
-		file="$HOME/.bin/emm"
+		file="$HOME/.local/bin/emm"
 		cmd="$file"
 		;;
 	c)
@@ -315,11 +314,6 @@ while getopts ":habcCdeEfkKmopqrRstuvx" args; do # prefix-: no warning for illeg
 		emacs --batch -l ~/.emacs.d/init.el --eval="(configuration-layer/update-packages t)"
 		emacs --batch -l ~/.emacs.d/init.el --eval="(configuration-layer/update-packages t)"
 		exit 0
-		;;
-	v)
-		echo "Editing VIMRC"
-		file=$VIMRC
-		cmd=$file
 		;;
 	x)
 		flag_x=1
