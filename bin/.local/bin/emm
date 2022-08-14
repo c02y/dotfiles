@@ -35,6 +35,7 @@ Usage: $(basename $0)
 	 -c to quickly add todo using org-capture
 	 -C to check the existence of daemon and the count of emacsclients
 	 -d to start emacs --debug-init
+	 -D to start systemd emacs.service 
 	 -e [file] to edit using emacs, default is init.el
 	 -E to edit init.el using emacsclient
 	 -f to edit config.fish using emacsclient
@@ -54,20 +55,6 @@ EOF
 	exit 0
 }
 
-check_socket_file() {
-	if [ "$flag_systemctl" == "1" ]; then
-		# this is only needed when using systemctl+emacs.service
-		# After emacs.service is started, it takes several seconds for the socket file to be created
-		# after that, emacsclient can be usable, or it will print "emacsclient: connect: Connection refused"
-		# so keep checking the exists of the socket
-		while [ -z "$(lsof -w -c emacs | grep 'server type' | tr -s " " | cut -d' ' -f8)" ]; do # empty
-			sleep 0.5
-		done
-	else
-		return
-	fi
-}
-
 check_daemon_status() {
 	if ps -ef | grep -v grep | grep 'emacs' | grep 'daemon' >/dev/null; then
 		return 0
@@ -80,7 +67,7 @@ kill_emacs_server() {
 	if check_daemon_status; then
 		# once you kill the process, it will restart automatically
 		ps -ef | grep -v grep | grep 'emacs' | grep 'daemon' | awk '{print $2}' | xargs kill -9
-		if [ "$flag_systemctl" == "1" ]; then
+		if systemctl --user status emacs.service >/dev/null 2>&1; then
 			systemctl --user stop emacs.service
 		fi
 		echo "emacs server is killed!"
@@ -91,10 +78,7 @@ kill_emacs_server() {
 
 check_running_emacsclient() {
 	if check_daemon_status; then
-		check_socket_file
-
-		timeout 1 emacsclient -n -e "(if (> (length (frame-list)) 1) 't)" >/dev/null
-		if [ "$?" -ne 0 ]; then
+		if ! timeout 1 emacsclient -n -e "(if (> (length (frame-list)) 1) 't)" >/dev/null; then
 			# emacsclient gets stuck #
 			read -e -n 1 -p 'Running emacsclient gets stuck, kill it? [Y/n]: '
 			if [ "$REPLY" == "y" ]; then
@@ -115,8 +99,6 @@ check_running_emacsclient() {
 
 kill_running_emacsclient() {
 	if check_daemon_status; then
-		check_socket_file
-
 		# using emacsclient process won't work for GUI since no emacsclient process exists
 		timeout 1 emacsclient -n -e "(length (frame-list))" >/dev/null
 		if [ "$?" -ne 0 ]; then
@@ -142,23 +124,21 @@ kill_running_emacsclient() {
 	fi
 }
 
-copy_service() {
-	# emacs.service may exist in /usr/lib/systemd/user/emacs.service
-	# if so, copy_service won't do anything, systemctl command will link it into ~/.config/systemd/user/
-	if [ ! -f ~/.config/systemd/user/emacs.service ] && [ -f ~/anaconda3/lib/systemd/user/emacs.service ]; then
-		mkdir -p ~/.config/systemd/user
-		cp -rfv ~/anaconda3/lib/systemd/user/emacs.service ~/.config/systemd/user/
-	fi
-}
-
 restart_emacs_server() {
+	# systemctl --user restart emacs.service # systemctl takes too much time
+	# once you kill the process, it will restart automatically
 	if check_daemon_status; then
-		# systemctl --user restart emacs.service # systemctl takes too much time
-		# once you kill the process, it will restart automatically
+		echo "Kill emacs daemon..."
 		ps -ef | grep -v grep | grep 'emacs' | grep 'daemon' | awk '{print $2}' | xargs kill -9
-		sleep 1
-	else # if emacs daemon is not running
-		systemctl --user restart emacs.service
+		if ! systemctl --user status emacs.service >/dev/null 2>&1; then
+			emacs --daemon >/dev/null 2>&1
+		fi
+	else
+		if [ ! -f ~/.config/systemd/user/emacs.service ]; then
+			systemctl --user start emacs.serfice
+		else
+			emacs --daemon >/dev/null 2>&1
+		fi
 	fi
 	echo "emacs server is restarted!"
 }
@@ -201,16 +181,9 @@ file="$EMACS_EL"
 cmd=
 flag_s=0 # switch between Spacemacs and Vanilla emacs
 flag_x=0 # start emacsclient in terminal even inside GUI DE
+flag_d=0 # use systemd service
 
-# even if systemctl command exists, `systemctl --user` may not work
-# `systemctl --user` may return 0 even it fails
-if systemctl --user -q >/dev/null 2>&1; then
-	flag_systemctl=1
-else
-	flag_systemctl=0
-fi
-
-while getopts ":habcCdeEfkKmopqrRstuvx" args; do # prefix-: no warning for illegal option
+while getopts ":habcCdDeEfkKmopqrRstux" args; do # prefix-: no warning for illegal option
 	case "$args" in
 	h | \?) # \? for illegal option
 		print_usage
@@ -235,6 +208,9 @@ while getopts ":habcCdeEfkKmopqrRstuvx" args; do # prefix-: no warning for illeg
 		rm ~/.emacs.d/init.elc >/dev/null 2>&1
 		emacs --no-splash --debug-init >/dev/null 2>&1
 		exit 0
+		;;
+	D)
+		flag_d=1
 		;;
 	e)
 		if [ ! -z ${@:$OPTIND} ]; then # if no argv is given, using default
@@ -322,6 +298,29 @@ while getopts ":habcCdeEfkKmopqrRstuvx" args; do # prefix-: no warning for illeg
 done
 shift $((OPTIND - 1)) # remove options that have already been handled from $@
 
+if [ "$flag_d" -eq 1 ]; then
+	# even if systemctl command exists, `systemctl --user` may not work
+	# `systemctl --user` may return 0 even it fails
+	if [ ! -f ~/.config/systemd/user/emacs.service ] && [ -f ~/anaconda3/lib/systemd/user/emacs.service ]; then
+		mkdir -p ~/.config/systemd/user
+		cp -rfv ~/anaconda3/lib/systemd/user/emacs.service ~/.config/systemd/user/
+	fi
+
+	echo "Start emacs service..."
+	systemctl --user enable emacs.service
+	systemctl --user start emacs.service
+
+	# After emacs.service is started, it takes several seconds for the socket file to be created
+	# after that, emacsclient can be usable, or it will print "emacsclient: connect: Connection refused"
+	# so keep checking the exists of the socket
+	while [ -z "$(lsof -w -c emacs | grep 'server type' | tr -s " " | cut -d' ' -f8)" ]; do # empty
+		sleep 0.5
+	done
+elif ! check_daemon_status; then
+	echo "Start emacs daemon..."
+	emacs --daemon >/dev/null 2>&1
+fi
+
 if [ "$flag_s" -eq 1 ]; then
 	echo "Switch between Spacemacs and Vanilla emacs..."
 	if [ -d ~/.emacs.d/core ]; then # check if directory exists
@@ -390,21 +389,7 @@ if [ "$flag_x" -eq 1 ]; then
 	exit 0
 fi
 
-if [ "$flag_systemctl" == "1" ]; then
-	if ! check_daemon_status; then
-		copy_service
-		echo "Start emacs service..."
-		systemctl --user enable emacs.service
-		systemctl --user start emacs.service
-	fi
-else
-	if ! check_daemon_status; then
-		echo "Start emacs daemon..."
-		emacs --daemon >/dev/null 2>&1
-	fi
-fi
 if check_daemon_status; then
-	check_socket_file
 	echo "Start emacsclient..."
 	if [ -z "$DISPLAY" ]; then # empty, non-GUI
 		# use eval since $cmd is string(command) in variable
