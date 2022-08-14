@@ -323,11 +323,21 @@ websearch() {
 	fi
 }
 
+pacman_update() {
+	ROFI="rofi -dmenu -theme ~/Dotfiles.d/misc/rofi-theme-solarized_alternate.rasi -theme-str 'window {width: 40%; height: 35%;} listview {scrollbar:false;} inputbar { enabled: false;}'"
+	answer="$(fakeroot pacman -Qu --dbpath /tmp/checkup-db-chz/ | rg -v 'ignored' | eval "${ROFI}")"
+
+	# Enter to update the package in ther list, Escape to quit
+	if [ "$answer" != "" ]; then
+		kitty --hold sh -c 'paru -Syu --noconfirm'
+	fi
+}
+
 windows() {
 	rofi -show window -theme ~/Dotfiles.d/misc/rofi-theme-solarized_alternate.rasi -theme-str 'window {width: 50%; height: 50%;} listview {scrollbar:false;} configuration {sidebar-mode:false;}' -p 'WINDOW'
 }
 
-while getopts "hcdkmMpstwW" arg 2>/dev/null; do
+while getopts "hcdkmMpstuwW" arg 2>/dev/null; do
 	case "${arg}" in
 	h) help ;;
 	c) edit_configs ;;
@@ -345,6 +355,7 @@ while getopts "hcdkmMpstwW" arg 2>/dev/null; do
 		*) timer -h ;;
 		esac
 		;;
+	u) pacman_update ;;
 	w) websearch ;;
 	W) windows ;;
 	*) help ;;
