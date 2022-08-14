@@ -314,9 +314,6 @@ if [ "$flag_d" -eq 1 ]; then
 	while [ -z "$(lsof -w -c emacs | grep 'server type' | tr -s " " | cut -d' ' -f8)" ]; do # empty
 		sleep 0.5
 	done
-elif ! check_daemon_status; then
-	echo "Start emacs daemon..."
-	emacs --daemon >/dev/null 2>&1
 fi
 
 if [ -n "$@" ]; then
@@ -393,6 +390,7 @@ if [ "$flag_x" -eq 1 ]; then
 	exit 0
 fi
 
+# NOTE: do not use this in i3 which uses i3-scratchpad script
 if check_daemon_status; then
 	echo "Start emacsclient..."
 	if [ -z "$DISPLAY" ]; then # empty, non-GUI
@@ -404,7 +402,7 @@ if check_daemon_status; then
 		if [ "$(echo "$frameslist" | sed -n '$=')" -ge 2 ]; then
 			# prevent creating another X frame if there is at least one present.
 			# "" here forces the GUI running without holding the terminal, like &
-			eval "emacsclient -a \"\" -n -F \"'(fullscreen . maximized)\" $cmd" "$ARGV" >/dev/null
+			eval "emacsclient -a \"\" -n -F \"'(fullscreen . maximized)\" -r $cmd" "$ARGV" >/dev/null
 		else
 			# "" here forces the GUI running without holding the terminal, like &
 			# Create one if there is no X window yet.
