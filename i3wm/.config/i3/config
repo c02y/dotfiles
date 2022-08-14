@@ -258,9 +258,10 @@ set $open ~/.config/i3/i3-scratchpad -d75%x75% -F
 # Bindings for the following applications
 # use `xmodmap -pke` to get bindcode value
 # NOTE: if i3 unable to use ~/.local/bin, put `export PATH="$HOME/.local/bin:$PATH"` in ~/.profile
-bindsym $mod+e       exec $open emacsclient -c
+# the "''" replacing normal "" or '' is for $open to keep '' for -a, otherwise it will be ignored
+bindsym $mod+e       exec $open emacsclient -a "''" -c
+bindsym $mod+$Alt+e  exec emacsclient -a "''" -c
 bindsym $mod+Shift+e exec $open emacs
-bindsym $mod+$Alt+e  exec emacsclient -c
 bindsym $mod+f       exec $open firefox
 bindsym $mod+b       exec $open calibre
 bindsym $mod+g       exec $open google-chrome-stable
