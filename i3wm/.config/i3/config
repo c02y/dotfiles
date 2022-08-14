@@ -372,10 +372,10 @@ exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 # for blank screen and sleep/hibernate, disable power manager notification using `xfce4-notifyd-config`
 exec --no-startup-id xfce4-power-manager
 # NOTE: reduce jpeg/png file size losslessly using jpegoptim/optipng,
-# then convert it into avif to reduce more file size using convert from imagemagick
+# then convert it into avif to reduce more file size using convert command from imagemagick
 # original Baboo png wallpapers are from gitlab.manjaro.org/artwork/themes/breath2/-/tree/master/wallpapers
 # randomly choose one from the *.avif and set it as wallpaper
-exec_always --no-startup-id nitrogen --force-setter=xwindows --set-scaled $(shuf -n1 -e ~/.config/i3/*.avif)
+exec_always --no-startup-id feh --bg-scale $(shuf -n1 -e ~/Dotfiles.d/misc/*.avif)
 # add 5s delay, otherwise the script won't work, 
 # NOTE: bt devices are closed before hiberation, exec doesn't work for wakup from hiberation 
 exec --no-startup-id sleep 5; toggle_bt_connection.sh
