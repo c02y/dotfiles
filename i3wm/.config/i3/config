@@ -377,9 +377,6 @@ exec_always --no-startup-id ~/Dotfiles.d/misc/powermanager.sh
 # original Baboo png wallpapers are from gitlab.manjaro.org/artwork/themes/breath2/-/tree/master/wallpapers
 # randomly choose one from the *.avif and set it as wallpaper
 exec_always --no-startup-id feh --bg-scale $(shuf -n1 -e ~/Dotfiles.d/misc/*.avif)
-# add 5s delay, otherwise the script won't work, 
-# NOTE: bt devices are closed before hiberation, exec doesn't work for wakup from hiberation 
-exec --no-startup-id sleep 5; toggle_bt_connection.sh
 
 # configure colors using https://thomashunter.name/i3-configurator/
 # There is a black line between the window bar and i3bar, use black color to hide it
