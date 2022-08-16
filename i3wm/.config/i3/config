@@ -376,7 +376,8 @@ exec_always --no-startup-id ~/Dotfiles.d/misc/powermanager.sh
 # then convert it into avif to reduce more file size using convert command from imagemagick
 # original Baboo png wallpapers are from gitlab.manjaro.org/artwork/themes/breath2/-/tree/master/wallpapers
 # randomly choose one from the *.avif and set it as wallpaper
-exec_always --no-startup-id feh --bg-scale $(shuf -n1 -e ~/Dotfiles.d/misc/*.avif)
+# NOTE: add sleep 1 since otherwise, the wallpaper won't fill the screen and will use some kind of tile
+exec_always --no-startup-id sleep 1; feh --no-fehbg --randomize --bg-scale ~/Dotfiles.d/misc/*.avif
 
 # configure colors using https://thomashunter.name/i3-configurator/
 # There is a black line between the window bar and i3bar, use black color to hide it
