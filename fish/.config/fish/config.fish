@@ -396,7 +396,7 @@ function pss -d 'pgrep process, used in command line'
     if not set -q argv[1]
         eval $PSS | fzf --preview-window hidden
     else
-        eval $PSS | rg -i $argv[1] | nl
+        eval $PSS | rg --color always -i $argv[1] | nl
         # copy the PID for the only process
         # argv[2] is any valid character/words
         if set -q argv[2]; and test (eval $PSS | rg -c -i $argv[1]) = 1
