@@ -1350,10 +1350,10 @@ function pacs -d 'pacman/paru operations'
         echo "         + -s --> get status of local mirrors(Only Manjaro)"
         echo "         + -i --> interactively choose mirror(Only Manjaro)"
         echo "      -i --> install(need argv, pkg name, pkg file or pkg link)"
-        echo "         + -p --> print 20 lines of installed/removed/upgraded packages history"
+        echo "         + -p --> print 20 lines of installed/removed/upgraded/downgraded packages history"
         echo "           + argv --> print all pacman history of the argv package"
-        echo "           + -a --> print all installed/removed/upgraded packages history"
-        echo "           + -a argv --> print all installed/removed/upgraded packages history of the argv package"
+        echo "           + -a --> print all installed/removed/upgraded/downgraded packages history"
+        echo "           + -a argv --> print all installed/removed/upgraded/downgraded packages history of the argv package"
         echo "         + -u --> update the system and install the argv"
         echo "         + -r --> reinsall argv"
         echo "         + -d --> download argv without installing it"
@@ -1415,7 +1415,7 @@ function pacs -d 'pacman/paru operations'
         end
     else if set -q _flag_i # install
         if set -q _flag_p # list pacman log
-            set KEYWORDS "--color always -e 'installed|reinstalled|removed|upgraded|warning'"
+            set KEYWORDS "--color always -i -e 'installed|reinstalled|removed|upgraded|downgraded|warning'"
             # NOTE: need to us eval to use this pipeline variable
             set -q _flag_a; and set MAX; or set MAX "| tail -20"
             if set -q argv[1]
