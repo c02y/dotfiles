@@ -2736,9 +2736,25 @@ function yous -d 'yt-dlp functions'
 end
 
 function ffms -d 'ffmpeg related functions'
-    set -l options c "f=" i "s=" "b="
+    set -l options c "f=" i "s=" "b=" "S="
     argparse -n ffms $options -- $argv
     or return
+
+    # -s is usually used for only one file, no need to use in for-loop
+    if set -q _flag_s # cut, need format: 00:01:00_00:02:00, or 00:01:00_, _00:02:00
+        set START (string split "_" $_flag_s)[1]
+        set END (string split "_" $_flag_s)[2]
+        if not test $START # empty
+            set START 00:00:00
+        else if not test $END
+            set END (ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1 -sexagesimal -of csv="p=0" $argv[1])
+        end
+        set CUT -ss $START -to $END
+        if not string match -e ":" -q $START; and not string match -e ":" -q $END
+            echo "Error, need format: 00:01:00_00:02:00, or 00:01:00_, _00:02:00"
+            return
+        end
+    end
 
     if set -q _flag_c # convert to h265
         for videofile in $argv
@@ -2752,10 +2768,8 @@ function ffms -d 'ffmpeg related functions'
                 read -p 'echo "What BitRate would be? (2000k) "' bitrate
                 test "$bitrate" = " " -o "$bitrate" = ""; and set bitrate 2000k
             end
-            if set -q _flag_s # cut slice, argument for -s is like 00:10:00-00:20:00
-                set START (string split "-" $_flag_s)[1]
-                set END (string split "-" $_flag_s)[2]
-                ffmpeg -hide_banner -ss $START -to $END -i $videofile -c:v hevc_nvenc -c:a copy -b:v $bitrate {$FILE}-converted-cut_{$bitrate}.{$EXT}
+            if set -q _flag_s
+                ffmpeg -hide_banner $CUT -i $videofile -c:v hevc_nvenc -c:a copy -b:v $bitrate {$FILE}-converted-cut_{$bitrate}.{$EXT}
             else
                 ffmpeg -hide_banner -i $videofile -c:v hevc_nvenc -c:a copy -b:v $bitrate {$FILE}-converted_{$bitrate}.{$EXT}
                 if set -q _flag_f
@@ -2767,13 +2781,19 @@ function ffms -d 'ffmpeg related functions'
             end
             notify-send "ffmpeg convert video $videofile completes"
         end
-    else if set -q _flag_s # only cut slice based on time, argument for -s is like 00:10:00-00:20:00
-        set START (string split "-" $_flag_s)[1]
-        set END (string split "-" $_flag_s)[2]
+    else if set -q _flag_S # speed up/down convert, argv is 3 for 3x slower, 0.5 for 2x quicker
+        set FILE (string split -r -m1 . $argv)[1]
+        set EXT (string lower (echo $argv | sed 's/^.*\.//'))
+        if set -q _flag_s
+            ffmpeg -hide_banner $CUT -i $argv -filter:v "setpts=$_flag_S*PTS" -filter:a "atempo=2" {$FILE}-slow{$_flag_S}.{$EXT}
+        else
+            ffmpeg -hide_banner -i $argv -filter:v "setpts=$_flag_S*PTS" -filter:a "atempo=2" {$FILE}-slow{$_flag_S}.{$EXT}
+        end
+    else if set -q _flag_s
         for videofile in $argv
             set FILE (string split -r -m1 . $videofile)[1]
             set EXT (string lower (echo $videofile | sed 's/^.*\.//'))
-            ffmpeg -hide_banner -ss $START -to $END -i $videofile -c:v copy -c:a copy {$FILE}-cut.{$EXT}
+            ffmpeg -hide_banner $CUT -i $videofile -c:v copy -c:a copy {$FILE}-cut.{$EXT}
         end
     else if set -q _flag_f # get a frame losslessly at specific timestamp
         # useful to compare the qualities of two files after using ffms -c
