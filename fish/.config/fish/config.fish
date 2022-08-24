@@ -2765,6 +2765,7 @@ function ffms -d 'ffmpeg related functions'
                     open {$videofile}.bmp
                 end
             end
+            notify-send "ffmpeg convert video $videofile completes"
         end
     else if set -q _flag_s # only cut slice based on time, argument for -s is like 00:10:00-00:20:00
         set START (string split "-" $_flag_s)[1]
