@@ -174,22 +174,18 @@ function dirp --on-event fish_preexec
     set -g OLDPWD $PWD
 end
 function path_prompt
+    # if the PWD is not the same as the PWD of previous prompt,
+    # print the directory changing message
+    if set -q OLDPWD; and test "$OLDPWD" != "$PWD"
+        set_color -o green
+        set msg (echo "=== $OLDPWD" | sed "s#$HOME#~#g")
+        echo $msg
+        set msg (echo "==> $PWD" | sed "s#$HOME#~#g")
+        echo $msg
+        set_color normal
+    end
     # check if tmux is running in current terminal/tty
-    if test $TMUX
-        # if the PWD is not the same as the PWD of previous prompt,
-        # print the directory changing message
-        if set -q OLDPWD
-            if test "$OLDPWD" != "$PWD"
-                set_color -o green
-                set msg (echo "=== $OLDPWD" | sed "s#$HOME#~#g")
-                echo $msg
-                set msg (echo "==> $PWD" | sed "s#$HOME#~#g")
-                echo $msg
-                set_color normal
-            end
-        end
-        return
-    else
+    if ! test $TMUX
         set_color -o yellow
         echo -n (prompt_pwd)
         set_color normal

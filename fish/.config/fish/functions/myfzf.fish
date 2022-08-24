@@ -67,13 +67,12 @@ function __fzf_cd -d "Change directory"
 
     eval "$FZF_CD_COMMAND | fzf +m $FZF_DEFAULT_OPTS --query \"$fzf_query\"" | read -l select
 
+    # have to set OLDPWD, it cannot be used in fish script
+    set -gx OLDPWD $PWD
     if not test -z "$select"
         builtin cd "$select"
-
-        # Remove last token from commandline.
-        commandline -t ""
     end
-    # commandline -f repaint
+    commandline -f repaint
 end
 
 
