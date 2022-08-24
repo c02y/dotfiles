@@ -1,11 +1,16 @@
 # based on https://github.com/jethrokuan/fzf, merge all files into one, clean and fix
 #
+# other builtin bindings
+# Alt-e -> open $EDITOR
+# Alt-l -> list files/dirs in the current path
+# Alt-p -> pager for your current or previous command
+# Alt-s -> use sudo for current or previous command
 ################################# fzf.fish
-bind \co __fzf_find_file
-bind \cr __fzf_reverse_isearch
-bind \cw __fzf_cd
-bind \es __fzf_open
-bind \cs '__fzf_open --editor'
+bind \cr __fzf_reverse_isearch # Ctrl-r is for fish command history 
+bind \cw __fzf_cd # Ctrl-w is for cd into dir/sub-dir in $PWD
+bind \co __fzf_open # Ctrl-o is to open a file in $PWD using xdg-open/open 
+bind \cs '__fzf_open --editor' # Ctrl-s is to edit a text file using $EDITOR in $PWD
+bind \eo __fzf_find_file # Alt-o -> find file in $HOME, list path without opening it
 
 # if not bind --user \t >/dev/null 2>/dev/null
 #     if set -q FZF_COMPLETE
