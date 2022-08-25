@@ -2758,6 +2758,7 @@ function ffms -d 'ffmpeg related functions'
 
     if set -q _flag_c # convert to h265
         for videofile in $argv
+            set BEGIN $(date +%s)
             # get the extension and filename without extension
             set FILE (string split -r -m1 . $videofile)[1]
             set EXT (string lower (echo $videofile | sed 's/^.*\.//'))
@@ -2779,7 +2780,8 @@ function ffms -d 'ffmpeg related functions'
                     open {$videofile}.bmp
                 end
             end
-            notify-send "ffmpeg convert video $videofile completes"
+            set DURATION $(date -ud "@$(math $(date +%s) - $BEGIN)" +"%H hrs %M mins %S secs")
+            notify-send "ffmpeg convert video $videofile takes time:" "$DURATION"
         end
     else if set -q _flag_S # speed up/down convert, argv is 3 for 3x slower, 0.5 for 2x quicker
         set FILE (string split -r -m1 . $argv)[1]
