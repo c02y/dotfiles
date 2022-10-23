@@ -238,7 +238,7 @@ bindsym $mod+F12 sticky toggle
 # Gpick has its own resize; mpv has its own larger/smaller size in mpv.conf, otherwize open mpv window according to video size
 for_window [floating class="^(?!Gpick|mpv$)"] resize set 75 ppt 75 ppt, move position center, border normal 0
 # 'Image Lounge' is class name for nomacs, instance name is nomacs
-for_window [class="copyq|fcitx5-config-qt|Alacritty|kitty|Dropdown|Fsearch|flameshot|mpv|Blueman-manager|Pavucontrol|Image Lounge|File-roller|Gpick"] floating enable
+for_window [class="copyq|fcitx5-config-qt|Alacritty|kitty|Dropdown|flameshot|mpv|Blueman-manager|Pavucontrol|Image Lounge|File-roller|Gpick"] floating enable
 # `xprop _NET_WM_WINDOW_TYPE`, dialog: such as open file from menu bar, calibre popup window/dialog
 for_window [window_type="dialog"] resize set 40 ppt 60 ppt, move position center
 # `copyq config hide_main_window_in_task_bar true` in command and restart copyq to make the list window utility
@@ -336,14 +336,13 @@ mode "$mode_screenshot" {
   bindsym Escape mode "default"
 }
 
-set $mode_apps Apps: [a]udacious, [c]lion, [d]unstCloseAll, [D]unstPop, [f]search, [m]ountUnmount, [n]etworkMonitor, [p]cmanfm, [t]hunderbird, [T]elegram, [v]irtualbox
+set $mode_apps Apps: [a]udacious, [c]lion, [d]unstCloseAll, [D]unstPop, [m]ountUnmount, [n]etworkMonitor, [p]cmanfm, [t]hunderbird, [T]elegram, [v]irtualbox
 bindsym $mod+a mode "$mode_apps"
 mode "$mode_apps" {
   bindsym a exec $open -w $ws3 audacious; mode "default"
   bindsym c exec $open clion; mode "default"
   bindsym d exec dunstctl close-all; mode "default"
   bindsym shift+d exec dunstctl history-pop; mode "default"
-  bindsym f exec $open -f fsearch; mode "default"
   bindsym m exec kitty bashmount; mode "default"
   # speed_net -t: check background downloading task if the speed is lower than 5MB/s or completed
   bindsym n exec "speed_net -t"; mode "default"
