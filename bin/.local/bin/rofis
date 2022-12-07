@@ -10,10 +10,9 @@ help() {
     -d\tdictionary
     -k\tkill_process
     -m\tmanpage
-    -t\tcountdown in terminal
-    \t-p\tpomodora
-    \t-c\tcountdown using rofi
-    \t-s\tstopwatch in terminal
+    -t -p\tpomodora
+    -t -c\tcountdown using rofi
+    -t -s\tstopwatch in terminal
     -s\tsearch_files in Home
     -w\twebsearch
     -h\tDisplays this help menu\n'
@@ -130,8 +129,19 @@ timer() {
     -h\tDisplays this help menu\n'
 	}
 
+	stopwatch() {
+		date_start=$(date +%s)
+		while true; do
+			echo -ne "$(date -u --date @$(($(date +%s) - date_start)) +%T) \r"
+			sleep 1
+		done
+	}
+
+	case "$@" in
+	"-s") stopwatch && exit ;;
+	esac
+
 	countdown_handle_input() {
-		echo 1: $1
 		if [ "$1" = "" ]; then # Enter without input
 			unit=s
 			num=60
@@ -223,20 +233,11 @@ timer() {
 		done
 	}
 
-	stopwatch() {
-		date_start=$(date +%s)
-		while true; do
-			echo -ne "$(date -u --date @$(($(date +%s) - date_start)) +%T) \r"
-			sleep 1
-		done
-	}
-
 	case "$@" in
 	"-h") help ;;
 	"-c") countdown ;;
 	"-p") pomodoro ;;
 	"-C") countdown_rofi ;;
-	"-s") stopwatch ;;
 	*) help ;;
 	esac
 }
@@ -348,11 +349,10 @@ while getopts "hcdkmMpstuwW" arg 2>/dev/null; do
 	t)
 		shift
 		case "$@" in
-		"") timer -c ;;   # countdown in terminal
 		"-p") timer -p ;; # pomodora
 		"-c") timer -C ;; # countdown using rofi
 		"-s") timer -s ;; # stopwatch in terminal
-		*) timer -h ;;
+		*) help ;;
 		esac
 		;;
 	u) pacman_update ;;
