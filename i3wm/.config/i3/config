@@ -129,13 +129,12 @@ bindsym $mod+w       layout toggle tabbed split
 bindsym $mod+Shift+w layout toggle split
 
 # toggle tiling / floating
-# the grave key is `, the left key of NUM 1 on the keyboard
-bindsym $mod+grave exec ~/.config/i3/i3-scratchpad -t
-bindsym button9    exec ~/.config/i3/i3-scratchpad -t
-# change focus between tiling / floating windows
 bindsym --whole-window $mod+button1 $Exec ~/.config/i3/i3-scratchpad -t
+bindsym $mod+Escape $Exec ~/.config/i3/i3-scratchpad -t
+bindsym button9    $Exec ~/.config/i3/i3-scratchpad -t
 bindsym --whole-window $mod+button3 focus mode_toggle
-bindsym $mod+Shift+grave focus mode_toggle
+# change focus between tiling / floating windows
+bindsym $mod+$Alt+Escape focus mode_toggle
 bindsym $mod+Shift+minus border toggle
 
 # focus the parent/child container
