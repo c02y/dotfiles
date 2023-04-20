@@ -12,6 +12,8 @@
 # Mod4 = L_Super
 set $mod Mod4
 set $Alt Mod1
+set $Exec exec --no-startup-id
+set $Exec_a exec_always --no-startup-id
 
 title_align center
 # enable window icons for all windows
@@ -40,25 +42,25 @@ font pango:Noto Sans Mono 12
 
 # xss-lock grabs a logind suspend inhibit lock and will use i3lock to lock the
 # screen before suspend. Use loginctl lock-session to lock your screen.
-# exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
+# $Exec xss-lock --transfer-sleep-lock -- i3lock --nofork
 
 # NetworkManager is the most popular way to manage wireless networks on Linux,
 # and nm-applet is a desktop environment-independent system tray GUI for it.
-# exec_always --no-startup-id nm-applet
+# $Exec_a nm-applet
 
 # disable Caps_Lock by default, re-enable it using `setxkbmap -option`
-# do not use `xdotool key Caps_Lock` in exec line, it won't work properly
-exec --no-startup-id setxkbmap -option ctrl:nocaps
+# do not use `xdotool key Caps_Lock` in $Exec line, it won't work properly
+$Exec_a setxkbmap -option ctrl:nocaps
 # toggle Caps_Lock (always uppercase or always lowercase) using Alt+Caps_Lock
-# FIXME: bindsym+Caps_Lock will not work since it is disable in exec using setxkbmap
-bindcode $mod+Shift+66 exec --no-startup-id xdotool key Caps_Lock
+# FIXME: bindsym+Caps_Lock will not work since it is disable in $Exec using setxkbmap
+bindcode $mod+Shift+66 $Exec xdotool key Caps_Lock
 
 # Use pactl to adjust volume in PulseAudio.
-bindsym $mod+Home        exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +5%
-bindsym $mod+End         exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -5%
-bindsym $mod+Shift+Home  exec --no-startup-id toggle_bt_connection.sh
-bindsym $mod+Shift+End   exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle
-bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle
+bindsym $mod+Home        $Exec pactl set-sink-volume @DEFAULT_SINK@ +5%
+bindsym $mod+End         $Exec pactl set-sink-volume @DEFAULT_SINK@ -5%
+bindsym $mod+Shift+Home  $Exec toggle_bt_connection.sh
+bindsym $mod+Shift+End   $Exec pactl set-sink-mute @DEFAULT_SINK@ toggle
+bindsym XF86AudioMicMute $Exec pactl set-source-mute @DEFAULT_SOURCE@ toggle
 
 # Use Mouse+floating_modifier to drag floating windows to their wanted position
 floating_modifier $Alt
@@ -74,7 +76,7 @@ bindsym $mod+$Alt+3 [floating con_id="__focused__"] resize set 100 ppt 98 ppt, m
 # kill focused window
 bindsym $mod+Shift+q kill
 # use xkill to by-force kill some program that gets stuck such as Emacs
-bindsym --release $mod+$Alt+Shift+q exec xkill
+bindsym --release $mod+$Alt+Shift+q $Exec xkill
 # button1=left, button2=middle, button3=right
 # middle button on the window bar to kill the window
 bindsym button2 kill
@@ -127,11 +129,11 @@ bindsym $mod+w       layout toggle tabbed split
 bindsym $mod+Shift+w layout toggle split
 
 # toggle tiling / floating
-bindsym --whole-window $mod+button1 exec ~/.config/i3/i3-scratchpad -t
 # the grave key is `, the left key of NUM 1 on the keyboard
 bindsym $mod+grave exec ~/.config/i3/i3-scratchpad -t
 bindsym button9    exec ~/.config/i3/i3-scratchpad -t
 # change focus between tiling / floating windows
+bindsym --whole-window $mod+button1 $Exec ~/.config/i3/i3-scratchpad -t
 bindsym --whole-window $mod+button3 focus mode_toggle
 bindsym $mod+Shift+grave focus mode_toggle
 bindsym $mod+Shift+minus border toggle
@@ -190,27 +192,27 @@ bindsym $mod+Ctrl+x  move workspace to output next
 # reload the configuration file
 bindsym $mod+r reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
-# NOTE: reload will not run exec-always
+# NOTE: reload will not run $Exec_a, restart will
 # reload i3status.conf need restart i3
-# exec is only run by initial i3, exec_always can be executed by restart
+# $Exec is only run by initial i3, exec_always can be executed by restart
 bindsym $mod+Shift+r restart
-bindsym $mod+Ctrl+Shift+r exec pkill -USR2 i3status-rs
+bindsym $mod+Ctrl+Shift+r $Exec pkill -USR2 i3status-rs
 
 set $mode_system System: [Space]Hibernate, [b]lackscreen, [l]ock, [L]ogout, [m]onitors0, [M]onitors2, [s]uspend, [r]eboot, [S]hutdown, [u]udatePkgs
 bindsym $mod+Ctrl+Delete mode "$mode_system"
 mode "$mode_system" {
-  bindsym space exec --no-startup-id systemctl hibernate, mode "default"
+  bindsym space $Exec systemctl hibernate, mode "default"
   # black screen, move mouse or hit a key to back on
-  bindsym b       exec xset dpms force off, mode "default"
-  bindsym l       exec --no-startup-id i3lock -c 000000, mode "default"
-  bindsym Shift+l exec --no-startup-id i3-msg exit, mode "default"
+  bindsym b       $Exec xset dpms force off, mode "default"
+  bindsym l       $Exec i3lock -c 000000, mode "default"
+  bindsym Shift+l $Exec i3-msg exit, mode "default"
   # m is to use only the laptop native builtin monitor, M is to use both laptop and external ones
-  bindsym m       exec monitors -0; mode "default"
-  bindsym Shift+m exec monitors -2; mode "default" 
-  bindsym s       exec --no-startup-id systemctl suspend, mode "default"
-  bindsym r       exec --no-startup-id systemctl reboot, mode "default"
-  bindsym Shift+s exec --no-startup-id systemctl poweroff mode "default"
-  bindsym u exec "kitty --hold sh -c 'checkupdates && paru -Syu --noconfirm'"; mode "default"
+  bindsym m       $Exec monitors -0; mode "default"
+  bindsym Shift+m $Exec monitors -2; mode "default" 
+  bindsym s       $Exec systemctl suspend, mode "default"
+  bindsym r       $Exec systemctl reboot, mode "default"
+  bindsym Shift+s $Exec systemctl poweroff mode "default"
+  bindsym u $Exec "kitty --hold sh -c 'checkupdates && paru -Syu --noconfirm'"; mode "default"
 
   bindsym Escape mode "default"
   bindsym Delete mode "default"
@@ -259,27 +261,27 @@ set $open ~/.config/i3/i3-scratchpad -d75%x75% -F
 # use `xmodmap -pke` to get bindcode value
 # NOTE: if i3 unable to use ~/.local/bin, put `export PATH="$HOME/.local/bin:$PATH"` in ~/.profile
 # the "''" replacing normal "" or '' is for $open to keep '' for -a, otherwise it will be ignored
-bindsym $mod+e       exec $open emacsclient -a "''" -c
-bindsym $mod+$Alt+e  exec emacsclient -a "''" -c
-bindsym $mod+Shift+e exec $open emacs
-bindsym $mod+f       exec $open firefox
 bindsym $mod+b       exec $open calibre
 bindsym $mod+g       exec $open google-chrome-stable
-bindsym $mod+n       exec $open emacs -q --no-splash
-bindsym $mod+p       exec $open qpdfview
+bindsym $mod+e       $Exec $open emacsclient -a "''" -c
+bindsym $mod+$Alt+e  $Exec emacsclient -a "''" -c
+bindsym $mod+Shift+e $Exec $open emacs
+bindsym $mod+f       $Exec $open firefox
+bindsym $mod+n       $Exec $open emacs -q --no-splash
+bindsym $mod+p       $Exec $open qpdfview
 # TODO: (have to use -f since it handle it)alacritty and kitty do not need -f to enable float, 
 # float rule in i3/config is much better than i3-scratchpad -f, since if not set float rule in i3/config, -f will show the resizment
-bindsym $mod+Return  exec $open -f alacritty -t Alacritty
-bindsym $mod+Shift+Return exec alacritty
-bindsym $mod+Shift+f exec $open -f kitty -T=RangerFM ranger
-bindsym $mod+F1      exec $open -f kitty -T=Btop btop
+bindsym $mod+Return  $Exec $open -f alacritty -t Alacritty
+bindsym $mod+Shift+Return $Exec alacritty
+bindsym $mod+Shift+f $Exec $open -f kitty -T=RangerFM ranger
+bindsym $mod+F1      $Exec $open -f kitty -T=Btop btop
 bindsym $mod+$Alt+m move scratchpad
 # floating toggle on a window to remove it from the scratchpad
 bindsym $mod+m scratchpad show
 # NOTE: 30 and 98% are to make the top margin of Dropdown_Kitty and bottom margin of i3status-bar work well
-bindsym F12 exec "~/.config/i3/i3-scratchpad -a -d100%x98% -p0,30 -f kitty --class=Dropdown --title=Dropdown_Kitty"
+bindsym F12 $Exec "~/.config/i3/i3-scratchpad -a -d100%x98% -p0,30 -f -F kitty --class=Dropdown --title=Dropdown_Kitty"
 # if $mod+q fails, use $mod+d
-bindsym $mod+d exec dmenu_run -l 6 -i -b -p 'CMD' -fn 'Noto Sans Mono 12' -nb '$bgc_df' -nf '$txt_ia' -sf '$txt_hi' -sb '$bgc_df'
+bindsym $mod+d $Exec dmenu_run -l 6 -i -b -p 'CMD' -fn 'Noto Sans Mono 12' -nb '$bgc_df' -nf '$txt_ia' -sf '$txt_hi' -sb '$bgc_df'
 
 # Merge/swap windows using keys in mode
 set $mode_merge_swap Actions: [Return]mark, [m]erge, [s]wap
@@ -296,16 +298,16 @@ mode "$mode_merge_swap" {
 set $mode_rofis Tools: [Super+Space]Rofi, [Space]Windows, [c]ountDown, edit[C]onfigs, [d]ict, [k]ill, [m]anpage, [p]omodoro, [s]earchFiles, [w]eb
 bindsym $mod+space mode "$mode_rofis"
 mode "$mode_rofis" {
-  bindsym $mod+space exec rofis; mode "default"
-  bindsym c exec rofis -t -c; mode "default"
-  bindsym Shift+c exec rofis -c; mode "default"
-  bindsym d exec rofis -d; mode "default"
-  bindsym k exec rofis -k; mode "default"
-  bindsym m exec rofis -m; mode "default"
-  bindsym p exec rofis -t -p; mode "default"
-  bindsym s exec rofis -s; mode "default"
-  bindsym w exec rofis -w; mode "default"
-  bindsym space exec rofis -W; mode "default"
+  bindsym $mod+space $Exec rofis; mode "default"
+  bindsym c $Exec rofis -t -c; mode "default"
+  bindsym Shift+c $Exec rofis -c; mode "default"
+  bindsym d $Exec rofis -d; mode "default"
+  bindsym k $Exec rofis -k; mode "default"
+  bindsym m $Exec rofis -m; mode "default"
+  bindsym p $Exec rofis -t -p; mode "default"
+  bindsym s $Exec rofis -s; mode "default"
+  bindsym w $Exec rofis -w; mode "default"
+  bindsym space $Exec rofis -W; mode "default"
 
   bindsym Escape mode "default"
 }
@@ -314,9 +316,9 @@ set $mode_mark Actions: [Return]markMark, [m]ark, [g]otoMark, [u]nmark, [U]nmark
 bindsym $mod+Ctrl+Shift+m mode "$mode_mark"
 mode "$mode_mark" {
   bindsym Return mark --add "mark"; mode "default"
-  bindsym m exec i3-input -F 'mark %s' -P 'Mark: '; mode "default"
-  bindsym g exec i3-input -F '[con_mark="%s"] focus' -P 'Goto Mark: '; mode "default"
-  bindsym u exec i3-input -F 'unmark %s' -P 'Unmark: '; mode "default"
+  bindsym m $Exec i3-input -F 'mark %s' -P 'Mark: '; mode "default"
+  bindsym g $Exec i3-input -F '[con_mark="%s"] focus' -P 'Goto Mark: '; mode "default"
+  bindsym u $Exec i3-input -F 'unmark %s' -P 'Unmark: '; mode "default"
   bindsym Shift+u unmark; mode "default"
 
   bindsym Escape mode "default"
@@ -326,30 +328,32 @@ set $mode_screenshot Screenshot: [Return]default, [c]opy, [d]elay, [f]ullscreen,
 bindsym $mod+Shift+P mode "$mode_screenshot"
 mode "$mode_screenshot" {
   # NOTE: don't use $open for flameshot since you pin a screenshot you may need to screenshot again
-  bindsym Return exec flameshot gui; mode "default"
-  bindsym c exec flameshot gui -c; mode "default"
-  bindsym d exec flameshot gui -d 2000; mode "default"
-  bindsym f exec flameshot full; mode "default"
-  bindsym i exec flameshot gui -u; mode "default"
-  bindsym p exec flameshot gui --pin; mode "default"
+  bindsym Return $Exec flameshot gui; mode "default"
+  bindsym c $Exec flameshot gui -c; mode "default"
+  bindsym d $Exec flameshot gui -d 2000; mode "default"
+  bindsym f $Exec flameshot full; mode "default"
+  bindsym i $Exec flameshot gui -u; mode "default"
+  bindsym p $Exec flameshot gui --pin; mode "default"
 
   bindsym Escape mode "default"
 }
 
-set $mode_apps Apps: [a]udacious, [c]lion, [d]unstCloseAll, [D]unstPop, [m]ountUnmount, [n]etworkMonitor, [p]cmanfm, [t]hunderbird, [T]elegram, [v]irtualbox
+set $mode_apps Apps: [a]udacious, [d]unstCloseAll, [D]unstPop, [m]ountUnmount, [M]uteGame, [n]etworkMonitor, [p]cmanfm, [P]avucontrol, [r]ime-deployment, [t]hunderbird, [T]elegram, [v]irtualbox
 bindsym $mod+a mode "$mode_apps"
 mode "$mode_apps" {
-  bindsym a exec $open -w $ws3 audacious; mode "default"
-  bindsym c exec $open clion; mode "default"
-  bindsym d exec dunstctl close-all; mode "default"
-  bindsym shift+d exec dunstctl history-pop; mode "default"
-  bindsym m exec kitty bashmount; mode "default"
-  # speed_net -t: check background downloading task if the speed is lower than 5MB/s or completed
-  bindsym n exec "speed_net -t"; mode "default"
-  bindsym p exec $open pcmanfm; mode "default"
-  bindsym t exec $open -w $ws3 thunderbird; mode "default"
-  bindsym Shift+t exec $open -w $ws3 telegram-desktop; mode "default"
-  bindsym v exec $open -w $ws3 virtualbox; mode "default"
+  bindsym a $Exec $open -w $ws4 audacious; mode "default"
+  bindsym d $Exec dunstctl close-all; mode "default"
+  bindsym shift+d $Exec dunstctl history-pop; mode "default"
+  bindsym m $Exec kitty bashmount; mode "default"
+  bindsym Shift+m $Exec "wpctl set-mute --pid $(wpctl status | rg -i -e 'genshin|yuanshen' | grep -Po 'pid:\s*\K\d+') toggle"; mode "default"
+  # speed_net -t: check background downloading task whether the speed is lower than 5MB/s or completed
+  bindsym n $Exec "speed_net -t"; mode "default"
+  bindsym p $Exec $open pcmanfm; mode "default"
+  bindsym Shift+p $Exec pavucontrol; mode "default"
+  bindsym r $Exec fcitx5 -dr; mode "default"
+  bindsym t $Exec $open -w $ws3 thunderbird; mode "default"
+  bindsym Shift+t $Exec $open -w $ws3 telegram-desktop; mode "default"
+  bindsym v $Exec $open -w $ws3 virtualbox; mode "default"
 
   bindsym Escape mode "default"
 }
@@ -357,26 +361,26 @@ mode "$mode_apps" {
 # Autostart applications
 # NOTE: the --experimental-backend for picom is to fix the screen tearing issue
 # https://youtu.be/MfL_JkcEFbE, https://www.reddit.com/r/archlinux/comments/j58isj/
-exec_always --no-startup-id picom --experimental-backend --config ~/.config/i3/picom.conf
+$Exec_a picom --experimental-backend --config ~/.config/i3/picom.conf
 # NOTE: nm-applet and blueman-applet sometimes exit somehow
-# exec_always --no-startup-id blueman-applet
+# $Exec_a blueman-applet
 # change keyboard repeating rate
-exec --no-startup-id xset r rate 200 50
+$Exec xset r rate 200 50
 # use `dunstctl history-pop` to get previous notification
-# exec_always --no-startup-id killall dunst ; dunst -config ~/.config/i3/dunstrc --startup_notification
-exec_always --no-startup-id dunst -config ~/.config/i3/dunstrc
-exec_always --no-startup-id monitors
-exec --no-startup-id copyq
-exec --no-startup-id fcitx5 -d
+# $Exec_a killall dunst ; dunst -config ~/.config/i3/dunstrc --startup_notification
+$Exec_a dunst -config ~/.config/i3/dunstrc
+$Exec_a monitors
+$Exec copyq
+$Exec fcitx5 -d
 # handle authentication prompt window
-exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
-exec_always --no-startup-id ~/Dotfiles.d/misc/powermanager.sh
+$Exec /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
+$Exec_a ~/Dotfiles.d/misc/powermanager.sh
 # NOTE: reduce jpeg/png file size losslessly using jpegoptim/optipng,
 # then convert it into avif to reduce more file size using convert command from imagemagick
 # original Baboo png wallpapers are from gitlab.manjaro.org/artwork/themes/breath2/-/tree/master/wallpapers
 # randomly choose one from the *.avif and set it as wallpaper
 # NOTE: add sleep 1 since otherwise, the wallpaper won't fill the screen and will use some kind of tile
-exec_always --no-startup-id sleep 1; feh --no-fehbg --randomize --bg-scale ~/Dotfiles.d/misc/*.avif
+$Exec_a sleep 1; feh --no-fehbg --randomize --bg-scale ~/Dotfiles.d/misc/*.avif
 
 # configure colors using https://thomashunter.name/i3-configurator/
 # There is a black line between the window bar and i3bar, use black color to hide it
