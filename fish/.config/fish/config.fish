@@ -718,7 +718,7 @@ function fzf_previewer -d 'generate preview for completion widget.
         case "text*" application/json
             bat --style=rule --color=always --line-range :500 $path
         case "video*" "audio*" "image*"
-            mediainfo $path
+            ffmpeg -i $path -hide_banner
         case inode/directory
             /bin/ls -lhA $path
         case application/x-alpa-package "application/x-*compressed-tar" application/zstd application/zip
