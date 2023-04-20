@@ -282,6 +282,14 @@ pre {
 	overflow: auto
 }
 
+/* prevent the toc covered by code block */
+/* https://stackoverflow.com/a/25439613/1528712 */
+pre.src {
+    position: static;
+    overflow: visible;
+    padding-top: 1.2em;
+}
+
 /* for begin_quote*/
 blockquote {
 	border-left: 3px solid #ccc;
@@ -355,11 +363,11 @@ blockquote {
 }
 .org-comment {
     /* font-lock-comment-face */
-    color: #b22222;
+    color: #7f7f7f;
 }
 .org-comment-delimiter {
     /* font-lock-comment-delimiter-face */
-    color: #b22222;
+    color: #7f7f7f;
 }
 .org-constant {
     /* font-lock-constant-face */
