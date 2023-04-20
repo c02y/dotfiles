@@ -823,13 +823,36 @@ function fts -d 'find the temporary files such as a~ or #a or .a~, and files for
 end
 
 function fdd -d 'fd to replace mlocate/plocate'
-    set -l options a v m d o O x r e w p "E=" H "t="
+    set -l options a v m d h o O x r e w p "E=" H "t="
     # -T can be used multiple times with values
     set -a options (fish_opt -s T --multiple-vals)
     # -c can have optional value, NOTE: using -c10mins format without space in the middle
     set -a options (fish_opt -s c -o)
     argparse -n fdd $options -- $argv
     or return
+
+    if set -q _flag_h
+        echo "      argv --> search argv in current dir"
+        echo "      -h --> usage"
+        echo "      -a --> search all including Steam dir"
+        echo "      -c --> sort the result by changed time"
+        echo "         -a --> include the result of firefox/copyq/lvim in the path"
+        echo "         +5mins --> only show the result changed in the last 5 mins"
+        echo "      -d --> show only dirs"
+        echo "      -w --> use argv as wholeword as the file/dir name in the path"
+        echo "      -E argv --> exclude argv, argv must be wholeword"
+        echo "      -v --> show only video files"
+        echo "      -m --> show only music/audio files"
+        echo "      -p --> show only PDF extension files"
+        echo "      -t argv --> show only argv extension files/dirs"
+        echo "      -T argv --> show only argv type files/dirs"
+        echo "      -o -- open the result"
+        echo "         -O -- output the list into /tmp/fdd-list"
+        echo "      -x -- copy the result"
+        echo "      -r -- remove the result"
+        echo "      -e -- edit the result using vim"
+        return
+    end
 
     set OPT
     set -q _flag_a; or set -a OPT --exclude Steam
@@ -967,7 +990,7 @@ function dfs -d 'df(-l, -L for full list), dua/gua(-i interactive), dua(by defau
             /var/cache/pacman/pkg /tmp
         set dirs_e
         for i in $dirs
-            test -d $i; and set dirs_e $dirs_e $i
+            test -d $i; and set -a dirs_e $i
         end
         dua -f binary a --no-sort $dirs_e
     else if set -q _flag_s # get the largest files list
