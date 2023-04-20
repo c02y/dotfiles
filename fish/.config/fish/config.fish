@@ -1592,12 +1592,14 @@ function pacs -d 'pacman/paru operations'
     else if set -q _flag_n # search only keyword in package names
         if set -q argv[1]
             if set -q _flag_a
-                paru -Sl | awk -v PKG=$ARGV '$2~PKG' | rg --color always $ARGV | rg --passthru installed
+                paru -Sl | awk -v PKG=$ARGV '$2~PKG' | rg --color always "installed|$ARGV"
             else
                 # NOTE: PKG cannot be ARGV which is the same name as $ARGV
                 # awk part is to search the second column which is the package name only
-                pacman -Sl | awk -v PKG=$ARGV '$2~PKG' | rg --color always $ARGV | rg --passthru installed
-                or paru -Sl | awk -v PKG=$ARGV '$2~PKG' | rg --color always $ARGV | rg --passthru installed
+                # the "installed|$ARGV" part is to hightlight "installed" keyword as well from the result
+                if not pacman -Sl | awk -v PKG=$ARGV '$2~PKG' | rg --color always "installed|$ARGV"
+                    paru -Sl | awk -v PKG=$ARGV '$2~PKG' | rg --color always "installed|$ARGV"
+                end
             end
         else # list all packages, no filter
             set -q _flag_a; and paru -Sl; or pacman -Sl
