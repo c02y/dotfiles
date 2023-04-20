@@ -2113,8 +2113,9 @@ function gits -d 'git related commands'
     else if set -q _flag_T # tags 
         if set -q _flag_f # switch tag with fzf
             set -l tag tags/(git tag -ln | fzf | awk '{print $1}')
-            git checkout $tag
-            echo -e "\nNow in tag: $tag"
+            if test $tag # not empty
+                git checkout $tag; and echo -e "\nNow in tag: $tag"
+            end
         else # list all tags, with arg, switch the the tag
             # use the following command the fetch all remote tags in there is any
             # git fetch --all --tags
@@ -2732,9 +2733,6 @@ function pxs -d 'multiple commands using proxychains4'
         # the \"\" is to handle magnet link correctly, other links are not affected
         eval $CMD aria2c -c -x 5 --check-certificate=false --file-allocation=none \"$argv\"
     end
-
-    # get the lastest file in current dir and mv/rename it
-    set -q _flag_o; and mv -v (ls -Art | tail -n 1) $_flag_o
 end
 
 alias dic 'trans :zh -d -show-dictionary Y -v -theme ~/Dotfiles.d/misc/trans-theme-matrix.trans'
