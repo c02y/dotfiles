@@ -184,8 +184,9 @@ function path_prompt
         echo $msg
         set_color normal
     end
-    # check if tmux is running in current terminal/tty
-    if ! test $TMUX
+    # if neither tmux/zellij is running in current terminal/tty
+    # add a prompt line above the prompt
+    if ! test $TMUX; and ! set -q ZELLIJ
         set_color -o yellow
         echo -n (prompt_pwd)
         set_color normal
