@@ -668,9 +668,23 @@ function fu -d 'fu command and prompt to ask to open it or not'
 end
 
 zoxide init fish | source
-alias zz zi
-function zzz -d 'use ranger with zoxide'
-    not set -q argv[1]; and ranger; or z (zoxide query -i $argv; or test -d $argv && echo $argv) && ranger
+function zz -d "zoxide functions"
+    set -l options c d a
+    argparse -n zz $options -- $argv
+    or return
+
+    if set -q _flag_c # cd into the path using ranger
+        not set -q argv[1]; and ranger; or z (zoxide query -i $argv; or test -d $argv && echo $argv) && ranger
+    else if set -q _flag_d # delete the path 
+        set -q _flag_a; and set path (zoxide query -i --all); or set path (zoxide query -i -- $argv)
+        if test $path
+            zoxide remove $path && echo "$path is removed from db."
+        end
+    else if set -q _flag_a # show all the entries, no need argv
+        __zoxide_cd (zoxide query -i --all)
+    else # without option, interactively choose the path and cd into it
+        zi $argv
+    end
 end
 set -gx _ZO_FZF_OPTS "-1 -0 --reverse"
 # -m to mult-select using Tab/S-Tab
