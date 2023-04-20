@@ -314,9 +314,13 @@ function bxp -d 'pastebin service in command line'
     # slow
     # eval $argv | curl -F 'sprunge=<-' http://sprunge.us
 end
-#
-alias ls 'exa --icons'
-alias ll 'exa -l --icons -b'
+# DO NOT use alias here since it cannot handle argv properly
+function ls
+    command -q exa; and exa --icons $argv; or /bin/ls $argv
+end
+function ll
+    command -q exa; and exa -l --icons -b $argv; or /bin/ls -l $argv
+end
 function lls -d 'ls/exa operations'
     set -l options l e s r t a "E="
     argparse -n lls $options -- $argv
