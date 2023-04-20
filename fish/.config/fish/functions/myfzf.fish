@@ -5,12 +5,17 @@
 # Alt-l -> list files/dirs in the current path
 # Alt-p -> pager for your current or previous command
 # Alt-s -> use sudo for current or previous command
+# Ctrl-i -> list all the functions/abbrs
+# all bindings are listed in `bind` command from fish shell
 ################################# fzf.fish
+# NOTE: v3.6.0 provides a default ctrl-r
 bind \cr __fzf_reverse_isearch # Ctrl-r is for fish command history 
 bind \cw __fzf_cd # Ctrl-w is for cd into dir/sub-dir in $PWD
 bind \co __fzf_open # Ctrl-o is to open a file in $PWD using xdg-open/open 
 bind \cs '__fzf_open --editor' # Ctrl-s is to edit a text file using $EDITOR in $PWD
 bind \eo __fzf_find_file # Alt-o -> find file in $HOME, list path without opening it
+# Ctrl-up arrow key, use `fish_key_reader` for the right code for key
+bind \e\[1\;5A __fzf_reverse_isearch
 
 # if not bind --user \t >/dev/null 2>/dev/null
 #     if set -q FZF_COMPLETE
