@@ -83,7 +83,7 @@ end
 
 abbr rgr ranger
 bind \cd delete-or-ranger # check the BUG part in the function
-bind \cq "lazygit status"
+bind \cq lazygit
 bind \cf zz
 # TODO: delete it if fish-shell itself fix it
 # Ctrl-c/v is bound to fish_clipboard_copy/paste which is not working in non-X
