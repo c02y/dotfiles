@@ -2935,7 +2935,7 @@ abbr upxx 'upx --best --lzma'
 # for all the Rust developement setup:
 # https://fasterthanli.me/articles/my-ideal-rust-workflow
 function cars -d "cargo commands"
-    set -l options n i s c r b D S C B t w u M T R x a h
+    set -l options n i s c r b d S C B t w u M T R x a h
     argparse -n cars $options -- $argv
     or return
 
@@ -2970,8 +2970,9 @@ function cars -d "cargo commands"
         echo "         -t -- cargo test/nextest"
         echo "         -w -- cargo watch -x run"
         echo "         -w argv -- cargo watch -x argv"
-        echo "         -u -- cargo run, verbosely"
-        echo "         -- cargo run"
+        echo "         -u -- cargo run, verbosely debug version"
+        echo "         -R -- cargo run, release version"
+        echo "         -- cargo run, debug version"
         echo "      -g -- cargo modules/timeing/tree"
         echo "         -T -- cargo build timing graph, debug build"
         echo "            -R -- cargo build timing graph, release build"
@@ -3065,6 +3066,8 @@ function cars -d "cargo commands"
             set -q argv[1]; and eval $CMD watch -x \"$argv\"; or eval $CMD watch -x run
         else if set -q _flag_u # run verbosely
             eval env RUST_BACKTRACE=1 $CMD run $argv
+        else if set -q _flag_R # release run
+            eval $CMD run --release $argv
         else
             eval $CMD run $argv
         end
