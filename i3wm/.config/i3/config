@@ -282,7 +282,7 @@ bindsym $mod+$Alt+m move scratchpad
 # floating toggle on a window to remove it from the scratchpad
 bindsym $mod+m scratchpad show
 # NOTE: 30 and 98% are to make the top margin of Dropdown_Kitty and bottom margin of i3status-bar work well
-bindsym F12 $Exec "~/.config/i3/i3-scratchpad -a -d100%x98% -p0,30 -f -F kitty --class=Dropdown --title=Dropdown_Kitty"
+bindsym F12 $Exec "~/.config/i3/i3-scratchpad -a -d100%x98% -p0,30 -f -F env GLFW_IM_MODULE=ibus kitty --class=Dropdown --title=Dropdown_Kitty"
 # if $mod+q fails, use $mod+d
 bindsym $mod+d $Exec dmenu_run -l 6 -i -b -p 'CMD' -fn 'Noto Sans Mono 12' -nb '$bgc_df' -nf '$txt_ia' -sf '$txt_hi' -sb '$bgc_df'
 
