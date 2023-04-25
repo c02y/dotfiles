@@ -171,10 +171,10 @@ bindsym $mod+4 workspace $ws4
 # bindsym $mod+0 workspace number $ws10
 
 # move focused container to workspace
-bindsym $mod+Shift+1 move container to workspace number $ws1; workspace number $ws1
-bindsym $mod+Shift+2 move container to workspace number $ws2; workspace number $ws2
-bindsym $mod+Shift+3 move container to workspace number $ws3; workspace number $ws3
-bindsym $mod+Shift+4 move container to workspace number $ws4; workspace number $ws4
+bindsym $mod+Shift+1 move container to workspace number $ws1, workspace number $ws1
+bindsym $mod+Shift+2 move container to workspace number $ws2, workspace number $ws2
+bindsym $mod+Shift+3 move container to workspace number $ws3, workspace number $ws3
+bindsym $mod+Shift+4 move container to workspace number $ws4, workspace number $ws4
 # bindsym $mod+Shift+5 move container to workspace number $ws5
 # bindsym $mod+Shift+6 move container to workspace number $ws6
 # bindsym $mod+Shift+7 move container to workspace number $ws7
@@ -184,8 +184,8 @@ bindsym $mod+Shift+4 move container to workspace number $ws4; workspace number $
 
 bindsym $mod+z       workspace prev
 bindsym $mod+x       workspace back_and_forth
-bindsym $mod+Shift+z move container to workspace prev; workspace prev
-bindsym $mod+Shift+x move container to workspace back_and_forth; workspace back_and_forth
+bindsym $mod+Shift+z move container to workspace prev, workspace prev
+bindsym $mod+Shift+x move container to workspace back_and_forth, workspace back_and_forth
 bindsym $mod+Ctrl+z  move workspace to output left
 bindsym $mod+Ctrl+x  move workspace to output next
 
@@ -199,7 +199,7 @@ bindsym $mod+Shift+r restart
 bindsym $mod+Ctrl+Shift+r $Exec pkill -USR2 i3status-rs
 
 set $mode_system System: [Space]Hibernate, [b]lackscreen, [l]ock, [L]ogout, [m]onitors0, [M]onitors2, [s]uspend, [r]eboot, [S]hutdown, [u]udatePkgs
-bindsym $mod+Ctrl+Delete mode "$mode_system"; $Mode_timeout
+bindsym $mod+Ctrl+Delete mode "$mode_system", $Mode_timeout
 mode "$mode_system" {
   bindsym space $Exec systemctl hibernate, mode "default"
   # black screen, move mouse or hit a key to back on
@@ -207,12 +207,12 @@ mode "$mode_system" {
   bindsym l       $Exec i3lock -c 000000, mode "default"
   bindsym Shift+l $Exec i3-msg exit, mode "default"
   # m is to use only the laptop native builtin monitor, M is to use both laptop and external ones
-  bindsym m       $Exec monitors -0; mode "default"
-  bindsym Shift+m $Exec monitors -2; mode "default" 
+  bindsym m       $Exec monitors -0, mode "default"
+  bindsym Shift+m $Exec monitors -2, mode "default" 
   bindsym s       $Exec systemctl suspend, mode "default"
   bindsym r       $Exec systemctl reboot, mode "default"
   bindsym Shift+s $Exec systemctl poweroff mode "default"
-  bindsym u $Exec "kitty --hold sh -c 'checkupdates && paru -Syu --noconfirm'"; mode "default"
+  bindsym u $Exec "kitty --hold sh -c 'checkupdates && paru -Syu --noconfirm'", mode "default"
 
   bindsym Escape mode "default"
   bindsym Delete mode "default"
@@ -221,20 +221,20 @@ mode "$mode_system" {
 # resize window without using mode, this works for both tiling and floating windows
 # move window using $mod+Shift+arrow, it works for both tiling and floating windows as well
 # NOTE: it seems floating windows use px, tiling windows use ppt, move-center works for floating windows
-bindsym $mod+Ctrl+Left       resize shrink width  50 px or 5 ppt; move position center
-bindsym $mod+Ctrl+Right      resize grow   width  50 px or 5 ppt; move position center
-bindsym $mod+Ctrl+Up         resize grow   height 50 px or 5 ppt; move position center
-bindsym $mod+Ctrl+Down       resize shrink height 50 px or 5 ppt; move position center
 # vertically/horizontally maximized
 bindsym $mod+Ctrl+Shift+Up   resize set height 97 ppt; move position center
 bindsym $mod+Ctrl+Shift+Left resize set width 99 ppt; move position center
+bindsym $mod+Ctrl+Left  resize shrink width  50 px or 5 ppt, move position center
+bindsym $mod+Ctrl+Right resize grow   width  50 px or 5 ppt, move position center
+bindsym $mod+Ctrl+Up    resize grow   height 50 px or 5 ppt, move position center
+bindsym $mod+Ctrl+Down  resize shrink height 50 px or 5 ppt, move position center
 
 # NOTE: sticky makes it visible in all workspaces
 # only work for floating window, floating window is already on top
 bindsym $mod+F12 sticky toggle
 
 # WM_NAME=title, WM_WINDOW_ROLE=window_role
-# NOTE: USE , instead of ; for for_window
+# NOTE: USE , instead of ; in for_window, use ; instead of , in bindsym
 # NOTE: enable window bar for floating window so kill or move can be archived by only mouse on the window bar
 # NOTE: BUG: the window bar is still there when you make un-floating, use binding manually to disable the window bar
 # Gpick has its own resize; mpv has its own larger/smaller size in mpv.conf, otherwize open mpv window according to video size
@@ -288,76 +288,76 @@ bindsym $mod+d $Exec dmenu_run -l 6 -i -b -p 'CMD' -fn 'Noto Sans Mono 12' -nb '
 
 # Merge/swap windows using keys in mode
 set $mode_merge_swap Actions: [Return]mark, [m]erge, [s]wap
-bindsym $mod+Ctrl+m mode "$mode_merge_swap"; $Mode_timeout
+bindsym $mod+Shift+m mode "$mode_merge_swap", $Mode_timeout
 mode "$mode_merge_swap" {
   # Need to mark first, then trigger this mode again
-  bindsym Return mark --add "mark"; mode "default"
-  bindsym m      split h; mark --add "merge"; [con_mark="mark"] focus; move window to mark "merge"; [con_mark="merge"] focus; unmark "mark"; unmark "merge"; mode "default"
-  bindsym s      swap container with mark "mark"; [con_mark="mark"] focus; unmark "mark"; mode "default"
+  bindsym Return mark --add "mark", mode "default"
+  bindsym m      split h; mark --add "merge", [con_mark="mark"] focus, move window to mark "merge", [con_mark="merge"] focus, unmark "mark", unmark "merge", mode "default"
+  bindsym s      swap container with mark "mark", [con_mark="mark"] focus, unmark "mark", mode "default"
 
-  bindsym Escape unmark "mark"; mode "default"
+  bindsym Escape unmark "mark", mode "default"
 }
 
 set $mode_rofis Tools: [Super+Space]Rofi, [Space]Windows, [c]ountDown, edit[C]onfigs, [d]ict, [k]ill, [m]anpage, [p]omodoro, [s]earchFiles, [w]eb
 bindsym $mod+space mode "$mode_rofis"; $Mode_timeout
 mode "$mode_rofis" {
-  bindsym $mod+space $Exec rofis; mode "default"
-  bindsym c $Exec rofis -t -c; mode "default"
-  bindsym Shift+c $Exec rofis -c; mode "default"
-  bindsym d $Exec rofis -d; mode "default"
-  bindsym k $Exec rofis -k; mode "default"
-  bindsym m $Exec rofis -m; mode "default"
-  bindsym p $Exec rofis -t -p; mode "default"
-  bindsym s $Exec rofis -s; mode "default"
-  bindsym w $Exec rofis -w; mode "default"
-  bindsym space $Exec rofis -W; mode "default"
+  bindsym $mod+space $Exec rofis, mode "default"
+  bindsym c $Exec rofis -t -c, mode "default"
+  bindsym Shift+c $Exec rofis -c, mode "default"
+  bindsym d $Exec rofis -d, mode "default"
+  bindsym k $Exec rofis -k, mode "default"
+  bindsym m $Exec rofis -m, mode "default"
+  bindsym p $Exec rofis -t -p, mode "default"
+  bindsym s $Exec rofis -s, mode "default"
+  bindsym w $Exec rofis -w, mode "default"
+  bindsym space $Exec rofis -W, mode "default"
 
   bindsym Escape mode "default"
 }
 
 set $mode_mark Actions: [Return]markMark, [m]ark, [g]otoMark, [u]nmark, [U]nmarkAll
-bindsym $mod+Ctrl+Shift+m mode "$mode_mark"; $Mode_timeout
+bindsym $mod+Ctrl+Shift+m mode "$mode_mark", $Mode_timeout
 mode "$mode_mark" {
-  bindsym Return mark --add "mark"; mode "default"
-  bindsym m $Exec i3-input -F 'mark %s' -P 'Mark: '; mode "default"
-  bindsym g $Exec i3-input -F '[con_mark="%s"] focus' -P 'Goto Mark: '; mode "default"
-  bindsym u $Exec i3-input -F 'unmark %s' -P 'Unmark: '; mode "default"
-  bindsym Shift+u unmark; mode "default"
+  bindsym Return mark --add "mark", mode "default"
+  bindsym m $Exec i3-input -F 'mark %s' -P 'Mark: ', mode "default"
+  bindsym g $Exec i3-input -F '[con_mark="%s"] focus' -P 'Goto Mark: ', mode "default"
+  bindsym u $Exec i3-input -F 'unmark %s' -P 'Unmark: ', mode "default"
+  bindsym Shift+u unmark, mode "default"
 
   bindsym Escape mode "default"
 }
 
 set $mode_screenshot Screenshot: [Return]default, [c]opy, [d]elay, [f]ullscreen, [i]mgur, [p]in
-bindsym $mod+Shift+P mode "$mode_screenshot"; $Mode_timeout
+bindsym $mod+Shift+P mode "$mode_screenshot", $Mode_timeout
 mode "$mode_screenshot" {
   # NOTE: don't use $open for flameshot since you pin a screenshot you may need to screenshot again
-  bindsym Return $Exec flameshot gui; mode "default"
-  bindsym c $Exec flameshot gui -c; mode "default"
-  bindsym d $Exec flameshot gui -d 2000; mode "default"
-  bindsym f $Exec flameshot full; mode "default"
-  bindsym i $Exec flameshot gui -u; mode "default"
-  bindsym p $Exec flameshot gui --pin; mode "default"
+  bindsym Return $Exec flameshot gui, mode "default"
+  bindsym c $Exec flameshot gui -c, mode "default"
+  bindsym d $Exec flameshot gui -d 2000, mode "default"
+  bindsym f $Exec flameshot full, mode "default"
+  bindsym i $Exec flameshot gui -u, mode "default"
+  bindsym p $Exec flameshot gui --pin, mode "default"
 
   bindsym Escape mode "default"
 }
 
 set $mode_apps Apps: [a]udacious, [c]alculator, [d]unstCloseAll, [D]unstPop, [m]ountUnmount, [M]uteGame, [n]etworkMonitor, [p]cmanfm, [P]avucontrol, [r]ime-deployment, [t]hunderbird, [T]elegram, [v]irtualbox
-bindsym $mod+a mode "$mode_apps"; $Mode_timeout
+bindsym $mod+a mode "$mode_apps", $Mode_timeout
 mode "$mode_apps" {
-  bindsym a $Exec $open -w $ws4 audacious; mode "default"
-  bindsym c $Exec "kitty sh -c 'calc'"; mode "default"
-  bindsym d $Exec dunstctl close-all; mode "default"
-  bindsym shift+d $Exec dunstctl history-pop; mode "default"
-  bindsym m $Exec kitty bashmount; mode "default"
-  bindsym Shift+m $Exec "wpctl set-mute --pid $(wpctl status | rg -i -e 'genshin|yuanshen' | grep -Po 'pid:\s*\K\d+') toggle"; mode "default"
+  bindsym a $Exec $open -w $ws4 audacious, mode "default"
+  bindsym c $Exec "kitty sh -c 'calc'", mode "default"
+  bindsym d $Exec dunstctl close-all, mode "default"
+  bindsym shift+d $Exec dunstctl history-pop, mode "default"
+  bindsym m $Exec kitty bashmount, mode "default"
+  bindsym Shift+m $Exec "wpctl set-mute --pid $(wpctl status | rg -i -e 'genshin|yuanshen' | grep -Po 'pid:\s*\K\d+') toggle", mode "default"
   # speed_net -t: check background downloading task whether the speed is lower than 5MB/s or completed
-  bindsym n $Exec "speed_net -t"; mode "default"
-  bindsym p $Exec $open pcmanfm; mode "default"
-  bindsym Shift+p $Exec pavucontrol; mode "default"
-  bindsym r $Exec fcitx5 -dr; mode "default"
-  bindsym t $Exec $open -w $ws3 thunderbird; mode "default"
-  bindsym Shift+t $Exec $open -w $ws3 telegram-desktop; mode "default"
-  bindsym v $Exec $open -w $ws3 virtualbox; mode "default"
+  bindsym n $Exec "speed_net -t", mode "default"
+  bindsym p $Exec $open pcmanfm, mode "default"
+  bindsym Shift+p $Exec pavucontrol, mode "default"
+  bindsym r $Exec fcitx5 -dr, mode "default"
+  bindsym t $Exec $open -w $ws3 thunderbird, mode "default"
+  bindsym Shift+t $Exec $open -w $ws3 telegram-desktop, mode "default"
+  bindsym v $Exec $open -w $ws3 virtualbox, mode "default"
 
   bindsym Escape mode "default"
 }
