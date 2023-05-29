@@ -940,7 +940,7 @@ function fdd -d 'fd to replace mlocate/plocate'
         eval $CMD2 >/dev/null; or set CMD2 $CMD
         if test "$ARGV" = "."
             # just print it, otherwise the list will all be highlighted
-            eval $CMD2 | fzf --print0 --preview-window hidden
+            eval $CMD2 | fzf --ansi --print0 --preview-window hidden
         else
             # --passthru for rg is to highlight the word but also print non-highlighted lines
             eval $CMD2 | rg -i -p --passthru $ARGV
