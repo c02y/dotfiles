@@ -3,14 +3,13 @@
 # bluetoothctl trust 60:AB:D2:0F:72:EB
 # bluetoothctl disconnect 60:AB:D2:0F:72:EB
 
-# Simple version to toggle one specific mac of device
-function toggle_one() {
+# Simple version to restart one specific mac of device
+function restart_one() {
 	device="60:AB:D2:0F:72:EB"
 	if bluetoothctl info "$device" | grep 'Connected: yes' -q; then
 		bluetoothctl disconnect "$device"
-	else
-		timeout 0.1s bluetoothctl connect "$device"
 	fi
+	timeout 0.1s bluetoothctl connect "$device"
 }
 
 function toggle_all() {
@@ -30,4 +29,4 @@ function toggle_all() {
 	done
 }
 
-toggle_one
+restart_one
