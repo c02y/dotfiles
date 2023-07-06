@@ -51,10 +51,10 @@ font pango:Noto Sans Mono 12
 
 # disable Caps_Lock by default, re-enable it using `setxkbmap -option`
 # do not use `xdotool key Caps_Lock` in $Exec line, it won't work properly
-$Exec_a setxkbmap -option ctrl:nocaps
+$Exec_a setxkbmap -option caps:none
 # toggle Caps_Lock (always uppercase or always lowercase) using Alt+Caps_Lock
 # FIXME: bindsym+Caps_Lock will not work since it is disable in $Exec using setxkbmap
-bindcode $mod+Shift+66 $Exec xdotool key Caps_Lock
+# bindcode $mod+Shift+66 $Exec xdotool key Caps_Lock
 
 # Use pactl to adjust volume in PulseAudio.
 bindsym $mod+Home        $Exec pactl set-sink-volume @DEFAULT_SINK@ +5%
