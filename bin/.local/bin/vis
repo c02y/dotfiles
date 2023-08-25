@@ -21,6 +21,7 @@ $(basename "$0") -- vim different targets
   -M -- vim $HOME/.config/mpv
   -o -- edit $HOME/Dotfiles.d.d/vim/.vimrc
   -O -- edit $HOME/Dotfiles.d/vim/vimrc.more
+  -q -- edit $HOME/.config/qtile/config.py
   -s -- edit $HOME/.config/sxhkd/sxhkdrc
   -t -- edit $HOME/.config/tmux/tmux.conf
   -T -- edit $HOME/.config/tig/config
@@ -37,7 +38,7 @@ EMACS_EL="$HOME/.spacemacs.d/init.el"
 FISHRC="$HOME/.config/fish/config.fish"
 cmd=vim
 file=$*
-while getopts ":h2abBdceEfFikmMoOrRstTuUv" args; do # prefix-: no warning for illegal option
+while getopts ":h2abBdceEfFikmMoOqrRstTuUv" args; do # prefix-: no warning for illegal option
 	case "$args" in
 	h | \?)
 		print_usage
@@ -103,6 +104,9 @@ while getopts ":h2abBdceEfFikmMoOrRstTuUv" args; do # prefix-: no warning for il
 		;;
 	O)
 		file="$HOME/Dotfiles.d/vim/vimrc.more"
+		;;
+	q)
+		file="$HOME/.config/qtile/config.py"
 		;;
 	r)
 		file="$HOME/.config/ranger"
