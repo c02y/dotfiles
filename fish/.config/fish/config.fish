@@ -351,7 +351,7 @@ function lls -d 'ls/exa operations'
         # list and sort by extension, and directories first
         set -q _flag_e; and eval ls $OPT -X --group-directories-first $ARGV && return
         # sort by size(-s) or sort by last modification time
-        set -q _flag_s; and set OPT $OPT -lh --sort=size; or set OPT $OPT --sort=time --time=ctime
+        set -q _flag_s; and set -a OPT -lh --sort=size; or set -a OPT --sort=time --time=ctime
         # reverse order(-r) or not
         set -q _flag_r; and set -a OPT -r
         set CMD ls
@@ -1465,10 +1465,10 @@ function pacs -d 'pacman/paru operations'
         end
 
         # -S to install a package, -Syu pkg to ensure the system is update to date then install the package
-        set -q _flag_u; and set OPT $OPT -Syy; or set OPT $OPT -S
+        set -q _flag_u; and set -a OPT -Syy; or set -a OPT -S
 
         # -r to reinstall, no -r to ignore installed
-        set -q _flag_r; and set OPT $OPT; or set OPT $OPT --needed
+        set -q _flag_r; and set -a OPT; or set -a OPT --needed
 
         # jus download the pacakge without installing it, NOTE: not append OPT
         set -q _flag_d; and set OPT -Sw --cachedir ./
@@ -2333,10 +2333,10 @@ function sss -d 'count lines of code from a local code dir or a github url'
     else
         set OPT -c --no-cocomo
         # using -f to sort by default(file count), otherwise sort by code lines
-        set -q _flag_f; or set OPT $OPT -s code
-        set -q _flag_F; and set OPT $OPT --by-file
+        set -q _flag_f; or set -a OPT -s code
+        set -q _flag_F; and set -a OPT --by-file
         # exclude dirs $_flag_e should be dirs separated by ,
-        set -q _flag_e; and set OPT $OPT --exclude-dir $_flag_e
+        set -q _flag_e; and set -a OPT --exclude-dir $_flag_e
 
         eval scc $OPT $argv
     end
@@ -2864,15 +2864,15 @@ function rgs -d 'rg sth in -e(init.el)/-E(errno)/-f(config.fish)/-i(i3/config)-t
     or return
 
     set OPT --hidden -g !.git
-    set -q _flag_w; and set OPT $OPT -w
-    set -q _flag_l; and set OPT $OPT -l
-    set -q _flag_L; and set OPT $OPT -L
+    set -q _flag_w; and set -a OPT -w
+    set -q _flag_l; and set -a OPT -l
+    set -q _flag_L; and set -a OPT -L
     # and $_flag_V is the argument for for -V
-    set -q _flag_V; and set OPT $OPT -g !$_flag_V
     set -q _flag_s; and set OPT $OPT --sort path
-    set -q _flag_n; and set OPT $OPT --no-ignore
-    set -q _flag_S; and set OPT $OPT -s; or set OPT $OPT -i
-    set -q _flag_c; and set OPT $OPT -C 3
+    set -q _flag_V; and set -a OPT -g !$_flag_V
+    set -q _flag_n; and set -a OPT --no-ignore
+    set -q _flag_S; and set -a OPT -s; or set -a OPT -i
+    set -q _flag_c; and set -a OPT -C 3
 
     if set -q _flag_e
         set FILE $EMACS_EL
