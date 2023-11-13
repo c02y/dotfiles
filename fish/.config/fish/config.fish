@@ -2868,8 +2868,8 @@ function rgs -d 'rg sth in -e(init.el)/-E(errno)/-f(config.fish)/-i(i3/config)-t
     set -q _flag_l; and set -a OPT -l
     set -q _flag_L; and set -a OPT -L
     # and $_flag_V is the argument for for -V
-    set -q _flag_s; and set OPT $OPT --sort path
     set -q _flag_V; and set -a OPT -g !$_flag_V
+    set -q _flag_s; and set -a OPT --sort $_flag_s; or set -a OPT --sort path
     set -q _flag_n; and set -a OPT --no-ignore
     set -q _flag_S; and set -a OPT -s; or set -a OPT -i
     set -q _flag_c; and set -a OPT -C 3
