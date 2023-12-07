@@ -1402,6 +1402,7 @@ function pacs -d 'pacman/paru operations'
         echo "         + argv --> check if argv is owned/provided by a pacakge, otherwise delete it"
         echo "      -u --> update, force refresh database first"
         echo "         + -l --> download files list from database"
+        echo "         + -a --> fix packages-corrupted/keys issue"
         echo "         + -p --> print upgradable packages"
         echo "         + -d --> downgradable update"
         echo "      -d --> delete/uninstall with dependencies(need argv)"
@@ -1506,6 +1507,20 @@ function pacs -d 'pacman/paru operations'
             end
         end
     else if set -q _flag_u # force refresh update/upgrade, NOTE: pacs without anything also update
+        if set -q _flag_a # key issues
+            read -l -p 'echo "Key issue? Haved you checked the date/time [y/N] "' answer
+            if test "$answer" = y -o "$answer" = " "
+                # NOTE: if you see "File /var/cache/pacman/pkg/xxx.pkg.tar.xz is corrupted (invalid or corrupted package (PGP signature))"
+                # and `sudo pacman-key --refresh-keys` doesn't fix it, then use `pacs -ua`
+                sudo pacman-key --init
+                sudo pacman-key --populate
+                # NOTE: --refresh-keys takes lone time
+                sudo pacman-key --refresh-keys
+                sudo pacman -Sy archlinux-keyring archlinuxcn-keyring chaotic-keyring
+            else
+                return
+            end
+        end
         # download files list into /var/lib/pacman/sync
         set -q _flag_l; and paru -Fyy >/dev/null
 
