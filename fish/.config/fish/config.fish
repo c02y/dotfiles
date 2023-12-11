@@ -75,7 +75,7 @@ test -f ~/.config/nvim/config.lua; and set -gx VIMRC (readlink -f ~/.config/lvim
 # export LANG=en_US.UTF-8
 # export LANGUAGE=en_US.UTF-8
 
-# show key/mouse code/name using xev for other programs such as sxhkd
+# show key/mouse code/name using xev for other programs such as sxhkd/i3wm
 function keybutton -d 'show names of keyboard keys and mouse buttons'
     # key or button
     xev -event button -event keyboard | grep -e button -e keycode
@@ -317,13 +317,13 @@ function bxp -d 'pastebin service in command line'
 end
 # DO NOT use alias here since it cannot handle argv properly
 function ls
-    command -q exa; and exa --icons $argv; or /bin/ls $argv
+    command -q eza; and eza --icons $argv; or /bin/ls $argv
 end
 function ll
-    command -q exa; and exa -l --icons -b $argv; or /bin/ls -l $argv
+    command -q eza; and eza -l --icons -b $argv; or /bin/ls -l $argv
 end
-function lls -d 'ls/exa operations'
-    set -l options l e s r t a "E="
+function lls -d 'ls/eza operations'
+    set -l options l e s r t a "E=?"
     argparse -n lls $options -- $argv
     or return
 
@@ -331,15 +331,15 @@ function lls -d 'ls/exa operations'
     # the single quote in `'$argv'` is for directories with space like `~/VirtualBox VMs/`
     set -q argv[1]; and set ARGV '$argv'; or set ARGV .
 
-    if command -sq exa
+    if command -sq eza
         set OPT -a -b --color-scale --color=always --icons --changed --time-style iso
         set -q _flag_l; or set -a OPT -l
         set PIP "| nl -v 1 | sort -nr"
-        set -q _flag_e; and eval exa $OPT -s extension --group-directories-first $ARGV && return
+        set -q _flag_e; and eval eza $OPT -s extension --group-directories-first $ARGV && return
         set -q _flag_s; and set -a OPT -l -s size; or set -a OPT -s modified
         set -q _flag_r; or set -a OPT -r
         set -q _flag_a; and set -a OPT --git
-        set CMD exa
+        set CMD eza
     else
         set OPT --color=yes
         if set -q _flag_l
@@ -2866,7 +2866,7 @@ function ffms -d 'ffmpeg related functions'
         for file in $argv
             # NOTE: bit_rate in stream(video+audio separated) and format(whole video) are different for video file
             # this part is useful for video, audio, image, NOTE: no lossless-or-not info for audio like mediainfo
-            echo -e $file $(exa -lb $file | awk '{print $2}')\n$(ffprobe -v error -show_entries stream=codec_name,width,height,sample_rate,bit_rate -show_entries format=duration,bit_rate -of default=noprint_wrappers=1 -sexagesimal $file | xargs | sed -e 's/ /, /g')
+            echo -e $file $(eza -lb $file | awk '{print $2}')\n$(ffprobe -v error -show_entries stream=codec_name,width,height,sample_rate,bit_rate -show_entries format=duration,bit_rate -of default=noprint_wrappers=1 -sexagesimal $file | xargs | sed -e 's/ /, /g')
             echo
         end
     end
