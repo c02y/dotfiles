@@ -260,8 +260,8 @@ for_window [class="Gpick"] border normal 0, resize set 50 ppt 50 ppt, move posit
 for_window [title="^Event Tester$"] floating enable
 
 # Move the followings windows into specific workspace
-assign [class="Anki"] $ws2
-assign [class="VirtualBox*"] $ws3
+assign [class="Anki"] $ws4
+assign [class="VirtualBox*"] $ws4
 
 # disable the following windows (notifications) from stealing focus
 # no_focus [class="TelegramDesktop"]
@@ -280,6 +280,7 @@ bindsym $mod+Shift+e $Exec $open emacs
 bindsym $mod+f       $Exec $open firefox
 bindsym $mod+b       $Exec $open -w $ws3 calibre
 bindsym $mod+c       $Exec $open google-chrome-stable
+bindsym $mod+b       $Exec $open -w $ws4 calibre
 bindsym $mod+n       $Exec $open emacs -q --no-splash
 bindsym $mod+p       $Exec $open qpdfview
 # TODO: (have to use -f since it handle it)alacritty and kitty do not need -f to enable float, 
@@ -368,6 +369,9 @@ mode "$mode_apps" {
   bindsym t $Exec $open -w $ws3 thunderbird, mode "default"
   bindsym Shift+t $Exec $open -w $ws3 telegram-desktop, mode "default"
   bindsym v $Exec $open -w $ws3 virtualbox, mode "default"
+  bindsym t $Exec $open -w $ws4 thunderbird, mode "default"
+  bindsym Shift+t $Exec $open -w $ws4 telegram-desktop, mode "default"
+  bindsym v $Exec $open -w $ws4 virtualbox, mode "default"
 
   bindsym Escape mode "default"
 }
