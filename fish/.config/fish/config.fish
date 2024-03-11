@@ -1287,8 +1287,6 @@ function pacs -d 'pacman/paru operations'
         echo "      -m --> get fastest mirror from China by default"
         echo "         + argv --> get mirrors from argv country"
         echo "         + -l --> list local mirrors"
-        echo "         + -s --> get status of local mirrors(Only Manjaro)"
-        echo "         + -i --> interactively choose mirror(Only Manjaro)"
         echo "      -i --> install(need argv, pkg name, pkg file or pkg link)"
         echo "         + -p --> print 20 lines of installed/removed/upgraded/downgraded packages history"
         echo "           + argv --> print all pacman history of the argv package"
@@ -1341,19 +1339,8 @@ function pacs -d 'pacman/paru operations'
     else if set -q _flag_m # mirror
         set -q _flag_l; and cat /etc/pacman.d/mirrorlist && return
         set -q argv[1]; and set ARGV $argv[1]; or set ARGV China
-        if not test (cat /etc/*-release | rg "^NAME=" | rg -i -e 'manjaro') # ArchLinux
-            not command -sq reflector; and pacs -i reflector
-            sudo reflector --verbose --country $ARGV --latest 8 --sort rate --save /etc/pacman.d/mirrorlist
-        else # manjaro
-            ! command -sq pacman-mirrors; and pacs -i pacman-mirrors
-            if set -q _flag_s # get status of local mirrors
-                pacman-mirrors --status
-            else if set -q _flag_i # insteractive choose mirror
-                sudo pacman-mirrors -i -d
-            else # change mirror region
-                sudo pacman-mirrors -f 5 -c $ARGV
-            end
-        end
+        not command -sq reflector; and pacs -i reflector
+        sudo reflector --verbose --country $ARGV --latest 8 --sort rate --save /etc/pacman.d/mirrorlist && pacs -ml
     else if set -q _flag_i # install
         if set -q _flag_p # list pacman log
             set KEYWORDS "--color always -i -e 'installed|reinstalled|removed|upgraded|downgraded|warning'"
