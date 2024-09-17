@@ -1,0 +1,42 @@
+# Rime default settings
+# encoding: utf-8
+#
+# 小狼毫似乎不支持 Control+Shift 开头的快捷键，可自行修改成别的。
+# 鼠须管在 Sublime Text、Telegram 等个别软件中也无法使用 Control+Shift+数字 的快捷键，可暂时用方案选单切换。
+
+patch:
+  # 方案列表
+  schema_list:
+    - schema: double_pinyin_flypy
+
+  # 菜单
+  menu:
+    page_size: 10  # 候选词个数
+
+
+  # 方案选单相关
+  switcher:
+    caption: 「方案选单」
+    hotkeys:
+      - Control+Shift+space
+    save_options:  # 开关记忆，从方案选单（而非快捷键）切换时会记住的选项，需要记忆的开关不能设定 reset
+      - ascii_mode
+      - full_shape
+      - ascii_punct
+      - traditionalization
+      - emoji
+    fold_options: false            # 呼出时是否折叠，多方案时建议折叠 true ，一个方案建议展开 false
+
+  # 禁用Shift_L切换中英文, 使用Control_L切换
+  # ascii_composer/switch_key/Shift_L: noop
+  # ascii_composer/switch_key/Control_L: commit_code
+
+  # 删除自造词, 默认是Control+Delete，NOTE：以下设置无效
+  # key_binder/drop_cand: "Control+d"
+
+  # https://github.com/iDvel/rime-ice/issues/545
+  # 标点和中文同时输入，标点不上屏
+  # punctuator/half_shape/,: [ '，' ]
+  # punctuator/half_shape/:: [ '：' ]
+  # punctuator/half_shape/?: [ '？' ]
+  # punctuator/half_shape/!: [ '! ' ]

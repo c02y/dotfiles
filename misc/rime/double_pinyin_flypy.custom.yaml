@@ -1,0 +1,128 @@
+# Rime schema
+# encoding: utf-8
+
+# 复制自 rime_ice.schema.yaml ，适配了双拼。
+# 双拼键位映射复制自 https://github.com/rime/rime-double-pinyin
+# 双拼之间主要就是 speller/algebra 和 translator/preedit_format 这里有区别。
+#
+# 全拼的自定义文本和双拼有些冲突，改成了 custom_phrase_double ，需要创建 custom_phrase_double.txt 文件。
+#
+# 默认启用的中英混输词库是全拼的，需要在 melt_eng.dict.yaml 中修改为对应的双拼的。
+# 1. 删除自造词使用Ctrl-Delete
+# 2. 拆分输入生僻字使用uU开头
+# 3. 简繁体切换菜单使用Ctrl-Shift-Space
+
+patch:
+  # 开关
+  # 鼠须管 0.16 后，用快捷键切换时的提示文字由 states 定义
+  # states: 方案选单显示的名称。可以注释掉，仍可以通过快捷键切换。
+  # reset: 默认状态。 注释掉后，切换窗口时不会重置到默认状态。
+  switches/@0:
+    # 注意name前面没有原版里面的“-”，也要注意后面两行的缩进
+    name: ascii_mode
+    states: [中, A]
+    reset: 1
+  # switches/@3:
+  #   # 禁用emoji
+  #   name: emoji
+  #   states: [ 💀, 😄 ]
+  #   reset: 0
+
+  # 显示为双拼编码，即清空 preedit_format 中的内容
+  # translator/preedit_format: []
+  #
+  translator/dictionary: rime_ice_private
+
+  # userdb
+  # https://github.com/iDvel/rime-ice/issues/363
+  translator/+:
+    db_class: tabledb
+
+  engine/filters/@before 4:
+    # https://github.com/iDvel/rime-ice/issues/567
+    # https://github.com/iDvel/rime-ice/issues/727
+    # long_word_filter放到emoji之前防止emoji总在前面
+    - lua_filter@long_word_filter
+  engine/filters/@after last:
+    - lua_filter@cn_en_spacer
+
+  long_word_filter:
+    count: 10
+    idx: 1
+
+  # 拼写设定
+  speller/algebra:
+    # 模糊音
+    - abbrev/^([a-z]).+$/$1/ # 简拼（首字母）
+    - abbrev/^([zcs]h).+$/$1/ # 简拼（zh, ch, sh）
+    - derive/^([zcs])h/$1/ # zh, ch, sh => z, c, s
+    - derive/^([zcs])([^h])/$1h$2/ # z, c, s => zh, ch, sh
+    - derive/([i])ng$/$1n/ # ing => in
+    - derive/([i])n$/$1ng/ # in => ing
+    - derive/^l/n/ # n → l
+    - derive/^n/l/ # l → n
+    # 选择1：只用双拼
+    - erase/^xx$/
+    - derive/^([jqxy])u$/$1v/
+    - derive/^([aoe])([ioun])$/$1$1$2/
+    - xform/^([aoe])(ng)?$/$1$1$2/
+    - xform/iu$/Ⓠ/
+    - xform/(.)ei$/$1Ⓦ/
+    - xform/uan$/Ⓡ/
+    - xform/[uv]e$/Ⓣ/
+    - xform/un$/Ⓨ/
+    - xform/^sh/Ⓤ/
+    - xform/^ch/Ⓘ/
+    - xform/^zh/Ⓥ/
+    - xform/uo$/Ⓞ/
+    - xform/ie$/Ⓟ/
+    - xform/(.)i?ong$/$1Ⓢ/
+    - xform/ing$|uai$/Ⓚ/
+    - xform/(.)ai$/$1Ⓓ/
+    - xform/(.)en$/$1Ⓕ/
+    - xform/(.)eng$/$1Ⓖ/
+    - xform/[iu]ang$/Ⓛ/
+    - xform/(.)ang$/$1Ⓗ/
+    - xform/ian$/Ⓜ/
+    - xform/(.)an$/$1Ⓙ/
+    - xform/(.)ou$/$1Ⓩ/
+    - xform/[iu]a$/Ⓧ/
+    - xform/iao$/Ⓝ/
+    - xform/(.)ao$/$1Ⓒ/
+    - xform/ui$/Ⓥ/
+    - xform/in$/Ⓑ/
+    - xlit/ⓆⓌⓇⓉⓎⓊⒾⓄⓅⓈⒹⒻⒼⒽⒿⓀⓁⓏⓍⒸⓋⒷⓃⓂ/qwrtyuiopsdfghjklzxcvbnm/
+    # # 选择2：双拼全拼混用
+    # # https://github.com/iDvel/rime-ice/issues/525
+    # - erase/^xx$/
+    # - derive/^([jqxy])u$/$1v/
+    # - derive/^([aoe])([ioun])$/$1$1$2/
+    # - derive/^([aoe])(ng)?$/$1$1$2/
+    # - derive/iu$/Ⓠ/
+    # - derive/(.)ei$/$1Ⓦ/
+    # - derive/uan$/Ⓡ/
+    # - derive/[uv]e$/Ⓣ/
+    # - derive/un$/Ⓨ/
+    # - derive/^sh/Ⓤ/
+    # - derive/^ch/Ⓘ/
+    # - derive/^zh/Ⓥ/
+    # - derive/uo$/Ⓞ/
+    # - derive/ie$/Ⓟ/
+    # - derive/(.)i?ong$/$1Ⓢ/
+    # - derive/ing$|uai$/Ⓚ/
+    # - derive/(.)ai$/$1Ⓓ/
+    # - derive/(.)en$/$1Ⓕ/
+    # - derive/(.)eng$/$1Ⓖ/
+    # - derive/[iu]ang$/Ⓛ/
+    # - derive/(.)ang$/$1Ⓗ/
+    # - derive/ian$/Ⓜ/
+    # - derive/(.)an$/$1Ⓙ/
+    # - derive/(.)ou$/$1Ⓩ/
+    # - derive/[iu]a$/Ⓧ/
+    # - derive/iao$/Ⓝ/
+    # - derive/(.)ao$/$1Ⓒ/
+    # - derive/ui$/Ⓥ/
+    # - derive/in$/Ⓑ/
+    # - xlit/ⓆⓌⓇⓉⓎⓊⒾⓄⓅⓈⒹⒻⒼⒽⒿⓀⓁⓏⓍⒸⓋⒷⓃⓂ/qwrtyuiopsdfghjklzxcvbnm/
+    #
+    # - abbrev/^(.).+$/$1/  # 首字母简拼，开启后会导致 3 个字母时 kj'x 变成 k'jx 的问题
