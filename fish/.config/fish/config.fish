@@ -990,7 +990,7 @@ function dfs -d 'df(-l, -L for full list), dua/gua(-i interactive), dua(by defau
         # if "/tmp/.mount_xxx Transport endpoint is not connected", argv is /tmp/.mount_xxx
         fusermount -zu $argv && rm -rfv $argv
     else if set -q _flag_c
-        set dirs ~/.cache/google-chrome ~/.config/google-chrome \
+        set dirs ~/.cache/BraveSoftware ~/.config/BraveSoftware \
             ~/.cache/mozilla ~/.mozilla \
             ~/.cache/paru/clone ~/.cache/calibre \
             ~/.local/share/Trash \
