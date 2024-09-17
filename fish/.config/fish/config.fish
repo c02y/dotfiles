@@ -1549,7 +1549,7 @@ end
 
 # donnot show the other info on startup
 abbr gdbi 'gdb -q -x ~/Dotfiles.d/misc/gdbinit'
-abbr gdbx 'gdb -q -n' # with loading any .gdbinit file
+abbr gdbx 'gdb -q -n' # without loading any .gdbinit file
 abbr gdbd 'sudo gdb -batch -ex "thread apply all bt" -p' # -p $PID to check the deadlock issue, or `sudo strace -s 99 -ffp $PID`
 abbr gdbu 'gdbgui --gdb-args="-q -n"'
 # debug the core dump binary and file, by default the core dump file is
@@ -1653,7 +1653,7 @@ function o -d "open, xdg-open, xdg-utils"
         echo (xdg-mime query filetype $_flag_p) = (xdg-mime query default (xdg-mime query filetype $_flag_p))
     else
         # https://github.com/chmln/handlr
-        # Simple xdg-open or open will not handle . and file propertly
+        # Simple xdg-open or open will not handle . and file properly
         handlr open $argv
     end
 end
@@ -1861,11 +1861,16 @@ abbr emtime "time emacs --debug-init -eval '(kill-emacs)'" # time emacs startup 
 abbr lic 'wget -q http://www.gnu.org/licenses/gpl.txt -O LICENSE'
 
 function usernew -d 'useradd related functions'
-    set -l options "d=" t a "g="
+    set -l options "d=" t a "g=?"
     argparse -n usertest $options -- $argv
     or return
 
     set -q argv[1]; and set ARGV $argv; or set ARGV test
+
+    if set -q _flag_g
+        set -q _flag_d; and sudo groupdel $_flag_d; or sudo usermod -aG $_flag_g $ARGV
+        return
+    end
 
     if set -q _flag_d # delete user and home directory
         if test -d /home/$_flag_d
@@ -1875,10 +1880,6 @@ function usernew -d 'useradd related functions'
         return
     end
 
-    if set -q _flag_g
-        set -q _flag_d; and sudo groupdel $_flag_d; or sudo usermod -aG $_flag_g $ARGV
-        return
-    end
 
     if test -d /home/$ARGV # directory exists
         sudo su -s /bin/bash - $ARGV
