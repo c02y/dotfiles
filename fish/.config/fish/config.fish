@@ -824,7 +824,7 @@ function fts -d 'find the temporary files such as a~ or #a or .a~, and files for
 end
 
 function fdd -d 'fd to replace mlocate/plocate'
-    set -l options a v m d h o O x r e w p "E=" H "t="
+    set -l options a s v m d h i o O x r e w p "E=" H "t="
     # -T can be used multiple times with values
     set -a options (fish_opt -s T --multiple-vals)
     # -c can have optional value, NOTE: using -c10mins format without space in the middle
@@ -835,11 +835,13 @@ function fdd -d 'fd to replace mlocate/plocate'
     if set -q _flag_h
         echo "      argv --> search argv in current dir"
         echo "      -h --> usage"
+        echo "      -s --> smart case"
         echo "      -a --> search all including Steam dir"
         echo "      -c --> sort the result by changed time"
         echo "         -a --> include the result of firefox/copyq/lvim in the path"
         echo "         +5mins --> only show the result changed in the last 5 mins"
         echo "      -d --> show only dirs"
+        echo "      -i --> interactive"
         echo "      -w --> use argv as wholeword as the file/dir name in the path"
         echo "      -E argv --> exclude argv, argv must be wholeword"
         echo "      -v --> show only video files"
@@ -856,6 +858,8 @@ function fdd -d 'fd to replace mlocate/plocate'
     end
 
     set OPT
+    # ignore case unless use -s to use smart case which is the default
+    set -q _flag_s; or set -a OPT -i
     set -q _flag_a; or set -a OPT --exclude Steam
     # NOTE: -H here means exclude hidden files/dirs
     set -q _flag_H; or set -a OPT -HI
@@ -882,7 +886,7 @@ function fdd -d 'fd to replace mlocate/plocate'
     else if set -q _flag_t
         set EXT "-e $_flag_t"
     else if set -q _flag_T
-        # -T can be used multiple times with value 
+        # -T can be used multiple times with value
         for i in $_flag_T
             set -a EXT "-t $i"
         end
@@ -932,10 +936,12 @@ function fdd -d 'fd to replace mlocate/plocate'
         eval $CMD | fzf --print0 | xargs -0 -r rm -rfv
     else if set -q _flag_e
         eval $CMD | fzf -1 --print0 | xargs -0 -r vim --
+    else if set -q _flag_i
+        eval $CMD | fzf
     else
-        set CMD2 "dua -f binary a --no-sort ($CMD)"
-        # may fail: dua: "the size of argument and environment lists xMB exceeds the OS limit of 2MB."
-        # may fail2: dua: "IO Errors" (dua-cli/issues/124)
+        # TODO: if $CMD is only one directory, $CMD2 will get the sizes of its contents list
+        # set CMD2 "dua -f binary a --no-sort ($CMD)"
+        set CMD2 "du -hcs ($CMD)"
         # if failed, use CMD: fd without dua
         eval $CMD2 >/dev/null; or set CMD2 $CMD
         if test "$ARGV" = "."
