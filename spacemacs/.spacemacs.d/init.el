@@ -220,7 +220,7 @@ This function should only modify configuration layer settings."
       ;; spacemacs/issues/10051#issuecomment-605979333
       lsp-enable-indentation nil
       ;; https://emacs-lsp.github.io/lsp-mode/tutorials/how-to-turn-off/
-      lsp-rust-analyzer-inlay-hints-mode t
+      lsp-inlay-hint-enable t
       lsp-rust-analyzer-server-display-inlay-hints t
       lsp-rust-analyzer-display-chaining-hints t
       lsp-rust-analyzer-display-parameter-hints t
@@ -265,19 +265,19 @@ This function should only modify configuration layer settings."
       lsp-lua-hint-enable t
       )
      ;;(pdf :variables pdf-view-display-size 'fit-height)
-     (tabs
-      :variables
-      centaur-tabs-height 20
-      ;; centaur-tabs-bar-height 30
-      ;; centaur-tabs-show-navigation-buttons t ;; FIXME: two tab height variables do not work if set
-      centaur-tabs-show-new-tab-button nil
-      centaur-tabs-modified-marker "*"
-      ;; FIXME: tab-bar will not be displayed for emacsclient if set to left
-      ;; centaur-tabs-set-bar 'left
-      centaur-tabs-cycle 'tabs
-      ;; NOTE: even it is t, emacsclient won't display it, nil for normal emacs
-      centaur-tabs-set-icons nil
-      )
+     ;; (tabs
+     ;;  :variables
+     ;;  centaur-tabs-height 20
+     ;;  ;; centaur-tabs-bar-height 30
+     ;;  ;; centaur-tabs-show-navigation-buttons t ;; FIXME: two tab height variables do not work if set
+     ;;  centaur-tabs-show-new-tab-button nil
+     ;;  centaur-tabs-modified-marker "*"
+     ;;  ;; FIXME: tab-bar will not be displayed for emacsclient if set to left
+     ;;  ;; centaur-tabs-set-bar 'left
+     ;;  centaur-tabs-cycle 'tabs
+     ;;  ;; NOTE: even it is t, emacsclient won't display it, nil for normal emacs
+     ;;  centaur-tabs-set-icons nil
+     ;;  )
      )
 
    ;; List of additional packages that will be installed without being wrapped
