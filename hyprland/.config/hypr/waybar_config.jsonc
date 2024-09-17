@@ -1,0 +1,155 @@
+// -*- mode: jsonc -*-
+{
+  // "layer": "top", // Waybar at top layer
+  // "position": "bottom", // Waybar position (top|bottom|left|right)
+  "height": 30, // Waybar height (to be removed for auto height)
+  // "width": 1280, // Waybar width
+  "spacing": -10, // Gaps between modules (4px)
+  "reload_style_on_change": true,
+  // Choose the order of the modules
+  "modules-left": [
+    "hyprland/workspaces",
+    "hyprland/submap",
+    "custom/media",
+    "mpris",
+  ],
+  "modules-center": [
+    "hyprland/window"
+  ],
+  "modules-right": [
+    "network",
+    "disk",
+    "cpu",
+    "memory",
+    "pulseaudio",
+    // "bluetooth",
+    "clock",
+    "custom/updates",
+    "tray",
+  ],
+  // Modules configuration
+  "hyprland/workspaces": {
+    "disable-scroll": true,
+    "all-outputs": true,
+    "format": "{icon}",
+    "format-icons": {
+      "1": "",
+      "2": "",
+      "3": "",
+      "4": ""
+      //"5": "",
+      //"urgent": "",
+      //"focused": "",
+      //"default": ""
+    }
+  },
+  // TODO: how to show hints in waybar
+  "hyprland/submap": {
+    "format": " {}",
+    "max-length": 30,
+    "tooltip": false
+  },
+  "mpris": {
+    "format": "{player_icon} {dynamic}",
+    "format-paused": "{status_icon} <i>{dynamic}</i>",
+    "player-icons": {
+      "default": "▶",
+      "mpv": "🎵"
+    },
+    "status-icons": {
+      "paused": "⏸"
+    },
+    // "ignored-players": ["firefox"]
+  },
+  "hyprland/window": {
+    "icon": true,
+    "icon-size": 20
+  },
+  "network": {
+    "interval": 2,
+    "format": "{bandwidthDownBits} {bandwidthUpBits}",
+    "format-disconnected": "Disconnected ⚠"
+  },
+  // TODO: tooltip for the second disk?
+  "disk": {
+    "interval": 5,
+    "format": " {specific_free:0.0f}GB",
+    "unit": "GiB",
+    //"tooltip-format": "{specific_free:0.0f}GB on {/mnt/LocalDisk}",
+    "on-click": "kitty -T=YaziFM yazi"
+  },
+  "cpu": {
+    "format": " {usage}%",
+    "tooltip": true,
+    "on-click": "kitty -T=Btop btop"
+  },
+  "memory": {
+    "interval": 10,
+    "format": " {}%",
+    "tooltip-format": "{swapPercentage}",
+    "on-click": "kitty -T=Btop btop"
+  },
+  "pulseaudio": {
+    "scroll-step": 5,
+    "format": "{volume}% {icon}",
+    "format-bluetooth": "{volume}% {icon} ",
+    "format-bluetooth-muted": " {icon} ",
+    "format-muted": "",
+    "format-icons": {
+      "headphone": "",
+      "hands-free": "",
+      "headset": "",
+      "phone": "",
+      "portable": "",
+      "car": "",
+      "default": [
+        "",
+        "",
+        ""
+      ]
+    },
+    "on-click": "pavucontrol",
+    "on-click-right": "toggle_bt_connection.sh",
+  },
+  "clock": {
+    // "timezone": "America/New_York",
+    "format": "{:%m/%d %a %H:%M}",
+    "tooltip-format": "<tt>{calendar}</tt>",
+    "calendar": {
+      "mode": "year",
+      "mode-mon-col": 3,
+      "weeks-pos": "right",
+      "on-scroll": 1,
+      "format": {
+        "months": "<span color='#ffead3'><b>{}</b></span>",
+        "days": "<span color='#ecc6d9'><b>{}</b></span>",
+        "weeks": "<span color='#99ffdd'><b>W{}</b></span>",
+        "weekdays": "<span color='#ffcc66'><b>{}</b></span>",
+        "today": "<span color='#ff6699'><b><u>{}</u></b></span>"
+      }
+    },
+    "actions": {
+      "on-click-left": "mode",
+      "on-click-forward": "tz_up",
+      "on-click-backward": "tz_down",
+      "on-scroll-up": "shift_down",
+      "on-scroll-down": "shift_up"
+    }
+  },
+  // TODO: test
+  "custom/updates": {
+    "format": " {icon} {}",
+    "return-type": "json",
+    "format-icons": {
+      "has-updates": "",
+      "updated": ""
+    },
+    "exec-if": "which waybar-module-pacman-updates",
+    "exec": "waybar-module-pacman-updates  --interval-seconds 5 --network-interval-seconds 86400"
+  },
+  "tray": {
+    "icon-size": 20,
+    "spacing": 5,
+    "show-passive-items": true
+  }
+}
