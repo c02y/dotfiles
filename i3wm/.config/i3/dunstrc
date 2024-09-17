@@ -413,10 +413,19 @@
 #    summary = "*script*"
 #    script = dunst_test.sh
 
-#[ignore]
+# [ignore]
 #    # This notification will not be displayed
-#    summary = "foobar"
+#    # start dunst daemon by `dunst -print`,
+#    # trigger/wait-for a noticication from the program, check the appname in the output
+#    appname = "Rime"
 #    skip_display = true
+
+[ignore]
+# Ignore the specific message
+    appname = "Rime"
+    body = "*Rime is ready*"
+    # urgency = low
+    skip_display = true
 
 #[history-ignore]
 #    # This notification will not be saved in history
