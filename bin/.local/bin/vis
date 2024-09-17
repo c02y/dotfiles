@@ -25,7 +25,7 @@ $(basename "$0") -- vim different targets
   -s -- edit $HOME/.config/sxhkd/sxhkdrc
   -t -- edit $HOME/.config/tmux/tmux.conf
   -T -- edit $HOME/.config/tig/config
-  -r -- vim $HOME/.config/ranger
+  -r -- vim $HOME/.config/yazi
   -R -- vim $HOME/.local/bin/rofis
   -u -- vim -U NONE +argv
   -U -- vim -u $HOME/Dotfiles.d/vim/vimrc.more +argv
@@ -38,7 +38,7 @@ EMACS_EL="$HOME/.spacemacs.d/init.el"
 FISHRC="$HOME/.config/fish/config.fish"
 cmd=vim
 file=$*
-while getopts ":h2abBdceEfFikmMoOqrRstTuUv" args; do # prefix-: no warning for illegal option
+while getopts ":h2abBdDceEfFikmMoOqyRstTuUv" args; do # prefix-: no warning for illegal option
 	case "$args" in
 	h | \?)
 		print_usage
@@ -108,8 +108,8 @@ while getopts ":h2abBdceEfFikmMoOqrRstTuUv" args; do # prefix-: no warning for i
 	q)
 		file="$HOME/.config/qtile/config.py"
 		;;
-	r)
-		file="$HOME/.config/ranger"
+	y)
+		file="$HOME/.config/yazi"
 		;;
 	R)
 		file="$HOME/.local/bin/rofis"
