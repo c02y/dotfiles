@@ -2774,15 +2774,37 @@ function ffms -d 'ffmpeg related functions'
     end
 end
 
-function rgs -d 'rg sth in -e(init.el)/-E(errno)/-f(config.fish)/-i(i3/config)-t(tmux.conf)/-v(vimrc), or use -F(fzf) to open the file, -g(git repo), -w(whole word), -V(exclude pattern), -l(list files), -s(sort), -n(no ignore), -S(smart case, otherwise ignore case), -2(todo.org)'
+function rgs
     # NOTE -V require an argument, so put "V=" line for argparse
-    set -l options e E f i t v F g n w 'V=' l L s S 2 c
-    argparse -n rgs -N 1 $options -- $argv
+    set -l options h e E f i t v F g n w 'V=' l L 's=' S 2 c
+    argparse -n rgs $options -- $argv
     or return
+
+    if set -q _flag_h
+        echo "rgs -- search using rg"
+        echo "    -w --> whole word"
+        echo "    -l --> list files only"
+        echo "    -L --> follow symbolic links"
+        echo "    -V argv --> ignore argv files/dirs to search"
+        echo "    -s argv --> sort result by argv(none/path/modified/accessed/created), path is the default if no -s"
+        echo "    -n --> not ignore files/dirs in .gitignore"
+        echo "    -S --> smart case"
+        echo "    -c --> context lines of result, default is 0(no context) with -c"
+        echo "    -e --> search emacs init file"
+        echo "    -E --> search errno.h files"
+        echo "    -f --> search fish shell config.fish"
+        echo "    -i --> search i3/config"
+        echo "    -t --> search tmux/tmux.conf"
+        echo "    -v --> search nvim config file"
+        echo "    -g argv --> git grep argv"
+        echo "    -2 --> search ~/Dotfiles.d/todo.org"
+        echo "    -F --> search and open it in vim"
+        return
+    end
 
     set OPT --hidden -g !.git
     set -q _flag_w; and set -a OPT -w
-    set -q _flag_l; and set -a OPT -l
+    set -q _flag_l; and set -a OPT -l --sort=path
     set -q _flag_L; and set -a OPT -L
     # and $_flag_V is the argument for for -V
     set -q _flag_V; and set -a OPT -g !$_flag_V
@@ -2812,7 +2834,9 @@ function rgs -d 'rg sth in -e(init.el)/-E(errno)/-f(config.fish)/-i(i3/config)-t
     else if set -q _flag_2
         set FILE ~/Dotfiles.d/todo.org
     else # without options
-        if not set -q argv[2] # no $argv[2]
+        if not set -q argv[1] # no $argv[1]
+            rgs -h && return
+        else if not set -q argv[2] # no $argv[2]
             set FILE .
         else
             # NOTE: take all but the first argv since it may contain wildcard
