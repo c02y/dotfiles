@@ -1,30 +1,53 @@
-- Guide of Building Developing Environment on Manjaro
+- Guide of Building Developing Environment on Archlinux
 
 * Packages to be installed
 ** non-GUI
-   base base-devel fish tmux git git-delta tig lazygit ranger vim neovim fzf exa dua-cli bat ripgrep fd handlr zoxide 
-   btop paru reflector fastfetch lua python-pip aria2 xsel xclip zip unzip atool
+   base base-devel fish git tmux gitmux-bin git-delta lazygit yazi vim neovim fzf eza dua-cli bat ripgrep fd handlr zoxide
+   btop paru reflector fastfetch lua python-pip aria2 xclip zip unzip atool ouch
 
-   source-highlight mediainfo unarchiver aspell-en libmythes mythes-en ffmpeg ffmpegthumbnailer
-   emacs-git w3m jq moreutils poppler xdot calc scc stylua watchexec
-   proxychains wget transmission-cli yt-dlp shellcheck-static shfmt luarocks cppcheck upx hunspell neomutt npm nodejs 
-   clang gdb cmake bear meson ninja sccache ccls powertop auto-cpufreq
+   source-highlight mediainfo aspell-en libmythes mythes-en ffmpeg ffmpegthumbnailer
+   emacs-git w3m jq moreutils poppler xdot calc scc watchexec
+   proxychains wget transmission-cli yt-dlp shellcheck-static shfmt luarocks cppcheck upx hunspell neomutt npm nodejs
+   clang gdb cmake bear meson ninja sccache ccls powertop auto-cpufreq input-remapper-git
 
    # i3 Window Manager
-   i3-wm i3lock dunst i3status-rust picom feh dunst pavucontrol blueman gnome-icon-theme
-   vimix-cursors polkit-gnome lxappearance-gtk3 qt5ct pcmanfm-gtk3
+   i3-wm i3lock i3status-rust
+   dunst picom-git feh pavucontrol blueman gnome-icon-theme
+   vimix-cursors polkit-gnome lxappearance-gtk3 qt5ct doublecmd-qt5
 
-   # fcitx and dict
+   # qtile
+   qtile-git
+   dunst picom-git feh pavucontrol blueman gnome-icon-theme
+   vimix-cursors polkit-gnome lxappearance-gtk3 qt5ct doublecmd-qt5
+   `pip install dbus-next psutil`
+
+   # hyprland
+   # https://github.com/rharish101/ReGreet
+   # https://fcitx-im.org/wiki/Using_Fcitx_5_on_Wayland
+   hyprland wayland nwg-look waybar rofi-wayland greetd-gtkgreet waybar-module-pacman-updates-git
+   pip install pyprland
+   # KNOWN issues:
+   1. no systray in waybar
+   2. flameshot does not work
+   3. copyq doesn't work mostly
+
+   # fcitx5, rime and dictionaries
    # https://blog.coelacanthus.moe/tech/welcome-to-fcitx5/#arch
-   fcitx5-im fcitx5-chinese-addons fcitx5-pinyin-zhwiki fcitx5-pinyin-moegirl
+   fci5x5-im fcitx5-rime
+   # git clone https://github.com/iDvel/rime-ice/ ~/.local/share/fcitx5/rime
+   # compare default.yaml, double_pinyin_flypy.schema.yaml and merge
+   # or
+   # git clone https://github.com/expoli/rime-config ~/.local/share/fcitx5/rime
+   # compare misc/double_pinyin_flypy.schema.yaml, double_pinyin_flypy.custom.yaml, default.custom.yaml and merge
    # https://wiki.archlinux.org/index.php/WPS_Office_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87)
    # config, make fcitx5 work in programs like alacritty and Calibre
-   # put the following lines into ~/.pam_environment and reboot
+   # put the following lines into ~/.pam_environment and reboot (x11)
    #INPUT_METHOD  DEFAULT=fcitx5
    #GTK_IM_MODULE DEFAULT=fcitx5
    #QT_IM_MODULE  DEFAULT=fcitx5
    #XMODIFIERS    DEFAULT=\@im=fcitx5
    # use `fcitx5-diagnose` to analyzer
+   # wayland: https://fcitx-im.org/wiki/Using_Fcitx_5_on_Wayland
 
    xorg-xhost xdotool xorg-xev xorg-xwininfo xorg-xrandr wmctrl
 
@@ -33,9 +56,10 @@
 
    # install rustc/cargo first
    : rust (`curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh`)
-   # or better to install from archlinux repo since some aur packages depend on rust to be installed, 
+   # or better to install from archlinux repo since some aur packages depend on rust to be installed,
    # after installing from repo, need to manually install the toolchain using `rustup defult stable`
-   : sudo pacman -S rustup && rustup default stable
+   # NOTE to install rust-analyzer since rustup will symbolic /usr/lib/rustup/bin/rust-analyzer to /usr/bin/rustup which will not work
+   : sudo pacman -S rustup rust-analyzer && rustup default stable
    cargo install cargo-edit cargo-audit cargo-outdated cargo-cache cargo-diet cargo-modules cargo-bloat cargo-watch cargo-nextest cargo-update xidlehook
    # clean cargo cache `cargo cache -a`
 
@@ -44,20 +68,17 @@
 
    gdbgui (binary downloaded from github release page, do not install using pip)
 ** GUI
-   alacritty kitty mpv vlc meld imagemagick fuse fuse-exfat exfat-utils file-roller darktable 
-   krita krita-plugin-gmic copyq nomacs kimageformats zathura zathura-pdf-poppler
-   noto-fonts noto-fonts-emoji noto-fonts-cjk font-manager flameshot peek rofi thunderbird 
-   firefox google-chrome audacious easytag
+   alacritty kitty firefox mpv brave-bin audacious meld fuse fuse-exfat exfat-utils file-roller copyq qimgv-git kimageformats qpdfview
+   noto-fonts noto-fonts-emoji noto-fonts-cjk font-manager flameshot peek rofi thunderbird drawio-desktop-bin
 
-   pandoc (depends on a lot of haskell, install pandoc-bin from archlinuxcn) plank
+   # NOTE: after installing noto-fonts-cjk, to fix the default CJK font order choosen by the system
+   # ln -s ~/Dotfiles.d/misc/70-cjk-fonts.conf ~/.config/fontconfig/70-cjk-fonts.conf
 
-   drawio-desktop-bin pycharm-community-edition clion clion-jre goland goland-jre
-   # https://www.exception.site/essay/how-to-free-use-idea-20201
-   # https://zhile.io/2020/11/18/jetbrains-eval-reset-da33a93d.html
+   vlc imagemagick darktable krita krita-plugin-gmic audacious easytag
 
 * Installed using pip
   # pip install ...
-  ipython wheel pynvim rope ropemacs pep8 pylint ptpython pygments pudb codespell gdb-tools colour-valgrind scan-build compiledb gpustat visidata gdbfrontend
+  ipython pip_search wheel pynvim rope ropemacs pep8 pylint ptpython pygments pudb codespell gdb-tools colour-valgrind scan-build compiledb gpustat visidata gdbfrontend yt-dlp
 
 ** for spacemacs
    # change /etc/pip.conf so you can install these packages using in system-wide
@@ -65,7 +86,7 @@
 
    npm install -g prettier import-js eslint typescript typescript-language-server tern lua-fmt prettier-plugin-toml vscode-json-languageserver bash-language-server vim-language-server
 ** for space-vim
-   pip install 'python-language-server[all]'
+   # pip install 'python-language-server[all]'
 
 * Actions to be done for KDE
 ** Disable/uninstall **baloo** (can be replaced by fsearch/angrysearch(GUI) or just locate(CLI))
