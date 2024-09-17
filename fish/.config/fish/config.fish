@@ -2510,7 +2510,7 @@ end
 # abbr x 'exit'
 alias q x
 function x -d 'exit or deactivate in python env'
-    history --merge
+    history save
     if set -q VIRTUAL_ENV # running in python virtual env
         # TODO: since sth. is wrong with the deactivate function in $argv/bin/activate.fish
         deactivate >/dev/null 2>/dev/null
