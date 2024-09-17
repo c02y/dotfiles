@@ -1306,10 +1306,9 @@ function pacs -d 'pacman/paru operations'
         echo "         + -p argv --> check which packages require argv"
         echo "         + argv --> check if argv is owned/provided by a pacakge, otherwise delete it"
         echo "      -u --> update, force refresh database first"
-        echo "         + -l --> download files list from database"
         echo "         + -a --> fix packages-corrupted/keys issue"
+        echo "         + -l --> update db only without updating packages"
         echo "         + -p --> print upgradable packages"
-        echo "         + -d --> downgradable update"
         echo "      -d --> delete/uninstall with dependencies(need argv)"
         echo "      -g --> list all local and remote groups"
         echo "         + argv --> list all packages in argv group"
@@ -1339,13 +1338,13 @@ function pacs -d 'pacman/paru operations'
         echo "         + -a argv --> search argv in only packages(repo+AUR) name part "
         echo "         + --> list all packages in repo"
         echo "         + -a --> list all packages in repo+AUR"
-        echo "      -a --> search all using paru, slow since inlcuding AUR"
+        echo "      -a --> search all using paru+fzf, slow since inlcuding AUR"
         echo "      -k --> check for missing files in packages"
     else if set -q _flag_m # mirror
         set -q _flag_l; and cat /etc/pacman.d/mirrorlist && return
         set -q argv[1]; and set ARGV $argv[1]; or set ARGV China
         not command -sq reflector; and pacs -i reflector
-        sudo reflector --verbose --country $ARGV --latest 8 --sort rate --save /etc/pacman.d/mirrorlist && pacs -ml
+        sudo reflector --verbose --country $ARGV --latest 8 --protocol https --sort rate --save /etc/pacman.d/mirrorlist && pacs -ml
     else if set -q _flag_i # install
         if set -q _flag_p # list pacman log
             set KEYWORDS "--color always -i -e 'installed|reinstalled|removed|upgraded|downgraded|warning'"
@@ -1415,20 +1414,25 @@ function pacs -d 'pacman/paru operations'
                 return
             end
         end
-        # download files list into /var/lib/pacman/sync
-        set -q _flag_l; and paru -Fyy >/dev/null
 
-        # download db into /var/lib/pacman/sync
-        if set -q _flag_d
-            # allow downgrade, needed when switch to old branch like testing->stable or
-            # you seen local xxx is newer than xxx
-            paru -Syuu
-        else if set -q _flag_p # print upgradable packages
-            paru -Qeu
+        # 1. update db only first
+        # download files list into /var/lib/pacman/sync
+        paru -Syy
+
+        if set -q _flag_p # print upgradable packages
+            paru -Qeu && return 0
+        else if set -q _flag_l # update db only
+            return 0
         else
-            # force a full refresh of database and update the sustem
             # must do this after switching branch/mirror
-            paru -Syyu
+            # 2. install keyring first to avoid some keyring issue
+            paru --needed --noconfirm -S archlinux-keyring archlinuxcn-keyring chaotic-keyring
+            # 3. update other packages
+            if set -q argv[1]
+                paru -S $ARGV
+            else
+                paru -Su
+            end
         end
     else if set -q _flag_d # delete/uninstall
         # dry-run first (-p for pacman/paru, no need root permission)
@@ -1514,8 +1518,8 @@ function pacs -d 'pacman/paru operations'
         else # list all packages, no filter
             set -q _flag_a; and paru -Sl; or pacman -Sl
         end
-    else if set -q _flag_a # search all including repo and aur
-        paru $ARGV
+    else if set -q _flag_a # search all including repo and aur using fzf, slow
+        paru -Slq | rg -i $ARGV | sort | fzf --preview-window=right --preview 'paru -Si {1}'
     else if set -q _flag_k # check for missing files in packages
         # use this when you see something like "warning: xxx path/to/xxx (No such file or directory)"
         # or "warning: could not get file information for path/to/xxx", especially python pacakges
