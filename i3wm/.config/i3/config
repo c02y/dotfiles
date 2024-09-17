@@ -227,10 +227,10 @@ mode "$mode_system" {
   bindsym Shift+l $Exec i3-msg exit, mode "default"
   # m is to use only the laptop native builtin monitor, M is to use both laptop and external ones
   bindsym m       $Exec monitors -0, mode "default"
-  bindsym Shift+m $Exec monitors -2, mode "default" 
+  bindsym Shift+m $Exec monitors -2, mode "default"
   bindsym s       $Exec systemctl suspend, mode "default"
   bindsym r       $Exec systemctl reboot, mode "default"
-  bindsym Shift+s $Exec systemctl poweroff mode "default"
+  bindsym Shift+s $Exec systemctl poweroff, mode "default"
   bindsym u $Exec "kitty --hold sh -c 'checkupdates && paru -Syu --noconfirm'", mode "default"
 
   bindsym Escape mode "default"
@@ -263,8 +263,7 @@ bindsym $mod+F12 sticky toggle
 # NOTE: BUG: the window bar is still there when you make un-floating, use binding manually to disable the window bar
 # Gpick has its own resize; mpv has its own larger/smaller size in mpv.conf, otherwize open mpv window according to video size
 for_window [floating class="^(?!Gpick|mpv$)"] resize set 75 ppt 75 ppt, move position center, border normal 0
-# 'Image Lounge' is class name for nomacs, instance name is nomacs
-for_window [class="copyq|fcitx5-config-qt|Alacritty|kitty|Dropdown|flameshot|mpv|Blueman-manager|Image Lounge|File-roller|Gpick"] floating enable
+for_window [class="copyq|fcitx5-config-qt|Alacritty|kitty|Dropdown|flameshot|mpv|Blueman-manager|qimgv|File-roller|Gpick"] floating enable
 # `xprop _NET_WM_WINDOW_TYPE`, dialog: such as open file from menu bar, calibre popup window/dialog
 for_window [window_type="dialog"] resize set 40 ppt 60 ppt, move position center
 # `copyq config hide_main_window_in_task_bar true` in command and restart copyq to make the list window utility
