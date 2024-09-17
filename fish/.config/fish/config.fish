@@ -353,8 +353,18 @@ function lls -d 'ls/eza operations'
     # tree
     if set -q _flag_t
         # $_flag_E is something like 'target|.git' if it contains multiple targets
-        set -q _flag_E; and set OPT2 -I "$_flag_E"; or set OPT2
-        if command -sq exa
+        # use -E to include .git|target|build
+        if set -q _flag_E
+            # https://app.gitter.im/#/room/#fish-shell:matrix.org
+            if not test _flag_E # empty
+                set OPT2 -I ".git|target|build"
+            else
+                set OPT2 -I "$_flag_E"
+            end
+        else
+            set OPT2
+        end
+        if command -sq eza
             # the single '' around $OPT2 because it needs it in command
             eval $CMD $OPT '$OPT2' --tree $ARGV
         else if test -f /usr/bin/tree
