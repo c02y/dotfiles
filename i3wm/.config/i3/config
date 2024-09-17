@@ -67,11 +67,14 @@ $Exec_a xset r rate 200 50
 $Exec_a input-remapper-control --command autoload
 
 # Use pactl to adjust volume in PulseAudio.
-bindsym $mod+Home        $Exec pactl set-sink-volume @DEFAULT_SINK@ +5%
-bindsym $mod+End         $Exec pactl set-sink-volume @DEFAULT_SINK@ -5%
-bindsym $mod+Shift+Home  $Exec toggle_bt_connection.sh
-bindsym $mod+Shift+End   $Exec pactl set-sink-mute @DEFAULT_SINK@ toggle
+bindsym $mod+Home            $Exec pactl set-sink-volume @DEFAULT_SINK@ +5%
+bindsym XF86AudioRaiseVolume $Exec pactl set-sink-volume @DEFAULT_SINK@ +5%
+bindsym $mod+End             $Exec pactl set-sink-volume @DEFAULT_SINK@ -5%
+bindsym XF86AudioLowerVolume $Exec pactl set-sink-volume @DEFAULT_SINK@ -5%
+bindsym $mod+Shift+Home      $Exec toggle_bt_connection.sh
+bindsym $mod+Shift+End       $Exec pactl set-sink-mute @DEFAULT_SINK@ toggle
 bindsym XF86AudioMicMute $Exec pactl set-source-mute @DEFAULT_SOURCE@ toggle
+bindsym XF86AudioMute        $Exec pactl set-sink-mute @DEFAULT_SINK@ toggle
 
 # Use Mouse+floating_modifier to drag floating windows to their wanted position
 floating_modifier $Alt
@@ -198,6 +201,7 @@ bindsym $mod+Shift+grave move container to workspace number $ws4, workspace numb
 # bindsym $mod+Shift+0 move container to workspace number $ws10
 
 bindsym $mod+z       workspace prev
+bindsym $mod+c       workspace next
 bindsym $mod+x       workspace back_and_forth
 bindsym $mod+Shift+z move container to workspace prev, workspace prev
 bindsym $mod+Shift+x move container to workspace back_and_forth, workspace back_and_forth
