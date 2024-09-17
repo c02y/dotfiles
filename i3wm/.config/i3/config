@@ -62,6 +62,10 @@ $Exec_a xset r rate 200 50
 # FIXME: bindsym+Caps_Lock will not work since it is disable in $Exec using setxkbmap
 # bindcode $mod+Shift+66 $Exec xdotool key Caps_Lock
 
+# FIXME: delete it when input-remapper fixes the autoload issue
+# autoload input-remapper preset
+$Exec_a input-remapper-control --command autoload
+
 # Use pactl to adjust volume in PulseAudio.
 bindsym $mod+Home        $Exec pactl set-sink-volume @DEFAULT_SINK@ +5%
 bindsym $mod+End         $Exec pactl set-sink-volume @DEFAULT_SINK@ -5%
