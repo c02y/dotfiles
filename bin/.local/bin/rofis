@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # some of the following scripts are heavily modifed from dtos/dmscripts/dm-xxx
 
-ROFI="rofi -dmenu -theme ~/Dotfiles.d/misc/rofi-theme-solarized_alternate.rasi -theme-str 'window {width: 50%; height: 50%;} configuration {show-icons:false;}' -p"
+ROFI="rofi -dmenu -theme ~/Dotfiles.d/misc/rofi-theme-solarized_alternate.rasi -theme-str 'window {width: 30%; height: 50%;} configuration {show-icons:false;}' -p"
 
 help() {
 	printf 'rofis [options]\n
@@ -36,7 +36,7 @@ edit_configs() {
 	confedit_list[lazygit]="$HOME/.config/lazygit/config.yml"
 	confedit_list[mpv]="$HOME/.config/mpv"
 	confedit_list[picom]="$HOME/.config/i3/picom.conf"
-	confedit_list[ranger]="$HOME/.config/ranger"
+	confedit_list[yazi]="$HOME/.config/yazi"
 	confedit_list[rofi_theme]="$HOME/Dotfiles.d/misc/rofi-theme-solarized_alternate.rasi"
 	confedit_list[rofis]="$HOME/.local/bin/rofis"
 	confedit_list[ssh]="$HOME/.ssh/config"
@@ -78,7 +78,7 @@ dictionary() {
 
 	# FIXME: `-theme ~/Dotfiles.d/misc/trans-theme-matrix.trans` works fine if running it in terminal
 	# it shows a lot ansi code if running it using i3, so add `-no-ansi`
-	kitty trans :zh -d -show-dictionary Y -v -no-ansi "$WORD"
+	kitty trans -s en :zh -d -show-dictionary Y -v -no-ansi "$WORD"
 }
 
 # Original script name: dm-kill
@@ -122,7 +122,7 @@ timer() {
 	help() {
 		printf 'timer [options]\n
     \tStopwatch starts from 0
-    -c\tCountdown in terminal, starts from input s/m/h, default 60s if num is not given
+    -c\tCountdown in terminal, starts from input s/m/h, default 60s if num is not given, or time like 23:02
     -p\tPomodoro
     -C\tCountdown using Rofi
     -s\tStopwatch
@@ -142,38 +142,52 @@ timer() {
 	esac
 
 	countdown_handle_input() {
-		if [ "$1" = "" ]; then # Enter without input
-			unit=s
-			num=60
-		else
-			unit=${1: -1} # get the last char
-			num=${1::-1}  # get all chars before the last one
-		fi
-
-		! [[ $num =~ ^[0-9]+$ ]] && notify-send -u critical "Invalid input, use 10s/10m/1h format" && exit
-		notify-send -u critical "<<============================" "Countdown: $num$unit, start time: $(date +%T)"
-
-		case "$unit" in
-		"s")
-			countdown_time="$num"
-			;;
-		"m")
-			countdown_time="$((num * 60))"
-			;;
-		"h")
-			countdown_time="$((num * 60 * 60))"
+		case "$1" in
+		[01][0-9]:[0-5][0-9] | 2[0-3]:[0-5][0-9])
+			# time format like 01:00 or 23:01
+			start_time=$(date +%T)
+			notify-send "<<===================================" "Started: ${start_time}, notify when ${1} reaches!"
+			while [ "$(date +%s)" -lt "$(date -d $1 +%s)" ]; do
+				sleep 5
+			done
+			notify-send -u critical "<<========================" "Started: ${start_time}, now it is time!" && exit
 			;;
 		*)
-			notify-send -u critical "Invalid input, use 10s/10m/1h format!" && exit
+			# count time format like 10m, 20s, 1h
+			if [ "$1" = "" ]; then # Enter without input
+				unit=s
+				num=60
+			else
+				unit=${1: -1} # get the last char
+				num=${1::-1}  # get all chars before the last one
+			fi
+
+			! [[ $num =~ ^[0-9]+$ ]] && notify-send -u critical "Invalid input, use 10s/10m/1h format" && exit
+			notify-send -u critical "<<============================" "Countdown: $num$unit, start time: $(date +%T)"
+
+			case "$unit" in
+			"s")
+				countdown_time="$num"
+				;;
+			"m")
+				countdown_time="$((num * 60))"
+				;;
+			"h")
+				countdown_time="$((num * 60 * 60))"
+				;;
+			*)
+				notify-send -u critical "Invalid input, use 10s/10m/1h format!" && exit
+				;;
+			esac
+
+			date_end=$(($(date +%s) + countdown_time))
+			while [ "$(date +%s)" -lt "$date_end" ]; do
+				# echo -ne "[$(date -u --date @$((date_end - $(date +%s))) +%T)] \r"
+				sleep 5
+			done
+			notify-send -u critical "<<============================" "Countdown ${num}${unit}, time's up" && exit
 			;;
 		esac
-
-		date_end=$(($(date +%s) + countdown_time))
-		while [ "$date_end" -ge "$(date +%s)" ]; do
-			echo -ne "[$(date -u --date @$((date_end - $(date +%s))) +%T)] \r"
-			sleep 1
-		done
-		notify-send -u critical "<<============================" "Countdown ${num}${unit}, time's up" && exit
 	}
 
 	countdown() {
@@ -187,7 +201,11 @@ timer() {
 			if [ "$pid" != $$ ]; then
 				echo -e "A countdown is runningm kill it first?" | eval "${ROFI}" "EXIST"
 				answer="$(echo -e "Yes\nNo" | eval "${ROFI}" "KILL")"
-				[[ "$answer" == "Yes" ]] && kill "$pid"
+				if [[ "$answer" == "Yes" ]]; then
+					kill "$pid"
+				else
+					exit 0
+				fi
 			fi
 		done
 		input="$(eval "${ROFI}" 'COUNTDOWN')"
@@ -325,8 +343,8 @@ websearch() {
 }
 
 pacman_update() {
-	ROFI="rofi -dmenu -theme ~/Dotfiles.d/misc/rofi-theme-solarized_alternate.rasi -theme-str 'window {width: 40%; height: 35%;} listview {scrollbar:false;} inputbar { enabled: false;}'"
-	answer="$(fakeroot pacman -Qu --dbpath /tmp/checkup-db-chz/ | rg -v 'ignored' | eval "${ROFI}")"
+	ROFI="rofi -dmenu -theme ~/Dotfiles.d/misc/rofi-theme-solarized_alternate.rasi -theme-str 'window {width: 30%; height: 50%;} listview {scrollbar:false;}' -p 'UPDATES'"
+	answer="$(fakeroot pacman -Qu --dbpath /tmp/checkup-db-i3statusrs-$USER | rg -v 'ignored' | eval "${ROFI}")"
 
 	# Enter to update the package in ther list, Escape to quit
 	if [ "$answer" != "" ]; then
@@ -335,7 +353,7 @@ pacman_update() {
 }
 
 windows() {
-	rofi -show window -theme ~/Dotfiles.d/misc/rofi-theme-solarized_alternate.rasi -theme-str 'window {width: 50%; height: 50%;} listview {scrollbar:false;} configuration {sidebar-mode:false;}' -p 'WINDOW'
+	rofi -show window -theme ~/Dotfiles.d/misc/rofi-theme-solarized_alternate.rasi -theme-str 'window {width: 30%; height: 50%;} listview {scrollbar:false;} configuration {sidebar-mode:false;}' -p 'WINDOW'
 }
 
 while getopts "hcdkmMpstuwW" arg 2>/dev/null; do
