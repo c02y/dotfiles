@@ -1,100 +1,163 @@
-# theme = "solarized-dark"
+double_click_delay = 200
+# fix the icon space issue: i3status-rust/issues/1669
+icons_format = "<span font_family='Font Awesome 6 Pro'>{icon}</span>"
 [theme]
-name = "modern"
+theme = "modern"
 [theme.overrides]
-# use the same color($txt_ia) of inactive workspaces(the same as the text in inactive window title)
-idle_fg = "#CFD8DC"
-# use the same color of i3bar background ($bdr_hi)
-idle_bg = "#000000"
+# use txt_ia and hdr_hi from i3/config
+idle_fg = "#FFFFFF"
+idle_bg = "#353535"
 separator = ""
 
 [icons]
-name = "awesome6"
-
-[[block]]
-block = "focused_window"
-max_width = 500
-show_marks = "visible"
-[block.theme_overrides]
-idle_fg = "#2e9ef4"
+icons = "awesome6"
 
 [[block]]
 block = "net"
-format = "{speed_down;K*B}{speed_up;K*B}"
+# format = "$speed_down.eng(1,B,K) $speed_up.eng(1,B,K) "
+format = "$speed_down.eng(prefix:K) $speed_up.eng(prefix:K,w:1) "
 # disable built-in net icons
-icons_format = " "
+# icons_format = " "
 interval = 2
-hide_missing = true
-hide_inactive = true
+# missing_format = ""
 [block.theme_overrides]
-# use txt_ia in i3/config
-idle_fg = "#CFD8DC"
+# use txt_ia from i3/config
+idle_fg = "#FFFFFF"
+[[block.click]]
+button = "double_left"
+cmd = "rofi -show window -theme ~/Dotfiles.d/misc/rofi-theme-solarized_alternate.rasi -theme-str 'window {width: 33%; height: 33%;} listview {scrollbar:false;} configuration {sidebar-mode:false;}' -p 'WINDOW'"
+[[block.click]]
+button = "left"
+cmd = "i3-msg workspace prev"
+[[block.click]]
+button = "right"
+cmd = "i3-msg workspace back_and_forth"
+[[block.click]]
+button = "middle"
+# monitor network speed, notify when network is less than 5MB/s
+cmd = "speed_net -t"
 
 [[block]]
-block = "cpu"
-format = "{utilization:1}"
-# use a long interval value since some process such as
-# fd(in terminal or rofi-files) will increase CPU usage for short time
-interval = 10
-info = 30
-warning = 50
-critical = 90
-on_click = "jumpapp -m -t Btop kitty -T=Btop btop"
-
-[[block]]
-block = "memory"
-display_type = "memory"
-format_mem = "{mem_used:1}"
-format_swap = "{swap_used:1}"
-warning_mem = 90.0
-warning_swap = 50.0
-critical_mem = 100.0
-critical_swap = 80.0
-interval = 5
-
-[[block]]
-block = "disk_space"
-format = "{icon:2}{available:1}"
-path = "/"
-alias = "/"
-info_type = "available"
-unit = "GB"
-interval = 10
-warning = 10.0
-alert = 2.0
-alert_absolute = true
-on_click = "jumpapp -m -t RangerFM kitty -T=RangerFM ranger"
+block = "focused_window"
+# TODO: 20 doesn't work at all
+format = "$title.str(max_w:80) |"
+[block.theme_overrides]
+# use txt_hi from i3/confie_fg = "#2e9ef4"
+idle_fg = "#2e9ef4"
+[[block.click]]
+# toggle layout
+button = "left"
+cmd = "i3-msg layout toggle tabbed split"
+[[block.click]]
+button = "middle"
+# kill the focused window in the focused_window title
+cmd = "sleep 0.1 && i3-msg [id=\"$(xdotool getactivewindow)\"] kill"
+[[block.click]]
+button = "double_left"
+# use mouse to kill a window(not pid)
+# NOTE: the sleep is a must, otherwise mouse-select won't work
+# DO NOT use other method such as `xdotool selectwindow windowclose`, it will close process instead of window, such as "About Mozill Firefox" which might be the sepatated window of firefox
+cmd = "sleep 0.1 && i3-msg [id=\"$(xdotool selectwindow)\"] kill"
+[[block.click]]
+# toggle floating the focused_window
+button = "right"
+cmd = "~/.config/i3/i3-scratchpad -t"
 
 [[block]]
 block = "music"
-buttons = ["prev", "play", "next"]
-dynamic_width = true
-# smart_trim = true
-marquee = false
-max_width = 30
-hide_when_empty = true
+# TODO: number in str is not working
+# TODO: when starting a player, "Failed to render full text" unless reload the bar, clicking show msg
+# format = "$icon $prev $title.str(5)-$artist.str(5) $play $next |"
+format = "{$icon $prev $combo.str(max_w:50) $play $next |}"
 # `busctl --user list | grep "org.mpris.MediaPlayer2." | cut -d' ' -f1` to get current running clients
-interface_name_exclude = [".*chromium*.", ".*edge*.", ".*firefox*.", "vlc"]
+# only display
+player = "audacious"
+# interface_name_exclude = [".*chromium*.", ".*firefox*.", "vlc"]
 [block.theme_overrides]
-# using txt_hi and bgc_df in i3/config
+# using txt_hi and bgc_df from i3/config
 info_fg = "#2E9EF4"
-info_bg = "#000000"
+info_bg = "#353535"
+
+[[block]]
+block = "cpu"
+# format = "$icon $utilization.eng(1) "
+format = "$icon $utilization.eng(w:1) "
+# use a long interval value since some process such as
+# fd(in terminal or rofi-files) will increase CPU usage for short time
+interval = 10
+[block.theme_overrides]
+warning_fg = "#2E9EF4"
+warning_bg = "#353535"
+alert_fg = "#ff0000"
+alert_bg = "#353535"
+
+[[block.click]]
+button = "left"
+cmd = "~/.config/i3/i3-scratchpad -d75%x75% -f kitty -T=Btop btop"
+
+[[block]]
+block = "memory"
+format = "$icon $mem_used_percents.eng(w:1) "
+format_alt = "$icon_swap $swap_used_percents.eng(w:1) "
+warning_mem = 80.0
+critical_mem = 90.0
+warning_swap = 50.0
+critical_swap = 80.0
+interval = 10
+
+[[block]]
+block = "disk_space"
+info_type = "available"
+# format = "$icon $available.eng(1,auto,1i) "
+format = "$icon $available.eng(w:1, prefix:1i) "
+interval = 5
+warning = 10.0
+alert = 2.0
+alert_unit = "GiB"
+[[block.click]]
+button = "left"
+cmd = "~/.config/i3/i3-scratchpad -d75%x75% -f kitty -T=YaziFM yazi"
+# [[block.click]]
+# button = "right"
+# TODO: not work
+# cmd = "df -h | grep '/mnt/LocalDisk' | awk '{print $4}'"
+# cmd = "df -h --output=avail /mnt/LocalDisk/ | grep -v Avail"
+[block.theme_overrides]
+warning_fg = "#2E9EF4"
+warning_bg = "#353535"
+alert_fg = "#ff0000"
+alert_bg = "#353535"
 
 [[block]]
 block = "sound"
-format = "{volume:1}"
-on_click = "pavucontrol"
+format = "$icon $volume "
 max_vol = 150
 show_volume_when_muted = true
+headphones_indicator = true
+[[block.click]]
+# right click is to mute
+button = "left"
+cmd = "pavucontrol"
+[[block.click]]
+# middle click to mute genshinimpact/yuanshen
+button = "middle"
+# the grep part is "grep -Po 'pid:\s*\K\d+'" but need to add \ for cmd part
+cmd = "wpctl set-mute --pid $(wpctl status | rg -i -e 'genshin|yuanshen|elden ring' | grep -Po 'pid:\\s*\\K\\d+') toggle"
 
 [[block]]
 block = "bluetooth"
-format = ""
+format = "$icon"
+disconnected_format = "$icon"
 mac = "60:AB:D2:0F:72:EB"
 [block.theme_overrides]
-# using txt_hi and bgc_df in i3/config
+# using txt_hi and bgc_df from i3/config
 good_fg = "#2E9EF4"
-good_bg = "#000000"
+good_bg = "#353535"
+[[block.click]]
+# default is to toggle on/off
+# but sometimes suddenly no sound, so use right click to connect/reconnect anyway
+button = "right"
+cmd = "toggle_bt_connection.sh"
 
 # [[block]]
 # block = "nvidia_gpu"
@@ -104,10 +167,66 @@ good_bg = "#000000"
 # # show_power_draw = true
 
 [[block]]
+block = "battery"
+# battery for xbox one series game controller
+# NOTE: need upower installed and service started
+# device is in /sys/class/power_supply/
+device = "gip*"
+# device = "nintendo*"
+format = "$icon $percentage"
+missing_format = " "
+driver = "sysfs"
+critical = 10
+# warning = 100
+# good = 100
+[block.theme_overrides]
+good_fg = "#FFFFFF"
+good_bg = "#353535"
+# warning_fg/bg are not working
+warning_fg = "#2E9EF4"
+warning_bg = "#353535"
+# using txt_hi and bgc_df from i3/config
+critical_fg = "#ff0000"
+critical_bg = "#353535"
+
+[[block]]
 block = "time"
-format = "%m/%d %a %H:%M"
-interval = 5
-icons_format = " "
+format = "$timestamp.datetime(f:'%m/%d %a %H:%M')"
+interval = 10
 # [block.format]
 # full = "%m/%d %a %H:%M"
 # short = "%H:%M"
+[[block.click]]
+button = "left"
+cmd = "kitty --hold sh -c 'cal -my'"
+[[block.click]]
+button = "right"
+cmd = "kitty sh -c 'calc'"
+
+[[block]]
+block = "packages"
+package_manager = ["pacman", "aur"]
+# sync db everyday
+interval = 86400
+format = " $icon$pacman.eng(w:1)/$aur.eng(w:1)"
+format_up_to_date = ""
+aur_command = "yaru -Qua"
+[block.theme_overrides]
+# using txt_hi and bgc_df from i3/config
+info_fg = "#2E9EF4"
+info_bg = "#353535"
+[[block.click]]
+button = "left"
+# Enter to update the package in ther list, Escape to quit
+cmd = "rofis -u"
+update = true
+sync = true
+[[block.click]]
+button = "middle"
+cmd = "kitty --hold sh -c 'paru -Syu --noconfirm'"
+update = true
+sync = true
+[[block.click]]
+button = "right"
+# cmd = "kitty fakeroot -- pacman -Sy --dbpath /tmp/checkup-db-i3statusrs --logfile /dev/null"
+update = true
