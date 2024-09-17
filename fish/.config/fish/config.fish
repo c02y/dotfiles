@@ -3057,8 +3057,8 @@ function cars -d "cargo commands"
         if set -q _flag_a # rustup
             rustup update
         else # cargo update all installed crates by `cargo install` with cargo-update crate
-            command -q cargo-update; or eval $CMD install cargo-update
-            eval $CMD cargo-update -a
+            command -q cargo-install-update; or eval $CMD install cargo-update
+            eval $CMD install-update -a
         end
     end
 end
