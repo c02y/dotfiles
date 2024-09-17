@@ -311,7 +311,7 @@ bindsym $mod+m scratchpad show
 # NOTE: 30 and 98% are to make the top margin of Dropdown_Kitty and bottom margin of i3status-bar work well
 bindsym F12 $Exec "~/.config/i3/i3-scratchpad -a -d100%x98% -p0,30 -f -F env GLFW_IM_MODULE=ibus kitty --class=Dropdown --title=Dropdown_Kitty"
 # if $mod+q fails, use $mod+d
-bindsym $mod+d $Exec dmenu_run -l 6 -i -b -p 'CMD' -fn 'Noto Sans Mono 12' -nb '$bgc_df' -nf '$txt_ia' -sf '$txt_hi' -sb '$bgc_df'
+bindsym $mod+d $Exec dmenu_run -l 6 -i -p 'RUN' -fn 'Noto Sans Mono 12' -nb '$bgc_df' -nf '$txt_ia' -sf '$txt_hi' -sb '$bgc_df'
 
 # Merge/swap windows using keys in mode
 set $mode_merge_swap Actions: [Return]mark, [m]erge, [s]wap
@@ -368,23 +368,22 @@ mode "$mode_screenshot" {
   bindsym Escape mode "default"
 }
 
-set $mode_apps Apps: [a]udacious, [c]alculator, [d]unstCloseAll, [D]unstPop, [m]ountUnmount, [M]uteGame, [n]etworkMonitor, [p]cmanfm, [P]avucontrol, [r]ime-deployment, [t]hunderbird, [T]elegram, [v]irtualbox
+set $mode_apps Apps: [a]udacious, [c]alc, double[C]md, [d]unstCloseAll, [D]unstPop, [m]ountUnmount, [M]uteGame, [n]etwork, [p]avucontrol, [r]ime-deploy, rime-[s]ync, [t]hunderbird, [T]elegram, [v]irtualbox
 bindsym $mod+a mode "$mode_apps", $Mode_timeout
 mode "$mode_apps" {
   bindsym a $Exec $open -w $ws4 audacious, mode "default"
   bindsym c $Exec "kitty sh -c 'calc'", mode "default"
+  bindsym Shift+c $Exec $open doublecmd, mode "default"
   bindsym d $Exec dunstctl close-all, mode "default"
   bindsym shift+d $Exec dunstctl history-pop, mode "default"
   bindsym m $Exec kitty bashmount, mode "default"
   bindsym Shift+m $Exec "wpctl set-mute --pid $(wpctl status | rg -i -e 'genshin|yuanshen' | grep -Po 'pid:\s*\K\d+') toggle", mode "default"
   # speed_net -t: check background downloading task whether the speed is lower than 5MB/s or completed
   bindsym n $Exec "speed_net -t", mode "default"
-  bindsym p $Exec $open pcmanfm, mode "default"
-  bindsym Shift+p $Exec pavucontrol, mode "default"
-  bindsym r $Exec fcitx5 -dr, mode "default"
-  bindsym t $Exec $open -w $ws3 thunderbird, mode "default"
-  bindsym Shift+t $Exec $open -w $ws3 telegram-desktop, mode "default"
-  bindsym v $Exec $open -w $ws3 virtualbox, mode "default"
+  bindsym p $Exec pavucontrol, mode "default"
+  # fcitx5-rime commands: https://github.com/fcitx/fcitx5-rime/issues/54#issuecomment-1491312366
+  bindsym r $Exec qdbus org.fcitx.Fcitx5 /controller org.fcitx.Fcitx.Controller1.SetConfig fcitx://config/addon/rime/deploy '', mode "default"
+  bindsym s $Exec qdbus org.fcitx.Fcitx5 /controller org.fcitx.Fcitx.Controller1.SetConfig fcitx://config/addon/rime/sync '', mode "default"
   bindsym t $Exec $open -w $ws4 thunderbird, mode "default"
   bindsym Shift+t $Exec $open -w $ws4 telegram-desktop, mode "default"
   bindsym v $Exec $open -w $ws4 virtualbox, mode "default"
