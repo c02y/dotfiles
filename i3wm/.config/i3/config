@@ -271,6 +271,9 @@ for_window [window_type="utility"] resize set 35 ppt 80 ppt, move right 50ppt
 for_window [class="Gpick"] border normal 0, resize set 50 ppt 50 ppt, move position center
 # "Event Tester" is for `xev` window
 for_window [title="^Event Tester$"] floating enable
+# for doublecmd file manager's windows except for TfrmMain window
+# regex generaged from https://codepal.ai/regex-generator
+for_window [window_role="^Tfrm(?!Main)"] floating enable
 
 # Move the followings windows into specific workspace
 assign [class="Anki"] $ws4
