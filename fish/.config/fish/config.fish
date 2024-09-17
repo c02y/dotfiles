@@ -223,7 +223,7 @@ end
 
 function fsr --description 'Reload your Fish config after configuration'
     source $FISHRC
-    startup
+    # startup
     echo $FISHRC is reloaded!
     vars -c >/dev/null 2>/dev/null
 end
@@ -247,11 +247,6 @@ function utf8 -d 'convert encoding(argv[1]) file(argv[2]) to UTF-8 file'
 end
 # TODO: the following part will make fish print "No protocol specified" error line
 source $HOME/.config/fish/functions/done.fish
-
-# LS_COLORS, color for ls command
-# http://linux-sxs.org/housekeeping/lscolors.html
-# http://www.bigsoft.co.uk/blog/index.php/2008/04/11/configuring-ls_colors
-set -gx LS_COLORS 'ex=01;33:ln=96:*~=90:*.swp=90:*.bak=90:*.o=90:*#=90'
 
 # fix the `^[]0;fish  /home/chz^G` message in shell of Emacs
 if test "$TERM" = dumb
