@@ -83,8 +83,8 @@ function keybutton -d 'show names of keyboard keys and mouse buttons'
     xev -event button -event keyboard | grep -e button -e keycode
 end
 
-abbr rgr ranger
-bind \cd delete-or-ranger # check the BUG part in the function
+abbr d yazi
+bind \cd delete-or-yazi # check the BUG part in the function
 bind \cq lazygit
 bind \cf zz
 # TODO: delete it if fish-shell itself fix it
@@ -263,14 +263,14 @@ if test "$TERM" = dumb
     end
 end
 
-function delete-or-ranger -d 'modified from delete-or-exit, delete one char if in command, execute ranger instead exiting the current terminal otherwise'
+function delete-or-yazi -d 'modified from delete-or-exit, delete one char if in command, execute yazi instead exiting the current terminal otherwise'
     set -l cmd (commandline)
 
     switch "$cmd"
         case ''
-            # BUG: ranger will get stuck on the final step of cw(bulkrename)
+            # TODO: BUG: ranger will get stuck on the final step of cw(bulkrename)
             # it works fine if running ranger without binding in fish
-            ranger
+            yazi
         case '*'
             commandline -f delete-char
     end
@@ -676,8 +676,8 @@ function zz -d "zoxide functions"
     argparse -n zz $options -- $argv
     or return
 
-    if set -q _flag_c # cd into the path using ranger
-        not set -q argv[1]; and ranger; or z (zoxide query -i $argv; or test -d $argv && echo $argv) && ranger
+    if set -q _flag_c # cd into the path using yazi
+        not set -q argv[1]; and yazi; or z (zoxide query -i $argv; or test -d $argv && echo $argv) && yazi
     else if set -q _flag_d # delete the path 
         set -q _flag_a; and set path (zoxide query -i --all); or set path (zoxide query -i -- $argv)
         if test $path
