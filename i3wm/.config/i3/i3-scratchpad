@@ -25,7 +25,7 @@
 
 # For more information, please refer to <http://unlicense.org/>
 #
-# This is the my extended version of https://gitlab.com/aquator/i3-scratchpad
+# This is my extended version of https://gitlab.com/aquator/i3-scratchpad
 # v1.1 - original version: a44fd4ff
 # v1.2 - 1. add -f flag to focus first if the window is opened but unfocused, 2022-07-14
 #        2. fix the bug that it only resizes the window into the specified size
@@ -57,8 +57,15 @@
 #        useful for clicks in i3status-rust bar and Dropdown terminal,
 #        2. add -w to open program in specific workspace
 #        3. change comment about window_state, 2022-08-10
+# v2.2 - 1. fix issue of occasionally opening a new program when it is already running,
+#        by replacing wmctrl with /proc/$pid/status, since wmctrl sometimes fails with
+#        `X Error of failed request:  BadWindow (invalid Window parameter)...` message,
+#        link: github.com/i3/i3/issues/4339
+#        2. remove xdotool/wmctrl/xprop that may fail on some programs/situations, refer above link
+#        3. fix issue when opening a program directly into a workspace,
+#        4. replace some printf with debug, 2022-09-01
 
-VERSION="2.0"
+VERSION="2.2"
 
 print_help() {
 	printf 'Usage: %s [[-a] [-d <size>] [-p <pos>] [-s <screen>] [-f]] [-F] [-t] [-k] [-w <workspace>] [-v] <command>\n' "$script_name"
@@ -112,6 +119,9 @@ show_window_in_position() {
 	if [ -n "$workspace" ]; then
 		i3-msg -q "workspace --no-auto-back-and-forth $workspace"
 	fi
+	if ! test -z "$window_id_in_file"; then
+		window_id=$window_id_in_file
+	fi
 	i3-msg -q -- "[id=\"$window_id\"] focus"
 
 	if [ -n "$float" ]; then
@@ -119,7 +129,7 @@ show_window_in_position() {
 			# debug "The window $window_id is alredy a floting window, now resize and re-position"
 			window_focused_classname="$(xdotool getactivewindow getwindowclassname)"
 			if [ "Dropdown" = "$window_focused_classname" ]; then
-				i3-msg -q -- "[id=\"$window_id\"] border pixel 0; resize set $width px $height px; move position $x_pos px $y_pos px"
+				i3-msg -q -- "[id=\"$window_id\"] border pixel 0; move position $x_pos px $y_pos px; resize set $width px $height px"
 			else
 				i3-msg -q -- "[id=\"$window_id\"] border normal 0"
 				if [ -z "$new_window" ]; then
@@ -143,73 +153,74 @@ show_window_in_position() {
 }
 
 already_running() {
-	local window_id pid window_pid
-	# debug "Checking wid file $wid_file"
+	local window_id_in_file pid_in_file command_in_file
 	if [ -f "$wid_file" ] && [ -r "$wid_file" ]; then
-		read -r window_id pid <"$wid_file"
+		read -r window_id_in_file pid_in_file command_in_file <"$wid_file"
+	else
+		return 1
 	fi
-	if [ -n "$window_id" ]; then
-		# debug "Last window id was $window_id"
-		if [ "$(wmctrl -l | grep -c "^$window_id ")" -gt 0 ]; then
-			# debug "Window still exist"
-			if [ -n "$pid" ]; then
-				window_pid=$(xdotool getwindowpid "$window_id")
-				# debug "Pid of window is $window_pid"
-				if [ "$pid" -ne "$window_pid" ]; then
-					# debug "PID does not match, window id reused?"
-					return 1
-				fi
-				# else
-				# debug "Last pid not found"
-			fi
-
-			window_state=$(xprop -id "$window_id" | sed -n 's/^.*window state: \(.*\)$/\1/p')
-			# debug "Toggle mode on, current window state is $window_state"
-			# NOTE: window_state values: focused or unfocused but opened in current i3 workspace: "Normal"
-			#                            opened in other i3 workspace or in scratchpad: "Withdrawn"
-			# Withdrawn widnows can be focused with `i3-msg -q -- "[id="37748740"] focus"`
-			if [[ "$window_state" != 'Withdrawn' ]]; then
-				# debug "Window $window_id is not withdraw, now focus it or move it to scratchpad"
-				window_focused_id="$(xdotool getactivewindow)"
-				# the printf part is to convert hex to dec
-				if [[ -n "$focus" && "$window_focused_id" != "$(printf "%d" "$window_id")" ]]; then
-					# focus the window only when -F is passed and it is not focused
-					i3-msg -q -- "[id=\"$window_id\"] focus"
-				else
-					i3-msg -q -- "[id=\"$window_id\"] move to scratchpad"
-				fi
-			else
-				# debug "Window $window_id is in scratchpad, call show_window_in_position"
-				show_window_in_position
-			fi
-			return 0
+	command_in_file=$(echo $command_in_file | tr -d '"')
+	# debug "command: $command, command_in_file: $command_in_file, wid_file: $wid_file, window_id: $window_id, window_id_in_file: $window_id_in_file, pid_in_file: $pid_in_file"
+	if [[ -n "$window_id_in_file" && -f "/proc/$pid_in_file/status" && "$command_in_file" == "$command" ]]; then
+		# TODO: debug, issue of toggling one program but another is triggered
+		if test $(grep -l "$window_id_in_file" /run/user/1000/i3-sp* | wc -l) -gt 1; then
+			debug "ERROR: command_in_file: $command_in_file, command: $command, wid_file: $wid_file, window_id_in_file: $window_id_in_file, pid_in_file: $pid_in_file"
+			debug "ERROR: window_id_in_file: $window_id_in_file in two files in /run/user/1000/i3-sp*"
+			return 1
 		fi
+		window_focused_id="$(xdotool getactivewindow)"
+		windows_in_scratchpad=$(i3-msg -t get_tree | jq ".nodes|.[]|.|.nodes|.[]|.nodes|.[]|select(.name==\"__i3_scratch\")|.floating_nodes|.[]|.nodes|.[]|.window")
+		# the printf part is to convert hex to dec
+		# debug "windows_in_scratchpad: $windows_in_scratchpad, window_focused_id: $window_focused_id"
+		if [[ "${windows_in_scratchpad[*]}" == *"$(printf "%d" "$window_id_in_file")"* || -n "$focus" && "$window_focused_id" != "$(printf "%d" "$window_id_in_file")" ]]; then
+			show_window_in_position
+		else
+			i3-msg -q -- "[id=\"$window_id_in_file\"] move to scratchpad"
+		fi
+		return 0
+	else # not already_running
+		# debug "already_running() returns 1(false), window_id: $window_id, pid: $pid, command: $command"
+		rm -f "$wid_file"
+		return 1
 	fi
-	return 1
 }
 
 start_and_save_wid_and_pid() {
 	local window_id pid new_window
 
-	# debug "Launching command: $command"
-	window_id=$(printf '0x%08x\n' "$(i3-msg -q "exec --no-startup-id \"$command\"" && i3-msg -t subscribe '[ "window" ]' | sed -n 's/.*"window":\([0-9]\+\).*/\1/p')")
 	if [ -n "$workspace" ]; then
-		i3-msg -q "move container to workspace $workspace; workspace --no-auto-back-and-forth $workspace"
+		i3-msg -q "workspace --no-auto-back-and-forth $workspace"
 	fi
+	window_id="$(i3-msg -q "exec --no-startup-id \"$command\"" && i3-msg -t subscribe '[ "window" ]' | sed -n 's/.*"window":\([0-9]\+\).*/\1/p')"
 	if [ -z "$window_id" ]; then
-		printf 'Can not find window with id %s\n' "$window_id" >&2
+		debug "Can not find window with id: $window_id, command: $command"
 		rm -f "$wid_file"
 		return 1
 	fi
 
+	# NOTE: xdotool from window_id may fail if running in already_running function from some programs
+	# debug "window_id: $window_id, command: $command"
 	pid="$(xdotool getwindowpid "$window_id")"
 	if [ -z "$pid" ]; then
-		printf 'Can not find pid for window id %s\n' "$window_id" >&2
+		debug "Can not find pid for window id: $window_id"
 		rm -f "$wid_file"
 		return 1
 	fi
-	# debug "New window, window_id: $window_id, pid: $pid, svve info to wid file $wid_file"
-	printf '%s %s\n' "$window_id" "$pid" >"$wid_file"
+
+	# TODO: debug
+	if [ -f "$wid_file" ] && [ -r "$wid_file" ]; then
+		local window_id_in_file pid_in_file command_in_file
+		read -r window_id_in_file pid_in_file command_in_file <"$wid_file"
+		command_in_file=$(echo "$command_in_file" | tr -d '"')
+		if [[ "$command_in_file" != "$command" ]]; then
+			debug "ALERT: command_in_file: $command_in_file != command: $command, wid_file: $wid_file, window_id_in_file: $window_id_in_file, pid_id_in_file: $window_id_in_file"
+			return 1
+		fi
+	fi
+	# debug end
+
+	# debug "New window, window_id: $window_id, pid: $pid, save info to wid file $wid_file"
+	printf '%s %s "%s"\n' "$window_id" "$pid" "$command" >"$wid_file"
 
 	new_window=true
 	show_window_in_position
@@ -274,9 +285,10 @@ parse_aruments() {
 	shift $((OPTIND - 1))
 	command="$*"
 	if [ -z "$command" ]; then
-		printf 'Command argument is missing. See %s -h.\n' "$script_name" >&2
+		debug "Command argument is missing, check -h"
 		exit 1
 	fi
+	# wid_file="$pid_dir/i3-sp-$(md5sum <<<"$command" | cut -f1 -d' ')"
 	wid_file="$pid_dir/i3-sp-$(md5sum <<<"$command" | cut -f1 -d' ')"
 
 	ensure_screen
@@ -285,13 +297,13 @@ parse_aruments() {
 
 main() {
 	local screen_width screen_height offset_x offset_y width height x_pos y_pos \
-		command window_focused_id window_state wid_file pid_dir focus workspace
+		command window_focused_id wid_file pid_dir focus workspace
 
 	pid_dir=${XDG_RUNTIME_DIR:-"/tmp"}
 
 	parse_aruments "$@"
 
-	# already_running return 0 = true, first run return 1
+	# already_running return 0 = true, first-run will return 1
 	if already_running; then
 		exit 0
 	fi
