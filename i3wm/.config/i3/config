@@ -392,22 +392,21 @@ mode "$mode_apps" {
 }
 
 # Autostart applications
-# NOTE: the --experimental-backend for picom is to fix the screen tearing issue
-# https://youtu.be/MfL_JkcEFbE, https://www.reddit.com/r/archlinux/comments/j58isj/
-$Exec_a picom --experimental-backend --config ~/.config/i3/picom.conf
+$Exec_a picom --config ~/.config/i3/picom.conf
 # NOTE: nm-applet and blueman-applet sometimes exit somehow
 # $Exec_a blueman-applet
-# change keyboard repeating rate
-$Exec xset r rate 200 50
 # use `dunstctl history-pop` to get previous notification
 # $Exec_a killall dunst ; dunst -config ~/.config/i3/dunstrc --startup_notification
 $Exec_a dunst -config ~/.config/i3/dunstrc
-$Exec_a monitors
+$Exec_a ~/.config/i3/monitors
 $Exec copyq
 $Exec fcitx5 -d
 # handle authentication prompt window
 $Exec /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 $Exec_a ~/Dotfiles.d/misc/powermanager.sh
+# from https://github.com/foresto/joystickwake
+# TODO: is this still needed when using powermanager.sh?
+# $Exec ~/Dotfiles.d/misc/joystickwake
 # NOTE: reduce jpeg/png file size losslessly using jpegoptim/optipng,
 # then convert it into avif to reduce more file size using convert command from imagemagick
 # original Baboo png wallpapers are from gitlab.manjaro.org/artwork/themes/breath2/-/tree/master/wallpapers
@@ -423,7 +422,7 @@ set $bgc_df #353535
 set $txt_hi #2e9ef4
 set $bdr_hi #353535
 set $txt_ia #FFFFFF
-set $bgc_ug #900000
+set $bgc_ug #ff0000
 
 # Colors for window bar
 # TODO: Don't know what indicator/child_border/placeholder are all about
