@@ -2454,7 +2454,7 @@ function pips -d 'pip related functions, default(install), -i(sudo install), -c(
     or return
 
     # if using proxy in OS
-    test (PXY); and set REPO "-i https://pypi.tuna.tsinghua.edu.cn/simple"; or set REPO
+    test (PXY); and set REPO "--break-system -i https://pypi.tuna.tsinghua.edu.cn/simple"; or set REPO --break-system
 
     if set -q _flag_c
         echo "Outdated packages:"
@@ -2472,14 +2472,14 @@ function pips -d 'pip related functions, default(install), -i(sudo install), -c(
             pip install $REPO -U (pip list --outdated | awk 'NR>2 {print $1}')
         end
     else if set -q _flag_d
-        pip uninstall $argv
+        pip uninstall $argv --break-system
         or sudo pip uninstall $argv
     else if set -q _flag_s
         if set -q _flag_l # check wich pacakge containing $argv file/path
             pip list | tail -n +3 | cut -d" " -f1 | xargs pip show -f | rg -i $argv
         else
             # pip search $argv
-            # if `pip search` fails, then `sudo pip install pip_search` first
+            # if `pip search` fails, then `pip install pip_search` first
             pip_search -s name $argv
         end
     else if set -q _flag_i
