@@ -568,10 +568,8 @@ function cll -d "clear the terminal history buffer and repeat the last command o
 end
 
 function abbrc -d 'clean abbrs in `abbr --show` but not in $FISHRC'
-    set abbr_show "abbr -a -U --"
-
     for abr in (abbr --show)
-        set abr_def (echo $abr | sed "s/$abbr_show//g" | awk '{print $1}')
+        set abr_def (echo $abr | awk '{print $4}')
         # echo abr_def: $abr_def
         set def_file $FISHRC
         set num_line (rg -n "^abbr $abr_def " $def_file | cut -d: -f1)
