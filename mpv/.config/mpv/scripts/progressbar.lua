@@ -317,13 +317,13 @@ bar, allowing the display of seek ranges that have already been encountered.
 demuxer cache ranges that are prior to the current playback point will not be
 shown. This matches the previous behavior.
 ]]
-settings['bar-cache-height-inactive'] = 1.5
+settings['bar-cache-height-inactive'] = 3
 helpText['bar-cache-height-inactive'] = [[Sets the height of the cache bar display when the mouse is not in the active
 zone and there is no request-display active. Useful in combination with bar-
 cache-position to control whether or not the cache bar is occluded by (or
 occludes) the progress bar.
 ]]
-settings['bar-cache-height-active'] = 4
+settings['bar-cache-height-active'] = 8
 helpText['bar-cache-height-active'] = [[Sets the height of the cache bar display when the mouse is in the active zone or
 request-display is active. Useful in combination with bar-cache- position to
 control whether or not the cache bar is occluded by (or occludes) the progress
@@ -338,12 +338,12 @@ settings['bar-foreground-style'] = ''
 helpText['bar-foreground-style'] = [[A string of ASS override tags that get applied only to the progress layer of the
 bar.
 ]]
-settings['bar-cache-style'] = [[\c&H515151&]]
+settings['bar-cache-style'] = [[\c&HFDAFC8&]]
 helpText['bar-cache-style'] = [[A string of ASS override tags that get applied only to the cache layer of the
 bar, particularly the part of the cache bar that is behind the current playback
 position. The default sets only the color.
 ]]
-settings['bar-cache-background-style'] = [[]]
+settings['bar-cache-background-style'] = [[\c&H525252&]]
 helpText['bar-cache-background-style'] = [[A string of ASS override tags that get applied only to the cache layer of the
 bar, particularly the part of the cache bar that is after the current playback
 position. The tags specified here are applied after bar-cache-style and override
@@ -476,6 +476,16 @@ helpText['enable-chapter-markers'] = [[Sets whether or not the progress bar is d
 the way the chapter markers are currently implemented, videos with a large
 number of chapters may slow down the script somewhat, but I have yet to run
 into this being a problem.
+]]
+settings['enable-chapter-seek'] = false
+helpText['enable-chapter-seek'] = [[If enabled and the item being played back has chapters, using the
+`chapter-seek-button` while the progress bar is hovered will seek the video to
+the chapter that is closest to the mouse cursor's position.
+]]
+settings['chapter-seek-button'] = 'MBTN_RIGHT'
+helpText['chapter-seek-button'] = [[The button to register for chapter seeking, if enabled. Since chapter seeking
+is based on the mouse position, this should probably be bound to a mouse button,
+but it doesn't have to be.
 ]]
 settings['chapter-marker-width'] = 2
 helpText['chapter-marker-width'] = [[Controls the width of each chapter marker when the progress bar is inactive.
@@ -706,33 +716,39 @@ do
     if self.dead and (oldX ~= self.x or oldY ~= self.y) then
       self.dead = false
     end
-    if not self.dead and self.clickPending then
+    if not self.dead and self.clickPending ~= false then
+      local button = self.clickPending
       self.clickPending = false
-      return true
+      return button
     end
     return false
   end
-  self.cacheClick = function(self)
+  self.cacheClick = function(self, button)
     if not self.dead then
       self.clickX, self.clickY = scaledPosition(self)
-      self.clickPending = true
+      self.clickPending = button
     else
       self.dead = false
     end
   end
   Mouse = _class_0
 end
-mp.add_key_binding("mouse_btn0", "left-click", function()
-  return Mouse:cacheClick()
+mp.add_key_binding('MBTN_LEFT', 'left-click', function()
+  return Mouse:cacheClick(0)
 end)
+if settings['enable-chapter-seek'] then
+  mp.add_key_binding(settings['chapter-seek-button'], 'chapter-seek-click', function()
+    return Mouse:cacheClick(2)
+  end)
+end
 mp.observe_property('fullscreen', 'bool', function()
   Mouse:update()
   Mouse.dead = true
 end)
-mp.add_forced_key_binding("mouse_leave", "mouse-leave", function()
+mp.add_forced_key_binding('mouse_leave', 'mouse-leave', function()
   Mouse.inWindow = false
 end)
-mp.add_forced_key_binding("mouse_enter", "mouse-enter", function()
+mp.add_forced_key_binding('mouse_enter', 'mouse-enter', function()
   Mouse.inWindow = true
 end)
 local Rect
@@ -820,12 +836,12 @@ do
     removeUIElement = function(self, element)
       return self.elements:remove(element)
     end,
-    clickHandler = function(self)
+    clickHandler = function(self, button)
       if not (self:containsPoint(Mouse.clickX, Mouse.clickY)) then
         return 
       end
       for _, element in ipairs(self.elements) do
-        if element.clickHandler and not element:clickHandler() then
+        if element.clickHandler and element:clickHandler(button) == false then
           break
         end
       end
@@ -850,8 +866,8 @@ do
           element:activate(nowActive)
         end
       end
-      if clickPending then
-        self:clickHandler()
+      if clickPending ~= false then
+        self:clickHandler(clickPending)
       end
       return nowActive
     end
@@ -1418,8 +1434,14 @@ do
       self.line[7] = [[]]
       self.line[8] = self.line[8]:format(settings['bar-foreground-style'])
     end,
-    clickHandler = function(self)
-      return mp.commandv("seek", Mouse.clickX * 100 / Window.w, seekString)
+    clickHandler = function(self, button)
+      if button == 0 then
+        self:seek(Mouse.clickX * 100 / Window.w)
+        return false
+      end
+    end,
+    seek = function(self, percent)
+      return mp.commandv('seek', percent, seekString)
     end,
     resize = function(self)
       _class_0.__parent.__base.resize(self)
@@ -1490,9 +1512,13 @@ do
     reconfigure = function(self)
       _class_0.__parent.__base.reconfigure(self, 'bar-cache-')
       self.line[6] = 100
-      self.line[8] = self.line[8]:format(settings['bar-cache-style']) .. 'm 0 0'
-      self.line[10] = ([[{\p0%s\p1}]]):format(settings['bar-cache-background-style'])
-      self.line[11] = [[]]
+      self.line[9] = ''
+      self.line[10] = '\n'
+      for idx = 1, 9 do
+        self.line[idx + 10] = self.line[idx]
+      end
+      self.line[8] = self.line[8]:format(settings['bar-cache-style'])
+      self.line[18] = self.line[18]:format(settings['bar-cache-background-style'])
       self.fileDuration = mp.get_property_number('duration', nil)
     end,
     resize = function(self)
@@ -1500,11 +1526,16 @@ do
       if self.fileDuration then
         self.coordinateRemap = Window.w / self.fileDuration
       end
-      self.line[9] = [[]]
+      self.line[12] = self.line[2]
+      return self:clobber()
+    end,
+    animate = function(self, value)
+      _class_0.__parent.__base.animate(self, value)
+      self.line[14] = self.line[4]
     end,
     clobber = function(self)
       self.line[9] = ""
-      self.line[11] = ""
+      self.line[19] = ""
     end,
     redraw = function(self)
       _class_0.__parent.__base.redraw(self)
@@ -1546,20 +1577,17 @@ do
               local rect = ('m %g 0 l %g 1 %g 1 %g 0'):format(rangeStart, rangeStart, rangeEnd, rangeEnd)
               table.insert(barDrawing.past, rect)
             elseif rangeStart > progressPosition then
-              rangeStart = rangeStart - progressPosition
-              rangeEnd = rangeEnd - progressPosition
               local rect = ('m %g 0 l %g 1 %g 1 %g 0'):format(rangeStart, rangeStart, rangeEnd, rangeEnd)
               table.insert(barDrawing.future, rect)
             else
-              rangeEnd = rangeEnd - progressPosition
               local rectPast = ('m %g 0 l %g 1 %g 1 %g 0'):format(rangeStart, rangeStart, progressPosition, progressPosition)
-              local rectFuture = ('m %g 0 l %g 1 %g 1 %g 0'):format(0, 0, rangeEnd, rangeEnd)
+              local rectFuture = ('m %g 0 l %g 1 %g 1 %g 0'):format(progressPosition, progressPosition, rangeEnd, rangeEnd)
               table.insert(barDrawing.past, rectPast)
               table.insert(barDrawing.future, rectFuture)
             end
           end
-          self.line[9] = table.concat(barDrawing.past, ' ') .. ('m %g 0'):format(progressPosition)
-          self.line[11] = table.concat(barDrawing.future, ' ')
+          self.line[9] = table.concat(barDrawing.past, ' ')
+          self.line[19] = table.concat(barDrawing.future, ' ')
           self.cacheKey = cacheKey
           self.needsUpdate = true
         else
@@ -1768,6 +1796,32 @@ do
           return _fn_0(_base_1, ...)
         end
       end)())
+    end,
+    clickHandler = function(self, button)
+      if button == 2 then
+        self:seekNearestChapter(Mouse.clickX / Window.w)
+        return false
+      end
+    end,
+    seekNearestChapter = function(self, frac)
+      local chapters = mp.get_property_native('chapter-list', { })
+      if #chapters == 0 then
+        return 
+      end
+      local duration = mp.get_property_number('duration', 0)
+      local time = duration * frac
+      local mindist = duration
+      local minidx = #chapters
+      for idx, chap in ipairs(chapters) do
+        local dist = math.abs(chap.time - time)
+        if dist < mindist then
+          mindist = dist
+          minidx = idx
+        elseif dist > mindist then
+          break
+        end
+      end
+      return mp.set_property_native('chapter', minidx - 1)
     end,
     resize = function(self)
       for i, marker in ipairs(self.markers) do
@@ -2344,6 +2398,7 @@ do
         ['playlist-pos-1'] = mp.get_property_number('playlist-pos-1', 1),
         ['playlist-count'] = mp.get_property_number('playlist-count', 1)
       }
+      self.needsUpdate = true
     end,
     generateTitleString = function(self, quote)
       if quote == nil then

@@ -1,6 +1,10 @@
-utils = require 'mp.utils'
+---Launch a dialog for opening files or URLs (Zenity)
+---@author ObserverOfTime
+---@license 0BSD
 
-MULTIMEDIA = table.concat({
+local utils = require 'mp.utils'
+
+local MULTIMEDIA = table.concat({
     '*.aac',
     '*.avi',
     '*.flac',
@@ -23,7 +27,7 @@ MULTIMEDIA = table.concat({
     '*.wmv',
 }, ' ')
 
-SUBTITLES = table.concat({
+local SUBTITLES = table.concat({
     '*.ass',
     '*.srt',
     '*.ssa',
@@ -31,9 +35,10 @@ SUBTITLES = table.concat({
     '*.txt',
 }, ' ')
 
-ICON = '/usr/share/icons/hicolor/16x16/apps/mpv.png'
+local ICON = '/usr/share/icons/hicolor/16x16/apps/mpv.png'
 
-function table.merge(...)
+---@vararg table
+local function merge(...)
     local ret = {}
     for _, t in pairs({...}) do
         for _, v in pairs(t) do
@@ -43,7 +48,16 @@ function table.merge(...)
     return ret
 end
 
-function Zenity(opts)
+---@class ZOpts
+---@field title string
+---@field text string[]
+---@field default? string[]
+---@field type? string[]
+---@field args string[]
+
+---@param opts ZOpts
+---@return fun()
+local function Zenity(opts)
     return function()
         local path = mp.get_property('path')
         path = path == nil and {} or {
@@ -57,7 +71,7 @@ function Zenity(opts)
         }.stdout:gsub('\n$', '')
         mp.set_property_native('ontop', false)
         local zenity = utils.subprocess {
-            args = table.merge({
+            args = merge({
                 'zenity', '--modal',
                 '--title', opts.title,
                 '--attach', focus,
@@ -80,8 +94,7 @@ end
 mp.add_key_binding('Ctrl+f', 'open-files', Zenity {
     title = 'Select Files',
     text = {'--file-filter', 'Multimedia Files | '..MULTIMEDIA},
-	  -- NOTE: modified part, replace append-play with replace
-    args = {'loadfile', 'replace'},
+    args = {'loadfile', 'append-play'},
 })
 mp.add_key_binding('Ctrl+F', 'open-url', Zenity {
     title = 'Open URL',
