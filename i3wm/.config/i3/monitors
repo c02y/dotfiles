@@ -125,14 +125,19 @@ function monitors_list() {
 # it is specified for one environment with exact monitors IDs from xrandr
 # FIXME: no solution to find out in bash script which one is the laptop's builtin native monitor
 function monitors_specify() {
-	monitor_external0="DP-0"
+	# nvidia from xrandr
+	monitor_external0="DP-1"
 	monitor_laptop="DP-2"
+	# nvk
+	# monitor_external0="DP-1"
+	# monitor_laptop="eDP-1"
 	laptop_2_external0="--right-of"
 
 	if ! xrandr | grep -q "$monitor_external0 connected"; then
 		xrandr --output "$monitor_laptop" --auto --primary
 		return
 	fi
+
 	monitors_on_list=$(xrandr | grep -E " connected (primary )?[1-9]+" | sed -e "s/\([A-Z0-9]\+\) connected.*/\1/")
 	case "$1" in
 	"0")
