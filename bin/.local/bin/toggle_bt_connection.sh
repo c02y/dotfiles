@@ -6,9 +6,10 @@
 # Simple version to restart one specific mac of device
 function restart_one() {
 	device="60:AB:D2:0F:72:EB"
-	if bluetoothctl info "$device" | grep 'Connected: yes' -q; then
-		bluetoothctl disconnect "$device"
-	fi
+	# if bluetoothctl info "$device" | grep 'Connected: yes' -q; then
+	bluetoothctl disconnect "$device"
+	# fi
+	sleep 2
 	timeout 0.1s bluetoothctl connect "$device"
 }
 
