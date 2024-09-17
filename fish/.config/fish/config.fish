@@ -50,20 +50,22 @@ function startup -d "execute it manually only inside fsr fucntion since it is sl
     end
 end
 
-function set_keyboard --on-event fish_preexec
-    if test $DISPLAY
-        # change keyboard auto repeat, this improves keyboard experience, such as the scroll in Emacs
-        # Check default value and result using `xset -q`
-        # 200=auto repeat delay, given in milliseconds
-        # 50=repeat rate, is the number of repeats per second
-        # or uncomment the following part and use System Preference
-        if command -sq uname; and test (uname) = Linux
-            if test (xset -q | rg "repeat rate: " | awk '{print $NF}') -ne 50
-                xset r rate 200 50
-            end
-        end
-    end
-end
+# # function set_keyboard --on-event fish_preexec
+# if test $DISPLAY
+#     # change keyboard auto repeat, this improves keyboard experience, such as the scroll in Emacs
+#     # Check default value and result using `xset -q`
+#     # 200=auto repeat delay, given in milliseconds
+#     # 50=repeat rate, is the number of repeats per second
+#     # or uncomment the following part and use System Preference
+#     if command -sq uname; and test (uname) = Linux
+#         if test "$XDG_SESSION_TYPE" = x11
+#             if test (xset -q | rg "repeat rate: " | awk '{print $NF}') -ne 50
+#                 xset r rate 200 50
+#             end
+#         end
+#     end
+# end
+# # end
 
 set -gx FISHRC (readlink -f ~/.config/fish/config.fish)
 test -f ~/.spacemacs.d/init.el; and set -gx EMACS_EL (readlink -f ~/.spacemacs.d/init.el); or set -gx EMACS_EL ~/.spacemacs
