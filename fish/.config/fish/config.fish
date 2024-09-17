@@ -118,14 +118,10 @@ set -g fish_color_search_match --background=blue
 abbr fishtmp "sh -c 'env HOME=\$(mktemp -d) fish'"
 
 # This will save history before create new fish instance(such as tmux pane)
-# Remove h in fish_prompt function to be executed in every new fish_prompt
-# which will break the command order in current instance when using UP/DOWN
-# function hisave --on-event fish_preexec
-function h --on-process-exit %self
-    history --merge
-end
-function save_history --on-event fish_preexec
-    history --save
+# https://www.reddit.com/r/fishshell/comments/104cypt/comment/j38bypl
+function sync_history --on-event fish_preexec
+    history merge
+    history save
 end
 
 # fish_preexec is better than fish_prompt since it is executed before head, but empty key like Return doesn't work
