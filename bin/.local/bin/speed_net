@@ -19,24 +19,26 @@ while true; do
 
 	case $1 in
 	"-t")
-		if [ "$RXDIF" -lt $((500 * 1024)) ]; then
-			((count_quit++))
-			if [ "$count_quit" -gt 3 ]; then
-				notify-send -u critical "NOTE: Downloading task may be completed, exit!"
-				exit
-			fi
-		elif [ "$RXDIF" -lt $((5 * 1024 * 1024)) ]; then
-			count_quit=0
-			((count_less++))
-			if [ "$count_less" -gt 3 ]; then
-				notify-send -u critical "NOTE: Network speed becomes lower than 5 MB/s"
+		while true; do
+			if [ "$RXDIF" -lt $((500 * 1024)) ]; then
+				((count_quit++))
+				if [ "$count_quit" -gt 3 ]; then
+					notify-send -u critical "NOTE: Downloading task may be completed!"
+					exit
+				fi
+			elif [ "$RXDIF" -lt $((5 * 1024 * 1024)) ]; then
+				count_quit=0
+				((count_less++))
+				if [ "$count_less" -gt 3 ]; then
+					notify-send -u critical "NOTE: Network speed becomes lower than 5 MB/s"
+					count_less=0
+				fi
+			else
+				count_quit=0
 				count_less=0
 			fi
-		else
-			count_quit=0
-			count_less=0
-		fi
-		sleep 10
+			sleep 10
+		done
 		;;
 	*)
 		if [ "$RXDIF" -lt $((10 * 1024)) ]; then
