@@ -2607,10 +2607,11 @@ function ios -d 'disk/network/OS related'
             speed_net -t
         else if set -q _flag_a
             while true
-                wget -q --show-progress -T 5 -O /dev/null https://downpack.baidu.com/Baidunetdisk_AndroidPhone_1026962m.apk
+                # wget -q --show-progress -T 5 -O /dev/null https://downpack.baidu.com/Baidunetdisk_AndroidPhone_1026962m.apk
+                wget -q --show-progress -T 5 -O /dev/null https://mirrors.jcut.edu.cn/archlinux/iso/latest/archlinux-x86_64.iso
             end
         else
-            wget -q --show-progress -T 5 -O /dev/null https://downpack.baidu.com/Baidunetdisk_AndroidPhone_1026962m.apk
+            wget -q --show-progress -T 5 -O /dev/null https://mirrors.jcut.edu.cn/archlinux/iso/latest/archlinux-x86_64.iso
         end
     else if set -q _flag_a # all current speed
         dstat -d -n -m -s -c --nocolor
