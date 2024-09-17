@@ -586,14 +586,13 @@ function fu -d 'fu command and prompt to ask to open it or not'
     # $argv could be builtin keyword, function, alias, file(bin/script) in $PATH, abbr
     # And they all could be defined in script or temporally (could be found in any file)
     set found 0
-    set abbr_show "abbr -a -U --"
+    set abbr_show "abbr -a --"
 
     # Case1: abbr
     if abbr --show | rg "$abbr_show $argv " 2>/dev/null # Space to avoid the extra abbr starting with $ARGV
         set found 1
         set result (abbr --show | rg "$abbr_show $argv ")
     end
-
     # Case2: alias or function, or executable file
     if type $argv 2>/dev/null # omit the result once error(abbr or not-a-thing) returned, $status = 0
         if test $found = 1 -a (echo (rg -e "^alias $argv |^function $argv |^function $argv\$" $FISHRC))
@@ -644,7 +643,7 @@ function fu -d 'fu command and prompt to ask to open it or not'
                 return
             end
         else # Case1, only handle abbr defined in $FISHRC
-            # abbrc
+            abbrc
             set num_line (rg -n -e "^abbr $argv " $FISHRC | cut -d: -f1)
             not test "$num_line"; and return; or set def_file $FISHRC
         end
