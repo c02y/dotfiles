@@ -2651,7 +2651,7 @@ function pxs -d 'multiple commands using proxychains4'
     end
 end
 
-alias dic 'trans :zh -d -show-dictionary Y -v -theme ~/Dotfiles.d/misc/trans-theme-matrix.trans'
+alias dic 'trans -s en :zh -d -show-dictionary Y -v -theme ~/Dotfiles.d/misc/trans-theme-matrix.trans'
 
 # count chars of lines of a file
 # awk '{ print length }' | sort -n | uniq -c
@@ -2693,7 +2693,7 @@ function yous -d 'yt-dlp functions'
 end
 
 function ffms -d 'ffmpeg related functions'
-    set -l options c "f=" i "s=" "b=" "S="
+    set -l options c "f=" i "s=" "b=?" "S="
     argparse -n ffms $options -- $argv
     or return
 
@@ -2724,8 +2724,8 @@ function ffms -d 'ffmpeg related functions'
             else
                 echo (math -s 0 $(ffprobe -i $videofile -show_entries format=bit_rate -of default=noprint_wrappers=1 -v quiet -of csv="p=0") / 1000) kb/s
                 read -p 'echo "What BitRate would be? (2000k) "' bitrate
-                test "$bitrate" = " " -o "$bitrate" = ""; and set bitrate 2000k
             end
+            test "$bitrate" = " " -o "$bitrate" = ""; and set bitrate 2000k
             if set -q _flag_s
                 ffmpeg -hide_banner $CUT -i $videofile -c:v hevc_nvenc -c:a copy -b:v $bitrate {$FILE}-cut-{$bitrate}.{$EXT}
             else
@@ -2764,8 +2764,10 @@ function ffms -d 'ffmpeg related functions'
         test -f $argv[1].bmp; and open $argv[1].bmp; or echo "==Error!=="
     else if set -q _flag_i # info
         for file in $argv
+            # the name after -show_entries are listed in `ffprobe -show_entries stream/format videofile`
             # NOTE: bit_rate in stream(video+audio separated) and format(whole video) are different for video file
             # this part is useful for video, audio, image, NOTE: no lossless-or-not info for audio like mediainfo
+            # NOTE: it may not work for mkv videos
             echo -e $file $(eza -lb $file | awk '{print $2}')\n$(ffprobe -v error -show_entries stream=codec_name,width,height,sample_rate,bit_rate -show_entries format=duration,bit_rate -of default=noprint_wrappers=1 -sexagesimal $file | xargs | sed -e 's/ /, /g')
             echo
         end
