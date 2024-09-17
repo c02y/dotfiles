@@ -9,6 +9,9 @@
 #
 # Please see https://i3wm.org/docs/userguide.html for a complete reference!
 
+# NOTE: if i3 is unable to use ~/.local/bin/*, put `export PATH="$HOME/.local/bin:$PATH"` in ~/.profile
+# NOTE: ~/.profile is not parsed by i3-wm anymore, add the path in /etc/profile
+
 # Mod4 = L_Super
 set $mod Mod4
 set $Alt Mod1
@@ -51,7 +54,10 @@ font pango:Noto Sans Mono 12
 
 # disable Caps_Lock by default, re-enable it using `setxkbmap -option`
 # do not use `xdotool key Caps_Lock` in $Exec line, it won't work properly
-$Exec_a setxkbmap -option caps:none
+# $Exec_a setxkbmap -option; setxkbmap -option caps:none
+bindsym Caps_Lock $Exec dunstify "Caps Lock is pressed!"
+# change keyboard repeating rate, `xset -q | rg "auto repeat delay"` to check the value
+$Exec_a xset r rate 200 50
 # toggle Caps_Lock (always uppercase or always lowercase) using Alt+Caps_Lock
 # FIXME: bindsym+Caps_Lock will not work since it is disable in $Exec using setxkbmap
 # bindcode $mod+Shift+66 $Exec xdotool key Caps_Lock
