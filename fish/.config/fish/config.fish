@@ -1119,9 +1119,11 @@ function tars -d 'tar extract(x)/list(l, by default)/create(c, add extra arg to 
             zips.py -l $ARGV
         else if set -q _flag_x
             if set -q _flag_o # extract contents into $argv[2] directory, no new dir
-                command -sq file-roller; and file-roller -h $ARGV -e $argv[2]; or unzip $ARGV -d $argv[2]
+                # command -sq file-roller; and file-roller -h $ARGV -e $argv[2]; or unzip $ARGV -d $argv[2]
+                command -sq ouch; and ouch d $ARGV -d $argv[2]; or file-roller -h $ARGV -e $argv[2]
             else
-                command -sq file-roller; and file-roller -h $ARGV; or unzip $ARGV -d $FILE
+                # command -sq file-roller; and file-roller -h $ARGV; or unzip $ARGV -d $FILE
+                command -sq ouch; and ouch d $ARGV; or file-roller -h $ARGV
             end
             return
         else if set -q _flag_X # extract Chinese characters
