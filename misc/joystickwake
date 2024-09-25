@@ -1,0 +1,668 @@
+#!/usr/bin/env python3
+"""
+A joystick-aware screen waker.
+
+"""
+
+__version__ = '0.4.1'
+__version_info__ = tuple(int(n) for n in __version__.split('.'))
+
+
+import argparse
+import asyncio
+from collections import namedtuple
+import configparser
+import contextlib
+import ctypes
+import errno
+import functools
+import io
+import itertools
+import logging
+import os
+import os.path
+import re
+import signal
+import sys
+import time
+
+try:
+    import dbus_next
+    import dbus_next.aio
+except ImportError:
+    pass
+import pyudev
+try:
+    import Xlib.display
+    import Xlib.error
+except ImportError:
+    pass
+
+
+PROGRAM_NAME = os.path.basename(sys.argv[0])
+WAKE_REASON = "Active joystick"
+
+
+# ======================================================================
+
+
+class Waker:
+    """Base class for screen wakers.
+
+    Subclasses are expected to implement the wake() method, and set self.failed
+    if wake() fails, so calling code will know to skip it next time.
+
+    The wake() method will be called periodically, like a heartbeat, when user
+    activity is detected.  It should relay this heartbeat to the screen blanker
+    using whatever means it can, such as running a command line tool or sending
+    a dbus message.
+    """
+    #pylint:disable=too-few-public-methods
+
+    def __init__(self):
+        """Initialize the screen waker.
+        """
+        self.failed = False  # Subclasses must set this to True if they fail.
+        self._log = logging.getLogger('waker')
+
+    async def wake(self):
+        """Wake the screen. Set self.failed on failure."""
+        raise NotImplementedError
+
+
+class ExecWaker(Waker):
+    """A subprocess-based screen waker.
+    """
+    def __init__(self, *args, shellcmd=None, regex=None, name=None):
+        """Initialize the screen waker.
+
+        :param args:        A sequence of program agruments for passing to
+                            asyncio.create_subprocess_exec().
+        :param shellcmd:    A command line string for passing to
+                            asyncio.create_subprocess_shell().
+                            This can be used instead of `args`.
+        :param regex:       A regular expression indicating a failure when
+                            it matches a command's stderr output.
+                            (Mainly for xset, which has no useful exit status.)
+        :param name:        A name for this waker.
+        """
+        super().__init__()
+
+        if args and shellcmd:
+            raise ValueError("Both args and shellcmd were specified.")
+        if not (args or shellcmd):
+            raise ValueError("Neither args nor shellcmd were specified.")
+
+        self._args = args
+        self._shellcmd = shellcmd
+        self._errexpr = re.compile(regex) if regex else None
+        self._name = name
+        if not self._name:
+            self._name = args[0] if args else shellcmd.split()[0]
+
+        # A command that starts but exits with an error might mean that the
+        # screensaver simply isn't running yet, so we retry a few times.
+        self._softfailcount = 0
+
+    async def wake(self):
+        """Wake the screen by running a program.
+        """
+        self._log.debug("%s executing: %s", self,
+            ' '.join(self._args) if self._args else self._shellcmd)
+
+        try:
+            if self._args:
+                #pylint:disable=no-value-for-parameter
+                process = await asyncio.create_subprocess_exec(
+                    *self._args,
+                    stdin=asyncio.subprocess.DEVNULL,
+                    stdout=asyncio.subprocess.PIPE,
+                    stderr=asyncio.subprocess.PIPE)
+            else:
+                process = await asyncio.create_subprocess_shell(
+                    self._shellcmd,
+                    stdin=asyncio.subprocess.DEVNULL,
+                    stdout=asyncio.subprocess.PIPE,
+                    stderr=asyncio.subprocess.PIPE)
+        except OSError as error:
+            self.failed = True
+            self._log.info("%s is unavailable: %s", self, error)
+            return
+
+        outbytes, errbytes = await process.communicate()
+
+        if self._log.getEffectiveLevel() <= logging.DEBUG:
+            sys.stdout.buffer.write(outbytes)
+            sys.stdout.buffer.flush()  # stdout is block-buffered
+            sys.stderr.buffer.write(errbytes)
+        errtext = errbytes.decode('utf-8')
+        errmatch = errtext and self._errexpr and self._errexpr.search(errtext)
+
+        if process.returncode:
+            reason = "exit status {}".format(process.returncode)
+        elif errmatch:
+            reason = "stderr contained {!r}".format(errmatch[0])
+        else:
+            self._log.debug("%s reported success", self)
+            self._softfailcount = 0
+            return
+
+        self._softfailcount += 1
+        if self._softfailcount < 3:
+            self._log.info("%s failed (try %s): %s",
+                self, self._softfailcount, reason)
+            return
+
+        self.failed = True
+        self._log.info("%s failed (try %s; giving up): %s",
+            self, self._softfailcount, reason)
+
+    def __str__(self):
+        """Return a string that identifies this waker.
+        """
+        return self._name + " waker"
+
+
+class DBusWaker(ExecWaker):
+    """A wrapper class to simplify building dbus-send command lines.
+    """
+    #pylint:disable=too-few-public-methods
+
+    def __init__(self, target, *args, desktop=None, name=None):
+        """Initialize the screen waker.
+
+        :param target:      A dot-separated dbus interface & method name.
+                            (The service name and object path will be derived
+                            from the interface name.)
+        :param args:        A sequence of dbus method agruments.
+        :param desktop:     Name of a desktop environment to require, or None.
+                            This waker will automatically fail unless this is
+                            in the XDG_CURRENT_DESKTOP environment variable.
+                            Useful for managing behavior differences between
+                            different desktops' dbus service implementations.
+        :param name:        A name for this waker.
+        """
+        def encode(arg):
+            if arg is True:
+                return 'boolean:true'
+            if arg is False:
+                return 'boolean:false'
+            return 'string:' + arg
+
+        # service name, object path, interface, method, args
+        interface, _, _ = target.rpartition('.')
+        path = '/' + interface.replace('.', '/')
+        service = interface
+        args = [encode(a) for a in args]
+
+        command = [
+            'dbus-send',
+            '--type=method_call',
+            '--print-reply',  # this option is required for useful exit status
+            '--dest=' + service,
+            path,
+            target] + args
+
+        super().__init__(*command, name=name)
+
+        # Determine whether we are in the required desktop environment, but
+        # don't log it yet, since logging has not yet been configured
+        desktops = set(os.environ.get('XDG_CURRENT_DESKTOP', '').split(':'))
+        if desktop and desktop not in desktops:
+            self._nodesktop = desktop
+        else:
+            self._nodesktop = None
+
+    async def wake(self):
+        # automatically fail if outside the required desktop environment
+        if self._nodesktop:
+            self.failed = True
+            self._log.info("%s is unavailable: requires %s desktop",
+                self, self._nodesktop)
+            return
+
+        await super().wake()
+
+
+class IdleInhibitor(Waker):
+    """A client for the freedesktop.org Idle Inhibition Service.
+    https://specifications.freedesktop.org/idle-inhibit-spec/latest/re01.html
+    Launches a long-running task to communicate with that service,
+    and exposes a heartbeat-style control interface.
+    """
+    def __init__(self, cooldown):
+        """Initialize the screen waker.
+        """
+        super().__init__()
+        self.cooldown = cooldown    # hint for calculating inhibition hold time
+        self._timeout = 10          # dbus call timeout, in seconds
+        self._ping = None           # worker wake-up Event
+        self._worker = None         # task reference to let worker run forever
+
+    async def wake(self):
+        """Wake the screen by pinging our worker loop.
+        """
+        if not self._worker:
+            self._log.debug("%s starting worker", self)
+            self._ping = asyncio.Event()
+            self._worker = asyncio.ensure_future(self._work())
+
+        self._ping.set()
+
+    async def _work(self):
+        """Respond to pings by holding an Idle Inhibition Service session.
+        """
+        # Our inhibition hold time should be longer than the wake cooldown,
+        # but not so long as to unreasonably delay the screen blanker.
+        # (KDE and GNOME restart their idle timers after we stop inhibiting.)
+        holdtime = self.cooldown * 2
+        busname = 'org.freedesktop.ScreenSaver'
+        buspath = '/org/freedesktop/ScreenSaver'
+        ifacename = busname
+        quickly = functools.partial(asyncio.wait_for, timeout=self._timeout)
+
+        try:
+            self._log.debug("%s connecting to the session bus", self)
+            bus = await quickly(dbus_next.aio.MessageBus().connect())
+            introspection = await quickly(bus.introspect(busname, buspath))
+            proxy = bus.get_proxy_object(busname, buspath, introspection)
+            iface = proxy.get_interface(ifacename)
+            self._log.debug("%s riding the bus as %s", self, bus.unique_name)
+
+            cookie = None
+            while True:
+                try:
+                    await asyncio.wait_for(self._ping.wait(),
+                        timeout=None if cookie is None else holdtime)
+                    self._ping.clear()
+
+                except asyncio.TimeoutError:
+                    self._log.debug("%s releasing inhibition", self)
+                    await quickly(iface.call_un_inhibit(cookie))
+                    cookie = None
+                    self._log.debug("%s standing by", self)
+
+                else:
+                    if cookie is None:
+                        self._log.debug("%s requesting inhibition", self)
+                        cookie = await quickly(
+                            iface.call_inhibit(PROGRAM_NAME, WAKE_REASON))
+                    self._log.debug("%s inhibiting for %ds", self, holdtime)
+
+        except NameError:
+            self._log.info("%s is unavailable: needs python3-dbus-next", self)
+        except (
+            dbus_next.DBusError,
+            dbus_next.InterfaceNotFoundError,
+            ) as err:
+            self._log.info("%s is unavailable: %s", self, err)
+        except asyncio.TimeoutError:
+            self._log.warning("%s failed: dbus call timed out", self)
+        except Exception as err:  #pylint:disable=broad-except
+            self._log.info("%s failed: %s", self, repr(err))
+
+        self.failed = True
+
+    def __str__(self):
+        """Return a string that identifies this waker.
+        """
+        return "Idle Inhibitor"
+
+
+# ======================================================================
+
+
+class JoystickWatcher:
+    """A joystick activity monitor.
+    """
+    #pylint:disable=too-few-public-methods
+    #pylint:disable=too-many-instance-attributes
+
+    def __init__(self, wakers=(), cooldown=10, useevdev=False):
+        """Initialize internal data.
+
+        :param wakers:      An iterable of Waker instances to call when joystick
+                            activity is detected.
+        :param cooldown:    Minimum number of seconds between calling wakers.
+        :param useevdev:    True to prefer /dev/input/event* over /dev/input/js*
+                            when a joystick has both.
+                            (The latter is the older joystick device interface.
+                            It is less chatty than evdev, making it the better
+                            choice for minimal I/O processing.)
+
+        Monitoring will begin when start() is called and the event loop runs.
+        """
+        self._wakers = list(wakers)
+        self._waking = None # a Task reference to let wake routines complete
+        self._cooldown = cooldown
+        self._last_wake = 0  # time when we last woke the screen
+        self._best_devname_prefix = 'event' if useevdev else 'js'
+        self._log = logging.getLogger('watcher')
+
+        # The evdev & joydev nodes for the same joystick will share a parent,
+        # so mapping devices by their parent lets us avoid watching both.
+        self._devinfo_by_parent = {}  # device parent -> (name, file descriptor)
+        self._context = pyudev.Context()
+        self._monitor = pyudev.Monitor.from_netlink(self._context)
+        self._monitor.filter_by(subsystem='input')
+
+    async def start(self):
+        """Find existing joysticks and add device monitors to the event loop.
+        """
+        if not self._wakers:
+            self._log.error("exiting because no wakers are configured")
+            sys.exit(1)
+        self._watch_known_joysticks()
+        self._monitor.start()
+        asyncio.get_event_loop().add_reader(
+            self._monitor.fileno(), self._poll_udev)
+
+    def _watch_known_joysticks(self):
+        """Start watching known joystick devices for activity.
+        """
+        for device in self._context.list_devices(subsystem='input',
+            ID_INPUT_JOYSTICK=True):
+            self._watch_device(device)
+
+    def _poll_udev(self):
+        """Poll udev for an event, and handle it.
+        This is called when the udev monitor's file descriptor becomes readable.
+        """
+        device = self._monitor.poll()
+        if device.action == 'add':
+            self._watch_device(device)
+        elif device.action == 'remove':
+            self._forget_device(device)
+
+    @staticmethod
+    def _is_joystick(device):
+        """Return True if a udev device represents a joystick.
+        """
+        return bool(device.get('ID_INPUT_JOYSTICK') and device.device_node)
+
+    @staticmethod
+    def _get_device_description(device):
+        """Return a human-readable description of a udev device.
+        """
+        props = device.properties
+        try:
+            desc = '{} {}'.format(props['ID_VENDOR'], props['ID_MODEL'])
+        except KeyError:
+            desc = device.get('NAME') or device.parent.get('NAME') or '""'
+
+        # Extra info, in case of multiple devices or missing vendor/description
+        extra = []
+        try:
+            extra.append(props['ID_BUS'])
+        except KeyError:
+            pass
+        try:
+            if device.device_path.split('/')[2] == 'virtual':
+                extra.append('virtual')
+        except KeyError:
+            pass
+
+        if extra:
+            desc += ' ({})'.format(' '.join(extra))
+        return desc
+
+    def _watch_device(self, device):
+        """Start watching a udev device for activity, if it is a joystick.
+        """
+        if not self._is_joystick(device):
+            return
+
+        # If the device is no more useful than one we already watch, skip it.
+        olddevinfo = self._devinfo_by_parent.get(device.parent)
+        if olddevinfo:
+            if (olddevinfo.name.startswith(self._best_devname_prefix)
+                or not device.sys_name.startswith(self._best_devname_prefix)):
+                return
+
+        # Open the device
+        try:
+            newdevinfo = namedtuple('DevInfo', 'name fd')(name=device.sys_name,
+                fd=os.open(device.device_node, os.O_RDONLY | os.O_NONBLOCK))
+        except PermissionError:
+            self._log.error("permission denied on open %s", device.device_node)
+            return
+
+        # Now that we're sure we can use the device, close any old one.
+        if olddevinfo:
+            asyncio.get_event_loop().remove_reader(olddevinfo.fd)
+            os.close(olddevinfo.fd)
+            self._log.info("%s discarded in favor of its twin: %s",
+                olddevinfo.name, newdevinfo.name)
+
+        asyncio.get_event_loop().add_reader(
+            newdevinfo.fd, self._read_fd, newdevinfo)
+        self._devinfo_by_parent[device.parent] = newdevinfo
+
+        self._log.info("%s is a joystick: %s",
+            device.sys_name, self._get_device_description(device))
+
+    def _forget_device(self, device):
+        """Stop watching a udev device for activity.
+        """
+        devinfo = self._devinfo_by_parent.get(device.parent)
+        if not devinfo:
+            return
+        if devinfo.name != device.sys_name:
+            # We're watching a sibling device file; no need to forget this one.
+            return
+
+        del self._devinfo_by_parent[device.parent]
+        asyncio.get_event_loop().remove_reader(devinfo.fd)
+        try:
+            os.close(devinfo.fd)
+        except OSError as error:
+            if error.errno != errno.ENODEV:
+                raise
+
+        self._log.info("%s removed from the system", device.sys_name)
+
+    def _read_fd(self, devinfo):
+        """Read data from a device.
+        This is called when a device node's file descriptor becomes readable.
+        """
+        # Read enough for many evdev events (analog sticks can produce a lot).
+        try:
+            os.read(devinfo.fd, 960)
+            self._log.debug("%s activity", devinfo.name)
+            self._wake_screen()
+        except OSError as error:
+            if error.errno != errno.ENODEV:
+                raise
+            asyncio.get_event_loop().remove_reader(devinfo.fd)
+
+    def _wake_screen(self):
+        """Wake the screen if we haven't done so recently.
+        """
+        now = time.monotonic()
+        if now - self._last_wake < self._cooldown:
+            return
+        self._last_wake = now
+
+        # Discard any wakers that failed last time.
+        self._wakers = [waker for waker in self._wakers if not waker.failed]
+        if not self._wakers:
+            self._log.error("exiting because all wakers have failed")
+            sys.exit(1)
+
+        self._log.info("waking the screen")
+        wakeroutines = [waker.wake() for waker in self._wakers]
+        self._waking = asyncio.ensure_future(asyncio.gather(*wakeroutines))
+
+
+# ======================================================================
+
+
+DEFAULT_WAKERS = [
+    ExecWaker('xset', 'dpms', 'force', 'on', regex=".+", name="X11 DPMS"),
+    ExecWaker('xset', 's', 'reset', regex=".+", name="X11"),
+    ExecWaker('xscreensaver-command', '-deactivate', name="XScreenSaver"),
+    ExecWaker('gnome-screensaver-command', '--deactivate',
+        name="GNOME Screensaver"),
+    ExecWaker('mate-screensaver-command', '--poke', name="MATE"),
+    ExecWaker('xfce4-screensaver-command', '--poke', name="Xfce"),
+    DBusWaker('org.freedesktop.ScreenSaver.SimulateUserActivity',
+        desktop='KDE', name="KDE"),
+    DBusWaker('org.freedesktop.ScreenSaver.Inhibit', PROGRAM_NAME, WAKE_REASON,
+        desktop='GNOME', name="heartbeat Inhibit"),
+    DBusWaker('org.gnome.ScreenSaver.SetActive', False,
+        desktop='GNOME', name="GNOME SetActive"),
+    ]
+
+
+class Configuration:
+    """Configurable program settings.
+    """
+    #pylint:disable=too-few-public-methods
+    loglevel = 'warning'
+    cooldown = 30  # minimum number of seconds between screen wakes
+    interval = 0   # deprecated since v0.4 (renamed to cooldown)
+    command = None # custom screen waker shell command, as a string
+    inhibit = True # hidden option for disabling the Idle Inhibitor
+
+
+def parse_command_line(config):
+    """Apply command line options to the global configuration.
+    """
+    parser = argparse.ArgumentParser(
+        description="Wakes the screen when joysticks are active.")
+    parser.add_argument('--version', action='version', version=__version__)
+    parser.add_argument('--loglevel',
+        choices='debug info warning error critical'.split())
+    parser.add_argument('--cooldown', type=int)
+    parser.add_argument('--interval', type=int, help=argparse.SUPPRESS)
+    parser.add_argument('--command')
+    parser.add_argument('--noinhibit', dest='inhibit', action='store_false',
+        help=argparse.SUPPRESS)
+    parser.parse_args(namespace=config)
+
+
+def load_config_file(config):
+    """Apply configuration file options to the global configuration.
+    """
+    indir = os.environ.get('XDG_CONFIG_HOME') or os.path.expanduser("~/.config")
+    path = os.path.join(indir, PROGRAM_NAME, PROGRAM_NAME + ".conf")
+    if not os.path.exists(path):
+        return
+
+    parser = configparser.ConfigParser(interpolation=None,
+        inline_comment_prefixes=('#',))
+    with open(path) as stream:
+        # Simulate a config file section header, to please ConfigParser:
+        lines = itertools.chain(("[top]",), stream)
+        parser.read_file(lines)
+
+    for name, value in parser['top'].items():
+        if isinstance(getattr(config, name), bool):
+            value = value.lower() in {'true', 't', 'yes', 'y', 'on', '1'}
+        elif isinstance(getattr(config, name), int):
+            value = int(value)
+        setattr(config, name, value)
+
+
+def init_logging(config):
+    """Configure logging.
+    """
+    logging.getLogger('asyncio').setLevel(logging.WARNING)
+
+    logger = logging.getLogger()
+    level = getattr(logging, config.loglevel.upper())
+    logger.setLevel(level)
+
+    handler = logging.StreamHandler(sys.stderr)
+    if level <= logging.DEBUG:
+        msgformat = PROGRAM_NAME + " [{asctime}] {levelname} {message}"
+    else:
+        msgformat = PROGRAM_NAME + " [{asctime}] {message}"
+    formatter = logging.Formatter(msgformat, datefmt="%H:%M:%S", style='{')
+    handler.setFormatter(formatter)
+    logger.addHandler(handler)
+
+
+def stop_loop_when_xserver_quits(log, loop):
+    """Call loop.stop() when a connection to the X Server is lost.
+    This is how we exit when Xlib is available.
+
+    :param log:     A logging.Logger object.
+    :param loop:    An asyncio event loop.
+
+    On success, return True.
+    If Xlib or the display are unavailable, log a message and return False.
+    """
+    try:
+        with contextlib.redirect_stdout(io.StringIO()):  # silence Xlib
+            display = Xlib.display.Display()
+    except NameError:
+        log.info("cannot contact display server: python3-xlib is not installed")
+        return False
+    except Xlib.error.DisplayError as error:
+        if 'DISPLAY' not in os.environ:
+            log.info("cannot contact display server: DISPLAY var is not set")
+        else:
+            log.info("%s", error)
+        return False
+    log.info("connected to the display server")
+
+    def read_display_event():
+        """Process an Xlib message."""
+        try:
+            if display.pending_events():  # avoid blocking on partial messages
+                display.next_event()
+        except Xlib.error.ConnectionClosedError:
+            log.debug("lost connection to the display server")
+            loop.stop()
+
+    loop.add_reader(display.fileno(), read_display_event)
+    return True
+
+
+def exit_after_parent():
+    """Request SIGHUP when our parent process exits.
+    This is how we exit when the user logs out if we can't use Xlib.
+    """
+    libc = ctypes.CDLL('libc.so.6')
+    pr_set_pdeathsig = 1  # value from <sys/prctl.h>
+    libc.prctl(pr_set_pdeathsig, signal.SIGHUP)  # man prctl(2) for details
+
+
+def main():
+    """Get things running.
+    """
+    config = Configuration()
+    load_config_file(config)
+    parse_command_line(config)
+    init_logging(config)
+    log = logging.getLogger()
+
+    if getattr(config, 'interval'):
+        log.warning("'interval' option is deprecated; use 'cooldown' instead")
+        config.cooldown = config.interval
+
+    loop = asyncio.new_event_loop()
+    asyncio.set_event_loop(loop)
+
+    if not stop_loop_when_xserver_quits(log, loop):
+        log.info("will exit when our parent process ends")
+        exit_after_parent()
+
+    wakers = list(DEFAULT_WAKERS)
+    if config.command:
+        wakers.append(ExecWaker(shellcmd=config.command, name="custom"))
+    if config.inhibit:
+        wakers.append(IdleInhibitor(cooldown=config.cooldown))
+
+    try:
+        watcher = JoystickWatcher(wakers=wakers, cooldown=config.cooldown)
+        loop.run_until_complete(watcher.start())
+        loop.run_forever()
+
+    except KeyboardInterrupt:
+        log.info("exiting at user request")
+
+
+if __name__ == '__main__':
+    main()

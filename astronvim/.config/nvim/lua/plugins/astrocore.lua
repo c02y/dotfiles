@@ -83,6 +83,10 @@ return {
         -- setting a mapping to false will disable it
         -- ["<C-S>"] = false,
       },
+      v = {
+        -- more: https://github.com/junegunn/vim-easy-align
+        ["g="] = { ":EasyAlign ", desc = "Easy Align" },
+      },
     },
 
     -- Configure project root detection, check status with `:AstroRootInfo`
