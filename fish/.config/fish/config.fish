@@ -2934,8 +2934,7 @@ function cars -d "cargo commands"
         echo "         -- cargo bloat crates, list biggest crate, in debug build"
         echo "      -r -- cargo run/watch/test"
         echo "         -t -- cargo test/nextest"
-        echo "         -w -- cargo watch -x run"
-        echo "         -w argv -- cargo watch -x argv"
+        echo "         -w -- bacon"
         echo "         -u -- cargo run, verbosely debug version"
         echo "         -R -- cargo run, release version"
         echo "         -- cargo run, debug version"
@@ -3027,9 +3026,9 @@ function cars -d "cargo commands"
             command -sq cargo-nextest; or eval $CMD install cargo-nextest
             eval $CMD nextest run --tests $argv
             # or use `cargo test argv` or `env RUST_BACKTRACE=1 cargo test argv`
-        else if set -q _flag_w # cargo-watch
-            command -sq cargo-watch; or eval $CMD install cargo-watch
-            set -q argv[1]; and eval $CMD watch -x \"$argv\"; or eval $CMD watch -x run
+        else if set -q _flag_w # bacon
+            command -sq bacon; or eval $CMD install bacon
+            bacon
         else if set -q _flag_u # run verbosely
             eval env RUST_BACKTRACE=1 $CMD run $argv
         else if set -q _flag_R # release run
