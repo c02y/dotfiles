@@ -135,8 +135,7 @@ This function should only modify configuration layer settings."
       )
      (shell
       :variables
-      shell-default-shell 'eshell
-      shell-enable-smart-shell t
+      shell-default-shell 'ansi-term
       close-window-with-terminal t
       shell-pop-autocd-to-working-dir nil
       ;; not the full width, but just split the current window
@@ -1103,6 +1102,9 @@ before packages are loaded."
                     (when git-gutter+-mode
                       (git-gutter+-refresh)))))))
 
+  ;; disable read-only when open ansi-term, make it work normally
+  (evil-set-initial-state 'term-mode 'emacs)
+
   ;; Removing duplicated lines
   ;; Note that the last line should contain the EOF
   (defun delete-duplicated-lines-buffer-or-region (beg end)
@@ -1628,6 +1630,7 @@ Version 2016-12-18"
    ("C-<iso-lefttab>" . spacemacs/tabs-backward)
    ("C-x C-<tab>" . centaur-tabs-counsel-switch-group)
    ("C-c C-j" . lsp-execute-code-action)
+   ("<f8>" . spacemacs/shell-pop-ansi-term)
    )
   (bind-keys :map evil-hybrid-state-map
              ;; not put it into global, it goes wrong in helm mode
