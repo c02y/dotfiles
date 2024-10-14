@@ -73,8 +73,8 @@ bindsym $mod+End             $Exec pactl set-sink-volume @DEFAULT_SINK@ -5%
 bindsym XF86AudioLowerVolume $Exec pactl set-sink-volume @DEFAULT_SINK@ -5%
 bindsym $mod+Shift+Home      $Exec toggle_bt_connection.sh
 bindsym $mod+Shift+End       $Exec pactl set-sink-mute @DEFAULT_SINK@ toggle
-bindsym XF86AudioMicMute $Exec pactl set-source-mute @DEFAULT_SOURCE@ toggle
-bindsym XF86AudioMute        $Exec pactl set-sink-mute @DEFAULT_SINK@ toggle
+bindsym XF86AudioMicMute     $Exec pactl set-source-mute @DEFAULT_SOURCE@ toggle
+bindsym XF86AudioMute        $Exec pactl set-sink-volume @DEFAULT_SINK@ 40%,$Exec pactl set-sink-mute @DEFAULT_SINK@ toggle
 
 # Use Mouse+floating_modifier to drag floating windows to their wanted position
 floating_modifier $Alt
