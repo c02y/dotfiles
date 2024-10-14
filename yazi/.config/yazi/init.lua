@@ -1,5 +1,5 @@
 -- TODO:
--- ya pack -a hankertrix/augment-command Ape/open-with-cmd yazi-rs/plugins#smart-filter ndtoan96/ouch
+-- ya pack -a hankertrix/augment-command Ape/open-with-cmd yazi-rs/plugins#smart-filter ndtoan96/ouch pirafrank/what-size
 -- ya pack -i, ya pack -u
 
 -- https://github.com/hankertrix/augment-command.yazi
