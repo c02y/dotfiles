@@ -31,4 +31,5 @@ return {
   { import = "astrocommunity.markdown-and-latex.markview-nvim" },
   { import = "astrocommunity.snippet.nvim-snippets" },
   { import = "astrocommunity.syntax.vim-easy-align" },
+  { import = "astrocommunity.motion.vim-matchup" },
 }
