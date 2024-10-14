@@ -1851,7 +1851,7 @@ which switch the last buffer in this window."
   (spacemacs/toggle-highlight-long-lines-globally-on)
 
   ;; electric-operator
-  (dolist (hook '(c-mode-common-hook org-mode-hook python-mode-hook inferior-python-mode-hook LaTeX-mode-hook plantuml-mode-hook js2-mode-hook css-mode-hook rust-mode-hook))
+  (dolist (hook '(c-mode-common-hook org-mode-hook python-mode-hook inferior-python-mode-hook LaTeX-mode-hook js2-mode-hook css-mode-hook rust-mode-hook))
     (add-hook hook #'electric-operator-mode))
   (with-eval-after-load "electric-operator"
     (electric-operator-add-rules-for-mode
@@ -1902,42 +1902,6 @@ which switch the last buffer in this window."
      (cons "=" " = ")
      (cons "==" ",== ")
      (cons "," ", ")
-     )
-    (electric-operator-add-rules-for-mode
-     'plantuml-mode
-     (cons ":" " : ")
-     ;;
-     (cons "<->" " <-> ")
-     (cons "<->o" " <->o ")
-     (cons "->" " -> ")
-     (cons "->>" " ->> ")
-     (cons "->x" " ->x ")
-     (cons "->o" " ->o ")
-     ;;
-     ;; (cons "<-" " <- ")
-     ;; (cons "x<-" " x<- ")
-     ;; (cons "o<-" " o<- ")
-     ;;
-     (cons "-->>" " -->> ")
-     (cons "-->>" " -->> ")
-     ;; (cons "<<--" " <<-- ")
-     ;; (cons "<<--" " <<-- ")
-     ;;
-     ;; (cons "\-" " \- ")
-     ;; (cons "-\" " -\ ")
-     ;; (cons "\\--" " \\-- ")
-     (cons "--//" " --// ")
-     (cons "-/" " -/ ")
-     (cons "/-" " /- ")
-     (cons "//--" " //-- ")
-     ;; (cons "--\\" " --\\ ")
-     ;;
-     (cons "-->" " --> ")
-     (cons "-->o" " -->o ")
-     (cons "-->x" " -->x ")
-     ;; (cons "<--" " <-- ")
-     ;; (cons "x<--" " x<-- ")
-     ;; (cons "o<--" " o<-- ")
      )
     )
 
