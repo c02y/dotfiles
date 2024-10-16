@@ -1631,6 +1631,7 @@ Version 2016-12-18"
    ("C-x C-<tab>" . centaur-tabs-counsel-switch-group)
    ("C-c C-j" . lsp-execute-code-action)
    ("<f8>" . spacemacs/shell-pop-ansi-term)
+   ("<f9>" . other-window)
    )
   (bind-keys :map evil-hybrid-state-map
              ;; not put it into global, it goes wrong in helm mode
