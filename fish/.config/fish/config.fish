@@ -690,7 +690,7 @@ function zz -d "zoxide functions"
 end
 set -gx _ZO_FZF_OPTS "-1 -0 --reverse"
 # -m to mult-select using Tab/S-Tab
-set -gx FZF_DEFAULT_OPTS "-e -m -0 --reverse --no-sort --preview 'fish -c \"fzf_previewer {}\"' --preview-window=bottom:wrap"
+set -gx FZF_DEFAULT_OPTS "-e -m -0 --reverse --no-sort --preview 'fish -c \"fzf_previewer {}\"' --preview-window=bottom:wrap --bind ctrl-a:select-all,ctrl-d:deselect-all,ctrl-t:toggle-all"
 set -gx FZF_TMUX_HEIGHT 100%
 
 # C-o -- find file in ~/, C-r -- history, C-w -- cd dir
