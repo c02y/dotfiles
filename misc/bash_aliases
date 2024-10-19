@@ -39,6 +39,8 @@ if type -t hd >/dev/null && type -t cd_func >/dev/null; then
 	for x in $(hd 20) $(pwd); do cd_func "$x"; done
 fi
 
+export RUSTC_WRAPPER=$(which sccache)
+
 alias bsr='source ~/.bashrc && echo ~/.bashrc reloaded!'
 
 eval "$(zoxide init bash)"
