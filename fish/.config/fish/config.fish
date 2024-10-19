@@ -994,7 +994,7 @@ function dfs -d 'df(-l, -L for full list), dua/gua(-i interactive), dua(by defau
         set dirs ~/.cache/BraveSoftware ~/.config/BraveSoftware \
             ~/.cache/mozilla ~/.mozilla \
             ~/.cache/paru/clone ~/.cache/calibre \
-            ~/.local/share/Trash \
+            ~/.cargo ~/.local/share/Trash \
             /var/cache/pacman/pkg /tmp
         set dirs_e
         for i in $dirs
