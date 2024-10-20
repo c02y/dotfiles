@@ -169,7 +169,7 @@ local settings = {
   --\\q2 style is recommended since filename wrapping may lead to unexpected rendering
   --\\an7 style is recommended to align to top left otherwise, osd-align-x/y is respected
   style_ass_tags = "{\\q2\\an7}",
-  --paddings for left right and top bottom, depends on alignment 
+  --paddings for left right and top bottom
   text_padding_x = 30,
   text_padding_y = 60,
   
@@ -522,6 +522,28 @@ local filename_replace_functions = {
   hex_to_char = function(x) return string.char(tonumber(x, 16)) end
 }
 
+-- from http://lua-users.org/wiki/LuaUnicode
+local UTF8_PATTERN = '[%z\1-\127\194-\244][\128-\191]*'
+
+-- return a substring based on utf8 characters
+-- like string.sub, but negative index is not supported
+local function utf8_sub(s, i, j)
+  if i > j then
+    return s
+  end
+
+  local t = {}
+  local idx = 1
+  for char in s:gmatch(UTF8_PATTERN) do
+    if i <= idx and idx <= j then
+      local width = #char > 2 and 2 or 1
+      idx = idx + width
+      t[#t + 1] = char
+    end
+  end
+  return table.concat(t)
+end
+
 --strip a filename based on its extension or protocol according to rules in settings
 function stripfilename(pathfile, media_title)
   if pathfile == nil then return '' end
@@ -541,8 +563,9 @@ function stripfilename(pathfile, media_title)
       end
     end
   end
-  if settings.slice_longfilenames and tmp:len()>settings.slice_longfilenames_amount+5 then
-    tmp = tmp:sub(1, settings.slice_longfilenames_amount).." ..."
+  local tmp_clip = utf8_sub(tmp, 1, settings.slice_longfilenames_amount)
+  if settings.slice_longfilenames and tmp ~= tmp_clip then
+    tmp = tmp_clip .. "..."
   end
   return tmp
 end
@@ -660,6 +683,18 @@ function draw_playlist()
   end
 	
   ass:append(settings.style_ass_tags)
+
+  -- add \clip style
+  -- make both left and right follow text_padding_x
+  --      both top and bottom follow text_padding_y
+  local border_size = mp.get_property_number('osd-border-size')
+  if settings.style_ass_tags ~= nil then
+    local bord = tonumber(settings.style_ass_tags:match('\\bord(%d+%.?%d*)'))
+    if bord ~= nil then border_size = bord end
+  end
+  ass:append(string.format('{\\clip(%f,%f,%f,%f)}',
+    settings.text_padding_x - border_size,         settings.text_padding_y - border_size,
+    w - 1 - settings.text_padding_x + border_size, h - 1 - settings.text_padding_y + border_size))
 
   -- align from mpv.conf
   local align_x = mp.get_property("osd-align-x")
@@ -1352,7 +1387,7 @@ function remove_keybinds()
   keybindstimer = mp.add_periodic_timer(settings.playlist_display_timeout, remove_keybinds)
   keybindstimer:kill()
   playlist_overlay.data = ""
-  playlist_overlay:update()
+  playlist_overlay:remove()
   playlist_visible = false
   if settings.reset_cursor_on_close then
     resetcursor()
@@ -1393,6 +1428,7 @@ mp.observe_property('playlist-count', "number", function(_, plcount)
   refresh_UI()
   resolve_titles()
 end)
+mp.observe_property('osd-dimensions', 'native', refresh_UI)
 
 
 url_request_queue = {}
@@ -1509,6 +1545,7 @@ function resolve_ytdl_title(filename)
           local title = (is_playlist and '[playlist]: ' or '') .. json['title']
           msg.verbose(filename .. " resolved to '" .. title .. "'")
           title_table[filename] = title
+          mp.set_property_native('user-data/playlistmanager/titles', title_table)
           refresh_UI()
         else
           msg.error("Failed parsing json, reason: "..(err or "unknown"))
@@ -1549,6 +1586,7 @@ function resolve_ffprobe_title(filename)
         if title then
           msg.verbose(filename .. " resolved to '" .. title .. "'")
           title_table[filename] = title
+          mp.set_property_native('user-data/playlistmanager/titles', title_table)
           refresh_UI()
         end
       else
