@@ -1564,7 +1564,7 @@ function gdbt -d "using gdb with tmux panes"
     set -l id (tmux split-pane -hPF "#D" "tail -f /dev/null")
     tmux last-pane
     set -l tty (tmux display-message -p -t "$id" '#{pane_tty}')
-    gdb -q -x ~/Dotfiles.d/misc/gdbinit -ex "dashboard source -output $tty" "$argv"
+    gdb -q -x ~/Dotfiles.d/misc/gdbinit -ex "dashboard source -style height 0" -ex "dashboard source -output $tty" "$argv"
     tmux kill-pane -t $id
 end
 
