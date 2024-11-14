@@ -25,12 +25,16 @@ return {
     -- vim options can be configured here
     options = {
       opt = { -- vim.opt.<key>
+        -- this is the `set` part for old style of vim
         relativenumber = true, -- sets vim.opt.relativenumber
         number = true, -- sets vim.opt.number
         spell = false, -- sets vim.opt.spell
         signcolumn = "auto", -- sets vim.opt.signcolumn to auto
         wrap = false, -- sets vim.opt.wrap
         startofline = true,
+        -- check the file encoding of a file using `uchardet thefile` (instead of `file -bi thefile`)
+        -- convert the file to utf-8 using `iconv -f gb18030 -t utf-8 -o thefile2 thefile`
+        fileencodings = { "utf-8", "gb2312", "gb18030", "ucs-bom", "latin1" },
       },
       g = { -- vim.g.<key>
         -- configure global vim variables (vim.g)
