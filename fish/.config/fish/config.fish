@@ -1568,18 +1568,37 @@ function gdbt -d "using gdb with tmux panes"
     tmux kill-pane -t $id
 end
 
-# make the make and gcc/g++ color
-function gcc-a
-    set BIN (echo (string split .c $argv) | awk '{print $1;}')
-    /usr/bin/gcc -Wpedantic -fsanitize=address,undefined -Wall -W -g -o $BIN $argv 2>&1 | rg --color always -iP "\^|warning:|error:|undefined|"
+function gccs -d 'gcc/g++'
+    set -l options 1 2 3 c
+    argparse -n gccs $options -- $argv
+    or return
+
+    if set -q _flag_1
+        set OPT -Wall -W -Wsign-conversion -g -o
+    else if set -q _flag_2
+        set OPT -Wpedantic -fsanitize=address,undefined -Wall -W -Wconversion -Wshadow -Wcast-qual -Wwrite-strings -Wno-sign-compare -Wno-unused-parameter -g -o
+    else if set -q _flag_3
+        set OPT -Wall -W -Wextra -Wconversion -Wshadow -Wcast-qual -Wwrite-strings -Werror -g -o
+    else
+        set OPT -Wpedantic -fsanitize=address,undefined -Wall -w -g -o
+    end
+
+    set EXT (string lower (echo $argv | sed 's/^.*\.//'))
+    if test $EXT = c
+        set BIN (echo (string split .c $argv) | awk '{print $1;}')
+        set GCC (which gcc)
+    else if test $EXT = cpp
+        set BIN (echo (string split .cpp $argv) | awk '{print $1;}')
+        set GCC (which g++)
+    end
+
+    # if there is no color output for keywords like warning/error/undefined, use -c
+    if set -q _flag_c
+        eval $GCC $OPT $BIN $argv 2>&1 | rg --color always -iP "\^|warning:|error:|undefined|"
+    else
+        eval $GCC $OPT $BIN $argv
+    end
 end
-function g++-a
-    set BIN (echo (string split .cpp $argv) | awk '{print $1;}')
-    /usr/bin/g++ -Wpedantic -fsanitize=address,undefined -Wall -W -g -o $BIN $argv 2>&1 | rg --color always -iP "\^|warning:|error:|undefined|"
-end
-abbr gcc-w 'gcc -g -Wall -W -Wsign-conversion'
-abbr gcca 'gcc -g -Wpedantic -fsanitize=address,undefined -Wall -W -Wconversion -Wshadow -Wcast-qual -Wwrite-strings -Wmissing-prototypes -Wno-sign-compare -Wno-unused-parameter'
-# gcc -Wall -W -Wextra -Wconversion -Wshadow -Wcast-qual -Wwrite-strings -Werror
 
 function mess -d 'meson related functions'
     set -l options r c "C=" t s l i u
