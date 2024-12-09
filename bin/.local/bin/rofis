@@ -196,6 +196,7 @@ timer() {
 	}
 
 	countdown_rofi() {
+		input="$(eval "${ROFI}" 'COUNTDOWN')"
 		# only allow one instance of countdown
 		for pid in $(pgrep -f "$0 -t -c"); do
 			if [ "$pid" != $$ ]; then
@@ -208,7 +209,6 @@ timer() {
 				fi
 			fi
 		done
-		input="$(eval "${ROFI}" 'COUNTDOWN')"
 		countdown_handle_input "$input"
 	}
 
