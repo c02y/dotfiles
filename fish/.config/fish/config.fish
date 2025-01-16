@@ -268,23 +268,6 @@ function delete-or-yazi -d 'modified from delete-or-exit, delete one char if in 
     end
 end
 
-abbr pm-sl 'sudo pm-suspend' # 'Suspend to ram' in GUI buttom, power button to wake up
-abbr pm-hb 'sudo pm-hibernate' # not work in old CentOS6
-
-abbr fpp '~/Public/PathPicker/fpp'
-abbr ga 'glances -t 1 --hide-kernel-threads -b --disable-irq --enable-process-extended'
-function ml -d 'mutt or neomutt'
-    if command -sq neomutt
-        set MUTT neomutt
-    else if command -sq mutt
-        set MUTT mutt
-    else
-        echo "mutt/neomutt is not installed!"
-        return -1
-    end
-    eval (PXY) $MUTT
-end
-
 # User specific aliases and functions
 function lsx -d 'cp the full path of a file/dir to sytem clipboard'
     if test $DISPLAY
