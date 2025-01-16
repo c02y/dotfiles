@@ -1963,6 +1963,7 @@ function gits -d 'git related commands'
         echo "         -o --> git log, all in oneline"
         echo "         -s --> list staged files to be commits"
         echo "         -u --> list unpushed commits"
+        echo "         -i --> list ignored files/dirs"
         echo "      -S --> misc, show, stage, sync forked"
         echo "         -u --> show url of a repo"
         echo "            argv --> show url of a git repo argv"
@@ -2134,6 +2135,11 @@ function gits -d 'git related commands'
             git diff --name-only --cached
         else if set -q _flag_u # list unpushed commits
             git log origin/master..HEAD
+        else if set -q _flag_i # list ignored files/dirs
+            # --ignored: Shows files that are ignored by .gitignore or other ignore rules.
+            # --exclude-standard: Applies the standard ignore rules, including .gitignore, .git/info/exclude, and global gitignore files.
+            # --others: Lists files that are not tracked by Git (untracked files).
+            git ls-files --ignored --exclude-standard --others
         else
             lazygit log
         end
