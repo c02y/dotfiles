@@ -260,8 +260,6 @@ function delete-or-yazi -d 'modified from delete-or-exit, delete one char if in 
 
     switch "$cmd"
         case ''
-            # TODO: BUG: ranger will get stuck on the final step of cw(bulkrename)
-            # it works fine if running ranger without binding in fish
             yazi
         case '*'
             commandline -f delete-char
@@ -1885,7 +1883,6 @@ function usernew -d 'useradd related functions'
         return
     end
 
-
     if test -d /home/$ARGV # directory exists
         sudo su -s /bin/bash - $ARGV
     else
@@ -2909,6 +2906,7 @@ end
 abbr upxx 'upx --best --lzma'
 # for all the Rust developement setup:
 # https://fasterthanli.me/articles/my-ideal-rust-workflow
+# https://corrode.dev/blog/tips-for-faster-rust-compile-times/
 function cars -d "cargo commands"
     set -l options n i s c r b d S C B t w u M T R x a h
     argparse -n cars $options -- $argv
@@ -2955,7 +2953,7 @@ function cars -d "cargo commands"
         echo "         -x -- cargo build graph, --bin"
         echo "            -t -- cargo build tree, --bin"
         echo "      -u -- cargo update all `cargo install` crates with cargo-update"
-        echo "         -a -- rustup update"
+        echo "         -a -- rustup self update and update"
     else if set -q _flag_n # new/init
         if set -q _flag_i
             # crate a new project based on current directory; or create a new project based on argv
@@ -3065,9 +3063,11 @@ function cars -d "cargo commands"
         end
     else if set -q _flag_u # cargo/rustup update
         if set -q _flag_a # rustup
-            rustup update
+            rustup self update
+            rustup update # rust toolchains such as stable/beta, rustc, cargo
         else # cargo update all installed crates by `cargo install` with cargo-update crate
-            command -q cargo-install-update; or eval $CMD install cargo-update
+            # sometimes cargo-update is broken after rustup/cargo update, install/reinstall it anyway
+            eval $CMD install cargo-update
             eval $CMD install-update -a
         end
     end
