@@ -2784,7 +2784,7 @@ end
 
 function rgs
     # NOTE -V require an argument, so put "V=" line for argparse
-    set -l options h e E f i t v F g n w 'V=' l L 's=' S 2 c
+    set -l options h e E f i 't=' v F g n w 'V=' l L 's=' S 2 c
     argparse -n rgs $options -- $argv
     or return
 
@@ -2802,7 +2802,7 @@ function rgs
         echo "    -E --> search errno.h files"
         echo "    -f --> search fish shell config.fish"
         echo "    -i --> search i3/config"
-        echo "    -t --> search tmux/tmux.conf"
+        echo "    -t argv --> search file type/extension argv"
         echo "    -v --> search nvim config file"
         echo "    -g argv --> git grep argv"
         echo "    -2 --> search ~/Dotfiles.d/todo.org"
@@ -2817,6 +2817,8 @@ function rgs
     # and $_flag_V is the argument for for -V
     set -q _flag_V; and set -a OPT -g !$_flag_V
     set -q _flag_s; and set -a OPT --sort $_flag_s; or set -a OPT --sort path
+    # $_flag_t for --type is from `rg --type-list`
+    set -q _flag_t; and set -a OPT --type $_flag_t
     set -q _flag_n; and set -a OPT --no-ignore
     set -q _flag_S; and set -a OPT -s; or set -a OPT -i
     set -q _flag_c; and set -a OPT -C 3
@@ -2833,8 +2835,6 @@ function rgs
         set FILE $FISHRC
     else if set -q _flag_i
         set FILE ~/.config/i3/config
-    else if set -q _flag_t
-        set FILE ~/.config/tmux/tmux.conf
     else if set -q _flag_v
         set FILE $VIMRC
     else if set -q _flag_g
