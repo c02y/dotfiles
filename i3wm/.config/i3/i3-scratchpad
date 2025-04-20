@@ -112,7 +112,9 @@ toggle_floating_smart() {
 }
 
 debug() {
-	notify-send -u critical "$*" "$(caller 0)"
+	# notify-send -u critical "$*" "$(caller 0)"
+	notify-send -u critical "$(date '+%Y-%m-%d %H:%M:%S.%3N') $*" "$(caller 0)"
+	# notify-send -u cirtical ""
 }
 
 show_window_in_position() {
