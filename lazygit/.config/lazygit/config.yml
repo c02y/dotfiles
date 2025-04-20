@@ -53,7 +53,7 @@ gui:
     showCommandLog: true
     showBottomLine: false # for hiding the bottom information line (unless it is important)
     showPanelJumps: true
-    showIcons: true
+    showIcons: false
     nerdFontsVersion: ""
     showFileIcons: true
     commitAuthorShortLength: 2
@@ -63,19 +63,21 @@ gui:
     showDivergenceFromBaseBranch: none
     commandLogSize: 8
     splitDiff: auto
-    windowSize: half # default layout, normal/half/full
+    screenMode: normal # default layout, normal/half/full
     border: single # single/double/rounded/hidden
     animateExplosion: true
     portraitMode: auto
     filterMode: substring
     spinner:
-        frames:
-            - '|'
-            - /
-            - '-'
-            - \
-        rate: 50
+    frames:
+        - "|"
+        - /
+        - "-"
+        - \
+    rate: 50
     statusPanelView: dashboard
+    switchToFilesAfterStashPop: true
+    switchToFilesAfterStashApply: true
 git:
     paging:
         colorArg: always
@@ -127,24 +129,24 @@ quitOnTopLevelReturn: false
 disableStartupPopups: false
 # TODO: test
 customCommands:
-  - key: "G"
-    prompts:
-      - type: "menu"
-        title: "undo the last unpushed commit"
-        options:
-          - name: "soft reset"
-            description: "keeps changes"
-            value: "soft"
-          - name: "hard reset"
-            description: "discard changes"
-            value: "hard"
-    command: "git reset --{{index .PromptResponses 0}} HEAD~1"
-    context: "global"
-    loadingText: "reset last unpushed commit"
-  - key: "A"
-    command: "git commit --amend"
-    context: "files"
-    subprocess: true
+    - key: "G"
+      prompts:
+        - type: "menu"
+          title: "undo the last unpushed commit"
+          options:
+            - name: "soft reset"
+              description: "keeps changes"
+              value: "soft"
+            - name: "hard reset"
+              description: "discard changes"
+              value: "hard"
+      command: "git reset --{{index .PromptResponses 0}} HEAD~1"
+      context: "global"
+      loadingText: "reset last unpushed commit"
+    - key: "A"
+      command: "git commit --amend"
+      context: "files"
+      subprocess: true
 services: {}
 notARepository: prompt # prompt/create/skip
 promptToReturnFromSubprocess: false # display confirmation when subprocess terminates
@@ -159,12 +161,12 @@ keybinding:
         nextItem: <down>
         prevItem-alt: k
         nextItem-alt: j
-        prevPage: ','
+        prevPage: ","
         nextPage: .
         scrollLeft: H
         scrollRight: L
         gotoTop: <
-        gotoBottom: '>'
+        gotoBottom: ">"
         toggleRangeSelect: v
         rangeSelectDown: <s-down>
         rangeSelectUp: <s-up>
@@ -184,7 +186,7 @@ keybinding:
         prevMatch: "N"
         startSearch: /
         optionMenu: <disabled> # show help menu
-        optionMenu-alt1: '?'
+        optionMenu-alt1: "?"
         select: <space>
         goInto: <enter>
         confirm: <enter>
@@ -199,14 +201,14 @@ keybinding:
         scrollDownMain-alt1: J
         scrollUpMain-alt2: <c-u>
         scrollDownMain-alt2: <c-d>
-        executeShellCommand: ':'
+        executeShellCommand: ":"
         createRebaseOptionsMenu: m
         pushFiles: P
         pullFiles: p
         refresh: R
         createPatchOptionsMenu: <c-p>
-        nextTab: ']'
-        prevTab: '['
+        nextTab: "]"
+        prevTab: "["
         nextScreenMode: +
         prevScreenMode: _
         undo: z
@@ -217,10 +219,10 @@ keybinding:
         copyToClipboard: <c-o>
         openRecentRepos: <c-r>
         submitEditorText: <enter>
-        extrasMenu: '@'
+        extrasMenu: "@"
         toggleWhitespaceInDiffView: <c-w>
-        increaseContextInDiffView: '}'
-        decreaseContextInDiffView: '{'
+        increaseContextInDiffView: "}"
+        decreaseContextInDiffView: "{"
         increaseRenameSimilarityThreshold: )
         decreaseRenameSimilarityThreshold: (
         openDiffTool: <c-t>
@@ -242,7 +244,7 @@ keybinding:
         toggleStagedAll: a
         viewResetOptions: D
         fetch: f
-        toggleTreeView: '`'
+        toggleTreeView: "`"
         openMergeTool: M
         openStatusFilter: <c-b>
         copyFileInfoToClipboard: "y"
@@ -308,4 +310,3 @@ keybinding:
         bulkMenu: b
     commitMessage:
         commitMenu: <c-o>
-
