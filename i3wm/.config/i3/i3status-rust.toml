@@ -146,13 +146,15 @@ cmd = "wpctl set-mute --pid $(wpctl status | rg -i -e 'genshin|yuanshen|elden ri
 
 [[block]]
 block = "bluetooth"
-format = "$icon"
-disconnected_format = "$icon"
+format = "$icon "
+disconnected_format = "$icon "
 mac = "60:AB:D2:0F:72:EB"
 [block.theme_overrides]
 # using txt_hi and bgc_df from i3/config
 idle_fg = "#ff0000"
 idle_bg = "#353535"
+info_fg = "#FFFFFF"
+info_bg = "#353535"
 good_fg = "#FFFFFF"
 good_bg = "#353535"
 [[block.click]]
@@ -168,28 +170,28 @@ cmd = "toggle_bt_connection.sh"
 # # show_fan_speed = true
 # # show_power_draw = true
 
-[[block]]
-block = "battery"
-# battery for xbox one series game controller
-# NOTE: need upower installed and service started
-# device is in /sys/class/power_supply/
-device = "gip*"
-# device = "nintendo*"
-format = "$icon $percentage"
-missing_format = " "
-driver = "sysfs"
-critical = 10
-# warning = 100
-# good = 100
-[block.theme_overrides]
-good_fg = "#FFFFFF"
-good_bg = "#353535"
-# warning_fg/bg are not working
-warning_fg = "#2E9EF4"
-warning_bg = "#353535"
-# using txt_hi and bgc_df from i3/config
-critical_fg = "#ff0000"
-critical_bg = "#353535"
+# [[block]]
+# block = "battery"
+# # battery for xbox one series game controller
+# # NOTE: need upower installed and service started
+# # device is in /sys/class/power_supply/
+# device = "gip*"
+# # device = "nintendo*"
+# format = "$icon $percentage"
+# missing_format = " "
+# driver = "sysfs"
+# critical = 10
+# # warning = 100
+# # good = 100
+# [block.theme_overrides]
+# good_fg = "#FFFFFF"
+# good_bg = "#353535"
+# # warning_fg/bg are not working
+# warning_fg = "#2E9EF4"
+# warning_bg = "#353535"
+# # using txt_hi and bgc_df from i3/config
+# critical_fg = "#ff0000"
+# critical_bg = "#353535"
 
 [[block]]
 block = "time"
