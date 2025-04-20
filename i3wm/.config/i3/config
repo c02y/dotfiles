@@ -368,11 +368,12 @@ mode "$mode_screenshot" {
   bindsym Escape mode "default"
 }
 
-set $mode_apps Apps: [a]udacious, [c]alc, double[C]md, [d]unstCloseAll, [D]unstPop, [m]ountUnmount, [M]uteGame, [n]etwork, [p]avucontrol, [r]ime-deploy, rime-[s]ync, [t]hunderbird, [T]elegram, [v]irtualbox
+set $mode_apps Apps: [a]udacious, [b]lueman, [c]alc, double[C]md, [d]unstCloseAll, [D]unstPop, [m]ountUnmount, [M]uteGame, [n]etwork, [p]avucontrol, [r]ime-deploy, rime-[s]ync, [t]hunderbird, [T]elegram, [v]irtualbox
 bindsym $mod+a mode "$mode_apps", $Mode_timeout
 mode "$mode_apps" {
   bindsym a $Exec $open -w $ws4 audacious, mode "default"
   bindsym c $Exec "kitty sh -c 'calc'", mode "default"
+  bindsym b $Exec blueman-manager, mode "default"
   bindsym Shift+c $Exec $open doublecmd, mode "default"
   bindsym d $Exec dunstctl close-all, mode "default"
   bindsym shift+d $Exec dunstctl history-pop, mode "default"
