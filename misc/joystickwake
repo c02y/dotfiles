@@ -4,7 +4,7 @@ A joystick-aware screen waker.
 
 """
 
-__version__ = '0.4.1'
+__version__ = '0.4.2'
 __version_info__ = tuple(int(n) for n in __version__.split('.'))
 
 
@@ -42,6 +42,8 @@ except ImportError:
 PROGRAM_NAME = os.path.basename(sys.argv[0])
 WAKE_REASON = "Active joystick"
 
+
+#pylint:disable=consider-using-f-string  # python 3.5 lacks f-strings
 
 # ======================================================================
 
@@ -378,7 +380,8 @@ class JoystickWatcher:
     def _is_joystick(device):
         """Return True if a udev device represents a joystick.
         """
-        return bool(device.get('ID_INPUT_JOYSTICK') and device.device_node)
+        jsproperty = device.get('ID_INPUT_JOYSTICK')
+        return bool(jsproperty and jsproperty != '0' and device.device_node)
 
     @staticmethod
     def _get_device_description(device):
@@ -406,6 +409,40 @@ class JoystickWatcher:
             desc += ' ({})'.format(' '.join(extra))
         return desc
 
+    @staticmethod
+    def _get_device_dump(device, prefix='  '):
+        lines = []
+        for attr in ('''
+            device_node
+            device_number
+            device_path
+            device_type
+            driver
+            subsystem
+            sys_name
+            sys_number
+            sys_path
+            is_initialized
+            time_since_initialized
+            action
+            sequence_number
+            '''.split()):
+            lines.append("{}{}: {}".format(prefix, attr, getattr(device, attr)))
+        for link in device.device_links:
+            lines.append("{}link: {}".format(prefix, link))
+        for tag in device.tags:
+            lines.append("{}tag: {}".format(prefix, tag))
+        for prop in device.properties:
+            lines.append("{}prop {}: {}".format(
+                prefix, prop, device.properties[prop]))
+        try:
+            for attr in device.attributes.available_attributes:
+                lines.append("{}sysfs {}: {}".format(
+                    prefix, attr, device.attributes.get(attr)))
+        except AttributeError:
+            pass
+        return '\n'.join(lines)
+
     def _watch_device(self, device):
         """Start watching a udev device for activity, if it is a joystick.
         """
@@ -425,6 +462,14 @@ class JoystickWatcher:
                 fd=os.open(device.device_node, os.O_RDONLY | os.O_NONBLOCK))
         except PermissionError:
             self._log.error("permission denied on open %s", device.device_node)
+            return
+        except FileNotFoundError:
+            self._log.error("udev error: %s is missing!", device.device_node)
+            self._log.error("udev %s details:\n%s",
+                device.sys_name, self._get_device_dump(device))
+            for i, ancestor in enumerate(device.ancestors, start=1):
+                self._log.error("udev %s ancestor %d details:\n%s",
+                    device.sys_name, i, self._get_device_dump(ancestor))
             return
 
         # Now that we're sure we can use the device, close any old one.
@@ -608,9 +653,9 @@ def stop_loop_when_xserver_quits(log, loop):
     log.info("connected to the display server")
 
     def read_display_event():
-        """Process an Xlib message."""
+        """Drain the incoming X message queue."""
         try:
-            if display.pending_events():  # avoid blocking on partial messages
+            while display.pending_events():
                 display.next_event()
         except Xlib.error.ConnectionClosedError:
             log.debug("lost connection to the display server")
