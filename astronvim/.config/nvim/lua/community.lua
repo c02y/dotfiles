@@ -15,10 +15,10 @@ return {
   { import = "astrocommunity.pack.bash" },
   { import = "astrocommunity.pack.toml" },
   { import = "astrocommunity.pack.yaml" },
-  { import = "astrocommunity.pack.rainbow-delimiter-indent-blankline" },
   { import = "astrocommunity.recipes.heirline-mode-text-statusline" },
   { import = "astrocommunity.recipes.heirline-vscode-winbar" },
   { import = "astrocommunity.motion.mini-move" },
+  -- NOTE: You need to run :TransparentToggle to enable tranparency
   { import = "astrocommunity.color.transparent-nvim" },
   { import = "astrocommunity.color.nvim-highlight-colors" },
   { import = "astrocommunity.diagnostics.trouble-nvim" },
@@ -32,4 +32,6 @@ return {
   { import = "astrocommunity.snippet.nvim-snippets" },
   { import = "astrocommunity.syntax.vim-easy-align" },
   { import = "astrocommunity.motion.vim-matchup" },
+  { import = "astrocommunity.debugging.telescope-dap-nvim" },
+  -- { import = "astrocommunity.debugging.nvim-dap-virtual-text" },
 }

@@ -13,7 +13,7 @@ return {
       large_buf = { size = 1024 * 256, lines = 10000 }, -- set global limits for large files for disabling features like treesitter
       autopairs = true, -- enable autopairs at start
       cmp = true, -- enable completion at start
-      diagnostics_mode = 3, -- diagnostic mode on start (0 = off, 1 = no signs/virtual text, 2 = no virtual text, 3 = on)
+      diagnostics = { virtual_text = true, virtual_lines = false }, -- diagnostic settings on startup
       highlighturl = true, -- highlight URLs at start
       notifications = true, -- enable notifications at start
     },
@@ -22,19 +22,34 @@ return {
       virtual_text = true,
       underline = true,
     },
+    -- passed to `vim.filetype.add`
+    filetypes = {
+      -- see `:h vim.filetype.add` for usage
+      extension = {
+        foo = "fooscript",
+      },
+      filename = {
+        [".foorc"] = "fooscript",
+      },
+      pattern = {
+        [".*/etc/foo/.*"] = "fooscript",
+      },
+    },
     -- vim options can be configured here
     options = {
       opt = { -- vim.opt.<key>
-        -- this is the `set` part for old style of vim
         relativenumber = true, -- sets vim.opt.relativenumber
         number = true, -- sets vim.opt.number
         spell = false, -- sets vim.opt.spell
-        signcolumn = "auto", -- sets vim.opt.signcolumn to auto
+        signcolumn = "yes", -- sets vim.opt.signcolumn to yes
         wrap = false, -- sets vim.opt.wrap
         startofline = true,
         -- check the file encoding of a file using `uchardet thefile` (instead of `file -bi thefile`)
         -- convert the file to utf-8 using `iconv -f gb18030 -t utf-8 -o thefile2 thefile`
         fileencodings = { "utf-8", "gb2312", "gb18030", "ucs-bom", "latin1" },
+        -- TODO:more for different types
+        -- shiftwidth = 4,
+        -- tabstop = 4,
       },
       g = { -- vim.g.<key>
         -- configure global vim variables (vim.g)
@@ -48,6 +63,10 @@ return {
       -- first key is the mode
       n = {
         -- second key is the lefthand side of the map
+
+        -- navigate buffer tabs
+        ["]b"] = { function() require("astrocore.buffer").nav(vim.v.count1) end, desc = "Next buffer" },
+        ["[b"] = { function() require("astrocore.buffer").nav(-vim.v.count1) end, desc = "Previous buffer" },
 
         -- navigate buffer tabs with `H` and `L`
         L = { function() require("astrocore.buffer").nav(vim.v.count1) end, desc = "Next buffer" },
@@ -86,6 +105,21 @@ return {
 
         -- setting a mapping to false will disable it
         -- ["<C-S>"] = false,
+
+        -- https://github.com/rmagatti/goto-preview
+        ["gp"] = { desc = "Goto Preview" }, -- binding prefix
+        ["gpd"] = { function() require("goto-preview").goto_preview_definition() end, desc = "Preview Definition" },
+        ["gpt"] = {
+          function() require("goto-preview").goto_preview_type_definition() end,
+          desc = "Preview Type Definition",
+        },
+        ["gpi"] = {
+          function() require("goto-preview").goto_preview_implementation() end,
+          desc = "Preview Implementation",
+        },
+        ["gpD"] = { function() require("goto-preview").goto_preview_declaration() end, desc = "Preview Declaration" },
+        ["gP"] = { function() require("goto-preview").close_all_win() end, desc = "Preview Close All" },
+        ["gpr"] = { function() require("goto-preview").goto_preview_references() end, desc = "Preview References" },
       },
       v = {
         -- more: https://github.com/junegunn/vim-easy-align

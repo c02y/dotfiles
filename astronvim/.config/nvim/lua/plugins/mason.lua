@@ -1,48 +1,32 @@
--- Customize Mason plugins
--- :Mason to check the installed and available sources
+-- Customize Mason
+-- `:checkheath mason` and `:Mason` for more info
 
 ---@type LazySpec
 return {
-  -- use mason-lspconfig to configure LSP installations
+  -- use mason-tool-installer for automatically installing Mason packages
   {
-    "williamboman/mason-lspconfig.nvim",
-    -- overrides `require("mason-lspconfig").setup(...)`
+    "WhoIsSethDaniel/mason-tool-installer.nvim",
+    -- overrides `require("mason-tool-installer").setup(...)`
     opts = {
+      -- Make sure to use the names found in `:Mason`
       ensure_installed = {
-        "lua_ls",
-        -- add more arguments for adding more language servers
-        "rust_analyzer",
-        -- "bashls",
-        "clangd",
-        "neocmake",
-        -- "gopls",
-        "pyright",
-        -- TODO: https://github.com/neovim/nvim-lspconfig/commit/6dfb2463e3351359fe6d6a902ac06857b3d7ed20
-        -- "fish",
-      },
-    },
-  },
-  -- use mason-null-ls to configure Formatters/Linter installation for null-ls sources
-  {
-    "jay-babu/mason-null-ls.nvim",
-    -- overrides `require("mason-null-ls").setup(...)`
-    opts = {
-      ensure_installed = {
+        -- install language servers
+        "lua-language-server",
+	"rust-analyzer",
+	-- gopls,
+	"ruff",
+	-- https://github.com/mason-org/mason-registry/pull/8609
+	-- fish-lsp
+
+        -- install formatters
         "stylua",
-        -- add more arguments for adding more null-ls sources
-        "clang-format",
-        "shfmt",
-      },
-    },
-  },
-  {
-    "jay-babu/mason-nvim-dap.nvim",
-    -- overrides `require("mason-nvim-dap").setup(...)`
-    opts = {
-      ensure_installed = {
-        "python",
-        -- add more arguments for adding more debuggers
-        "codelldb",
+	"clang-format",
+
+        -- install debuggers
+        "debugpy",
+
+        -- install any other package
+        "tree-sitter-cli",
       },
     },
   },
