@@ -298,7 +298,7 @@ function ll
     command -q eza; and eza -l --icons -b $argv; or /bin/ls -l $argv
 end
 function lls -d 'ls/eza operations'
-    set -l options l e s r t a "E=?"
+    set -l options l d e s r t a "E=?"
     argparse -n lls $options -- $argv
     or return
 
@@ -310,6 +310,7 @@ function lls -d 'ls/eza operations'
         set OPT -a -b --color-scale --color=always --icons --changed --time-style iso
         set -q _flag_l; or set -a OPT -l
         set PIP "| nl -v 1 | sort -nr"
+        set -q _flag_d; and eval exa $OPT -d $ARGV && return
         set -q _flag_e; and eval eza $OPT -s extension --group-directories-first $ARGV && return
         set -q _flag_s; and set -a OPT -l -s size; or set -a OPT -s modified
         set -q _flag_r; or set -a OPT -r
@@ -323,6 +324,7 @@ function lls -d 'ls/eza operations'
             set -a OPT -lh
             set PIP "| nl -v 0 | sort -nr"
         end
+        set -q _flag_d; and eval ls $OPT -d $ARGV && return
         # list and sort by extension, and directories first
         set -q _flag_e; and eval ls $OPT -X --group-directories-first $ARGV && return
         # sort by size(-s) or sort by last modification time
