@@ -300,11 +300,11 @@ bindsym $mod+n       $Exec $open emacs -q --no-splash
 bindsym $mod+p       $Exec $open qpdfview
 # TODO: (have to use -f since it handle it)alacritty and kitty do not need -f to enable float,
 # float rule in i3/config is much better than i3-scratchpad -f, since if not set float rule in i3/config, -f will show the resizment
-bindsym $mod+Return  $Exec $open -f alacritty -t Alacritty
-bindsym $mod+Shift+Return $Exec alacritty
 bindsym $mod+f       $Exec $open -f kitty -T YaziFM yazi
 bindsym $mod+F1      $Exec $open -f kitty -T Btop btop
 bindsym $mod+F2      $Exec $open -f kitty -T Nvtop nvtop
+bindsym $mod+Return  $Exec $open -f wezterm start --class my.wezterm
+bindsym $mod+Shift+Return $Exec wezterm
 bindsym $mod+$Alt+m move scratchpad
 # floating toggle on a window to remove it from the scratchpad
 bindsym $mod+m scratchpad show
