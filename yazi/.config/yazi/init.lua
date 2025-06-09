@@ -1,22 +1,6 @@
--- TODO:
--- ya pack -a hankertrix/augment-command Ape/open-with-cmd yazi-rs/plugins#smart-filter ndtoan96/ouch pirafrank/what-size
--- ya pack -i, ya pack -u
+-- TODO: https://github.com/AnirudhG07/awesome-yazi
+-- ya pkg -a hankertrix/augment-command Ape/open-with-cmd yazi-rs/plugins#smart-filter ndtoan96/ouch pirafrank/what-size Lil-Dank/lazygit yazi-rs/plugins:toggle-pane yazi-rs/plugins:mount
+-- ya pkg -i, ya pkg -u
 
--- https://github.com/hankertrix/augment-command.yazi
-require("augment-command"):setup({
-	prompt = false,
-	default_item_group_for_prompt = "hovered",
-	smart_enter = true,
-	smart_paste = false,
-	enter_archives = false,
-	extract_behaviour = "skip",
-	must_have_hovered_item = true,
-	skip_single_subdirectory_on_enter = true,
-	skip_single_subdirectory_on_leave = true,
-	ignore_hidden_items = false,
-	wraparound_file_navigation = false,
-})
-
-require("zoxide"):setup({
-	update_db = true,
-})
+-- https://github.com/sxyazi/yazi/issues/865
+require("zoxide"):setup({ update_db = true })
