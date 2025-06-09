@@ -135,6 +135,8 @@ return {
           maps.n["<f8>"] = { "<Cmd>ToggleTerm direction=float<CR>", desc = "Toggle terminal" }
           maps.t["<f8>"] = { "<Cmd>ToggleTerm direction=float<CR>", desc = "Toggle terminal" }
           maps.i["<f8>"] = { "<Esc><Cmd>ToggleTerm direction=float<CR>", desc = "Toggle terminal" }
+          maps.n["<Leader>bw"] = { "<Cmd>:set list!<cr><Cmd>TransparentToggle<CR>", desc = "Toggle Whitespace" }
+          maps.n["<Leader>bW"] = { "<Cmd>%s/\\s\\+$//e<cr>:noh<cr>", desc = "Trail Whitespace Clean" }
           -- maps.n["<C-'>"] = { '<Cmd>execute v:count . "ToggleTerm"<CR>', desc = "Toggle terminal" } -- requires terminal that supports binding <C-'>
           -- maps.t["<C-'>"] = { "<Cmd>ToggleTerm<CR>", desc = "Toggle terminal" } -- requires terminal that supports binding <C-'>
           -- maps.i["<C-'>"] = { "<Esc><Cmd>ToggleTerm<CR>", desc = "Toggle terminal" } -- requires terminal that supports binding <C-'>

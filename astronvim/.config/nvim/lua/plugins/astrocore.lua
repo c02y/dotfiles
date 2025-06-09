@@ -50,6 +50,17 @@ return {
         -- TODO:more for different types
         -- shiftwidth = 4,
         -- tabstop = 4,
+        -- for toggling whitespace
+        listchars = {
+          tab = "» ",
+          extends = "›",
+          precedes = "‹",
+          nbsp = "·",
+          trail = "·",
+          eol = "$",
+          space = "·",
+          conceal = "·",
+        },
       },
       g = { -- vim.g.<key>
         -- configure global vim variables (vim.g)
