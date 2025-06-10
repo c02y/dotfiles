@@ -1045,6 +1045,30 @@ abbr m2 'm ~/Recentchange/TODO'
 abbr mf 'm $FISHRC'
 #
 alias less 'less -iXFR -x4 -M' # -x4 to set the tabwidth to 4 instead default 8
+# NOTE: do not delete the LESS_TERMxxx part, 
+# it is useful for search highlight in less/bat (bat use less as pager)
+# nums are explained at
+# http://www.tuxarena.com/2012/04/tutorial-colored-man-pages-how-it-works/
+# https://unix.stackexchange.com/questions/108699/documentation-on-less-termcap-variables
+set -gx LESS_TERMCAP_me \e'[0m' # turn off all appearance modes (mb, md, so, us)
+set -gx LESS_TERMCAP_se \e'[0m' # leave standout mode
+set -gx LESS_TERMCAP_ue \e'[0m' # leave underline mode
+set -gx LESS_TERMCAP_so \e'[30;44m' # standout-mode – info
+set -gx LESS_TERMCAP_mb \e'[01;31m' # enter blinking mode
+set -gx LESS_TERMCAP_md \e'[01;38;5;75m' # enter double-bright mode
+set -gx LESS_TERMCAP_us \e'[04;38;5;200m' # enter underline mode
+#########################################
+# Colorcodes:
+# Black       0;30     Dark Gray     1;30
+# Red         0;31     Light Red     1;31
+# Green       0;32     Light Green   1;32
+# Brown       0;33     Yellow        1;33
+# Blue        0;34     Light Blue    1;34
+# Purple      0;35     Light Purple  1;35
+# Cyan        0;36     Light Cyan    1;36
+# Light Gray  0;37     White         1;37
+#########################################
+
 # NOTE: there is a package called mdv, don't use it
 function mdv -d 'markdown viewer in terminal'
     if command -sq glow
