@@ -7,7 +7,6 @@ set -gx GO111MODULE on
 set -gx GOPROXY https://goproxy.cn
 # electron/node, for `npm install -g xxx`, default place is /usr
 set -gx NODE_PATH $HOME/.npms/lib/node_modules
-set -gx RUSTC_WRAPPER (which sccache)
 
 # fix the error: "manpath: can't set the locale; make sure $LC_* and $LANG are correct"
 set -gx LC_ALL en_US.UTF-8
