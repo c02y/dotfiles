@@ -173,9 +173,13 @@ keybinds clear-defaults=true {
         bind "Alt 3" { GoToTab 3; SwitchToMode "locked"; }
         bind "Alt 4" { GoToTab 4; SwitchToMode "locked"; }
     }
-    shared_except "locked" {
+    shared_except "locked" { // after prefix key
         bind "tab" { GoToPreviousTab; SwitchToMode "locked"; }
         bind "n"   { NewTab; SwitchToMode "locked"; }
+        bind "F" { ToggleFocusFullscreen; SwitchToMode "locked"; }
+        bind "space" { NextSwapLayout; SwitchToMode "locked"; }
+        // mainly to pin/unpin floating pane toggled by Alt-`
+        bind "P" { TogglePanePinned; SwitchToMode "locked"; }
     }
     shared_except "locked" "renametab" "renamepane" {
         bind "Ctrl g" { SwitchToMode "locked"; }
